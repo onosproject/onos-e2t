@@ -1,0 +1,30 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "ProcedureCode.proto";
+import "Criticality.proto";
+import "RICsubscriptionResponse.proto";
+import "RICsubscriptionDeleteResponse.proto";
+import "RICserviceUpdateAcknowledge.proto";
+import "RICcontrolAcknowledge.proto";
+import "E2setupResponse.proto";
+import "ResetResponse.proto";
+
+package e2ctypes;
+
+message SuccessfulOutcome_t {
+    ProcedureCode_t procedureCode = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICsubscriptionResponse_t RICsubscriptionResponse = 3;
+        RICsubscriptionDeleteResponse_t RICsubscriptionDeleteResponse = 4;
+        RICserviceUpdateAcknowledge_t RICserviceUpdateAcknowledge = 5;
+        RICcontrolAcknowledge_t RICcontrolAcknowledge = 6;
+        E2setupResponse_t E2setupResponse = 7;
+        ResetResponse_t ResetResponse = 8;
+    }
+}

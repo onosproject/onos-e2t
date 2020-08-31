@@ -1,0 +1,32 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "RICindication.proto";
+import "ProcedureCode.proto";
+import "Criticality.proto";
+import "E2setupRequest.proto";
+import "ErrorIndication.proto";
+import "RICsubscriptionRequest.proto";
+
+package e2ctypes;
+
+message InitiatingMessage_t {
+    ProcedureCode_t procedureCode = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICsubscriptionRequest_t RICsubscriptionRequest = 4;
+        //        RICsubscriptionDeleteRequest_t RICsubscriptionDeleteRequest = 5;
+        //        RICserviceUpdate_t RICserviceUpdate = 6;
+        //        RICcontrolRequest_t RICcontrolRequest = 7;
+        E2setupRequest_t E2setupRequest = 8;
+        //        ResetRequest_t ResetRequest = 9;
+        RICindication_t RICindication = 10;
+        //        RICserviceQuery_t RICserviceQuery = 11;
+        ErrorIndication_t ErrorIndication = 12;
+    }
+}
+

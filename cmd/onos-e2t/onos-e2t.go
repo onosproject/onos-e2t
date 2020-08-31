@@ -1,0 +1,92 @@
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+
+package main
+
+import (
+	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/orane2"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/sctp"
+	"os"
+)
+
+func main() {
+
+	sendChan := make(chan []byte)
+	defer close(sendChan)
+	recvChan := make(chan []byte)
+	defer close(recvChan)
+
+	e2inChan := make(chan *e2ctypes.E2AP_PDUT)
+	defer close(e2inChan)
+
+	go func() {
+		for r := range recvChan {
+			fmt.Printf("Received %d\n", len(r))
+			e2apPdu, err := orane2.PerDecodeE2apPdu(r)
+			if err != nil {
+				fmt.Printf("unable to parse response as PER %v\n", err)
+				// Try XER instead - used for initial E2Setup Message
+				e2apPdu, err = orane2.XerDecodeE2apPdu(r)
+				if err != nil {
+					fmt.Printf("unable to parse response as XER %v %s\n", err, string(r))
+					os.Exit(-1)
+				}
+			}
+			e2inChan <- e2apPdu
+			fmt.Printf("Payload %v\n", e2apPdu)
+		}
+	}()
+
+	go func() {
+		for pduIn := range e2inChan {
+
+			// A simple reactionary model
+			pc, err := e2proxy.GetE2apPduType(pduIn)
+			if err != nil {
+				fmt.Printf("%v\n", err)
+				continue
+			}
+			switch pc {
+			case e2ctypes.ProcedureCodeT_ProcedureCode_id_E2setup:
+				fmt.Printf("Received E2SetupRequest\n")
+				e2setupResp := e2proxy.NewE2SetupResponse()
+				fmt.Printf("Sending E2SetupResponse\n")
+				e2setupRespBytes, err := orane2.XerEncodeE2apPdu(e2setupResp)
+				if err != nil {
+					fmt.Printf("%v\n", err)
+					continue
+				}
+				sendChan <- e2setupRespBytes
+
+				//Now send a RIC subscription request
+				fmt.Printf("Sending RICsubscriptionRequest\n")
+				e2subReq := e2proxy.NewRICsubscriptionRequest(22, 6, 1,
+					[]byte{0x41, 0x63, 0x74, 0x69, 0x6F, 0x6E, 0x44, 0x65, 0x66,
+						0x69, 0x6F, 0x6E, 0x54, 0x72, 0x69, 0x67,
+						0x67, 0x65, 0x72, 0x73}) //Spells "ActionDefionTriggers"
+				fmt.Printf("Sending %+v\n", e2subReq)
+				e2subReqBytes, err := orane2.PerEncodeE2apPdu(e2subReq)
+				if err != nil {
+					fmt.Printf("%v\n", err)
+					continue
+				}
+				sendChan <- e2subReqBytes
+			case e2ctypes.ProcedureCodeT_ProcedureCode_id_RICsubscription:
+				fmt.Printf("Received RICsubscriptionResponse\n")
+
+			default:
+				fmt.Printf("Unhandled response %v", pc)
+			}
+
+		}
+	}()
+
+	err := sctp.StartSctpServer("127.0.0.1", 36421, recvChan, sendChan)
+	if err != nil {
+		os.Exit(-1)
+	}
+}

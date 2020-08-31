@@ -1,0 +1,183 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "Cause.proto";
+import "ProtocolIE-ID.proto";
+import "Criticality.proto";
+import "RICrequestID.proto";
+import "RICindicationType.proto";
+import "GlobalE2node-ID.proto";
+import "RANfunctions-List.proto";
+import "RANfunctionsID-List.proto";
+import "RANfunctionsIDcauseList.proto";
+import "RICaction-Admitted-List.proto";
+import "RICaction-NotAdmitted-List.proto";
+import "RICcontrolStatus.proto";
+import "CriticalityDiagnostics.proto";
+import "GlobalRIC-ID.proto";
+import "TimeToWait.proto";
+import "RICsubscriptionDetails.proto";
+
+package e2ctypes;
+
+message RICindication_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        int64 RANfunctionID = 4;
+        int64 RICactionID = 5;
+        int64 RICindicationSN = 6;
+        RICindicationType RICindicationType = 7;
+        string RICindicationHeader = 8;
+        string RICindicationMessage = 9;
+        string RICcallProcessID = 10;
+    }
+}
+
+message E2setupRequestIEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        GlobalE2node_ID_t GlobalE2node_ID = 3;
+        RANfunctions_List_t RANfunctions_List = 4;
+    }
+}
+
+message ErrorIndication_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        uint64 RANfunctionID = 4;
+        Cause_t Cause = 5;
+        CriticalityDiagnostics_t CriticalityDiagnostics = 6;
+    }
+}
+
+message RICsubscriptionResponse_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        int64 RANfunctionID = 4;
+        RICaction_Admitted_List_t RICaction_Admitted_List = 5;
+        RICaction_NotAdmitted_List_t RICaction_NotAdmitted_List = 6;
+    }
+}
+
+message RICsubscriptionDeleteResponse_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        int64 RANfunctionID = 4;
+    }
+}
+
+message RICserviceUpdateAcknowledge_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RANfunctionsID_List_t RANfunctionsID_List = 3;
+        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 4;
+    }
+}
+
+message RICcontrolAcknowledge_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        int64 RANfunctionID = 4;
+        string RICcallProcessID = 5;
+        RICcontrolStatus_t RICcontrolStatus = 6;
+        string RICcontrolOutcome = 7;
+    }
+}
+
+message E2setupResponseIEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        GlobalRIC_ID_t GlobalRIC_ID = 3;
+        RANfunctionsID_List_t RANfunctionsID_List = 4;
+        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 5;
+    }
+}
+
+message ResetResponseIEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        CriticalityDiagnostics_t CriticalityDiagnostics = 3;
+    }
+}
+
+message RICsubscriptionFailure_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        int64 RANfunctionID = 4;
+        RICaction_NotAdmitted_List_t RICaction_NotAdmitted_List = 5;
+        CriticalityDiagnostics_t CriticalityDiagnostics = 6;
+    }
+}
+
+message RICsubscriptionDeleteFailure_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        uint64 RANfunctionID = 4;
+        Cause_t Cause = 5;
+        CriticalityDiagnostics_t CriticalityDiagnostics = 6;
+    }
+}
+
+message RICserviceUpdateFailure_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 3;
+        TimeToWait_t TimeToWait = 4;
+        CriticalityDiagnostics_t CriticalityDiagnostics = 5;
+    }
+}
+
+message RICcontrolFailure_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        int64 RANfunctionID = 4;
+        bytes RICcallProcessID = 5;
+        Cause_t Cause = 6;
+        bytes RICcontrolOutcome = 7;
+    }
+}
+
+message E2setupFailureIEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        Cause_t Cause = 3;
+        TimeToWait_t TimeToWait = 4;
+        CriticalityDiagnostics_t CriticalityDiagnostics = 5;
+    }
+}
+
+message RICsubscriptionRequest_IEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICrequestID_t RICrequestID = 3;
+        int64 RANfunctionID = 4;
+        RICsubscriptionDetails_t RICsubscriptionDetails = 5;
+    }
+}

@@ -1,0 +1,16 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+package e2ctypes;
+
+enum CauseTransport_t {
+    CauseTransport_unspecified	= 0;
+    CauseTransport_transport_resource_unavailable	= 1;
+    /*
+     * Enumeration is extensible
+     */
+}

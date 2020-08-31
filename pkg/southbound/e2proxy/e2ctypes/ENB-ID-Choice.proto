@@ -1,0 +1,17 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "BIT_STRING.proto";
+package e2ctypes;
+
+message ENB_ID_Choice_t {
+    oneof choice {
+        BIT_STRING enb_ID_macro = 2;
+        BIT_STRING enb_ID_shortmacro = 3;
+        BIT_STRING enb_ID_longmacro = 4;
+    }
+}

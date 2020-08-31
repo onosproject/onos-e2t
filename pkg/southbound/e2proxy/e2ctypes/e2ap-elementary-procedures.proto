@@ -1,0 +1,111 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+package e2ctypes;
+
+import "google/protobuf/descriptor.proto";
+
+import "ErrorIndication.proto";
+import "E2setupRequest.proto";
+import "E2setupResponse.proto";
+import "E2setupFailure.proto";
+import "RICsubscriptionRequest.proto";
+import "RICsubscriptionResponse.proto";
+import "RICsubscriptionFailure.proto";
+import "RICsubscriptionDeleteRequest.proto";
+import "RICsubscriptionDeleteResponse.proto";
+import "RICsubscriptionDeleteFailure.proto";
+import "ResetRequest.proto";
+import "ResetResponse.proto";
+import "RICcontrolRequest.proto";
+import "RICcontrolAcknowledge.proto";
+import "RICcontrolFailure.proto";
+import "RICserviceUpdateAcknowledge.proto";
+import "RICserviceQuery.proto";
+import "RICserviceUpdate.proto";
+
+
+// Model of the E2AP in protobuf format. This approach ignores the top level
+// E2AP_PDU object and instead defines a service for all E2AP procedures.
+// It deals with the transfer of PDUs as payloads in a remote procedure call (rpc).
+// In the service every rpc has the same direction - called by the RIC on the E2Node
+// This could be the case for instance if the the E2Node was to be the E2 Termination
+// point, using for instance TCP/IP
+// Generally the rpc call is capable of returning an error response and is not
+// modelled here as a specific UnsuccessfulOutcome
+service E2apElementaryProcedures {
+    // Class 1
+
+    // The RICsubscription calls on the E2Node to provide a stream of RICindications
+    // The connection will stay open and can be closed by either side. This
+    // removes the need for a RICsubscriptionDelete
+    // While it is open, the E2Node can asynchronously send RICindications
+    rpc RicSubscription (RICsubscriptionRequest_t) returns (stream RICindication_t);
+
+    // The RIC will call the E2Node after E2 Setup to query the E2Node for
+    // and Service Updates - the E2Node can reply with RICserviceUpdate when ready
+    // and the RIC can reply with the RICserviceUpdateAcknowledge
+    // This function can stay open with futher queries and acknowledges being sent
+    // If the Query fails, the RIC may call it again after "Time to Wait"
+    rpc RicServiceQuery(stream RICserviceQueryAck) returns (stream RICserviceUpdate_t);
+
+    rpc RicControl (RICcontrolRequest_t) returns (stream RICcontrolOutcome);
+
+    // This is the reverse of the implied sense from the ASN.1
+    // here the setup response (with the RIC ID) is sent to the E2Node first
+    // and the reply contains the E2SetupRequest i.e. the E2Node Id
+    // the names can be corrected in a future version
+    rpc E2setup (E2setupResponse_t) returns (E2setupRequest_t);
+
+    // Reset is called upon the E2Node
+    rpc Reset (ResetRequest_t) returns (stream ResetResponse_t);
+
+    rpc ResetListen (EmptyMessage) returns (stream ResetRequest_t);
+
+    //    // Class 2
+    //    rpc RicIndication (E2ElementaryProcedureReq) returns (stream E2ElementaryProcedureResp);
+    //    rpc RicServiceQuery (E2ElementaryProcedureReq) returns (stream E2ElementaryProcedureResp);
+
+    rpc ErrorIndication (ErrorIndication_t) returns (EmptyMessage) {
+        option (criticality) = "ignore";
+    };
+}
+
+message EmptyMessage{};
+
+message E2setupResponseOutcome {
+    oneof outcome {
+        E2setupResponse_t successfulOutcome = 1;
+        E2setupFailure_t unsuccessfulOutcome = 2;
+    }
+}
+
+message RICsubscriptionOutcome {
+    oneof outcome {
+        RICsubscriptionResponse_t successfulOutcome = 1;
+        RICsubscriptionFailure_t unsuccessfulOutcome = 2;
+    }
+}
+
+message RICcontrolOutcome {
+    oneof outcome {
+        RICcontrolAcknowledge_t successfulOutcome = 1;
+        RICcontrolFailure_t unsuccessfulOutcome = 2;
+    }
+}
+
+message RICserviceQueryAck {
+    oneof query {
+        RICserviceQuery_t newquery = 1;
+        RICserviceUpdateAcknowledge_t acknowledge = 2;
+    }
+}
+
+
+extend google.protobuf.MethodOptions {
+    string criticality = 51234;
+}

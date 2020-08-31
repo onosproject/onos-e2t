@@ -1,0 +1,43 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "ProtocolIE-ID.proto";
+import "Criticality.proto";
+import "RICaction-ToBeSetup-Item.proto";
+import "RANfunctionIDcause-Item.proto";
+
+package e2ctypes;
+
+// ProtocolIE_SingleContainer_1547P1_t
+message RICaction_Admitted_ItemIEs_t {
+
+}
+
+// ProtocolIE_SingleContainer_1547P2_t
+message RICaction_NotAdmitted_ItemIEs_t {
+
+}
+
+// ProtocolIE_SingleContainer_1547P3_t;
+message RANfunction_ItemIEs_t {
+
+}
+
+// ProtocolIE_SingleContainer_1547P4_t
+message RANfunctionID_ItemIEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RANfunctionIDcause_Item_t RANfunctionIDcause_Item = 3;
+    }
+
+}
+
+// ProtocolIE_SingleContainer_1547P5_t
+message RANfunctionIDcause_ItemIEs_t {
+
+}

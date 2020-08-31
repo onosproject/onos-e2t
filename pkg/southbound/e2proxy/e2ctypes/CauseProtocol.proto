@@ -1,0 +1,21 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+package e2ctypes;
+
+enum CauseProtocol_t {
+    CauseProtocol_transfer_syntax_error = 0;
+    CauseProtocol_abstract_syntax_error_reject = 1;
+    CauseProtocol_abstract_syntax_error_ignore_and_notify = 2;
+    CauseProtocol_message_not_compatible_with_receiver_state = 3;
+    CauseProtocol_semantic_error = 4;
+    CauseProtocol_abstract_syntax_error_falsely_constructed_message = 5;
+    CauseProtocol_unspecified = 6;
+    /*
+     * Enumeration is extensible
+     */
+}

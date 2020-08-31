@@ -1,0 +1,71 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+syntax = "proto3";
+
+import "ProtocolIE-Field.proto";
+
+package e2ctypes;
+
+message ProtocolIE_Container_1544P0_t {
+    repeated RICsubscriptionRequest_IEs_t list = 1;
+}
+
+message ProtocolIE_Container_1544P1_t {
+    repeated RICsubscriptionResponse_IEs_t list = 1;
+};
+
+message ProtocolIE_Container_1544P2_t {
+    repeated RICsubscriptionFailure_IEs_t list = 1;
+};
+
+message ProtocolIE_Container_1544P4_t {
+    repeated RICsubscriptionDeleteResponse_IEs_t list = 1;
+};
+
+message ProtocolIE_Container_1544P5_t {
+    repeated RICsubscriptionDeleteFailure_IEs_t list = 1;
+}
+
+message ProtocolIE_Container_1544P6_t {
+    repeated RICindication_IEs_t list = 1;
+};
+
+message ProtocolIE_Container_1544P8_t {
+    repeated RICcontrolAcknowledge_IEs_t list = 1;
+}
+
+message ProtocolIE_Container_1544P9_t {
+    repeated RICcontrolFailure_IEs_t list = 1;
+}
+
+message ProtocolIE_Container_1544P10_t {
+    repeated ErrorIndication_IEs_t list = 1;
+};
+
+message ProtocolIE_Container_1544P11_t {
+    repeated E2setupRequestIEs_t list = 1;
+};
+
+message ProtocolIE_Container_1544P12_t {
+    repeated E2setupResponseIEs_t list = 1;
+}
+
+message ProtocolIE_Container_1544P13_t {
+    repeated E2setupFailureIEs_t list = 1;
+}
+
+message ProtocolIE_Container_1544P15_t {
+    repeated ResetResponseIEs_t list = 1;
+}
+
+message ProtocolIE_Container_1544P17_t {
+    repeated RICserviceUpdateAcknowledge_IEs_t list = 1;
+};
+
+message ProtocolIE_Container_1544P18_t {
+    repeated RICserviceUpdateFailure_IEs_t list = 1;
+}

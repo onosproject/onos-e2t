@@ -1,0 +1,18 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+package e2ctypes;
+
+enum CauseMisc_t {
+    CauseMisc_control_processing_overload	= 0;
+    CauseMisc_hardware_failure	= 1;
+    CauseMisc_om_intervention	= 2;
+    CauseMisc_unspecified	= 3;
+    /*
+     * Enumeration is extensible
+     */
+}

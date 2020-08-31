@@ -1,0 +1,17 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+package e2ctypes;
+
+enum RICactionType_t {
+    RICactionType_report	= 0;
+    RICactionType_insert	= 1;
+    RICactionType_policy	= 2;
+    /*
+     * Enumeration is extensible
+     */
+}

@@ -1,0 +1,15 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "GlobalENB-ID.proto";
+
+package e2ctypes;
+
+message GlobalE2node_eNB_ID_t {
+    GlobalENB_ID_t	 global_eNB_ID = 1;
+
+}

@@ -1,0 +1,20 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+package e2ctypes;
+
+enum TimeToWait_t {
+    TimeToWait_v1s	= 0;
+    TimeToWait_v2s	= 1;
+    TimeToWait_v5s	= 2;
+    TimeToWait_v10s	= 3;
+    TimeToWait_v20s	= 4;
+    TimeToWait_v60s	= 5;
+    /*
+     * Enumeration is extensible
+     */
+}
