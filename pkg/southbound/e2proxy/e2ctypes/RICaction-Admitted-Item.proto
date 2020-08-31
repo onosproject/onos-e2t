@@ -1,0 +1,12 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+package e2ctypes;
+
+message RICaction_Admitted_Item_t {
+    int64	 ricActionID = 1;
+}

@@ -1,0 +1,19 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+syntax = "proto3";
+
+import "Criticality.proto";
+import "ProtocolIE-ID.proto";
+import "TypeOfError.proto";
+
+package e2ctypes;
+
+message CriticalityDiagnostics_IE_Item_t {
+    Criticality_t	 iECriticality = 1;
+    ProtocolIE_ID_t	 iE_ID = 2;
+    TypeOfError_t	 typeOfError = 3;
+}

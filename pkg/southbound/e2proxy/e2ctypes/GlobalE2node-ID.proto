@@ -1,0 +1,22 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "GlobalE2node-gNB-ID.proto";
+import "GlobalE2node-en-gNB-ID.proto";
+import "GlobalE2node-ng-eNB-ID.proto";
+import "GlobalE2node-eNB-ID.proto";
+
+package e2ctypes;
+
+message GlobalE2node_ID_t {
+    oneof choice {
+        GlobalE2node_gNB_ID gNB = 2;
+        GlobalE2node_en_gNB_ID_t en_gNB = 3;
+        GlobalE2node_ng_eNB_ID_t ng_eNB = 4;
+        GlobalE2node_eNB_ID_t eNB = 5;
+    }
+}

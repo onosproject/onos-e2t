@@ -1,0 +1,14 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "ProtocolIE-Container.proto";
+
+package e2ctypes;
+
+message RICsubscriptionDeleteFailure_t {
+    ProtocolIE_Container_1544P5_t	 protocolIEs = 1;
+}

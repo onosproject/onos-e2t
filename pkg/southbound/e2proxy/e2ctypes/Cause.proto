@@ -1,0 +1,24 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "CauseMisc.proto";
+import "CauseProtocol.proto";
+import "CauseRIC.proto";
+import "CauseRICservice.proto";
+import "CauseTransport.proto";
+
+package e2ctypes;
+
+message Cause_t {
+    oneof choice {
+        CauseRIC_t ricRequest = 2;
+        CauseRICservice_t ricService = 3;
+        CauseTransport_t transport = 4;
+        CauseProtocol_t protocol = 5;
+        CauseMisc_t misc = 6;
+    }
+}

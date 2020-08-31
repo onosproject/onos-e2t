@@ -1,0 +1,16 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "GlobalgNB-ID.proto";
+
+package e2ctypes;
+
+message GlobalE2node_gNB_ID {
+    GlobalgNB_ID_t global_gNB_ID = 1;
+    int32 gNB_CU_UP_ID = 2; /* OPTIONAL */
+    int32 gNB_DU_ID = 3; /* OPTIONAL */
+}

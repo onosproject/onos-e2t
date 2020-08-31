@@ -1,0 +1,15 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "Cause.proto";
+
+package e2ctypes;
+
+message RANfunctionIDcause_Item_t {
+    int64	 ranFunctionID = 1;
+    Cause_t	 cause = 2;
+}

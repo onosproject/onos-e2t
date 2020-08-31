@@ -1,0 +1,15 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+syntax = "proto3";
+
+package e2ctypes;
+
+enum Criticality_t {
+    Criticality_reject = 0;
+    Criticality_ignore = 1;
+    Criticality_notify = 2;
+};

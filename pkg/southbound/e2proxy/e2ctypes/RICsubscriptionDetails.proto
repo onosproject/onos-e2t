@@ -1,0 +1,15 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "RICactions-ToBeSetup-List.proto";
+
+package e2ctypes;
+
+message RICsubscriptionDetails_t {
+    bytes	 ricEventTriggerDefinition = 1;
+    RICactions_ToBeSetup_List_t	 ricAction_ToBeSetup_List = 2;
+}

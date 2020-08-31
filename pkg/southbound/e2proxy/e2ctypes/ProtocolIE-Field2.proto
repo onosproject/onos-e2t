@@ -1,0 +1,20 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+syntax = "proto3";
+
+import "ProtocolIE-ID.proto";
+import "Criticality.proto";
+import "RICaction-ToBeSetup-Item.proto";
+
+package e2ctypes;
+
+message RICaction_ToBeSetup_ItemIEs_t {
+    ProtocolIE_ID_t id = 1;
+    Criticality_t criticality = 2;
+    oneof choice {
+        RICaction_ToBeSetup_Item_t RICaction_ToBeSetup_Item = 3;
+    }
+}
