@@ -28,11 +28,6 @@ func main() {
 	sctpPort := flag.Uint("sctpport", 36421, "sctp server port")
 
 	flag.Parse()
-	log.Info("Starting onos-e2t")
-	if err := ioutil.WriteFile(probeFile, []byte("onos-e2t"), 0644); err != nil {
-		log.Fatalf("Unable to write probe file %s", probeFile)
-	}
-	defer os.Remove(probeFile)
 
 	opts, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
 	if err != nil {
@@ -110,8 +105,18 @@ func main() {
 		}
 	}()
 
-	err = sctp.StartSctpServer("0.0.0.0", int(*sctpPort), recvChan, sendChan)
-	if err != nil {
-		os.Exit(-1)
+	go func() {
+		if err = sctp.StartSctpServer("0.0.0.0", int(*sctpPort), recvChan, sendChan); err != nil {
+			os.Exit(-1)
+		}
+	}()
+
+	log.Info("Starting onos-e2t")
+	if err := ioutil.WriteFile(probeFile, []byte("onos-e2t"), 0644); err != nil {
+		log.Fatalf("Unable to write probe file %s", probeFile)
 	}
+	defer os.Remove(probeFile)
+
+	block := make(chan bool)
+	block <- true
 }
