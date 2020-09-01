@@ -12,7 +12,7 @@ import (
 )
 
 // StartSctpServer - the RIC is the SCTP server
-func StartSctpServer(endpointAddrs string, endpointPort int, recv chan []byte, send chan []byte) error {
+func StartSctpServer(endpointAddrs string, endpointPort int, recv chan []byte, send chan []byte, started chan <- bool) error {
 
 	var ips []net.IPAddr
 
@@ -35,6 +35,7 @@ func StartSctpServer(endpointAddrs string, endpointPort int, recv chan []byte, s
 		return fmt.Errorf("failed to listen: %v", err)
 	}
 	log.Infof("Listen on %s", ln.Addr())
+	started <- true
 	readBufsize := 2048
 	for {
 		conn, err := ln.Accept()

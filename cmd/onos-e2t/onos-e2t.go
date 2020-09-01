@@ -39,6 +39,8 @@ func main() {
 	defer close(sendChan)
 	recvChan := make(chan []byte)
 	defer close(recvChan)
+	startedChan := make(chan bool)
+	defer close(startedChan)
 
 	e2inChan := make(chan *e2ctypes.E2AP_PDUT)
 	defer close(e2inChan)
@@ -106,17 +108,17 @@ func main() {
 	}()
 
 	go func() {
-		if err = sctp.StartSctpServer("0.0.0.0", int(*sctpPort), recvChan, sendChan); err != nil {
+		if err = sctp.StartSctpServer("0.0.0.0", int(*sctpPort), recvChan, sendChan, startedChan); err != nil {
 			os.Exit(-1)
 		}
 	}()
 
+	<- startedChan // block until server starts listening
 	log.Info("Starting onos-e2t")
 	if err := ioutil.WriteFile(probeFile, []byte("onos-e2t"), 0644); err != nil {
 		log.Fatalf("Unable to write probe file %s", probeFile)
 	}
 	defer os.Remove(probeFile)
 
-	block := make(chan bool)
-	block <- true
+	<- startedChan // block again to stay running
 }
