@@ -5,15 +5,40 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/orane2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/sctp"
+	"github.com/onosproject/onos-lib-go/pkg/certs"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"io/ioutil"
 	"os"
 )
 
+var log = logging.GetLogger("main")
+
+const probeFile = "/tmp/healthy"
+
 func main() {
+	caPath := flag.String("caPath", "", "path to CA certificate")
+	keyPath := flag.String("keyPath", "", "path to client private key")
+	certPath := flag.String("certPath", "", "path to client certificate")
+	sctpPort := flag.Uint("sctpport", 36421, "sctp server port")
+
+	flag.Parse()
+	log.Info("Starting onos-e2t")
+	if err := ioutil.WriteFile(probeFile, []byte("onos-e2t"), 0644); err != nil {
+		log.Fatalf("Unable to write probe file %s", probeFile)
+	}
+	defer os.Remove(probeFile)
+
+	opts, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Infof("not using gRPC server just yet %p", opts)
 
 	sendChan := make(chan []byte)
 	defer close(sendChan)
@@ -85,7 +110,7 @@ func main() {
 		}
 	}()
 
-	err := sctp.StartSctpServer("127.0.0.1", 36421, recvChan, sendChan)
+	err = sctp.StartSctpServer("0.0.0.0", int(*sctpPort), recvChan, sendChan)
 	if err != nil {
 		os.Exit(-1)
 	}
