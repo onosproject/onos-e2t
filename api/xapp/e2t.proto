@@ -21,13 +21,28 @@ package onos.e2t.xapp;
 
 import "google/protobuf/duration.proto";
 
+message E2Control {
+    // Request encoding format (ASN.1 or Protobuf)
+    // Add subscriptions
+    // Remove subscriptions
+    // Send control/insert/policy/query messages to specific device
+}
+
+
+message E2Message {
+    // ID of E2 node that sent the message
+    string e2node = 1;
+    // Service model ID
+    string service_model = 2;
+
+    // Message data (encoded as ASN.1 or Protobuf)
+    bytes payload = 3;
+}
+
 // E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
 service E2TService {
     // List of registered/available SMs
-    // Register xApp (and declare interest in a list of SMs); returns bi-directional stream
 
-    // Use the bi-directional stream to do the following:
-    // AddSubscription (for all SM messages, for certain SM messages, for messages from specific device)
-    // RemoveSubscription (... same as above)
-    // Send SM message to a specific device
+    // RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment.
+    rpc RegisterApp(stream E2Control) returns (stream E2Message);
 }

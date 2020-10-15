@@ -4,6 +4,9 @@
 ## Table of Contents
 
 - [api/xapp/e2t.proto](#api/xapp/e2t.proto)
+    - [E2Control](#onos.e2t.xapp.E2Control)
+    - [E2Message](#onos.e2t.xapp.E2Message)
+  
     - [E2TService](#onos.e2t.xapp.E2TService)
   
 - [Scalar Value Types](#scalar-value-types)
@@ -14,6 +17,36 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## api/xapp/e2t.proto
+
+
+
+<a name="onos.e2t.xapp.E2Control"></a>
+
+### E2Control
+Request encoding format (ASN.1 or Protobuf)
+Add subscriptions
+Remove subscriptions
+Send control/insert/policy/query messages to specific device
+
+
+
+
+
+
+<a name="onos.e2t.xapp.E2Message"></a>
+
+### E2Message
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| e2node | [string](#string) |  | ID of E2 node that sent the message |
+| service_model | [string](#string) |  | Service model ID |
+| payload | [bytes](#bytes) |  | Message data (encoded as ASN.1 or Protobuf) |
+
+
+
 
 
  
@@ -29,10 +62,10 @@
 E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
 
 List of registered/available SMs
-Register xApp (and declare interest in a list of SMs); returns bi-directional stream
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
+| RegisterApp | [E2Control](#onos.e2t.xapp.E2Control) stream | [E2Message](#onos.e2t.xapp.E2Message) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
 
  
 
