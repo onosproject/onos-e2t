@@ -1,0 +1,235 @@
+////////////////////// e2ap-constants.proto //////////////////////
+// Protobuf generated from /e2ap-v01.00.00.asn by asn1c-0.9.29
+// E2AP-Constants { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version1(1) e2ap(1) e2ap-Constants(4) }
+
+syntax = "proto3";
+
+package e2ap_v01_00_00_asn.v1;
+
+import "e2ap_v01_00_00_asn/v1/e2ap-commondatatypes.proto";
+import "validate/v1/validate.proto";
+
+// reference from e2ap-v01.00.00.asn:1360
+message IdE2setup {
+    int32 value = 1 [(validate.v1.rules).int32.const = 1]; // ProcedureCode
+};
+
+// reference from e2ap-v01.00.00.asn:1361
+message IdErrorIndication {
+    int32 value = 1 [(validate.v1.rules).int32.const = 2]; // ProcedureCode
+};
+
+// reference from e2ap-v01.00.00.asn:1362
+message IdReset {
+    int32 value = 1 [(validate.v1.rules).int32.const = 3]; // ProcedureCode
+};
+
+// reference from e2ap-v01.00.00.asn:1363
+message IdRiccontrol {
+    int32 value = 1 [(validate.v1.rules).int32.const = 4]; // ProcedureCode
+};
+
+// reference from e2ap-v01.00.00.asn:1364
+message IdRicindication {
+    int32 value = 1 [(validate.v1.rules).int32.const = 5]; // ProcedureCode
+};
+
+// reference from e2ap-v01.00.00.asn:1365
+message IdRicserviceQuery {
+    int32 value = 1 [(validate.v1.rules).int32.const = 6]; // ProcedureCode
+};
+
+// reference from e2ap-v01.00.00.asn:1366
+message IdRicserviceUpdate {
+    int32 value = 1 [(validate.v1.rules).int32.const = 7]; // ProcedureCode
+};
+
+// reference from e2ap-v01.00.00.asn:1367
+message IdRicsubscription {
+    int32 value = 1 [(validate.v1.rules).int32.const = 8]; // ProcedureCode
+};
+
+// reference from e2ap-v01.00.00.asn:1368
+message IdRicsubscriptionDelete {
+    int32 value = 1 [(validate.v1.rules).int32.const = 9]; // ProcedureCode
+};
+
+// constant Integer from e2ap-v01.00.00.asn:1376
+message MaxProtocolIes {
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535];
+};
+
+// constant Integer from e2ap-v01.00.00.asn:1384
+message MaxnoofErrors {
+    int32 value = 1 [(validate.v1.rules).int32.const = 256];
+};
+
+// constant Integer from e2ap-v01.00.00.asn:1385
+message MaxofRanfunctionId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 256];
+};
+
+// constant Integer from e2ap-v01.00.00.asn:1386
+message MaxofRicactionId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 16];
+};
+
+// reference from e2ap-v01.00.00.asn:1393
+message IdCause {
+    int32 value = 1 [(validate.v1.rules).int32.const = 1]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1394
+message IdCriticalityDiagnostics {
+    int32 value = 1 [(validate.v1.rules).int32.const = 2]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1395
+message IdGlobalE2nodeId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 3]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1396
+message IdGlobalRicId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 4]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1397
+message IdRanfunctionId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 5]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1398
+message IdRanfunctionIdItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 6]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1399
+message IdRanfunctionIecauseItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 7]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1400
+message IdRanfunctionItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 8]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1401
+message IdRanfunctionsAccepted {
+    int32 value = 1 [(validate.v1.rules).int32.const = 9]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1402
+message IdRanfunctionsAdded {
+    int32 value = 1 [(validate.v1.rules).int32.const = 10]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1403
+message IdRanfunctionsDeleted {
+    int32 value = 1 [(validate.v1.rules).int32.const = 11]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1404
+message IdRanfunctionsModified {
+    int32 value = 1 [(validate.v1.rules).int32.const = 12]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1405
+message IdRanfunctionsRejected {
+    int32 value = 1 [(validate.v1.rules).int32.const = 13]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1406
+message IdRicactionAdmittedItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 14]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1407
+message IdRicactionId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 15]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1408
+message IdRicactionNotAdmittedItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 16]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1409
+message IdRicactionsAdmitted {
+    int32 value = 1 [(validate.v1.rules).int32.const = 17]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1410
+message IdRicactionsNotAdmitted {
+    int32 value = 1 [(validate.v1.rules).int32.const = 18]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1411
+message IdRicactionToBeSetupItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 19]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1412
+message IdRiccallProcessId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 20]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1413
+message IdRiccontrolAckRequest {
+    int32 value = 1 [(validate.v1.rules).int32.const = 21]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1414
+message IdRiccontrolHeader {
+    int32 value = 1 [(validate.v1.rules).int32.const = 22]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1415
+message IdRiccontrolMessage {
+    int32 value = 1 [(validate.v1.rules).int32.const = 23]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1416
+message IdRiccontrolStatus {
+    int32 value = 1 [(validate.v1.rules).int32.const = 24]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1417
+message IdRicindicationHeader {
+    int32 value = 1 [(validate.v1.rules).int32.const = 25]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1418
+message IdRicindicationMessage {
+    int32 value = 1 [(validate.v1.rules).int32.const = 26]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1419
+message IdRicindicationSn {
+    int32 value = 1 [(validate.v1.rules).int32.const = 27]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1420
+message IdRicindicationType {
+    int32 value = 1 [(validate.v1.rules).int32.const = 28]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1421
+message IdRicrequestId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 29]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1422
+message IdRicsubscriptionDetails {
+    int32 value = 1 [(validate.v1.rules).int32.const = 30]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1423
+message IdTimeToWait {
+    int32 value = 1 [(validate.v1.rules).int32.const = 31]; // ProtocolIE-ID
+};
+
+// reference from e2ap-v01.00.00.asn:1424
+message IdRiccontrolOutcome {
+    int32 value = 1 [(validate.v1.rules).int32.const = 32]; // ProtocolIE-ID
+};
