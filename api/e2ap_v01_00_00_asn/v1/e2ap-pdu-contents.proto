@@ -1,0 +1,639 @@
+////////////////////// e2ap-pdu-contents.proto //////////////////////
+// Protobuf generated from /e2ap-v01.00.00.asn by asn1c-0.9.29
+// E2AP-PDU-Contents { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version1(1) e2ap(1) e2ap-PDU-Contents(1) }
+
+syntax = "proto3";
+
+package e2ap_v01_00_00_asn.v1;
+
+import "e2ap_v01_00_00_asn/v1/e2ap-ies.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap-containers.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap-constants.proto";
+import "validate/v1/validate.proto";
+
+// sequence from e2ap-v01.00.00.asn:354
+message RicsubscriptionRequest {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:358
+message RicsubscriptionRequestIes {
+    oneof ricsubscription_request_ies {
+        RicsubscriptionRequestIes001 instance001 = 1;
+        RicsubscriptionRequestIes002 instance002 = 2;
+        RicsubscriptionRequestIes003 instance003 = 3;
+    }
+    message RicsubscriptionRequestIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RicsubscriptionRequestIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message RicsubscriptionRequestIes003 {
+        RicsubscriptionDetails value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:367
+message RicsubscriptionDetails {
+    RiceventTriggerDefinition ric_event_trigger_definition = 1;
+    RicactionsToBeSetupList ric_action_to_be_setup_list = 2;
+};
+
+// sequence from e2ap-v01.00.00.asn:372
+message RicactionsToBeSetupList {
+    repeated ProtocolIeSingleContainer value = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:374
+message RicactionToBeSetupItemIes {
+};
+
+// sequence from e2ap-v01.00.00.asn:380
+message RicactionToBeSetupItem {
+    RicactionId ric_action_id = 1;
+    RicactionType ric_action_type = 2;
+    RicactionDefinition ric_action_definition = 3;
+    RicsubsequentAction ric_subsequent_action = 4;
+};
+
+// sequence from e2ap-v01.00.00.asn:393
+message RicsubscriptionResponse {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:397
+message RicsubscriptionResponseIes {
+    oneof ricsubscription_response_ies {
+        RicsubscriptionResponseIes001 instance001 = 1;
+        RicsubscriptionResponseIes002 instance002 = 2;
+        RicsubscriptionResponseIes003 instance003 = 3;
+        RicsubscriptionResponseIes004 instance004 = 4;
+    }
+    message RicsubscriptionResponseIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RicsubscriptionResponseIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message RicsubscriptionResponseIes003 {
+        RicactionAdmittedList value = 1;
+    };
+
+    message RicsubscriptionResponseIes004 {
+        RicactionNotAdmittedList value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:407
+message RicactionAdmittedList {
+    repeated ProtocolIeSingleContainer value = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:409
+message RicactionAdmittedItemIes {
+};
+
+// sequence from e2ap-v01.00.00.asn:415
+message RicactionAdmittedItem {
+    RicactionId ric_action_id = 1;
+};
+
+// sequence from e2ap-v01.00.00.asn:419
+message RicactionNotAdmittedList {
+    repeated ProtocolIeSingleContainer value = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:421
+message RicactionNotAdmittedItemIes {
+};
+
+// sequence from e2ap-v01.00.00.asn:427
+message RicactionNotAdmittedItem {
+    RicactionId ric_action_id = 1;
+    Cause cause = 2;
+};
+
+// sequence from e2ap-v01.00.00.asn:438
+message RicsubscriptionFailure {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:442
+message RicsubscriptionFailureIes {
+    oneof ricsubscription_failure_ies {
+        RicsubscriptionFailureIes001 instance001 = 1;
+        RicsubscriptionFailureIes002 instance002 = 2;
+        RicsubscriptionFailureIes003 instance003 = 3;
+        RicsubscriptionFailureIes004 instance004 = 4;
+    }
+    message RicsubscriptionFailureIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RicsubscriptionFailureIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message RicsubscriptionFailureIes003 {
+        RicactionNotAdmittedList value = 1;
+    };
+
+    message RicsubscriptionFailureIes004 {
+        CriticalityDiagnostics value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:461
+message RicsubscriptionDeleteRequest {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:465
+message RicsubscriptionDeleteRequestIes {
+    oneof ricsubscription_delete_request_ies {
+        RicsubscriptionDeleteRequestIes001 instance001 = 1;
+        RicsubscriptionDeleteRequestIes002 instance002 = 2;
+    }
+    message RicsubscriptionDeleteRequestIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RicsubscriptionDeleteRequestIes002 {
+        RanfunctionId value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:477
+message RicsubscriptionDeleteResponse {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:481
+message RicsubscriptionDeleteResponseIes {
+    oneof ricsubscription_delete_response_ies {
+        RicsubscriptionDeleteResponseIes001 instance001 = 1;
+        RicsubscriptionDeleteResponseIes002 instance002 = 2;
+    }
+    message RicsubscriptionDeleteResponseIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RicsubscriptionDeleteResponseIes002 {
+        RanfunctionId value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:492
+message RicsubscriptionDeleteFailure {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:496
+message RicsubscriptionDeleteFailureIes {
+    oneof ricsubscription_delete_failure_ies {
+        RicsubscriptionDeleteFailureIes001 instance001 = 1;
+        RicsubscriptionDeleteFailureIes002 instance002 = 2;
+        RicsubscriptionDeleteFailureIes003 instance003 = 3;
+        RicsubscriptionDeleteFailureIes004 instance004 = 4;
+    }
+    message RicsubscriptionDeleteFailureIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RicsubscriptionDeleteFailureIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message RicsubscriptionDeleteFailureIes003 {
+        Cause value = 1;
+    };
+
+    message RicsubscriptionDeleteFailureIes004 {
+        CriticalityDiagnostics value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:515
+message Ricindication {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:519
+message RicindicationIes {
+    oneof ricindication_ies {
+        RicindicationIes001 instance001 = 1;
+        RicindicationIes002 instance002 = 2;
+        RicindicationIes003 instance003 = 3;
+        RicindicationIes004 instance004 = 4;
+        RicindicationIes005 instance005 = 5;
+        RicindicationIes006 instance006 = 6;
+        RicindicationIes007 instance007 = 7;
+        RicindicationIes008 instance008 = 8;
+    }
+    message RicindicationIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RicindicationIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message RicindicationIes003 {
+        RicactionId value = 1;
+    };
+
+    message RicindicationIes004 {
+        RicindicationSn value = 1;
+    };
+
+    message RicindicationIes005 {
+        RicindicationType value = 1;
+    };
+
+    message RicindicationIes006 {
+        RicindicationHeader value = 1;
+    };
+
+    message RicindicationIes007 {
+        RicindicationMessage value = 1;
+    };
+
+    message RicindicationIes008 {
+        RiccallProcessId value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:542
+message RiccontrolRequest {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:546
+message RiccontrolRequestIes {
+    oneof riccontrol_request_ies {
+        RiccontrolRequestIes001 instance001 = 1;
+        RiccontrolRequestIes002 instance002 = 2;
+        RiccontrolRequestIes003 instance003 = 3;
+        RiccontrolRequestIes004 instance004 = 4;
+        RiccontrolRequestIes005 instance005 = 5;
+        RiccontrolRequestIes006 instance006 = 6;
+    }
+    message RiccontrolRequestIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RiccontrolRequestIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message RiccontrolRequestIes003 {
+        RiccallProcessId value = 1;
+    };
+
+    message RiccontrolRequestIes004 {
+        RiccontrolHeader value = 1;
+    };
+
+    message RiccontrolRequestIes005 {
+        RiccontrolMessage value = 1;
+    };
+
+    message RiccontrolRequestIes006 {
+        RiccontrolAckRequest value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:561
+message RiccontrolAcknowledge {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:565
+message RiccontrolAcknowledgeIes {
+    oneof riccontrol_acknowledge_ies {
+        RiccontrolAcknowledgeIes001 instance001 = 1;
+        RiccontrolAcknowledgeIes002 instance002 = 2;
+        RiccontrolAcknowledgeIes003 instance003 = 3;
+        RiccontrolAcknowledgeIes004 instance004 = 4;
+        RiccontrolAcknowledgeIes005 instance005 = 5;
+    }
+    message RiccontrolAcknowledgeIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RiccontrolAcknowledgeIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message RiccontrolAcknowledgeIes003 {
+        RiccallProcessId value = 1;
+    };
+
+    message RiccontrolAcknowledgeIes004 {
+        RiccontrolStatus value = 1;
+    };
+
+    message RiccontrolAcknowledgeIes005 {
+        RiccontrolOutcome value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:579
+message RiccontrolFailure {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:583
+message RiccontrolFailureIes {
+    oneof riccontrol_failure_ies {
+        RiccontrolFailureIes001 instance001 = 1;
+        RiccontrolFailureIes002 instance002 = 2;
+        RiccontrolFailureIes003 instance003 = 3;
+        RiccontrolFailureIes004 instance004 = 4;
+        RiccontrolFailureIes005 instance005 = 5;
+    }
+    message RiccontrolFailureIes001 {
+        RicrequestId value = 1;
+    };
+
+    message RiccontrolFailureIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message RiccontrolFailureIes003 {
+        RiccallProcessId value = 1;
+    };
+
+    message RiccontrolFailureIes004 {
+        Cause value = 1;
+    };
+
+    message RiccontrolFailureIes005 {
+        RiccontrolOutcome value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:609
+message ErrorIndication {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:613
+message ErrorIndicationIes {
+    oneof error_indication_ies {
+        ErrorIndicationIes001 instance001 = 1;
+        ErrorIndicationIes002 instance002 = 2;
+        ErrorIndicationIes003 instance003 = 3;
+        ErrorIndicationIes004 instance004 = 4;
+    }
+    message ErrorIndicationIes001 {
+        RicrequestId value = 1;
+    };
+
+    message ErrorIndicationIes002 {
+        RanfunctionId value = 1;
+    };
+
+    message ErrorIndicationIes003 {
+        Cause value = 1;
+    };
+
+    message ErrorIndicationIes004 {
+        CriticalityDiagnostics value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:633
+message E2setupRequest {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:637
+message E2setupRequestIes {
+    oneof e2setup_request_ies {
+        E2setupRequestIes001 instance001 = 1;
+        E2setupRequestIes002 instance002 = 2;
+    }
+    message E2setupRequestIes001 {
+        GlobalE2nodeId value = 1;
+    };
+
+    message E2setupRequestIes002 {
+        RanfunctionsList value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:650
+message E2setupResponse {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:654
+message E2setupResponseIes {
+    oneof e2setup_response_ies {
+        E2setupResponseIes001 instance001 = 1;
+        E2setupResponseIes002 instance002 = 2;
+        E2setupResponseIes003 instance003 = 3;
+    }
+    message E2setupResponseIes001 {
+        GlobalRicId value = 1;
+    };
+
+    message E2setupResponseIes002 {
+        RanfunctionsIdList value = 1;
+    };
+
+    message E2setupResponseIes003 {
+        RanfunctionsIdcauseList value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:668
+message E2setupFailure {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:672
+message E2setupFailureIes {
+    oneof e2setup_failure_ies {
+        E2setupFailureIes001 instance001 = 1;
+        E2setupFailureIes002 instance002 = 2;
+        E2setupFailureIes003 instance003 = 3;
+    }
+    message E2setupFailureIes001 {
+        Cause value = 1;
+    };
+
+    message E2setupFailureIes002 {
+        TimeToWait value = 1;
+    };
+
+    message E2setupFailureIes003 {
+        CriticalityDiagnostics value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:692
+message ResetRequest {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:696
+message ResetRequestIes {
+};
+
+// sequence from e2ap-v01.00.00.asn:708
+message ResetResponse {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:712
+message ResetResponseIes {
+};
+
+// sequence from e2ap-v01.00.00.asn:728
+message RicserviceUpdate {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:732
+message RicserviceUpdateIes {
+    oneof ricservice_update_ies {
+        RicserviceUpdateIes001 instance001 = 1;
+        RicserviceUpdateIes002 instance002 = 2;
+        RicserviceUpdateIes003 instance003 = 3;
+    }
+    message RicserviceUpdateIes001 {
+        RanfunctionsList value = 1;
+    };
+
+    message RicserviceUpdateIes002 {
+        RanfunctionsList value = 1;
+    };
+
+    message RicserviceUpdateIes003 {
+        RanfunctionsIdList value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:739
+message RanfunctionsList {
+    repeated ProtocolIeSingleContainer value = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:741
+message RanfunctionItemIes {
+};
+
+// sequence from e2ap-v01.00.00.asn:748
+message RanfunctionItem {
+    RanfunctionId ran_function_id = 1;
+    RanfunctionDefinition ran_function_definition = 2;
+    RanfunctionRevision ran_function_revision = 3;
+};
+
+// sequence from e2ap-v01.00.00.asn:754
+message RanfunctionsIdList {
+    repeated ProtocolIeSingleContainer value = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:756
+message RanfunctionIdItemIes {
+};
+
+// sequence from e2ap-v01.00.00.asn:762
+message RanfunctionIdItem {
+    RanfunctionId ran_function_id = 1;
+    RanfunctionRevision ran_function_revision = 2;
+};
+
+// sequence from e2ap-v01.00.00.asn:773
+message RicserviceUpdateAcknowledge {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:777
+message RicserviceUpdateAcknowledgeIes {
+    oneof ricservice_update_acknowledge_ies {
+        RicserviceUpdateAcknowledgeIes001 instance001 = 1;
+        RicserviceUpdateAcknowledgeIes002 instance002 = 2;
+    }
+    message RicserviceUpdateAcknowledgeIes001 {
+        RanfunctionsIdList value = 1;
+    };
+
+    message RicserviceUpdateAcknowledgeIes002 {
+        RanfunctionsIdcauseList value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:783
+message RanfunctionsIdcauseList {
+    repeated ProtocolIeSingleContainer value = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:785
+message RanfunctionIdcauseItemIes {
+};
+
+// sequence from e2ap-v01.00.00.asn:792
+message RanfunctionIdcauseItem {
+    RanfunctionId ran_function_id = 1;
+    Cause cause = 2;
+};
+
+// sequence from e2ap-v01.00.00.asn:804
+message RicserviceUpdateFailure {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:808
+message RicserviceUpdateFailureIes {
+    oneof ricservice_update_failure_ies {
+        RicserviceUpdateFailureIes001 instance001 = 1;
+        RicserviceUpdateFailureIes002 instance002 = 2;
+        RicserviceUpdateFailureIes003 instance003 = 3;
+    }
+    message RicserviceUpdateFailureIes001 {
+        RanfunctionsIdcauseList value = 1;
+    };
+
+    message RicserviceUpdateFailureIes002 {
+        TimeToWait value = 1;
+    };
+
+    message RicserviceUpdateFailureIes003 {
+        CriticalityDiagnostics value = 1;
+    };
+
+};
+
+// sequence from e2ap-v01.00.00.asn:826
+message RicserviceQuery {
+    ProtocolIeContainer protocol_ies = 1;
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:830
+message RicserviceQueryIes {
+};
