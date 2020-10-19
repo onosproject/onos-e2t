@@ -5,15 +5,17 @@
 syntax = "proto3";
 
 package e2ap_v01_00_00_asn.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2appducontents";
 
-import "e2ap_v01_00_00_asn/v1/e2ap-ies.proto";
-import "e2ap_v01_00_00_asn/v1/e2ap-containers.proto";
-import "e2ap_v01_00_00_asn/v1/e2ap-constants.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_ies.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_containers.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_constants.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_commondatatypes.proto";
 import "validate/v1/validate.proto";
 
 // sequence from e2ap-v01.00.00.asn:354
 message RicsubscriptionRequest {
-    ProtocolIeContainer protocol_ies = 1;
+    RicsubscriptionRequestIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:358
@@ -24,45 +26,55 @@ message RicsubscriptionRequestIes {
         RicsubscriptionRequestIes003 instance003 = 3;
     }
     message RicsubscriptionRequestIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionRequestIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionRequestIes003 {
-        RicsubscriptionDetails value = 1;
+        IdRicsubscriptionDetails id = 1;
+        CriticalityReject criticality = 2;
+        RicsubscriptionDetails type = 3;
+        PresenceMandatory presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:367
 message RicsubscriptionDetails {
-    RiceventTriggerDefinition ric_event_trigger_definition = 1;
+    bytes ric_event_trigger_definition = 1;
     RicactionsToBeSetupList ric_action_to_be_setup_list = 2;
 };
 
 // sequence from e2ap-v01.00.00.asn:372
 message RicactionsToBeSetupList {
-    repeated ProtocolIeSingleContainer value = 1;
+    repeated RicactionToBeSetupItemIes value = 1 [(validate.v1.rules).repeated = { max_items: 16}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:374
 message RicactionToBeSetupItemIes {
+    RicactionToBeSetupItem value = 1;
 };
 
 // sequence from e2ap-v01.00.00.asn:380
 message RicactionToBeSetupItem {
-    RicactionId ric_action_id = 1;
+    IdRicactionToBeSetupItem ric_action_id = 1;
     RicactionType ric_action_type = 2;
-    RicactionDefinition ric_action_definition = 3;
+    bytes ric_action_definition = 3;
     RicsubsequentAction ric_subsequent_action = 4;
 };
 
 // sequence from e2ap-v01.00.00.asn:393
 message RicsubscriptionResponse {
-    ProtocolIeContainer protocol_ies = 1;
+    RicsubscriptionResponseIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:397
@@ -74,30 +86,46 @@ message RicsubscriptionResponseIes {
         RicsubscriptionResponseIes004 instance004 = 4;
     }
     message RicsubscriptionResponseIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionResponseIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionResponseIes003 {
-        RicactionAdmittedList value = 1;
+        IdRicactionsAdmitted id = 1;
+        CriticalityReject criticality = 2;
+        RicactionAdmittedList type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionResponseIes004 {
-        RicactionNotAdmittedList value = 1;
+        IdRicactionsNotAdmitted id = 1;
+        CriticalityReject criticality = 2;
+        RicactionNotAdmittedList type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:407
 message RicactionAdmittedList {
-    repeated ProtocolIeSingleContainer value = 1;
+    repeated RicactionAdmittedItemIes value = 1 [(validate.v1.rules).repeated = {max_items: 16}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:409
 message RicactionAdmittedItemIes {
+    IdRicactionAdmittedItem id = 1;
+    CriticalityIgnore criticality = 2;
+    RicactionAdmittedItem type = 3;
+    PresenceMandatory presence = 4;
 };
 
 // sequence from e2ap-v01.00.00.asn:415
@@ -107,11 +135,15 @@ message RicactionAdmittedItem {
 
 // sequence from e2ap-v01.00.00.asn:419
 message RicactionNotAdmittedList {
-    repeated ProtocolIeSingleContainer value = 1;
+    repeated RicactionNotAdmittedItemIes value = 1 [(validate.v1.rules).repeated = { max_items: 16}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:421
 message RicactionNotAdmittedItemIes {
+    IdRicactionNotAdmittedItem id = 1;
+    CriticalityIgnore criticality = 2;
+    RicactionNotAdmittedItem type = 3;
+    PresenceMandatory presence = 4;
 };
 
 // sequence from e2ap-v01.00.00.asn:427
@@ -122,7 +154,7 @@ message RicactionNotAdmittedItem {
 
 // sequence from e2ap-v01.00.00.asn:438
 message RicsubscriptionFailure {
-    ProtocolIeContainer protocol_ies = 1;
+    RicsubscriptionFailureIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:442
@@ -134,26 +166,38 @@ message RicsubscriptionFailureIes {
         RicsubscriptionFailureIes004 instance004 = 4;
     }
     message RicsubscriptionFailureIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionFailureIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionFailureIes003 {
-        RicactionNotAdmittedList value = 1;
+        IdRicactionsNotAdmitted id = 1;
+        CriticalityReject criticality = 2;
+        RicactionNotAdmittedList type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionFailureIes004 {
-        CriticalityDiagnostics value = 1;
+        IdCriticalityDiagnostics id = 1;
+        CriticalityIgnore criticality = 2;
+        CriticalityDiagnostics type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:461
 message RicsubscriptionDeleteRequest {
-    ProtocolIeContainer protocol_ies = 1;
+    RicsubscriptionDeleteRequestIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:465
@@ -163,18 +207,24 @@ message RicsubscriptionDeleteRequestIes {
         RicsubscriptionDeleteRequestIes002 instance002 = 2;
     }
     message RicsubscriptionDeleteRequestIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionDeleteRequestIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:477
 message RicsubscriptionDeleteResponse {
-    ProtocolIeContainer protocol_ies = 1;
+    RicsubscriptionDeleteResponseIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:481
@@ -184,18 +234,24 @@ message RicsubscriptionDeleteResponseIes {
         RicsubscriptionDeleteResponseIes002 instance002 = 2;
     }
     message RicsubscriptionDeleteResponseIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionDeleteResponseIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:492
 message RicsubscriptionDeleteFailure {
-    ProtocolIeContainer protocol_ies = 1;
+    RicsubscriptionDeleteFailureIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:496
@@ -207,26 +263,38 @@ message RicsubscriptionDeleteFailureIes {
         RicsubscriptionDeleteFailureIes004 instance004 = 4;
     }
     message RicsubscriptionDeleteFailureIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionDeleteFailureIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicsubscriptionDeleteFailureIes003 {
-        Cause value = 1;
+        IdCause id = 1;
+        CriticalityIgnore criticality = 2;
+        Cause type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RicsubscriptionDeleteFailureIes004 {
-        CriticalityDiagnostics value = 1;
+        IdCriticalityDiagnostics id = 1;
+        CriticalityIgnore criticality = 2;
+        CriticalityDiagnostics type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:515
 message Ricindication {
-    ProtocolIeContainer protocol_ies = 1;
+    RicindicationIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:519
@@ -242,42 +310,66 @@ message RicindicationIes {
         RicindicationIes008 instance008 = 8;
     }
     message RicindicationIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicindicationIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicindicationIes003 {
-        RicactionId value = 1;
+        IdRicactionId id = 1;
+        CriticalityReject criticality = 2;
+        RicactionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicindicationIes004 {
-        RicindicationSn value = 1;
+        IdRicindicationSn id = 1;
+        CriticalityReject criticality = 2;
+        RicindicationSn type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RicindicationIes005 {
-        RicindicationType value = 1;
+        IdRicindicationType id = 1;
+        CriticalityReject criticality = 2;
+        RicindicationType type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicindicationIes006 {
-        RicindicationHeader value = 1;
+        IdRicindicationHeader id = 1;
+        CriticalityReject criticality = 2;
+        RicindicationHeader type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicindicationIes007 {
-        RicindicationMessage value = 1;
+        IdRicindicationMessage id = 1;
+        CriticalityReject criticality = 2;
+        RicindicationMessage type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RicindicationIes008 {
-        RiccallProcessId value = 1;
+        IdRiccallProcessId id = 1;
+        CriticalityReject criticality = 2;
+        RiccallProcessId type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:542
 message RiccontrolRequest {
-    ProtocolIeContainer protocol_ies = 1;
+    RiccontrolRequestIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:546
@@ -291,34 +383,52 @@ message RiccontrolRequestIes {
         RiccontrolRequestIes006 instance006 = 6;
     }
     message RiccontrolRequestIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolRequestIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolRequestIes003 {
-        RiccallProcessId value = 1;
+        IdRiccallProcessId id = 1;
+        CriticalityReject criticality = 2;
+        RiccallProcessId type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RiccontrolRequestIes004 {
-        RiccontrolHeader value = 1;
+        IdRiccontrolHeader id = 1;
+        CriticalityReject criticality = 2;
+        RiccontrolHeader type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolRequestIes005 {
-        RiccontrolMessage value = 1;
+        IdRiccontrolMessage id = 1;
+        CriticalityReject criticality = 2;
+        RiccontrolMessage type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolRequestIes006 {
-        RiccontrolAckRequest value = 1;
+        IdRiccontrolAckRequest id = 1;
+        CriticalityReject criticality = 2;
+        RiccontrolAckRequest type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:561
 message RiccontrolAcknowledge {
-    ProtocolIeContainer protocol_ies = 1;
+    RiccontrolAcknowledgeIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:565
@@ -331,30 +441,45 @@ message RiccontrolAcknowledgeIes {
         RiccontrolAcknowledgeIes005 instance005 = 5;
     }
     message RiccontrolAcknowledgeIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolAcknowledgeIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolAcknowledgeIes003 {
-        RiccallProcessId value = 1;
+        IdRiccallProcessId id = 1;
+        CriticalityReject criticality = 2;
+        RiccallProcessId type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RiccontrolAcknowledgeIes004 {
-        RiccontrolStatus value = 1;
+        IdRiccontrolStatus id = 1;
+        CriticalityReject criticality = 2;
+        RiccontrolStatus type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolAcknowledgeIes005 {
-        RiccontrolOutcome value = 1;
+        IdRiccontrolOutcome id = 1;
+        CriticalityReject criticality = 2;
+        RiccontrolOutcome type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:579
 message RiccontrolFailure {
-    ProtocolIeContainer protocol_ies = 1;
+    RiccontrolFailureIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:583
@@ -367,30 +492,45 @@ message RiccontrolFailureIes {
         RiccontrolFailureIes005 instance005 = 5;
     }
     message RiccontrolFailureIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolFailureIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message RiccontrolFailureIes003 {
-        RiccallProcessId value = 1;
+        IdRiccallProcessId id = 1;
+        CriticalityReject criticality = 2;
+        RiccallProcessId type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RiccontrolFailureIes004 {
-        Cause value = 1;
+        IdCause id = 1;
+        CriticalityIgnore criticality = 2;
+        Cause type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RiccontrolFailureIes005 {
-        RiccontrolOutcome value = 1;
+        IdRiccontrolOutcome id = 1;
+        CriticalityReject criticality = 2;
+        RiccontrolOutcome type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:609
 message ErrorIndication {
-    ProtocolIeContainer protocol_ies = 1;
+    ErrorIndicationIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:613
@@ -402,26 +542,38 @@ message ErrorIndicationIes {
         ErrorIndicationIes004 instance004 = 4;
     }
     message ErrorIndicationIes001 {
-        RicrequestId value = 1;
+        IdRicrequestId id = 1;
+        CriticalityReject criticality = 2;
+        RicrequestId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message ErrorIndicationIes002 {
-        RanfunctionId value = 1;
+        IdRanfunctionId id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message ErrorIndicationIes003 {
-        Cause value = 1;
+        IdCause id = 1;
+        CriticalityIgnore criticality = 2;
+        Cause type = 3;
+        PresenceOptional presence = 4;
     };
 
     message ErrorIndicationIes004 {
-        CriticalityDiagnostics value = 1;
+        IdCriticalityDiagnostics id = 1;
+        CriticalityIgnore criticality = 2;
+        CriticalityDiagnostics type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:633
 message E2setupRequest {
-    ProtocolIeContainer protocol_ies = 1;
+    E2setupRequestIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:637
@@ -431,18 +583,24 @@ message E2setupRequestIes {
         E2setupRequestIes002 instance002 = 2;
     }
     message E2setupRequestIes001 {
-        GlobalE2nodeId value = 1;
+        IdGlobalE2nodeId id = 1;
+        CriticalityReject criticality = 2;
+        GlobalE2nodeId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message E2setupRequestIes002 {
-        RanfunctionsList value = 1;
+        IdRanfunctionsAdded id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsList type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:650
 message E2setupResponse {
-    ProtocolIeContainer protocol_ies = 1;
+    E2setupResponseIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:654
@@ -453,22 +611,31 @@ message E2setupResponseIes {
         E2setupResponseIes003 instance003 = 3;
     }
     message E2setupResponseIes001 {
-        GlobalRicId value = 1;
+        IdGlobalRicId id = 1;
+        CriticalityReject criticality = 2;
+        GlobalRicId type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message E2setupResponseIes002 {
-        RanfunctionsIdList value = 1;
+        IdRanfunctionsAccepted id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsIdList type = 3;
+        PresenceOptional presence = 4;
     };
 
     message E2setupResponseIes003 {
-        RanfunctionsIdcauseList value = 1;
+        IdRanfunctionsRejected id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsIdcauseList type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:668
 message E2setupFailure {
-    ProtocolIeContainer protocol_ies = 1;
+    E2setupFailureIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:672
@@ -479,40 +646,57 @@ message E2setupFailureIes {
         E2setupFailureIes003 instance003 = 3;
     }
     message E2setupFailureIes001 {
-        Cause value = 1;
+        IdCause id = 1;
+        CriticalityIgnore criticality = 2;
+        Cause type = 3;
+        PresenceMandatory presence = 4;
     };
 
     message E2setupFailureIes002 {
-        TimeToWait value = 1;
+        IdTimeToWait id = 1;
+        CriticalityIgnore criticality = 2;
+        TimeToWait type = 3;
+        PresenceOptional presence = 4;
     };
 
     message E2setupFailureIes003 {
-        CriticalityDiagnostics value = 1;
+        IdCriticalityDiagnostics id = 1;
+        CriticalityIgnore criticality = 2;
+        CriticalityDiagnostics type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:692
 message ResetRequest {
-    ProtocolIeContainer protocol_ies = 1;
+    ResetRequestIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:696
 message ResetRequestIes {
+    IdCause id = 1;
+    CriticalityIgnore criticality = 2;
+    Cause type = 3;
+    PresenceOptional presence = 4;
 };
 
 // sequence from e2ap-v01.00.00.asn:708
 message ResetResponse {
-    ProtocolIeContainer protocol_ies = 1;
+    ResetResponseIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:712
 message ResetResponseIes {
+    IdCriticalityDiagnostics id = 1;
+    CriticalityIgnore criticality = 2;
+    CriticalityDiagnostics type = 3;
+    PresenceOptional presence = 4;
 };
 
 // sequence from e2ap-v01.00.00.asn:728
 message RicserviceUpdate {
-    ProtocolIeContainer protocol_ies = 1;
+    RicserviceUpdateIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:732
@@ -523,26 +707,39 @@ message RicserviceUpdateIes {
         RicserviceUpdateIes003 instance003 = 3;
     }
     message RicserviceUpdateIes001 {
-        RanfunctionsList value = 1;
+        IdRanfunctionsAdded id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsList type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RicserviceUpdateIes002 {
-        RanfunctionsList value = 1;
+        IdRanfunctionsModified id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsList type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RicserviceUpdateIes003 {
-        RanfunctionsIdList value = 1;
+        IdRanfunctionsDeleted id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsIdList type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:739
 message RanfunctionsList {
-    repeated ProtocolIeSingleContainer value = 1;
+    repeated RanfunctionItemIes value = 1 [(validate.v1.rules).repeated = { max_items: 16}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:741
 message RanfunctionItemIes {
+    IdRanfunctionItem id = 1;
+    CriticalityIgnore criticality = 2;
+    RanfunctionItem type = 3;
+    PresenceMandatory presence = 4;
 };
 
 // sequence from e2ap-v01.00.00.asn:748
@@ -554,11 +751,15 @@ message RanfunctionItem {
 
 // sequence from e2ap-v01.00.00.asn:754
 message RanfunctionsIdList {
-    repeated ProtocolIeSingleContainer value = 1;
+    repeated RanfunctionIdItemIes value = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:756
 message RanfunctionIdItemIes {
+    IdRanfunctionIdItem id = 1;
+    CriticalityIgnore criticality = 2;
+    RanfunctionIdItem type = 3;
+    PresenceMandatory presence = 4;
 };
 
 // sequence from e2ap-v01.00.00.asn:762
@@ -569,7 +770,7 @@ message RanfunctionIdItem {
 
 // sequence from e2ap-v01.00.00.asn:773
 message RicserviceUpdateAcknowledge {
-    ProtocolIeContainer protocol_ies = 1;
+    RicserviceUpdateAcknowledgeIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:777
@@ -579,22 +780,32 @@ message RicserviceUpdateAcknowledgeIes {
         RicserviceUpdateAcknowledgeIes002 instance002 = 2;
     }
     message RicserviceUpdateAcknowledgeIes001 {
-        RanfunctionsIdList value = 1;
+        IdRanfunctionsAccepted id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsIdList type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RicserviceUpdateAcknowledgeIes002 {
-        RanfunctionsIdcauseList value = 1;
+        IdRanfunctionsRejected id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsIdcauseList type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:783
 message RanfunctionsIdcauseList {
-    repeated ProtocolIeSingleContainer value = 1;
+    repeated RanfunctionIdcauseItemIes value = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:785
 message RanfunctionIdcauseItemIes {
+    IdRanfunctionIecauseItem id = 1;
+    CriticalityIgnore criticality = 2;
+    RanfunctionIdcauseItem type = 3;
+    PresenceMandatory presence = 4;
 };
 
 // sequence from e2ap-v01.00.00.asn:792
@@ -605,7 +816,7 @@ message RanfunctionIdcauseItem {
 
 // sequence from e2ap-v01.00.00.asn:804
 message RicserviceUpdateFailure {
-    ProtocolIeContainer protocol_ies = 1;
+    RicserviceUpdateFailureIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:808
@@ -616,24 +827,37 @@ message RicserviceUpdateFailureIes {
         RicserviceUpdateFailureIes003 instance003 = 3;
     }
     message RicserviceUpdateFailureIes001 {
-        RanfunctionsIdcauseList value = 1;
+        IdRanfunctionsRejected id = 1;
+        CriticalityReject criticality = 2;
+        RanfunctionsIdcauseList type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RicserviceUpdateFailureIes002 {
-        TimeToWait value = 1;
+        IdTimeToWait id = 1;
+        CriticalityIgnore criticality = 2;
+        TimeToWait type = 3;
+        PresenceOptional presence = 4;
     };
 
     message RicserviceUpdateFailureIes003 {
-        CriticalityDiagnostics value = 1;
+        IdCriticalityDiagnostics id = 1;
+        CriticalityIgnore criticality = 2;
+        CriticalityDiagnostics type = 3;
+        PresenceOptional presence = 4;
     };
 
 };
 
 // sequence from e2ap-v01.00.00.asn:826
 message RicserviceQuery {
-    ProtocolIeContainer protocol_ies = 1;
+    RicserviceQueryIes protocol_ies = 1;
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn:830
 message RicserviceQueryIes {
+    IdRanfunctionsAccepted id = 1;
+    CriticalityReject criticality = 2;
+    RanfunctionsIdList type = 3;
+    PresenceOptional presence = 4;
 };

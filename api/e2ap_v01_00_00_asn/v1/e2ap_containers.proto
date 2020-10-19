@@ -5,15 +5,16 @@
 syntax = "proto3";
 
 package e2ap_v01_00_00_asn.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/containers";
 
-import "e2ap_v01_00_00_asn/v1/e2ap-commondatatypes.proto";
-import "e2ap_v01_00_00_asn/v1/e2ap-constants.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_commondatatypes.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_constants.proto";
 import "validate/v1/validate.proto";
 
 // sequence from e2ap-v01.00.00.asn:1544
 // Param E2AP-PROTOCOL-IES:IEsSetParam
 message ProtocolIeContainer001 {
-    repeated ProtocolIeField value = 1;
+    repeated ProtocolIeField001 value = 1;
 };
 
 // reference from e2ap-v01.00.00.asn:1547
@@ -25,9 +26,9 @@ message ProtocolIeSingleContainer001 {
 // sequence from e2ap-v01.00.00.asn:1550
 // Param E2AP-PROTOCOL-IES:IEsSetParam
 message ProtocolIeField001 {
-    <type> id = 1;
-    @id criticality = 2;
-    @id value = 3;
+    IdRicrequestId id = 1;
+    Criticality criticality = 2;
+//    Id value = 3;
 };
 
 // sequence from e2ap-v01.00.00.asn:1563
@@ -39,11 +40,11 @@ message ProtocolIeContainerPair {
 // sequence from e2ap-v01.00.00.asn:1566
 // Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
 message ProtocolIeFieldPair {
-    IesSetParam id = 1;
-    @id first_criticality = 2;
-    @id first_value = 3;
-    @id second_criticality = 4;
-    @id second_value = 5;
+//    IesSetParam id = 1;
+//    @id first_criticality = 2;
+//    @id first_value = 3;
+//    @id second_criticality = 4;
+//    @id second_value = 5;
 };
 
 // sequence from e2ap-v01.00.00.asn:1581
@@ -51,7 +52,7 @@ message ProtocolIeFieldPair {
 // Param INTEGER:upperBound
 // Param E2AP-PROTOCOL-IES:IEsSetParam
 message ProtocolIeContainerList {
-    repeated ProtocolIeSingleContainer value = 1;
+    repeated ProtocolIeSingleContainer001 value = 1;
 };
 
 // sequence from e2ap-v01.00.00.asn:1585

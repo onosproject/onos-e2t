@@ -5,9 +5,9 @@
 syntax = "proto3";
 
 package e2ap_v01_00_00_asn.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2apies";
 
-import "e2ap_v01_00_00_asn/v1/e2ap-commondatatypes.proto";
-import "e2ap_v01_00_00_asn/v1/e2ap-constants.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_commondatatypes.proto";
 import "validate/v1/validate.proto";
 
 // enumerated from e2ap-v01.00.00.asn:908
@@ -31,7 +31,7 @@ enum CauseProtocol {
 
 // enumerated from e2ap-v01.00.00.asn:926
 enum CauseRic {
-    CAUSE_RIC_RAN_FUNCTION_ID__INVALID = 0;
+    CAUSE_RIC_RAN_FUNCTION_ID_INVALID = 0;
     CAUSE_RIC_ACTION_NOT_SUPPORTED = 1;
     CAUSE_RIC_EXCESSIVE_ACTIONS = 2;
     CAUSE_RIC_DUPLICATE_ACTION = 3;
@@ -165,10 +165,10 @@ message CriticalityDiagnosticsIeItem {
 message EnbId {
     // choice from e2ap-v01.00.00.asn:982
     oneof enb_id {
-        BitString macro_e_nb_id = 1;
-        BitString home_e_nb_id = 2;
-        BitString short_macro_e_nb_id = 3;
-        BitString long_macro_e_nb_id = 4;
+        bytes macro_e_nb_id = 1 [(validate.v1.rules).bytes.len = 3]; //20
+        bytes home_e_nb_id = 2 [(validate.v1.rules).bytes.len = 4]; //28
+        bytes short_macro_e_nb_id = 3 [(validate.v1.rules).bytes.len = 3]; //18
+        bytes long_macro_e_nb_id = 4 [(validate.v1.rules).bytes.len = 3]; //21
     }
 };
 
@@ -176,9 +176,9 @@ message EnbId {
 message EnbIdChoice {
     // choice from e2ap-v01.00.00.asn:992
     oneof enb_id_choice {
-        BitString enb_id_macro = 1;
-        BitString enb_id_shortmacro = 2;
-        BitString enb_id_longmacro = 3;
+        bytes enb_id_macro = 1 [(validate.v1.rules).bytes.len = 3]; //20
+        bytes enb_id_shortmacro = 2 [(validate.v1.rules).bytes.len = 3]; //18
+        bytes enb_id_longmacro = 3 [(validate.v1.rules).bytes.len = 3]; //21
     }
 };
 
@@ -186,7 +186,7 @@ message EnbIdChoice {
 message EngnbId {
     // choice from e2ap-v01.00.00.asn:1004
     oneof engnb_id {
-        BitString g_nb_id = 1;
+        bytes g_nb_id = 1 [(validate.v1.rules).bytes.max_len = 4]; //22-32
     }
 };
 
@@ -250,45 +250,45 @@ message GlobalngeNbId {
 // sequence from e2ap-v01.00.00.asn:1075
 message GlobalRicId {
     PlmnIdentity p_lmn_identity = 1;
-    BitString ric_id = 2;
+    bytes ric_id = 2 [(validate.v1.rules).bytes.len = 3]; //20
 };
 
 // range of Integer from e2ap-v01.00.00.asn:1083
 message GnbCuUpId {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 68719476735}];
+    int64 value = 1 [(validate.v1.rules).int64 = {lte: 68719476735}];
 };
 
 // range of Integer from e2ap-v01.00.00.asn:1084
 message GnbDuId {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 68719476735}];
+    int64 value = 1 [(validate.v1.rules).int64 = {lte: 68719476735}];
 };
 
 // sequence from e2ap-v01.00.00.asn:1090
 message GnbIdChoice {
     // choice from e2ap-v01.00.00.asn:1090
     oneof gnb_id_choice {
-        BitString gnb_id = 1;
+        bytes gnb_id = 1 [(validate.v1.rules).bytes.max_len = 4]; //22-32
     }
 };
 
 // range of Integer from e2ap-v01.00.00.asn:1114
 message RanfunctionId {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095}];
+    int32 value = 1 [(validate.v1.rules).int32 = {lte: 4095}];
 };
 
 // range of Integer from e2ap-v01.00.00.asn:1116
 message RanfunctionRevision {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095}];
+    int32 value = 1 [(validate.v1.rules).int32 = {lte: 4095}];
 };
 
 // range of Integer from e2ap-v01.00.00.asn:1123
 message RicactionId {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}];
+    int32 value = 1 [(validate.v1.rules).int32 = {lte: 255}];
 };
 
 // range of Integer from e2ap-v01.00.00.asn:1181
 message RicindicationSn {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 65535}];
+    int32 value = 1 [(validate.v1.rules).int32 = {lte: 65535}];
 };
 
 // sequence from e2ap-v01.00.00.asn:1190

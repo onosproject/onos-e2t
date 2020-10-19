@@ -5,10 +5,11 @@
 syntax = "proto3";
 
 package e2ap_v01_00_00_asn.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2appdudescriptions";
 
-import "e2ap_v01_00_00_asn/v1/e2ap-commondatatypes.proto";
-import "e2ap_v01_00_00_asn/v1/e2ap-pdu-contents.proto";
-import "e2ap_v01_00_00_asn/v1/e2ap-constants.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_commondatatypes.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_pdu_contents.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_constants.proto";
 import "validate/v1/validate.proto";
 
 // sequence from e2ap-v01.00.00.asn:90
@@ -24,22 +25,22 @@ message E2ApPdu {
 // sequence from e2ap-v01.00.00.asn:97
 message InitiatingMessage {
     E2ApElementaryProcedures procedure_code = 1;
-    @procedureCode criticality = 2;
-    @procedureCode value = 3;
+//    @procedureCode criticality = 2;
+//    @procedureCode value = 3;
 };
 
 // sequence from e2ap-v01.00.00.asn:103
 message SuccessfulOutcome {
     E2ApElementaryProcedures procedure_code = 1;
-    @procedureCode criticality = 2;
-    @procedureCode value = 3;
+//    @procedureCode criticality = 2;
+//    @procedureCode value = 3;
 };
 
 // sequence from e2ap-v01.00.00.asn:109
 message UnsuccessfulOutcome {
     E2ApElementaryProcedures procedure_code = 1;
-    @procedureCode criticality = 2;
-    @procedureCode value = 3;
+//    @procedureCode criticality = 2;
+//    @procedureCode value = 3;
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:120
@@ -60,7 +61,7 @@ message E2ApElementaryProcedures {
         RicsubscriptionResponse successful_outcome = 2;
         RicsubscriptionFailure unsuccessful_outcome = 3;
         IdRicsubscription procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProcedures002 {
@@ -68,7 +69,7 @@ message E2ApElementaryProcedures {
         RicsubscriptionDeleteResponse successful_outcome = 2;
         RicsubscriptionDeleteFailure unsuccessful_outcome = 3;
         IdRicsubscriptionDelete procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProcedures003 {
@@ -76,7 +77,7 @@ message E2ApElementaryProcedures {
         RicserviceUpdateAcknowledge successful_outcome = 2;
         RicserviceUpdateFailure unsuccessful_outcome = 3;
         IdRicserviceUpdate procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProcedures004 {
@@ -84,7 +85,7 @@ message E2ApElementaryProcedures {
         RiccontrolAcknowledge successful_outcome = 2;
         RiccontrolFailure unsuccessful_outcome = 3;
         IdRiccontrol procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProcedures005 {
@@ -92,39 +93,32 @@ message E2ApElementaryProcedures {
         E2setupResponse successful_outcome = 2;
         E2setupFailure unsuccessful_outcome = 3;
         IdE2setup procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProcedures006 {
         ResetRequest initiating_message = 1;
         ResetResponse successful_outcome = 2;
-         unsuccessful_outcome = 3;
         IdReset procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProcedures007 {
         Ricindication initiating_message = 1;
-         successful_outcome = 2;
-         unsuccessful_outcome = 3;
         IdRicindication procedure_code = 4;
-        Ignore criticality = 5;
+        CriticalityIgnore criticality = 5;
     };
 
     message E2ApElementaryProcedures008 {
         RicserviceQuery initiating_message = 1;
-         successful_outcome = 2;
-         unsuccessful_outcome = 3;
         IdRicserviceQuery procedure_code = 4;
-        Ignore criticality = 5;
+        CriticalityIgnore criticality = 5;
     };
 
     message E2ApElementaryProcedures009 {
         ErrorIndication initiating_message = 1;
-         successful_outcome = 2;
-         unsuccessful_outcome = 3;
         IdErrorIndication procedure_code = 4;
-        Ignore criticality = 5;
+        CriticalityIgnore criticality = 5;
     };
 
 };
@@ -144,7 +138,7 @@ message E2ApElementaryProceduresClass1 {
         RicsubscriptionResponse successful_outcome = 2;
         RicsubscriptionFailure unsuccessful_outcome = 3;
         IdRicsubscription procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProceduresClass1002 {
@@ -152,7 +146,7 @@ message E2ApElementaryProceduresClass1 {
         RicsubscriptionDeleteResponse successful_outcome = 2;
         RicsubscriptionDeleteFailure unsuccessful_outcome = 3;
         IdRicsubscriptionDelete procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProceduresClass1003 {
@@ -160,7 +154,7 @@ message E2ApElementaryProceduresClass1 {
         RicserviceUpdateAcknowledge successful_outcome = 2;
         RicserviceUpdateFailure unsuccessful_outcome = 3;
         IdRicserviceUpdate procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProceduresClass1004 {
@@ -168,7 +162,7 @@ message E2ApElementaryProceduresClass1 {
         RiccontrolAcknowledge successful_outcome = 2;
         RiccontrolFailure unsuccessful_outcome = 3;
         IdRiccontrol procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProceduresClass1005 {
@@ -176,14 +170,14 @@ message E2ApElementaryProceduresClass1 {
         E2setupResponse successful_outcome = 2;
         E2setupFailure unsuccessful_outcome = 3;
         IdE2setup procedure_code = 4;
-        Reject criticality = 5;
+        CriticalityReject criticality = 5;
     };
 
     message E2ApElementaryProceduresClass1006 {
         ResetRequest initiating_message = 1;
         ResetResponse successful_outcome = 2;
         IdReset procedure_code = 3;
-        Reject criticality = 4;
+        CriticalityReject criticality = 4;
     };
 
 };
@@ -198,19 +192,19 @@ message E2ApElementaryProceduresClass2 {
     message E2ApElementaryProceduresClass2001 {
         Ricindication initiating_message = 1;
         IdRicindication procedure_code = 2;
-        Ignore criticality = 3;
+        CriticalityIgnore criticality = 3;
     };
 
     message E2ApElementaryProceduresClass2002 {
         RicserviceQuery initiating_message = 1;
         IdRicserviceQuery procedure_code = 2;
-        Ignore criticality = 3;
+        CriticalityIgnore criticality = 3;
     };
 
     message E2ApElementaryProceduresClass2003 {
         ErrorIndication initiating_message = 1;
         IdErrorIndication procedure_code = 2;
-        Ignore criticality = 3;
+        CriticalityIgnore criticality = 3;
     };
 
 };
@@ -221,22 +215,22 @@ message E2setup {
     E2setupResponse successful_outcome = 2;
     E2setupFailure unsuccessful_outcome = 3;
     IdE2setup procedure_code = 4;
-    Reject criticality = 5;
+    CriticalityReject criticality = 5;
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:157
-message ErrorIndication {
-    ErrorIndication initiating_message = 1;
-    IdErrorIndication procedure_code = 2;
-    Ignore criticality = 3;
-};
+//message ErrorIndication {
+//    ErrorIndication initiating_message = 1;
+//    IdErrorIndication procedure_code = 2;
+//    CriticalityIgnore criticality = 3;
+//};
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:163
 message Reset {
     ResetRequest initiating_message = 1;
     ResetResponse successful_outcome = 2;
     IdReset procedure_code = 3;
-    Reject criticality = 4;
+    CriticalityReject criticality = 4;
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:170
@@ -245,21 +239,21 @@ message RicControl {
     RiccontrolAcknowledge successful_outcome = 2;
     RiccontrolFailure unsuccessful_outcome = 3;
     IdRiccontrol procedure_code = 4;
-    Reject criticality = 5;
+    CriticalityReject criticality = 5;
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:178
 message RicIndication {
     Ricindication initiating_message = 1;
     IdRicindication procedure_code = 2;
-    Ignore criticality = 3;
+    CriticalityIgnore criticality = 3;
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:184
 message RicServiceQuery {
     RicserviceQuery initiating_message = 1;
     IdRicserviceQuery procedure_code = 2;
-    Ignore criticality = 3;
+    CriticalityIgnore criticality = 3;
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:190
@@ -268,7 +262,7 @@ message RicServiceUpdate {
     RicserviceUpdateAcknowledge successful_outcome = 2;
     RicserviceUpdateFailure unsuccessful_outcome = 3;
     IdRicserviceUpdate procedure_code = 4;
-    Reject criticality = 5;
+    CriticalityReject criticality = 5;
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:198
@@ -277,7 +271,7 @@ message RicSubscription {
     RicsubscriptionResponse successful_outcome = 2;
     RicsubscriptionFailure unsuccessful_outcome = 3;
     IdRicsubscription procedure_code = 4;
-    Reject criticality = 5;
+    CriticalityReject criticality = 5;
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.00.00.asn:206
@@ -286,5 +280,5 @@ message RicSubscriptionDelete {
     RicsubscriptionDeleteResponse successful_outcome = 2;
     RicsubscriptionDeleteFailure unsuccessful_outcome = 3;
     IdRicsubscriptionDelete procedure_code = 4;
-    Reject criticality = 5;
+    CriticalityReject criticality = 5;
 };
