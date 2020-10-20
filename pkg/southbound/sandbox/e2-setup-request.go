@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package sandbox
 
 import (
@@ -5,7 +8,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2appdudescriptions"
 )
 
-func createE2apPdu() *e2appdudescriptions.E2ApPdu {
+func CreateE2apPdu() *e2appdudescriptions.E2ApPdu {
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
