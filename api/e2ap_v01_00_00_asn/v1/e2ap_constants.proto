@@ -1,3 +1,9 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
 ////////////////////// e2ap-constants.proto //////////////////////
 // Protobuf generated from /e2ap-v01.00.00.asn by asn1c-0.9.29
 // E2AP-Constants { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version1(1) e2ap(1) e2ap-Constants(4) }
@@ -5,8 +11,9 @@
 syntax = "proto3";
 
 package e2ap_v01_00_00_asn.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/constants";
 
-import "e2ap_v01_00_00_asn/v1/e2ap-commondatatypes.proto";
+import "e2ap_v01_00_00_asn/v1/e2ap_commondatatypes.proto";
 import "validate/v1/validate.proto";
 
 // reference from e2ap-v01.00.00.asn:1360
