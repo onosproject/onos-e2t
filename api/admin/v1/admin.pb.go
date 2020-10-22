@@ -3,7 +3,7 @@
 
 // Package admin defines the administrative gRPC interfaces.
 
-package admin
+package v1
 
 import (
 	context "context"
