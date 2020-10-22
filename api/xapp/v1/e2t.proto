@@ -7,11 +7,11 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 syntax = "proto3";
 
 // Package xapp defines the interior gRPC interfaces for xApps to interact with E2T.
-package onos.e2t.xapp;
+package xapp.v1;
 
 import "google/protobuf/duration.proto";
 
-message E2Control {
+message RegisterAppRequest {
     // Request encoding format (ASN.1 or Protobuf)
     // Add subscriptions
     // Remove subscriptions
@@ -19,7 +19,7 @@ message E2Control {
 }
 
 
-message E2Message {
+message RegisterAppResponse {
     // ID of E2 node that sent the message
     string e2node = 1;
     // Service model ID
@@ -34,5 +34,5 @@ service E2TService {
     // List of registered/available SMs
 
     // RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment.
-    rpc RegisterApp(stream E2Control) returns (stream E2Message);
+    rpc RegisterApp (stream RegisterAppRequest) returns (stream RegisterAppResponse);
 }

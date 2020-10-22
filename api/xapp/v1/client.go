@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package xapp
+package v1
 
 import (
 	"google.golang.org/grpc"

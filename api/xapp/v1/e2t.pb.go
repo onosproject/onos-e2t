@@ -3,7 +3,7 @@
 
 // Package xapp defines the interior gRPC interfaces for xApps to interact with E2T.
 
-package xapp
+package v1
 
 import (
 	context "context"
