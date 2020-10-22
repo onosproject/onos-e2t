@@ -18,7 +18,6 @@ message RegisterAppRequest {
     // Send control/insert/policy/query messages to specific device
 }
 
-
 message RegisterAppResponse {
     // ID of E2 node that sent the message
     string e2node = 1;
