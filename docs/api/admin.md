@@ -3,26 +3,26 @@
 
 ## Table of Contents
 
-- [api/xapp/e2t.proto](#api/xapp/e2t.proto)
-    - [E2Control](#onos.e2t.xapp.E2Control)
-    - [E2Message](#onos.e2t.xapp.E2Message)
+- [api/xapp/v1/e2t.proto](#api/xapp/v1/e2t.proto)
+    - [RegisterAppRequest](#xapp.v1.RegisterAppRequest)
+    - [RegisterAppResponse](#xapp.v1.RegisterAppResponse)
   
-    - [E2TService](#onos.e2t.xapp.E2TService)
+    - [E2TService](#xapp.v1.E2TService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="api/xapp/e2t.proto"></a>
+<a name="api/xapp/v1/e2t.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/xapp/e2t.proto
+## api/xapp/v1/e2t.proto
 
 
 
-<a name="onos.e2t.xapp.E2Control"></a>
+<a name="xapp.v1.RegisterAppRequest"></a>
 
-### E2Control
+### RegisterAppRequest
 Request encoding format (ASN.1 or Protobuf)
 Add subscriptions
 Remove subscriptions
@@ -33,9 +33,9 @@ Send control/insert/policy/query messages to specific device
 
 
 
-<a name="onos.e2t.xapp.E2Message"></a>
+<a name="xapp.v1.RegisterAppResponse"></a>
 
-### E2Message
+### RegisterAppResponse
 
 
 
@@ -56,7 +56,7 @@ Send control/insert/policy/query messages to specific device
  
 
 
-<a name="onos.e2t.xapp.E2TService"></a>
+<a name="xapp.v1.E2TService"></a>
 
 ### E2TService
 E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
@@ -65,7 +65,7 @@ List of registered/available SMs
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| RegisterApp | [E2Control](#onos.e2t.xapp.E2Control) stream | [E2Message](#onos.e2t.xapp.E2Message) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
+| RegisterApp | [RegisterAppRequest](#xapp.v1.RegisterAppRequest) stream | [RegisterAppResponse](#xapp.v1.RegisterAppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
 
  
 
