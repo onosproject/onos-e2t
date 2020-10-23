@@ -5,9 +5,11 @@
 package main
 
 import (
+	"encoding/binary"
 	"flag"
 	"fmt"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/connections"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/orane2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/sctp"
@@ -56,7 +58,8 @@ func main() {
 				e2apPdu, err = orane2.XerDecodeE2apPdu(r)
 				if err != nil {
 					fmt.Printf("unable to parse response as XER %v %s\n", err, string(r))
-					os.Exit(-1)
+					break
+					//os.Exit(-1)
 				}
 			}
 			e2inChan <- e2apPdu
@@ -75,7 +78,11 @@ func main() {
 			}
 			switch pc {
 			case e2ctypes.ProcedureCodeT_ProcedureCode_id_E2setup:
-				fmt.Printf("Received E2SetupRequest\n")
+				id := pduIn.GetInitiatingMessage().GetE2SetupRequest().ProtocolIEs.List[0].GetGlobalE2Node_ID().GetGNB().GetGlobalGNB_ID().GnbId.GetGnb_ID().BitString
+				plmnId := pduIn.GetInitiatingMessage().GetE2SetupRequest().ProtocolIEs.List[0].GetGlobalE2Node_ID().GetGNB().GetGlobalGNB_ID().PlmnId
+				connections.CreateConnection(pduIn.GetInitiatingMessage().GetE2SetupRequest())
+
+				fmt.Printf("Received E2SetupRequest from 0x%x plmnid %s\n", binary.BigEndian.Uint32(id), plmnId)
 				e2setupResp := e2proxy.NewE2SetupResponse()
 				fmt.Printf("Sending E2SetupResponse\n")
 				e2setupRespBytes, err := orane2.XerEncodeE2apPdu(e2setupResp)
@@ -104,7 +111,9 @@ func main() {
 			default:
 				fmt.Printf("Unhandled response %v", pc)
 			}
-
+			for index, conn := range connections.ListConnections() {
+				fmt.Printf("Connection #%d is %v\n", index, conn)
+			}
 		}
 	}()
 

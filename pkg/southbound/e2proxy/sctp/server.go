@@ -43,6 +43,12 @@ func StartSctpServer(endpointAddrs string, endpointPort int, recv chan []byte, s
 			return fmt.Errorf("failed to accept: %v", err)
 		}
 		log.Infof("Accepted Connection from RemoteAddr: %s", conn.RemoteAddr())
+		if addr, ok := conn.RemoteAddr().(*sctp.SCTPAddr); ok {
+			fmt.Printf("Remote IP is %s\n", addr.IPAddrs[0].String())
+			fmt.Printf("Remote port is %d\n", addr.Port)
+		} else {
+			fmt.Println("Not a SCTP connection")
+		}
 		wconn := sctp.NewSCTPSndRcvInfoWrappedConn(conn.(*sctp.SCTPConn))
 
 		sndbuf, err := wconn.GetWriteBuffer()
