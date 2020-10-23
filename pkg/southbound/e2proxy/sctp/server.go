@@ -12,7 +12,7 @@ import (
 )
 
 // StartSctpServer - the RIC is the SCTP server
-func StartSctpServer(endpointAddrs string, endpointPort int, recv chan []byte, send chan []byte, started chan <- bool) error {
+func StartSctpServer(endpointAddrs string, endpointPort int, recv chan []byte, send chan []byte, started chan<- bool) error {
 
 	var ips []net.IPAddr
 

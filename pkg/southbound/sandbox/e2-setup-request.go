@@ -15,7 +15,7 @@ func CreateE2apPdu() *e2appdudescriptions.E2ApPdu {
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
 					E2ApElementaryProcedures: &e2appdudescriptions.E2ApElementaryProcedures_Instance005{
 						Instance005: &e2appdudescriptions.E2ApElementaryProcedures_E2ApElementaryProcedures005{
-							InitiatingMessage:    &e2appducontents.E2SetupRequest{
+							InitiatingMessage: &e2appducontents.E2SetupRequest{
 								ProtocolIes: nil,
 							},
 						},
