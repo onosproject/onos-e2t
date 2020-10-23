@@ -113,12 +113,12 @@ func main() {
 		}
 	}()
 
-	<- startedChan // block until server starts listening
+	<-startedChan // block until server starts listening
 	log.Info("Starting onos-e2t")
 	if err := ioutil.WriteFile(probeFile, []byte("onos-e2t"), 0644); err != nil {
 		log.Fatalf("Unable to write probe file %s", probeFile)
 	}
 	defer os.Remove(probeFile)
 
-	<- startedChan // block again to stay running
+	<-startedChan // block again to stay running
 }
