@@ -6,7 +6,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	    "fmt"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/orane2"
