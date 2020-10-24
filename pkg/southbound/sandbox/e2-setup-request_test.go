@@ -9,6 +9,7 @@ import (
 )
 
 func TestE2SetupRequest(t *testing.T) {
-	newE2apPdu := CreateE2apPdu()
+	newE2apPdu, err := CreateE2apPdu("ONF", 100, 200)
+	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 }
