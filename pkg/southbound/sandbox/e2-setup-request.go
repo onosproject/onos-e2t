@@ -4,19 +4,60 @@
 package sandbox
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2appdudescriptions"
+	"fmt"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2apies"
+	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2appducontents"
+	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2appdudescriptions"
 )
 
-func CreateE2apPdu() *e2appdudescriptions.E2ApPdu {
+func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E2ApPdu, error) {
+	if len(plmnID) != 3 {
+		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
+	}
+
+	gnbIDIe := e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
+		Value: &e2apies.GlobalE2NodeId{
+			GlobalE2NodeId: &e2apies.GlobalE2NodeId_GNb{
+				GNb: &e2apies.GlobalE2NodeGnbId{
+					GlobalGNbId: &e2apies.GlobalgNbId{
+						PlmnId: &e2ap_commondatatypes.PlmnIdentity{
+							Value: []byte(plmnID),
+						},
+					},
+				},
+			},
+		},
+	}
+
+	ranFunctions := e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
+		Value: &e2appducontents.RanfunctionsList{
+			Value: make([]*e2appducontents.RanfunctionItemIes, 0),
+		},
+	}
+
+	for _, ranFunctionID := range ranFunctionIds {
+		ranFunction := e2appducontents.RanfunctionItemIes{
+			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
+				Value: &e2appducontents.RanfunctionItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(ranFunctionID),
+					},
+				},
+			},
+		}
+		ranFunctions.Value.Value = append(ranFunctions.Value.Value, &ranFunction)
+	}
+
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					E2ApElementaryProcedures: &e2appdudescriptions.E2ApElementaryProcedures_Instance005{
-						Instance005: &e2appdudescriptions.E2ApElementaryProcedures_E2ApElementaryProcedures005{
-							InitiatingMessage: &e2appducontents.E2SetupRequest{
-								ProtocolIes: nil,
+					E2Setup: &e2appdudescriptions.E2Setup{
+						InitiatingMessage: &e2appducontents.E2SetupRequest{
+							ProtocolIes: &e2appducontents.E2SetupRequestIes{
+								E2ApProtocolIes3:  &gnbIDIe,
+								E2ApProtocolIes10: &ranFunctions,
 							},
 						},
 					},
@@ -24,5 +65,5 @@ func CreateE2apPdu() *e2appdudescriptions.E2ApPdu {
 			},
 		},
 	}
-	return &e2apPdu
+	return &e2apPdu, nil
 }

@@ -5,17 +5,17 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 */
 
 ////////////////////// e2ap-commondatatypes.proto //////////////////////
-// Protobuf generated from /e2ap-v01.00.00.asn by asn1c-0.9.29
+// Protobuf generated from /e2ap-v01.00.00.asn1 by asn1c-0.9.29
 // E2AP-CommonDataTypes { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version1(1) e2ap(1) e2ap-CommonDataTypes(3) }
 
 syntax = "proto3";
 
-package e2ap_v01_00_00_asn.v1;
-option go_package = "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/commondatatypes";
+package e2ap_v01_00_00_asn1.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2ap-commondatatypes";
 
 import "validate/v1/validate.proto";
 
-// enumerated from e2ap-v01.00.00.asn:1292
+// enumerated from e2ap-v01.00.00.asn1:1202
 enum Criticality {
     CRITICALITY_REJECT = 0;
     CRITICALITY_IGNORE = 1;
@@ -60,14 +60,14 @@ enum TriggeringMessage {
     TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME = 2;
 };
 
-// range of Integer from e2ap-v01.00.00.asn:1296
+// range of Integer from e2ap-v01.00.00.asn1:1206
 message ProcedureCode {
-    int32 value = 1 [(validate.v1.rules).int32 = {lte: 255}];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}];
 };
 
-// range of Integer from e2ap-v01.00.00.asn:1298
+// range of Integer from e2ap-v01.00.00.asn1:1208
 message ProtocolIeId {
-    int32 value = 1 [(validate.v1.rules).int32 = {lte: 65535}];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 65535}];
 };
 
 message RiccallProcessId {
@@ -100,4 +100,12 @@ message RanfunctionDefinition {
 
 message PlmnIdentity {
     bytes value = 1 [(validate.v1.rules).bytes.len = 3];
+}
+
+message RiceventTriggerDefinition {
+    bytes value = 1;
+}
+
+message RicactionDefinition {
+    bytes value = 1;
 }
