@@ -12,6 +12,7 @@ package headers.v1;
 // RequestHeader a common request header for all requests including encoding type, client/xApp/session info, ordering info, etc
 message RequestHeader {
     EncodingType encoding_type = 1;
+
     // TODO more fields should be added
 
 }
@@ -28,3 +29,4 @@ enum EncodingType {
     ASN = 0;
     PROTO = 1;
 }
+

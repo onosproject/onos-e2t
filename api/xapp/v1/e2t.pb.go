@@ -10,7 +10,6 @@ import (
 	fmt "fmt"
 	proto "github.com/gogo/protobuf/proto"
 	_ "github.com/gogo/protobuf/types"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2appducontents"
 	v1 "github.com/onosproject/onos-e2t/api/headers/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -29,61 +28,44 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-type RegisterAppRequest struct {
-	Header               *v1.RequestHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
-	XXX_unrecognized     []byte            `json:"-"`
-	XXX_sizecache        int32             `json:"-"`
+// ResponseStatus
+type ResponseStatus int32
+
+const (
+	ResponseStatus_FAILED     ResponseStatus = 0
+	ResponseStatus_SUCCESSFUL ResponseStatus = 1
+)
+
+var ResponseStatus_name = map[int32]string{
+	0: "FAILED",
+	1: "SUCCESSFUL",
 }
 
-func (m *RegisterAppRequest) Reset()         { *m = RegisterAppRequest{} }
-func (m *RegisterAppRequest) String() string { return proto.CompactTextString(m) }
-func (*RegisterAppRequest) ProtoMessage()    {}
-func (*RegisterAppRequest) Descriptor() ([]byte, []int) {
+var ResponseStatus_value = map[string]int32{
+	"FAILED":     0,
+	"SUCCESSFUL": 1,
+}
+
+func (x ResponseStatus) String() string {
+	return proto.EnumName(ResponseStatus_name, int32(x))
+}
+
+func (ResponseStatus) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_1efc8e113ae35d9c, []int{0}
 }
-func (m *RegisterAppRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RegisterAppRequest.Unmarshal(m, b)
-}
-func (m *RegisterAppRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RegisterAppRequest.Marshal(b, m, deterministic)
-}
-func (m *RegisterAppRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RegisterAppRequest.Merge(m, src)
-}
-func (m *RegisterAppRequest) XXX_Size() int {
-	return xxx_messageInfo_RegisterAppRequest.Size(m)
-}
-func (m *RegisterAppRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_RegisterAppRequest.DiscardUnknown(m)
-}
 
-var xxx_messageInfo_RegisterAppRequest proto.InternalMessageInfo
-
-func (m *RegisterAppRequest) GetHeader() *v1.RequestHeader {
-	if m != nil {
-		return m.Header
-	}
-	return nil
-}
-
-// SubscribeRequest a subscription or subscription delete request
+// SubscribeRequest a subscription request
 type SubscribeRequest struct {
-	Header *v1.RequestHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// Types that are valid to be assigned to Req:
-	//	*SubscribeRequest_SubReq
-	//	*SubscribeRequest_DelReq
-	Req                  isSubscribeRequest_Req `protobuf_oneof:"req"`
-	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
-	XXX_unrecognized     []byte                 `json:"-"`
-	XXX_sizecache        int32                  `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *SubscribeRequest) Reset()         { *m = SubscribeRequest{} }
 func (m *SubscribeRequest) String() string { return proto.CompactTextString(m) }
 func (*SubscribeRequest) ProtoMessage()    {}
 func (*SubscribeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1efc8e113ae35d9c, []int{1}
+	return fileDescriptor_1efc8e113ae35d9c, []int{0}
 }
 func (m *SubscribeRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SubscribeRequest.Unmarshal(m, b)
@@ -103,77 +85,19 @@ func (m *SubscribeRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SubscribeRequest proto.InternalMessageInfo
 
-type isSubscribeRequest_Req interface {
-	isSubscribeRequest_Req()
-}
-
-type SubscribeRequest_SubReq struct {
-	SubReq *e2appducontents.RicsubscriptionRequest `protobuf:"bytes,2,opt,name=sub_req,json=subReq,proto3,oneof" json:"sub_req,omitempty"`
-}
-type SubscribeRequest_DelReq struct {
-	DelReq *e2appducontents.RicsubscriptionDeleteRequest `protobuf:"bytes,3,opt,name=del_req,json=delReq,proto3,oneof" json:"del_req,omitempty"`
-}
-
-func (*SubscribeRequest_SubReq) isSubscribeRequest_Req() {}
-func (*SubscribeRequest_DelReq) isSubscribeRequest_Req() {}
-
-func (m *SubscribeRequest) GetReq() isSubscribeRequest_Req {
-	if m != nil {
-		return m.Req
-	}
-	return nil
-}
-
-func (m *SubscribeRequest) GetHeader() *v1.RequestHeader {
-	if m != nil {
-		return m.Header
-	}
-	return nil
-}
-
-func (m *SubscribeRequest) GetSubReq() *e2appducontents.RicsubscriptionRequest {
-	if x, ok := m.GetReq().(*SubscribeRequest_SubReq); ok {
-		return x.SubReq
-	}
-	return nil
-}
-
-func (m *SubscribeRequest) GetDelReq() *e2appducontents.RicsubscriptionDeleteRequest {
-	if x, ok := m.GetReq().(*SubscribeRequest_DelReq); ok {
-		return x.DelReq
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*SubscribeRequest) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*SubscribeRequest_SubReq)(nil),
-		(*SubscribeRequest_DelReq)(nil),
-	}
-}
-
-// SubscribeResponse
+// SubscribeResponse a subscription response
 type SubscribeResponse struct {
-	Header *v1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// Types that are valid to be assigned to Resp:
-	//	*SubscribeResponse_SubResp
-	//	*SubscribeResponse_SubFailureResp
-	//	*SubscribeResponse_SubDelResp
-	//	*SubscribeResponse_SubDelFailureResp
-	//	*SubscribeResponse_Indication
-	//	*SubscribeResponse_Payload
-	Resp                 isSubscribeResponse_Resp `protobuf_oneof:"resp"`
-	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
-	XXX_unrecognized     []byte                   `json:"-"`
-	XXX_sizecache        int32                    `json:"-"`
+	Status               ResponseStatus `protobuf:"varint,1,opt,name=status,proto3,enum=xapp.v1.ResponseStatus" json:"status,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
 }
 
 func (m *SubscribeResponse) Reset()         { *m = SubscribeResponse{} }
 func (m *SubscribeResponse) String() string { return proto.CompactTextString(m) }
 func (*SubscribeResponse) ProtoMessage()    {}
 func (*SubscribeResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1efc8e113ae35d9c, []int{2}
+	return fileDescriptor_1efc8e113ae35d9c, []int{1}
 }
 func (m *SubscribeResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SubscribeResponse.Unmarshal(m, b)
@@ -193,216 +117,305 @@ func (m *SubscribeResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SubscribeResponse proto.InternalMessageInfo
 
-type isSubscribeResponse_Resp interface {
-	isSubscribeResponse_Resp()
+func (m *SubscribeResponse) GetStatus() ResponseStatus {
+	if m != nil {
+		return m.Status
+	}
+	return ResponseStatus_FAILED
 }
 
-type SubscribeResponse_SubResp struct {
-	SubResp *e2appducontents.RicsubscriptionResponse `protobuf:"bytes,2,opt,name=sub_resp,json=subResp,proto3,oneof" json:"sub_resp,omitempty"`
-}
-type SubscribeResponse_SubFailureResp struct {
-	SubFailureResp *e2appducontents.RicsubscriptionFailure `protobuf:"bytes,3,opt,name=sub_failure_resp,json=subFailureResp,proto3,oneof" json:"sub_failure_resp,omitempty"`
-}
-type SubscribeResponse_SubDelResp struct {
-	SubDelResp *e2appducontents.RicsubscriptionDeleteResponse `protobuf:"bytes,4,opt,name=sub_del_resp,json=subDelResp,proto3,oneof" json:"sub_del_resp,omitempty"`
-}
-type SubscribeResponse_SubDelFailureResp struct {
-	SubDelFailureResp *e2appducontents.RicsubscriptionDeleteFailure `protobuf:"bytes,5,opt,name=sub_del_failure_resp,json=subDelFailureResp,proto3,oneof" json:"sub_del_failure_resp,omitempty"`
-}
-type SubscribeResponse_Indication struct {
-	Indication *e2appducontents.Ricindication `protobuf:"bytes,6,opt,name=indication,proto3,oneof" json:"indication,omitempty"`
-}
-type SubscribeResponse_Payload struct {
-	Payload []byte `protobuf:"bytes,7,opt,name=payload,proto3,oneof" json:"payload,omitempty"`
+// SubscribeDeleteRequest a subscription delete request
+type SubscribeDeleteRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (*SubscribeResponse_SubResp) isSubscribeResponse_Resp()           {}
-func (*SubscribeResponse_SubFailureResp) isSubscribeResponse_Resp()    {}
-func (*SubscribeResponse_SubDelResp) isSubscribeResponse_Resp()        {}
-func (*SubscribeResponse_SubDelFailureResp) isSubscribeResponse_Resp() {}
-func (*SubscribeResponse_Indication) isSubscribeResponse_Resp()        {}
-func (*SubscribeResponse_Payload) isSubscribeResponse_Resp()           {}
+func (m *SubscribeDeleteRequest) Reset()         { *m = SubscribeDeleteRequest{} }
+func (m *SubscribeDeleteRequest) String() string { return proto.CompactTextString(m) }
+func (*SubscribeDeleteRequest) ProtoMessage()    {}
+func (*SubscribeDeleteRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1efc8e113ae35d9c, []int{2}
+}
+func (m *SubscribeDeleteRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SubscribeDeleteRequest.Unmarshal(m, b)
+}
+func (m *SubscribeDeleteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SubscribeDeleteRequest.Marshal(b, m, deterministic)
+}
+func (m *SubscribeDeleteRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SubscribeDeleteRequest.Merge(m, src)
+}
+func (m *SubscribeDeleteRequest) XXX_Size() int {
+	return xxx_messageInfo_SubscribeDeleteRequest.Size(m)
+}
+func (m *SubscribeDeleteRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SubscribeDeleteRequest.DiscardUnknown(m)
+}
 
-func (m *SubscribeResponse) GetResp() isSubscribeResponse_Resp {
+var xxx_messageInfo_SubscribeDeleteRequest proto.InternalMessageInfo
+
+// SubscribeDeleteResponse a subscription delete response
+type SubscribeDeleteResponse struct {
+	Status               ResponseStatus `protobuf:"varint,1,opt,name=status,proto3,enum=xapp.v1.ResponseStatus" json:"status,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *SubscribeDeleteResponse) Reset()         { *m = SubscribeDeleteResponse{} }
+func (m *SubscribeDeleteResponse) String() string { return proto.CompactTextString(m) }
+func (*SubscribeDeleteResponse) ProtoMessage()    {}
+func (*SubscribeDeleteResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1efc8e113ae35d9c, []int{3}
+}
+func (m *SubscribeDeleteResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SubscribeDeleteResponse.Unmarshal(m, b)
+}
+func (m *SubscribeDeleteResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SubscribeDeleteResponse.Marshal(b, m, deterministic)
+}
+func (m *SubscribeDeleteResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SubscribeDeleteResponse.Merge(m, src)
+}
+func (m *SubscribeDeleteResponse) XXX_Size() int {
+	return xxx_messageInfo_SubscribeDeleteResponse.Size(m)
+}
+func (m *SubscribeDeleteResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SubscribeDeleteResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SubscribeDeleteResponse proto.InternalMessageInfo
+
+func (m *SubscribeDeleteResponse) GetStatus() ResponseStatus {
+	if m != nil {
+		return m.Status
+	}
+	return ResponseStatus_FAILED
+}
+
+// AppRequest
+type AppRequest struct {
+	Header *v1.RequestHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// Types that are valid to be assigned to Req:
+	//	*AppRequest_SubReq
+	//	*AppRequest_SubDelReq
+	Req                  isAppRequest_Req `protobuf_oneof:"req"`
+	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
+	XXX_unrecognized     []byte           `json:"-"`
+	XXX_sizecache        int32            `json:"-"`
+}
+
+func (m *AppRequest) Reset()         { *m = AppRequest{} }
+func (m *AppRequest) String() string { return proto.CompactTextString(m) }
+func (*AppRequest) ProtoMessage()    {}
+func (*AppRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1efc8e113ae35d9c, []int{4}
+}
+func (m *AppRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AppRequest.Unmarshal(m, b)
+}
+func (m *AppRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AppRequest.Marshal(b, m, deterministic)
+}
+func (m *AppRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AppRequest.Merge(m, src)
+}
+func (m *AppRequest) XXX_Size() int {
+	return xxx_messageInfo_AppRequest.Size(m)
+}
+func (m *AppRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AppRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AppRequest proto.InternalMessageInfo
+
+type isAppRequest_Req interface {
+	isAppRequest_Req()
+}
+
+type AppRequest_SubReq struct {
+	SubReq *SubscribeRequest `protobuf:"bytes,2,opt,name=sub_req,json=subReq,proto3,oneof" json:"sub_req,omitempty"`
+}
+type AppRequest_SubDelReq struct {
+	SubDelReq *SubscribeDeleteRequest `protobuf:"bytes,3,opt,name=sub_del_req,json=subDelReq,proto3,oneof" json:"sub_del_req,omitempty"`
+}
+
+func (*AppRequest_SubReq) isAppRequest_Req()    {}
+func (*AppRequest_SubDelReq) isAppRequest_Req() {}
+
+func (m *AppRequest) GetReq() isAppRequest_Req {
+	if m != nil {
+		return m.Req
+	}
+	return nil
+}
+
+func (m *AppRequest) GetHeader() *v1.RequestHeader {
+	if m != nil {
+		return m.Header
+	}
+	return nil
+}
+
+func (m *AppRequest) GetSubReq() *SubscribeRequest {
+	if x, ok := m.GetReq().(*AppRequest_SubReq); ok {
+		return x.SubReq
+	}
+	return nil
+}
+
+func (m *AppRequest) GetSubDelReq() *SubscribeDeleteRequest {
+	if x, ok := m.GetReq().(*AppRequest_SubDelReq); ok {
+		return x.SubDelReq
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*AppRequest) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*AppRequest_SubReq)(nil),
+		(*AppRequest_SubDelReq)(nil),
+	}
+}
+
+// AppResponse
+type AppResponse struct {
+	Header *v1.RequestHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	// Types that are valid to be assigned to Resp:
+	//	*AppResponse_SubResp
+	//	*AppResponse_SubDelResp
+	Resp                 isAppResponse_Resp `protobuf_oneof:"resp"`
+	Payload              []byte             `protobuf:"bytes,4,opt,name=payload,proto3" json:"payload,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *AppResponse) Reset()         { *m = AppResponse{} }
+func (m *AppResponse) String() string { return proto.CompactTextString(m) }
+func (*AppResponse) ProtoMessage()    {}
+func (*AppResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1efc8e113ae35d9c, []int{5}
+}
+func (m *AppResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AppResponse.Unmarshal(m, b)
+}
+func (m *AppResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AppResponse.Marshal(b, m, deterministic)
+}
+func (m *AppResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AppResponse.Merge(m, src)
+}
+func (m *AppResponse) XXX_Size() int {
+	return xxx_messageInfo_AppResponse.Size(m)
+}
+func (m *AppResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AppResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AppResponse proto.InternalMessageInfo
+
+type isAppResponse_Resp interface {
+	isAppResponse_Resp()
+}
+
+type AppResponse_SubResp struct {
+	SubResp *SubscribeResponse `protobuf:"bytes,2,opt,name=sub_resp,json=subResp,proto3,oneof" json:"sub_resp,omitempty"`
+}
+type AppResponse_SubDelResp struct {
+	SubDelResp *SubscribeDeleteResponse `protobuf:"bytes,3,opt,name=sub_del_resp,json=subDelResp,proto3,oneof" json:"sub_del_resp,omitempty"`
+}
+
+func (*AppResponse_SubResp) isAppResponse_Resp()    {}
+func (*AppResponse_SubDelResp) isAppResponse_Resp() {}
+
+func (m *AppResponse) GetResp() isAppResponse_Resp {
 	if m != nil {
 		return m.Resp
 	}
 	return nil
 }
 
-func (m *SubscribeResponse) GetHeader() *v1.ResponseHeader {
+func (m *AppResponse) GetHeader() *v1.RequestHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
 
-func (m *SubscribeResponse) GetSubResp() *e2appducontents.RicsubscriptionResponse {
-	if x, ok := m.GetResp().(*SubscribeResponse_SubResp); ok {
+func (m *AppResponse) GetSubResp() *SubscribeResponse {
+	if x, ok := m.GetResp().(*AppResponse_SubResp); ok {
 		return x.SubResp
 	}
 	return nil
 }
 
-func (m *SubscribeResponse) GetSubFailureResp() *e2appducontents.RicsubscriptionFailure {
-	if x, ok := m.GetResp().(*SubscribeResponse_SubFailureResp); ok {
-		return x.SubFailureResp
-	}
-	return nil
-}
-
-func (m *SubscribeResponse) GetSubDelResp() *e2appducontents.RicsubscriptionDeleteResponse {
-	if x, ok := m.GetResp().(*SubscribeResponse_SubDelResp); ok {
+func (m *AppResponse) GetSubDelResp() *SubscribeDeleteResponse {
+	if x, ok := m.GetResp().(*AppResponse_SubDelResp); ok {
 		return x.SubDelResp
 	}
 	return nil
 }
 
-func (m *SubscribeResponse) GetSubDelFailureResp() *e2appducontents.RicsubscriptionDeleteFailure {
-	if x, ok := m.GetResp().(*SubscribeResponse_SubDelFailureResp); ok {
-		return x.SubDelFailureResp
-	}
-	return nil
-}
-
-func (m *SubscribeResponse) GetIndication() *e2appducontents.Ricindication {
-	if x, ok := m.GetResp().(*SubscribeResponse_Indication); ok {
-		return x.Indication
-	}
-	return nil
-}
-
-func (m *SubscribeResponse) GetPayload() []byte {
-	if x, ok := m.GetResp().(*SubscribeResponse_Payload); ok {
-		return x.Payload
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*SubscribeResponse) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*SubscribeResponse_SubResp)(nil),
-		(*SubscribeResponse_SubFailureResp)(nil),
-		(*SubscribeResponse_SubDelResp)(nil),
-		(*SubscribeResponse_SubDelFailureResp)(nil),
-		(*SubscribeResponse_Indication)(nil),
-		(*SubscribeResponse_Payload)(nil),
-	}
-}
-
-type RegisterAppResponse struct {
-	Header *v1.RequestHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// ID of E2 node that sent the message
-	E2Node string `protobuf:"bytes,2,opt,name=e2node,proto3" json:"e2node,omitempty"`
-	// Service model ID
-	ServiceModel string `protobuf:"bytes,3,opt,name=service_model,json=serviceModel,proto3" json:"service_model,omitempty"`
-	// Message data (encoded as ASN.1 or Protobuf)
-	Payload              []byte   `protobuf:"bytes,4,opt,name=payload,proto3" json:"payload,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *RegisterAppResponse) Reset()         { *m = RegisterAppResponse{} }
-func (m *RegisterAppResponse) String() string { return proto.CompactTextString(m) }
-func (*RegisterAppResponse) ProtoMessage()    {}
-func (*RegisterAppResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1efc8e113ae35d9c, []int{3}
-}
-func (m *RegisterAppResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RegisterAppResponse.Unmarshal(m, b)
-}
-func (m *RegisterAppResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RegisterAppResponse.Marshal(b, m, deterministic)
-}
-func (m *RegisterAppResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RegisterAppResponse.Merge(m, src)
-}
-func (m *RegisterAppResponse) XXX_Size() int {
-	return xxx_messageInfo_RegisterAppResponse.Size(m)
-}
-func (m *RegisterAppResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_RegisterAppResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_RegisterAppResponse proto.InternalMessageInfo
-
-func (m *RegisterAppResponse) GetHeader() *v1.RequestHeader {
-	if m != nil {
-		return m.Header
-	}
-	return nil
-}
-
-func (m *RegisterAppResponse) GetE2Node() string {
-	if m != nil {
-		return m.E2Node
-	}
-	return ""
-}
-
-func (m *RegisterAppResponse) GetServiceModel() string {
-	if m != nil {
-		return m.ServiceModel
-	}
-	return ""
-}
-
-func (m *RegisterAppResponse) GetPayload() []byte {
+func (m *AppResponse) GetPayload() []byte {
 	if m != nil {
 		return m.Payload
 	}
 	return nil
 }
 
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*AppResponse) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*AppResponse_SubResp)(nil),
+		(*AppResponse_SubDelResp)(nil),
+	}
+}
+
 func init() {
-	proto.RegisterType((*RegisterAppRequest)(nil), "xapp.v1.RegisterAppRequest")
+	proto.RegisterEnum("xapp.v1.ResponseStatus", ResponseStatus_name, ResponseStatus_value)
 	proto.RegisterType((*SubscribeRequest)(nil), "xapp.v1.SubscribeRequest")
 	proto.RegisterType((*SubscribeResponse)(nil), "xapp.v1.SubscribeResponse")
-	proto.RegisterType((*RegisterAppResponse)(nil), "xapp.v1.RegisterAppResponse")
+	proto.RegisterType((*SubscribeDeleteRequest)(nil), "xapp.v1.SubscribeDeleteRequest")
+	proto.RegisterType((*SubscribeDeleteResponse)(nil), "xapp.v1.SubscribeDeleteResponse")
+	proto.RegisterType((*AppRequest)(nil), "xapp.v1.AppRequest")
+	proto.RegisterType((*AppResponse)(nil), "xapp.v1.AppResponse")
 }
 
 func init() { proto.RegisterFile("api/xapp/v1/e2t.proto", fileDescriptor_1efc8e113ae35d9c) }
 
 var fileDescriptor_1efc8e113ae35d9c = []byte{
-	// 564 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x94, 0x49, 0x6f, 0xd3, 0x40,
-	0x14, 0xc7, 0x63, 0x92, 0xda, 0xe4, 0x35, 0xa0, 0x76, 0x58, 0xe4, 0x1a, 0x84, 0xaa, 0xc0, 0x21,
-	0x97, 0xda, 0x89, 0xcb, 0x91, 0x0b, 0x55, 0x28, 0x91, 0x58, 0x24, 0x5c, 0x0e, 0x70, 0xb2, 0xbc,
-	0xbc, 0xa4, 0x46, 0xae, 0x67, 0xe2, 0xb1, 0x23, 0xf8, 0x30, 0x08, 0x3e, 0x1d, 0x9f, 0x03, 0xcd,
-	0x92, 0xb5, 0xad, 0x94, 0x54, 0xf2, 0xc1, 0xf3, 0xe6, 0xff, 0x7e, 0xf3, 0xfe, 0x6f, 0x16, 0x78,
-	0x12, 0xb1, 0xcc, 0xfb, 0x19, 0x31, 0xe6, 0xcd, 0x06, 0x1e, 0xfa, 0x95, 0xcb, 0x4a, 0x5a, 0x51,
-	0x62, 0x89, 0x90, 0x3b, 0x1b, 0x38, 0x2f, 0x26, 0x94, 0x4e, 0x72, 0xf4, 0x64, 0x38, 0xae, 0xc7,
-	0x5e, 0x5a, 0x97, 0x51, 0x95, 0xd1, 0x42, 0x09, 0x9d, 0x2f, 0x93, 0xac, 0xba, 0xac, 0x63, 0x37,
-	0xa1, 0x57, 0x1e, 0x2d, 0x28, 0x67, 0x25, 0xfd, 0x81, 0x49, 0x25, 0xff, 0x4f, 0xd0, 0xaf, 0x3c,
-	0xc1, 0x47, 0x3f, 0x62, 0xe1, 0xac, 0x3f, 0x08, 0xfb, 0x7d, 0xf1, 0x45, 0xbc, 0x50, 0xab, 0x45,
-	0x2c, 0x64, 0x69, 0x1d, 0x26, 0xb4, 0xa8, 0xb0, 0xa8, 0xb8, 0x46, 0xbe, 0xd9, 0x06, 0x79, 0x89,
-	0x51, 0x8a, 0x25, 0x17, 0x1c, 0xfd, 0xab, 0xb2, 0xbb, 0xef, 0x81, 0x04, 0x38, 0xc9, 0x78, 0x85,
-	0xe5, 0x5b, 0xc6, 0x02, 0x9c, 0xd6, 0xc8, 0x2b, 0x32, 0x00, 0x53, 0xc9, 0x6c, 0xe3, 0xd8, 0xe8,
-	0xed, 0xfb, 0x47, 0xee, 0x3c, 0x6b, 0x36, 0x70, 0xb5, 0x68, 0x24, 0x23, 0x81, 0x16, 0x76, 0xff,
-	0x19, 0x70, 0x70, 0x51, 0xc7, 0x3c, 0x29, 0xb3, 0x18, 0xef, 0xce, 0x21, 0x23, 0xb0, 0x78, 0x1d,
-	0x87, 0x25, 0x4e, 0xed, 0x7b, 0x32, 0xe7, 0xc4, 0xbd, 0xde, 0x0f, 0x99, 0x9e, 0x25, 0x5c, 0xad,
-	0xc7, 0x44, 0x83, 0xe7, 0xb4, 0x46, 0x60, 0xf2, 0x3a, 0x0e, 0x70, 0x4a, 0x3e, 0x83, 0x95, 0x62,
-	0x2e, 0x49, 0x4d, 0x49, 0x3a, 0xdd, 0x8e, 0x34, 0xc4, 0x1c, 0x2b, 0x5c, 0xe1, 0xa5, 0x98, 0x07,
-	0x38, 0x3d, 0xdb, 0x83, 0x66, 0x89, 0xd3, 0xee, 0xef, 0x16, 0x1c, 0xae, 0x18, 0xe5, 0x8c, 0x16,
-	0x1c, 0x89, 0xbf, 0xe1, 0xd4, 0x59, 0x77, 0xaa, 0x54, 0x1b, 0x56, 0x3f, 0xc0, 0x7d, 0x65, 0x95,
-	0x33, 0xed, 0xd5, 0xdd, 0xd6, 0xab, 0xe6, 0x35, 0x02, 0x4b, 0x9a, 0xe5, 0x8c, 0x7c, 0x87, 0x03,
-	0x01, 0x1b, 0x47, 0x59, 0x5e, 0x97, 0xa8, 0xa0, 0xcd, 0x5d, 0x1a, 0x78, 0xae, 0x32, 0x47, 0x8d,
-	0xe0, 0x21, 0xaf, 0x63, 0x3d, 0x92, 0xe8, 0x6f, 0xd0, 0x11, 0x68, 0xd5, 0x4c, 0xce, 0xec, 0x96,
-	0xc4, 0xbe, 0xde, 0xad, 0x9b, 0x8b, 0x8a, 0x81, 0xd7, 0xf1, 0x50, 0x74, 0x94, 0x33, 0x32, 0x86,
-	0xc7, 0x73, 0xf2, 0x5a, 0xe1, 0x7b, 0xbb, 0xef, 0xd7, 0xb2, 0xfc, 0x43, 0xb5, 0xc0, 0xaa, 0x83,
-	0x73, 0x80, 0xac, 0x48, 0xb3, 0x44, 0x5e, 0x45, 0xdb, 0x94, 0xf4, 0x57, 0xb7, 0xd3, 0x97, 0x5a,
-	0x51, 0xef, 0x72, 0x44, 0x1c, 0xb0, 0x58, 0xf4, 0x2b, 0xa7, 0x51, 0x6a, 0x5b, 0xc7, 0x46, 0xaf,
-	0x23, 0x36, 0x40, 0x07, 0xce, 0x4c, 0x68, 0x89, 0xda, 0xbb, 0x7f, 0x0c, 0x78, 0xb4, 0x76, 0xa5,
-	0xf4, 0x09, 0xb9, 0xc3, 0x5d, 0x78, 0x0a, 0x26, 0xfa, 0x05, 0x4d, 0x51, 0x1e, 0x8f, 0x76, 0xa0,
-	0x47, 0xe4, 0x25, 0x3c, 0xe0, 0x58, 0xce, 0xb2, 0x04, 0xc3, 0x2b, 0x9a, 0x62, 0x2e, 0x37, 0xba,
-	0x1d, 0x74, 0x74, 0xf0, 0x93, 0x88, 0x11, 0x7b, 0x59, 0xab, 0xd8, 0xb0, 0xce, 0xa2, 0x52, 0xff,
-	0xaf, 0x01, 0xf0, 0xce, 0xff, 0x7a, 0xa1, 0xd4, 0x64, 0x08, 0xed, 0xc5, 0x79, 0x26, 0x47, 0xae,
-	0x7e, 0xca, 0xdc, 0xcd, 0xcb, 0xec, 0x38, 0x37, 0x4d, 0x29, 0x73, 0x7d, 0x83, 0x7c, 0x84, 0xfd,
-	0x15, 0xd7, 0xe4, 0xd9, 0x42, 0x7c, 0xfd, 0x79, 0x71, 0x9e, 0xdf, 0x3c, 0xa9, 0x58, 0x3d, 0xa3,
-	0x6f, 0xc4, 0xa6, 0x7c, 0x9d, 0x4e, 0xff, 0x07, 0x00, 0x00, 0xff, 0xff, 0x52, 0x12, 0x6e, 0xdb,
-	0x70, 0x05, 0x00, 0x00,
+	// 441 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x92, 0x4d, 0x6f, 0xd3, 0x30,
+	0x18, 0xc7, 0x1b, 0x36, 0x52, 0x78, 0x3a, 0x55, 0xc5, 0xbc, 0x2c, 0xf4, 0x00, 0x55, 0x4f, 0x15,
+	0x82, 0x84, 0x06, 0x24, 0x2e, 0xbb, 0x74, 0x4b, 0xa7, 0x32, 0xed, 0xe4, 0xb0, 0x33, 0x4a, 0xda,
+	0x87, 0x2e, 0x28, 0xd4, 0x8e, 0x1f, 0xbb, 0x82, 0x4f, 0xc7, 0x67, 0xe1, 0x9b, 0xa0, 0x38, 0x4e,
+	0x47, 0x19, 0x5c, 0x76, 0x73, 0x1e, 0xff, 0x5f, 0xfc, 0xb3, 0x03, 0x4f, 0x33, 0x59, 0x44, 0xdf,
+	0x33, 0x29, 0xa3, 0xed, 0x34, 0xc2, 0x58, 0x87, 0x52, 0x09, 0x2d, 0x58, 0xb7, 0x1e, 0x85, 0xdb,
+	0xe9, 0xf0, 0xc5, 0x5a, 0x88, 0x75, 0x89, 0x91, 0x1d, 0xe7, 0xe6, 0x4b, 0xb4, 0x32, 0x2a, 0xd3,
+	0x85, 0xd8, 0x34, 0xc2, 0xe1, 0xc9, 0xba, 0xd0, 0xd7, 0x26, 0x0f, 0x97, 0xe2, 0x5b, 0x24, 0x36,
+	0x82, 0xa4, 0x12, 0x5f, 0x71, 0xa9, 0xed, 0xfa, 0x0d, 0xc6, 0x3a, 0xaa, 0xf3, 0xaf, 0x31, 0x5b,
+	0xa1, 0xa2, 0xba, 0xc2, 0x2d, 0x1b, 0xf7, 0x98, 0xc1, 0x20, 0x35, 0x39, 0x2d, 0x55, 0x91, 0x23,
+	0xc7, 0xca, 0x20, 0xe9, 0x71, 0x02, 0x8f, 0xfe, 0x98, 0x91, 0x14, 0x1b, 0x42, 0x16, 0x81, 0x4f,
+	0x3a, 0xd3, 0x86, 0x02, 0x6f, 0xe4, 0x4d, 0xfa, 0xf1, 0x71, 0xe8, 0x0e, 0x18, 0xb6, 0x92, 0xd4,
+	0x6e, 0x73, 0x27, 0x1b, 0x07, 0xf0, 0x6c, 0x97, 0x92, 0x60, 0x89, 0x7a, 0x97, 0x7f, 0x01, 0xc7,
+	0xb7, 0x76, 0xee, 0xda, 0xf2, 0xd3, 0x03, 0x98, 0x49, 0xe9, 0xa2, 0xd9, 0x14, 0xfc, 0x86, 0xcf,
+	0xfa, 0x7b, 0xf1, 0xf3, 0xb0, 0xc5, 0xb5, 0x11, 0x56, 0xb4, 0xb0, 0x13, 0xee, 0x84, 0xec, 0x3d,
+	0x74, 0xc9, 0xe4, 0x9f, 0x15, 0x56, 0xc1, 0x3d, 0xe7, 0x69, 0x3b, 0xff, 0xbe, 0x99, 0x45, 0x87,
+	0xfb, 0x64, 0x72, 0x8e, 0x15, 0x9b, 0x41, 0xaf, 0x76, 0xad, 0xb0, 0xb4, 0xce, 0x03, 0xeb, 0x7c,
+	0x79, 0xdb, 0xb9, 0x47, 0xbe, 0xe8, 0xf0, 0x87, 0x64, 0xf2, 0x04, 0x4b, 0x8e, 0xd5, 0xe9, 0x7d,
+	0x38, 0x50, 0x58, 0x8d, 0x7f, 0x79, 0xd0, 0xb3, 0x04, 0xee, 0x0a, 0xee, 0x80, 0xf0, 0x01, 0x1e,
+	0x34, 0x08, 0x24, 0x1d, 0xc3, 0xf0, 0x5f, 0x0c, 0x4d, 0xc1, 0xa2, 0xc3, 0xbb, 0x16, 0x82, 0x24,
+	0x4b, 0xe0, 0xe8, 0x86, 0x82, 0xa4, 0xc3, 0x18, 0xfd, 0x1f, 0x63, 0x17, 0x01, 0x2d, 0x07, 0x49,
+	0x16, 0x40, 0x57, 0x66, 0x3f, 0x4a, 0x91, 0xad, 0x82, 0xc3, 0x91, 0x37, 0x39, 0xe2, 0xed, 0xe7,
+	0xa9, 0x0f, 0x87, 0x75, 0xee, 0xab, 0xd7, 0xd0, 0xdf, 0x7f, 0x3f, 0x06, 0xe0, 0x9f, 0xcf, 0x3e,
+	0x5e, 0xce, 0x93, 0x41, 0x87, 0xf5, 0x01, 0xd2, 0xab, 0xb3, 0xb3, 0x79, 0x9a, 0x9e, 0x5f, 0x5d,
+	0x0e, 0xbc, 0xf8, 0x02, 0x60, 0x1e, 0x7f, 0x4a, 0x51, 0x6d, 0x8b, 0x25, 0xb2, 0x13, 0xe8, 0x71,
+	0x5c, 0x17, 0xa4, 0x51, 0xcd, 0xa4, 0x64, 0x8f, 0x77, 0x87, 0xbb, 0x79, 0xf6, 0xe1, 0x93, 0xfd,
+	0x61, 0xd3, 0x34, 0xf1, 0xde, 0x7a, 0xb9, 0x6f, 0x7f, 0xf3, 0x77, 0xbf, 0x03, 0x00, 0x00, 0xff,
+	0xff, 0x66, 0xa9, 0xe5, 0x44, 0x66, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -417,9 +430,6 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type E2TServiceClient interface {
-	// Subscribe sends a subscription and subscription delete request and
-	// receives a subscription or subscription delete response
-	Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (E2TService_SubscribeClient, error)
 	// RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment.
 	RegisterApp(ctx context.Context, opts ...grpc.CallOption) (E2TService_RegisterAppClient, error)
 }
@@ -432,40 +442,8 @@ func NewE2TServiceClient(cc *grpc.ClientConn) E2TServiceClient {
 	return &e2TServiceClient{cc}
 }
 
-func (c *e2TServiceClient) Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (E2TService_SubscribeClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_E2TService_serviceDesc.Streams[0], "/xapp.v1.E2TService/Subscribe", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &e2TServiceSubscribeClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type E2TService_SubscribeClient interface {
-	Recv() (*SubscribeResponse, error)
-	grpc.ClientStream
-}
-
-type e2TServiceSubscribeClient struct {
-	grpc.ClientStream
-}
-
-func (x *e2TServiceSubscribeClient) Recv() (*SubscribeResponse, error) {
-	m := new(SubscribeResponse)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
 func (c *e2TServiceClient) RegisterApp(ctx context.Context, opts ...grpc.CallOption) (E2TService_RegisterAppClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_E2TService_serviceDesc.Streams[1], "/xapp.v1.E2TService/RegisterApp", opts...)
+	stream, err := c.cc.NewStream(ctx, &_E2TService_serviceDesc.Streams[0], "/xapp.v1.E2TService/RegisterApp", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -474,8 +452,8 @@ func (c *e2TServiceClient) RegisterApp(ctx context.Context, opts ...grpc.CallOpt
 }
 
 type E2TService_RegisterAppClient interface {
-	Send(*RegisterAppRequest) error
-	Recv() (*RegisterAppResponse, error)
+	Send(*AppRequest) error
+	Recv() (*AppResponse, error)
 	grpc.ClientStream
 }
 
@@ -483,12 +461,12 @@ type e2TServiceRegisterAppClient struct {
 	grpc.ClientStream
 }
 
-func (x *e2TServiceRegisterAppClient) Send(m *RegisterAppRequest) error {
+func (x *e2TServiceRegisterAppClient) Send(m *AppRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *e2TServiceRegisterAppClient) Recv() (*RegisterAppResponse, error) {
-	m := new(RegisterAppResponse)
+func (x *e2TServiceRegisterAppClient) Recv() (*AppResponse, error) {
+	m := new(AppResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -497,9 +475,6 @@ func (x *e2TServiceRegisterAppClient) Recv() (*RegisterAppResponse, error) {
 
 // E2TServiceServer is the server API for E2TService service.
 type E2TServiceServer interface {
-	// Subscribe sends a subscription and subscription delete request and
-	// receives a subscription or subscription delete response
-	Subscribe(*SubscribeRequest, E2TService_SubscribeServer) error
 	// RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment.
 	RegisterApp(E2TService_RegisterAppServer) error
 }
@@ -508,9 +483,6 @@ type E2TServiceServer interface {
 type UnimplementedE2TServiceServer struct {
 }
 
-func (*UnimplementedE2TServiceServer) Subscribe(req *SubscribeRequest, srv E2TService_SubscribeServer) error {
-	return status.Errorf(codes.Unimplemented, "method Subscribe not implemented")
-}
 func (*UnimplementedE2TServiceServer) RegisterApp(srv E2TService_RegisterAppServer) error {
 	return status.Errorf(codes.Unimplemented, "method RegisterApp not implemented")
 }
@@ -519,34 +491,13 @@ func RegisterE2TServiceServer(s *grpc.Server, srv E2TServiceServer) {
 	s.RegisterService(&_E2TService_serviceDesc, srv)
 }
 
-func _E2TService_Subscribe_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(SubscribeRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(E2TServiceServer).Subscribe(m, &e2TServiceSubscribeServer{stream})
-}
-
-type E2TService_SubscribeServer interface {
-	Send(*SubscribeResponse) error
-	grpc.ServerStream
-}
-
-type e2TServiceSubscribeServer struct {
-	grpc.ServerStream
-}
-
-func (x *e2TServiceSubscribeServer) Send(m *SubscribeResponse) error {
-	return x.ServerStream.SendMsg(m)
-}
-
 func _E2TService_RegisterApp_Handler(srv interface{}, stream grpc.ServerStream) error {
 	return srv.(E2TServiceServer).RegisterApp(&e2TServiceRegisterAppServer{stream})
 }
 
 type E2TService_RegisterAppServer interface {
-	Send(*RegisterAppResponse) error
-	Recv() (*RegisterAppRequest, error)
+	Send(*AppResponse) error
+	Recv() (*AppRequest, error)
 	grpc.ServerStream
 }
 
@@ -554,12 +505,12 @@ type e2TServiceRegisterAppServer struct {
 	grpc.ServerStream
 }
 
-func (x *e2TServiceRegisterAppServer) Send(m *RegisterAppResponse) error {
+func (x *e2TServiceRegisterAppServer) Send(m *AppResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *e2TServiceRegisterAppServer) Recv() (*RegisterAppRequest, error) {
-	m := new(RegisterAppRequest)
+func (x *e2TServiceRegisterAppServer) Recv() (*AppRequest, error) {
+	m := new(AppRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -571,11 +522,6 @@ var _E2TService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*E2TServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "Subscribe",
-			Handler:       _E2TService_Subscribe_Handler,
-			ServerStreams: true,
-		},
 		{
 			StreamName:    "RegisterApp",
 			Handler:       _E2TService_RegisterApp_Handler,

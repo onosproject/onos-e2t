@@ -28,7 +28,7 @@ RequestHeader a common request header for all requests including encoding type, 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| encoding_type | [EncodingType](#headers.v1.EncodingType) |  | TODO more fields should be added |
+| encoding_type | [EncodingType](#headers.v1.EncodingType) |  |  |
 
 
 

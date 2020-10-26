@@ -10,63 +10,58 @@ syntax = "proto3";
 package xapp.v1;
 
 import "google/protobuf/duration.proto";
-import "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2ap_pdu_contents.proto";
 import "github.com/onosproject/onos-e2t/api/headers/v1/headers.proto";
 
-message RegisterAppRequest {
-    headers.v1.RequestHeader header = 1;
-    // Request encoding format (ASN.1 or Protobuf)
-    // Add subscriptions
-    // Remove subscriptions
-    // Send control/insert/policy/query messages to specific device
+
+// ResponseStatus
+enum ResponseStatus {
+    FAILED = 0;
+    SUCCESSFUL = 1;
 }
 
-// SubscribeRequest a subscription or subscription delete request
+// SubscribeRequest a subscription request
 message SubscribeRequest {
+
+}
+
+
+// SubscribeResponse a subscription response
+message SubscribeResponse {
+    ResponseStatus status = 1;
+}
+
+
+// SubscribeDeleteRequest a subscription delete request
+message SubscribeDeleteRequest {
+    // TODO fields should be defined
+
+}
+
+// SubscribeDeleteResponse a subscription delete response
+message SubscribeDeleteResponse {
+    ResponseStatus status = 1;
+
+}
+
+// AppRequest
+message AppRequest {
     headers.v1.RequestHeader header = 1;
     oneof req {
-        // Subscription Request
-        e2ap_v01_00_00_asn.v1.RicsubscriptionRequest sub_req = 2;
-        // Subscription Delete Request
-        e2ap_v01_00_00_asn.v1.RicsubscriptionDeleteRequest del_req = 3;
-    }
-
-}
-
-// SubscribeResponse
-message SubscribeResponse {
-    headers.v1.ResponseHeader header = 1;
-    oneof resp {
-        // Subscription response
-        e2ap_v01_00_00_asn.v1.RicsubscriptionResponse sub_resp = 2;
-        // Subscription failure response
-        e2ap_v01_00_00_asn.v1.RicsubscriptionFailure sub_failure_resp = 3;
-
-        // Subscription delete response
-        e2ap_v01_00_00_asn.v1.RicsubscriptionDeleteResponse sub_del_resp = 4;
-
-        // Subscription delete failure response
-        e2ap_v01_00_00_asn.v1.RicsubscriptionDeleteFailure sub_del_failure_resp = 5;
-
-        // Ric Indication message
-        e2ap_v01_00_00_asn.v1.Ricindication indication = 6;
-
-        // response as an array of bytes (e.g. ASN.1 format)
-        bytes payload = 7;
+        SubscribeRequest sub_req = 2;
+        SubscribeDeleteRequest sub_del_req = 3;
 
     }
 }
 
 
-
-message RegisterAppResponse {
+// AppResponse
+message AppResponse {
     headers.v1.RequestHeader header = 1;
-    // ID of E2 node that sent the message
-    string e2node = 2;
-    // Service model ID
-    string service_model = 3;
+    oneof resp {
+        SubscribeResponse sub_resp = 2;
+        SubscribeDeleteResponse sub_del_resp = 3;
 
-    // Message data (encoded as ASN.1 or Protobuf)
+    }
     bytes payload = 4;
 }
 
@@ -74,9 +69,6 @@ message RegisterAppResponse {
 service E2TService {
     // List of registered/available SMs
 
-    // Subscribe sends a subscription and subscription delete request and
-    // receives a subscription or subscription delete response
-    rpc Subscribe(SubscribeRequest) returns (stream SubscribeResponse);
     // RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment.
-    rpc RegisterApp (stream RegisterAppRequest) returns (stream RegisterAppResponse);
+    rpc RegisterApp (stream AppRequest) returns (stream AppResponse);
 }
