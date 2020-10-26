@@ -3,47 +3,47 @@
 
 ## Table of Contents
 
-- [api/xapp/v1/e2t.proto](#api/xapp/v1/e2t.proto)
-    - [RegisterAppRequest](#xapp.v1.RegisterAppRequest)
-    - [RegisterAppResponse](#xapp.v1.RegisterAppResponse)
+- [api/headers/v1/headers.proto](#api/headers/v1/headers.proto)
+    - [RequestHeader](#headers.v1.RequestHeader)
+    - [ResponseHeader](#headers.v1.ResponseHeader)
   
-    - [E2TService](#xapp.v1.E2TService)
+    - [EncodingType](#headers.v1.EncodingType)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="api/xapp/v1/e2t.proto"></a>
+<a name="api/headers/v1/headers.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/xapp/v1/e2t.proto
+## api/headers/v1/headers.proto
 
 
 
-<a name="xapp.v1.RegisterAppRequest"></a>
+<a name="headers.v1.RequestHeader"></a>
 
-### RegisterAppRequest
-Request encoding format (ASN.1 or Protobuf)
-Add subscriptions
-Remove subscriptions
-Send control/insert/policy/query messages to specific device
-
-
-
-
-
-
-<a name="xapp.v1.RegisterAppResponse"></a>
-
-### RegisterAppResponse
-
+### RequestHeader
+RequestHeader a common request header for all requests including encoding type, client/xApp/session info, ordering info, etc
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| e2node | [string](#string) |  | ID of E2 node that sent the message |
-| service_model | [string](#string) |  | Service model ID |
-| payload | [bytes](#bytes) |  | Message data (encoded as ASN.1 or Protobuf) |
+| encoding_type | [EncodingType](#headers.v1.EncodingType) |  | TODO more fields should be added |
+
+
+
+
+
+
+<a name="headers.v1.ResponseHeader"></a>
+
+### ResponseHeader
+ResponseHeader a common response header for all responses including encoding type, client/xApp/session info, ordering info, etc
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| encoding_type | [EncodingType](#headers.v1.EncodingType) |  | TODO more fields should be added |
 
 
 
@@ -51,21 +51,21 @@ Send control/insert/policy/query messages to specific device
 
  
 
- 
+
+<a name="headers.v1.EncodingType"></a>
+
+### EncodingType
+EncodingType determines encoding type for the response messages
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| ASN | 0 |  |
+| PROTO | 1 |  |
+
 
  
 
-
-<a name="xapp.v1.E2TService"></a>
-
-### E2TService
-E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
-
-List of registered/available SMs
-
-| Method Name | Request Type | Response Type | Description |
-| ----------- | ------------ | ------------- | ------------|
-| RegisterApp | [RegisterAppRequest](#xapp.v1.RegisterAppRequest) stream | [RegisterAppResponse](#xapp.v1.RegisterAppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
+ 
 
  
 

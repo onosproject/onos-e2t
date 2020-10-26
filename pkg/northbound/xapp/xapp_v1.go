@@ -28,6 +28,10 @@ func (s Service) Register(r *grpc.Server) {
 type Server struct {
 }
 
+func (s Server) Subscribe(req *xappv1.SubscribeRequest, stream xappv1.E2TService_SubscribeServer) error {
+	panic("implement me")
+}
+
 // RegisterApp ...
 func (s Server) RegisterApp(xappv1.E2TService_RegisterAppServer) error {
 	log.Error("Implement me")

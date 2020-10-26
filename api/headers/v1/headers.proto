@@ -1,0 +1,30 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+syntax = "proto3";
+
+package headers.v1;
+
+
+// RequestHeader a common request header for all requests including encoding type, client/xApp/session info, ordering info, etc
+message RequestHeader {
+    EncodingType encoding_type = 1;
+    // TODO more fields should be added
+
+}
+
+// ResponseHeader a common response header for all responses including encoding type, client/xApp/session info, ordering info, etc
+message ResponseHeader {
+    EncodingType encoding_type = 1;
+    // TODO more fields should be added
+
+}
+
+// EncodingType determines encoding type for the response messages
+enum EncodingType {
+    ASN = 0;
+    PROTO = 1;
+}
