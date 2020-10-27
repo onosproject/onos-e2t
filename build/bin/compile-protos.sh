@@ -15,5 +15,8 @@ protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=Mg
 protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap_v01_00_00_asn1/v1/e2ap_pdu_contents.proto
 protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap_v01_00_00_asn1/v1/e2ap_pdu_descriptions.proto
 
+protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,import_path=github.com/onosproject/onos-e2t/api:. api/e2sm_kpm/v1beta1/e2sm_kpm_ies.proto
+protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,import_path=github.com/onosproject/onos-e2t/api:. api/e2sm_ni/v1beta1/e2sm_ni_ies.proto
+
 cp -r github.com/onosproject/onos-e2t/* .
 rm -rf github.com
