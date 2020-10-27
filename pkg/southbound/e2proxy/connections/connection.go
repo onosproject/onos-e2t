@@ -4,7 +4,10 @@
 
 package connections
 
+// SctpConnection represents an ASN1 SCTP connection
 type SctpConnection struct {
-	Id uint32
-	PlmnId string
+	ID              uint32
+	PlmnID          string
+	RemoteIPAddress string
+	RemotePort      uint32
 }

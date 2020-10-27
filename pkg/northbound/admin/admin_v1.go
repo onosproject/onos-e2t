@@ -6,6 +6,7 @@ package admin
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/connections"
 
 	adminv1 "github.com/onosproject/onos-e2t/api/admin/v1"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -45,8 +46,19 @@ func (s Server) ListRegisteredServiceModels(req *adminv1.ListRegisteredServiceMo
 
 // ListE2NodeConnections returns a stream of existing SCTP connections.
 func (s Server) ListE2NodeConnections(req *adminv1.ListE2NodeConnectionsRequest, stream adminv1.E2TAdminService_ListE2NodeConnectionsServer) error {
-	log.Error("implement me")
-	return nil
+	conns := connections.ListConnections()
+	var err error
+	for _, conn := range conns {
+		msg := &adminv1.ListE2NodeConnectionsResponse{
+			RemoteIp:   conn.RemoteIPAddress,
+			RemotePort: conn.RemotePort,
+			Id:         conn.ID,
+			PlmnId:     conn.PlmnID,
+		}
+
+		err = stream.Send(msg)
+	}
+	return err
 }
 
 // DropE2NodeConnections drops the specified E2 node SCTP connections
