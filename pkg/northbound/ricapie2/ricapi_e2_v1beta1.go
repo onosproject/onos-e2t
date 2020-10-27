@@ -2,16 +2,16 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package openapi_e2
+package ricapie2
 
 import (
-	e2v1beta1 "github.com/onosproject/onos-e2t/api/openapi/e2/v1beta1"
+	ricapie2v1beta1 "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 	"google.golang.org/grpc"
 )
 
-var log = logging.GetLogger("northbound", "openapi", "e2")
+var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // Service is a Service implementation for E2T service.
 type Service struct {
@@ -21,15 +21,16 @@ type Service struct {
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
 	server := Server{}
-	e2v1beta1.RegisterE2TServiceServer(r, server)
+	ricapie2v1beta1.RegisterE2TServiceServer(r, server)
+
 }
 
-// Server implements the gRPC service for E2 OpenAPI related functions.
+// Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
 }
 
 // RegisterApp ...
-func (s Server) RegisterApp(stream e2v1beta1.E2TService_RegisterAppServer) error {
+func (s Server) RegisterApp(stream ricapie2v1beta1.E2TService_RegisterAppServer) error {
 	log.Error("Implement me")
 	return nil
 }

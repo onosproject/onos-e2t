@@ -3,31 +3,31 @@
 
 ## Table of Contents
 
-- [api/openapi/e2/v1beta1/openapi_e2.proto](#api/openapi/e2/v1beta1/openapi_e2.proto)
-    - [AppRequest](#openapi.e2.v1beta1.AppRequest)
-    - [AppResponse](#openapi.e2.v1beta1.AppResponse)
-    - [Indication](#openapi.e2.v1beta1.Indication)
-    - [SubscribeDeleteRequest](#openapi.e2.v1beta1.SubscribeDeleteRequest)
-    - [SubscribeDeleteResponse](#openapi.e2.v1beta1.SubscribeDeleteResponse)
-    - [SubscribeRequest](#openapi.e2.v1beta1.SubscribeRequest)
-    - [SubscribeResponse](#openapi.e2.v1beta1.SubscribeResponse)
+- [api/ricapi/e2/v1beta1/ricapi_e2.proto](#api/ricapi/e2/v1beta1/ricapi_e2.proto)
+    - [AppRequest](#ricapi.e2.v1beta1.AppRequest)
+    - [AppResponse](#ricapi.e2.v1beta1.AppResponse)
+    - [Indication](#ricapi.e2.v1beta1.Indication)
+    - [SubscribeDeleteRequest](#ricapi.e2.v1beta1.SubscribeDeleteRequest)
+    - [SubscribeDeleteResponse](#ricapi.e2.v1beta1.SubscribeDeleteResponse)
+    - [SubscribeRequest](#ricapi.e2.v1beta1.SubscribeRequest)
+    - [SubscribeResponse](#ricapi.e2.v1beta1.SubscribeResponse)
   
-    - [ResponseStatus](#openapi.e2.v1beta1.ResponseStatus)
+    - [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus)
   
-    - [E2TService](#openapi.e2.v1beta1.E2TService)
+    - [E2TService](#ricapi.e2.v1beta1.E2TService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="api/openapi/e2/v1beta1/openapi_e2.proto"></a>
+<a name="api/ricapi/e2/v1beta1/ricapi_e2.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/openapi/e2/v1beta1/openapi_e2.proto
+## api/ricapi/e2/v1beta1/ricapi_e2.proto
 
 
 
-<a name="openapi.e2.v1beta1.AppRequest"></a>
+<a name="ricapi.e2.v1beta1.AppRequest"></a>
 
 ### AppRequest
 AppRequest
@@ -35,9 +35,9 @@ AppRequest
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [RequestHeader](#openapi.e2.v1beta1.RequestHeader) |  |  |
-| sub_req | [SubscribeRequest](#openapi.e2.v1beta1.SubscribeRequest) |  |  |
-| sub_del_req | [SubscribeDeleteRequest](#openapi.e2.v1beta1.SubscribeDeleteRequest) |  |  |
+| header | [RequestHeader](#ricapi.e2.v1beta1.RequestHeader) |  |  |
+| sub_req | [SubscribeRequest](#ricapi.e2.v1beta1.SubscribeRequest) |  |  |
+| sub_del_req | [SubscribeDeleteRequest](#ricapi.e2.v1beta1.SubscribeDeleteRequest) |  |  |
 | payload | [bytes](#bytes) |  |  |
 
 
@@ -45,7 +45,7 @@ AppRequest
 
 
 
-<a name="openapi.e2.v1beta1.AppResponse"></a>
+<a name="ricapi.e2.v1beta1.AppResponse"></a>
 
 ### AppResponse
 AppResponse
@@ -53,10 +53,10 @@ AppResponse
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [RequestHeader](#openapi.e2.v1beta1.RequestHeader) |  |  |
-| sub_resp | [SubscribeResponse](#openapi.e2.v1beta1.SubscribeResponse) |  |  |
-| sub_del_resp | [SubscribeDeleteResponse](#openapi.e2.v1beta1.SubscribeDeleteResponse) |  |  |
-| indication | [Indication](#openapi.e2.v1beta1.Indication) |  |  |
+| header | [RequestHeader](#ricapi.e2.v1beta1.RequestHeader) |  |  |
+| sub_resp | [SubscribeResponse](#ricapi.e2.v1beta1.SubscribeResponse) |  |  |
+| sub_del_resp | [SubscribeDeleteResponse](#ricapi.e2.v1beta1.SubscribeDeleteResponse) |  |  |
+| indication | [Indication](#ricapi.e2.v1beta1.Indication) |  |  |
 | payload | [bytes](#bytes) |  |  |
 
 
@@ -64,7 +64,7 @@ AppResponse
 
 
 
-<a name="openapi.e2.v1beta1.Indication"></a>
+<a name="ricapi.e2.v1beta1.Indication"></a>
 
 ### Indication
 Indication an indication message
@@ -74,7 +74,7 @@ Indication an indication message
 
 
 
-<a name="openapi.e2.v1beta1.SubscribeDeleteRequest"></a>
+<a name="ricapi.e2.v1beta1.SubscribeDeleteRequest"></a>
 
 ### SubscribeDeleteRequest
 SubscribeDeleteRequest a subscription delete request
@@ -84,7 +84,7 @@ SubscribeDeleteRequest a subscription delete request
 
 
 
-<a name="openapi.e2.v1beta1.SubscribeDeleteResponse"></a>
+<a name="ricapi.e2.v1beta1.SubscribeDeleteResponse"></a>
 
 ### SubscribeDeleteResponse
 SubscribeDeleteResponse a subscription delete response
@@ -92,14 +92,14 @@ SubscribeDeleteResponse a subscription delete response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| status | [ResponseStatus](#openapi.e2.v1beta1.ResponseStatus) |  |  |
+| status | [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus) |  |  |
 
 
 
 
 
 
-<a name="openapi.e2.v1beta1.SubscribeRequest"></a>
+<a name="ricapi.e2.v1beta1.SubscribeRequest"></a>
 
 ### SubscribeRequest
 SubscribeRequest a subscription request
@@ -109,7 +109,7 @@ SubscribeRequest a subscription request
 
 
 
-<a name="openapi.e2.v1beta1.SubscribeResponse"></a>
+<a name="ricapi.e2.v1beta1.SubscribeResponse"></a>
 
 ### SubscribeResponse
 SubscribeResponse a subscription response
@@ -117,7 +117,7 @@ SubscribeResponse a subscription response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| status | [ResponseStatus](#openapi.e2.v1beta1.ResponseStatus) |  |  |
+| status | [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus) |  |  |
 
 
 
@@ -126,7 +126,7 @@ SubscribeResponse a subscription response
  
 
 
-<a name="openapi.e2.v1beta1.ResponseStatus"></a>
+<a name="ricapi.e2.v1beta1.ResponseStatus"></a>
 
 ### ResponseStatus
 ResponseStatus
@@ -142,7 +142,7 @@ ResponseStatus
  
 
 
-<a name="openapi.e2.v1beta1.E2TService"></a>
+<a name="ricapi.e2.v1beta1.E2TService"></a>
 
 ### E2TService
 E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
@@ -151,7 +151,7 @@ List of registered/available SMs
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| RegisterApp | [AppRequest](#openapi.e2.v1beta1.AppRequest) stream | [AppResponse](#openapi.e2.v1beta1.AppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
+| RegisterApp | [AppRequest](#ricapi.e2.v1beta1.AppRequest) stream | [AppResponse](#ricapi.e2.v1beta1.AppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
 
  
 

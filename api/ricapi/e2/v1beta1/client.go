@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package openapi_e2
+package v1beta1
 
 import "google.golang.org/grpc"
 

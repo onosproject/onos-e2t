@@ -6,11 +6,13 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 syntax = "proto3";
 
-// Package openapi.e2 defines the interior gRPC interfaces for xApps to interact with E2T.
-package openapi.e2.v1beta1;
+
+// Package ricapi.e2.v1beta1 defines the interior gRPC interfaces for xApps to interact with E2T.
+package ricapi.e2.v1beta1;
+
 
 import "google/protobuf/duration.proto";
-import "openapi/e2/v1beta1/headers.proto";
+import "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1/headers.proto";
 
 // ResponseStatus
 enum ResponseStatus {
