@@ -4,6 +4,7 @@
 package sandbox
 
 import (
+	"encoding/binary"
 	"fmt"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2apies"
@@ -11,9 +12,15 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2appdudescriptions"
 )
 
-func CreateResponseE2apPdu(plmnID string) (*e2appdudescriptions.E2ApPdu, error) {
+const mask20bit = 0xFFFFF
+
+func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2ApPdu, error) {
 	if len(plmnID) != 3 {
 		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
+	}
+	// Expecting 20 bits for ric ID
+	if ricID|mask20bit > mask20bit {
+		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricID)
 	}
 
 	gricIDIe := e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
@@ -21,14 +28,30 @@ func CreateResponseE2apPdu(plmnID string) (*e2appdudescriptions.E2ApPdu, error) 
 			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
 				Value: []byte(plmnID),
 			},
+			RicId: make([]byte, 5),
 		},
 	}
+	binary.LittleEndian.PutUint32(gricIDIe.Value.RicId, ricID)
 
 	ranFunctions := e2appducontents.E2SetupResponseIes_E2SetupResponseIes9{
 		Value: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
 		},
 	}
+
+	rfIDiIe1 := e2appducontents.RanfunctionIdItemIes{
+		RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+			Value: &e2appducontents.RanfunctionIdItem{
+				RanFunctionId: &e2apies.RanfunctionId{
+					Value: 100,
+				},
+				RanFunctionRevision: &e2apies.RanfunctionRevision{
+					Value: 1,
+				},
+			},
+		},
+	}
+	ranFunctions.Value.Value = append(ranFunctions.Value.Value, &rfIDiIe1)
 
 	ranfunctionsIdcauseList := e2appducontents.E2SetupResponseIes_E2SetupResponseIes13{
 		Value: &e2appducontents.RanfunctionsIdcauseList{

@@ -3508,6 +3508,16 @@ func (m *ResetRequestIes) Validate() error {
 		return nil
 	}
 
+	if v, ok := interface{}(m.GetResetRequestIes1()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResetRequestIesValidationError{
+				field:  "ResetRequestIes1",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -3646,6 +3656,16 @@ var _ interface {
 func (m *ResetResponseIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if v, ok := interface{}(m.GetResetResponseIes2()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResetResponseIesValidationError{
+				field:  "ResetResponseIes2",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	return nil
@@ -4226,6 +4246,16 @@ func (m *RanfunctionIdItemIes) Validate() error {
 		return nil
 	}
 
+	if v, ok := interface{}(m.GetRanFunctionIdItemIes6()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RanfunctionIdItemIesValidationError{
+				field:  "RanFunctionIdItemIes6",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -4546,6 +4576,13 @@ func (m *RanfunctionsIdcauseList) Validate() error {
 		return nil
 	}
 
+	if len(m.GetValue()) > 256 {
+		return RanfunctionsIdcauseListValidationError{
+			field:  "Value",
+			reason: "value must contain no more than 256 item(s)",
+		}
+	}
+
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
@@ -4626,6 +4663,16 @@ var _ interface {
 func (m *RanfunctionIdcauseItemIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if v, ok := interface{}(m.GetRanFunctionIdcauseItemIes7()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RanfunctionIdcauseItemIesValidationError{
+				field:  "RanFunctionIdcauseItemIes7",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	return nil
@@ -5029,6 +5076,16 @@ var _ interface {
 func (m *RicserviceQueryIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if v, ok := interface{}(m.GetRicserviceQueryIes9()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicserviceQueryIesValidationError{
+				field:  "RicserviceQueryIes9",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	return nil
@@ -10727,6 +10784,204 @@ var _ interface {
 	ErrorName() string
 } = E2SetupFailureIes_E2SetupFailureIes2ValidationError{}
 
+// Validate checks the field values on ResetRequestIes_ResetRequestIes1 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *ResetRequestIes_ResetRequestIes1) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetId() != 1 {
+		return ResetRequestIes_ResetRequestIes1ValidationError{
+			field:  "Id",
+			reason: "value must equal 1",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return ResetRequestIes_ResetRequestIes1ValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResetRequestIes_ResetRequestIes1ValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return ResetRequestIes_ResetRequestIes1ValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
+	}
+
+	return nil
+}
+
+// ResetRequestIes_ResetRequestIes1ValidationError is the validation error
+// returned by ResetRequestIes_ResetRequestIes1.Validate if the designated
+// constraints aren't met.
+type ResetRequestIes_ResetRequestIes1ValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) ErrorName() string {
+	return "ResetRequestIes_ResetRequestIes1ValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResetRequestIes_ResetRequestIes1.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResetRequestIes_ResetRequestIes1ValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResetRequestIes_ResetRequestIes1ValidationError{}
+
+// Validate checks the field values on ResetResponseIes_ResetResponseIes2 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *ResetResponseIes_ResetResponseIes2) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetId() != 2 {
+		return ResetResponseIes_ResetResponseIes2ValidationError{
+			field:  "Id",
+			reason: "value must equal 2",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return ResetResponseIes_ResetResponseIes2ValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResetResponseIes_ResetResponseIes2ValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 0 {
+		return ResetResponseIes_ResetResponseIes2ValidationError{
+			field:  "Presence",
+			reason: "value must equal 0",
+		}
+	}
+
+	return nil
+}
+
+// ResetResponseIes_ResetResponseIes2ValidationError is the validation error
+// returned by ResetResponseIes_ResetResponseIes2.Validate if the designated
+// constraints aren't met.
+type ResetResponseIes_ResetResponseIes2ValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) ErrorName() string {
+	return "ResetResponseIes_ResetResponseIes2ValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResetResponseIes_ResetResponseIes2.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResetResponseIes_ResetResponseIes2ValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResetResponseIes_ResetResponseIes2ValidationError{}
+
 // Validate checks the field values on
 // RicserviceUpdateIes_RicserviceUpdateIes10 with the rules defined in the
 // proto definition for this message. If any rules are violated, an error is returned.
@@ -11124,6 +11379,105 @@ var _ interface {
 } = RanfunctionItemIes_RanfunctionItemIes8ValidationError{}
 
 // Validate checks the field values on
+// RanfunctionIdItemIes_RanfunctionIdItemIes6 with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *RanfunctionIdItemIes_RanfunctionIdItemIes6) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetId() != 6 {
+		return RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+			field:  "Id",
+			reason: "value must equal 6",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
+	}
+
+	return nil
+}
+
+// RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError is the validation
+// error returned by RanfunctionIdItemIes_RanfunctionIdItemIes6.Validate if
+// the designated constraints aren't met.
+type RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError) ErrorName() string {
+	return "RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRanfunctionIdItemIes_RanfunctionIdItemIes6.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{}
+
+// Validate checks the field values on
 // RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9 with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
@@ -11340,6 +11694,113 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{}
+
+// Validate checks the field values on
+// RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7 with the rules defined
+// in the proto definition for this message. If any rules are violated, an
+// error is returned.
+func (m *RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetId() != 7 {
+		return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+			field:  "Id",
+			reason: "value must equal 7",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
+	}
+
+	return nil
+}
+
+// RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError is the
+// validation error returned by
+// RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7.Validate if the
+// designated constraints aren't met.
+type RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError) Field() string {
+	return e.field
+}
+
+// Reason function returns reason value.
+func (e RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError) Reason() string {
+	return e.reason
+}
+
+// Cause function returns cause value.
+func (e RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError) Cause() error {
+	return e.cause
+}
+
+// Key function returns key value.
+func (e RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError) ErrorName() string {
+	return "RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{}
 
 // Validate checks the field values on
 // RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13 with the rules
@@ -11659,3 +12120,102 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{}
+
+// Validate checks the field values on RicserviceQueryIes_RicserviceQueryIes9
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, an error is returned.
+func (m *RicserviceQueryIes_RicserviceQueryIes9) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetId() != 9 {
+		return RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+			field:  "Id",
+			reason: "value must equal 9",
+		}
+	}
+
+	if m.GetCriticality() != 0 {
+		return RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+			field:  "Criticality",
+			reason: "value must equal 0",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 0 {
+		return RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+			field:  "Presence",
+			reason: "value must equal 0",
+		}
+	}
+
+	return nil
+}
+
+// RicserviceQueryIes_RicserviceQueryIes9ValidationError is the validation
+// error returned by RicserviceQueryIes_RicserviceQueryIes9.Validate if the
+// designated constraints aren't met.
+type RicserviceQueryIes_RicserviceQueryIes9ValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RicserviceQueryIes_RicserviceQueryIes9ValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RicserviceQueryIes_RicserviceQueryIes9ValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RicserviceQueryIes_RicserviceQueryIes9ValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RicserviceQueryIes_RicserviceQueryIes9ValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RicserviceQueryIes_RicserviceQueryIes9ValidationError) ErrorName() string {
+	return "RicserviceQueryIes_RicserviceQueryIes9ValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RicserviceQueryIes_RicserviceQueryIes9ValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRicserviceQueryIes_RicserviceQueryIes9.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RicserviceQueryIes_RicserviceQueryIes9ValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RicserviceQueryIes_RicserviceQueryIes9ValidationError{}

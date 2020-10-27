@@ -645,6 +645,14 @@ message ResetRequest {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn1:666
 message ResetRequestIes {
+    message ResetRequestIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+        Cause value = 3;
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2];
+    }
+
+    ResetRequestIes1 reset_request_ies1 = 1;
 };
 
 // sequence from e2ap-v01.00.00.asn1:678
@@ -654,6 +662,14 @@ message ResetResponse {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn1:682
 message ResetResponseIes {
+    message ResetResponseIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+        CriticalityDiagnostics value = 3;
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0];
+    }
+
+    ResetResponseIes2 reset_response_ies2 = 1;
 };
 
 // sequence from e2ap-v01.00.00.asn1:698
@@ -719,6 +735,14 @@ message RanfunctionsIdList {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn1:726
 message RanfunctionIdItemIes {
+    message RanfunctionIdItemIes6 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 6];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+        RanfunctionIdItem value = 3;
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2];
+    }
+
+    RanfunctionIdItemIes6 ran_function_id_item_ies6 = 1;
 };
 
 // sequence from e2ap-v01.00.00.asn1:732
@@ -754,11 +778,19 @@ message RicserviceUpdateAcknowledgeIes {
 
 // sequence from e2ap-v01.00.00.asn1:753
 message RanfunctionsIdcauseList {
-    repeated RanfunctionIdcauseItemIes value = 1;
+    repeated RanfunctionIdcauseItemIes value = 1 [(validate.v1.rules).repeated = { max_items: 256}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn1:755
 message RanfunctionIdcauseItemIes {
+    message RanfunctionIdcauseItemIes7 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 7];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+        RanfunctionIdcauseItem value = 3;
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2];
+    }
+
+    RanfunctionIdcauseItemIes7 ran_function_idcause_item_ies7 = 1;
 };
 
 // sequence from e2ap-v01.00.00.asn1:762
@@ -807,4 +839,12 @@ message RicserviceQuery {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn1:800
 message RicserviceQueryIes {
+    message RicserviceQueryIes9 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 9];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0];
+        RanfunctionsIdList value = 3;
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0];
+    }
+
+    RicserviceQueryIes9 ricservice_query_ies9 = 1;
 };
