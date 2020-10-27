@@ -6,18 +6,16 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 syntax = "proto3";
 
-// Package xapp defines the interior gRPC interfaces for xApps to interact with E2T.
-package xapp.v1;
+// Package openapi.e2 defines the interior gRPC interfaces for xApps to interact with E2T.
+package openapi.e2.v1beta1;
 
 import "google/protobuf/duration.proto";
-import "github.com/onosproject/onos-e2t/api/headers/v1/headers.proto";
-
-
+import "openapi/e2/v1beta1/headers.proto";
 
 // ResponseStatus
 enum ResponseStatus {
-    FAILED = 0;
-    SUCCESSFUL = 1;
+    RESPONSE_STATUS_FAILED = 0;
+    RESPONSE_STATUS_SUCCESSFUL = 1;
 }
 
 // SubscribeRequest a subscription request
@@ -25,8 +23,8 @@ message SubscribeRequest {
 
 }
 
+// Indication an indication message
 message Indication {
-
 }
 
 
@@ -38,8 +36,6 @@ message SubscribeResponse {
 
 // SubscribeDeleteRequest a subscription delete request
 message SubscribeDeleteRequest {
-    // TODO fields should be defined
-
 }
 
 // SubscribeDeleteResponse a subscription delete response
@@ -50,7 +46,7 @@ message SubscribeDeleteResponse {
 
 // AppRequest
 message AppRequest {
-    headers.v1.RequestHeader header = 1;
+    RequestHeader header = 1;
     oneof req {
         SubscribeRequest sub_req = 2;
         SubscribeDeleteRequest sub_del_req = 3;
@@ -62,7 +58,7 @@ message AppRequest {
 
 // AppResponse
 message AppResponse {
-    headers.v1.RequestHeader header = 1;
+    RequestHeader header = 1;
     oneof resp {
         SubscribeResponse sub_resp = 2;
         SubscribeDeleteResponse sub_del_resp = 3;

@@ -6,7 +6,7 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 syntax = "proto3";
 
-package headers.v1;
+package openapi.e2.v1beta1;
 
 
 // RequestHeader a common request header for all requests including encoding type, client/xApp/session info, ordering info, etc
@@ -26,7 +26,7 @@ message ResponseHeader {
 
 // EncodingType determines encoding type for the response messages
 enum EncodingType {
-    ASN = 0;
-    PROTO = 1;
+    ENCODING_TYPE_ASN1 = 0;
+    ENCODING_TYPE_PROTO = 1;
 }
 

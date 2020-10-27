@@ -3,47 +3,121 @@
 
 ## Table of Contents
 
-- [api/headers/v1/headers.proto](#api/headers/v1/headers.proto)
-    - [RequestHeader](#headers.v1.RequestHeader)
-    - [ResponseHeader](#headers.v1.ResponseHeader)
+- [api/openapi/e2/v1beta1/openapi_e2.proto](#api/openapi/e2/v1beta1/openapi_e2.proto)
+    - [AppRequest](#openapi.e2.v1beta1.AppRequest)
+    - [AppResponse](#openapi.e2.v1beta1.AppResponse)
+    - [Indication](#openapi.e2.v1beta1.Indication)
+    - [SubscribeDeleteRequest](#openapi.e2.v1beta1.SubscribeDeleteRequest)
+    - [SubscribeDeleteResponse](#openapi.e2.v1beta1.SubscribeDeleteResponse)
+    - [SubscribeRequest](#openapi.e2.v1beta1.SubscribeRequest)
+    - [SubscribeResponse](#openapi.e2.v1beta1.SubscribeResponse)
   
-    - [EncodingType](#headers.v1.EncodingType)
+    - [ResponseStatus](#openapi.e2.v1beta1.ResponseStatus)
+  
+    - [E2TService](#openapi.e2.v1beta1.E2TService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="api/headers/v1/headers.proto"></a>
+<a name="api/openapi/e2/v1beta1/openapi_e2.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/headers/v1/headers.proto
+## api/openapi/e2/v1beta1/openapi_e2.proto
 
 
 
-<a name="headers.v1.RequestHeader"></a>
+<a name="openapi.e2.v1beta1.AppRequest"></a>
 
-### RequestHeader
-RequestHeader a common request header for all requests including encoding type, client/xApp/session info, ordering info, etc
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| encoding_type | [EncodingType](#headers.v1.EncodingType) |  |  |
-
-
-
-
-
-
-<a name="headers.v1.ResponseHeader"></a>
-
-### ResponseHeader
-ResponseHeader a common response header for all responses including encoding type, client/xApp/session info, ordering info, etc
+### AppRequest
+AppRequest
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| encoding_type | [EncodingType](#headers.v1.EncodingType) |  | TODO more fields should be added |
+| header | [RequestHeader](#openapi.e2.v1beta1.RequestHeader) |  |  |
+| sub_req | [SubscribeRequest](#openapi.e2.v1beta1.SubscribeRequest) |  |  |
+| sub_del_req | [SubscribeDeleteRequest](#openapi.e2.v1beta1.SubscribeDeleteRequest) |  |  |
+| payload | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="openapi.e2.v1beta1.AppResponse"></a>
+
+### AppResponse
+AppResponse
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| header | [RequestHeader](#openapi.e2.v1beta1.RequestHeader) |  |  |
+| sub_resp | [SubscribeResponse](#openapi.e2.v1beta1.SubscribeResponse) |  |  |
+| sub_del_resp | [SubscribeDeleteResponse](#openapi.e2.v1beta1.SubscribeDeleteResponse) |  |  |
+| indication | [Indication](#openapi.e2.v1beta1.Indication) |  |  |
+| payload | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="openapi.e2.v1beta1.Indication"></a>
+
+### Indication
+Indication an indication message
+
+
+
+
+
+
+<a name="openapi.e2.v1beta1.SubscribeDeleteRequest"></a>
+
+### SubscribeDeleteRequest
+SubscribeDeleteRequest a subscription delete request
+
+
+
+
+
+
+<a name="openapi.e2.v1beta1.SubscribeDeleteResponse"></a>
+
+### SubscribeDeleteResponse
+SubscribeDeleteResponse a subscription delete response
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| status | [ResponseStatus](#openapi.e2.v1beta1.ResponseStatus) |  |  |
+
+
+
+
+
+
+<a name="openapi.e2.v1beta1.SubscribeRequest"></a>
+
+### SubscribeRequest
+SubscribeRequest a subscription request
+
+
+
+
+
+
+<a name="openapi.e2.v1beta1.SubscribeResponse"></a>
+
+### SubscribeResponse
+SubscribeResponse a subscription response
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| status | [ResponseStatus](#openapi.e2.v1beta1.ResponseStatus) |  |  |
 
 
 
@@ -52,20 +126,32 @@ ResponseHeader a common response header for all responses including encoding typ
  
 
 
-<a name="headers.v1.EncodingType"></a>
+<a name="openapi.e2.v1beta1.ResponseStatus"></a>
 
-### EncodingType
-EncodingType determines encoding type for the response messages
+### ResponseStatus
+ResponseStatus
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| ASN | 0 |  |
-| PROTO | 1 |  |
+| RESPONSE_STATUS_FAILED | 0 |  |
+| RESPONSE_STATUS_SUCCESSFUL | 1 |  |
 
 
  
 
  
+
+
+<a name="openapi.e2.v1beta1.E2TService"></a>
+
+### E2TService
+E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
+
+List of registered/available SMs
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| RegisterApp | [AppRequest](#openapi.e2.v1beta1.AppRequest) stream | [AppResponse](#openapi.e2.v1beta1.AppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
 
  
 
