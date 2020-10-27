@@ -1,38 +1,57 @@
-// Copyright 2020-present Open Networking Foundation.
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package sandbox
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn/v1/e2appdudescriptions"
+	"fmt"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2apies"
+	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2appducontents"
+	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2appdudescriptions"
 )
 
-func CreateResponseE2apPdu() *e2appdudescriptions.E2ApPdu {
-	e2apPduResponse := e2appdudescriptions.E2ApPdu{
+func CreateResponseE2apPdu(plmnID string) (*e2appdudescriptions.E2ApPdu, error) {
+	if len(plmnID) != 3 {
+		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
+	}
+
+	gricIDIe := e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
+		Value: &e2apies.GlobalRicId{
+			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
+				Value: []byte(plmnID),
+			},
+		},
+	}
+
+	ranFunctions := e2appducontents.E2SetupResponseIes_E2SetupResponseIes9{
+		Value: &e2appducontents.RanfunctionsIdList{
+			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
+		},
+	}
+
+	ranfunctionsIdcauseList := e2appducontents.E2SetupResponseIes_E2SetupResponseIes13{
+		Value: &e2appducontents.RanfunctionsIdcauseList{
+			Value: make([]*e2appducontents.RanfunctionIdcauseItemIes, 0),
+		},
+	}
+
+	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 			SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					E2ApElementaryProcedures: &e2appdudescriptions.E2ApElementaryProcedures_Instance005{
-						Instance005: &e2appdudescriptions.E2ApElementaryProcedures_E2ApElementaryProcedures005{
-							SuccessfulOutcome:    &e2appducontents.E2SetupResponse{
-								ProtocolIes: nil,
-								},
+					E2Setup: &e2appdudescriptions.E2Setup{
+						SuccessfulOutcome: &e2appducontents.E2SetupResponse{
+							ProtocolIes: &e2appducontents.E2SetupResponseIes{
+								E2ApProtocolIes4:  &gricIDIe,                //global RIC ID
+								E2ApProtocolIes9:  &ranFunctions,            //RanFunctionIdList
+								E2ApProtocolIes13: &ranfunctionsIdcauseList, //RanFunctionIdCauseList
+							},
 						},
 					},
 				},
 			},
 		},
 	}
-	return &e2apPduResponse
+	return &e2apPdu, nil
 }
