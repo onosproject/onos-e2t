@@ -5,10 +5,10 @@ package sandbox
 
 import (
 	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap_v01_00_00_asn1/v1/e2appdudescriptions"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 )
 
 func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E2ApPdu, error) {
