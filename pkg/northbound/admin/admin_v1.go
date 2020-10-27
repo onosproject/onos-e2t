@@ -6,7 +6,7 @@ package admin
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/connections"
+	"github.com/onosproject/onos-e2t/pkg/southbound/connections"
 
 	adminv1 "github.com/onosproject/onos-e2t/api/admin/v1"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
