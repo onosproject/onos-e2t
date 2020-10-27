@@ -3,47 +3,121 @@
 
 ## Table of Contents
 
-- [api/xapp/v1/e2t.proto](#api/xapp/v1/e2t.proto)
-    - [RegisterAppRequest](#xapp.v1.RegisterAppRequest)
-    - [RegisterAppResponse](#xapp.v1.RegisterAppResponse)
+- [api/ricapi/e2/v1beta1/ricapi_e2.proto](#api/ricapi/e2/v1beta1/ricapi_e2.proto)
+    - [AppRequest](#ricapi.e2.v1beta1.AppRequest)
+    - [AppResponse](#ricapi.e2.v1beta1.AppResponse)
+    - [Indication](#ricapi.e2.v1beta1.Indication)
+    - [SubscribeDeleteRequest](#ricapi.e2.v1beta1.SubscribeDeleteRequest)
+    - [SubscribeDeleteResponse](#ricapi.e2.v1beta1.SubscribeDeleteResponse)
+    - [SubscribeRequest](#ricapi.e2.v1beta1.SubscribeRequest)
+    - [SubscribeResponse](#ricapi.e2.v1beta1.SubscribeResponse)
   
-    - [E2TService](#xapp.v1.E2TService)
+    - [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus)
+  
+    - [E2TService](#ricapi.e2.v1beta1.E2TService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="api/xapp/v1/e2t.proto"></a>
+<a name="api/ricapi/e2/v1beta1/ricapi_e2.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/xapp/v1/e2t.proto
+## api/ricapi/e2/v1beta1/ricapi_e2.proto
 
 
 
-<a name="xapp.v1.RegisterAppRequest"></a>
+<a name="ricapi.e2.v1beta1.AppRequest"></a>
 
-### RegisterAppRequest
-Request encoding format (ASN.1 or Protobuf)
-Add subscriptions
-Remove subscriptions
-Send control/insert/policy/query messages to specific device
-
-
-
-
-
-
-<a name="xapp.v1.RegisterAppResponse"></a>
-
-### RegisterAppResponse
-
+### AppRequest
+AppRequest
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| e2node | [string](#string) |  | ID of E2 node that sent the message |
-| service_model | [string](#string) |  | Service model ID |
-| payload | [bytes](#bytes) |  | Message data (encoded as ASN.1 or Protobuf) |
+| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
+| sub_req | [SubscribeRequest](#ricapi.e2.v1beta1.SubscribeRequest) |  |  |
+| sub_del_req | [SubscribeDeleteRequest](#ricapi.e2.v1beta1.SubscribeDeleteRequest) |  |  |
+| payload | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="ricapi.e2.v1beta1.AppResponse"></a>
+
+### AppResponse
+AppResponse
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
+| sub_resp | [SubscribeResponse](#ricapi.e2.v1beta1.SubscribeResponse) |  |  |
+| sub_del_resp | [SubscribeDeleteResponse](#ricapi.e2.v1beta1.SubscribeDeleteResponse) |  |  |
+| indication | [Indication](#ricapi.e2.v1beta1.Indication) |  |  |
+| payload | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="ricapi.e2.v1beta1.Indication"></a>
+
+### Indication
+Indication an indication message
+
+
+
+
+
+
+<a name="ricapi.e2.v1beta1.SubscribeDeleteRequest"></a>
+
+### SubscribeDeleteRequest
+SubscribeDeleteRequest a subscription delete request
+
+
+
+
+
+
+<a name="ricapi.e2.v1beta1.SubscribeDeleteResponse"></a>
+
+### SubscribeDeleteResponse
+SubscribeDeleteResponse a subscription delete response
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| status | [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus) |  |  |
+
+
+
+
+
+
+<a name="ricapi.e2.v1beta1.SubscribeRequest"></a>
+
+### SubscribeRequest
+SubscribeRequest a subscription request
+
+
+
+
+
+
+<a name="ricapi.e2.v1beta1.SubscribeResponse"></a>
+
+### SubscribeResponse
+SubscribeResponse a subscription response
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| status | [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus) |  |  |
 
 
 
@@ -51,12 +125,24 @@ Send control/insert/policy/query messages to specific device
 
  
 
- 
+
+<a name="ricapi.e2.v1beta1.ResponseStatus"></a>
+
+### ResponseStatus
+ResponseStatus
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| RESPONSE_STATUS_FAILED | 0 |  |
+| RESPONSE_STATUS_SUCCESSFUL | 1 |  |
+
 
  
 
+ 
 
-<a name="xapp.v1.E2TService"></a>
+
+<a name="ricapi.e2.v1beta1.E2TService"></a>
 
 ### E2TService
 E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
@@ -65,7 +151,7 @@ List of registered/available SMs
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| RegisterApp | [RegisterAppRequest](#xapp.v1.RegisterAppRequest) stream | [RegisterAppResponse](#xapp.v1.RegisterAppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
+| RegisterApp | [AppRequest](#ricapi.e2.v1beta1.AppRequest) stream | [AppResponse](#ricapi.e2.v1beta1.AppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
 
  
 
