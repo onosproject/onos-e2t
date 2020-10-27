@@ -9,10 +9,9 @@ syntax = "proto3";
 
 // Package ricapi.e2.v1beta1 defines the interior gRPC interfaces for xApps to interact with E2T.
 package ricapi.e2.v1beta1;
+option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1";
 
-
-import "google/protobuf/duration.proto";
-import "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1/headers.proto";
+import "ricapi/e2/headers/v1beta1/headers.proto";
 
 // ResponseStatus
 enum ResponseStatus {
@@ -48,7 +47,7 @@ message SubscribeDeleteResponse {
 
 // AppRequest
 message AppRequest {
-    RequestHeader header = 1;
+    headers.v1beta1.RequestHeader header = 1;
     oneof req {
         SubscribeRequest sub_req = 2;
         SubscribeDeleteRequest sub_del_req = 3;
@@ -60,7 +59,7 @@ message AppRequest {
 
 // AppResponse
 message AppResponse {
-    RequestHeader header = 1;
+    headers.v1beta1.RequestHeader header = 1;
     oneof resp {
         SubscribeResponse sub_resp = 2;
         SubscribeDeleteResponse sub_del_resp = 3;

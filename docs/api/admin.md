@@ -35,7 +35,7 @@ AppRequest
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [RequestHeader](#ricapi.e2.v1beta1.RequestHeader) |  |  |
+| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
 | sub_req | [SubscribeRequest](#ricapi.e2.v1beta1.SubscribeRequest) |  |  |
 | sub_del_req | [SubscribeDeleteRequest](#ricapi.e2.v1beta1.SubscribeDeleteRequest) |  |  |
 | payload | [bytes](#bytes) |  |  |
@@ -53,7 +53,7 @@ AppResponse
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [RequestHeader](#ricapi.e2.v1beta1.RequestHeader) |  |  |
+| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
 | sub_resp | [SubscribeResponse](#ricapi.e2.v1beta1.SubscribeResponse) |  |  |
 | sub_del_resp | [SubscribeDeleteResponse](#ricapi.e2.v1beta1.SubscribeDeleteResponse) |  |  |
 | indication | [Indication](#ricapi.e2.v1beta1.Indication) |  |  |

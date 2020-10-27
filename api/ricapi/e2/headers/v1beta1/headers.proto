@@ -6,8 +6,9 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 syntax = "proto3";
 
+package ricapi.e2.headers.v1beta1;
 
-package ricapi.e2.v1beta1;
+option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/headers/v1beta1";
 
 message ServiceModelInfo {
     string service_model_id = 1;
