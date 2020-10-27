@@ -10,6 +10,7 @@ import "ProtocolIE-Container.proto";
 package e2ctypes;
 
 message RICserviceUpdateFailure_t {
+    option deprecated = true;
     ProtocolIE_Container_1544P18_t	 protocolIEs = 1;
 
 }

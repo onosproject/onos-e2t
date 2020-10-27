@@ -13,6 +13,7 @@ import "ErrorIndication.proto";
 import "E2setupRequest.proto";
 import "E2setupResponse.proto";
 import "E2setupFailure.proto";
+import "RICindication.proto";
 import "RICsubscriptionRequest.proto";
 import "RICsubscriptionResponse.proto";
 import "RICsubscriptionFailure.proto";
@@ -37,6 +38,8 @@ import "RICserviceUpdate.proto";
 // point, using for instance TCP/IP
 // Generally the rpc call is capable of returning an error response and is not
 // modelled here as a specific UnsuccessfulOutcome
+option deprecated = true;
+
 service E2apElementaryProcedures {
     // Class 1
 

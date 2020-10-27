@@ -9,7 +9,9 @@ import "BIT_STRING.proto";
 
 package e2ctypes;
 
+option deprecated = true;
+
 message GlobalRIC_ID_t {
-    string	 pLMN_Identity = 1;
-    BIT_STRING	 ric_ID = 2;
+    string	 pLMN_Identity = 1 [deprecated=true];
+    BIT_STRING	 ric_ID = 2 [deprecated=true];
 }

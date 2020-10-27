@@ -23,8 +23,10 @@ import "TimeToWait.proto";
 import "RICsubscriptionDetails.proto";
 
 package e2ctypes;
+option deprecated = true;
 
 message RICindication_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -40,6 +42,7 @@ message RICindication_IEs_t {
 }
 
 message E2setupRequestIEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -49,6 +52,7 @@ message E2setupRequestIEs_t {
 }
 
 message ErrorIndication_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -60,6 +64,7 @@ message ErrorIndication_IEs_t {
 }
 
 message RICsubscriptionResponse_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -71,6 +76,7 @@ message RICsubscriptionResponse_IEs_t {
 }
 
 message RICsubscriptionDeleteResponse_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -80,6 +86,7 @@ message RICsubscriptionDeleteResponse_IEs_t {
 }
 
 message RICserviceUpdateAcknowledge_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -89,6 +96,7 @@ message RICserviceUpdateAcknowledge_IEs_t {
 }
 
 message RICcontrolAcknowledge_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -101,6 +109,7 @@ message RICcontrolAcknowledge_IEs_t {
 }
 
 message E2setupResponseIEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -111,6 +120,7 @@ message E2setupResponseIEs_t {
 }
 
 message ResetResponseIEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -119,6 +129,7 @@ message ResetResponseIEs_t {
 }
 
 message RICsubscriptionFailure_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -130,6 +141,7 @@ message RICsubscriptionFailure_IEs_t {
 }
 
 message RICsubscriptionDeleteFailure_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -141,6 +153,7 @@ message RICsubscriptionDeleteFailure_IEs_t {
 }
 
 message RICserviceUpdateFailure_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -151,6 +164,7 @@ message RICserviceUpdateFailure_IEs_t {
 }
 
 message RICcontrolFailure_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -163,6 +177,7 @@ message RICcontrolFailure_IEs_t {
 }
 
 message E2setupFailureIEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {
@@ -173,6 +188,7 @@ message E2setupFailureIEs_t {
 }
 
 message RICsubscriptionRequest_IEs_t {
+    option deprecated = true;
     ProtocolIE_ID_t id = 1;
     Criticality_t criticality = 2;
     oneof choice {

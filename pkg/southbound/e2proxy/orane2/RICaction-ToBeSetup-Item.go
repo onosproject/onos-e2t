@@ -18,6 +18,7 @@ import (
 )
 
 // XerEncodeRICactionToBeSetupItem - for testing only
+// Deprecated: Do not use.
 func XerEncodeRICactionToBeSetupItem(tbs *e2ctypes.RICaction_ToBeSetup_ItemIEsT) ([]byte, error) {
 	ratC, err := newRICactionTbsItemIEs(tbs)
 	if err != nil {
@@ -32,6 +33,7 @@ func XerEncodeRICactionToBeSetupItem(tbs *e2ctypes.RICaction_ToBeSetup_ItemIEsT)
 }
 
 // PerEncodeRICactionToBeSetupItem - for testing only
+// Deprecated: Do not use.
 func PerEncodeRICactionToBeSetupItem(tbs *e2ctypes.RICaction_ToBeSetup_ItemIEsT) ([]byte, error) {
 	ratC, err := newRICactionTbsItemIEs(tbs)
 	if err != nil {
@@ -45,6 +47,7 @@ func PerEncodeRICactionToBeSetupItem(tbs *e2ctypes.RICaction_ToBeSetup_ItemIEsT)
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newRICactionToBeSetupItem(tbs *e2ctypes.RICaction_ToBeSetup_ItemT) (*C.RICaction_ToBeSetup_Item_t, error) {
 
 	ricActionTypeC, err := newRicaActionType(tbs.GetRicActionType())

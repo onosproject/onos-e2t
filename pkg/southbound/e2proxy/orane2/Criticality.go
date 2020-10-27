@@ -11,6 +11,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 )
 
+// Deprecated: do not use
 func criticalityToC(criticality e2ctypes.CriticalityT) (C.Criticality_t, error) {
 	var critC C.Criticality_t
 	switch criticality {

@@ -18,6 +18,7 @@ import (
 )
 
 // XerGlobalRicIDT - used for test only
+// Deprecated: Do not use.
 func XerGlobalRicIDT(e2srIE *e2ctypes.GlobalRIC_IDT) ([]byte, error) {
 	rsrIEC, err := newGlobalRicID(e2srIE)
 	if err != nil {
@@ -32,6 +33,7 @@ func XerGlobalRicIDT(e2srIE *e2ctypes.GlobalRIC_IDT) ([]byte, error) {
 }
 
 // PerGlobalRicIDT - used for test only
+// Deprecated: Do not use.
 func PerGlobalRicIDT(e2srIE *e2ctypes.GlobalRIC_IDT) ([]byte, error) {
 	rsrIEC, err := newGlobalRicID(e2srIE)
 	if err != nil {
@@ -45,6 +47,7 @@ func PerGlobalRicIDT(e2srIE *e2ctypes.GlobalRIC_IDT) ([]byte, error) {
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newGlobalRicID(id *e2ctypes.GlobalRIC_IDT) (*C.GlobalRIC_ID_t, error) {
 	if len(id.PLMN_Identity) != 3 {
 		return nil, fmt.Errorf("plmnID length is 3 - e2ap-v01.00.00.asn line 1105")

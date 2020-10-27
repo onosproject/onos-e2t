@@ -8,8 +8,10 @@ syntax = "proto3";
 import "Cause.proto";
 
 package e2ctypes;
+option deprecated = true;
 
 message RANfunctionIDcause_Item_t {
+    option deprecated = true;
     int64	 ranFunctionID = 1;
     Cause_t	 cause = 2;
 }

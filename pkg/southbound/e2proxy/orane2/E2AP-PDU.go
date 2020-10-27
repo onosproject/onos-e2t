@@ -38,6 +38,7 @@ func XerDecodeE2apPdu(bytes []byte) (*e2ctypes.E2AP_PDUT, error) {
 }
 
 // PerDecodeE2apPdu - the main entry to decode E2 message in PER format
+// Deprecated: Do not use.
 func PerDecodeE2apPdu(bytes []byte) (*e2ctypes.E2AP_PDUT, error) {
 	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_E2AP_PDU)
 	if err != nil {
@@ -50,6 +51,7 @@ func PerDecodeE2apPdu(bytes []byte) (*e2ctypes.E2AP_PDUT, error) {
 }
 
 // XerEncodeE2apPdu - the main function for testing from higher level api to C api
+// Deprecated: Do not use.
 func XerEncodeE2apPdu(e2apPdu *e2ctypes.E2AP_PDUT) ([]byte, error) {
 	cE2apPdu, err := newE2apPdu(e2apPdu)
 	if err != nil {
@@ -64,6 +66,7 @@ func XerEncodeE2apPdu(e2apPdu *e2ctypes.E2AP_PDUT) ([]byte, error) {
 }
 
 // PerEncodeE2apPdu - the main function for encoding from higher level api to C api
+// Deprecated: Do not use.
 func PerEncodeE2apPdu(e2apPdu *e2ctypes.E2AP_PDUT) ([]byte, error) {
 	cE2apPdu, err := newE2apPdu(e2apPdu)
 	if err != nil {
@@ -79,6 +82,7 @@ func PerEncodeE2apPdu(e2apPdu *e2ctypes.E2AP_PDUT) ([]byte, error) {
 }
 
 // newE2apPdu - create a structure in C
+// Deprecated: Do not use.
 func newE2apPdu(e2apPdu *e2ctypes.E2AP_PDUT) (*C.E2AP_PDU_t, error) {
 	var present C.E2AP_PDU_PR
 	choiceC := [8]byte{}
@@ -111,6 +115,7 @@ func newE2apPdu(e2apPdu *e2ctypes.E2AP_PDUT) (*C.E2AP_PDU_t, error) {
 	return &e2apPduC, nil
 }
 
+// Deprecated: Do not use.
 func decodeE2apPdu(e2apPduC *C.E2AP_PDU_t) (*e2ctypes.E2AP_PDUT, error) {
 	e2apPdu := new(e2ctypes.E2AP_PDUT)
 	switch e2apPduC.present {

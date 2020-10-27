@@ -34,6 +34,7 @@ import (
 //}
 
 // PerEncodeRicIndication encodes a RICIndication to a []byte
+// Deprecated: Do not use.
 func PerEncodeRicIndication(ri *C.RICindication_t) ([]byte, error) {
 	perBuf := C.malloc(C.sizeof_uchar * 1024) // C allocated pointer
 	defer C.free(perBuf)
@@ -58,6 +59,7 @@ func PerEncodeRicIndication(ri *C.RICindication_t) ([]byte, error) {
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newRicIndication(ri *e2ctypes.RICindicationT) (*C.RICindication_t, error) {
 	pIeC1544P6, err := newProtocolIeContainer1544P6(ri.ProtocolIEs)
 	if err != nil {

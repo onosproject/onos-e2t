@@ -42,6 +42,7 @@ func main() {
 	startedChan := make(chan bool)
 	defer close(startedChan)
 
+	// nolint:staticcheck
 	e2inChan := make(chan *e2ctypes.E2AP_PDUT)
 	defer close(e2inChan)
 

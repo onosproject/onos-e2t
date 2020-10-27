@@ -16,6 +16,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 )
 
+// Deprecated: Do not use.
 func newGlobalgNBID(id *e2ctypes.GlobalgNB_IDT) (*C.GlobalgNB_ID_t, error) {
 	if len(id.PlmnId) > 3 {
 		return nil, fmt.Errorf("plmnID max length is 3 - e2ap-v01.00.00.asn line 1105")
@@ -34,6 +35,7 @@ func newGlobalgNBID(id *e2ctypes.GlobalgNB_IDT) (*C.GlobalgNB_ID_t, error) {
 	return &idC, nil
 }
 
+// Deprecated: Do not use.
 func decodeGlobalGnbID(globalGnbID *C.GlobalgNB_ID_t) (*e2ctypes.GlobalgNB_IDT, error) {
 	result := new(e2ctypes.GlobalgNB_IDT)
 	var err error

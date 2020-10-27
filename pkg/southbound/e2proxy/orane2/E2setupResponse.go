@@ -18,6 +18,7 @@ import (
 )
 
 // XerEncodeE2setupResponse - used only for testing
+// Deprecated: Do not use.
 func XerEncodeE2setupResponse(e2srIE *e2ctypes.E2SetupResponseIEsT) ([]byte, error) {
 	rsrIEC, err := newE2setupResponseIE(e2srIE)
 	if err != nil {
@@ -32,6 +33,7 @@ func XerEncodeE2setupResponse(e2srIE *e2ctypes.E2SetupResponseIEsT) ([]byte, err
 }
 
 // PerEncodeE2setupResponse - used only for testing
+// Deprecated: Do not use.
 func PerEncodeE2setupResponse(e2srIE *e2ctypes.E2SetupResponseIEsT) ([]byte, error) {
 	rsrIEC, err := newE2setupResponseIE(e2srIE)
 	if err != nil {
@@ -45,6 +47,7 @@ func PerEncodeE2setupResponse(e2srIE *e2ctypes.E2SetupResponseIEsT) ([]byte, err
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newE2setupResponse(e2sr *e2ctypes.E2SetupResponseT) (*C.E2setupResponse_t, error) {
 	pIeC1544P12, err := newProtocolIeContainer1544P12(e2sr.GetProtocolIEs())
 	if err != nil {

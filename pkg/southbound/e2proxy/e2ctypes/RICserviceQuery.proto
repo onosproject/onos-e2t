@@ -10,5 +10,6 @@ import "ProtocolIE-Container.proto";
 package e2ctypes;
 
 message RICserviceQuery_t {
+    option deprecated = true;
 
 }

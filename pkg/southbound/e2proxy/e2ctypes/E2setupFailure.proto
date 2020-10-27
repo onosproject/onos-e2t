@@ -8,7 +8,10 @@ syntax = "proto3";
 import "ProtocolIE-Container.proto";
 
 package e2ctypes;
+
+option deprecated = true;
+
 message E2setupFailure_t {
-    ProtocolIE_Container_1544P13_t protocolIEs = 1;
+    ProtocolIE_Container_1544P13_t protocolIEs = 1 [deprecated=true];
 
 }

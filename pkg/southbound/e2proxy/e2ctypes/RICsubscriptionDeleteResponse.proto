@@ -10,5 +10,6 @@ import "ProtocolIE-Container.proto";
 package e2ctypes;
 
 message RICsubscriptionDeleteResponse_t {
+    option deprecated = true;
     ProtocolIE_Container_1544P4_t	 protocolIEs = 1;
 }

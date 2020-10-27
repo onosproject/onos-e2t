@@ -6,7 +6,9 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 syntax = "proto3";
 
 package e2ctypes;
+option deprecated = true;
 
 message RANfunctions_List_t {
+    option deprecated = true;
     //TODO figure out the ProtocolIE-SingleContainer
 }

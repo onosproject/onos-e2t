@@ -18,6 +18,7 @@ import (
 )
 
 // XerEncodeRICsubscriptionRequest - used only for testing
+// Deprecated: Do not use.
 func XerEncodeRICsubscriptionRequest(rsrIE *e2ctypes.RICsubscriptionRequest_IEsT) ([]byte, error) {
 	rsrIEC, err := newRICsubscriptionRequestIE(rsrIE)
 	if err != nil {
@@ -32,6 +33,7 @@ func XerEncodeRICsubscriptionRequest(rsrIE *e2ctypes.RICsubscriptionRequest_IEsT
 }
 
 // PerEncodeRICsubscriptionRequest - used only for testing
+// Deprecated: Do not use.
 func PerEncodeRICsubscriptionRequest(rsrIE *e2ctypes.RICsubscriptionRequest_IEsT) ([]byte, error) {
 	rsrIEC, err := newRICsubscriptionRequestIE(rsrIE)
 	if err != nil {
@@ -45,6 +47,7 @@ func PerEncodeRICsubscriptionRequest(rsrIE *e2ctypes.RICsubscriptionRequest_IEsT
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newRICsubscriptionRequest(rsr *e2ctypes.RICsubscriptionRequestT) (*C.RICsubscriptionRequest_t, error) {
 	pIeC1544P0, err := newProtocolIeContainer1544P0(rsr.GetProtocolIEs())
 	if err != nil {
@@ -57,6 +60,7 @@ func newRICsubscriptionRequest(rsr *e2ctypes.RICsubscriptionRequestT) (*C.RICsub
 	return &rsrC, nil
 }
 
+// Deprecated: Do not use.
 func decodeRicSubscriptionRequest(rsrC *C.RICsubscriptionRequest_t) (*e2ctypes.RICsubscriptionRequestT, error) {
 	pIEs, err := decodeProtocolIeContainer1544P0(&rsrC.protocolIEs)
 	if err != nil {

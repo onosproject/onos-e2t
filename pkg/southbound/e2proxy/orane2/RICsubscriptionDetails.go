@@ -18,6 +18,7 @@ import (
 )
 
 // XerEncodeRICsubscriptionDetails - for testing only
+// Deprecated: Do not use.
 func XerEncodeRICsubscriptionDetails(rsd *e2ctypes.RICsubscriptionDetailsT) ([]byte, error) {
 	ratC, err := newRicSubscriptionDetails(rsd)
 	if err != nil {
@@ -32,6 +33,7 @@ func XerEncodeRICsubscriptionDetails(rsd *e2ctypes.RICsubscriptionDetailsT) ([]b
 }
 
 // PerEncodeRICsubscriptionDetails - for testing only
+// Deprecated: Do not use.
 func PerEncodeRICsubscriptionDetails(rsd *e2ctypes.RICsubscriptionDetailsT) ([]byte, error) {
 	ratC, err := newRicSubscriptionDetails(rsd)
 	if err != nil {
@@ -45,6 +47,7 @@ func PerEncodeRICsubscriptionDetails(rsd *e2ctypes.RICsubscriptionDetailsT) ([]b
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newRicSubscriptionDetails(rsd *e2ctypes.RICsubscriptionDetailsT) (*C.RICsubscriptionDetails_t, error) {
 	ricactionTobesetupList := C.RICactions_ToBeSetup_List_t{}
 	for _, tbsItem := range rsd.RicAction_ToBeSetup_List.List {

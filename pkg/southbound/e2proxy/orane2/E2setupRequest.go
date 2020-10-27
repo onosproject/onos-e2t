@@ -15,6 +15,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 )
 
+// Deprecated: Do not use.
 func newE2SetupRequest(esr *e2ctypes.E2SetupRequestT) (*C.E2setupRequest_t, error) {
 	pIeC1544P11, err := newProtocolIeContainer1544P11(esr.GetProtocolIEs())
 	if err != nil {
@@ -27,6 +28,7 @@ func newE2SetupRequest(esr *e2ctypes.E2SetupRequestT) (*C.E2setupRequest_t, erro
 	return &esC, nil
 }
 
+// Deprecated: Do not use.
 func decodeE2setupRequest(e2setupRequestC *C.E2setupRequest_t) (*e2ctypes.E2SetupRequestT, error) {
 	pIEs, err := decodeProtocolIeContainer1544P11(&e2setupRequestC.protocolIEs)
 	if err != nil {

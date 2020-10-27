@@ -8,8 +8,10 @@ syntax = "proto3";
 import "BIT_STRING.proto";
 package e2ctypes;
 
+option deprecated = true;
+
 message ENGNB_ID_t {
     oneof choice {
-        BIT_STRING gNB_ID = 2;
+        BIT_STRING gNB_ID = 2 [deprecated=true];
     }
 }

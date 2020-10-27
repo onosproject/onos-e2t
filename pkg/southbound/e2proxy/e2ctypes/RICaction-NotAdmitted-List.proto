@@ -10,5 +10,6 @@ import "ProtocolIE-SingleContainer.proto";
 package e2ctypes;
 
 message RICaction_NotAdmitted_List_t {
+    option deprecated = true;
     repeated RICaction_NotAdmitted_ItemIEs_t list  =1;
 }

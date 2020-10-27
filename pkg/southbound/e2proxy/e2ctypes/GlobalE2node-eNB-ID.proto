@@ -9,7 +9,9 @@ import "GlobalENB-ID.proto";
 
 package e2ctypes;
 
+option deprecated = true;
+
 message GlobalE2node_eNB_ID_t {
-    GlobalENB_ID_t	 global_eNB_ID = 1;
+    GlobalENB_ID_t	 global_eNB_ID = 1 [deprecated=true];
 
 }

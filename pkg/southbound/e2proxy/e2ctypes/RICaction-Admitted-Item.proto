@@ -6,7 +6,9 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 syntax = "proto3";
 
 package e2ctypes;
+option deprecated = true;
 
 message RICaction_Admitted_Item_t {
+    option deprecated = true;
     int64	 ricActionID = 1;
 }

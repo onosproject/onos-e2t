@@ -11,6 +11,7 @@ import "RICsubsequentAction.proto";
 package e2ctypes;
 
 message RICaction_ToBeSetup_Item_t {
+    option deprecated = true;
     int64 ricActionID = 1;
     RICactionType_t ricActionType = 2;
     string ricActionDefinition = 3; /* OPTIONAL */

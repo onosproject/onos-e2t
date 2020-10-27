@@ -21,6 +21,7 @@ import (
 	"unsafe"
 )
 
+// Deprecated: Do not use.
 func newSuccessfulOutcome(so *e2ctypes.SuccessfulOutcomeT) (*C.SuccessfulOutcome_t, error) {
 	pcC, err := procedureCodeToC(so.GetProcedureCode())
 	if err != nil {
@@ -46,6 +47,7 @@ func newSuccessfulOutcome(so *e2ctypes.SuccessfulOutcomeT) (*C.SuccessfulOutcome
 	return &imC, nil
 }
 
+// Deprecated: Do not use.
 func newSuccessfulOutcomeValue(so *e2ctypes.SuccessfulOutcomeT) (*C.struct_SuccessfulOutcome__value, error) {
 	var presentC C.SuccessfulOutcome__value_PR
 	choiceC := [72]byte{} // The size of the SuccessfulOutcome__value_u union
@@ -75,6 +77,7 @@ func newSuccessfulOutcomeValue(so *e2ctypes.SuccessfulOutcomeT) (*C.struct_Succe
 	return &soC, nil
 }
 
+// Deprecated: Do not use.
 func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2ctypes.SuccessfulOutcomeT, error) {
 	successfulOutcome := e2ctypes.SuccessfulOutcomeT{
 		ProcedureCode: e2ctypes.ProcedureCodeT(successC.procedureCode),

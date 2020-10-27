@@ -14,10 +14,12 @@ package e2ctypes;
 //option go_package = "github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/ctypes";
 
 // Derived from E2AP-PDU.h - this is the entry point to the whole thing
+option deprecated = true;
 message E2AP_PDU_t {
+    option deprecated = true;
     oneof choice {
-        InitiatingMessage_t initiatingMessage = 2;
-        SuccessfulOutcome_t	successfulOutcome = 3;
-        UnsuccessfulOutcome_t	unsuccessfulOutcome = 4;
+        InitiatingMessage_t initiatingMessage = 2 [deprecated=true];
+        SuccessfulOutcome_t	successfulOutcome = 3 [deprecated=true];
+        UnsuccessfulOutcome_t	unsuccessfulOutcome = 4 [deprecated=true];
     }
 }

@@ -11,6 +11,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 )
 
+// Deprecated: Do not use.
 func procedureCodeToC(procedureCode e2ctypes.ProcedureCodeT) (C.ProcedureCode_t, error) {
 	var pcC C.ProcedureCode_t
 	switch procedureCode {

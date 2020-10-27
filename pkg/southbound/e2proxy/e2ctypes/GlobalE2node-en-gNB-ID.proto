@@ -9,6 +9,8 @@ import "GlobalenGNB-ID.proto";
 
 package e2ctypes;
 
+option deprecated = true;
+
 message GlobalE2node_en_gNB_ID_t {
-    GlobalenGNB_ID_t global_gNB_ID = 1;
+    GlobalenGNB_ID_t global_gNB_ID = 1 [deprecated=true];
 }

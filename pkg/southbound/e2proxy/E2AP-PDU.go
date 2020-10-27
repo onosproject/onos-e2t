@@ -10,6 +10,7 @@ import (
 )
 
 // NewRICsubscriptionRequest - create sub request
+// Deprecated - use new proto structures from API instead
 func NewRICsubscriptionRequest(requestorID int, ricInstanceID int, ranFunctionID int, eventTrigger []byte) *e2ctypes.E2AP_PDUT {
 	ricSubscriptionRequest := e2ctypes.RICsubscriptionRequestT{
 		ProtocolIEs: &e2ctypes.ProtocolIE_Container_1544P0T{
@@ -85,6 +86,7 @@ func NewRICsubscriptionRequest(requestorID int, ricInstanceID int, ranFunctionID
 }
 
 // NewE2SetupResponse - generate a new E2 Setup Response
+// Deprecated - use new proto structures from API instead
 func NewE2SetupResponse() *e2ctypes.E2AP_PDUT {
 	e2SetupResponse := e2ctypes.E2SetupResponseT{
 		ProtocolIEs: &e2ctypes.ProtocolIE_Container_1544P12T{
@@ -125,6 +127,7 @@ func NewE2SetupResponse() *e2ctypes.E2AP_PDUT {
 }
 
 // GetE2apPduType - get the type of a E2AP_PDU
+// Deprecated - use new proto structures from API instead
 func GetE2apPduType(e2apPdu *e2ctypes.E2AP_PDUT) (e2ctypes.ProcedureCodeT, error) {
 	switch choice := e2apPdu.GetChoice().(type) {
 	case *e2ctypes.E2AP_PDUT_InitiatingMessage:

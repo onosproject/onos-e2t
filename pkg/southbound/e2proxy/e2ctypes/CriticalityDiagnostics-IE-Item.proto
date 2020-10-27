@@ -12,6 +12,7 @@ import "TypeOfError.proto";
 
 package e2ctypes;
 
+option deprecated = true;
 message CriticalityDiagnostics_IE_Item_t {
     Criticality_t	 iECriticality = 1;
     ProtocolIE_ID_t	 iE_ID = 2;

@@ -11,6 +11,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 )
 
+// Deprecated: Do not use.
 func protocolIeIDToC(pcIeID e2ctypes.ProtocolIE_IDT) (C.ProtocolIE_ID_t, error) {
 	switch pcIeID {
 	case e2ctypes.ProtocolIE_IDT_ProtocolIE_ID_id_Cause:
@@ -50,6 +51,7 @@ func protocolIeIDToC(pcIeID e2ctypes.ProtocolIE_IDT) (C.ProtocolIE_ID_t, error) 
 
 // had to split up in to 2 parts because of
 // cyclomatic complexity 35 of func `protocolIeIDToC` is high (> 30) (gocyclo)
+// Deprecated: Do not use.
 func protocolIeIDToC2(pcIeID e2ctypes.ProtocolIE_IDT) (C.ProtocolIE_ID_t, error) {
 	switch pcIeID {
 	case e2ctypes.ProtocolIE_IDT_ProtocolIE_ID_id_RICaction_NotAdmitted_Item:

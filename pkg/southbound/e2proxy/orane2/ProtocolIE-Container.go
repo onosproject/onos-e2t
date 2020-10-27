@@ -13,6 +13,7 @@ import (
 	"unsafe"
 )
 
+// Deprecated: Do not use.
 func newProtocolIeContainer1544P0(rsrIEs *e2ctypes.ProtocolIE_Container_1544P0T) (*C.ProtocolIE_Container_1544P0_t, error) {
 	pIeC1544P0 := C.ProtocolIE_Container_1544P0_t{}
 	for _, ie := range rsrIEs.List {
@@ -28,6 +29,7 @@ func newProtocolIeContainer1544P0(rsrIEs *e2ctypes.ProtocolIE_Container_1544P0T)
 	return &pIeC1544P0, nil
 }
 
+// Deprecated: Do not use.
 func newProtocolIeContainer1544P6(riv *e2ctypes.ProtocolIE_Container_1544P6T) (*C.ProtocolIE_Container_1544P6_t, error) {
 	pIeC1544P6 := C.ProtocolIE_Container_1544P6_t{}
 
@@ -44,6 +46,7 @@ func newProtocolIeContainer1544P6(riv *e2ctypes.ProtocolIE_Container_1544P6T) (*
 	return &pIeC1544P6, nil
 }
 
+// Deprecated: Do not use.
 func newProtocolIeContainer1544P11(esv *e2ctypes.ProtocolIE_Container_1544P11T) (*C.ProtocolIE_Container_1544P11_t, error) {
 	pIeC1544P11 := C.ProtocolIE_Container_1544P11_t{}
 
@@ -60,6 +63,7 @@ func newProtocolIeContainer1544P11(esv *e2ctypes.ProtocolIE_Container_1544P11T) 
 	return &pIeC1544P11, nil
 }
 
+// Deprecated: Do not use.
 func newProtocolIeContainer1544P12(e2srIEs *e2ctypes.ProtocolIE_Container_1544P12T) (*C.ProtocolIE_Container_1544P12_t, error) {
 	pIeC1544P12 := C.ProtocolIE_Container_1544P12_t{}
 	for _, ie := range e2srIEs.List {
@@ -75,6 +79,7 @@ func newProtocolIeContainer1544P12(e2srIEs *e2ctypes.ProtocolIE_Container_1544P1
 	return &pIeC1544P12, nil
 }
 
+// Deprecated: Do not use.
 func decodeProtocolIeContainer1544P0(protocolIEsC *C.ProtocolIE_Container_1544P0_t) (*e2ctypes.ProtocolIE_Container_1544P0T, error) {
 	pIEs := &e2ctypes.ProtocolIE_Container_1544P0T{
 		List: make([]*e2ctypes.RICsubscriptionRequest_IEsT, 0),
@@ -95,6 +100,7 @@ func decodeProtocolIeContainer1544P0(protocolIEsC *C.ProtocolIE_Container_1544P0
 	return pIEs, nil
 }
 
+// Deprecated: Do not use.
 func decodeProtocolIeContainer1544P1(protocolIEsC *C.ProtocolIE_Container_1544P1_t) (*e2ctypes.ProtocolIE_Container_1544P1T, error) {
 	pIEs := &e2ctypes.ProtocolIE_Container_1544P1T{
 		List: make([]*e2ctypes.RICsubscriptionResponse_IEsT, 0),
@@ -115,6 +121,7 @@ func decodeProtocolIeContainer1544P1(protocolIEsC *C.ProtocolIE_Container_1544P1
 	return pIEs, nil
 }
 
+// Deprecated: Do not use.
 func decodeProtocolIeContainer1544P10(protocolIEsC *C.ProtocolIE_Container_1544P10_t) (*e2ctypes.ProtocolIE_Container_1544P10T, error) {
 	pIEs := &e2ctypes.ProtocolIE_Container_1544P10T{
 		List: make([]*e2ctypes.ErrorIndication_IEsT, 0),
@@ -136,6 +143,7 @@ func decodeProtocolIeContainer1544P10(protocolIEsC *C.ProtocolIE_Container_1544P
 	return pIEs, nil
 }
 
+// Deprecated: Do not use.
 func decodeProtocolIeContainer1544P11(protocolIEsC *C.ProtocolIE_Container_1544P11_t) (*e2ctypes.ProtocolIE_Container_1544P11T, error) {
 	pIEs := &e2ctypes.ProtocolIE_Container_1544P11T{
 		List: make([]*e2ctypes.E2SetupRequestIEsT, 0),

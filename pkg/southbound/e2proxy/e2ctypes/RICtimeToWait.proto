@@ -8,6 +8,7 @@ syntax = "proto3";
 package e2ctypes;
 
 enum RICtimeToWait_t {
+    option deprecated = true;
     RICtimeToWait_zero = 0;
     RICtimeToWait_w1ms = 1;
     RICtimeToWait_w2ms = 2;
