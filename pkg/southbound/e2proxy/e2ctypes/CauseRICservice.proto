@@ -7,6 +7,7 @@ syntax = "proto3";
 
 package e2ctypes;
 
+option deprecated = true;
 enum CauseRICservice_t {
     CauseRICservice_function_not_required	= 0;
     CauseRICservice_excessive_functions	= 1;

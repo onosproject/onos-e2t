@@ -20,6 +20,7 @@ import (
 )
 
 // XerEncodeE2setRequest - used only for testing
+// Deprecated: Do not use.
 func XerEncodeE2setRequest(e2SetupReqIe *e2ctypes.E2SetupRequestIEsT) ([]byte, error) {
 	e2SetupRequestIeC, err := newE2setupRequestIe(e2SetupReqIe)
 	if err != nil {
@@ -33,6 +34,7 @@ func XerEncodeE2setRequest(e2SetupReqIe *e2ctypes.E2SetupRequestIEsT) ([]byte, e
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newRicIndicationIe(riIe *e2ctypes.RICindication_IEsT) (*C.RICindication_IEs_t, error) {
 
 	critC, err := criticalityToC(riIe.GetCriticality())
@@ -99,6 +101,7 @@ func newRicIndicationIe(riIe *e2ctypes.RICindication_IEsT) (*C.RICindication_IEs
 	return &ricIndIeC, nil
 }
 
+// Deprecated: Do not use.
 func newRICsubscriptionRequestIE(rsrIe *e2ctypes.RICsubscriptionRequest_IEsT) (*C.RICsubscriptionRequest_IEs_t, error) {
 	critC, err := criticalityToC(rsrIe.GetCriticality())
 	if err != nil {
@@ -162,6 +165,7 @@ func newRICsubscriptionRequestIE(rsrIe *e2ctypes.RICsubscriptionRequest_IEsT) (*
 	return &ieC, nil
 }
 
+// Deprecated: Do not use.
 func newE2setupRequestIe(esIe *e2ctypes.E2SetupRequestIEsT) (*C.E2setupRequestIEs_t, error) {
 
 	critC, err := criticalityToC(esIe.GetCriticality())
@@ -205,6 +209,7 @@ func newE2setupRequestIe(esIe *e2ctypes.E2SetupRequestIEsT) (*C.E2setupRequestIE
 	return &ie, nil
 }
 
+// Deprecated: Do not use.
 func newE2setupResponseIE(e2srIe *e2ctypes.E2SetupResponseIEsT) (*C.E2setupResponseIEs_t, error) {
 
 	critC, err := criticalityToC(e2srIe.GetCriticality())
@@ -250,6 +255,7 @@ func newE2setupResponseIE(e2srIe *e2ctypes.E2SetupResponseIEsT) (*C.E2setupRespo
 	return &ie, nil
 }
 
+// Deprecated: Do not use.
 func decodeErrorIndicationIE(errIndIeC *C.ErrorIndication_IEs_t) (*e2ctypes.ErrorIndication_IEsT, error) {
 
 	ret := e2ctypes.ErrorIndication_IEsT{
@@ -281,6 +287,7 @@ func decodeErrorIndicationIE(errIndIeC *C.ErrorIndication_IEs_t) (*e2ctypes.Erro
 	return &ret, nil
 }
 
+// Deprecated: Do not use.
 func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2ctypes.E2SetupRequestIEsT, error) {
 	//fmt.Printf("Handling E2SetupReqIE %+v\n", e2srIeC)
 	ret := e2ctypes.E2SetupRequestIEsT{
@@ -304,6 +311,7 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2ctypes.E2SetupRe
 	return &ret, nil
 }
 
+// Deprecated: Do not use.
 func decodeRICsubscriptionRequestIE(rsreqIeC *C.RICsubscriptionRequest_IEs_t) (*e2ctypes.RICsubscriptionRequest_IEsT, error) {
 	fmt.Printf("Handling RICsubscriptionRequest_IE %+v\n", rsreqIeC)
 	ret := e2ctypes.RICsubscriptionRequest_IEsT{
@@ -325,6 +333,7 @@ func decodeRICsubscriptionRequestIE(rsreqIeC *C.RICsubscriptionRequest_IEs_t) (*
 	return &ret, nil
 }
 
+// Deprecated: Do not use.
 func decodeRICsubscriptionResponseIE(rsrespIeC *C.RICsubscriptionResponse_IEs_t) (*e2ctypes.RICsubscriptionResponse_IEsT, error) {
 	//fmt.Printf("Handling RICsubscriptionResponse_IE %+v\n", rsrespIeC)
 	ret := e2ctypes.RICsubscriptionResponse_IEsT{

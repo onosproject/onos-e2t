@@ -14,12 +14,13 @@ import "CriticalityDiagnostics-IE-List.proto";
 
 package e2ctypes;
 
+option deprecated = true;
 message CriticalityDiagnostics_t {
-    ProcedureCode_t procedureCode = 1; /* OPTIONAL */
-    TriggeringMessage_t triggeringMessage = 2; /* OPTIONAL */
-    Criticality_t procedureCriticality = 3; /* OPTIONAL */
-    RICrequestID_t ricRequestorID = 4; /* OPTIONAL */
-    CriticalityDiagnostics_IE_List_t iEsCriticalityDiagnostics = 5; /* OPTIONAL */
+    ProcedureCode_t procedureCode = 1 [deprecated=true]; /* OPTIONAL */
+    TriggeringMessage_t triggeringMessage = 2 [deprecated=true]; /* OPTIONAL */
+    Criticality_t procedureCriticality = 3 [deprecated=true]; /* OPTIONAL */
+    RICrequestID_t ricRequestorID = 4 [deprecated=true]; /* OPTIONAL */
+    CriticalityDiagnostics_IE_List_t iEsCriticalityDiagnostics = 5 [deprecated=true]; /* OPTIONAL */
     /*
      * This type is extensible,
      * possible extensions are below.

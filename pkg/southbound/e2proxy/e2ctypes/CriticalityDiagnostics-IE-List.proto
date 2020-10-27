@@ -10,6 +10,7 @@ import "CriticalityDiagnostics-IE-Item.proto";
 
 package e2ctypes;
 
+option deprecated = true;
 message CriticalityDiagnostics_IE_List_t {
     repeated CriticalityDiagnostics_IE_Item_t list = 1;
 }

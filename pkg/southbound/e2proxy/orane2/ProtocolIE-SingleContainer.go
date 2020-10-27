@@ -20,6 +20,7 @@ import (
 	"unsafe"
 )
 
+// Deprecated: Do not use.
 func newRICactionTbsItemIEs(tbsItemIEs *e2ctypes.RICaction_ToBeSetup_ItemIEsT) (*C.RICaction_ToBeSetup_ItemIEs_t, error) {
 	critC, err := criticalityToC(tbsItemIEs.GetCriticality())
 	if err != nil {

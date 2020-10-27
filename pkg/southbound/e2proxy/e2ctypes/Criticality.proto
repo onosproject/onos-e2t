@@ -8,8 +8,9 @@ syntax = "proto3";
 
 package e2ctypes;
 
+option deprecated = true;
 enum Criticality_t {
-    Criticality_reject = 0;
-    Criticality_ignore = 1;
-    Criticality_notify = 2;
+    Criticality_reject = 0 [deprecated=true];
+    Criticality_ignore = 1 [deprecated=true];
+    Criticality_notify = 2 [deprecated=true];
 };

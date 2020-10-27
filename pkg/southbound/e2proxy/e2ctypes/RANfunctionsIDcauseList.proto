@@ -8,7 +8,9 @@ syntax = "proto3";
 import "ProtocolIE-SingleContainer.proto";
 
 package e2ctypes;
+option deprecated = true;
 
 message RANfunctionsIDcause_List_t {
+    option deprecated = true;
     repeated RANfunctionIDcause_ItemIEs_t list = 1;
 }

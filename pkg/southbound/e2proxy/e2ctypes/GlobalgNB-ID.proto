@@ -9,7 +9,9 @@ import "GNB-ID-Choice.proto";
 
 package e2ctypes;
 
+option deprecated = true;
+
 message GlobalgNB_ID_t {
-    string	 plmn_id = 1;
-    GNB_ID_Choice_t	 gnb_id = 2;
+    string	 plmn_id = 1 [deprecated=true];
+    GNB_ID_Choice_t	 gnb_id = 2 [deprecated=true];
 }

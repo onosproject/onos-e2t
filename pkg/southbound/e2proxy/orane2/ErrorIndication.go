@@ -17,6 +17,7 @@ import (
 )
 
 // XerDecodeErrorIndication - just used for test only
+// Deprecated: - use new proto structures from API instead
 func XerDecodeErrorIndication(bytes []byte) (*e2ctypes.ErrorIndicationT, error) {
 	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_ErrorIndication)
 	if err != nil {
@@ -34,6 +35,7 @@ func XerDecodeErrorIndication(bytes []byte) (*e2ctypes.ErrorIndicationT, error) 
 	return errorIndication, nil
 }
 
+// Deprecated: - use new proto structures from API instead
 func decodeErrorIndication(errIndChoice *C.ErrorIndication_t) (*e2ctypes.ErrorIndicationT, error) {
 	pIEs, err := decodeProtocolIeContainer1544P10(&errIndChoice.protocolIEs)
 	if err != nil {

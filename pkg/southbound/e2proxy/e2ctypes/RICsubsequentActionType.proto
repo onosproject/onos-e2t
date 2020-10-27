@@ -8,6 +8,7 @@ syntax = "proto3";
 package e2ctypes;
 
 enum RICsubsequentActionType_t {
+    option deprecated = true;
     RICsubsequentActionType_continue = 0;
     RICsubsequentActionType_wait = 1;
     /*

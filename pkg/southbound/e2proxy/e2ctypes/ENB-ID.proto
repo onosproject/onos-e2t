@@ -8,15 +8,17 @@ syntax = "proto3";
 import "BIT_STRING.proto";
 package e2ctypes;
 
+option deprecated = true;
+
 message ENB_ID_t {
     oneof choice {
-        BIT_STRING	 macro_eNB_ID = 2;
-        BIT_STRING	 home_eNB_ID = 3;
+        BIT_STRING	 macro_eNB_ID = 2 [deprecated=true];
+        BIT_STRING	 home_eNB_ID = 3 [deprecated=true];
         /*
          * This type is extensible,
          * possible extensions are below.
          */
-        BIT_STRING	 short_Macro_eNB_ID = 4;
-        BIT_STRING	 long_Macro_eNB_ID = 5;
+        BIT_STRING	 short_Macro_eNB_ID = 4 [deprecated=true];
+        BIT_STRING	 long_Macro_eNB_ID = 5 [deprecated=true];
     }
 }

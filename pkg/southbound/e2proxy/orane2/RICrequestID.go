@@ -17,6 +17,7 @@ import (
 )
 
 // XerDecodeRICrequestID - just used for test only
+// Deprecated: Do not use.
 func XerDecodeRICrequestID(bytes []byte) (*e2ctypes.RICrequestIDT, error) {
 	resultUnsafe, err := decodeXer(bytes, &C.asn_DEF_RICrequestID)
 	if err != nil {
@@ -32,6 +33,7 @@ func XerDecodeRICrequestID(bytes []byte) (*e2ctypes.RICrequestIDT, error) {
 	return &result, nil
 }
 
+// Deprecated: Do not use.
 func decodeRicRequestID(ricRequestIDCchoice []byte) (*e2ctypes.RICrequestIDT, error) {
 	ricRequestorID := binary.LittleEndian.Uint64(ricRequestIDCchoice[0:8])
 	ricInstanceID := binary.LittleEndian.Uint64(ricRequestIDCchoice[8:16])

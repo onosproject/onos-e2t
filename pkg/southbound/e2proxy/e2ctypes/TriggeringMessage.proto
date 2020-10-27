@@ -9,6 +9,7 @@ syntax = "proto3";
 package e2ctypes;
 
 enum TriggeringMessage_t {
+    option deprecated = true;
     TriggeringMessage_initiating_message	= 0;
     TriggeringMessage_successful_outcome	= 1;
     TriggeringMessage_unsuccessfull_outcome	= 2;

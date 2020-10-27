@@ -9,7 +9,9 @@ import "ENB-ID-Choice.proto";
 
 package e2ctypes;
 
+option deprecated = true;
+
 message GlobalngeNB_ID_t {
-    string	 plmn_id = 1;
-    ENB_ID_Choice_t	 enb_id = 2;
+    string	 plmn_id = 1 [deprecated=true];
+    ENB_ID_Choice_t	 enb_id = 2 [deprecated=true];
 }

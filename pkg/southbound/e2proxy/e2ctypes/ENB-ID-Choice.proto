@@ -8,10 +8,12 @@ syntax = "proto3";
 import "BIT_STRING.proto";
 package e2ctypes;
 
+option deprecated = true;
+
 message ENB_ID_Choice_t {
     oneof choice {
-        BIT_STRING enb_ID_macro = 2;
-        BIT_STRING enb_ID_shortmacro = 3;
-        BIT_STRING enb_ID_longmacro = 4;
+        BIT_STRING enb_ID_macro = 2 [deprecated=true];
+        BIT_STRING enb_ID_shortmacro = 3 [deprecated=true];
+        BIT_STRING enb_ID_longmacro = 4 [deprecated=true];
     }
 }

@@ -14,6 +14,7 @@ import (
 	"encoding/binary"
 )
 
+// Deprecated: Do not use.
 func decodeRanFunctionID(ranFunctionIDCchoice [64]byte) (*uint64, error) {
 	result := binary.LittleEndian.Uint64(ranFunctionIDCchoice[0:8])
 

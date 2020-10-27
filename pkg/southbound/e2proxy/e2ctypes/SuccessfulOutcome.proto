@@ -17,6 +17,7 @@ import "ResetResponse.proto";
 package e2ctypes;
 
 message SuccessfulOutcome_t {
+    option deprecated = true;
     ProcedureCode_t procedureCode = 1;
     Criticality_t criticality = 2;
     oneof choice {

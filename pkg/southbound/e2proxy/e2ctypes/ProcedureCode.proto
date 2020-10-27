@@ -7,15 +7,17 @@ syntax = "proto3";
 
 package e2ctypes;
 
+option deprecated = true;
 enum ProcedureCode_t {
-    ProcedureCode_id_dummy = 0;
-    ProcedureCode_id_E2setup = 1;
-    ProcedureCode_id_ErrorIndication = 2;
-    ProcedureCode_id_Reset = 3;
-    ProcedureCode_id_RICcontrol = 4;
-    ProcedureCode_id_RICindication = 5;
-    ProcedureCode_id_RICserviceQuery = 6;
-    ProcedureCode_id_RICserviceUpdate = 7;
-    ProcedureCode_id_RICsubscription = 8;
-    ProcedureCode_id_RICsubscriptionDelete = 9;
+    option deprecated = true;
+    ProcedureCode_id_dummy = 0 [deprecated=true];
+    ProcedureCode_id_E2setup = 1 [deprecated=true];
+    ProcedureCode_id_ErrorIndication = 2 [deprecated=true];
+    ProcedureCode_id_Reset = 3 [deprecated=true];
+    ProcedureCode_id_RICcontrol = 4 [deprecated=true];
+    ProcedureCode_id_RICindication = 5 [deprecated=true];
+    ProcedureCode_id_RICserviceQuery = 6 [deprecated=true];
+    ProcedureCode_id_RICserviceUpdate = 7 [deprecated=true];
+    ProcedureCode_id_RICsubscription = 8 [deprecated=true];
+    ProcedureCode_id_RICsubscriptionDelete = 9 [deprecated=true];
 }

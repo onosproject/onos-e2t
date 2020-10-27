@@ -7,6 +7,7 @@ syntax = "proto3";
 
 package e2ctypes;
 
+option deprecated = true;
 enum CauseTransport_t {
     CauseTransport_unspecified	= 0;
     CauseTransport_transport_resource_unavailable	= 1;

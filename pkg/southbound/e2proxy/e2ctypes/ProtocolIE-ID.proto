@@ -6,8 +6,10 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 syntax = "proto3";
 
 package e2ctypes;
+option deprecated = true;
 
 enum ProtocolIE_ID_t {
+    option deprecated = true;
     ProtocolIE_ID_id_Dummy = 0;
     ProtocolIE_ID_id_Cause = 1;
     ProtocolIE_ID_id_CriticalityDiagnostics = 2;

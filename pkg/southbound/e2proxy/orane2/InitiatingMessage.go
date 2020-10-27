@@ -21,6 +21,7 @@ import (
 	"unsafe"
 )
 
+// Deprecated: Do not use.
 func newInitiatingMessage(im *e2ctypes.InitiatingMessageT) (*C.InitiatingMessage_t, error) {
 
 	pcC, err := procedureCodeToC(im.GetProcedureCode())
@@ -47,6 +48,7 @@ func newInitiatingMessage(im *e2ctypes.InitiatingMessageT) (*C.InitiatingMessage
 	return &imC, nil
 }
 
+// Deprecated: Do not use.
 func newInitiatingMessageValue(im *e2ctypes.InitiatingMessageT) (*C.struct_InitiatingMessage__value, error) {
 
 	var presentC C.InitiatingMessage__value_PR
@@ -106,6 +108,7 @@ func newInitiatingMessageValue(im *e2ctypes.InitiatingMessageT) (*C.struct_Initi
 	return &imvC, nil
 }
 
+// Deprecated: Do not use.
 func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2ctypes.InitiatingMessageT, error) {
 
 	initiatingMessage := e2ctypes.InitiatingMessageT{

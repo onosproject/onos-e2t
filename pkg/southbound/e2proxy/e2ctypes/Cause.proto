@@ -13,12 +13,14 @@ import "CauseTransport.proto";
 
 package e2ctypes;
 
+option deprecated = true;
 message Cause_t {
     oneof choice {
-        CauseRIC_t ricRequest = 2;
-        CauseRICservice_t ricService = 3;
-        CauseTransport_t transport = 4;
-        CauseProtocol_t protocol = 5;
-        CauseMisc_t misc = 6;
+        CauseRIC_t ricRequest = 2 [deprecated=true];
+        CauseRICservice_t ricService = 3 [deprecated=true];
+        CauseTransport_t transport = 4 [deprecated=true];
+        CauseProtocol_t protocol = 5 [deprecated=true];
+        CauseMisc_t misc = 6 [deprecated=true];
     }
+    string test = 1;
 }

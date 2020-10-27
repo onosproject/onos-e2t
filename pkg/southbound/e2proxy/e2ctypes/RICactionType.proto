@@ -8,6 +8,7 @@ syntax = "proto3";
 package e2ctypes;
 
 enum RICactionType_t {
+    option deprecated = true;
     RICactionType_report	= 0;
     RICactionType_insert	= 1;
     RICactionType_policy	= 2;

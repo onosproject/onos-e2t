@@ -9,9 +9,13 @@ linters:
 run:
   skip-dirs:
     - modelplugin
+    - pkg/southbound/e2proxy
 
 issues:
   exclude-rules:
     - path: pkg/northbound/gnmi/set.go
       linters:
         - typecheck
+    - path: cmd/onos-e2t.go
+      linters:
+        - depguard

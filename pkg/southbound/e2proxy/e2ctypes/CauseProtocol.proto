@@ -7,6 +7,7 @@ syntax = "proto3";
 
 package e2ctypes;
 
+option deprecated = true;
 enum CauseProtocol_t {
     CauseProtocol_transfer_syntax_error = 0;
     CauseProtocol_abstract_syntax_error_reject = 1;

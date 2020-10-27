@@ -20,6 +20,7 @@ import (
 )
 
 // XerEncodeGlobalE2nodeID - used only in tests
+// Deprecated: Do not use.
 func XerEncodeGlobalE2nodeID(globalE2nodeID *e2ctypes.GlobalE2Node_IDT) ([]byte, error) {
 	globalE2nodeIDC, err := newGlobalE2nodeID(globalE2nodeID)
 	if err != nil {
@@ -34,6 +35,7 @@ func XerEncodeGlobalE2nodeID(globalE2nodeID *e2ctypes.GlobalE2Node_IDT) ([]byte,
 }
 
 // PerEncodeGlobalE2nodeID - used only in tests
+// Deprecated: Do not use.
 func PerEncodeGlobalE2nodeID(globalE2nodeID *e2ctypes.GlobalE2Node_IDT) ([]byte, error) {
 	globalE2nodeIDC, err := newGlobalE2nodeID(globalE2nodeID)
 	if err != nil {
@@ -48,6 +50,7 @@ func PerEncodeGlobalE2nodeID(globalE2nodeID *e2ctypes.GlobalE2Node_IDT) ([]byte,
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newGlobalE2nodeID(gnID *e2ctypes.GlobalE2Node_IDT) (*C.GlobalE2node_ID_t, error) {
 	var prC C.GlobalE2node_ID_PR
 
@@ -73,6 +76,7 @@ func newGlobalE2nodeID(gnID *e2ctypes.GlobalE2Node_IDT) (*C.GlobalE2node_ID_t, e
 	return &gnIDC, nil
 }
 
+// Deprecated: Do not use.
 func decodeGlobalE2NodeID(globalE2nodeIDchoice [48]byte) (*e2ctypes.GlobalE2Node_IDT, error) {
 
 	present := C.long(binary.LittleEndian.Uint64(globalE2nodeIDchoice[0:8]))

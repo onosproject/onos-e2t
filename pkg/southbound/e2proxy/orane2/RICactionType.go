@@ -17,6 +17,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 )
 
+// Deprecated: Do not use.
 func newRicaActionType(rat e2ctypes.RICactionTypeT) (C.RICactionType_t, error) {
 	switch rat {
 	case e2ctypes.RICactionTypeT_RICactionType_report:

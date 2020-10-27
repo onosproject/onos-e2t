@@ -14,6 +14,7 @@ package orane2
 import "C"
 import "github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 
+// Deprecated: Do not use.
 func decodeRicActionAdmittedList(raalC [48]byte) (*e2ctypes.RICaction_Admitted_ListT, error) {
 
 	raal := e2ctypes.RICaction_Admitted_ListT{

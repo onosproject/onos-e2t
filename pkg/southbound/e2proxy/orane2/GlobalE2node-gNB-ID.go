@@ -16,6 +16,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 )
 
+// Deprecated: Do not use.
 func newGlobalE2nodegNBID(gnbID *e2ctypes.GlobalE2NodeGNB_ID) (*C.GlobalE2node_gNB_ID_t, error) {
 
 	globalgNBID, err := newGlobalgNBID(gnbID.GlobalGNB_ID)
@@ -32,6 +33,7 @@ func newGlobalE2nodegNBID(gnbID *e2ctypes.GlobalE2NodeGNB_ID) (*C.GlobalE2node_g
 	return &globalgNBIDC, nil
 }
 
+// Deprecated: Do not use.
 func decodeGlobalE2nodegNBID(gNBC *C.GlobalE2node_gNB_ID_t) (*e2ctypes.GlobalE2NodeGNB_ID, error) {
 	result := new(e2ctypes.GlobalE2NodeGNB_ID)
 	var err error

@@ -19,6 +19,7 @@ import (
 )
 
 // XerEncodeGnbID - used only in tests
+// Deprecated: Do not use.
 func XerEncodeGnbID(gnbID *e2ctypes.GNB_ID_ChoiceT) ([]byte, error) {
 	gnbIDC, err := newGnbIDChoice(gnbID)
 	if err != nil {
@@ -33,6 +34,7 @@ func XerEncodeGnbID(gnbID *e2ctypes.GNB_ID_ChoiceT) ([]byte, error) {
 }
 
 // PerEncodeGnbID - used only in tests
+// Deprecated: Do not use.
 func PerEncodeGnbID(gnbID *e2ctypes.GNB_ID_ChoiceT) ([]byte, error) {
 	gnbIDC, err := newGnbIDChoice(gnbID)
 	if err != nil {
@@ -47,6 +49,7 @@ func PerEncodeGnbID(gnbID *e2ctypes.GNB_ID_ChoiceT) ([]byte, error) {
 	return bytes, nil
 }
 
+// Deprecated: Do not use.
 func newGnbIDChoice(gnbIDCh *e2ctypes.GNB_ID_ChoiceT) (*C.GNB_ID_Choice_t, error) {
 	var pr C.GNB_ID_Choice_PR
 
@@ -72,6 +75,7 @@ func newGnbIDChoice(gnbIDCh *e2ctypes.GNB_ID_ChoiceT) (*C.GNB_ID_Choice_t, error
 	return &gnbChC, nil
 }
 
+// Deprecated: Do not use.
 func decodeGnbIDChoice(gnbIDC *C.GNB_ID_Choice_t) (*e2ctypes.GNB_ID_ChoiceT, error) {
 	result := new(e2ctypes.GNB_ID_ChoiceT)
 
