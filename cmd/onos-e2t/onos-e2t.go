@@ -77,7 +77,7 @@ func main() {
 			}
 			switch pc {
 			case e2ctypes.ProcedureCodeT_ProcedureCode_id_E2setup:
-				connections.CreateConnection(pduIn.GetInitiatingMessage().GetE2SetupRequest())
+				//connections.CreateConnection(pduIn.GetInitiatingMessage().GetE2SetupRequest())
 				e2setupResp := e2proxy.NewE2SetupResponse()
 				fmt.Printf("Sending E2SetupResponse\n")
 				e2setupRespBytes, err := orane2.XerEncodeE2apPdu(e2setupResp)
