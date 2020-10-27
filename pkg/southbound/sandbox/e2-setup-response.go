@@ -28,7 +28,7 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
 				Value: []byte(plmnID),
 			},
-			RicId: make([]byte, 5),
+			RicId: make([]byte, 4),
 		},
 	}
 	binary.LittleEndian.PutUint32(gricIDIe.Value.RicId, ricID)
@@ -39,7 +39,7 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 		},
 	}
 
-	rfIDiIe1 := e2appducontents.RanfunctionIdItemIes{
+	rfIDiIe100 := e2appducontents.RanfunctionIdItemIes{
 		RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
 			Value: &e2appducontents.RanfunctionIdItem{
 				RanFunctionId: &e2apies.RanfunctionId{
@@ -51,13 +51,14 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 			},
 		},
 	}
-	ranFunctions.Value.Value = append(ranFunctions.Value.Value, &rfIDiIe1)
+	ranFunctions.Value.Value = append(ranFunctions.Value.Value, &rfIDiIe100)
 
 	ranfunctionsIdcauseList := e2appducontents.E2SetupResponseIes_E2SetupResponseIes13{
 		Value: &e2appducontents.RanfunctionsIdcauseList{
 			Value: make([]*e2appducontents.RanfunctionIdcauseItemIes, 0),
 		},
 	}
+	// TODO: add some examples
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
