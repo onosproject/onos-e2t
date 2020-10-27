@@ -13,6 +13,7 @@ import "google/protobuf/duration.proto";
 import "github.com/onosproject/onos-e2t/api/headers/v1/headers.proto";
 
 
+
 // ResponseStatus
 enum ResponseStatus {
     FAILED = 0;
@@ -21,6 +22,10 @@ enum ResponseStatus {
 
 // SubscribeRequest a subscription request
 message SubscribeRequest {
+
+}
+
+message Indication {
 
 }
 
@@ -51,6 +56,7 @@ message AppRequest {
         SubscribeDeleteRequest sub_del_req = 3;
 
     }
+    bytes payload = 4;
 }
 
 
@@ -60,9 +66,10 @@ message AppResponse {
     oneof resp {
         SubscribeResponse sub_resp = 2;
         SubscribeDeleteResponse sub_del_resp = 3;
+        Indication indication = 4;
 
     }
-    bytes payload = 4;
+    bytes payload = 5;
 }
 
 // E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
