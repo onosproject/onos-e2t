@@ -58,7 +58,22 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 			Value: make([]*e2appducontents.RanfunctionIdcauseItemIes, 0),
 		},
 	}
-	// TODO: add some examples
+
+	rfIDcLi100 := e2appducontents.RanfunctionIdcauseItemIes{
+		RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
+			Value: &e2appducontents.RanfunctionIdcauseItem{
+				RanFunctionId: &e2apies.RanfunctionId{
+					Value: 100,
+				},
+				Cause: &e2apies.Cause{
+					Cause: &e2apies.Cause_RicService{
+						RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT,
+					},
+				},
+			},
+		},
+	}
+	ranfunctionsIdcauseList.Value.Value = append(ranfunctionsIdcauseList.Value.Value, &rfIDcLi100)
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
