@@ -6,10 +6,15 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io/ioutil"
+	"os"
 
-	"github.com/onosproject/onos-e2t/pkg/manager"
-
+	"github.com/onosproject/onos-e2t/pkg/southbound/connections"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/orane2"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/sctp"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
@@ -22,7 +27,7 @@ func main() {
 	caPath := flag.String("caPath", "", "path to CA certificate")
 	keyPath := flag.String("keyPath", "", "path to client private key")
 	certPath := flag.String("certPath", "", "path to client certificate")
-	_ = flag.Uint("sctpport", 36421, "sctp server port")
+	sctpPort := flag.Uint("sctpport", 36421, "sctp server port")
 
 	flag.Parse()
 
@@ -32,7 +37,7 @@ func main() {
 	}
 	log.Infof("not using gRPC server just yet %p", opts)
 
-	/*sendChan := make(chan []byte)
+	sendChan := make(chan []byte)
 	defer close(sendChan)
 	recvChan := make(chan []byte)
 	defer close(recvChan)
@@ -114,23 +119,12 @@ func main() {
 		}
 	}()
 
-	<-startedChan // block until server starts listening*/
+	<-startedChan // block until server starts listening
 	log.Info("Starting onos-e2t")
 	if err := ioutil.WriteFile(probeFile, []byte("onos-e2t"), 0644); err != nil {
 		log.Fatalf("Unable to write probe file %s", probeFile)
 	}
-	//defer os.Remove(probeFile)
+	defer os.Remove(probeFile)
 
-	mgr, err := manager.NewManager(manager.WithCAPath(*caPath),
-		manager.WithKeyPath(*keyPath),
-		manager.WithCertPath(*certPath))
-	if err != nil {
-		log.Fatal("Unable to create  onos-e2t manager instance")
-		return
-	}
-
-	err = mgr.Run()
-	if err != nil {
-		log.Fatal("Unable to start onos-e2t manager")
-	}
+	<-startedChan // block again to stay running
 }

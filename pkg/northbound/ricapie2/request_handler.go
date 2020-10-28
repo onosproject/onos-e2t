@@ -12,7 +12,6 @@ import (
 
 // appRequestHandler
 func (s Server) appRequestHandler(appReq *ricapie2v1beta1.AppRequest) error {
-	//header := appReq.Header
 	req := appReq.Req
 	switch req.(type) {
 	case *ricapie2v1beta1.AppRequest_SubReq:

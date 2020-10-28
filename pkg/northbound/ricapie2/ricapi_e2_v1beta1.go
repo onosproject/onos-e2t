@@ -33,7 +33,6 @@ type Server struct {
 
 // RegisterApp process and handle the incoming requests from xApps
 func (s Server) RegisterApp(stream ricapie2v1beta1.E2TService_RegisterAppServer) error {
-	log.Info("Register app is called")
 	ctx := stream.Context()
 	for {
 
