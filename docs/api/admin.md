@@ -53,7 +53,7 @@ AppResponse
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
+| header | [ricapi.e2.headers.v1beta1.ResponseHeader](#ricapi.e2.headers.v1beta1.ResponseHeader) |  |  |
 | sub_resp | [SubscribeResponse](#ricapi.e2.v1beta1.SubscribeResponse) |  |  |
 | sub_del_resp | [SubscribeDeleteResponse](#ricapi.e2.v1beta1.SubscribeDeleteResponse) |  |  |
 | indication | [Indication](#ricapi.e2.v1beta1.Indication) |  |  |
