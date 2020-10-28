@@ -7,6 +7,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/southbound/connections"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/orane2"
@@ -56,7 +57,8 @@ func main() {
 				e2apPdu, err = orane2.XerDecodeE2apPdu(r)
 				if err != nil {
 					fmt.Printf("unable to parse response as XER %v %s\n", err, string(r))
-					os.Exit(-1)
+					break
+					//os.Exit(-1)
 				}
 			}
 			e2inChan <- e2apPdu
@@ -75,7 +77,7 @@ func main() {
 			}
 			switch pc {
 			case e2ctypes.ProcedureCodeT_ProcedureCode_id_E2setup:
-				fmt.Printf("Received E2SetupRequest\n")
+				//connections.CreateConnection(pduIn.GetInitiatingMessage().GetE2SetupRequest())
 				e2setupResp := e2proxy.NewE2SetupResponse()
 				fmt.Printf("Sending E2SetupResponse\n")
 				e2setupRespBytes, err := orane2.XerEncodeE2apPdu(e2setupResp)
@@ -104,7 +106,9 @@ func main() {
 			default:
 				fmt.Printf("Unhandled response %v", pc)
 			}
-
+			for index, conn := range connections.ListConnections() {
+				fmt.Printf("Connection #%d is %v\n", index, conn)
+			}
 		}
 	}()
 
