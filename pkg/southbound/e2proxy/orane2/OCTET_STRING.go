@@ -13,7 +13,7 @@ package orane2
 import "C"
 import "unsafe"
 
-// Deprecated: Do not use.
+// TODO: Change the argument to a []byte
 func newOctetString(msg string) *C.OCTET_STRING_t {
 	msgBytes := C.CBytes([]byte(msg))
 	octStrC := C.OCTET_STRING_t{
@@ -23,7 +23,6 @@ func newOctetString(msg string) *C.OCTET_STRING_t {
 	return &octStrC
 }
 
-// Deprecated: Do not use.
 func decodeOctetString(octC *C.OCTET_STRING_t) string {
 
 	bytes := C.GoBytes(unsafe.Pointer(octC.buf), C.int(octC.size))

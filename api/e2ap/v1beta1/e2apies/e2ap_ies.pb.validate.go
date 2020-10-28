@@ -1683,10 +1683,13 @@ func (m *GnbIdChoice) Validate() error {
 
 	case *GnbIdChoice_GnbId:
 
-		if len(m.GetGnbId()) > 4 {
-			return GnbIdChoiceValidationError{
-				field:  "GnbId",
-				reason: "value length must be at most 4 bytes",
+		if v, ok := interface{}(m.GetGnbId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GnbIdChoiceValidationError{
+					field:  "GnbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 

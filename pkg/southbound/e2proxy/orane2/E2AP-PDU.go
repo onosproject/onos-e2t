@@ -25,6 +25,7 @@ import (
 )
 
 // XerDecodeE2apPdu - the main entry to decode E2 message in XER format
+// Deprecated: Do not use.
 func XerDecodeE2apPdu(bytes []byte) (*e2ctypes.E2AP_PDUT, error) {
 
 	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_E2AP_PDU)
