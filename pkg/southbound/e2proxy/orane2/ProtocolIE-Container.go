@@ -9,6 +9,7 @@ package orane2
 import "C"
 import (
 	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 	"unsafe"
 )
@@ -51,7 +52,7 @@ func newProtocolIeContainer1544P11(esv *e2ctypes.ProtocolIE_Container_1544P11T) 
 	pIeC1544P11 := C.ProtocolIE_Container_1544P11_t{}
 
 	for _, ie := range esv.GetList() {
-		ieC, err := newE2setupRequestIe(ie)
+		ieC, err := newE2setupRequestIeOld(ie)
 		if err != nil {
 			return nil, err
 		}
@@ -155,11 +156,61 @@ func decodeProtocolIeContainer1544P11(protocolIEsC *C.ProtocolIE_Container_1544P
 		listC := unsafe.Pointer(*protocolIEsC.list.array)
 		e2srIeC := (*C.E2setupRequestIEs_t)(unsafe.Pointer(uintptr(listC) + uintptr(protocolIEsC.list.size*C.int(i))))
 
-		ie, err := decodeE2setupRequestIE(e2srIeC)
+		ie, err := decodeE2setupRequestIEOld(e2srIeC)
 		if err != nil {
 			return nil, err
 		}
 		pIEs.List = append(pIEs.List, ie)
+	}
+
+	return pIEs, nil
+}
+
+func newE2SetupRequestIes(esv *e2appducontents.E2SetupRequestIes) (*C.ProtocolIE_Container_1544P11_t, error) {
+	pIeC1544P11 := new(C.ProtocolIE_Container_1544P11_t)
+
+	if esv.E2ApProtocolIes3 != nil {
+		ie3C, err := newE2setupRequestIe3GlobalE2NodeID(esv.E2ApProtocolIes3)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P11), unsafe.Pointer(ie3C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if esv.E2ApProtocolIes10 != nil {
+		ie10C, err := newE2setupRequestIe10RanFunctionList(esv.E2ApProtocolIes10)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P11), unsafe.Pointer(ie10C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1544P11, nil
+}
+
+func decodeE2SetupRequestIes(protocolIEsC *C.ProtocolIE_Container_1544P11_t) (*e2appducontents.E2SetupRequestIes, error) {
+	pIEs := new(e2appducontents.E2SetupRequestIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	fmt.Printf("1544P11 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		listC := unsafe.Pointer(*protocolIEsC.list.array)
+		e2srIeC := (*C.E2setupRequestIEs_t)(unsafe.Pointer(uintptr(listC) + uintptr(protocolIEsC.list.size*C.int(i))))
+
+		ie, err := decodeE2setupRequestIE(e2srIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes3 != nil {
+			pIEs.E2ApProtocolIes3 = ie.E2ApProtocolIes3
+		}
+		if ie.E2ApProtocolIes10 != nil {
+			pIEs.E2ApProtocolIes10 = ie.E2ApProtocolIes10
+		}
 	}
 
 	return pIEs, nil

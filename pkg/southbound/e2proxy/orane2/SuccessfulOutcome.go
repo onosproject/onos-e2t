@@ -28,7 +28,7 @@ func newSuccessfulOutcome(so *e2ctypes.SuccessfulOutcomeT) (*C.SuccessfulOutcome
 		return nil, err
 	}
 
-	critC, err := criticalityToC(so.GetCriticality())
+	critC, err := criticalityToCOld(so.GetCriticality())
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2ctypes.Success
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P1_t{
-				list: C.struct___44{ // TODO: tie this down with a predictable name
+				list: C.struct___45{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(&listArrayAddr[0])),
 					count: C.int(binary.LittleEndian.Uint32(successC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(successC.value.choice[12:16])),

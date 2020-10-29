@@ -24,6 +24,13 @@ func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E
 						PlmnId: &e2ap_commondatatypes.PlmnIdentity{
 							Value: []byte(plmnID),
 						},
+						GnbId: &e2apies.GnbIdChoice{
+							GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
+								GnbId: &e2ap_commondatatypes.BitString{
+									Value: 0x9bcd4,
+									Len:   22,
+								}},
+						},
 					},
 				},
 			},

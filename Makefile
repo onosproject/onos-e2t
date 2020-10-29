@@ -13,7 +13,7 @@ build:
 	go build -o build/_output/onos-e2t ./cmd/onos-e2t
 
 test: # @HELP run the unit tests and source code validation
-test: build deps linters
+test: build deps linters license_check
 	go test -race github.com/onosproject/onos-e2t/pkg/...
 	go test -race github.com/onosproject/onos-e2t/cmd/...
 

@@ -22,8 +22,8 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 // Deprecated: Do not use.
 type RICindication_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICindication_IEsT_RICrequestID
 	//	*RICindication_IEsT_RANfunctionID
@@ -64,6 +64,7 @@ func (m *RICindication_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICindication_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -71,6 +72,7 @@ func (m *RICindication_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -137,6 +139,7 @@ func (m *RICindication_IEsT) GetChoice() isRICindication_IEsT_Choice {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*RICindication_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -144,6 +147,7 @@ func (m *RICindication_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetRANfunctionID() int64 {
 	if x, ok := m.GetChoice().(*RICindication_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -151,6 +155,7 @@ func (m *RICindication_IEsT) GetRANfunctionID() int64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetRICactionID() int64 {
 	if x, ok := m.GetChoice().(*RICindication_IEsT_RICactionID); ok {
 		return x.RICactionID
@@ -158,6 +163,7 @@ func (m *RICindication_IEsT) GetRICactionID() int64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetRICindicationSN() int64 {
 	if x, ok := m.GetChoice().(*RICindication_IEsT_RICindicationSN); ok {
 		return x.RICindicationSN
@@ -165,6 +171,7 @@ func (m *RICindication_IEsT) GetRICindicationSN() int64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetRICindicationType() RICindicationType {
 	if x, ok := m.GetChoice().(*RICindication_IEsT_RICindicationType); ok {
 		return x.RICindicationType
@@ -172,6 +179,7 @@ func (m *RICindication_IEsT) GetRICindicationType() RICindicationType {
 	return RICindicationType_RICindicationType_report
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetRICindicationHeader() string {
 	if x, ok := m.GetChoice().(*RICindication_IEsT_RICindicationHeader); ok {
 		return x.RICindicationHeader
@@ -179,6 +187,7 @@ func (m *RICindication_IEsT) GetRICindicationHeader() string {
 	return ""
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetRICindicationMessage() string {
 	if x, ok := m.GetChoice().(*RICindication_IEsT_RICindicationMessage); ok {
 		return x.RICindicationMessage
@@ -186,6 +195,7 @@ func (m *RICindication_IEsT) GetRICindicationMessage() string {
 	return ""
 }
 
+// Deprecated: Do not use.
 func (m *RICindication_IEsT) GetRICcallProcessID() string {
 	if x, ok := m.GetChoice().(*RICindication_IEsT_RICcallProcessID); ok {
 		return x.RICcallProcessID
@@ -209,8 +219,8 @@ func (*RICindication_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type E2SetupRequestIEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*E2SetupRequestIEsT_GlobalE2Node_ID
 	//	*E2SetupRequestIEsT_RANfunctions_List
@@ -245,6 +255,7 @@ func (m *E2SetupRequestIEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_E2SetupRequestIEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *E2SetupRequestIEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -252,6 +263,7 @@ func (m *E2SetupRequestIEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupRequestIEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -282,6 +294,7 @@ func (m *E2SetupRequestIEsT) GetChoice() isE2SetupRequestIEsT_Choice {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupRequestIEsT) GetGlobalE2Node_ID() *GlobalE2Node_IDT {
 	if x, ok := m.GetChoice().(*E2SetupRequestIEsT_GlobalE2Node_ID); ok {
 		return x.GlobalE2Node_ID
@@ -289,6 +302,7 @@ func (m *E2SetupRequestIEsT) GetGlobalE2Node_ID() *GlobalE2Node_IDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupRequestIEsT) GetRANfunctions_List() *RANfunctions_ListT {
 	if x, ok := m.GetChoice().(*E2SetupRequestIEsT_RANfunctions_List); ok {
 		return x.RANfunctions_List
@@ -306,8 +320,8 @@ func (*E2SetupRequestIEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type ErrorIndication_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*ErrorIndication_IEsT_RICrequestID
 	//	*ErrorIndication_IEsT_RANfunctionID
@@ -344,6 +358,7 @@ func (m *ErrorIndication_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ErrorIndication_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *ErrorIndication_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -351,6 +366,7 @@ func (m *ErrorIndication_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *ErrorIndication_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -393,6 +409,7 @@ func (m *ErrorIndication_IEsT) GetChoice() isErrorIndication_IEsT_Choice {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *ErrorIndication_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*ErrorIndication_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -400,6 +417,7 @@ func (m *ErrorIndication_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *ErrorIndication_IEsT) GetRANfunctionID() uint64 {
 	if x, ok := m.GetChoice().(*ErrorIndication_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -407,6 +425,7 @@ func (m *ErrorIndication_IEsT) GetRANfunctionID() uint64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *ErrorIndication_IEsT) GetCause() *CauseT {
 	if x, ok := m.GetChoice().(*ErrorIndication_IEsT_Cause); ok {
 		return x.Cause
@@ -414,6 +433,7 @@ func (m *ErrorIndication_IEsT) GetCause() *CauseT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *ErrorIndication_IEsT) GetCriticalityDiagnostics() *CriticalityDiagnosticsT {
 	if x, ok := m.GetChoice().(*ErrorIndication_IEsT_CriticalityDiagnostics); ok {
 		return x.CriticalityDiagnostics
@@ -433,8 +453,8 @@ func (*ErrorIndication_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICsubscriptionResponse_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICsubscriptionResponse_IEsT_RICrequestID
 	//	*RICsubscriptionResponse_IEsT_RANfunctionID
@@ -471,6 +491,7 @@ func (m *RICsubscriptionResponse_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICsubscriptionResponse_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionResponse_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -478,6 +499,7 @@ func (m *RICsubscriptionResponse_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionResponse_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -521,6 +543,7 @@ func (m *RICsubscriptionResponse_IEsT) GetChoice() isRICsubscriptionResponse_IEs
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionResponse_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*RICsubscriptionResponse_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -528,6 +551,7 @@ func (m *RICsubscriptionResponse_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionResponse_IEsT) GetRANfunctionID() int64 {
 	if x, ok := m.GetChoice().(*RICsubscriptionResponse_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -535,6 +559,7 @@ func (m *RICsubscriptionResponse_IEsT) GetRANfunctionID() int64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionResponse_IEsT) GetRICaction_Admitted_List() *RICaction_Admitted_ListT {
 	if x, ok := m.GetChoice().(*RICsubscriptionResponse_IEsT_RICaction_Admitted_List); ok {
 		return x.RICaction_Admitted_List
@@ -542,6 +567,7 @@ func (m *RICsubscriptionResponse_IEsT) GetRICaction_Admitted_List() *RICaction_A
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionResponse_IEsT) GetRICaction_NotAdmitted_List() *RICaction_NotAdmitted_ListT {
 	if x, ok := m.GetChoice().(*RICsubscriptionResponse_IEsT_RICaction_NotAdmitted_List); ok {
 		return x.RICaction_NotAdmitted_List
@@ -561,8 +587,8 @@ func (*RICsubscriptionResponse_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICsubscriptionDeleteResponse_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICsubscriptionDeleteResponse_IEsT_RICrequestID
 	//	*RICsubscriptionDeleteResponse_IEsT_RANfunctionID
@@ -597,6 +623,7 @@ func (m *RICsubscriptionDeleteResponse_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICsubscriptionDeleteResponse_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteResponse_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -604,6 +631,7 @@ func (m *RICsubscriptionDeleteResponse_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteResponse_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -636,6 +664,7 @@ func (m *RICsubscriptionDeleteResponse_IEsT) GetChoice() isRICsubscriptionDelete
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteResponse_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*RICsubscriptionDeleteResponse_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -643,6 +672,7 @@ func (m *RICsubscriptionDeleteResponse_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteResponse_IEsT) GetRANfunctionID() int64 {
 	if x, ok := m.GetChoice().(*RICsubscriptionDeleteResponse_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -660,8 +690,8 @@ func (*RICsubscriptionDeleteResponse_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICserviceUpdateAcknowledge_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICserviceUpdateAcknowledge_IEsT_RANfunctionsID_List
 	//	*RICserviceUpdateAcknowledge_IEsT_RANfunctionsIDcause_List
@@ -696,6 +726,7 @@ func (m *RICserviceUpdateAcknowledge_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICserviceUpdateAcknowledge_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateAcknowledge_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -703,6 +734,7 @@ func (m *RICserviceUpdateAcknowledge_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateAcknowledge_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -735,6 +767,7 @@ func (m *RICserviceUpdateAcknowledge_IEsT) GetChoice() isRICserviceUpdateAcknowl
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateAcknowledge_IEsT) GetRANfunctionsID_List() *RANfunctionsID_ListT {
 	if x, ok := m.GetChoice().(*RICserviceUpdateAcknowledge_IEsT_RANfunctionsID_List); ok {
 		return x.RANfunctionsID_List
@@ -742,6 +775,7 @@ func (m *RICserviceUpdateAcknowledge_IEsT) GetRANfunctionsID_List() *RANfunction
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateAcknowledge_IEsT) GetRANfunctionsIDcause_List() *RANfunctionsIDcause_ListT {
 	if x, ok := m.GetChoice().(*RICserviceUpdateAcknowledge_IEsT_RANfunctionsIDcause_List); ok {
 		return x.RANfunctionsIDcause_List
@@ -759,8 +793,8 @@ func (*RICserviceUpdateAcknowledge_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICcontrolAcknowledge_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICcontrolAcknowledge_IEsT_RICrequestID
 	//	*RICcontrolAcknowledge_IEsT_RANfunctionID
@@ -798,6 +832,7 @@ func (m *RICcontrolAcknowledge_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICcontrolAcknowledge_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICcontrolAcknowledge_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -805,6 +840,7 @@ func (m *RICcontrolAcknowledge_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolAcknowledge_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -853,6 +889,7 @@ func (m *RICcontrolAcknowledge_IEsT) GetChoice() isRICcontrolAcknowledge_IEsT_Ch
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolAcknowledge_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*RICcontrolAcknowledge_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -860,6 +897,7 @@ func (m *RICcontrolAcknowledge_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolAcknowledge_IEsT) GetRANfunctionID() int64 {
 	if x, ok := m.GetChoice().(*RICcontrolAcknowledge_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -867,6 +905,7 @@ func (m *RICcontrolAcknowledge_IEsT) GetRANfunctionID() int64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolAcknowledge_IEsT) GetRICcallProcessID() string {
 	if x, ok := m.GetChoice().(*RICcontrolAcknowledge_IEsT_RICcallProcessID); ok {
 		return x.RICcallProcessID
@@ -874,6 +913,7 @@ func (m *RICcontrolAcknowledge_IEsT) GetRICcallProcessID() string {
 	return ""
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolAcknowledge_IEsT) GetRICcontrolStatus() RICcontrolStatusT {
 	if x, ok := m.GetChoice().(*RICcontrolAcknowledge_IEsT_RICcontrolStatus); ok {
 		return x.RICcontrolStatus
@@ -881,6 +921,7 @@ func (m *RICcontrolAcknowledge_IEsT) GetRICcontrolStatus() RICcontrolStatusT {
 	return RICcontrolStatusT_RICcontrolStatus_success
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolAcknowledge_IEsT) GetRICcontrolOutcome() string {
 	if x, ok := m.GetChoice().(*RICcontrolAcknowledge_IEsT_RICcontrolOutcome); ok {
 		return x.RICcontrolOutcome
@@ -901,8 +942,8 @@ func (*RICcontrolAcknowledge_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type E2SetupResponseIEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*E2SetupResponseIEsT_GlobalRIC_ID
 	//	*E2SetupResponseIEsT_RANfunctionsID_List
@@ -938,6 +979,7 @@ func (m *E2SetupResponseIEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_E2SetupResponseIEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *E2SetupResponseIEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -945,6 +987,7 @@ func (m *E2SetupResponseIEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupResponseIEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -981,6 +1024,7 @@ func (m *E2SetupResponseIEsT) GetChoice() isE2SetupResponseIEsT_Choice {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupResponseIEsT) GetGlobalRIC_ID() *GlobalRIC_IDT {
 	if x, ok := m.GetChoice().(*E2SetupResponseIEsT_GlobalRIC_ID); ok {
 		return x.GlobalRIC_ID
@@ -988,6 +1032,7 @@ func (m *E2SetupResponseIEsT) GetGlobalRIC_ID() *GlobalRIC_IDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupResponseIEsT) GetRANfunctionsID_List() *RANfunctionsID_ListT {
 	if x, ok := m.GetChoice().(*E2SetupResponseIEsT_RANfunctionsID_List); ok {
 		return x.RANfunctionsID_List
@@ -995,6 +1040,7 @@ func (m *E2SetupResponseIEsT) GetRANfunctionsID_List() *RANfunctionsID_ListT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupResponseIEsT) GetRANfunctionsIDcause_List() *RANfunctionsIDcause_ListT {
 	if x, ok := m.GetChoice().(*E2SetupResponseIEsT_RANfunctionsIDcause_List); ok {
 		return x.RANfunctionsIDcause_List
@@ -1013,8 +1059,8 @@ func (*E2SetupResponseIEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type ResetResponseIEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*ResetResponseIEsT_CriticalityDiagnostics
 	Choice               isResetResponseIEsT_Choice `protobuf_oneof:"choice"`
@@ -1048,6 +1094,7 @@ func (m *ResetResponseIEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ResetResponseIEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *ResetResponseIEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -1055,6 +1102,7 @@ func (m *ResetResponseIEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *ResetResponseIEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -1079,6 +1127,7 @@ func (m *ResetResponseIEsT) GetChoice() isResetResponseIEsT_Choice {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *ResetResponseIEsT) GetCriticalityDiagnostics() *CriticalityDiagnosticsT {
 	if x, ok := m.GetChoice().(*ResetResponseIEsT_CriticalityDiagnostics); ok {
 		return x.CriticalityDiagnostics
@@ -1095,8 +1144,8 @@ func (*ResetResponseIEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICsubscriptionFailure_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICsubscriptionFailure_IEsT_RICrequestID
 	//	*RICsubscriptionFailure_IEsT_RANfunctionID
@@ -1133,6 +1182,7 @@ func (m *RICsubscriptionFailure_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICsubscriptionFailure_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionFailure_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -1140,6 +1190,7 @@ func (m *RICsubscriptionFailure_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionFailure_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -1183,6 +1234,7 @@ func (m *RICsubscriptionFailure_IEsT) GetChoice() isRICsubscriptionFailure_IEsT_
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionFailure_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*RICsubscriptionFailure_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -1190,6 +1242,7 @@ func (m *RICsubscriptionFailure_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionFailure_IEsT) GetRANfunctionID() int64 {
 	if x, ok := m.GetChoice().(*RICsubscriptionFailure_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -1197,6 +1250,7 @@ func (m *RICsubscriptionFailure_IEsT) GetRANfunctionID() int64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionFailure_IEsT) GetRICaction_NotAdmitted_List() *RICaction_NotAdmitted_ListT {
 	if x, ok := m.GetChoice().(*RICsubscriptionFailure_IEsT_RICaction_NotAdmitted_List); ok {
 		return x.RICaction_NotAdmitted_List
@@ -1204,6 +1258,7 @@ func (m *RICsubscriptionFailure_IEsT) GetRICaction_NotAdmitted_List() *RICaction
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionFailure_IEsT) GetCriticalityDiagnostics() *CriticalityDiagnosticsT {
 	if x, ok := m.GetChoice().(*RICsubscriptionFailure_IEsT_CriticalityDiagnostics); ok {
 		return x.CriticalityDiagnostics
@@ -1223,8 +1278,8 @@ func (*RICsubscriptionFailure_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICsubscriptionDeleteFailure_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICsubscriptionDeleteFailure_IEsT_RICrequestID
 	//	*RICsubscriptionDeleteFailure_IEsT_RANfunctionID
@@ -1261,6 +1316,7 @@ func (m *RICsubscriptionDeleteFailure_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICsubscriptionDeleteFailure_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteFailure_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -1268,6 +1324,7 @@ func (m *RICsubscriptionDeleteFailure_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteFailure_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -1311,6 +1368,7 @@ func (m *RICsubscriptionDeleteFailure_IEsT) GetChoice() isRICsubscriptionDeleteF
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteFailure_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*RICsubscriptionDeleteFailure_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -1318,6 +1376,7 @@ func (m *RICsubscriptionDeleteFailure_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteFailure_IEsT) GetRANfunctionID() uint64 {
 	if x, ok := m.GetChoice().(*RICsubscriptionDeleteFailure_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -1325,6 +1384,7 @@ func (m *RICsubscriptionDeleteFailure_IEsT) GetRANfunctionID() uint64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteFailure_IEsT) GetCause() *CauseT {
 	if x, ok := m.GetChoice().(*RICsubscriptionDeleteFailure_IEsT_Cause); ok {
 		return x.Cause
@@ -1332,6 +1392,7 @@ func (m *RICsubscriptionDeleteFailure_IEsT) GetCause() *CauseT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionDeleteFailure_IEsT) GetCriticalityDiagnostics() *CriticalityDiagnosticsT {
 	if x, ok := m.GetChoice().(*RICsubscriptionDeleteFailure_IEsT_CriticalityDiagnostics); ok {
 		return x.CriticalityDiagnostics
@@ -1351,8 +1412,8 @@ func (*RICsubscriptionDeleteFailure_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICserviceUpdateFailure_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICserviceUpdateFailure_IEsT_RANfunctionsIDcause_List
 	//	*RICserviceUpdateFailure_IEsT_TimeToWait
@@ -1388,6 +1449,7 @@ func (m *RICserviceUpdateFailure_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICserviceUpdateFailure_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateFailure_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -1395,6 +1457,7 @@ func (m *RICserviceUpdateFailure_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateFailure_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -1432,6 +1495,7 @@ func (m *RICserviceUpdateFailure_IEsT) GetChoice() isRICserviceUpdateFailure_IEs
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateFailure_IEsT) GetRANfunctionsIDcause_List() *RANfunctionsIDcause_ListT {
 	if x, ok := m.GetChoice().(*RICserviceUpdateFailure_IEsT_RANfunctionsIDcause_List); ok {
 		return x.RANfunctionsIDcause_List
@@ -1439,6 +1503,7 @@ func (m *RICserviceUpdateFailure_IEsT) GetRANfunctionsIDcause_List() *RANfunctio
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateFailure_IEsT) GetTimeToWait() TimeToWaitT {
 	if x, ok := m.GetChoice().(*RICserviceUpdateFailure_IEsT_TimeToWait); ok {
 		return x.TimeToWait
@@ -1446,6 +1511,7 @@ func (m *RICserviceUpdateFailure_IEsT) GetTimeToWait() TimeToWaitT {
 	return TimeToWaitT_TimeToWait_v1s
 }
 
+// Deprecated: Do not use.
 func (m *RICserviceUpdateFailure_IEsT) GetCriticalityDiagnostics() *CriticalityDiagnosticsT {
 	if x, ok := m.GetChoice().(*RICserviceUpdateFailure_IEsT_CriticalityDiagnostics); ok {
 		return x.CriticalityDiagnostics
@@ -1464,8 +1530,8 @@ func (*RICserviceUpdateFailure_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICcontrolFailure_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICcontrolFailure_IEsT_RICrequestID
 	//	*RICcontrolFailure_IEsT_RANfunctionID
@@ -1503,6 +1569,7 @@ func (m *RICcontrolFailure_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICcontrolFailure_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICcontrolFailure_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -1510,6 +1577,7 @@ func (m *RICcontrolFailure_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolFailure_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -1558,6 +1626,7 @@ func (m *RICcontrolFailure_IEsT) GetChoice() isRICcontrolFailure_IEsT_Choice {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolFailure_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*RICcontrolFailure_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -1565,6 +1634,7 @@ func (m *RICcontrolFailure_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolFailure_IEsT) GetRANfunctionID() int64 {
 	if x, ok := m.GetChoice().(*RICcontrolFailure_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -1572,6 +1642,7 @@ func (m *RICcontrolFailure_IEsT) GetRANfunctionID() int64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolFailure_IEsT) GetRICcallProcessID() []byte {
 	if x, ok := m.GetChoice().(*RICcontrolFailure_IEsT_RICcallProcessID); ok {
 		return x.RICcallProcessID
@@ -1579,6 +1650,7 @@ func (m *RICcontrolFailure_IEsT) GetRICcallProcessID() []byte {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolFailure_IEsT) GetCause() *CauseT {
 	if x, ok := m.GetChoice().(*RICcontrolFailure_IEsT_Cause); ok {
 		return x.Cause
@@ -1586,6 +1658,7 @@ func (m *RICcontrolFailure_IEsT) GetCause() *CauseT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICcontrolFailure_IEsT) GetRICcontrolOutcome() []byte {
 	if x, ok := m.GetChoice().(*RICcontrolFailure_IEsT_RICcontrolOutcome); ok {
 		return x.RICcontrolOutcome
@@ -1606,8 +1679,8 @@ func (*RICcontrolFailure_IEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type E2SetupFailureIEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*E2SetupFailureIEsT_Cause
 	//	*E2SetupFailureIEsT_TimeToWait
@@ -1643,6 +1716,7 @@ func (m *E2SetupFailureIEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_E2SetupFailureIEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *E2SetupFailureIEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -1650,6 +1724,7 @@ func (m *E2SetupFailureIEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupFailureIEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -1686,6 +1761,7 @@ func (m *E2SetupFailureIEsT) GetChoice() isE2SetupFailureIEsT_Choice {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupFailureIEsT) GetCause() *CauseT {
 	if x, ok := m.GetChoice().(*E2SetupFailureIEsT_Cause); ok {
 		return x.Cause
@@ -1693,6 +1769,7 @@ func (m *E2SetupFailureIEsT) GetCause() *CauseT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupFailureIEsT) GetTimeToWait() TimeToWaitT {
 	if x, ok := m.GetChoice().(*E2SetupFailureIEsT_TimeToWait); ok {
 		return x.TimeToWait
@@ -1700,6 +1777,7 @@ func (m *E2SetupFailureIEsT) GetTimeToWait() TimeToWaitT {
 	return TimeToWaitT_TimeToWait_v1s
 }
 
+// Deprecated: Do not use.
 func (m *E2SetupFailureIEsT) GetCriticalityDiagnostics() *CriticalityDiagnosticsT {
 	if x, ok := m.GetChoice().(*E2SetupFailureIEsT_CriticalityDiagnostics); ok {
 		return x.CriticalityDiagnostics
@@ -1718,8 +1796,8 @@ func (*E2SetupFailureIEsT) XXX_OneofWrappers() []interface{} {
 
 // Deprecated: Do not use.
 type RICsubscriptionRequest_IEsT struct {
-	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`
-	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"`
+	Id          ProtocolIE_IDT `protobuf:"varint,1,opt,name=id,proto3,enum=e2ctypes.ProtocolIE_IDT" json:"id,omitempty"`                 // Deprecated: Do not use.
+	Criticality CriticalityT   `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ctypes.CriticalityT" json:"criticality,omitempty"` // Deprecated: Do not use.
 	// Types that are valid to be assigned to Choice:
 	//	*RICsubscriptionRequest_IEsT_RICrequestID
 	//	*RICsubscriptionRequest_IEsT_RANfunctionID
@@ -1755,6 +1833,7 @@ func (m *RICsubscriptionRequest_IEsT) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RICsubscriptionRequest_IEsT proto.InternalMessageInfo
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionRequest_IEsT) GetId() ProtocolIE_IDT {
 	if m != nil {
 		return m.Id
@@ -1762,6 +1841,7 @@ func (m *RICsubscriptionRequest_IEsT) GetId() ProtocolIE_IDT {
 	return ProtocolIE_IDT_ProtocolIE_ID_id_Dummy
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionRequest_IEsT) GetCriticality() CriticalityT {
 	if m != nil {
 		return m.Criticality
@@ -1798,6 +1878,7 @@ func (m *RICsubscriptionRequest_IEsT) GetChoice() isRICsubscriptionRequest_IEsT_
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionRequest_IEsT) GetRICrequestID() *RICrequestIDT {
 	if x, ok := m.GetChoice().(*RICsubscriptionRequest_IEsT_RICrequestID); ok {
 		return x.RICrequestID
@@ -1805,6 +1886,7 @@ func (m *RICsubscriptionRequest_IEsT) GetRICrequestID() *RICrequestIDT {
 	return nil
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionRequest_IEsT) GetRANfunctionID() int64 {
 	if x, ok := m.GetChoice().(*RICsubscriptionRequest_IEsT_RANfunctionID); ok {
 		return x.RANfunctionID
@@ -1812,6 +1894,7 @@ func (m *RICsubscriptionRequest_IEsT) GetRANfunctionID() int64 {
 	return 0
 }
 
+// Deprecated: Do not use.
 func (m *RICsubscriptionRequest_IEsT) GetRICsubscriptionDetails() *RICsubscriptionDetailsT {
 	if x, ok := m.GetChoice().(*RICsubscriptionRequest_IEsT_RICsubscriptionDetails); ok {
 		return x.RICsubscriptionDetails
@@ -1849,70 +1932,70 @@ func init() {
 func init() { proto.RegisterFile("ProtocolIE-Field.proto", fileDescriptor_7e410ff4c511aaec) }
 
 var fileDescriptor_7e410ff4c511aaec = []byte{
-	// 1037 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xdc, 0x58, 0xc1, 0x6e, 0xe4, 0x44,
-	0x13, 0x8e, 0xed, 0x4c, 0xfe, 0xa4, 0x26, 0x7f, 0x36, 0xe9, 0x6c, 0x26, 0xde, 0x6c, 0x22, 0x86,
-	0x59, 0xb4, 0xca, 0x22, 0x92, 0x83, 0xe1, 0x00, 0x48, 0x20, 0x65, 0xc7, 0x13, 0xc6, 0xb0, 0x84,
-	0x95, 0x37, 0x88, 0xcb, 0x22, 0xcb, 0xb1, 0x7b, 0x43, 0x0b, 0x67, 0x7a, 0x70, 0xf7, 0x80, 0x72,
-	0x83, 0x23, 0x17, 0x5e, 0x81, 0x03, 0x12, 0xcf, 0xc0, 0x11, 0x71, 0x46, 0x9c, 0x79, 0x02, 0x9e,
-	0x02, 0x21, 0xe4, 0x76, 0x8f, 0xdd, 0xf6, 0xf4, 0x64, 0x39, 0x64, 0x27, 0xda, 0xb9, 0xd6, 0xf7,
-	0x75, 0xb9, 0xbb, 0xaa, 0xab, 0xea, 0x73, 0x43, 0xeb, 0x71, 0x4a, 0x39, 0x8d, 0x68, 0xe2, 0xf5,
-	0x0e, 0x8e, 0x09, 0x4e, 0xe2, 0xc3, 0x61, 0x66, 0x40, 0xcb, 0xd8, 0x89, 0xf8, 0xe5, 0x10, 0xb3,
-	0x9d, 0x66, 0x37, 0x1c, 0x31, 0x9c, 0x9b, 0x77, 0x36, 0x15, 0xba, 0xe7, 0x4a, 0xe3, 0x46, 0x37,
-	0x25, 0x9c, 0x44, 0x61, 0x42, 0xf8, 0xa5, 0x34, 0x21, 0xdf, 0xeb, 0xa6, 0xf8, 0xab, 0x11, 0x66,
-	0xbc, 0xa0, 0x6d, 0xfb, 0x5e, 0x97, 0x0c, 0x62, 0x12, 0x85, 0x9c, 0xd0, 0xc1, 0xe9, 0xe5, 0x70,
-	0xec, 0x74, 0xeb, 0x83, 0x84, 0x9e, 0x85, 0x49, 0xcf, 0x19, 0xd0, 0x18, 0x1f, 0x28, 0xfc, 0xa3,
-	0x93, 0x67, 0xa3, 0x41, 0x94, 0xb1, 0xd9, 0xc1, 0x23, 0xc2, 0xb8, 0x04, 0xee, 0xa8, 0x80, 0xe7,
-	0xaa, 0xd0, 0x5e, 0x15, 0x8a, 0xb2, 0xad, 0x57, 0x60, 0xaf, 0x1b, 0x0a, 0xf0, 0xe0, 0x28, 0xbe,
-	0x20, 0x9c, 0xe3, 0x58, 0x5d, 0xdd, 0x2e, 0xe1, 0x13, 0xca, 0x75, 0x8c, 0x96, 0xef, 0x75, 0x23,
-	0x3a, 0xe0, 0x29, 0x4d, 0x9e, 0xf0, 0x90, 0x8f, 0x98, 0xb4, 0xef, 0x2a, 0x21, 0x70, 0x49, 0x78,
-	0x3e, 0xa0, 0x8c, 0x93, 0x68, 0x8c, 0xa2, 0xfc, 0x80, 0xbe, 0xd7, 0x2d, 0x4f, 0xb7, 0x7e, 0x4a,
-	0x2e, 0xf0, 0x29, 0xfd, 0x2c, 0x24, 0x63, 0xdf, 0xbb, 0xbe, 0xd7, 0x65, 0xa3, 0x33, 0x16, 0xa5,
-	0x64, 0x98, 0xed, 0xc1, 0xc5, 0x3c, 0x24, 0x89, 0xf4, 0xd1, 0xf9, 0x79, 0x11, 0x36, 0x2b, 0x01,
-	0x0c, 0xbc, 0x1e, 0x0b, 0x38, 0x7a, 0x00, 0x26, 0x89, 0x6d, 0xa3, 0x6d, 0xec, 0xaf, 0x39, 0x77,
-	0x0e, 0xc7, 0x59, 0x3b, 0x2c, 0xf3, 0x14, 0x78, 0x6e, 0xc0, 0x7d, 0x93, 0xc4, 0xe8, 0x1d, 0x68,
-	0x46, 0xe5, 0x36, 0x6d, 0x53, 0xac, 0xd9, 0x2e, 0xd7, 0x28, 0x67, 0x08, 0xb8, 0xaf, 0x72, 0xd1,
-	0xfb, 0xb0, 0xaa, 0x66, 0xd4, 0xb6, 0xda, 0xc6, 0x7e, 0xd3, 0xb1, 0xcb, 0xb5, 0x2a, 0x1a, 0xf0,
-	0xfe, 0x82, 0x5f, 0xe1, 0xa3, 0xfb, 0xf0, 0x7f, 0x25, 0x33, 0x9e, 0x6b, 0x2f, 0xb6, 0x8d, 0x7d,
-	0xab, 0xbf, 0xe0, 0x57, 0xcd, 0xa8, 0x03, 0xcd, 0x22, 0x07, 0x9e, 0x6b, 0x37, 0x24, 0x4b, 0x35,
-	0xa2, 0xd7, 0xe1, 0x56, 0x25, 0x10, 0x4f, 0x4e, 0xec, 0x25, 0xc9, 0xab, 0x03, 0xe8, 0x23, 0xd8,
-	0x98, 0xb8, 0x75, 0xf6, 0xff, 0xc4, 0xc1, 0xef, 0x56, 0x36, 0x5f, 0xa5, 0xf4, 0x17, 0xfc, 0xc9,
-	0x75, 0xc8, 0xa9, 0x65, 0xa0, 0x8f, 0xc3, 0x18, 0xa7, 0xf6, 0x72, 0xdb, 0xd8, 0x5f, 0xe9, 0x2f,
-	0xf8, 0x3a, 0x10, 0xbd, 0x05, 0xb7, 0x2b, 0xe6, 0x8f, 0x31, 0x63, 0xe1, 0x39, 0xb6, 0x57, 0xe4,
-	0x22, 0x2d, 0x8a, 0xde, 0x80, 0xf5, 0xec, 0xa2, 0x85, 0x49, 0xf2, 0x38, 0xa5, 0x11, 0x66, 0xcc,
-	0x73, 0x6d, 0x90, 0x2b, 0x26, 0x90, 0x77, 0x4d, 0xdb, 0x78, 0xb8, 0x0c, 0x4b, 0xd1, 0x17, 0x94,
-	0x44, 0xb8, 0xf3, 0xa3, 0x09, 0x9b, 0x3d, 0x87, 0x61, 0x3e, 0x1a, 0xfa, 0x32, 0xfe, 0x33, 0xbc,
-	0x28, 0xc7, 0x70, 0x4b, 0xad, 0xe6, 0xa0, 0xb8, 0x2b, 0x4a, 0xb8, 0x6b, 0x04, 0x71, 0x5d, 0xd6,
-	0x54, 0xa3, 0xe7, 0xa2, 0x47, 0xb0, 0xa1, 0x96, 0x72, 0x90, 0xd5, 0xa0, 0xb8, 0x34, 0x4d, 0x67,
-	0x4f, 0x49, 0x5c, 0x9d, 0x22, 0x7c, 0xad, 0xab, 0xe6, 0xcc, 0x5a, 0x8b, 0xd0, 0xdf, 0x26, 0x6c,
-	0xf5, 0xd2, 0x94, 0xa6, 0xde, 0x1c, 0x15, 0xd3, 0xe2, 0x64, 0x31, 0x3d, 0x80, 0x86, 0xe8, 0xdd,
-	0xa2, 0x8c, 0x9a, 0xce, 0x86, 0xb2, 0xb9, 0xcc, 0x2c, 0x3c, 0xe7, 0x0c, 0xf4, 0x14, 0x5a, 0xfa,
-	0x0e, 0x26, 0x4a, 0xab, 0xe9, 0x74, 0xb4, 0x07, 0x53, 0x78, 0xc2, 0xd9, 0x14, 0x1f, 0xb5, 0xf0,
-	0xff, 0x66, 0xc1, 0x5e, 0xad, 0xd5, 0xf9, 0x98, 0x0d, 0xe9, 0x80, 0xe1, 0xb9, 0xec, 0x69, 0x9f,
-	0xc3, 0x76, 0xd1, 0xbe, 0x82, 0xf1, 0x50, 0xc9, 0x2f, 0x74, 0x9e, 0x98, 0x7b, 0x95, 0x4f, 0xea,
-	0x88, 0xe2, 0xeb, 0x5b, 0x05, 0x38, 0xc6, 0x32, 0x08, 0x3d, 0x83, 0x9d, 0x72, 0x95, 0x32, 0xb6,
-	0xf2, 0x2f, 0xe4, 0xe9, 0xbb, 0xaf, 0xfb, 0x42, 0x9d, 0x2b, 0x3e, 0x62, 0x17, 0xb8, 0x02, 0x6b,
-	0x6a, 0xe8, 0x3b, 0x13, 0xee, 0x4d, 0xcc, 0xab, 0x04, 0x73, 0x3c, 0xcf, 0xa9, 0xac, 0xc5, 0xe0,
-	0x0f, 0x13, 0x5e, 0xcd, 0x62, 0x80, 0xd3, 0xaf, 0x49, 0x84, 0x3f, 0x1d, 0xc6, 0x21, 0xc7, 0x47,
-	0xd1, 0x97, 0x03, 0xfa, 0x4d, 0x82, 0xe3, 0xf3, 0xd9, 0x46, 0xc0, 0x87, 0xcd, 0xaa, 0xf4, 0xc9,
-	0xd3, 0x9f, 0x07, 0xe2, 0x15, 0x7d, 0xc7, 0x94, 0x24, 0x11, 0x0f, 0x54, 0x05, 0xc4, 0xcd, 0x0a,
-	0xc1, 0xd6, 0xc8, 0x29, 0xb5, 0x15, 0xbf, 0x36, 0xcd, 0x71, 0xc9, 0x14, 0xde, 0xb7, 0xa7, 0xc8,
-	0xb2, 0x5a, 0x40, 0x7f, 0xb2, 0xe0, 0x6e, 0x29, 0xb0, 0x6e, 0x2a, 0x94, 0xb3, 0xea, 0x0b, 0xba,
-	0x21, 0xdf, 0x98, 0x36, 0xe4, 0xd1, 0x87, 0x39, 0x5b, 0xd5, 0x9e, 0xa2, 0xb8, 0xd7, 0x9c, 0xdd,
-	0xca, 0xce, 0x2a, 0x0c, 0x39, 0x0e, 0x6b, 0x56, 0x74, 0x28, 0x54, 0x91, 0xb4, 0x7d, 0x32, 0xe2,
-	0x11, 0xbd, 0xc8, 0x55, 0xd1, 0x8a, 0x14, 0x3e, 0x55, 0xa8, 0x96, 0xa5, 0x6f, 0x2d, 0xb8, 0x5d,
-	0x08, 0x8c, 0xbc, 0xd8, 0x67, 0x99, 0x9e, 0xf7, 0x60, 0xb5, 0x90, 0xd3, 0x81, 0x2e, 0x3d, 0x2a,
-	0x2a, 0x02, 0xd0, 0x2c, 0x2c, 0x9e, 0x3b, 0xad, 0x50, 0x16, 0x5f, 0x54, 0xa1, 0x34, 0x5e, 0x44,
-	0xa1, 0xfc, 0x65, 0x00, 0xf2, 0x31, 0xc3, 0xfc, 0x26, 0x12, 0x30, 0x5d, 0x2b, 0x58, 0xd7, 0xae,
-	0x15, 0x7e, 0xb5, 0xa0, 0xfe, 0x5b, 0x74, 0x1c, 0x92, 0x64, 0x94, 0xce, 0x67, 0x4b, 0xb8, 0x7a,
-	0x96, 0x37, 0xae, 0x6b, 0x96, 0xcf, 0x54, 0xee, 0x7d, 0x6f, 0x41, 0x47, 0xab, 0x14, 0xe6, 0x26,
-	0x91, 0x2f, 0x8f, 0xf4, 0xfe, 0x41, 0x4a, 0x6f, 0x55, 0xb1, 0xdc, 0x44, 0x1a, 0xae, 0x6a, 0x98,
-	0xd6, 0xb5, 0x34, 0x4c, 0xf4, 0x36, 0x40, 0xf9, 0xc2, 0x22, 0xd2, 0xb4, 0xe6, 0xb4, 0x4a, 0xa7,
-	0x25, 0x26, 0xdc, 0x28, 0xdc, 0x2b, 0x12, 0xd2, 0xb8, 0xf6, 0x84, 0xfc, 0x63, 0x8a, 0x9f, 0x03,
-	0x39, 0x6f, 0xe7, 0xb9, 0xb5, 0x4d, 0x53, 0x3b, 0xab, 0x5a, 0xb5, 0x53, 0xd4, 0xcf, 0xd2, 0x73,
-	0xeb, 0x67, 0xaa, 0x98, 0x59, 0xfd, 0x2f, 0x62, 0xe6, 0xf7, 0xf2, 0xb5, 0x44, 0x46, 0x7f, 0x96,
-	0xc1, 0x2f, 0x8e, 0x69, 0x3d, 0xf7, 0x98, 0x2f, 0xc7, 0x7d, 0xfe, 0xd3, 0x9c, 0x98, 0xd7, 0xf2,
-	0x11, 0x6a, 0x2e, 0x2f, 0xf5, 0x53, 0x68, 0xe9, 0x1f, 0x6d, 0x27, 0x43, 0xab, 0xe7, 0xe5, 0xa1,
-	0xd5, 0x63, 0xd5, 0xd0, 0x3e, 0xb4, 0x7e, 0x31, 0x8c, 0xb3, 0x25, 0xf1, 0x18, 0xfc, 0xe6, 0xbf,
-	0x01, 0x00, 0x00, 0xff, 0xff, 0x83, 0xbe, 0x36, 0x5c, 0xb7, 0x17, 0x00, 0x00,
+	// 1034 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x58, 0xcd, 0x6e, 0xe4, 0x44,
+	0x10, 0xc6, 0x76, 0x26, 0x24, 0x35, 0x21, 0x9b, 0x74, 0x36, 0x13, 0x6f, 0x36, 0x11, 0x43, 0x16,
+	0xad, 0x22, 0xa4, 0x89, 0x90, 0x91, 0x10, 0x42, 0x70, 0x48, 0xc6, 0xb3, 0xac, 0x11, 0x64, 0x23,
+	0x6f, 0x80, 0xe3, 0xac, 0x63, 0x37, 0xa1, 0xc1, 0x99, 0x1e, 0xdc, 0x3d, 0xa0, 0x3c, 0x06, 0x12,
+	0x27, 0x6e, 0xf0, 0x02, 0x5c, 0xb9, 0xf1, 0x06, 0x9c, 0x11, 0x07, 0xc4, 0x03, 0x70, 0xe2, 0x09,
+	0x90, 0x7f, 0xa6, 0x5d, 0xf6, 0xf4, 0x44, 0x39, 0x6c, 0x76, 0xb4, 0x99, 0x6b, 0x7f, 0x5f, 0xf5,
+	0x4f, 0x7d, 0x5d, 0xd5, 0x9f, 0x0d, 0xad, 0x93, 0x84, 0x4b, 0x1e, 0xf2, 0xd8, 0xeb, 0x75, 0x1e,
+	0x31, 0x1a, 0x47, 0x07, 0xc3, 0x74, 0x80, 0x2c, 0x51, 0x27, 0x94, 0x97, 0x43, 0x2a, 0xb6, 0x9b,
+	0xdd, 0x60, 0x24, 0x68, 0x3e, 0xbc, 0xbd, 0x81, 0xe8, 0x9e, 0x5b, 0x0c, 0xae, 0x77, 0x13, 0x26,
+	0x59, 0x18, 0xc4, 0x4c, 0x5e, 0x16, 0x43, 0xc4, 0xf7, 0xba, 0x09, 0xfd, 0x76, 0x44, 0x85, 0x54,
+	0xb4, 0x2d, 0xdf, 0xeb, 0xb2, 0x41, 0xc4, 0xc2, 0x40, 0x32, 0x3e, 0x38, 0xbd, 0x1c, 0x8e, 0x27,
+	0xdd, 0xfc, 0x28, 0xe6, 0x67, 0x41, 0xdc, 0x73, 0x06, 0x3c, 0xa2, 0x1d, 0xc4, 0x3f, 0x3c, 0xfe,
+	0x72, 0x34, 0x08, 0x53, 0xb6, 0xe8, 0x7c, 0xc2, 0x84, 0x2c, 0x80, 0x7b, 0x18, 0xf0, 0x5c, 0x0c,
+	0xed, 0x56, 0xa1, 0x30, 0xdd, 0x7a, 0x05, 0xf6, 0xba, 0x41, 0x06, 0x76, 0x0e, 0xa3, 0x0b, 0x26,
+	0x25, 0x8d, 0x70, 0x74, 0xbb, 0x84, 0x8f, 0xb9, 0xd4, 0x31, 0x5a, 0xbe, 0xd7, 0x0d, 0xf9, 0x40,
+	0x26, 0x3c, 0x7e, 0x2a, 0x03, 0x39, 0x12, 0xc5, 0xf8, 0x0e, 0x4a, 0x81, 0xcb, 0x82, 0xf3, 0x01,
+	0x17, 0x92, 0x85, 0x63, 0x94, 0xe4, 0x07, 0xf4, 0xbd, 0x6e, 0x79, 0xba, 0xb5, 0x53, 0x76, 0x41,
+	0x4f, 0xf9, 0x17, 0x01, 0x1b, 0xcf, 0xbd, 0xe3, 0x7b, 0x5d, 0x31, 0x3a, 0x13, 0x61, 0xc2, 0x86,
+	0xe9, 0x1e, 0x5c, 0x2a, 0x03, 0x16, 0x17, 0x73, 0xec, 0xfd, 0xb1, 0x00, 0x1b, 0x95, 0x04, 0xf6,
+	0xbd, 0x9e, 0xe8, 0x4b, 0xd2, 0x01, 0x93, 0x45, 0xb6, 0xd1, 0x36, 0xf6, 0x57, 0x9d, 0x7b, 0x07,
+	0x63, 0xd5, 0x0e, 0x4a, 0x9d, 0xfa, 0x9e, 0xdb, 0x97, 0x47, 0xa6, 0x6d, 0xf8, 0x26, 0x8b, 0xc8,
+	0x87, 0xd0, 0x0c, 0xcb, 0xad, 0xda, 0x66, 0x16, 0xb7, 0x55, 0xc6, 0xa1, 0x73, 0x14, 0x51, 0x98,
+	0x4f, 0x8e, 0x60, 0x05, 0x2b, 0x6b, 0x5b, 0x6d, 0x63, 0xbf, 0xe9, 0xd8, 0x65, 0x3c, 0x46, 0xf3,
+	0x09, 0x1e, 0xbf, 0xe2, 0x57, 0x62, 0xc8, 0x5b, 0xf0, 0x1a, 0x52, 0xc9, 0x73, 0xed, 0x85, 0xb6,
+	0xb1, 0x6f, 0x15, 0xd4, 0x2a, 0x44, 0x1e, 0x42, 0x53, 0x69, 0xe2, 0xb9, 0x76, 0x03, 0x31, 0x31,
+	0x40, 0x0e, 0xe0, 0x4e, 0x25, 0x39, 0x4f, 0x8f, 0xed, 0x45, 0xc4, 0xad, 0x83, 0xe4, 0x09, 0xac,
+	0x4f, 0xdc, 0x46, 0xfb, 0xd5, 0x2c, 0x19, 0xf7, 0x2b, 0x87, 0xa9, 0x52, 0x8a, 0xe9, 0x26, 0x63,
+	0xc9, 0xbb, 0x35, 0x75, 0x1e, 0xd3, 0x20, 0xa2, 0x89, 0xbd, 0xd4, 0x36, 0xf6, 0x97, 0x8b, 0x28,
+	0x1d, 0x81, 0xbc, 0x07, 0x77, 0x2b, 0xc3, 0x9f, 0x52, 0x21, 0x82, 0x73, 0x6a, 0x2f, 0xa3, 0x40,
+	0x2d, 0x83, 0xbc, 0x0d, 0x6b, 0xe9, 0x65, 0x0c, 0xe2, 0xf8, 0x24, 0xe1, 0x21, 0x15, 0xc2, 0x73,
+	0x6d, 0x40, 0x51, 0x13, 0xe8, 0xfb, 0xa6, 0x6d, 0x1c, 0x2d, 0xc1, 0x62, 0xf8, 0x15, 0x67, 0x21,
+	0xdd, 0xfb, 0xd5, 0x84, 0x8d, 0x9e, 0x23, 0xa8, 0x1c, 0x0d, 0xfd, 0x42, 0x9b, 0x19, 0x5c, 0xa8,
+	0x8f, 0xe1, 0x0e, 0xae, 0xfe, 0xbe, 0xba, 0x53, 0x48, 0x86, 0x1a, 0x41, 0x5d, 0xab, 0x55, 0x0c,
+	0x78, 0x2e, 0x39, 0x81, 0x75, 0x5c, 0xfe, 0xfd, 0xb4, 0x6e, 0xb3, 0xcb, 0xd5, 0x74, 0x76, 0x91,
+	0xa8, 0x75, 0x8a, 0x9a, 0x6f, 0x0d, 0x43, 0x29, 0x52, 0xcb, 0xd8, 0x8f, 0x16, 0x6c, 0xf6, 0x92,
+	0x84, 0x27, 0xde, 0x2d, 0x2d, 0xc2, 0x05, 0x7d, 0x11, 0x76, 0xa0, 0x91, 0xbd, 0x01, 0x59, 0xf9,
+	0x35, 0x9d, 0x75, 0xb4, 0xd1, 0x74, 0x58, 0xad, 0x90, 0xb3, 0xc8, 0x33, 0x68, 0xe9, 0xbb, 0x61,
+	0x56, 0x92, 0x4d, 0x67, 0x4f, 0x7b, 0x50, 0xc4, 0x53, 0x13, 0x4e, 0x99, 0xa7, 0x26, 0xcb, 0x5f,
+	0x16, 0xec, 0xd6, 0x5a, 0xa7, 0x4f, 0xc5, 0x90, 0x0f, 0x04, 0x9d, 0x8b, 0x1e, 0x19, 0xc0, 0x96,
+	0x6a, 0x85, 0xfd, 0xf1, 0xa3, 0x95, 0x5f, 0xfe, 0x5c, 0xb0, 0x07, 0x95, 0xa5, 0x75, 0x44, 0xb5,
+	0x8b, 0x4d, 0x45, 0x18, 0xe3, 0x29, 0x4c, 0xbe, 0x86, 0xed, 0x32, 0x12, 0x3d, 0x8d, 0xf9, 0x2a,
+	0xb9, 0xac, 0x0f, 0x75, 0xab, 0xd4, 0xb9, 0x6a, 0x21, 0x5b, 0x71, 0x10, 0x45, 0x53, 0x73, 0x3f,
+	0x98, 0xf0, 0x60, 0xe2, 0x5d, 0x8c, 0xa9, 0xa4, 0xf3, 0x24, 0x71, 0x2d, 0x27, 0x7f, 0x9b, 0xf0,
+	0x46, 0x9a, 0x13, 0x9a, 0x7c, 0xc7, 0x42, 0xfa, 0xd9, 0x30, 0x0a, 0x24, 0x3d, 0x0c, 0xbf, 0x19,
+	0xf0, 0xef, 0x63, 0x1a, 0x9d, 0xcf, 0x26, 0x23, 0x9f, 0xc3, 0x46, 0xd5, 0x7a, 0xe5, 0x57, 0x23,
+	0x4f, 0xcc, 0xeb, 0xfa, 0xee, 0x5b, 0x90, 0x54, 0x7e, 0x48, 0x15, 0xcc, 0x6e, 0x1e, 0x05, 0x5b,
+	0x63, 0xe9, 0x70, 0x6b, 0x7f, 0x73, 0xda, 0xe4, 0x25, 0x53, 0xad, 0xb0, 0x35, 0xc5, 0x1e, 0xd6,
+	0x12, 0xfc, 0xbb, 0x05, 0xf7, 0x4b, 0xa3, 0x37, 0xeb, 0xd4, 0xbe, 0xe8, 0x7e, 0xa2, 0x33, 0x16,
+	0x8d, 0xab, 0x8c, 0x05, 0x39, 0xce, 0x23, 0xb0, 0x2f, 0xce, 0x9a, 0xc2, 0xaa, 0xb3, 0x53, 0xd9,
+	0x65, 0x85, 0x81, 0x9e, 0xdd, 0x1a, 0x42, 0x9c, 0xcc, 0x9d, 0x15, 0x63, 0x4f, 0x46, 0x32, 0xe4,
+	0x17, 0xb9, 0x3b, 0x5b, 0x46, 0x06, 0xac, 0x0a, 0x4f, 0x3e, 0xd5, 0x77, 0x95, 0xb9, 0xc9, 0x1b,
+	0xc5, 0x2c, 0xa4, 0x3b, 0x84, 0x15, 0x65, 0xfd, 0xfb, 0x3a, 0xe9, 0x30, 0xaa, 0x12, 0xd2, 0x54,
+	0xa3, 0x9e, 0x3b, 0xad, 0xb0, 0x16, 0x6e, 0xb2, 0xb0, 0x1a, 0x37, 0x55, 0x58, 0xff, 0x19, 0x40,
+	0x7c, 0x2a, 0xa8, 0x9c, 0xa5, 0x28, 0xd3, 0xfd, 0x89, 0x75, 0x23, 0xfe, 0xe4, 0x4f, 0x0b, 0xea,
+	0x9f, 0x76, 0x8f, 0x02, 0x16, 0x8f, 0x92, 0xf9, 0x68, 0x27, 0x57, 0x7b, 0x87, 0xc6, 0xf3, 0xf4,
+	0x0e, 0x2f, 0xdc, 0x7a, 0xfe, 0x6c, 0xc1, 0x9e, 0xd6, 0x9d, 0xdc, 0x4a, 0x81, 0x5f, 0xce, 0xcf,
+	0x83, 0x5f, 0x8a, 0xcf, 0x03, 0xec, 0x96, 0x66, 0x29, 0xcf, 0x55, 0x8d, 0xd7, 0x7a, 0x6e, 0x8d,
+	0x97, 0x7c, 0x00, 0x50, 0xfe, 0x61, 0xca, 0xe4, 0x5b, 0x75, 0x5a, 0xe5, 0xc4, 0x25, 0xa6, 0xa6,
+	0x42, 0xfc, 0x2b, 0x44, 0x6a, 0xdc, 0x88, 0x48, 0x3f, 0x59, 0xd9, 0x47, 0x4c, 0xf1, 0xa6, 0xcf,
+	0x53, 0x7b, 0x9c, 0xe6, 0xb6, 0x56, 0xa6, 0xba, 0x2d, 0x55, 0x6f, 0x8b, 0xd7, 0xaa, 0xb7, 0xa9,
+	0x66, 0x6a, 0xe5, 0xba, 0x66, 0xea, 0x9f, 0xf2, 0x4f, 0x51, 0xa1, 0xcc, 0x2c, 0x84, 0x51, 0xc7,
+	0xb6, 0xae, 0x75, 0xec, 0x97, 0xeb, 0xfe, 0xff, 0x6b, 0x4e, 0x78, 0x84, 0xe2, 0xa7, 0xdc, 0x5c,
+	0x14, 0xc1, 0x33, 0x68, 0xe9, 0x7f, 0x7e, 0x4f, 0xa6, 0x5b, 0xcf, 0x2b, 0xd3, 0xad, 0xc7, 0xab,
+	0xe9, 0x3e, 0xb2, 0x7e, 0x33, 0x8c, 0xb3, 0xc5, 0xec, 0xc7, 0xfa, 0x3b, 0xff, 0x07, 0x00, 0x00,
+	0xff, 0xff, 0x36, 0x17, 0xbd, 0x57, 0x03, 0x19, 0x00, 0x00,
 }

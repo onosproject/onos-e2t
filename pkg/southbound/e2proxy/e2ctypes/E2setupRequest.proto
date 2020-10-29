@@ -14,5 +14,6 @@ package e2ctypes;
 option deprecated = true;
 
 message E2setupRequest_t {
+    option deprecated = true;
     ProtocolIE_Container_1544P11_t	 protocolIEs = 1 [deprecated=true];
 }

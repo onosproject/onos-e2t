@@ -15,6 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 	"unsafe"
 )
@@ -22,7 +25,7 @@ import (
 // XerEncodeE2setRequest - used only for testing
 // Deprecated: Do not use.
 func XerEncodeE2setRequest(e2SetupReqIe *e2ctypes.E2SetupRequestIEsT) ([]byte, error) {
-	e2SetupRequestIeC, err := newE2setupRequestIe(e2SetupReqIe)
+	e2SetupRequestIeC, err := newE2setupRequestIeOld(e2SetupReqIe)
 	if err != nil {
 		return nil, err
 	}
@@ -37,11 +40,11 @@ func XerEncodeE2setRequest(e2SetupReqIe *e2ctypes.E2SetupRequestIEsT) ([]byte, e
 // Deprecated: Do not use.
 func newRicIndicationIe(riIe *e2ctypes.RICindication_IEsT) (*C.RICindication_IEs_t, error) {
 
-	critC, err := criticalityToC(riIe.GetCriticality())
+	critC, err := criticalityToCOld(riIe.GetCriticality())
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(riIe.GetId())
+	idC, err := protocolIeIDToCOld(riIe.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -103,11 +106,11 @@ func newRicIndicationIe(riIe *e2ctypes.RICindication_IEsT) (*C.RICindication_IEs
 
 // Deprecated: Do not use.
 func newRICsubscriptionRequestIE(rsrIe *e2ctypes.RICsubscriptionRequest_IEsT) (*C.RICsubscriptionRequest_IEs_t, error) {
-	critC, err := criticalityToC(rsrIe.GetCriticality())
+	critC, err := criticalityToCOld(rsrIe.GetCriticality())
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(rsrIe.GetId())
+	idC, err := protocolIeIDToCOld(rsrIe.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -166,13 +169,13 @@ func newRICsubscriptionRequestIE(rsrIe *e2ctypes.RICsubscriptionRequest_IEsT) (*
 }
 
 // Deprecated: Do not use.
-func newE2setupRequestIe(esIe *e2ctypes.E2SetupRequestIEsT) (*C.E2setupRequestIEs_t, error) {
+func newE2setupRequestIeOld(esIe *e2ctypes.E2SetupRequestIEsT) (*C.E2setupRequestIEs_t, error) {
 
-	critC, err := criticalityToC(esIe.GetCriticality())
+	critC, err := criticalityToCOld(esIe.GetCriticality())
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(esIe.GetId())
+	idC, err := protocolIeIDToCOld(esIe.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +185,7 @@ func newE2setupRequestIe(esIe *e2ctypes.E2SetupRequestIEsT) (*C.E2setupRequestIE
 	switch choice := esIe.Choice.(type) {
 	case *e2ctypes.E2SetupRequestIEsT_GlobalE2Node_ID:
 		vpr = C.E2setupRequestIEs__value_PR_GlobalE2node_ID
-		globalNodeIDC, err := newGlobalE2nodeID(choice.GlobalE2Node_ID)
+		globalNodeIDC, err := newGlobalE2nodeIDOld(choice.GlobalE2Node_ID)
 		if err != nil {
 			return nil, err
 		}
@@ -194,7 +197,7 @@ func newE2setupRequestIe(esIe *e2ctypes.E2SetupRequestIEsT) (*C.E2setupRequestIE
 			choiceC[i+8] = globalNodeIDC.choice[i]
 		}
 	default:
-		return nil, fmt.Errorf("newE2setupRequestIe() %T not yet implemented", choice)
+		return nil, fmt.Errorf("newE2setupRequestIeOld() %T not yet implemented", choice)
 	}
 
 	ie := C.E2setupRequestIEs_t{
@@ -212,11 +215,11 @@ func newE2setupRequestIe(esIe *e2ctypes.E2SetupRequestIEsT) (*C.E2setupRequestIE
 // Deprecated: Do not use.
 func newE2setupResponseIE(e2srIe *e2ctypes.E2SetupResponseIEsT) (*C.E2setupResponseIEs_t, error) {
 
-	critC, err := criticalityToC(e2srIe.GetCriticality())
+	critC, err := criticalityToCOld(e2srIe.GetCriticality())
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(e2srIe.GetId())
+	idC, err := protocolIeIDToCOld(e2srIe.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +291,7 @@ func decodeErrorIndicationIE(errIndIeC *C.ErrorIndication_IEs_t) (*e2ctypes.Erro
 }
 
 // Deprecated: Do not use.
-func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2ctypes.E2SetupRequestIEsT, error) {
+func decodeE2setupRequestIEOld(e2srIeC *C.E2setupRequestIEs_t) (*e2ctypes.E2SetupRequestIEsT, error) {
 	//fmt.Printf("Handling E2SetupReqIE %+v\n", e2srIeC)
 	ret := e2ctypes.E2SetupRequestIEsT{
 		Id:          e2ctypes.ProtocolIE_IDT(e2srIeC.id),
@@ -297,15 +300,15 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2ctypes.E2SetupRe
 
 	switch e2srIeC.value.present {
 	case C.E2setupRequestIEs__value_PR_GlobalE2node_ID:
-		gE2nID, err := decodeGlobalE2NodeID(e2srIeC.value.choice)
+		gE2nID, err := decodeGlobalE2NodeIDOld(e2srIeC.value.choice)
 		if err != nil {
 			return nil, err
 		}
 		ret.Choice = &e2ctypes.E2SetupRequestIEsT_GlobalE2Node_ID{GlobalE2Node_ID: gE2nID}
 	case C.E2setupRequestIEs__value_PR_NOTHING:
-		return nil, fmt.Errorf("decodeE2setupRequestIE(). %v not yet implemneted", e2srIeC.value.present)
+		return nil, fmt.Errorf("decodeE2setupRequestIEOld(). %v not yet implemneted", e2srIeC.value.present)
 	default:
-		return nil, fmt.Errorf("decodeE2setupRequestIE(). unexpected choice %v", e2srIeC.value.present)
+		return nil, fmt.Errorf("decodeE2setupRequestIEOld(). unexpected choice %v", e2srIeC.value.present)
 	}
 
 	return &ret, nil
@@ -321,7 +324,7 @@ func decodeRICsubscriptionRequestIE(rsreqIeC *C.RICsubscriptionRequest_IEs_t) (*
 
 	switch rsreqIeC.value.present {
 	case C.RICsubscriptionRequest_IEs__value_PR_RICrequestID:
-		//gE2nID, err := decodeGlobalE2NodeID(rsreqIeC.value.choice)
+		//gE2nID, err := decodeGlobalE2NodeIDOld(rsreqIeC.value.choice)
 		//if err != nil {
 		//	return nil, err
 		//}
@@ -365,4 +368,100 @@ func decodeRICsubscriptionResponseIE(rsrespIeC *C.RICsubscriptionResponse_IEs_t)
 	}
 
 	return &ret, nil
+}
+
+func newE2setupRequestIe3GlobalE2NodeID(esIe *e2appducontents.E2SetupRequestIes_E2SetupRequestIes3) (*C.E2setupRequestIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDGlobalE2nodeID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [48]byte{} // The size of the E2setupRequestIEs__value_u
+
+	globalNodeIDC, err := newGlobalE2nodeID(esIe.GetValue())
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("Assigning to choice of E2setupRequestIE %v %v %v %v %v\n",
+		globalNodeIDC, globalNodeIDC.present, &globalNodeIDC.choice,
+		unsafe.Sizeof(globalNodeIDC.present), unsafe.Sizeof(globalNodeIDC.choice))
+	binary.LittleEndian.PutUint32(choiceC[0:], uint32(globalNodeIDC.present))
+	for i := 0; i < 8; i++ {
+		choiceC[i+8] = globalNodeIDC.choice[i]
+	}
+
+	ie := C.E2setupRequestIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2setupRequestIEs__value{
+			present: C.E2setupRequestIEs__value_PR_GlobalE2node_ID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newE2setupRequestIe10RanFunctionList(esIe *e2appducontents.E2SetupRequestIes_E2SetupRequestIes10) (*C.E2setupRequestIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionsAdded)
+	if err != nil {
+		return nil, err
+	}
+
+	listC := [48]byte{} // The size of the E2setupRequestIEs__value_u
+
+	ranFunctionsListC, err := newRanFunctionsList(esIe.GetValue())
+	if err != nil {
+		return nil, err
+	}
+	//fmt.Printf("Assigning to choice of E2setupRequestIE %v %v %v %v %v\n",
+	//	ranFunctionsListC, ranFunctionsListC.present, &ranFunctionsListC.choice,
+	//	unsafe.Sizeof(ranFunctionsListC.present), unsafe.Sizeof(ranFunctionsListC.choice))
+	binary.LittleEndian.PutUint64(listC[8:], uint64(ranFunctionsListC.list.size))
+	ie := C.E2setupRequestIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2setupRequestIEs__value{
+			present: C.E2setupRequestIEs__value_PR_RANfunctions_List,
+			choice:  listC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2SetupRequestIes, error) {
+	//fmt.Printf("Handling E2SetupReqIE %+v\n", e2srIeC)
+	ret := new(e2appducontents.E2SetupRequestIes)
+
+	switch e2srIeC.value.present {
+	case C.E2setupRequestIEs__value_PR_GlobalE2node_ID:
+		gE2nID, err := decodeGlobalE2NodeID(e2srIeC.value.choice)
+		if err != nil {
+			return nil, err
+		}
+		ret.E2ApProtocolIes3 =   &e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
+			Id:    3,
+			Value: gE2nID,
+		}
+
+	case C.E2setupRequestIEs__value_PR_RANfunctions_List:
+		fallthrough // TODO Implement it
+
+	case C.E2setupRequestIEs__value_PR_NOTHING:
+		return nil, fmt.Errorf("decodeE2setupRequestIEOld(). %v not yet implemneted", e2srIeC.value.present)
+
+	default:
+		return nil, fmt.Errorf("decodeE2setupRequestIEOld(). unexpected choice %v", e2srIeC.value.present)
+	}
+
+	return ret, nil
 }

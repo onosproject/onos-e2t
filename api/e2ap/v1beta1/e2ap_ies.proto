@@ -257,7 +257,7 @@ message GlobalngeNbId {
 // sequence from e2ap-v01.00.00.asn1:1011
 message GlobalRicId {
     PlmnIdentity p_lmn_identity = 1;
-    bytes ric_id = 2 [(validate.v1.rules).bytes.len = 3]; //20
+    BitString ric_id = 2; //20
 };
 
 // range of Integer from e2ap-v01.00.00.asn1:1019

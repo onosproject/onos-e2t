@@ -184,7 +184,7 @@ func Test_E2AP_E2SetupRequest(t *testing.T) {
 	assert.NilError(t, err, "Unexpected error transforming PDU to PER")
 	assert.Equal(t, 30, len(bytesPer2))
 
-	//bytesXer3, err := orane2.XerEncodeGlobalE2nodeID(&globalE2NodeID)
+	//bytesXer3, err := orane2.XerEncodeGlobalE2nodeIDOld(&globalE2NodeID)
 	//assert.NilError(t, err, "Unexpected error outputting PDU to XER")
 	//t.Logf("Xer encoded \n%s", string(bytesXer3))
 
