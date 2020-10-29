@@ -11,9 +11,11 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 )
 
+const mask20bitricid = 0xFFFFF
+
 func CreateResponseFailureE2apPdu(ricReqID int32) (*e2appdudescriptions.E2ApPdu, error) {
 
-	if ricReqID|mask20bit > mask20bit {
+	if ricReqID|mask20bitricid > mask20bitricid {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReqID)
 	}
 
