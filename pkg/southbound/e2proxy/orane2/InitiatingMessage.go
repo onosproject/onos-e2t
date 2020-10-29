@@ -29,7 +29,7 @@ func newInitiatingMessage(im *e2ctypes.InitiatingMessageT) (*C.InitiatingMessage
 		return nil, err
 	}
 
-	critC, err := criticalityToC(im.GetCriticality())
+	critC, err := criticalityToCOld(im.GetCriticality())
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func newInitiatingMessageValue(im *e2ctypes.InitiatingMessageT) (*C.struct_Initi
 
 	case *e2ctypes.InitiatingMessageT_E2SetupRequest:
 		presentC = C.InitiatingMessage__value_PR_E2setupRequest
-		esC, err := newE2SetupRequest(choice.E2SetupRequest)
+		esC, err := newE2SetupRequestOld(choice.E2SetupRequest)
 		if err != nil {
 			return nil, err
 		}
@@ -140,7 +140,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2ctypes.Initiat
 			},
 		}
 		//fmt.Printf("E2SetupRequestC %+v\n %+v\n", initMsgC, srC)
-		e2sr, err := decodeE2setupRequest(&esC)
+		e2sr, err := decodeE2setupRequestOld(&esC)
 		if err != nil {
 			return nil, err
 		}
@@ -151,7 +151,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2ctypes.Initiat
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
 			protocolIEs: C.ProtocolIE_Container_1544P0_t{
-				list: C.struct___40{ // TODO: tie this down with a predictable name
+				list: C.struct___41{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),

@@ -14,9 +14,9 @@ option deprecated = true;
 
 message RICaction_ToBeSetup_ItemIEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICaction_ToBeSetup_Item_t RICaction_ToBeSetup_Item = 3;
+        RICaction_ToBeSetup_Item_t RICaction_ToBeSetup_Item = 3 [deprecated=true];
     }
 }

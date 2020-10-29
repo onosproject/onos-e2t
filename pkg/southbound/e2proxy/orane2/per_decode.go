@@ -17,7 +17,6 @@ import (
 	"unsafe"
 )
 
-// Deprecated: Do not use.
 func decodePer(bytes []byte, size int, valueType *C.asn_TYPE_descriptor_t) (unsafe.Pointer, error) {
 	var result unsafe.Pointer
 

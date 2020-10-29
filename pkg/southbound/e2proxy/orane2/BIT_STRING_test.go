@@ -45,11 +45,11 @@ func Test_decodeBitString(t *testing.T) {
 	assert.Equal(t, int(protoBitString.Len), 28, "unexpected bit string length")
 	assert.Equal(t, int(protoBitString.Value), 0xf0debc9a, "unexpected bit string value")
 
-	xer, err := XerEncodeBitString(protoBitString)
+	xer, err := xerEncodeBitString(protoBitString)
 	assert.NilError(t, err)
 	t.Logf("XER Bit String \n%s", xer)
 
-	per, err := PerEncodeBitString(protoBitString)
+	per, err := perEncodeBitString(protoBitString)
 	assert.NilError(t, err)
 	t.Logf("PER Bit String \n%v", per)
 }
@@ -71,4 +71,12 @@ func Test_decodeBitString2(t *testing.T) {
 	assert.Assert(t, protoBitString != nil)
 	assert.Equal(t, int(protoBitString.Len), 22, "unexpected bit string length")
 	assert.Equal(t, protoBitString.Value, uint64(0xd4bc9a), "unexpected bit string value")
+
+	xer, err := xerEncodeBitString(protoBitString)
+	assert.NilError(t, err)
+	t.Logf("XER Bit String \n%s", xer)
+
+	per, err := perEncodeBitString(protoBitString)
+	assert.NilError(t, err)
+	t.Logf("PER Bit String \n%v", per)
 }

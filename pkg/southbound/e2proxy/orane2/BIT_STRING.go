@@ -84,8 +84,7 @@ func decodeBitStringOld(bsC [48]byte) *e2ctypes.BIT_STRING {
 	return bs
 }
 
-// XerEncodeGnbID - used only in tests
-func XerEncodeBitString(bs *e2ap_commondatatypes.BitString) ([]byte, error) {
+func xerEncodeBitString(bs *e2ap_commondatatypes.BitString) ([]byte, error) {
 	bsC := newBitString(bs)
 
 	bytes, err := encodeXer(&C.asn_DEF_BIT_STRING, unsafe.Pointer(bsC))
@@ -96,7 +95,7 @@ func XerEncodeBitString(bs *e2ap_commondatatypes.BitString) ([]byte, error) {
 }
 
 // PerEncodeGnbID - used only in tests
-func PerEncodeBitString(bs *e2ap_commondatatypes.BitString) ([]byte, error) {
+func perEncodeBitString(bs *e2ap_commondatatypes.BitString) ([]byte, error) {
 	bsC := newBitString(bs)
 
 	bytes, err := encodePerBuffer(&C.asn_DEF_BIT_STRING, unsafe.Pointer(bsC))

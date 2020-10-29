@@ -50,8 +50,7 @@ func decodeGlobalGnbIDOld(globalGnbID *C.GlobalgNB_ID_t) (*e2ctypes.GlobalgNB_ID
 	return result, nil
 }
 
-// XerEncodeGnbID - used only in tests
-func XerEncodegNBID(gnbID *e2apies.GlobalgNbId) ([]byte, error) {
+func xerEncodegNBID(gnbID *e2apies.GlobalgNbId) ([]byte, error) {
 	gnbIDC, err := newGlobalgNBID(gnbID)
 	if err != nil {
 		return nil, err
@@ -64,8 +63,7 @@ func XerEncodegNBID(gnbID *e2apies.GlobalgNbId) ([]byte, error) {
 	return bytes, nil
 }
 
-// PerEncodeGnbID - used only in tests
-func PerEncodegNBID(gnbID *e2apies.GlobalgNbId) ([]byte, error) {
+func perEncodegNBID(gnbID *e2apies.GlobalgNbId) ([]byte, error) {
 	gnbIDC, err := newGlobalgNBID(gnbID)
 	if err != nil {
 		return nil, err

@@ -41,6 +41,8 @@ import "RICserviceUpdate.proto";
 option deprecated = true;
 
 service E2apElementaryProcedures {
+    option deprecated = true;
+
     // Class 1
 
     // The RICsubscription calls on the E2Node to provide a stream of RICindications
@@ -81,6 +83,8 @@ service E2apElementaryProcedures {
 message EmptyMessage{};
 
 message E2setupResponseOutcome {
+    option deprecated = true;
+
     oneof outcome {
         E2setupResponse_t successfulOutcome = 1;
         E2setupFailure_t unsuccessfulOutcome = 2;
@@ -88,6 +92,7 @@ message E2setupResponseOutcome {
 }
 
 message RICsubscriptionOutcome {
+    option deprecated = true;
     oneof outcome {
         RICsubscriptionResponse_t successfulOutcome = 1;
         RICsubscriptionFailure_t unsuccessfulOutcome = 2;
@@ -95,6 +100,7 @@ message RICsubscriptionOutcome {
 }
 
 message RICcontrolOutcome {
+    option deprecated = true;
     oneof outcome {
         RICcontrolAcknowledge_t successfulOutcome = 1;
         RICcontrolFailure_t unsuccessfulOutcome = 2;
@@ -102,6 +108,7 @@ message RICcontrolOutcome {
 }
 
 message RICserviceQueryAck {
+    option deprecated = true;
     oneof query {
         RICserviceQuery_t newquery = 1;
         RICserviceUpdateAcknowledge_t acknowledge = 2;

@@ -22,11 +22,11 @@ import (
 
 // Deprecated: Do not use.
 func newRICactionTbsItemIEs(tbsItemIEs *e2ctypes.RICaction_ToBeSetup_ItemIEsT) (*C.RICaction_ToBeSetup_ItemIEs_t, error) {
-	critC, err := criticalityToC(tbsItemIEs.GetCriticality())
+	critC, err := criticalityToCOld(tbsItemIEs.GetCriticality())
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(tbsItemIEs.GetId())
+	idC, err := protocolIeIDToCOld(tbsItemIEs.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -68,11 +68,11 @@ func newRICactionTbsItemIEs(tbsItemIEs *e2ctypes.RICaction_ToBeSetup_ItemIEsT) (
 }
 
 //func newRANfunctionID_ItemIEs(rfIDIEs *e2ctypes.RANfunctionID_ItemIEsT) (*C.RANfunctionID_ItemIEs_t, error) {
-//	critC, err := criticalityToC(rfIDIEs.GetCriticality())
+//	critC, err := criticalityToCOld(rfIDIEs.GetCriticality())
 //	if err != nil {
 //		return nil, err
 //	}
-//	idC, err := protocolIeIDToC(rfIDIEs.GetId())
+//	idC, err := protocolIeIDToCOld(rfIDIEs.GetId())
 //	if err != nil {
 //		return nil, err
 //	}

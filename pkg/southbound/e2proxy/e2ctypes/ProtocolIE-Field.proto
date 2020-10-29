@@ -27,173 +27,173 @@ option deprecated = true;
 
 message RICindication_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        int64 RANfunctionID = 4;
-        int64 RICactionID = 5;
-        int64 RICindicationSN = 6;
-        RICindicationType RICindicationType = 7;
-        string RICindicationHeader = 8;
-        string RICindicationMessage = 9;
-        string RICcallProcessID = 10;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        int64 RANfunctionID = 4 [deprecated=true];
+        int64 RICactionID = 5 [deprecated=true];
+        int64 RICindicationSN = 6 [deprecated=true];
+        RICindicationType RICindicationType = 7 [deprecated=true];
+        string RICindicationHeader = 8 [deprecated=true];
+        string RICindicationMessage = 9 [deprecated=true];
+        string RICcallProcessID = 10 [deprecated=true];
     }
 }
 
 message E2setupRequestIEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        GlobalE2node_ID_t GlobalE2node_ID = 3;
-        RANfunctions_List_t RANfunctions_List = 4;
+        GlobalE2node_ID_t GlobalE2node_ID = 3 [deprecated=true];
+        RANfunctions_List_t RANfunctions_List = 4 [deprecated=true];
     }
 }
 
 message ErrorIndication_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        uint64 RANfunctionID = 4;
-        Cause_t Cause = 5;
-        CriticalityDiagnostics_t CriticalityDiagnostics = 6;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        uint64 RANfunctionID = 4 [deprecated=true];
+        Cause_t Cause = 5 [deprecated=true];
+        CriticalityDiagnostics_t CriticalityDiagnostics = 6 [deprecated=true];
     }
 }
 
 message RICsubscriptionResponse_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        int64 RANfunctionID = 4;
-        RICaction_Admitted_List_t RICaction_Admitted_List = 5;
-        RICaction_NotAdmitted_List_t RICaction_NotAdmitted_List = 6;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        int64 RANfunctionID = 4 [deprecated=true];
+        RICaction_Admitted_List_t RICaction_Admitted_List = 5 [deprecated=true];
+        RICaction_NotAdmitted_List_t RICaction_NotAdmitted_List = 6 [deprecated=true];
     }
 }
 
 message RICsubscriptionDeleteResponse_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        int64 RANfunctionID = 4;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        int64 RANfunctionID = 4 [deprecated=true];
     }
 }
 
 message RICserviceUpdateAcknowledge_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RANfunctionsID_List_t RANfunctionsID_List = 3;
-        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 4;
+        RANfunctionsID_List_t RANfunctionsID_List = 3 [deprecated=true];
+        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 4 [deprecated=true];
     }
 }
 
 message RICcontrolAcknowledge_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        int64 RANfunctionID = 4;
-        string RICcallProcessID = 5;
-        RICcontrolStatus_t RICcontrolStatus = 6;
-        string RICcontrolOutcome = 7;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        int64 RANfunctionID = 4 [deprecated=true];
+        string RICcallProcessID = 5 [deprecated=true];
+        RICcontrolStatus_t RICcontrolStatus = 6 [deprecated=true];
+        string RICcontrolOutcome = 7 [deprecated=true];
     }
 }
 
 message E2setupResponseIEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        GlobalRIC_ID_t GlobalRIC_ID = 3;
-        RANfunctionsID_List_t RANfunctionsID_List = 4;
-        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 5;
+        GlobalRIC_ID_t GlobalRIC_ID = 3 [deprecated=true];
+        RANfunctionsID_List_t RANfunctionsID_List = 4 [deprecated=true];
+        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 5 [deprecated=true];
     }
 }
 
 message ResetResponseIEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        CriticalityDiagnostics_t CriticalityDiagnostics = 3;
+        CriticalityDiagnostics_t CriticalityDiagnostics = 3 [deprecated=true];
     }
 }
 
 message RICsubscriptionFailure_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        int64 RANfunctionID = 4;
-        RICaction_NotAdmitted_List_t RICaction_NotAdmitted_List = 5;
-        CriticalityDiagnostics_t CriticalityDiagnostics = 6;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        int64 RANfunctionID = 4 [deprecated=true];
+        RICaction_NotAdmitted_List_t RICaction_NotAdmitted_List = 5 [deprecated=true];
+        CriticalityDiagnostics_t CriticalityDiagnostics = 6 [deprecated=true];
     }
 }
 
 message RICsubscriptionDeleteFailure_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        uint64 RANfunctionID = 4;
-        Cause_t Cause = 5;
-        CriticalityDiagnostics_t CriticalityDiagnostics = 6;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        uint64 RANfunctionID = 4 [deprecated=true];
+        Cause_t Cause = 5 [deprecated=true];
+        CriticalityDiagnostics_t CriticalityDiagnostics = 6 [deprecated=true];
     }
 }
 
 message RICserviceUpdateFailure_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 3;
-        TimeToWait_t TimeToWait = 4;
-        CriticalityDiagnostics_t CriticalityDiagnostics = 5;
+        RANfunctionsIDcause_List_t RANfunctionsIDcause_List = 3 [deprecated=true];
+        TimeToWait_t TimeToWait = 4 [deprecated=true];
+        CriticalityDiagnostics_t CriticalityDiagnostics = 5 [deprecated=true];
     }
 }
 
 message RICcontrolFailure_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        int64 RANfunctionID = 4;
-        bytes RICcallProcessID = 5;
-        Cause_t Cause = 6;
-        bytes RICcontrolOutcome = 7;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        int64 RANfunctionID = 4 [deprecated=true];
+        bytes RICcallProcessID = 5 [deprecated=true];
+        Cause_t Cause = 6 [deprecated=true];
+        bytes RICcontrolOutcome = 7 [deprecated=true];
     }
 }
 
 message E2setupFailureIEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        Cause_t Cause = 3;
-        TimeToWait_t TimeToWait = 4;
-        CriticalityDiagnostics_t CriticalityDiagnostics = 5;
+        Cause_t Cause = 3 [deprecated=true];
+        TimeToWait_t TimeToWait = 4 [deprecated=true];
+        CriticalityDiagnostics_t CriticalityDiagnostics = 5 [deprecated=true];
     }
 }
 
 message RICsubscriptionRequest_IEs_t {
     option deprecated = true;
-    ProtocolIE_ID_t id = 1;
-    Criticality_t criticality = 2;
+    ProtocolIE_ID_t id = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICrequestID_t RICrequestID = 3;
-        int64 RANfunctionID = 4;
-        RICsubscriptionDetails_t RICsubscriptionDetails = 5;
+        RICrequestID_t RICrequestID = 3 [deprecated=true];
+        int64 RANfunctionID = 4 [deprecated=true];
+        RICsubscriptionDetails_t RICsubscriptionDetails = 5 [deprecated=true];
     }
 }
