@@ -15,6 +15,7 @@ package e2ctypes;
 
 option deprecated = true;
 message Cause_t {
+    option deprecated = true;
     oneof choice {
         CauseRIC_t ricRequest = 2 [deprecated=true];
         CauseRICservice_t ricService = 3 [deprecated=true];

@@ -59,7 +59,7 @@ func newGlobalRicID(id *e2ctypes.GlobalRIC_IDT) (*C.GlobalRIC_ID_t, error) {
 
 	idC := C.GlobalRIC_ID_t{
 		pLMN_Identity: *newOctetString(id.PLMN_Identity),
-		ric_ID:        *newBitString(id.Ric_ID),
+		ric_ID:        *newBitStringOld(id.Ric_ID),
 	}
 
 	return &idC, nil

@@ -7,7 +7,9 @@ syntax = "proto3";
 
 package e2ctypes;
 
+option deprecated = true;
 message BIT_STRING {
-    bytes bitString = 1;
-    uint32 numbits = 2;
+    option deprecated = true;
+    bytes bitString = 1 [deprecated=true];
+    uint32 numbits = 2 [deprecated=true];
 }

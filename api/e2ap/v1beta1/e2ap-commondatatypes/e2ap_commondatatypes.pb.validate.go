@@ -1310,3 +1310,76 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RicactionDefinitionValidationError{}
+
+// Validate checks the field values on BitString with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *BitString) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Value
+
+	if m.GetLen() > 64 {
+		return BitStringValidationError{
+			field:  "Len",
+			reason: "value must be less than or equal to 64",
+		}
+	}
+
+	return nil
+}
+
+// BitStringValidationError is the validation error returned by
+// BitString.Validate if the designated constraints aren't met.
+type BitStringValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e BitStringValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e BitStringValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e BitStringValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e BitStringValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e BitStringValidationError) ErrorName() string { return "BitStringValidationError" }
+
+// Error satisfies the builtin error interface
+func (e BitStringValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sBitString.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = BitStringValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = BitStringValidationError{}

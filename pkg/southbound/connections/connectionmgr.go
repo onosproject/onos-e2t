@@ -5,7 +5,6 @@
 package connections
 
 import (
-	"encoding/binary"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 )
@@ -15,7 +14,7 @@ var connectionsByID = make(map[uint32]SctpConnection)
 // CreateConnection logs creation of a connection by a setup request
 func CreateConnection(setupRequest *e2appducontents.E2SetupRequest) SctpConnection {
 	globalGNbID := setupRequest.ProtocolIes.E2ApProtocolIes3.Value.GetGlobalE2NodeId().(*e2apies.GlobalE2NodeId_GNb).GNb.GlobalGNbId
-	globalID := binary.BigEndian.Uint32(globalGNbID.GnbId.GetGnbId())
+	globalID := uint32(globalGNbID.GnbId.GetGnbId().Value)
 	plmnID := globalGNbID.PlmnId.String()
 
 	// TODO - these values need to be extracted from the inbound connection

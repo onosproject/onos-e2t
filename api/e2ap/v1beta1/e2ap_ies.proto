@@ -274,7 +274,7 @@ message GnbDuId {
 message GnbIdChoice {
     // choice from e2ap-v01.00.00.asn1:1026
     oneof gnb_id_choice {
-        bytes gnb_id = 1 [(validate.v1.rules).bytes.max_len = 4]; //22-32
+        BitString gnb_id = 1;
     }
 };
 

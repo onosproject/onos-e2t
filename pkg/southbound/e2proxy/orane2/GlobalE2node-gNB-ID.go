@@ -19,7 +19,7 @@ import (
 // Deprecated: Do not use.
 func newGlobalE2nodegNBID(gnbID *e2ctypes.GlobalE2NodeGNB_ID) (*C.GlobalE2node_gNB_ID_t, error) {
 
-	globalgNBID, err := newGlobalgNBID(gnbID.GlobalGNB_ID)
+	globalgNBID, err := newGlobalgNBIDOld(gnbID.GlobalGNB_ID)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +37,7 @@ func newGlobalE2nodegNBID(gnbID *e2ctypes.GlobalE2NodeGNB_ID) (*C.GlobalE2node_g
 func decodeGlobalE2nodegNBID(gNBC *C.GlobalE2node_gNB_ID_t) (*e2ctypes.GlobalE2NodeGNB_ID, error) {
 	result := new(e2ctypes.GlobalE2NodeGNB_ID)
 	var err error
-	result.GlobalGNB_ID, err = decodeGlobalGnbID(&gNBC.global_gNB_ID)
+	result.GlobalGNB_ID, err = decodeGlobalGnbIDOld(&gNBC.global_gNB_ID)
 	if err != nil {
 		return nil, fmt.Errorf("error decodeGlobalE2nodegNBID() %v", err)
 	}
