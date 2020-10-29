@@ -10,8 +10,8 @@ import (
 	"io"
 	"text/tabwriter"
 
-	"github.com/onosproject/onos-lib-go/pkg/cli"
 	"github.com/onosproject/onos-e2t/api/admin/v1"
+	"github.com/onosproject/onos-lib-go/pkg/cli"
 	"github.com/spf13/cobra"
 )
 
@@ -21,10 +21,12 @@ func getGetConnectionsCommand() *cobra.Command {
 		Short: "Get SB connections",
 		RunE:  runConnectionsCommand,
 	}
+	cmd.Flags().Bool("no-headers", false, "disables output headers")
 	return cmd
 }
 
 func runConnectionsCommand(cmd *cobra.Command, args []string) error {
+	noHeaders, _ := cmd.Flags().GetBool("no-headers")
 	conn, err := cli.GetConnection(cmd)
 	if err != nil {
 		return err
@@ -34,9 +36,11 @@ func runConnectionsCommand(cmd *cobra.Command, args []string) error {
 	writer := new(tabwriter.Writer)
 	writer.Init(outputWriter, 0, 0, 3, ' ', tabwriter.FilterHTML)
 
-	request := admin.ListE2NodeConnectionsRequest{}
+	if !noHeaders {
+		_, _ = fmt.Fprintln(writer, "Global ID\tPLNM ID\tIP Addr\tPort")
+	}
 
-	fmt.Fprintln(writer, "Connecting to server")
+	request := admin.ListE2NodeConnectionsRequest{}
 
 	client := admin.CreateE2TAdminServiceClient(conn)
 
@@ -45,7 +49,6 @@ func runConnectionsCommand(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	fmt.Fprintln(writer, "Connected to server")
 	for {
 		response, err := stream.Recv()
 		if err == io.EOF {
@@ -55,8 +58,7 @@ func runConnectionsCommand(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		//_, _ = fmt.Fprintf(writer, "%s\t%s\t%s\t%s\n", response.Ecgi.GetPlmnid(), response.Ecgi.GetEcid(), response.GetCrnti(), response.GetImsi())
-		fmt.Fprintln(writer, "connection %v", response)
+		_, _ = fmt.Fprintf(writer, "%d\t%s\t%s\t%d\n", response.Id, response.PlmnId, response.RemoteIp, response.RemotePort)
 	}
 
 	_ = writer.Flush()
