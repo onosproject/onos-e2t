@@ -5,6 +5,8 @@
 package ricapie2
 
 import (
+	"io"
+
 	ricapie2v1beta1 "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
@@ -29,8 +31,33 @@ func (s Service) Register(r *grpc.Server) {
 type Server struct {
 }
 
-// RegisterApp ...
+// RegisterApp process and handle the incoming requests from xApps
 func (s Server) RegisterApp(stream ricapie2v1beta1.E2TService_RegisterAppServer) error {
-	log.Error("Implement me")
-	return nil
+	ctx := stream.Context()
+	for {
+
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+		}
+
+		req, err := stream.Recv()
+		if err == io.EOF {
+			log.Error("End of file error", err)
+			return nil
+		}
+		if err != nil {
+			log.Error(err)
+			continue
+		}
+
+		err = s.appRequestHandler(req)
+		if err != nil {
+			log.Error(err)
+			continue
+		}
+
+	}
+
 }

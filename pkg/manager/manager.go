@@ -6,6 +6,7 @@ package manager
 
 import (
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
+	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
@@ -70,9 +71,16 @@ func (m *Manager) startSouthboundServer() error {
 
 // startSouthboundServer starts the northbound gRPC server
 func (m *Manager) startNorthboundServer() error {
-	s := northbound.NewServer(northbound.NewServerCfg(m.Config.CAPath, m.Config.KeyPath, m.Config.CertPath, int16(m.Config.GRPCPort), true, northbound.SecurityConfig{}))
+	s := northbound.NewServer(northbound.NewServerCfg(
+		m.Config.CAPath,
+		m.Config.KeyPath,
+		m.Config.CertPath,
+		int16(m.Config.GRPCPort),
+		true,
+		northbound.SecurityConfig{}))
 	s.AddService(admin.Service{})
 	s.AddService(logging.Service{})
+	s.AddService(ricapie2.Service{})
 
 	doneCh := make(chan error)
 	go func() {
