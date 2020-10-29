@@ -6,8 +6,6 @@ package cli
 
 import "github.com/spf13/cobra"
 
-const _subscribe = "subscribe"
-
 func getGetCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get {connections} [args]",
@@ -16,4 +14,3 @@ func getGetCommand() *cobra.Command {
 	cmd.AddCommand(getGetConnectionsCommand())
 	return cmd
 }
-
