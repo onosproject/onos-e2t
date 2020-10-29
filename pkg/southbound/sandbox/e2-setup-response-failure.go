@@ -13,7 +13,7 @@ import (
 
 const mask20bitricid = 0xFFFFF
 
-func CreateResponseFailureE2apPdu(ricReqID int32) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, criticalityIe int32) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if ricReqID|mask20bitricid > mask20bitricid {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReqID)
@@ -34,10 +34,10 @@ func CreateResponseFailureE2apPdu(ricReqID int32) (*e2appdudescriptions.E2ApPdu,
 	criticality := e2appducontents.E2SetupFailureIes_E2SetupFailureIes2{
 		Value: &e2apies.CriticalityDiagnostics{
 			ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
-				Value: 255, // range of Integer from e2ap-v01.00.asn1:1206
+				Value: e2FailureCode, // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 			},
 			TriggeringMessage:    e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_INITIATING_MESSAGE,
-			ProcedureCriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+			ProcedureCriticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT, // from e2ap-v01.00.asn1:153
 			RicRequestorId: &e2apies.RicrequestId{
 				RicRequestorId: ricReqID,
 			},
@@ -49,9 +49,9 @@ func CreateResponseFailureE2apPdu(ricReqID int32) (*e2appdudescriptions.E2ApPdu,
 	//binary.LittleEndian.PutUint32(criticality.Value.RicRequestorId.RicRequestorId, &ricReqID)
 
 	criticDiagnostics := e2apies.CriticalityDiagnosticsIeItem{
-		IEcriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+		IEcriticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 		IEId: &e2ap_commondatatypes.ProtocolIeId{
-			Value: 65535, // range of Integer from e2ap-v01.00.asn1:1208
+			Value: criticalityIe, // value were taken from e2ap-v01.00.asn1:1278
 		},
 		TypeOfError: e2apies.TypeOfError_TYPE_OF_ERROR_NOT_UNDERSTOOD,
 	}
