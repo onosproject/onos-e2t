@@ -59,7 +59,7 @@ message AppRequest {
 
 // AppResponse
 message AppResponse {
-    headers.v1beta1.RequestHeader header = 1;
+    headers.v1beta1.ResponseHeader header = 1;
     oneof resp {
         SubscribeResponse sub_resp = 2;
         SubscribeDeleteResponse sub_del_resp = 3;
