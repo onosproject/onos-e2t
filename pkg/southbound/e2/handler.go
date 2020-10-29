@@ -18,7 +18,7 @@ func newHandler() sctp.Handler {
 type Handler struct{}
 
 func (h *Handler) Accept(conn net.Conn) {
-	panic("implement me")
+	log.Info("Received E2 connection")
 }
 
 var _ sctp.Handler = &Handler{}
