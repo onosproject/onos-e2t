@@ -20,9 +20,9 @@ import (
 	"unsafe"
 )
 
-// XerEncodeBitString - used only in tests
+// XerEncodeBitStringOld - used only in tests
 // Deprecated: Do not use.
-func XerEncodeBitString(bs *e2ctypes.BIT_STRING) ([]byte, error) {
+func XerEncodeBitStringOld(bs *e2ctypes.BIT_STRING) ([]byte, error) {
 	bsC := newBitStringOld(bs)
 
 	bytes, err := encodeXer(&C.asn_DEF_BIT_STRING, unsafe.Pointer(bsC))
@@ -32,9 +32,9 @@ func XerEncodeBitString(bs *e2ctypes.BIT_STRING) ([]byte, error) {
 	return bytes, nil
 }
 
-// PerEncodeBitString - used only in tests
+// PerEncodeBitStringOld - used only in tests
 // Deprecated: Do not use.
-func PerEncodeBitString(bs *e2ctypes.BIT_STRING) ([]byte, error) {
+func PerEncodeBitStringOld(bs *e2ctypes.BIT_STRING) ([]byte, error) {
 	bsC := newBitStringOld(bs)
 
 	bytes, err := encodePerBuffer(&C.asn_DEF_BIT_STRING, unsafe.Pointer(bsC))
@@ -82,6 +82,29 @@ func decodeBitStringOld(bsC [48]byte) *e2ctypes.BIT_STRING {
 	}
 
 	return bs
+}
+
+// XerEncodeGnbID - used only in tests
+func XerEncodeBitString(bs *e2ap_commondatatypes.BitString) ([]byte, error) {
+	bsC := newBitString(bs)
+
+	bytes, err := encodeXer(&C.asn_DEF_BIT_STRING, unsafe.Pointer(bsC))
+	if err != nil {
+		return nil, err
+	}
+	return bytes, nil
+}
+
+// PerEncodeGnbID - used only in tests
+func PerEncodeBitString(bs *e2ap_commondatatypes.BitString) ([]byte, error) {
+	bsC := newBitString(bs)
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_BIT_STRING, unsafe.Pointer(bsC))
+	if err != nil {
+		return nil, err
+	}
+
+	return bytes, nil
 }
 
 func newBitString(bs *e2ap_commondatatypes.BitString) *C.BIT_STRING_t {

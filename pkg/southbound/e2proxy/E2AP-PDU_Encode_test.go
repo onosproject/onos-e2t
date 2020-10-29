@@ -168,11 +168,11 @@ func Test_E2AP_E2SetupRequest(t *testing.T) {
 		},
 	}
 
-	bytesXer1, err := orane2.XerEncodeBitString(&gnbBs)
+	bytesXer1, err := orane2.XerEncodeBitStringOld(&gnbBs)
 	assert.NilError(t, err, "Unexpected error outputting PDU to XER")
 	t.Logf("Xer encoded \n%s", string(bytesXer1))
 
-	bytesPer1, err := orane2.PerEncodeBitString(&gnbBs)
+	bytesPer1, err := orane2.PerEncodeBitStringOld(&gnbBs)
 	assert.NilError(t, err, "Unexpected error transforming PDU to PER")
 	assert.Equal(t, 30, len(bytesPer1))
 

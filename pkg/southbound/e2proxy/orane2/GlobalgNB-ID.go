@@ -16,6 +16,7 @@ import (
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
+	"unsafe"
 )
 
 // Deprecated: Do not use.
@@ -47,6 +48,35 @@ func decodeGlobalGnbIDOld(globalGnbID *C.GlobalgNB_ID_t) (*e2ctypes.GlobalgNB_ID
 		return nil, err
 	}
 	return result, nil
+}
+
+// XerEncodeGnbID - used only in tests
+func XerEncodegNBID(gnbID *e2apies.GlobalgNbId) ([]byte, error) {
+	gnbIDC, err := newGlobalgNBID(gnbID)
+	if err != nil {
+		return nil, err
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_GlobalgNB_ID, unsafe.Pointer(gnbIDC))
+	if err != nil {
+		return nil, err
+	}
+	return bytes, nil
+}
+
+// PerEncodeGnbID - used only in tests
+func PerEncodegNBID(gnbID *e2apies.GlobalgNbId) ([]byte, error) {
+	gnbIDC, err := newGlobalgNBID(gnbID)
+	if err != nil {
+		return nil, err
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_GlobalgNB_ID, unsafe.Pointer(gnbIDC))
+	if err != nil {
+		return nil, err
+	}
+
+	return bytes, nil
 }
 
 func newGlobalgNBID(id *e2apies.GlobalgNbId) (*C.GlobalgNB_ID_t, error) {

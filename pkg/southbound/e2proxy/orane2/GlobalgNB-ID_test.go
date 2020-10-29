@@ -45,4 +45,12 @@ func TestNewGlobalgNBID(t *testing.T) {
 	default:
 		t.Fatalf("unexpected choice in GnbIdChoice %v", choice)
 	}
+
+	xer, err := XerEncodegNBID(&g)
+	assert.NilError(t, err)
+	t.Logf("XER GlobalgNbId: \n%s", string(xer))
+
+	//per, err := PerEncodegNBID(&g)
+	//assert.NilError(t, err)
+	//t.Logf("PER GlobalgNbId: \n%s", string(per))
 }

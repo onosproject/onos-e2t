@@ -16,7 +16,6 @@ import (
 	"unsafe"
 )
 
-// Deprecated: Do not use.
 func encodePerBuffer(valueType *C.asn_TYPE_descriptor_t,
 	value unsafe.Pointer) ([]byte, error) {
 

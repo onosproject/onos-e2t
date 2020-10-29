@@ -23,10 +23,12 @@ func Test_newBitString(t *testing.T) {
 	assert.Equal(t, 8, int(cBitString.size), "unexpected number of bits")
 	assert.Equal(t, 36, int(cBitString.bits_unused), "unexpected number of bits_unused")
 	// Can't do any further analysis as we can't have C in tests
+
+
 }
 
 func Test_decodeBitString(t *testing.T) {
-	value := [4]byte{0x9A, 0xBC, 0xDE, 0xF0}
+	value := [4]byte{0x9A, 0xBC, 0xDE, 0xF0} // 28 bits
 	bsBytes := make([]byte, 20) // 8 for a 64bit address, 8 for the size uint64, 4 for the unused bits
 	binary.LittleEndian.PutUint64(bsBytes, uint64(uintptr(unsafe.Pointer(&value))))
 	bsBytes[8] = 4 // num bytes = num bits / 8
@@ -42,6 +44,14 @@ func Test_decodeBitString(t *testing.T) {
 	assert.Assert(t, protoBitString != nil)
 	assert.Equal(t, int(protoBitString.Len), 28, "unexpected bit string length")
 	assert.Equal(t, int(protoBitString.Value), 0xf0debc9a, "unexpected bit string value")
+
+	xer, err := XerEncodeBitString(protoBitString)
+	assert.NilError(t, err)
+	t.Logf("XER Bit String \n%s", xer)
+
+	per, err := PerEncodeBitString(protoBitString)
+	assert.NilError(t, err)
+	t.Logf("PER Bit String \n%v", per)
 }
 
 func Test_decodeBitString2(t *testing.T) {
