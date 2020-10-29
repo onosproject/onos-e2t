@@ -9,8 +9,7 @@ import (
 )
 
 func TestRicSubscriptionRequest(t *testing.T) {
-	newE2apPdu, err := CreateRicSubscriptionRequestE2apPdu(21, 22, 9, 15, 29, 17 )
+	newE2apPdu, err := CreateRicSubscriptionRequestE2apPdu(21, 22, 9, 15, 29, 17)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
-} 
-
+}
