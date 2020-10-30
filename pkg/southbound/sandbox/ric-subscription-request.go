@@ -22,14 +22,14 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricInstanceID)
 	}
 
-	ricRequestId := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
+	ricRequestID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: ricReqID,      // sequence from e2ap-v01.00.asn1:1126
 			RicInstanceId:  ricInstanceID, // sequence from e2ap-v01.00.asn1:1127
 		},
 	}
 
-	ranFunctionId := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
+	ranFunctionID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
 		Value: &e2apies.RanfunctionId{
 			Value: ranFuncID, // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 		},
@@ -74,8 +74,8 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 					RicSubscription: &e2appdudescriptions.RicSubscription{
 						InitiatingMessage: &e2appducontents.RicsubscriptionRequest{
 							ProtocolIes: &e2appducontents.RicsubscriptionRequestIes{
-								E2ApProtocolIes29: &ricRequestId,           //RIC request ID
-								E2ApProtocolIes5:  &ranFunctionId,          //RAN function ID
+								E2ApProtocolIes29: &ricRequestID,           //RIC request ID
+								E2ApProtocolIes5:  &ranFunctionID,          //RAN function ID
 								E2ApProtocolIes30: &ricSubscriptionDetails, // RIC subscription details
 							},
 						},
