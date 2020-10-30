@@ -128,7 +128,7 @@ func RicIndicationE2apPdu(ricReqID int32, ricInstanceID int32, ranFuncID int32,
 							Value: int32(v1beta1.ProcedureCodeIDRICindication),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityIgnore{
-							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE, // parameterize?
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 						},
 					},
 				},
