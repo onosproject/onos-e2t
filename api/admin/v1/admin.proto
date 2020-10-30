@@ -52,7 +52,7 @@ message ListE2NodeConnectionsRequest {
 
 // ListE2NodeConnectionsResponse carries information about the SCTP connection to the remote E2 node.
 message ListE2NodeConnectionsResponse {
-    string remote_ip = 1;
+    repeated string remote_ip = 1;
     uint32 remote_port = 2;
     uint32 id = 3;
     string plmn_id = 4;

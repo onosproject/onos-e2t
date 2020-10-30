@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"strings"
 	"text/tabwriter"
 
 	"github.com/onosproject/onos-e2t/api/admin/v1"
@@ -58,7 +59,7 @@ func runConnectionsCommand(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		_, _ = fmt.Fprintf(writer, "%d\t%s\t%s\t%d\n", response.Id, response.PlmnId, response.RemoteIp, response.RemotePort)
+		_, _ = fmt.Fprintf(writer, "%d\t%s\t%s\t%d\n", response.Id, response.PlmnId, strings.Join(response.RemoteIp, ","), response.RemotePort)
 	}
 
 	_ = writer.Flush()
