@@ -11,7 +11,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 )
 
-func CreateE2apPduE2SetupRequest(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E2ApPdu, error) {
 	if len(plmnID) != 3 {
 		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
 	}

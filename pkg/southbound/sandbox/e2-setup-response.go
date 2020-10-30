@@ -13,7 +13,7 @@ import (
 
 const mask20bit = 0xFFFFF
 
-func CreateE2apPduE2SetupResponse(plmnID string, ricID uint32) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2ApPdu, error) {
 	if len(plmnID) != 3 {
 		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
 	}
