@@ -59,7 +59,7 @@ func Test_ErrorIndicationRicRequestID(t *testing.T) {
 func Test_E2AP_PDU_ErrorIndication(t *testing.T) {
 	errorIndicationXer, err := ioutil.ReadFile("./test/ErrorIndication.xml")
 	assert.NilError(t, err, "Unexpected error when loading file")
-	e2apPdu, err := orane2.XerDecodeE2apPdu(errorIndicationXer)
+	e2apPdu, err := orane2.XerDecodeE2apPduOld(errorIndicationXer)
 	assert.NilError(t, err, "Unexpected error when decoding XER payload")
 
 	assert.Assert(t, e2apPdu != nil, "expected a value for the e2apPdu")
@@ -77,7 +77,7 @@ func Test_E2AP_PDU_ErrorIndication(t *testing.T) {
 func Test_E2AP_PDU_E2SetupRequest_DecodeXer(t *testing.T) {
 	e2setupRequestXer, err := ioutil.ReadFile("./test/E2setupRequest.xml")
 	assert.NilError(t, err, "Unexpected error when loading file")
-	e2apPdu, err := orane2.XerDecodeE2apPdu(e2setupRequestXer)
+	e2apPdu, err := orane2.XerDecodeE2apPduOld(e2setupRequestXer)
 	assert.NilError(t, err, "Unexpected error when decoding XER payload")
 	assert.Assert(t, e2apPdu != nil, "expected a value for the e2apPdu")
 	initMsg, ok := e2apPdu.GetChoice().(*e2ctypes.E2AP_PDUT_InitiatingMessage)
@@ -113,7 +113,7 @@ func Test_E2AP_PDU_RICsubscriptionReq_DecodeXer(t *testing.T) {
 	t.Skip()
 	rICsubscriptionRequestXer, err := ioutil.ReadFile("./test/RICsubscriptionRequest.xml")
 	assert.NilError(t, err, "Unexpected error when loading file")
-	e2apPdu, err := orane2.XerDecodeE2apPdu(rICsubscriptionRequestXer)
+	e2apPdu, err := orane2.XerDecodeE2apPduOld(rICsubscriptionRequestXer)
 	assert.NilError(t, err, "Unexpected error when decoding XER payload")
 	assert.Assert(t, e2apPdu != nil, "expected a value for the e2apPdu")
 
@@ -122,7 +122,7 @@ func Test_E2AP_PDU_RICsubscriptionReq_DecodeXer(t *testing.T) {
 func Test_E2AP_PDU_RICsubscriptionResp_DecodeXer(t *testing.T) {
 	rICsubscriptionResponseXer, err := ioutil.ReadFile("./test/RICsubscriptionResponse.xml")
 	assert.NilError(t, err, "Unexpected error when loading file")
-	e2apPdu, err := orane2.XerDecodeE2apPdu(rICsubscriptionResponseXer)
+	e2apPdu, err := orane2.XerDecodeE2apPduOld(rICsubscriptionResponseXer)
 	assert.NilError(t, err, "Unexpected error when decoding XER payload")
 	assert.Assert(t, e2apPdu != nil, "expected a value for the e2apPdu")
 

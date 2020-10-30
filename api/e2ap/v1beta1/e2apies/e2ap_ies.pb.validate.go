@@ -396,37 +396,49 @@ func (m *EnbId) Validate() error {
 
 	case *EnbId_MacroENbId:
 
-		if len(m.GetMacroENbId()) != 3 {
-			return EnbIdValidationError{
-				field:  "MacroENbId",
-				reason: "value length must be 3 bytes",
+		if v, ok := interface{}(m.GetMacroENbId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EnbIdValidationError{
+					field:  "MacroENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 
 	case *EnbId_HomeENbId:
 
-		if len(m.GetHomeENbId()) != 4 {
-			return EnbIdValidationError{
-				field:  "HomeENbId",
-				reason: "value length must be 4 bytes",
+		if v, ok := interface{}(m.GetHomeENbId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EnbIdValidationError{
+					field:  "HomeENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 
 	case *EnbId_ShortMacroENbId:
 
-		if len(m.GetShortMacroENbId()) != 3 {
-			return EnbIdValidationError{
-				field:  "ShortMacroENbId",
-				reason: "value length must be 3 bytes",
+		if v, ok := interface{}(m.GetShortMacroENbId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EnbIdValidationError{
+					field:  "ShortMacroENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 
 	case *EnbId_LongMacroENbId:
 
-		if len(m.GetLongMacroENbId()) != 3 {
-			return EnbIdValidationError{
-				field:  "LongMacroENbId",
-				reason: "value length must be 3 bytes",
+		if v, ok := interface{}(m.GetLongMacroENbId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EnbIdValidationError{
+					field:  "LongMacroENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 
@@ -501,28 +513,37 @@ func (m *EnbIdChoice) Validate() error {
 
 	case *EnbIdChoice_EnbIdMacro:
 
-		if len(m.GetEnbIdMacro()) != 3 {
-			return EnbIdChoiceValidationError{
-				field:  "EnbIdMacro",
-				reason: "value length must be 3 bytes",
+		if v, ok := interface{}(m.GetEnbIdMacro()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EnbIdChoiceValidationError{
+					field:  "EnbIdMacro",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 
 	case *EnbIdChoice_EnbIdShortmacro:
 
-		if len(m.GetEnbIdShortmacro()) != 3 {
-			return EnbIdChoiceValidationError{
-				field:  "EnbIdShortmacro",
-				reason: "value length must be 3 bytes",
+		if v, ok := interface{}(m.GetEnbIdShortmacro()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EnbIdChoiceValidationError{
+					field:  "EnbIdShortmacro",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 
 	case *EnbIdChoice_EnbIdLongmacro:
 
-		if len(m.GetEnbIdLongmacro()) != 3 {
-			return EnbIdChoiceValidationError{
-				field:  "EnbIdLongmacro",
-				reason: "value length must be 3 bytes",
+		if v, ok := interface{}(m.GetEnbIdLongmacro()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EnbIdChoiceValidationError{
+					field:  "EnbIdLongmacro",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 
@@ -596,10 +617,13 @@ func (m *EngnbId) Validate() error {
 
 	case *EngnbId_GNbId:
 
-		if len(m.GetGNbId()) > 4 {
-			return EngnbIdValidationError{
-				field:  "GNbId",
-				reason: "value length must be at most 4 bytes",
+		if v, ok := interface{}(m.GetGNbId()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EngnbIdValidationError{
+					field:  "GNbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
 			}
 		}
 
@@ -1465,10 +1489,13 @@ func (m *GlobalRicId) Validate() error {
 		}
 	}
 
-	if len(m.GetRicId()) != 3 {
-		return GlobalRicIdValidationError{
-			field:  "RicId",
-			reason: "value length must be 3 bytes",
+	if v, ok := interface{}(m.GetRicId()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GlobalRicIdValidationError{
+				field:  "RicId",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
 	}
 

@@ -7,6 +7,21 @@ package v1beta1
 // Driven from e2ap_constants.proto
 // TODO: Automate the generation of this file
 
+type ProcedureCodeT int32
+
+const (
+	ProcedureCodeIDdummy                 ProcedureCodeT = 0
+	ProcedureCodeIDE2setup               ProcedureCodeT = 1
+	ProcedureCodeIDErrorIndication       ProcedureCodeT = 2
+	ProcedureCodeIDReset                 ProcedureCodeT = 3
+	ProcedureCodeIDRICcontrol            ProcedureCodeT = 4
+	ProcedureCodeIDRICindication         ProcedureCodeT = 5
+	ProcedureCodeIDRICserviceQuery       ProcedureCodeT = 6
+	ProcedureCodeIDRICserviceUpdate      ProcedureCodeT = 7
+	ProcedureCodeIDRICsubscription       ProcedureCodeT = 8
+	ProcedureCodeIDRICsubscriptionDelete ProcedureCodeT = 9
+)
+
 type ProtocolIeID int32
 
 const (

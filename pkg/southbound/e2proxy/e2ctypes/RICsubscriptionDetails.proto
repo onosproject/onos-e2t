@@ -8,9 +8,10 @@ syntax = "proto3";
 import "RICactions-ToBeSetup-List.proto";
 
 package e2ctypes;
+option deprecated = true;
 
 message RICsubscriptionDetails_t {
     option deprecated = true;
     bytes	 ricEventTriggerDefinition = 1;
-    RICactions_ToBeSetup_List_t	 ricAction_ToBeSetup_List = 2;
+    RICactions_ToBeSetup_List_t	 ricAction_ToBeSetup_List = 2 [deprecated=true];
 }

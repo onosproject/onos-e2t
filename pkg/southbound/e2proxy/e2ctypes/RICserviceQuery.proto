@@ -8,6 +8,7 @@ syntax = "proto3";
 import "ProtocolIE-Container.proto";
 
 package e2ctypes;
+option deprecated = true;
 
 message RICserviceQuery_t {
     option deprecated = true;
