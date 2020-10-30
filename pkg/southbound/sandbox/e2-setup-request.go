@@ -18,8 +18,8 @@ func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E
 	}
 
 	gnbIDIe := e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
-		Id: int32(v1beta1.ProtocolIeIDGlobalE2nodeID),
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		Id:          int32(v1beta1.ProtocolIeIDGlobalE2nodeID),
+		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.GlobalE2NodeId{
 			GlobalE2NodeId: &e2apies.GlobalE2NodeId_GNb{
@@ -42,8 +42,8 @@ func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E
 	}
 
 	ranFunctions := e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
-		Id: int32(v1beta1.ProtocolIeIDRanfunctionsAdded),
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		Id:          int32(v1beta1.ProtocolIeIDRanfunctionsAdded),
+		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsList{
 			Value: make([]*e2appducontents.RanfunctionItemIes, 0),
@@ -53,8 +53,8 @@ func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E
 	for _, ranFunctionID := range ranFunctionIds {
 		ranFunction := e2appducontents.RanfunctionItemIes{
 			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-				Id: int32(v1beta1.ProtocolIeIDRanfunctionItem),
-				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+				Id:          int32(v1beta1.ProtocolIeIDRanfunctionItem),
+				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.RanfunctionItem{
 					RanFunctionId: &e2apies.RanfunctionId{
