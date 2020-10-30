@@ -9,7 +9,7 @@ import (
 )
 
 func TestE2SetupResponseFailure(t *testing.T) {
-	newE2apPdu, err := CreateResponseFailureE2apPdu(21, 1, 10)
+	newE2apPdu, err := CreateSetupResponseFailureE2apPdu(21, 1, 10)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 }

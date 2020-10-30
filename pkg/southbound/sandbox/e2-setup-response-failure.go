@@ -13,7 +13,7 @@ import (
 
 const mask20bitricid = 0xFFFFF
 
-func CreateResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, criticalityIe int32) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, criticalityIe int32) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if ricReqID|mask20bitricid > mask20bitricid {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReqID)
