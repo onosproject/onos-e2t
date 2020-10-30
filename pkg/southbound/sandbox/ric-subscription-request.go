@@ -24,7 +24,7 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 	}
 
 	ricRequestID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
-		Id: int32(v1beta1.ProtocolIeIDRicrequestID),
+		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: ricReqID,      // sequence from e2ap-v01.00.asn1:1126
@@ -34,7 +34,7 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 	}
 
 	ranFunctionID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
-		Id: int32(v1beta1.ProtocolIeIDRanfunctionID),
+		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: ranFuncID, // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -43,7 +43,7 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 	}
 
 	ricSubscriptionDetails := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
-		Id: int32(v1beta1.ProtocolIeIDRicsubscriptionDetails),
+		Id:          int32(v1beta1.ProtocolIeIDRicsubscriptionDetails),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RicsubscriptionDetails{
 			RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{
