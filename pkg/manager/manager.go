@@ -8,6 +8,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2/connection"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 )
@@ -46,12 +47,14 @@ func (m *Manager) Run() {
 
 // Start starts the manager
 func (m *Manager) Start() error {
-	err := m.startSouthboundServer()
+	conns := connection.NewManager()
+
+	err := m.startSouthboundServer(conns)
 	if err != nil {
 		return err
 	}
 
-	err = m.startNorthboundServer()
+	err = m.startNorthboundServer(conns)
 	if err != nil {
 		return err
 	}
@@ -59,18 +62,18 @@ func (m *Manager) Start() error {
 }
 
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer() error {
-	server := e2.NewServer(e2.Config{
+func (m *Manager) startSouthboundServer(conns *connection.Manager) error {
+	config := e2.Config{
 		Port: m.Config.E2Port,
-	})
-
+	}
+	server := e2.NewServer(config, conns)
 	doneCh := make(chan error)
 	go server.Serve(doneCh)
 	return <-doneCh
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer() error {
+func (m *Manager) startNorthboundServer(conns *connection.Manager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,
@@ -78,7 +81,7 @@ func (m *Manager) startNorthboundServer() error {
 		int16(m.Config.GRPCPort),
 		true,
 		northbound.SecurityConfig{}))
-	s.AddService(admin.Service{})
+	s.AddService(admin.NewService(conns))
 	s.AddService(logging.Service{})
 	s.AddService(ricapie2.Service{})
 
