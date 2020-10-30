@@ -105,7 +105,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2ctypes.Success
 			RICsubscriptionResponse: rsresp,
 		}
 	default:
-		return nil, fmt.Errorf("decodeInitiatingMessage() %v not yet implemented", successC.value.present)
+		return nil, fmt.Errorf("decodeInitiatingMessageOld() %v not yet implemented", successC.value.present)
 	}
 
 	return &successfulOutcome, nil

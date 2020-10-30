@@ -14,16 +14,17 @@ import "RICcontrolFailure.proto";
 import "E2setupFailure.proto";
 
 package e2ctypes;
+option deprecated = true;
 
 message UnsuccessfulOutcome_t {
     option deprecated = true;
-    ProcedureCode_t procedureCode = 1;
-    Criticality_t criticality = 2;
+    ProcedureCode_t procedureCode = 1 [deprecated=true];
+    Criticality_t criticality = 2 [deprecated=true];
     oneof choice {
-        RICsubscriptionFailure_t RICsubscriptionFailure = 3;
-        RICsubscriptionDeleteFailure_t RICsubscriptionDeleteFailure = 4;
-        RICserviceUpdateFailure_t RICserviceUpdateFailure = 5;
-        RICcontrolFailure_t RICcontrolFailure = 6;
-        E2setupFailure_t E2setupFailure = 7;
+        RICsubscriptionFailure_t RICsubscriptionFailure = 3 [deprecated=true];
+        RICsubscriptionDeleteFailure_t RICsubscriptionDeleteFailure = 4 [deprecated=true];
+        RICserviceUpdateFailure_t RICserviceUpdateFailure = 5 [deprecated=true];
+        RICcontrolFailure_t RICcontrolFailure = 6 [deprecated=true];
+        E2setupFailure_t E2setupFailure = 7 [deprecated=true];
     }
 }

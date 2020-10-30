@@ -127,7 +127,7 @@ func NewE2SetupResponse() *e2ctypes.E2AP_PDUT {
 }
 
 // GetE2apPduType - get the type of a E2AP_PDU
-// Deprecated - use new proto structures from API instead
+// Deprecated: Do not use.
 func GetE2apPduType(e2apPdu *e2ctypes.E2AP_PDUT) (e2ctypes.ProcedureCodeT, error) {
 	switch choice := e2apPdu.GetChoice().(type) {
 	case *e2ctypes.E2AP_PDUT_InitiatingMessage:

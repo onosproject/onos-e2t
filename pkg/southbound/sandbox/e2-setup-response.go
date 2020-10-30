@@ -4,7 +4,6 @@
 package sandbox
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
@@ -14,7 +13,7 @@ import (
 
 const mask20bit = 0xFFFFF
 
-func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateE2apPduE2SetupResponse(plmnID string, ricID uint32) (*e2appdudescriptions.E2ApPdu, error) {
 	if len(plmnID) != 3 {
 		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
 	}
@@ -28,10 +27,12 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
 				Value: []byte(plmnID),
 			},
-			RicId: make([]byte, 4),
+			RicId: &e2ap_commondatatypes.BitString{
+				Value: uint64(ricID),
+				Len:   20,
+			},
 		},
 	}
-	binary.LittleEndian.PutUint32(gricIDIe.Value.RicId, ricID)
 
 	ranFunctions := e2appducontents.E2SetupResponseIes_E2SetupResponseIes9{
 		Value: &e2appducontents.RanfunctionsIdList{
