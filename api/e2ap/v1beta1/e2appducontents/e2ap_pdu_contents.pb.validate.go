@@ -843,6 +843,37 @@ func (m *RicactionAdmittedItemIes) Validate() error {
 		return nil
 	}
 
+	if m.GetId() != 14 {
+		return RicactionAdmittedItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 14",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return RicactionAdmittedItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicactionAdmittedItemIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return RicactionAdmittedItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
+	}
+
 	return nil
 }
 
@@ -1074,6 +1105,37 @@ var _ interface {
 func (m *RicactionNotAdmittedItemIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if m.GetId() != 16 {
+		return RicactionNotAdmittedItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 16",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return RicactionNotAdmittedItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RicactionNotAdmittedItemIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return RicactionNotAdmittedItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
 	}
 
 	return nil
