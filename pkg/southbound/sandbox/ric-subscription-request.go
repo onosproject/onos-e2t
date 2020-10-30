@@ -5,6 +5,7 @@ package sandbox
 
 import (
 	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
@@ -23,19 +24,27 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 	}
 
 	ricRequestID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
+		Id: int32(v1beta1.ProtocolIeIDRicrequestID),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: ricReqID,      // sequence from e2ap-v01.00.asn1:1126
 			RicInstanceId:  ricInstanceID, // sequence from e2ap-v01.00.asn1:1127
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	ranFunctionID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
+		Id: int32(v1beta1.ProtocolIeIDRanfunctionID),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: ranFuncID, // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	ricSubscriptionDetails := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
+		Id: int32(v1beta1.ProtocolIeIDRicsubscriptionDetails),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RicsubscriptionDetails{
 			RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{
 				Value: make([]byte, 3), // Octet String definition from e2ap-v01.00.asn1:337
@@ -44,6 +53,7 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 				Value: make([]*e2appducontents.RicactionToBeSetupItemIes, 0),
 			},
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 	ricSubscriptionDetails.Value.RicEventTriggerDefinition.Value = append(ricSubscriptionDetails.Value.RicEventTriggerDefinition.Value, ricEventDef)
 	// ricEventDef value taken from e2ap-v01.00.asn1:1297
