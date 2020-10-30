@@ -124,6 +124,10 @@ message RicactionAdmittedList {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn1:379
 message RicactionAdmittedItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 14];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    RicactionAdmittedItem value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
 };
 
 // sequence from e2ap-v01.00.00.asn1:385
@@ -138,6 +142,10 @@ message RicactionNotAdmittedList {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn1:391
 message RicactionNotAdmittedItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 16];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    RicactionNotAdmittedItem value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
 };
 
 // sequence from e2ap-v01.00.00.asn1:397
