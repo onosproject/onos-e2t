@@ -55,7 +55,7 @@ func newSuccessfulOutcomeValue(so *e2ctypes.SuccessfulOutcomeT) (*C.struct_Succe
 	case *e2ctypes.SuccessfulOutcomeT_E2SetupResponse:
 		presentC = C.SuccessfulOutcome__value_PR_E2setupResponse
 
-		e2srC, err := newE2setupResponse(choice.E2SetupResponse)
+		e2srC, err := newE2setupResponseOld(choice.E2SetupResponse)
 		if err != nil {
 			return nil, err
 		}
@@ -89,7 +89,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2ctypes.Success
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P1_t{
-				list: C.struct___45{ // TODO: tie this down with a predictable name
+				list: C.struct___47{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(&listArrayAddr[0])),
 					count: C.int(binary.LittleEndian.Uint32(successC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(successC.value.choice[12:16])),

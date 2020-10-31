@@ -11,6 +11,10 @@ package orane2
 //#include <assert.h>
 //#include "ProtocolIE-Field.h"
 import "C"
+import (
+	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+)
 
 //func newRANfunctionsID_List(rfIDs *e2ctypes.RANfunctionsID_ListT) (*C.RANfunctionsID_List_t, error) {
 //	rfIDIEsC := C.RANfunctionsID_List_t{}
@@ -26,3 +30,11 @@ import "C"
 //
 //	return &rfIDIEsC, nil
 //}
+
+func newRanFunctionsIDList(rfIDl *e2appducontents.RanfunctionsIdList) (*C.RANfunctionsID_List_t, error) {
+	return nil, fmt.Errorf("not yet implemented newRanFunctionsIDList()")
+}
+
+func decodeRanFunctionsIDList(rfIDlC *C.RANfunctionsID_List_t) (*e2appducontents.RanfunctionsIdList, error) {
+	return nil, fmt.Errorf("not yet implemented decodeRanFunctionsIDList()")
+}

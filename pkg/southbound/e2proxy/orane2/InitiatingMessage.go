@@ -155,7 +155,7 @@ func decodeInitiatingMessageOld(initMsgC *C.InitiatingMessage_t) (*e2ctypes.Init
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
 			protocolIEs: C.ProtocolIE_Container_1544P0_t{
-				list: C.struct___41{ // TODO: tie this down with a predictable name
+				list: C.struct___43{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -253,7 +253,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
 			protocolIEs: C.ProtocolIE_Container_1544P0_t{
-				list: C.struct___41{ // TODO: tie this down with a predictable name
+				list: C.struct___43{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),

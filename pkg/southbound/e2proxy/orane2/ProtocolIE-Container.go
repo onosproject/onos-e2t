@@ -169,8 +169,8 @@ func decodeProtocolIeContainer1544P11(protocolIEsC *C.ProtocolIE_Container_1544P
 func newE2SetupRequestIes(esv *e2appducontents.E2SetupRequestIes) (*C.ProtocolIE_Container_1544P11_t, error) {
 	pIeC1544P11 := new(C.ProtocolIE_Container_1544P11_t)
 
-	if esv.E2ApProtocolIes3 != nil {
-		ie3C, err := newE2setupRequestIe3GlobalE2NodeID(esv.E2ApProtocolIes3)
+	if esv.GetE2ApProtocolIes3() != nil {
+		ie3C, err := newE2setupRequestIe3GlobalE2NodeID(esv.GetE2ApProtocolIes3())
 		if err != nil {
 			return nil, err
 		}
@@ -179,8 +179,8 @@ func newE2SetupRequestIes(esv *e2appducontents.E2SetupRequestIes) (*C.ProtocolIE
 		}
 	}
 
-	if esv.E2ApProtocolIes10 != nil {
-		ie10C, err := newE2setupRequestIe10RanFunctionList(esv.E2ApProtocolIes10)
+	if esv.GetE2ApProtocolIes10() != nil {
+		ie10C, err := newE2setupRequestIe10RanFunctionList(esv.GetE2ApProtocolIes10())
 		if err != nil {
 			return nil, err
 		}
@@ -214,4 +214,40 @@ func decodeE2SetupRequestIes(protocolIEsC *C.ProtocolIE_Container_1544P11_t) (*e
 	}
 
 	return pIEs, nil
+}
+
+func newE2SetupResponseIes(e2srIEs *e2appducontents.E2SetupResponseIes) (*C.ProtocolIE_Container_1544P12_t, error) {
+	pIeC1544P12 := new(C.ProtocolIE_Container_1544P12_t)
+
+	if e2srIEs.GetE2ApProtocolIes4() != nil {
+		ie4C, err := newE2setupResponseIe4GlobalRicId(e2srIEs.GetE2ApProtocolIes4())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P12), unsafe.Pointer(ie4C)); err != nil {
+			return nil, err
+		}
+	}
+
+	// TODO: comment back in once these are implemented
+	//if e2srIEs.GetE2ApProtocolIes9() != nil {
+	//	ie9C, err := newE2setupResponseIe9RanFunctionsAccepted(e2srIEs.GetE2ApProtocolIes9())
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P12), unsafe.Pointer(ie9C)); err != nil {
+	//		return nil, err
+	//	}
+	//}
+	//
+	//if e2srIEs.GetE2ApProtocolIes13() != nil {
+	//	ie13C, err := newE2setupResponseIe13RanFunctionsRejected(e2srIEs.GetE2ApProtocolIes13())
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P12), unsafe.Pointer(ie13C)); err != nil {
+	//		return nil, err
+	//	}
+	//}
+	return pIeC1544P12, nil
 }

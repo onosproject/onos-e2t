@@ -266,15 +266,15 @@ func Test_E2AP_RICsubscriptionRequest(t *testing.T) {
 func Test_E2AP_E2setupResponse(t *testing.T) {
 	e2apPdu := NewE2SetupResponse()
 
-	bytesPer1, err := orane2.PerGlobalRicIDT(e2apPdu.GetSuccessfulOutcome().GetE2SetupResponse().GetProtocolIEs().GetList()[0].GetGlobalRIC_ID())
+	bytesPer1, err := orane2.PerGlobalRicIDTOld(e2apPdu.GetSuccessfulOutcome().GetE2SetupResponse().GetProtocolIEs().GetList()[0].GetGlobalRIC_ID())
 	assert.NilError(t, err, "Unexpected error outputting PDU to PER")
 	assert.Equal(t, 52, len(bytesPer1), "unexpected length of PER encoded GlobalRIC_ID")
 
-	//bytesXer1, err := orane2.XerGlobalRicIDT(&globalricID)
+	//bytesXer1, err := orane2.XerGlobalRicIDTOld(&globalricID)
 	//assert.NilError(t, err, "Unexpected error outputting PDU to XER")
 	//t.Logf("Xer encoded \n%s", string(bytesXer1))
 
-	bytesPer2, err := orane2.PerEncodeE2setupResponse(e2apPdu.GetSuccessfulOutcome().GetE2SetupResponse().GetProtocolIEs().GetList()[0])
+	bytesPer2, err := orane2.PerEncodeE2setupResponseOld(e2apPdu.GetSuccessfulOutcome().GetE2SetupResponse().GetProtocolIEs().GetList()[0])
 	assert.NilError(t, err, "Unexpected error outputting PDU to PER")
 	assert.Equal(t, 88, len(bytesPer2), "unexpected length of PER encoded E2SetupResponseIE")
 
