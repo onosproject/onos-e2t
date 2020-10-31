@@ -163,6 +163,7 @@ func (c *Connection) setup() error {
 // Send sends a message on the connection
 func (c *Connection) Send(msg *e2appdudescriptions.E2ApPdu) error {
 	// TODO: This encodes all messages in PER encoding
+	log.Debugf("Send %v", msg)
 	bytes, err := orane2.XerEncodeE2apPdu(msg)
 	if err != nil {
 		return err
@@ -199,6 +200,7 @@ func (c *Connection) Recv() (*e2appdudescriptions.E2ApPdu, error) {
 	if err != nil {
 		return nil, err
 	}
+	log.Debugf("Recv %v", msg)
 	return msg, nil
 }
 
@@ -209,7 +211,7 @@ func (c *Connection) Context() context.Context {
 
 // Close closes the connection
 func (c *Connection) Close() error {
-	err := c.Close()
+	err := c.conn.Close()
 	c.cancel()
 	return err
 }
