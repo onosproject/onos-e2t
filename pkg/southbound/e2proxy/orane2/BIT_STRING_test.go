@@ -5,45 +5,57 @@
 package orane2
 
 import (
-	"encoding/binary"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"gotest.tools/assert"
 	"testing"
-	"unsafe"
 )
 
 func Test_newBitString(t *testing.T) {
 	bs1 := e2ap_commondatatypes.BitString{
-		Value: 0x9ABCDEF,
-		Len:   28,
+		Value: 0x9ABCD4,
+		Len:   22,
 	}
+
+	xer1, err := xerEncodeBitString(&bs1)
+	assert.NilError(t, err)
+	//t.Logf("XER Bit String \n%s", xer1)
+
+	per1, err := perEncodeBitString(&bs1)
+	assert.NilError(t, err)
+	//t.Logf("PER Bit String \n%v", per1)
 
 	cBitString := newBitString(&bs1)
 
-	assert.Equal(t, 8, int(cBitString.size), "unexpected number of bits")
-	assert.Equal(t, 36, int(cBitString.bits_unused), "unexpected number of bits_unused")
+	assert.Equal(t, 3, int(cBitString.size), "unexpected number of bits")
+	assert.Equal(t, 2, int(cBitString.bits_unused), "unexpected number of bits_unused")
 	// Can't do any further analysis as we can't have C in tests
 
+	// Now reverse it to get proto back out
+	bs2, err := decodeBitString(cBitString)
+	assert.NilError(t, err)
+	assert.Equal(t, uint32(22), bs2.Len)
+	assert.Equal(t, uint64(0x9ABCD4), bs2.Value)
 
+	xer2, err := xerEncodeBitString(bs2)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, xer1, xer2)
+	t.Logf("XER Bit String \n%s", xer1)
+
+	per2, err := perEncodeBitString(bs2)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, per1, per2)
+	t.Logf("PER Bit String \n%v", per2)
 }
 
 func Test_decodeBitString(t *testing.T) {
-	value := [4]byte{0x9A, 0xBC, 0xDE, 0xF0} // 28 bits
-	bsBytes := make([]byte, 20) // 8 for a 64bit address, 8 for the size uint64, 4 for the unused bits
-	binary.LittleEndian.PutUint64(bsBytes, uint64(uintptr(unsafe.Pointer(&value))))
-	bsBytes[8] = 4 // num bytes = num bits / 8
-	bsBytes[16] = 4 // unused bits
+	value := []byte{0x9A, 0xBC, 0xDE, 0xF0} // 28 bits
+	bsC := newBitStringFromBytes(value, 4, 4)
 
-	bytes20 := [20]byte{}
-	for i, b := range bsBytes {
-		bytes20[i] = b
-	}
-
-	protoBitString, err := decodeBitString(bytes20)
+	protoBitString, err := decodeBitString(bsC)
 	assert.NilError(t, err)
 	assert.Assert(t, protoBitString != nil)
 	assert.Equal(t, int(protoBitString.Len), 28, "unexpected bit string length")
-	assert.Equal(t, int(protoBitString.Value), 0xf0debc9a, "unexpected bit string value")
+	assert.Equal(t, protoBitString.Value, uint64(0xf0debc9a), "unexpected bit string value")
 
 	xer, err := xerEncodeBitString(protoBitString)
 	assert.NilError(t, err)
@@ -55,18 +67,10 @@ func Test_decodeBitString(t *testing.T) {
 }
 
 func Test_decodeBitString2(t *testing.T) {
-	value := [8]byte{0x9A, 0xBC, 0xD4, 0x00, 0x00, 0x00, 0x00, 0x00}
-	bsBytes := make([]byte, 20) // 8 for a 64bit address, 8 for the size uint64, 4 for the unused bits
-	binary.LittleEndian.PutUint64(bsBytes, uint64(uintptr(unsafe.Pointer(&value))))
-	bsBytes[8] = 8 // num bytes = num bits / 8
-	bsBytes[16] = 42 // unused bits
+	value := []byte{0x9A, 0xBC, 0xD4} // 22 bits
+	bsC := newBitStringFromBytes(value, 3, 2)
 
-	bytes20 := [20]byte{}
-	for i, b := range bsBytes {
-		bytes20[i] = b
-	}
-
-	protoBitString, err := decodeBitString(bytes20)
+	protoBitString, err := decodeBitString(bsC)
 	assert.NilError(t, err)
 	assert.Assert(t, protoBitString != nil)
 	assert.Equal(t, int(protoBitString.Len), 22, "unexpected bit string length")

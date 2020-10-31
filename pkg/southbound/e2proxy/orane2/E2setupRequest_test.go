@@ -61,7 +61,7 @@ func Test_E2setupRequest(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("XER E2SetupRequest: \n%s", string(xer))
 
-	//per, err := perEncodeE2SetupRequest(&e2srFedback)
-	//assert.NilError(t, err)
-	//t.Logf("PER E2SetupRequest: \n%s", string(per))
+	per, err := perEncodeE2SetupRequest(e2srFedback)
+	assert.NilError(t, err)
+	t.Logf("PER E2SetupRequest: \n%s", string(per))
 }

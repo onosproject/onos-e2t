@@ -124,11 +124,9 @@ func decodeGnbIDChoice(gnbIDC *C.GNB_ID_Choice_t) (*e2apies.GnbIdChoice, error) 
 	switch gnbIDC.present {
 	case C.GNB_ID_Choice_PR_gnb_ID:
 		//fmt.Printf("GNB_ID_Choice_t %+v\n", gnbIDC.choice)
-		bytes20 := [20]byte{}
-		for i := range bytes20 {
-			bytes20[i] = gnbIDC.choice[i]
-		}
-		bitString, err := decodeBitString(bytes20)
+		gnbIDstructC := newBitStringFromArray(gnbIDC.choice)
+
+		bitString, err := decodeBitString(gnbIDstructC)
 		if err != nil {
 			return nil, err
 		}

@@ -229,7 +229,7 @@ func newE2setupResponseIE(e2srIe *e2ctypes.E2SetupResponseIEsT) (*C.E2setupRespo
 	switch choice := e2srIe.Choice.(type) {
 	case *e2ctypes.E2SetupResponseIEsT_GlobalRIC_ID:
 		vpr = C.E2setupResponseIEs__value_PR_GlobalRIC_ID
-		grIDC, err := newGlobalRicID(choice.GlobalRIC_ID)
+		grIDC, err := newGlobalRicIDOld(choice.GlobalRIC_ID)
 		if err != nil {
 			return nil, err
 		}
@@ -406,6 +406,76 @@ func newE2setupRequestIe3GlobalE2NodeID(esIe *e2appducontents.E2SetupRequestIes_
 	return &ie, nil
 }
 
+func newE2setupResponseIe4GlobalRicId(esIe *e2appducontents.E2SetupResponseIes_E2SetupResponseIes4) (*C.E2setupResponseIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDGlobalRicID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [112]byte{} // The size of the E2setupResponseIEs__value_u
+
+	globalRicIDC, err := newGlobalRicID(esIe.Value)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("Assigning to choice of E2setupReponseIE %v \n", globalRicIDC)
+
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(globalRicIDC.pLMN_Identity.buf))))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(globalRicIDC.pLMN_Identity.size))
+	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(globalRicIDC.ric_ID.buf))))
+	binary.LittleEndian.PutUint64(choiceC[48:], uint64(globalRicIDC.ric_ID.size))
+	binary.LittleEndian.PutUint32(choiceC[56:], uint32(globalRicIDC.ric_ID.bits_unused))
+
+	ie := C.E2setupResponseIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2setupResponseIEs__value{
+			present: C.E2setupResponseIEs__value_PR_GlobalRIC_ID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResponseIes_E2SetupResponseIes9) (*C.E2setupResponseIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionsAccepted)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [112]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ranFunctionsIDList, err := newRanFunctionsIDList(esIe.Value)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("Assigning to choice of E2setupReponseIE %v\n", ranFunctionsIDList)
+	//binary.LittleEndian.PutUint32(choiceC[0:], uint32(ranFunctionsIDList.present))
+	//for i := 0; i < 8; i++ {
+	//	choiceC[i+8] = ranFunctionsIDList.choice[i]
+	//}
+
+	ie := C.E2setupResponseIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2setupResponseIEs__value{
+			present: C.E2setupResponseIEs__value_PR_RANfunctionsID_List,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newE2setupRequestIe10RanFunctionList(esIe *e2appducontents.E2SetupRequestIes_E2SetupRequestIes10) (*C.E2setupRequestIEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
@@ -432,6 +502,40 @@ func newE2setupRequestIe10RanFunctionList(esIe *e2appducontents.E2SetupRequestIe
 		value: C.struct_E2setupRequestIEs__value{
 			present: C.E2setupRequestIEs__value_PR_RANfunctions_List,
 			choice:  listC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newE2setupResponseIe13RanFunctionsRejected(esIe *e2appducontents.E2SetupResponseIes_E2SetupResponseIes13) (*C.E2setupResponseIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionsRejected)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [112]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ranFunctionsIDCauseList, err := newRanFunctionsIDcauseList(esIe.Value)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("Assigning to choice of E2setupReponseIE %v\n", ranFunctionsIDCauseList)
+	//binary.LittleEndian.PutUint32(choiceC[0:], uint32(ranFunctionsIDCauseList.present))
+	//for i := 0; i < 8; i++ {
+	//	choiceC[i+8] = ranFunctionsIDCauseList.choice[i]
+	//}
+
+	ie := C.E2setupResponseIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2setupResponseIEs__value{
+			present: C.E2setupResponseIEs__value_PR_RANfunctionsIDcause_List,
+			choice:  choiceC,
 		},
 	}
 

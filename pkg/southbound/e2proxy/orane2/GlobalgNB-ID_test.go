@@ -20,7 +20,7 @@ func TestNewGlobalgNBID(t *testing.T) {
 		GnbId: &e2apies.GnbIdChoice{
 			GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
 				GnbId: &e2ap_commondatatypes.BitString{
-					Value: 0x9ABCDEF000000000,
+					Value: 0x9ABCDEF0,
 					Len:   28,
 				},
 			},
@@ -41,7 +41,7 @@ func TestNewGlobalgNBID(t *testing.T) {
 	switch choice := g1.GnbId.GnbIdChoice.(type) {
 	case *e2apies.GnbIdChoice_GnbId:
 		assert.Equal(t, int(choice.GnbId.Len), 28)
-		assert.Equal(t, choice.GnbId.Value, uint64(0x9ABCDEF000000000))
+		assert.Equal(t, choice.GnbId.Value, uint64(0x9ABCDEF0))
 	default:
 		t.Fatalf("unexpected choice in GnbIdChoice %v", choice)
 	}
@@ -50,7 +50,7 @@ func TestNewGlobalgNBID(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("XER GlobalgNbId: \n%s", string(xer))
 
-	//per, err := perEncodegNBID(&g)
-	//assert.NilError(t, err)
-	//t.Logf("PER GlobalgNbId: \n%s", string(per))
+	per, err := perEncodegNBID(&g)
+	assert.NilError(t, err)
+	t.Logf("PER GlobalgNbId: \n%s", string(per))
 }
