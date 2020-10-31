@@ -13,16 +13,14 @@ import (
 var log = logging.GetLogger("southbound", "sctp")
 
 const (
-	defaultSCTPIP = "0.0.0.0"
-)
-
-const (
 	defaultSCTPPort = 36421
 )
 
 // Config is the server configuration
 type Config struct {
-	Port int
+	Port            int
+	ReadBufferSize  int
+	WriteBufferSize int
 }
 
 // GetPort returns the server port
@@ -55,15 +53,8 @@ type Server struct {
 
 // Serve starts the server
 func (s *Server) Serve(servingCh chan<- error) {
-	ip, err := net.ResolveIPAddr("ip", defaultSCTPIP)
-	if err != nil {
-		servingCh <- err
-		close(servingCh)
-		return
-	}
-
 	addr := &sctp.SCTPAddr{
-		IPAddrs: []net.IPAddr{*ip},
+		IPAddrs: []net.IPAddr{},
 		Port:    s.Config.GetPort(),
 	}
 
@@ -80,9 +71,30 @@ func (s *Server) Serve(servingCh chan<- error) {
 		conn, err := ln.Accept()
 		if err != nil {
 			log.Errorf("Failed to accept connection: %v", err)
-		} else {
-			log.Infof("Accepted connection from %s", conn.RemoteAddr())
-			go s.handler.Accept(conn)
+			continue
 		}
+
+		log.Infof("Accepted connection from %s", conn.RemoteAddr())
+		sconn := conn.(*sctp.SCTPConn)
+
+		// Configure the connection read buffer
+		if s.Config.ReadBufferSize != 0 {
+			err := sconn.SetWriteBuffer(s.Config.WriteBufferSize)
+			if err != nil {
+				log.Errorf("Failed to configure connection: %v", err)
+				continue
+			}
+		}
+
+		// Configure the connection write buffer
+		if s.Config.WriteBufferSize != 0 {
+			err := sconn.SetWriteBuffer(s.Config.WriteBufferSize)
+			if err != nil {
+				log.Errorf("Failed to configure connection: %v", err)
+				continue
+			}
+		}
+
+		go s.handler.Accept(conn)
 	}
 }
