@@ -5,6 +5,7 @@ package sandbox
 
 import (
 	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
@@ -23,6 +24,8 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 	}
 
 	gricIDIe := e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
+		Id:          int32(v1beta1.ProtocolIeIDGlobalRicID),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.GlobalRicId{
 			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
 				Value: []byte(plmnID),
@@ -32,16 +35,22 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 				Len:   20,
 			},
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	ranFunctions := e2appducontents.E2SetupResponseIes_E2SetupResponseIes9{
+		Id:          int32(v1beta1.ProtocolIeIDRanfunctionsAccepted),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
 	rfIDiIe100 := e2appducontents.RanfunctionIdItemIes{
 		RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+			Id:          int32(v1beta1.ProtocolIeIDRanfunctionIDItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2appducontents.RanfunctionIdItem{
 				RanFunctionId: &e2apies.RanfunctionId{
 					Value: 100,
@@ -50,18 +59,24 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 					Value: 1,
 				},
 			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		},
 	}
 	ranFunctions.Value.Value = append(ranFunctions.Value.Value, &rfIDiIe100)
 
 	ranfunctionsIdcauseList := e2appducontents.E2SetupResponseIes_E2SetupResponseIes13{
+		Id:          int32(v1beta1.ProtocolIeIDRanfunctionsRejected),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsIdcauseList{
 			Value: make([]*e2appducontents.RanfunctionIdcauseItemIes, 0),
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
 	rfIDcLi100 := e2appducontents.RanfunctionIdcauseItemIes{
 		RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
+			Id:          int32(v1beta1.ProtocolIeIDRanfunctionIeCauseItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2appducontents.RanfunctionIdcauseItem{
 				RanFunctionId: &e2apies.RanfunctionId{
 					Value: 100,
@@ -72,6 +87,7 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 					},
 				},
 			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		},
 	}
 	ranfunctionsIdcauseList.Value.Value = append(ranfunctionsIdcauseList.Value.Value, &rfIDcLi100)
@@ -92,6 +108,9 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32) (*e2appdudescriptions.E2
 				},
 			},
 		},
+	}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	}
 	return &e2apPdu, nil
 }
