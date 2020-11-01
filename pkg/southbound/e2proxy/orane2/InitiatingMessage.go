@@ -200,7 +200,7 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2sC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2sC.protocolIEs.list.size))
 	} else {
-		return nil, fmt.Errorf("newInitiatingMessageValue not yet implemented")
+		return nil, fmt.Errorf("newInitiatingMessageValue type not yet implemented")
 	}
 
 	imvC := C.struct_InitiatingMessage__value{
