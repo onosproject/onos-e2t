@@ -7,6 +7,7 @@ package connection
 import (
 	"context"
 	"errors"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
@@ -117,6 +118,8 @@ func (c *Connection) setup() error {
 
 	// Create an E2 setup response
 	e2SetupResp := e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
+		Id:          int32(v1beta1.ProtocolIeIDGlobalRicID),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.GlobalRicId{
 			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
 				Value: []byte(plmnID),
@@ -126,6 +129,7 @@ func (c *Connection) setup() error {
 				Len:   20,
 			},
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	// Create an E2 response
@@ -143,6 +147,10 @@ func (c *Connection) setup() error {
 				},
 			},
 		},
+	}
+
+	if err := e2PDUResp.Validate(); err != nil {
+		return err
 	}
 
 	// Encode the setup response in XER
