@@ -109,7 +109,7 @@ func (c *Connection) setup() error {
 	plmnID := globalE2NodeID.GNb.GlobalGNbId.PlmnId.Value
 	for i := range plmnID {
 		b := plmnID[(len(plmnID)-i)-1]
-		connID = connID & (uint64(b) << (gnbID.GnbId.Len + uint32(i*8)))
+		connID = connID | (uint64(b) << (gnbID.GnbId.Len + uint32(i*8)))
 	}
 
 	// Set the connection ID
