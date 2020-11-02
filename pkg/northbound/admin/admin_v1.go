@@ -6,10 +6,10 @@ package admin
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/connection"
-
+	"errors"
 	sctpnet "github.com/ishidawataru/sctp"
 	adminv1 "github.com/onosproject/onos-e2t/api/admin/v1"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2/connection"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 	"google.golang.org/grpc"
@@ -61,6 +61,7 @@ func (s *Server) ListE2NodeConnections(req *adminv1.ListE2NodeConnectionsRequest
 		sctpAddr := conn.RemoteAddr().(*sctpnet.SCTPAddr)
 		if sctpAddr == nil {
 			log.Errorf("Found non-SCTP connection in CreateConnection: %v", conn)
+			return errors.New("found non-SCTP connection")
 		}
 		remoteAddrs := conn.RemoteAddr().(*sctpnet.SCTPAddr).IPAddrs
 		remotePort := uint32(conn.RemoteAddr().(*sctpnet.SCTPAddr).Port)
