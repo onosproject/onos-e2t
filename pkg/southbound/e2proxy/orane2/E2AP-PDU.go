@@ -100,7 +100,7 @@ func newE2apPduOld(e2apPdu *e2ctypes.E2AP_PDUT) (*C.E2AP_PDU_t, error) {
 	case *e2ctypes.E2AP_PDUT_SuccessfulOutcome:
 		present = C.E2AP_PDU_PR_successfulOutcome
 
-		so, err := newSuccessfulOutcome(choice.SuccessfulOutcome)
+		so, err := newSuccessfulOutcomeOld(choice.SuccessfulOutcome)
 		if err != nil {
 			return nil, err
 		}
@@ -137,7 +137,7 @@ func decodeE2apPduOld(e2apPduC *C.E2AP_PDU_t) (*e2ctypes.E2AP_PDUT, error) {
 		// https://sunzenshen.github.io/tutorials/2015/05/09/cgotchas-intro.html
 		initMsgC := *(**C.SuccessfulOutcome_t)(unsafe.Pointer(&e2apPduC.choice[0]))
 
-		initMsg, err := decodeSuccessfulOutcome(initMsgC)
+		initMsg, err := decodeSuccessfulOutcomeOld(initMsgC)
 		if err != nil {
 			return nil, err
 		}
@@ -217,6 +217,14 @@ func newE2apPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*C.E2AP_PDU_t, error) {
 			return nil, err
 		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
+	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
+		present = C.E2AP_PDU_PR_successfulOutcome
+
+		so, err := newSuccessfulOutcome(choice.SuccessfulOutcome)
+		if err != nil {
+			return nil, err
+		}
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(so))))
 	default:
 		return nil, fmt.Errorf("newE2apPdu() %T not yet implemented", choice)
 	}
@@ -244,6 +252,17 @@ func decodeE2apPdu(e2apPduC *C.E2AP_PDU_t) (*e2appdudescriptions.E2ApPdu, error)
 			InitiatingMessage: initMsg,
 		}
 
+	case C.E2AP_PDU_PR_successfulOutcome:
+		// https://sunzenshen.github.io/tutorials/2015/05/09/cgotchas-intro.html
+		sOutcomeC := *(**C.SuccessfulOutcome_t)(unsafe.Pointer(&e2apPduC.choice[0]))
+
+		successfulOutcome, err := decodeSuccessfulOutcome(sOutcomeC)
+		if err != nil {
+			return nil, err
+		}
+		e2apPdu.E2ApPdu = &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
+			SuccessfulOutcome: successfulOutcome,
+		}
 	default:
 		return nil, fmt.Errorf("PerDecodeE2apPduOld decoding %v not yet implemented", e2apPduC.present)
 	}

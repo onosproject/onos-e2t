@@ -251,3 +251,33 @@ func newE2SetupResponseIes(e2srIEs *e2appducontents.E2SetupResponseIes) (*C.Prot
 	//}
 	return pIeC1544P12, nil
 }
+
+func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1544P1_t) (*e2appducontents.RicsubscriptionResponseIes, error) {
+	pIEs := new(e2appducontents.RicsubscriptionResponseIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		listC := unsafe.Pointer(*protocolIEsC.list.array)
+		rsrIeC := (*C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(uintptr(listC) + uintptr(protocolIEsC.list.size*C.int(i))))
+
+		ie, err := decodeRicSubscriptionResponseIE(rsrIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes5 != nil {
+			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		}
+		if ie.E2ApProtocolIes17 != nil {
+			pIEs.E2ApProtocolIes17 = ie.E2ApProtocolIes17
+		}
+		if ie.E2ApProtocolIes18 != nil {
+			pIEs.E2ApProtocolIes18 = ie.E2ApProtocolIes18
+		}
+		if ie.E2ApProtocolIes29 != nil {
+			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		}
+	}
+
+	return pIEs, nil
+}

@@ -12,9 +12,13 @@ package orane2
 //#include "RICsubscriptionResponse.h"
 //#include "ProtocolIE-Field.h"
 import "C"
-import "github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
+import (
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
+)
 
-func decodeRicSubscriptionResponse(rsrC *C.RICsubscriptionResponse_t) (*e2ctypes.RICsubscriptionResponseT, error) {
+// Deprecated: do not use
+func decodeRicSubscriptionResponseOld(rsrC *C.RICsubscriptionResponse_t) (*e2ctypes.RICsubscriptionResponseT, error) {
 	pIEs, err := decodeProtocolIeContainer1544P1(&rsrC.protocolIEs)
 	if err != nil {
 		return nil, err
@@ -22,6 +26,19 @@ func decodeRicSubscriptionResponse(rsrC *C.RICsubscriptionResponse_t) (*e2ctypes
 
 	rsr := e2ctypes.RICsubscriptionResponseT{
 		ProtocolIEs: pIEs,
+	}
+
+	return &rsr, nil
+}
+
+func decodeRicSubscriptionResponse(rsrC *C.RICsubscriptionResponse_t) (*e2appducontents.RicsubscriptionResponse, error) {
+	pIEs, err := decodeRicSubscriptionResponseIes(&rsrC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	rsr := e2appducontents.RicsubscriptionResponse{
+		ProtocolIes: pIEs,
 	}
 
 	return &rsr, nil

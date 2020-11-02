@@ -569,3 +569,30 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 
 	return ret, nil
 }
+
+func decodeRicSubscriptionResponseIE(rsrIeC *C.RICsubscriptionResponse_IEs_t) (*e2appducontents.RicsubscriptionResponseIes, error) {
+	//fmt.Printf("Handling RicSubscriptionResp %+v\n", rsrIeC)
+	ret := new(e2appducontents.RicsubscriptionResponseIes)
+
+	switch rsrIeC.value.present {
+	case C.RICsubscriptionResponse_IEs__value_PR_RICrequestID:
+		fallthrough // TODO Implement it
+
+	case C.RICsubscriptionResponse_IEs__value_PR_RANfunctionID:
+		fallthrough // TODO Implement it
+
+	case C.RICsubscriptionResponse_IEs__value_PR_RICaction_Admitted_List:
+		fallthrough // TODO Implement it
+
+	case C.RICsubscriptionResponse_IEs__value_PR_RICaction_NotAdmitted_List:
+		fallthrough // TODO Implement it
+
+	case C.E2setupRequestIEs__value_PR_NOTHING:
+		return nil, fmt.Errorf("decodeRicSubscriptionResponseIE(). %v not yet implemneted", rsrIeC.value.present)
+
+	default:
+		return nil, fmt.Errorf("decodeRicSubscriptionResponseIE(). unexpected choice %v", rsrIeC.value.present)
+	}
+
+	return ret, nil
+}
