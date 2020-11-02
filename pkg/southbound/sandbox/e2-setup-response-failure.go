@@ -5,6 +5,7 @@ package sandbox
 
 import (
 	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
@@ -20,18 +21,26 @@ func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, crit
 	}
 
 	causeOfFailure := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
+		Id:          int32(v1beta1.ProtocolIeIDCause),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2apies.Cause{
 			Cause: &e2apies.Cause_RicService{
 				RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT,
 			},
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	timeToWait := e2appducontents.E2SetupFailureIes_E2SetupFailureIes31{
-		Value: e2apies.TimeToWait_TIME_TO_WAIT_V1S,
+		Id:          int32(v1beta1.ProtocolIeIDTimeToWait),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+		Value:       e2apies.TimeToWait_TIME_TO_WAIT_V1S,
+		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
 	criticality := e2appducontents.E2SetupFailureIes_E2SetupFailureIes2{
+		Id:          int32(v1beta1.ProtocolIeIDCriticalityDiagnostics),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2apies.CriticalityDiagnostics{
 			ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 				Value: e2FailureCode, // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
@@ -45,6 +54,7 @@ func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, crit
 				Value: make([]*e2apies.CriticalityDiagnosticsIeItem, 0),
 			},
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 	//binary.LittleEndian.PutUint32(criticality.Value.RicRequestorId.RicRequestorId, &ricReqID)
 
@@ -73,6 +83,9 @@ func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, crit
 				},
 			},
 		},
+	}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	}
 	return &e2apPdu, nil
 }

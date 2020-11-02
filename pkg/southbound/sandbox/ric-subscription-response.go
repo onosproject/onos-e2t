@@ -5,6 +5,8 @@ package sandbox
 
 import (
 	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
@@ -22,28 +24,40 @@ func CreateRicSubscriptionResponseE2apPdu(ricReqID int32, ricInstanceID int32, r
 	}
 
 	ricRequestID := e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes29{
+		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: ricReqID,      // sequence from e2ap-v01.00.asn1:1126
 			RicInstanceId:  ricInstanceID, // sequence from e2ap-v01.00.asn1:1127
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	ranFunctionID := e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes5{
+		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: ranFuncID, // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	ricActionAdmit := e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17{
+		Id:          int32(v1beta1.ProtocolIeIDRicactionsAdmitted),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RicactionAdmittedList{
 			Value: make([]*e2appducontents.RicactionAdmittedItemIes, 0),
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	ricActionNotAdmit := e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes18{
+		Id:          int32(v1beta1.ProtocolIeIDRicactionsNotAdmitted),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RicactionNotAdmittedList{
 			Value: make([]*e2appducontents.RicactionNotAdmittedItemIes, 0),
 		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
@@ -63,6 +77,9 @@ func CreateRicSubscriptionResponseE2apPdu(ricReqID int32, ricInstanceID int32, r
 				},
 			},
 		},
+	}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	}
 	return &e2apPdu, nil
 }
