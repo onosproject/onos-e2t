@@ -85,47 +85,6 @@ func NewRICsubscriptionRequest(requestorID int, ricInstanceID int, ranFunctionID
 	return &e2apPdu
 }
 
-// NewE2SetupResponse - generate a new E2 Setup Response
-// Deprecated - use new proto structures from API instead
-func NewE2SetupResponse() *e2ctypes.E2AP_PDUT {
-	e2SetupResponse := e2ctypes.E2SetupResponseT{
-		ProtocolIEs: &e2ctypes.ProtocolIE_Container_1544P12T{
-			List: make([]*e2ctypes.E2SetupResponseIEsT, 0),
-		},
-	}
-
-	globalricID := e2ctypes.GlobalRIC_IDT{
-		PLMN_Identity: "ONF",
-		Ric_ID: &e2ctypes.BIT_STRING{
-			BitString: []byte{0xFF, 0xCC, 0xB0}, //Last nibble has to be 0
-			Numbits:   20,
-		},
-	}
-
-	e2SrIe1 := e2ctypes.E2SetupResponseIEsT{
-		Id:          e2ctypes.ProtocolIE_IDT_ProtocolIE_ID_id_GlobalRIC_ID,
-		Criticality: e2ctypes.CriticalityT_Criticality_reject,
-		Choice: &e2ctypes.E2SetupResponseIEsT_GlobalRIC_ID{
-			GlobalRIC_ID: &globalricID,
-		},
-	}
-	e2SetupResponse.ProtocolIEs.List = append(e2SetupResponse.ProtocolIEs.List, &e2SrIe1)
-
-	e2apPdu := e2ctypes.E2AP_PDUT{
-		Choice: &e2ctypes.E2AP_PDUT_SuccessfulOutcome{
-			SuccessfulOutcome: &e2ctypes.SuccessfulOutcomeT{
-				ProcedureCode: e2ctypes.ProcedureCodeT_ProcedureCode_id_E2setup,
-				Criticality:   e2ctypes.CriticalityT_Criticality_reject,
-				Choice: &e2ctypes.SuccessfulOutcomeT_E2SetupResponse{
-					E2SetupResponse: &e2SetupResponse,
-				},
-			},
-		},
-	}
-
-	return &e2apPdu
-}
-
 // GetE2apPduType - get the type of a E2AP_PDU
 // Deprecated: Do not use.
 func GetE2apPduType(e2apPdu *e2ctypes.E2AP_PDUT) (e2ctypes.ProcedureCodeT, error) {
