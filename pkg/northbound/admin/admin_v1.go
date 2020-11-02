@@ -7,9 +7,8 @@ package admin
 import (
 	"context"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/connection"
-	"net"
-	"strconv"
 
+	sctpnet "github.com/ishidawataru/sctp"
 	adminv1 "github.com/onosproject/onos-e2t/api/admin/v1"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
@@ -59,14 +58,19 @@ func (s *Server) ListE2NodeConnections(req *adminv1.ListE2NodeConnectionsRequest
 	conns := s.conns.List()
 	var err error
 	for _, conn := range conns {
-		host, portStr, err := net.SplitHostPort(conn.RemoteAddr().String())
-		if err != nil {
-			return err
+		sctpAddr := conn.RemoteAddr().(*sctpnet.SCTPAddr)
+		if sctpAddr == nil {
+			log.Errorf("Found non-SCTP connection in CreateConnection: %v", conn)
 		}
-		port, _ := strconv.Atoi(portStr)
+		remoteAddrs := conn.RemoteAddr().(*sctpnet.SCTPAddr).IPAddrs
+		remotePort := uint32(conn.RemoteAddr().(*sctpnet.SCTPAddr).Port)
+		var remoteAddrsStrings []string
+		for _, remoteAddr := range remoteAddrs {
+			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
+		}
 		msg := &adminv1.ListE2NodeConnectionsResponse{
-			RemoteIp:   host,
-			RemotePort: uint32(port),
+			RemoteIp:   remoteAddrsStrings,
+			RemotePort: remotePort,
 			Id:         uint32(conn.ID),
 			PlmnId:     string(conn.PlmnID),
 		}
