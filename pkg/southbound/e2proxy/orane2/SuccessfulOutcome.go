@@ -93,7 +93,7 @@ func decodeSuccessfulOutcomeOld(successC *C.SuccessfulOutcome_t) (*e2ctypes.Succ
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P1_t{
-				list: C.struct___47{ // TODO: tie this down with a predictable name
+				list: C.struct___48{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(&listArrayAddr[0])),
 					count: C.int(binary.LittleEndian.Uint32(successC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(successC.value.choice[12:16])),
@@ -163,7 +163,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P1_t{
-				list: C.struct___47{ // TODO: tie this down with a predictable name
+				list: C.struct___48{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(&listArrayAddr[0])),
 					count: C.int(binary.LittleEndian.Uint32(successC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(successC.value.choice[12:16])),

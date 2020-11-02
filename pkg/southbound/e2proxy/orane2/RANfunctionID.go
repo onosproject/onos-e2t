@@ -9,14 +9,34 @@ package orane2
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
+//#include "RANfunctionID.h"
 import "C"
 import (
 	"encoding/binary"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 )
 
 // Deprecated: Do not use.
-func decodeRanFunctionID(ranFunctionIDCchoice [64]byte) (*uint64, error) {
+func decodeRanFunctionIDOld(ranFunctionIDCchoice [64]byte) (*uint64, error) {
 	result := binary.LittleEndian.Uint64(ranFunctionIDCchoice[0:8])
 
 	return &result, nil
+}
+
+func newRanFunctionID(rfID *e2apies.RanfunctionId) C.long {
+	return C.long(rfID.Value)
+}
+
+func decodeRanFunctionIDBytes(ranFunctionIDCbytes []byte) *e2apies.RanfunctionId {
+	rfC := (C.RANfunctionID_t)(binary.LittleEndian.Uint64(ranFunctionIDCbytes[0:8]))
+
+	return decodeRanFunctionID(&rfC)
+}
+
+func decodeRanFunctionID(ranFunctionIDC *C.RANfunctionID_t) *e2apies.RanfunctionId {
+	result := e2apies.RanfunctionId{
+		Value: int32(*ranFunctionIDC),
+	}
+	
+	return &result
 }

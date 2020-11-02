@@ -268,13 +268,13 @@ func decodeErrorIndicationIE(errIndIeC *C.ErrorIndication_IEs_t) (*e2ctypes.Erro
 
 	switch errIndIeC.value.present {
 	case C.ErrorIndication_IEs__value_PR_RICrequestID:
-		ricReqIDC, err := decodeRicRequestID(errIndIeC.value.choice[:16])
+		ricReqIDC, err := decodeRicRequestIDOld(errIndIeC.value.choice[:16])
 		if err != nil {
 			return nil, err
 		}
 		ret.Choice = &e2ctypes.ErrorIndication_IEsT_RICrequestID{RICrequestID: ricReqIDC}
 	case C.ErrorIndication_IEs__value_PR_RANfunctionID:
-		ranFunctionIDC, err := decodeRanFunctionID(errIndIeC.value.choice)
+		ranFunctionIDC, err := decodeRanFunctionIDOld(errIndIeC.value.choice)
 		if err != nil {
 			return nil, err
 		}
@@ -337,7 +337,7 @@ func decodeRICsubscriptionRequestIE(rsreqIeC *C.RICsubscriptionRequest_IEs_t) (*
 }
 
 // Deprecated: Do not use.
-func decodeRICsubscriptionResponseIE(rsrespIeC *C.RICsubscriptionResponse_IEs_t) (*e2ctypes.RICsubscriptionResponse_IEsT, error) {
+func decodeRICsubscriptionResponseIEOld(rsrespIeC *C.RICsubscriptionResponse_IEs_t) (*e2ctypes.RICsubscriptionResponse_IEsT, error) {
 	//fmt.Printf("Handling RICsubscriptionResponse_IE %+v\n", rsrespIeC)
 	ret := e2ctypes.RICsubscriptionResponse_IEsT{
 		Id:          e2ctypes.ProtocolIE_IDT(rsrespIeC.id),
@@ -348,7 +348,7 @@ func decodeRICsubscriptionResponseIE(rsrespIeC *C.RICsubscriptionResponse_IEs_t)
 	case C.RICsubscriptionResponse_IEs__value_PR_NOTHING:
 		//Nothing to do
 	case C.RICsubscriptionResponse_IEs__value_PR_RICrequestID:
-		rrID, err := decodeRicRequestID(rsrespIeC.value.choice[:16])
+		rrID, err := decodeRicRequestIDOld(rsrespIeC.value.choice[:16])
 		if err != nil {
 			return nil, err
 		}
@@ -356,7 +356,7 @@ func decodeRICsubscriptionResponseIE(rsrespIeC *C.RICsubscriptionResponse_IEs_t)
 			RICrequestID: rrID,
 		}
 	case C.RICsubscriptionResponse_IEs__value_PR_RICaction_Admitted_List:
-		raal, err := decodeRicActionAdmittedList(rsrespIeC.value.choice)
+		raal, err := decodeRicActionAdmittedListOld(rsrespIeC.value.choice)
 		if err != nil {
 			return nil, err
 		}
@@ -364,7 +364,7 @@ func decodeRICsubscriptionResponseIE(rsrespIeC *C.RICsubscriptionResponse_IEs_t)
 			RICaction_Admitted_List: raal,
 		}
 	default:
-		return nil, fmt.Errorf("decodeRICsubscriptionResponseIE(). %v not yet implemneted", rsrespIeC.value.present)
+		return nil, fmt.Errorf("decodeRICsubscriptionResponseIEOld(). %v not yet implemneted", rsrespIeC.value.present)
 	}
 
 	return &ret, nil
@@ -435,6 +435,35 @@ func newE2setupResponseIe4GlobalRicId(esIe *e2appducontents.E2SetupResponseIes_E
 		criticality: critC,
 		value: C.struct_E2setupResponseIEs__value{
 			present: C.E2setupResponseIEs__value_PR_GlobalRIC_ID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicSubscriptionRequestIe5RanFunctionID(rsrRfIe *e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5) (*C.RICsubscriptionRequest_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRfIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [112]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ranFunctionIDC := newRanFunctionID(rsrRfIe.Value)
+
+	fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", ranFunctionIDC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ranFunctionIDC))
+
+	ie := C.RICsubscriptionRequest_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionRequest_IEs__value{
+			present: C.RICsubscriptionRequest_IEs__value_PR_RANfunctionID,
 			choice:  choiceC,
 		},
 	}
@@ -542,6 +571,36 @@ func newE2setupResponseIe13RanFunctionsRejected(esIe *e2appducontents.E2SetupRes
 	return &ie, nil
 }
 
+func newRicSubscriptionRequestIe29RicRequestID(rsrRrIDIe *e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29) (*C.RICsubscriptionRequest_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRrIDIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [112]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ricRequestIDC := newRicRequestID(rsrRrIDIe.Value)
+
+	fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", ricRequestIDC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ricRequestIDC.ricRequestorID))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(ricRequestIDC.ricInstanceID))
+
+	ie := C.RICsubscriptionRequest_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionRequest_IEs__value{
+			present: C.RICsubscriptionRequest_IEs__value_PR_RICrequestID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2SetupRequestIes, error) {
 	//fmt.Printf("Handling E2SetupReqIE %+v\n", e2srIeC)
 	ret := new(e2appducontents.E2SetupRequestIes)
@@ -552,9 +611,11 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 		if err != nil {
 			return nil, err
 		}
-		ret.E2ApProtocolIes3 =   &e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
-			Id:    3,
-			Value: gE2nID,
+		ret.E2ApProtocolIes3 = &e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
+			Id:          int32(v1beta1.ProtocolIeIDGlobalE2nodeID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       gE2nID,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
 
 	case C.E2setupRequestIEs__value_PR_RANfunctions_List:
@@ -570,24 +631,67 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 	return ret, nil
 }
 
+func decodeRicSubscriptionRequestIE(rsrIeC *C.RICsubscriptionRequest_IEs_t) (*e2appducontents.RicsubscriptionRequestIes, error) {
+	//fmt.Printf("Handling RicSubscriptionResp %+v\n", rsrIeC)
+	ret := new(e2appducontents.RicsubscriptionRequestIes)
+
+	switch rsrIeC.value.present {
+	case C.RICsubscriptionRequest_IEs__value_PR_RICrequestID:
+		fallthrough // TODO Implement it
+
+	case C.RICsubscriptionRequest_IEs__value_PR_RANfunctionID:
+		fallthrough // TODO Implement it
+
+	case C.RICsubscriptionRequest_IEs__value_PR_RICsubscriptionDetails:
+		fallthrough // TODO Implement it
+
+	case C.E2setupRequestIEs__value_PR_NOTHING:
+		return nil, fmt.Errorf("decodeRicSubscriptionRequestIE(). %v not yet implemneted", rsrIeC.value.present)
+
+	default:
+		return nil, fmt.Errorf("decodeRicSubscriptionRequestIE(). unexpected choice %v", rsrIeC.value.present)
+	}
+
+	return ret, nil
+}
+
 func decodeRicSubscriptionResponseIE(rsrIeC *C.RICsubscriptionResponse_IEs_t) (*e2appducontents.RicsubscriptionResponseIes, error) {
 	//fmt.Printf("Handling RicSubscriptionResp %+v\n", rsrIeC)
 	ret := new(e2appducontents.RicsubscriptionResponseIes)
 
 	switch rsrIeC.value.present {
-	case C.RICsubscriptionResponse_IEs__value_PR_RICrequestID:
-		fallthrough // TODO Implement it
-
 	case C.RICsubscriptionResponse_IEs__value_PR_RANfunctionID:
-		fallthrough // TODO Implement it
+		ret.E2ApProtocolIes5 = &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes5{
+			Value: decodeRanFunctionIDBytes(rsrIeC.value.choice[:8]),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Id: int32(v1beta1.ProtocolIeIDRanfunctionID),
+		}
+
+	case C.RICsubscriptionResponse_IEs__value_PR_RICrequestID:
+		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes29{
+			Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+			Value:       decodeRicRequestIDBytes(rsrIeC.value.choice[:16]),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
 
 	case C.RICsubscriptionResponse_IEs__value_PR_RICaction_Admitted_List:
-		fallthrough // TODO Implement it
+		if raal, err := decodeRicActionAdmittedListBytes(rsrIeC.value.choice[:48]); err != nil {
+			return nil, err
+		} else {
+			ret.E2ApProtocolIes17 = &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17{
+				Id:          int32(v1beta1.ProtocolIeIDRicactionsAdmitted),
+				Value:       raal,
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			}
+		}
 
 	case C.RICsubscriptionResponse_IEs__value_PR_RICaction_NotAdmitted_List:
 		fallthrough // TODO Implement it
 
-	case C.E2setupRequestIEs__value_PR_NOTHING:
+	case C.RICsubscriptionResponse_IEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeRicSubscriptionResponseIE(). %v not yet implemneted", rsrIeC.value.present)
 
 	default:

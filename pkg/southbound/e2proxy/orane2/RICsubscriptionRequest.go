@@ -13,28 +13,14 @@ package orane2
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 	"unsafe"
 )
 
-// XerEncodeRICsubscriptionRequest - used only for testing
+// PerEncodeRICsubscriptionRequestOld - used only for testing
 // Deprecated: Do not use.
-func XerEncodeRICsubscriptionRequest(rsrIE *e2ctypes.RICsubscriptionRequest_IEsT) ([]byte, error) {
-	rsrIEC, err := newRICsubscriptionRequestIE(rsrIE)
-	if err != nil {
-		return nil, err
-	}
-
-	bytes, err := encodeXer(&C.asn_DEF_RICsubscriptionRequest_IEs, unsafe.Pointer(rsrIEC))
-	if err != nil {
-		return nil, err
-	}
-	return bytes, nil
-}
-
-// PerEncodeRICsubscriptionRequest - used only for testing
-// Deprecated: Do not use.
-func PerEncodeRICsubscriptionRequest(rsrIE *e2ctypes.RICsubscriptionRequest_IEsT) ([]byte, error) {
+func PerEncodeRICsubscriptionRequestOld(rsrIE *e2ctypes.RICsubscriptionRequest_IEsT) ([]byte, error) {
 	rsrIEC, err := newRICsubscriptionRequestIE(rsrIE)
 	if err != nil {
 		return nil, err
@@ -48,7 +34,7 @@ func PerEncodeRICsubscriptionRequest(rsrIE *e2ctypes.RICsubscriptionRequest_IEsT
 }
 
 // Deprecated: Do not use.
-func newRICsubscriptionRequest(rsr *e2ctypes.RICsubscriptionRequestT) (*C.RICsubscriptionRequest_t, error) {
+func newRICsubscriptionRequestOld(rsr *e2ctypes.RICsubscriptionRequestT) (*C.RICsubscriptionRequest_t, error) {
 	pIeC1544P0, err := newProtocolIeContainer1544P0(rsr.GetProtocolIEs())
 	if err != nil {
 		return nil, err
@@ -61,7 +47,7 @@ func newRICsubscriptionRequest(rsr *e2ctypes.RICsubscriptionRequestT) (*C.RICsub
 }
 
 // Deprecated: Do not use.
-func decodeRicSubscriptionRequest(rsrC *C.RICsubscriptionRequest_t) (*e2ctypes.RICsubscriptionRequestT, error) {
+func decodeRicSubscriptionRequestOld(rsrC *C.RICsubscriptionRequest_t) (*e2ctypes.RICsubscriptionRequestT, error) {
 	pIEs, err := decodeProtocolIeContainer1544P0(&rsrC.protocolIEs)
 	if err != nil {
 		return nil, err
@@ -73,3 +59,55 @@ func decodeRicSubscriptionRequest(rsrC *C.RICsubscriptionRequest_t) (*e2ctypes.R
 
 	return &rsr, nil
 }
+
+func xerEncodeRICsubscriptionRequest(rsr *e2appducontents.RicsubscriptionRequest) ([]byte, error) {
+	rsrC, err := newRICsubscriptionRequest(rsr)
+	if err != nil {
+		return nil, err
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_RICsubscriptionRequest, unsafe.Pointer(rsrC))
+	if err != nil {
+		return nil, err
+	}
+	return bytes, nil
+}
+
+func perEncodeRICsubscriptionRequest(rsr *e2appducontents.RicsubscriptionRequest) ([]byte, error) {
+	rsrC, err := newRICsubscriptionRequest(rsr)
+	if err != nil {
+		return nil, err
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_RICsubscriptionRequest, unsafe.Pointer(rsrC))
+	if err != nil {
+		return nil, err
+	}
+	return bytes, nil
+}
+
+func newRICsubscriptionRequest(rsr *e2appducontents.RicsubscriptionRequest) (*C.RICsubscriptionRequest_t, error) {
+	pIeC1544P0, err := newRicSubscriptionRequestIes(rsr.GetProtocolIes())
+	if err != nil {
+		return nil, err
+	}
+	rsrC := C.RICsubscriptionRequest_t{
+		protocolIEs: *pIeC1544P0,
+	}
+
+	return &rsrC, nil
+}
+
+func decodeRicSubscriptionRequest(rsrC *C.RICsubscriptionRequest_t) (*e2appducontents.RicsubscriptionRequest, error) {
+	pIEs, err := decodeRicSubscriptionRequestIes(&rsrC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	rsr := e2appducontents.RicsubscriptionRequest{
+		ProtocolIes: pIEs,
+	}
+
+	return &rsr, nil
+}
+

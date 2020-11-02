@@ -61,7 +61,7 @@ func newInitiatingMessageValueOld(im *e2ctypes.InitiatingMessageT) (*C.struct_In
 	case *e2ctypes.InitiatingMessageT_RICsubscriptionRequest:
 		presentC = C.InitiatingMessage__value_PR_RICsubscriptionRequest
 
-		rsrC, err := newRICsubscriptionRequest(choice.RICsubscriptionRequest)
+		rsrC, err := newRICsubscriptionRequestOld(choice.RICsubscriptionRequest)
 		if err != nil {
 			return nil, err
 		}
@@ -155,7 +155,7 @@ func decodeInitiatingMessageOld(initMsgC *C.InitiatingMessage_t) (*e2ctypes.Init
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
 			protocolIEs: C.ProtocolIE_Container_1544P0_t{
-				list: C.struct___43{ // TODO: tie this down with a predictable name
+				list: C.struct___44{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -163,7 +163,7 @@ func decodeInitiatingMessageOld(initMsgC *C.InitiatingMessage_t) (*e2ctypes.Init
 			},
 		}
 		fmt.Printf("RICsubscriptionRequest_t %+v\n %+v\n", initMsgC, srC)
-		sr, err := decodeRicSubscriptionRequest(&srC)
+		sr, err := decodeRicSubscriptionRequestOld(&srC)
 		if err != nil {
 			return nil, err
 		}
@@ -183,8 +183,9 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 	var pcC C.ProcedureCode_t
 	var critC C.Criticality_t
 	choiceC := [72]byte{} // The size of the InitiatingMessage__value_u union
+
 	if pc := im.GetProcedureCode().GetE2Setup(); pc != nil &&
-		pc.GetProcedureCode().GetValue() == int32(v1beta1.ProcedureCodeIDE2setup) {
+		pc.GetInitiatingMessage() != nil {
 
 		presentC = C.InitiatingMessage__value_PR_E2setupRequest
 		pcC = C.ProcedureCode_id_E2setup
@@ -199,6 +200,22 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2sC.protocolIEs.list.array))))
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2sC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2sC.protocolIEs.list.size))
+	} else if pc := im.GetProcedureCode().GetRicSubscription(); pc != nil &&
+		pc.GetInitiatingMessage() != nil {
+
+		presentC = C.InitiatingMessage__value_PR_RICsubscriptionRequest
+		pcC = C.ProcedureCode_id_RICsubscription
+		critC = C.long(C.Criticality_reject)
+		rsC, err := newRICsubscriptionRequest(pc.GetInitiatingMessage())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(rsC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(rsC.protocolIEs.list.size))
 	} else {
 		return nil, fmt.Errorf("newInitiatingMessageValue type not yet implemented")
 	}
@@ -253,7 +270,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
 			protocolIEs: C.ProtocolIE_Container_1544P0_t{
-				list: C.struct___43{ // TODO: tie this down with a predictable name
+				list: C.struct___44{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
