@@ -12,7 +12,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/orane2"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"net"
@@ -76,7 +76,7 @@ func (c *Connection) setup() error {
 	// Decode the E2 request in XER encoding
 	// TODO: E2AP messages are supposed to use PER encoding
 	e2PDUReqBytes := buf[:n]
-	e2PDUReq, err := orane2.XerDecodeE2apPdu(e2PDUReqBytes)
+	e2PDUReq, err := asn1cgo.XerDecodeE2apPdu(e2PDUReqBytes)
 	if err != nil {
 		defer c.cancel()
 		return err
@@ -155,7 +155,7 @@ func (c *Connection) setup() error {
 
 	// Encode the setup response in XER
 	// TODO: E2AP messages are supposed to use PER encoding
-	e2PDURespBytes, err := orane2.XerEncodeE2apPdu(e2PDUResp)
+	e2PDURespBytes, err := asn1cgo.XerEncodeE2apPdu(e2PDUResp)
 	if err != nil {
 		return err
 	}
@@ -172,7 +172,7 @@ func (c *Connection) setup() error {
 func (c *Connection) Send(msg *e2appdudescriptions.E2ApPdu) error {
 	// TODO: This encodes all messages in PER encoding
 	log.Debugf("Send %v", msg)
-	bytes, err := orane2.XerEncodeE2apPdu(msg)
+	bytes, err := asn1cgo.XerEncodeE2apPdu(msg)
 	if err != nil {
 		return err
 	}
@@ -201,7 +201,7 @@ func (c *Connection) Recv() (*e2appdudescriptions.E2ApPdu, error) {
 	bytes := buf[:n]
 
 	// TODO: This decodes all messages in PER encoding
-	msg, err := orane2.PerDecodeE2apPdu(bytes)
+	msg, err := asn1cgo.PerDecodeE2apPdu(bytes)
 	if err == io.EOF {
 		c.cancel()
 	}

@@ -1,7 +1,6 @@
 linters:
   enable:
     - gofmt
-    - gocyclo
     - golint
     - misspell
     - typecheck
@@ -9,7 +8,6 @@ linters:
 run:
   skip-dirs:
     - modelplugin
-    - pkg/southbound/e2proxy
 
 issues:
   exclude-rules:
