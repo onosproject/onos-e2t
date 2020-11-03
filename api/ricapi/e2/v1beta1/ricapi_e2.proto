@@ -13,47 +13,26 @@ option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1";
 
 import "ricapi/e2/headers/v1beta1/headers.proto";
 
-// ResponseStatus
-enum ResponseStatus {
-    RESPONSE_STATUS_FAILED = 0;
-    RESPONSE_STATUS_SUCCESSFUL = 1;
-}
-
-// SubscribeRequest a subscription request
-message SubscribeRequest {
-
-}
-
 // Indication an indication message
 message Indication {
 }
 
 
-// SubscribeResponse a subscription response
-message SubscribeResponse {
-    ResponseStatus status = 1;
-}
+// ControlRequest
+message ControlRequest {}
+
+// ControlResponse
+message ControlResponse {}
 
 
-// SubscribeDeleteRequest a subscription delete request
-message SubscribeDeleteRequest {
-}
-
-// SubscribeDeleteResponse a subscription delete response
-message SubscribeDeleteResponse {
-    ResponseStatus status = 1;
-
-}
 
 // AppRequest
 message AppRequest {
     headers.v1beta1.RequestHeader header = 1;
     oneof req {
-        SubscribeRequest sub_req = 2;
-        SubscribeDeleteRequest sub_del_req = 3;
-
+        ControlRequest control_request = 2;
     }
-    bytes payload = 4;
+    bytes payload = 3;
 }
 
 
@@ -61,10 +40,8 @@ message AppRequest {
 message AppResponse {
     headers.v1beta1.ResponseHeader header = 1;
     oneof resp {
-        SubscribeResponse sub_resp = 2;
-        SubscribeDeleteResponse sub_del_resp = 3;
-        Indication indication = 4;
-
+        Indication indication = 2;
+        ControlResponse control_response = 3;
     }
     bytes payload = 5;
 }

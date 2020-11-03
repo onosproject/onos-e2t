@@ -27,63 +27,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// ResponseStatus
-type ResponseStatus int32
-
-const (
-	ResponseStatus_RESPONSE_STATUS_FAILED     ResponseStatus = 0
-	ResponseStatus_RESPONSE_STATUS_SUCCESSFUL ResponseStatus = 1
-)
-
-var ResponseStatus_name = map[int32]string{
-	0: "RESPONSE_STATUS_FAILED",
-	1: "RESPONSE_STATUS_SUCCESSFUL",
-}
-
-var ResponseStatus_value = map[string]int32{
-	"RESPONSE_STATUS_FAILED":     0,
-	"RESPONSE_STATUS_SUCCESSFUL": 1,
-}
-
-func (x ResponseStatus) String() string {
-	return proto.EnumName(ResponseStatus_name, int32(x))
-}
-
-func (ResponseStatus) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_e27d8777407939bb, []int{0}
-}
-
-// SubscribeRequest a subscription request
-type SubscribeRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *SubscribeRequest) Reset()         { *m = SubscribeRequest{} }
-func (m *SubscribeRequest) String() string { return proto.CompactTextString(m) }
-func (*SubscribeRequest) ProtoMessage()    {}
-func (*SubscribeRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e27d8777407939bb, []int{0}
-}
-func (m *SubscribeRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SubscribeRequest.Unmarshal(m, b)
-}
-func (m *SubscribeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SubscribeRequest.Marshal(b, m, deterministic)
-}
-func (m *SubscribeRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SubscribeRequest.Merge(m, src)
-}
-func (m *SubscribeRequest) XXX_Size() int {
-	return xxx_messageInfo_SubscribeRequest.Size(m)
-}
-func (m *SubscribeRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SubscribeRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SubscribeRequest proto.InternalMessageInfo
-
 // Indication an indication message
 type Indication struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -95,7 +38,7 @@ func (m *Indication) Reset()         { *m = Indication{} }
 func (m *Indication) String() string { return proto.CompactTextString(m) }
 func (*Indication) ProtoMessage()    {}
 func (*Indication) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e27d8777407939bb, []int{1}
+	return fileDescriptor_e27d8777407939bb, []int{0}
 }
 func (m *Indication) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Indication.Unmarshal(m, b)
@@ -115,123 +58,75 @@ func (m *Indication) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Indication proto.InternalMessageInfo
 
-// SubscribeResponse a subscription response
-type SubscribeResponse struct {
-	Status               ResponseStatus `protobuf:"varint,1,opt,name=status,proto3,enum=ricapi.e2.v1beta1.ResponseStatus" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
-	XXX_unrecognized     []byte         `json:"-"`
-	XXX_sizecache        int32          `json:"-"`
-}
-
-func (m *SubscribeResponse) Reset()         { *m = SubscribeResponse{} }
-func (m *SubscribeResponse) String() string { return proto.CompactTextString(m) }
-func (*SubscribeResponse) ProtoMessage()    {}
-func (*SubscribeResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e27d8777407939bb, []int{2}
-}
-func (m *SubscribeResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SubscribeResponse.Unmarshal(m, b)
-}
-func (m *SubscribeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SubscribeResponse.Marshal(b, m, deterministic)
-}
-func (m *SubscribeResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SubscribeResponse.Merge(m, src)
-}
-func (m *SubscribeResponse) XXX_Size() int {
-	return xxx_messageInfo_SubscribeResponse.Size(m)
-}
-func (m *SubscribeResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_SubscribeResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SubscribeResponse proto.InternalMessageInfo
-
-func (m *SubscribeResponse) GetStatus() ResponseStatus {
-	if m != nil {
-		return m.Status
-	}
-	return ResponseStatus_RESPONSE_STATUS_FAILED
-}
-
-// SubscribeDeleteRequest a subscription delete request
-type SubscribeDeleteRequest struct {
+// ControlRequest
+type ControlRequest struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *SubscribeDeleteRequest) Reset()         { *m = SubscribeDeleteRequest{} }
-func (m *SubscribeDeleteRequest) String() string { return proto.CompactTextString(m) }
-func (*SubscribeDeleteRequest) ProtoMessage()    {}
-func (*SubscribeDeleteRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e27d8777407939bb, []int{3}
+func (m *ControlRequest) Reset()         { *m = ControlRequest{} }
+func (m *ControlRequest) String() string { return proto.CompactTextString(m) }
+func (*ControlRequest) ProtoMessage()    {}
+func (*ControlRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e27d8777407939bb, []int{1}
 }
-func (m *SubscribeDeleteRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SubscribeDeleteRequest.Unmarshal(m, b)
+func (m *ControlRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ControlRequest.Unmarshal(m, b)
 }
-func (m *SubscribeDeleteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SubscribeDeleteRequest.Marshal(b, m, deterministic)
+func (m *ControlRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ControlRequest.Marshal(b, m, deterministic)
 }
-func (m *SubscribeDeleteRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SubscribeDeleteRequest.Merge(m, src)
+func (m *ControlRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ControlRequest.Merge(m, src)
 }
-func (m *SubscribeDeleteRequest) XXX_Size() int {
-	return xxx_messageInfo_SubscribeDeleteRequest.Size(m)
+func (m *ControlRequest) XXX_Size() int {
+	return xxx_messageInfo_ControlRequest.Size(m)
 }
-func (m *SubscribeDeleteRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_SubscribeDeleteRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SubscribeDeleteRequest proto.InternalMessageInfo
-
-// SubscribeDeleteResponse a subscription delete response
-type SubscribeDeleteResponse struct {
-	Status               ResponseStatus `protobuf:"varint,1,opt,name=status,proto3,enum=ricapi.e2.v1beta1.ResponseStatus" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
-	XXX_unrecognized     []byte         `json:"-"`
-	XXX_sizecache        int32          `json:"-"`
+func (m *ControlRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ControlRequest.DiscardUnknown(m)
 }
 
-func (m *SubscribeDeleteResponse) Reset()         { *m = SubscribeDeleteResponse{} }
-func (m *SubscribeDeleteResponse) String() string { return proto.CompactTextString(m) }
-func (*SubscribeDeleteResponse) ProtoMessage()    {}
-func (*SubscribeDeleteResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e27d8777407939bb, []int{4}
-}
-func (m *SubscribeDeleteResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SubscribeDeleteResponse.Unmarshal(m, b)
-}
-func (m *SubscribeDeleteResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SubscribeDeleteResponse.Marshal(b, m, deterministic)
-}
-func (m *SubscribeDeleteResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SubscribeDeleteResponse.Merge(m, src)
-}
-func (m *SubscribeDeleteResponse) XXX_Size() int {
-	return xxx_messageInfo_SubscribeDeleteResponse.Size(m)
-}
-func (m *SubscribeDeleteResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_SubscribeDeleteResponse.DiscardUnknown(m)
+var xxx_messageInfo_ControlRequest proto.InternalMessageInfo
+
+// ControlResponse
+type ControlResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-var xxx_messageInfo_SubscribeDeleteResponse proto.InternalMessageInfo
-
-func (m *SubscribeDeleteResponse) GetStatus() ResponseStatus {
-	if m != nil {
-		return m.Status
-	}
-	return ResponseStatus_RESPONSE_STATUS_FAILED
+func (m *ControlResponse) Reset()         { *m = ControlResponse{} }
+func (m *ControlResponse) String() string { return proto.CompactTextString(m) }
+func (*ControlResponse) ProtoMessage()    {}
+func (*ControlResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e27d8777407939bb, []int{2}
 }
+func (m *ControlResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ControlResponse.Unmarshal(m, b)
+}
+func (m *ControlResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ControlResponse.Marshal(b, m, deterministic)
+}
+func (m *ControlResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ControlResponse.Merge(m, src)
+}
+func (m *ControlResponse) XXX_Size() int {
+	return xxx_messageInfo_ControlResponse.Size(m)
+}
+func (m *ControlResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ControlResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ControlResponse proto.InternalMessageInfo
 
 // AppRequest
 type AppRequest struct {
 	Header *v1beta1.RequestHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	// Types that are valid to be assigned to Req:
-	//	*AppRequest_SubReq
-	//	*AppRequest_SubDelReq
+	//	*AppRequest_ControlRequest
 	Req                  isAppRequest_Req `protobuf_oneof:"req"`
-	Payload              []byte           `protobuf:"bytes,4,opt,name=payload,proto3" json:"payload,omitempty"`
+	Payload              []byte           `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -241,7 +136,7 @@ func (m *AppRequest) Reset()         { *m = AppRequest{} }
 func (m *AppRequest) String() string { return proto.CompactTextString(m) }
 func (*AppRequest) ProtoMessage()    {}
 func (*AppRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e27d8777407939bb, []int{5}
+	return fileDescriptor_e27d8777407939bb, []int{3}
 }
 func (m *AppRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AppRequest.Unmarshal(m, b)
@@ -265,15 +160,11 @@ type isAppRequest_Req interface {
 	isAppRequest_Req()
 }
 
-type AppRequest_SubReq struct {
-	SubReq *SubscribeRequest `protobuf:"bytes,2,opt,name=sub_req,json=subReq,proto3,oneof" json:"sub_req,omitempty"`
-}
-type AppRequest_SubDelReq struct {
-	SubDelReq *SubscribeDeleteRequest `protobuf:"bytes,3,opt,name=sub_del_req,json=subDelReq,proto3,oneof" json:"sub_del_req,omitempty"`
+type AppRequest_ControlRequest struct {
+	ControlRequest *ControlRequest `protobuf:"bytes,2,opt,name=control_request,json=controlRequest,proto3,oneof" json:"control_request,omitempty"`
 }
 
-func (*AppRequest_SubReq) isAppRequest_Req()    {}
-func (*AppRequest_SubDelReq) isAppRequest_Req() {}
+func (*AppRequest_ControlRequest) isAppRequest_Req() {}
 
 func (m *AppRequest) GetReq() isAppRequest_Req {
 	if m != nil {
@@ -289,16 +180,9 @@ func (m *AppRequest) GetHeader() *v1beta1.RequestHeader {
 	return nil
 }
 
-func (m *AppRequest) GetSubReq() *SubscribeRequest {
-	if x, ok := m.GetReq().(*AppRequest_SubReq); ok {
-		return x.SubReq
-	}
-	return nil
-}
-
-func (m *AppRequest) GetSubDelReq() *SubscribeDeleteRequest {
-	if x, ok := m.GetReq().(*AppRequest_SubDelReq); ok {
-		return x.SubDelReq
+func (m *AppRequest) GetControlRequest() *ControlRequest {
+	if x, ok := m.GetReq().(*AppRequest_ControlRequest); ok {
+		return x.ControlRequest
 	}
 	return nil
 }
@@ -313,8 +197,7 @@ func (m *AppRequest) GetPayload() []byte {
 // XXX_OneofWrappers is for the internal use of the proto package.
 func (*AppRequest) XXX_OneofWrappers() []interface{} {
 	return []interface{}{
-		(*AppRequest_SubReq)(nil),
-		(*AppRequest_SubDelReq)(nil),
+		(*AppRequest_ControlRequest)(nil),
 	}
 }
 
@@ -322,9 +205,8 @@ func (*AppRequest) XXX_OneofWrappers() []interface{} {
 type AppResponse struct {
 	Header *v1beta1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	// Types that are valid to be assigned to Resp:
-	//	*AppResponse_SubResp
-	//	*AppResponse_SubDelResp
 	//	*AppResponse_Indication
+	//	*AppResponse_ControlResponse
 	Resp                 isAppResponse_Resp `protobuf_oneof:"resp"`
 	Payload              []byte             `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
@@ -336,7 +218,7 @@ func (m *AppResponse) Reset()         { *m = AppResponse{} }
 func (m *AppResponse) String() string { return proto.CompactTextString(m) }
 func (*AppResponse) ProtoMessage()    {}
 func (*AppResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e27d8777407939bb, []int{6}
+	return fileDescriptor_e27d8777407939bb, []int{4}
 }
 func (m *AppResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AppResponse.Unmarshal(m, b)
@@ -360,19 +242,15 @@ type isAppResponse_Resp interface {
 	isAppResponse_Resp()
 }
 
-type AppResponse_SubResp struct {
-	SubResp *SubscribeResponse `protobuf:"bytes,2,opt,name=sub_resp,json=subResp,proto3,oneof" json:"sub_resp,omitempty"`
-}
-type AppResponse_SubDelResp struct {
-	SubDelResp *SubscribeDeleteResponse `protobuf:"bytes,3,opt,name=sub_del_resp,json=subDelResp,proto3,oneof" json:"sub_del_resp,omitempty"`
-}
 type AppResponse_Indication struct {
-	Indication *Indication `protobuf:"bytes,4,opt,name=indication,proto3,oneof" json:"indication,omitempty"`
+	Indication *Indication `protobuf:"bytes,2,opt,name=indication,proto3,oneof" json:"indication,omitempty"`
+}
+type AppResponse_ControlResponse struct {
+	ControlResponse *ControlResponse `protobuf:"bytes,3,opt,name=control_response,json=controlResponse,proto3,oneof" json:"control_response,omitempty"`
 }
 
-func (*AppResponse_SubResp) isAppResponse_Resp()    {}
-func (*AppResponse_SubDelResp) isAppResponse_Resp() {}
-func (*AppResponse_Indication) isAppResponse_Resp() {}
+func (*AppResponse_Indication) isAppResponse_Resp()      {}
+func (*AppResponse_ControlResponse) isAppResponse_Resp() {}
 
 func (m *AppResponse) GetResp() isAppResponse_Resp {
 	if m != nil {
@@ -388,23 +266,16 @@ func (m *AppResponse) GetHeader() *v1beta1.ResponseHeader {
 	return nil
 }
 
-func (m *AppResponse) GetSubResp() *SubscribeResponse {
-	if x, ok := m.GetResp().(*AppResponse_SubResp); ok {
-		return x.SubResp
-	}
-	return nil
-}
-
-func (m *AppResponse) GetSubDelResp() *SubscribeDeleteResponse {
-	if x, ok := m.GetResp().(*AppResponse_SubDelResp); ok {
-		return x.SubDelResp
-	}
-	return nil
-}
-
 func (m *AppResponse) GetIndication() *Indication {
 	if x, ok := m.GetResp().(*AppResponse_Indication); ok {
 		return x.Indication
+	}
+	return nil
+}
+
+func (m *AppResponse) GetControlResponse() *ControlResponse {
+	if x, ok := m.GetResp().(*AppResponse_ControlResponse); ok {
+		return x.ControlResponse
 	}
 	return nil
 }
@@ -419,19 +290,15 @@ func (m *AppResponse) GetPayload() []byte {
 // XXX_OneofWrappers is for the internal use of the proto package.
 func (*AppResponse) XXX_OneofWrappers() []interface{} {
 	return []interface{}{
-		(*AppResponse_SubResp)(nil),
-		(*AppResponse_SubDelResp)(nil),
 		(*AppResponse_Indication)(nil),
+		(*AppResponse_ControlResponse)(nil),
 	}
 }
 
 func init() {
-	proto.RegisterEnum("ricapi.e2.v1beta1.ResponseStatus", ResponseStatus_name, ResponseStatus_value)
-	proto.RegisterType((*SubscribeRequest)(nil), "ricapi.e2.v1beta1.SubscribeRequest")
 	proto.RegisterType((*Indication)(nil), "ricapi.e2.v1beta1.Indication")
-	proto.RegisterType((*SubscribeResponse)(nil), "ricapi.e2.v1beta1.SubscribeResponse")
-	proto.RegisterType((*SubscribeDeleteRequest)(nil), "ricapi.e2.v1beta1.SubscribeDeleteRequest")
-	proto.RegisterType((*SubscribeDeleteResponse)(nil), "ricapi.e2.v1beta1.SubscribeDeleteResponse")
+	proto.RegisterType((*ControlRequest)(nil), "ricapi.e2.v1beta1.ControlRequest")
+	proto.RegisterType((*ControlResponse)(nil), "ricapi.e2.v1beta1.ControlResponse")
 	proto.RegisterType((*AppRequest)(nil), "ricapi.e2.v1beta1.AppRequest")
 	proto.RegisterType((*AppResponse)(nil), "ricapi.e2.v1beta1.AppResponse")
 }
@@ -441,39 +308,31 @@ func init() {
 }
 
 var fileDescriptor_e27d8777407939bb = []byte{
-	// 510 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x94, 0x5f, 0x6f, 0xd3, 0x3c,
-	0x14, 0x87, 0x9b, 0xfd, 0x69, 0xdf, 0xf7, 0xb4, 0x9a, 0x3a, 0x5f, 0x8c, 0xa8, 0x12, 0xd3, 0x08,
-	0x20, 0xba, 0x49, 0xa4, 0x2c, 0x08, 0x21, 0x6e, 0x80, 0x6c, 0xcd, 0xd4, 0x89, 0xaa, 0x4c, 0x76,
-	0x7b, 0xc3, 0x05, 0x55, 0x92, 0x1e, 0x6d, 0x41, 0xa5, 0x71, 0x63, 0x67, 0x12, 0x5f, 0x90, 0x4f,
-	0xc5, 0x05, 0x8a, 0xe3, 0x26, 0x6d, 0x57, 0x2a, 0x24, 0xae, 0xda, 0xd8, 0xe7, 0xf7, 0xf8, 0xf8,
-	0xd1, 0x91, 0xe1, 0xb9, 0xcf, 0xa3, 0x4e, 0x12, 0x85, 0xd9, 0x0f, 0x3a, 0x9d, 0xfb, 0xf3, 0x00,
-	0xa5, 0x7f, 0xae, 0x57, 0xc6, 0xe8, 0xd8, 0x3c, 0x89, 0x65, 0x4c, 0x0e, 0xf3, 0x05, 0x1b, 0x1d,
-	0x5b, 0x97, 0xb4, 0x5e, 0x94, 0xa9, 0x3b, 0xf4, 0x27, 0x98, 0x88, 0x22, 0xad, 0xbf, 0xf3, 0xac,
-	0x45, 0xa0, 0xc9, 0xd2, 0x40, 0x84, 0x49, 0x14, 0x20, 0xc5, 0x79, 0x8a, 0x42, 0x5a, 0x0d, 0x80,
-	0xeb, 0xd9, 0x24, 0x0a, 0x7d, 0x19, 0xc5, 0x33, 0x6b, 0x00, 0x87, 0x4b, 0x15, 0x82, 0xc7, 0x33,
-	0x81, 0xe4, 0x1d, 0x54, 0x85, 0xf4, 0x65, 0x2a, 0x4c, 0xe3, 0xc4, 0x68, 0x1f, 0x38, 0x4f, 0xec,
-	0x07, 0x3d, 0xd8, 0x8b, 0x62, 0xa6, 0x0a, 0xa9, 0x0e, 0x58, 0x26, 0x1c, 0x15, 0xbc, 0x2e, 0x4e,
-	0x51, 0x16, 0xe7, 0x0e, 0xe1, 0xd1, 0x83, 0x9d, 0x7f, 0x3f, 0xef, 0x97, 0x01, 0xe0, 0x72, 0xae,
-	0x0f, 0x21, 0x1f, 0xa1, 0x9a, 0x1b, 0x50, 0xa4, 0xba, 0xd3, 0x5e, 0x22, 0x2d, 0xd4, 0x94, 0x44,
-	0x95, 0xe9, 0xa9, 0x65, 0xaa, 0x73, 0xe4, 0x3d, 0xd4, 0x44, 0x1a, 0x8c, 0x13, 0x9c, 0x9b, 0x3b,
-	0x0a, 0xf1, 0x74, 0x43, 0x33, 0xeb, 0x52, 0x7b, 0x15, 0x5a, 0x15, 0x69, 0x40, 0x71, 0x4e, 0x3e,
-	0x41, 0x3d, 0xcb, 0x4f, 0x70, 0xaa, 0x18, 0xbb, 0x8a, 0x71, 0xba, 0x8d, 0xb1, 0xa2, 0xa9, 0x57,
-	0xa1, 0xff, 0x8b, 0x34, 0xe8, 0xe2, 0x34, 0x83, 0x99, 0x50, 0xe3, 0xfe, 0x8f, 0x69, 0xec, 0x4f,
-	0xcc, 0xbd, 0x13, 0xa3, 0xdd, 0xa0, 0x8b, 0xcf, 0x8b, 0x7d, 0xd8, 0x4d, 0x70, 0x6e, 0xfd, 0xdc,
-	0x81, 0xba, 0xba, 0xbe, 0x36, 0xe9, 0xae, 0xdd, 0xff, 0x74, 0xeb, 0xfd, 0xf3, 0xd0, 0x9a, 0x00,
-	0x17, 0xfe, 0xcb, 0x05, 0x08, 0xae, 0x0d, 0x3c, 0xdb, 0x6e, 0x40, 0x53, 0x2a, 0xb4, 0xa6, 0x14,
-	0x08, 0x4e, 0x06, 0xd0, 0x28, 0x1d, 0x08, 0xae, 0x25, 0x9c, 0xfd, 0x8d, 0x84, 0x02, 0x06, 0x0b,
-	0x0b, 0x82, 0x93, 0x0f, 0x00, 0x51, 0x31, 0xb2, 0xca, 0x44, 0xdd, 0x79, 0xbc, 0x81, 0x56, 0xce,
-	0x75, 0x06, 0x28, 0x23, 0xcb, 0x1e, 0xf7, 0x57, 0x3d, 0x56, 0x61, 0x2f, 0x6b, 0xf1, 0xac, 0x0f,
-	0x07, 0xab, 0x13, 0x46, 0x5a, 0x70, 0x44, 0x3d, 0x76, 0xf3, 0x79, 0xc0, 0xbc, 0x31, 0x1b, 0xba,
-	0xc3, 0x11, 0x1b, 0x5f, 0xb9, 0xd7, 0x7d, 0xaf, 0xdb, 0xac, 0x90, 0x63, 0x68, 0xad, 0xef, 0xb1,
-	0xd1, 0xe5, 0xa5, 0xc7, 0xd8, 0xd5, 0xa8, 0xdf, 0x34, 0x9c, 0xaf, 0x00, 0x9e, 0x33, 0x64, 0x98,
-	0xdc, 0x47, 0x21, 0x92, 0x1b, 0xa8, 0x53, 0xbc, 0x8d, 0x84, 0xc4, 0xc4, 0xe5, 0x9c, 0x6c, 0xea,
-	0xbc, 0x1c, 0xe1, 0xd6, 0xf1, 0x9f, 0xb6, 0xf3, 0xee, 0xda, 0xc6, 0x2b, 0xe3, 0xe2, 0xed, 0x97,
-	0x37, 0xb7, 0x91, 0xbc, 0x4b, 0x03, 0x3b, 0x8c, 0xbf, 0x77, 0xe2, 0x59, 0x2c, 0x78, 0x12, 0x7f,
-	0xc3, 0x50, 0xaa, 0xff, 0x2f, 0xd1, 0x91, 0x9d, 0x8d, 0x8f, 0x4b, 0x50, 0x55, 0xef, 0xc2, 0xeb,
-	0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0xac, 0x0f, 0x89, 0xfd, 0x7c, 0x04, 0x00, 0x00,
+	// 371 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0xcf, 0x8f, 0xd2, 0x40,
+	0x14, 0xa6, 0x20, 0x98, 0xbc, 0x12, 0x7e, 0xcc, 0xa9, 0x21, 0xd1, 0x60, 0x13, 0x63, 0x3d, 0x38,
+	0x95, 0x31, 0xc6, 0xa3, 0x82, 0x31, 0xc1, 0xc4, 0x44, 0x53, 0x3d, 0x79, 0x90, 0x94, 0xe1, 0x05,
+	0xc6, 0xb0, 0x9d, 0x61, 0x3a, 0x90, 0xec, 0x7d, 0xff, 0xad, 0xfd, 0xdf, 0x36, 0x74, 0x06, 0x4a,
+	0x59, 0x96, 0x53, 0x3b, 0x5f, 0xdf, 0x37, 0xdf, 0x8f, 0x3e, 0x78, 0x9d, 0x2a, 0x11, 0x6b, 0xc1,
+	0xf7, 0x0f, 0x64, 0xf1, 0x6e, 0x34, 0x47, 0x93, 0x8e, 0x1c, 0x32, 0x43, 0x46, 0x95, 0x96, 0x46,
+	0x92, 0xbe, 0x05, 0x28, 0x32, 0xea, 0x46, 0x06, 0x6f, 0x4a, 0xd6, 0x0a, 0xd3, 0x05, 0xea, 0xfc,
+	0xc8, 0x76, 0x67, 0xcb, 0x0d, 0xdb, 0x00, 0xdf, 0xb3, 0x85, 0xe0, 0xa9, 0x11, 0x32, 0x0b, 0x7b,
+	0xd0, 0xf9, 0x2a, 0x33, 0xa3, 0xe5, 0x3a, 0xc1, 0xcd, 0x16, 0x73, 0x13, 0xf6, 0xa1, 0x7b, 0x44,
+	0x72, 0x25, 0xb3, 0x1c, 0xc3, 0x7b, 0x0f, 0x60, 0xac, 0x94, 0x9b, 0x20, 0x5f, 0xa0, 0x65, 0xaf,
+	0x0c, 0xbc, 0xa1, 0x17, 0xf9, 0x2c, 0xa2, 0xa5, 0x9d, 0x83, 0x96, 0xd3, 0xa6, 0x8e, 0x33, 0x2d,
+	0xe0, 0xc4, 0xf1, 0xc8, 0x0f, 0xe8, 0x72, 0xab, 0x31, 0xd3, 0x76, 0x20, 0xa8, 0x17, 0x57, 0xbd,
+	0xa2, 0x8f, 0x92, 0xd1, 0xaa, 0xbf, 0x69, 0x2d, 0xe9, 0xf0, 0x0a, 0x42, 0x02, 0x78, 0xae, 0xd2,
+	0xdb, 0xb5, 0x4c, 0x17, 0x41, 0x63, 0xe8, 0x45, 0xed, 0xe4, 0x70, 0x9c, 0x34, 0xa1, 0xa1, 0x71,
+	0x13, 0xde, 0xd5, 0xc1, 0x2f, 0xfc, 0xdb, 0x3c, 0x64, 0x7c, 0x16, 0xe0, 0xed, 0xd5, 0x00, 0x96,
+	0x74, 0x96, 0xe0, 0x33, 0x80, 0x38, 0xb6, 0xe8, 0xcc, 0xbf, 0xb8, 0x60, 0xbe, 0xac, 0x7a, 0x5a,
+	0x4b, 0x4e, 0x28, 0xe4, 0x27, 0xf4, 0xca, 0x0a, 0xac, 0x44, 0xe1, 0xde, 0x67, 0xe1, 0xb5, 0x0e,
+	0x9c, 0x99, 0x5a, 0xd2, 0xe5, 0x55, 0xe8, 0xb4, 0x85, 0x66, 0xb5, 0x85, 0x16, 0x3c, 0xdb, 0x4b,
+	0xb0, 0x7f, 0x00, 0xdf, 0xd8, 0x9f, 0xdf, 0xa8, 0x77, 0x82, 0x23, 0xf9, 0x05, 0x7e, 0x82, 0x4b,
+	0x91, 0x1b, 0xd4, 0x63, 0xa5, 0xc8, 0x25, 0xf3, 0xe5, 0x3f, 0x1f, 0xbc, 0x7c, 0xea, 0xb3, 0x55,
+	0x8f, 0xbc, 0xf7, 0xde, 0xe4, 0xd3, 0xdf, 0x8f, 0x4b, 0x61, 0x56, 0xdb, 0x39, 0xe5, 0xf2, 0x26,
+	0x96, 0x99, 0xcc, 0x95, 0x96, 0xff, 0x91, 0x9b, 0xe2, 0xfd, 0x1d, 0x32, 0x13, 0x5f, 0x5c, 0xef,
+	0x79, 0xab, 0xd8, 0xcc, 0x0f, 0x0f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x96, 0x78, 0x8e, 0x14, 0xfe,
+	0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.

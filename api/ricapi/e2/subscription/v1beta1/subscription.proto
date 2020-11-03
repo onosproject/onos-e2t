@@ -1,0 +1,51 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+syntax = "proto3";
+
+
+// Package ricapi.subscription.v1beta1 defines the interior gRPC interface for subscription service
+package ricapi.e2.subscription.v1beta1;
+option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/subscription/v1beta1";
+
+import "ricapi/e2/headers/v1beta1/headers.proto";
+
+// SubscriptionService manage subscription and subscription delete requests
+service SubscriptionService {
+    // AddSubscription establish E2 subscriptions on E2 Node.
+    rpc AddSubscription (SubscribeRequest) returns (SubscribeResponse);
+
+    // DeleteSubscription delete E2 subscriptions on E2 Node.
+    rpc DeleteSubscription(SubscribeDeleteRequest) returns (SubscribeDeleteResponse);
+}
+
+// SubscribeResponse a subscription response
+message SubscribeResponse {
+    headers.v1beta1.ResponseHeader header = 1;
+    bytes payload = 5;
+}
+
+
+// SubscribeDeleteRequest a subscription delete request
+message SubscribeDeleteRequest {
+    headers.v1beta1.RequestHeader header = 1;
+    bytes payload = 5;
+
+}
+
+// SubscribeDeleteResponse a subscription delete response
+message SubscribeDeleteResponse {
+    headers.v1beta1.ResponseHeader header = 1;
+    bytes payload = 5;
+}
+
+// SubscribeRequest a subscription request
+message SubscribeRequest {
+    headers.v1beta1.RequestHeader header = 1;
+    bytes payload = 5;
+}
+
+

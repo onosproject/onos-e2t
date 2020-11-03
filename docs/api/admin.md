@@ -3,121 +3,147 @@
 
 ## Table of Contents
 
-- [api/ricapi/e2/v1beta1/ricapi_e2.proto](#api/ricapi/e2/v1beta1/ricapi_e2.proto)
-    - [AppRequest](#ricapi.e2.v1beta1.AppRequest)
-    - [AppResponse](#ricapi.e2.v1beta1.AppResponse)
-    - [Indication](#ricapi.e2.v1beta1.Indication)
-    - [SubscribeDeleteRequest](#ricapi.e2.v1beta1.SubscribeDeleteRequest)
-    - [SubscribeDeleteResponse](#ricapi.e2.v1beta1.SubscribeDeleteResponse)
-    - [SubscribeRequest](#ricapi.e2.v1beta1.SubscribeRequest)
-    - [SubscribeResponse](#ricapi.e2.v1beta1.SubscribeResponse)
+- [api/admin/v1/admin.proto](#api/admin/v1/admin.proto)
+    - [DropE2NodeConnectionsRequest](#admin.v1.DropE2NodeConnectionsRequest)
+    - [DropE2NodeConnectionsResponse](#admin.v1.DropE2NodeConnectionsResponse)
+    - [ListE2NodeConnectionsRequest](#admin.v1.ListE2NodeConnectionsRequest)
+    - [ListE2NodeConnectionsResponse](#admin.v1.ListE2NodeConnectionsResponse)
+    - [ListRegisteredServiceModelsRequest](#admin.v1.ListRegisteredServiceModelsRequest)
+    - [ListRegisteredServiceModelsResponse](#admin.v1.ListRegisteredServiceModelsResponse)
+    - [UploadRegisterServiceModelRequest](#admin.v1.UploadRegisterServiceModelRequest)
+    - [UploadRegisterServiceModelResponse](#admin.v1.UploadRegisterServiceModelResponse)
   
-    - [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus)
-  
-    - [E2TService](#ricapi.e2.v1beta1.E2TService)
+    - [E2TAdminService](#admin.v1.E2TAdminService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="api/ricapi/e2/v1beta1/ricapi_e2.proto"></a>
+<a name="api/admin/v1/admin.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/ricapi/e2/v1beta1/ricapi_e2.proto
+## api/admin/v1/admin.proto
 
 
 
-<a name="ricapi.e2.v1beta1.AppRequest"></a>
+<a name="admin.v1.DropE2NodeConnectionsRequest"></a>
 
-### AppRequest
-AppRequest
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
-| sub_req | [SubscribeRequest](#ricapi.e2.v1beta1.SubscribeRequest) |  |  |
-| sub_del_req | [SubscribeDeleteRequest](#ricapi.e2.v1beta1.SubscribeDeleteRequest) |  |  |
-| payload | [bytes](#bytes) |  |  |
-
-
-
-
-
-
-<a name="ricapi.e2.v1beta1.AppResponse"></a>
-
-### AppResponse
-AppResponse
+### DropE2NodeConnectionsRequest
+DropE2NodeConnectionsRequest carries drop connection request
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ricapi.e2.headers.v1beta1.ResponseHeader](#ricapi.e2.headers.v1beta1.ResponseHeader) |  |  |
-| sub_resp | [SubscribeResponse](#ricapi.e2.v1beta1.SubscribeResponse) |  |  |
-| sub_del_resp | [SubscribeDeleteResponse](#ricapi.e2.v1beta1.SubscribeDeleteResponse) |  |  |
-| indication | [Indication](#ricapi.e2.v1beta1.Indication) |  |  |
-| payload | [bytes](#bytes) |  |  |
+| connections | [ListE2NodeConnectionsResponse](#admin.v1.ListE2NodeConnectionsResponse) | repeated |  |
 
 
 
 
 
 
-<a name="ricapi.e2.v1beta1.Indication"></a>
+<a name="admin.v1.DropE2NodeConnectionsResponse"></a>
 
-### Indication
-Indication an indication message
-
-
-
-
-
-
-<a name="ricapi.e2.v1beta1.SubscribeDeleteRequest"></a>
-
-### SubscribeDeleteRequest
-SubscribeDeleteRequest a subscription delete request
-
-
-
-
-
-
-<a name="ricapi.e2.v1beta1.SubscribeDeleteResponse"></a>
-
-### SubscribeDeleteResponse
-SubscribeDeleteResponse a subscription delete response
+### DropE2NodeConnectionsResponse
+DropE2NodeConnectionsResponse carries drop connection response
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| status | [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus) |  |  |
+| success | [bool](#bool) | repeated |  |
 
 
 
 
 
 
-<a name="ricapi.e2.v1beta1.SubscribeRequest"></a>
+<a name="admin.v1.ListE2NodeConnectionsRequest"></a>
 
-### SubscribeRequest
-SubscribeRequest a subscription request
-
-
+### ListE2NodeConnectionsRequest
+ListE2NodeConnectionsRequest carries request for a list of E2 node SCTP connections.
 
 
 
 
-<a name="ricapi.e2.v1beta1.SubscribeResponse"></a>
 
-### SubscribeResponse
-SubscribeResponse a subscription response
+
+<a name="admin.v1.ListE2NodeConnectionsResponse"></a>
+
+### ListE2NodeConnectionsResponse
+ListE2NodeConnectionsResponse carries information about the SCTP connection to the remote E2 node.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| status | [ResponseStatus](#ricapi.e2.v1beta1.ResponseStatus) |  |  |
+| remote_ip | [string](#string) | repeated |  |
+| remote_port | [uint32](#uint32) |  |  |
+| id | [uint32](#uint32) |  |  |
+| plmn_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="admin.v1.ListRegisteredServiceModelsRequest"></a>
+
+### ListRegisteredServiceModelsRequest
+ListRegisteredServiceModelsRequest carries data for querying registered service model plugins.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| model_name | [string](#string) |  | An optional filter on the name of the model plugins to list. |
+| model_version | [string](#string) |  | An optional filter on the version of the model plugins to list |
+
+
+
+
+
+
+<a name="admin.v1.ListRegisteredServiceModelsResponse"></a>
+
+### ListRegisteredServiceModelsResponse
+ListRegisteredServiceModelsResponse is general information about a service model plugin.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | name is the name given to the service model plugin - no spaces and title case. |
+| version | [string](#string) |  | version is the semantic version of the Plugin e.g. 1.0.0. |
+
+
+
+
+
+
+<a name="admin.v1.UploadRegisterServiceModelRequest"></a>
+
+### UploadRegisterServiceModelRequest
+UploadRegisterServiceModelRequest is for streaming a model plugin file to the server.
+There is a built in limit in gRPC of 4MB - plugin is usually around 20MB
+so break in to chunks of approx 1-2MB.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| so_file | [string](#string) |  | so_file is the name being streamed. |
+| content | [bytes](#bytes) |  | content is the bytes content. |
+
+
+
+
+
+
+<a name="admin.v1.UploadRegisterServiceModelResponse"></a>
+
+### UploadRegisterServiceModelResponse
+UploadRegisterServiceModelResponse carries status of model plugin registration.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | name is name of the model plugin. |
+| version | [string](#string) |  | version is the semantic version of the model plugin. |
 
 
 
@@ -125,33 +151,22 @@ SubscribeResponse a subscription response
 
  
 
-
-<a name="ricapi.e2.v1beta1.ResponseStatus"></a>
-
-### ResponseStatus
-ResponseStatus
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| RESPONSE_STATUS_FAILED | 0 |  |
-| RESPONSE_STATUS_SUCCESSFUL | 1 |  |
-
-
  
 
  
 
 
-<a name="ricapi.e2.v1beta1.E2TService"></a>
+<a name="admin.v1.E2TAdminService"></a>
 
-### E2TService
-E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
-
-List of registered/available SMs
+### E2TAdminService
+E2TAdminService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| RegisterApp | [AppRequest](#ricapi.e2.v1beta1.AppRequest) stream | [AppResponse](#ricapi.e2.v1beta1.AppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
+| UploadRegisterServiceModel | [UploadRegisterServiceModelRequest](#admin.v1.UploadRegisterServiceModelRequest) stream | [UploadRegisterServiceModelResponse](#admin.v1.UploadRegisterServiceModelResponse) | UploadRegisterServiceModel uploads and adds the model plugin to the list of supported models. The file is serialized in to Chunks of less than 4MB so as not to break the gRPC byte array limit |
+| ListRegisteredServiceModels | [ListRegisteredServiceModelsRequest](#admin.v1.ListRegisteredServiceModelsRequest) | [ListRegisteredServiceModelsResponse](#admin.v1.ListRegisteredServiceModelsResponse) stream | ListRegisteredServiceModels returns a stream of registered service models. |
+| ListE2NodeConnections | [ListE2NodeConnectionsRequest](#admin.v1.ListE2NodeConnectionsRequest) | [ListE2NodeConnectionsResponse](#admin.v1.ListE2NodeConnectionsResponse) stream | ListE2NodeConnections returns a stream of existing SCTP connections. |
+| DropE2NodeConnections | [DropE2NodeConnectionsRequest](#admin.v1.DropE2NodeConnectionsRequest) | [DropE2NodeConnectionsResponse](#admin.v1.DropE2NodeConnectionsResponse) | DropE2NodeConnections drops the specified E2 node SCTP connections |
 
  
 

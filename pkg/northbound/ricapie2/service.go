@@ -44,15 +44,9 @@ func (s Server) RegisterApp(stream ricapie2v1beta1.E2TService_RegisterAppServer)
 
 		req, err := stream.Recv()
 		if err == io.EOF {
-			log.Error("End of file error", err)
+			log.Error("End of file error", err, req)
 			return nil
 		}
-		if err != nil {
-			log.Error(err)
-			continue
-		}
-
-		err = s.appRequestHandler(req)
 		if err != nil {
 			log.Error(err)
 			continue
