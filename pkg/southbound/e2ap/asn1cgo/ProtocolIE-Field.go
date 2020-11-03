@@ -227,7 +227,7 @@ func newRicSubscriptionRequestIe29RicRequestID(rsrRrIDIe *e2appducontents.Ricsub
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
