@@ -39,19 +39,6 @@ func XerDecodeE2apPduOld(bytes []byte) (*e2ctypes.E2AP_PDUT, error) {
 	return decodeE2apPduOld((*C.E2AP_PDU_t)(unsafePtr))
 }
 
-// PerDecodeE2apPduOld - the main entry to decode E2 message in PER format
-// Deprecated: Do not use.
-func PerDecodeE2apPduOld(bytes []byte) (*e2ctypes.E2AP_PDUT, error) {
-	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_E2AP_PDU)
-	if err != nil {
-		return nil, err
-	}
-	if unsafePtr == nil {
-		return nil, fmt.Errorf("pointer decoded from XER is nil")
-	}
-	return decodeE2apPduOld((*C.E2AP_PDU_t)(unsafePtr))
-}
-
 // XerEncodeE2apPduOld - the main function for testing from higher level api to C api
 // Deprecated: Do not use.
 func XerEncodeE2apPduOld(e2apPdu *e2ctypes.E2AP_PDUT) ([]byte, error) {

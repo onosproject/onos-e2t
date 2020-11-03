@@ -13,28 +13,27 @@ package orane2
 import "C"
 import (
 	"encoding/binary"
+	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2proxy/e2ctypes"
 )
 
-// XerDecodeRICrequestID - just used for test only
-// Deprecated: Do not use.
-func XerDecodeRICrequestID(bytes []byte) (*e2ctypes.RICrequestIDT, error) {
-	resultUnsafe, err := decodeXer(bytes, &C.asn_DEF_RICrequestID)
+func xerDecodeRicRequestID(bytes []byte) (*e2apies.RicrequestId, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_RICrequestID)
 	if err != nil {
 		return nil, err
 	}
-
-	resultC := (*C.RICrequestID_t)(resultUnsafe)
-	result := e2ctypes.RICrequestIDT{
-		RicRequestorID: int64(resultC.ricRequestorID),
-		RicInstanceID:  int64(resultC.ricInstanceID),
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
+	ricIndicationC := (*C.RICrequestID_t)(unsafePtr)
+	ricIndication := decodeRicRequestID(ricIndicationC)
 
-	return &result, nil
+	return ricIndication, nil
 }
 
 // Deprecated: Do not use.
-func decodeRicRequestID(ricRequestIDCchoice []byte) (*e2ctypes.RICrequestIDT, error) {
+func decodeRicRequestIDOld(ricRequestIDCchoice []byte) (*e2ctypes.RICrequestIDT, error) {
 	ricRequestorID := binary.LittleEndian.Uint64(ricRequestIDCchoice[0:8])
 	ricInstanceID := binary.LittleEndian.Uint64(ricRequestIDCchoice[8:16])
 
@@ -44,4 +43,34 @@ func decodeRicRequestID(ricRequestIDCchoice []byte) (*e2ctypes.RICrequestIDT, er
 	}
 
 	return &result, nil
+}
+
+func newRicRequestID(rrID *e2apies.RicrequestId) *C.RICrequestID_t {
+	rrIDC := C.RICrequestID_t{
+		ricRequestorID: C.long(rrID.RicRequestorId),
+		ricInstanceID: C.long(rrID.RicInstanceId),
+	}
+	return &rrIDC
+}
+
+func decodeRicRequestIDBytes(ricRequestIDCchoice []byte) *e2apies.RicrequestId {
+	ricRequestorID := binary.LittleEndian.Uint64(ricRequestIDCchoice[0:8])
+	ricInstanceID := binary.LittleEndian.Uint64(ricRequestIDCchoice[8:16])
+
+	rrID := C.RICrequestID_t{
+		ricRequestorID: C.long(ricRequestorID),
+		ricInstanceID: C.long(ricInstanceID),
+	}
+
+	return decodeRicRequestID(&rrID)
+}
+
+func decodeRicRequestID(ricRequestIDCchoice *C.RICrequestID_t) *e2apies.RicrequestId {
+
+	result := e2apies.RicrequestId{
+		RicRequestorId: int32(ricRequestIDCchoice.ricRequestorID),
+		RicInstanceId:  int32(ricRequestIDCchoice.ricInstanceID),
+	}
+
+	return &result
 }

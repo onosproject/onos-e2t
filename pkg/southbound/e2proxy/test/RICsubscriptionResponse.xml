@@ -6,6 +6,13 @@
             <RICsubscriptionResponse>
                 <protocolIEs>
                     <RICsubscriptionResponse-IEs>
+                        <id>5</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RANfunctionID>20</RANfunctionID>
+                        </value>
+                    </RICsubscriptionResponse-IEs>
+                    <RICsubscriptionResponse-IEs>
                         <id>29</id>
                         <criticality><reject/></criticality>
                         <value>

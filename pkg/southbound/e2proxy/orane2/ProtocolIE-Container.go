@@ -112,7 +112,7 @@ func decodeProtocolIeContainer1544P1(protocolIEsC *C.ProtocolIE_Container_1544P1
 	for i = 0; i < protocolIEsC.list.count; i++ {
 		rsrIeC := (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(*protocolIEsC.list.array)) + uintptr(protocolIEsC.list.size*2*i))) //Not sure why it needs to be multiplied by 2
 
-		ie, err := decodeRICsubscriptionResponseIE(*rsrIeC)
+		ie, err := decodeRICsubscriptionResponseIEOld(*rsrIeC)
 		if err != nil {
 			return nil, err
 		}
@@ -258,10 +258,9 @@ func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1544P
 	ieCount := int(protocolIEsC.list.count)
 	fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
-		listC := unsafe.Pointer(*protocolIEsC.list.array)
-		rsrIeC := (*C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(uintptr(listC) + uintptr(protocolIEsC.list.size*C.int(i))))
+		rsrIeC := (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(*protocolIEsC.list.array)) + uintptr(protocolIEsC.list.size*2*C.int(i)))) //Not sure why it needs to be multiplied by 2
 
-		ie, err := decodeRicSubscriptionResponseIE(rsrIeC)
+		ie, err := decodeRicSubscriptionResponseIE(*rsrIeC)
 		if err != nil {
 			return nil, err
 		}
@@ -276,6 +275,63 @@ func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1544P
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newRicSubscriptionRequestIes(rsrIEs *e2appducontents.RicsubscriptionRequestIes) (*C.ProtocolIE_Container_1544P0_t, error) {
+	pIeC1544P0 := new(C.ProtocolIE_Container_1544P0_t)
+
+	if rsrIEs.GetE2ApProtocolIes5() != nil {
+		ie5C, err := newRicSubscriptionRequestIe5RanFunctionID(rsrIEs.E2ApProtocolIes5)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P0), unsafe.Pointer(ie5C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsrIEs.GetE2ApProtocolIes29() != nil {
+		ie29C, err := newRicSubscriptionRequestIe29RicRequestID(rsrIEs.E2ApProtocolIes29)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P0), unsafe.Pointer(ie29C)); err != nil {
+			return nil, err
+		}
+	}
+
+	//if rsrIEs.GetE2ApProtocolIes30() != nil {
+	// TODO: implement me
+	//}
+
+	return pIeC1544P0, nil
+}
+
+func decodeRicSubscriptionRequestIes(protocolIEsC *C.ProtocolIE_Container_1544P0_t) (*e2appducontents.RicsubscriptionRequestIes, error) {
+	pIEs := new(e2appducontents.RicsubscriptionRequestIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	fmt.Printf("1544P0 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		listC := unsafe.Pointer(*protocolIEsC.list.array)
+		rsrIeC := (*C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(uintptr(listC) + uintptr(protocolIEsC.list.size*C.int(i))))
+
+		ie, err := decodeRicSubscriptionRequestIE(rsrIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes5 != nil {
+			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		}
+		if ie.E2ApProtocolIes29 != nil {
+			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		}
+		if ie.E2ApProtocolIes30 != nil {
+			pIEs.E2ApProtocolIes30 = ie.E2ApProtocolIes30
 		}
 	}
 
