@@ -14,7 +14,7 @@ import (
 
 func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ranFuncID int32, ricActionID int32,
 	ricAction e2apies.RicactionType, ricSubsequentAction e2apies.RicsubsequentActionType,
-	ricttw e2apies.RictimeToWait, ricEventDef byte, ricActionDef byte) (*e2appdudescriptions.E2ApPdu, error) {
+	ricttw e2apies.RictimeToWait, ricEventDef []byte, ricActionDef []byte) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if ricReqID|mask20bit > mask20bit {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReqID)
@@ -47,7 +47,7 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RicsubscriptionDetails{
 			RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{
-				Value: make([]byte, 3), // Octet String definition from e2ap-v01.00.asn1:337
+				//Value: make([]byte, 3), // Octet String definition from e2ap-v01.00.asn1:337
 			},
 			RicActionToBeSetupList: &e2appducontents.RicactionsToBeSetupList{
 				Value: make([]*e2appducontents.RicactionToBeSetupItemIes, 0),
@@ -55,7 +55,7 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
-	ricSubscriptionDetails.Value.RicEventTriggerDefinition.Value = append(ricSubscriptionDetails.Value.RicEventTriggerDefinition.Value, ricEventDef)
+	copy(ricSubscriptionDetails.Value.RicEventTriggerDefinition.Value, ricEventDef)
 	// ricEventDef value taken from e2ap-v01.00.asn1:1297
 
 	ricActionListToSetup := e2appducontents.RicactionToBeSetupItemIes{
@@ -63,17 +63,15 @@ func CreateRicSubscriptionRequestE2apPdu(ricReqID int32, ricInstanceID int32, ra
 			RicActionId: &e2apies.RicactionId{
 				Value: ricActionID, // range of Integer from e2ap-v01.00.asn1:1059, value from line 1283
 			},
-			RicActionType: ricAction,
-			RicActionDefinition: &e2ap_commondatatypes.RicactionDefinition{
-				Value: make([]byte, 3), // Octet String definition from e2ap-v01.00.asn1:1057
-			},
+			RicActionType:       ricAction,
+			RicActionDefinition: &e2ap_commondatatypes.RicactionDefinition{},
 			RicSubsequentAction: &e2apies.RicsubsequentAction{
 				RicSubsequentActionType: ricSubsequentAction,
 				RicTimeToWait:           ricttw,
 			},
 		},
 	}
-	ricActionListToSetup.Value.RicActionDefinition.Value = append(ricActionListToSetup.Value.RicActionDefinition.Value, ricActionDef)
+	copy(ricActionListToSetup.Value.RicActionDefinition.Value, ricActionDef)
 	// ricEventDef value taken from e2ap-v01.00.asn1:1285
 	ricSubscriptionDetails.Value.RicActionToBeSetupList.Value = append(ricSubscriptionDetails.Value.RicActionToBeSetupList.Value, &ricActionListToSetup)
 

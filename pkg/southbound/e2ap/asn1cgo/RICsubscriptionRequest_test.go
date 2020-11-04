@@ -17,7 +17,7 @@ func Test_xerEncodeRICsubscriptionRequest(t *testing.T) {
 	var ricttw = e2apies.RictimeToWait_RICTIME_TO_WAIT_ZERO
 
 	e2ApPduRsr, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(21, 22,
-		9, 15, ricAction, ricSubsequentAction, ricttw, 29, 17)
+		9, 15, ricAction, ricSubsequentAction, ricttw, []byte{29}, []byte{17})
 	assert.NilError(t, err)
 	xer, err := xerEncodeRICsubscriptionRequest(
 		e2ApPduRsr.GetInitiatingMessage().GetProcedureCode().GetRicSubscription().GetInitiatingMessage())
