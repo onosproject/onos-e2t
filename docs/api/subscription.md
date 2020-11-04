@@ -4,10 +4,14 @@
 ## Table of Contents
 
 - [api/ricapi/e2/subscription/v1beta1/subscription.proto](#api/ricapi/e2/subscription/v1beta1/subscription.proto)
-    - [AddSubscribtionResponse](#ricapi.e2.subscription.v1beta1.AddSubscribtionResponse)
     - [AddSubscriptionRequest](#ricapi.e2.subscription.v1beta1.AddSubscriptionRequest)
-    - [DeleteSubscriptionRequest](#ricapi.e2.subscription.v1beta1.DeleteSubscriptionRequest)
-    - [DeleteSubscriptionResponse](#ricapi.e2.subscription.v1beta1.DeleteSubscriptionResponse)
+    - [AddSubscriptionResponse](#ricapi.e2.subscription.v1beta1.AddSubscriptionResponse)
+    - [GetSubscriptionRequest](#ricapi.e2.subscription.v1beta1.GetSubscriptionRequest)
+    - [GetSubscriptionResponse](#ricapi.e2.subscription.v1beta1.GetSubscriptionResponse)
+    - [ListSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest)
+    - [ListSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse)
+    - [RemoveSubscriptionRequest](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest)
+    - [RemoveSubscriptionResponse](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse)
   
     - [SubscriptionService](#ricapi.e2.subscription.v1beta1.SubscriptionService)
   
@@ -19,22 +23,6 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## api/ricapi/e2/subscription/v1beta1/subscription.proto
-
-
-
-<a name="ricapi.e2.subscription.v1beta1.AddSubscribtionResponse"></a>
-
-### AddSubscribtionResponse
-AddSubscribtionResponse a subscription response
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| header | [ricapi.e2.headers.v1beta1.ResponseHeader](#ricapi.e2.headers.v1beta1.ResponseHeader) |  |  |
-| payload | [bytes](#bytes) |  |  |
-
-
-
 
 
 
@@ -54,10 +42,66 @@ AddSubscriptionRequest a subscription request
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.DeleteSubscriptionRequest"></a>
+<a name="ricapi.e2.subscription.v1beta1.AddSubscriptionResponse"></a>
 
-### DeleteSubscriptionRequest
-DeleteSubscriptionRequest a subscription delete request
+### AddSubscriptionResponse
+AddSubscriptionResponse a subscription response
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| header | [ricapi.e2.headers.v1beta1.ResponseHeader](#ricapi.e2.headers.v1beta1.ResponseHeader) |  |  |
+| payload | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="ricapi.e2.subscription.v1beta1.GetSubscriptionRequest"></a>
+
+### GetSubscriptionRequest
+TODO add the required fields
+
+
+
+
+
+
+<a name="ricapi.e2.subscription.v1beta1.GetSubscriptionResponse"></a>
+
+### GetSubscriptionResponse
+TODO add the required fields
+
+
+
+
+
+
+<a name="ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest"></a>
+
+### ListSubscriptionsRequest
+TODO add the required fields
+
+
+
+
+
+
+<a name="ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse"></a>
+
+### ListSubscriptionsResponse
+TODO add the required fields
+
+
+
+
+
+
+<a name="ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest"></a>
+
+### RemoveSubscriptionRequest
+RemoveSubscriptionRequest a subscription delete request
 
 
 | Field | Type | Label | Description |
@@ -70,10 +114,10 @@ DeleteSubscriptionRequest a subscription delete request
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.DeleteSubscriptionResponse"></a>
+<a name="ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse"></a>
 
-### DeleteSubscriptionResponse
-DeleteSubscriptionResponse a subscription delete response
+### RemoveSubscriptionResponse
+RemoveSubscriptionResponse a subscription delete response
 
 
 | Field | Type | Label | Description |
@@ -95,12 +139,14 @@ DeleteSubscriptionResponse a subscription delete response
 <a name="ricapi.e2.subscription.v1beta1.SubscriptionService"></a>
 
 ### SubscriptionService
-SubscriptionService manage subscription and subscription delete requests
+SubscriptionService manages subscription and subscription delete requests
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| AddSubscription | [AddSubscriptionRequest](#ricapi.e2.subscription.v1beta1.AddSubscriptionRequest) | [AddSubscribtionResponse](#ricapi.e2.subscription.v1beta1.AddSubscribtionResponse) | AddSubscription establish E2 subscriptions on E2 Node. |
-| DeleteSubscription | [DeleteSubscriptionRequest](#ricapi.e2.subscription.v1beta1.DeleteSubscriptionRequest) | [DeleteSubscriptionResponse](#ricapi.e2.subscription.v1beta1.DeleteSubscriptionResponse) | DeleteSubscription delete E2 subscriptions on E2 Node. |
+| AddSubscription | [AddSubscriptionRequest](#ricapi.e2.subscription.v1beta1.AddSubscriptionRequest) | [AddSubscriptionResponse](#ricapi.e2.subscription.v1beta1.AddSubscriptionResponse) | AddSubscription establishes E2 subscriptions on E2 Node. |
+| RemoveSubscription | [RemoveSubscriptionRequest](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest) | [RemoveSubscriptionResponse](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse) | RemoveSubscription removes E2 subscriptions on E2 Node. |
+| GetSubscription | [GetSubscriptionRequest](#ricapi.e2.subscription.v1beta1.GetSubscriptionRequest) | [GetSubscriptionResponse](#ricapi.e2.subscription.v1beta1.GetSubscriptionResponse) | GetSubscription retrieves information about a specific subscription in the list of existing subscriptions |
+| ListSubscriptions | [ListSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest) | [ListSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse) | ListSubscriptions returns the list of current existing subscriptions |
 
  
 

@@ -27,8 +27,128 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// AddSubscribtionResponse a subscription response
-type AddSubscribtionResponse struct {
+type ListSubscriptionsRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListSubscriptionsRequest) Reset()         { *m = ListSubscriptionsRequest{} }
+func (m *ListSubscriptionsRequest) String() string { return proto.CompactTextString(m) }
+func (*ListSubscriptionsRequest) ProtoMessage()    {}
+func (*ListSubscriptionsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{0}
+}
+func (m *ListSubscriptionsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListSubscriptionsRequest.Unmarshal(m, b)
+}
+func (m *ListSubscriptionsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListSubscriptionsRequest.Marshal(b, m, deterministic)
+}
+func (m *ListSubscriptionsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListSubscriptionsRequest.Merge(m, src)
+}
+func (m *ListSubscriptionsRequest) XXX_Size() int {
+	return xxx_messageInfo_ListSubscriptionsRequest.Size(m)
+}
+func (m *ListSubscriptionsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListSubscriptionsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListSubscriptionsRequest proto.InternalMessageInfo
+
+type ListSubscriptionsResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListSubscriptionsResponse) Reset()         { *m = ListSubscriptionsResponse{} }
+func (m *ListSubscriptionsResponse) String() string { return proto.CompactTextString(m) }
+func (*ListSubscriptionsResponse) ProtoMessage()    {}
+func (*ListSubscriptionsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{1}
+}
+func (m *ListSubscriptionsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListSubscriptionsResponse.Unmarshal(m, b)
+}
+func (m *ListSubscriptionsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListSubscriptionsResponse.Marshal(b, m, deterministic)
+}
+func (m *ListSubscriptionsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListSubscriptionsResponse.Merge(m, src)
+}
+func (m *ListSubscriptionsResponse) XXX_Size() int {
+	return xxx_messageInfo_ListSubscriptionsResponse.Size(m)
+}
+func (m *ListSubscriptionsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListSubscriptionsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListSubscriptionsResponse proto.InternalMessageInfo
+
+type GetSubscriptionRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetSubscriptionRequest) Reset()         { *m = GetSubscriptionRequest{} }
+func (m *GetSubscriptionRequest) String() string { return proto.CompactTextString(m) }
+func (*GetSubscriptionRequest) ProtoMessage()    {}
+func (*GetSubscriptionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{2}
+}
+func (m *GetSubscriptionRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSubscriptionRequest.Unmarshal(m, b)
+}
+func (m *GetSubscriptionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSubscriptionRequest.Marshal(b, m, deterministic)
+}
+func (m *GetSubscriptionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSubscriptionRequest.Merge(m, src)
+}
+func (m *GetSubscriptionRequest) XXX_Size() int {
+	return xxx_messageInfo_GetSubscriptionRequest.Size(m)
+}
+func (m *GetSubscriptionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSubscriptionRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSubscriptionRequest proto.InternalMessageInfo
+
+type GetSubscriptionResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetSubscriptionResponse) Reset()         { *m = GetSubscriptionResponse{} }
+func (m *GetSubscriptionResponse) String() string { return proto.CompactTextString(m) }
+func (*GetSubscriptionResponse) ProtoMessage()    {}
+func (*GetSubscriptionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{3}
+}
+func (m *GetSubscriptionResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetSubscriptionResponse.Unmarshal(m, b)
+}
+func (m *GetSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetSubscriptionResponse.Marshal(b, m, deterministic)
+}
+func (m *GetSubscriptionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetSubscriptionResponse.Merge(m, src)
+}
+func (m *GetSubscriptionResponse) XXX_Size() int {
+	return xxx_messageInfo_GetSubscriptionResponse.Size(m)
+}
+func (m *GetSubscriptionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetSubscriptionResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetSubscriptionResponse proto.InternalMessageInfo
+
+// AddSubscriptionResponse a subscription response
+type AddSubscriptionResponse struct {
 	Header               *v1beta1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	Payload              []byte                  `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
@@ -36,46 +156,46 @@ type AddSubscribtionResponse struct {
 	XXX_sizecache        int32                   `json:"-"`
 }
 
-func (m *AddSubscribtionResponse) Reset()         { *m = AddSubscribtionResponse{} }
-func (m *AddSubscribtionResponse) String() string { return proto.CompactTextString(m) }
-func (*AddSubscribtionResponse) ProtoMessage()    {}
-func (*AddSubscribtionResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{0}
+func (m *AddSubscriptionResponse) Reset()         { *m = AddSubscriptionResponse{} }
+func (m *AddSubscriptionResponse) String() string { return proto.CompactTextString(m) }
+func (*AddSubscriptionResponse) ProtoMessage()    {}
+func (*AddSubscriptionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{4}
 }
-func (m *AddSubscribtionResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddSubscribtionResponse.Unmarshal(m, b)
+func (m *AddSubscriptionResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddSubscriptionResponse.Unmarshal(m, b)
 }
-func (m *AddSubscribtionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddSubscribtionResponse.Marshal(b, m, deterministic)
+func (m *AddSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddSubscriptionResponse.Marshal(b, m, deterministic)
 }
-func (m *AddSubscribtionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddSubscribtionResponse.Merge(m, src)
+func (m *AddSubscriptionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddSubscriptionResponse.Merge(m, src)
 }
-func (m *AddSubscribtionResponse) XXX_Size() int {
-	return xxx_messageInfo_AddSubscribtionResponse.Size(m)
+func (m *AddSubscriptionResponse) XXX_Size() int {
+	return xxx_messageInfo_AddSubscriptionResponse.Size(m)
 }
-func (m *AddSubscribtionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddSubscribtionResponse.DiscardUnknown(m)
+func (m *AddSubscriptionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddSubscriptionResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AddSubscribtionResponse proto.InternalMessageInfo
+var xxx_messageInfo_AddSubscriptionResponse proto.InternalMessageInfo
 
-func (m *AddSubscribtionResponse) GetHeader() *v1beta1.ResponseHeader {
+func (m *AddSubscriptionResponse) GetHeader() *v1beta1.ResponseHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
 
-func (m *AddSubscribtionResponse) GetPayload() []byte {
+func (m *AddSubscriptionResponse) GetPayload() []byte {
 	if m != nil {
 		return m.Payload
 	}
 	return nil
 }
 
-// DeleteSubscriptionRequest a subscription delete request
-type DeleteSubscriptionRequest struct {
+// RemoveSubscriptionRequest a subscription delete request
+type RemoveSubscriptionRequest struct {
 	Header               *v1beta1.RequestHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	Payload              []byte                 `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
@@ -83,46 +203,46 @@ type DeleteSubscriptionRequest struct {
 	XXX_sizecache        int32                  `json:"-"`
 }
 
-func (m *DeleteSubscriptionRequest) Reset()         { *m = DeleteSubscriptionRequest{} }
-func (m *DeleteSubscriptionRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteSubscriptionRequest) ProtoMessage()    {}
-func (*DeleteSubscriptionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{1}
+func (m *RemoveSubscriptionRequest) Reset()         { *m = RemoveSubscriptionRequest{} }
+func (m *RemoveSubscriptionRequest) String() string { return proto.CompactTextString(m) }
+func (*RemoveSubscriptionRequest) ProtoMessage()    {}
+func (*RemoveSubscriptionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{5}
 }
-func (m *DeleteSubscriptionRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteSubscriptionRequest.Unmarshal(m, b)
+func (m *RemoveSubscriptionRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveSubscriptionRequest.Unmarshal(m, b)
 }
-func (m *DeleteSubscriptionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteSubscriptionRequest.Marshal(b, m, deterministic)
+func (m *RemoveSubscriptionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveSubscriptionRequest.Marshal(b, m, deterministic)
 }
-func (m *DeleteSubscriptionRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteSubscriptionRequest.Merge(m, src)
+func (m *RemoveSubscriptionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveSubscriptionRequest.Merge(m, src)
 }
-func (m *DeleteSubscriptionRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteSubscriptionRequest.Size(m)
+func (m *RemoveSubscriptionRequest) XXX_Size() int {
+	return xxx_messageInfo_RemoveSubscriptionRequest.Size(m)
 }
-func (m *DeleteSubscriptionRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteSubscriptionRequest.DiscardUnknown(m)
+func (m *RemoveSubscriptionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveSubscriptionRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DeleteSubscriptionRequest proto.InternalMessageInfo
+var xxx_messageInfo_RemoveSubscriptionRequest proto.InternalMessageInfo
 
-func (m *DeleteSubscriptionRequest) GetHeader() *v1beta1.RequestHeader {
+func (m *RemoveSubscriptionRequest) GetHeader() *v1beta1.RequestHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
 
-func (m *DeleteSubscriptionRequest) GetPayload() []byte {
+func (m *RemoveSubscriptionRequest) GetPayload() []byte {
 	if m != nil {
 		return m.Payload
 	}
 	return nil
 }
 
-// DeleteSubscriptionResponse a subscription delete response
-type DeleteSubscriptionResponse struct {
+// RemoveSubscriptionResponse a subscription delete response
+type RemoveSubscriptionResponse struct {
 	Header               *v1beta1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
 	Payload              []byte                  `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
@@ -130,38 +250,38 @@ type DeleteSubscriptionResponse struct {
 	XXX_sizecache        int32                   `json:"-"`
 }
 
-func (m *DeleteSubscriptionResponse) Reset()         { *m = DeleteSubscriptionResponse{} }
-func (m *DeleteSubscriptionResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteSubscriptionResponse) ProtoMessage()    {}
-func (*DeleteSubscriptionResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{2}
+func (m *RemoveSubscriptionResponse) Reset()         { *m = RemoveSubscriptionResponse{} }
+func (m *RemoveSubscriptionResponse) String() string { return proto.CompactTextString(m) }
+func (*RemoveSubscriptionResponse) ProtoMessage()    {}
+func (*RemoveSubscriptionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{6}
 }
-func (m *DeleteSubscriptionResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteSubscriptionResponse.Unmarshal(m, b)
+func (m *RemoveSubscriptionResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveSubscriptionResponse.Unmarshal(m, b)
 }
-func (m *DeleteSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteSubscriptionResponse.Marshal(b, m, deterministic)
+func (m *RemoveSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveSubscriptionResponse.Marshal(b, m, deterministic)
 }
-func (m *DeleteSubscriptionResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteSubscriptionResponse.Merge(m, src)
+func (m *RemoveSubscriptionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveSubscriptionResponse.Merge(m, src)
 }
-func (m *DeleteSubscriptionResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteSubscriptionResponse.Size(m)
+func (m *RemoveSubscriptionResponse) XXX_Size() int {
+	return xxx_messageInfo_RemoveSubscriptionResponse.Size(m)
 }
-func (m *DeleteSubscriptionResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteSubscriptionResponse.DiscardUnknown(m)
+func (m *RemoveSubscriptionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveSubscriptionResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DeleteSubscriptionResponse proto.InternalMessageInfo
+var xxx_messageInfo_RemoveSubscriptionResponse proto.InternalMessageInfo
 
-func (m *DeleteSubscriptionResponse) GetHeader() *v1beta1.ResponseHeader {
+func (m *RemoveSubscriptionResponse) GetHeader() *v1beta1.ResponseHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
 
-func (m *DeleteSubscriptionResponse) GetPayload() []byte {
+func (m *RemoveSubscriptionResponse) GetPayload() []byte {
 	if m != nil {
 		return m.Payload
 	}
@@ -181,7 +301,7 @@ func (m *AddSubscriptionRequest) Reset()         { *m = AddSubscriptionRequest{}
 func (m *AddSubscriptionRequest) String() string { return proto.CompactTextString(m) }
 func (*AddSubscriptionRequest) ProtoMessage()    {}
 func (*AddSubscriptionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{3}
+	return fileDescriptor_8732d0de81f42f54, []int{7}
 }
 func (m *AddSubscriptionRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AddSubscriptionRequest.Unmarshal(m, b)
@@ -216,9 +336,13 @@ func (m *AddSubscriptionRequest) GetPayload() []byte {
 }
 
 func init() {
-	proto.RegisterType((*AddSubscribtionResponse)(nil), "ricapi.e2.subscription.v1beta1.AddSubscribtionResponse")
-	proto.RegisterType((*DeleteSubscriptionRequest)(nil), "ricapi.e2.subscription.v1beta1.DeleteSubscriptionRequest")
-	proto.RegisterType((*DeleteSubscriptionResponse)(nil), "ricapi.e2.subscription.v1beta1.DeleteSubscriptionResponse")
+	proto.RegisterType((*ListSubscriptionsRequest)(nil), "ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest")
+	proto.RegisterType((*ListSubscriptionsResponse)(nil), "ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse")
+	proto.RegisterType((*GetSubscriptionRequest)(nil), "ricapi.e2.subscription.v1beta1.GetSubscriptionRequest")
+	proto.RegisterType((*GetSubscriptionResponse)(nil), "ricapi.e2.subscription.v1beta1.GetSubscriptionResponse")
+	proto.RegisterType((*AddSubscriptionResponse)(nil), "ricapi.e2.subscription.v1beta1.AddSubscriptionResponse")
+	proto.RegisterType((*RemoveSubscriptionRequest)(nil), "ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest")
+	proto.RegisterType((*RemoveSubscriptionResponse)(nil), "ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse")
 	proto.RegisterType((*AddSubscriptionRequest)(nil), "ricapi.e2.subscription.v1beta1.AddSubscriptionRequest")
 }
 
@@ -227,27 +351,31 @@ func init() {
 }
 
 var fileDescriptor_8732d0de81f42f54 = []byte{
-	// 314 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x32, 0x4d, 0x2c, 0xc8, 0xd4,
-	0x2f, 0xca, 0x4c, 0x06, 0x51, 0xa9, 0x46, 0xfa, 0xc5, 0xa5, 0x49, 0xc5, 0xc9, 0x45, 0x99, 0x05,
-	0x25, 0x99, 0xf9, 0x79, 0xfa, 0x65, 0x86, 0x49, 0xa9, 0x25, 0x89, 0x86, 0x28, 0x82, 0x7a, 0x05,
-	0x45, 0xf9, 0x25, 0xf9, 0x42, 0x72, 0x10, 0x2d, 0x7a, 0xa9, 0x46, 0x7a, 0x28, 0xb2, 0x50, 0x2d,
-	0x52, 0xea, 0x08, 0x23, 0x33, 0x52, 0x13, 0x53, 0x52, 0x8b, 0x8a, 0xe1, 0xa6, 0x41, 0xf9, 0x10,
-	0x83, 0x94, 0xca, 0xb8, 0xc4, 0x1d, 0x53, 0x52, 0x82, 0x21, 0x66, 0x24, 0x81, 0xcc, 0x08, 0x4a,
-	0x2d, 0x2e, 0xc8, 0xcf, 0x2b, 0x4e, 0x15, 0x72, 0xe4, 0x62, 0x83, 0xa8, 0x95, 0x60, 0x54, 0x60,
-	0xd4, 0xe0, 0x36, 0xd2, 0xd4, 0x43, 0x58, 0x0a, 0x33, 0x04, 0x6a, 0xa8, 0x1e, 0x4c, 0x93, 0x07,
-	0x58, 0x3c, 0x08, 0xaa, 0x51, 0x48, 0x82, 0x8b, 0xbd, 0x20, 0xb1, 0x32, 0x27, 0x3f, 0x31, 0x45,
-	0x82, 0x55, 0x81, 0x51, 0x83, 0x27, 0x08, 0xc6, 0x55, 0x2a, 0xe7, 0x92, 0x74, 0x49, 0xcd, 0x49,
-	0x2d, 0x49, 0x0d, 0x46, 0x72, 0x7e, 0x50, 0x6a, 0x61, 0x69, 0x6a, 0x71, 0x89, 0x90, 0x03, 0x9a,
-	0xcd, 0x1a, 0x78, 0x6d, 0x06, 0xeb, 0x21, 0xda, 0xe2, 0x4a, 0x2e, 0x29, 0x6c, 0x16, 0xd3, 0xc3,
-	0xcf, 0x25, 0x5c, 0x62, 0x88, 0xb0, 0xa6, 0x97, 0x87, 0x8d, 0x56, 0x30, 0x71, 0x09, 0x23, 0xdb,
-	0x19, 0x9c, 0x5a, 0x54, 0x96, 0x99, 0x9c, 0x2a, 0xd4, 0xc4, 0xc8, 0xc5, 0x8f, 0xe6, 0x1c, 0x21,
-	0x33, 0x3d, 0xfc, 0xe9, 0x4a, 0x0f, 0xbb, 0xfb, 0xa5, 0xcc, 0x89, 0xd7, 0x87, 0x9a, 0xc6, 0xba,
-	0x19, 0xb9, 0x84, 0x30, 0xa3, 0x43, 0xc8, 0x92, 0x90, 0x79, 0x38, 0xd3, 0x8e, 0x94, 0x15, 0x39,
-	0x5a, 0x21, 0xae, 0x71, 0x72, 0x89, 0x72, 0x4a, 0xcf, 0x2c, 0xc9, 0x28, 0x4d, 0xd2, 0x4b, 0xce,
-	0xcf, 0xd5, 0xcf, 0xcf, 0xcb, 0x2f, 0x2e, 0x28, 0xca, 0xcf, 0x4a, 0x4d, 0x2e, 0x01, 0xb3, 0x75,
-	0x53, 0x8d, 0x4a, 0xf4, 0x09, 0x67, 0xd7, 0x24, 0x36, 0x70, 0xce, 0x32, 0x06, 0x04, 0x00, 0x00,
-	0xff, 0xff, 0xac, 0x75, 0xae, 0xf5, 0xdb, 0x03, 0x00, 0x00,
+	// 374 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x94, 0x4b, 0x4b, 0xc3, 0x40,
+	0x10, 0xc7, 0x09, 0x68, 0x85, 0x51, 0x10, 0x57, 0x68, 0xd3, 0x08, 0x52, 0x72, 0xb1, 0x1e, 0xdc,
+	0xd0, 0x88, 0x8f, 0x7a, 0xb2, 0x45, 0xd0, 0x83, 0xa7, 0xf4, 0xe6, 0x2d, 0x8f, 0xc1, 0xae, 0xd8,
+	0x6e, 0xcc, 0x6e, 0x23, 0xbd, 0x7a, 0x12, 0xfc, 0x42, 0x7e, 0x3c, 0x69, 0xb2, 0xb1, 0x8f, 0xa4,
+	0x8d, 0x16, 0xf4, 0xd4, 0xee, 0x0e, 0xbf, 0xff, 0xfc, 0x67, 0xb2, 0x33, 0x70, 0xe6, 0x86, 0xcc,
+	0x8a, 0x98, 0x3f, 0xf9, 0x41, 0xdb, 0x12, 0x23, 0x4f, 0xf8, 0x11, 0x0b, 0x25, 0xe3, 0x43, 0x2b,
+	0x6e, 0x79, 0x28, 0xdd, 0xd6, 0xdc, 0x25, 0x0d, 0x23, 0x2e, 0x39, 0x39, 0x4c, 0x11, 0x8a, 0x36,
+	0x9d, 0x8b, 0x2a, 0xc4, 0x38, 0x9a, 0x4a, 0xf6, 0xd1, 0x0d, 0x30, 0x12, 0xdf, 0x6a, 0xea, 0x9c,
+	0x0a, 0x99, 0x06, 0xe8, 0xf7, 0x4c, 0xc8, 0xde, 0x8c, 0x88, 0x70, 0xf0, 0x65, 0x84, 0x42, 0x9a,
+	0x07, 0x50, 0x2f, 0x88, 0x89, 0x90, 0x0f, 0x05, 0x9a, 0x3a, 0x54, 0x6f, 0x71, 0x2e, 0x96, 0x61,
+	0x75, 0xa8, 0xe5, 0x22, 0x0a, 0x8a, 0xa1, 0xd6, 0x09, 0x82, 0xa2, 0x10, 0xe9, 0x40, 0x25, 0x75,
+	0xa6, 0x6b, 0x0d, 0xad, 0xb9, 0x6d, 0x1f, 0xd3, 0x69, 0x89, 0x99, 0x65, 0x55, 0x02, 0xcd, 0xa0,
+	0xbb, 0xe4, 0xde, 0x51, 0x20, 0xd1, 0x61, 0x2b, 0x74, 0xc7, 0xcf, 0xdc, 0x0d, 0xf4, 0xcd, 0x86,
+	0xd6, 0xdc, 0x71, 0xb2, 0xa3, 0xf9, 0x0a, 0x75, 0x07, 0x07, 0x3c, 0xc6, 0x02, 0xbf, 0xe4, 0x7a,
+	0x21, 0x73, 0x73, 0x65, 0xe6, 0x84, 0xf9, 0x71, 0xe2, 0x31, 0x18, 0x45, 0x89, 0xff, 0xa3, 0x66,
+	0x09, 0xd5, 0x5c, 0xaf, 0xff, 0xbc, 0x60, 0xfb, 0x73, 0x03, 0xf6, 0x67, 0x73, 0xf6, 0x30, 0x8a,
+	0x99, 0x8f, 0xe4, 0x4d, 0x83, 0xdd, 0x05, 0x3b, 0xe4, 0x9c, 0xae, 0x7e, 0xc5, 0xb4, 0xd8, 0xbf,
+	0x71, 0xf1, 0x6b, 0x4e, 0xf5, 0xfb, 0x43, 0x03, 0x92, 0xff, 0x1c, 0xa4, 0x5d, 0xa6, 0xb7, 0xf4,
+	0xed, 0x18, 0x57, 0xeb, 0xa0, 0xca, 0xcd, 0xa4, 0x25, 0x0b, 0x83, 0x52, 0xde, 0x92, 0xe2, 0x99,
+	0x2b, 0x6f, 0xc9, 0x92, 0x89, 0x24, 0xef, 0x1a, 0xec, 0xe5, 0x86, 0x9c, 0x5c, 0x96, 0xc9, 0x2d,
+	0xdb, 0x19, 0x46, 0x7b, 0x0d, 0x32, 0xb5, 0xd2, 0xbd, 0x79, 0xe8, 0x3e, 0x32, 0xd9, 0x1f, 0x79,
+	0xd4, 0xe7, 0x03, 0x8b, 0x0f, 0xb9, 0x08, 0x23, 0xfe, 0x84, 0xbe, 0x4c, 0xfe, 0x9f, 0xa0, 0x2d,
+	0xad, 0xf2, 0x65, 0xe9, 0x55, 0x92, 0xbd, 0x76, 0xfa, 0x15, 0x00, 0x00, 0xff, 0xff, 0x10, 0x67,
+	0xed, 0xca, 0x59, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -262,10 +390,14 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SubscriptionServiceClient interface {
-	// AddSubscription establish E2 subscriptions on E2 Node.
-	AddSubscription(ctx context.Context, in *AddSubscriptionRequest, opts ...grpc.CallOption) (*AddSubscribtionResponse, error)
-	// DeleteSubscription delete E2 subscriptions on E2 Node.
-	DeleteSubscription(ctx context.Context, in *DeleteSubscriptionRequest, opts ...grpc.CallOption) (*DeleteSubscriptionResponse, error)
+	// AddSubscription establishes E2 subscriptions on E2 Node.
+	AddSubscription(ctx context.Context, in *AddSubscriptionRequest, opts ...grpc.CallOption) (*AddSubscriptionResponse, error)
+	// RemoveSubscription removes E2 subscriptions on E2 Node.
+	RemoveSubscription(ctx context.Context, in *RemoveSubscriptionRequest, opts ...grpc.CallOption) (*RemoveSubscriptionResponse, error)
+	// GetSubscription retrieves information about a specific subscription in the list of existing subscriptions
+	GetSubscription(ctx context.Context, in *GetSubscriptionRequest, opts ...grpc.CallOption) (*GetSubscriptionResponse, error)
+	// ListSubscriptions returns the list of current existing subscriptions
+	ListSubscriptions(ctx context.Context, in *ListSubscriptionsRequest, opts ...grpc.CallOption) (*ListSubscriptionsResponse, error)
 }
 
 type subscriptionServiceClient struct {
@@ -276,8 +408,8 @@ func NewSubscriptionServiceClient(cc *grpc.ClientConn) SubscriptionServiceClient
 	return &subscriptionServiceClient{cc}
 }
 
-func (c *subscriptionServiceClient) AddSubscription(ctx context.Context, in *AddSubscriptionRequest, opts ...grpc.CallOption) (*AddSubscribtionResponse, error) {
-	out := new(AddSubscribtionResponse)
+func (c *subscriptionServiceClient) AddSubscription(ctx context.Context, in *AddSubscriptionRequest, opts ...grpc.CallOption) (*AddSubscriptionResponse, error) {
+	out := new(AddSubscriptionResponse)
 	err := c.cc.Invoke(ctx, "/ricapi.e2.subscription.v1beta1.SubscriptionService/AddSubscription", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -285,9 +417,27 @@ func (c *subscriptionServiceClient) AddSubscription(ctx context.Context, in *Add
 	return out, nil
 }
 
-func (c *subscriptionServiceClient) DeleteSubscription(ctx context.Context, in *DeleteSubscriptionRequest, opts ...grpc.CallOption) (*DeleteSubscriptionResponse, error) {
-	out := new(DeleteSubscriptionResponse)
-	err := c.cc.Invoke(ctx, "/ricapi.e2.subscription.v1beta1.SubscriptionService/DeleteSubscription", in, out, opts...)
+func (c *subscriptionServiceClient) RemoveSubscription(ctx context.Context, in *RemoveSubscriptionRequest, opts ...grpc.CallOption) (*RemoveSubscriptionResponse, error) {
+	out := new(RemoveSubscriptionResponse)
+	err := c.cc.Invoke(ctx, "/ricapi.e2.subscription.v1beta1.SubscriptionService/RemoveSubscription", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *subscriptionServiceClient) GetSubscription(ctx context.Context, in *GetSubscriptionRequest, opts ...grpc.CallOption) (*GetSubscriptionResponse, error) {
+	out := new(GetSubscriptionResponse)
+	err := c.cc.Invoke(ctx, "/ricapi.e2.subscription.v1beta1.SubscriptionService/GetSubscription", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *subscriptionServiceClient) ListSubscriptions(ctx context.Context, in *ListSubscriptionsRequest, opts ...grpc.CallOption) (*ListSubscriptionsResponse, error) {
+	out := new(ListSubscriptionsResponse)
+	err := c.cc.Invoke(ctx, "/ricapi.e2.subscription.v1beta1.SubscriptionService/ListSubscriptions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -296,21 +446,31 @@ func (c *subscriptionServiceClient) DeleteSubscription(ctx context.Context, in *
 
 // SubscriptionServiceServer is the server API for SubscriptionService service.
 type SubscriptionServiceServer interface {
-	// AddSubscription establish E2 subscriptions on E2 Node.
-	AddSubscription(context.Context, *AddSubscriptionRequest) (*AddSubscribtionResponse, error)
-	// DeleteSubscription delete E2 subscriptions on E2 Node.
-	DeleteSubscription(context.Context, *DeleteSubscriptionRequest) (*DeleteSubscriptionResponse, error)
+	// AddSubscription establishes E2 subscriptions on E2 Node.
+	AddSubscription(context.Context, *AddSubscriptionRequest) (*AddSubscriptionResponse, error)
+	// RemoveSubscription removes E2 subscriptions on E2 Node.
+	RemoveSubscription(context.Context, *RemoveSubscriptionRequest) (*RemoveSubscriptionResponse, error)
+	// GetSubscription retrieves information about a specific subscription in the list of existing subscriptions
+	GetSubscription(context.Context, *GetSubscriptionRequest) (*GetSubscriptionResponse, error)
+	// ListSubscriptions returns the list of current existing subscriptions
+	ListSubscriptions(context.Context, *ListSubscriptionsRequest) (*ListSubscriptionsResponse, error)
 }
 
 // UnimplementedSubscriptionServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedSubscriptionServiceServer struct {
 }
 
-func (*UnimplementedSubscriptionServiceServer) AddSubscription(ctx context.Context, req *AddSubscriptionRequest) (*AddSubscribtionResponse, error) {
+func (*UnimplementedSubscriptionServiceServer) AddSubscription(ctx context.Context, req *AddSubscriptionRequest) (*AddSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddSubscription not implemented")
 }
-func (*UnimplementedSubscriptionServiceServer) DeleteSubscription(ctx context.Context, req *DeleteSubscriptionRequest) (*DeleteSubscriptionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteSubscription not implemented")
+func (*UnimplementedSubscriptionServiceServer) RemoveSubscription(ctx context.Context, req *RemoveSubscriptionRequest) (*RemoveSubscriptionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveSubscription not implemented")
+}
+func (*UnimplementedSubscriptionServiceServer) GetSubscription(ctx context.Context, req *GetSubscriptionRequest) (*GetSubscriptionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSubscription not implemented")
+}
+func (*UnimplementedSubscriptionServiceServer) ListSubscriptions(ctx context.Context, req *ListSubscriptionsRequest) (*ListSubscriptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSubscriptions not implemented")
 }
 
 func RegisterSubscriptionServiceServer(s *grpc.Server, srv SubscriptionServiceServer) {
@@ -335,20 +495,56 @@ func _SubscriptionService_AddSubscription_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SubscriptionService_DeleteSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteSubscriptionRequest)
+func _SubscriptionService_RemoveSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveSubscriptionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SubscriptionServiceServer).DeleteSubscription(ctx, in)
+		return srv.(SubscriptionServiceServer).RemoveSubscription(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ricapi.e2.subscription.v1beta1.SubscriptionService/DeleteSubscription",
+		FullMethod: "/ricapi.e2.subscription.v1beta1.SubscriptionService/RemoveSubscription",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SubscriptionServiceServer).DeleteSubscription(ctx, req.(*DeleteSubscriptionRequest))
+		return srv.(SubscriptionServiceServer).RemoveSubscription(ctx, req.(*RemoveSubscriptionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SubscriptionService_GetSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSubscriptionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SubscriptionServiceServer).GetSubscription(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ricapi.e2.subscription.v1beta1.SubscriptionService/GetSubscription",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SubscriptionServiceServer).GetSubscription(ctx, req.(*GetSubscriptionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SubscriptionService_ListSubscriptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListSubscriptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SubscriptionServiceServer).ListSubscriptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ricapi.e2.subscription.v1beta1.SubscriptionService/ListSubscriptions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SubscriptionServiceServer).ListSubscriptions(ctx, req.(*ListSubscriptionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -362,8 +558,16 @@ var _SubscriptionService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _SubscriptionService_AddSubscription_Handler,
 		},
 		{
-			MethodName: "DeleteSubscription",
-			Handler:    _SubscriptionService_DeleteSubscription_Handler,
+			MethodName: "RemoveSubscription",
+			Handler:    _SubscriptionService_RemoveSubscription_Handler,
+		},
+		{
+			MethodName: "GetSubscription",
+			Handler:    _SubscriptionService_GetSubscription_Handler,
+		},
+		{
+			MethodName: "ListSubscriptions",
+			Handler:    _SubscriptionService_ListSubscriptions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
