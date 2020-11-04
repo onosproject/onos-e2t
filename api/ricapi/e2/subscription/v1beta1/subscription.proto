@@ -16,34 +16,34 @@ import "ricapi/e2/headers/v1beta1/headers.proto";
 // SubscriptionService manage subscription and subscription delete requests
 service SubscriptionService {
     // AddSubscription establish E2 subscriptions on E2 Node.
-    rpc AddSubscription (SubscribeRequest) returns (SubscribeResponse);
+    rpc AddSubscription (AddSubscriptionRequest) returns (AddSubscribtionResponse);
 
     // DeleteSubscription delete E2 subscriptions on E2 Node.
-    rpc DeleteSubscription(SubscribeDeleteRequest) returns (SubscribeDeleteResponse);
+    rpc DeleteSubscription(DeleteSubscriptionRequest) returns (DeleteSubscriptionResponse);
 }
 
-// SubscribeResponse a subscription response
-message SubscribeResponse {
+// AddSubscribtionResponse a subscription response
+message AddSubscribtionResponse {
     headers.v1beta1.ResponseHeader header = 1;
     bytes payload = 5;
 }
 
 
-// SubscribeDeleteRequest a subscription delete request
-message SubscribeDeleteRequest {
+// DeleteSubscriptionRequest a subscription delete request
+message DeleteSubscriptionRequest {
     headers.v1beta1.RequestHeader header = 1;
     bytes payload = 5;
 
 }
 
-// SubscribeDeleteResponse a subscription delete response
-message SubscribeDeleteResponse {
+// DeleteSubscriptionResponse a subscription delete response
+message DeleteSubscriptionResponse {
     headers.v1beta1.ResponseHeader header = 1;
     bytes payload = 5;
 }
 
-// SubscribeRequest a subscription request
-message SubscribeRequest {
+// AddSubscriptionRequest a subscription request
+message AddSubscriptionRequest {
     headers.v1beta1.RequestHeader header = 1;
     bytes payload = 5;
 }

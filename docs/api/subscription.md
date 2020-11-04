@@ -4,10 +4,10 @@
 ## Table of Contents
 
 - [api/ricapi/e2/subscription/v1beta1/subscription.proto](#api/ricapi/e2/subscription/v1beta1/subscription.proto)
-    - [SubscribeDeleteRequest](#ricapi.e2.subscription.v1beta1.SubscribeDeleteRequest)
-    - [SubscribeDeleteResponse](#ricapi.e2.subscription.v1beta1.SubscribeDeleteResponse)
-    - [SubscribeRequest](#ricapi.e2.subscription.v1beta1.SubscribeRequest)
-    - [SubscribeResponse](#ricapi.e2.subscription.v1beta1.SubscribeResponse)
+    - [AddSubscribtionResponse](#ricapi.e2.subscription.v1beta1.AddSubscribtionResponse)
+    - [AddSubscriptionRequest](#ricapi.e2.subscription.v1beta1.AddSubscriptionRequest)
+    - [DeleteSubscriptionRequest](#ricapi.e2.subscription.v1beta1.DeleteSubscriptionRequest)
+    - [DeleteSubscriptionResponse](#ricapi.e2.subscription.v1beta1.DeleteSubscriptionResponse)
   
     - [SubscriptionService](#ricapi.e2.subscription.v1beta1.SubscriptionService)
   
@@ -22,26 +22,10 @@
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.SubscribeDeleteRequest"></a>
+<a name="ricapi.e2.subscription.v1beta1.AddSubscribtionResponse"></a>
 
-### SubscribeDeleteRequest
-SubscribeDeleteRequest a subscription delete request
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
-| payload | [bytes](#bytes) |  |  |
-
-
-
-
-
-
-<a name="ricapi.e2.subscription.v1beta1.SubscribeDeleteResponse"></a>
-
-### SubscribeDeleteResponse
-SubscribeDeleteResponse a subscription delete response
+### AddSubscribtionResponse
+AddSubscribtionResponse a subscription response
 
 
 | Field | Type | Label | Description |
@@ -54,10 +38,10 @@ SubscribeDeleteResponse a subscription delete response
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.SubscribeRequest"></a>
+<a name="ricapi.e2.subscription.v1beta1.AddSubscriptionRequest"></a>
 
-### SubscribeRequest
-SubscribeRequest a subscription request
+### AddSubscriptionRequest
+AddSubscriptionRequest a subscription request
 
 
 | Field | Type | Label | Description |
@@ -70,10 +54,26 @@ SubscribeRequest a subscription request
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.SubscribeResponse"></a>
+<a name="ricapi.e2.subscription.v1beta1.DeleteSubscriptionRequest"></a>
 
-### SubscribeResponse
-SubscribeResponse a subscription response
+### DeleteSubscriptionRequest
+DeleteSubscriptionRequest a subscription delete request
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
+| payload | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="ricapi.e2.subscription.v1beta1.DeleteSubscriptionResponse"></a>
+
+### DeleteSubscriptionResponse
+DeleteSubscriptionResponse a subscription delete response
 
 
 | Field | Type | Label | Description |
@@ -99,8 +99,8 @@ SubscriptionService manage subscription and subscription delete requests
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| AddSubscription | [SubscribeRequest](#ricapi.e2.subscription.v1beta1.SubscribeRequest) | [SubscribeResponse](#ricapi.e2.subscription.v1beta1.SubscribeResponse) | AddSubscription establish E2 subscriptions on E2 Node. |
-| DeleteSubscription | [SubscribeDeleteRequest](#ricapi.e2.subscription.v1beta1.SubscribeDeleteRequest) | [SubscribeDeleteResponse](#ricapi.e2.subscription.v1beta1.SubscribeDeleteResponse) | DeleteSubscription delete E2 subscriptions on E2 Node. |
+| AddSubscription | [AddSubscriptionRequest](#ricapi.e2.subscription.v1beta1.AddSubscriptionRequest) | [AddSubscribtionResponse](#ricapi.e2.subscription.v1beta1.AddSubscribtionResponse) | AddSubscription establish E2 subscriptions on E2 Node. |
+| DeleteSubscription | [DeleteSubscriptionRequest](#ricapi.e2.subscription.v1beta1.DeleteSubscriptionRequest) | [DeleteSubscriptionResponse](#ricapi.e2.subscription.v1beta1.DeleteSubscriptionResponse) | DeleteSubscription delete E2 subscriptions on E2 Node. |
 
  
 
