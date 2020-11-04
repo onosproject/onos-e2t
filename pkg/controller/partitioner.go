@@ -6,8 +6,6 @@ package controller
 
 import (
 	"regexp"
-
-	"github.com/onosproject/onos-e2t/api/types"
 )
 
 // PartitionKey is a key by which to partition requests
@@ -22,7 +20,7 @@ const staticKey PartitionKey = ""
 // the partition.
 type WorkPartitioner interface {
 	// Partition gets a partition key for the given request
-	Partition(id types.ID) (PartitionKey, error)
+	Partition(id ID) (PartitionKey, error)
 }
 
 // UnaryPartitioner is a WorkPartitioner that assigns all work to a single goroutine
@@ -30,7 +28,7 @@ type UnaryPartitioner struct {
 }
 
 // Partition returns a static partition key
-func (p *UnaryPartitioner) Partition(id types.ID) (PartitionKey, error) {
+func (p *UnaryPartitioner) Partition(id ID) (PartitionKey, error) {
 	return staticKey, nil
 }
 
@@ -42,8 +40,8 @@ type RegexpPartitioner struct {
 }
 
 // Partition returns a PartitionKey from the configured regex
-func (p *RegexpPartitioner) Partition(id types.ID) (PartitionKey, error) {
-	return PartitionKey(p.Regexp.FindString(string(id))), nil
+func (p *RegexpPartitioner) Partition(id ID) (PartitionKey, error) {
+	return PartitionKey(p.Regexp.FindString(id.(string))), nil
 }
 
 var _ WorkPartitioner = &RegexpPartitioner{}

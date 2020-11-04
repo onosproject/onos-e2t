@@ -10,7 +10,6 @@ import (
 
 	"github.com/cenkalti/backoff"
 
-	"github.com/onosproject/onos-e2t/api/types"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
@@ -21,12 +20,14 @@ const (
 	maxRetryInterval     = 5 * time.Second
 )
 
+type ID interface{}
+
 // Watcher is implemented by controllers to implement watching for specific events
 // Type identifiers that are written to the watcher channel will eventually be processed by
 // the controller.
 type Watcher interface {
 	// Start starts watching for events
-	Start(ch chan<- types.ID) error
+	Start(ch chan<- ID) error
 
 	// Stop stops watching for events
 	Stop()
@@ -39,13 +40,13 @@ type Watcher interface {
 // against the current state of the cluster.
 type Reconciler interface {
 	// Reconcile is called to reconcile the state of an object
-	Reconcile(types.ID) (Result, error)
+	Reconcile(ID) (Result, error)
 }
 
 // Result is a reconciler result
 type Result struct {
 	// Requeue is the identifier of an event to requeue
-	Requeue types.ID
+	Requeue ID
 }
 
 // NewController creates a new controller
@@ -55,7 +56,7 @@ func NewController(name string) *Controller {
 		activator:   &UnconditionalActivator{},
 		partitioner: &UnaryPartitioner{},
 		watchers:    make([]Watcher, 0),
-		partitions:  make(map[PartitionKey]chan types.ID),
+		partitions:  make(map[PartitionKey]chan ID),
 	}
 }
 
@@ -83,7 +84,7 @@ type Controller struct {
 	filter      Filter
 	watchers    []Watcher
 	reconciler  Reconciler
-	partitions  map[PartitionKey]chan types.ID
+	partitions  map[PartitionKey]chan ID
 }
 
 // Activate sets an activator for the controller
@@ -160,7 +161,7 @@ func (c *Controller) Stop() {
 
 // activate activates the controller
 func (c *Controller) activate() {
-	ch := make(chan types.ID)
+	ch := make(chan ID)
 	wg := &sync.WaitGroup{}
 	for _, watcher := range c.watchers {
 		if err := c.startWatcher(ch, wg, watcher); err == nil {
@@ -175,8 +176,8 @@ func (c *Controller) activate() {
 }
 
 // startWatcher starts a single watcher
-func (c *Controller) startWatcher(ch chan types.ID, wg *sync.WaitGroup, watcher Watcher) error {
-	watcherCh := make(chan types.ID)
+func (c *Controller) startWatcher(ch chan ID, wg *sync.WaitGroup, watcher Watcher) error {
+	watcherCh := make(chan ID)
 	if err := watcher.Start(watcherCh); err != nil {
 		return err
 	}
@@ -198,7 +199,7 @@ func (c *Controller) deactivate() {
 }
 
 // processEvents processes the events from the given channel
-func (c *Controller) processEvents(ch chan types.ID) {
+func (c *Controller) processEvents(ch chan ID) {
 	c.mu.RLock()
 	filter := c.filter
 	partitioner := c.partitioner
@@ -212,7 +213,7 @@ func (c *Controller) processEvents(ch chan types.ID) {
 }
 
 // partition writes the given request to a partition
-func (c *Controller) partition(id types.ID, partitioner WorkPartitioner) {
+func (c *Controller) partition(id ID, partitioner WorkPartitioner) {
 	iteration := 1
 	for {
 		// Get the partition key for the object ID
@@ -228,7 +229,7 @@ func (c *Controller) partition(id types.ID, partitioner WorkPartitioner) {
 				c.mu.Lock()
 				partition, ok = c.partitions[key]
 				if !ok {
-					partition = make(chan types.ID)
+					partition = make(chan ID)
 					c.partitions[key] = partition
 					go c.processRequests(partition)
 				}
@@ -242,7 +243,7 @@ func (c *Controller) partition(id types.ID, partitioner WorkPartitioner) {
 }
 
 // processRequests processes requests from the given channel
-func (c *Controller) processRequests(ch chan types.ID) {
+func (c *Controller) processRequests(ch chan ID) {
 	c.mu.RLock()
 	reconciler := c.reconciler
 	c.mu.RUnlock()
@@ -258,12 +259,12 @@ func (c *Controller) processRequests(ch chan types.ID) {
 }
 
 // requeueRequest requeues the given request
-func (c *Controller) requeueRequest(ch chan types.ID, id types.ID) {
+func (c *Controller) requeueRequest(ch chan ID, id ID) {
 	ch <- id
 }
 
 // reconcile reconciles the given request ID until complete
-func (c *Controller) reconcile(id types.ID, reconciler Reconciler) Result {
+func (c *Controller) reconcile(id ID, reconciler Reconciler) Result {
 
 	iteration := 0
 	var result Result
