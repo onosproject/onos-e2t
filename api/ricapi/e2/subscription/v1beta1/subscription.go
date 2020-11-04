@@ -15,21 +15,3 @@ type AppID string
 
 // ServiceModelID is a service model identifier
 type ServiceModelID string
-
-// Encoding is an encoding type
-type Encoding string
-
-const (
-	EncodingASN1     Encoding = "asn1"
-	EncodingProtobuf Encoding = "proto"
-)
-
-// GetPayloadEncoding returns the payload encoding
-func (s *Subscription) GetPayloadEncoding() Encoding {
-	return Encoding(s.GetPayload().TypeUrl)
-}
-
-// GetPayloadBytes returns the payload bytes
-func (s *Subscription) GetPayloadBytes() []byte {
-	return s.GetPayload().GetValue()
-}

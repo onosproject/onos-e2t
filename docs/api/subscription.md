@@ -10,14 +10,17 @@
     - [GetSubscriptionResponse](#ricapi.e2.subscription.v1beta1.GetSubscriptionResponse)
     - [ListSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest)
     - [ListSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse)
+    - [Payload](#ricapi.e2.subscription.v1beta1.Payload)
     - [RemoveSubscriptionRequest](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest)
     - [RemoveSubscriptionResponse](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse)
+    - [ServiceModel](#ricapi.e2.subscription.v1beta1.ServiceModel)
     - [Subscription](#ricapi.e2.subscription.v1beta1.Subscription)
     - [UpdateSubscriptionRequest](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionRequest)
     - [UpdateSubscriptionResponse](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionResponse)
     - [WatchSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.WatchSubscriptionsRequest)
     - [WatchSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.WatchSubscriptionsResponse)
   
+    - [Encoding](#ricapi.e2.subscription.v1beta1.Encoding)
     - [EventType](#ricapi.e2.subscription.v1beta1.EventType)
     - [State](#ricapi.e2.subscription.v1beta1.State)
   
@@ -119,6 +122,22 @@ AddSubscriptionResponse a subscription response
 
 
 
+<a name="ricapi.e2.subscription.v1beta1.Payload"></a>
+
+### Payload
+Payload is a subscription payload
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| encoding | [Encoding](#ricapi.e2.subscription.v1beta1.Encoding) |  |  |
+| bytes | [bytes](#bytes) |  |  |
+
+
+
+
+
+
 <a name="ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest"></a>
 
 ### RemoveSubscriptionRequest
@@ -149,6 +168,21 @@ RemoveSubscriptionResponse a subscription delete response
 
 
 
+<a name="ricapi.e2.subscription.v1beta1.ServiceModel"></a>
+
+### ServiceModel
+ServiceModel is a service model definition
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="ricapi.e2.subscription.v1beta1.Subscription"></a>
 
 ### Subscription
@@ -160,8 +194,8 @@ Subscription is a subscription state
 | id | [uint64](#uint64) |  |  |
 | revision | [uint64](#uint64) |  |  |
 | app_id | [string](#string) |  |  |
-| service_model_id | [string](#string) |  |  |
-| payload | [google.protobuf.Any](#google.protobuf.Any) |  |  |
+| service_model | [ServiceModel](#ricapi.e2.subscription.v1beta1.ServiceModel) |  |  |
+| payload | [Payload](#ricapi.e2.subscription.v1beta1.Payload) |  |  |
 
 
 
@@ -224,6 +258,18 @@ UpdateSubscriptionResponse is a subscription update response
 
 
  
+
+
+<a name="ricapi.e2.subscription.v1beta1.Encoding"></a>
+
+### Encoding
+Encoding indicates a payload encoding
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| ENCODING_ASN1 | 0 |  |
+| ENCODING_PROTO | 1 |  |
+
 
 
 <a name="ricapi.e2.subscription.v1beta1.EventType"></a>
