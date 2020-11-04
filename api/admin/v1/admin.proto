@@ -50,12 +50,22 @@ message ListRegisteredServiceModelsRequest {
 message ListE2NodeConnectionsRequest {
 }
 
+// E2NodeConnectionType specifies
+enum E2NodeConnectionType {
+    UNKNOWN = 0;
+    G_NB = 1;
+    E_NB = 2;
+    ENG_MB = 3;
+    NGE_NB = 4;
+}
+
 // ListE2NodeConnectionsResponse carries information about the SCTP connection to the remote E2 node.
 message ListE2NodeConnectionsResponse {
     repeated string remote_ip = 1;
     uint32 remote_port = 2;
     uint32 id = 3;
     string plmn_id = 4;
+    E2NodeConnectionType connection_type = 5;
 }
 
 // DropE2NodeConnectionsRequest carries drop connection request
