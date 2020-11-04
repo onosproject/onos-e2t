@@ -56,7 +56,7 @@ func (m *Manager) Start() error {
 
 	conns := connection.NewManager()
 
-	err := m.startSouthboundServer(conns)
+	err = m.startSouthboundServer(conns)
 	if err != nil {
 		return err
 	}
