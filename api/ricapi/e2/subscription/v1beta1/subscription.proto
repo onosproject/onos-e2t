@@ -13,37 +13,61 @@ option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/subscription/
 
 import "ricapi/e2/headers/v1beta1/headers.proto";
 
-// SubscriptionService manage subscription and subscription delete requests
+// SubscriptionService manages subscription and subscription delete requests
 service SubscriptionService {
-    // AddSubscription establish E2 subscriptions on E2 Node.
-    rpc AddSubscription (SubscribeRequest) returns (SubscribeResponse);
+    // AddSubscription establishes E2 subscriptions on E2 Node.
+    rpc AddSubscription (AddSubscriptionRequest) returns (AddSubscriptionResponse);
 
-    // DeleteSubscription delete E2 subscriptions on E2 Node.
-    rpc DeleteSubscription(SubscribeDeleteRequest) returns (SubscribeDeleteResponse);
+    // RemoveSubscription removes E2 subscriptions on E2 Node.
+    rpc RemoveSubscription(RemoveSubscriptionRequest) returns (RemoveSubscriptionResponse);
+
+    // GetSubscription retrieves information about a specific subscription in the list of existing subscriptions
+    rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse);
+
+    // ListSubscriptions returns the list of current existing subscriptions
+    rpc ListSubscriptions(ListSubscriptionsRequest) returns (ListSubscriptionsResponse);
 }
 
-// SubscribeResponse a subscription response
-message SubscribeResponse {
+message ListSubscriptionsRequest {
+    // TODO add the required fields
+}
+
+message ListSubscriptionsResponse {
+    // TODO add the required fields
+}
+
+message GetSubscriptionRequest {
+    // TODO add the required fields
+
+}
+
+message GetSubscriptionResponse {
+    // TODO add the required fields
+
+}
+
+// AddSubscriptionResponse a subscription response
+message AddSubscriptionResponse {
     headers.v1beta1.ResponseHeader header = 1;
     bytes payload = 5;
 }
 
 
-// SubscribeDeleteRequest a subscription delete request
-message SubscribeDeleteRequest {
+// RemoveSubscriptionRequest a subscription delete request
+message RemoveSubscriptionRequest {
     headers.v1beta1.RequestHeader header = 1;
     bytes payload = 5;
 
 }
 
-// SubscribeDeleteResponse a subscription delete response
-message SubscribeDeleteResponse {
+// RemoveSubscriptionResponse a subscription delete response
+message RemoveSubscriptionResponse {
     headers.v1beta1.ResponseHeader header = 1;
     bytes payload = 5;
 }
 
-// SubscribeRequest a subscription request
-message SubscribeRequest {
+// AddSubscriptionRequest a subscription request
+message AddSubscriptionRequest {
     headers.v1beta1.RequestHeader header = 1;
     bytes payload = 5;
 }

@@ -31,16 +31,24 @@ func (s Service) Register(r *grpc.Server) {
 type Server struct {
 }
 
-// AddSubscription add a subscription
-func (s Server) AddSubscription(ctx context.Context, req *subapi.SubscribeRequest) (*subapi.SubscribeResponse, error) {
-	// TODO implement AddSubscription
+// AddSubscription adds a subscription
+func (s Server) AddSubscription(ctx context.Context, req *subapi.AddSubscriptionRequest) (*subapi.AddSubscriptionResponse, error) {
 	log.Info("Adding subscription")
-	return &subapi.SubscribeResponse{}, nil
+	return &subapi.AddSubscriptionResponse{}, nil
 }
 
-// DeleteSubscription delete a subscription
-func (s Server) DeleteSubscription(ctx context.Context, req *subapi.SubscribeDeleteRequest) (*subapi.SubscribeDeleteResponse, error) {
-	// TODO implement DeleteSubscription
-	log.Info("Deleting subscription")
-	return &subapi.SubscribeDeleteResponse{}, nil
+// RemoveSubscription removes a subscription
+func (s Server) RemoveSubscription(ctx context.Context, req *subapi.RemoveSubscriptionRequest) (*subapi.RemoveSubscriptionResponse, error) {
+	log.Info("Removing subscription")
+	return &subapi.RemoveSubscriptionResponse{}, nil
+}
+
+// GetSubscription  retrieves information about a specific subscription in the list of existing subscriptions
+func (s Server) GetSubscription(ctx context.Context, req *subapi.GetSubscriptionRequest) (*subapi.GetSubscriptionResponse, error) {
+	return &subapi.GetSubscriptionResponse{}, nil
+}
+
+// ListSubscriptions returns the list of current existing subscriptions
+func (s Server) ListSubscriptions(ctx context.Context, req *subapi.ListSubscriptionsRequest) (*subapi.ListSubscriptionsResponse, error) {
+	return &subapi.ListSubscriptionsResponse{}, nil
 }
