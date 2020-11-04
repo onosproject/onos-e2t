@@ -152,7 +152,7 @@ func (m *Subscription) GetApp() AppID {
 
 // AddSubscriptionRequest a subscription request
 type AddSubscriptionRequest struct {
-	App AppID `protobuf:"bytes,1,opt,name=app,proto3,casttype=AppID" json:"app,omitempty"`
+	Subscription *Subscription `protobuf:"bytes,1,opt,name=subscription,proto3" json:"subscription,omitempty"`
 }
 
 func (m *AddSubscriptionRequest) Reset()         { *m = AddSubscriptionRequest{} }
@@ -188,11 +188,11 @@ func (m *AddSubscriptionRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AddSubscriptionRequest proto.InternalMessageInfo
 
-func (m *AddSubscriptionRequest) GetApp() AppID {
+func (m *AddSubscriptionRequest) GetSubscription() *Subscription {
 	if m != nil {
-		return m.App
+		return m.Subscription
 	}
-	return ""
+	return nil
 }
 
 // AddSubscriptionResponse a subscription response
@@ -240,6 +240,96 @@ func (m *AddSubscriptionResponse) GetSubscription() *Subscription {
 	return nil
 }
 
+// UpdateSubscriptionRequest is a subscription update request
+type UpdateSubscriptionRequest struct {
+	Subscription *Subscription `protobuf:"bytes,1,opt,name=subscription,proto3" json:"subscription,omitempty"`
+}
+
+func (m *UpdateSubscriptionRequest) Reset()         { *m = UpdateSubscriptionRequest{} }
+func (m *UpdateSubscriptionRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateSubscriptionRequest) ProtoMessage()    {}
+func (*UpdateSubscriptionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{3}
+}
+func (m *UpdateSubscriptionRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *UpdateSubscriptionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_UpdateSubscriptionRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *UpdateSubscriptionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateSubscriptionRequest.Merge(m, src)
+}
+func (m *UpdateSubscriptionRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *UpdateSubscriptionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateSubscriptionRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateSubscriptionRequest proto.InternalMessageInfo
+
+func (m *UpdateSubscriptionRequest) GetSubscription() *Subscription {
+	if m != nil {
+		return m.Subscription
+	}
+	return nil
+}
+
+// UpdateSubscriptionResponse is a subscription update response
+type UpdateSubscriptionResponse struct {
+	Subscription *Subscription `protobuf:"bytes,1,opt,name=subscription,proto3" json:"subscription,omitempty"`
+}
+
+func (m *UpdateSubscriptionResponse) Reset()         { *m = UpdateSubscriptionResponse{} }
+func (m *UpdateSubscriptionResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateSubscriptionResponse) ProtoMessage()    {}
+func (*UpdateSubscriptionResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8732d0de81f42f54, []int{4}
+}
+func (m *UpdateSubscriptionResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *UpdateSubscriptionResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_UpdateSubscriptionResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *UpdateSubscriptionResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateSubscriptionResponse.Merge(m, src)
+}
+func (m *UpdateSubscriptionResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *UpdateSubscriptionResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateSubscriptionResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateSubscriptionResponse proto.InternalMessageInfo
+
+func (m *UpdateSubscriptionResponse) GetSubscription() *Subscription {
+	if m != nil {
+		return m.Subscription
+	}
+	return nil
+}
+
 // RemoveSubscriptionRequest a subscription delete request
 type RemoveSubscriptionRequest struct {
 	Subscription *Subscription `protobuf:"bytes,1,opt,name=subscription,proto3" json:"subscription,omitempty"`
@@ -249,7 +339,7 @@ func (m *RemoveSubscriptionRequest) Reset()         { *m = RemoveSubscriptionReq
 func (m *RemoveSubscriptionRequest) String() string { return proto.CompactTextString(m) }
 func (*RemoveSubscriptionRequest) ProtoMessage()    {}
 func (*RemoveSubscriptionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{3}
+	return fileDescriptor_8732d0de81f42f54, []int{5}
 }
 func (m *RemoveSubscriptionRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -287,13 +377,14 @@ func (m *RemoveSubscriptionRequest) GetSubscription() *Subscription {
 
 // RemoveSubscriptionResponse a subscription delete response
 type RemoveSubscriptionResponse struct {
+	Subscription *Subscription `protobuf:"bytes,1,opt,name=subscription,proto3" json:"subscription,omitempty"`
 }
 
 func (m *RemoveSubscriptionResponse) Reset()         { *m = RemoveSubscriptionResponse{} }
 func (m *RemoveSubscriptionResponse) String() string { return proto.CompactTextString(m) }
 func (*RemoveSubscriptionResponse) ProtoMessage()    {}
 func (*RemoveSubscriptionResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{4}
+	return fileDescriptor_8732d0de81f42f54, []int{6}
 }
 func (m *RemoveSubscriptionResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -322,15 +413,22 @@ func (m *RemoveSubscriptionResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RemoveSubscriptionResponse proto.InternalMessageInfo
 
+func (m *RemoveSubscriptionResponse) GetSubscription() *Subscription {
+	if m != nil {
+		return m.Subscription
+	}
+	return nil
+}
+
 type GetSubscriptionRequest struct {
-	Id ID `protobuf:"varint,1,opt,name=id,proto3,casttype=ID" json:"id,omitempty"`
+	ID ID `protobuf:"varint,1,opt,name=id,proto3,casttype=ID" json:"id,omitempty"`
 }
 
 func (m *GetSubscriptionRequest) Reset()         { *m = GetSubscriptionRequest{} }
 func (m *GetSubscriptionRequest) String() string { return proto.CompactTextString(m) }
 func (*GetSubscriptionRequest) ProtoMessage()    {}
 func (*GetSubscriptionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{5}
+	return fileDescriptor_8732d0de81f42f54, []int{7}
 }
 func (m *GetSubscriptionRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -359,9 +457,9 @@ func (m *GetSubscriptionRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetSubscriptionRequest proto.InternalMessageInfo
 
-func (m *GetSubscriptionRequest) GetId() ID {
+func (m *GetSubscriptionRequest) GetID() ID {
 	if m != nil {
-		return m.Id
+		return m.ID
 	}
 	return 0
 }
@@ -374,7 +472,7 @@ func (m *GetSubscriptionResponse) Reset()         { *m = GetSubscriptionResponse
 func (m *GetSubscriptionResponse) String() string { return proto.CompactTextString(m) }
 func (*GetSubscriptionResponse) ProtoMessage()    {}
 func (*GetSubscriptionResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{6}
+	return fileDescriptor_8732d0de81f42f54, []int{8}
 }
 func (m *GetSubscriptionResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -417,7 +515,7 @@ func (m *ListSubscriptionsRequest) Reset()         { *m = ListSubscriptionsReque
 func (m *ListSubscriptionsRequest) String() string { return proto.CompactTextString(m) }
 func (*ListSubscriptionsRequest) ProtoMessage()    {}
 func (*ListSubscriptionsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{7}
+	return fileDescriptor_8732d0de81f42f54, []int{9}
 }
 func (m *ListSubscriptionsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -447,14 +545,14 @@ func (m *ListSubscriptionsRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_ListSubscriptionsRequest proto.InternalMessageInfo
 
 type ListSubscriptionsResponse struct {
-	Subscription []*Subscription `protobuf:"bytes,1,rep,name=subscription,proto3" json:"subscription,omitempty"`
+	Subscriptions []Subscription `protobuf:"bytes,1,rep,name=subscriptions,proto3" json:"subscriptions"`
 }
 
 func (m *ListSubscriptionsResponse) Reset()         { *m = ListSubscriptionsResponse{} }
 func (m *ListSubscriptionsResponse) String() string { return proto.CompactTextString(m) }
 func (*ListSubscriptionsResponse) ProtoMessage()    {}
 func (*ListSubscriptionsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{8}
+	return fileDescriptor_8732d0de81f42f54, []int{10}
 }
 func (m *ListSubscriptionsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -483,9 +581,9 @@ func (m *ListSubscriptionsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ListSubscriptionsResponse proto.InternalMessageInfo
 
-func (m *ListSubscriptionsResponse) GetSubscription() []*Subscription {
+func (m *ListSubscriptionsResponse) GetSubscriptions() []Subscription {
 	if m != nil {
-		return m.Subscription
+		return m.Subscriptions
 	}
 	return nil
 }
@@ -497,7 +595,7 @@ func (m *WatchSubscriptionsRequest) Reset()         { *m = WatchSubscriptionsReq
 func (m *WatchSubscriptionsRequest) String() string { return proto.CompactTextString(m) }
 func (*WatchSubscriptionsRequest) ProtoMessage()    {}
 func (*WatchSubscriptionsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{9}
+	return fileDescriptor_8732d0de81f42f54, []int{11}
 }
 func (m *WatchSubscriptionsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -527,15 +625,15 @@ func (m *WatchSubscriptionsRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_WatchSubscriptionsRequest proto.InternalMessageInfo
 
 type WatchSubscriptionsResponse struct {
-	Type         EventType     `protobuf:"varint,1,opt,name=type,proto3,enum=ricapi.e2.subscription.v1beta1.EventType" json:"type,omitempty"`
-	Subscription *Subscription `protobuf:"bytes,2,opt,name=subscription,proto3" json:"subscription,omitempty"`
+	Type         EventType    `protobuf:"varint,1,opt,name=type,proto3,enum=ricapi.e2.subscription.v1beta1.EventType" json:"type,omitempty"`
+	Subscription Subscription `protobuf:"bytes,2,opt,name=subscription,proto3" json:"subscription"`
 }
 
 func (m *WatchSubscriptionsResponse) Reset()         { *m = WatchSubscriptionsResponse{} }
 func (m *WatchSubscriptionsResponse) String() string { return proto.CompactTextString(m) }
 func (*WatchSubscriptionsResponse) ProtoMessage()    {}
 func (*WatchSubscriptionsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8732d0de81f42f54, []int{10}
+	return fileDescriptor_8732d0de81f42f54, []int{12}
 }
 func (m *WatchSubscriptionsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -571,11 +669,11 @@ func (m *WatchSubscriptionsResponse) GetType() EventType {
 	return EventType_NONE
 }
 
-func (m *WatchSubscriptionsResponse) GetSubscription() *Subscription {
+func (m *WatchSubscriptionsResponse) GetSubscription() Subscription {
 	if m != nil {
 		return m.Subscription
 	}
-	return nil
+	return Subscription{}
 }
 
 func init() {
@@ -584,6 +682,8 @@ func init() {
 	proto.RegisterType((*Subscription)(nil), "ricapi.e2.subscription.v1beta1.Subscription")
 	proto.RegisterType((*AddSubscriptionRequest)(nil), "ricapi.e2.subscription.v1beta1.AddSubscriptionRequest")
 	proto.RegisterType((*AddSubscriptionResponse)(nil), "ricapi.e2.subscription.v1beta1.AddSubscriptionResponse")
+	proto.RegisterType((*UpdateSubscriptionRequest)(nil), "ricapi.e2.subscription.v1beta1.UpdateSubscriptionRequest")
+	proto.RegisterType((*UpdateSubscriptionResponse)(nil), "ricapi.e2.subscription.v1beta1.UpdateSubscriptionResponse")
 	proto.RegisterType((*RemoveSubscriptionRequest)(nil), "ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest")
 	proto.RegisterType((*RemoveSubscriptionResponse)(nil), "ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse")
 	proto.RegisterType((*GetSubscriptionRequest)(nil), "ricapi.e2.subscription.v1beta1.GetSubscriptionRequest")
@@ -599,44 +699,47 @@ func init() {
 }
 
 var fileDescriptor_8732d0de81f42f54 = []byte{
-	// 592 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x55, 0x51, 0x6f, 0xd2, 0x50,
-	0x14, 0xe6, 0x96, 0x81, 0x70, 0x46, 0x14, 0xaf, 0x06, 0x59, 0xb7, 0x94, 0xc9, 0x13, 0x2e, 0xda,
-	0x6e, 0x35, 0x53, 0xb7, 0xc4, 0x07, 0xb0, 0x8d, 0x21, 0x51, 0xb6, 0x14, 0x9c, 0x89, 0xf1, 0x05,
-	0xca, 0x0d, 0xab, 0x06, 0xee, 0xb5, 0xbd, 0x90, 0xec, 0xd5, 0x27, 0x13, 0x63, 0xe2, 0x1f, 0xf1,
-	0x7f, 0xec, 0x71, 0x8f, 0x3e, 0x11, 0x03, 0xff, 0x82, 0x27, 0xd3, 0x52, 0x27, 0xac, 0xad, 0x8d,
-	0x9b, 0xbe, 0xc0, 0xed, 0x3d, 0xe7, 0x3b, 0xe7, 0x3b, 0xdf, 0xc9, 0x97, 0x0b, 0xbb, 0x6d, 0x66,
-	0x29, 0xb6, 0x65, 0xba, 0x7f, 0x44, 0x55, 0x9c, 0x61, 0xc7, 0x31, 0x6d, 0x8b, 0x71, 0x8b, 0x0e,
-	0x94, 0xd1, 0x4e, 0x87, 0xf0, 0xf6, 0xce, 0xd2, 0xa5, 0xcc, 0x6c, 0xca, 0x29, 0x96, 0xe6, 0x10,
-	0x99, 0xa8, 0xf2, 0x52, 0xd4, 0x87, 0x88, 0xb7, 0x7b, 0xb4, 0x47, 0xbd, 0x54, 0xc5, 0x3d, 0xcd,
-	0x51, 0x65, 0x07, 0x72, 0xcd, 0x85, 0x6c, 0xbc, 0x01, 0x82, 0xd5, 0x2d, 0xa2, 0x4d, 0x54, 0x59,
-	0xa9, 0xe5, 0x26, 0xe3, 0x92, 0x50, 0xd7, 0x66, 0xde, 0xaf, 0x21, 0x58, 0x5d, 0x5c, 0x81, 0x8c,
-	0x4d, 0x46, 0x96, 0x63, 0xd1, 0x41, 0x51, 0x98, 0xe7, 0xcc, 0xc6, 0xa5, 0x8c, 0xe1, 0xdf, 0x19,
-	0xe7, 0x51, 0xbc, 0x0e, 0xc9, 0x36, 0x63, 0xc5, 0xe4, 0x26, 0xaa, 0x64, 0x6b, 0xd9, 0xd9, 0xb8,
-	0x94, 0xaa, 0x32, 0x56, 0xd7, 0x0c, 0xf7, 0xb6, 0xbc, 0x0b, 0x85, 0x6a, 0xb7, 0xbb, 0xd8, 0xd7,
-	0x20, 0x1f, 0x86, 0xc4, 0xe1, 0xbf, 0x60, 0x28, 0x14, 0xf6, 0x1e, 0xee, 0x04, 0x60, 0x0e, 0xa3,
-	0x03, 0x87, 0xe0, 0x43, 0xc8, 0x2d, 0x0e, 0xed, 0x15, 0x58, 0x55, 0xef, 0xcb, 0x7f, 0xd6, 0x44,
-	0x5e, 0xaa, 0xb5, 0x54, 0xa1, 0xdc, 0x87, 0x35, 0x83, 0xf4, 0xe9, 0x88, 0x84, 0xd1, 0xfc, 0xf7,
-	0xed, 0x36, 0x40, 0x0c, 0x6b, 0x37, 0x1f, 0xaf, 0xbc, 0x0d, 0x85, 0xe7, 0x84, 0x87, 0x31, 0x29,
-	0x2c, 0xec, 0x2b, 0xfd, 0x7b, 0x53, 0xae, 0x56, 0x01, 0xc4, 0x7f, 0xd3, 0x4a, 0x84, 0xe2, 0x0b,
-	0xcb, 0x59, 0xea, 0xe6, 0xf8, 0x04, 0x5d, 0x1d, 0x43, 0x62, 0x91, 0x54, 0x92, 0x57, 0xa4, 0xb2,
-	0x0e, 0x6b, 0xaf, 0xdb, 0xdc, 0x3c, 0x0e, 0xe5, 0xf2, 0x0d, 0x81, 0x18, 0x16, 0xf5, 0xd9, 0x3c,
-	0x85, 0x15, 0x7e, 0xc2, 0x88, 0x27, 0xc8, 0x75, 0xf5, 0x5e, 0x1c, 0x0b, 0x7d, 0x44, 0x06, 0xbc,
-	0x75, 0xc2, 0x88, 0xe1, 0xc1, 0x02, 0xc3, 0x08, 0x57, 0xd5, 0x75, 0xeb, 0x2e, 0xa4, 0x9a, 0xbc,
-	0xcd, 0x09, 0xce, 0x41, 0xa6, 0xde, 0xa8, 0x3e, 0x6b, 0xd5, 0x8f, 0xf4, 0x7c, 0x02, 0x03, 0xa4,
-	0xfd, 0x33, 0xda, 0xda, 0x87, 0xec, 0x39, 0x0f, 0x9c, 0x81, 0x95, 0xc6, 0x41, 0xc3, 0x4d, 0xc9,
-	0x42, 0xaa, 0xaa, 0x69, 0xba, 0x96, 0x47, 0x78, 0x15, 0xae, 0xbd, 0x3a, 0xd4, 0xaa, 0x2d, 0x5d,
-	0xcb, 0x0b, 0xee, 0x87, 0xa1, 0xbf, 0x3c, 0x38, 0xd2, 0xb5, 0x7c, 0x52, 0x3d, 0x4d, 0xc1, 0xad,
-	0xc5, 0xee, 0x4d, 0x62, 0x8f, 0x2c, 0x93, 0xe0, 0x8f, 0x08, 0x6e, 0x5c, 0x30, 0x1a, 0x7e, 0x14,
-	0x37, 0x46, 0xb8, 0xa1, 0xc5, 0xc7, 0x7f, 0x8d, 0xf3, 0x97, 0xf1, 0x19, 0x01, 0x0e, 0x3a, 0x02,
-	0xef, 0xc5, 0xd5, 0x8b, 0x34, 0xad, 0xb8, 0x7f, 0x19, 0xa8, 0xcf, 0xc6, 0x95, 0xe4, 0x82, 0x9f,
-	0xe2, 0x25, 0x09, 0xb7, 0x6c, 0xbc, 0x24, 0x51, 0xc6, 0xfd, 0x84, 0xe0, 0x66, 0xc0, 0x4b, 0xf8,
-	0x49, 0x5c, 0xb9, 0x28, 0x6b, 0x8a, 0x7b, 0x97, 0x40, 0xfa, 0x54, 0xbe, 0x20, 0xc0, 0x41, 0x27,
-	0xc5, 0x6f, 0x27, 0xd2, 0x9b, 0xf1, 0xdb, 0x89, 0x36, 0xee, 0x36, 0xaa, 0xbd, 0x3d, 0x9d, 0x48,
-	0xe8, 0x6c, 0x22, 0xa1, 0x1f, 0x13, 0x09, 0x7d, 0x9d, 0x4a, 0x89, 0xb3, 0xa9, 0x94, 0xf8, 0x3e,
-	0x95, 0x12, 0x6f, 0x6a, 0x3d, 0x8b, 0x1f, 0x0f, 0x3b, 0xb2, 0x49, 0xfb, 0x0a, 0x1d, 0x50, 0x87,
-	0xd9, 0xf4, 0x1d, 0x31, 0xb9, 0x77, 0x7e, 0x40, 0x54, 0xae, 0xc4, 0xbf, 0xb6, 0x9d, 0xb4, 0xf7,
-	0x56, 0x3e, 0xfc, 0x19, 0x00, 0x00, 0xff, 0xff, 0xb5, 0x89, 0x0a, 0x7a, 0x9a, 0x07, 0x00, 0x00,
+	// 639 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x56, 0x4f, 0x6f, 0xd3, 0x4e,
+	0x10, 0xcd, 0x3a, 0x69, 0x7f, 0xc9, 0x34, 0x3f, 0x08, 0x0b, 0x2a, 0xa9, 0x8b, 0x9c, 0x92, 0x53,
+	0xa9, 0xc0, 0xa6, 0x46, 0x14, 0x5a, 0x89, 0x43, 0x82, 0x2d, 0x14, 0x09, 0xda, 0xca, 0xfd, 0x03,
+	0x42, 0x5c, 0x1c, 0x67, 0xd5, 0xba, 0xa8, 0xde, 0xc5, 0xde, 0x44, 0xea, 0x95, 0x13, 0x12, 0x42,
+	0xe2, 0xbb, 0xf0, 0x25, 0x7a, 0xec, 0x09, 0x71, 0x8a, 0x50, 0xfa, 0x2d, 0x7a, 0x42, 0x76, 0xad,
+	0xca, 0xae, 0xed, 0x5a, 0xa9, 0x94, 0x5e, 0x92, 0xcd, 0xee, 0xbc, 0x99, 0xf7, 0x76, 0x32, 0x4f,
+	0x0b, 0xcf, 0x4d, 0x66, 0x2b, 0xae, 0x6d, 0xf9, 0x5f, 0x44, 0x55, 0xbc, 0x7e, 0xd7, 0xb3, 0x5c,
+	0x9b, 0x71, 0x9b, 0x3a, 0xca, 0x60, 0xb9, 0x4b, 0xb8, 0xb9, 0x1c, 0xdb, 0x94, 0x99, 0x4b, 0x39,
+	0xc5, 0xd2, 0x39, 0x44, 0x26, 0xaa, 0x1c, 0x3b, 0x0d, 0x21, 0xe2, 0xbd, 0x3d, 0xba, 0x47, 0x83,
+	0x50, 0xc5, 0x5f, 0x9d, 0xa3, 0x9a, 0x1e, 0x54, 0xb7, 0x22, 0xd1, 0xf8, 0x01, 0x08, 0x76, 0xaf,
+	0x8e, 0x16, 0xd0, 0x62, 0xa9, 0x5d, 0x1d, 0x0d, 0x1b, 0x42, 0x47, 0x3b, 0x0b, 0x3e, 0x0d, 0xc1,
+	0xee, 0xe1, 0x45, 0x28, 0xbb, 0x64, 0x60, 0x7b, 0x36, 0x75, 0xea, 0xc2, 0x79, 0xcc, 0xd9, 0xb0,
+	0x51, 0x36, 0xc2, 0x3d, 0xe3, 0xe2, 0x14, 0xcf, 0x43, 0xd1, 0x64, 0xac, 0x5e, 0x5c, 0x40, 0x8b,
+	0x95, 0x76, 0xe5, 0x6c, 0xd8, 0x98, 0x6a, 0x31, 0xd6, 0xd1, 0x0c, 0x7f, 0xb7, 0x79, 0x00, 0xb3,
+	0xad, 0x5e, 0x2f, 0x5a, 0xd7, 0x20, 0x5f, 0xfa, 0xc4, 0xe3, 0x78, 0x13, 0xaa, 0x51, 0xf2, 0x01,
+	0x91, 0x19, 0xf5, 0xb1, 0x7c, 0xb5, 0x36, 0x39, 0x96, 0x2a, 0x96, 0xa1, 0xf9, 0x19, 0xee, 0x27,
+	0x6a, 0x79, 0x8c, 0x3a, 0x1e, 0x99, 0x40, 0xb1, 0x43, 0x98, 0xdb, 0x61, 0x3d, 0x93, 0x93, 0x9b,
+	0xd1, 0xe6, 0x80, 0x98, 0x56, 0x6e, 0x92, 0xf2, 0x0c, 0x72, 0x48, 0x07, 0x37, 0x27, 0x2f, 0xad,
+	0xdc, 0xc4, 0xe4, 0xad, 0xc0, 0xec, 0x1b, 0xc2, 0xd3, 0xb4, 0x5d, 0x39, 0x15, 0xfe, 0x5f, 0x2c,
+	0x81, 0x9b, 0x18, 0x49, 0x11, 0xea, 0x6f, 0x6d, 0x2f, 0x56, 0xcd, 0x0b, 0x69, 0x36, 0xfb, 0x30,
+	0x97, 0x72, 0x16, 0x52, 0xf9, 0x00, 0xff, 0x47, 0x13, 0x79, 0x75, 0xb4, 0x50, 0x1c, 0x97, 0x4b,
+	0xbb, 0x74, 0x3c, 0x6c, 0x14, 0x8c, 0x78, 0xa2, 0xe6, 0x3c, 0xcc, 0xbd, 0x37, 0xb9, 0xb5, 0x9f,
+	0xca, 0xe9, 0x17, 0x02, 0x31, 0xed, 0x34, 0x64, 0xf5, 0x0a, 0x4a, 0xfc, 0x88, 0x91, 0xe0, 0x62,
+	0x6e, 0xa9, 0x8f, 0xf2, 0xc8, 0xe8, 0x03, 0xe2, 0xf0, 0xed, 0x23, 0x46, 0x8c, 0x00, 0x86, 0x77,
+	0x2f, 0xdd, 0xaf, 0x30, 0xfe, 0xfd, 0x86, 0x9a, 0x62, 0x79, 0x96, 0x1e, 0xc2, 0xd4, 0x16, 0x37,
+	0x39, 0xc1, 0x55, 0x28, 0x77, 0xd6, 0x5b, 0xaf, 0xb7, 0x3b, 0xbb, 0x7a, 0xad, 0x80, 0x01, 0xa6,
+	0xc3, 0x35, 0x5a, 0x5a, 0x83, 0xca, 0x05, 0x1b, 0x5c, 0x86, 0xd2, 0xfa, 0xc6, 0xba, 0x1f, 0x52,
+	0x81, 0xa9, 0x96, 0xa6, 0xe9, 0x5a, 0x0d, 0xe1, 0x19, 0xf8, 0x6f, 0x67, 0x53, 0x6b, 0x6d, 0xeb,
+	0x5a, 0x4d, 0xf0, 0x7f, 0x18, 0xfa, 0xbb, 0x8d, 0x5d, 0x5d, 0xab, 0x15, 0xd5, 0xdf, 0xd3, 0x70,
+	0x37, 0xca, 0x61, 0x8b, 0xb8, 0x03, 0xdb, 0x22, 0xf8, 0x2b, 0x82, 0xdb, 0x97, 0xdc, 0x0a, 0xaf,
+	0xe4, 0x89, 0x49, 0xb7, 0x52, 0xf1, 0xc5, 0xd8, 0xb8, 0xb0, 0x25, 0xdf, 0x11, 0xe0, 0xa4, 0xad,
+	0xe0, 0xd5, 0xbc, 0x7c, 0x99, 0xce, 0x27, 0xae, 0x5d, 0x07, 0x1a, 0x61, 0x93, 0x74, 0x81, 0x7c,
+	0x36, 0x99, 0x46, 0x95, 0xcf, 0xe6, 0x0a, 0xd3, 0xf1, 0x1b, 0x74, 0x69, 0xd6, 0xf3, 0x1b, 0x94,
+	0x6e, 0x2a, 0xf9, 0x0d, 0xca, 0x32, 0x95, 0x6f, 0x08, 0xee, 0x24, 0xe6, 0x1c, 0xbf, 0xcc, 0x4b,
+	0x97, 0x65, 0x1b, 0xe2, 0xea, 0x35, 0x90, 0x21, 0x95, 0x1f, 0x08, 0x70, 0x72, 0xba, 0xf3, 0xbb,
+	0x93, 0xe9, 0x17, 0xf9, 0xdd, 0xc9, 0x36, 0x93, 0xa7, 0xa8, 0xfd, 0xe9, 0x78, 0x24, 0xa1, 0x93,
+	0x91, 0x84, 0xfe, 0x8e, 0x24, 0xf4, 0xf3, 0x54, 0x2a, 0x9c, 0x9c, 0x4a, 0x85, 0x3f, 0xa7, 0x52,
+	0xe1, 0x63, 0x7b, 0xcf, 0xe6, 0xfb, 0xfd, 0xae, 0x6c, 0xd1, 0x43, 0x85, 0x3a, 0xd4, 0x63, 0x2e,
+	0x3d, 0x20, 0x16, 0x0f, 0xd6, 0x4f, 0x88, 0xca, 0x95, 0xfc, 0x57, 0x57, 0x77, 0x3a, 0x78, 0x33,
+	0x3d, 0xfb, 0x17, 0x00, 0x00, 0xff, 0xff, 0x7f, 0xff, 0x11, 0x66, 0xa2, 0x09, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -653,6 +756,8 @@ const _ = grpc.SupportPackageIsVersion4
 type SubscriptionServiceClient interface {
 	// AddSubscription establishes E2 subscriptions on E2 Node.
 	AddSubscription(ctx context.Context, in *AddSubscriptionRequest, opts ...grpc.CallOption) (*AddSubscriptionResponse, error)
+	// UpdateSubscription updates E2 subscriptions on E2 Node.
+	UpdateSubscription(ctx context.Context, in *UpdateSubscriptionRequest, opts ...grpc.CallOption) (*UpdateSubscriptionResponse, error)
 	// RemoveSubscription removes E2 subscriptions on E2 Node.
 	RemoveSubscription(ctx context.Context, in *RemoveSubscriptionRequest, opts ...grpc.CallOption) (*RemoveSubscriptionResponse, error)
 	// GetSubscription retrieves information about a specific subscription in the list of existing subscriptions
@@ -674,6 +779,15 @@ func NewSubscriptionServiceClient(cc *grpc.ClientConn) SubscriptionServiceClient
 func (c *subscriptionServiceClient) AddSubscription(ctx context.Context, in *AddSubscriptionRequest, opts ...grpc.CallOption) (*AddSubscriptionResponse, error) {
 	out := new(AddSubscriptionResponse)
 	err := c.cc.Invoke(ctx, "/ricapi.e2.subscription.v1beta1.SubscriptionService/AddSubscription", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *subscriptionServiceClient) UpdateSubscription(ctx context.Context, in *UpdateSubscriptionRequest, opts ...grpc.CallOption) (*UpdateSubscriptionResponse, error) {
+	out := new(UpdateSubscriptionResponse)
+	err := c.cc.Invoke(ctx, "/ricapi.e2.subscription.v1beta1.SubscriptionService/UpdateSubscription", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -743,6 +857,8 @@ func (x *subscriptionServiceWatchSubscriptionsClient) Recv() (*WatchSubscription
 type SubscriptionServiceServer interface {
 	// AddSubscription establishes E2 subscriptions on E2 Node.
 	AddSubscription(context.Context, *AddSubscriptionRequest) (*AddSubscriptionResponse, error)
+	// UpdateSubscription updates E2 subscriptions on E2 Node.
+	UpdateSubscription(context.Context, *UpdateSubscriptionRequest) (*UpdateSubscriptionResponse, error)
 	// RemoveSubscription removes E2 subscriptions on E2 Node.
 	RemoveSubscription(context.Context, *RemoveSubscriptionRequest) (*RemoveSubscriptionResponse, error)
 	// GetSubscription retrieves information about a specific subscription in the list of existing subscriptions
@@ -759,6 +875,9 @@ type UnimplementedSubscriptionServiceServer struct {
 
 func (*UnimplementedSubscriptionServiceServer) AddSubscription(ctx context.Context, req *AddSubscriptionRequest) (*AddSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddSubscription not implemented")
+}
+func (*UnimplementedSubscriptionServiceServer) UpdateSubscription(ctx context.Context, req *UpdateSubscriptionRequest) (*UpdateSubscriptionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSubscription not implemented")
 }
 func (*UnimplementedSubscriptionServiceServer) RemoveSubscription(ctx context.Context, req *RemoveSubscriptionRequest) (*RemoveSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveSubscription not implemented")
@@ -791,6 +910,24 @@ func _SubscriptionService_AddSubscription_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SubscriptionServiceServer).AddSubscription(ctx, req.(*AddSubscriptionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SubscriptionService_UpdateSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateSubscriptionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SubscriptionServiceServer).UpdateSubscription(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ricapi.e2.subscription.v1beta1.SubscriptionService/UpdateSubscription",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SubscriptionServiceServer).UpdateSubscription(ctx, req.(*UpdateSubscriptionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -879,6 +1016,10 @@ var _SubscriptionService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _SubscriptionService_AddSubscription_Handler,
 		},
 		{
+			MethodName: "UpdateSubscription",
+			Handler:    _SubscriptionService_UpdateSubscription_Handler,
+		},
+		{
 			MethodName: "RemoveSubscription",
 			Handler:    _SubscriptionService_RemoveSubscription_Handler,
 		},
@@ -961,10 +1102,15 @@ func (m *AddSubscriptionRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	_ = i
 	var l int
 	_ = l
-	if len(m.App) > 0 {
-		i -= len(m.App)
-		copy(dAtA[i:], m.App)
-		i = encodeVarintSubscription(dAtA, i, uint64(len(m.App)))
+	if m.Subscription != nil {
+		{
+			size, err := m.Subscription.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSubscription(dAtA, i, uint64(size))
+		}
 		i--
 		dAtA[i] = 0xa
 	}
@@ -987,6 +1133,76 @@ func (m *AddSubscriptionResponse) MarshalTo(dAtA []byte) (int, error) {
 }
 
 func (m *AddSubscriptionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Subscription != nil {
+		{
+			size, err := m.Subscription.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSubscription(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *UpdateSubscriptionRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *UpdateSubscriptionRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *UpdateSubscriptionRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Subscription != nil {
+		{
+			size, err := m.Subscription.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSubscription(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *UpdateSubscriptionResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *UpdateSubscriptionResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *UpdateSubscriptionResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1061,6 +1277,18 @@ func (m *RemoveSubscriptionResponse) MarshalToSizedBuffer(dAtA []byte) (int, err
 	_ = i
 	var l int
 	_ = l
+	if m.Subscription != nil {
+		{
+			size, err := m.Subscription.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSubscription(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -1084,8 +1312,8 @@ func (m *GetSubscriptionRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	_ = i
 	var l int
 	_ = l
-	if m.Id != 0 {
-		i = encodeVarintSubscription(dAtA, i, uint64(m.Id))
+	if m.ID != 0 {
+		i = encodeVarintSubscription(dAtA, i, uint64(m.ID))
 		i--
 		dAtA[i] = 0x8
 	}
@@ -1170,10 +1398,10 @@ func (m *ListSubscriptionsResponse) MarshalToSizedBuffer(dAtA []byte) (int, erro
 	_ = i
 	var l int
 	_ = l
-	if len(m.Subscription) > 0 {
-		for iNdEx := len(m.Subscription) - 1; iNdEx >= 0; iNdEx-- {
+	if len(m.Subscriptions) > 0 {
+		for iNdEx := len(m.Subscriptions) - 1; iNdEx >= 0; iNdEx-- {
 			{
-				size, err := m.Subscription[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				size, err := m.Subscriptions[iNdEx].MarshalToSizedBuffer(dAtA[:i])
 				if err != nil {
 					return 0, err
 				}
@@ -1230,18 +1458,16 @@ func (m *WatchSubscriptionsResponse) MarshalToSizedBuffer(dAtA []byte) (int, err
 	_ = i
 	var l int
 	_ = l
-	if m.Subscription != nil {
-		{
-			size, err := m.Subscription.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintSubscription(dAtA, i, uint64(size))
+	{
+		size, err := m.Subscription.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
 		}
-		i--
-		dAtA[i] = 0x12
+		i -= size
+		i = encodeVarintSubscription(dAtA, i, uint64(size))
 	}
+	i--
+	dAtA[i] = 0x12
 	if m.Type != 0 {
 		i = encodeVarintSubscription(dAtA, i, uint64(m.Type))
 		i--
@@ -1286,14 +1512,40 @@ func (m *AddSubscriptionRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.App)
-	if l > 0 {
+	if m.Subscription != nil {
+		l = m.Subscription.Size()
 		n += 1 + l + sovSubscription(uint64(l))
 	}
 	return n
 }
 
 func (m *AddSubscriptionResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Subscription != nil {
+		l = m.Subscription.Size()
+		n += 1 + l + sovSubscription(uint64(l))
+	}
+	return n
+}
+
+func (m *UpdateSubscriptionRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Subscription != nil {
+		l = m.Subscription.Size()
+		n += 1 + l + sovSubscription(uint64(l))
+	}
+	return n
+}
+
+func (m *UpdateSubscriptionResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1325,6 +1577,10 @@ func (m *RemoveSubscriptionResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
+	if m.Subscription != nil {
+		l = m.Subscription.Size()
+		n += 1 + l + sovSubscription(uint64(l))
+	}
 	return n
 }
 
@@ -1334,8 +1590,8 @@ func (m *GetSubscriptionRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.Id != 0 {
-		n += 1 + sovSubscription(uint64(m.Id))
+	if m.ID != 0 {
+		n += 1 + sovSubscription(uint64(m.ID))
 	}
 	return n
 }
@@ -1368,8 +1624,8 @@ func (m *ListSubscriptionsResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if len(m.Subscription) > 0 {
-		for _, e := range m.Subscription {
+	if len(m.Subscriptions) > 0 {
+		for _, e := range m.Subscriptions {
 			l = e.Size()
 			n += 1 + l + sovSubscription(uint64(l))
 		}
@@ -1395,10 +1651,8 @@ func (m *WatchSubscriptionsResponse) Size() (n int) {
 	if m.Type != 0 {
 		n += 1 + sovSubscription(uint64(m.Type))
 	}
-	if m.Subscription != nil {
-		l = m.Subscription.Size()
-		n += 1 + l + sovSubscription(uint64(l))
-	}
+	l = m.Subscription.Size()
+	n += 1 + l + sovSubscription(uint64(l))
 	return n
 }
 
@@ -1562,9 +1816,9 @@ func (m *AddSubscriptionRequest) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field App", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Subscription", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowSubscription
@@ -1574,23 +1828,27 @@ func (m *AddSubscriptionRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthSubscription
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthSubscription
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.App = AppID(dAtA[iNdEx:postIndex])
+			if m.Subscription == nil {
+				m.Subscription = &Subscription{}
+			}
+			if err := m.Subscription.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -1643,6 +1901,184 @@ func (m *AddSubscriptionResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: AddSubscriptionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subscription", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSubscription
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subscription == nil {
+				m.Subscription = &Subscription{}
+			}
+			if err := m.Subscription.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSubscription(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *UpdateSubscriptionRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSubscription
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: UpdateSubscriptionRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: UpdateSubscriptionRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subscription", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSubscription
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subscription == nil {
+				m.Subscription = &Subscription{}
+			}
+			if err := m.Subscription.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSubscription(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *UpdateSubscriptionResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSubscription
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: UpdateSubscriptionResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: UpdateSubscriptionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1823,6 +2259,42 @@ func (m *RemoveSubscriptionResponse) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: RemoveSubscriptionResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subscription", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSubscription
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSubscription
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subscription == nil {
+				m.Subscription = &Subscription{}
+			}
+			if err := m.Subscription.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipSubscription(dAtA[iNdEx:])
@@ -1878,9 +2350,9 @@ func (m *GetSubscriptionRequest) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ID", wireType)
 			}
-			m.Id = 0
+			m.ID = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowSubscription
@@ -1890,7 +2362,7 @@ func (m *GetSubscriptionRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Id |= ID(b&0x7F) << shift
+				m.ID |= ID(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -2092,7 +2564,7 @@ func (m *ListSubscriptionsResponse) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Subscription", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Subscriptions", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -2119,8 +2591,8 @@ func (m *ListSubscriptionsResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Subscription = append(m.Subscription, &Subscription{})
-			if err := m.Subscription[len(m.Subscription)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.Subscriptions = append(m.Subscriptions, Subscription{})
+			if err := m.Subscriptions[len(m.Subscriptions)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -2277,9 +2749,6 @@ func (m *WatchSubscriptionsResponse) Unmarshal(dAtA []byte) error {
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
-			}
-			if m.Subscription == nil {
-				m.Subscription = &Subscription{}
 			}
 			if err := m.Subscription.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err

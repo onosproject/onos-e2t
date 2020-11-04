@@ -10,6 +10,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/northbound/subscription"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/connection"
+	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 )
@@ -48,6 +49,11 @@ func (m *Manager) Run() {
 
 // Start starts the manager
 func (m *Manager) Start() error {
+	subs, err := substore.NewStore()
+	if err != nil {
+		return err
+	}
+
 	conns := connection.NewManager()
 
 	err := m.startSouthboundServer(conns)
@@ -55,7 +61,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startNorthboundServer(conns)
+	err = m.startNorthboundServer(subs, conns)
 	if err != nil {
 		return err
 	}
@@ -74,7 +80,7 @@ func (m *Manager) startSouthboundServer(conns *connection.Manager) error {
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(conns *connection.Manager) error {
+func (m *Manager) startNorthboundServer(subs substore.Store, conns *connection.Manager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,
@@ -85,7 +91,7 @@ func (m *Manager) startNorthboundServer(conns *connection.Manager) error {
 	s.AddService(admin.NewService(conns))
 	s.AddService(logging.Service{})
 	s.AddService(ricapie2.Service{})
-	s.AddService(subscription.Service{})
+	s.AddService(subscription.NewService(subs))
 
 	doneCh := make(chan error)
 	go func() {

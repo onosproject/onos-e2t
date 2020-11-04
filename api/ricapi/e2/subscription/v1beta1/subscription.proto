@@ -17,6 +17,9 @@ service SubscriptionService {
     // AddSubscription establishes E2 subscriptions on E2 Node.
     rpc AddSubscription (AddSubscriptionRequest) returns (AddSubscriptionResponse);
 
+    // UpdateSubscription updates E2 subscriptions on E2 Node.
+    rpc UpdateSubscription (UpdateSubscriptionRequest) returns (UpdateSubscriptionResponse);
+
     // RemoveSubscription removes E2 subscriptions on E2 Node.
     rpc RemoveSubscription (RemoveSubscriptionRequest) returns (RemoveSubscriptionResponse);
 
@@ -56,11 +59,21 @@ message Subscription {
 
 // AddSubscriptionRequest a subscription request
 message AddSubscriptionRequest {
-    string app = 1 [(gogoproto.casttype) = "AppID"];
+    Subscription subscription = 1;
 }
 
 // AddSubscriptionResponse a subscription response
 message AddSubscriptionResponse {
+    Subscription subscription = 1;
+}
+
+// UpdateSubscriptionRequest is a subscription update request
+message UpdateSubscriptionRequest {
+    Subscription subscription = 1;
+}
+
+// UpdateSubscriptionResponse is a subscription update response
+message UpdateSubscriptionResponse {
     Subscription subscription = 1;
 }
 
@@ -71,11 +84,11 @@ message RemoveSubscriptionRequest {
 
 // RemoveSubscriptionResponse a subscription delete response
 message RemoveSubscriptionResponse {
-
+    Subscription subscription = 1;
 }
 
 message GetSubscriptionRequest {
-    uint64 id = 1 [(gogoproto.casttype) = "ID"];
+    uint64 id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
 }
 
 message GetSubscriptionResponse {
@@ -87,7 +100,7 @@ message ListSubscriptionsRequest {
 }
 
 message ListSubscriptionsResponse {
-    repeated Subscription subscription = 1;
+    repeated Subscription subscriptions = 1 [(gogoproto.nullable) = false];
 }
 
 message WatchSubscriptionsRequest {
@@ -96,5 +109,5 @@ message WatchSubscriptionsRequest {
 
 message WatchSubscriptionsResponse {
     EventType type = 1;
-    Subscription subscription = 2;
+    Subscription subscription = 2 [(gogoproto.nullable) = false];
 }

@@ -13,6 +13,8 @@
     - [RemoveSubscriptionRequest](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest)
     - [RemoveSubscriptionResponse](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse)
     - [Subscription](#ricapi.e2.subscription.v1beta1.Subscription)
+    - [UpdateSubscriptionRequest](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionRequest)
+    - [UpdateSubscriptionResponse](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionResponse)
     - [WatchSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.WatchSubscriptionsRequest)
     - [WatchSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.WatchSubscriptionsResponse)
   
@@ -40,7 +42,7 @@ AddSubscriptionRequest a subscription request
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| app | [string](#string) |  |  |
+| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
 
 
 
@@ -110,7 +112,7 @@ AddSubscriptionResponse a subscription response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) | repeated |  |
+| subscriptions | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) | repeated |  |
 
 
 
@@ -138,6 +140,11 @@ RemoveSubscriptionRequest a subscription delete request
 RemoveSubscriptionResponse a subscription delete response
 
 
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+
+
 
 
 
@@ -153,6 +160,36 @@ Subscription is a subscription state
 | id | [uint64](#uint64) |  |  |
 | revision | [uint64](#uint64) |  |  |
 | app | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="ricapi.e2.subscription.v1beta1.UpdateSubscriptionRequest"></a>
+
+### UpdateSubscriptionRequest
+UpdateSubscriptionRequest is a subscription update request
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+
+
+
+
+
+
+<a name="ricapi.e2.subscription.v1beta1.UpdateSubscriptionResponse"></a>
+
+### UpdateSubscriptionResponse
+UpdateSubscriptionResponse is a subscription update response
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
 
 
 
@@ -225,6 +262,7 @@ SubscriptionService manages subscription and subscription delete requests
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | AddSubscription | [AddSubscriptionRequest](#ricapi.e2.subscription.v1beta1.AddSubscriptionRequest) | [AddSubscriptionResponse](#ricapi.e2.subscription.v1beta1.AddSubscriptionResponse) | AddSubscription establishes E2 subscriptions on E2 Node. |
+| UpdateSubscription | [UpdateSubscriptionRequest](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionRequest) | [UpdateSubscriptionResponse](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionResponse) | UpdateSubscription updates E2 subscriptions on E2 Node. |
 | RemoveSubscription | [RemoveSubscriptionRequest](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest) | [RemoveSubscriptionResponse](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse) | RemoveSubscription removes E2 subscriptions on E2 Node. |
 | GetSubscription | [GetSubscriptionRequest](#ricapi.e2.subscription.v1beta1.GetSubscriptionRequest) | [GetSubscriptionResponse](#ricapi.e2.subscription.v1beta1.GetSubscriptionResponse) | GetSubscription retrieves information about a specific subscription in the list of existing subscriptions |
 | ListSubscriptions | [ListSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest) | [ListSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse) | ListSubscriptions returns the list of current existing subscriptions |
