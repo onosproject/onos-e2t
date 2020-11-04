@@ -7,7 +7,7 @@ package subscription
 import (
 	"context"
 	"fmt"
-	api "github.com/onosproject/onos-e2t/api/ricapi/e2/subscription/v1beta1"
+	api "github.com/onosproject/onos-e2t/api/subscription/v1beta1"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"sync"
