@@ -6,70 +6,127 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 syntax = "proto3";
 
-
 // Package ricapi.subscription.v1beta1 defines the interior gRPC interface for subscription service
 package ricapi.e2.subscription.v1beta1;
 option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/subscription/v1beta1";
 
-import "ricapi/e2/headers/v1beta1/headers.proto";
+import "gogoproto/gogo.proto";
 
 // SubscriptionService manages subscription and subscription delete requests
 service SubscriptionService {
     // AddSubscription establishes E2 subscriptions on E2 Node.
     rpc AddSubscription (AddSubscriptionRequest) returns (AddSubscriptionResponse);
 
+    // UpdateSubscription updates E2 subscriptions on E2 Node.
+    rpc UpdateSubscription (UpdateSubscriptionRequest) returns (UpdateSubscriptionResponse);
+
     // RemoveSubscription removes E2 subscriptions on E2 Node.
-    rpc RemoveSubscription(RemoveSubscriptionRequest) returns (RemoveSubscriptionResponse);
+    rpc RemoveSubscription (RemoveSubscriptionRequest) returns (RemoveSubscriptionResponse);
 
     // GetSubscription retrieves information about a specific subscription in the list of existing subscriptions
-    rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse);
+    rpc GetSubscription (GetSubscriptionRequest) returns (GetSubscriptionResponse);
 
     // ListSubscriptions returns the list of current existing subscriptions
-    rpc ListSubscriptions(ListSubscriptionsRequest) returns (ListSubscriptionsResponse);
+    rpc ListSubscriptions (ListSubscriptionsRequest) returns (ListSubscriptionsResponse);
+
+    // WatchSubscriptions returns a stream of subscription changes
+    rpc WatchSubscriptions (WatchSubscriptionsRequest) returns (stream WatchSubscriptionsResponse);
 }
 
-message ListSubscriptionsRequest {
-    // TODO add the required fields
+// State is a subscription state
+enum State {
+    // INACTIVE indicates the subscription is not currently active
+    INACTIVE = 0;
+
+    // ACTIVE indicates the subscription is active
+    ACTIVE = 1;
 }
 
-message ListSubscriptionsResponse {
-    // TODO add the required fields
+// EventType is a subscription event type
+enum EventType {
+    NONE = 0;
+    ADDED = 1;
+    UPDATED = 2;
+    REMOVED = 3;
 }
 
-message GetSubscriptionRequest {
-    // TODO add the required fields
-
+// Encoding indicates a payload encoding
+enum Encoding {
+    ENCODING_ASN1 = 0;
+    ENCODING_PROTO = 1;
 }
 
-message GetSubscriptionResponse {
-    // TODO add the required fields
-
+// ServiceModel is a service model definition
+message ServiceModel {
+    string id = 4 [(gogoproto.casttype) = "ServiceModelID", (gogoproto.customname) = "ID"];
 }
 
-// AddSubscriptionResponse a subscription response
-message AddSubscriptionResponse {
-    headers.v1beta1.ResponseHeader header = 1;
-    bytes payload = 5;
+// Payload is a subscription payload
+message Payload {
+    Encoding encoding = 1;
+    bytes bytes = 2;
 }
 
-
-// RemoveSubscriptionRequest a subscription delete request
-message RemoveSubscriptionRequest {
-    headers.v1beta1.RequestHeader header = 1;
-    bytes payload = 5;
-
-}
-
-// RemoveSubscriptionResponse a subscription delete response
-message RemoveSubscriptionResponse {
-    headers.v1beta1.ResponseHeader header = 1;
-    bytes payload = 5;
+// Subscription is a subscription state
+message Subscription {
+    uint64 id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
+    uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
+    string app_id = 3 [(gogoproto.casttype) = "AppID", (gogoproto.customname) = "AppID"];
+    ServiceModel service_model = 4;
+    Payload payload = 5;
 }
 
 // AddSubscriptionRequest a subscription request
 message AddSubscriptionRequest {
-    headers.v1beta1.RequestHeader header = 1;
-    bytes payload = 5;
+    Subscription subscription = 1;
 }
 
+// AddSubscriptionResponse a subscription response
+message AddSubscriptionResponse {
+    Subscription subscription = 1;
+}
 
+// UpdateSubscriptionRequest is a subscription update request
+message UpdateSubscriptionRequest {
+    Subscription subscription = 1;
+}
+
+// UpdateSubscriptionResponse is a subscription update response
+message UpdateSubscriptionResponse {
+    Subscription subscription = 1;
+}
+
+// RemoveSubscriptionRequest a subscription delete request
+message RemoveSubscriptionRequest {
+    Subscription subscription = 1;
+}
+
+// RemoveSubscriptionResponse a subscription delete response
+message RemoveSubscriptionResponse {
+    Subscription subscription = 1;
+}
+
+message GetSubscriptionRequest {
+    uint64 id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
+}
+
+message GetSubscriptionResponse {
+    Subscription subscription = 1;
+}
+
+message ListSubscriptionsRequest {
+
+}
+
+message ListSubscriptionsResponse {
+    repeated Subscription subscriptions = 1 [(gogoproto.nullable) = false];
+}
+
+message WatchSubscriptionsRequest {
+
+}
+
+message WatchSubscriptionsResponse {
+    EventType type = 1;
+    Subscription subscription = 2 [(gogoproto.nullable) = false];
+}
