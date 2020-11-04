@@ -139,7 +139,7 @@ func (s *Server) WatchSubscriptions(req *subapi.WatchSubscriptionsRequest, strea
 			return nil
 		}
 		if err != nil {
-			log.Warnf("WatchSubscriptionsResponse %+v failed: %v", req, err)
+			log.Warnf("WatchSubscriptionsResponse %+v failed: %v", res, err)
 			return err
 		}
 	}
