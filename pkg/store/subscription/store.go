@@ -8,9 +8,12 @@ import (
 	"context"
 	"fmt"
 	api "github.com/onosproject/onos-e2t/api/ricapi/e2/subscription/v1beta1"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"sync"
 )
+
+var log = logging.GetLogger("store", "subscription")
 
 // NewStore creates a new subscription store
 func NewStore() (Store, error) {
@@ -68,6 +71,7 @@ type localStore struct {
 func (s *localStore) open() error {
 	s.eventCh = make(chan Event)
 	for event := range s.eventCh {
+		log.Infof("Notifying Subscription event %v", event)
 		s.mu.RLock()
 		for _, watcher := range s.watchers {
 			watcher <- event
@@ -85,6 +89,7 @@ func (s *localStore) Add(ctx context.Context, subscription *api.Subscription) er
 	subscription.ID = id
 	subscription.Revision = 1
 	s.subscriptions[id] = *subscription
+	log.Infof("Added Subscription %+v", subscription)
 	s.eventCh <- Event{
 		Type:         api.EventType_ADDED,
 		Subscription: *subscription,
@@ -104,6 +109,7 @@ func (s *localStore) Update(ctx context.Context, subscription *api.Subscription)
 	}
 	subscription.Revision++
 	s.subscriptions[subscription.ID] = *subscription
+	log.Infof("Updated Subscription %+v", subscription)
 	s.eventCh <- Event{
 		Type:         api.EventType_UPDATED,
 		Subscription: *subscription,
@@ -122,6 +128,7 @@ func (s *localStore) Remove(ctx context.Context, subscription *api.Subscription)
 		return fmt.Errorf("concurrent update detected")
 	}
 	delete(s.subscriptions, subscription.ID)
+	log.Infof("Removed Subscription %v", stored)
 	s.eventCh <- Event{
 		Type:         api.EventType_REMOVED,
 		Subscription: stored,
