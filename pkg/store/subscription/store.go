@@ -109,7 +109,7 @@ func (s *localStore) Update(ctx context.Context, subscription *api.Subscription)
 	defer s.mu.Unlock()
 	stored, ok := s.subscriptions[subscription.ID]
 	if !ok {
-		return fmt.Errorf("unknown subscription %d", subscription.ID)
+		return fmt.Errorf("unknown subscription %s", subscription.ID)
 	}
 	if stored.Revision != subscription.Revision {
 		return fmt.Errorf("concurrent update detected")
@@ -129,7 +129,7 @@ func (s *localStore) Remove(ctx context.Context, subscription *api.Subscription)
 	defer s.mu.Unlock()
 	stored, ok := s.subscriptions[subscription.ID]
 	if !ok {
-		return fmt.Errorf("unknown subscription %d", subscription.ID)
+		return fmt.Errorf("unknown subscription %s", subscription.ID)
 	}
 	if stored.Revision != subscription.Revision {
 		return fmt.Errorf("concurrent update detected")
@@ -148,7 +148,7 @@ func (s *localStore) Get(ctx context.Context, id api.ID) (*api.Subscription, err
 	defer s.mu.RUnlock()
 	subscription, ok := s.subscriptions[id]
 	if !ok {
-		return nil, fmt.Errorf("unknown subscription %d", id)
+		return nil, fmt.Errorf("unknown subscription %s", id)
 	}
 	return &subscription, nil
 }
