@@ -72,11 +72,11 @@ func (s *localStore) open() error {
 	s.eventCh = make(chan Event)
 	for event := range s.eventCh {
 		log.Infof("Notifying Subscription event %v", event)
-		s.mu.RLock()
+		s.watchMu.RLock()
 		for _, watcher := range s.watchers {
 			watcher <- event
 		}
-		s.mu.RUnlock()
+		s.watchMu.RUnlock()
 	}
 	return nil
 }
