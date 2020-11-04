@@ -7,8 +7,7 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 syntax = "proto3";
 
 // Package ricapi.subscription.v1beta1 defines the interior gRPC interface for subscription service
-package ricapi.e2.subscription.v1beta1;
-option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/subscription/v1beta1";
+package subscription.v1beta1;
 
 import "gogoproto/gogo.proto";
 

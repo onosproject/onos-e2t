@@ -5,7 +5,7 @@
 package v1beta1
 
 // ID is a subscription identifier
-type ID uint64
+type ID string
 
 // Revision is a subscription revision
 type Revision uint64

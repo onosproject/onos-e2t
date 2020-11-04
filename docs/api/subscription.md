@@ -3,41 +3,41 @@
 
 ## Table of Contents
 
-- [api/ricapi/e2/subscription/v1beta1/subscription.proto](#api/ricapi/e2/subscription/v1beta1/subscription.proto)
-    - [AddSubscriptionRequest](#ricapi.e2.subscription.v1beta1.AddSubscriptionRequest)
-    - [AddSubscriptionResponse](#ricapi.e2.subscription.v1beta1.AddSubscriptionResponse)
-    - [GetSubscriptionRequest](#ricapi.e2.subscription.v1beta1.GetSubscriptionRequest)
-    - [GetSubscriptionResponse](#ricapi.e2.subscription.v1beta1.GetSubscriptionResponse)
-    - [ListSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest)
-    - [ListSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse)
-    - [Payload](#ricapi.e2.subscription.v1beta1.Payload)
-    - [RemoveSubscriptionRequest](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest)
-    - [RemoveSubscriptionResponse](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse)
-    - [ServiceModel](#ricapi.e2.subscription.v1beta1.ServiceModel)
-    - [Subscription](#ricapi.e2.subscription.v1beta1.Subscription)
-    - [UpdateSubscriptionRequest](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionRequest)
-    - [UpdateSubscriptionResponse](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionResponse)
-    - [WatchSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.WatchSubscriptionsRequest)
-    - [WatchSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.WatchSubscriptionsResponse)
+- [api/subscription/v1beta1/subscription.proto](#api/subscription/v1beta1/subscription.proto)
+    - [AddSubscriptionRequest](#subscription.v1beta1.AddSubscriptionRequest)
+    - [AddSubscriptionResponse](#subscription.v1beta1.AddSubscriptionResponse)
+    - [GetSubscriptionRequest](#subscription.v1beta1.GetSubscriptionRequest)
+    - [GetSubscriptionResponse](#subscription.v1beta1.GetSubscriptionResponse)
+    - [ListSubscriptionsRequest](#subscription.v1beta1.ListSubscriptionsRequest)
+    - [ListSubscriptionsResponse](#subscription.v1beta1.ListSubscriptionsResponse)
+    - [Payload](#subscription.v1beta1.Payload)
+    - [RemoveSubscriptionRequest](#subscription.v1beta1.RemoveSubscriptionRequest)
+    - [RemoveSubscriptionResponse](#subscription.v1beta1.RemoveSubscriptionResponse)
+    - [ServiceModel](#subscription.v1beta1.ServiceModel)
+    - [Subscription](#subscription.v1beta1.Subscription)
+    - [UpdateSubscriptionRequest](#subscription.v1beta1.UpdateSubscriptionRequest)
+    - [UpdateSubscriptionResponse](#subscription.v1beta1.UpdateSubscriptionResponse)
+    - [WatchSubscriptionsRequest](#subscription.v1beta1.WatchSubscriptionsRequest)
+    - [WatchSubscriptionsResponse](#subscription.v1beta1.WatchSubscriptionsResponse)
   
-    - [Encoding](#ricapi.e2.subscription.v1beta1.Encoding)
-    - [EventType](#ricapi.e2.subscription.v1beta1.EventType)
-    - [State](#ricapi.e2.subscription.v1beta1.State)
+    - [Encoding](#subscription.v1beta1.Encoding)
+    - [EventType](#subscription.v1beta1.EventType)
+    - [State](#subscription.v1beta1.State)
   
-    - [SubscriptionService](#ricapi.e2.subscription.v1beta1.SubscriptionService)
+    - [SubscriptionService](#subscription.v1beta1.SubscriptionService)
   
 - [Scalar Value Types](#scalar-value-types)
 
 
 
-<a name="api/ricapi/e2/subscription/v1beta1/subscription.proto"></a>
+<a name="api/subscription/v1beta1/subscription.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## api/ricapi/e2/subscription/v1beta1/subscription.proto
+## api/subscription/v1beta1/subscription.proto
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.AddSubscriptionRequest"></a>
+<a name="subscription.v1beta1.AddSubscriptionRequest"></a>
 
 ### AddSubscriptionRequest
 AddSubscriptionRequest a subscription request
@@ -45,14 +45,14 @@ AddSubscriptionRequest a subscription request
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+| subscription | [Subscription](#subscription.v1beta1.Subscription) |  |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.AddSubscriptionResponse"></a>
+<a name="subscription.v1beta1.AddSubscriptionResponse"></a>
 
 ### AddSubscriptionResponse
 AddSubscriptionResponse a subscription response
@@ -60,14 +60,14 @@ AddSubscriptionResponse a subscription response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+| subscription | [Subscription](#subscription.v1beta1.Subscription) |  |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.GetSubscriptionRequest"></a>
+<a name="subscription.v1beta1.GetSubscriptionRequest"></a>
 
 ### GetSubscriptionRequest
 
@@ -82,7 +82,7 @@ AddSubscriptionResponse a subscription response
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.GetSubscriptionResponse"></a>
+<a name="subscription.v1beta1.GetSubscriptionResponse"></a>
 
 ### GetSubscriptionResponse
 
@@ -90,14 +90,14 @@ AddSubscriptionResponse a subscription response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+| subscription | [Subscription](#subscription.v1beta1.Subscription) |  |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest"></a>
+<a name="subscription.v1beta1.ListSubscriptionsRequest"></a>
 
 ### ListSubscriptionsRequest
 
@@ -107,7 +107,7 @@ AddSubscriptionResponse a subscription response
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse"></a>
+<a name="subscription.v1beta1.ListSubscriptionsResponse"></a>
 
 ### ListSubscriptionsResponse
 
@@ -115,14 +115,14 @@ AddSubscriptionResponse a subscription response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscriptions | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) | repeated |  |
+| subscriptions | [Subscription](#subscription.v1beta1.Subscription) | repeated |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.Payload"></a>
+<a name="subscription.v1beta1.Payload"></a>
 
 ### Payload
 Payload is a subscription payload
@@ -130,7 +130,7 @@ Payload is a subscription payload
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| encoding | [Encoding](#ricapi.e2.subscription.v1beta1.Encoding) |  |  |
+| encoding | [Encoding](#subscription.v1beta1.Encoding) |  |  |
 | bytes | [bytes](#bytes) |  |  |
 
 
@@ -138,7 +138,7 @@ Payload is a subscription payload
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest"></a>
+<a name="subscription.v1beta1.RemoveSubscriptionRequest"></a>
 
 ### RemoveSubscriptionRequest
 RemoveSubscriptionRequest a subscription delete request
@@ -146,14 +146,14 @@ RemoveSubscriptionRequest a subscription delete request
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+| subscription | [Subscription](#subscription.v1beta1.Subscription) |  |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse"></a>
+<a name="subscription.v1beta1.RemoveSubscriptionResponse"></a>
 
 ### RemoveSubscriptionResponse
 RemoveSubscriptionResponse a subscription delete response
@@ -161,14 +161,14 @@ RemoveSubscriptionResponse a subscription delete response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+| subscription | [Subscription](#subscription.v1beta1.Subscription) |  |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.ServiceModel"></a>
+<a name="subscription.v1beta1.ServiceModel"></a>
 
 ### ServiceModel
 ServiceModel is a service model definition
@@ -183,7 +183,7 @@ ServiceModel is a service model definition
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.Subscription"></a>
+<a name="subscription.v1beta1.Subscription"></a>
 
 ### Subscription
 Subscription is a subscription state
@@ -194,15 +194,15 @@ Subscription is a subscription state
 | id | [uint64](#uint64) |  |  |
 | revision | [uint64](#uint64) |  |  |
 | app_id | [string](#string) |  |  |
-| service_model | [ServiceModel](#ricapi.e2.subscription.v1beta1.ServiceModel) |  |  |
-| payload | [Payload](#ricapi.e2.subscription.v1beta1.Payload) |  |  |
+| service_model | [ServiceModel](#subscription.v1beta1.ServiceModel) |  |  |
+| payload | [Payload](#subscription.v1beta1.Payload) |  |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.UpdateSubscriptionRequest"></a>
+<a name="subscription.v1beta1.UpdateSubscriptionRequest"></a>
 
 ### UpdateSubscriptionRequest
 UpdateSubscriptionRequest is a subscription update request
@@ -210,14 +210,14 @@ UpdateSubscriptionRequest is a subscription update request
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+| subscription | [Subscription](#subscription.v1beta1.Subscription) |  |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.UpdateSubscriptionResponse"></a>
+<a name="subscription.v1beta1.UpdateSubscriptionResponse"></a>
 
 ### UpdateSubscriptionResponse
 UpdateSubscriptionResponse is a subscription update response
@@ -225,14 +225,14 @@ UpdateSubscriptionResponse is a subscription update response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+| subscription | [Subscription](#subscription.v1beta1.Subscription) |  |  |
 
 
 
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.WatchSubscriptionsRequest"></a>
+<a name="subscription.v1beta1.WatchSubscriptionsRequest"></a>
 
 ### WatchSubscriptionsRequest
 
@@ -242,7 +242,7 @@ UpdateSubscriptionResponse is a subscription update response
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.WatchSubscriptionsResponse"></a>
+<a name="subscription.v1beta1.WatchSubscriptionsResponse"></a>
 
 ### WatchSubscriptionsResponse
 
@@ -250,8 +250,8 @@ UpdateSubscriptionResponse is a subscription update response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| type | [EventType](#ricapi.e2.subscription.v1beta1.EventType) |  |  |
-| subscription | [Subscription](#ricapi.e2.subscription.v1beta1.Subscription) |  |  |
+| type | [EventType](#subscription.v1beta1.EventType) |  |  |
+| subscription | [Subscription](#subscription.v1beta1.Subscription) |  |  |
 
 
 
@@ -260,7 +260,7 @@ UpdateSubscriptionResponse is a subscription update response
  
 
 
-<a name="ricapi.e2.subscription.v1beta1.Encoding"></a>
+<a name="subscription.v1beta1.Encoding"></a>
 
 ### Encoding
 Encoding indicates a payload encoding
@@ -272,7 +272,7 @@ Encoding indicates a payload encoding
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.EventType"></a>
+<a name="subscription.v1beta1.EventType"></a>
 
 ### EventType
 EventType is a subscription event type
@@ -286,7 +286,7 @@ EventType is a subscription event type
 
 
 
-<a name="ricapi.e2.subscription.v1beta1.State"></a>
+<a name="subscription.v1beta1.State"></a>
 
 ### State
 State is a subscription state
@@ -302,19 +302,19 @@ State is a subscription state
  
 
 
-<a name="ricapi.e2.subscription.v1beta1.SubscriptionService"></a>
+<a name="subscription.v1beta1.SubscriptionService"></a>
 
 ### SubscriptionService
 SubscriptionService manages subscription and subscription delete requests
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| AddSubscription | [AddSubscriptionRequest](#ricapi.e2.subscription.v1beta1.AddSubscriptionRequest) | [AddSubscriptionResponse](#ricapi.e2.subscription.v1beta1.AddSubscriptionResponse) | AddSubscription establishes E2 subscriptions on E2 Node. |
-| UpdateSubscription | [UpdateSubscriptionRequest](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionRequest) | [UpdateSubscriptionResponse](#ricapi.e2.subscription.v1beta1.UpdateSubscriptionResponse) | UpdateSubscription updates E2 subscriptions on E2 Node. |
-| RemoveSubscription | [RemoveSubscriptionRequest](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionRequest) | [RemoveSubscriptionResponse](#ricapi.e2.subscription.v1beta1.RemoveSubscriptionResponse) | RemoveSubscription removes E2 subscriptions on E2 Node. |
-| GetSubscription | [GetSubscriptionRequest](#ricapi.e2.subscription.v1beta1.GetSubscriptionRequest) | [GetSubscriptionResponse](#ricapi.e2.subscription.v1beta1.GetSubscriptionResponse) | GetSubscription retrieves information about a specific subscription in the list of existing subscriptions |
-| ListSubscriptions | [ListSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.ListSubscriptionsRequest) | [ListSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.ListSubscriptionsResponse) | ListSubscriptions returns the list of current existing subscriptions |
-| WatchSubscriptions | [WatchSubscriptionsRequest](#ricapi.e2.subscription.v1beta1.WatchSubscriptionsRequest) | [WatchSubscriptionsResponse](#ricapi.e2.subscription.v1beta1.WatchSubscriptionsResponse) stream | WatchSubscriptions returns a stream of subscription changes |
+| AddSubscription | [AddSubscriptionRequest](#subscription.v1beta1.AddSubscriptionRequest) | [AddSubscriptionResponse](#subscription.v1beta1.AddSubscriptionResponse) | AddSubscription establishes E2 subscriptions on E2 Node. |
+| UpdateSubscription | [UpdateSubscriptionRequest](#subscription.v1beta1.UpdateSubscriptionRequest) | [UpdateSubscriptionResponse](#subscription.v1beta1.UpdateSubscriptionResponse) | UpdateSubscription updates E2 subscriptions on E2 Node. |
+| RemoveSubscription | [RemoveSubscriptionRequest](#subscription.v1beta1.RemoveSubscriptionRequest) | [RemoveSubscriptionResponse](#subscription.v1beta1.RemoveSubscriptionResponse) | RemoveSubscription removes E2 subscriptions on E2 Node. |
+| GetSubscription | [GetSubscriptionRequest](#subscription.v1beta1.GetSubscriptionRequest) | [GetSubscriptionResponse](#subscription.v1beta1.GetSubscriptionResponse) | GetSubscription retrieves information about a specific subscription in the list of existing subscriptions |
+| ListSubscriptions | [ListSubscriptionsRequest](#subscription.v1beta1.ListSubscriptionsRequest) | [ListSubscriptionsResponse](#subscription.v1beta1.ListSubscriptionsResponse) | ListSubscriptions returns the list of current existing subscriptions |
+| WatchSubscriptions | [WatchSubscriptionsRequest](#subscription.v1beta1.WatchSubscriptionsRequest) | [WatchSubscriptionsResponse](#subscription.v1beta1.WatchSubscriptionsResponse) stream | WatchSubscriptions returns a stream of subscription changes |
 
  
 
