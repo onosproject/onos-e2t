@@ -68,7 +68,7 @@ message Payload {
 
 // Subscription is a subscription state
 message Subscription {
-    uint64 id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
+    string id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
     string app_id = 3 [(gogoproto.casttype) = "AppID", (gogoproto.customname) = "AppID"];
     ServiceModel service_model = 4;
@@ -106,7 +106,7 @@ message RemoveSubscriptionResponse {
 }
 
 message GetSubscriptionRequest {
-    uint64 id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
+    string id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
 }
 
 message GetSubscriptionResponse {

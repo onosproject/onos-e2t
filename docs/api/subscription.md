@@ -75,7 +75,7 @@ AddSubscriptionResponse a subscription response
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint64](#uint64) |  |  |
+| id | [string](#string) |  |  |
 
 
 
@@ -191,7 +191,7 @@ Subscription is a subscription state
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| id | [uint64](#uint64) |  |  |
+| id | [string](#string) |  |  |
 | revision | [uint64](#uint64) |  |  |
 | app_id | [string](#string) |  |  |
 | service_model | [ServiceModel](#subscription.v1beta1.ServiceModel) |  |  |
