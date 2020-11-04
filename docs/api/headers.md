@@ -92,7 +92,7 @@ ResponseStatus
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | RESPONSE_STATUS_FAILED | 0 |  |
-| RESPONSE_STATUS_SUCCESSFUL | 1 |  |
+| RESPONSE_STATUS_SUCCEEDED | 1 |  |
 
 
  
