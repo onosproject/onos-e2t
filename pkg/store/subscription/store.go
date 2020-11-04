@@ -7,11 +7,17 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"github.com/google/uuid"
 	api "github.com/onosproject/onos-e2t/api/subscription/v1beta1"
+	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"sync"
 )
+
+func init() {
+	uuid.SetNodeID([]byte(env.GetPodName()))
+}
 
 var log = logging.GetLogger("store", "subscription")
 
@@ -60,12 +66,11 @@ type Store interface {
 
 // localStore is a local implementation of the subscription store
 type localStore struct {
-	subscriptions  map[api.ID]api.Subscription
-	subscriptionID api.ID
-	mu             sync.RWMutex
-	watchers       []chan<- Event
-	eventCh        chan Event
-	watchMu        sync.RWMutex
+	subscriptions map[api.ID]api.Subscription
+	mu            sync.RWMutex
+	watchers      []chan<- Event
+	eventCh       chan Event
+	watchMu       sync.RWMutex
 }
 
 func (s *localStore) open() error {
@@ -84,11 +89,13 @@ func (s *localStore) open() error {
 func (s *localStore) Add(ctx context.Context, subscription *api.Subscription) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	s.subscriptionID++
-	id := s.subscriptionID
-	subscription.ID = id
+	id, err := uuid.NewUUID()
+	if err != nil {
+		return err
+	}
+	subscription.ID = api.ID(id.String())
 	subscription.Revision = 1
-	s.subscriptions[id] = *subscription
+	s.subscriptions[subscription.ID] = *subscription
 	log.Infof("Added Subscription %+v", subscription)
 	s.eventCh <- Event{
 		Type:         api.EventType_ADDED,
@@ -102,7 +109,7 @@ func (s *localStore) Update(ctx context.Context, subscription *api.Subscription)
 	defer s.mu.Unlock()
 	stored, ok := s.subscriptions[subscription.ID]
 	if !ok {
-		return fmt.Errorf("unknown subscription %d", subscription.ID)
+		return fmt.Errorf("unknown subscription %s", subscription.ID)
 	}
 	if stored.Revision != subscription.Revision {
 		return fmt.Errorf("concurrent update detected")
@@ -122,7 +129,7 @@ func (s *localStore) Remove(ctx context.Context, subscription *api.Subscription)
 	defer s.mu.Unlock()
 	stored, ok := s.subscriptions[subscription.ID]
 	if !ok {
-		return fmt.Errorf("unknown subscription %d", subscription.ID)
+		return fmt.Errorf("unknown subscription %s", subscription.ID)
 	}
 	if stored.Revision != subscription.Revision {
 		return fmt.Errorf("concurrent update detected")
@@ -141,7 +148,7 @@ func (s *localStore) Get(ctx context.Context, id api.ID) (*api.Subscription, err
 	defer s.mu.RUnlock()
 	subscription, ok := s.subscriptions[id]
 	if !ok {
-		return nil, fmt.Errorf("unknown subscription %d", id)
+		return nil, fmt.Errorf("unknown subscription %s", id)
 	}
 	return &subscription, nil
 }

@@ -7,8 +7,7 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 syntax = "proto3";
 
 // Package ricapi.subscription.v1beta1 defines the interior gRPC interface for subscription service
-package ricapi.e2.subscription.v1beta1;
-option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/subscription/v1beta1";
+package subscription.v1beta1;
 
 import "gogoproto/gogo.proto";
 
@@ -69,7 +68,7 @@ message Payload {
 
 // Subscription is a subscription state
 message Subscription {
-    uint64 id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
+    string id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
     string app_id = 3 [(gogoproto.casttype) = "AppID", (gogoproto.customname) = "AppID"];
     ServiceModel service_model = 4;
@@ -107,7 +106,7 @@ message RemoveSubscriptionResponse {
 }
 
 message GetSubscriptionRequest {
-    uint64 id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
+    string id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
 }
 
 message GetSubscriptionResponse {
