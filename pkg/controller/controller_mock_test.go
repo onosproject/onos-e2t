@@ -9,29 +9,6 @@ import (
 	reflect "reflect"
 )
 
-// MockID is a mock of ID interface
-type MockID struct {
-	ctrl     *gomock.Controller
-	recorder *MockIDMockRecorder
-}
-
-// MockIDMockRecorder is the mock recorder for MockID
-type MockIDMockRecorder struct {
-	mock *MockID
-}
-
-// NewMockID creates a new mock instance
-func NewMockID(ctrl *gomock.Controller) *MockID {
-	mock := &MockID{ctrl: ctrl}
-	mock.recorder = &MockIDMockRecorder{mock}
-	return mock
-}
-
-// EXPECT returns an object that allows the caller to indicate expected use
-func (m *MockID) EXPECT() *MockIDMockRecorder {
-	return m.recorder
-}
-
 // MockWatcher is a mock of Watcher interface
 type MockWatcher struct {
 	ctrl     *gomock.Controller

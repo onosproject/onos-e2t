@@ -41,7 +41,7 @@ type RegexpPartitioner struct {
 
 // Partition returns a PartitionKey from the configured regex
 func (p *RegexpPartitioner) Partition(id ID) (PartitionKey, error) {
-	return PartitionKey(p.Regexp.FindString(id.(string))), nil
+	return PartitionKey(p.Regexp.FindString(id.String())), nil
 }
 
 var _ WorkPartitioner = &RegexpPartitioner{}

@@ -20,8 +20,6 @@ const (
 	maxRetryInterval     = 5 * time.Second
 )
 
-type ID interface{}
-
 // Watcher is implemented by controllers to implement watching for specific events
 // Type identifiers that are written to the watcher channel will eventually be processed by
 // the controller.
@@ -252,7 +250,7 @@ func (c *Controller) processRequests(ch chan ID) {
 		// Reconcile the request. If the reconciliation is not successful, requeue the request to be processed
 		// after the remaining enqueued events.
 		result := c.reconcile(id, reconciler)
-		if result.Requeue != "" {
+		if result.Requeue.Value != "" {
 			go c.requeueRequest(ch, result.Requeue)
 		}
 	}

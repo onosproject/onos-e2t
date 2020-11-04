@@ -33,7 +33,7 @@ func TestController(t *testing.T) {
 	filter.EXPECT().
 		Accept(gomock.Any()).
 		DoAndReturn(func(id ID) bool {
-			i, _ := strconv.Atoi(id.(string))
+			i := id.Int()
 			return i%2 == 0
 		}).
 		AnyTimes()
@@ -56,7 +56,7 @@ func TestController(t *testing.T) {
 	partitioner.EXPECT().
 		Partition(gomock.Any()).
 		DoAndReturn(func(id ID) (PartitionKey, error) {
-			i, _ := strconv.Atoi(id.(string))
+			i := id.Int()
 			partition := i % partitions
 			return PartitionKey(strconv.Itoa(partition)), nil
 		}).
@@ -79,32 +79,33 @@ func TestController(t *testing.T) {
 	activatorCh <- true
 
 	reconciler.EXPECT().
-		Reconcile(gomock.Eq("2")).
+		Reconcile(gomock.Eq(NewID(2))).
 		Return(Result{}, nil)
 	reconciler.EXPECT().
-		Reconcile(gomock.Eq(ID("2"))).
+		Reconcile(gomock.Eq(NewID(2))).
 		Return(Result{}, errors.New("some error"))
 	reconciler.EXPECT().
-		Reconcile(gomock.Eq(ID("2"))).
+		Reconcile(gomock.Eq(NewID(2))).
 		Return(Result{}, errors.New("some error"))
 	reconciler.EXPECT().
-		Reconcile(gomock.Eq(ID("2"))).
+		Reconcile(gomock.Eq(NewID(2))).
 		Return(Result{}, errors.New("some error"))
 	reconciler.EXPECT().
-		Reconcile(gomock.Eq(ID("2"))).
+		Reconcile(gomock.Eq(NewID(2))).
 		Return(Result{}, nil)
 
 	reconciler.EXPECT().
-		Reconcile(gomock.Eq(ID("4"))).
+		Reconcile(gomock.Eq(NewID(4))).
 		Return(Result{}, errors.New("some error"))
 	reconciler.EXPECT().
-		Reconcile(gomock.Eq(ID("4"))).
+		Reconcile(gomock.Eq(NewID(4))).
 		Return(Result{}, nil)
 
 	wg.Wait()
 	watcherCh := watcherValue.Load().(chan<- ID)
-	watcherCh <- ID("1")
-	watcherCh <- ID("2")
-	watcherCh <- ID("3")
-	watcherCh <- ID("4")
+	watcherCh <- NewID(1)
+	watcherCh <- NewID(2)
+	watcherCh <- NewID(3)
+	watcherCh <- NewID(4)
+
 }
