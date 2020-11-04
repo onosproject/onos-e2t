@@ -10,6 +10,7 @@ syntax = "proto3";
 package ricapi.e2.subscription.v1beta1;
 option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/subscription/v1beta1";
 
+import "google/protobuf/any.proto";
 import "gogoproto/gogo.proto";
 
 // SubscriptionService manages subscription and subscription delete requests
@@ -54,7 +55,9 @@ enum EventType {
 message Subscription {
     uint64 id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
-    string app = 3 [(gogoproto.casttype) = "AppID"];
+    string app_id = 3 [(gogoproto.casttype) = "AppID", (gogoproto.customname) = "AppID"];
+    string service_model_id = 4 [(gogoproto.casttype) = "ServiceModelID", (gogoproto.customname) = "ServiceModelID"];
+    google.protobuf.Any payload = 5;
 }
 
 // AddSubscriptionRequest a subscription request

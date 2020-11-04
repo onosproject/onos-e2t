@@ -159,7 +159,9 @@ Subscription is a subscription state
 | ----- | ---- | ----- | ----------- |
 | id | [uint64](#uint64) |  |  |
 | revision | [uint64](#uint64) |  |  |
-| app | [string](#string) |  |  |
+| app_id | [string](#string) |  |  |
+| service_model_id | [string](#string) |  |  |
+| payload | [google.protobuf.Any](#google.protobuf.Any) |  |  |
 
 
 
