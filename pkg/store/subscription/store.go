@@ -7,12 +7,13 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"io"
+	"sync"
+
 	"github.com/google/uuid"
 	api "github.com/onosproject/onos-e2t/api/subscription/v1beta1"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"io"
-	"sync"
 )
 
 func init() {
@@ -75,14 +76,17 @@ type localStore struct {
 
 func (s *localStore) open() error {
 	s.eventCh = make(chan Event)
-	for event := range s.eventCh {
-		log.Infof("Notifying Subscription event %v", event)
-		s.watchMu.RLock()
-		for _, watcher := range s.watchers {
-			watcher <- event
+	go func() {
+		for event := range s.eventCh {
+			log.Infof("Notifying Subscription event %v", event)
+			s.watchMu.RLock()
+			for _, watcher := range s.watchers {
+				watcher <- event
+			}
+			s.watchMu.RUnlock()
 		}
-		s.watchMu.RUnlock()
-	}
+
+	}()
 	return nil
 }
 
