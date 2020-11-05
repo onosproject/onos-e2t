@@ -250,7 +250,7 @@ func (c *Controller) processRequests(ch chan ID) {
 		// Reconcile the request. If the reconciliation is not successful, requeue the request to be processed
 		// after the remaining enqueued events.
 		result := c.reconcile(id, reconciler)
-		if result.Requeue.Value != "" {
+		if result.Requeue.Value != nil {
 			go c.requeueRequest(ch, result.Requeue)
 		}
 	}
