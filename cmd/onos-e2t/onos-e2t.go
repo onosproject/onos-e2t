@@ -6,13 +6,14 @@ package main
 
 import (
 	"flag"
-	"github.com/onosproject/onos-e2t/pkg/manager"
-	"github.com/onosproject/onos-lib-go/pkg/certs"
-	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io/ioutil"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/onosproject/onos-e2t/pkg/manager"
+	"github.com/onosproject/onos-lib-go/pkg/certs"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
 var log = logging.GetLogger("main")
@@ -27,11 +28,10 @@ func main() {
 
 	flag.Parse()
 
-	opts, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
+	_, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Infof("not using gRPC server just yet %p", opts)
 
 	log.Info("Starting onos-e2t")
 	cfg := manager.Config{
