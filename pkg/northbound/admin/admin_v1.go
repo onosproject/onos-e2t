@@ -74,6 +74,8 @@ func (s *Server) ListE2NodeConnections(req *adminv1.ListE2NodeConnectionsRequest
 			RemotePort: remotePort,
 			Id:         uint32(conn.ID),
 			PlmnId:     string(conn.PlmnID),
+			// TODO: This should come from the connection data
+			ConnectionType: adminv1.E2NodeConnectionType_G_NB,
 		}
 
 		err = stream.Send(msg)

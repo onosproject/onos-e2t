@@ -13,6 +13,8 @@
     - [UploadRegisterServiceModelRequest](#admin.v1.UploadRegisterServiceModelRequest)
     - [UploadRegisterServiceModelResponse](#admin.v1.UploadRegisterServiceModelResponse)
   
+    - [E2NodeConnectionType](#admin.v1.E2NodeConnectionType)
+  
     - [E2TAdminService](#admin.v1.E2TAdminService)
   
 - [Scalar Value Types](#scalar-value-types)
@@ -78,6 +80,7 @@ ListE2NodeConnectionsResponse carries information about the SCTP connection to t
 | remote_port | [uint32](#uint32) |  |  |
 | id | [uint32](#uint32) |  |  |
 | plmn_id | [string](#string) |  |  |
+| connection_type | [E2NodeConnectionType](#admin.v1.E2NodeConnectionType) |  |  |
 
 
 
@@ -150,6 +153,21 @@ UploadRegisterServiceModelResponse carries status of model plugin registration.
 
 
  
+
+
+<a name="admin.v1.E2NodeConnectionType"></a>
+
+### E2NodeConnectionType
+E2NodeConnectionType specifies
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UNKNOWN | 0 |  |
+| G_NB | 1 |  |
+| E_NB | 2 |  |
+| ENG_MB | 3 |  |
+| NGE_NB | 4 |  |
+
 
  
 
