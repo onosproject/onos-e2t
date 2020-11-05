@@ -10,9 +10,9 @@ usage() {
    echo
    echo "For full compliance with BSD-based OS (like MacOS) please do following:"
    echo "   1) brew install coreutils"
-   echo "   2) Uncomment line 32 of this script and use gcsplit instead"
+   echo "   2) Uncomment line 33 of this script and use gcsplit instead"
    echo "OR"
-   echo "   Uncomment line 31 and observe error each time (but script would work perfectly fine)"
+   echo "   Uncomment line 32 and observe error each time (but script would work perfectly fine)"
    echo "See more:"
    echo "https://stackoverflow.com/questions/4323703/looking-for-correct-regular-expression-for-csplit"
    exit $1
@@ -28,8 +28,8 @@ fatal() {
 
 SPLITFILE=$1 #"e2ap-v01.00.00.proto"
 
-#FILESNUMBER=$(csplit -k ${SPLITFILE} '/\/\/\/\/\/[[:space:]][A-Za-z0-9\-]*\.proto/' '{*}' | wc -l)
-FILESNUMBER=$(csplit -k ${SPLITFILE} '/\/\/\/\/\/[[:space:]][A-Za-z0-9\-]*\.proto/' '{999999999}' | wc -l)
+FILESNUMBER=$(csplit -k ${SPLITFILE} '/\/\/\/\/\/[[:space:]][A-Za-z0-9\-]*\.proto/' '{*}' | wc -l)
+#FILESNUMBER=$(csplit -k ${SPLITFILE} '/\/\/\/\/\/[[:space:]][A-Za-z0-9\-]*\.proto/' '{999999999}' | wc -l)
 #FILESNUMBER=$(gcsplit -k ${SPLITFILE} '/\/\/\/\/\/[[:space:]][A-Za-z0-9\-]*\.proto/' '{*}' | wc -l)
 echo "${FILESNUMBER} files were created"
 
