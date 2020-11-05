@@ -38,7 +38,7 @@ func runConnectionsCommand(cmd *cobra.Command, args []string) error {
 	writer.Init(outputWriter, 0, 0, 3, ' ', tabwriter.FilterHTML)
 
 	if !noHeaders {
-		_, _ = fmt.Fprintln(writer, "Global ID\tPLNM ID\tIP Addr\tPort")
+		_, _ = fmt.Fprintln(writer, "Global ID\tPLNM ID\tIP Addr\tPort\tConn Type")
 	}
 
 	request := admin.ListE2NodeConnectionsRequest{}
@@ -59,7 +59,11 @@ func runConnectionsCommand(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		_, _ = fmt.Fprintf(writer, "%#x\t%s\t%s\t%d\n", response.Id, response.PlmnId, strings.Join(response.RemoteIp, ","), response.RemotePort)
+		_, _ = fmt.Fprintf(
+			writer,
+			"%#x\t%s\t%s\t%d\t%s\n",
+			response.Id, response.PlmnId, strings.Join(response.RemoteIp, ","), response.RemotePort,
+			response.ConnectionType.String())
 	}
 
 	_ = writer.Flush()

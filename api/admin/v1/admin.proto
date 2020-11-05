@@ -50,7 +50,7 @@ message ListRegisteredServiceModelsRequest {
 message ListE2NodeConnectionsRequest {
 }
 
-// E2NodeConnectionType specifies
+// E2NodeConnectionType specifies the type of an E2 connection
 enum E2NodeConnectionType {
     UNKNOWN = 0;
     G_NB = 1;
