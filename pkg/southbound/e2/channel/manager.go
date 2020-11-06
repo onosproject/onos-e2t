@@ -13,7 +13,6 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
-	"github.com/onosproject/onos-e2t/pkg/config"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
@@ -22,6 +21,9 @@ import (
 )
 
 var log = logging.GetLogger("southbound", "e2", "channel")
+
+// TODO: Change the RIC ID to something appropriate
+const ricID = 0x01 // µONOS RIC is #1!!!
 
 // NewManager creates a new channel manager
 func NewManager() *Manager {
@@ -129,7 +131,7 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 				Value: []byte(plmnID),
 			},
 			RicId: &e2ap_commondatatypes.BitString{
-				Value: config.ServiceID,
+				Value: ricID,
 				Len:   20,
 			},
 		},
