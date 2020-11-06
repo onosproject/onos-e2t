@@ -5,7 +5,7 @@
 package e2
 
 import (
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/connection"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-e2t/pkg/southbound/sctp"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
@@ -30,7 +30,7 @@ func (c Config) GetPort() int {
 }
 
 // NewServer creates a new E2 server
-func NewServer(config Config, connections *connection.Manager) *Server {
+func NewServer(config Config, connections *channel.Manager) *Server {
 	s := sctp.NewServer(newHandler(connections), sctp.Config{
 		Port: config.GetPort(),
 	})
