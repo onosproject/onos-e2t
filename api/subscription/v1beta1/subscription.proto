@@ -32,15 +32,6 @@ service SubscriptionService {
     rpc WatchSubscriptions (WatchSubscriptionsRequest) returns (stream WatchSubscriptionsResponse);
 }
 
-// State is a subscription state
-enum State {
-    // INACTIVE indicates the subscription is not currently active
-    INACTIVE = 0;
-
-    // ACTIVE indicates the subscription is active
-    ACTIVE = 1;
-}
-
 // EventType is a subscription event type
 enum EventType {
     NONE = 0;
@@ -71,8 +62,27 @@ message Subscription {
     string id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
     string app_id = 3 [(gogoproto.casttype) = "AppID", (gogoproto.customname) = "AppID"];
-    ServiceModel service_model = 4;
-    Payload payload = 5;
+    uint64 e2_node_id = 4 [(gogoproto.casttype) = "E2NodeID", (gogoproto.customname) = "E2NodeID"];
+    ServiceModel service_model = 5;
+    Payload payload = 6;
+    Status status = 7 [(gogoproto.nullable) = false];
+}
+
+// Status is the subscription status
+message Status {
+    State state = 1;
+    int32 e2_term_id = 2 [(gogoproto.customname) = "E2TermID"];
+    uint64 e2_conn_id = 3 [(gogoproto.customname) = "E2ConnID"];
+    int32 e2_request_id = 4 [(gogoproto.customname) = "E2RequestID"];
+}
+
+// State is a subscription state
+enum State {
+    // INACTIVE indicates the subscription is not currently active
+    INACTIVE = 0;
+
+    // ACTIVE indicates the subscription is active
+    ACTIVE = 1;
 }
 
 // AddSubscriptionRequest a subscription request

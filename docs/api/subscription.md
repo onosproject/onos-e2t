@@ -14,6 +14,7 @@
     - [RemoveSubscriptionRequest](#subscription.v1beta1.RemoveSubscriptionRequest)
     - [RemoveSubscriptionResponse](#subscription.v1beta1.RemoveSubscriptionResponse)
     - [ServiceModel](#subscription.v1beta1.ServiceModel)
+    - [Status](#subscription.v1beta1.Status)
     - [Subscription](#subscription.v1beta1.Subscription)
     - [UpdateSubscriptionRequest](#subscription.v1beta1.UpdateSubscriptionRequest)
     - [UpdateSubscriptionResponse](#subscription.v1beta1.UpdateSubscriptionResponse)
@@ -183,6 +184,24 @@ ServiceModel is a service model definition
 
 
 
+<a name="subscription.v1beta1.Status"></a>
+
+### Status
+Status is the subscription status
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| state | [State](#subscription.v1beta1.State) |  |  |
+| e2_term_id | [int32](#int32) |  |  |
+| e2_conn_id | [uint64](#uint64) |  |  |
+| e2_request_id | [int32](#int32) |  |  |
+
+
+
+
+
+
 <a name="subscription.v1beta1.Subscription"></a>
 
 ### Subscription
@@ -194,8 +213,10 @@ Subscription is a subscription state
 | id | [string](#string) |  |  |
 | revision | [uint64](#uint64) |  |  |
 | app_id | [string](#string) |  |  |
+| e2_node_id | [uint64](#uint64) |  |  |
 | service_model | [ServiceModel](#subscription.v1beta1.ServiceModel) |  |  |
 | payload | [Payload](#subscription.v1beta1.Payload) |  |  |
+| status | [Status](#subscription.v1beta1.Status) |  |  |
 
 
 
