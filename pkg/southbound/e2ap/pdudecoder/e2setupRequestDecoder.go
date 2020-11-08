@@ -71,6 +71,18 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 	}
 
 	ranFunctionsList := make(types.RanFunctions)
+	ranFunctionsIe := e2setup.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes10()
+	if ranFunctionsIe == nil {
+		return nodeIdentity, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionsAdded")
+	}
+
+	for _, rfIe := range ranFunctionsIe.GetValue().GetValue() {
+		rfItem := rfIe.GetE2ApProtocolIes10().GetValue()
+		ranFunctionsList[rfItem.GetRanFunctionId().GetValue()] = types.RanFunctionItem{
+			Description: types.RanFunctionDescription(string(rfItem.GetRanFunctionDefinition().GetValue())),
+			Revision:    types.RanFunctionRevision(rfItem.GetRanFunctionRevision().GetValue()),
+		}
+	}
 
 	return nodeIdentity, &ranFunctionsList, nil
 }

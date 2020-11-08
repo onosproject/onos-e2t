@@ -10,12 +10,10 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E2ApPdu, error) {
-	if len(plmnID) != 3 {
-		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
-	}
+func CreateE2SetupRequestPdu(plmnID types.PlmnID, ranFunctionIds types.RanFunctions) (*e2appdudescriptions.E2ApPdu, error) {
 
 	gnbIDIe := e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
 		Id:          int32(v1beta1.ProtocolIeIDGlobalE2nodeID),
@@ -26,7 +24,7 @@ func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E
 				GNb: &e2apies.GlobalE2NodeGnbId{
 					GlobalGNbId: &e2apies.GlobalgNbId{
 						PlmnId: &e2ap_commondatatypes.PlmnIdentity{
-							Value: []byte(plmnID),
+							Value: []byte{plmnID[0], plmnID[1], plmnID[2]},
 						},
 						GnbId: &e2apies.GnbIdChoice{
 							GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
@@ -50,7 +48,7 @@ func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E
 		},
 	}
 
-	for _, ranFunctionID := range ranFunctionIds {
+	for id, ranFunctionID := range ranFunctionIds {
 		ranFunction := e2appducontents.RanfunctionItemIes{
 			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
 				Id:          int32(v1beta1.ProtocolIeIDRanfunctionItem),
@@ -58,7 +56,13 @@ func CreateE2apPdu(plmnID string, ranFunctionIds ...int) (*e2appdudescriptions.E
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.RanfunctionItem{
 					RanFunctionId: &e2apies.RanfunctionId{
-						Value: int32(ranFunctionID),
+						Value: id,
+					},
+					RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
+						Value: []byte(ranFunctionID.Description),
+					},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(ranFunctionID.Revision),
 					},
 				},
 			},
