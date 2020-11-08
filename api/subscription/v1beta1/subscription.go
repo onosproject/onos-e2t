@@ -15,3 +15,6 @@ type AppID string
 
 // ServiceModelID is a service model identifier
 type ServiceModelID string
+
+// E2NodeID is an E2 node identifier
+type E2NodeID uint64
