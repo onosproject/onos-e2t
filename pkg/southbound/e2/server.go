@@ -30,8 +30,8 @@ func (c Config) GetPort() int {
 }
 
 // NewServer creates a new E2 server
-func NewServer(config Config, connections *channel.Manager) *Server {
-	s := sctp.NewServer(newHandler(connections), sctp.Config{
+func NewServer(config Config, channels *channel.Manager) *Server {
+	s := sctp.NewServer(newHandler(channels), sctp.Config{
 		Port: config.GetPort(),
 	})
 	return &Server{

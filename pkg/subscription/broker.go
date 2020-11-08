@@ -9,32 +9,27 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-e2t/pkg/store/subscription"
-	"io"
 )
 
 // NewBroker creates a new subscription broker
-func NewBroker(channel *channel.Manager, subs subscription.Store, streams *stream.Manager) (*Broker, error) {
-	broker := &Broker{
-		channels: channel,
+func NewBroker(subs subscription.Store, streams *stream.Manager, channels *channel.Manager) *Broker {
+	return &Broker{
 		subs:     subs,
 		streams:  streams,
+		channels: channels,
 	}
-	if err := broker.open(); err != nil {
-		return nil, err
-	}
-	return broker, nil
 }
 
 // Broker is a subscription broker
 type Broker struct {
-	channels *channel.Manager
 	subs     subscription.Store
 	streams  *stream.Manager
+	channels *channel.Manager
 	cancel   context.CancelFunc
 }
 
-// open opens the broker
-func (b *Broker) open() error {
+// Start starts the broker
+func (b *Broker) Start() error {
 	ctx, cancel := context.WithCancel(context.Background())
 	b.cancel = cancel
 
@@ -70,10 +65,8 @@ func (b *Broker) processChannel(channel channel.Channel) {
 	}
 }
 
-// Close closes the broker
-func (b *Broker) Close() error {
+// Stop stops the broker
+func (b *Broker) Stop() error {
 	b.cancel()
 	return nil
 }
-
-var _ io.Closer = &Broker{}

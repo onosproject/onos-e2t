@@ -7,10 +7,12 @@ package manager
 import (
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
+	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-e2t/pkg/northbound/subscription"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/connection"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
+	sub "github.com/onosproject/onos-e2t/pkg/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 )
@@ -54,33 +56,53 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	conns := connection.NewManager()
+	streams := stream.NewManager()
+	channels := channel.NewManager()
 
-	err = m.startSouthboundServer(conns)
+	err = m.startSubscriptionBroker(subs, streams, channels)
 	if err != nil {
 		return err
 	}
 
-	err = m.startNorthboundServer(subs, conns)
+	err = m.startSouthboundServer(channels)
+	if err != nil {
+		return err
+	}
+
+	err = m.startNorthboundServer(subs, streams, channels)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
+// startSubscriptionBroker starts the subscription broker
+func (m *Manager) startSubscriptionBroker(subs substore.Store, streams *stream.Manager, channels *channel.Manager) error {
+	controller := sub.NewController(subs, channels)
+	if err := controller.Start(); err != nil {
+		return err
+	}
+
+	broker := sub.NewBroker(subs, streams, channels)
+	if err := broker.Start(); err != nil {
+		return err
+	}
+	return nil
+}
+
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(conns *connection.Manager) error {
+func (m *Manager) startSouthboundServer(channels *channel.Manager) error {
 	config := e2.Config{
 		Port: m.Config.E2Port,
 	}
-	server := e2.NewServer(config, conns)
+	server := e2.NewServer(config, channels)
 	doneCh := make(chan error)
 	go server.Serve(doneCh)
 	return <-doneCh
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(subs substore.Store, conns *connection.Manager) error {
+func (m *Manager) startNorthboundServer(subs substore.Store, streams *stream.Manager, channels *channel.Manager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,
@@ -88,9 +110,9 @@ func (m *Manager) startNorthboundServer(subs substore.Store, conns *connection.M
 		int16(m.Config.GRPCPort),
 		true,
 		northbound.SecurityConfig{}))
-	s.AddService(admin.NewService(conns))
+	s.AddService(admin.NewService(channels))
 	s.AddService(logging.Service{})
-	s.AddService(ricapie2.Service{})
+	s.AddService(ricapie2.NewService(streams))
 	s.AddService(subscription.NewService(subs))
 
 	doneCh := make(chan error)

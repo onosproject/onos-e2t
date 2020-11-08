@@ -12,9 +12,9 @@ import (
 )
 
 // newHandler creates a new E2 SCTP handler
-func newHandler(conns *channel.Manager) sctp.Handler {
+func newHandler(channels *channel.Manager) sctp.Handler {
 	return &Handler{
-		channels: conns,
+		channels: channels,
 	}
 }
 
