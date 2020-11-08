@@ -69,16 +69,16 @@ func (w *Watcher) Stop() {
 
 var _ controller.Watcher = &Watcher{}
 
-// ConnectionWatcher is a connection watcher
-type ConnectionWatcher struct {
-	subs   subscription.Store
-	conns  *channel.Manager
-	cancel context.CancelFunc
-	mu     sync.Mutex
+// ChannelWatcher is a connection watcher
+type ChannelWatcher struct {
+	subs     subscription.Store
+	channels *channel.Manager
+	cancel   context.CancelFunc
+	mu       sync.Mutex
 }
 
 // Start starts the connection watcher
-func (w *ConnectionWatcher) Start(ch chan<- controller.ID) error {
+func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.cancel != nil {
@@ -87,7 +87,7 @@ func (w *ConnectionWatcher) Start(ch chan<- controller.ID) error {
 
 	channelCh := make(chan channel.Channel, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.conns.Watch(ctx, channelCh)
+	err := w.channels.Watch(ctx, channelCh)
 	if err != nil {
 		cancel()
 		return err
@@ -111,7 +111,7 @@ func (w *ConnectionWatcher) Start(ch chan<- controller.ID) error {
 }
 
 // Stop stops the connection watcher
-func (w *ConnectionWatcher) Stop() {
+func (w *ChannelWatcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
 		w.cancel()

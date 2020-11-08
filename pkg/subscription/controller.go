@@ -34,9 +34,9 @@ func NewController(subs subscription.Store, channels *channel.Manager) *controll
 	c.Watch(&Watcher{
 		subs: subs,
 	})
-	c.Watch(&ConnectionWatcher{
-		subs:  subs,
-		conns: channels,
+	c.Watch(&ChannelWatcher{
+		subs:     subs,
+		channels: channels,
 	})
 	c.Reconcile(&Reconciler{
 		subs:     subs,
