@@ -8,6 +8,7 @@ package v1beta1
 import (
 	context "context"
 	fmt "fmt"
+	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	v1beta1 "github.com/onosproject/onos-e2t/api/ricapi/e2/headers/v1beta1"
 	grpc "google.golang.org/grpc"
@@ -120,187 +121,104 @@ func (m *ControlResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ControlResponse proto.InternalMessageInfo
 
-// AppRequest
-type AppRequest struct {
-	Header *v1beta1.RequestHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// Types that are valid to be assigned to Req:
-	//	*AppRequest_ControlRequest
-	Req                  isAppRequest_Req `protobuf_oneof:"req"`
-	Payload              []byte           `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
-	XXX_unrecognized     []byte           `json:"-"`
-	XXX_sizecache        int32            `json:"-"`
+type StreamRequest struct {
+	AppID                AppID      `protobuf:"bytes,1,opt,name=app_id,json=appId,proto3,casttype=AppID" json:"app_id,omitempty"`
+	InstanceID           InstanceID `protobuf:"bytes,2,opt,name=instance_id,json=instanceId,proto3,casttype=InstanceID" json:"instance_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
 }
 
-func (m *AppRequest) Reset()         { *m = AppRequest{} }
-func (m *AppRequest) String() string { return proto.CompactTextString(m) }
-func (*AppRequest) ProtoMessage()    {}
-func (*AppRequest) Descriptor() ([]byte, []int) {
+func (m *StreamRequest) Reset()         { *m = StreamRequest{} }
+func (m *StreamRequest) String() string { return proto.CompactTextString(m) }
+func (*StreamRequest) ProtoMessage()    {}
+func (*StreamRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e27d8777407939bb, []int{3}
 }
-func (m *AppRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AppRequest.Unmarshal(m, b)
+func (m *StreamRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StreamRequest.Unmarshal(m, b)
 }
-func (m *AppRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AppRequest.Marshal(b, m, deterministic)
+func (m *StreamRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StreamRequest.Marshal(b, m, deterministic)
 }
-func (m *AppRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AppRequest.Merge(m, src)
+func (m *StreamRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StreamRequest.Merge(m, src)
 }
-func (m *AppRequest) XXX_Size() int {
-	return xxx_messageInfo_AppRequest.Size(m)
+func (m *StreamRequest) XXX_Size() int {
+	return xxx_messageInfo_StreamRequest.Size(m)
 }
-func (m *AppRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_AppRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AppRequest proto.InternalMessageInfo
-
-type isAppRequest_Req interface {
-	isAppRequest_Req()
+func (m *StreamRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_StreamRequest.DiscardUnknown(m)
 }
 
-type AppRequest_ControlRequest struct {
-	ControlRequest *ControlRequest `protobuf:"bytes,2,opt,name=control_request,json=controlRequest,proto3,oneof" json:"control_request,omitempty"`
-}
+var xxx_messageInfo_StreamRequest proto.InternalMessageInfo
 
-func (*AppRequest_ControlRequest) isAppRequest_Req() {}
-
-func (m *AppRequest) GetReq() isAppRequest_Req {
+func (m *StreamRequest) GetAppID() AppID {
 	if m != nil {
-		return m.Req
+		return m.AppID
 	}
-	return nil
+	return ""
 }
 
-func (m *AppRequest) GetHeader() *v1beta1.RequestHeader {
+func (m *StreamRequest) GetInstanceID() InstanceID {
 	if m != nil {
-		return m.Header
+		return m.InstanceID
 	}
-	return nil
+	return ""
 }
 
-func (m *AppRequest) GetControlRequest() *ControlRequest {
-	if x, ok := m.GetReq().(*AppRequest_ControlRequest); ok {
-		return x.ControlRequest
-	}
-	return nil
+type StreamResponse struct {
+	Header               *v1beta1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
+	Payload              []byte                  `protobuf:"bytes,2,opt,name=payload,proto3" json:"payload,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
+	XXX_unrecognized     []byte                  `json:"-"`
+	XXX_sizecache        int32                   `json:"-"`
 }
 
-func (m *AppRequest) GetPayload() []byte {
-	if m != nil {
-		return m.Payload
-	}
-	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*AppRequest) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*AppRequest_ControlRequest)(nil),
-	}
-}
-
-// AppResponse
-type AppResponse struct {
-	Header *v1beta1.ResponseHeader `protobuf:"bytes,1,opt,name=header,proto3" json:"header,omitempty"`
-	// Types that are valid to be assigned to Resp:
-	//	*AppResponse_Indication
-	//	*AppResponse_ControlResponse
-	Resp                 isAppResponse_Resp `protobuf_oneof:"resp"`
-	Payload              []byte             `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
-}
-
-func (m *AppResponse) Reset()         { *m = AppResponse{} }
-func (m *AppResponse) String() string { return proto.CompactTextString(m) }
-func (*AppResponse) ProtoMessage()    {}
-func (*AppResponse) Descriptor() ([]byte, []int) {
+func (m *StreamResponse) Reset()         { *m = StreamResponse{} }
+func (m *StreamResponse) String() string { return proto.CompactTextString(m) }
+func (*StreamResponse) ProtoMessage()    {}
+func (*StreamResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e27d8777407939bb, []int{4}
 }
-func (m *AppResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AppResponse.Unmarshal(m, b)
+func (m *StreamResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StreamResponse.Unmarshal(m, b)
 }
-func (m *AppResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AppResponse.Marshal(b, m, deterministic)
+func (m *StreamResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StreamResponse.Marshal(b, m, deterministic)
 }
-func (m *AppResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AppResponse.Merge(m, src)
+func (m *StreamResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StreamResponse.Merge(m, src)
 }
-func (m *AppResponse) XXX_Size() int {
-	return xxx_messageInfo_AppResponse.Size(m)
+func (m *StreamResponse) XXX_Size() int {
+	return xxx_messageInfo_StreamResponse.Size(m)
 }
-func (m *AppResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_AppResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AppResponse proto.InternalMessageInfo
-
-type isAppResponse_Resp interface {
-	isAppResponse_Resp()
+func (m *StreamResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_StreamResponse.DiscardUnknown(m)
 }
 
-type AppResponse_Indication struct {
-	Indication *Indication `protobuf:"bytes,2,opt,name=indication,proto3,oneof" json:"indication,omitempty"`
-}
-type AppResponse_ControlResponse struct {
-	ControlResponse *ControlResponse `protobuf:"bytes,3,opt,name=control_response,json=controlResponse,proto3,oneof" json:"control_response,omitempty"`
-}
+var xxx_messageInfo_StreamResponse proto.InternalMessageInfo
 
-func (*AppResponse_Indication) isAppResponse_Resp()      {}
-func (*AppResponse_ControlResponse) isAppResponse_Resp() {}
-
-func (m *AppResponse) GetResp() isAppResponse_Resp {
-	if m != nil {
-		return m.Resp
-	}
-	return nil
-}
-
-func (m *AppResponse) GetHeader() *v1beta1.ResponseHeader {
+func (m *StreamResponse) GetHeader() *v1beta1.ResponseHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
 
-func (m *AppResponse) GetIndication() *Indication {
-	if x, ok := m.GetResp().(*AppResponse_Indication); ok {
-		return x.Indication
-	}
-	return nil
-}
-
-func (m *AppResponse) GetControlResponse() *ControlResponse {
-	if x, ok := m.GetResp().(*AppResponse_ControlResponse); ok {
-		return x.ControlResponse
-	}
-	return nil
-}
-
-func (m *AppResponse) GetPayload() []byte {
+func (m *StreamResponse) GetPayload() []byte {
 	if m != nil {
 		return m.Payload
 	}
 	return nil
-}
-
-// XXX_OneofWrappers is for the internal use of the proto package.
-func (*AppResponse) XXX_OneofWrappers() []interface{} {
-	return []interface{}{
-		(*AppResponse_Indication)(nil),
-		(*AppResponse_ControlResponse)(nil),
-	}
 }
 
 func init() {
 	proto.RegisterType((*Indication)(nil), "ricapi.e2.v1beta1.Indication")
 	proto.RegisterType((*ControlRequest)(nil), "ricapi.e2.v1beta1.ControlRequest")
 	proto.RegisterType((*ControlResponse)(nil), "ricapi.e2.v1beta1.ControlResponse")
-	proto.RegisterType((*AppRequest)(nil), "ricapi.e2.v1beta1.AppRequest")
-	proto.RegisterType((*AppResponse)(nil), "ricapi.e2.v1beta1.AppResponse")
+	proto.RegisterType((*StreamRequest)(nil), "ricapi.e2.v1beta1.StreamRequest")
+	proto.RegisterType((*StreamResponse)(nil), "ricapi.e2.v1beta1.StreamResponse")
 }
 
 func init() {
@@ -308,31 +226,29 @@ func init() {
 }
 
 var fileDescriptor_e27d8777407939bb = []byte{
-	// 371 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x52, 0xcf, 0x8f, 0xd2, 0x40,
-	0x14, 0xa6, 0x20, 0x98, 0xbc, 0x12, 0x7e, 0xcc, 0xa9, 0x21, 0xd1, 0x60, 0x13, 0x63, 0x3d, 0x38,
-	0x95, 0x31, 0xc6, 0xa3, 0x82, 0x31, 0xc1, 0xc4, 0x44, 0x53, 0x3d, 0x79, 0x90, 0x94, 0xe1, 0x05,
-	0xc6, 0xb0, 0x9d, 0x61, 0x3a, 0x90, 0xec, 0x7d, 0xff, 0xad, 0xfd, 0xdf, 0x36, 0x74, 0x06, 0x4a,
-	0x59, 0x96, 0x53, 0x3b, 0x5f, 0xdf, 0x37, 0xdf, 0x8f, 0x3e, 0x78, 0x9d, 0x2a, 0x11, 0x6b, 0xc1,
-	0xf7, 0x0f, 0x64, 0xf1, 0x6e, 0x34, 0x47, 0x93, 0x8e, 0x1c, 0x32, 0x43, 0x46, 0x95, 0x96, 0x46,
-	0x92, 0xbe, 0x05, 0x28, 0x32, 0xea, 0x46, 0x06, 0x6f, 0x4a, 0xd6, 0x0a, 0xd3, 0x05, 0xea, 0xfc,
-	0xc8, 0x76, 0x67, 0xcb, 0x0d, 0xdb, 0x00, 0xdf, 0xb3, 0x85, 0xe0, 0xa9, 0x11, 0x32, 0x0b, 0x7b,
-	0xd0, 0xf9, 0x2a, 0x33, 0xa3, 0xe5, 0x3a, 0xc1, 0xcd, 0x16, 0x73, 0x13, 0xf6, 0xa1, 0x7b, 0x44,
-	0x72, 0x25, 0xb3, 0x1c, 0xc3, 0x7b, 0x0f, 0x60, 0xac, 0x94, 0x9b, 0x20, 0x5f, 0xa0, 0x65, 0xaf,
-	0x0c, 0xbc, 0xa1, 0x17, 0xf9, 0x2c, 0xa2, 0xa5, 0x9d, 0x83, 0x96, 0xd3, 0xa6, 0x8e, 0x33, 0x2d,
-	0xe0, 0xc4, 0xf1, 0xc8, 0x0f, 0xe8, 0x72, 0xab, 0x31, 0xd3, 0x76, 0x20, 0xa8, 0x17, 0x57, 0xbd,
-	0xa2, 0x8f, 0x92, 0xd1, 0xaa, 0xbf, 0x69, 0x2d, 0xe9, 0xf0, 0x0a, 0x42, 0x02, 0x78, 0xae, 0xd2,
-	0xdb, 0xb5, 0x4c, 0x17, 0x41, 0x63, 0xe8, 0x45, 0xed, 0xe4, 0x70, 0x9c, 0x34, 0xa1, 0xa1, 0x71,
-	0x13, 0xde, 0xd5, 0xc1, 0x2f, 0xfc, 0xdb, 0x3c, 0x64, 0x7c, 0x16, 0xe0, 0xed, 0xd5, 0x00, 0x96,
-	0x74, 0x96, 0xe0, 0x33, 0x80, 0x38, 0xb6, 0xe8, 0xcc, 0xbf, 0xb8, 0x60, 0xbe, 0xac, 0x7a, 0x5a,
-	0x4b, 0x4e, 0x28, 0xe4, 0x27, 0xf4, 0xca, 0x0a, 0xac, 0x44, 0xe1, 0xde, 0x67, 0xe1, 0xb5, 0x0e,
-	0x9c, 0x99, 0x5a, 0xd2, 0xe5, 0x55, 0xe8, 0xb4, 0x85, 0x66, 0xb5, 0x85, 0x16, 0x3c, 0xdb, 0x4b,
-	0xb0, 0x7f, 0x00, 0xdf, 0xd8, 0x9f, 0xdf, 0xa8, 0x77, 0x82, 0x23, 0xf9, 0x05, 0x7e, 0x82, 0x4b,
-	0x91, 0x1b, 0xd4, 0x63, 0xa5, 0xc8, 0x25, 0xf3, 0xe5, 0x3f, 0x1f, 0xbc, 0x7c, 0xea, 0xb3, 0x55,
-	0x8f, 0xbc, 0xf7, 0xde, 0xe4, 0xd3, 0xdf, 0x8f, 0x4b, 0x61, 0x56, 0xdb, 0x39, 0xe5, 0xf2, 0x26,
-	0x96, 0x99, 0xcc, 0x95, 0x96, 0xff, 0x91, 0x9b, 0xe2, 0xfd, 0x1d, 0x32, 0x13, 0x5f, 0x5c, 0xef,
-	0x79, 0xab, 0xd8, 0xcc, 0x0f, 0x0f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x96, 0x78, 0x8e, 0x14, 0xfe,
-	0x02, 0x00, 0x00,
+	// 342 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x92, 0xc1, 0x4f, 0xea, 0x40,
+	0x10, 0xc6, 0xd3, 0x97, 0xd0, 0x97, 0x37, 0xf0, 0x78, 0x8f, 0x8d, 0x07, 0x42, 0x4c, 0xc0, 0x26,
+	0x46, 0x38, 0xb8, 0x95, 0x1a, 0xe3, 0xc9, 0x03, 0xa8, 0x89, 0x3d, 0x5a, 0x3c, 0x79, 0x21, 0x4b,
+	0x3b, 0x81, 0x35, 0xd0, 0x5d, 0xb7, 0x0b, 0x09, 0xff, 0x2c, 0x07, 0xfe, 0x0c, 0x4f, 0x86, 0xdd,
+	0x2d, 0x68, 0x34, 0x9e, 0xfa, 0xcd, 0x97, 0xef, 0x97, 0x99, 0x9d, 0x29, 0x9c, 0x32, 0xc9, 0x43,
+	0xc5, 0xd3, 0xdd, 0x07, 0xa3, 0x70, 0xd5, 0x9f, 0xa0, 0x66, 0x7d, 0xe7, 0x8c, 0x31, 0xa2, 0x52,
+	0x09, 0x2d, 0x48, 0xc3, 0x1a, 0x14, 0x23, 0xea, 0x22, 0xad, 0xb3, 0x03, 0x35, 0x43, 0x96, 0xa1,
+	0x2a, 0xf6, 0xb4, 0xab, 0x2d, 0xdb, 0x3a, 0x9a, 0x8a, 0xa9, 0x30, 0x32, 0xdc, 0x29, 0xeb, 0x06,
+	0x35, 0x80, 0x38, 0xcf, 0x78, 0xca, 0x34, 0x17, 0x79, 0xf0, 0x1f, 0xea, 0xb7, 0x22, 0xd7, 0x4a,
+	0xcc, 0x13, 0x7c, 0x5d, 0x62, 0xa1, 0x83, 0x06, 0xfc, 0xdb, 0x3b, 0x85, 0x14, 0x79, 0x81, 0xc1,
+	0x1a, 0xfe, 0x8e, 0xb4, 0x42, 0xb6, 0x70, 0x19, 0xd2, 0x03, 0x9f, 0x49, 0x39, 0xe6, 0x59, 0xd3,
+	0xeb, 0x78, 0xdd, 0x3f, 0x43, 0xb2, 0xdd, 0xb4, 0x2b, 0x03, 0x29, 0xe3, 0xbb, 0xb7, 0x52, 0x24,
+	0x15, 0x26, 0x65, 0x9c, 0x91, 0x1b, 0xa8, 0xf2, 0xbc, 0xd0, 0x2c, 0x4f, 0x71, 0x97, 0xff, 0x65,
+	0xf2, 0xc7, 0xdb, 0x4d, 0x1b, 0x62, 0x67, 0x1b, 0xe8, 0x43, 0x95, 0x40, 0x09, 0xc4, 0x59, 0xb0,
+	0x80, 0x7a, 0xd9, 0xda, 0x0e, 0x43, 0x06, 0xe0, 0xdb, 0x67, 0x9a, 0xde, 0xd5, 0xa8, 0x47, 0x0f,
+	0x2b, 0x2a, 0xdf, 0xef, 0xf6, 0x41, 0x4b, 0xe8, 0xc1, 0xf8, 0x89, 0x03, 0x49, 0x13, 0x7e, 0x4b,
+	0xb6, 0x9e, 0x0b, 0x66, 0xe7, 0xa9, 0x25, 0x65, 0x19, 0x8d, 0x01, 0xee, 0xa3, 0xa7, 0x11, 0xaa,
+	0x15, 0x4f, 0x91, 0x3c, 0x82, 0x6f, 0x9b, 0x93, 0x0e, 0xfd, 0x72, 0x07, 0xfa, 0x69, 0x25, 0xad,
+	0x93, 0x1f, 0x12, 0x76, 0x88, 0xae, 0x77, 0xe1, 0x0d, 0xaf, 0x9f, 0xaf, 0xa6, 0x5c, 0xcf, 0x96,
+	0x13, 0x9a, 0x8a, 0x45, 0x28, 0x72, 0x51, 0x48, 0x25, 0x5e, 0x30, 0xd5, 0x46, 0x9f, 0x63, 0xa4,
+	0xc3, 0x6f, 0x7f, 0x8c, 0x89, 0x6f, 0xae, 0x77, 0xf9, 0x1e, 0x00, 0x00, 0xff, 0xff, 0xf7, 0xb4,
+	0x11, 0xc9, 0x38, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -347,8 +263,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type E2TServiceClient interface {
-	// RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment.
-	RegisterApp(ctx context.Context, opts ...grpc.CallOption) (E2TService_RegisterAppClient, error)
+	// Stream opens an indications stream
+	Stream(ctx context.Context, opts ...grpc.CallOption) (E2TService_StreamClient, error)
 }
 
 type e2TServiceClient struct {
@@ -359,31 +275,31 @@ func NewE2TServiceClient(cc *grpc.ClientConn) E2TServiceClient {
 	return &e2TServiceClient{cc}
 }
 
-func (c *e2TServiceClient) RegisterApp(ctx context.Context, opts ...grpc.CallOption) (E2TService_RegisterAppClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_E2TService_serviceDesc.Streams[0], "/ricapi.e2.v1beta1.E2TService/RegisterApp", opts...)
+func (c *e2TServiceClient) Stream(ctx context.Context, opts ...grpc.CallOption) (E2TService_StreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_E2TService_serviceDesc.Streams[0], "/ricapi.e2.v1beta1.E2TService/Stream", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &e2TServiceRegisterAppClient{stream}
+	x := &e2TServiceStreamClient{stream}
 	return x, nil
 }
 
-type E2TService_RegisterAppClient interface {
-	Send(*AppRequest) error
-	Recv() (*AppResponse, error)
+type E2TService_StreamClient interface {
+	Send(*StreamRequest) error
+	Recv() (*StreamResponse, error)
 	grpc.ClientStream
 }
 
-type e2TServiceRegisterAppClient struct {
+type e2TServiceStreamClient struct {
 	grpc.ClientStream
 }
 
-func (x *e2TServiceRegisterAppClient) Send(m *AppRequest) error {
+func (x *e2TServiceStreamClient) Send(m *StreamRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *e2TServiceRegisterAppClient) Recv() (*AppResponse, error) {
-	m := new(AppResponse)
+func (x *e2TServiceStreamClient) Recv() (*StreamResponse, error) {
+	m := new(StreamResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -392,42 +308,42 @@ func (x *e2TServiceRegisterAppClient) Recv() (*AppResponse, error) {
 
 // E2TServiceServer is the server API for E2TService service.
 type E2TServiceServer interface {
-	// RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment.
-	RegisterApp(E2TService_RegisterAppServer) error
+	// Stream opens an indications stream
+	Stream(E2TService_StreamServer) error
 }
 
 // UnimplementedE2TServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedE2TServiceServer struct {
 }
 
-func (*UnimplementedE2TServiceServer) RegisterApp(srv E2TService_RegisterAppServer) error {
-	return status.Errorf(codes.Unimplemented, "method RegisterApp not implemented")
+func (*UnimplementedE2TServiceServer) Stream(srv E2TService_StreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method Stream not implemented")
 }
 
 func RegisterE2TServiceServer(s *grpc.Server, srv E2TServiceServer) {
 	s.RegisterService(&_E2TService_serviceDesc, srv)
 }
 
-func _E2TService_RegisterApp_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(E2TServiceServer).RegisterApp(&e2TServiceRegisterAppServer{stream})
+func _E2TService_Stream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(E2TServiceServer).Stream(&e2TServiceStreamServer{stream})
 }
 
-type E2TService_RegisterAppServer interface {
-	Send(*AppResponse) error
-	Recv() (*AppRequest, error)
+type E2TService_StreamServer interface {
+	Send(*StreamResponse) error
+	Recv() (*StreamRequest, error)
 	grpc.ServerStream
 }
 
-type e2TServiceRegisterAppServer struct {
+type e2TServiceStreamServer struct {
 	grpc.ServerStream
 }
 
-func (x *e2TServiceRegisterAppServer) Send(m *AppResponse) error {
+func (x *e2TServiceStreamServer) Send(m *StreamResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *e2TServiceRegisterAppServer) Recv() (*AppRequest, error) {
-	m := new(AppRequest)
+func (x *e2TServiceStreamServer) Recv() (*StreamRequest, error) {
+	m := new(StreamRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -440,8 +356,8 @@ var _E2TService_serviceDesc = grpc.ServiceDesc{
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "RegisterApp",
-			Handler:       _E2TService_RegisterApp_Handler,
+			StreamName:    "Stream",
+			Handler:       _E2TService_Stream_Handler,
 			ServerStreams: true,
 			ClientStreams: true,
 		},

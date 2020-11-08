@@ -4,11 +4,11 @@
 ## Table of Contents
 
 - [api/ricapi/e2/v1beta1/ricapi_e2.proto](#api/ricapi/e2/v1beta1/ricapi_e2.proto)
-    - [AppRequest](#ricapi.e2.v1beta1.AppRequest)
-    - [AppResponse](#ricapi.e2.v1beta1.AppResponse)
     - [ControlRequest](#ricapi.e2.v1beta1.ControlRequest)
     - [ControlResponse](#ricapi.e2.v1beta1.ControlResponse)
     - [Indication](#ricapi.e2.v1beta1.Indication)
+    - [StreamRequest](#ricapi.e2.v1beta1.StreamRequest)
+    - [StreamResponse](#ricapi.e2.v1beta1.StreamResponse)
   
     - [E2TService](#ricapi.e2.v1beta1.E2TService)
   
@@ -20,41 +20,6 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## api/ricapi/e2/v1beta1/ricapi_e2.proto
-
-
-
-<a name="ricapi.e2.v1beta1.AppRequest"></a>
-
-### AppRequest
-AppRequest
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| header | [ricapi.e2.headers.v1beta1.RequestHeader](#ricapi.e2.headers.v1beta1.RequestHeader) |  |  |
-| control_request | [ControlRequest](#ricapi.e2.v1beta1.ControlRequest) |  |  |
-| payload | [bytes](#bytes) |  |  |
-
-
-
-
-
-
-<a name="ricapi.e2.v1beta1.AppResponse"></a>
-
-### AppResponse
-AppResponse
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| header | [ricapi.e2.headers.v1beta1.ResponseHeader](#ricapi.e2.headers.v1beta1.ResponseHeader) |  |  |
-| indication | [Indication](#ricapi.e2.v1beta1.Indication) |  |  |
-| control_response | [ControlResponse](#ricapi.e2.v1beta1.ControlResponse) |  |  |
-| payload | [bytes](#bytes) |  |  |
-
-
-
 
 
 
@@ -87,6 +52,38 @@ Indication an indication message
 
 
 
+
+<a name="ricapi.e2.v1beta1.StreamRequest"></a>
+
+### StreamRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| app_id | [string](#string) |  |  |
+| instance_id | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="ricapi.e2.v1beta1.StreamResponse"></a>
+
+### StreamResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| header | [ricapi.e2.headers.v1beta1.ResponseHeader](#ricapi.e2.headers.v1beta1.ResponseHeader) |  |  |
+| payload | [bytes](#bytes) |  |  |
+
+
+
+
+
  
 
  
@@ -99,11 +96,9 @@ Indication an indication message
 ### E2TService
 E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
 
-List of registered/available SMs
-
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| RegisterApp | [AppRequest](#ricapi.e2.v1beta1.AppRequest) stream | [AppResponse](#ricapi.e2.v1beta1.AppResponse) stream | RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment. |
+| Stream | [StreamRequest](#ricapi.e2.v1beta1.StreamRequest) stream | [StreamResponse](#ricapi.e2.v1beta1.StreamResponse) stream | Stream opens an indications stream |
 
  
 

@@ -6,50 +6,37 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 syntax = "proto3";
 
-
 // Package ricapi.e2.v1beta1 defines the interior gRPC interfaces for xApps to interact with E2T.
 package ricapi.e2.v1beta1;
 option go_package = "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1";
 
 import "ricapi/e2/headers/v1beta1/headers.proto";
+import "gogoproto/gogo.proto";
 
 // Indication an indication message
 message Indication {
 }
 
-
 // ControlRequest
-message ControlRequest {}
-
-// ControlResponse
-message ControlResponse {}
-
-
-
-// AppRequest
-message AppRequest {
-    headers.v1beta1.RequestHeader header = 1;
-    oneof req {
-        ControlRequest control_request = 2;
-    }
-    bytes payload = 3;
+message ControlRequest {
 }
 
-
-// AppResponse
-message AppResponse {
-    headers.v1beta1.ResponseHeader header = 1;
-    oneof resp {
-        Indication indication = 2;
-        ControlResponse control_response = 3;
-    }
-    bytes payload = 5;
+// ControlResponse
+message ControlResponse {
 }
 
 // E2TService provides means for enhanced interactions with the ONOS RIC E2 Termination service.
 service E2TService {
-    // List of registered/available SMs
+    // Stream opens an indications stream
+    rpc Stream (stream StreamRequest) returns (stream StreamResponse);
+}
 
-    // RegisterApp establishes a bi-directional stream for conducting interactions with the E2 nodes in the RAN environment.
-    rpc RegisterApp (stream AppRequest) returns (stream AppResponse);
+message StreamRequest {
+    string app_id = 1 [(gogoproto.casttype) = "AppID", (gogoproto.customname) = "AppID"];
+    string instance_id = 2 [(gogoproto.casttype) = "InstanceID", (gogoproto.customname) = "InstanceID"];
+}
+
+message StreamResponse {
+    headers.v1beta1.ResponseHeader header = 1;
+    bytes payload = 2;
 }
