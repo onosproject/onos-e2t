@@ -101,6 +101,15 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 		return nil, errors.New("unexpected message type")
 	}
 
+	// Extract the RAN function list
+	ranFunctions := make(map[RANFunctionID]RANFunctionMetadata)
+	for _, ranFunction := range e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes10.Value.Value {
+		ranFunctions[RANFunctionID(ranFunction.E2ApProtocolIes10.Value.RanFunctionId.Value)] = RANFunctionMetadata{
+			Description: RANFunctionDescription(ranFunction.E2ApProtocolIes10.Value.RanFunctionDefinition.Value),
+			Revision:    RANFunctionRevision(ranFunction.E2ApProtocolIes10.Value.RanFunctionRevision.Value),
+		}
+	}
+
 	// Verify an E2 node ID is provided
 	e2NodeID := e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes3.Value.GlobalE2NodeId
 	globalE2NodeID, ok := e2NodeID.(*e2apies.GlobalE2NodeId_GNb)
@@ -172,7 +181,9 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 	}
 
 	meta := Metadata{
-		ID: channelID,
+		ID:           channelID,
+		PlmnID:       plmnID,
+		RANFunctions: ranFunctions,
 	}
 	return newChannel(ctx, conn, meta), nil
 }
