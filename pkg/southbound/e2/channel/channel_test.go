@@ -41,7 +41,7 @@ func TestChannel(t *testing.T) {
 	meta := Metadata{
 		ID:           1,
 		PlmnID:       "onf",
-		RanFunctions: map[RANFunctionID]RANFunctionMetadata{},
+		RANFunctions: map[RANFunctionID]RANFunctionMetadata{},
 	}
 	channel := newChannel(context.Background(), conn, meta)
 	assert.Equal(t, ID(1), channel.ID())
