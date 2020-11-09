@@ -7,9 +7,11 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/gogo/protobuf/proto"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
@@ -21,7 +23,6 @@ import (
 	channelfilter "github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/filter"
 	"github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"time"
 )
 
 var log = logging.GetLogger("subscription", "controller")
@@ -57,7 +58,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	sub, err := r.subs.Get(ctx, subapi.ID(id.String()))
+	sub, err := r.subs.Get(ctx, id.Value.(subapi.ID))
 
 	// TODO: Unsubscribe on delete
 	if err != nil {
