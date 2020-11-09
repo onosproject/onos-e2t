@@ -275,7 +275,7 @@ func (c *Controller) reconcile(id ID, reconciler Reconciler) Result {
 	b.MaxElapsedTime = 0
 
 	notify := func(err error, t time.Duration) {
-		log.Infof("An error occurred during reconciliation of %s in iteration %v: %v", id, err, iteration)
+		log.Infof("An error occurred during reconciliation of %v in iteration %v: %v", id.Value, err, iteration)
 		iteration++
 
 	}
