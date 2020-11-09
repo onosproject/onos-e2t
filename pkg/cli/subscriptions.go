@@ -16,9 +16,19 @@ import (
 )
 
 const (
-	subscriptionHeaders = "ID\tRevision\tApp ID\tService Model ID"
-	subscriptionFormat  = "%s\t%d\t%s\t%s\n"
+	subscriptionHeaders = "ID\tRevision\tApp ID\tService Model ID\tE2 NodeID\tConn ID\tRequest ID\tTerm ID"
+	subscriptionFormat  = "%s\t%d\t%s\t%s\t%d\t%d\t%d\t%d\n"
 )
+
+func displayHeaders(writer io.Writer) {
+	_, _ = fmt.Fprintln(writer, subscriptionHeaders)
+}
+
+func displaySubscription(writer io.Writer, sub subscription.Subscription) {
+	_, _ = fmt.Fprintf(writer, subscriptionFormat,
+		sub.ID, sub.Revision, sub.AppID, sub.ServiceModel.ID, sub.E2NodeID,
+		sub.Status.E2ConnID, sub.Status.E2RequestID, sub.Status.E2TermID)
+}
 
 func getListSubscriptionsCommand() *cobra.Command {
 	cmd := &cobra.Command{
@@ -42,7 +52,7 @@ func runListSubscriptionsCommand(cmd *cobra.Command, args []string) error {
 	writer.Init(outputWriter, 0, 0, 3, ' ', tabwriter.FilterHTML)
 
 	if !noHeaders {
-		_, _ = fmt.Fprintln(writer, subscriptionHeaders)
+		displayHeaders(writer)
 	}
 
 	request := subscription.ListSubscriptionsRequest{}
@@ -55,7 +65,7 @@ func runListSubscriptionsCommand(cmd *cobra.Command, args []string) error {
 	}
 
 	for _, sub := range response.Subscriptions {
-		_, _ = fmt.Fprintf(writer, subscriptionFormat, sub.ID, sub.Revision, sub.AppID, sub.ServiceModel.ID)
+		displaySubscription(writer, sub)
 	}
 
 	_ = writer.Flush()
@@ -85,7 +95,7 @@ func runWatchSubscriptionsCommand(cmd *cobra.Command, args []string) error {
 	writer.Init(outputWriter, 0, 0, 3, ' ', tabwriter.FilterHTML)
 
 	if !noHeaders {
-		_, _ = fmt.Fprintln(writer, subscriptionHeaders)
+		displayHeaders(writer)
 		_ = writer.Flush()
 	}
 
@@ -107,7 +117,7 @@ func runWatchSubscriptionsCommand(cmd *cobra.Command, args []string) error {
 			return err
 		}
 
-		_, _ = fmt.Fprintf(writer, subscriptionFormat, sub.Subscription.ID, sub.Subscription.Revision, sub.Subscription.AppID, sub.Subscription.ServiceModel.ID)
+		displaySubscription(writer, sub.Subscription)
 	}
 
 	_ = writer.Flush()
