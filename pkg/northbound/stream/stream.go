@@ -80,7 +80,7 @@ type channelReadStream struct {
 func (s *channelReadStream) Recv() (Message, error) {
 	m, ok := <-s.readCh
 	if !ok {
-		return Message{}, errors.New("ReadStream is closed")
+		return Message{}, io.EOF
 	}
 	return m, nil
 }
