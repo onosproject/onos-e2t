@@ -8,9 +8,19 @@ import "github.com/spf13/cobra"
 
 func getGetCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "get {connections} [args]",
+		Use:   "get {connections | subscriptions} [args]",
 		Short: "Get E2T resources",
 	}
 	cmd.AddCommand(getGetConnectionsCommand())
+	cmd.AddCommand(getListSubscriptionsCommand())
+	return cmd
+}
+
+func getWatchCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "watch {subscriptions} [args]",
+		Short: "Monitor E2T resources",
+	}
+	cmd.AddCommand(getWatchSubscriptionsCommand())
 	return cmd
 }
