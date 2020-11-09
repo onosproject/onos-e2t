@@ -35,6 +35,7 @@ func GetCommand() *cobra.Command {
 	cli.AddConfigFlags(cmd, defaultAddress)
 	cmd.AddCommand(cli.GetConfigCommand())
 	cmd.AddCommand(getGetCommand())
+	cmd.AddCommand(getWatchCommand())
 	cmd.AddCommand(loglib.GetCommand())
 	return cmd
 }
