@@ -27,7 +27,7 @@ func newGnbIDChoice(gnbIDCh *e2apies.GnbIdChoice) (*C.GNB_ID_Choice_t, error) {
 	case *e2apies.GnbIdChoice_GnbId:
 		pr = C.GNB_ID_Choice_PR_gnb_ID
 		bsC := newBitString(choice.GnbId)
-		fmt.Printf("gNB ID %v %v %v %v\n", bsC, unsafe.Sizeof(bsC.size), unsafe.Sizeof(bsC.bits_unused), *bsC.buf)
+		//fmt.Printf("gNB ID %v %v %v %v\n", bsC, unsafe.Sizeof(bsC.size), unsafe.Sizeof(bsC.bits_unused), *bsC.buf)
 
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(bsC.buf))))
 		binary.LittleEndian.PutUint64(choiceC[8:], uint64(bsC.size))

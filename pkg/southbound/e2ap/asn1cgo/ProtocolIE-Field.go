@@ -37,9 +37,9 @@ func newE2setupRequestIe3GlobalE2NodeID(esIe *e2appducontents.E2SetupRequestIes_
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("Assigning to choice of E2setupRequestIE %v %v %v %v %v\n",
-		globalNodeIDC, globalNodeIDC.present, &globalNodeIDC.choice,
-		unsafe.Sizeof(globalNodeIDC.present), unsafe.Sizeof(globalNodeIDC.choice))
+	//fmt.Printf("Assigning to choice of E2setupRequestIE %v %v %v %v %v\n",
+	//	globalNodeIDC, globalNodeIDC.present, &globalNodeIDC.choice,
+	//	unsafe.Sizeof(globalNodeIDC.present), unsafe.Sizeof(globalNodeIDC.choice))
 	binary.LittleEndian.PutUint32(choiceC[0:], uint32(globalNodeIDC.present))
 	for i := 0; i < 8; i++ {
 		choiceC[i+8] = globalNodeIDC.choice[i]
@@ -73,7 +73,7 @@ func newE2setupResponseIe4GlobalRicID(esIe *e2appducontents.E2SetupResponseIes_E
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("Assigning to choice of E2setupReponseIE %v \n", globalRicIDC)
+	//fmt.Printf("Assigning to choice of E2setupReponseIE %v \n", globalRicIDC)
 
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(globalRicIDC.pLMN_Identity.buf))))
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(globalRicIDC.pLMN_Identity.size))
@@ -107,7 +107,7 @@ func newRicSubscriptionRequestIe5RanFunctionID(rsrRfIe *e2appducontents.Ricsubsc
 
 	ranFunctionIDC := newRanFunctionID(rsrRfIe.Value)
 
-	fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", ranFunctionIDC)
+	//fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", ranFunctionIDC)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ranFunctionIDC))
 
 	ie := C.RICsubscriptionRequest_IEs_t{
@@ -139,6 +139,7 @@ func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResp
 		return nil, err
 	}
 	fmt.Printf("Assigning to choice of E2setupReponseIE %v\n", ranFunctionsIDList)
+	// TODO: wire this up
 	//binary.LittleEndian.PutUint32(choiceC[0:], uint32(ranFunctionsIDList.present))
 	//for i := 0; i < 8; i++ {
 	//	choiceC[i+8] = ranFunctionsIDList.choice[i]
@@ -170,12 +171,12 @@ func newE2setupRequestIe10RanFunctionList(esIe *e2appducontents.E2SetupRequestIe
 
 	ranFunctionsListC, err := newRanFunctionsList(esIe.GetValue())
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("newRanFunctionsList() %s", err.Error())
 	}
-	//fmt.Printf("Assigning to choice of E2setupRequestIE %v %v %v %v %v\n",
-	//	ranFunctionsListC, ranFunctionsListC.present, &ranFunctionsListC.choice,
-	//	unsafe.Sizeof(ranFunctionsListC.present), unsafe.Sizeof(ranFunctionsListC.choice))
-	binary.LittleEndian.PutUint64(listC[8:], uint64(ranFunctionsListC.list.size))
+	binary.LittleEndian.PutUint64(listC[0:], uint64(uintptr(unsafe.Pointer(ranFunctionsListC.list.array))))
+	binary.LittleEndian.PutUint32(listC[8:], uint32(ranFunctionsListC.list.count))
+	binary.LittleEndian.PutUint32(listC[12:], uint32(ranFunctionsListC.list.size))
+
 	ie := C.E2setupRequestIEs_t{
 		id:          idC,
 		criticality: critC,
@@ -205,6 +206,7 @@ func newE2setupResponseIe13RanFunctionsRejected(esIe *e2appducontents.E2SetupRes
 		return nil, err
 	}
 	fmt.Printf("Assigning to choice of E2setupReponseIE %v\n", ranFunctionsIDCauseList)
+	// TODO: wire this up
 	//binary.LittleEndian.PutUint32(choiceC[0:], uint32(ranFunctionsIDCauseList.present))
 	//for i := 0; i < 8; i++ {
 	//	choiceC[i+8] = ranFunctionsIDCauseList.choice[i]
@@ -236,7 +238,7 @@ func newRicSubscriptionRequestIe29RicRequestID(rsrRrIDIe *e2appducontents.Ricsub
 
 	ricRequestIDC := newRicRequestID(rsrRrIDIe.Value)
 
-	fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", ricRequestIDC)
+	//fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", ricRequestIDC)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ricRequestIDC.ricRequestorID))
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(ricRequestIDC.ricInstanceID))
 
@@ -250,6 +252,35 @@ func newRicSubscriptionRequestIe29RicRequestID(rsrRrIDIe *e2appducontents.Ricsub
 	}
 
 	return &ie, nil
+}
+
+func newRANfunctionItemIEs(rfItemIes *e2appducontents.RanfunctionItemIes) (*C.RANfunction_ItemIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rfItemIes.GetE2ApProtocolIes10().GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionItem)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [80]byte{} // The size of the RANfunction_ItemIEs__value_u
+	rfItemC := newRanFunctionItem(rfItemIes.GetE2ApProtocolIes10().GetValue())
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(rfItemC.ranFunctionID))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rfItemC.ranFunctionDefinition.buf))))
+	binary.LittleEndian.PutUint64(choiceC[16:], uint64(rfItemC.ranFunctionDefinition.size))
+	binary.LittleEndian.PutUint64(choiceC[24:], uint64(rfItemC.ranFunctionRevision))
+
+	rfItemIesC := C.RANfunction_ItemIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RANfunction_ItemIEs__value{
+			present: C.RANfunction_ItemIEs__value_PR_RANfunction_Item,
+			choice:  choiceC,
+		},
+	}
+
+	return &rfItemIesC, nil
 }
 
 func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2SetupRequestIes, error) {
@@ -270,13 +301,21 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 		}
 
 	case C.E2setupRequestIEs__value_PR_RANfunctions_List:
-		fallthrough // TODO Implement it
-
+		rfl, err := decodeRanFunctionsListBytes(e2srIeC.value.choice)
+		if err != nil {
+			return nil, err
+		}
+		ret.E2ApProtocolIes10 = &e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
+			Id:          int32(v1beta1.ProtocolIeIDRanfunctionsAdded),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rfl,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
 	case C.E2setupRequestIEs__value_PR_NOTHING:
-		return nil, fmt.Errorf("decodeE2setupRequestIEOld(). %v not yet implemneted", e2srIeC.value.present)
+		return nil, fmt.Errorf("decodeE2setupRequestIE(). %v not yet implemneted", e2srIeC.value.present)
 
 	default:
-		return nil, fmt.Errorf("decodeE2setupRequestIEOld(). unexpected choice %v", e2srIeC.value.present)
+		return nil, fmt.Errorf("decodeE2setupRequestIE(). unexpected choice %v", e2srIeC.value.present)
 	}
 
 	return ret, nil
@@ -349,4 +388,28 @@ func decodeRicSubscriptionResponseIE(rsrIeC *C.RICsubscriptionResponse_IEs_t) (*
 	}
 
 	return ret, nil
+}
+
+func decodeRANfunctionItemIes(rfiIesValC *C.struct_RANfunction_ItemIEs__value) (*e2appducontents.RanfunctionItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfiIesValC, rfiIesValC)
+
+	switch present := rfiIesValC.present; present {
+	case C.RANfunction_ItemIEs__value_PR_RANfunction_Item:
+
+		rfiIes := e2appducontents.RanfunctionItemIes{
+			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
+				Id:          int32(v1beta1.ProtocolIeIDRanfunctionItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+		}
+		rfi, err := decodeRanFunctionItemBytes(rfiIesValC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeRANfunctionItemIes() %s", err.Error())
+		}
+		rfiIes.GetE2ApProtocolIes10().Value = rfi
+		return &rfiIes, nil
+	default:
+		return nil, fmt.Errorf("error decoding RanFunctionItemIE - present %v not supported", present)
+	}
 }

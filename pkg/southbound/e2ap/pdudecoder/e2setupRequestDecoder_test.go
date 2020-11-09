@@ -26,4 +26,5 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 	assert.DeepEqual(t, []byte{0xb5, 0xc6, 0x77, 0x88, 0x00, 0x00, 0x00, 0x00}, identifier.NodeIdentifier)
 
 	assert.Assert(t, ranFunctions != nil)
+	assert.Equal(t, 2, len(*ranFunctions))
 }

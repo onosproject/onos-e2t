@@ -1,13 +1,17 @@
 <E2AP-PDU>
     <initiatingMessage>
         <procedureCode>1</procedureCode>
-        <criticality><reject/></criticality>
+        <criticality>
+            <reject/>
+        </criticality>
         <value>
             <E2setupRequest>
                 <protocolIEs>
                     <E2setupRequestIEs>
                         <id>3</id>
-                        <criticality><reject/></criticality>
+                        <criticality>
+                            <reject/>
+                        </criticality>
                         <value>
                             <GlobalE2node-ID>
                                 <gNB>
@@ -21,6 +25,36 @@
                                     </global-gNB-ID>
                                 </gNB>
                             </GlobalE2node-ID>
+                        </value>
+                    </E2setupRequestIEs>
+                    <E2setupRequestIEs>
+                        <id>10</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RANfunctions-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>8</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunction-Item>
+                                            <ranFunctionID>100</ranFunctionID>
+                                            <ranFunctionDefinition>61 62 63</ranFunctionDefinition>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
+                                        </RANfunction-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>8</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunction-Item>
+                                            <ranFunctionID>200</ranFunctionID>
+                                            <ranFunctionDefinition>61 62 63</ranFunctionDefinition>
+                                            <ranFunctionRevision>3</ranFunctionRevision>
+                                        </RANfunction-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </RANfunctions-List>
                         </value>
                     </E2setupRequestIEs>
                 </protocolIEs>

@@ -28,7 +28,7 @@ func encodePerBuffer(valueType *C.asn_TYPE_descriptor_t,
 		return nil, err
 	}
 	if encRetVal.encoded == -1 {
-		fmt.Printf("error on %v\n", *encRetVal.failed_type)
+		//fmt.Printf("error on %v\n", *encRetVal.failed_type)
 		var i C.uint
 		for i = 0; i < encRetVal.failed_type.elements_count; i++ {
 			step := C.uint(unsafe.Sizeof(C.asn_TYPE_member_t{})) * i

@@ -8,7 +8,6 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"unsafe"
 )
@@ -43,10 +42,10 @@ func decodeE2SetupRequestIes(protocolIEsC *C.ProtocolIE_Container_1544P11_t) (*e
 	pIEs := new(e2appducontents.E2SetupRequestIes)
 
 	ieCount := int(protocolIEsC.list.count)
-	fmt.Printf("1544P11 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	//fmt.Printf("1544P11 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
-		listC := unsafe.Pointer(*protocolIEsC.list.array)
-		e2srIeC := (*C.E2setupRequestIEs_t)(unsafe.Pointer(uintptr(listC) + uintptr(protocolIEsC.list.size*C.int(i))))
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i) // Forget the rest - this works - 7Nov20
+		e2srIeC := *(**C.E2setupRequestIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2setupRequestIE(e2srIeC)
 		if err != nil {
@@ -102,7 +101,7 @@ func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1544P
 	pIEs := new(e2appducontents.RicsubscriptionResponseIes)
 
 	ieCount := int(protocolIEsC.list.count)
-	fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		rsrIeC := (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(*protocolIEsC.list.array)) + uintptr(protocolIEsC.list.size*2*C.int(i)))) //Not sure why it needs to be multiplied by 2
 
