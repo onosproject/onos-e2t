@@ -103,10 +103,12 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 
 	// Extract the RAN function list
 	ranFunctions := make(map[RANFunctionID]RANFunctionMetadata)
-	for _, ranFunction := range e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes10.Value.Value {
-		ranFunctions[RANFunctionID(ranFunction.E2ApProtocolIes10.Value.RanFunctionId.Value)] = RANFunctionMetadata{
-			Description: RANFunctionDescription(ranFunction.E2ApProtocolIes10.Value.RanFunctionDefinition.Value),
-			Revision:    RANFunctionRevision(ranFunction.E2ApProtocolIes10.Value.RanFunctionRevision.Value),
+	if e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes10 != nil {
+		for _, ranFunction := range e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes10.Value.Value {
+			ranFunctions[RANFunctionID(ranFunction.E2ApProtocolIes10.Value.RanFunctionId.Value)] = RANFunctionMetadata{
+				Description: RANFunctionDescription(ranFunction.E2ApProtocolIes10.Value.RanFunctionDefinition.Value),
+				Revision:    RANFunctionRevision(ranFunction.E2ApProtocolIes10.Value.RanFunctionRevision.Value),
+			}
 		}
 	}
 
