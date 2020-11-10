@@ -4,13 +4,31 @@
 package pdubuilder
 
 import (
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func TestE2SetupResponse(t *testing.T) {
-	newE2apPdu, err := CreateResponseE2apPdu("ONF", 0xABCDE, nil, nil)
+	rfAccepted := make(types.RanFunctionRevisions)
+	rfAccepted[100] = 2
+	rfAccepted[200] = 2
+
+	rfRejected := make(types.RanFunctionCauses)
+	rfRejected[101] = &e2apies.Cause{
+		Cause: &e2apies.Cause_Misc{
+			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
+		},
+	}
+	rfRejected[102] = &e2apies.Cause{
+		Cause: &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+		},
+	}
+
+	newE2apPdu, err := CreateResponseE2apPdu("ONF", 0xABCDE, rfAccepted, rfRejected)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 

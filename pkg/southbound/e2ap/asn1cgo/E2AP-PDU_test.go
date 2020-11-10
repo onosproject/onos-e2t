@@ -12,7 +12,7 @@ import (
 )
 
 func Test_newE2setupResponseE2APpdu(t *testing.T) {
-	rfAccepted := make(types.RanFunctionIDs)
+	rfAccepted := make(types.RanFunctionRevisions)
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
 

@@ -200,14 +200,11 @@ func newE2setupResponseIe13RanFunctionsRejected(esIe *e2appducontents.E2SetupRes
 
 	ranFunctionsIDCauseList, err := newRanFunctionsIDcauseList(esIe.Value)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("newRanFunctionsIDcauseList() %s", err.Error())
 	}
-	fmt.Printf("Assigning to choice of E2setupReponseIE %v\n", ranFunctionsIDCauseList)
-	// TODO: wire this up
-	//binary.LittleEndian.PutUint32(choiceC[0:], uint32(ranFunctionsIDCauseList.present))
-	//for i := 0; i < 8; i++ {
-	//	choiceC[i+8] = ranFunctionsIDCauseList.choice[i]
-	//}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(ranFunctionsIDCauseList.list.array))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(ranFunctionsIDCauseList.list.count))
+	binary.LittleEndian.PutUint32(choiceC[12:], uint32(ranFunctionsIDCauseList.list.size))
 
 	ie := C.E2setupResponseIEs_t{
 		id:          idC,
@@ -300,6 +297,37 @@ func newRANfunctionIDItemIEs(rfIDItemIes *e2appducontents.RanfunctionIdItemIes) 
 		criticality: critC,
 		value: C.struct_RANfunctionID_ItemIEs__value{
 			present: C.RANfunctionID_ItemIEs__value_PR_RANfunctionID_Item,
+			choice:  choiceC,
+		},
+	}
+
+	return &rfItemIesC, nil
+}
+
+func newRANfunctionIDCauseItemIEs(rfIDItemIes *e2appducontents.RanfunctionIdcauseItemIes) (*C.RANfunctionIDcause_ItemIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rfIDItemIes.GetRanFunctionIdcauseItemIes7().GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionIeCauseItem)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [72]byte{} // The size of the RANfunction_ItemIEs__value_u
+	rfIDItemC, err := newRanFunctionIDCauseItem(rfIDItemIes.GetRanFunctionIdcauseItemIes7().GetValue())
+	if err != nil {
+		return nil, fmt.Errorf("newRanFunctionIDCauseItem() error %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(rfIDItemC.ranFunctionID))
+	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(rfIDItemC.cause.present))
+	copy(choiceC[16:24], rfIDItemC.cause.choice[:])
+
+	rfItemIesC := C.RANfunctionIDcause_ItemIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RANfunctionIDcause_ItemIEs__value{
+			present: C.RANfunctionIDcause_ItemIEs__value_PR_RANfunctionIDcause_Item,
 			choice:  choiceC,
 		},
 	}

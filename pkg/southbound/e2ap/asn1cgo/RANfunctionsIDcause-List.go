@@ -12,17 +12,22 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
+	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"unsafe"
 )
 
 func newRanFunctionsIDcauseList(rfIDcl *e2appducontents.RanfunctionsIdcauseList) (*C.RANfunctionsIDcause_List_t, error) {
-	rfIDclC := C.RANfunctionsIDcause_List_t{
-		list: C.struct___49{
-			size:  C.int(0),
-			count: C.int(0),
-		},
+	rfIDclC := new(C.RANfunctionsIDcause_List_t)
+	for _, rfIDCause := range rfIDcl.GetValue() {
+		rfIDcauseC, err := newRanFunctionIDcauseItemIesSingleContainer(rfIDCause)
+		if err != nil {
+			return nil, fmt.Errorf("error on newRanFunctionIDcauseItemIesSingleContainer() %s", err.Error())
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(rfIDclC), unsafe.Pointer(rfIDcauseC)); err != nil {
+			return nil, err
+		}
 	}
-	// TODO: Implement list
 
-	return &rfIDclC, nil
+	return rfIDclC, nil
 }

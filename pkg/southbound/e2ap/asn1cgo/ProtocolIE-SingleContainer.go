@@ -31,6 +31,12 @@ func newRanFunctionIDItemIesSingleContainer(rfIDItemIes *e2appducontents.Ranfunc
 	return (*C.ProtocolIE_SingleContainer_1547P4_t)(pIeSC1547P4), err
 }
 
+func newRanFunctionIDcauseItemIesSingleContainer(rfIDcauseItemIes *e2appducontents.RanfunctionIdcauseItemIes) (*C.ProtocolIE_SingleContainer_1547P5_t, error) {
+	pIeSC1547P5, err := newRANfunctionIDCauseItemIEs(rfIDcauseItemIes)
+
+	return (*C.ProtocolIE_SingleContainer_1547P5_t)(pIeSC1547P5), err
+}
+
 func decodeRanFunctionItemIesSingleContainer(rfiIeScC *C.ProtocolIE_SingleContainer_1547P3_t) (*e2appducontents.RanfunctionItemIes, error) {
 	//fmt.Printf("Value %T %v\n", rfiIeScC, rfiIeScC)
 	switch id := rfiIeScC.id; id {
