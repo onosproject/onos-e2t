@@ -54,3 +54,15 @@ func newE2setupResponse(e2sr *e2appducontents.E2SetupResponse) (*C.E2setupRespon
 
 	return &rsrC, nil
 }
+
+func decodeE2setupResponse(e2sResponseC *C.E2setupResponse_t) (*e2appducontents.E2SetupResponse, error) {
+	pIEs, err := decodeE2SetupResponseIes(&e2sResponseC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	e2setupResponse := e2appducontents.E2SetupResponse{
+		ProtocolIes: pIEs,
+	}
+	return &e2setupResponse, nil
+}

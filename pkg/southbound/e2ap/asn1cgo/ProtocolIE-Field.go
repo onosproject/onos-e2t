@@ -321,6 +321,32 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 	return ret, nil
 }
 
+func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.E2SetupResponseIes, error) {
+	//fmt.Printf("Handling E2SetupReqIE %+v\n", e2srIeC)
+	ret := new(e2appducontents.E2SetupResponseIes)
+
+	switch e2srIeC.value.present {
+	case C.E2setupResponseIEs__value_PR_GlobalRIC_ID:
+		gE2nID, err := decodeGlobalRicIDBytes(e2srIeC.value.choice)
+		if err != nil {
+			return nil, err
+		}
+		ret.E2ApProtocolIes4 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
+			Id:          int32(v1beta1.ProtocolIeIDGlobalRicID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       gE2nID,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+	case C.E2setupResponseIEs__value_PR_NOTHING:
+		return nil, fmt.Errorf("decodeE2setupResponseIE(). %v not yet implemneted", e2srIeC.value.present)
+
+	default:
+		return nil, fmt.Errorf("decodeE2setupResponseIE(). unexpected choice %v", e2srIeC.value.present)
+	}
+
+	return ret, nil
+}
+
 //func decodeRicSubscriptionRequestIE(rsrIeC *C.RICsubscriptionRequest_IEs_t) (*e2appducontents.RicsubscriptionRequestIes, error) {
 //	//fmt.Printf("Handling RicSubscriptionResp %+v\n", rsrIeC)
 //	//ret := new(e2appducontents.RicsubscriptionRequestIes)

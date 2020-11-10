@@ -97,15 +97,43 @@ func newE2SetupResponseIes(e2srIEs *e2appducontents.E2SetupResponseIes) (*C.Prot
 	return pIeC1544P12, nil
 }
 
+func decodeE2SetupResponseIes(protocolIEsC *C.ProtocolIE_Container_1544P12_t) (*e2appducontents.E2SetupResponseIes, error) {
+	pIEs := new(e2appducontents.E2SetupResponseIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P11 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		e2srIeC := *(**C.E2setupResponseIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeE2setupResponseIE(e2srIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes4 != nil {
+			pIEs.E2ApProtocolIes4 = ie.E2ApProtocolIes4
+		}
+		if ie.E2ApProtocolIes9 != nil {
+			pIEs.E2ApProtocolIes9 = ie.E2ApProtocolIes9
+		}
+		if ie.E2ApProtocolIes13 != nil {
+			pIEs.E2ApProtocolIes13 = ie.E2ApProtocolIes13
+		}
+	}
+
+	return pIEs, nil
+}
+
 func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1544P1_t) (*e2appducontents.RicsubscriptionResponseIes, error) {
 	pIEs := new(e2appducontents.RicsubscriptionResponseIes)
 
 	ieCount := int(protocolIEsC.list.count)
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
-		rsrIeC := (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(*protocolIEsC.list.array)) + uintptr(protocolIEsC.list.size*2*C.int(i)))) //Not sure why it needs to be multiplied by 2
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsrIeC := *(**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
-		ie, err := decodeRicSubscriptionResponseIE(*rsrIeC)
+		ie, err := decodeRicSubscriptionResponseIE(rsrIeC)
 		if err != nil {
 			return nil, err
 		}

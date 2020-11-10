@@ -12,8 +12,11 @@ package asn1cgo
 //#include "GlobalRIC-ID.h"
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"unsafe"
 )
 
 func newGlobalRicID(gr *e2apies.GlobalRicId) (*C.GlobalRIC_ID_t, error) {
@@ -32,14 +35,29 @@ func newGlobalRicID(gr *e2apies.GlobalRicId) (*C.GlobalRIC_ID_t, error) {
 	return &idC, nil
 }
 
-//func decodeGlobalRicID(grID *C.GlobalRIC_ID_t) (*e2apies.GlobalRicId, error) {
-//	result := new(e2apies.GlobalRicId)
-//	result.PLmnIdentity = new(e2ap_commondatatypes.PlmnIdentity)
-//	var err error
-//	result.PLmnIdentity.Value = []byte(decodeOctetString(&grID.pLMN_Identity))
-//	result.RicId, err = decodeBitString(&grID.ric_ID)
-//	if err != nil {
-//		return nil, err
-//	}
-//	return result, nil
-//}
+func decodeGlobalRicIDBytes(bytes [112]byte) (*e2apies.GlobalRicId, error) {
+	grIDC := C.GlobalRIC_ID_t{
+		pLMN_Identity: C.OCTET_STRING_t{
+			buf:  (*C.uchar)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[0:8])))),
+			size: C.ulong(binary.LittleEndian.Uint64(bytes[8:16])),
+		},
+		ric_ID: C.BIT_STRING_t{
+			buf:         (*C.uchar)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[40:48])))),
+			size:        C.ulong(binary.LittleEndian.Uint64(bytes[48:56])),
+			bits_unused: C.int(binary.LittleEndian.Uint32(bytes[56:60])),
+		},
+	}
+	return decodeGlobalRicID(&grIDC)
+}
+
+func decodeGlobalRicID(grID *C.GlobalRIC_ID_t) (*e2apies.GlobalRicId, error) {
+	result := new(e2apies.GlobalRicId)
+	result.PLmnIdentity = new(e2ap_commondatatypes.PlmnIdentity)
+	var err error
+	result.PLmnIdentity.Value = []byte(decodeOctetString(&grID.pLMN_Identity))
+	result.RicId, err = decodeBitString(&grID.ric_ID)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
