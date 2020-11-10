@@ -23,7 +23,7 @@ coverage: build deps linters license_check
 	./build/bin/coveralls-coverage
 
 deps: # @HELP ensure that the required dependencies are in place
-	go build -v ./...
+	GOPRIVATE="github.com/onosproject/*" go build -v ./...
 	bash -c "diff -u <(echo -n) <(git diff go.mod)"
 	bash -c "diff -u <(echo -n) <(git diff go.sum)"
 

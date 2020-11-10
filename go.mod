@@ -15,8 +15,11 @@ require (
 	github.com/onosproject/onos-e2sub v0.6.3-0.20201112032449-92351c3242e1
 	github.com/onosproject/onos-lib-go v0.6.23
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07
 	github.com/onosproject/helmit v0.6.8
-	github.com/onosproject/onos-lib-go v0.6.21
+	github.com/onosproject/onos-e2sub v0.6.2
+	github.com/onosproject/onos-lib-go v0.6.23
+	github.com/onosproject/onos-ric-sdk-go v0.6.1
 	github.com/onosproject/onos-test v0.6.4
 	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/cobra v0.0.6
@@ -26,3 +29,4 @@ require (
 	google.golang.org/grpc v1.33.1
 	gotest.tools v2.2.0+incompatible
 )
+
