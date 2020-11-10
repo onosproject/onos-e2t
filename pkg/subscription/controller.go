@@ -7,6 +7,7 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"time"
 
 	"github.com/gogo/protobuf/proto"
@@ -17,7 +18,6 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	subapi "github.com/onosproject/onos-e2t/api/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/config"
-	"github.com/onosproject/onos-e2t/pkg/controller"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/codec"
 	channelfilter "github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/filter"

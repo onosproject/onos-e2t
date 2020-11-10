@@ -6,9 +6,9 @@ package subscription
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/controller"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-e2t/pkg/store/subscription"
+	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"sync"
 )
 
