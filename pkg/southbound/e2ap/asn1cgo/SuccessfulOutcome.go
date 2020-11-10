@@ -66,16 +66,18 @@ func newSuccessfulOutcome(so *e2appdudescriptions.SuccessfulOutcome) (*C.Success
 func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescriptions.SuccessfulOutcome, error) {
 	successfulOutcome := new(e2appdudescriptions.SuccessfulOutcome)
 
-	listArrayAddr := successC.value.choice[0:8]
+	listArrayAddr := unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(successC.value.choice[0:8])))
+	count := C.int(binary.LittleEndian.Uint32(successC.value.choice[8:12]))
+	size := C.int(binary.LittleEndian.Uint32(successC.value.choice[12:16]))
 
 	switch successC.value.present {
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P1_t{
-				list: C.struct___43{ // TODO: tie this down with a predictable name
-					array: (**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(&listArrayAddr[0])),
-					count: C.int(binary.LittleEndian.Uint32(successC.value.choice[8:12])),
-					size:  C.int(binary.LittleEndian.Uint32(successC.value.choice[12:16])),
+				list: C.struct___44{ // TODO: tie this down with a predictable name
+					array: (**C.RICsubscriptionResponse_IEs_t)(listArrayAddr),
+					count: count,
+					size:  size,
 				},
 			},
 		}
@@ -93,8 +95,31 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
 		}
+	case C.SuccessfulOutcome__value_PR_E2setupResponse:
+		e2SrC := C.E2setupResponse_t{
+			protocolIEs: C.ProtocolIE_Container_1544P12_t{
+				list: C.struct___43{ // TODO: tie this down with a predictable name
+					array: (**C.E2setupResponseIEs_t)(listArrayAddr),
+					count: count,
+					size:  size,
+				},
+			},
+		}
+		e2Sr, err := decodeE2setupResponse(&e2SrC)
+		if err != nil {
+			return nil, err
+		}
+		successfulOutcome.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			E2Setup: &e2appdudescriptions.E2Setup{
+				SuccessfulOutcome: e2Sr,
+				ProcedureCode: &e2ap_constants.IdE2Setup{
+					Value: int32(v1beta1.ProcedureCodeIDE2setup),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
 	default:
-		return nil, fmt.Errorf("decodeInitiatingMessageOld() %v not yet implemented", successC.value.present)
+		return nil, fmt.Errorf("decodeSuccessfulOutcome() %v not yet implemented", successC.value.present)
 	}
 
 	return successfulOutcome, nil
