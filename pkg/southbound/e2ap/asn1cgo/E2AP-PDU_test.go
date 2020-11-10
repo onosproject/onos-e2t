@@ -6,12 +6,17 @@ package asn1cgo
 
 import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func Test_newE2setupResponseE2APpdu(t *testing.T) {
-	e2SetupResponseE2APpdu, err := pdubuilder.CreateResponseE2apPdu("ONF", 0xABCDE, nil, nil)
+	rfAccepted := make(types.RanFunctionIDs)
+	rfAccepted[100] = 2
+	rfAccepted[200] = 2
+
+	e2SetupResponseE2APpdu, err := pdubuilder.CreateResponseE2apPdu("ONF", 0xABCDE, rfAccepted, nil)
 	assert.NilError(t, err)
 
 	e2SetupResponseE2APpduC, err := newE2apPdu(e2SetupResponseE2APpdu)

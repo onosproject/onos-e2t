@@ -21,6 +21,36 @@
                             </GlobalRIC-ID>
                         </value>
                     </E2setupResponseIEs>
+                    <E2setupResponseIEs>
+                        <id>9</id>
+                        <criticality>
+                            <reject/>
+                        </criticality>
+                        <value>
+                            <RANfunctionsID-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>6</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunctionID-Item>
+                                            <ranFunctionID>100</ranFunctionID>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
+                                        </RANfunctionID-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>6</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunctionID-Item>
+                                            <ranFunctionID>200</ranFunctionID>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
+                                        </RANfunctionID-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </RANfunctionsID-List>
+                        </value>
+                    </E2setupResponseIEs>
                 </protocolIEs>
             </E2setupResponse>
         </value>

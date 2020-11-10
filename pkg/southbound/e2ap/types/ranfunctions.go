@@ -6,10 +6,13 @@ package types
 
 type RanFunctionDescription string
 type RanFunctionRevision int
+type RanFunctionID int32
 
 type RanFunctionItem struct {
 	Description RanFunctionDescription
 	Revision    RanFunctionRevision
 }
 
-type RanFunctions map[int32]RanFunctionItem
+type RanFunctions map[RanFunctionID]RanFunctionItem
+
+type RanFunctionIDs map[RanFunctionID]RanFunctionRevision

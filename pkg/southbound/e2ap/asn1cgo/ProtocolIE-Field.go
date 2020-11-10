@@ -134,16 +134,13 @@ func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResp
 
 	choiceC := [112]byte{} // The size of the E2setupResponseIEs__value_u
 
-	ranFunctionsIDList, err := newRanFunctionsIDList(esIe.Value)
+	ranFunctionsIDListC, err := newRanFunctionsIDList(esIe.Value)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("newRanFunctionsIDList() %s", err.Error())
 	}
-	fmt.Printf("Assigning to choice of E2setupReponseIE %v\n", ranFunctionsIDList)
-	// TODO: wire this up
-	//binary.LittleEndian.PutUint32(choiceC[0:], uint32(ranFunctionsIDList.present))
-	//for i := 0; i < 8; i++ {
-	//	choiceC[i+8] = ranFunctionsIDList.choice[i]
-	//}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(ranFunctionsIDListC.list.array))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(ranFunctionsIDListC.list.count))
+	binary.LittleEndian.PutUint32(choiceC[12:], uint32(ranFunctionsIDListC.list.size))
 
 	ie := C.E2setupResponseIEs_t{
 		id:          idC,
@@ -283,6 +280,33 @@ func newRANfunctionItemIEs(rfItemIes *e2appducontents.RanfunctionItemIes) (*C.RA
 	return &rfItemIesC, nil
 }
 
+func newRANfunctionIDItemIEs(rfIDItemIes *e2appducontents.RanfunctionIdItemIes) (*C.RANfunctionID_ItemIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rfIDItemIes.GetRanFunctionIdItemIes6().GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionIDItem)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the RANfunction_ItemIEs__value_u
+	rfIDItemC := newRanFunctionIDItem(rfIDItemIes.GetRanFunctionIdItemIes6().GetValue())
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(rfIDItemC.ranFunctionID))
+	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(rfIDItemC.ranFunctionRevision))
+
+	rfItemIesC := C.RANfunctionID_ItemIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RANfunctionID_ItemIEs__value{
+			present: C.RANfunctionID_ItemIEs__value_PR_RANfunctionID_Item,
+			choice:  choiceC,
+		},
+	}
+
+	return &rfItemIesC, nil
+}
+
 func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2SetupRequestIes, error) {
 	//fmt.Printf("Handling E2SetupReqIE %+v\n", e2srIeC)
 	ret := new(e2appducontents.E2SetupRequestIes)
@@ -336,6 +360,17 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       gE2nID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+	case C.E2setupResponseIEs__value_PR_RANfunctionsID_List:
+		rfAccepted, err := decodeRanFunctionsIDListBytes(e2srIeC.value.choice)
+		if err != nil {
+			return nil, err
+		}
+		ret.E2ApProtocolIes9 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes9{
+			Id:          int32(v1beta1.ProtocolIeIDRanfunctionsAccepted),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rfAccepted,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
 	case C.E2setupResponseIEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeE2setupResponseIE(). %v not yet implemneted", e2srIeC.value.present)
@@ -437,5 +472,29 @@ func decodeRANfunctionItemIes(rfiIesValC *C.struct_RANfunction_ItemIEs__value) (
 		return &rfiIes, nil
 	default:
 		return nil, fmt.Errorf("error decoding RanFunctionItemIE - present %v not supported", present)
+	}
+}
+
+func decodeRANfunctionIDItemIes(rfIDiIesValC *C.struct_RANfunctionID_ItemIEs__value) (*e2appducontents.RanfunctionIdItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfIDiIesValC, rfIDiIesValC)
+
+	switch present := rfIDiIesValC.present; present {
+	case C.RANfunctionID_ItemIEs__value_PR_RANfunctionID_Item:
+
+		rfIDiIes := e2appducontents.RanfunctionIdItemIes{
+			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+				Id:          int32(v1beta1.ProtocolIeIDRanfunctionIDItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+		}
+		rfi, err := decodeRanFunctionIDItemBytes(rfIDiIesValC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeRANfunctionIdItemIes() %s", err.Error())
+		}
+		rfIDiIes.GetRanFunctionIdItemIes6().Value = rfi
+		return &rfIDiIes, nil
+	default:
+		return nil, fmt.Errorf("error decoding RanFunctionIDItemIE - present %v not supported", present)
 	}
 }

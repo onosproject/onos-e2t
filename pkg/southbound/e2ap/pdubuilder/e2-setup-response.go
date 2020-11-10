@@ -10,12 +10,13 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
 const mask20bit = 0xFFFFF
 
 func CreateResponseE2apPdu(plmnID string, ricID uint32,
-	rfAccepted map[int32]int32, rfRejected map[int32]e2apies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
+	rfAccepted types.RanFunctionIDs, rfRejected map[int32]e2apies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if len(plmnID) != 3 {
 		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
@@ -49,22 +50,24 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32,
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	rfIDiIe100 := e2appducontents.RanfunctionIdItemIes{
-		RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-			Id:          int32(v1beta1.ProtocolIeIDRanfunctionIDItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RanfunctionIdItem{
-				RanFunctionId: &e2apies.RanfunctionId{
-					Value: 100,
+	for rfID, rfRevision := range rfAccepted {
+		rfIDiIe := e2appducontents.RanfunctionIdItemIes{
+			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+				Id:          int32(v1beta1.ProtocolIeIDRanfunctionIDItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionIdItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(rfID),
+					},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(rfRevision),
+					},
 				},
-				RanFunctionRevision: &e2apies.RanfunctionRevision{
-					Value: 1,
-				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		},
+		}
+		ranFunctionsAccepted.Value.Value = append(ranFunctionsAccepted.Value.Value, &rfIDiIe)
 	}
-	ranFunctionsAccepted.Value.Value = append(ranFunctionsAccepted.Value.Value, &rfIDiIe100)
 
 	ranFunctionsRejected := e2appducontents.E2SetupResponseIes_E2SetupResponseIes13{
 		Id:          int32(v1beta1.ProtocolIeIDRanfunctionsRejected),
