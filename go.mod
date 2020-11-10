@@ -7,12 +7,12 @@ require (
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.1.0
 	github.com/gogo/protobuf v1.3.1
-	github.com/golang/mock v1.3.1
+	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.4.2
 	github.com/google/uuid v1.1.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0 // indirect
 	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07
-	github.com/onosproject/onos-lib-go v0.6.21
+	github.com/onosproject/onos-lib-go v0.6.23
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
