@@ -10,17 +10,29 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "RICaction-Admitted-List.h"
-//#include "ProtocolIE-Field.h"
+//#include "ProtocolIE-SingleContainer.h"
 import "C"
 import (
+	"encoding/binary"
+	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"unsafe"
 )
 
 func decodeRicActionAdmittedListBytes(raalBytes []byte) (*e2appducontents.RicactionAdmittedList, error) {
-	raalC := new(C.RICaction_Admitted_List_t)
-	// TODO: Implement the rest of it
+	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(raalBytes[0:8]))))
+	count := C.int(binary.LittleEndian.Uint32(raalBytes[8:12]))
+	size := C.int(binary.LittleEndian.Uint32(raalBytes[12:16]))
 
-	return decodeRicActionAdmittedList(raalC)
+	raalC := C.RICaction_Admitted_List_t{
+		list: C.struct___49{
+			array: array,
+			size:  size,
+			count: count,
+		},
+	}
+
+	return decodeRicActionAdmittedList(&raalC)
 }
 
 func decodeRicActionAdmittedList(raalC *C.RICaction_Admitted_List_t) (*e2appducontents.RicactionAdmittedList, error) {
@@ -28,5 +40,19 @@ func decodeRicActionAdmittedList(raalC *C.RICaction_Admitted_List_t) (*e2appduco
 	raal := e2appducontents.RicactionAdmittedList{
 		Value: make([]*e2appducontents.RicactionAdmittedItemIes, 0),
 	}
+
+	ieCount := int(raalC.list.count)
+	//fmt.Printf("RicactionAdmittedList %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*raalC.list.array)) * uintptr(i)
+		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1547P1_t)(unsafe.Pointer(uintptr(unsafe.Pointer(raalC.list.array)) + offset))
+		//fmt.Printf("Value %T %p %v\n", rfIDiIeC, rfIDiIeC, rfIDiIeC)
+		rfIDiIe, err := decodeRicActionAdmittedItemIesSingleContainer(rfIDiIeC)
+		if err != nil {
+			return nil, fmt.Errorf("decodeRicActionAdmittedItemIesSingleContainer() %s", err.Error())
+		}
+		raal.Value = append(raal.Value, rfIDiIe)
+	}
+
 	return &raal, nil
 }

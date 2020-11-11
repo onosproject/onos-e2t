@@ -561,3 +561,21 @@ func decodeRANfunctionIDCauseItemIes(rfIDciIesValC *C.struct_RANfunctionIDcause_
 		return nil, fmt.Errorf("error decoding RanFunctionIDCauseItemIE - present %v not supported", present)
 	}
 }
+
+func decodeRicActionIDItemIes(raaiIesValC *C.struct_RICaction_Admitted_ItemIEs__value) (*e2appducontents.RicactionAdmittedItemIes, error) {
+	//fmt.Printf("Value %T %v\n", raaiIesValC, raaiIesValC)
+
+	switch present := raaiIesValC.present; present {
+	case C.RICaction_Admitted_ItemIEs__value_PR_RICaction_Admitted_Item:
+
+		raaiIes := e2appducontents.RicactionAdmittedItemIes{
+			Id:          int32(v1beta1.ProtocolIeIDRicactionAdmittedItem),
+			Value:       decodeRicActionAdmittedItemBytes(raaiIesValC.choice),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		return &raaiIes, nil
+	default:
+		return nil, fmt.Errorf("error decoding RicactionAdmittedItemIes - present %v. not supported", present)
+	}
+}
