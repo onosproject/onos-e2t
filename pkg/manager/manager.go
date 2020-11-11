@@ -15,6 +15,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	sub "github.com/onosproject/onos-e2t/pkg/subscription"
+	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
@@ -25,19 +26,19 @@ var log = logging.GetLogger("manager")
 
 // Config is a manager configuration
 type Config struct {
-	CAPath   string
-	KeyPath  string
-	CertPath string
-	GRPCPort int
-	E2Port   int
+	CAPath       string
+	KeyPath      string
+	CertPath     string
+	GRPCPort     int
+	E2Port       int
+	E2SubAddress string
 }
 
 // NewManager creates a new manager
-func NewManager(config Config, opts ...grpc.DialOption) *Manager {
+func NewManager(config Config) *Manager {
 	log.Info("Creating Manager")
 	return &Manager{
 		Config: config,
-		opts:   opts,
 	}
 }
 
@@ -136,11 +137,17 @@ func (m *Manager) startNorthboundServer(subs substore.Store, streams *stream.Man
 
 // joinSubscriptionManager joins the termination point to the subscription manager
 func (m *Manager) joinSubscriptionManager() error {
-	conn, err := grpc.Dial("onos-e2sub:5150", m.opts...)
+	opts, err := certs.HandleCertPaths(m.Config.CAPath, m.Config.KeyPath, m.Config.CertPath, true)
+	if err != nil {
+		return err
+	}
+
+	conn, err := grpc.Dial(m.Config.E2SubAddress, opts...)
 	if err != nil {
 		return err
 	}
 	defer conn.Close()
+
 	client := regapi.NewE2RegistryServiceClient(conn)
 	request := &regapi.AddTerminationRequest{
 		EndPoint: &regapi.TerminationEndPoint{
@@ -155,11 +162,17 @@ func (m *Manager) joinSubscriptionManager() error {
 
 // leaveSubscriptionManager removes the termination point from the subscription manager
 func (m *Manager) leaveSubscriptionManager() error {
-	conn, err := grpc.Dial("onos-e2sub:5150", m.opts...)
+	opts, err := certs.HandleCertPaths(m.Config.CAPath, m.Config.KeyPath, m.Config.CertPath, true)
+	if err != nil {
+		return err
+	}
+
+	conn, err := grpc.Dial(m.Config.E2SubAddress, opts...)
 	if err != nil {
 		return err
 	}
 	defer conn.Close()
+
 	client := regapi.NewE2RegistryServiceClient(conn)
 	request := &regapi.RemoveTerminationRequest{
 		ID: regapi.ID(env.GetPodID()),

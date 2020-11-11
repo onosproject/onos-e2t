@@ -11,7 +11,6 @@ import (
 	"syscall"
 
 	"github.com/onosproject/onos-e2t/pkg/manager"
-	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
@@ -22,22 +21,19 @@ func main() {
 	keyPath := flag.String("keyPath", "", "path to client private key")
 	certPath := flag.String("certPath", "", "path to client certificate")
 	sctpPort := flag.Uint("sctpport", 36421, "sctp server port")
+	e2SubAddress := flag.String("e2SubAddress", "onos-e2sub:5150", "onos-e2sub endpoint address")
 	flag.Parse()
-
-	opts, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	log.Info("Starting onos-e2t")
 	cfg := manager.Config{
-		CAPath:   *caPath,
-		KeyPath:  *keyPath,
-		CertPath: *certPath,
-		GRPCPort: 5150,
-		E2Port:   int(*sctpPort),
+		CAPath:       *caPath,
+		KeyPath:      *keyPath,
+		CertPath:     *certPath,
+		GRPCPort:     5150,
+		E2Port:       int(*sctpPort),
+		E2SubAddress: *e2SubAddress,
 	}
-	mgr := manager.NewManager(cfg, opts...)
+	mgr := manager.NewManager(cfg)
 	mgr.Run()
 
 	sigCh := make(chan os.Signal, 1)
