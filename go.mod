@@ -12,7 +12,7 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0 // indirect
 	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07
-	github.com/onosproject/onos-e2sub v0.6.0 // indirect
+	github.com/onosproject/onos-e2sub v0.6.0
 	github.com/onosproject/onos-lib-go v0.6.23
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/smartystreets/assertions v1.0.0 // indirect
