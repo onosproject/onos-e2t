@@ -50,12 +50,10 @@ protos:
 		onosproject/protoc-go:${ONOS_PROTOC_VERSION}
 
 onos-e2t-base-docker: # @HELP build onos-e2t base Docker image
-	@go mod vendor
 	docker build . -f build/base/Dockerfile \
 		--build-arg ONOS_BUILD_VERSION=${ONOS_BUILD_VERSION} \
 		--build-arg ONOS_MAKE_TARGET=build \
 		-t onosproject/onos-e2t-base:${ONOS_E2T_VERSION}
-	@rm -rf vendor
 
 onos-e2t-docker: # @HELP build onos-e2t Docker image
 onos-e2t-docker: onos-e2t-base-docker
