@@ -122,6 +122,35 @@ func newRicSubscriptionRequestIe5RanFunctionID(rsrRfIe *e2appducontents.Ricsubsc
 	return &ie, nil
 }
 
+func newRicSubscriptionResponseIe5RanFunctionID(rsrRfIe *e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes5) (*C.RICsubscriptionResponse_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRfIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [48]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ranFunctionIDC := newRanFunctionID(rsrRfIe.Value)
+
+	//fmt.Printf("Assigning to choice of RicSubscriptionResponseIE %v \n", ranFunctionIDC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ranFunctionIDC))
+
+	ie := C.RICsubscriptionResponse_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionResponse_IEs__value{
+			present: C.RICsubscriptionResponse_IEs__value_PR_RANfunctionID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResponseIes_E2SetupResponseIes9) (*C.E2setupResponseIEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
@@ -218,6 +247,38 @@ func newE2setupResponseIe13RanFunctionsRejected(esIe *e2appducontents.E2SetupRes
 	return &ie, nil
 }
 
+func newRicSubscriptionResponseIe17RactionAdmittedList(rsrRrIe *e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17) (*C.RICsubscriptionResponse_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRrIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicactionsAdmitted)
+	if err != nil {
+		return nil, err
+	}
+
+	listC := [48]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ricActionAdmittedListC, err := newRicActionAdmittedList(rsrRrIe.Value)
+	if err != nil {
+		return nil, fmt.Errorf("newRicActionAdmittedList() %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(listC[0:], uint64(uintptr(unsafe.Pointer(ricActionAdmittedListC.list.array))))
+	binary.LittleEndian.PutUint32(listC[8:], uint32(ricActionAdmittedListC.list.count))
+	binary.LittleEndian.PutUint32(listC[12:], uint32(ricActionAdmittedListC.list.size))
+
+	ie := C.RICsubscriptionResponse_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionResponse_IEs__value{
+			present: C.RICsubscriptionResponse_IEs__value_PR_RICaction_Admitted_List,
+			choice:  listC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newRicSubscriptionRequestIe29RicRequestID(rsrRrIDIe *e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29) (*C.RICsubscriptionRequest_IEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRrIDIe.GetCriticality()))
 	if err != nil {
@@ -241,6 +302,36 @@ func newRicSubscriptionRequestIe29RicRequestID(rsrRrIDIe *e2appducontents.Ricsub
 		criticality: critC,
 		value: C.struct_RICsubscriptionRequest_IEs__value{
 			present: C.RICsubscriptionRequest_IEs__value_PR_RICrequestID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicSubscriptionResponseIe29RicRequestID(rsrRrIDIe *e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes29) (*C.RICsubscriptionResponse_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRrIDIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicrequestID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [48]byte{}
+
+	ricRequestIDC := newRicRequestID(rsrRrIDIe.Value)
+
+	//fmt.Printf("Assigning to choice of RicSubscriptionResponseIE %v \n", ricRequestIDC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ricRequestIDC.ricRequestorID))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(ricRequestIDC.ricInstanceID))
+
+	ie := C.RICsubscriptionResponse_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionResponse_IEs__value{
+			present: C.RICsubscriptionResponse_IEs__value_PR_RICrequestID,
 			choice:  choiceC,
 		},
 	}
@@ -328,6 +419,32 @@ func newRANfunctionIDCauseItemIEs(rfIDItemIes *e2appducontents.RanfunctionIdcaus
 		criticality: critC,
 		value: C.struct_RANfunctionIDcause_ItemIEs__value{
 			present: C.RANfunctionIDcause_ItemIEs__value_PR_RANfunctionIDcause_Item,
+			choice:  choiceC,
+		},
+	}
+
+	return &rfItemIesC, nil
+}
+
+func newRicActionItemIEs(raaItemIes *e2appducontents.RicactionAdmittedItemIes) (*C.RICaction_Admitted_ItemIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(raaItemIes.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicactionAdmittedItem)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [32]byte{} // The size of the RANfunction_ItemIEs__value_u
+	rfItemC := newRicActionAdmittedItem(raaItemIes.GetValue())
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(rfItemC.ricActionID))
+
+	rfItemIesC := C.RICaction_Admitted_ItemIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICaction_Admitted_ItemIEs__value{
+			present: C.RICaction_Admitted_ItemIEs__value_PR_RICaction_Admitted_Item,
 			choice:  choiceC,
 		},
 	}
@@ -559,5 +676,23 @@ func decodeRANfunctionIDCauseItemIes(rfIDciIesValC *C.struct_RANfunctionIDcause_
 		return &rfIDiIes, nil
 	default:
 		return nil, fmt.Errorf("error decoding RanFunctionIDCauseItemIE - present %v not supported", present)
+	}
+}
+
+func decodeRicActionIDItemIes(raaiIesValC *C.struct_RICaction_Admitted_ItemIEs__value) (*e2appducontents.RicactionAdmittedItemIes, error) {
+	//fmt.Printf("Value %T %v\n", raaiIesValC, raaiIesValC)
+
+	switch present := raaiIesValC.present; present {
+	case C.RICaction_Admitted_ItemIEs__value_PR_RICaction_Admitted_Item:
+
+		raaiIes := e2appducontents.RicactionAdmittedItemIes{
+			Id:          int32(v1beta1.ProtocolIeIDRicactionAdmittedItem),
+			Value:       decodeRicActionAdmittedItemBytes(raaiIesValC.choice),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		return &raaiIes, nil
+	default:
+		return nil, fmt.Errorf("error decoding RicactionAdmittedItemIes - present %v. not supported", present)
 	}
 }

@@ -19,6 +19,12 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 )
 
+func newRicActionAdmittedItemIEItemIesSingleContainer(rfItemIes *e2appducontents.RicactionAdmittedItemIes) (*C.ProtocolIE_SingleContainer_1547P1_t, error) {
+	pIeSC1547P1, err := newRicActionItemIEs(rfItemIes)
+
+	return (*C.ProtocolIE_SingleContainer_1547P1_t)(pIeSC1547P1), err
+}
+
 func newRanFunctionItemIesSingleContainer(rfItemIes *e2appducontents.RanfunctionItemIes) (*C.ProtocolIE_SingleContainer_1547P3_t, error) {
 	pIeSC1547P3, err := newRANfunctionItemIEs(rfItemIes)
 
@@ -35,6 +41,17 @@ func newRanFunctionIDcauseItemIesSingleContainer(rfIDcauseItemIes *e2appduconten
 	pIeSC1547P5, err := newRANfunctionIDCauseItemIEs(rfIDcauseItemIes)
 
 	return (*C.ProtocolIE_SingleContainer_1547P5_t)(pIeSC1547P5), err
+}
+
+func decodeRicActionAdmittedItemIesSingleContainer(raaiIeScC *C.ProtocolIE_SingleContainer_1547P1_t) (*e2appducontents.RicactionAdmittedItemIes, error) {
+	//fmt.Printf("Value %T %v\n", raaiIeScC, raaiIeScC)
+	switch id := raaiIeScC.id; id {
+	case C.long(v1beta1.ProtocolIeIDRicactionAdmittedItem):
+		return decodeRicActionIDItemIes(&raaiIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for RicactionAdmittedItemIes %v", C.long(id))
+	}
+
 }
 
 func decodeRanFunctionItemIesSingleContainer(rfiIeScC *C.ProtocolIE_SingleContainer_1547P3_t) (*e2appducontents.RanfunctionItemIes, error) {

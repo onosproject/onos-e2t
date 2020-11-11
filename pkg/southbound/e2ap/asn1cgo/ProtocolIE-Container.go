@@ -124,6 +124,48 @@ func decodeE2SetupResponseIes(protocolIEsC *C.ProtocolIE_Container_1544P12_t) (*
 	return pIEs, nil
 }
 
+func newRicSubscriptionResponseIe(rsrIEs *e2appducontents.RicsubscriptionResponseIes) (*C.ProtocolIE_Container_1544P1_t, error) {
+	pIeC1544P1 := new(C.ProtocolIE_Container_1544P1_t)
+
+	if rsrIEs.GetE2ApProtocolIes5() != nil {
+		ie5C, err := newRicSubscriptionResponseIe5RanFunctionID(rsrIEs.GetE2ApProtocolIes5())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P1), unsafe.Pointer(ie5C)); err != nil {
+			return nil, err
+		}
+	}
+	if rsrIEs.GetE2ApProtocolIes17() != nil {
+		ie17C, err := newRicSubscriptionResponseIe17RactionAdmittedList(rsrIEs.GetE2ApProtocolIes17())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P1), unsafe.Pointer(ie17C)); err != nil {
+			return nil, err
+		}
+	}
+	//if rsrIEs.GetE2ApProtocolIes18() != nil {
+	//	ie18C, err := newE2setupResponseIe4GlobalRicID(rsrIEs.GetE2ApProtocolIes18())
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P1), unsafe.Pointer(ie18C)); err != nil {
+	//		return nil, err
+	//	}
+	//}
+	if rsrIEs.GetE2ApProtocolIes29() != nil {
+		ie29C, err := newRicSubscriptionResponseIe29RicRequestID(rsrIEs.GetE2ApProtocolIes29())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P1), unsafe.Pointer(ie29C)); err != nil {
+			return nil, err
+		}
+	}
+	return pIeC1544P1, nil
+}
+
 func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1544P1_t) (*e2appducontents.RicsubscriptionResponseIes, error) {
 	pIEs := new(e2appducontents.RicsubscriptionResponseIes)
 
