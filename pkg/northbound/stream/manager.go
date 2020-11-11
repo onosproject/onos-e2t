@@ -72,7 +72,7 @@ func (m *Manager) Get(ctx context.Context, id ID) (WriteStream, error) {
 	defer m.streamsMu.RUnlock()
 	stream, ok := m.streams[id]
 	if !ok {
-		return nil, fmt.Errorf("unknown stream %s", id)
+		return nil, fmt.Errorf("unknown stream %d", id)
 	}
 	return stream, nil
 }
