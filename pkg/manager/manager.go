@@ -7,6 +7,8 @@ package manager
 import (
 	"context"
 	regapi "github.com/onosproject/onos-e2sub/api/e2/registry/v1beta1"
+	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
+	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
@@ -37,14 +39,25 @@ type Config struct {
 // NewManager creates a new manager
 func NewManager(config Config) *Manager {
 	log.Info("Creating Manager")
+	opts, err := certs.HandleCertPaths(config.CAPath, config.KeyPath, config.CertPath, true)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	conn, err := grpc.Dial(config.E2SubAddress, opts...)
+	if err != nil {
+		log.Fatal(err)
+	}
 	return &Manager{
 		Config: config,
+		conn:   conn,
 	}
 }
 
 // Manager is a manager for the E2T service
 type Manager struct {
 	Config Config
+	conn   *grpc.ClientConn
 }
 
 // Run starts the manager and the associated services
@@ -62,10 +75,11 @@ func (m *Manager) Start() error {
 		return err
 	}
 
+	catalog := sub.NewCatalog()
 	streams := stream.NewManager()
 	channels := channel.NewManager()
 
-	err = m.startSubscriptionBroker(subs, streams, channels)
+	err = m.startSubscriptionBroker(catalog, streams, channels)
 	if err != nil {
 		return err
 	}
@@ -83,13 +97,13 @@ func (m *Manager) Start() error {
 }
 
 // startSubscriptionBroker starts the subscription broker
-func (m *Manager) startSubscriptionBroker(subs substore.Store, streams *stream.Manager, channels *channel.Manager) error {
-	controller := sub.NewController(subs, channels)
+func (m *Manager) startSubscriptionBroker(catalog *sub.Catalog, streams *stream.Manager, channels *channel.Manager) error {
+	controller := sub.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn), subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn), channels)
 	if err := controller.Start(); err != nil {
 		return err
 	}
 
-	broker := sub.NewBroker(subs, streams, channels)
+	broker := sub.NewBroker(catalog, streams, channels)
 	if err := broker.Start(); err != nil {
 		return err
 	}
@@ -136,18 +150,7 @@ func (m *Manager) startNorthboundServer(subs substore.Store, streams *stream.Man
 
 // joinSubscriptionManager joins the termination point to the subscription manager
 func (m *Manager) joinSubscriptionManager() error {
-	opts, err := certs.HandleCertPaths(m.Config.CAPath, m.Config.KeyPath, m.Config.CertPath, true)
-	if err != nil {
-		return err
-	}
-
-	conn, err := grpc.Dial(m.Config.E2SubAddress, opts...)
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-
-	client := regapi.NewE2RegistryServiceClient(conn)
+	client := regapi.NewE2RegistryServiceClient(m.conn)
 	request := &regapi.AddTerminationRequest{
 		EndPoint: &regapi.TerminationEndPoint{
 			ID:   regapi.ID(env.GetPodID()),
@@ -155,28 +158,17 @@ func (m *Manager) joinSubscriptionManager() error {
 			Port: regapi.Port(5150),
 		},
 	}
-	_, err = client.AddTermination(context.Background(), request)
+	_, err := client.AddTermination(context.Background(), request)
 	return err
 }
 
 // leaveSubscriptionManager removes the termination point from the subscription manager
 func (m *Manager) leaveSubscriptionManager() error {
-	opts, err := certs.HandleCertPaths(m.Config.CAPath, m.Config.KeyPath, m.Config.CertPath, true)
-	if err != nil {
-		return err
-	}
-
-	conn, err := grpc.Dial(m.Config.E2SubAddress, opts...)
-	if err != nil {
-		return err
-	}
-	defer conn.Close()
-
-	client := regapi.NewE2RegistryServiceClient(conn)
+	client := regapi.NewE2RegistryServiceClient(m.conn)
 	request := &regapi.RemoveTerminationRequest{
 		ID: regapi.ID(env.GetPodID()),
 	}
-	_, err = client.RemoveTermination(context.Background(), request)
+	_, err := client.RemoveTermination(context.Background(), request)
 	return err
 }
 
@@ -190,5 +182,7 @@ func (m *Manager) Close() {
 
 // Stop stops the manager
 func (m *Manager) Stop() error {
-	return m.leaveSubscriptionManager()
+	err := m.leaveSubscriptionManager()
+	_ = m.conn.Close()
+	return err
 }

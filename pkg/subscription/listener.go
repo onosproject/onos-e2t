@@ -7,8 +7,8 @@ package subscription
 import (
 	"context"
 	"github.com/gogo/protobuf/proto"
+	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
-	subapi "github.com/onosproject/onos-e2t/api/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"io"
 	"sync"

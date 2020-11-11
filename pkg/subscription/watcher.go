@@ -6,9 +6,12 @@ package subscription
 
 import (
 	"context"
+	regapi "github.com/onosproject/onos-e2sub/api/e2/registry/v1beta1"
+	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
+	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
-	"github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
+	"io"
 	"sync"
 )
 
@@ -16,9 +19,10 @@ const queueSize = 100
 
 // Watcher is a subscription watcher
 type Watcher struct {
-	subs   subscription.Store
-	cancel context.CancelFunc
-	mu     sync.Mutex
+	endpointID regapi.ID
+	tasks      subtaskapi.E2SubscriptionTaskServiceClient
+	cancel     context.CancelFunc
+	mu         sync.Mutex
 }
 
 // Start starts the subscription watcher
@@ -29,9 +33,9 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	subCh := make(chan subscription.Event, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.subs.Watch(ctx, subCh)
+	request := &subtaskapi.WatchSubscriptionTasksRequest{}
+	stream, err := w.tasks.WatchSubscriptionTasks(ctx, request)
 	if err != nil {
 		cancel()
 		return err
@@ -39,8 +43,16 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		for request := range subCh {
-			ch <- controller.NewID(request.Subscription.ID)
+		for {
+			response, err := stream.Recv()
+			if err == io.EOF || err == context.Canceled {
+				break
+			}
+			if err != nil {
+				log.Error(err)
+			} else if response.Event.Task.TerminationEndpointID == w.endpointID {
+				ch <- controller.NewID(response.Event.Task.ID)
+			}
 		}
 		close(ch)
 	}()
@@ -61,10 +73,12 @@ var _ controller.Watcher = &Watcher{}
 
 // ChannelWatcher is a channel watcher
 type ChannelWatcher struct {
-	subs     subscription.Store
-	channels *channel.Manager
-	cancel   context.CancelFunc
-	mu       sync.Mutex
+	endpointID regapi.ID
+	tasks      subtaskapi.E2SubscriptionTaskServiceClient
+	subs       subapi.E2SubscriptionServiceClient
+	channels   *channel.Manager
+	cancel     context.CancelFunc
+	mu         sync.Mutex
 }
 
 // Start starts the channel watcher
@@ -86,11 +100,22 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for c := range channelCh {
-			subs, err := w.subs.List(ctx)
-			if err == nil {
-				for _, sub := range subs {
-					if channel.ID(sub.E2NodeID) == c.ID() {
-						ch <- controller.NewID(sub.ID)
+			request := &subtaskapi.ListSubscriptionTasksRequest{}
+			response, err := w.tasks.ListSubscriptionTasks(ctx, request)
+			if err != nil {
+				log.Error(err)
+			} else {
+				for _, task := range response.Task {
+					if task.TerminationEndpointID == w.endpointID {
+						subRequest := &subapi.GetSubscriptionRequest{
+							ID: task.SubscriptionID,
+						}
+						subResponse, err := w.subs.GetSubscription(ctx, subRequest)
+						if err != nil {
+							log.Error(err)
+						} else if subResponse.Subscription.E2NodeID == subapi.E2NodeID(c.ID()) {
+							ch <- controller.NewID(task.ID)
+						}
 					}
 				}
 			}
