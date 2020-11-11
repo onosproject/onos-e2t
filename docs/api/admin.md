@@ -158,7 +158,7 @@ UploadRegisterServiceModelResponse carries status of model plugin registration.
 <a name="admin.v1.E2NodeConnectionType"></a>
 
 ### E2NodeConnectionType
-E2NodeConnectionType specifies
+E2NodeConnectionType specifies the type of an E2 connection
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |

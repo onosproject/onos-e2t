@@ -31,6 +31,7 @@ type Manager struct {
 	watchers   []chan<- Stream
 	watchersMu sync.RWMutex
 	eventCh    chan Stream
+	streamID   ID
 }
 
 func (m *Manager) processEvents() {
@@ -49,16 +50,17 @@ func (m *Manager) processEvent(stream Stream) {
 }
 
 // Open opens a new stream
-func (m *Manager) Open(ctx context.Context, id ID, ch chan Message) (ReadStream, error) {
+func (m *Manager) Open(ctx context.Context, meta Metadata, ch chan Message) (ReadStream, error) {
 	m.streamsMu.Lock()
 	defer m.streamsMu.Unlock()
-	stream := newChannelStream(ctx, id, ch)
-	m.streams[id] = stream
+	m.streamID++
+	stream := newChannelStream(ctx, m.streamID, meta, ch)
+	m.streams[m.streamID] = stream
 	m.eventCh <- stream
 	go func() {
 		<-ctx.Done()
 		m.streamsMu.Lock()
-		delete(m.streams, id)
+		delete(m.streams, m.streamID)
 		m.streamsMu.Unlock()
 	}()
 	return stream, nil
@@ -70,7 +72,7 @@ func (m *Manager) Get(ctx context.Context, id ID) (WriteStream, error) {
 	defer m.streamsMu.RUnlock()
 	stream, ok := m.streams[id]
 	if !ok {
-		return nil, fmt.Errorf("unknown stream %s", id)
+		return nil, fmt.Errorf("unknown stream %d", id)
 	}
 	return stream, nil
 }

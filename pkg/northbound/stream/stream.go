@@ -7,6 +7,7 @@ package stream
 import (
 	"context"
 	"errors"
+	api "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1"
 	"io"
 	"sync"
 )
@@ -60,7 +61,14 @@ type WriteStream interface {
 }
 
 // ID is a stream identifier
-type ID string
+type ID uint64
+
+// Metadata is stream metadata
+type Metadata struct {
+	AppID          api.AppID
+	InstanceID     api.InstanceID
+	SubscriptionID api.SubscriptionID
+}
 
 // Stream is a read/write stream
 type Stream interface {
@@ -69,6 +77,9 @@ type Stream interface {
 
 	// ID returns the stream identifier
 	ID() ID
+
+	// Metadata returns the stream metadata
+	Metadata() Metadata
 }
 
 // channelReadStream is a channel-based read stream
@@ -125,7 +136,7 @@ func (s *channelWriteStream) Close() error {
 
 var _ WriteStream = &channelWriteStream{}
 
-func newChannelStream(ctx context.Context, id ID, ch chan Message) Stream {
+func newChannelStream(ctx context.Context, id ID, meta Metadata, ch chan Message) Stream {
 	stream := &channelStream{
 		channelReadStream: &channelReadStream{
 			readCh: ch,
@@ -134,7 +145,8 @@ func newChannelStream(ctx context.Context, id ID, ch chan Message) Stream {
 		channelWriteStream: &channelWriteStream{
 			writeCh: ch,
 		},
-		id: id,
+		id:   id,
+		meta: meta,
 	}
 	go func() {
 		<-ctx.Done()
@@ -147,11 +159,16 @@ func newChannelStream(ctx context.Context, id ID, ch chan Message) Stream {
 type channelStream struct {
 	*channelReadStream
 	*channelWriteStream
-	id ID
+	id   ID
+	meta Metadata
 }
 
 func (s *channelStream) ID() ID {
 	return s.id
+}
+
+func (s *channelStream) Metadata() Metadata {
+	return s.meta
 }
 
 var _ Stream = &channelStream{}

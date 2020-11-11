@@ -5,7 +5,6 @@
 package ricapie2
 
 import (
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/ricapi/e2/headers/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"io"
@@ -52,9 +51,13 @@ func (s *Server) Stream(server ricapie2v1beta1.E2TService_StreamServer) error {
 	}
 
 	log.Debugf("Received StreamRequest %+v", request)
-	streamID := stream.ID(fmt.Sprintf("%s:%s", request.AppID, request.InstanceID))
 	streamCh := make(chan stream.Message)
-	stream, err := s.streams.Open(server.Context(), streamID, streamCh)
+	streamMeta := stream.Metadata{
+		AppID:          request.AppID,
+		InstanceID:     request.InstanceID,
+		SubscriptionID: request.SubscriptionID,
+	}
+	stream, err := s.streams.Open(server.Context(), streamMeta, streamCh)
 	if err != nil {
 		log.Warnf("StreamRequest %+v failed: %v", request, err)
 		return err

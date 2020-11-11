@@ -9,3 +9,6 @@ type AppID string
 
 // InstanceID is an application instance identifier
 type InstanceID string
+
+// SubscriptionID is a subscription identifier
+type SubscriptionID string
