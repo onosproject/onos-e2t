@@ -51,6 +51,38 @@
                             </RANfunctionsID-List>
                         </value>
                     </E2setupResponseIEs>
+                    <E2setupResponseIEs>
+                        <id>13</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RANfunctionsIDcause-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>7</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunctionIDcause-Item>
+                                            <ranFunctionID>102</ranFunctionID>
+                                            <cause>
+                                                <protocol><semantic-error/></protocol>
+                                            </cause>
+                                        </RANfunctionIDcause-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>7</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunctionIDcause-Item>
+                                            <ranFunctionID>101</ranFunctionID>
+                                            <cause>
+                                                <misc><hardware-failure/></misc>
+                                            </cause>
+                                        </RANfunctionIDcause-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </RANfunctionsIDcause-List>
+                        </value>
+                    </E2setupResponseIEs>
                 </protocolIEs>
             </E2setupResponse>
         </value>

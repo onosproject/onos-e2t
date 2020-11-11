@@ -11,19 +11,19 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.RicIdentity, types.RanFunctionRevisions, error) {
+func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.RicIdentity, types.RanFunctionRevisions, types.RanFunctionCauses, error) {
 	if err := e2apPdu.Validate(); err != nil {
-		return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+		return nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
 	}
 
 	e2setup := e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2Setup()
 	if e2setup == nil {
-		return nil, nil, fmt.Errorf("error E2APpdu does not have E2Setup")
+		return nil, nil, nil, fmt.Errorf("error E2APpdu does not have E2Setup")
 	}
 
 	identifierIe := e2setup.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes4()
 	if identifierIe == nil {
-		return nil, nil, fmt.Errorf("error E2APpdu does not have id-GlobalE2node-ID")
+		return nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-GlobalE2node-ID")
 	}
 	ricIdentifier := types.RicIdentifier{
 		RicIdentifierValue: types.RicIdentifierBits(identifierIe.GetValue().GetRicId().GetValue()),
@@ -62,5 +62,5 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.RicI
 		}
 	}
 
-	return &ricIdentity, rfAccepted, nil
+	return &ricIdentity, rfAccepted, rfRejected, nil
 }

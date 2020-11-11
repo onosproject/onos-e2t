@@ -400,6 +400,17 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 			Value:       rfAccepted,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
+	case C.E2setupResponseIEs__value_PR_RANfunctionsIDcause_List:
+		rfRejected, err := decodeRanFunctionsIDCauseListBytes(e2srIeC.value.choice)
+		if err != nil {
+			return nil, err
+		}
+		ret.E2ApProtocolIes13 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes13{
+			Id:          int32(v1beta1.ProtocolIeIDRanfunctionsRejected),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rfRejected,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
 	case C.E2setupResponseIEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeE2setupResponseIE(). %v not yet implemneted", e2srIeC.value.present)
 
@@ -524,5 +535,29 @@ func decodeRANfunctionIDItemIes(rfIDiIesValC *C.struct_RANfunctionID_ItemIEs__va
 		return &rfIDiIes, nil
 	default:
 		return nil, fmt.Errorf("error decoding RanFunctionIDItemIE - present %v not supported", present)
+	}
+}
+
+func decodeRANfunctionIDCauseItemIes(rfIDciIesValC *C.struct_RANfunctionIDcause_ItemIEs__value) (*e2appducontents.RanfunctionIdcauseItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfIDciIesValC, rfIDciIesValC)
+
+	switch present := rfIDciIesValC.present; present {
+	case C.RANfunctionIDcause_ItemIEs__value_PR_RANfunctionIDcause_Item:
+
+		rfIDiIes := e2appducontents.RanfunctionIdcauseItemIes{
+			RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
+				Id:          int32(v1beta1.ProtocolIeIDRanfunctionIeCauseItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+		}
+		rfi, err := decodeRanFunctionIDcauseItemBytes(rfIDciIesValC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeRANfunctionIdcauseItemIes() %s", err.Error())
+		}
+		rfIDiIes.GetRanFunctionIdcauseItemIes7().Value = rfi
+		return &rfIDiIes, nil
+	default:
+		return nil, fmt.Errorf("error decoding RanFunctionIDCauseItemIE - present %v not supported", present)
 	}
 }

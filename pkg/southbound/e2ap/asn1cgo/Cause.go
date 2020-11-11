@@ -49,3 +49,32 @@ func newCause(cause *e2apies.Cause) (*C.Cause_t, error) {
 
 	return &causeC, nil
 }
+
+func decodeCause(causeC *C.Cause_t) (*e2apies.Cause, error) {
+	cause := new(e2apies.Cause)
+	switch causeC.present {
+	case C.Cause_PR_misc:
+		cause.Cause = &e2apies.Cause_Misc{
+			Misc: e2apies.CauseMisc(binary.LittleEndian.Uint64(causeC.choice[:])),
+		}
+	case C.Cause_PR_protocol:
+		cause.Cause = &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol(binary.LittleEndian.Uint64(causeC.choice[:])),
+		}
+	case C.Cause_PR_ricRequest:
+		cause.Cause = &e2apies.Cause_RicRequest{
+			RicRequest: e2apies.CauseRic(binary.LittleEndian.Uint64(causeC.choice[:])),
+		}
+	case C.Cause_PR_ricService:
+		cause.Cause = &e2apies.Cause_RicService{
+			RicService: e2apies.CauseRicservice(binary.LittleEndian.Uint64(causeC.choice[:])),
+		}
+	case C.Cause_PR_transport:
+		cause.Cause = &e2apies.Cause_Transport{
+			Transport: e2apies.CauseTransport(binary.LittleEndian.Uint64(causeC.choice[:])),
+		}
+	default:
+		return nil, fmt.Errorf("unexpected cause type %v", causeC.present)
+	}
+	return cause, nil
+}

@@ -64,7 +64,7 @@ func decodeRanFunctionsIDList(rfIDlC *C.RANfunctionsID_List_t) (*e2appducontents
 		//fmt.Printf("Value %T %p %v\n", rfIDiIeC, rfIDiIeC, rfIDiIeC)
 		rfIDiIe, err := decodeRanFunctionIDItemIesSingleContainer(rfIDiIeC)
 		if err != nil {
-			return nil, fmt.Errorf("decodeRanFunctionsIDList() %s", err.Error())
+			return nil, fmt.Errorf("decodeRanFunctionIDItemIesSingleContainer() %s", err.Error())
 		}
 		rfIDl.Value = append(rfIDl.Value, rfIDiIe)
 	}

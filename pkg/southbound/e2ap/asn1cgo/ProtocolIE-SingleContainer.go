@@ -54,7 +54,18 @@ func decodeRanFunctionIDItemIesSingleContainer(rfIDiIeScC *C.ProtocolIE_SingleCo
 	case C.long(v1beta1.ProtocolIeIDRanfunctionIDItem):
 		return decodeRANfunctionIDItemIes(&rfIDiIeScC.value)
 	default:
-		return nil, fmt.Errorf("unexpected id for RanFunctionItem %v", C.long(id))
+		return nil, fmt.Errorf("unexpected id for RanfunctionIDItem %v", C.long(id))
+	}
+
+}
+
+func decodeRanFunctionIDCauseItemIesSingleContainer(rfIDciIeScC *C.ProtocolIE_SingleContainer_1547P5_t) (*e2appducontents.RanfunctionIdcauseItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfIDciIeScC, rfIDciIeScC)
+	switch id := rfIDciIeScC.id; id {
+	case C.long(v1beta1.ProtocolIeIDRanfunctionIeCauseItem):
+		return decodeRANfunctionIDCauseItemIes(&rfIDciIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for RanfunctionIeCauseItem %v", C.long(id))
 	}
 
 }

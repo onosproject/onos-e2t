@@ -12,7 +12,9 @@ package asn1cgo
 //#include "RANfunctionIDcause-Item.h"
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 )
 
@@ -28,4 +30,31 @@ func newRanFunctionIDCauseItem(rfIDi *e2appducontents.RanfunctionIdcauseItem) (*
 	}
 
 	return &rfIDiC, nil
+}
+
+func decodeRanFunctionIDcauseItemBytes(rfic [72]byte) (*e2appducontents.RanfunctionIdcauseItem, error) {
+	rficC := C.RANfunctionIDcause_Item_t{
+		ranFunctionID: C.long(binary.LittleEndian.Uint64(rfic[:8])),
+		cause: C.Cause_t{
+			present: C.Cause_PR(binary.LittleEndian.Uint64(rfic[8:16])),
+		},
+	}
+	copy(rficC.cause.choice[:], rfic[16:24])
+
+	return decodeRanFunctionIDCauseItem(&rficC)
+}
+
+func decodeRanFunctionIDCauseItem(rfiC *C.RANfunctionIDcause_Item_t) (*e2appducontents.RanfunctionIdcauseItem, error) {
+	cause, err := decodeCause(&rfiC.cause)
+	if err != nil {
+		return nil, fmt.Errorf("decodeCause() error %s", err.Error())
+	}
+	rfi := e2appducontents.RanfunctionIdcauseItem{
+		RanFunctionId: &e2apies.RanfunctionId{
+			Value: decodeRanFunctionID(&rfiC.ranFunctionID).Value,
+		},
+		Cause: cause,
+	}
+
+	return &rfi, nil
 }
