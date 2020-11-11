@@ -19,6 +19,22 @@ import (
 	"unsafe"
 )
 
+func newRicActionAdmittedList(raal *e2appducontents.RicactionAdmittedList) (*C.RICaction_Admitted_List_t, error) {
+	rfIDlC := new(C.RICaction_Admitted_List_t)
+
+	for _, raaID := range raal.GetValue() {
+		rfIDC, err := newRicActionAdmittedItemIEItemIesSingleContainer(raaID)
+		if err != nil {
+			return nil, fmt.Errorf("error on newRicActionAdmittedItemIEItemIesSingleContainer() %s", err.Error())
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(rfIDlC), unsafe.Pointer(rfIDC)); err != nil {
+			return nil, err
+		}
+	}
+
+	return rfIDlC, nil
+}
+
 func decodeRicActionAdmittedListBytes(raalBytes []byte) (*e2appducontents.RicactionAdmittedList, error) {
 	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(raalBytes[0:8]))))
 	count := C.int(binary.LittleEndian.Uint32(raalBytes[8:12]))

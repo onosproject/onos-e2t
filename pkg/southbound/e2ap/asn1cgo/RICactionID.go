@@ -11,7 +11,14 @@ package asn1cgo
 //#include <assert.h>
 //#include "RICactionID.h"
 import "C"
-import "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+import (
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+)
+
+func newRicActionID(raID *e2apies.RicactionId) *C.RICactionID_t {
+	raIDC := C.RICactionID_t(C.long(raID.GetValue()))
+	return &raIDC
+}
 
 func decodeRicActionID(raIDC *C.RICactionID_t) *e2apies.RicactionId {
 	return &e2apies.RicactionId{

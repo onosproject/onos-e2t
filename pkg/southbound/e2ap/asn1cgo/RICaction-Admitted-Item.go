@@ -16,6 +16,14 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 )
 
+func newRicActionAdmittedItem(raai *e2appducontents.RicactionAdmittedItem) *C.RICaction_Admitted_Item_t {
+	raaiC := C.RICaction_Admitted_Item_t{
+		ricActionID: *newRicActionID(raai.RicActionId),
+	}
+
+	return &raaiC
+}
+
 func decodeRicActionAdmittedItemBytes(raaiBytes [32]byte) *e2appducontents.RicactionAdmittedItem {
 	raaiC := C.RICaction_Admitted_Item_t{
 		ricActionID: C.long(binary.LittleEndian.Uint64(raaiBytes[0:8])),

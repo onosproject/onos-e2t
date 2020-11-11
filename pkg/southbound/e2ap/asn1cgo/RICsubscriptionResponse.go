@@ -16,6 +16,18 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 )
 
+func newRicSubscriptionResponse(rsr *e2appducontents.RicsubscriptionResponse) (*C.RICsubscriptionResponse_t, error) {
+	pIeC1544P1, err := newRicSubscriptionResponseIe(rsr.ProtocolIes)
+	if err != nil {
+		return nil, err
+	}
+	rsrC := C.RICsubscriptionResponse_t{
+		protocolIEs: *pIeC1544P1,
+	}
+
+	return &rsrC, nil
+}
+
 func decodeRicSubscriptionResponse(rsrC *C.RICsubscriptionResponse_t) (*e2appducontents.RicsubscriptionResponse, error) {
 	pIEs, err := decodeRicSubscriptionResponseIes(&rsrC.protocolIEs)
 	if err != nil {

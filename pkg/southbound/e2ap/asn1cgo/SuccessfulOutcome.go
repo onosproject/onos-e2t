@@ -45,6 +45,24 @@ func newSuccessfulOutcome(so *e2appdudescriptions.SuccessfulOutcome) (*C.Success
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2srC.protocolIEs.list.array))))
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2srC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2srC.protocolIEs.list.size))
+
+	} else if pc := so.GetProcedureCode().GetRicSubscription(); pc != nil &&
+		pc.GetSuccessfulOutcome() != nil {
+
+		presentC = C.SuccessfulOutcome__value_PR_RICsubscriptionResponse
+		pcC = C.ProcedureCode_id_RICsubscription
+		critC = C.long(C.Criticality_reject)
+		e2srC, err := newRicSubscriptionResponse(pc.GetSuccessfulOutcome())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2srC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2srC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2srC.protocolIEs.list.size))
+
 	} else {
 		return nil, fmt.Errorf("newSuccessfulOutcomeValue type not yet implemented")
 	}
