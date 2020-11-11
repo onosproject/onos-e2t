@@ -31,11 +31,11 @@ type ListenerID int32
 
 // Listener is a subscription listener
 type Listener struct {
-	ID     ListenerID
-	sub    subapi.Subscription
-	stream stream.Stream
-	mu     sync.RWMutex
-	cancel context.CancelFunc
+	ID      ListenerID
+	sub     subapi.Subscription
+	streams []stream.Stream
+	mu      sync.RWMutex
+	cancel  context.CancelFunc
 }
 
 // open opens the listener
@@ -59,31 +59,45 @@ func (l *Listener) processStreams(ch <-chan stream.Stream) {
 }
 
 // processStream processes a stream event
-func (l *Listener) processStream(stream stream.Stream) {
-	l.mu.Lock()
-	defer l.mu.Unlock()
-	streamAppID := subapi.AppID(stream.ID())
-	if l.sub.AppID == streamAppID {
-		l.stream = stream
+func (l *Listener) processStream(s stream.Stream) {
+	if subapi.ID(s.Metadata().SubscriptionID) == l.sub.ID {
+		l.mu.Lock()
+		l.streams = append(l.streams, s)
+		l.mu.Unlock()
+		go func() {
+			<-s.Context().Done()
+			l.mu.Lock()
+			streams := make([]stream.Stream, 0, len(l.streams)-1)
+			for _, s2 := range l.streams {
+				if s2.ID() != s.ID() {
+					streams = append(streams, s2)
+				}
+			}
+			l.streams = streams
+			l.mu.Unlock()
+		}()
 	}
 }
 
 // Notify notifies the listener of the given indication
 func (l *Listener) Notify(indication *e2appdudescriptions.E2ApPdu) error {
 	l.mu.RLock()
-	s := l.stream
+	streams := l.streams
 	l.mu.RUnlock()
-
-	if s == nil {
-		return nil
-	}
 
 	bytes, err := proto.Marshal(indication)
 	if err != nil {
 		return err
 	}
+
 	id := stream.MessageID(indication.GetInitiatingMessage().ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes27.Value.Value)
-	return s.Send(stream.Value(id, bytes))
+	for _, s := range streams {
+		err := s.Send(stream.Value(id, bytes))
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Close closes the listener

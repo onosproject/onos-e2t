@@ -27,7 +27,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// E2NodeConnectionType specifies
+// E2NodeConnectionType specifies the type of an E2 connection
 type E2NodeConnectionType int32
 
 const (

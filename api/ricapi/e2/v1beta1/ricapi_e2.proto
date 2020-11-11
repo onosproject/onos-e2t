@@ -34,6 +34,7 @@ service E2TService {
 message StreamRequest {
     string app_id = 1 [(gogoproto.casttype) = "AppID", (gogoproto.customname) = "AppID"];
     string instance_id = 2 [(gogoproto.casttype) = "InstanceID", (gogoproto.customname) = "InstanceID"];
+    string subscription_id = 3 [(gogoproto.casttype) = "SubscriptionID", (gogoproto.customname) = "SubscriptionID"];
 }
 
 message StreamResponse {
