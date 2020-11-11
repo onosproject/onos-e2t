@@ -13,7 +13,7 @@ import (
 )
 
 func Test_RanFunctionsList(t *testing.T) {
-	ranFunctionList := make(map[int32]types.RanFunctionItem)
+	ranFunctionList := make(types.RanFunctions)
 	ranFunctionList[100] = types.RanFunctionItem{
 		Description: "Type 1",
 		Revision:    1,

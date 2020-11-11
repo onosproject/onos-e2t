@@ -11,7 +11,7 @@ import (
 )
 
 func TestE2SetupRequest(t *testing.T) {
-	ranFunctionList := make(map[int32]types.RanFunctionItem)
+	ranFunctionList := make(map[types.RanFunctionID]types.RanFunctionItem)
 	ranFunctionList[100] = types.RanFunctionItem{
 		Description: "Type 1",
 		Revision:    1,

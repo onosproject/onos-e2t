@@ -19,14 +19,14 @@ func TestStreamManager(t *testing.T) {
 	assert.NoError(t, err)
 
 	streamCh := make(chan Message)
-	stream, err := mgr.Open(context.Background(), ID(1), streamCh)
+	stream, err := mgr.Open(context.Background(), ID("1"), streamCh)
 	assert.NoError(t, err)
 	assert.NotNil(t, stream)
 
 	select {
 	case event := <-ch:
 		assert.NotNil(t, event)
-		assert.Equal(t, ID(1), event.ID())
+		assert.Equal(t, ID("1"), event.ID())
 	case <-time.After(time.Second):
 		t.FailNow()
 	}

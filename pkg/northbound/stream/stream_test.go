@@ -15,7 +15,7 @@ func TestStream(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 
 	ch := make(chan Message, 1)
-	stream := newChannelStream(ctx, ID(1), ch)
+	stream := newChannelStream(ctx, ID("1"), ch)
 
 	err := stream.Send(Value(MessageID(1), []byte("foo")))
 	assert.NoError(t, err)

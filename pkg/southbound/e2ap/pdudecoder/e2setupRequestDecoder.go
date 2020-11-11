@@ -78,7 +78,7 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 
 	for _, rfIe := range ranFunctionsIe.GetValue().GetValue() {
 		rfItem := rfIe.GetE2ApProtocolIes10().GetValue()
-		ranFunctionsList[rfItem.GetRanFunctionId().GetValue()] = types.RanFunctionItem{
+		ranFunctionsList[types.RanFunctionID(rfItem.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 			Description: types.RanFunctionDescription(string(rfItem.GetRanFunctionDefinition().GetValue())),
 			Revision:    types.RanFunctionRevision(rfItem.GetRanFunctionRevision().GetValue()),
 		}

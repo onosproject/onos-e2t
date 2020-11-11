@@ -56,7 +56,7 @@ func CreateE2SetupRequestPdu(plmnID types.PlmnID, ranFunctionIds types.RanFuncti
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.RanfunctionItem{
 					RanFunctionId: &e2apies.RanfunctionId{
-						Value: id,
+						Value: int32(id),
 					},
 					RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
 						Value: []byte(ranFunctionID.Description),

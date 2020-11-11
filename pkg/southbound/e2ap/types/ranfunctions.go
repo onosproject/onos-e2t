@@ -4,12 +4,19 @@
 
 package types
 
+import "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+
 type RanFunctionDescription string
 type RanFunctionRevision int
+type RanFunctionID int32
 
 type RanFunctionItem struct {
 	Description RanFunctionDescription
 	Revision    RanFunctionRevision
 }
 
-type RanFunctions map[int32]RanFunctionItem
+type RanFunctions map[RanFunctionID]RanFunctionItem
+
+type RanFunctionRevisions map[RanFunctionID]RanFunctionRevision
+
+type RanFunctionCauses map[RanFunctionID]*e2apies.Cause
