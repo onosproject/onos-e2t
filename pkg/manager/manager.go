@@ -45,7 +45,6 @@ func NewManager(config Config) *Manager {
 // Manager is a manager for the E2T service
 type Manager struct {
 	Config Config
-	opts   []grpc.DialOption
 }
 
 // Run starts the manager and the associated services
