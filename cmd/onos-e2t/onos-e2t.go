@@ -24,7 +24,7 @@ func main() {
 	sctpPort := flag.Uint("sctpport", 36421, "sctp server port")
 	flag.Parse()
 
-	_, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
+	opts, err := certs.HandleCertPaths(*caPath, *keyPath, *certPath, true)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,7 +37,7 @@ func main() {
 		GRPCPort: 5150,
 		E2Port:   int(*sctpPort),
 	}
-	mgr := manager.NewManager(cfg)
+	mgr := manager.NewManager(cfg, opts...)
 	mgr.Run()
 
 	sigCh := make(chan os.Signal, 1)
