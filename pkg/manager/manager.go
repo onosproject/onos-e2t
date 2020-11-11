@@ -5,6 +5,8 @@
 package manager
 
 import (
+	"context"
+	regapi "github.com/onosproject/onos-e2sub/api/e2/registry/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
@@ -13,8 +15,10 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	sub "github.com/onosproject/onos-e2t/pkg/subscription"
+	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
+	"google.golang.org/grpc"
 )
 
 var log = logging.GetLogger("manager")
@@ -29,16 +33,18 @@ type Config struct {
 }
 
 // NewManager creates a new manager
-func NewManager(config Config) *Manager {
+func NewManager(config Config, opts ...grpc.DialOption) *Manager {
 	log.Info("Creating Manager")
 	return &Manager{
 		Config: config,
+		opts:   opts,
 	}
 }
 
 // Manager is a manager for the E2T service
 type Manager struct {
 	Config Config
+	opts   []grpc.DialOption
 }
 
 // Run starts the manager and the associated services
@@ -73,7 +79,7 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	return nil
+	return m.joinSubscriptionManager()
 }
 
 // startSubscriptionBroker starts the subscription broker
@@ -128,7 +134,49 @@ func (m *Manager) startNorthboundServer(subs substore.Store, streams *stream.Man
 	return <-doneCh
 }
 
+// joinSubscriptionManager joins the termination point to the subscription manager
+func (m *Manager) joinSubscriptionManager() error {
+	conn, err := grpc.Dial("onos-e2sub:5150", m.opts...)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	client := regapi.NewE2RegistryServiceClient(conn)
+	request := &regapi.AddTerminationRequest{
+		EndPoint: &regapi.TerminationEndPoint{
+			ID:   regapi.ID(env.GetPodID()),
+			IP:   regapi.IP(env.GetPodIP()),
+			Port: regapi.Port(5150),
+		},
+	}
+	_, err = client.AddTermination(context.Background(), request)
+	return err
+}
+
+// leaveSubscriptionManager removes the termination point from the subscription manager
+func (m *Manager) leaveSubscriptionManager() error {
+	conn, err := grpc.Dial("onos-e2sub:5150", m.opts...)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	client := regapi.NewE2RegistryServiceClient(conn)
+	request := &regapi.RemoveTerminationRequest{
+		ID: regapi.ID(env.GetPodID()),
+	}
+	_, err = client.RemoveTermination(context.Background(), request)
+	return err
+}
+
 // Close kills the channels and manager related objects
 func (m *Manager) Close() {
 	log.Info("Closing Manager")
+	if err := m.Stop(); err != nil {
+		log.Fatal("Unable to Close Manager", err)
+	}
+}
+
+// Stop stops the manager
+func (m *Manager) Stop() error {
+	return m.leaveSubscriptionManager()
 }
