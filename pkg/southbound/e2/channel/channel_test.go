@@ -12,6 +12,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/codec"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/filter"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -81,7 +82,7 @@ func newSubscribeRequest() *e2appdudescriptions.E2ApPdu {
 }
 
 func newSubscribeResponse() *e2appdudescriptions.E2ApPdu {
-	res, _ := pdubuilder.CreateRicSubscriptionResponseE2apPdu(1, 2, 3)
+	res, _ := pdubuilder.CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{RequestorID: 1, InstanceID: 1}, 2, []*types.RicActionID{})
 	return res
 }
 
