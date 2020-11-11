@@ -7,24 +7,23 @@ package subscription
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
-	subapi "github.com/onosproject/onos-e2t/api/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/config"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/codec"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/filter"
-	"github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"sync"
 )
 
 // newDispatcher creates a new subscription dispatcher
-func newDispatcher(channel channel.Channel, subs subscription.Store, streams *stream.Manager) (*Dispatcher, error) {
+func newDispatcher(catalog *Catalog, channel channel.Channel, streams *stream.Manager) (*Dispatcher, error) {
 	dispatcher := &Dispatcher{
+		catalog:   catalog,
 		channel:   channel,
 		streams:   streams,
 		listeners: make(map[ListenerID]*Listener),
 	}
-	if err := dispatcher.open(subs); err != nil {
+	if err := dispatcher.open(); err != nil {
 		return nil, err
 	}
 	return dispatcher, nil
@@ -32,19 +31,19 @@ func newDispatcher(channel channel.Channel, subs subscription.Store, streams *st
 
 // Dispatcher is a subscription dispatcher
 type Dispatcher struct {
+	catalog   *Catalog
 	channel   channel.Channel
 	streams   *stream.Manager
 	listeners map[ListenerID]*Listener
 	mu        sync.RWMutex
+	closeFunc func()
 }
 
 // open opens the dispatcher
-func (d *Dispatcher) open(subs subscription.Store) error {
-	subCh := make(chan subscription.Event)
-	if err := subs.Watch(d.channel.Context(), subCh); err != nil {
-		return err
-	}
-	go d.processSubscriptions(subCh)
+func (d *Dispatcher) open() error {
+	eventCh := make(chan CatalogEvent)
+	d.closeFunc = d.catalog.Watch(eventCh)
+	go d.processCatalogEvents(eventCh)
 
 	ricRequestID := &e2apies.RicrequestId{
 		RicInstanceId: config.InstanceID,
@@ -54,37 +53,33 @@ func (d *Dispatcher) open(subs subscription.Store) error {
 	return nil
 }
 
-func (d *Dispatcher) processSubscriptions(ch <-chan subscription.Event) {
-	for event := range ch {
-		d.processSubscription(event)
+func (d *Dispatcher) processCatalogEvents(eventCh <-chan CatalogEvent) {
+	for event := range eventCh {
+		d.processCatalogEvent(event)
 	}
 }
 
-func (d *Dispatcher) processSubscription(event subscription.Event) {
+func (d *Dispatcher) processCatalogEvent(event CatalogEvent) {
 	switch event.Type {
-	case subapi.EventType_UPDATED:
-		if err := d.processSubscriptionUpdated(event.Subscription); err != nil {
-			log.Errorf("Failed to process subscription event %v: %v", event, err)
+	case CatalogEventAdded:
+		if err := d.processSubscriptionAdded(event.Record); err != nil {
+			log.Errorf("Failed to process CatalogEvent %v: %v", event, err)
 		}
-	case subapi.EventType_REMOVED:
-		if err := d.processSubscriptionRemoved(event.Subscription); err != nil {
-			log.Errorf("Failed to process subscription event %v: %v", event, err)
+	case CatalogEventRemoved:
+		if err := d.processSubscriptionRemoved(event.Record); err != nil {
+			log.Errorf("Failed to process CatalogEvent %v: %v", event, err)
 		}
 	}
 }
 
-func (d *Dispatcher) processSubscriptionUpdated(sub subapi.Subscription) error {
-	if channel.ID(sub.Status.E2ConnID) != d.channel.ID() || sub.Status.E2RequestID == 0 {
-		return nil
-	}
-
+func (d *Dispatcher) processSubscriptionAdded(record CatalogRecord) error {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
-	listenerID := ListenerID(sub.Status.E2RequestID)
+	listenerID := ListenerID(record.RequestID)
 	_, ok := d.listeners[listenerID]
 	if !ok {
-		l, err := newListener(listenerID, sub, d.streams)
+		l, err := newListener(listenerID, record.Subscription, d.streams)
 		if err != nil {
 			return err
 		}
@@ -93,15 +88,11 @@ func (d *Dispatcher) processSubscriptionUpdated(sub subapi.Subscription) error {
 	return nil
 }
 
-func (d *Dispatcher) processSubscriptionRemoved(sub subapi.Subscription) error {
-	if channel.ID(sub.Status.E2ConnID) != d.channel.ID() || sub.Status.E2RequestID == 0 {
-		return nil
-	}
-
+func (d *Dispatcher) processSubscriptionRemoved(record CatalogRecord) error {
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
-	listenerID := ListenerID(sub.Status.E2RequestID)
+	listenerID := ListenerID(record.RequestID)
 	listener, ok := d.listeners[listenerID]
 	if ok {
 		delete(d.listeners, listenerID)
@@ -135,6 +126,9 @@ func (d *Dispatcher) Close() error {
 		if e := listener.Close(); e != nil {
 			err = e
 		}
+	}
+	if d.closeFunc != nil {
+		d.closeFunc()
 	}
 	d.mu.Unlock()
 	return err

@@ -32,7 +32,7 @@ var log = logging.GetLogger("subscription", "controller")
 const defaultTimeout = 30 * time.Second
 
 // NewController returns a new network controller
-func NewController(subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager) *controller.Controller {
+func NewController(catalog *Catalog, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: regapi.ID(env.GetPodID()),
@@ -45,6 +45,7 @@ func NewController(subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2S
 		channels:   channels,
 	})
 	c.Reconcile(&Reconciler{
+		catalog:  catalog,
 		subs:     subs,
 		tasks:    tasks,
 		channels: channels,
@@ -54,10 +55,11 @@ func NewController(subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2S
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
+	catalog   *Catalog
 	subs      subapi.E2SubscriptionServiceClient
 	tasks     subtaskapi.E2SubscriptionTaskServiceClient
 	channels  *channel.Manager
-	requestID int32
+	requestID RequestID
 }
 
 // Reconcile reconciles the state of a device change
@@ -119,7 +121,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 
 	// Generate a request ID
 	ricRequestID := &e2apies.RicrequestId{
-		RicRequestorId: requestID,
+		RicRequestorId: int32(requestID),
 		RicInstanceId:  config.InstanceID,
 	}
 
@@ -144,6 +146,12 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 
 	switch response.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
+		record := CatalogRecord{
+			RequestID:    requestID,
+			Subscription: *sub,
+		}
+		r.catalog.Add(sub.ID, record)
+
 		task.Lifecycle.Status = subtaskapi.Status_COMPLETE
 		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
 			Task: task,
@@ -153,7 +161,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 			return controller.Result{}, err
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return controller.Result{}, fmt.Errorf("failed to initialize subscription %v", requestID)
+		return controller.Result{}, fmt.Errorf("failed to initialize subscription %+v", sub)
 	}
 	return controller.Result{}, nil
 }
@@ -177,8 +185,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		return controller.Result{}, err
 	}
 
-	r.requestID++
-	requestID := r.requestID
+	record := r.catalog.Get(sub.ID)
 
 	subscriptionRequest := &e2appdudescriptions.E2ApPdu{}
 	err = proto.Unmarshal(sub.Payload.Bytes, subscriptionRequest)
@@ -191,7 +198,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
-			RicRequestorId: requestID,
+			RicRequestorId: int32(record.RequestID),
 			RicInstanceId:  config.InstanceID,
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -213,8 +220,8 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 					RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
 						InitiatingMessage: &e2appducontents.RicsubscriptionDeleteRequest{
 							ProtocolIes: &e2appducontents.RicsubscriptionDeleteRequestIes{
-								E2ApProtocolIes29: &ricRequestID,  // RIC request ID
-								E2ApProtocolIes5:  &ranFunctionID, // RAN function ID
+								E2ApProtocolIes29: &ricRequestID,
+								E2ApProtocolIes5:  &ranFunctionID,
 							},
 						},
 					},
@@ -245,7 +252,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 			return controller.Result{}, err
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return controller.Result{}, fmt.Errorf("failed to initialize subscription %v", requestID)
+		return controller.Result{}, fmt.Errorf("failed to delete subscription %+v", sub)
 	}
 	return controller.Result{}, nil
 }

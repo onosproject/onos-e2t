@@ -8,13 +8,12 @@ import (
 	"context"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
-	"github.com/onosproject/onos-e2t/pkg/store/subscription"
 )
 
 // NewBroker creates a new subscription broker
-func NewBroker(subs subscription.Store, streams *stream.Manager, channels *channel.Manager) *Broker {
+func NewBroker(catalog *Catalog, streams *stream.Manager, channels *channel.Manager) *Broker {
 	return &Broker{
-		subs:     subs,
+		catalog:  catalog,
 		streams:  streams,
 		channels: channels,
 	}
@@ -22,7 +21,7 @@ func NewBroker(subs subscription.Store, streams *stream.Manager, channels *chann
 
 // Broker is a subscription broker
 type Broker struct {
-	subs     subscription.Store
+	catalog  *Catalog
 	streams  *stream.Manager
 	channels *channel.Manager
 	cancel   context.CancelFunc
@@ -51,7 +50,7 @@ func (b *Broker) processChannels(ch <-chan channel.Channel) {
 
 // processChannel processes a channel event
 func (b *Broker) processChannel(channel channel.Channel) {
-	dispatcher, err := newDispatcher(channel, b.subs, b.streams)
+	dispatcher, err := newDispatcher(b.catalog, channel, b.streams)
 	if err != nil {
 		log.Errorf("Failed to create dispatcher: %v", err)
 	} else {
