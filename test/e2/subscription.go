@@ -42,7 +42,10 @@ func createSubscriptionRequest() (*subapi.Subscription, error) {
 	if err != nil {
 		return &subapi.Subscription{}, err
 	}
+
+	id := uuid.New()
 	subReq := subapi.Subscription{
+		ID: subapi.ID(id.String()),
 		Payload: &subapi.Payload{
 			Bytes: e2apPayload,
 		},
