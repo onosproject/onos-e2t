@@ -190,7 +190,7 @@ func (m *Manager) Get(ctx context.Context, id ID) (Channel, error) {
 	defer m.channelsMu.RUnlock()
 	channel, ok := m.channels[id]
 	if !ok {
-		return nil, fmt.Errorf("unknown channel %d", id)
+		return nil, fmt.Errorf("unknown channel %s", id)
 	}
 	return channel, nil
 }
