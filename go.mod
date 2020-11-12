@@ -10,13 +10,11 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0 // indirect
 	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07
-	github.com/onosproject/onos-e2sub v0.6.1-0.20201111051005-42fa6ac11650
+	github.com/onosproject/onos-e2sub v0.6.3-0.20201112032449-92351c3242e1
 	github.com/onosproject/onos-lib-go v0.6.23
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/smartystreets/assertions v1.0.0 // indirect
-	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.6
-	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.2 // indirect
 	github.com/stretchr/testify v1.5.1
 	golang.org/x/net v0.0.0-20200301022130-244492dfa37a // indirect

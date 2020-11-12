@@ -53,7 +53,7 @@ message SubscriptionTask {
     string id = 1 [(gogoproto.customname) = "ID", (gogoproto.casttype) = "ID"];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
     string subscription_id = 3 [(gogoproto.customname) = "SubscriptionID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1.ID"];
-    string termination_endpoint_id = 4 [(gogoproto.customname) = "TerminationEndpointID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/registry/v1beta1.ID"];
+    string termination_endpoint_id = 4 [(gogoproto.customname) = "TerminationEndpointID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1.ID"];
     Lifecycle lifecycle = 5 [(gogoproto.nullable) = false];
 }
 

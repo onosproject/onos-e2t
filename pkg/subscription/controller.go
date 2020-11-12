@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/gogo/protobuf/proto"
-	regapi "github.com/onosproject/onos-e2sub/api/e2/registry/v1beta1"
+	endpointapi "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1"
 	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
@@ -35,11 +35,11 @@ const defaultTimeout = 30 * time.Second
 func NewController(catalog *Catalog, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
-		endpointID: regapi.ID(env.GetPodID()),
+		endpointID: endpointapi.ID(env.GetPodID()),
 		tasks:      tasks,
 	})
 	c.Watch(&ChannelWatcher{
-		endpointID: regapi.ID(env.GetPodID()),
+		endpointID: endpointapi.ID(env.GetPodID()),
 		subs:       subs,
 		tasks:      tasks,
 		channels:   channels,

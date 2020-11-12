@@ -7,6 +7,9 @@ package v1beta1
 // ID is a device ID
 type ID string
 
+// Revision is a subscription revision
+type Revision uint64
+
 // IP is encoded as a string
 type IP string
 
