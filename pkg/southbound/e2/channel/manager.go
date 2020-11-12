@@ -87,10 +87,9 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 		return nil, err
 	}
 
-	// Decode the E2 request in XER encoding
-	// TODO: E2AP messages are supposed to use PER encoding
+	// Decode the E2 request in PER encoding
 	e2PDUReqBytes := buf[:n]
-	e2PDUReq, err := asn1cgo.XerDecodeE2apPdu(e2PDUReqBytes)
+	e2PDUReq, err := asn1cgo.PerDecodeE2apPdu(e2PDUReqBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -170,9 +169,8 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 		return nil, err
 	}
 
-	// Encode the setup response in XER
-	// TODO: E2AP messages are supposed to use PER encoding
-	e2PDURespBytes, err := asn1cgo.XerEncodeE2apPdu(e2PDUResp)
+	// Encode the setup response in PER
+	e2PDURespBytes, err := asn1cgo.PerEncodeE2apPdu(e2PDUResp)
 	if err != nil {
 		return nil, err
 	}
