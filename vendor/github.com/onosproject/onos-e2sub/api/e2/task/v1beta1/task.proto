@@ -53,7 +53,7 @@ message SubscriptionTask {
     string id = 1 [(gogoproto.customname) = "ID", (gogoproto.casttype) = "ID"];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
     string subscription_id = 3 [(gogoproto.customname) = "SubscriptionID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1.ID"];
-    string termination_endpoint_id = 4 [(gogoproto.customname) = "TerminationEndpointID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1.ID"];
+    string endpoint_id = 4 [(gogoproto.customname) = "EndpointID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1.ID"];
     Lifecycle lifecycle = 5 [(gogoproto.nullable) = false];
 }
 
@@ -83,16 +83,20 @@ message GetSubscriptionTaskResponse {
 
 // ListSubscriptionTasksRequest is a request to list all available SubscriptionTasks
 message ListSubscriptionTasksRequest {
+    string subscription_id = 1 [(gogoproto.customname) = "SubscriptionID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1.ID"];
+    string endpoint_id = 2 [(gogoproto.customname) = "EndpointID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1.ID"];
 }
 
 // ListSubscriptionTasksResponse is a response to list all available SubscriptionTasks
 message ListSubscriptionTasksResponse {
-    repeated SubscriptionTask task = 1 [(gogoproto.nullable) = false];
+    repeated SubscriptionTask tasks = 1 [(gogoproto.nullable) = false];
 }
 
 // WatchSubscriptionTasksRequest is a request to receive a stream of all SubscriptionTask changes.
 message WatchSubscriptionTasksRequest {
     bool noreplay = 1;
+    string subscription_id = 2 [(gogoproto.customname) = "SubscriptionID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1.ID"];
+    string endpoint_id = 3 [(gogoproto.customname) = "EndpointID", (gogoproto.casttype) = "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1.ID"];
 }
 
 // WatchSubscriptionTasksResponse is a response indicating a change in the available SubscriptionTasks.

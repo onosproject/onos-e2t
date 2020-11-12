@@ -90,7 +90,7 @@ github.com/magiconair/properties
 github.com/mitchellh/go-homedir
 # github.com/mitchellh/mapstructure v1.1.2
 github.com/mitchellh/mapstructure
-# github.com/onosproject/onos-e2sub v0.6.3-0.20201112172025-092b619e4918
+# github.com/onosproject/onos-e2sub v0.6.4-0.20201112225438-8ff953e41a09
 ## explicit
 github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1
 github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1

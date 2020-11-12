@@ -36,7 +36,9 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
-	request := &subtaskapi.WatchSubscriptionTasksRequest{}
+	request := &subtaskapi.WatchSubscriptionTasksRequest{
+		EndpointID: w.endpointID,
+	}
 	stream, err := w.tasks.WatchSubscriptionTasks(ctx, request)
 	if err != nil {
 		cancel()
@@ -52,7 +54,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 			}
 			if err != nil {
 				w.log.Error(err)
-			} else if response.Event.Task.TerminationEndpointID == w.endpointID {
+			} else {
 				ch <- controller.NewID(response.Event.Task.ID)
 			}
 		}
@@ -103,22 +105,22 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for c := range channelCh {
-			request := &subtaskapi.ListSubscriptionTasksRequest{}
+			request := &subtaskapi.ListSubscriptionTasksRequest{
+				EndpointID: w.endpointID,
+			}
 			response, err := w.tasks.ListSubscriptionTasks(ctx, request)
 			if err != nil {
 				w.log.Error(err)
 			} else {
-				for _, task := range response.Task {
-					if task.TerminationEndpointID == w.endpointID {
-						subRequest := &subapi.GetSubscriptionRequest{
-							ID: task.SubscriptionID,
-						}
-						subResponse, err := w.subs.GetSubscription(ctx, subRequest)
-						if err != nil {
-							w.log.Error(err)
-						} else if subResponse.Subscription.E2NodeID == subapi.E2NodeID(c.ID()) {
-							ch <- controller.NewID(task.ID)
-						}
+				for _, task := range response.Tasks {
+					subRequest := &subapi.GetSubscriptionRequest{
+						ID: task.SubscriptionID,
+					}
+					subResponse, err := w.subs.GetSubscription(ctx, subRequest)
+					if err != nil {
+						w.log.Error(err)
+					} else if subResponse.Subscription.E2NodeID == subapi.E2NodeID(c.ID()) {
+						ch <- controller.NewID(task.ID)
 					}
 				}
 			}
