@@ -48,9 +48,9 @@ type Channel interface {
 	// Send sends a message
 	Send(message *e2appdudescriptions.E2ApPdu, codec codec.Codec) error
 	// SendRecv sends a request-response message
-	SendRecv(message *e2appdudescriptions.E2ApPdu, filter filter.Filter, codec codec.Codec) (*e2appdudescriptions.E2ApPdu, error)
+	SendRecv(ctx context.Context, message *e2appdudescriptions.E2ApPdu, filter filter.Filter, codec codec.Codec) (*e2appdudescriptions.E2ApPdu, error)
 	// Recv returns the receive channel
-	Recv(filter filter.Filter, codec codec.Codec) <-chan *e2appdudescriptions.E2ApPdu
+	Recv(ctx context.Context, filter filter.Filter, codec codec.Codec) <-chan *e2appdudescriptions.E2ApPdu
 }
 
 // netChannel is an E2 channel
@@ -90,6 +90,9 @@ func (c *netChannel) RemoteAddr() net.Addr {
 func (c *netChannel) recvMessages() {
 	for {
 		bytes, err := c.recv()
+		if err == io.EOF {
+			return
+		}
 		if err != nil {
 			log.Error(err)
 		} else {
@@ -97,7 +100,7 @@ func (c *netChannel) recvMessages() {
 			receivers := c.receivers
 			c.mu.RUnlock()
 
-			for id, receiver := range receivers {
+			for _, receiver := range receivers {
 				response, err := receiver.Decode(bytes)
 				if err != nil {
 					continue
@@ -106,11 +109,6 @@ func (c *netChannel) recvMessages() {
 					err := receiver.Receive(response)
 					if err != nil {
 						log.Error(err)
-					}
-					if receiver.Done() {
-						c.mu.Lock()
-						delete(c.receivers, id)
-						c.mu.Unlock()
 					}
 					break
 				}
@@ -127,14 +125,14 @@ func (c *netChannel) Send(request *e2appdudescriptions.E2ApPdu, codec codec.Code
 	return c.send(bytes)
 }
 
-func (c *netChannel) SendRecv(request *e2appdudescriptions.E2ApPdu, filter filter.Filter, codec codec.Codec) (*e2appdudescriptions.E2ApPdu, error) {
+func (c *netChannel) SendRecv(ctx context.Context, request *e2appdudescriptions.E2ApPdu, filter filter.Filter, codec codec.Codec) (*e2appdudescriptions.E2ApPdu, error) {
 	bytes, err := codec.Encode(request)
 	if err != nil {
 		return nil, err
 	}
 
 	ch := make(chan *e2appdudescriptions.E2ApPdu, 1)
-	receiver := newUnaryReceiver(ch, filter, codec)
+	receiver := newChannelReceiver(ch, filter, codec)
 	c.mu.Lock()
 	c.receivers[receiver.ID()] = receiver
 	c.mu.Unlock()
@@ -151,16 +149,26 @@ func (c *netChannel) SendRecv(request *e2appdudescriptions.E2ApPdu, filter filte
 		return nil, err
 	}
 
-	response := <-ch
-	return response, nil
+	select {
+	case response := <-ch:
+		return response, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }
 
-func (c *netChannel) Recv(filter filter.Filter, codec codec.Codec) <-chan *e2appdudescriptions.E2ApPdu {
+func (c *netChannel) Recv(ctx context.Context, filter filter.Filter, codec codec.Codec) <-chan *e2appdudescriptions.E2ApPdu {
 	ch := make(chan *e2appdudescriptions.E2ApPdu, channelBufSize)
-	receiver := newStreamReceiver(ch, filter, codec)
+	receiver := newChannelReceiver(ch, filter, codec)
 	c.mu.Lock()
 	c.receivers[receiver.ID()] = receiver
 	c.mu.Unlock()
+	go func() {
+		<-ctx.Done()
+		c.mu.Lock()
+		delete(c.receivers, receiver.ID())
+		c.mu.Unlock()
+	}()
 	return ch
 }
 

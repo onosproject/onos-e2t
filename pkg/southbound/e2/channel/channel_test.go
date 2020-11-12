@@ -56,7 +56,7 @@ func TestChannel(t *testing.T) {
 	err := channel.Send(req, codec.XER)
 	assert.NoError(t, err)
 
-	subCh := channel.Recv(filter.RicSubscription(req.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value), codec.XER)
+	subCh := channel.Recv(context.TODO(), filter.RicSubscription(req.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value), codec.XER)
 
 	readCh <- newSubscribeResponse(1)
 
@@ -68,11 +68,11 @@ func TestChannel(t *testing.T) {
 		time.Sleep(time.Second)
 		readCh <- newSubscribeResponse(2)
 	}()
-	res, err = channel.SendRecv(req, filter.RicSubscription(req.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value), codec.XER)
+	res, err = channel.SendRecv(context.TODO(), req, filter.RicSubscription(req.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value), codec.XER)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 
-	ch := channel.Recv(filter.RicIndication(req.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value), codec.XER)
+	ch := channel.Recv(context.TODO(), filter.RicIndication(req.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value), codec.XER)
 
 	readCh <- newIndication(2)
 	indication := <-ch
