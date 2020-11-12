@@ -61,6 +61,7 @@ func TestChannel(t *testing.T) {
 	readCh <- newSubscribeResponse(1)
 
 	res := <-subCh
+	assert.NotNil(t, res)
 
 	req = newSubscribeRequest(2)
 	go func() {
