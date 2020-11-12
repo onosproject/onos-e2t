@@ -28,7 +28,12 @@ func TestE2SetupResponse(t *testing.T) {
 		},
 	}
 
-	newE2apPdu, err := CreateResponseE2apPdu("ONF", 0xABCDE, rfAccepted, rfRejected)
+	plmnID := [3]byte{0x79, 0x78, 0x70}
+	ricID := types.RicIdentifier{
+		RicIdentifierValue: 0xABCDE,
+		RicIdentifierLen:   20,
+	}
+	newE2apPdu, err := CreateResponseE2apPdu(plmnID, ricID, rfAccepted, rfRejected)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 

@@ -15,14 +15,14 @@ import (
 
 const mask20bit = 0xFFFFF
 
-func CreateResponseE2apPdu(plmnID string, ricID uint32,
+func CreateResponseE2apPdu(plmnID types.PlmnID, ricID types.RicIdentifier,
 	rfAccepted types.RanFunctionRevisions, rfRejected types.RanFunctionCauses) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if len(plmnID) != 3 {
 		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
 	}
 	// Expecting 20 bits for ric ID
-	if ricID|mask20bit > mask20bit {
+	if ricID.RicIdentifierValue|mask20bit > mask20bit {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricID)
 	}
 
@@ -31,11 +31,11 @@ func CreateResponseE2apPdu(plmnID string, ricID uint32,
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.GlobalRicId{
 			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
-				Value: []byte(plmnID),
+				Value: []byte{plmnID[0], plmnID[1], plmnID[2]},
 			},
 			RicId: &e2ap_commondatatypes.BitString{
-				Value: uint64(ricID),
-				Len:   20,
+				Value: uint64(ricID.RicIdentifierValue),
+				Len:   uint32(ricID.RicIdentifierLen),
 			},
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
