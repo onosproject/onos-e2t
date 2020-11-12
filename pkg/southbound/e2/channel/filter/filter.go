@@ -22,12 +22,14 @@ func RicSubscription(requestID *e2apies.RicrequestId) Filter {
 				return false
 			}
 			return unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscription != nil &&
-				(requestID.RicInstanceId == 0 || unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicInstanceId == requestID.RicInstanceId) &&
-				(requestID.RicRequestorId == 0 || unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId == requestID.RicRequestorId)
+				unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscription.UnsuccessfulOutcome != nil &&
+				(requestID.RicInstanceId == 0 || unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscription.UnsuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicInstanceId == requestID.RicInstanceId) &&
+				(requestID.RicRequestorId == 0 || unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscription.UnsuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId == requestID.RicRequestorId)
 		}
 		return success.SuccessfulOutcome.ProcedureCode.RicSubscription != nil &&
-			(requestID.RicInstanceId == 0 || success.SuccessfulOutcome.ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicInstanceId == requestID.RicInstanceId) &&
-			(requestID.RicRequestorId == 0 || success.SuccessfulOutcome.ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId == requestID.RicRequestorId)
+			success.SuccessfulOutcome.ProcedureCode.RicSubscription.SuccessfulOutcome != nil &&
+			(requestID.RicInstanceId == 0 || success.SuccessfulOutcome.ProcedureCode.RicSubscription.SuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicInstanceId == requestID.RicInstanceId) &&
+			(requestID.RicRequestorId == 0 || success.SuccessfulOutcome.ProcedureCode.RicSubscription.SuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId == requestID.RicRequestorId)
 	}
 }
 
@@ -41,10 +43,12 @@ func RicSubscriptionDelete(requestID *e2apies.RicrequestId) Filter {
 				return false
 			}
 			return unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscriptionDelete != nil &&
+				unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.InitiatingMessage != nil &&
 				(requestID.RicInstanceId == 0 || unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicInstanceId == requestID.RicInstanceId) &&
 				(requestID.RicRequestorId == 0 || unsuccess.UnsuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId == requestID.RicRequestorId)
 		}
 		return success.SuccessfulOutcome.ProcedureCode.RicSubscriptionDelete != nil &&
+			success.SuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.InitiatingMessage != nil &&
 			(requestID.RicInstanceId == 0 || success.SuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicInstanceId == requestID.RicInstanceId) &&
 			(requestID.RicRequestorId == 0 || success.SuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId == requestID.RicRequestorId)
 	}
@@ -58,6 +62,7 @@ func RicIndication(requestID *e2apies.RicrequestId) Filter {
 			return false
 		}
 		return message.InitiatingMessage.ProcedureCode.RicIndication != nil &&
+			message.InitiatingMessage.ProcedureCode.RicIndication.InitiatingMessage != nil &&
 			(requestID.RicInstanceId == 0 || message.InitiatingMessage.ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicInstanceId == requestID.RicInstanceId) &&
 			(requestID.RicRequestorId == 0 || message.InitiatingMessage.ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId == requestID.RicRequestorId)
 	}
