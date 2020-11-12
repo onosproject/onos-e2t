@@ -27,28 +27,30 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("subscription", "controller")
-
 const defaultTimeout = 30 * time.Second
 
 // NewController returns a new network controller
 func NewController(catalog *Catalog, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
+	log := logging.GetLogger("subscription", "controller")
 	c.Watch(&Watcher{
 		endpointID: endpointapi.ID(env.GetPodID()),
 		tasks:      tasks,
+		log:        log,
 	})
 	c.Watch(&ChannelWatcher{
 		endpointID: endpointapi.ID(env.GetPodID()),
 		subs:       subs,
 		tasks:      tasks,
 		channels:   channels,
+		log:        log,
 	})
 	c.Reconcile(&Reconciler{
 		catalog:  catalog,
 		subs:     subs,
 		tasks:    tasks,
 		channels: channels,
+		log:      log,
 	})
 	return c
 }
@@ -60,6 +62,7 @@ type Reconciler struct {
 	tasks     subtaskapi.E2SubscriptionTaskServiceClient
 	channels  *channel.Manager
 	requestID RequestID
+	log       logging.Logger
 }
 
 // Reconcile reconciles the state of a device change
@@ -76,6 +79,8 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	}
 	task := taskResponse.Task
 
+	r.log.Infof("Reconciling SubscriptionTask %+v", task)
+
 	// If the task is COMPLETE, ignore the request
 	if task.Lifecycle.Status == subtaskapi.Status_COMPLETE {
 		return controller.Result{}, nil
@@ -84,8 +89,10 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	// Process the request based on the lifecycle phase
 	switch task.Lifecycle.Phase {
 	case subtaskapi.Phase_OPEN:
+		r.log.Infof("Opening SubscriptionTask %+v", task)
 		return r.reconcileOpenSubscriptionTask(task)
 	case subtaskapi.Phase_CLOSE:
+		r.log.Infof("Closing SubscriptionTask %+v", task)
 		return r.reconcileCloseSubscriptionTask(task)
 	}
 	return controller.Result{}, nil
@@ -101,12 +108,14 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 	subResponse, err := r.subs.GetSubscription(ctx, subRequest)
 	if err != nil {
+		r.log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
 	sub := subResponse.Subscription
 
 	channel, err := r.channels.Get(ctx, channel.ID(sub.E2NodeID))
 	if err != nil {
+		r.log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
 
@@ -116,6 +125,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	request := &e2appdudescriptions.E2ApPdu{}
 	err = proto.Unmarshal(sub.Payload.Bytes, request)
 	if err != nil {
+		r.log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
 
@@ -135,12 +145,14 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 
 	// Validate the subscribe request
 	if err := request.Validate(); err != nil {
+		r.log.Warnf("Failed to validate E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
 	}
 
 	// Send the subscription request and await a response
 	response, err := channel.SendRecv(request, channelfilter.RicSubscription(ricRequestID), codec.PER)
 	if err != nil {
+		r.log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
 	}
 
@@ -158,9 +170,11 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 		_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
 		if err != nil {
+			r.log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
+		r.log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, fmt.Errorf("failed to initialize subscription %+v", sub)
 	}
 	return controller.Result{}, nil
@@ -176,12 +190,14 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	subResponse, err := r.subs.GetSubscription(ctx, subRequest)
 	if err != nil {
+		r.log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
 	sub := subResponse.Subscription
 
 	channel, err := r.channels.Get(ctx, channel.ID(sub.E2NodeID))
 	if err != nil {
+		r.log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
 
@@ -190,6 +206,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	subscriptionRequest := &e2appdudescriptions.E2ApPdu{}
 	err = proto.Unmarshal(sub.Payload.Bytes, subscriptionRequest)
 	if err != nil {
+		r.log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
 
@@ -232,12 +249,14 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 
 	// Validate the subscription delete request
 	if err := request.Validate(); err != nil {
+		r.log.Warnf("Failed to validate E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
 	}
 
 	// Send the subscription request and await a response
 	response, err := channel.SendRecv(request, channelfilter.RicSubscriptionDelete(ricRequestID.Value), codec.PER)
 	if err != nil {
+		r.log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
 	}
 
@@ -249,9 +268,11 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		}
 		_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
 		if err != nil {
+			r.log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
+		r.log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, fmt.Errorf("failed to delete subscription %+v", sub)
 	}
 	return controller.Result{}, nil

@@ -8,6 +8,7 @@ import (
 	"context"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
 // NewBroker creates a new subscription broker
@@ -16,6 +17,7 @@ func NewBroker(catalog *Catalog, streams *stream.Manager, channels *channel.Mana
 		catalog:  catalog,
 		streams:  streams,
 		channels: channels,
+		log:      logging.GetLogger("subscription", "broker"),
 	}
 }
 
@@ -25,10 +27,12 @@ type Broker struct {
 	streams  *stream.Manager
 	channels *channel.Manager
 	cancel   context.CancelFunc
+	log      logging.Logger
 }
 
 // Start starts the broker
 func (b *Broker) Start() error {
+	b.log.Infof("Starting Subscription Broker")
 	ctx, cancel := context.WithCancel(context.Background())
 	b.cancel = cancel
 
@@ -50,15 +54,16 @@ func (b *Broker) processChannels(ch <-chan channel.Channel) {
 
 // processChannel processes a channel event
 func (b *Broker) processChannel(channel channel.Channel) {
-	dispatcher, err := newDispatcher(b.catalog, channel, b.streams)
+	b.log.Infof("Received Channel %s", channel.ID())
+	dispatcher, err := newDispatcher(b.catalog, channel, b.streams, b.log)
 	if err != nil {
-		log.Errorf("Failed to create dispatcher: %v", err)
+		b.log.Errorf("Failed to create dispatcher for Channel %s: %v", channel.ID(), err)
 	} else {
 		go func() {
 			<-channel.Context().Done()
 			err := dispatcher.Close()
 			if err != nil {
-				log.Errorf("Failed to close dispatcher: %v", err)
+				b.log.Errorf("Failed to close dispatcher for Channel %s: %v", channel.ID(), err)
 			}
 		}()
 	}

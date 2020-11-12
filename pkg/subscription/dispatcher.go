@@ -12,16 +12,18 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/codec"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/filter"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"sync"
 )
 
 // newDispatcher creates a new subscription dispatcher
-func newDispatcher(catalog *Catalog, channel channel.Channel, streams *stream.Manager) (*Dispatcher, error) {
+func newDispatcher(catalog *Catalog, channel channel.Channel, streams *stream.Manager, log logging.Logger) (*Dispatcher, error) {
 	dispatcher := &Dispatcher{
 		catalog:   catalog,
 		channel:   channel,
 		streams:   streams,
 		listeners: make(map[ListenerID]*Listener),
+		log:       log,
 	}
 	if err := dispatcher.open(); err != nil {
 		return nil, err
@@ -35,6 +37,7 @@ type Dispatcher struct {
 	channel   channel.Channel
 	streams   *stream.Manager
 	listeners map[ListenerID]*Listener
+	log       logging.Logger
 	mu        sync.RWMutex
 	closeFunc func()
 }
@@ -60,14 +63,15 @@ func (d *Dispatcher) processCatalogEvents(eventCh <-chan CatalogEvent) {
 }
 
 func (d *Dispatcher) processCatalogEvent(event CatalogEvent) {
+	d.log.Infof("Received CatalogEvent %v", event)
 	switch event.Type {
 	case CatalogEventAdded:
 		if err := d.processSubscriptionAdded(event.Record); err != nil {
-			log.Errorf("Failed to process CatalogEvent %v: %v", event, err)
+			d.log.Errorf("Failed to process CatalogEvent %v: %v", event, err)
 		}
 	case CatalogEventRemoved:
 		if err := d.processSubscriptionRemoved(event.Record); err != nil {
-			log.Errorf("Failed to process CatalogEvent %v: %v", event, err)
+			d.log.Errorf("Failed to process CatalogEvent %v: %v", event, err)
 		}
 	}
 }
@@ -79,7 +83,8 @@ func (d *Dispatcher) processSubscriptionAdded(record CatalogRecord) error {
 	listenerID := ListenerID(record.RequestID)
 	_, ok := d.listeners[listenerID]
 	if !ok {
-		l, err := newListener(listenerID, record.Subscription, d.streams)
+		d.log.Infof("Opening request %d listener", record.RequestID)
+		l, err := newListener(listenerID, record.Subscription, d.streams, d.log)
 		if err != nil {
 			return err
 		}
@@ -95,6 +100,7 @@ func (d *Dispatcher) processSubscriptionRemoved(record CatalogRecord) error {
 	listenerID := ListenerID(record.RequestID)
 	listener, ok := d.listeners[listenerID]
 	if ok {
+		d.log.Infof("Closing request %d listener", record.RequestID)
 		delete(d.listeners, listenerID)
 		return listener.Close()
 	}
@@ -112,7 +118,7 @@ func (d *Dispatcher) processIndications(ch <-chan *e2appdudescriptions.E2ApPdu) 
 		if ok {
 			err := listener.Notify(indication)
 			if err != nil {
-				log.Errorf("Failed to process indication %+v : %v", indication, err)
+				d.log.Errorf("Failed to process indication %+v : %v", indication, err)
 			}
 		}
 	}
