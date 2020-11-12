@@ -21,7 +21,9 @@ func CreateSdranRelease() (*helm.HelmRelease, error) {
 		Set("import.onos-config.enabled", false).
 		Set("import.onos-topo.enabled", false).
 		Set("onos-e2t.image.tag", "latest").
-		Set("onos-e2sub.image.tag", "latest")
+		Set("onos-e2t.image.pullPolicy", "Always").
+		Set("onos-e2sub.image.tag", "latest").
+		Set("onos-e2sub.image.pullPolicy", "Always")
 
 	return sdran, nil
 }
