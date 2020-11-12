@@ -16,7 +16,13 @@ func Test_newE2setupResponseE2APpdu(t *testing.T) {
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
 
-	e2SetupResponseE2APpdu, err := pdubuilder.CreateResponseE2apPdu("ONF", 0xABCDE, rfAccepted, nil)
+	plmnID := [3]byte{0x79, 0x78, 0x70}
+	ricID := types.RicIdentifier{
+		RicIdentifierValue: 0xABCDE,
+		RicIdentifierLen:   20,
+	}
+
+	e2SetupResponseE2APpdu, err := pdubuilder.CreateResponseE2apPdu(plmnID, ricID, rfAccepted, nil)
 	assert.NilError(t, err)
 
 	e2SetupResponseE2APpduC, err := newE2apPdu(e2SetupResponseE2APpdu)

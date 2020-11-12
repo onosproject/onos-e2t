@@ -6,12 +6,19 @@ package asn1cgo
 
 import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func Test_newE2setupResponse(t *testing.T) {
-	e2apPduE2SetupResponse, err := pdubuilder.CreateResponseE2apPdu("ONF", 0xABCDE, nil, nil)
+	plmnID := [3]byte{0x79, 0x78, 0x70}
+	ricID := types.RicIdentifier{
+		RicIdentifierValue: 0xABCDE,
+		RicIdentifierLen:   20,
+	}
+
+	e2apPduE2SetupResponse, err := pdubuilder.CreateResponseE2apPdu(plmnID, ricID, nil, nil)
 	assert.NilError(t, err)
 
 	e2SetupResponse := e2apPduE2SetupResponse.GetSuccessfulOutcome().GetProcedureCode().GetE2Setup().GetSuccessfulOutcome()
