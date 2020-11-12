@@ -61,6 +61,7 @@ func (m *Manager) processEvent(channel Channel) {
 
 // Open opens a new channel
 func (m *Manager) Open(ctx context.Context, conn net.Conn) (Channel, error) {
+	log.Infof("Opening channel %s", conn.RemoteAddr())
 	c, err := m.setup(ctx, conn)
 	if err != nil {
 		return nil, err
@@ -72,6 +73,7 @@ func (m *Manager) Open(ctx context.Context, conn net.Conn) (Channel, error) {
 	m.eventCh <- c
 	go func() {
 		<-ctx.Done()
+		log.Infof("Closing channel %s", c.ID())
 		m.channelsMu.Lock()
 		delete(m.channels, c.ID())
 		m.channelsMu.Unlock()

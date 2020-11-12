@@ -6,6 +6,7 @@ package subscription
 
 import (
 	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"sync"
 )
 
@@ -41,6 +42,7 @@ type CatalogRecord struct {
 func NewCatalog() *Catalog {
 	catalog := &Catalog{
 		records: make(map[subapi.ID]CatalogRecord),
+		log:     logging.GetLogger("subscription", "catalog"),
 	}
 	catalog.open()
 	return catalog
@@ -53,6 +55,7 @@ type Catalog struct {
 	watchers   []chan<- CatalogEvent
 	watchersMu sync.RWMutex
 	eventCh    chan CatalogEvent
+	log        logging.Logger
 }
 
 func (c *Catalog) open() {
@@ -73,6 +76,7 @@ func (c *Catalog) Add(id subapi.ID, record CatalogRecord) {
 	c.recordsMu.Lock()
 	defer c.recordsMu.Unlock()
 	if _, ok := c.records[id]; !ok {
+		c.log.Infof("Added CatalogRecord %v", record)
 		c.records[id] = record
 		c.eventCh <- CatalogEvent{
 			Type:   CatalogEventAdded,
@@ -86,6 +90,7 @@ func (c *Catalog) Remove(id subapi.ID) {
 	defer c.recordsMu.Unlock()
 	record, ok := c.records[id]
 	if ok {
+		c.log.Infof("Removed CatalogRecord %v", record)
 		delete(c.records, id)
 		c.eventCh <- CatalogEvent{
 			Type:   CatalogEventAdded,

@@ -50,7 +50,7 @@ func (s *Server) Stream(server ricapie2v1beta1.E2TService_StreamServer) error {
 		return err
 	}
 
-	log.Debugf("Received StreamRequest %+v", request)
+	log.Infof("Received StreamRequest %+v", request)
 	streamCh := make(chan stream.Message)
 	streamMeta := stream.Metadata{
 		AppID:          request.AppID,
