@@ -6,7 +6,7 @@ package manager
 
 import (
 	"context"
-	regapi "github.com/onosproject/onos-e2sub/api/e2/registry/v1beta1"
+	endpointapi "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1"
 	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
@@ -146,12 +146,12 @@ func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *chann
 
 // joinSubscriptionManager joins the termination point to the subscription manager
 func (m *Manager) joinSubscriptionManager() error {
-	client := regapi.NewE2RegistryServiceClient(m.conn)
-	request := &regapi.AddTerminationRequest{
-		EndPoint: &regapi.TerminationEndPoint{
-			ID:   regapi.ID(env.GetPodID()),
-			IP:   regapi.IP(env.GetPodIP()),
-			Port: regapi.Port(5150),
+	client := endpointapi.NewE2RegistryServiceClient(m.conn)
+	request := &endpointapi.AddTerminationRequest{
+		Endpoint: &endpointapi.TerminationEndpoint{
+			ID:   endpointapi.ID(env.GetPodID()),
+			IP:   endpointapi.IP(env.GetPodIP()),
+			Port: endpointapi.Port(5150),
 		},
 	}
 	_, err := client.AddTermination(context.Background(), request)
@@ -160,9 +160,9 @@ func (m *Manager) joinSubscriptionManager() error {
 
 // leaveSubscriptionManager removes the termination point from the subscription manager
 func (m *Manager) leaveSubscriptionManager() error {
-	client := regapi.NewE2RegistryServiceClient(m.conn)
-	request := &regapi.RemoveTerminationRequest{
-		ID: regapi.ID(env.GetPodID()),
+	client := endpointapi.NewE2RegistryServiceClient(m.conn)
+	request := &endpointapi.RemoveTerminationRequest{
+		ID: endpointapi.ID(env.GetPodID()),
 	}
 	_, err := client.RemoveTermination(context.Background(), request)
 	return err

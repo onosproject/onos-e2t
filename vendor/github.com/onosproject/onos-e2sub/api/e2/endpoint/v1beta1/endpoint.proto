@@ -31,10 +31,11 @@ service E2RegistryService {
 
 // Termination is a record identifying the IP address and TCP port coordinates where the E2 termination
 // service is available.
-message TerminationEndPoint {
+message TerminationEndpoint {
     string id = 1 [(gogoproto.customname) = "ID", (gogoproto.casttype) = "ID"];
-    string ip = 2 [(gogoproto.customname) = "IP", (gogoproto.casttype) = "IP"];
-    uint32 port = 3 [(gogoproto.customname) = "Port", (gogoproto.casttype) = "Port"];
+    uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
+    string ip = 3 [(gogoproto.customname) = "IP", (gogoproto.casttype) = "IP"];
+    uint32 port = 4 [(gogoproto.customname) = "Port", (gogoproto.casttype) = "Port"];
 }
 
 // Type of change
@@ -44,9 +45,16 @@ enum EventType {
     REMOVED = 3;
 }
 
+// Event is an end-point event
+message Event {
+    EventType type = 1;
+    TerminationEndpoint endpoint = 2 [(gogoproto.nullable) = false];
+}
+
+
 // AddTerminationRequest is a request for adding a new termination point
 message AddTerminationRequest {
-    TerminationEndPoint end_point = 1;
+    TerminationEndpoint endpoint = 1;
 }
 
 // AddTerminationResponse is a response to adding a new termination point
@@ -60,7 +68,7 @@ message GetTerminationRequest {
 
 // GetTerminationResponse is a response with invormation about a requested termination point
 message GetTerminationResponse {
-    TerminationEndPoint end_point = 1;
+    TerminationEndpoint endpoint = 1;
 }
 
 // RemoveTerminationRequest is a request for removing termination point
@@ -78,7 +86,7 @@ message ListTerminationsRequest {
 
 // ListTerminationsResponse is a response to list all available E2 terminations
 message ListTerminationsResponse {
-    repeated TerminationEndPoint end_points = 1 [(gogoproto.nullable) = false];
+    repeated TerminationEndpoint endpoints = 1 [(gogoproto.nullable) = false];
 }
 
 // WatchTerminationsRequest is a request to receive a stream of all E2 termination changes.
@@ -88,6 +96,5 @@ message WatchTerminationsRequest {
 
 // WatchTerminationsResponse is a response indicating a change in the available E2 termination end-points.
 message WatchTerminationsResponse {
-    EventType type = 1;
-    TerminationEndPoint end_point = 2 [(gogoproto.nullable) = false];
+    Event event = 1 [(gogoproto.nullable) = false];
 }

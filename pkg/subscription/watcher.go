@@ -6,7 +6,7 @@ package subscription
 
 import (
 	"context"
-	regapi "github.com/onosproject/onos-e2sub/api/e2/registry/v1beta1"
+	endpointapi "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1"
 	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
@@ -19,7 +19,7 @@ const queueSize = 100
 
 // Watcher is a subscription watcher
 type Watcher struct {
-	endpointID regapi.ID
+	endpointID endpointapi.ID
 	tasks      subtaskapi.E2SubscriptionTaskServiceClient
 	cancel     context.CancelFunc
 	mu         sync.Mutex
@@ -73,7 +73,7 @@ var _ controller.Watcher = &Watcher{}
 
 // ChannelWatcher is a channel watcher
 type ChannelWatcher struct {
-	endpointID regapi.ID
+	endpointID endpointapi.ID
 	tasks      subtaskapi.E2SubscriptionTaskServiceClient
 	subs       subapi.E2SubscriptionServiceClient
 	channels   *channel.Manager
