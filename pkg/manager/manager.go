@@ -19,7 +19,9 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
+	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	"google.golang.org/grpc"
+	"time"
 )
 
 var log = logging.GetLogger("manager")
@@ -42,6 +44,8 @@ func NewManager(config Config) *Manager {
 		log.Fatal(err)
 	}
 
+	opts = append(opts, grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()))
+	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(time.Second)))
 	conn, err := grpc.Dial(config.E2SubAddress, opts...)
 	if err != nil {
 		log.Fatal(err)
