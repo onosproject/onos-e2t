@@ -150,7 +150,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(request, channelfilter.RicSubscription(ricRequestID), codec.PER)
+	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscription(ricRequestID), codec.PER)
 	if err != nil {
 		r.log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
@@ -254,7 +254,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(request, channelfilter.RicSubscriptionDelete(ricRequestID.Value), codec.PER)
+	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscriptionDelete(ricRequestID.Value), codec.PER)
 	if err != nil {
 		r.log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
