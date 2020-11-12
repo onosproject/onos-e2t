@@ -61,7 +61,7 @@ func runConnectionsCommand(cmd *cobra.Command, args []string) error {
 
 		_, _ = fmt.Fprintf(
 			writer,
-			"%#x\t%s\t%s\t%d\t%s\n",
+			"%s\t%s\t%s\t%d\t%s\n",
 			response.Id, response.PlmnId, strings.Join(response.RemoteIp, ","), response.RemotePort,
 			response.ConnectionType.String())
 	}
