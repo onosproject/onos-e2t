@@ -63,7 +63,7 @@ enum E2NodeConnectionType {
 message ListE2NodeConnectionsResponse {
     repeated string remote_ip = 1;
     uint32 remote_port = 2;
-    uint32 id = 3;
+    string id = 3;
     string plmn_id = 4;
     E2NodeConnectionType connection_type = 5;
 }
