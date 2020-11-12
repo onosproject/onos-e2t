@@ -32,22 +32,25 @@ const defaultTimeout = 30 * time.Second
 // NewController returns a new network controller
 func NewController(catalog *Catalog, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
+	log := logging.GetLogger("subscription", "controller")
 	c.Watch(&Watcher{
 		endpointID: endpointapi.ID(env.GetPodID()),
 		tasks:      tasks,
+		log:        log,
 	})
 	c.Watch(&ChannelWatcher{
 		endpointID: endpointapi.ID(env.GetPodID()),
 		subs:       subs,
 		tasks:      tasks,
 		channels:   channels,
+		log:        log,
 	})
 	c.Reconcile(&Reconciler{
 		catalog:  catalog,
 		subs:     subs,
 		tasks:    tasks,
 		channels: channels,
-		log:      logging.GetLogger("subscription", "controller"),
+		log:      log,
 	})
 	return c
 }

@@ -62,7 +62,7 @@ func (c *Catalog) open() {
 	c.eventCh = make(chan CatalogEvent)
 	go func() {
 		for event := range c.eventCh {
-			log.Infof("Notifying CatalogEvent %v", event)
+			c.log.Infof("Notifying CatalogEvent %v", event)
 			c.watchersMu.RLock()
 			for _, watcher := range c.watchers {
 				watcher <- event
