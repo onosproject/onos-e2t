@@ -39,6 +39,9 @@ func createSubscriptionRequest() (*subapi.Subscription, error) {
 		return &subapi.Subscription{}, err
 	}
 	e2apPayload, err := proto.Marshal(E2apPdu)
+	if err != nil {
+		return &subapi.Subscription{}, err
+	}
 	subReq := subapi.Subscription{
 		Payload: &subapi.Payload{
 			Bytes: e2apPayload,
@@ -55,6 +58,7 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 	client, err := subscription.NewClient(context.Background(), subscription.Destination{
 		Addrs: []string{OnosE2subAddress},
 	})
+	assert.NilError(t, err)
 
 	subReq, err := createSubscriptionRequest()
 	assert.NilError(t, err)
