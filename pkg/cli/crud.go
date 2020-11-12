@@ -14,4 +14,3 @@ func getListCommand() *cobra.Command {
 	cmd.AddCommand(getListConnectionsCommand())
 	return cmd
 }
-
