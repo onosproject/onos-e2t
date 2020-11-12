@@ -125,12 +125,8 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 	}
 
 	// Create a channel ID from the gNB ID and plmn ID
-	channelID := ID(gnbID.GnbId.Value)
+	channelID := ID(fmt.Sprintf("%s:%d", string(globalE2NodeID.GNb.GlobalGNbId.PlmnId.Value), gnbID.GnbId.Value))
 	plmnID := PlmnID(globalE2NodeID.GNb.GlobalGNbId.PlmnId.Value)
-	for i := range plmnID {
-		b := plmnID[(len(plmnID)-i)-1]
-		channelID = channelID | ID(uint64(b)<<(gnbID.GnbId.Len+uint32(i*8)))
-	}
 
 	// Create an E2 setup response
 	e2SetupResp := e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{

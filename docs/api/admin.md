@@ -78,7 +78,7 @@ ListE2NodeConnectionsResponse carries information about the SCTP connection to t
 | ----- | ---- | ----- | ----------- |
 | remote_ip | [string](#string) | repeated |  |
 | remote_port | [uint32](#uint32) |  |  |
-| id | [uint32](#uint32) |  |  |
+| id | [string](#string) |  |  |
 | plmn_id | [string](#string) |  |  |
 | connection_type | [E2NodeConnectionType](#admin.v1.E2NodeConnectionType) |  |  |
 

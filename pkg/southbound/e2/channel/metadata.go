@@ -5,7 +5,7 @@
 package channel
 
 // ID is a connection identifier
-type ID uint64
+type ID string
 
 // PlmnID is a connection identifier
 type PlmnID string
