@@ -48,7 +48,7 @@ func (d *Dispatcher) open() error {
 	ricRequestID := &e2apies.RicrequestId{
 		RicInstanceId: config.InstanceID,
 	}
-	indCh := d.channel.Recv(filter.RicIndication(ricRequestID), codec.XER)
+	indCh := d.channel.Recv(filter.RicIndication(ricRequestID), codec.PER)
 	go d.processIndications(indCh)
 	return nil
 }

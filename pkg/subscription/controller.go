@@ -139,7 +139,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(request, channelfilter.RicSubscription(ricRequestID), codec.XER)
+	response, err := channel.SendRecv(request, channelfilter.RicSubscription(ricRequestID), codec.PER)
 	if err != nil {
 		return controller.Result{}, err
 	}
@@ -236,7 +236,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(request, channelfilter.RicSubscriptionDelete(ricRequestID.Value), codec.XER)
+	response, err := channel.SendRecv(request, channelfilter.RicSubscriptionDelete(ricRequestID.Value), codec.PER)
 	if err != nil {
 		return controller.Result{}, err
 	}
