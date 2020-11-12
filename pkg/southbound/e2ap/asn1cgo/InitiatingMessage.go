@@ -63,6 +63,24 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsC.protocolIEs.list.array))))
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(rsC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(rsC.protocolIEs.list.size))
+	} else if pc := im.GetProcedureCode().GetRicIndication(); pc != nil &&
+		pc.GetInitiatingMessage() != nil {
+
+		presentC = C.InitiatingMessage__value_PR_RICindication
+		pcC = C.ProcedureCode_id_RICindication
+		critC = C.long(C.Criticality_reject)
+		e2sC, err := newRicIndication(pc.GetInitiatingMessage())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2sC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2sC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2sC.protocolIEs.list.size))
+
+
 	} else {
 		return nil, fmt.Errorf("newInitiatingMessageValue type not yet implemented")
 	}

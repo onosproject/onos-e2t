@@ -145,6 +145,7 @@ func newRicSubscriptionResponseIe(rsrIEs *e2appducontents.RicsubscriptionRespons
 			return nil, err
 		}
 	}
+	// TODO: Comment back in when RICactionRejected is handled
 	//if rsrIEs.GetE2ApProtocolIes18() != nil {
 	//	ie18C, err := newE2setupResponseIe4GlobalRicID(rsrIEs.GetE2ApProtocolIes18())
 	//	if err != nil {
@@ -252,3 +253,89 @@ func newRicSubscriptionRequestIes(rsrIEs *e2appducontents.RicsubscriptionRequest
 //
 //	return pIEs, nil
 //}
+
+func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE_Container_1544P6_t, error) {
+	pIeC1544P6 := new(C.ProtocolIE_Container_1544P6_t)
+
+	if riIes.GetE2ApProtocolIes5() != nil {
+		ie5c, err := newRicIndicationIe5RanFunctionID(riIes.GetE2ApProtocolIes5())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P6), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if riIes.GetE2ApProtocolIes15() != nil {
+		ie5c, err := newRicIndicationIe5RanFunctionID(riIes.GetE2ApProtocolIes15())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P6), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if riIes.GetE2ApProtocolIes20() != nil {
+		ie5c, err := newRicIndicationIe5RanFunctionID(riIes.GetE2ApProtocolIes20())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P6), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if riIes.GetE2ApProtocolIes25() != nil {
+		ie5c, err := newRicIndicationIe5RanFunctionID(riIes.GetE2ApProtocolIes25())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P6), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if riIes.GetE2ApProtocolIes26() != nil {
+		ie5c, err := newRicIndicationIe5RanFunctionID(riIes.GetE2ApProtocolIes26())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P6), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if riIes.GetE2ApProtocolIes27() != nil {
+		ie5c, err := newRicIndicationIe5RanFunctionID(riIes.GetE2ApProtocolIes27())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P6), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if riIes.GetE2ApProtocolIes28() != nil {
+		ie5c, err := newRicIndicationIe5RanFunctionID(riIes.GetE2ApProtocolIes28())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P6), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if riIes.GetE2ApProtocolIes29() != nil {
+		ie5c, err := newRicIndicationIe5RanFunctionID(riIes.GetE2ApProtocolIes29())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P6), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1544P6, nil
+}

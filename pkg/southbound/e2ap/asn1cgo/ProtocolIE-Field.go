@@ -151,6 +151,35 @@ func newRicSubscriptionResponseIe5RanFunctionID(rsrRfIe *e2appducontents.Ricsubs
 	return &ie, nil
 }
 
+func newRicIndicationIe5RanFunctionID(rsrRfIe *e2appducontents.RicindicationIes_RicindicationIes5) (*C.RICsubscriptionRequest_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRfIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [112]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ranFunctionIDC := newRanFunctionID(rsrRfIe.Value)
+
+	//fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", ranFunctionIDC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ranFunctionIDC))
+
+	ie := C.RICsubscriptionRequest_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionRequest_IEs__value{
+			present: C.RICsubscriptionRequest_IEs__value_PR_RANfunctionID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResponseIes_E2SetupResponseIes9) (*C.E2setupResponseIEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
