@@ -5,6 +5,7 @@
 package subscription
 
 import (
+	"context"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/config"
@@ -51,7 +52,7 @@ func (d *Dispatcher) open() error {
 	ricRequestID := &e2apies.RicrequestId{
 		RicInstanceId: config.InstanceID,
 	}
-	indCh := d.channel.Recv(filter.RicIndication(ricRequestID), codec.PER)
+	indCh := d.channel.Recv(context.TODO(), filter.RicIndication(ricRequestID), codec.PER)
 	go d.processIndications(indCh)
 	return nil
 }

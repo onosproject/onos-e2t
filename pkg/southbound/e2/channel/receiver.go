@@ -26,13 +26,11 @@ type Receiver interface {
 	Match(message *e2appdudescriptions.E2ApPdu) bool
 	// Receive receives a message
 	Receive(message *e2appdudescriptions.E2ApPdu) error
-	// Done indicates whether the receiver is done
-	Done() bool
 }
 
-// newStreamReceiver creates a new stream receiver
-func newStreamReceiver(ch chan<- *e2appdudescriptions.E2ApPdu, filter filter.Filter, codec codec.Codec) Receiver {
-	return &streamReceiver{
+// newChannelReceiver creates a new channel receiver
+func newChannelReceiver(ch chan<- *e2appdudescriptions.E2ApPdu, filter filter.Filter, codec codec.Codec) Receiver {
+	return &channelReceiver{
 		id:     ReceiverID(uuid.New().String()),
 		ch:     ch,
 		filter: filter,
@@ -40,65 +38,38 @@ func newStreamReceiver(ch chan<- *e2appdudescriptions.E2ApPdu, filter filter.Fil
 	}
 }
 
-// streamReceiver is a channel receiver
-type streamReceiver struct {
+// channelReceiver is a channel receiver
+type channelReceiver struct {
 	id     ReceiverID
 	ch     chan<- *e2appdudescriptions.E2ApPdu
 	filter filter.Filter
 	codec  codec.Codec
 }
 
-func (r *streamReceiver) ID() ReceiverID {
+func (r *channelReceiver) ID() ReceiverID {
 	return r.id
 }
 
-func (r *streamReceiver) Decode(bytes []byte) (*e2appdudescriptions.E2ApPdu, error) {
+func (r *channelReceiver) Decode(bytes []byte) (*e2appdudescriptions.E2ApPdu, error) {
 	return r.codec.Decode(bytes)
 }
 
-func (r *streamReceiver) Match(message *e2appdudescriptions.E2ApPdu) bool {
+func (r *channelReceiver) Match(message *e2appdudescriptions.E2ApPdu) bool {
 	return r.filter(message)
 }
 
-func (r *streamReceiver) Receive(message *e2appdudescriptions.E2ApPdu) error {
+func (r *channelReceiver) Receive(message *e2appdudescriptions.E2ApPdu) error {
 	r.ch <- message
 	return nil
 }
 
-func (r *streamReceiver) Done() bool {
+func (r *channelReceiver) Done() bool {
 	return false
 }
 
-func (r *streamReceiver) Close() error {
+func (r *channelReceiver) Close() error {
 	close(r.ch)
 	return nil
 }
 
-var _ io.Closer = &streamReceiver{}
-
-// newUnaryReceiver creates a new unary receiver
-func newUnaryReceiver(ch chan<- *e2appdudescriptions.E2ApPdu, filter filter.Filter, codec codec.Codec) Receiver {
-	return &unaryReceiver{
-		streamReceiver: &streamReceiver{
-			ch:     ch,
-			filter: filter,
-			codec:  codec,
-		},
-	}
-}
-
-// unaryReceiver is a single message receiver
-type unaryReceiver struct {
-	*streamReceiver
-	done bool
-}
-
-func (r *unaryReceiver) Receive(message *e2appdudescriptions.E2ApPdu) error {
-	err := r.streamReceiver.Receive(message)
-	r.done = true
-	return err
-}
-
-func (r *unaryReceiver) Done() bool {
-	return r.done
-}
+var _ Receiver = &channelReceiver{}
