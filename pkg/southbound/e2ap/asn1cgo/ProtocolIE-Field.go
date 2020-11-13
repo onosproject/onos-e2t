@@ -10,7 +10,6 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "ProtocolIE-Field.h"
-//#include "RICaction-ToBeSetup-Item.h"
 import "C"
 import (
 	"encoding/binary"
@@ -276,6 +275,34 @@ func newE2setupResponseIe13RanFunctionsRejected(esIe *e2appducontents.E2SetupRes
 	return &ie, nil
 }
 
+func newRicIndicationIe15RicActionID(riIe *e2appducontents.RicindicationIes_RicindicationIes15) (*C.RICindication_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(riIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicactionID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the RICindication_IEs__value_u
+
+	ricActionID := newRicActionID(riIe.Value)
+
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*ricActionID))
+
+	ie := C.RICindication_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICindication_IEs__value{
+			present: C.RICindication_IEs__value_PR_RICactionID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newRicSubscriptionResponseIe17RactionAdmittedList(rsrRrIe *e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17) (*C.RICsubscriptionResponse_IEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRrIe.GetCriticality()))
 	if err != nil {
@@ -302,6 +329,177 @@ func newRicSubscriptionResponseIe17RactionAdmittedList(rsrRrIe *e2appducontents.
 		value: C.struct_RICsubscriptionResponse_IEs__value{
 			present: C.RICsubscriptionResponse_IEs__value_PR_RICaction_Admitted_List,
 			choice:  listC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicIndicationIe20RiccallProcessID(riIe20 *e2appducontents.RicindicationIes_RicindicationIes20) (*C.RICindication_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(riIe20.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRiccallProcessID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ricCallProcessID := newRicCallProcessID(riIe20.Value)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(ricCallProcessID.buf))))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(ricCallProcessID.size))
+
+	ie := C.RICindication_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICindication_IEs__value{
+			present: C.RICindication_IEs__value_PR_RICcallProcessID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicIndicationIe25RicIndicationHeader(rihIe *e2appducontents.RicindicationIes_RicindicationIes25) (*C.RICindication_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rihIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicindicationHeader)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the RICindication_IEs__value_u
+
+	ricIndicationHeader := newRicIndicationHeader(rihIe.Value)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(ricIndicationHeader.buf))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(ricIndicationHeader.size))
+
+	ie := C.RICindication_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICindication_IEs__value{
+			present: C.RICindication_IEs__value_PR_RICindicationHeader,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicIndicationIe26RicIndicationMessage(rimIe *e2appducontents.RicindicationIes_RicindicationIes26) (*C.RICindication_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rimIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicindicationMessage)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the RICindication_IEs__value_u
+
+	ricIndicationMessage := newRicIndicationMessage(rimIe.Value)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(ricIndicationMessage.buf))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(ricIndicationMessage.size))
+
+	ie := C.RICindication_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICindication_IEs__value{
+			present: C.RICindication_IEs__value_PR_RICindicationMessage,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicIndicationIe27RicIndicationSn(risnIe *e2appducontents.RicindicationIes_RicindicationIes27) (*C.RICindication_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(risnIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicindicationSn)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the RICindication_IEs__value_u
+
+	ricIndicationSequenceNumber := newRicIndicationSn(risnIe.Value)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*ricIndicationSequenceNumber))
+
+	ie := C.RICindication_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICindication_IEs__value{
+			present: C.RICindication_IEs__value_PR_RICindicationSN,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicIndicationIe28RicIndicationType(ritIe *e2appducontents.RicindicationIes_RicindicationIes28) (*C.RICindication_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(ritIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicindicationType)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the RICindication_IEs__value_u
+
+	ricIndicationTypeC, err := newRicIndicationType(&ritIe.Value)
+	if err != nil {
+		return nil, fmt.Errorf("newRicIndicationType() %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*ricIndicationTypeC))
+
+	ie := C.RICindication_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICindication_IEs__value{
+			present: C.RICindication_IEs__value_PR_RICindicationType,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicIndicationIe29RicRequestID(rsrRrIDIe *e2appducontents.RicindicationIes_RicindicationIes29) (*C.RICindication_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRrIDIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicrequestID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the RICindication_IEs__value_u
+
+	ricRequestIDC := newRicRequestID(rsrRrIDIe.Value)
+
+	//fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", ricRequestIDC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ricRequestIDC.ricRequestorID))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(ricRequestIDC.ricInstanceID))
+
+	ie := C.RICindication_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICindication_IEs__value{
+			present: C.RICindication_IEs__value_PR_RICrequestID,
+			choice:  choiceC,
 		},
 	}
 

@@ -9,8 +9,7 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "RICindication.h"
-//#include "Criticality.h"
+//#include "E2AP-PDU.h"
 import "C"
 import (
 	"fmt"

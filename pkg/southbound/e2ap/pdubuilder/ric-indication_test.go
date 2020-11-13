@@ -6,21 +6,24 @@ package pdubuilder
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func TestRicIndication(t *testing.T) {
-	var ricReqID int32 = 21
-	var ricInstanceID int32 = 22
-	var ranFuncID int32 = 9
+	ricRequestID := types.RicRequest{
+		RequestorID: 21,
+		InstanceID:  22,
+	}
+	var ranFuncID types.RanFunctionID = 9
 	var ricAction = e2apies.RicactionType_RICACTION_TYPE_POLICY
 	var ricIndicationType = e2apies.RicindicationType_RICINDICATION_TYPE_INSERT
-	var ricSn int32 = 1
-	var ricIndHd = "123"
-	var ricIndMsg = "456"
-	var ricCallPrID = "789"
-	newE2apPdu, err := RicIndicationE2apPdu(ricReqID, ricInstanceID,
+	var ricSn types.RicIndicationSn = 1
+	var ricIndHd types.RicIndicationHeader = []byte("123")
+	var ricIndMsg types.RicIndicationMessage = []byte("456")
+	var ricCallPrID types.RicCallProcessID = []byte("789")
+	newE2apPdu, err := RicIndicationE2apPdu(ricRequestID,
 		ranFuncID, ricAction, ricSn, ricIndicationType, ricIndHd, ricIndMsg, ricCallPrID)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
