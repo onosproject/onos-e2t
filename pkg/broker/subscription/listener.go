@@ -10,17 +10,15 @@ import (
 	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
-	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"sync"
 )
 
 // newListener creates a new subscription listener
-func newListener(id ListenerID, sub subapi.Subscription, streams *stream.Manager, log logging.Logger) (*Listener, error) {
+func newListener(id ListenerID, sub subapi.Subscription, streams *stream.Manager) (*Listener, error) {
 	listener := &Listener{
 		ID:  id,
 		sub: sub,
-		log: log,
 	}
 	if err := listener.open(streams); err != nil {
 		return nil, err
@@ -36,7 +34,6 @@ type Listener struct {
 	ID      ListenerID
 	sub     subapi.Subscription
 	streams []stream.Stream
-	log     logging.Logger
 	mu      sync.RWMutex
 	cancel  context.CancelFunc
 }
@@ -64,13 +61,13 @@ func (l *Listener) processStreams(ch <-chan stream.Stream) {
 // processStream processes a stream event
 func (l *Listener) processStream(s stream.Stream) {
 	if subapi.ID(s.Metadata().SubscriptionID) == l.sub.ID {
-		l.log.Infof("Opened new stream %d for listener %d", s.ID(), l.ID)
+		log.Infof("Opened new stream %d for listener %d", s.ID(), l.ID)
 		l.mu.Lock()
 		l.streams = append(l.streams, s)
 		l.mu.Unlock()
 		go func() {
 			<-s.Context().Done()
-			l.log.Infof("Closed stream %d for listener %d", s.ID(), l.ID)
+			log.Infof("Closed stream %d for listener %d", s.ID(), l.ID)
 			l.mu.Lock()
 			streams := make([]stream.Stream, 0, len(l.streams)-1)
 			for _, s2 := range l.streams {
@@ -96,11 +93,11 @@ func (l *Listener) Notify(indication *e2appdudescriptions.E2ApPdu) error {
 	}
 
 	id := stream.MessageID(indication.GetInitiatingMessage().ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes27.Value.Value)
-	l.log.Infof("Notifying indication %d for listener %d", id, l.ID)
+	log.Infof("Notifying indication %d for listener %d", id, l.ID)
 	for _, s := range streams {
 		err := s.Send(stream.Value(id, bytes))
 		if err != nil {
-			l.log.Errorf("Failed to indicate %d for listener %d: %s", id, l.ID, err)
+			log.Errorf("Failed to indicate %d for listener %d: %s", id, l.ID, err)
 			return err
 		}
 	}

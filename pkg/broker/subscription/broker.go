@@ -6,33 +6,34 @@ package subscription
 
 import (
 	"context"
+	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
+var log = logging.GetLogger("broker", "subscription")
+
 // NewBroker creates a new subscription broker
-func NewBroker(catalog *Catalog, streams *stream.Manager, channels *channel.Manager) *Broker {
+func NewBroker(requests *subctrl.RequestJournal, streams *stream.Manager, channels *channel.Manager) *Broker {
 	return &Broker{
-		catalog:  catalog,
+		requests: requests,
 		streams:  streams,
 		channels: channels,
-		log:      logging.GetLogger("subscription", "broker"),
 	}
 }
 
 // Broker is a subscription broker
 type Broker struct {
-	catalog  *Catalog
+	requests *subctrl.RequestJournal
 	streams  *stream.Manager
 	channels *channel.Manager
 	cancel   context.CancelFunc
-	log      logging.Logger
 }
 
 // Start starts the broker
 func (b *Broker) Start() error {
-	b.log.Infof("Starting Subscription Broker")
+	log.Infof("Starting Subscription Broker")
 	ctx, cancel := context.WithCancel(context.Background())
 	b.cancel = cancel
 
@@ -54,16 +55,16 @@ func (b *Broker) processChannels(ch <-chan channel.Channel) {
 
 // processChannel processes a channel event
 func (b *Broker) processChannel(channel channel.Channel) {
-	b.log.Infof("Received Channel %s", channel.ID())
-	dispatcher, err := newDispatcher(b.catalog, channel, b.streams, b.log)
+	log.Infof("Received Channel %s", channel.ID())
+	dispatcher, err := newDispatcher(b.requests, channel, b.streams)
 	if err != nil {
-		b.log.Errorf("Failed to create dispatcher for Channel %s: %v", channel.ID(), err)
+		log.Errorf("Failed to create dispatcher for Channel %s: %v", channel.ID(), err)
 	} else {
 		go func() {
 			<-channel.Context().Done()
 			err := dispatcher.Close()
 			if err != nil {
-				b.log.Errorf("Failed to close dispatcher for Channel %s: %v", channel.ID(), err)
+				log.Errorf("Failed to close dispatcher for Channel %s: %v", channel.ID(), err)
 			}
 		}()
 	}

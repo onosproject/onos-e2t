@@ -9,12 +9,13 @@ import (
 	endpointapi "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1"
 	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
+	subbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription"
+	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
-	sub "github.com/onosproject/onos-e2t/pkg/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -72,11 +73,11 @@ func (m *Manager) Run() {
 
 // Start starts the manager
 func (m *Manager) Start() error {
-	catalog := sub.NewCatalog()
+	requests := subctrl.NewRequestJournal()
 	streams := stream.NewManager()
 	channels := channel.NewManager()
 
-	err := m.startSubscriptionBroker(catalog, streams, channels)
+	err := m.startSubscriptionBroker(requests, streams, channels)
 	if err != nil {
 		return err
 	}
@@ -94,13 +95,13 @@ func (m *Manager) Start() error {
 }
 
 // startSubscriptionBroker starts the subscription broker
-func (m *Manager) startSubscriptionBroker(catalog *sub.Catalog, streams *stream.Manager, channels *channel.Manager) error {
-	controller := sub.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn), subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn), channels)
+func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, streams *stream.Manager, channels *channel.Manager) error {
+	controller := subctrl.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn), subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn), channels)
 	if err := controller.Start(); err != nil {
 		return err
 	}
 
-	broker := sub.NewBroker(catalog, streams, channels)
+	broker := subbroker.NewBroker(catalog, streams, channels)
 	if err := broker.Start(); err != nil {
 		return err
 	}
