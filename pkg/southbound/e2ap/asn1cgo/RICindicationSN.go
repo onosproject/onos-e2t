@@ -12,10 +12,22 @@ package asn1cgo
 //#include "RICindicationSN.h"
 import "C"
 import (
+	"encoding/binary"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 )
 
 func newRicIndicationSn(rih *e2apies.RicindicationSn) *C.RICindicationSN_t {
 	snC := C.long(rih.GetValue())
 	return &snC
+}
+
+func decodeRicIndicationSnBytes(bytes []byte) *e2apies.RicindicationSn {
+	raIDC := C.long(binary.LittleEndian.Uint64(bytes[:8]))
+	return decodeRicIndicationSn(&raIDC)
+}
+
+func decodeRicIndicationSn(raIDC *C.RICindicationSN_t) *e2apies.RicindicationSn {
+	return &e2apies.RicindicationSn{
+		Value: int32(*raIDC),
+	}
 }

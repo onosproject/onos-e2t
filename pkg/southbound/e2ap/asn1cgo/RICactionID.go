@@ -12,12 +12,18 @@ package asn1cgo
 //#include "RICactionID.h"
 import "C"
 import (
+	"encoding/binary"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 )
 
 func newRicActionID(raID *e2apies.RicactionId) *C.RICactionID_t {
 	raIDC := C.RICactionID_t(C.long(raID.GetValue()))
 	return &raIDC
+}
+
+func decodeRicActionIDBytes(bytes []byte) *e2apies.RicactionId {
+	raIDC := C.long(binary.LittleEndian.Uint64(bytes[:8]))
+	return decodeRicActionID(&raIDC)
 }
 
 func decodeRicActionID(raIDC *C.RICactionID_t) *e2apies.RicactionId {

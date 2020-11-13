@@ -12,6 +12,7 @@ package asn1cgo
 //#include "RICindicationType.h"
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 )
@@ -27,4 +28,13 @@ func newRicIndicationType(rit *e2apies.RicindicationType) (*C.RICindicationType_
 		return nil, fmt.Errorf("unexpected RicIndicationType %v", rit)
 	}
 	return &ret, nil
+}
+
+func decodeRicIndicationTypeBytes(bytes []byte) e2apies.RicindicationType {
+	raIDC := C.long(binary.LittleEndian.Uint64(bytes[:8]))
+	return decodeRicIndicationType(&raIDC)
+}
+
+func decodeRicIndicationType(raIDC *C.RICindicationType_t) e2apies.RicindicationType {
+	return e2apies.RicindicationType(*raIDC)
 }
