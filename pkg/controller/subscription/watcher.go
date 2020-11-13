@@ -11,7 +11,6 @@ import (
 	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
-	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"sync"
 )
@@ -22,7 +21,6 @@ const queueSize = 100
 type Watcher struct {
 	endpointID endpointapi.ID
 	tasks      subtaskapi.E2SubscriptionTaskServiceClient
-	log        logging.Logger
 	cancel     context.CancelFunc
 	mu         sync.Mutex
 }
@@ -53,7 +51,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 				break
 			}
 			if err != nil {
-				w.log.Error(err)
+				log.Error(err)
 			} else {
 				ch <- controller.NewID(response.Event.Task.ID)
 			}
@@ -81,7 +79,6 @@ type ChannelWatcher struct {
 	tasks      subtaskapi.E2SubscriptionTaskServiceClient
 	subs       subapi.E2SubscriptionServiceClient
 	channels   *channel.Manager
-	log        logging.Logger
 	cancel     context.CancelFunc
 	mu         sync.Mutex
 }
@@ -110,7 +107,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 			}
 			response, err := w.tasks.ListSubscriptionTasks(ctx, request)
 			if err != nil {
-				w.log.Error(err)
+				log.Error(err)
 			} else {
 				for _, task := range response.Tasks {
 					subRequest := &subapi.GetSubscriptionRequest{
@@ -118,7 +115,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 					}
 					subResponse, err := w.subs.GetSubscription(ctx, subRequest)
 					if err != nil {
-						w.log.Error(err)
+						log.Error(err)
 					} else if subResponse.Subscription.E2NodeID == subapi.E2NodeID(c.ID()) {
 						ch <- controller.NewID(task.ID)
 					}
