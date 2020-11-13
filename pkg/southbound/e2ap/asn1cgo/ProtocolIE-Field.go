@@ -923,3 +923,90 @@ func decodeRicActionIDItemIes(raaiIesValC *C.struct_RICaction_Admitted_ItemIEs__
 		return nil, fmt.Errorf("error decoding RicactionAdmittedItemIes - present %v. not supported", present)
 	}
 }
+
+func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.RicindicationIes, error) {
+	//fmt.Printf("Handling E2SetupReqIE %+v\n", riIeC)
+	ret := new(e2appducontents.RicindicationIes)
+
+	switch riIeC.value.present {
+	case C.RICindication_IEs__value_PR_RANfunctionID:
+		rfID := decodeRanFunctionIDBytes(riIeC.value.choice[0:8])
+		ret.E2ApProtocolIes5 = &e2appducontents.RicindicationIes_RicindicationIes5{
+			Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rfID,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICindication_IEs__value_PR_RICactionID:
+		raID := decodeRicActionIDBytes(riIeC.value.choice[0:8])
+		ret.E2ApProtocolIes15 = &e2appducontents.RicindicationIes_RicindicationIes15{
+			Id:          int32(v1beta1.ProtocolIeIDRicactionID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       raID,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICindication_IEs__value_PR_RICcallProcessID:
+		rcpID := decodeRicCallProcessIDBytes(riIeC.value.choice[0:16])
+		ret.E2ApProtocolIes20 = &e2appducontents.RicindicationIes_RicindicationIes20{
+			Id:          int32(v1beta1.ProtocolIeIDRiccallProcessID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rcpID,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+
+	case C.RICindication_IEs__value_PR_RICindicationHeader:
+		rih := decodeRicIndicationHeaderBytes(riIeC.value.choice[0:16])
+		ret.E2ApProtocolIes25 = &e2appducontents.RicindicationIes_RicindicationIes25{
+			Id:          int32(v1beta1.ProtocolIeIDRicindicationHeader),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rih,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICindication_IEs__value_PR_RICindicationMessage:
+		rim := decodeRicIndicationMessageBytes(riIeC.value.choice[0:16])
+		ret.E2ApProtocolIes26 = &e2appducontents.RicindicationIes_RicindicationIes26{
+			Id:          int32(v1beta1.ProtocolIeIDRicindicationMessage),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rim,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICindication_IEs__value_PR_RICindicationSN:
+		risn := decodeRicIndicationSnBytes(riIeC.value.choice[0:8])
+		ret.E2ApProtocolIes27 = &e2appducontents.RicindicationIes_RicindicationIes27{
+			Id:          int32(v1beta1.ProtocolIeIDRicindicationSn),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       risn,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+
+	case C.RICindication_IEs__value_PR_RICindicationType:
+		rit := decodeRicIndicationTypeBytes(riIeC.value.choice[0:8])
+		ret.E2ApProtocolIes28 = &e2appducontents.RicindicationIes_RicindicationIes28{
+			Id:          int32(v1beta1.ProtocolIeIDRicindicationType),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rit,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICindication_IEs__value_PR_RICrequestID:
+		rrID := decodeRicRequestIDBytes(riIeC.value.choice[0:16])
+		ret.E2ApProtocolIes29 = &e2appducontents.RicindicationIes_RicindicationIes29{
+			Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rrID,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICindication_IEs__value_PR_NOTHING:
+		return nil, fmt.Errorf("decodeRicIndicationIE(). %v not yet implemneted", riIeC.value.present)
+
+	default:
+		return nil, fmt.Errorf("decodeRicIndicationIE(). unexpected choice %v", riIeC.value.present)
+	}
+
+	return ret, nil
+}

@@ -12,7 +12,9 @@ package asn1cgo
 //#include "RICindication.h"
 //#include "ProtocolIE-Field.h"
 import "C"
-import "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+import (
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+)
 
 func newRicIndication(ri *e2appducontents.Ricindication) (*C.RICindication_t, error) {
 	pIeC1544P6, err := newRicIndicationIEs(ri.ProtocolIes)
@@ -24,4 +26,16 @@ func newRicIndication(ri *e2appducontents.Ricindication) (*C.RICindication_t, er
 	}
 
 	return &riC, nil
+}
+
+func decodeRicIndication(riC *C.RICindication_t) (*e2appducontents.Ricindication, error) {
+	pIEs, err := decodeRicIndicationIes(&riC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	ricIndication := e2appducontents.Ricindication{
+		ProtocolIes: pIEs,
+	}
+	return &ricIndication, nil
 }

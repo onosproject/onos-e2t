@@ -344,3 +344,45 @@ func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE
 
 	return pIeC1544P6, nil
 }
+
+func decodeRicIndicationIes(protocolIEsC *C.ProtocolIE_Container_1544P6_t) (*e2appducontents.RicindicationIes, error) {
+	pIEs := new(e2appducontents.RicindicationIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P6 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i) // Forget the rest - this works - 7Nov20
+		riIeC := *(**C.RICindication_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicIndicationIE(riIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes5 != nil {
+			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		}
+		if ie.E2ApProtocolIes15 != nil {
+			pIEs.E2ApProtocolIes15 = ie.E2ApProtocolIes15
+		}
+		if ie.E2ApProtocolIes20 != nil {
+			pIEs.E2ApProtocolIes20 = ie.E2ApProtocolIes20
+		}
+		if ie.E2ApProtocolIes25 != nil {
+			pIEs.E2ApProtocolIes25 = ie.E2ApProtocolIes25
+		}
+		if ie.E2ApProtocolIes26 != nil {
+			pIEs.E2ApProtocolIes26 = ie.E2ApProtocolIes26
+		}
+		if ie.E2ApProtocolIes27 != nil {
+			pIEs.E2ApProtocolIes27 = ie.E2ApProtocolIes27
+		}
+		if ie.E2ApProtocolIes28 != nil {
+			pIEs.E2ApProtocolIes28 = ie.E2ApProtocolIes28
+		}
+		if ie.E2ApProtocolIes15 != nil {
+			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		}
+	}
+
+	return pIEs, nil
+}

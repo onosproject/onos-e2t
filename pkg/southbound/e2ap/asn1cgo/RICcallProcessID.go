@@ -11,8 +11,29 @@ package asn1cgo
 //#include <assert.h>
 //#include "RICcallProcessID.h"
 import "C"
-import e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+import (
+	"encoding/binary"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	"unsafe"
+)
 
 func newRicCallProcessID(rcpID *e2ap_commondatatypes.RiccallProcessId) *C.RICcallProcessID_t {
 	return newOctetString(string(rcpID.Value))
+}
+
+func decodeRicCallProcessIDBytes(rcpIDBytes []byte) *e2ap_commondatatypes.RiccallProcessId {
+	rcpIDC := C.OCTET_STRING_t{
+		buf:  (*C.uchar)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(rcpIDBytes[:8])))),
+		size: C.ulong(binary.LittleEndian.Uint64(rcpIDBytes[8:])),
+	}
+
+	return decodeRicCallProcessID(&rcpIDC)
+}
+
+func decodeRicCallProcessID(rcpIDC *C.RICcallProcessID_t) *e2ap_commondatatypes.RiccallProcessId {
+	result := e2ap_commondatatypes.RiccallProcessId{
+		Value: []byte(decodeOctetString(rcpIDC)),
+	}
+
+	return &result
 }

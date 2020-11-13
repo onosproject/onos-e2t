@@ -115,7 +115,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		//fmt.Printf("E2SetupRequestC %+v\n %+v\n", initMsgC, srC)
+		//fmt.Printf("E2SetupRequestC %+v\n %+v\n", initMsgC, riC)
 		e2sr, err := decodeE2setupRequest(&esC)
 		if err != nil {
 			return nil, err
@@ -150,6 +150,35 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 					Value: int32(v1beta1.ProcedureCodeIDRICsubscription),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
+
+	case C.InitiatingMessage__value_PR_RICindication:
+		riIesC := *(**C.RICindication_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
+		riC := C.RICindication_t{
+			protocolIEs: C.ProtocolIE_Container_1544P6_t{
+				list: C.struct___39{ // TODO: tie this down with a predictable name
+					array: (**C.RICindication_IEs_t)(unsafe.Pointer(riIesC)),
+					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
+					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
+				},
+			},
+		}
+		fmt.Printf("RICindication_t %+v\n %+v\n", initMsgC, riC)
+
+		ri, err := decodeRicIndication(&riC)
+		if err != nil {
+			return nil, fmt.Errorf("decodeRicIndication() %s", err.Error())
+		}
+		initiatingMessage.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			RicIndication: &e2appdudescriptions.RicIndication{
+				InitiatingMessage: ri,
+				ProcedureCode: &e2ap_constants.IdRicindication{
+					Value: int32(v1beta1.ProcedureCodeIDRICindication),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityIgnore{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+				},
 			},
 		}
 
