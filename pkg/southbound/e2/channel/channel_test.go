@@ -94,6 +94,11 @@ func newSubscribeResponse(id int32) *e2appdudescriptions.E2ApPdu {
 }
 
 func newIndication(id int32) *e2appdudescriptions.E2ApPdu {
-	res, _ := pdubuilder.RicIndicationE2apPdu(id, 2, 3, 4, 1, e2apies.RicindicationType_RICINDICATION_TYPE_REPORT, "foo", "bar", "baz")
+	ricInd := types.RicRequest{
+		RequestorID: types.RicRequestorID(id),
+		InstanceID:  2,
+	}
+	res, _ := pdubuilder.RicIndicationE2apPdu(ricInd, types.RanFunctionID(3), e2apies.RicactionType_RICACTION_TYPE_POLICY, types.RicIndicationSn(1), e2apies.RicindicationType_RICINDICATION_TYPE_REPORT,
+		types.RicIndicationHeader("foo"), types.RicIndicationMessage("bar"), types.RicCallProcessID("baz"))
 	return res
 }

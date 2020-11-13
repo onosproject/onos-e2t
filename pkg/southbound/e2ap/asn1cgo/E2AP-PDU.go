@@ -10,10 +10,6 @@ package asn1cgo
 // #include <stdlib.h>
 // #include <assert.h>
 // #include "E2AP-PDU.h"
-//#include "GNB-ID-Choice.h"
-//#include "GlobalE2node-gNB-ID.h"
-//#include "GlobalE2node-ID.h"
-//#include "ProtocolIE-Field.h"
 //#include "InitiatingMessage.h"
 //#include "SuccessfulOutcome.h"
 import "C"

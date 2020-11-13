@@ -11,37 +11,20 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func RicIndicationE2apPdu(ricReqID int32, ricInstanceID int32, ranFuncID int32,
-	ricAction e2apies.RicactionType, ricSn int32, ricIndicationType e2apies.RicindicationType,
-	ricIndHd string, ricIndMsg string, ricCallPrID string) (*e2appdudescriptions.E2ApPdu, error) {
-
-	if ricReqID|mask20bit > mask20bit {
-		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReqID)
-	}
-	if ricInstanceID|mask20bit > mask20bit {
-		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricInstanceID)
-	}
-	if len(ricIndHd) != 3 {
-		return nil, fmt.Errorf("error: Ric Indication Header should be 3 chars "+
-			"(Octet String, e2ap-v01.00.asn1:1110). Got %0x", ricIndHd)
-	}
-	if len(ricIndMsg) != 3 {
-		return nil, fmt.Errorf("error: Ric Indication Message should be 3 chars "+
-			"(Octet String, e2ap-v01.00.asn1:1115). Got %0x", ricIndMsg)
-	}
-	if len(ricCallPrID) != 3 {
-		return nil, fmt.Errorf("error: Ric Indication Message should be 3 chars "+
-			"(Octet String, e2ap-v01.00.asn1:1071). Got %0x", ricCallPrID)
-	}
+func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
+	ricAction e2apies.RicactionType, ricSn types.RicIndicationSn, ricIndicationType e2apies.RicindicationType,
+	ricIndHd types.RicIndicationHeader, ricIndMsg types.RicIndicationMessage, ricCallPrID types.RicCallProcessID) (
+	*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RicindicationIes_RicindicationIes29{
 		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
-			RicRequestorId: ricReqID,      // sequence from e2ap-v01.00.asn1:1126
-			RicInstanceId:  ricInstanceID, // sequence from e2ap-v01.00.asn1:1127
+			RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
+			RicInstanceId:  int32(ricReqID.InstanceID),  // sequence from e2ap-v01.00.asn1:1127
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
@@ -50,7 +33,7 @@ func RicIndicationE2apPdu(ricReqID int32, ricInstanceID int32, ranFuncID int32,
 		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
-			Value: ranFuncID, // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
+			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
@@ -68,7 +51,7 @@ func RicIndicationE2apPdu(ricReqID int32, ricInstanceID int32, ranFuncID int32,
 		Id:          int32(v1beta1.ProtocolIeIDRicindicationSn),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicindicationSn{
-			Value: ricSn,
+			Value: int32(ricSn),
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
