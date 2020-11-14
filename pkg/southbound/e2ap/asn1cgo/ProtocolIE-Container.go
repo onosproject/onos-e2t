@@ -13,8 +13,9 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"unsafe"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 )
 
 func newE2SetupRequestIes(esv *e2appducontents.E2SetupRequestIes) (*C.ProtocolIE_Container_1544P11_t, error) {
@@ -379,7 +380,7 @@ func decodeRicIndicationIes(protocolIEsC *C.ProtocolIE_Container_1544P6_t) (*e2a
 		if ie.E2ApProtocolIes28 != nil {
 			pIEs.E2ApProtocolIes28 = ie.E2ApProtocolIes28
 		}
-		if ie.E2ApProtocolIes15 != nil {
+		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
 		}
 	}
