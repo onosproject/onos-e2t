@@ -63,6 +63,7 @@ func RicIndication(requestID *e2apies.RicrequestId) Filter {
 		}
 		return message.InitiatingMessage.ProcedureCode.RicIndication != nil &&
 			message.InitiatingMessage.ProcedureCode.RicIndication.InitiatingMessage != nil &&
+			message.InitiatingMessage.ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes29 != nil &&
 			(requestID.RicInstanceId == 0 || message.InitiatingMessage.ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicInstanceId == requestID.RicInstanceId) &&
 			(requestID.RicRequestorId == 0 || message.InitiatingMessage.ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId == requestID.RicRequestorId)
 	}
