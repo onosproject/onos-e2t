@@ -15,15 +15,12 @@ import (
 
 // CreateSdranRelease creates a helm release for an sd-ran instance
 func CreateSdranRelease() (*helm.HelmRelease, error) {
-
 	sdran := helm.Chart("sd-ran", onostest.SdranChartRepo).
 		Release("sd-ran").
 		Set("import.onos-config.enabled", false).
 		Set("import.onos-topo.enabled", false).
 		Set("onos-e2t.image.tag", "latest").
-		Set("onos-e2t.image.pullPolicy", "Always").
-		Set("onos-e2sub.image.tag", "latest").
-		Set("onos-e2sub.image.pullPolicy", "Always")
+		Set("onos-e2sub.image.tag", "latest")
 
 	return sdran, nil
 }
@@ -38,9 +35,7 @@ func CreateE2SimulatorWithName(t *testing.T, name string) *helm.HelmRelease {
 	simulator := helm.
 		Chart("e2-simulator", onostest.SdranChartRepo).
 		Release(name).
-		Set("image.tag", "latest").
-		Set("image.pullPolicy", "Always").
-		Set("image.registry", "10.128.100.206:5000")
+		Set("image.tag", "latest")
 	err := simulator.Install(true)
 	assert.NoError(t, err, "could not install device simulator %v", err)
 

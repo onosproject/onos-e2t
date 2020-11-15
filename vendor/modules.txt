@@ -344,12 +344,13 @@ github.com/onosproject/onos-lib-go/pkg/logging/cli
 github.com/onosproject/onos-lib-go/pkg/logging/service
 github.com/onosproject/onos-lib-go/pkg/northbound
 github.com/onosproject/onos-lib-go/pkg/southbound
-# github.com/onosproject/onos-ric-sdk-go v0.6.2-0.20201114181127-fc5be5e4c555
+# github.com/onosproject/onos-ric-sdk-go v0.6.2
 ## explicit
 github.com/onosproject/onos-ric-sdk-go/pkg/e2
 github.com/onosproject/onos-ric-sdk-go/pkg/e2/app
 github.com/onosproject/onos-ric-sdk-go/pkg/e2/connection
 github.com/onosproject/onos-ric-sdk-go/pkg/e2/creds
+github.com/onosproject/onos-ric-sdk-go/pkg/e2/encoding
 github.com/onosproject/onos-ric-sdk-go/pkg/e2/endpoint
 github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication
 github.com/onosproject/onos-ric-sdk-go/pkg/e2/node

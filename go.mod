@@ -14,7 +14,7 @@ require (
 	github.com/onosproject/helmit v0.6.8
 	github.com/onosproject/onos-e2sub v0.6.4-0.20201112225438-8ff953e41a09
 	github.com/onosproject/onos-lib-go v0.6.23
-	github.com/onosproject/onos-ric-sdk-go v0.6.2-0.20201114181127-fc5be5e4c555
+	github.com/onosproject/onos-ric-sdk-go v0.6.2
 	github.com/onosproject/onos-test v0.6.4
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/smartystreets/assertions v1.0.0 // indirect

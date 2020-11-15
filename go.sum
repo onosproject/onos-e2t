@@ -518,6 +518,12 @@ github.com/onosproject/onos-ric-sdk-go v0.6.1 h1:L2MoDWPXvEXwmn+CV0gnNLODZBd7Tjz
 github.com/onosproject/onos-ric-sdk-go v0.6.1/go.mod h1:4KpaUlnsrXerHGMi+3c78n+ixQJ5F0tSxFwl9Y5QHh8=
 github.com/onosproject/onos-ric-sdk-go v0.6.2-0.20201114181127-fc5be5e4c555 h1:mYgemg9Zljjov8UkV+WSjpRxsAe7j0Q6Qx+t8ucTKAI=
 github.com/onosproject/onos-ric-sdk-go v0.6.2-0.20201114181127-fc5be5e4c555/go.mod h1:oLTLhs7RqiOdtxe6I7IAT6ZK3L5eNUwFkk3RZAKDEQE=
+github.com/onosproject/onos-ric-sdk-go v0.6.2-0.20201115173309-1e48403bd5d2 h1:XkBDxicS7CYpnyUnuGfo13Acxt3tn8jjsairyePsQas=
+github.com/onosproject/onos-ric-sdk-go v0.6.2-0.20201115173309-1e48403bd5d2/go.mod h1:yBA70ftWb7rjBapXTe/zOosxr0TYFTKpTPYd8UzjAwg=
+github.com/onosproject/onos-ric-sdk-go v0.6.2-0.20201115183221-33aafa211070 h1:5ZFMi4rjY3MYu59iJEl27OHLbwSDoXTa5SJtnQgJwKQ=
+github.com/onosproject/onos-ric-sdk-go v0.6.2-0.20201115183221-33aafa211070/go.mod h1:yBA70ftWb7rjBapXTe/zOosxr0TYFTKpTPYd8UzjAwg=
+github.com/onosproject/onos-ric-sdk-go v0.6.2 h1:dh4x0/ZPDhOT3RnPtdmeHUY718R+N44vzFXjr2WYyH0=
+github.com/onosproject/onos-ric-sdk-go v0.6.2/go.mod h1:yBA70ftWb7rjBapXTe/zOosxr0TYFTKpTPYd8UzjAwg=
 github.com/onosproject/onos-test v0.6.4 h1:ocJhMv5mZ5RsojkhBUadE68Q6uSgBZpyDDjnwOPmu6g=
 github.com/onosproject/onos-test v0.6.4/go.mod h1:Ugb1OKR2bJhZjqpSMm9F5o6Ma2iwbtswhSlNyXXPgrg=
 github.com/onsi/ginkgo v0.0.0-20170829012221-11459a886d9c/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=

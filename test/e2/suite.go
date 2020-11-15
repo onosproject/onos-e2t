@@ -20,7 +20,5 @@ func (s *TestSuite) SetupTestSuite() error {
 	if err != nil {
 		return err
 	}
-
-	sdran.Set("global.image.registry", "10.128.100.206:5000")
 	return sdran.Install(true)
 }
