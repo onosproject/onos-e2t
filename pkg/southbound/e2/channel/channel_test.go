@@ -19,7 +19,7 @@ import (
 )
 
 func TestChannel(t *testing.T) {
-	t.SkipNow()
+	//t.SkipNow()
 
 	ctrl := gomock.NewController(t)
 	conn := NewMockConn(ctrl)
@@ -83,8 +83,27 @@ func TestChannel(t *testing.T) {
 	assert.NotNil(t, indication)
 }
 
-func newSubscribeRequest(id int32) *e2appdudescriptions.E2ApPdu {
-	req, _ := pdubuilder.CreateRicSubscriptionRequestE2apPdu(id, 2, 3, 4, e2apies.RicactionType_RICACTION_TYPE_REPORT, e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE, e2apies.RictimeToWait_RICTIME_TO_WAIT_ZERO, []byte{}, []byte{})
+func newSubscribeRequest(id types.RicRequestorID) *e2appdudescriptions.E2ApPdu {
+	ricActionsToBeSetup := make(map[types.RicActionID]types.RicActionDef)
+	ricActionsToBeSetup[100] = types.RicActionDef{
+		RicActionID:         100,
+		RicActionType:       e2apies.RicactionType_RICACTION_TYPE_INSERT,
+		RicSubsequentAction: e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE,
+		Ricttw:              e2apies.RictimeToWait_RICTIME_TO_WAIT_W5MS,
+		RicActionDefinition: []byte{0x11, 0x22},
+	}
+
+	ricActionsToBeSetup[200] = types.RicActionDef{
+		RicActionID:         200,
+		RicActionType:       e2apies.RicactionType_RICACTION_TYPE_INSERT,
+		RicSubsequentAction: e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE,
+		Ricttw:              e2apies.RictimeToWait_RICTIME_TO_WAIT_W10MS,
+		RicActionDefinition: []byte{0x33, 0x44},
+	}
+
+	req, _ := pdubuilder.CreateRicSubscriptionRequestE2apPdu(
+		types.RicRequest{RequestorID: id, InstanceID: 2},
+		3, []byte{0x55, 0x66}, ricActionsToBeSetup)
 	return req
 }
 

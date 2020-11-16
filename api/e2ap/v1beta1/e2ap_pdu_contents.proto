@@ -65,7 +65,10 @@ message RicactionsToBeSetupList {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.00.00.asn1:344
 message RicactionToBeSetupItemIes {
-    RicactionToBeSetupItem value = 1;
+    int32 id = 1 [(validate.v1.rules).int32.const = 19];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    RicactionToBeSetupItem value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
 };
 
 // sequence from e2ap-v01.00.00.asn1:350

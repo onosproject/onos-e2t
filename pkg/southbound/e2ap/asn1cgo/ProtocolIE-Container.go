@@ -226,9 +226,15 @@ func newRicSubscriptionRequestIes(rsrIEs *e2appducontents.RicsubscriptionRequest
 		}
 	}
 
-	//if rsrIEs.GetE2ApProtocolIes30() != nil {
-	// TODO: implement me
-	//}
+	if rsrIEs.GetE2ApProtocolIes30() != nil {
+		ie30C, err := newRicSubscriptionRequestIe30RicSubscriptionDetails(rsrIEs.E2ApProtocolIes30)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P0), unsafe.Pointer(ie30C)); err != nil {
+			return nil, err
+		}
+	}
 
 	return pIeC1544P0, nil
 }
