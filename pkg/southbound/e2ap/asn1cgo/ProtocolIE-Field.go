@@ -566,6 +566,42 @@ func newRicSubscriptionResponseIe29RicRequestID(rsrRrIDIe *e2appducontents.Ricsu
 	return &ie, nil
 }
 
+func newRicSubscriptionRequestIe30RicSubscriptionDetails(rsrDetIe *e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30) (*C.RICsubscriptionRequest_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrDetIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicsubscriptionDetails)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [112]byte{} // The size of the E2setupResponseIEs__value_u
+
+	rsrDetC, err := newRicSubscriptionDetails(rsrDetIe.GetValue())
+	if err != nil {
+		return nil, err
+	}
+
+	//fmt.Printf("Assigning to choice of RicSubscriptionRequestIE %v \n", rsrDetC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsrDetC.ricEventTriggerDefinition.buf))))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(rsrDetC.ricEventTriggerDefinition.size))
+	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(rsrDetC.ricAction_ToBeSetup_List.list.array))))
+	binary.LittleEndian.PutUint32(choiceC[48:], uint32(rsrDetC.ricAction_ToBeSetup_List.list.count))
+	binary.LittleEndian.PutUint32(choiceC[52:], uint32(rsrDetC.ricAction_ToBeSetup_List.list.size))
+
+	ie := C.RICsubscriptionRequest_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionRequest_IEs__value{
+			present: C.RICsubscriptionRequest_IEs__value_PR_RICsubscriptionDetails,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newRANfunctionItemIEs(rfItemIes *e2appducontents.RanfunctionItemIes) (*C.RANfunction_ItemIEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rfItemIes.GetE2ApProtocolIes10().GetCriticality()))
 	if err != nil {
@@ -672,6 +708,38 @@ func newRicActionItemIEs(raaItemIes *e2appducontents.RicactionAdmittedItemIes) (
 		criticality: critC,
 		value: C.struct_RICaction_Admitted_ItemIEs__value{
 			present: C.RICaction_Admitted_ItemIEs__value_PR_RICaction_Admitted_Item,
+			choice:  choiceC,
+		},
+	}
+
+	return &rfItemIesC, nil
+}
+
+func newRicActionToBeSetupItemIEs(ratbsItemIes *e2appducontents.RicactionToBeSetupItemIes) (*C.RICaction_ToBeSetup_ItemIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(ratbsItemIes.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicactionToBeSetupItem)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [56]byte{} // The size of the RANfunction_ItemIEs__value_u
+	ratbsItemC, err := newRicActionToBeSetupItem(ratbsItemIes.GetValue())
+	if err != nil {
+		return nil, err
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ratbsItemC.ricActionID))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(ratbsItemC.ricActionType))
+	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(ratbsItemC.ricActionDefinition))))
+	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(ratbsItemC.ricSubsequentAction))))
+
+	rfItemIesC := C.RICaction_ToBeSetup_ItemIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICaction_ToBeSetup_ItemIEs__value{
+			present: C.RICaction_ToBeSetup_ItemIEs__value_PR_RICaction_ToBeSetup_Item,
 			choice:  choiceC,
 		},
 	}

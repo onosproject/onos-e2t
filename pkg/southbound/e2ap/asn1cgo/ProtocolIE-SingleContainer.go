@@ -19,6 +19,12 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 )
 
+func newRicActionToBeSetupItemIesSingleContainer(rfItemIes *e2appducontents.RicactionToBeSetupItemIes) (*C.ProtocolIE_SingleContainer_1547P0_t, error) {
+	pIeSC1547P0, err := newRicActionToBeSetupItemIEs(rfItemIes)
+
+	return (*C.ProtocolIE_SingleContainer_1547P0_t)(pIeSC1547P0), err
+}
+
 func newRicActionAdmittedItemIEItemIesSingleContainer(rfItemIes *e2appducontents.RicactionAdmittedItemIes) (*C.ProtocolIE_SingleContainer_1547P1_t, error) {
 	pIeSC1547P1, err := newRicActionItemIEs(rfItemIes)
 

@@ -6,13 +6,14 @@ package asn1cgo
 
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
-func Test_xerEncodeRICsubscriptionRequest(t *testing.T) {
+func Test_RicActionsToBeSetupList(t *testing.T) {
 	ricActionsToBeSetup := make(map[types.RicActionID]types.RicActionDef)
 	ricActionsToBeSetup[100] = types.RicActionDef{
 		RicActionID:         100,
@@ -30,18 +31,20 @@ func Test_xerEncodeRICsubscriptionRequest(t *testing.T) {
 		RicActionDefinition: []byte{0x33, 0x44},
 	}
 
-	e2ApPduRsr, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(
-		types.RicRequest{RequestorID: 1, InstanceID: 2},
+	ricSubscriptionRequest, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(types.RicRequest{RequestorID: 1, InstanceID: 2},
 		3, []byte{0x55, 0x66}, ricActionsToBeSetup)
+	assert.NilError(t, err)
+	assert.Assert(t, ricSubscriptionRequest != nil)
 
-	assert.NilError(t, err)
-	xer, err := xerEncodeRICsubscriptionRequest(
-		e2ApPduRsr.GetInitiatingMessage().GetProcedureCode().GetRicSubscription().GetInitiatingMessage())
-	assert.NilError(t, err)
-	t.Logf("XER RICsubscriptionRequest\n%s", xer)
+	im := ricSubscriptionRequest.GetE2ApPdu().(*e2appdudescriptions.E2ApPdu_InitiatingMessage)
+	ricSubDetails := im.InitiatingMessage.GetProcedureCode().GetRicSubscription().GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes30().GetValue()
 
-	per, err := perEncodeRICsubscriptionRequest(
-		e2ApPduRsr.GetInitiatingMessage().GetProcedureCode().GetRicSubscription().GetInitiatingMessage())
+	xer, err := xerEncodeRicActionsToBeSetupList(ricSubDetails.GetRicActionToBeSetupList())
 	assert.NilError(t, err)
-	t.Logf("PER RICsubscriptionRequest\n%s", per)
+	t.Logf("RicActionToBeSetupList XER\n%s", xer)
+
+	per, err := perEncodeRicActionsToBeSetupList(ricSubDetails.GetRicActionToBeSetupList())
+	assert.NilError(t, err)
+	t.Logf("RicActionToBeSetupList PER\n%s", per)
+
 }

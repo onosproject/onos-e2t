@@ -9,6 +9,30 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "ProtocolIE-Field.h"
 //#include "RICaction-ToBeSetup-Item.h"
 import "C"
+import (
+	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+)
+
+func newRicActionToBeSetupItem(ratbsItem *e2appducontents.RicactionToBeSetupItem) (*C.RICaction_ToBeSetup_Item_t, error) {
+	ratC, err := newRicActionType(ratbsItem.GetRicActionType())
+	if err != nil {
+		return nil, fmt.Errorf("newRicActionType() %s", err.Error())
+	}
+
+	rsaC, err := newRicSubsequentAction(ratbsItem.RicSubsequentAction)
+	if err != nil {
+		return nil, fmt.Errorf("newRicSubsequentAction() %s", err.Error())
+	}
+
+	ratbsItemC := C.RICaction_ToBeSetup_Item_t{
+		ricActionID:         *newRicActionID(ratbsItem.GetRicActionId()),
+		ricActionType:       *ratC,
+		ricActionDefinition: newOctetString(string(ratbsItem.GetRicActionDefinition().GetValue())),
+		ricSubsequentAction: rsaC,
+	}
+
+	return &ratbsItemC, nil
+}

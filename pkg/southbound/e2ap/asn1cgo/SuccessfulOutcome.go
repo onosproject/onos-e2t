@@ -91,7 +91,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P1_t{
-				list: C.struct___45{ // TODO: tie this down with a predictable name
+				list: C.struct___47{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -115,7 +115,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_E2setupResponse:
 		e2SrC := C.E2setupResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P12_t{
-				list: C.struct___44{ // TODO: tie this down with a predictable name
+				list: C.struct___46{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupResponseIEs_t)(listArrayAddr),
 					count: count,
 					size:  size,

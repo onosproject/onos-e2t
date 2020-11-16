@@ -394,6 +394,20 @@ func (m *RicactionToBeSetupItemIes) Validate() error {
 		return nil
 	}
 
+	if m.GetId() != 19 {
+		return RicactionToBeSetupItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 19",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return RicactionToBeSetupItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
 	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionToBeSetupItemIesValidationError{
@@ -401,6 +415,13 @@ func (m *RicactionToBeSetupItemIes) Validate() error {
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return RicactionToBeSetupItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
 		}
 	}
 

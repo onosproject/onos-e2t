@@ -31,10 +31,10 @@ func newRicIndicationType(rit *e2apies.RicindicationType) (*C.RICindicationType_
 }
 
 func decodeRicIndicationTypeBytes(bytes []byte) e2apies.RicindicationType {
-	raIDC := C.long(binary.LittleEndian.Uint64(bytes[:8]))
-	return decodeRicIndicationType(&raIDC)
+	ritC := C.long(binary.LittleEndian.Uint64(bytes[:8]))
+	return decodeRicIndicationType(&ritC)
 }
 
-func decodeRicIndicationType(raIDC *C.RICindicationType_t) e2apies.RicindicationType {
-	return e2apies.RicindicationType(*raIDC)
+func decodeRicIndicationType(ritC *C.RICindicationType_t) e2apies.RicindicationType {
+	return e2apies.RicindicationType(*ritC)
 }
