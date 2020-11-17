@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"github.com/onosproject/onos-lib-go/pkg/env"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
+	"google.golang.org/grpc/status"
 	"time"
 
 	"github.com/gogo/protobuf/proto"
@@ -105,6 +107,9 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 	subResponse, err := r.subs.GetSubscription(ctx, subRequest)
 	if err != nil {
+		if stat, ok := status.FromError(err); ok && errors.IsNotFound(errors.FromStatus(stat)) {
+			return controller.Result{}, nil
+		}
 		log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
@@ -112,6 +117,9 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 
 	channel, err := r.channels.Get(ctx, channel.ID(sub.E2NodeID))
 	if err != nil {
+		if errors.IsNotFound(err) {
+			return controller.Result{}, nil
+		}
 		log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
@@ -187,6 +195,9 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	subResponse, err := r.subs.GetSubscription(ctx, subRequest)
 	if err != nil {
+		if stat, ok := status.FromError(err); ok && errors.IsNotFound(errors.FromStatus(stat)) {
+			return controller.Result{}, nil
+		}
 		log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}
@@ -194,6 +205,9 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 
 	channel, err := r.channels.Get(ctx, channel.ID(sub.E2NodeID))
 	if err != nil {
+		if errors.IsNotFound(err) {
+			return controller.Result{}, nil
+		}
 		log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, err
 	}

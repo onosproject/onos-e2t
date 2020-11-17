@@ -10,8 +10,8 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07
 	github.com/onosproject/helmit v0.6.8
-	github.com/onosproject/onos-e2sub v0.6.4-0.20201112225438-8ff953e41a09
-	github.com/onosproject/onos-lib-go v0.6.24
+	github.com/onosproject/onos-e2sub v0.6.4
+	github.com/onosproject/onos-lib-go v0.6.25
 	github.com/onosproject/onos-ric-sdk-go v0.6.2
 	github.com/onosproject/onos-test v0.6.4
 	github.com/spf13/cobra v0.0.6
