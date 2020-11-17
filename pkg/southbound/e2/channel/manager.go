@@ -6,7 +6,6 @@ package channel
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
@@ -14,6 +13,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"net"
@@ -99,7 +99,7 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 	// Verify this is a setup request
 	e2SetupReq := e2PDUReq.GetInitiatingMessage().GetProcedureCode().GetE2Setup()
 	if e2SetupReq == nil {
-		return nil, errors.New("unexpected message type")
+		return nil, errors.NewInvalid("unexpected message type")
 	}
 
 	// Extract the RAN function list
@@ -117,13 +117,13 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 	e2NodeID := e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes3.Value.GlobalE2NodeId
 	globalE2NodeID, ok := e2NodeID.(*e2apies.GlobalE2NodeId_GNb)
 	if !ok {
-		return nil, errors.New("unexpected message format")
+		return nil, errors.NewInvalid("unexpected message format")
 	}
 
 	// Verify a gNB ID is provided
 	gnbID, ok := globalE2NodeID.GNb.GlobalGNbId.GnbId.GnbIdChoice.(*e2apies.GnbIdChoice_GnbId)
 	if !ok {
-		return nil, errors.New("unexpected message format")
+		return nil, errors.NewInvalid("unexpected message format")
 	}
 
 	// Create a channel ID from the gNB ID and plmn ID
@@ -192,7 +192,7 @@ func (m *Manager) Get(ctx context.Context, id ID) (Channel, error) {
 	defer m.channelsMu.RUnlock()
 	channel, ok := m.channels[id]
 	if !ok {
-		return nil, fmt.Errorf("unknown channel %s", id)
+		return nil, errors.NewNotFound("channel '%s' not found", id)
 	}
 	return channel, nil
 }
