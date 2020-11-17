@@ -12,8 +12,10 @@ package asn1cgo
 //#include "RICaction-ToBeSetup-Item.h"
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"unsafe"
 )
 
 func newRicActionToBeSetupItem(ratbsItem *e2appducontents.RicactionToBeSetupItem) (*C.RICaction_ToBeSetup_Item_t, error) {
@@ -30,9 +32,37 @@ func newRicActionToBeSetupItem(ratbsItem *e2appducontents.RicactionToBeSetupItem
 	ratbsItemC := C.RICaction_ToBeSetup_Item_t{
 		ricActionID:         *newRicActionID(ratbsItem.GetRicActionId()),
 		ricActionType:       *ratC,
-		ricActionDefinition: newOctetString(string(ratbsItem.GetRicActionDefinition().GetValue())),
+		ricActionDefinition: newRicActionDefinition(ratbsItem.GetRicActionDefinition()),
 		ricSubsequentAction: rsaC,
 	}
 
 	return &ratbsItemC, nil
+}
+
+func decodeRicActionToBeSetupItemBytes(bytes [56]byte) (*e2appducontents.RicactionToBeSetupItem, error) {
+
+	rfiC := C.RICaction_ToBeSetup_Item_t{
+		ricActionID:         C.long(binary.LittleEndian.Uint64(bytes[:8])),
+		ricActionType:       C.long(binary.LittleEndian.Uint64(bytes[8:16])),
+		ricActionDefinition: (*C.RICactionDefinition_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:24])))),
+		ricSubsequentAction: (*C.struct_RICsubsequentAction)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:32])))),
+	}
+
+	return decodeRicActionToBeSetupItem(&rfiC)
+}
+
+func decodeRicActionToBeSetupItem(rfiC *C.RICaction_ToBeSetup_Item_t) (*e2appducontents.RicactionToBeSetupItem, error) {
+	rsa, err := decodeRicSubsequentAction(rfiC.ricSubsequentAction)
+	if err != nil {
+		return nil, fmt.Errorf("decodeRicSubsequentAction() %s", err.Error())
+	}
+
+	rfi := e2appducontents.RicactionToBeSetupItem{
+		RicActionId:         decodeRicActionID(&rfiC.ricActionID),
+		RicActionType:       decodeRicActionType(&rfiC.ricActionType),
+		RicActionDefinition: decodeRicActionDefinition(rfiC.ricActionDefinition),
+		RicSubsequentAction: rsa,
+	}
+
+	return &rfi, nil
 }

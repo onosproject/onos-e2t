@@ -239,32 +239,32 @@ func newRicSubscriptionRequestIes(rsrIEs *e2appducontents.RicsubscriptionRequest
 	return pIeC1544P0, nil
 }
 
-//func decodeRicSubscriptionRequestIes(protocolIEsC *C.ProtocolIE_Container_1544P0_t) (*e2appducontents.RicsubscriptionRequestIes, error) {
-//	pIEs := new(e2appducontents.RicsubscriptionRequestIes)
-//
-//	ieCount := int(protocolIEsC.list.count)
-//	fmt.Printf("1544P0 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
-//	for i := 0; i < ieCount; i++ {
-//		listC := unsafe.Pointer(*protocolIEsC.list.array)
-//		rsrIeC := (*C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(uintptr(listC) + uintptr(protocolIEsC.list.size*C.int(i))))
-//
-//		ie, err := decodeRicSubscriptionRequestIE(rsrIeC)
-//		if err != nil {
-//			return nil, err
-//		}
-//		if ie.E2ApProtocolIes5 != nil {
-//			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
-//		}
-//		if ie.E2ApProtocolIes29 != nil {
-//			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
-//		}
-//		if ie.E2ApProtocolIes30 != nil {
-//			pIEs.E2ApProtocolIes30 = ie.E2ApProtocolIes30
-//		}
-//	}
-//
-//	return pIEs, nil
-//}
+func decodeRicSubscriptionRequestIes(protocolIEsC *C.ProtocolIE_Container_1544P0_t) (*e2appducontents.RicsubscriptionRequestIes, error) {
+	pIEs := new(e2appducontents.RicsubscriptionRequestIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//	fmt.Printf("1544P0 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsrIeC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicSubscriptionRequestIE(rsrIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes5 != nil {
+			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		}
+		if ie.E2ApProtocolIes29 != nil {
+			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		}
+		if ie.E2ApProtocolIes30 != nil {
+			pIEs.E2ApProtocolIes30 = ie.E2ApProtocolIes30
+		}
+	}
+
+	return pIEs, nil
+}
 
 func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE_Container_1544P6_t, error) {
 	pIeC1544P6 := new(C.ProtocolIE_Container_1544P6_t)

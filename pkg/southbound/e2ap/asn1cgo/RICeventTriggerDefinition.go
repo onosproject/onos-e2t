@@ -11,8 +11,18 @@ package asn1cgo
 // #include <assert.h>
 // #include "RICeventTriggerDefinition.h"
 import "C"
-import e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+import (
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+)
 
 func newRicEventTriggerDefinition(retd *e2ap_commondatatypes.RiceventTriggerDefinition) *C.RICeventTriggerDefinition_t {
 	return newOctetString(string(retd.GetValue()))
+}
+
+func decodeRicEventTriggerDefinition(retdC *C.RICeventTriggerDefinition_t) *e2ap_commondatatypes.RiceventTriggerDefinition {
+	result := e2ap_commondatatypes.RiceventTriggerDefinition{
+		Value: []byte(decodeOctetString(retdC)),
+	}
+
+	return &result
 }

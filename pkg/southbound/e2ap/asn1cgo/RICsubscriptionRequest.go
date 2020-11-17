@@ -54,3 +54,15 @@ func newRICsubscriptionRequest(rsr *e2appducontents.RicsubscriptionRequest) (*C.
 
 	return &rsrC, nil
 }
+
+func decodeRicSubscriptionRequest(ricSubscriptionRequestC *C.RICsubscriptionRequest_t) (*e2appducontents.RicsubscriptionRequest, error) {
+	pIEs, err := decodeRicSubscriptionRequestIes(&ricSubscriptionRequestC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	ricSubscriptionRequest := e2appducontents.RicsubscriptionRequest{
+		ProtocolIes: pIEs,
+	}
+	return &ricSubscriptionRequest, nil
+}
