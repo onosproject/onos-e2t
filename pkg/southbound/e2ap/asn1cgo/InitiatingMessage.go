@@ -140,12 +140,17 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("RICsubscriptionRequest_t %+v\n %+v\n", initMsgC, srC)
+		//fmt.Printf("RICsubscriptionRequest_t %+v\n %+v\n", initMsgC, srC)
+
+		sr, err := decodeRicSubscriptionRequest(&srC)
+		if err != nil {
+			return nil, err
+		}
 
 		// TODO: Get the value
 		initiatingMessage.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
 			RicSubscription: &e2appdudescriptions.RicSubscription{
-				InitiatingMessage: nil,
+				InitiatingMessage: sr,
 				ProcedureCode: &e2ap_constants.IdRicsubscription{
 					Value: int32(v1beta1.ProcedureCodeIDRICsubscription),
 				},

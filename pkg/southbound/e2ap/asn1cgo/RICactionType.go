@@ -35,7 +35,7 @@ func newRicActionType(rat e2apies.RicactionType) (*C.RICactionType_t, error) {
 //	raIDC := C.long(binary.LittleEndian.Uint64(bytes[:8]))
 //	return decodeRicActionType(&raIDC)
 //}
-//
-//func decodeRicActionType(ratC *C.RICactionType_t) e2apies.RicactionType {
-//	return e2apies.RicactionType(*ratC)
-//}
+
+func decodeRicActionType(ratC *C.RICactionType_t) e2apies.RicactionType {
+	return e2apies.RicactionType(*ratC)
+}

@@ -10,6 +10,7 @@ package asn1cgo
 // #include <stdlib.h>
 // #include <assert.h>
 // #include "RICactions-ToBeSetup-List.h"
+//#include "ProtocolIE-SingleContainer.h"
 import "C"
 import (
 	"fmt"
@@ -45,12 +46,24 @@ func perEncodeRicActionsToBeSetupList(ratbsl *e2appducontents.RicactionsToBeSetu
 	return bytes, nil
 }
 
+func xerDecodeRicActionsToBeSetupList(xer []byte) (*e2appducontents.RicactionsToBeSetupList, error) {
+	unsafePtr, err := decodeXer(xer, &C.asn_DEF_RICactions_ToBeSetup_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	ratsslC := (*C.RICactions_ToBeSetup_List_t)(unsafePtr)
+	return decodeRicActionToBeSetupList(ratsslC)
+}
+
 func newRicActionToBeSetupList(ratbsL *e2appducontents.RicactionsToBeSetupList) (*C.RICactions_ToBeSetup_List_t, error) {
 	ratbsLC := new(C.RICactions_ToBeSetup_List_t)
 	for _, ricActionToBeSetupItemIe := range ratbsL.GetValue() {
 		ricActionToBeItemIesScC, err := newRicActionToBeSetupItemIesSingleContainer(ricActionToBeSetupItemIe)
 		if err != nil {
-			return nil, fmt.Errorf("newRanFunctionsList() %s", err.Error())
+			return nil, fmt.Errorf("newRicActionToBeSetupItemIesSingleContainer() %s", err.Error())
 		}
 
 		if _, err = C.asn_sequence_add(unsafe.Pointer(ratbsLC), unsafe.Pointer(ricActionToBeItemIesScC)); err != nil {
@@ -59,4 +72,23 @@ func newRicActionToBeSetupList(ratbsL *e2appducontents.RicactionsToBeSetupList) 
 	}
 
 	return ratbsLC, nil
+}
+
+func decodeRicActionToBeSetupList(ratbsLC *C.RICactions_ToBeSetup_List_t) (*e2appducontents.RicactionsToBeSetupList, error) {
+	ratbsL := e2appducontents.RicactionsToBeSetupList{
+		Value: make([]*e2appducontents.RicactionToBeSetupItemIes, 0),
+	}
+
+	ieCount := int(ratbsLC.list.count)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*ratbsLC.list.array)) * uintptr(i)
+		ratbsIeC := *(**C.ProtocolIE_SingleContainer_1547P0_t)(unsafe.Pointer(uintptr(unsafe.Pointer(ratbsLC.list.array)) + offset))
+		ratbsIe, err := decodeRicActionToBeSetupItemIesSingleContainer(ratbsIeC)
+		if err != nil {
+			return nil, fmt.Errorf("decodeRicActionToBeSetupItemIesSingleContainer() %s", err.Error())
+		}
+		ratbsL.Value = append(ratbsL.Value, ratbsIe)
+	}
+
+	return &ratbsL, nil
 }

@@ -833,28 +833,45 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 	return ret, nil
 }
 
-//func decodeRicSubscriptionRequestIE(rsrIeC *C.RICsubscriptionRequest_IEs_t) (*e2appducontents.RicsubscriptionRequestIes, error) {
-//	//fmt.Printf("Handling RicSubscriptionResp %+v\n", rsrIeC)
-//	//ret := new(e2appducontents.RicsubscriptionRequestIes)
-//
-//	switch rsrIeC.value.present {
-//	case C.RICsubscriptionRequest_IEs__value_PR_RICrequestID:
-//		fallthrough // TODO Implement it
-//
-//	case C.RICsubscriptionRequest_IEs__value_PR_RANfunctionID:
-//		fallthrough // TODO Implement it
-//
-//	case C.RICsubscriptionRequest_IEs__value_PR_RICsubscriptionDetails:
-//		fallthrough // TODO Implement it
-//
-//	case C.E2setupRequestIEs__value_PR_NOTHING:
-//		return nil, fmt.Errorf("decodeRicSubscriptionRequestIE(). %v not yet implemneted", rsrIeC.value.present)
-//
-//	default:
-//		return nil, fmt.Errorf("decodeRicSubscriptionRequestIE(). unexpected choice %v", rsrIeC.value.present)
-//	}
-//
-//}
+func decodeRicSubscriptionRequestIE(rsrIeC *C.RICsubscriptionRequest_IEs_t) (*e2appducontents.RicsubscriptionRequestIes, error) {
+	//	//fmt.Printf("Handling RicSubscriptionResp %+v\n", rsrIeC)
+	ret := new(e2appducontents.RicsubscriptionRequestIes)
+	//
+	switch rsrIeC.value.present {
+	case C.RICsubscriptionRequest_IEs__value_PR_RICrequestID:
+		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
+			Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+			Value:       decodeRicRequestIDBytes(rsrIeC.value.choice[:16]),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+	case C.RICsubscriptionRequest_IEs__value_PR_RANfunctionID:
+		ret.E2ApProtocolIes5 = &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
+			Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       decodeRanFunctionIDBytes(rsrIeC.value.choice[0:8]),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+	case C.RICsubscriptionRequest_IEs__value_PR_RICsubscriptionDetails:
+		rsDet, err := decodeRicSubscriptionDetailsBytes(rsrIeC.value.choice[0:64])
+		if err != nil {
+			return nil, fmt.Errorf("decodeRicSubscriptionDetailsBytes() %s", err.Error())
+		}
+		ret.E2ApProtocolIes30 = &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
+			Id:          int32(v1beta1.ProtocolIeIDRicsubscriptionDetails),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rsDet,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+	case C.RICsubscriptionRequest_IEs__value_PR_NOTHING:
+		return nil, fmt.Errorf("decodeRicSubscriptionRequestIE(). %v not yet implemneted", rsrIeC.value.present)
+
+	default:
+		return nil, fmt.Errorf("decodeRicSubscriptionRequestIE(). unexpected choice %v", rsrIeC.value.present)
+	}
+
+	return ret, nil
+}
 
 func decodeRicSubscriptionResponseIE(rsrIeC *C.RICsubscriptionResponse_IEs_t) (*e2appducontents.RicsubscriptionResponseIes, error) {
 	//fmt.Printf("Handling RicSubscriptionResp %+v\n", rsrIeC)
@@ -1077,4 +1094,25 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	}
 
 	return ret, nil
+}
+
+func decodeRicActionToBeSetupItemIes(ratbsIesValC *C.struct_RICaction_ToBeSetup_ItemIEs__value) (*e2appducontents.RicactionToBeSetupItemIes, error) {
+	//fmt.Printf("Value %T %v\n", ratbsIesValC, ratbsIesValC)
+
+	switch present := ratbsIesValC.present; present {
+	case C.RICaction_ToBeSetup_ItemIEs__value_PR_RICaction_ToBeSetup_Item:
+		ratbsIIes := e2appducontents.RicactionToBeSetupItemIes{
+			Id:          int32(v1beta1.ProtocolIeIDRicactionToBeSetupItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		ratbsI, err := decodeRicActionToBeSetupItemBytes(ratbsIesValC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeRicActionToBeSetupItemBytes() %s", err.Error())
+		}
+		ratbsIIes.Value = ratbsI
+		return &ratbsIIes, nil
+	default:
+		return nil, fmt.Errorf("error decoding RicactionToBeSetupItemIes - present %v not supported", present)
+	}
 }

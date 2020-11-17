@@ -29,11 +29,6 @@ func newRicSubsequentActionType(rsat e2apies.RicsubsequentActionType) (*C.RICsub
 	return &ret, nil
 }
 
-//func decodeRicSubsequentActionTypeBytes(bytes []byte) e2apies.RicsubsequentActionType {
-//	rsatC := C.long(binary.LittleEndian.Uint64(bytes[:8]))
-//	return decodeRicSubsequentActionType(&rsatC)
-//}
-//
-//func decodeRicSubsequentActionType(rsatC *C.RICsubsequentActionType_t) e2apies.RicsubsequentActionType {
-//	return e2apies.RicsubsequentActionType(*rsatC)
-//}
+func decodeRicSubsequentActionType(rsatC *C.RICsubsequentActionType_t) e2apies.RicsubsequentActionType {
+	return e2apies.RicsubsequentActionType(*rsatC)
+}

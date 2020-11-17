@@ -49,6 +49,17 @@ func newRanFunctionIDcauseItemIesSingleContainer(rfIDcauseItemIes *e2appduconten
 	return (*C.ProtocolIE_SingleContainer_1547P5_t)(pIeSC1547P5), err
 }
 
+func decodeRicActionToBeSetupItemIesSingleContainer(ratbsIeScC *C.ProtocolIE_SingleContainer_1547P0_t) (*e2appducontents.RicactionToBeSetupItemIes, error) {
+	//fmt.Printf("Value %T %v\n", ratbsIeScC, ratbsIeScC)
+	switch id := ratbsIeScC.id; id {
+	case C.long(v1beta1.ProtocolIeIDRicactionToBeSetupItem):
+		return decodeRicActionToBeSetupItemIes(&ratbsIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for RicActionToBeSetupItem %v", C.long(id))
+	}
+
+}
+
 func decodeRicActionAdmittedItemIesSingleContainer(raaiIeScC *C.ProtocolIE_SingleContainer_1547P1_t) (*e2appducontents.RicactionAdmittedItemIes, error) {
 	//fmt.Printf("Value %T %v\n", raaiIeScC, raaiIeScC)
 	switch id := raaiIeScC.id; id {

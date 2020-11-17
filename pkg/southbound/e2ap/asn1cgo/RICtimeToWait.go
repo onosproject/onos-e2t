@@ -65,7 +65,7 @@ func newRicTimeToWait(rttw e2apies.RictimeToWait) (*C.RICtimeToWait_t, error) {
 //	rttwC := C.long(binary.LittleEndian.Uint64(bytes[:8]))
 //	return decodeRicTimeToWait(&rttwC)
 //}
-//
-//func decodeRicTimeToWait(rttwC *C.RICtimeToWait_t) e2apies.RictimeToWait {
-//	return e2apies.RictimeToWait(*rttwC)
-//}
+
+func decodeRicTimeToWait(rttwC *C.RICtimeToWait_t) e2apies.RictimeToWait {
+	return e2apies.RictimeToWait(*rttwC)
+}

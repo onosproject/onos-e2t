@@ -32,3 +32,12 @@ func newRicSubsequentAction(rsa *e2apies.RicsubsequentAction) (*C.RICsubsequentA
 
 	return &rsaC, nil
 }
+
+func decodeRicSubsequentAction(rsaC *C.RICsubsequentAction_t) (*e2apies.RicsubsequentAction, error) {
+	rsa := e2apies.RicsubsequentAction{
+		RicSubsequentActionType: decodeRicSubsequentActionType(&rsaC.ricSubsequentActionType),
+		RicTimeToWait:           decodeRicTimeToWait(&rsaC.ricTimeToWait),
+	}
+
+	return &rsa, nil
+}
