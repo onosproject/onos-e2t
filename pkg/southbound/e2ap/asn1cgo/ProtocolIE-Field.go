@@ -208,6 +208,35 @@ func newRicSubscriptionDeleteRequestIe5RanFunctionID(rsdrRfIe *e2appducontents.R
 	return &ie, nil
 }
 
+func newRicSubscriptionDeleteResponseIe5RanFunctionID(rsdrRfIe *e2appducontents.RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5) (*C.RICsubscriptionDeleteResponse_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsdrRfIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRanfunctionID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ranFunctionIDC := newRanFunctionID(rsdrRfIe.Value)
+
+	//fmt.Printf("Assigning to choice of RicSubscriptionResponseIE %v \n", ranFunctionIDC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ranFunctionIDC))
+
+	ie := C.RICsubscriptionDeleteResponse_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionDeleteResponse_IEs__value{
+			present: C.RICsubscriptionDeleteResponse_IEs__value_PR_RANfunctionID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResponseIes_E2SetupResponseIes9) (*C.E2setupResponseIEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
@@ -618,6 +647,36 @@ func newRicSubscriptionDeleteRequestIe29RicRequestID(rsrdRrIDIe *e2appducontents
 		criticality: critC,
 		value: C.struct_RICsubscriptionDeleteRequest_IEs__value{
 			present: C.RICsubscriptionDeleteRequest_IEs__value_PR_RICrequestID,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
+func newRicSubscriptionDeleteResponseIe29RicRequestID(rsrRrIDIe *e2appducontents.RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29) (*C.RICsubscriptionDeleteResponse_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRrIDIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDRicrequestID)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [40]byte{}
+
+	ricRequestIDC := newRicRequestID(rsrRrIDIe.Value)
+
+	//fmt.Printf("Assigning to choice of RicSubscriptionResponseIE %v \n", ricRequestIDC)
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(ricRequestIDC.ricRequestorID))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(ricRequestIDC.ricInstanceID))
+
+	ie := C.RICsubscriptionDeleteResponse_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionDeleteResponse_IEs__value{
+			present: C.RICsubscriptionDeleteResponse_IEs__value_PR_RICrequestID,
 			choice:  choiceC,
 		},
 	}
@@ -1200,6 +1259,37 @@ func decodeRicSubscriptionDeleteRequestIE(rsrdIeC *C.RICsubscriptionDeleteReques
 
 	default:
 		return nil, fmt.Errorf("decodeRicSubscriptionDeleteRequestIE(). unexpected choice %v", rsrdIeC.value.present)
+	}
+
+	return ret, nil
+}
+
+func decodeRicSubscriptionDeleteResponseIE(rsdrIeC *C.RICsubscriptionDeleteResponse_IEs_t) (*e2appducontents.RicsubscriptionDeleteResponseIes, error) {
+	//fmt.Printf("Handling RicSubscriptionResp %+v\n", rsdrIeC)
+	ret := new(e2appducontents.RicsubscriptionDeleteResponseIes)
+
+	switch rsdrIeC.value.present {
+	case C.RICsubscriptionDeleteResponse_IEs__value_PR_RANfunctionID:
+		ret.E2ApProtocolIes5 = &e2appducontents.RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5{
+			Value:       decodeRanFunctionIDBytes(rsdrIeC.value.choice[:8]),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+		}
+
+	case C.RICsubscriptionDeleteResponse_IEs__value_PR_RICrequestID:
+		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29{
+			Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+			Value:       decodeRicRequestIDBytes(rsdrIeC.value.choice[:16]),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICsubscriptionDeleteResponse_IEs__value_PR_NOTHING:
+		return nil, fmt.Errorf("decodeRicSubscriptionDeleteResponseIE(). %v not yet implemneted", rsdrIeC.value.present)
+
+	default:
+		return nil, fmt.Errorf("decodeRicSubscriptionDeleteResponseIE(). unexpected choice %v", rsdrIeC.value.present)
 	}
 
 	return ret, nil
