@@ -79,8 +79,9 @@ EncodingType determines encoding type for the response messages
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| ENCODING_TYPE_ASN1 | 0 |  |
-| ENCODING_TYPE_PROTO | 1 |  |
+| PROTO | 0 |  |
+| ASN1_PER | 1 |  |
+| ASN1_XER | 2 |  |
 
 
 
@@ -91,8 +92,8 @@ ResponseStatus
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| RESPONSE_STATUS_FAILED | 0 |  |
-| RESPONSE_STATUS_SUCCEEDED | 1 |  |
+| FAILED | 0 |  |
+| SUCCEEDED | 1 |  |
 
 
  

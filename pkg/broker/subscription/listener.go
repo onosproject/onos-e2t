@@ -6,7 +6,6 @@ package subscription
 
 import (
 	"context"
-	"github.com/gogo/protobuf/proto"
 	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
@@ -87,15 +86,10 @@ func (l *Listener) Notify(indication *e2appdudescriptions.E2ApPdu) error {
 	streams := l.streams
 	l.mu.RUnlock()
 
-	bytes, err := proto.Marshal(indication)
-	if err != nil {
-		return err
-	}
-
 	id := stream.MessageID(indication.GetInitiatingMessage().ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes27.Value.Value)
 	log.Infof("Notifying indication %d for listener %d", id, l.ID)
 	for _, s := range streams {
-		err := s.Send(stream.Value(id, bytes))
+		err := s.Send(stream.Value(id, indication))
 		if err != nil {
 			log.Errorf("Failed to indicate %d for listener %d: %s", id, l.ID, err)
 			return err

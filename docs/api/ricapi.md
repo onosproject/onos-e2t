@@ -64,6 +64,7 @@ Indication an indication message
 | app_id | [string](#string) |  |  |
 | instance_id | [string](#string) |  |  |
 | subscription_id | [string](#string) |  |  |
+| encoding | [ricapi.e2.headers.v1beta1.EncodingType](#ricapi.e2.headers.v1beta1.EncodingType) |  |  |
 
 
 
