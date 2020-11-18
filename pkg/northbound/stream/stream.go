@@ -13,7 +13,7 @@ import (
 )
 
 // Value creates a new value message
-func Value(id MessageID, payload []byte) Message {
+func Value(id MessageID, payload interface{}) Message {
 	return Message{
 		ID:      id,
 		Payload: payload,
@@ -37,7 +37,7 @@ type Message struct {
 	ID MessageID
 
 	// Payload is the message payload
-	Payload []byte
+	Payload interface{}
 
 	// Error is the message error
 	Error error

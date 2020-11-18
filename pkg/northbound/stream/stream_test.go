@@ -27,13 +27,13 @@ func TestStream(t *testing.T) {
 	assert.Equal(t, api.InstanceID("3"), stream.Metadata().InstanceID)
 	assert.Equal(t, api.SubscriptionID("4"), stream.Metadata().SubscriptionID)
 
-	err := stream.Send(Value(MessageID(1), []byte("foo")))
+	err := stream.Send(Value(MessageID(1), "foo"))
 	assert.NoError(t, err)
 
 	msg, err := stream.Recv()
 	assert.NoError(t, err)
 	assert.Equal(t, MessageID(1), msg.ID)
-	assert.Equal(t, "foo", string(msg.Payload))
+	assert.Equal(t, "foo", msg.Payload.(string))
 
 	cancel()
 	msg, err = stream.Recv()
