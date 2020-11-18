@@ -62,6 +62,23 @@ func newSuccessfulOutcome(so *e2appdudescriptions.SuccessfulOutcome) (*C.Success
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2srC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2srC.protocolIEs.list.size))
 
+	} else if pc := so.GetProcedureCode().GetRicSubscriptionDelete(); pc != nil &&
+		pc.GetSuccessfulOutcome() != nil {
+
+		presentC = C.SuccessfulOutcome__value_PR_RICsubscriptionDeleteResponse
+		pcC = C.ProcedureCode_id_RICsubscriptionDelete
+		critC = C.long(C.Criticality_reject)
+		e2srC, err := newRicSubscriptionDeleteResponse(pc.GetSuccessfulOutcome())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2srC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2srC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2srC.protocolIEs.list.size))
+
 	} else {
 		return nil, fmt.Errorf("newSuccessfulOutcomeValue type not yet implemented")
 	}
@@ -91,7 +108,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P1_t{
-				list: C.struct___49{ // TODO: tie this down with a predictable name
+				list: C.struct___51{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -115,7 +132,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_E2setupResponse:
 		e2SrC := C.E2setupResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P12_t{
-				list: C.struct___48{ // TODO: tie this down with a predictable name
+				list: C.struct___50{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupResponseIEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -131,6 +148,30 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 				SuccessfulOutcome: e2Sr,
 				ProcedureCode: &e2ap_constants.IdE2Setup{
 					Value: int32(v1beta1.ProcedureCodeIDE2setup),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
+	case C.SuccessfulOutcome__value_PR_RICsubscriptionDeleteResponse:
+		rsrespC := C.RICsubscriptionDeleteResponse_t{
+			protocolIEs: C.ProtocolIE_Container_1544P4_t{
+				list: C.struct___52{ // TODO: tie this down with a predictable name
+					array: (**C.RICsubscriptionDeleteResponse_IEs_t)(listArrayAddr),
+					count: count,
+					size:  size,
+				},
+			},
+		}
+		//fmt.Printf("RICsubscriptionResponse_t %+v\n %+v\n", successC, rsrespC)
+		rsresp, err := decodeRicSubscriptionDeleteResponse(&rsrespC)
+		if err != nil {
+			return nil, err
+		}
+		successfulOutcome.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
+				SuccessfulOutcome: rsresp,
+				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
+					Value: int32(v1beta1.ProcedureCodeIDRICsubscriptionDelete),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},

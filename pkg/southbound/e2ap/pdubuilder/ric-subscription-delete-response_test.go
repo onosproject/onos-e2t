@@ -10,21 +10,19 @@ import (
 	"testing"
 )
 
-func TestRicSubscriptionResponse(t *testing.T) {
-	var ricActionAdmitted10 types.RicActionID = 10
-	var ricActionAdmitted20 types.RicActionID = 20
-	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
+func TestRicSubscriptionDeleteResponse(t *testing.T) {
+	newE2apPdu, err := CreateRicSubscriptionDeleteResponseE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20})
+	}, 9)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicSubscriptionResponse E2AP PDU XER\n%s", string(xer))
+	t.Logf("RicSubscriptionDeleteResponse E2AP PDU XER\n%s", string(xer))
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicSubscriptionResponse E2AP PDU PER\n%v", per)
+	t.Logf("RicSubscriptionDeleteResponse E2AP PDU PER\n%v", per)
 }

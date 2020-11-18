@@ -1,0 +1,35 @@
+<E2AP-PDU>
+    <successfulOutcome>
+        <procedureCode>9</procedureCode>
+        <criticality>
+            <reject/>
+        </criticality>
+        <value>
+            <RICsubscriptionDeleteResponse>
+                <protocolIEs>
+                    <RICsubscriptionDeleteResponse-IEs>
+                        <id>5</id>
+                        <criticality>
+                            <reject/>
+                        </criticality>
+                        <value>
+                            <RANfunctionID>9</RANfunctionID>
+                        </value>
+                    </RICsubscriptionDeleteResponse-IEs>
+                    <RICsubscriptionDeleteResponse-IEs>
+                        <id>29</id>
+                        <criticality>
+                            <reject/>
+                        </criticality>
+                        <value>
+                            <RICrequestID>
+                                <ricRequestorID>22</ricRequestorID>
+                                <ricInstanceID>6</ricInstanceID>
+                            </RICrequestID>
+                        </value>
+                    </RICsubscriptionDeleteResponse-IEs>
+                </protocolIEs>
+            </RICsubscriptionDeleteResponse>
+        </value>
+    </successfulOutcome>
+</E2AP-PDU>
