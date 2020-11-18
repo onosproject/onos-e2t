@@ -62,6 +62,23 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsC.protocolIEs.list.array))))
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(rsC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(rsC.protocolIEs.list.size))
+
+	} else if pc := im.GetProcedureCode().GetRicSubscriptionDelete(); pc != nil &&
+		pc.GetInitiatingMessage() != nil {
+
+		presentC = C.InitiatingMessage__value_PR_RICsubscriptionDeleteRequest
+		pcC = C.ProcedureCode_id_RICsubscriptionDelete
+		critC = C.long(C.Criticality_reject)
+		rsC, err := newRICsubscriptionDeleteRequest(pc.GetInitiatingMessage())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(rsC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(rsC.protocolIEs.list.size))
 	} else if pc := im.GetProcedureCode().GetRicIndication(); pc != nil &&
 		pc.GetInitiatingMessage() != nil {
 
@@ -133,14 +150,14 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
 			protocolIEs: C.ProtocolIE_Container_1544P0_t{
-				list: C.struct___42{ // TODO: tie this down with a predictable name
+				list: C.struct___44{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
 				},
 			},
 		}
-		//fmt.Printf("RICsubscriptionRequest_t %+v\n %+v\n", initMsgC, srC)
+		//fmt.Printf("RICsubscriptionRequest_t %+v\n %+v\n", initMsgC, sdrC)
 
 		sr, err := decodeRicSubscriptionRequest(&srC)
 		if err != nil {
@@ -158,11 +175,40 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			},
 		}
 
+	case C.InitiatingMessage__value_PR_RICsubscriptionDeleteRequest:
+		ricsdrC := *(**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
+		sdrC := C.RICsubscriptionDeleteRequest_t{
+			protocolIEs: C.ProtocolIE_Container_1544P3_t{
+				list: C.struct___42{ // TODO: tie this down with a predictable name
+					array: (**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(ricsdrC)),
+					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
+					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
+				},
+			},
+		}
+		//fmt.Printf("RICsubscriptionRequest_t %+v\n %+v\n", initMsgC, sdrC)
+
+		sdr, err := decodeRicSubscriptionDeleteRequest(&sdrC)
+		if err != nil {
+			return nil, err
+		}
+
+		// TODO: Get the value
+		initiatingMessage.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
+				InitiatingMessage: sdr,
+				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
+					Value: int32(v1beta1.ProcedureCodeIDRICsubscriptionDelete),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
+
 	case C.InitiatingMessage__value_PR_RICindication:
 		riIesC := *(**C.RICindication_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		riC := C.RICindication_t{
 			protocolIEs: C.ProtocolIE_Container_1544P6_t{
-				list: C.struct___40{ // TODO: tie this down with a predictable name
+				list: C.struct___41{ // TODO: tie this down with a predictable name
 					array: (**C.RICindication_IEs_t)(unsafe.Pointer(riIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
