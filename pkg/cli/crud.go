@@ -8,7 +8,7 @@ import "github.com/spf13/cobra"
 
 func getListCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list {connections | subscriptions} [args]",
+		Use:   "list {connections} [args]",
 		Short: "List E2T resources",
 	}
 	cmd.AddCommand(getListConnectionsCommand())
