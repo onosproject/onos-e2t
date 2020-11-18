@@ -12,9 +12,9 @@ import (
 )
 
 func Test_DecodeRicSubscriptionDeleteRequestPdu(t *testing.T) {
-	ricSubscriptionRequestXer, err := ioutil.ReadFile("../test/RICsubscriptionDeleteRequest.xml")
+	ricSubscriptionDeleteRequestXer, err := ioutil.ReadFile("../test/RICsubscriptionDeleteRequest.xml")
 	assert.NilError(t, err, "Unexpected error when loading file")
-	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(ricSubscriptionRequestXer)
+	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(ricSubscriptionDeleteRequestXer)
 	assert.NilError(t, err)
 
 	ricReq, ranFuncID, err := DecodeRicSubscriptionDeleteRequestPdu(e2apPdu)
