@@ -393,3 +393,53 @@ func decodeRicIndicationIes(protocolIEsC *C.ProtocolIE_Container_1544P6_t) (*e2a
 
 	return pIEs, nil
 }
+
+func newRicSubscriptionDeleteRequestIes(rsdrIEs *e2appducontents.RicsubscriptionDeleteRequestIes) (*C.ProtocolIE_Container_1544P3_t, error) {
+	pIeC1544P3 := new(C.ProtocolIE_Container_1544P3_t)
+
+	if rsdrIEs.GetE2ApProtocolIes5() != nil {
+		ie5C, err := newRicSubscriptionDeleteRequestIe5RanFunctionID(rsdrIEs.E2ApProtocolIes5)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P3), unsafe.Pointer(ie5C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsdrIEs.GetE2ApProtocolIes29() != nil {
+		ie29C, err := newRicSubscriptionDeleteRequestIe29RicRequestID(rsdrIEs.E2ApProtocolIes29)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P3), unsafe.Pointer(ie29C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1544P3, nil
+}
+
+func decodeRicSubscriptionDeleteRequestIes(protocolIEsC *C.ProtocolIE_Container_1544P3_t) (*e2appducontents.RicsubscriptionDeleteRequestIes, error) {
+	pIEs := new(e2appducontents.RicsubscriptionDeleteRequestIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//	fmt.Printf("1544P0 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsrIeC := *(**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicSubscriptionDeleteRequestIE(rsrIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes5 != nil {
+			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		}
+		if ie.E2ApProtocolIes29 != nil {
+			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		}
+	}
+
+	return pIEs, nil
+}
