@@ -526,15 +526,15 @@ func newRicSubscriptionDeleteFailureIe(rsrIEs *e2appducontents.RicsubscriptionDe
 		}
 	}
 
-	//if rsrIEs.GetE2ApProtocolIes2() != nil {
-	//	ie2C, err := newRicSubscriptionDeleteFailureIe2CriticalityDiagnostics(rsrIEs.GetE2ApProtocolIes2())
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//	if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P5), unsafe.Pointer(ie2C)); err != nil {
-	//		return nil, err
-	//	}
-	//}
+	if rsrIEs.GetE2ApProtocolIes2() != nil {
+		ie2C, err := newRicSubscriptionDeleteFailureIe2CriticalityDiagnostics(rsrIEs.GetE2ApProtocolIes2())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P5), unsafe.Pointer(ie2C)); err != nil {
+			return nil, err
+		}
+	}
 	return pIeC1544P5, nil
 }
 

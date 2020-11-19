@@ -52,6 +52,40 @@ func newRicSubscriptionDeleteFailureIe1Cause(rsdfCauseIe *e2appducontents.Ricsub
 	return &ie, nil
 }
 
+func newRicSubscriptionDeleteFailureIe2CriticalityDiagnostics(rsdfCritDiagsIe *e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2) (*C.RICsubscriptionDeleteFailure_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsdfCritDiagsIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta1.ProtocolIeIDCriticalityDiagnostics)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [64]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
+
+	rsdfCritDiagsC, err := newCriticalityDiagnostics(rsdfCritDiagsIe.GetValue())
+	if err != nil {
+		return nil, err
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.procedureCode))))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.triggeringMessage))))
+	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.procedureCriticality))))
+	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.ricRequestorID))))
+	//binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.iEsCriticalityDiagnostics))))
+
+	ie := C.RICsubscriptionDeleteFailure_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionDeleteFailure_IEs__value{
+			present: C.RICsubscriptionDeleteFailure_IEs__value_PR_CriticalityDiagnostics,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newE2setupRequestIe3GlobalE2NodeID(esIe *e2appducontents.E2SetupRequestIes_E2SetupRequestIes3) (*C.E2setupRequestIEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
@@ -1405,6 +1439,30 @@ func decodeRicSubscriptionDeleteFailureIE(rsdrIeC *C.RICsubscriptionDeleteFailur
 			Value:       decodeRicRequestIDBytes(rsdrIeC.value.choice[:16]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICsubscriptionDeleteFailure_IEs__value_PR_Cause:
+		cause, err := decodeCauseBytes(rsdrIeC.value.choice[:16])
+		if err != nil {
+			return nil, fmt.Errorf("decodeCauseBytes() %s", err.Error())
+		}
+		ret.E2ApProtocolIes1 = &e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1{
+			Id:          int32(v1beta1.ProtocolIeIDCause),
+			Value:       cause,
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.RICsubscriptionDeleteFailure_IEs__value_PR_CriticalityDiagnostics:
+		cd, err := decodeCriticalityDiagnosticsBytes(rsdrIeC.value.choice[:48])
+		if err != nil {
+			return nil, fmt.Errorf("decodeCriticalityDiagnosticsBytes() %s", err.Error())
+		}
+		ret.E2ApProtocolIes2 = &e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2{
+			Id:          int32(v1beta1.ProtocolIeIDCriticalityDiagnostics),
+			Value:       cd,
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
 
 	case C.RICsubscriptionDeleteFailure_IEs__value_PR_NOTHING:

@@ -26,3 +26,7 @@ func criticalityToC(criticality e2ap_commondatatypes.Criticality) (C.Criticality
 
 	return critC, nil
 }
+
+func decodeCriticality(criticalityC C.Criticality_t) e2ap_commondatatypes.Criticality {
+	return e2ap_commondatatypes.Criticality(criticalityC)
+}

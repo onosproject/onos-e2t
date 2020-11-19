@@ -14,7 +14,10 @@ import (
 )
 
 func CreateRicSubscriptionDeleteFailureE2apPdu(
-	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, cause *e2apies.Cause, e2FailureCode int32, criticalityIe int32) (
+	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, cause *e2apies.Cause,
+	failureProcCode v1beta1.ProcedureCodeT, failureCrit e2ap_commondatatypes.Criticality,
+	failureTrigMsg e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
+	critDiags []*types.CritDiag) (
 	*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29{
@@ -48,12 +51,13 @@ func CreateRicSubscriptionDeleteFailureE2apPdu(
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2apies.CriticalityDiagnostics{
 			ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
-				Value: e2FailureCode, // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
+				Value: int32(failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 			},
-			TriggeringMessage:    e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_INITIATING_MESSAGE,
-			ProcedureCriticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT, // from e2ap-v01.00.asn1:153
+			TriggeringMessage:    failureTrigMsg,
+			ProcedureCriticality: failureCrit, // from e2ap-v01.00.asn1:153
 			RicRequestorId: &e2apies.RicrequestId{
-				RicRequestorId: 1,
+				RicRequestorId: int32(reqID.RequestorID),
+				RicInstanceId:  int32(reqID.InstanceID),
 			},
 			IEsCriticalityDiagnostics: &e2apies.CriticalityDiagnosticsIeList{
 				Value: make([]*e2apies.CriticalityDiagnosticsIeItem, 0),
@@ -62,14 +66,16 @@ func CreateRicSubscriptionDeleteFailureE2apPdu(
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	criticDiagnostics := e2apies.CriticalityDiagnosticsIeItem{
-		IEcriticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
-		IEId: &e2ap_commondatatypes.ProtocolIeId{
-			Value: criticalityIe, // value were taken from e2ap-v01.00.asn1:1278
-		},
-		TypeOfError: e2apies.TypeOfError_TYPE_OF_ERROR_NOT_UNDERSTOOD,
+	for _, critDiag := range critDiags {
+		criticDiagnostics := e2apies.CriticalityDiagnosticsIeItem{
+			IEcriticality: critDiag.IECriticality,
+			IEId: &e2ap_commondatatypes.ProtocolIeId{
+				Value: int32(critDiag.IEId), // value were taken from e2ap-v01.00.asn1:1278
+			},
+			TypeOfError: critDiag.TypeOfError,
+		}
+		criticalityDiagnostics.Value.IEsCriticalityDiagnostics.Value = append(criticalityDiagnostics.Value.IEsCriticalityDiagnostics.Value, &criticDiagnostics)
 	}
-	criticalityDiagnostics.Value.IEsCriticalityDiagnostics.Value = append(criticalityDiagnostics.Value.IEsCriticalityDiagnostics.Value, &criticDiagnostics)
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{

@@ -9,7 +9,6 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "Criticality.h"
 //#include "UnsuccessfulOutcome.h"
 //#include "ProtocolIE-Field.h"
 import "C"
