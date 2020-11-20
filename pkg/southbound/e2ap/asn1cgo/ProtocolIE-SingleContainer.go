@@ -25,10 +25,16 @@ func newRicActionToBeSetupItemIesSingleContainer(rfItemIes *e2appducontents.Rica
 	return (*C.ProtocolIE_SingleContainer_1547P0_t)(pIeSC1547P0), err
 }
 
-func newRicActionAdmittedItemIEItemIesSingleContainer(rfItemIes *e2appducontents.RicactionAdmittedItemIes) (*C.ProtocolIE_SingleContainer_1547P1_t, error) {
-	pIeSC1547P1, err := newRicActionItemIEs(rfItemIes)
+func newRicActionAdmittedItemIEItemIesSingleContainer(raaItemIes *e2appducontents.RicactionAdmittedItemIes) (*C.ProtocolIE_SingleContainer_1547P1_t, error) {
+	pIeSC1547P1, err := newRicActionAdmittedItemIEs(raaItemIes)
 
 	return (*C.ProtocolIE_SingleContainer_1547P1_t)(pIeSC1547P1), err
+}
+
+func newRicActionNotAdmittedItemIEItemIesSingleContainer(ranaItemIes *e2appducontents.RicactionNotAdmittedItemIes) (*C.ProtocolIE_SingleContainer_1547P2_t, error) {
+	pIeSC1547P2, err := newRicActionNotAdmittedItemIEs(ranaItemIes)
+
+	return (*C.ProtocolIE_SingleContainer_1547P2_t)(pIeSC1547P2), err
 }
 
 func newRanFunctionItemIesSingleContainer(rfItemIes *e2appducontents.RanfunctionItemIes) (*C.ProtocolIE_SingleContainer_1547P3_t, error) {
@@ -64,9 +70,20 @@ func decodeRicActionAdmittedItemIesSingleContainer(raaiIeScC *C.ProtocolIE_Singl
 	//fmt.Printf("Value %T %v\n", raaiIeScC, raaiIeScC)
 	switch id := raaiIeScC.id; id {
 	case C.long(v1beta1.ProtocolIeIDRicactionAdmittedItem):
-		return decodeRicActionIDItemIes(&raaiIeScC.value)
+		return decodeRicActionAdmittedIDItemIes(&raaiIeScC.value)
 	default:
 		return nil, fmt.Errorf("unexpected id for RicactionAdmittedItemIes %v", C.long(id))
+	}
+
+}
+
+func decodeRicActionNotAdmittedItemIesSingleContainer(ranaiIeScC *C.ProtocolIE_SingleContainer_1547P2_t) (*e2appducontents.RicactionNotAdmittedItemIes, error) {
+	//fmt.Printf("Value %T %v\n", ranaiIeScC, ranaiIeScC)
+	switch id := ranaiIeScC.id; id {
+	case C.long(v1beta1.ProtocolIeIDRicactionNotAdmittedItem):
+		return decodeRicActionNotAdmittedIDItemIes(&ranaiIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for RicactionNotAdmittedItemIes %v", C.long(id))
 	}
 
 }

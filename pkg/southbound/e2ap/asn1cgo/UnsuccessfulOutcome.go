@@ -37,12 +37,25 @@ func newUnsuccessfulOutcome(uso *e2appdudescriptions.UnsuccessfulOutcome) (*C.Un
 		if err != nil {
 			return nil, err
 		}
-		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
-		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
-		//	// It's A_SET_OF, uso has <address(8), count(4), size(4)>
+
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsdfC.protocolIEs.list.array))))
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(rsdfC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(rsdfC.protocolIEs.list.size))
+
+	} else if pc := uso.GetProcedureCode().GetRicSubscription(); pc != nil &&
+		pc.GetUnsuccessfulOutcome() != nil {
+
+		presentC = C.UnsuccessfulOutcome__value_PR_RICsubscriptionFailure
+		pcC = C.ProcedureCode_id_RICsubscription
+		critC = C.long(C.Criticality_reject)
+		rsfC, err := newRicSubscriptionFailure(pc.GetUnsuccessfulOutcome())
+		if err != nil {
+			return nil, err
+		}
+
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsfC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(rsfC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(rsfC.protocolIEs.list.size))
 
 	} else {
 		return nil, fmt.Errorf("newUnsuccessfulOutcomeValue type not yet implemented")
@@ -68,17 +81,42 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 	size := C.int(binary.LittleEndian.Uint32(failureC.value.choice[12:16]))
 
 	switch failureC.value.present {
+	case C.UnsuccessfulOutcome__value_PR_RICsubscriptionFailure:
+		rsfC := C.RICsubscriptionFailure_t{
+			protocolIEs: C.ProtocolIE_Container_1544P2_t{
+				list: C.struct___68{ // TODO: tie this down with a predictable name
+					array: (**C.RICsubscriptionFailure_IEs_t)(listArrayAddr),
+					count: count,
+					size:  size,
+				},
+			},
+		}
+		//fmt.Printf("RICsubscriptionDeleteFailure %+v\n %+v\n", failureC, rsfC)
+		rsf, err := decodeRicSubscriptionFailure(&rsfC)
+		if err != nil {
+			return nil, err
+		}
+		uso.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			RicSubscription: &e2appdudescriptions.RicSubscription{
+				UnsuccessfulOutcome: rsf,
+				ProcedureCode: &e2ap_constants.IdRicsubscription{
+					Value: int32(v1beta1.ProcedureCodeIDRICsubscription),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
+
 	case C.UnsuccessfulOutcome__value_PR_RICsubscriptionDeleteFailure:
 		rsdfC := C.RICsubscriptionDeleteFailure_t{
 			protocolIEs: C.ProtocolIE_Container_1544P5_t{
-				list: C.struct___64{ // TODO: tie this down with a predictable name
+				list: C.struct___69{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
 				},
 			},
 		}
-		//fmt.Printf("RICsubscriptionDeleteFailure %+v\n %+v\n", failureC, rsdfC)
+		//fmt.Printf("RICsubscriptionDeleteFailure %+v\n %+v\n", failureC, rsfC)
 		rsdf, err := decodeRicSubscriptionDeleteFailure(&rsdfC)
 		if err != nil {
 			return nil, err
