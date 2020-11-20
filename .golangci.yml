@@ -11,9 +11,12 @@ run:
 
 issues:
   exclude-rules:
-    - path: pkg/northbound/gnmi/set.go
+    - path: pkg/southbound/e2ap/asn1cgo/TriggeringMessage.go
       linters:
-        - typecheck
-    - path: cmd/onos-e2t.go
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/ric-subscription-delete-failure_test.go
       linters:
-        - depguard
+        - misspell
+    - path: pkg/southbound/e2ap/asn1cgo/CriticalityDiagnostics_test.go
+      linters:
+        - misspell

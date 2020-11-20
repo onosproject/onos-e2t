@@ -9,7 +9,6 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "Criticality.h"
 //#include "SuccessfulOutcome.h"
 //#include "ProtocolIE-Field.h"
 import "C"
@@ -108,7 +107,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P1_t{
-				list: C.struct___51{ // TODO: tie this down with a predictable name
+				list: C.struct___58{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -132,7 +131,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_E2setupResponse:
 		e2SrC := C.E2setupResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P12_t{
-				list: C.struct___50{ // TODO: tie this down with a predictable name
+				list: C.struct___57{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupResponseIEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -155,7 +154,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionDeleteResponse:
 		rsrespC := C.RICsubscriptionDeleteResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1544P4_t{
-				list: C.struct___52{ // TODO: tie this down with a predictable name
+				list: C.struct___59{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteResponse_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,

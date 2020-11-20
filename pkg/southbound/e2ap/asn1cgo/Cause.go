@@ -50,6 +50,15 @@ func newCause(cause *e2apies.Cause) (*C.Cause_t, error) {
 	return &causeC, nil
 }
 
+func decodeCauseBytes(bytes []byte) (*e2apies.Cause, error) {
+	causeC := C.Cause_t{
+		present: C.Cause_PR(binary.LittleEndian.Uint64(bytes[:8])),
+	}
+	copy(causeC.choice[:8], bytes[8:16])
+
+	return decodeCause(&causeC)
+}
+
 func decodeCause(causeC *C.Cause_t) (*e2apies.Cause, error) {
 	cause := new(e2apies.Cause)
 	switch causeC.present {

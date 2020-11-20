@@ -9,7 +9,12 @@ import "C"
 import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 )
+
+func newprotocolIeID(id *e2ap_commondatatypes.ProtocolIeId) (C.ProtocolIE_ID_t, error) {
+	return protocolIeIDToC(v1beta1.ProtocolIeID(id.GetValue()))
+}
 
 func protocolIeIDToC(pcIeID v1beta1.ProtocolIeID) (C.ProtocolIE_ID_t, error) {
 	switch pcIeID {
@@ -80,4 +85,11 @@ func protocolIeIDToC(pcIeID v1beta1.ProtocolIeID) (C.ProtocolIE_ID_t, error) {
 	default:
 		return C.ProtocolIE_ID_t(-1), fmt.Errorf("unexpected value for ProtocolIE_IDT %v", pcIeID)
 	}
+}
+
+func decodeProtocolIeID(pcIeIDC C.ProtocolIE_ID_t) *e2ap_commondatatypes.ProtocolIeId {
+	ret := e2ap_commondatatypes.ProtocolIeId{
+		Value: int32(pcIeIDC),
+	}
+	return &ret
 }

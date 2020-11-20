@@ -12,6 +12,7 @@ package asn1cgo
 // #include "E2AP-PDU.h"
 //#include "InitiatingMessage.h"
 //#include "SuccessfulOutcome.h"
+//#include "UnsuccessfulOutcome.h"
 import "C"
 import (
 	"encoding/binary"
@@ -94,6 +95,16 @@ func newE2apPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*C.E2AP_PDU_t, error) {
 			return nil, err
 		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(so))))
+
+	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
+		present = C.E2AP_PDU_PR_unsuccessfulOutcome
+
+		uso, err := newUnsuccessfulOutcome(choice.UnsuccessfulOutcome)
+		if err != nil {
+			return nil, err
+		}
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(uso))))
+
 	default:
 		return nil, fmt.Errorf("newE2apPdu() %T not yet implemented", choice)
 	}
@@ -123,17 +134,29 @@ func decodeE2apPdu(e2apPduC *C.E2AP_PDU_t) (*e2appdudescriptions.E2ApPdu, error)
 
 	case C.E2AP_PDU_PR_successfulOutcome:
 		// https://sunzenshen.github.io/tutorials/2015/05/09/cgotchas-intro.html
-		sOutcomeC := *(**C.SuccessfulOutcome_t)(unsafe.Pointer(&e2apPduC.choice[0]))
+		soC := *(**C.SuccessfulOutcome_t)(unsafe.Pointer(&e2apPduC.choice[0]))
 
-		successfulOutcome, err := decodeSuccessfulOutcome(sOutcomeC)
+		so, err := decodeSuccessfulOutcome(soC)
 		if err != nil {
 			return nil, err
 		}
 		e2apPdu.E2ApPdu = &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
-			SuccessfulOutcome: successfulOutcome,
+			SuccessfulOutcome: so,
+		}
+
+	case C.E2AP_PDU_PR_unsuccessfulOutcome:
+		// https://sunzenshen.github.io/tutorials/2015/05/09/cgotchas-intro.html
+		usoC := *(**C.UnsuccessfulOutcome_t)(unsafe.Pointer(&e2apPduC.choice[0]))
+
+		so, err := decodeUnsuccessfulOutcome(usoC)
+		if err != nil {
+			return nil, err
+		}
+		e2apPdu.E2ApPdu = &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
+			UnsuccessfulOutcome: so,
 		}
 	default:
-		return nil, fmt.Errorf("PerDecodeE2apPduOld decoding %v not yet implemented", e2apPduC.present)
+		return nil, fmt.Errorf("PerDecodeE2apPdu decoding %v not yet implemented", e2apPduC.present)
 	}
 
 	return e2apPdu, nil
