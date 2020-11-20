@@ -30,16 +30,26 @@ func newRicActionNotAdmittedItem(raai *e2appducontents.RicactionNotAdmittedItem)
 	return &raaiC, nil
 }
 
-func decodeRicActionNotAdmittedItemBytes(ranaiBytes []byte) *e2appducontents.RicactionNotAdmittedItem {
+func decodeRicActionNotAdmittedItemBytes(ranaiBytes []byte) (*e2appducontents.RicactionNotAdmittedItem, error) {
 	raaiC := C.RICaction_NotAdmitted_Item_t{
 		ricActionID: C.long(binary.LittleEndian.Uint64(ranaiBytes[0:8])),
+		cause: C.Cause_t{
+			present: C.Cause_PR(binary.LittleEndian.Uint64(ranaiBytes[8:])),
+		},
 	}
+	copy(raaiC.cause.choice[:8], ranaiBytes[16:24])
 
 	return decodeRicActionNotAdmittedItem(raaiC)
 }
 
-func decodeRicActionNotAdmittedItem(ranaiC C.RICaction_NotAdmitted_Item_t) *e2appducontents.RicactionNotAdmittedItem {
+func decodeRicActionNotAdmittedItem(ranaiC C.RICaction_NotAdmitted_Item_t) (*e2appducontents.RicactionNotAdmittedItem, error) {
+	cause, err := decodeCause(&ranaiC.cause)
+	if err != nil {
+		return nil, fmt.Errorf("decodeCause() %s", err.Error())
+	}
+
 	return &e2appducontents.RicactionNotAdmittedItem{
 		RicActionId: decodeRicActionID(&ranaiC.ricActionID),
-	}
+		Cause:       cause,
+	}, nil
 }

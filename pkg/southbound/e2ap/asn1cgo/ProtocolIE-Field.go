@@ -1413,10 +1413,13 @@ func decodeRicActionNotAdmittedIDItemIes(ranaiIesValC *C.struct_RICaction_NotAdm
 
 	switch present := ranaiIesValC.present; present {
 	case C.RICaction_NotAdmitted_ItemIEs__value_PR_RICaction_NotAdmitted_Item:
-
+		rana, err := decodeRicActionNotAdmittedItemBytes(ranaiIesValC.choice[:24])
+		if err != nil {
+			return nil, fmt.Errorf("decodeRicActionNotAdmittedItemBytes() %s", err.Error())
+		}
 		ranaiIes := e2appducontents.RicactionNotAdmittedItemIes{
 			Id:          int32(v1beta1.ProtocolIeIDRicactionNotAdmittedItem),
-			Value:       decodeRicActionNotAdmittedItemBytes(ranaiIesValC.choice[:8]),
+			Value:       rana,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
@@ -1691,7 +1694,7 @@ func decodeRicSubscriptionFailureIE(rsfIeC *C.RICsubscriptionFailure_IEs_t) (*e2
 			Id:          int32(v1beta1.ProtocolIeIDRicactionsNotAdmitted),
 			Value:       ranaL,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
 
 	case C.RICsubscriptionFailure_IEs__value_PR_NOTHING:

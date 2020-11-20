@@ -552,14 +552,17 @@ func decodeRicSubscriptionFailureIes(protocolIEsC *C.ProtocolIE_Container_1544P2
 		if err != nil {
 			return nil, err
 		}
+		if ie.E2ApProtocolIes2 != nil {
+			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2
+		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
 		}
+		if ie.E2ApProtocolIes18 != nil {
+			pIEs.E2ApProtocolIes18 = ie.E2ApProtocolIes18
+		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
-		}
-		if ie.E2ApProtocolIes2 != nil {
-			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2
 		}
 	}
 

@@ -14,6 +14,18 @@ import (
 )
 
 func TestRicSubscriptionFailure(t *testing.T) {
+	ricActionsNotAdmittedList := make(map[types.RicActionID]*e2apies.Cause)
+	ricActionsNotAdmittedList[100] = &e2apies.Cause{
+		Cause: &e2apies.Cause_Transport{
+			Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE,
+		},
+	}
+	ricActionsNotAdmittedList[200] = &e2apies.Cause{
+		Cause: &e2apies.Cause_Misc{
+			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
+		},
+	}
+
 	newE2apPdu, err := CreateRicSubscriptionFailureE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
@@ -23,7 +35,8 @@ func TestRicSubscriptionFailure(t *testing.T) {
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
-		}, []*types.CritDiag{
+		}, ricActionsNotAdmittedList,
+		[]*types.CritDiag{
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,

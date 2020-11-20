@@ -17,6 +17,7 @@ func CreateRicSubscriptionFailureE2apPdu(
 	ricReq *types.RicRequest, ranFuncID types.RanFunctionID,
 	failureProcCode v1beta1.ProcedureCodeT, failureCrit e2ap_commondatatypes.Criticality,
 	failureTrigMsg e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
+	ricActionsNotAdmitted map[types.RicActionID]*e2apies.Cause,
 	critDiags []*types.CritDiag) (
 	*e2appdudescriptions.E2ApPdu, error) {
 
@@ -39,7 +40,7 @@ func CreateRicSubscriptionFailureE2apPdu(
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	ricActionsNotAdmitted := e2appducontents.RicsubscriptionFailureIes_RicsubscriptionFailureIes18{
+	ricActionNotAdmittedList := e2appducontents.RicsubscriptionFailureIes_RicsubscriptionFailureIes18{
 		Id:          int32(v1beta1.ProtocolIeIDRicactionsNotAdmitted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RicactionNotAdmittedList{
@@ -48,20 +49,20 @@ func CreateRicSubscriptionFailureE2apPdu(
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	ranaItemIe := e2appducontents.RicactionNotAdmittedItemIes{
-		Id:          int32(v1beta1.ProtocolIeIDRicactionNotAdmittedItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value: &e2appducontents.RicactionNotAdmittedItem{
-			RicActionId: &e2apies.RicactionId{
-				Value: 100,
+	for ricActionID, cause := range ricActionsNotAdmitted {
+		ranaItemIe := e2appducontents.RicactionNotAdmittedItemIes{
+			Id:          int32(v1beta1.ProtocolIeIDRicactionNotAdmittedItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.RicactionNotAdmittedItem{
+				RicActionId: &e2apies.RicactionId{
+					Value: int32(ricActionID),
+				},
+				Cause: cause,
 			},
-			Cause: &e2apies.Cause{
-				Cause: &e2apies.Cause_Transport{Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE},
-			},
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		ricActionNotAdmittedList.GetValue().Value = append(ricActionNotAdmittedList.GetValue().Value, &ranaItemIe)
 	}
-	ricActionsNotAdmitted.GetValue().Value = append(ricActionsNotAdmitted.GetValue().Value, &ranaItemIe)
 
 	criticalityDiagnostics := e2appducontents.RicsubscriptionFailureIes_RicsubscriptionFailureIes2{
 		Id:          int32(v1beta1.ProtocolIeIDCriticalityDiagnostics),
@@ -103,7 +104,7 @@ func CreateRicSubscriptionFailureE2apPdu(
 							ProtocolIes: &e2appducontents.RicsubscriptionFailureIes{
 								E2ApProtocolIes2:  &criticalityDiagnostics,
 								E2ApProtocolIes5:  &ranFunctionID, //RAN function ID
-								E2ApProtocolIes18: &ricActionsNotAdmitted,
+								E2ApProtocolIes18: &ricActionNotAdmittedList,
 								E2ApProtocolIes29: &ricRequestID, //RIC request ID
 							},
 						},

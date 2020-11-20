@@ -23,3 +23,6 @@ issues:
     - path: pkg/southbound/e2ap/pdubuilder/ric-subscription-failure_test.go
       linters:
         - misspell
+    - path: pkg/southbound/e2ap/pdudecoder/ricSubscriptionFailureDecoder_test.go
+      linters:
+        - misspell
