@@ -493,11 +493,84 @@ func decodeRicSubscriptionDeleteResponseIes(protocolIEsC *C.ProtocolIE_Container
 	return pIEs, nil
 }
 
-func newRicSubscriptionDeleteFailureIe(rsrIEs *e2appducontents.RicsubscriptionDeleteFailureIes) (*C.ProtocolIE_Container_1544P5_t, error) {
+func newRicSubscriptionFailureIe(rsdIEs *e2appducontents.RicsubscriptionFailureIes) (*C.ProtocolIE_Container_1544P2_t, error) {
+	pIeC1544P2 := new(C.ProtocolIE_Container_1544P2_t)
+
+	if rsdIEs.GetE2ApProtocolIes2() != nil {
+		ie2C, err := newRicSubscriptionFailureIe2CriticalityDiagnostics(rsdIEs.GetE2ApProtocolIes2())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P2), unsafe.Pointer(ie2C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsdIEs.GetE2ApProtocolIes5() != nil {
+		ie5C, err := newRicSubscriptionFailureIe5RanFunctionID(rsdIEs.GetE2ApProtocolIes5())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P2), unsafe.Pointer(ie5C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsdIEs.GetE2ApProtocolIes18() != nil {
+		ie2C, err := newRicSubscriptionFailureIe18RicActionNotAdmittedList(rsdIEs.GetE2ApProtocolIes18())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P2), unsafe.Pointer(ie2C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsdIEs.GetE2ApProtocolIes29() != nil {
+		ie29C, err := newRicSubscriptionFailureIe29RicRequestID(rsdIEs.GetE2ApProtocolIes29())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1544P2), unsafe.Pointer(ie29C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1544P2, nil
+}
+
+func decodeRicSubscriptionFailureIes(protocolIEsC *C.ProtocolIE_Container_1544P2_t) (*e2appducontents.RicsubscriptionFailureIes, error) {
+	pIEs := new(e2appducontents.RicsubscriptionFailureIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsfIeC := *(**C.RICsubscriptionFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicSubscriptionFailureIE(rsfIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes5 != nil {
+			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		}
+		if ie.E2ApProtocolIes29 != nil {
+			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		}
+		if ie.E2ApProtocolIes2 != nil {
+			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newRicSubscriptionDeleteFailureIe(rsdfIEs *e2appducontents.RicsubscriptionDeleteFailureIes) (*C.ProtocolIE_Container_1544P5_t, error) {
 	pIeC1544P5 := new(C.ProtocolIE_Container_1544P5_t)
 
-	if rsrIEs.GetE2ApProtocolIes5() != nil {
-		ie5C, err := newRicSubscriptionDeleteFailureIe5RanFunctionID(rsrIEs.GetE2ApProtocolIes5())
+	if rsdfIEs.GetE2ApProtocolIes5() != nil {
+		ie5C, err := newRicSubscriptionDeleteFailureIe5RanFunctionID(rsdfIEs.GetE2ApProtocolIes5())
 		if err != nil {
 			return nil, err
 		}
@@ -506,8 +579,8 @@ func newRicSubscriptionDeleteFailureIe(rsrIEs *e2appducontents.RicsubscriptionDe
 		}
 	}
 
-	if rsrIEs.GetE2ApProtocolIes29() != nil {
-		ie29C, err := newRicSubscriptionDeleteFailureIe29RicRequestID(rsrIEs.GetE2ApProtocolIes29())
+	if rsdfIEs.GetE2ApProtocolIes29() != nil {
+		ie29C, err := newRicSubscriptionDeleteFailureIe29RicRequestID(rsdfIEs.GetE2ApProtocolIes29())
 		if err != nil {
 			return nil, err
 		}
@@ -516,8 +589,8 @@ func newRicSubscriptionDeleteFailureIe(rsrIEs *e2appducontents.RicsubscriptionDe
 		}
 	}
 
-	if rsrIEs.GetE2ApProtocolIes1() != nil {
-		ie1C, err := newRicSubscriptionDeleteFailureIe1Cause(rsrIEs.GetE2ApProtocolIes1())
+	if rsdfIEs.GetE2ApProtocolIes1() != nil {
+		ie1C, err := newRicSubscriptionDeleteFailureIe1Cause(rsdfIEs.GetE2ApProtocolIes1())
 		if err != nil {
 			return nil, err
 		}
@@ -526,8 +599,8 @@ func newRicSubscriptionDeleteFailureIe(rsrIEs *e2appducontents.RicsubscriptionDe
 		}
 	}
 
-	if rsrIEs.GetE2ApProtocolIes2() != nil {
-		ie2C, err := newRicSubscriptionDeleteFailureIe2CriticalityDiagnostics(rsrIEs.GetE2ApProtocolIes2())
+	if rsdfIEs.GetE2ApProtocolIes2() != nil {
+		ie2C, err := newRicSubscriptionDeleteFailureIe2CriticalityDiagnostics(rsdfIEs.GetE2ApProtocolIes2())
 		if err != nil {
 			return nil, err
 		}

@@ -16,27 +16,27 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 )
 
-func newRicSubscriptionDeleteFailure(rsr *e2appducontents.RicsubscriptionDeleteFailure) (*C.RICsubscriptionDeleteFailure_t, error) {
-	pIeC1544P5, err := newRicSubscriptionDeleteFailureIe(rsr.ProtocolIes)
+func newRicSubscriptionDeleteFailure(rsdf *e2appducontents.RicsubscriptionDeleteFailure) (*C.RICsubscriptionDeleteFailure_t, error) {
+	pIeC1544P5, err := newRicSubscriptionDeleteFailureIe(rsdf.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
-	rsrC := C.RICsubscriptionDeleteFailure_t{
+	rsdfC := C.RICsubscriptionDeleteFailure_t{
 		protocolIEs: *pIeC1544P5,
 	}
 
-	return &rsrC, nil
+	return &rsdfC, nil
 }
 
-func decodeRicSubscriptionDeleteFailure(rsrC *C.RICsubscriptionDeleteFailure_t) (*e2appducontents.RicsubscriptionDeleteFailure, error) {
-	pIEs, err := decodeRicSubscriptionDeleteFailureIes(&rsrC.protocolIEs)
+func decodeRicSubscriptionDeleteFailure(rsdfC *C.RICsubscriptionDeleteFailure_t) (*e2appducontents.RicsubscriptionDeleteFailure, error) {
+	pIEs, err := decodeRicSubscriptionDeleteFailureIes(&rsdfC.protocolIEs)
 	if err != nil {
 		return nil, err
 	}
 
-	rsr := e2appducontents.RicsubscriptionDeleteFailure{
+	rsdf := e2appducontents.RicsubscriptionDeleteFailure{
 		ProtocolIes: pIEs,
 	}
 
-	return &rsr, nil
+	return &rsdf, nil
 }
