@@ -17,6 +17,8 @@ import (
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"strconv"
 	"strings"
+	"time"
+
 	//e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/encoding"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/node"
@@ -118,13 +120,18 @@ func runWatchIndicationsCommand(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	select {
-	case indicationMsg := <-ch:
-		_, _ = fmt.Fprintf(writer, "Indication %v\n", indicationMsg)
-
+	done := false
+	for !done {
+		select {
+		case indicationMsg := <-ch:
+			_, _ = fmt.Fprintf(writer, "Indication %v\n", indicationMsg)
+			_ = writer.Flush()
+			break
+		case <-time.After(2 * time.Minute):
+			done = true
+			break
+		}
 	}
-
-	_ = writer.Flush()
 
 	return nil
 }
