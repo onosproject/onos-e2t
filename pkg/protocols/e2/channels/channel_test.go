@@ -14,6 +14,7 @@ import (
 	"io"
 	"net"
 	"testing"
+	"time"
 )
 
 func TestChannels(t *testing.T) {
@@ -191,6 +192,7 @@ func TestChannels(t *testing.T) {
 	}
 	err = e2NodeCh.RICIndication(context.TODO(), ricIndication)
 	assert.NoError(t, err)
+	time.Sleep(time.Second)
 }
 
 type testConn struct {

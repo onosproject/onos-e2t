@@ -46,7 +46,7 @@ func newThreadSafeChannel(conn net.Conn, opts ...Option) *threadSafeChannel {
 	}
 	channel := &threadSafeChannel{
 		conn:    conn,
-		sendCh:  make(chan e2appdudescriptions.E2ApPdu),
+		sendCh:  make(chan asyncMessage),
 		recvCh:  make(chan e2appdudescriptions.E2ApPdu),
 		options: options,
 	}
@@ -57,7 +57,7 @@ func newThreadSafeChannel(conn net.Conn, opts ...Option) *threadSafeChannel {
 // threadSafeChannel is a thread-safe Channel implementation
 type threadSafeChannel struct {
 	conn    net.Conn
-	sendCh  chan e2appdudescriptions.E2ApPdu
+	sendCh  chan asyncMessage
 	recvCh  chan e2appdudescriptions.E2ApPdu
 	options Options
 }
@@ -69,19 +69,24 @@ func (c *threadSafeChannel) open() {
 
 // send sends a message on the connection
 func (c *threadSafeChannel) send(msg *e2appdudescriptions.E2ApPdu) error {
-	c.sendCh <- *msg
-	return nil
+	errCh := make(chan error, 1)
+	c.sendCh <- asyncMessage{
+		msg:   *msg,
+		errCh: errCh,
+	}
+	return <-errCh
 }
 
 // processSends processes the send channel
 func (c *threadSafeChannel) processSends() {
 	for msg := range c.sendCh {
-		err := c.processSend(msg)
+		err := c.processSend(msg.msg)
 		if err == io.EOF {
 			c.Close()
 		} else if err != nil {
-			log.Error(err)
+			msg.errCh <- err
 		}
+		close(msg.errCh)
 	}
 }
 
@@ -138,4 +143,9 @@ func (c *threadSafeChannel) Close() error {
 	close(c.sendCh)
 	close(c.recvCh)
 	return c.conn.Close()
+}
+
+type asyncMessage struct {
+	msg   e2appdudescriptions.E2ApPdu
+	errCh chan error
 }
