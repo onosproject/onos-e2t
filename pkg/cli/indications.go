@@ -39,6 +39,8 @@ func getWatchIndicationsCommand() *cobra.Command {
 	return cmd
 }
 
+// createSubscriptionRequest make a proto-encoded request for a subscription to indication data.
+// TODO : revisit this when JSON encoding is supported, and make this more general
 func createSubscriptionRequest(nodeID string) (subscription.Subscription, error) {
 	ricActionsToBeSetup := make(map[types.RicActionID]types.RicActionDef)
 	ricActionsToBeSetup[100] = types.RicActionDef{
