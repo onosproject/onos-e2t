@@ -35,7 +35,7 @@ func getWatchIndicationsCommand() *cobra.Command {
 	}
 	cmd.Flags().Bool("no-headers", false, "disables output headers")
 	cmd.PersistentFlags().String("service-address", "onos-e2sub:5150", "the gRPC endpoint")
-	cmd.Flags().Duration("timeout", 0, "specifies maximum wait time for new indications")
+	cmd.Flags().Duration("timeout", time.Hour, "specifies maximum wait time for new indications")
 	return cmd
 }
 
@@ -122,7 +122,7 @@ func runWatchIndicationsCommand(cmd *cobra.Command, args []string) error {
 	for !done {
 		select {
 		case indicationMsg := <-ch:
-			_, _ = fmt.Fprintf(writer, "Indication %v\n", indicationMsg)
+			_, _ = fmt.Fprintf(writer, "%v\n\n", indicationMsg)
 			_ = writer.Flush()
 			break
 		case <-time.After(timeout):
