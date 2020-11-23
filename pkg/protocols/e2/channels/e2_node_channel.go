@@ -66,15 +66,15 @@ func (c *e2NodeChannel) recvPDUs() {
 
 func (c *e2NodeChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	if c.e2Setup.Matches(pdu) {
-		c.e2Setup.Handle(pdu)
+		go c.e2Setup.Handle(pdu)
 	} else if c.ricControl.Matches(pdu) {
-		c.ricControl.Handle(pdu)
+		go c.ricControl.Handle(pdu)
 	} else if c.ricIndication.Matches(pdu) {
 		c.ricIndication.Handle(pdu)
 	} else if c.ricSubscription.Matches(pdu) {
-		c.ricSubscription.Handle(pdu)
+		go c.ricSubscription.Handle(pdu)
 	} else if c.ricSubscriptionDelete.Matches(pdu) {
-		c.ricSubscriptionDelete.Handle(pdu)
+		go c.ricSubscriptionDelete.Handle(pdu)
 	} else {
 		log.Errorf("Unsupported E2AP message: %+v", pdu)
 	}
