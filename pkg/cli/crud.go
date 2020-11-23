@@ -14,3 +14,12 @@ func getListCommand() *cobra.Command {
 	cmd.AddCommand(getListConnectionsCommand())
 	return cmd
 }
+
+func getWatchCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "watch {indications} [args]",
+		Short: "Watch E2T resources",
+	}
+	cmd.AddCommand(getWatchIndicationsCommand())
+	return cmd
+}
