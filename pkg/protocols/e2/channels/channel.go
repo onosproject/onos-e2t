@@ -134,20 +134,6 @@ func (c *threadSafeChannel) processRecv(bytes []byte) error {
 	return nil
 }
 
-// read reads bytes from the connection
-func (c *threadSafeChannel) read() ([]byte, error) {
-	buf := make([]byte, c.options.RecvBufferSize)
-	n, err := c.conn.Read(buf)
-	if err == io.EOF {
-		c.Close()
-		return nil, err
-	}
-	if err != nil {
-		return nil, err
-	}
-	return buf[:n], nil
-}
-
 func (c *threadSafeChannel) Close() error {
 	close(c.sendCh)
 	close(c.recvCh)
