@@ -43,10 +43,13 @@ type ricChannel struct {
 	ricIndication         *procedures.RICIndicationProcedure
 	ricSubscription       *procedures.RICSubscriptionInitiator
 	ricSubscriptionDelete *procedures.RICSubscriptionDeleteInitiator
+	ricIndicationCh       chan e2appdudescriptions.E2ApPdu
 }
 
 func (c *ricChannel) open() {
+	c.ricIndicationCh = make(chan e2appdudescriptions.E2ApPdu)
 	go c.recvPDUs()
+	go c.recvIndications()
 }
 
 func (c *ricChannel) recvPDUs() {
@@ -70,7 +73,7 @@ func (c *ricChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	} else if c.ricControl.Matches(pdu) {
 		go c.ricControl.Handle(pdu)
 	} else if c.ricIndication.Matches(pdu) {
-		c.ricIndication.Handle(pdu)
+		c.ricIndicationCh <- *pdu
 	} else if c.ricSubscription.Matches(pdu) {
 		go c.ricSubscription.Handle(pdu)
 	} else if c.ricSubscriptionDelete.Matches(pdu) {
@@ -78,6 +81,16 @@ func (c *ricChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	} else {
 		log.Errorf("Unsupported E2AP message: %+v", pdu)
 	}
+}
+
+func (c *ricChannel) recvIndications() {
+	for pdu := range c.ricIndicationCh {
+		c.recvIndication(pdu)
+	}
+}
+
+func (c *ricChannel) recvIndication(pdu e2appdudescriptions.E2ApPdu) {
+	c.ricIndication.Handle(&pdu)
 }
 
 func (c *ricChannel) RICControl(ctx context.Context, request *e2appducontents.RiccontrolRequest) (response *e2appducontents.RiccontrolAcknowledge, failure *e2appducontents.RiccontrolFailure, err error) {

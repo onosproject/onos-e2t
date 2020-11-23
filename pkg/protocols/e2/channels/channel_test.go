@@ -160,7 +160,7 @@ func TestChannels(t *testing.T) {
 			E2ApProtocolIes28: &e2appducontents.RicindicationIes_RicindicationIes28{
 				Id:          int32(v1beta1.ProtocolIeIDRicindicationType),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-				Value:       4,
+				Value:       e2apies.RicindicationType_RICINDICATION_TYPE_REPORT,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes25: &e2appducontents.RicindicationIes_RicindicationIes25{
