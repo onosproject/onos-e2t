@@ -8,7 +8,6 @@ import (
 	"github.com/ishidawataru/sctp"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"net"
-	"sync"
 )
 
 var log = logging.GetLogger("southbound", "sctp")
@@ -55,7 +54,6 @@ func NewServer(opts ...ServerOption) *Server {
 type Server struct {
 	options ServerOptions
 	lis     net.Listener
-	mu      sync.Mutex
 }
 
 // Serve starts the server
