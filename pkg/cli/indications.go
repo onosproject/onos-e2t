@@ -35,6 +35,7 @@ func getWatchIndicationsCommand() *cobra.Command {
 	}
 	cmd.Flags().Bool("no-headers", false, "disables output headers")
 	cmd.PersistentFlags().String("service-address", "onos-e2sub:5150", "the gRPC endpoint")
+	cmd.Flags().Duration("timeout", 0, "specifies maximum wait time for new indications")
 	return cmd
 }
 
@@ -72,6 +73,7 @@ func runWatchIndicationsCommand(cmd *cobra.Command, args []string) error {
 	writer := new(tabwriter.Writer)
 	writer.Init(outputWriter, 0, 0, 3, ' ', tabwriter.FilterHTML)
 
+	timeout, _ := cmd.Flags().GetDuration("timeout")
 	address, _ := cmd.Flags().GetString("service-address")
 	tokens := strings.Split(address, ":")
 	if len(tokens) != 2 {
@@ -79,10 +81,6 @@ func runWatchIndicationsCommand(cmd *cobra.Command, args []string) error {
 	}
 	host := tokens[0]
 
-	// FIXME - this is a hack to work around the wrong default service address for e2t
-	//if strings.Contains(host, "onos-e2t") {
-	//	host = "onos-e2sub"
-	//}
 	port, err := strconv.Atoi(tokens[1])
 	if err != nil {
 		return err
@@ -127,7 +125,7 @@ func runWatchIndicationsCommand(cmd *cobra.Command, args []string) error {
 			_, _ = fmt.Fprintf(writer, "Indication %v\n", indicationMsg)
 			_ = writer.Flush()
 			break
-		case <-time.After(2 * time.Minute):
+		case <-time.After(timeout):
 			done = true
 			break
 		}
