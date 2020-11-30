@@ -7,7 +7,6 @@ package ricapie2
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	headerapi "github.com/onosproject/onos-e2t/api/ricapi/e2/headers/v1beta1"
-	"github.com/onosproject/onos-e2t/pkg/northbound/codec"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"io"
@@ -76,16 +75,36 @@ func (s *Server) Stream(server ricapi.E2TService_StreamServer) error {
 			return err
 		}
 
-		bytes, err := codec.Encode(message.Payload.(*e2appdudescriptions.E2ApPdu), request.Encoding)
-		if err != nil {
-			return errors.NewInvalid(err.Error())
+		e2apPdu, ok := message.Payload.(*e2appdudescriptions.E2ApPdu)
+		if !ok {
+			return errors.NewInvalid("Payload is not an E2apPdu")
 		}
+		initMsg := e2apPdu.GetInitiatingMessage()
+		if initMsg == nil {
+			return errors.NewInvalid("E2apPdu does not have InitiatingMessage")
+		}
+		ricIndication := initMsg.GetProcedureCode().GetRicIndication()
+		if ricIndication == nil {
+			return errors.NewInvalid("InitiatingMessage does not have RicIndication")
+		}
+		indicationHeaderAsn1Bytes := ricIndication.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes25().GetValue().GetValue()
+		indicationMessageAsn1Bytes := ricIndication.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes26().GetValue().GetValue()
 
 		response := &ricapi.StreamResponse{
-			Header: &headerapi.ResponseHeader{
+			IndicationHeader: &headerapi.ResponseHeader{
 				EncodingType: request.Encoding,
 			},
-			Payload: bytes,
+		}
+
+		switch request.Encoding {
+		case headerapi.EncodingType_PROTO:
+			return errors.NewInvalid("Encoding Indication Header/Message to Proto not yet supported")
+
+		case headerapi.EncodingType_ASN1_PER:
+			response.IndicationHeader.IndicationHeader = indicationHeaderAsn1Bytes
+			response.IndicationMessage = indicationMessageAsn1Bytes
+		default:
+			return errors.NewInvalid("Encoding Indication Header/Message to %s not supported", request.Encoding)
 		}
 
 		err = server.Send(response)

@@ -11,6 +11,7 @@ import (
 	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
 	subbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
+	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
@@ -26,6 +27,8 @@ import (
 )
 
 var log = logging.GetLogger("manager")
+
+var mgr Manager
 
 // Config is a manager configuration
 type Config struct {
@@ -51,16 +54,22 @@ func NewManager(config Config) *Manager {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return &Manager{
+	mgr = Manager{
 		Config: config,
+		ModelRegistry: modelregistry.ModelRegistry{
+			ServiceModels: make(map[string]modelregistry.ServiceModel),
+		},
 		conn:   conn,
 	}
+
+	return &mgr
 }
 
 // Manager is a manager for the E2T service
 type Manager struct {
-	Config Config
-	conn   *grpc.ClientConn
+	Config        Config
+	ModelRegistry modelregistry.ModelRegistry
+	conn          *grpc.ClientConn
 }
 
 // Run starts the manager and the associated services

@@ -48,7 +48,8 @@ ResponseHeader a common response header for all responses including encoding typ
 | ----- | ---- | ----- | ----------- |
 | encoding_type | [EncodingType](#ricapi.e2.headers.v1beta1.EncodingType) |  |  |
 | service_model_info | [ServiceModelInfo](#ricapi.e2.headers.v1beta1.ServiceModelInfo) |  |  |
-| response_status | [ResponseStatus](#ricapi.e2.headers.v1beta1.ResponseStatus) |  | TODO more fields should be added |
+| response_status | [ResponseStatus](#ricapi.e2.headers.v1beta1.ResponseStatus) |  |  |
+| indication_header | [bytes](#bytes) |  | TODO more fields should be added |
 
 
 

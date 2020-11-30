@@ -28,6 +28,7 @@ message ResponseHeader {
     EncodingType encoding_type = 1;
     ServiceModelInfo service_model_info = 2;
     ResponseStatus response_status = 3;
+    bytes indication_header = 4;
     // TODO more fields should be added
 
 }

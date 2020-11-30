@@ -39,6 +39,6 @@ message StreamRequest {
 }
 
 message StreamResponse {
-    headers.v1beta1.ResponseHeader header = 1;
-    bytes payload = 2;
+    headers.v1beta1.ResponseHeader indication_header = 1;
+    bytes indication_message = 2;
 }

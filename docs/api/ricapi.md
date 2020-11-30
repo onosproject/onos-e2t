@@ -79,8 +79,8 @@ Indication an indication message
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| header | [ricapi.e2.headers.v1beta1.ResponseHeader](#ricapi.e2.headers.v1beta1.ResponseHeader) |  |  |
-| payload | [bytes](#bytes) |  |  |
+| indication_header | [ricapi.e2.headers.v1beta1.ResponseHeader](#ricapi.e2.headers.v1beta1.ResponseHeader) |  |  |
+| indication_message | [bytes](#bytes) |  |  |
 
 
 
