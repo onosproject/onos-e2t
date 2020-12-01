@@ -6,20 +6,21 @@ package subscription
 
 import (
 	"context"
-	endpointapi "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1"
-	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
-	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
-	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"io"
 	"sync"
+
+	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
+	"github.com/onosproject/onos-lib-go/pkg/controller"
 )
 
 const queueSize = 100
 
 // Watcher is a subscription watcher
 type Watcher struct {
-	endpointID endpointapi.ID
+	endpointID epapi.ID
 	tasks      subtaskapi.E2SubscriptionTaskServiceClient
 	cancel     context.CancelFunc
 	mu         sync.Mutex
@@ -75,7 +76,7 @@ var _ controller.Watcher = &Watcher{}
 
 // ChannelWatcher is a channel watcher
 type ChannelWatcher struct {
-	endpointID endpointapi.ID
+	endpointID epapi.ID
 	tasks      subtaskapi.E2SubscriptionTaskServiceClient
 	subs       subapi.E2SubscriptionServiceClient
 	channels   *channel.Manager

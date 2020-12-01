@@ -7,18 +7,19 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"google.golang.org/grpc/status"
-	"time"
 
 	"github.com/gogo/protobuf/proto"
-	endpointapi "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1"
-	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
-	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
+	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
@@ -37,11 +38,11 @@ var log = logging.GetLogger("controller", "subscription")
 func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
-		endpointID: endpointapi.ID(env.GetPodID()),
+		endpointID: epapi.ID(env.GetPodID()),
 		tasks:      tasks,
 	})
 	c.Watch(&ChannelWatcher{
-		endpointID: endpointapi.ID(env.GetPodID()),
+		endpointID: epapi.ID(env.GetPodID()),
 		subs:       subs,
 		tasks:      tasks,
 		channels:   channels,

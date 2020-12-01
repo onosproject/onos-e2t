@@ -334,11 +334,6 @@ github.com/onosproject/onos-api/go/onos/e2sub/subscription
 github.com/onosproject/onos-api/go/onos/e2sub/task
 github.com/onosproject/onos-api/go/onos/e2t/admin
 github.com/onosproject/onos-api/go/onos/e2t/e2
-# github.com/onosproject/onos-e2sub v0.6.5
-## explicit
-github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1
-github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1
-github.com/onosproject/onos-e2sub/api/e2/task/v1beta1
 # github.com/onosproject/onos-lib-go v0.6.25
 ## explicit
 github.com/onosproject/onos-lib-go/api/logging
