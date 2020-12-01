@@ -8,6 +8,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
@@ -15,16 +19,13 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/cli"
 	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
-	"strconv"
-	"strings"
-	"time"
 
-	//e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
+	"text/tabwriter"
+
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/encoding"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/node"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/spf13/cobra"
-	"text/tabwriter"
 )
 
 func getWatchIndicationsCommand() *cobra.Command {

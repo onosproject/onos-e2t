@@ -6,10 +6,11 @@ package stream
 
 import (
 	"context"
-	api "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1"
-	"github.com/stretchr/testify/assert"
 	"io"
 	"testing"
+
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestStream(t *testing.T) {
@@ -23,9 +24,9 @@ func TestStream(t *testing.T) {
 	}
 	stream := newChannelStream(ctx, ID(1), meta, ch)
 	assert.Equal(t, ID(1), stream.ID())
-	assert.Equal(t, api.AppID("2"), stream.Metadata().AppID)
-	assert.Equal(t, api.InstanceID("3"), stream.Metadata().InstanceID)
-	assert.Equal(t, api.SubscriptionID("4"), stream.Metadata().SubscriptionID)
+	assert.Equal(t, e2api.AppID("2"), stream.Metadata().AppID)
+	assert.Equal(t, e2api.InstanceID("3"), stream.Metadata().InstanceID)
+	assert.Equal(t, e2api.SubscriptionID("4"), stream.Metadata().SubscriptionID)
 
 	err := stream.Send(Value(MessageID(1), "foo"))
 	assert.NoError(t, err)

@@ -10,12 +10,13 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07
 	github.com/onosproject/helmit v0.6.8
-	github.com/onosproject/onos-e2sub v0.6.4
+	github.com/onosproject/onos-api/go v0.6.1
+	github.com/onosproject/onos-e2sub v0.6.5
 	github.com/onosproject/onos-lib-go v0.6.25
-	github.com/onosproject/onos-ric-sdk-go v0.6.2
+	github.com/onosproject/onos-ric-sdk-go v0.6.4
 	github.com/onosproject/onos-test v0.6.4
 	github.com/spf13/cobra v0.0.6
 	github.com/stretchr/testify v1.5.1
-	google.golang.org/grpc v1.33.1
+	google.golang.org/grpc v1.33.2
 	gotest.tools v2.2.0+incompatible
 )

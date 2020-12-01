@@ -11,7 +11,8 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/onosproject/onos-e2t/api/admin/v1"
+	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
+	adminclient "github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-lib-go/pkg/cli"
 	"github.com/spf13/cobra"
 )
@@ -41,9 +42,9 @@ func runListConnectionsCommand(cmd *cobra.Command, args []string) error {
 		_, _ = fmt.Fprintln(writer, "Global ID\tPLNM ID\tIP Addr\tPort\tConn Type")
 	}
 
-	request := admin.ListE2NodeConnectionsRequest{}
+	request := adminapi.ListE2NodeConnectionsRequest{}
 
-	client := admin.CreateE2TAdminServiceClient(conn)
+	client := adminclient.CreateE2TAdminServiceClient(conn)
 
 	stream, err := client.ListE2NodeConnections(context.Background(), &request)
 	if err != nil {
