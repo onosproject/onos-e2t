@@ -6,13 +6,14 @@ package ricapie2
 
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
-	headerapi "github.com/onosproject/onos-e2t/api/ricapi/e2/headers/v1beta1"
+
+	"io"
+
 	"github.com/onosproject/onos-e2t/pkg/northbound/codec"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"io"
 
-	ricapi "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 	"google.golang.org/grpc"
@@ -34,7 +35,7 @@ type Service struct {
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
 	server := &Server{streams: s.streams}
-	ricapi.RegisterE2TServiceServer(r, server)
+	e2api.RegisterE2TServiceServer(r, server)
 
 }
 
@@ -43,7 +44,7 @@ type Server struct {
 	streams *stream.Manager
 }
 
-func (s *Server) Stream(server ricapi.E2TService_StreamServer) error {
+func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 	// Get the application name
 	request, err := server.Recv()
 	if err == io.EOF {
@@ -76,14 +77,14 @@ func (s *Server) Stream(server ricapi.E2TService_StreamServer) error {
 			return err
 		}
 
-		bytes, err := codec.Encode(message.Payload.(*e2appdudescriptions.E2ApPdu), request.Encoding)
+		bytes, err := codec.Encode(message.Payload.(*e2appdudescriptions.E2ApPdu), request.Header.EncodingType)
 		if err != nil {
 			return errors.NewInvalid(err.Error())
 		}
 
-		response := &ricapi.StreamResponse{
-			Header: &headerapi.ResponseHeader{
-				EncodingType: request.Encoding,
+		response := &e2api.StreamResponse{
+			Header: &e2api.ResponseHeader{
+				EncodingType: request.Header.EncodingType,
 			},
 			Payload: bytes,
 		}

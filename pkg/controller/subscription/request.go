@@ -5,8 +5,9 @@
 package subscription
 
 import (
-	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	"sync"
+
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 )
 
 // RequestEventType is a request event type

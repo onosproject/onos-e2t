@@ -7,9 +7,10 @@ package stream
 import (
 	"context"
 	"errors"
-	api "github.com/onosproject/onos-e2t/api/ricapi/e2/v1beta1"
 	"io"
 	"sync"
+
+	api "github.com/onosproject/onos-api/go/onos/e2t/e2"
 )
 
 // Value creates a new value message

@@ -5,11 +5,14 @@
 package subscriptiontask
 
 import (
-	epapi "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1"
-	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
 	"io"
 
-	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
+	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
+	"google.golang.org/grpc/status"
+
+	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -116,6 +119,10 @@ func (c *subscriptionTaskClient) Get(ctx context.Context, id subtaskapi.ID) (*su
 
 	resp, err := c.client.GetSubscriptionTask(ctx, req)
 	if err != nil {
+		stat, ok := status.FromError(err)
+		if ok {
+			return nil, errors.FromStatus(stat)
+		}
 		return nil, err
 	}
 
@@ -136,6 +143,10 @@ func (c *subscriptionTaskClient) List(ctx context.Context, opts ...ListOption) (
 
 	resp, err := c.client.ListSubscriptionTasks(ctx, req)
 	if err != nil {
+		stat, ok := status.FromError(err)
+		if ok {
+			return nil, errors.FromStatus(stat)
+		}
 		return nil, err
 	}
 	return resp.Tasks, nil
@@ -155,26 +166,35 @@ func (c *subscriptionTaskClient) Watch(ctx context.Context, ch chan<- subtaskapi
 
 	stream, err := c.client.WatchSubscriptionTasks(ctx, &req)
 	if err != nil {
-		close(ch)
+		defer close(ch)
+		stat, ok := status.FromError(err)
+		if ok {
+			return errors.FromStatus(stat)
+		}
 		return err
 	}
 
 	go func() {
+		defer close(ch)
 		for {
 			resp, err := stream.Recv()
 			if err == io.EOF || err == context.Canceled {
-				close(ch)
 				break
 			}
 
 			if err != nil {
-				log.Error("an error occurred in receiving subscription changes", err)
+				stat, ok := status.FromError(err)
+				if ok {
+					err = errors.FromStatus(stat)
+					if errors.IsCanceled(err) || errors.IsTimeout(err) {
+						break
+					}
+				}
+				log.Error("An error occurred in receiving SubscriptionTask changes", err)
+			} else {
+				ch <- resp.Event
 			}
-
-			ch <- resp.Event
-
 		}
-
 	}()
 	return nil
 }

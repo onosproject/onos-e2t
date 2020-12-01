@@ -6,9 +6,11 @@ package manager
 
 import (
 	"context"
-	endpointapi "github.com/onosproject/onos-e2sub/api/e2/endpoint/v1beta1"
-	subapi "github.com/onosproject/onos-e2sub/api/e2/subscription/v1beta1"
-	subtaskapi "github.com/onosproject/onos-e2sub/api/e2/task/v1beta1"
+	"time"
+
+	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	subbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
@@ -22,7 +24,6 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	"google.golang.org/grpc"
-	"time"
 )
 
 var log = logging.GetLogger("manager")
@@ -147,12 +148,12 @@ func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *chann
 
 // joinSubscriptionManager joins the termination point to the subscription manager
 func (m *Manager) joinSubscriptionManager() error {
-	client := endpointapi.NewE2RegistryServiceClient(m.conn)
-	request := &endpointapi.AddTerminationRequest{
-		Endpoint: &endpointapi.TerminationEndpoint{
-			ID:   endpointapi.ID(env.GetPodID()),
-			IP:   endpointapi.IP(env.GetPodIP()),
-			Port: endpointapi.Port(5150),
+	client := epapi.NewE2RegistryServiceClient(m.conn)
+	request := &epapi.AddTerminationRequest{
+		Endpoint: &epapi.TerminationEndpoint{
+			ID:   epapi.ID(env.GetPodID()),
+			IP:   epapi.IP(env.GetPodIP()),
+			Port: epapi.Port(5150),
 		},
 	}
 	_, err := client.AddTermination(context.Background(), request)
@@ -161,9 +162,9 @@ func (m *Manager) joinSubscriptionManager() error {
 
 // leaveSubscriptionManager removes the termination point from the subscription manager
 func (m *Manager) leaveSubscriptionManager() error {
-	client := endpointapi.NewE2RegistryServiceClient(m.conn)
-	request := &endpointapi.RemoveTerminationRequest{
-		ID: endpointapi.ID(env.GetPodID()),
+	client := epapi.NewE2RegistryServiceClient(m.conn)
+	request := &epapi.RemoveTerminationRequest{
+		ID: epapi.ID(env.GetPodID()),
 	}
 	_, err := client.RemoveTermination(context.Background(), request)
 	return err
