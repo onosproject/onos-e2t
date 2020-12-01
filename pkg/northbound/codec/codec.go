@@ -6,19 +6,19 @@ package codec
 
 import (
 	"github.com/gogo/protobuf/proto"
-	ricapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 )
 
 // getCodec gets the codec for the given encoding
-func getCodec(encoding ricapi.EncodingType) Codec {
+func getCodec(encoding e2api.EncodingType) Codec {
 	switch encoding {
-	case ricapi.EncodingType_PROTO:
+	case e2api.EncodingType_PROTO:
 		return Proto
-	case ricapi.EncodingType_ASN1_PER:
+	case e2api.EncodingType_ASN1_PER:
 		return PER
-	case ricapi.EncodingType_ASN1_XER:
+	case e2api.EncodingType_ASN1_XER:
 		return XER
 	default:
 		panic("encountered unexpected encoding")
@@ -26,12 +26,12 @@ func getCodec(encoding ricapi.EncodingType) Codec {
 }
 
 // Encode encodes the given message using the given encoding
-func Encode(message *e2appdudescriptions.E2ApPdu, encoding ricapi.EncodingType) ([]byte, error) {
+func Encode(message *e2appdudescriptions.E2ApPdu, encoding e2api.EncodingType) ([]byte, error) {
 	return getCodec(encoding).Encode(message)
 }
 
 // Decode decodes the given message using the given encoding
-func Decode(bytes []byte, encoding ricapi.EncodingType) (*e2appdudescriptions.E2ApPdu, error) {
+func Decode(bytes []byte, encoding e2api.EncodingType) (*e2appdudescriptions.E2ApPdu, error) {
 	return getCodec(encoding).Decode(bytes)
 }
 
