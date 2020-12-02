@@ -10,6 +10,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"math"
 )
 
 func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2NodeIdentity, *types.RanFunctions, error) {
@@ -66,8 +67,24 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 			return nil, nil, fmt.Errorf("error extracting node identifier")
 		}
 		nodeIdentity.NodeType = types.E2NodeTypeENB
-		return nil, nil, fmt.Errorf("getting identifier of eNB not yet implemented")
-
+		identifierBytes := make([]byte, 8)
+		var lenBytes int
+		switch enbt := e2NodeID.ENb.GetGlobalENbId().GetENbId().GetEnbId().(type) {
+		case *e2apies.EnbId_MacroENbId:
+			binary.LittleEndian.PutUint64(identifierBytes, enbt.MacroENbId.GetValue())
+			lenBytes = int(math.Ceil(float64(enbt.MacroENbId.Len) / 8.0))
+		case *e2apies.EnbId_HomeENbId:
+			binary.LittleEndian.PutUint64(identifierBytes, enbt.HomeENbId.GetValue())
+			lenBytes = int(math.Ceil(float64(enbt.HomeENbId.Len) / 8.0))
+		case *e2apies.EnbId_ShortMacroENbId:
+			binary.LittleEndian.PutUint64(identifierBytes, enbt.ShortMacroENbId.GetValue())
+			lenBytes = int(math.Ceil(float64(enbt.ShortMacroENbId.Len) / 8.0))
+		case *e2apies.EnbId_LongMacroENbId:
+			binary.LittleEndian.PutUint64(identifierBytes, enbt.LongMacroENbId.GetValue())
+			lenBytes = int(math.Ceil(float64(enbt.LongMacroENbId.Len) / 8.0))
+		}
+		nodeIdentity.NodeIdentifier = make([]byte, lenBytes)
+		copy(nodeIdentity.NodeIdentifier, identifierBytes[:lenBytes])
 	}
 
 	ranFunctionsList := make(types.RanFunctions)
