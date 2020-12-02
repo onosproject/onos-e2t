@@ -13,7 +13,7 @@ import (
 )
 
 func Test_DecodeE2SetupRequestPdu(t *testing.T) {
-	e2setupRequestXer, err := ioutil.ReadFile("../test/E2setupRequest.xml")
+	e2setupRequestXer, err := ioutil.ReadFile("../test/E2setupRequest-eNB.xml")
 	assert.NilError(t, err, "Unexpected error when loading file")
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(e2setupRequestXer)
 	assert.NilError(t, err)
@@ -21,10 +21,10 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 	identifier, ranFunctions, err := DecodeE2SetupRequestPdu(e2apPdu)
 	assert.NilError(t, err)
 	assert.Assert(t, identifier != nil)
-	assert.Equal(t, "ONF", string([]byte{identifier.Plmn[0], identifier.Plmn[1], identifier.Plmn[2]}))
-	assert.Equal(t, types.E2NodeTypeGNB, identifier.NodeType)
-	assert.DeepEqual(t, []byte{0xb5, 0xc6, 0x77, 0x88, 0x00, 0x00, 0x00, 0x00}, identifier.NodeIdentifier)
+	assert.DeepEqual(t, []byte{0x00, 0x02, 0x10}, []byte{identifier.Plmn[0], identifier.Plmn[1], identifier.Plmn[2]})
+	assert.Equal(t, types.E2NodeTypeENB, identifier.NodeType)
+	assert.DeepEqual(t, []byte{0x00, 0xE0, 0x00}, identifier.NodeIdentifier)
 
 	assert.Assert(t, ranFunctions != nil)
-	assert.Equal(t, 2, len(*ranFunctions))
+	assert.Equal(t, 1, len(*ranFunctions))
 }

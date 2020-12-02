@@ -1,0 +1,24 @@
+<E2AP-PDU>
+<successfulOutcome>
+    <procedureCode>1</procedureCode>
+    <criticality><reject/></criticality>
+    <value>
+        <E2setupResponse>
+            <protocolIEs>
+                <E2setupResponseIEs>
+                    <id>4</id>
+                    <criticality><reject/></criticality>
+                    <value>
+                        <GlobalRIC-ID>
+                            <pLMN-Identity>00 02 10</pLMN-Identity>
+                            <ric-ID>
+                                00000001000000000000
+                            </ric-ID>
+                        </GlobalRIC-ID>
+                    </value>
+                </E2setupResponseIEs>
+            </protocolIEs>
+        </E2setupResponse>
+    </value>
+</successfulOutcome>
+</E2AP-PDU>
