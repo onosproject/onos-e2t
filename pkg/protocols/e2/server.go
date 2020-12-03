@@ -11,8 +11,8 @@ import (
 	"net"
 )
 
-// Handler is a server channel handler
-type Handler func(channel ServerChannel)
+// ServerHandler is a server channel handler
+type ServerHandler func(channel ServerChannel) ServerInterface
 
 // ServerInterface is an E2 server interface
 type ServerInterface procedures.RICProcedures
@@ -21,10 +21,8 @@ type ServerInterface procedures.RICProcedures
 type ServerChannel channels.RICChannel
 
 // NewServer creates a new E2 server
-func NewServer(procs ServerInterface) *Server {
-	return &Server{
-		procs: procs,
-	}
+func NewServer() *Server {
+	return &Server{}
 }
 
 // Server is an E2 server
@@ -34,9 +32,11 @@ type Server struct {
 }
 
 // Serve starts the server
-func (s *Server) Serve(handler Handler) error {
+func (s *Server) Serve(handler ServerHandler) error {
 	return s.server.Serve(func(conn net.Conn) {
-		handler(channels.NewRICChannel(conn, s.procs))
+		channels.NewRICChannel(conn, func(channel channels.RICChannel) procedures.RICProcedures {
+			return handler(channel)
+		})
 	})
 }
 
