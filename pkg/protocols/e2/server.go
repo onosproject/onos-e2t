@@ -28,7 +28,6 @@ func NewServer() *Server {
 // Server is an E2 server
 type Server struct {
 	server *sctp.Server
-	procs  ServerInterface
 }
 
 // Serve starts the server
