@@ -32,12 +32,4 @@ type Metadata struct {
 
 	// PlmnID is the PLMN identifier
 	PlmnID PlmnID
-
-	// RANFunctions is a map of RAN functions
-	RANFunctions map[RANFunctionID]RANFunctionMetadata
-}
-
-// GetRanFunction gets a RAN function by ID
-func (m Metadata) GetRANFunction(id RANFunctionID) RANFunctionMetadata {
-	return m.RANFunctions[id]
 }
