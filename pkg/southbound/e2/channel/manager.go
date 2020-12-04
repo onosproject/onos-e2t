@@ -7,12 +7,10 @@ package channel
 import (
 	"context"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdudecoder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
@@ -23,7 +21,10 @@ import (
 var log = logging.GetLogger("southbound", "e2", "channel")
 
 // TODO: Change the RIC ID to something appropriate
-const ricID = 0x01 // µONOS RIC is #1!!!
+var ricID = types.RicIdentifier{
+	RicIdentifierValue: 0xABCDE,
+	RicIdentifierLen:   20,
+}
 
 // NewManager creates a new channel manager
 func NewManager() *Manager {
@@ -96,71 +97,23 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 		return nil, err
 	}
 
-	// Verify this is a setup request
-	e2SetupReq := e2PDUReq.GetInitiatingMessage().GetProcedureCode().GetE2Setup()
-	if e2SetupReq == nil {
-		return nil, errors.NewInvalid("unexpected message type")
+	nodeID, ranFuncs, err := pdudecoder.DecodeE2SetupRequestPdu(e2PDUReq)
+	if err != nil {
+		return nil, err
 	}
+	channelID := ID(fmt.Sprintf("%s:%d", string(nodeID.NodeIdentifier), nodeID.NodeType))
+	plmnID := PlmnID([]byte{nodeID.Plmn[0], nodeID.Plmn[1], nodeID.Plmn[2]})
 
-	// Extract the RAN function list
-	ranFunctions := make(map[RANFunctionID]RANFunctionMetadata)
-	if e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes10 != nil {
-		for _, ranFunction := range e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes10.Value.Value {
-			ranFunctions[RANFunctionID(ranFunction.E2ApProtocolIes10.Value.RanFunctionId.Value)] = RANFunctionMetadata{
-				Description: RANFunctionDescription(ranFunction.E2ApProtocolIes10.Value.RanFunctionDefinition.Value),
-				Revision:    RANFunctionRevision(ranFunction.E2ApProtocolIes10.Value.RanFunctionRevision.Value),
-			}
-		}
+	rfAccepted := make(types.RanFunctionRevisions)
+	rfRejected := make(types.RanFunctionCauses)
+	for id, ranFunc := range *ranFuncs {
+		rfAccepted[id] = ranFunc.Revision
 	}
-
-	// Verify an E2 node ID is provided
-	e2NodeID := e2SetupReq.InitiatingMessage.ProtocolIes.E2ApProtocolIes3.Value.GlobalE2NodeId
-	globalE2NodeID, ok := e2NodeID.(*e2apies.GlobalE2NodeId_GNb)
-	if !ok {
-		return nil, errors.NewInvalid("unexpected message format")
-	}
-
-	// Verify a gNB ID is provided
-	gnbID, ok := globalE2NodeID.GNb.GlobalGNbId.GnbId.GnbIdChoice.(*e2apies.GnbIdChoice_GnbId)
-	if !ok {
-		return nil, errors.NewInvalid("unexpected message format")
-	}
-
-	// Create a channel ID from the gNB ID and plmn ID
-	channelID := ID(fmt.Sprintf("%s:%d", string(globalE2NodeID.GNb.GlobalGNbId.PlmnId.Value), gnbID.GnbId.Value))
-	plmnID := PlmnID(globalE2NodeID.GNb.GlobalGNbId.PlmnId.Value)
 
 	// Create an E2 setup response
-	e2SetupResp := e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
-		Id:          int32(v1beta1.ProtocolIeIDGlobalRicID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2apies.GlobalRicId{
-			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
-				Value: []byte(plmnID),
-			},
-			RicId: &e2ap_commondatatypes.BitString{
-				Value: ricID,
-				Len:   20,
-			},
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
-	// Create an E2 response
-	e2PDUResp := &e2appdudescriptions.E2ApPdu{
-		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
-			SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					E2Setup: &e2appdudescriptions.E2Setup{
-						SuccessfulOutcome: &e2appducontents.E2SetupResponse{
-							ProtocolIes: &e2appducontents.E2SetupResponseIes{
-								E2ApProtocolIes4: &e2SetupResp,
-							},
-						},
-					},
-				},
-			},
-		},
+	e2PDUResp, err := pdubuilder.CreateResponseE2apPdu(nodeID.Plmn, ricID, rfAccepted, rfRejected)
+	if err != nil {
+		return nil, err
 	}
 
 	if err := e2PDUResp.Validate(); err != nil {
@@ -179,9 +132,8 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 	}
 
 	meta := Metadata{
-		ID:           channelID,
-		PlmnID:       plmnID,
-		RANFunctions: ranFunctions,
+		ID:     channelID,
+		PlmnID: plmnID,
 	}
 	return newChannel(ctx, conn, meta), nil
 }
