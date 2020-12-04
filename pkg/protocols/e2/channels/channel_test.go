@@ -10,6 +10,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2/procedures"
 	"github.com/stretchr/testify/assert"
 	"io"
 	"net"
@@ -29,8 +30,12 @@ func TestChannels(t *testing.T) {
 		writeCh: serverCh,
 	}
 
-	e2NodeCh := NewE2NodeChannel(clientConn, &testClientProcedures{})
-	ricCh := NewRICChannel(serverConn, &testServerProcedures{})
+	e2NodeCh := NewE2NodeChannel(clientConn, func(channel E2NodeChannel) procedures.E2NodeProcedures {
+		return &testClientProcedures{}
+	})
+	ricCh := NewRICChannel(serverConn, func(channel RICChannel) procedures.RICProcedures {
+		return &testServerProcedures{}
+	})
 
 	e2SetupRequest := &e2appducontents.E2SetupRequest{
 		ProtocolIes: &e2appducontents.E2SetupRequestIes{
