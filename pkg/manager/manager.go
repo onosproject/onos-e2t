@@ -13,6 +13,7 @@ import (
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	subbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
+	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
@@ -30,12 +31,13 @@ var log = logging.GetLogger("manager")
 
 // Config is a manager configuration
 type Config struct {
-	CAPath       string
-	KeyPath      string
-	CertPath     string
-	GRPCPort     int
-	E2Port       int
-	E2SubAddress string
+	CAPath              string
+	KeyPath             string
+	CertPath            string
+	GRPCPort            int
+	E2Port              int
+	E2SubAddress        string
+	ServiceModelPlugins []string
 }
 
 // NewManager creates a new manager
@@ -46,6 +48,15 @@ func NewManager(config Config) *Manager {
 		log.Fatal(err)
 	}
 
+	modelRegistry := modelregistry.ModelRegistry{
+		ModelPlugins: make(map[modelregistry.ModelFullName]modelregistry.ServiceModel),
+	}
+	for _, smp := range config.ServiceModelPlugins {
+		if _, _, err := modelRegistry.RegisterModelPlugin(smp); err != nil {
+			log.Fatal(err)
+		}
+	}
+
 	opts = append(opts, grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()))
 	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(time.Second)))
 	conn, err := grpc.Dial(config.E2SubAddress, opts...)
@@ -53,15 +64,17 @@ func NewManager(config Config) *Manager {
 		log.Fatal(err)
 	}
 	return &Manager{
-		Config: config,
-		conn:   conn,
+		Config:        config,
+		ModelRegistry: &modelRegistry,
+		conn:          conn,
 	}
 }
 
 // Manager is a manager for the E2T service
 type Manager struct {
-	Config Config
-	conn   *grpc.ClientConn
+	Config        Config
+	ModelRegistry *modelregistry.ModelRegistry
+	conn          *grpc.ClientConn
 }
 
 // Run starts the manager and the associated services

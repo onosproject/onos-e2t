@@ -4,8 +4,8 @@ export GO111MODULE=on
 .PHONY: build
 
 ONOS_E2T_VERSION := latest
-ONOS_BUILD_VERSION := v0.6.6
-ONOS_PROTOC_VERSION := v0.6.6
+ONOS_BUILD_VERSION := v0.6.7
+ONOS_PROTOC_VERSION := v0.6.7
 BUF_VERSION := 0.27.1
 
 build: # @HELP build the Go binaries and run all validations (default)
