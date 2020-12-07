@@ -6,10 +6,11 @@ package ricapie2
 
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/pkg/modelregistry"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdudecoder"
 
 	"io"
 
-	"github.com/onosproject/onos-e2t/pkg/northbound/codec"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
@@ -22,19 +23,23 @@ import (
 var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
-func NewService(streams *stream.Manager) northbound.Service {
-	return &Service{streams: streams}
+func NewService(streams *stream.Manager, modelRegistry *modelregistry.ModelRegistry) northbound.Service {
+	return &Service{
+		streams:       streams,
+		modelRegistry: modelRegistry,
+	}
 }
 
 // Service is a Service implementation for E2T service.
 type Service struct {
 	northbound.Service
-	streams *stream.Manager
+	streams       *stream.Manager
+	modelRegistry *modelregistry.ModelRegistry
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
-	server := &Server{streams: s.streams}
+	server := &Server{streams: s.streams, modelRegistry: s.modelRegistry}
 	e2api.RegisterE2TServiceServer(r, server)
 
 }
@@ -42,6 +47,7 @@ func (s Service) Register(r *grpc.Server) {
 // Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
 	streams *stream.Manager
+	modelRegistry *modelregistry.ModelRegistry
 }
 
 func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
@@ -77,16 +83,44 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 			return err
 		}
 
-		bytes, err := codec.Encode(message.Payload.(*e2appdudescriptions.E2ApPdu), request.Header.EncodingType)
+		ricIndication, ok := message.Payload.(*e2appdudescriptions.E2ApPdu)
+		if !ok {
+			return errors.NewInvalid("payload cannot be converted to E2AP PDU", message.Payload)
+		}
+		ranFuncID, ricActionID, _, indHeaderAsn1, indMessageAsn1, _, _, _, err := pdudecoder.DecodeRicIndicationPdu(ricIndication)
 		if err != nil {
 			return errors.NewInvalid(err.Error())
 		}
+		log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)
 
 		response := &e2api.StreamResponse{
 			Header: &e2api.ResponseHeader{
-				EncodingType: request.Header.EncodingType,
+				EncodingType:     request.Header.EncodingType,
 			},
-			Payload: bytes,
+		}
+
+		const serviceModelID = "e2sm_pkm-v1beta1" // TODO: Remove hardcoded value
+		switch request.Header.EncodingType {
+		case e2api.EncodingType_PROTO:
+			serviceModelPlugin, ok := s.modelRegistry.ModelPlugins[serviceModelID]
+			if !ok {
+				return errors.NewInvalid("Service Model Plugin cannot be loaded", serviceModelID)
+			}
+			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(*indHeaderAsn1)
+			if err != nil {
+				return errors.NewInvalid(err.Error())
+			}
+			indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(*indMessageAsn1)
+			if err != nil {
+				return errors.NewInvalid(err.Error())
+			}
+			response.Header.IndicationHeader = indHeaderProto
+			response.IndicationMessage = indMessageProto
+		case e2api.EncodingType_ASN1_PER:
+			response.Header.IndicationHeader = *indHeaderAsn1
+			response.IndicationMessage = *indMessageAsn1
+		default:
+			return errors.NewInvalid("encoding type %v not supported", request.Header.EncodingType)
 		}
 
 		err = server.Send(response)
