@@ -46,7 +46,7 @@ func (s Service) Register(r *grpc.Server) {
 
 // Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
-	streams *stream.Manager
+	streams       *stream.Manager
 	modelRegistry *modelregistry.ModelRegistry
 }
 
@@ -95,7 +95,7 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 
 		response := &e2api.StreamResponse{
 			Header: &e2api.ResponseHeader{
-				EncodingType:     request.Header.EncodingType,
+				EncodingType: request.Header.EncodingType,
 			},
 		}
 
