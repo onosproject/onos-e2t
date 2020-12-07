@@ -144,7 +144,7 @@ func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *chann
 		northbound.SecurityConfig{}))
 	s.AddService(admin.NewService(channels))
 	s.AddService(logging.Service{})
-	s.AddService(ricapie2.NewService(streams))
+	s.AddService(ricapie2.NewService(streams, m.ModelRegistry))
 
 	doneCh := make(chan error)
 	go func() {
