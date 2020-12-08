@@ -107,7 +107,7 @@ func newSubscribeRequest(id types.RicRequestorID) *e2appdudescriptions.E2ApPdu {
 }
 
 func newSubscribeResponse(id int32) *e2appdudescriptions.E2ApPdu {
-	res, _ := pdubuilder.CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{RequestorID: types.RicRequestorID(id), InstanceID: 2}, 3, []*types.RicActionID{})
+	res, _ := pdubuilder.CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{RequestorID: types.RicRequestorID(id), InstanceID: 2}, 3, []*types.RicActionID{}, 0)
 	return res
 }
 
