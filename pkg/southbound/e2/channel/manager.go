@@ -7,6 +7,7 @@ package channel
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdudecoder"
@@ -27,10 +28,11 @@ var ricID = types.RicIdentifier{
 }
 
 // NewManager creates a new channel manager
-func NewManager() *Manager {
+func NewManager(modelregistry *modelregistry.ModelRegistry) *Manager {
 	mgr := &Manager{
-		channels: make(map[ID]Channel),
-		eventCh:  make(chan Channel),
+		channels:      make(map[ID]Channel),
+		eventCh:       make(chan Channel),
+		modelRegistry: modelregistry,
 	}
 	go mgr.processEvents()
 	return mgr
@@ -38,11 +40,12 @@ func NewManager() *Manager {
 
 // Manager is a stream manager
 type Manager struct {
-	channels   map[ID]Channel
-	channelsMu sync.RWMutex
-	watchers   []chan<- Channel
-	watchersMu sync.RWMutex
-	eventCh    chan Channel
+	channels      map[ID]Channel
+	channelsMu    sync.RWMutex
+	watchers      []chan<- Channel
+	watchersMu    sync.RWMutex
+	eventCh       chan Channel
+	modelRegistry *modelregistry.ModelRegistry
 }
 
 func (m *Manager) processEvents() {
@@ -52,7 +55,7 @@ func (m *Manager) processEvents() {
 }
 
 func (m *Manager) processEvent(channel Channel) {
-	log.Infof("Notifying channel %s", channel.ID)
+	log.Infof("Notifying channel %v+", channel.ID)
 	m.watchersMu.RLock()
 	for _, watcher := range m.watchers {
 		watcher <- channel
@@ -104,10 +107,28 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 	channelID := ID(fmt.Sprintf("%s:%d", string(nodeID.NodeIdentifier), nodeID.NodeType))
 	plmnID := PlmnID([]byte{nodeID.Plmn[0], nodeID.Plmn[1], nodeID.Plmn[2]})
 
+	serviceModelName := modelregistry.ModelFullName("e2sm_kpm-v1beta1") // TODO: Remove hardcoded name
+	serviceModel, ok := m.modelRegistry.ModelPlugins[serviceModelName]
+	if !ok {
+		log.Warnf("No Service Model found for %s", serviceModelName)
+	}
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
 	for id, ranFunc := range *ranFuncs {
 		rfAccepted[id] = ranFunc.Revision
+		if serviceModel != nil {
+			names, triggers, reports, err := serviceModel.DecodeRanFunctionDescription(ranFunc.Description)
+			if err != nil {
+				return nil, errors.NewInvalid("Error decoding RanFunctionDescription in E2SetupRequest %s", err.Error())
+			}
+			log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
+				"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
+				names.RanFunctionShortName,
+				names.RanFunctionDescription,
+				names.RanFunctionInstance,
+				names.RanFunctionE2SmOid,
+				len(*triggers), len(*reports))
+		}
 	}
 
 	// Create an E2 setup response

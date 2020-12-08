@@ -59,6 +59,7 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 	if err != nil {
 		return err
 	}
+	encodingType := request.GetHeader().GetEncodingType()
 
 	log.Infof("Received StreamRequest %+v", request)
 	streamCh := make(chan stream.Message)
@@ -95,31 +96,41 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 
 		response := &e2api.StreamResponse{
 			Header: &e2api.ResponseHeader{
-				EncodingType: request.Header.EncodingType,
+				EncodingType: encodingType,
 			},
 		}
 
-		const serviceModelID = "e2sm_pkm-v1beta1" // TODO: Remove hardcoded value
-		switch request.Header.EncodingType {
+		const serviceModelID = "e2sm_kpm-v1beta1" // TODO: Remove hardcoded value
+		switch encodingType {
 		case e2api.EncodingType_PROTO:
 			serviceModelPlugin, ok := s.modelRegistry.ModelPlugins[serviceModelID]
 			if !ok {
+				log.Errorf("Service Model Plugin cannot be loaded %s", serviceModelID)
 				return errors.NewInvalid("Service Model Plugin cannot be loaded", serviceModelID)
 			}
+			a, b, c := serviceModelPlugin.ServiceModelData()
+			log.Infof("Service model found %s %s %s", a, b, c)
 			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(*indHeaderAsn1)
 			if err != nil {
+				log.Errorf("Error transforming Header ASN Bytes to Proto %s", err.Error())
 				return errors.NewInvalid(err.Error())
 			}
+			log.Infof("Indication Header %d bytes", len(indHeaderProto))
 			indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(*indMessageAsn1)
 			if err != nil {
+				log.Errorf("Error transforming Message ASN Bytes to Proto %s", err.Error())
 				return errors.NewInvalid(err.Error())
 			}
+			log.Infof("Indication Message %d bytes", len(indMessageProto))
 			response.Header.IndicationHeader = indHeaderProto
 			response.IndicationMessage = indMessageProto
+			log.Infof("RICIndication successfully decoded from ASN1 to Proto #Bytes - Header: %d, Message: %d",
+				len(indHeaderProto), len(indMessageProto))
 		case e2api.EncodingType_ASN1_PER:
 			response.Header.IndicationHeader = *indHeaderAsn1
 			response.IndicationMessage = *indMessageAsn1
 		default:
+			log.Errorf("encoding type %v not supported", request.Header.EncodingType)
 			return errors.NewInvalid("encoding type %v not supported", request.Header.EncodingType)
 		}
 

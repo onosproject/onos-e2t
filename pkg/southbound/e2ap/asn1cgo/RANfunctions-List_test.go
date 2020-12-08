@@ -15,12 +15,12 @@ import (
 func Test_RanFunctionsList(t *testing.T) {
 	ranFunctionList := make(types.RanFunctions)
 	ranFunctionList[100] = types.RanFunctionItem{
-		Description: "Type 1",
+		Description: []byte("Type 1"),
 		Revision:    1,
 	}
 
 	ranFunctionList[200] = types.RanFunctionItem{
-		Description: "Type 2",
+		Description: []byte("Type 2"),
 		Revision:    1,
 	}
 
