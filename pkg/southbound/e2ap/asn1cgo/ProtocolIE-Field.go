@@ -1318,7 +1318,7 @@ func decodeRicSubscriptionResponseIE(rsrIeC *C.RICsubscriptionResponse_IEs_t) (*
 		}
 
 	case C.RICsubscriptionResponse_IEs__value_PR_NOTHING:
-		return nil, fmt.Errorf("decodeRicSubscriptionResponseIE(). No components present.\n%v\n", rsrIeC.value.present)
+		return nil, fmt.Errorf("decodeRicSubscriptionResponseIE(). No components present.\n%v", rsrIeC.value.present)
 
 	default:
 		return nil, fmt.Errorf("decodeRicSubscriptionResponseIE(). unexpected choice %v", rsrIeC.value.present)
