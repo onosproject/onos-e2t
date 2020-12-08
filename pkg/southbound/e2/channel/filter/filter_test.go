@@ -29,7 +29,7 @@ func newRequestID() *e2apies.RicrequestId {
 }
 
 func newSubscriptionResponse() *e2appdudescriptions.E2ApPdu {
-	res, _ := pdubuilder.CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{RequestorID: 1, InstanceID: 2}, 2, []*types.RicActionID{})
+	res, _ := pdubuilder.CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{RequestorID: 1, InstanceID: 2}, 2, []*types.RicActionID{}, 0)
 	return res
 }
 

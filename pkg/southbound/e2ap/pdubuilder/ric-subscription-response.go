@@ -16,8 +16,8 @@ import (
 const mask20bitricResponse = 0xFFFFF
 
 func CreateRicSubscriptionResponseE2apPdu(
-	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, ricActionsAccepted []*types.RicActionID) (
-	*e2appdudescriptions.E2ApPdu, error) {
+	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, ricActionsAccepted []*types.RicActionID,
+	ranaCause int32) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if ricReq.RequestorID|mask20bitricResponse > mask20bitricResponse {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReq.RequestorID)
@@ -77,6 +77,24 @@ func CreateRicSubscriptionResponseE2apPdu(
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 	// TODO: Add in generation of rejected actions
+	for _, raa := range ricActionsAccepted {
+		ranaIe := &e2appducontents.RicactionNotAdmittedItemIes{
+			Id:          int32(v1beta1.ProtocolIeIDRicactionNotAdmittedItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.RicactionNotAdmittedItem{
+				RicActionId: &e2apies.RicactionId{
+					Value: int32(*raa),
+				},
+				Cause: &e2apies.Cause{
+					Cause: &e2apies.Cause_RicRequest{
+						RicRequest: e2apies.CauseRic(ranaCause), //int32
+					},
+				},
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		ricActionNotAdmit.GetValue().Value = append(ricActionNotAdmit.GetValue().Value, ranaIe)
+	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{

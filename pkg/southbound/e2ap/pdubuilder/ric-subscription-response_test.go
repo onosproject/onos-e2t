@@ -16,7 +16,7 @@ func TestRicSubscriptionResponse(t *testing.T) {
 	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20})
+	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}, 0)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
