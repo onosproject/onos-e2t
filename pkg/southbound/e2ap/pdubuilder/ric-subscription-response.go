@@ -76,7 +76,7 @@ func CreateRicSubscriptionResponseE2apPdu(
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
-	// TODO: Add in generation of rejected actions
+
 	for _, raa := range ricActionsAccepted {
 		ranaIe := &e2appducontents.RicactionNotAdmittedItemIes{
 			Id:          int32(v1beta1.ProtocolIeIDRicactionNotAdmittedItem),

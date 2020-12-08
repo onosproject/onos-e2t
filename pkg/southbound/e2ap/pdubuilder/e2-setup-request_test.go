@@ -13,12 +13,12 @@ import (
 func TestE2SetupRequest(t *testing.T) {
 	ranFunctionList := make(map[types.RanFunctionID]types.RanFunctionItem)
 	ranFunctionList[100] = types.RanFunctionItem{
-		Description: "Type 1",
+		Description: []byte("Type 1"),
 		Revision:    1,
 	}
 
 	ranFunctionList[200] = types.RanFunctionItem{
-		Description: "Type 2",
+		Description: []byte("Type 2"),
 		Revision:    1,
 	}
 

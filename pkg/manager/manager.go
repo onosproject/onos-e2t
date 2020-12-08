@@ -89,7 +89,7 @@ func (m *Manager) Run() {
 func (m *Manager) Start() error {
 	requests := subctrl.NewRequestJournal()
 	streams := stream.NewManager()
-	channels := channel.NewManager()
+	channels := channel.NewManager(m.ModelRegistry)
 
 	err := m.startSubscriptionBroker(requests, streams, channels)
 	if err != nil {
