@@ -37,11 +37,12 @@ func DecodeRicIndicationPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 	}
 	ricActionID := types.RicActionID(ricActionIDIe.GetValue().GetValue())
 
+	var ricCallProcessID *types.RicCallProcessID
 	ricCallProcessIDIe := ricIndication.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes20()
-	if ricCallProcessIDIe == nil {
-		return 0, 0, nil, nil, nil, 0, 0, nil, fmt.Errorf("error E2APpdu does not have id-RICactionID")
+	if ricCallProcessIDIe != nil { // Is optional
+		ricCallProcessIDBytes := types.RicCallProcessID(ricCallProcessIDIe.GetValue().GetValue())
+		ricCallProcessID = &ricCallProcessIDBytes
 	}
-	ricCallProcessID := types.RicCallProcessID(ricCallProcessIDIe.GetValue().GetValue())
 
 	ricIndicationHeaderIe := ricIndication.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes25()
 	if ricIndicationHeaderIe == nil {
@@ -78,6 +79,6 @@ func DecodeRicIndicationPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 		}
 	}
 
-	return ranFunctionID, ricActionID, &ricCallProcessID, &ricIndicationHeader,
+	return ranFunctionID, ricActionID, ricCallProcessID, &ricIndicationHeader,
 		&ricIndicationMessage, ricIndicationSn, ricIndicationType, &ricRequestID, nil
 }
