@@ -7,6 +7,9 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/modelregistry"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"time"
 
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -14,12 +17,11 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"google.golang.org/grpc/status"
 
-	"github.com/gogo/protobuf/proto"
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
@@ -35,7 +37,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager) *controller.Controller {
+func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager, models *modelregistry.ModelRegistry) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: epapi.ID(env.GetPodID()),
@@ -52,6 +54,7 @@ func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceCli
 		subs:     subs,
 		tasks:    tasks,
 		channels: channels,
+		models:   models,
 	})
 	return c
 }
@@ -62,6 +65,7 @@ type Reconciler struct {
 	subs      subapi.E2SubscriptionServiceClient
 	tasks     subtaskapi.E2SubscriptionTaskServiceClient
 	channels  *channel.Manager
+	models    *modelregistry.ModelRegistry
 	requestID RequestID
 }
 
@@ -116,7 +120,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 	sub := subResponse.Subscription
 
-	channel, err := r.channels.Get(ctx, channel.ID(sub.E2NodeID))
+	channel, err := r.channels.Get(ctx, channel.ID(sub.Details.E2NodeID))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -125,28 +129,62 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 
+	const serviceModelID = "e2sm_kpm-v1beta1" // TODO: Remove hardcoded value
+	serviceModelPlugin, ok := r.models.ModelPlugins[serviceModelID]
+	if !ok {
+		log.Errorf("Service Model Plugin cannot be loaded %s", serviceModelID)
+		return controller.Result{}, errors.NewInvalid("Service Model Plugin cannot be loaded", serviceModelID)
+	}
+	a, b, c := serviceModelPlugin.ServiceModelData()
+	log.Infof("Service model found %s %s %s", a, b, c)
+
 	r.requestID++
 	requestID := r.requestID
 
-	request := &e2appdudescriptions.E2ApPdu{}
-	err = proto.Unmarshal(sub.Payload.Bytes, request)
+	ricRequest := types.RicRequest{
+		RequestorID: types.RicRequestorID(requestID),
+		InstanceID:  config.InstanceID,
+	}
+
+	ranFunctionID := types.RanFunctionID(1)
+
+	eventTriggerBytes := sub.Details.EventTrigger.Payload.Data
+	if sub.Details.EventTrigger.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
+		bytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(eventTriggerBytes)
+		if err != nil {
+			log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
+			return controller.Result{}, nil
+		}
+		eventTriggerBytes = bytes
+	}
+
+	ricEventDef := types.RicEventDefintion(eventTriggerBytes)
+
+	ricActionsToBeSetup := make(map[types.RicActionID]types.RicActionDef)
+	for _, action := range sub.Details.Actions {
+		actionBytes := action.Payload.Data
+		if action.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
+			bytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
+			if err != nil {
+				log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
+				return controller.Result{}, nil
+			}
+			actionBytes = bytes
+		}
+
+		ricActionsToBeSetup[types.RicActionID(action.ID)] = types.RicActionDef{
+			RicActionID:         types.RicActionID(action.ID),
+			RicActionType:       e2apies.RicactionType(action.Type),
+			RicSubsequentAction: e2apies.RicsubsequentActionType(action.SubsequentAction.Type),
+			Ricttw:              e2apies.RictimeToWait(action.SubsequentAction.TimeToWait),
+			RicActionDefinition: types.RicActionDefinition(actionBytes),
+		}
+	}
+
+	request, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(ricRequest, ranFunctionID, ricEventDef, ricActionsToBeSetup)
 	if err != nil {
-		log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
+		log.Warnf("Failed to create E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
-	}
-
-	// Generate a request ID
-	ricRequestID := &e2apies.RicrequestId{
-		RicRequestorId: int32(requestID),
-		RicInstanceId:  config.InstanceID,
-	}
-
-	// Update the subscription request with a request ID
-	request.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
-		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value:       ricRequestID,
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	// Validate the subscribe request
@@ -156,7 +194,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscription(ricRequestID), codec.PER)
+	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscription(&e2apies.RicrequestId{RicRequestorId: int32(ricRequest.RequestorID), RicInstanceId: int32(ricRequest.InstanceID)}), codec.PER)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
@@ -204,7 +242,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	sub := subResponse.Subscription
 
-	channel, err := r.channels.Get(ctx, channel.ID(sub.E2NodeID))
+	channel, err := r.channels.Get(ctx, channel.ID(sub.Details.E2NodeID))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -214,13 +252,6 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 
 	record := r.catalog.Get(sub.ID)
-
-	subscriptionRequest := &e2appdudescriptions.E2ApPdu{}
-	err = proto.Unmarshal(sub.Payload.Bytes, subscriptionRequest)
-	if err != nil {
-		log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
-		return controller.Result{}, err
-	}
 
 	// Generate a request ID
 	ricRequestID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29{
@@ -237,8 +268,10 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	ranFunctionID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5{
 		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value:       subscriptionRequest.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes5.Value,
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		Value: &e2apies.RanfunctionId{
+			Value: 1, // TODO: Map service model to RAN function ID
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	// Create a subscription delete request

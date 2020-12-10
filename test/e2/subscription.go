@@ -6,11 +6,9 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"testing"
 	"time"
-
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/encoding"
 
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 
@@ -18,12 +16,7 @@ import (
 
 	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
-
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/node"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 )
 
 const (
@@ -31,33 +24,29 @@ const (
 	SubscriptionServicePort = 5150
 )
 
-func createSubscriptionRequest(nodeID string) (subscription.Subscription, error) {
-	ricActionsToBeSetup := make(map[types.RicActionID]types.RicActionDef)
-	ricActionsToBeSetup[100] = types.RicActionDef{
-		RicActionID:         100,
-		RicActionType:       e2apies.RicactionType_RICACTION_TYPE_REPORT,
-		RicSubsequentAction: e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE,
-		Ricttw:              e2apies.RictimeToWait_RICTIME_TO_WAIT_ZERO,
-		RicActionDefinition: []byte{0x11, 0x22},
-	}
-
-	E2apPdu, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(types.RicRequest{RequestorID: 0, InstanceID: 0},
-		0, nil, ricActionsToBeSetup)
-
-	if err != nil {
-		return subscription.Subscription{}, err
-	}
-
-	subReq := subscription.Subscription{
-		EncodingType: encoding.PROTO,
-		NodeID:       node.ID(nodeID),
-		Payload: subscription.Payload{
-			Value: E2apPdu,
+func createSubscriptionRequest(nodeID string) (subscription.SubscriptionDetails, error) {
+	return subscription.SubscriptionDetails{
+		E2NodeID: subscription.E2NodeID(nodeID),
+		ServiceModel: subscription.ServiceModel{
+			ID: subscription.ServiceModelID("test"),
 		},
-	}
-
-	return subReq, nil
-
+		EventTrigger: subscription.EventTrigger{
+			Payload: subscription.Payload{
+				Encoding: subscription.Encoding_ENCODING_PROTO,
+				Data:     []byte{},
+			},
+		},
+		Actions: []subscription.Action{
+			{
+				ID:   100,
+				Type: subscription.ActionType_ACTION_TYPE_REPORT,
+				SubsequentAction: &subscription.SubsequentAction{
+					Type:       subscription.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+					TimeToWait: subscription.TimeToWait_TIME_TO_WAIT_ZERO,
+				},
+			},
+		},
+	}, nil
 }
 
 // TestSubscription

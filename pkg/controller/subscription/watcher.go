@@ -117,7 +117,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 					subResponse, err := w.subs.GetSubscription(ctx, subRequest)
 					if err != nil {
 						log.Error(err)
-					} else if subResponse.Subscription.E2NodeID == subapi.E2NodeID(c.ID()) {
+					} else if subResponse.Subscription.Details.E2NodeID == subapi.E2NodeID(c.ID()) {
 						ch <- controller.NewID(task.ID)
 					}
 				}
