@@ -14,12 +14,11 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"google.golang.org/grpc/status"
 
-	"github.com/gogo/protobuf/proto"
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
@@ -128,25 +127,80 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	r.requestID++
 	requestID := r.requestID
 
-	request := &e2appdudescriptions.E2ApPdu{}
-	err = proto.Unmarshal(sub.Payload.Bytes, request)
-	if err != nil {
-		log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
-		return controller.Result{}, err
-	}
-
-	// Generate a request ID
-	ricRequestID := &e2apies.RicrequestId{
-		RicRequestorId: int32(requestID),
-		RicInstanceId:  config.InstanceID,
-	}
-
-	// Update the subscription request with a request ID
-	request.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
+	ricRequestID := &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
 		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value:       ricRequestID,
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		Value: &e2apies.RicrequestId{
+			RicRequestorId: int32(requestID),
+			RicInstanceId:  config.InstanceID,
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	}
+
+	ranFunctionID := &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
+		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Value: &e2apies.RanfunctionId{
+			Value: 0, // TODO: Map service model to RAN function ID
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	}
+
+	actions := make([]*e2appducontents.RicactionToBeSetupItemIes, len(sub.Details.Actions))
+	for i, action := range sub.Details.Actions {
+		var subsequentAction *e2apies.RicsubsequentAction
+		if action.SubsequentAction != nil {
+			subsequentAction = &e2apies.RicsubsequentAction{
+				RicSubsequentActionType: e2apies.RicsubsequentActionType(action.SubsequentAction.Type),
+				RicTimeToWait:           e2apies.RictimeToWait(action.SubsequentAction.TimeToWait),
+			}
+		}
+
+		actions[i] = &e2appducontents.RicactionToBeSetupItemIes{
+			Id:          int32(v1beta1.ProtocolIeIDRicactionToBeSetupItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.RicactionToBeSetupItem{
+				RicActionId: &e2apies.RicactionId{
+					Value: int32(action.ID),
+				},
+				RicActionType:       e2apies.RicactionType(action.Type),
+				RicActionDefinition: &e2ap_commondatatypes.RicactionDefinition{},
+				RicSubsequentAction: subsequentAction,
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+	}
+
+	ricSubscriptionDetails := &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
+		Id:          int32(v1beta1.ProtocolIeIDRicsubscriptionDetails),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Value: &e2appducontents.RicsubscriptionDetails{
+			RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{
+				Value: sub.Details.EventTriggerDefinition,
+			},
+			RicActionToBeSetupList: &e2appducontents.RicactionsToBeSetupList{
+				Value: actions,
+			},
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	}
+
+	request := &e2appdudescriptions.E2ApPdu{
+		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
+			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
+				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
+					RicSubscription: &e2appdudescriptions.RicSubscription{
+						InitiatingMessage: &e2appducontents.RicsubscriptionRequest{
+							ProtocolIes: &e2appducontents.RicsubscriptionRequestIes{
+								E2ApProtocolIes29: ricRequestID,
+								E2ApProtocolIes5:  ranFunctionID,
+								E2ApProtocolIes30: ricSubscriptionDetails,
+							},
+						},
+					},
+				},
+			},
+		},
 	}
 
 	// Validate the subscribe request
@@ -156,7 +210,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscription(ricRequestID), codec.PER)
+	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscription(ricRequestID.Value), codec.PER)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
@@ -215,13 +269,6 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 
 	record := r.catalog.Get(sub.ID)
 
-	subscriptionRequest := &e2appdudescriptions.E2ApPdu{}
-	err = proto.Unmarshal(sub.Payload.Bytes, subscriptionRequest)
-	if err != nil {
-		log.Warnf("Failed to reconcile SubscriptionTask %+v: %s", task, err)
-		return controller.Result{}, err
-	}
-
 	// Generate a request ID
 	ricRequestID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29{
 		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
@@ -237,8 +284,10 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	ranFunctionID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5{
 		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value:       subscriptionRequest.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage.ProtocolIes.E2ApProtocolIes5.Value,
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		Value: &e2apies.RanfunctionId{
+			Value: 0, // TODO: Map service model to RAN function ID
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	// Create a subscription delete request
