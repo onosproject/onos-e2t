@@ -12,10 +12,12 @@ require (
 	github.com/onosproject/helmit v0.6.8
 	github.com/onosproject/onos-api/go v0.6.10
 	github.com/onosproject/onos-lib-go v0.6.25
-	github.com/onosproject/onos-ric-sdk-go v0.6.7
+	github.com/onosproject/onos-ric-sdk-go v0.6.8-0.20201210193948-9368b2eecb27
 	github.com/onosproject/onos-test v0.6.4
-	github.com/spf13/cobra v0.0.6
+	github.com/spf13/cobra v1.1.1
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.33.2
 	gotest.tools v2.2.0+incompatible
 )
+
+replace github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
