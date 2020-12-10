@@ -327,7 +327,7 @@ github.com/onosproject/helmit/pkg/test
 github.com/onosproject/helmit/pkg/util/files
 github.com/onosproject/helmit/pkg/util/logging
 github.com/onosproject/helmit/pkg/util/random
-# github.com/onosproject/onos-api/go v0.6.10-0.20201210005922-7f9ea01e76d6
+# github.com/onosproject/onos-api/go v0.6.10
 ## explicit
 github.com/onosproject/onos-api/go/onos/e2sub/endpoint
 github.com/onosproject/onos-api/go/onos/e2sub/subscription

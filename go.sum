@@ -526,12 +526,8 @@ github.com/onosproject/config-models/modelplugin/ric-1.0.0 v0.0.0-20201119164938
 github.com/onosproject/helmit v0.6.8 h1:f/DjOzQp/NFzbTClM7qn4WwQ5DgR/13OD1FWJ4VxqfE=
 github.com/onosproject/helmit v0.6.8/go.mod h1:EorNGSNGWojXGxBEuiNmPScae+R2C5WYfg/13gKEPLw=
 github.com/onosproject/onos-api/go v0.6.8/go.mod h1:U10eWq2WOS9OnACITIebGcFA8dSvekCcSi3rmLY/rPA=
-github.com/onosproject/onos-api/go v0.6.9 h1:XdI41m1qniRGO/xmAoPGJkg/AIfSiLhSFk81vMroa9E=
-github.com/onosproject/onos-api/go v0.6.9/go.mod h1:U10eWq2WOS9OnACITIebGcFA8dSvekCcSi3rmLY/rPA=
-github.com/onosproject/onos-api/go v0.6.10-0.20201209234657-960b3d181548 h1:exLR8fhJHgfWeS6nyR2x9VMBm1Je8pdaRDpyph5iiRg=
-github.com/onosproject/onos-api/go v0.6.10-0.20201209234657-960b3d181548/go.mod h1:U10eWq2WOS9OnACITIebGcFA8dSvekCcSi3rmLY/rPA=
-github.com/onosproject/onos-api/go v0.6.10-0.20201210005922-7f9ea01e76d6 h1:vsmo6vzhoj5i6ncKeZPjABGVITvEWMeSBPxl3/0noBQ=
-github.com/onosproject/onos-api/go v0.6.10-0.20201210005922-7f9ea01e76d6/go.mod h1:U10eWq2WOS9OnACITIebGcFA8dSvekCcSi3rmLY/rPA=
+github.com/onosproject/onos-api/go v0.6.10 h1:Q+KsKPHj93qYCS66lmYFEBRJcQ+KJ6THpU2Br1ljjjE=
+github.com/onosproject/onos-api/go v0.6.10/go.mod h1:U10eWq2WOS9OnACITIebGcFA8dSvekCcSi3rmLY/rPA=
 github.com/onosproject/onos-lib-go v0.6.25 h1:ZXVGwxyn+AACUAUkdUBl84OIlM/ZdzfL2hwYTTBIxLg=
 github.com/onosproject/onos-lib-go v0.6.25/go.mod h1:ttkK+fV2CULZFHiq6FBZ69i7/Nymi1Wow1DNy0Ik/2o=
 github.com/onosproject/onos-ric-sdk-go v0.6.7 h1:J/lIT4ES5qJ1WnTNYdwG4G0ojSKgHdOjb59yq+5QpKQ=
