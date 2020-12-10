@@ -8,6 +8,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"time"
 
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -139,61 +141,12 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	r.requestID++
 	requestID := r.requestID
 
-	ricRequestID := &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
-		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2apies.RicrequestId{
-			RicRequestorId: int32(requestID),
-			RicInstanceId:  config.InstanceID,
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	ricRequest := types.RicRequest{
+		RequestorID: types.RicRequestorID(requestID),
+		InstanceID:  config.InstanceID,
 	}
 
-	ranFunctionID := &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
-		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2apies.RanfunctionId{
-			Value: 0, // TODO: Map service model to RAN function ID
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
-	actions := make([]*e2appducontents.RicactionToBeSetupItemIes, len(sub.Details.Actions))
-	for i, action := range sub.Details.Actions {
-		var subsequentAction *e2apies.RicsubsequentAction
-		if action.SubsequentAction != nil {
-			subsequentAction = &e2apies.RicsubsequentAction{
-				RicSubsequentActionType: e2apies.RicsubsequentActionType(action.SubsequentAction.Type),
-				RicTimeToWait:           e2apies.RictimeToWait(action.SubsequentAction.TimeToWait),
-			}
-		}
-
-		actionBytes := action.Payload.Data
-		if action.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
-			bytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
-			if err != nil {
-				log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
-				return controller.Result{}, nil
-			}
-			actionBytes = bytes
-		}
-
-		actions[i] = &e2appducontents.RicactionToBeSetupItemIes{
-			Id:          int32(v1beta1.ProtocolIeIDRicactionToBeSetupItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RicactionToBeSetupItem{
-				RicActionId: &e2apies.RicactionId{
-					Value: int32(action.ID),
-				},
-				RicActionType: e2apies.RicactionType(action.Type),
-				RicActionDefinition: &e2ap_commondatatypes.RicactionDefinition{
-					Value: actionBytes,
-				},
-				RicSubsequentAction: subsequentAction,
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		}
-	}
+	ranFunctionID := types.RanFunctionID(1)
 
 	eventTriggerBytes := sub.Details.EventTrigger.Payload.Data
 	if sub.Details.EventTrigger.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
@@ -205,36 +158,33 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		eventTriggerBytes = bytes
 	}
 
-	ricSubscriptionDetails := &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
-		Id:          int32(v1beta1.ProtocolIeIDRicsubscriptionDetails),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2appducontents.RicsubscriptionDetails{
-			RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{
-				Value: eventTriggerBytes,
-			},
-			RicActionToBeSetupList: &e2appducontents.RicactionsToBeSetupList{
-				Value: actions,
-			},
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	ricEventDef := types.RicEventDefintion(eventTriggerBytes)
+
+	ricActionsToBeSetup := make(map[types.RicActionID]types.RicActionDef)
+	for _, action := range sub.Details.Actions {
+		actionBytes := action.Payload.Data
+		if action.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
+			bytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
+			if err != nil {
+				log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
+				return controller.Result{}, nil
+			}
+			actionBytes = bytes
+		}
+
+		ricActionsToBeSetup[types.RicActionID(action.ID)] = types.RicActionDef{
+			RicActionID:         types.RicActionID(action.ID),
+			RicActionType:       e2apies.RicactionType(action.Type),
+			RicSubsequentAction: e2apies.RicsubsequentActionType(action.SubsequentAction.Type),
+			Ricttw:              e2apies.RictimeToWait(action.SubsequentAction.TimeToWait),
+			RicActionDefinition: types.RicActionDefinition(actionBytes),
+		}
 	}
 
-	request := &e2appdudescriptions.E2ApPdu{
-		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
-			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					RicSubscription: &e2appdudescriptions.RicSubscription{
-						InitiatingMessage: &e2appducontents.RicsubscriptionRequest{
-							ProtocolIes: &e2appducontents.RicsubscriptionRequestIes{
-								E2ApProtocolIes29: ricRequestID,
-								E2ApProtocolIes5:  ranFunctionID,
-								E2ApProtocolIes30: ricSubscriptionDetails,
-							},
-						},
-					},
-				},
-			},
-		},
+	request, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(ricRequest, ranFunctionID, ricEventDef, ricActionsToBeSetup)
+	if err != nil {
+		log.Warnf("Failed to create E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
+		return controller.Result{}, err
 	}
 
 	// Validate the subscribe request
@@ -244,7 +194,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscription(ricRequestID.Value), codec.PER)
+	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscription(&e2apies.RicrequestId{RicRequestorId: int32(ricRequest.RequestorID), RicInstanceId: int32(ricRequest.InstanceID)}), codec.PER)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
@@ -292,7 +242,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	sub := subResponse.Subscription
 
-	channel, err := r.channels.Get(ctx, channel.ID(sub.E2NodeID))
+	channel, err := r.channels.Get(ctx, channel.ID(sub.Details.E2NodeID))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil

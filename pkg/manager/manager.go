@@ -110,7 +110,7 @@ func (m *Manager) Start() error {
 
 // startSubscriptionBroker starts the subscription broker
 func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, streams *stream.Manager, channels *channel.Manager) error {
-	controller := subctrl.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn), subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn), channels)
+	controller := subctrl.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn), subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn), channels, m.ModelRegistry)
 	if err := controller.Start(); err != nil {
 		return err
 	}
