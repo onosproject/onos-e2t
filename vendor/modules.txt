@@ -356,7 +356,7 @@ github.com/onosproject/onos-lib-go/pkg/logging/cli
 github.com/onosproject/onos-lib-go/pkg/logging/service
 github.com/onosproject/onos-lib-go/pkg/northbound
 github.com/onosproject/onos-lib-go/pkg/southbound
-# github.com/onosproject/onos-ric-sdk-go v0.6.8-0.20201210193948-9368b2eecb27
+# github.com/onosproject/onos-ric-sdk-go v0.6.8
 ## explicit
 github.com/onosproject/onos-ric-sdk-go/pkg/app
 github.com/onosproject/onos-ric-sdk-go/pkg/e2
