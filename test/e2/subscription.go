@@ -27,25 +27,31 @@ const (
 	SubscriptionServicePort = 5150
 )
 
-func createEventTriggerData() []byte {
+func createEventTriggerTestData() ([]byte, error) {
 
 	var rtPeriod int32 = 12
 	e2SmKpmEventTriggerDefinition, err := pdubuilder.CreateE2SmKpmEventTriggerDefinition(int32(rtPeriod))
 	if err != nil {
-		return []byte{}
+		return []byte{}, err
 	}
 	err = e2SmKpmEventTriggerDefinition.Validate()
 	if err != nil {
-		return []byte{}
+		return []byte{}, err
 	}
 	protoBytes, err := proto.Marshal(e2SmKpmEventTriggerDefinition)
 	if err != nil {
+		return []byte{}, err
 	}
-	return protoBytes
+	return protoBytes, nil
 }
 
 func createSubscriptionRequest(nodeID string) (subscription.SubscriptionDetails, error) {
-	return subscription.SubscriptionDetails{
+	eventTriggerTestData, err := createEventTriggerTestData()
+	if err != nil {
+		return subscription.SubscriptionDetails{}, err
+	}
+
+	subReq := subscription.SubscriptionDetails{
 		E2NodeID: subscription.E2NodeID(nodeID),
 		ServiceModel: subscription.ServiceModel{
 			ID: subscription.ServiceModelID("test"),
@@ -53,7 +59,7 @@ func createSubscriptionRequest(nodeID string) (subscription.SubscriptionDetails,
 		EventTrigger: subscription.EventTrigger{
 			Payload: subscription.Payload{
 				Encoding: subscription.Encoding_ENCODING_PROTO,
-				Data:     createEventTriggerData(),
+				Data:     eventTriggerTestData,
 			},
 		},
 		Actions: []subscription.Action{
@@ -66,7 +72,9 @@ func createSubscriptionRequest(nodeID string) (subscription.SubscriptionDetails,
 				},
 			},
 		},
-	}, nil
+	}
+
+	return subReq, nil
 }
 
 // TestSubscription
