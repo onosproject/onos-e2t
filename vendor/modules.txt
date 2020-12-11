@@ -341,6 +341,10 @@ github.com/onosproject/onos-api/go/onos/e2sub/task
 github.com/onosproject/onos-api/go/onos/e2t/admin
 github.com/onosproject/onos-api/go/onos/e2t/e2
 github.com/onosproject/onos-api/go/onos/e2t/e2sm
+# github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.6.8
+## explicit
+github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/pdubuilder
+github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/v1beta1/e2sm-kpm-ies
 # github.com/onosproject/onos-lib-go v0.6.25
 ## explicit
 github.com/onosproject/onos-lib-go/api/logging
@@ -589,6 +593,7 @@ google.golang.org/grpc/stats
 google.golang.org/grpc/status
 google.golang.org/grpc/tap
 # google.golang.org/protobuf v1.25.0
+## explicit
 google.golang.org/protobuf/encoding/prototext
 google.golang.org/protobuf/encoding/protowire
 google.golang.org/protobuf/internal/descfmt
