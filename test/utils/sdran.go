@@ -33,7 +33,7 @@ func CreateE2Simulator(t *testing.T) *helm.HelmRelease {
 // CreateE2SimulatorWithName creates a device simulator
 func CreateE2SimulatorWithName(t *testing.T, name string) *helm.HelmRelease {
 	simulator := helm.
-		Chart("e2-simulator", onostest.SdranChartRepo).
+		Chart(name, onostest.SdranChartRepo).
 		Release(name).
 		Set("image.tag", "latest")
 	err := simulator.Install(true)
