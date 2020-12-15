@@ -101,7 +101,7 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 	subReq, err := createSubscriptionRequest(nodeIDs[0])
 	assert.NilError(t, err)
 
-	err = client.Subscribe(ctx, subReq, ch)
+	_, err = client.Subscribe(ctx, subReq, ch)
 	assert.NilError(t, err)
 
 	select {
