@@ -107,7 +107,7 @@ func runWatchIndicationsCommand(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	err = client.Subscribe(ctx, subReq, ch)
+	_, err = client.Subscribe(ctx, subReq, ch)
 	if err != nil {
 		return err
 	}
