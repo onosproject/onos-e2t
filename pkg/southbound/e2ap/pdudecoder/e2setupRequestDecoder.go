@@ -42,7 +42,7 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 			return nil, nil, fmt.Errorf("expected a gNBId")
 		}
 		nodeIdentity.NodeIdentifier = make([]byte, 8)
-		binary.LittleEndian.PutUint64(nodeIdentity.NodeIdentifier, choice.GnbId.GetValue())
+		binary.BigEndian.PutUint64(nodeIdentity.NodeIdentifier, choice.GnbId.GetValue())
 		// TODO: investigate GNB-CU-UP-ID and GNB-DU-ID
 
 	case *e2apies.GlobalE2NodeId_EnGNb:

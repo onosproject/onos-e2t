@@ -104,7 +104,7 @@ func (m *Manager) setup(ctx context.Context, conn net.Conn) (Channel, error) {
 	if err != nil {
 		return nil, err
 	}
-	channelID := ID(fmt.Sprintf("%s:%d", string(nodeID.NodeIdentifier), nodeID.NodeType))
+	channelID := ID(fmt.Sprintf("%x:%d", string(nodeID.NodeIdentifier), nodeID.NodeType))
 	plmnID := PlmnID([]byte{nodeID.Plmn[0], nodeID.Plmn[1], nodeID.Plmn[2]})
 
 	serviceModelName := modelregistry.ModelFullName("e2sm_kpm-v1beta1") // TODO: Remove hardcoded name
