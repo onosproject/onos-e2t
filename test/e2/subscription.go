@@ -30,7 +30,7 @@ const (
 func createEventTriggerTestData() ([]byte, error) {
 
 	var rtPeriod int32 = 12
-	e2SmKpmEventTriggerDefinition, err := pdubuilder.CreateE2SmKpmEventTriggerDefinition(int32(rtPeriod))
+	e2SmKpmEventTriggerDefinition, err := pdubuilder.CreateE2SmKpmEventTriggerDefinition(rtPeriod)
 	if err != nil {
 		return []byte{}, err
 	}
