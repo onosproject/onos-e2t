@@ -20,7 +20,7 @@ test: build deps linters license_check
 
 coverage: # @HELP generate unit test coverage data
 coverage: build deps linters license_check
-	./build/bin/coveralls-coverage
+	./../build-tools/build/coveralls/coveralls-coverage onos-e2t
 
 deps: # @HELP ensure that the required dependencies are in place
 	go build -v ./...
