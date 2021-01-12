@@ -19,7 +19,7 @@ func Test_DecodeE2SetupResponsePdu(t *testing.T) {
 
 	ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, err := DecodeE2SetupResponsePdu(e2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, ricIdentity != nil)
+	//assert.Assert(t, ricIdentity != nil)
 	assert.Equal(t, "ONF", string([]byte{ricIdentity.PlmnID[0], ricIdentity.PlmnID[1], ricIdentity.PlmnID[2]}))
 	assert.Equal(t, 20, int(ricIdentity.RicIdentifier.RicIdentifierLen))
 	assert.Equal(t, 0xBCDE, int(ricIdentity.RicIdentifier.RicIdentifierValue))
@@ -50,7 +50,7 @@ func Test_DecodeE2SetupResponsePduCuCp(t *testing.T) {
 
 	ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, err := DecodeE2SetupResponsePdu(e2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, ricIdentity != nil)
+	//assert.Assert(t, ricIdentity != nil)
 	assert.DeepEqual(t, []byte{0x00, 0x02, 0x10}, []byte{ricIdentity.PlmnID[0], ricIdentity.PlmnID[1], ricIdentity.PlmnID[2]})
 	assert.Equal(t, 20, int(ricIdentity.RicIdentifier.RicIdentifierLen))
 	assert.Equal(t, 0x1, int(ricIdentity.RicIdentifier.RicIdentifierValue))

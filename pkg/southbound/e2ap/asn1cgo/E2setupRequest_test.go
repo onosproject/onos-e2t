@@ -50,7 +50,7 @@ func Test_E2setupRequest(t *testing.T) {
 	// Now reverse it and decode the other way round to a Go struct
 	e2srFedback, err := decodeE2setupRequest(e2srC)
 	assert.NilError(t, err)
-	assert.Assert(t, e2srFedback != nil)
+	//assert.Assert(t, e2srFedback != nil)
 	ge2nID := e2srFedback.ProtocolIes.E2ApProtocolIes3.Value.GlobalE2NodeId.(*e2apies.GlobalE2NodeId_GNb)
 	assert.Equal(t, "ONF", string(ge2nID.GNb.GlobalGNbId.PlmnId.Value))
 	gnbID := ge2nID.GNb.GlobalGNbId.GnbId.GnbIdChoice.(*e2apies.GnbIdChoice_GnbId)

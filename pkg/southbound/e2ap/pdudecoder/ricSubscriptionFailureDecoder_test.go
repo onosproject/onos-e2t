@@ -22,10 +22,10 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 
 	rrID, rfID, pc, crit, tm, critReq, causes, diags, err := DecodeRicSubscriptionFailurePdu(e2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, rfID != nil)
+	//assert.Assert(t, rfID != nil)
 	assert.Equal(t, 9, int(*rfID))
 
-	assert.Assert(t, rrID != nil)
+	//assert.Assert(t, rrID != nil)
 	assert.Equal(t, 22, int(rrID.RequestorID))
 	assert.Equal(t, 6, int(rrID.InstanceID))
 
@@ -38,7 +38,7 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 	// TODO: Should be 20
 	assert.Equal(t, 0, int(critReq.InstanceID))
 
-	assert.Assert(t, causes != nil)
+	//assert.Assert(t, causes != nil)
 	for id, cause := range causes {
 		switch id {
 		case 100:

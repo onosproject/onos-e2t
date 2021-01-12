@@ -20,11 +20,11 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 
 	identifier, ranFunctions, err := DecodeE2SetupRequestPdu(e2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, identifier != nil)
+	//assert.Assert(t, identifier != nil)
 	assert.DeepEqual(t, []byte{0x00, 0x02, 0x10}, []byte{identifier.Plmn[0], identifier.Plmn[1], identifier.Plmn[2]})
 	assert.Equal(t, types.E2NodeTypeENB, identifier.NodeType)
 	assert.DeepEqual(t, []byte{0x00, 0xE0, 0x00}, identifier.NodeIdentifier)
 
-	assert.Assert(t, ranFunctions != nil)
+	//assert.Assert(t, ranFunctions != nil)
 	assert.Equal(t, 1, len(*ranFunctions))
 }

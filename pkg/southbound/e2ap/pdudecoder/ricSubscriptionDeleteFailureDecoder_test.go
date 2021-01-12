@@ -19,10 +19,10 @@ func Test_DecodeRicSubscriptionDeleteFailurePdu(t *testing.T) {
 
 	rfID, rrID, err := DecodeRicSubscriptionDeleteFailurePdu(e2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, rfID != nil)
+	//assert.Assert(t, rfID != nil)
 	assert.Equal(t, 9, int(*rfID))
 
-	assert.Assert(t, rrID != nil)
+	//assert.Assert(t, rrID != nil)
 	assert.Equal(t, 22, int(rrID.RequestorID))
 	assert.Equal(t, 6, int(rrID.InstanceID))
 
