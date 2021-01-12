@@ -34,9 +34,9 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 	assert.Equal(t, e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME, tm)
 
 	// TODO: Should be 10
-	assert.Equal(t, 0, int(critReq.RequestorID))
+	assert.Equal(t, 10, int(critReq.RequestorID))
 	// TODO: Should be 20
-	assert.Equal(t, 0, int(critReq.InstanceID))
+	assert.Equal(t, 20, int(critReq.InstanceID))
 
 	assert.Assert(t, causes != nil)
 	for id, cause := range causes {

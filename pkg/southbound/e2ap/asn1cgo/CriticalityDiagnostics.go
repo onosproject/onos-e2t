@@ -10,6 +10,7 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "CriticalityDiagnostics.h"
+// #include "RICrequestID.h"
 import "C"
 import (
 	"encoding/binary"
@@ -53,7 +54,7 @@ func decodeCriticalityDiagnosticsBytes(bytes []byte) (*e2apies.CriticalityDiagno
 		procedureCode:        (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[:8])))),
 		triggeringMessage:    (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:])))),
 		procedureCriticality: (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:])))),
-		//ricRequestorID: (*C.RICrequestID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
+		ricRequestorID: (*C.RICrequestID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
 	}
 	return decodeCriticalityDiagnostics(&cdC)
 }
@@ -64,7 +65,7 @@ func decodeCriticalityDiagnostics(cdC *C.CriticalityDiagnostics_t) (*e2apies.Cri
 		ProcedureCode:             decodeProcedureCode(*cdC.procedureCode),
 		TriggeringMessage:         decodeTriggeringMessage(*cdC.triggeringMessage),
 		ProcedureCriticality:      decodeCriticality(*cdC.procedureCriticality),
-		RicRequestorId:            nil,
+		RicRequestorId:            decodeRicRequestID(cdC.ricRequestorID),
 		IEsCriticalityDiagnostics: nil,
 	}
 
