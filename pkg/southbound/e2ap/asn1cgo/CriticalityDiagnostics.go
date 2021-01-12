@@ -54,7 +54,7 @@ func decodeCriticalityDiagnosticsBytes(bytes []byte) (*e2apies.CriticalityDiagno
 		procedureCode:        (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[:8])))),
 		triggeringMessage:    (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:])))),
 		procedureCriticality: (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:])))),
-		ricRequestorID: (*C.RICrequestID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
+		ricRequestorID:       (*C.RICrequestID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
 	}
 	return decodeCriticalityDiagnostics(&cdC)
 }
