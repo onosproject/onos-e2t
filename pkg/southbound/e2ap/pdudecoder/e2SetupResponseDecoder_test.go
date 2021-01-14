@@ -19,7 +19,7 @@ func Test_DecodeE2SetupResponsePdu(t *testing.T) {
 
 	ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, err := DecodeE2SetupResponsePdu(e2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, ricIdentity != nil)
+	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 23, 24 & 25
 	assert.Equal(t, "ONF", string([]byte{ricIdentity.PlmnID[0], ricIdentity.PlmnID[1], ricIdentity.PlmnID[2]}))
 	assert.Equal(t, 20, int(ricIdentity.RicIdentifier.RicIdentifierLen))
 	assert.Equal(t, 0xBCDE, int(ricIdentity.RicIdentifier.RicIdentifierValue))
@@ -50,7 +50,7 @@ func Test_DecodeE2SetupResponsePduCuCp(t *testing.T) {
 
 	ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, err := DecodeE2SetupResponsePdu(e2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, ricIdentity != nil)
+	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 54, 55 & 56
 	assert.DeepEqual(t, []byte{0x00, 0x02, 0x10}, []byte{ricIdentity.PlmnID[0], ricIdentity.PlmnID[1], ricIdentity.PlmnID[2]})
 	assert.Equal(t, 20, int(ricIdentity.RicIdentifier.RicIdentifierLen))
 	assert.Equal(t, 0x1, int(ricIdentity.RicIdentifier.RicIdentifierValue))
