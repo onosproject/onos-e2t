@@ -71,7 +71,7 @@ func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw e2apies.TimeToWait, failur
 						UnsuccessfulOutcome: &e2appducontents.E2SetupFailure{
 							ProtocolIes: &e2appducontents.E2SetupFailureIes{
 								E2ApProtocolIes1:  &errorCause,             // RIC Requestor & RIC Instance ID
-								E2ApProtocolIes31: &timeToWait,          // RAN function ID
+								E2ApProtocolIes31: &timeToWait,             // RAN function ID
 								E2ApProtocolIes2:  &criticalityDiagnostics, // CriticalityDiagnostics
 							},
 						},
