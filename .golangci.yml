@@ -30,3 +30,9 @@ issues:
     - path: pkg/southbound/e2ap/pdudecoder/ricSubscriptionFailureDecoder_test.go
       linters:
         - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/e2-setup-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/error-indication_test.go
+      linters:
+        - misspell
