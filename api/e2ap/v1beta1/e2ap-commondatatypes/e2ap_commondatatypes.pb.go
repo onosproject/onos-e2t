@@ -83,9 +83,9 @@ func (Presence) EnumDescriptor() ([]byte, []int) {
 type TriggeringMessage int32
 
 const (
-	TriggeringMessage_TRIGGERING_MESSAGE_INITIATING_MESSAGE    TriggeringMessage = 0
-	TriggeringMessage_TRIGGERING_MESSAGE_SUCCESSFUL_OUTCOME    TriggeringMessage = 1
-	TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME TriggeringMessage = 2
+	TriggeringMessage_TRIGGERING_MESSAGE_INITIATING_MESSAGE   TriggeringMessage = 0
+	TriggeringMessage_TRIGGERING_MESSAGE_SUCCESSFUL_OUTCOME   TriggeringMessage = 1
+	TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME TriggeringMessage = 2
 )
 
 var TriggeringMessage_name = map[int32]string{

@@ -31,7 +31,7 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 
 	assert.Equal(t, v1beta1.ProcedureCodeIDRICsubscription, pc)
 	assert.Equal(t, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE, crit)
-	assert.Equal(t, e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME, tm)
+	assert.Equal(t, e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME, tm)
 
 	// TODO: Should be 10
 	assert.Equal(t, 10, int(critReq.RequestorID))

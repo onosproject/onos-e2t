@@ -31,7 +31,7 @@ func TestRicSubscriptionFailure(t *testing.T) {
 		InstanceID:  6,
 	}, 9,
 		v1beta1.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
+		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
