@@ -10,8 +10,8 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "CriticalityDiagnostics.h"
-// #include "RICrequestID.h"
 //#include "CriticalityDiagnostics-IE-List.h"
+// #include "RICrequestID.h"
 import "C"
 import (
 	"encoding/binary"
@@ -52,11 +52,11 @@ func newCriticalityDiagnostics(cd *e2apies.CriticalityDiagnostics) (*C.Criticali
 
 func decodeCriticalityDiagnosticsBytes(bytes []byte) (*e2apies.CriticalityDiagnostics, error) {
 	cdC := C.CriticalityDiagnostics_t{
-		procedureCode:        (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[:8])))),
-		triggeringMessage:    (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:])))),
-		procedureCriticality: (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:])))),
-		ricRequestorID:       (*C.RICrequestID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
-		iEsCriticalityDiagnostics: nil, //(*C.CriticalityDiagnostics_IE_List_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[40:])))),
+		procedureCode:             (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[:8])))),
+		triggeringMessage:         (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:])))),
+		procedureCriticality:      (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:])))),
+		ricRequestorID:            (*C.RICrequestID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
+		iEsCriticalityDiagnostics: (*C.CriticalityDiagnostics_IE_List_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[40:])))),
 	}
 	return decodeCriticalityDiagnostics(&cdC)
 }

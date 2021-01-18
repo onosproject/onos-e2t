@@ -14,7 +14,6 @@
 /* Including external dependencies */
 #include "asn_SEQUENCE_OF.h"
 #include "constr_SEQUENCE_OF.h"
-#include "CriticalityDiagnostics-IE-Item.h"
 
 #ifdef __cplusplus
 extern "C" {

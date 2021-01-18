@@ -41,7 +41,7 @@ func decodeRicActionNotAdmittedListBytes(ranaLBytes []byte) (*e2appducontents.Ri
 	size := C.int(binary.LittleEndian.Uint32(ranaLBytes[12:16]))
 
 	ranaLC := C.RICaction_NotAdmitted_List_t{
-		list: C.struct___75{
+		list: C.struct___82{
 			array: array,
 			size:  size,
 			count: count,
