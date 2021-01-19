@@ -103,7 +103,7 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 		critC = C.long(C.Criticality_ignore)
 		e2sC, err := newErrorIndication(pc.GetInitiatingMessage())
 		if err != nil {
-		return nil, err
+			return nil, err
 		}
 		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
 		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
