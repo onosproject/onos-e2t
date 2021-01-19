@@ -77,8 +77,8 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID types.Ra
 	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
-		E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
-			UnsuccessfulOutcome: &e2appdudescriptions.UnsuccessfulOutcome{
+		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
+			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
 					ErrorIndication: &e2appdudescriptions.ErrorIndicationEp{
 						InitiatingMessage: &e2appducontents.ErrorIndication{
