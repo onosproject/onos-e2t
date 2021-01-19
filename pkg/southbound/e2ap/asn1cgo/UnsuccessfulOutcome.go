@@ -84,7 +84,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 	case C.UnsuccessfulOutcome__value_PR_RICsubscriptionFailure:
 		rsfC := C.RICsubscriptionFailure_t{
 			protocolIEs: C.ProtocolIE_Container_1544P2_t{
-				list: C.struct___68{ // TODO: tie this down with a predictable name
+				list: C.struct___76{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -109,7 +109,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 	case C.UnsuccessfulOutcome__value_PR_RICsubscriptionDeleteFailure:
 		rsdfC := C.RICsubscriptionDeleteFailure_t{
 			protocolIEs: C.ProtocolIE_Container_1544P5_t{
-				list: C.struct___69{ // TODO: tie this down with a predictable name
+				list: C.struct___77{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
