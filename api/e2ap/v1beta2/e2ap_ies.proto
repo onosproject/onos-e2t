@@ -1,5 +1,5 @@
 /*
-SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
 
 SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 */
@@ -11,7 +11,7 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 syntax = "proto3";
 
 package e2ap.v1beta2;
-option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2apies";
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies";
 
 import "e2ap/v1beta2/e2ap_commondatatypes.proto";
 import "e2ap/v1beta2/e2ap_constants.proto";

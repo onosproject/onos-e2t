@@ -1,5 +1,5 @@
 /*
-SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
 
 SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 */
@@ -708,7 +708,7 @@ message E2connectionUpdateIes {
 
 // sequence from e2ap-v01.01.00.asn1:724
 message E2connectionUpdateList {
-    repeated E2connectionUpdateItemIes value = 1;
+    repeated E2connectionUpdateItemIes value = 1 [(validate.v1.rules).repeated = {max_items: 32}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:726
@@ -723,7 +723,7 @@ message E2connectionUpdateItem {
 
 // sequence from e2ap-v01.01.00.asn1:737
 message E2connectionUpdateRemoveList {
-    repeated E2connectionUpdateRemoveItemIes value = 1;
+    repeated E2connectionUpdateRemoveItemIes value = 1 [(validate.v1.rules).repeated = {max_items: 32}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:739
@@ -762,11 +762,15 @@ message E2connectionUpdateAckIes {
 
 // sequence from e2ap-v01.01.00.asn1:767
 message E2connectionSetupFailedList {
-    repeated E2connectionSetupFailedItemIes value = 1;
+    repeated E2connectionSetupFailedItemIes value = 1 [(validate.v1.rules).repeated = {max_items: 32}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:769
 message E2connectionSetupFailedItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 41];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    E2connectionSetupFailedItem value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
 };
 
 // sequence from e2ap-v01.01.00.asn1:775
@@ -815,15 +819,23 @@ message E2nodeConfigurationUpdate {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:812
 message E2nodeConfigurationUpdateIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 33];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    E2nodeComponentConfigUpdateList value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 0];
 };
 
 // sequence from e2ap-v01.01.00.asn1:817
 message E2nodeComponentConfigUpdateList {
-    repeated E2nodeComponentConfigUpdateItemIes value = 1;
+    repeated E2nodeComponentConfigUpdateItemIes value = 1 [(validate.v1.rules).repeated = {max_items: 1024}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:819
 message E2nodeComponentConfigUpdateItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 34];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    E2nodeComponentConfigUpdateItem value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
 };
 
 // sequence from e2ap-v01.01.00.asn1:826
@@ -840,15 +852,23 @@ message E2nodeConfigurationUpdateAcknowledge {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:843
 message E2nodeConfigurationUpdateAcknowledgeIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 35];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    E2nodeComponentConfigUpdateAckList value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
 };
 
 // sequence from e2ap-v01.01.00.asn1:848
 message E2nodeComponentConfigUpdateAckList {
-    repeated E2nodeComponentConfigUpdateAckItemIes value = 1;
+    repeated E2nodeComponentConfigUpdateAckItemIes value = 1 [(validate.v1.rules).repeated = {max_items: 1024}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:850
 message E2nodeComponentConfigUpdateAckItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 36];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    E2nodeComponentConfigUpdateAckItem value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
 };
 
 // sequence from e2ap-v01.01.00.asn1:857
@@ -898,6 +918,14 @@ message ResetRequest {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:898
 message ResetRequestIes {
+    message ResetRequestIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+        Cause value = 3;
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2];
+    }
+
+    ResetRequestIes1 reset_request_ies1 = 1;
 };
 
 // sequence from e2ap-v01.01.00.asn1:910
@@ -907,6 +935,14 @@ message ResetResponse {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:914
 message ResetResponseIes {
+    message ResetResponseIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+        CriticalityDiagnostics value = 3;
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0];
+    }
+
+    ResetResponseIes2 reset_response_ies2 = 1;
 };
 
 // sequence from e2ap-v01.01.00.asn1:930
@@ -968,7 +1004,7 @@ message RanfunctionItem {
 
 // sequence from e2ap-v01.01.00.asn1:957
 message RanfunctionsIdList {
-    repeated RanfunctionIdItemIes value = 1;
+    repeated RanfunctionIdItemIes value = 1 [(validate.v1.rules).repeated = {max_items: 256}];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:959

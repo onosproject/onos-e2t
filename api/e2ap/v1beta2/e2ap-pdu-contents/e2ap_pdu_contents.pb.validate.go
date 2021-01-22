@@ -3720,6 +3720,13 @@ func (m *E2ConnectionUpdateList) Validate() error {
 		return nil
 	}
 
+	if len(m.GetValue()) > 32 {
+		return E2ConnectionUpdateListValidationError{
+			field:  "Value",
+			reason: "value must contain no more than 32 item(s)",
+		}
+	}
+
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
@@ -3946,6 +3953,13 @@ var _ interface {
 func (m *E2ConnectionUpdateRemoveList) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if len(m.GetValue()) > 32 {
+		return E2ConnectionUpdateRemoveListValidationError{
+			field:  "Value",
+			reason: "value must contain no more than 32 item(s)",
+		}
 	}
 
 	for idx, item := range m.GetValue() {
@@ -4342,6 +4356,13 @@ func (m *E2ConnectionSetupFailedList) Validate() error {
 		return nil
 	}
 
+	if len(m.GetValue()) > 32 {
+		return E2ConnectionSetupFailedListValidationError{
+			field:  "Value",
+			reason: "value must contain no more than 32 item(s)",
+		}
+	}
+
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
@@ -4423,6 +4444,37 @@ var _ interface {
 func (m *E2ConnectionSetupFailedItemIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if m.GetId() != 41 {
+		return E2ConnectionSetupFailedItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 41",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return E2ConnectionSetupFailedItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2ConnectionSetupFailedItemIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return E2ConnectionSetupFailedItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
 	}
 
 	return nil
@@ -4833,6 +4885,37 @@ func (m *E2NodeConfigurationUpdateIes) Validate() error {
 		return nil
 	}
 
+	if m.GetId() != 33 {
+		return E2NodeConfigurationUpdateIesValidationError{
+			field:  "Id",
+			reason: "value must equal 33",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return E2NodeConfigurationUpdateIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2NodeConfigurationUpdateIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 0 {
+		return E2NodeConfigurationUpdateIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 0",
+		}
+	}
+
 	return nil
 }
 
@@ -4899,6 +4982,13 @@ var _ interface {
 func (m *E2NodeComponentConfigUpdateList) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if len(m.GetValue()) > 1024 {
+		return E2NodeComponentConfigUpdateListValidationError{
+			field:  "Value",
+			reason: "value must contain no more than 1024 item(s)",
+		}
 	}
 
 	for idx, item := range m.GetValue() {
@@ -4982,6 +5072,37 @@ var _ interface {
 func (m *E2NodeComponentConfigUpdateItemIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if m.GetId() != 34 {
+		return E2NodeComponentConfigUpdateItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 34",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return E2NodeComponentConfigUpdateItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2NodeComponentConfigUpdateItemIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return E2NodeComponentConfigUpdateItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
 	}
 
 	return nil
@@ -5220,6 +5341,37 @@ func (m *E2NodeConfigurationUpdateAcknowledgeIes) Validate() error {
 		return nil
 	}
 
+	if m.GetId() != 35 {
+		return E2NodeConfigurationUpdateAcknowledgeIesValidationError{
+			field:  "Id",
+			reason: "value must equal 35",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return E2NodeConfigurationUpdateAcknowledgeIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2NodeConfigurationUpdateAcknowledgeIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return E2NodeConfigurationUpdateAcknowledgeIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
+	}
+
 	return nil
 }
 
@@ -5286,6 +5438,13 @@ var _ interface {
 func (m *E2NodeComponentConfigUpdateAckList) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if len(m.GetValue()) > 1024 {
+		return E2NodeComponentConfigUpdateAckListValidationError{
+			field:  "Value",
+			reason: "value must contain no more than 1024 item(s)",
+		}
 	}
 
 	for idx, item := range m.GetValue() {
@@ -5369,6 +5528,37 @@ var _ interface {
 func (m *E2NodeComponentConfigUpdateAckItemIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if m.GetId() != 36 {
+		return E2NodeComponentConfigUpdateAckItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 36",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return E2NodeComponentConfigUpdateAckItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2NodeComponentConfigUpdateAckItemIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return E2NodeComponentConfigUpdateAckItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
 	}
 
 	return nil
@@ -5780,6 +5970,16 @@ func (m *ResetRequestIes) Validate() error {
 		return nil
 	}
 
+	if v, ok := interface{}(m.GetResetRequestIes1()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResetRequestIesValidationError{
+				field:  "ResetRequestIes1",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -5918,6 +6118,16 @@ var _ interface {
 func (m *ResetResponseIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if v, ok := interface{}(m.GetResetResponseIes2()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResetResponseIesValidationError{
+				field:  "ResetResponseIes2",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	return nil
@@ -6424,6 +6634,13 @@ var _ interface {
 func (m *RanfunctionsIdList) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if len(m.GetValue()) > 256 {
+		return RanfunctionsIdListValidationError{
+			field:  "Value",
+			reason: "value must contain no more than 256 item(s)",
+		}
 	}
 
 	for idx, item := range m.GetValue() {
@@ -14490,6 +14707,204 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes2ValidationError{}
+
+// Validate checks the field values on ResetRequestIes_ResetRequestIes1 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *ResetRequestIes_ResetRequestIes1) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetId() != 1 {
+		return ResetRequestIes_ResetRequestIes1ValidationError{
+			field:  "Id",
+			reason: "value must equal 1",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return ResetRequestIes_ResetRequestIes1ValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResetRequestIes_ResetRequestIes1ValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return ResetRequestIes_ResetRequestIes1ValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
+	}
+
+	return nil
+}
+
+// ResetRequestIes_ResetRequestIes1ValidationError is the validation error
+// returned by ResetRequestIes_ResetRequestIes1.Validate if the designated
+// constraints aren't met.
+type ResetRequestIes_ResetRequestIes1ValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResetRequestIes_ResetRequestIes1ValidationError) ErrorName() string {
+	return "ResetRequestIes_ResetRequestIes1ValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ResetRequestIes_ResetRequestIes1ValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResetRequestIes_ResetRequestIes1.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResetRequestIes_ResetRequestIes1ValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResetRequestIes_ResetRequestIes1ValidationError{}
+
+// Validate checks the field values on ResetResponseIes_ResetResponseIes2 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, an error is returned.
+func (m *ResetResponseIes_ResetResponseIes2) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	if m.GetId() != 2 {
+		return ResetResponseIes_ResetResponseIes2ValidationError{
+			field:  "Id",
+			reason: "value must equal 2",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return ResetResponseIes_ResetResponseIes2ValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ResetResponseIes_ResetResponseIes2ValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 0 {
+		return ResetResponseIes_ResetResponseIes2ValidationError{
+			field:  "Presence",
+			reason: "value must equal 0",
+		}
+	}
+
+	return nil
+}
+
+// ResetResponseIes_ResetResponseIes2ValidationError is the validation error
+// returned by ResetResponseIes_ResetResponseIes2.Validate if the designated
+// constraints aren't met.
+type ResetResponseIes_ResetResponseIes2ValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ResetResponseIes_ResetResponseIes2ValidationError) ErrorName() string {
+	return "ResetResponseIes_ResetResponseIes2ValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ResetResponseIes_ResetResponseIes2ValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sResetResponseIes_ResetResponseIes2.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ResetResponseIes_ResetResponseIes2ValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ResetResponseIes_ResetResponseIes2ValidationError{}
 
 // Validate checks the field values on
 // RicserviceUpdateIes_RicserviceUpdateIes10 with the rules defined in the
