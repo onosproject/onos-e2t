@@ -6,7 +6,7 @@ export GO111MODULE=on
 ONOS_E2T_VERSION := latest
 ONOS_BUILD_VERSION := v0.6.7
 ONOS_PROTOC_VERSION := v0.6.7
-BUF_VERSION := 0.27.1
+BUF_VERSION := 0.36.0
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:
@@ -40,7 +40,7 @@ gofmt: # @HELP run the Go format validation
 buflint: #@HELP run the "buf check lint" command on the proto files in 'api'
 	docker run -it -v `pwd`:/go/src/github.com/onosproject/onos-e2t \
 		-w /go/src/github.com/onosproject/onos-e2t/api \
-		bufbuild/buf:${BUF_VERSION} check lint
+		bufbuild/buf:${BUF_VERSION} lint
 
 protos: # @HELP compile the protobuf files (using protoc-go Docker)
 protos: buflint
