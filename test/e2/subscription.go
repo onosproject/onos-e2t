@@ -79,7 +79,8 @@ func createSubscriptionRequest(nodeID string) (subscription.SubscriptionDetails,
 
 // TestSubscription
 func (s *TestSuite) TestSubscription(t *testing.T) {
-	utils.CreateRanSimulatorWithName(t, "ran-simulator")
+	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
+	assert.Assert(t, sim != nil)
 
 	clientConfig := e2client.Config{
 		AppID: "subscription-test",
