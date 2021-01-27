@@ -114,4 +114,6 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 
 	}
 
+	_ = sim.Uninstall()
+
 }
