@@ -11,6 +11,6 @@ import (
 )
 
 func main() {
-	registry.RegisterTestSuite("e2", &e2.TestSuite{})
+	registry.RegisterTestSuite("e2", &e2.TestSuite{})abc
 	test.Main()
 }
