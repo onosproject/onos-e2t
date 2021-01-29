@@ -17,6 +17,32 @@ func CreateRicSubscriptionRequestE2apPdu(ricReq types.RicRequest,
 	ranFuncID types.RanFunctionID, ricEventDef types.RicEventDefintion,
 	ricActionsToBeSetup map[types.RicActionID]types.RicActionDef) (
 	*e2appdudescriptions.E2ApPdu, error) {
+	request, err := NewRicSubscriptionRequest(ricReq, ranFuncID, ricEventDef, ricActionsToBeSetup)
+	if err != nil {
+		return nil, err
+	}
+
+	e2apPdu := e2appdudescriptions.E2ApPdu{
+		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
+			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
+				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
+					RicSubscription: &e2appdudescriptions.RicSubscription{
+						InitiatingMessage: request,
+					},
+				},
+			},
+		},
+	}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	}
+	return &e2apPdu, nil
+}
+
+func NewRicSubscriptionRequest(ricReq types.RicRequest,
+	ranFuncID types.RanFunctionID, ricEventDef types.RicEventDefintion,
+	ricActionsToBeSetup map[types.RicActionID]types.RicActionDef) (
+	*e2appducontents.RicsubscriptionRequest, error) {
 
 	ricRequestID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
 		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
@@ -75,25 +101,11 @@ func CreateRicSubscriptionRequestE2apPdu(ricReq types.RicRequest,
 		ricSubscriptionDetails.Value.RicActionToBeSetupList.Value = append(ricSubscriptionDetails.Value.RicActionToBeSetupList.Value, &ricActionToSetup)
 	}
 
-	e2apPdu := e2appdudescriptions.E2ApPdu{
-		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
-			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					RicSubscription: &e2appdudescriptions.RicSubscription{
-						InitiatingMessage: &e2appducontents.RicsubscriptionRequest{
-							ProtocolIes: &e2appducontents.RicsubscriptionRequestIes{
-								E2ApProtocolIes29: &ricRequestID,           // RIC request ID
-								E2ApProtocolIes5:  &ranFunctionID,          // RAN function ID
-								E2ApProtocolIes30: &ricSubscriptionDetails, // RIC subscription details
-							},
-						},
-					},
-				},
-			},
+	return &e2appducontents.RicsubscriptionRequest{
+		ProtocolIes: &e2appducontents.RicsubscriptionRequestIes{
+			E2ApProtocolIes29: &ricRequestID,           // RIC request ID
+			E2ApProtocolIes5:  &ranFunctionID,          // RAN function ID
+			E2ApProtocolIes30: &ricSubscriptionDetails, // RIC subscription details
 		},
-	}
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
-	return &e2apPdu, nil
+	}, nil
 }

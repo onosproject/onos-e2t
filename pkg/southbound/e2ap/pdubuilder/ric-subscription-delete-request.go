@@ -13,10 +13,9 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func CreateRicSubscriptionDeleteRequestE2apPdu(ricReq types.RicRequest,
+func NewRicSubscriptionDeleteRequest(ricReq types.RicRequest,
 	ranFuncID types.RanFunctionID) (
-	*e2appdudescriptions.E2ApPdu, error) {
-
+	*e2appducontents.RicsubscriptionDeleteRequest, error) {
 	ricRequestID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29{
 		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
@@ -36,17 +35,28 @@ func CreateRicSubscriptionDeleteRequestE2apPdu(ricReq types.RicRequest,
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
+	return &e2appducontents.RicsubscriptionDeleteRequest{
+		ProtocolIes: &e2appducontents.RicsubscriptionDeleteRequestIes{
+			E2ApProtocolIes29: &ricRequestID,  // RIC request ID
+			E2ApProtocolIes5:  &ranFunctionID, // RAN function ID
+		},
+	}, nil
+}
+
+func CreateRicSubscriptionDeleteRequestE2apPdu(ricReq types.RicRequest,
+	ranFuncID types.RanFunctionID) (
+	*e2appdudescriptions.E2ApPdu, error) {
+	request, err := NewRicSubscriptionDeleteRequest(ricReq, ranFuncID)
+	if err != nil {
+		return nil, err
+	}
+
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
 					RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
-						InitiatingMessage: &e2appducontents.RicsubscriptionDeleteRequest{
-							ProtocolIes: &e2appducontents.RicsubscriptionDeleteRequestIes{
-								E2ApProtocolIes29: &ricRequestID,  // RIC request ID
-								E2ApProtocolIes5:  &ranFunctionID, // RAN function ID
-							},
-						},
+						InitiatingMessage: request,
 					},
 				},
 			},

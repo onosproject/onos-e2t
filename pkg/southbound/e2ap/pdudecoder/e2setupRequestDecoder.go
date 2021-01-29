@@ -8,25 +8,17 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"math"
 )
 
-func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2NodeIdentity, *types.RanFunctions, error) {
+func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2NodeIdentity, *types.RanFunctions, error) {
 	var nodeIdentity *types.E2NodeIdentity
 	var err error
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	}
-
-	e2setup := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2Setup()
-	if e2setup == nil {
-		return nil, nil, fmt.Errorf("error E2APpdu does not have E2Setup")
-	}
-
-	identifierIe := e2setup.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes3()
+	identifierIe := request.GetProtocolIes().GetE2ApProtocolIes3()
 	if identifierIe == nil {
 		return nil, nil, fmt.Errorf("error E2APpdu does not have id-GlobalE2node-ID")
 	}
@@ -88,7 +80,7 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 	}
 
 	ranFunctionsList := make(types.RanFunctions)
-	ranFunctionsIe := e2setup.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes10()
+	ranFunctionsIe := request.GetProtocolIes().GetE2ApProtocolIes10()
 	if ranFunctionsIe == nil {
 		return nodeIdentity, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionsAdded")
 	}
@@ -102,4 +94,16 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 	}
 
 	return nodeIdentity, &ranFunctionsList, nil
+}
+
+func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2NodeIdentity, *types.RanFunctions, error) {
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
+
+	e2setup := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2Setup()
+	if e2setup == nil {
+		return nil, nil, fmt.Errorf("error E2APpdu does not have E2Setup")
+	}
+	return DecodeE2SetupRequest(e2setup.GetInitiatingMessage())
 }

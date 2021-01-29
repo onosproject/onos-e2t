@@ -15,9 +15,7 @@ import (
 
 const mask20bit = 0xFFFFF
 
-func CreateResponseE2apPdu(plmnID types.PlmnID, ricID types.RicIdentifier,
-	rfAccepted types.RanFunctionRevisions, rfRejected types.RanFunctionCauses) (*e2appdudescriptions.E2ApPdu, error) {
-
+func NewE2SetupResponse(plmnID types.PlmnID, ricID types.RicIdentifier, rfAccepted types.RanFunctionRevisions, rfRejected types.RanFunctionCauses) (*e2appducontents.E2SetupResponse, error) {
 	if len(plmnID) != 3 {
 		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
 	}
@@ -121,18 +119,28 @@ func CreateResponseE2apPdu(plmnID types.PlmnID, ricID types.RicIdentifier,
 		ranFunctionsRejected.Value.Value = append(ranFunctionsRejected.Value.Value, &rfIDcIIe)
 	}
 
+	return &e2appducontents.E2SetupResponse{
+		ProtocolIes: &e2appducontents.E2SetupResponseIes{
+			E2ApProtocolIes4:  &globalRicID,          //global RIC ID
+			E2ApProtocolIes9:  &ranFunctionsAccepted, //RanFunctionIdList
+			E2ApProtocolIes13: &ranFunctionsRejected, //RanFunctionIdCauseList
+		},
+	}, nil
+}
+
+func CreateResponseE2apPdu(plmnID types.PlmnID, ricID types.RicIdentifier,
+	rfAccepted types.RanFunctionRevisions, rfRejected types.RanFunctionCauses) (*e2appdudescriptions.E2ApPdu, error) {
+	response, err := NewE2SetupResponse(plmnID, ricID, rfAccepted, rfRejected)
+	if err != nil {
+		return nil, err
+	}
+
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 			SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
 					E2Setup: &e2appdudescriptions.E2Setup{
-						SuccessfulOutcome: &e2appducontents.E2SetupResponse{
-							ProtocolIes: &e2appducontents.E2SetupResponseIes{
-								E2ApProtocolIes4:  &globalRicID,          //global RIC ID
-								E2ApProtocolIes9:  &ranFunctionsAccepted, //RanFunctionIdList
-								E2ApProtocolIes13: &ranFunctionsRejected, //RanFunctionIdCauseList
-							},
-						},
+						SuccessfulOutcome: response,
 					},
 				},
 			},

@@ -6,13 +6,13 @@ package subscription
 
 import (
 	"context"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"io"
 	"sync"
 
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 )
 
@@ -79,7 +79,7 @@ type ChannelWatcher struct {
 	endpointID epapi.ID
 	tasks      subtaskapi.E2SubscriptionTaskServiceClient
 	subs       subapi.E2SubscriptionServiceClient
-	channels   *channel.Manager
+	channels   *e2server.ChannelManager
 	cancel     context.CancelFunc
 	mu         sync.Mutex
 }
@@ -92,7 +92,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	channelCh := make(chan channel.Channel, queueSize)
+	channelCh := make(chan *e2server.E2Channel, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
 	err := w.channels.Watch(ctx, channelCh)
 	if err != nil {
@@ -117,7 +117,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 					subResponse, err := w.subs.GetSubscription(ctx, subRequest)
 					if err != nil {
 						log.Error(err)
-					} else if subResponse.Subscription.Details.E2NodeID == subapi.E2NodeID(c.ID()) {
+					} else if subResponse.Subscription.Details.E2NodeID == subapi.E2NodeID(c.ID) {
 						ch <- controller.NewID(task.ID)
 					}
 				}

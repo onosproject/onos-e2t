@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"time"
 
@@ -20,15 +21,8 @@ import (
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/config"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/codec"
-	channelfilter "github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/filter"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
@@ -37,7 +31,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *channel.Manager, models *modelregistry.ModelRegistry) *controller.Controller {
+func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels *e2server.ChannelManager, models *modelregistry.ModelRegistry) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: epapi.ID(env.GetPodID()),
@@ -64,7 +58,7 @@ type Reconciler struct {
 	catalog   *RequestJournal
 	subs      subapi.E2SubscriptionServiceClient
 	tasks     subtaskapi.E2SubscriptionTaskServiceClient
-	channels  *channel.Manager
+	channels  *e2server.ChannelManager
 	models    *modelregistry.ModelRegistry
 	requestID RequestID
 }
@@ -120,7 +114,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 	sub := subResponse.Subscription
 
-	channel, err := r.channels.Get(ctx, channel.ID(sub.Details.E2NodeID))
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(sub.Details.E2NodeID))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -181,7 +175,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 	}
 
-	request, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(ricRequest, ranFunctionID, ricEventDef, ricActionsToBeSetup)
+	request, err := pdubuilder.NewRicSubscriptionRequest(ricRequest, ranFunctionID, ricEventDef, ricActionsToBeSetup)
 	if err != nil {
 		log.Warnf("Failed to create E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
@@ -194,14 +188,11 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscription(&e2apies.RicrequestId{RicRequestorId: int32(ricRequest.RequestorID), RicInstanceId: int32(ricRequest.InstanceID)}), codec.PER)
+	response, failure, err := channel.RICSubscription(ctx, request)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
-	}
-
-	switch response.E2ApPdu.(type) {
-	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
+	} else if response != nil {
 		record := RequestEntry{
 			RequestID:    requestID,
 			Subscription: *sub,
@@ -217,7 +208,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
-	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
+	} else if failure != nil {
 		log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, fmt.Errorf("failed to initialize subscription %+v", sub)
 	}
@@ -242,7 +233,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	sub := subResponse.Subscription
 
-	channel, err := r.channels.Get(ctx, channel.ID(sub.Details.E2NodeID))
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(sub.Details.E2NodeID))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -253,60 +244,23 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 
 	record := r.catalog.Get(sub.ID)
 
-	// Generate a request ID
-	ricRequestID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29{
-		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2apies.RicrequestId{
-			RicRequestorId: int32(record.RequestID),
-			RicInstanceId:  config.InstanceID,
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	ricRequest := types.RicRequest{
+		RequestorID: types.RicRequestorID(record.RequestID),
+		InstanceID:  config.InstanceID,
 	}
+	ranFunctionID := types.RanFunctionID(1)
 
-	// Create a RAN function ID from the requested function ID
-	ranFunctionID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5{
-		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2apies.RanfunctionId{
-			Value: 1, // TODO: Map service model to RAN function ID
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
-	// Create a subscription delete request
-	request := &e2appdudescriptions.E2ApPdu{
-		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
-			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
-						InitiatingMessage: &e2appducontents.RicsubscriptionDeleteRequest{
-							ProtocolIes: &e2appducontents.RicsubscriptionDeleteRequestIes{
-								E2ApProtocolIes29: &ricRequestID,
-								E2ApProtocolIes5:  &ranFunctionID,
-							},
-						},
-					},
-				},
-			},
-		},
-	}
-
-	// Validate the subscription delete request
-	if err := request.Validate(); err != nil {
-		log.Warnf("Failed to validate E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
+	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFunctionID)
+	if err != nil {
 		return controller.Result{}, err
 	}
 
 	// Send the subscription request and await a response
-	response, err := channel.SendRecv(ctx, request, channelfilter.RicSubscriptionDelete(ricRequestID.Value), codec.PER)
+	response, failure, err := channel.RICSubscriptionDelete(ctx, request)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
-	}
-
-	switch response.E2ApPdu.(type) {
-	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
+	} else if response != nil {
 		task.Lifecycle.Status = subtaskapi.Status_COMPLETE
 		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
 			Task: task,
@@ -316,7 +270,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
-	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
+	} else if failure != nil {
 		log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, fmt.Errorf("failed to delete subscription %+v", sub)
 	}
