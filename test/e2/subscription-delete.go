@@ -7,11 +7,8 @@ package e2
 import (
 	"context"
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/creds"
 	sdksub "github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/stretchr/testify/assert"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	"testing"
 	"time"
 
@@ -21,22 +18,6 @@ import (
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
-
-const (
-	OnosE2SubAddress = "onos-e2sub:5150"
-)
-
-func connectSubscriptionServiceHost() (*grpc.ClientConn, error) {
-	tlsConfig, err := creds.GetClientCredentials()
-	if err != nil {
-		return nil, err
-	}
-	opts := []grpc.DialOption{
-		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
-	}
-
-	return grpc.DialContext(context.Background(), OnosE2SubAddress, opts...)
-}
 
 func checkSubscriptionList(t *testing.T, expectedLen int) []subscription.Subscription {
 	conn, err := connectSubscriptionServiceHost()
