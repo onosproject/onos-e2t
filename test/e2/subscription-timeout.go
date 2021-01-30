@@ -6,22 +6,17 @@ package e2
 
 import (
 	"context"
-	"testing"
-	"time"
-
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
-
-	"gotest.tools/assert"
-
-	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
-
 	"github.com/onosproject/onos-e2t/test/utils"
+	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
+	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 // TestSubscription
-func (s *TestSuite) TestSubscription(t *testing.T) {
+func (s *TestSuite) TestSubscriptionTimeout(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
-	assert.Assert(t, sim != nil)
+	assert.NotNil(t, sim)
 
 	clientConfig := e2client.Config{
 		AppID: "subscription-test",
@@ -31,30 +26,22 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 		},
 	}
 	client, err := e2client.NewClient(clientConfig)
-	assert.NilError(t, err)
+	assert.NoError(t, err)
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	nodeIDs, err := utils.GetNodeIDs()
-	assert.NilError(t, err)
+	assert.NoError(t, err)
 
 	subReq, err := createSubscriptionRequest(nodeIDs[0])
-	assert.NilError(t, err)
+	assert.NoError(t, err)
+
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 
 	_, err = client.Subscribe(ctx, subReq, ch)
-	assert.NilError(t, err)
-
-	select {
-	case indicationMsg := <-ch:
-		t.Log(indicationMsg)
-
-	case <-time.After(20 * time.Second):
-		t.Fatal("test is failed because of timeout")
-
-	}
-
-	_ = sim.Uninstall()
-
+	assert.Error(t, err)
+	// TODO - check that the proper error is returned
 }
