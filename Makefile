@@ -4,7 +4,6 @@ export GO111MODULE=on
 .PHONY: build
 
 ONOS_E2T_VERSION := latest
-ONOS_BUILD_VERSION := v0.6.7
 ONOS_PROTOC_VERSION := v0.6.7
 BUF_VERSION := 0.36.0
 
@@ -58,16 +57,9 @@ protos: buflint
 		--entrypoint build/bin/compile-protos.sh \
 		onosproject/protoc-go:${ONOS_PROTOC_VERSION}
 
-onos-e2t-base-docker: # @HELP build onos-e2t base Docker image
-	docker build . -f build/base/Dockerfile \
-		--build-arg ONOS_BUILD_VERSION=${ONOS_BUILD_VERSION} \
-		--build-arg ONOS_MAKE_TARGET=build \
-		-t onosproject/onos-e2t-base:${ONOS_E2T_VERSION}
-
 onos-e2t-docker: # @HELP build onos-e2t Docker image
-onos-e2t-docker: onos-e2t-base-docker
+onos-e2t-docker:
 	docker build . -f build/onos-e2t/Dockerfile \
-		--build-arg ONOS_E2T_BASE_VERSION=${ONOS_E2T_VERSION} \
 		-t onosproject/onos-e2t:${ONOS_E2T_VERSION}
 
 images: # @HELP build all Docker images
