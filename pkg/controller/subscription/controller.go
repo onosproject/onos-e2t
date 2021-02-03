@@ -73,6 +73,9 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	}
 	taskResponse, err := r.tasks.GetSubscriptionTask(ctx, taskRequest)
 	if err != nil {
+		if stat, ok := status.FromError(err); ok && errors.IsNotFound(errors.FromStatus(stat)) {
+			return controller.Result{}, nil
+		}
 		return controller.Result{}, err
 	}
 	task := taskResponse.Task
