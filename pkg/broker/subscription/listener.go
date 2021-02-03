@@ -69,13 +69,15 @@ func (l *Listener) processStream(s stream.Stream) {
 			<-s.Context().Done()
 			log.Infof("Closed stream %d for listener %d", s.ID(), l.ID)
 			l.mu.Lock()
-			streams := make([]stream.Stream, 0, len(l.streams))
-			for _, s2 := range l.streams {
-				if s2.ID() != s.ID() {
-					streams = append(streams, s2)
+			if len(l.streams) > 0 {
+				streams := make([]stream.Stream, 0, len(l.streams)-1)
+				for _, s2 := range l.streams {
+					if s2.ID() != s.ID() {
+						streams = append(streams, s2)
+					}
 				}
+				l.streams = streams
 			}
-			l.streams = streams
 			l.mu.Unlock()
 		}()
 	}
