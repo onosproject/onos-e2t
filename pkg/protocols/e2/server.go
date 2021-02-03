@@ -22,7 +22,9 @@ type ServerChannel channels.RICChannel
 
 // NewServer creates a new E2 server
 func NewServer() *Server {
-	return &Server{}
+	return &Server{
+		server: sctp.NewServer(),
+	}
 }
 
 // Server is an E2 server
