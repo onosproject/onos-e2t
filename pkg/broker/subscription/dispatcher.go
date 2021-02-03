@@ -7,18 +7,16 @@ package subscription
 import (
 	"context"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/config"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/codec"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel/filter"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"sync"
 )
 
 // newDispatcher creates a new subscription dispatcher
-func newDispatcher(requests *subctrl.RequestJournal, channel channel.Channel, streams *stream.Manager) (*Dispatcher, error) {
+func newDispatcher(requests *subctrl.RequestJournal, channel *e2server.E2Channel, streams *stream.Manager) (*Dispatcher, error) {
 	dispatcher := &Dispatcher{
 		requests:  requests,
 		channel:   channel,
@@ -34,7 +32,7 @@ func newDispatcher(requests *subctrl.RequestJournal, channel channel.Channel, st
 // Dispatcher is a subscription dispatcher
 type Dispatcher struct {
 	requests  *subctrl.RequestJournal
-	channel   channel.Channel
+	channel   *e2server.E2Channel
 	streams   *stream.Manager
 	listeners map[ListenerID]*Listener
 	mu        sync.RWMutex
@@ -44,13 +42,19 @@ type Dispatcher struct {
 // open opens the dispatcher
 func (d *Dispatcher) open() error {
 	eventCh := make(chan subctrl.RequestEvent)
-	d.closeFunc = d.requests.Watch(eventCh)
+	closer := d.requests.Watch(eventCh)
 	go d.processCatalogEvents(eventCh)
 
-	ricRequestID := &e2apies.RicrequestId{
+	ricRequestID := e2apies.RicrequestId{
 		RicInstanceId: config.InstanceID,
 	}
-	indCh := d.channel.Recv(context.TODO(), filter.RicIndication(ricRequestID), codec.PER)
+	indCh := make(chan e2appducontents.Ricindication)
+	ctx, cancel := context.WithCancel(context.Background())
+	d.channel.WatchRICIndications(ctx, ricRequestID, indCh)
+	d.closeFunc = func() {
+		closer()
+		cancel()
+	}
 	go d.processIndications(indCh)
 	return nil
 }
@@ -107,9 +111,9 @@ func (d *Dispatcher) processSubscriptionRemoved(record subctrl.RequestEntry) err
 }
 
 // readIndications reads indications from the connection
-func (d *Dispatcher) processIndications(ch <-chan *e2appdudescriptions.E2ApPdu) {
+func (d *Dispatcher) processIndications(ch <-chan e2appducontents.Ricindication) {
 	for indication := range ch {
-		requestID := indication.GetInitiatingMessage().ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes29.Value
+		requestID := indication.ProtocolIes.E2ApProtocolIes29.Value
 		listenerID := ListenerID(requestID.RicRequestorId)
 		d.mu.RLock()
 		listener, ok := d.listeners[listenerID]

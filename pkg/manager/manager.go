@@ -6,6 +6,8 @@ package manager
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"time"
 
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
@@ -17,8 +19,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -89,7 +89,7 @@ func (m *Manager) Run() {
 func (m *Manager) Start() error {
 	requests := subctrl.NewRequestJournal()
 	streams := stream.NewManager()
-	channels := channel.NewManager(m.ModelRegistry)
+	channels := e2server.NewChannelManager()
 
 	err := m.startSubscriptionBroker(requests, streams, channels)
 	if err != nil {
@@ -109,7 +109,7 @@ func (m *Manager) Start() error {
 }
 
 // startSubscriptionBroker starts the subscription broker
-func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, streams *stream.Manager, channels *channel.Manager) error {
+func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, streams *stream.Manager, channels *e2server.ChannelManager) error {
 	controller := subctrl.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn), subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn), channels, m.ModelRegistry)
 	if err := controller.Start(); err != nil {
 		return err
@@ -123,18 +123,24 @@ func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, strea
 }
 
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(channels *channel.Manager) error {
-	config := e2.Config{
-		Port: m.Config.E2Port,
-	}
-	server := e2.NewServer(config, channels)
-	doneCh := make(chan error)
-	go server.Serve(doneCh)
-	return <-doneCh
+func (m *Manager) startSouthboundServer(channels *e2server.ChannelManager) error {
+	server := e2server.NewE2Server(channels, m.ModelRegistry)
+	return server.Serve()
+}
+
+type E2Server struct {
+}
+
+func (e *E2Server) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
+	panic("implement me")
+}
+
+func (e *E2Server) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
+	panic("implement me")
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *channel.Manager) error {
+func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *e2server.ChannelManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,

@@ -7,10 +7,10 @@ package admin
 import (
 	"context"
 	"errors"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 
 	sctpnet "github.com/ishidawataru/sctp"
 	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 	"google.golang.org/grpc"
@@ -19,18 +19,18 @@ import (
 var log = logging.GetLogger("northbound", "admin")
 
 // NewService creates a new admin service
-func NewService(channels *channel.Manager) northbound.Service {
+func NewService(channels *e2server.ChannelManager) northbound.Service {
 	return &Service{channels}
 }
 
 // Service is a Service implementation for administration.
 type Service struct {
-	conns *channel.Manager
+	channels *e2server.ChannelManager
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
-	server := &Server{s.conns}
+	server := &Server{s.channels}
 	adminapi.RegisterE2TAdminServiceServer(r, server)
 }
 
@@ -38,7 +38,7 @@ var _ northbound.Service = &Service{}
 
 // Server implements the gRPC service for administrative facilities.
 type Server struct {
-	channels *channel.Manager
+	channels *e2server.ChannelManager
 }
 
 // UploadRegisterServiceModel uploads and adds the model plugin to the list of supported models
@@ -76,8 +76,8 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 		msg := &adminapi.ListE2NodeConnectionsResponse{
 			RemoteIp:   remoteAddrsStrings,
 			RemotePort: remotePort,
-			Id:         string(channel.ID()),
-			PlmnId:     string(channel.Metadata().PlmnID),
+			Id:         string(channel.ID),
+			PlmnId:     channel.PlmnID,
 			// TODO: This should come from the connection data
 			ConnectionType: adminapi.E2NodeConnectionType_G_NB,
 		}

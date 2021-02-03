@@ -8,14 +8,14 @@ import (
 	"context"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2/channel"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
 var log = logging.GetLogger("broker", "subscription")
 
 // NewBroker creates a new subscription broker
-func NewBroker(requests *subctrl.RequestJournal, streams *stream.Manager, channels *channel.Manager) *Broker {
+func NewBroker(requests *subctrl.RequestJournal, streams *stream.Manager, channels *e2server.ChannelManager) *Broker {
 	return &Broker{
 		requests: requests,
 		streams:  streams,
@@ -27,7 +27,7 @@ func NewBroker(requests *subctrl.RequestJournal, streams *stream.Manager, channe
 type Broker struct {
 	requests *subctrl.RequestJournal
 	streams  *stream.Manager
-	channels *channel.Manager
+	channels *e2server.ChannelManager
 	cancel   context.CancelFunc
 }
 
@@ -37,7 +37,7 @@ func (b *Broker) Start() error {
 	ctx, cancel := context.WithCancel(context.Background())
 	b.cancel = cancel
 
-	channelCh := make(chan channel.Channel)
+	channelCh := make(chan *e2server.E2Channel)
 	if err := b.channels.Watch(ctx, channelCh); err != nil {
 		cancel()
 		return err
@@ -47,24 +47,24 @@ func (b *Broker) Start() error {
 }
 
 // processChannels processes channel events
-func (b *Broker) processChannels(ch <-chan channel.Channel) {
+func (b *Broker) processChannels(ch <-chan *e2server.E2Channel) {
 	for conn := range ch {
 		b.processChannel(conn)
 	}
 }
 
 // processChannel processes a channel event
-func (b *Broker) processChannel(channel channel.Channel) {
-	log.Infof("Received Channel %s", channel.ID())
+func (b *Broker) processChannel(channel *e2server.E2Channel) {
+	log.Infof("Received Channel %s", channel.ID)
 	dispatcher, err := newDispatcher(b.requests, channel, b.streams)
 	if err != nil {
-		log.Errorf("Failed to create dispatcher for Channel %s: %v", channel.ID(), err)
+		log.Errorf("Failed to create dispatcher for Channel %s: %v", channel.ID, err)
 	} else {
 		go func() {
 			<-channel.Context().Done()
 			err := dispatcher.Close()
 			if err != nil {
-				log.Errorf("Failed to close dispatcher for Channel %s: %v", channel.ID(), err)
+				log.Errorf("Failed to close dispatcher for Channel %s: %v", channel.ID, err)
 			}
 		}()
 	}

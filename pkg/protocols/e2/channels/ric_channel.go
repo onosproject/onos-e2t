@@ -110,7 +110,6 @@ func (c *ricChannel) RICSubscriptionDelete(ctx context.Context, request *e2appdu
 }
 
 func (c *ricChannel) Close() error {
-	defer c.conn.Close()
 	procedures := []procedures.ElementaryProcedure{
 		c.e2Setup,
 		c.ricControl,
@@ -118,9 +117,13 @@ func (c *ricChannel) Close() error {
 		c.ricSubscription,
 		c.ricSubscriptionDelete,
 	}
-	return async.Apply(len(procedures), func(i int) error {
+	err := async.Apply(len(procedures), func(i int) error {
 		return procedures[i].Close()
 	})
+	if err != nil {
+		return err
+	}
+	return c.threadSafeChannel.Close()
 }
 
 var _ RICChannel = &ricChannel{}

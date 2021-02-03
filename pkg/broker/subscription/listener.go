@@ -6,11 +6,11 @@ package subscription
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"io"
 	"sync"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 )
 
@@ -82,12 +82,12 @@ func (l *Listener) processStream(s stream.Stream) {
 }
 
 // Notify notifies the listener of the given indication
-func (l *Listener) Notify(indication *e2appdudescriptions.E2ApPdu) error {
+func (l *Listener) Notify(indication e2appducontents.Ricindication) error {
 	l.mu.RLock()
 	streams := l.streams
 	l.mu.RUnlock()
 
-	id := stream.MessageID(indication.GetInitiatingMessage().ProcedureCode.RicIndication.InitiatingMessage.ProtocolIes.E2ApProtocolIes27.Value.Value)
+	id := stream.MessageID(indication.ProtocolIes.E2ApProtocolIes27.Value.Value)
 	log.Infof("Notifying indication %d for listener %d", id, l.ID)
 	for _, s := range streams {
 		err := s.Send(stream.Value(id, indication))

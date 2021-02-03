@@ -5,6 +5,7 @@
 package channels
 
 import (
+	"context"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -34,6 +35,10 @@ func WithRecvBuffer(size int) Option {
 // Channel is the base interface for E2 channels
 type Channel interface {
 	io.Closer
+	// Context returns the channel context
+	Context() context.Context
+	LocalAddr() net.Addr
+	RemoteAddr() net.Addr
 }
 
 // newThreadSafeChannel creates a new thread safe channel
@@ -44,11 +49,14 @@ func newThreadSafeChannel(conn net.Conn, opts ...Option) *threadSafeChannel {
 	for _, opt := range opts {
 		opt(&options)
 	}
+	ctx, cancel := context.WithCancel(context.Background())
 	channel := &threadSafeChannel{
 		conn:    conn,
 		sendCh:  make(chan asyncMessage),
 		recvCh:  make(chan e2appdudescriptions.E2ApPdu),
 		options: options,
+		ctx:     ctx,
+		cancel:  cancel,
 	}
 	channel.open()
 	return channel
@@ -60,6 +68,20 @@ type threadSafeChannel struct {
 	sendCh  chan asyncMessage
 	recvCh  chan e2appdudescriptions.E2ApPdu
 	options Options
+	ctx     context.Context
+	cancel  context.CancelFunc
+}
+
+func (c *threadSafeChannel) Context() context.Context {
+	return c.ctx
+}
+
+func (c *threadSafeChannel) LocalAddr() net.Addr {
+	return c.conn.LocalAddr()
+}
+
+func (c *threadSafeChannel) RemoteAddr() net.Addr {
+	return c.conn.RemoteAddr()
 }
 
 func (c *threadSafeChannel) open() {
@@ -142,6 +164,7 @@ func (c *threadSafeChannel) processRecv(bytes []byte) error {
 func (c *threadSafeChannel) Close() error {
 	close(c.sendCh)
 	close(c.recvCh)
+	c.cancel()
 	return c.conn.Close()
 }
 
