@@ -9,7 +9,6 @@ BUF_VERSION := 0.36.0
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:
-	export GOPRIVATE="github.com/onosproject/onos-e2sub"
 	go build -o build/_output/onos-e2t ./cmd/onos-e2t
 
 test: # @HELP run the unit tests and source code validation producing a golang style report
