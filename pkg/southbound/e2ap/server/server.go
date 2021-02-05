@@ -7,6 +7,7 @@ package server
 import (
 	"context"
 	"fmt"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2"

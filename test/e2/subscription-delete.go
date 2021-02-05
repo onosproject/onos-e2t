@@ -6,11 +6,12 @@ package e2
 
 import (
 	"context"
+	"testing"
+	"time"
+
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	sdksub "github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/stretchr/testify/assert"
-	"testing"
-	"time"
 
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 
@@ -91,9 +92,9 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	checkSubscriptionList(t, 0)
 
 	//  Open the subscription again and make sure it is open
-	//sub = checkSubscription(t)
-	//assert.NotNil(t, sub)
-	//checkSubscriptionList(t, 1)
+	sub = checkSubscription(t)
+	assert.NotNil(t, sub)
+	checkSubscriptionList(t, 1)
 
 	_ = sim.Uninstall()
 }

@@ -7,9 +7,10 @@ package stream
 import (
 	"context"
 	"fmt"
-	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"sync"
+
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
 var log = logging.GetLogger("northbound", "stream")
@@ -92,13 +93,15 @@ func (m *Manager) Watch(ctx context.Context, ch chan<- Stream) error {
 
 		<-ctx.Done()
 		m.watchersMu.Lock()
-		watchers := make([]chan<- Stream, 0, len(m.watchers)-1)
-		for _, watcher := range watchers {
-			if watcher != ch {
-				watchers = append(watchers, watcher)
+		if len(m.watchers) > 0 {
+			watchers := make([]chan<- Stream, 0, len(m.watchers)-1)
+			for _, watcher := range watchers {
+				if watcher != ch {
+					watchers = append(watchers, watcher)
+				}
 			}
+			m.watchers = watchers
 		}
-		m.watchers = watchers
 		m.watchersMu.Unlock()
 	}()
 	return nil

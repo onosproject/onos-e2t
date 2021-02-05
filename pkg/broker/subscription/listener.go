@@ -6,12 +6,13 @@ package subscription
 
 import (
 	"context"
+	"io"
+	"sync"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/config"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
-	"io"
-	"sync"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
