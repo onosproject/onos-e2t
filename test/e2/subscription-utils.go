@@ -6,18 +6,20 @@ package e2
 
 import (
 	"context"
+	"strconv"
+
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/pdubuilder"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/creds"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/protobuf/proto"
-	"strconv"
 )
 
 const (
 	SubscriptionServiceHost = "onos-e2sub"
 	SubscriptionServicePort = 5150
+	ServiceModelID          = "e2sm_kpm-v1beta1"
 )
 
 var (
@@ -50,7 +52,7 @@ func createSubscriptionRequest(nodeID string) (subscription.SubscriptionDetails,
 	subReq := subscription.SubscriptionDetails{
 		E2NodeID: subscription.E2NodeID(nodeID),
 		ServiceModel: subscription.ServiceModel{
-			ID: subscription.ServiceModelID("test"),
+			ID: subscription.ServiceModelID(ServiceModelID),
 		},
 		EventTrigger: subscription.EventTrigger{
 			Payload: subscription.Payload{
