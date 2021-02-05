@@ -5,11 +5,11 @@
 package ricapie2
 
 import (
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"io"
 
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
@@ -22,8 +22,9 @@ import (
 var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
-func NewService(streams *stream.Manager, modelRegistry *modelregistry.ModelRegistry) northbound.Service {
+func NewService(subs subapi.E2SubscriptionServiceClient, streams *stream.Manager, modelRegistry *modelregistry.ModelRegistry) northbound.Service {
 	return &Service{
+		subs:          subs,
 		streams:       streams,
 		modelRegistry: modelRegistry,
 	}
@@ -32,19 +33,20 @@ func NewService(streams *stream.Manager, modelRegistry *modelregistry.ModelRegis
 // Service is a Service implementation for E2T service.
 type Service struct {
 	northbound.Service
+	subs          subapi.E2SubscriptionServiceClient
 	streams       *stream.Manager
 	modelRegistry *modelregistry.ModelRegistry
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
-	server := &Server{streams: s.streams, modelRegistry: s.modelRegistry}
+	server := &Server{subs: s.subs, streams: s.streams, modelRegistry: s.modelRegistry}
 	e2api.RegisterE2TServiceServer(r, server)
-
 }
 
 // Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
+	subs          subapi.E2SubscriptionServiceClient
 	streams       *stream.Manager
 	modelRegistry *modelregistry.ModelRegistry
 }
@@ -61,6 +63,11 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 	encodingType := request.GetHeader().GetEncodingType()
 
 	log.Infof("Received StreamRequest %+v", request)
+	sub, err := s.subs.GetSubscription(server.Context(), &subapi.GetSubscriptionRequest{ID: subapi.ID(request.SubscriptionID)})
+	if err != nil {
+		return err
+	}
+
 	streamCh := make(chan stream.Message)
 	streamMeta := stream.Metadata{
 		AppID:          request.AppID,
@@ -99,7 +106,7 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 			},
 		}
 
-		const serviceModelID = "e2sm_kpm-v1beta1" // TODO: Remove hardcoded value
+		serviceModelID := modelregistry.ModelFullName(sub.Subscription.Details.ServiceModel.ID)
 		switch encodingType {
 		case e2api.EncodingType_PROTO:
 			serviceModelPlugin, ok := s.modelRegistry.ModelPlugins[serviceModelID]

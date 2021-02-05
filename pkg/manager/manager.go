@@ -6,7 +6,6 @@ package manager
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"time"
 
@@ -128,17 +127,6 @@ func (m *Manager) startSouthboundServer(channels *e2server.ChannelManager) error
 	return server.Serve()
 }
 
-type E2Server struct {
-}
-
-func (e *E2Server) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
-	panic("implement me")
-}
-
-func (e *E2Server) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
-	panic("implement me")
-}
-
 // startSouthboundServer starts the northbound gRPC server
 func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *e2server.ChannelManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
@@ -150,7 +138,7 @@ func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *e2ser
 		northbound.SecurityConfig{}))
 	s.AddService(admin.NewService(channels))
 	s.AddService(logging.Service{})
-	s.AddService(ricapie2.NewService(streams, m.ModelRegistry))
+	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry))
 
 	doneCh := make(chan error)
 	go func() {

@@ -8,25 +8,33 @@ import (
 	"context"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"sync"
 )
 
-func newE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel) *E2Channel {
+func newE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, modelFuncIDs map[modelregistry.ModelFullName]types.RanFunctionID) *E2Channel {
 	return &E2Channel{
 		ServerChannel: channel,
 		ID:            id,
 		PlmnID:        plmdID,
+		modelFuncIDs:  modelFuncIDs,
 		watchers:      make(map[int32]chan<- e2appducontents.Ricindication),
 	}
 }
 
 type E2Channel struct {
 	e2.ServerChannel
-	ID         ChannelID
-	PlmnID     string
-	watchers   map[int32]chan<- e2appducontents.Ricindication
-	watchersMu sync.RWMutex
+	ID           ChannelID
+	PlmnID       string
+	modelFuncIDs map[modelregistry.ModelFullName]types.RanFunctionID
+	watchers     map[int32]chan<- e2appducontents.Ricindication
+	watchersMu   sync.RWMutex
+}
+
+func (c *E2Channel) GetRANFunctionID(modelName modelregistry.ModelFullName) types.RanFunctionID {
+	return c.modelFuncIDs[modelName]
 }
 
 func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {

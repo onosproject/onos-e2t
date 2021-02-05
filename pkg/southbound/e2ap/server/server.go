@@ -13,7 +13,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdudecoder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
 // TODO: Change the RIC ID to something appropriate
@@ -65,31 +64,27 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	channelID := ChannelID(fmt.Sprintf("%x:%d", string(nodeID.NodeIdentifier), nodeID.NodeType))
 	plmnID := string([]byte{nodeID.Plmn[0], nodeID.Plmn[1], nodeID.Plmn[2]})
 
-	serviceModelName := modelregistry.ModelFullName("e2sm_kpm-v1beta1") // TODO: Remove hardcoded name
-	serviceModel, ok := e.modelRegistry.ModelPlugins[serviceModelName]
-	if !ok {
-		log.Warnf("No Service Model found for %s", serviceModelName)
-	}
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
+	ranFuncIDs := make(map[modelregistry.ModelFullName]types.RanFunctionID)
 	for id, ranFunc := range *ranFuncs {
 		rfAccepted[id] = ranFunc.Revision
-		if serviceModel != nil {
-			names, triggers, reports, err := serviceModel.DecodeRanFunctionDescription(ranFunc.Description)
-			if err != nil {
-				return nil, nil, errors.NewInvalid("Error decoding RanFunctionDescription in E2SetupRequest %s", err.Error())
+		for smID, sm := range e.modelRegistry.ModelPlugins {
+			names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
+			if err == nil {
+				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
+					"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
+					names.RanFunctionShortName,
+					names.RanFunctionDescription,
+					names.RanFunctionInstance,
+					names.RanFunctionE2SmOid,
+					len(*triggers), len(*reports))
+				ranFuncIDs[smID] = id
 			}
-			log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
-				"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
-				names.RanFunctionShortName,
-				names.RanFunctionDescription,
-				names.RanFunctionInstance,
-				names.RanFunctionE2SmOid,
-				len(*triggers), len(*reports))
 		}
 	}
 
-	e.e2Channel = newE2Channel(channelID, plmnID, e.serverChannel)
+	e.e2Channel = newE2Channel(channelID, plmnID, e.serverChannel, ranFuncIDs)
 	e.manager.open(channelID, e.e2Channel)
 
 	// Create an E2 setup response
