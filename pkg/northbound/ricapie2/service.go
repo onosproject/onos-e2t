@@ -22,8 +22,9 @@ import (
 var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
-func NewService(streams *stream.Manager, modelRegistry *modelregistry.ModelRegistry) northbound.Service {
+func NewService(subs subapi.E2SubscriptionServiceClient, streams *stream.Manager, modelRegistry *modelregistry.ModelRegistry) northbound.Service {
 	return &Service{
+		subs:          subs,
 		streams:       streams,
 		modelRegistry: modelRegistry,
 	}
@@ -32,15 +33,15 @@ func NewService(streams *stream.Manager, modelRegistry *modelregistry.ModelRegis
 // Service is a Service implementation for E2T service.
 type Service struct {
 	northbound.Service
+	subs          subapi.E2SubscriptionServiceClient
 	streams       *stream.Manager
 	modelRegistry *modelregistry.ModelRegistry
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
-	server := &Server{streams: s.streams, modelRegistry: s.modelRegistry}
+	server := &Server{subs: s.subs, streams: s.streams, modelRegistry: s.modelRegistry}
 	e2api.RegisterE2TServiceServer(r, server)
-
 }
 
 // Server implements the gRPC service for E2 ricapi related functions.
