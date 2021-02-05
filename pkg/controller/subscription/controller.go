@@ -126,7 +126,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 
-	const serviceModelID = "e2sm_kpm-v1beta1" // TODO: Remove hardcoded value
+	serviceModelID := modelregistry.ModelFullName(sub.Details.ServiceModel.ID)
 	serviceModelPlugin, ok := r.models.ModelPlugins[serviceModelID]
 	if !ok {
 		log.Errorf("Service Model Plugin cannot be loaded %s", serviceModelID)
@@ -143,7 +143,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFunctionID := types.RanFunctionID(1)
+	ranFuncID := channel.GetRANFunctionID(serviceModelID)
 
 	eventTriggerBytes := sub.Details.EventTrigger.Payload.Data
 	if sub.Details.EventTrigger.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
@@ -178,7 +178,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 	}
 
-	request, err := pdubuilder.NewRicSubscriptionRequest(ricRequest, ranFunctionID, ricEventDef, ricActionsToBeSetup)
+	request, err := pdubuilder.NewRicSubscriptionRequest(ricRequest, ranFuncID, ricEventDef, ricActionsToBeSetup)
 	if err != nil {
 		log.Warnf("Failed to create E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
