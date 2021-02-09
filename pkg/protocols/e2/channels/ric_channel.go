@@ -6,12 +6,13 @@ package channels
 
 import (
 	"context"
+	"io"
+	"net"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2/procedures"
 	"github.com/onosproject/onos-e2t/pkg/utils/async"
-	"io"
-	"net"
 )
 
 // RICHandler is a function for wrapping an RICChannel
@@ -123,7 +124,7 @@ func (c *ricChannel) Close() error {
 	if err != nil {
 		return err
 	}
-	return c.threadSafeChannel.Close()
+	return nil
 }
 
 var _ RICChannel = &ricChannel{}

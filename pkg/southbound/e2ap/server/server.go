@@ -7,6 +7,7 @@ package server
 import (
 	"context"
 	"fmt"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2"
@@ -71,7 +72,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		rfAccepted[id] = ranFunc.Revision
 		for smID, sm := range e.modelRegistry.ModelPlugins {
 			names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
-			if err == nil {
+			if err == nil && string(names.RanFunctionShortName) == string(smID) {
 				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
 					"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
 					names.RanFunctionShortName,

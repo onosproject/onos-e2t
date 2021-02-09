@@ -110,13 +110,15 @@ func (c *RequestJournal) Watch(ch chan<- RequestEvent) func() {
 	c.watchers = append(c.watchers, ch)
 	return func() {
 		c.watchersMu.Lock()
-		watchers := make([]chan<- RequestEvent, 0, len(c.watchers)-1)
-		for _, watcher := range watchers {
-			if watcher != ch {
-				watchers = append(watchers, watcher)
+		if len(c.watchers) > 0 {
+			watchers := make([]chan<- RequestEvent, 0, len(c.watchers)-1)
+			for _, watcher := range watchers {
+				if watcher != ch {
+					watchers = append(watchers, watcher)
+				}
 			}
+			c.watchers = watchers
 		}
-		c.watchers = watchers
 		c.watchersMu.Unlock()
 	}
 }
