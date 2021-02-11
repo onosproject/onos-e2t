@@ -7,11 +7,12 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
-	"time"
 
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"github.com/onosproject/onos-lib-go/pkg/env"
@@ -251,9 +252,11 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		RequestorID: types.RicRequestorID(record.RequestID),
 		InstanceID:  config.InstanceID,
 	}
-	ranFunctionID := types.RanFunctionID(1)
 
-	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFunctionID)
+	serviceModelID := modelregistry.ModelFullName(sub.Details.ServiceModel.ID)
+	ranFuncID := channel.GetRANFunctionID(serviceModelID)
+
+	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFuncID)
 	if err != nil {
 		return controller.Result{}, err
 	}
