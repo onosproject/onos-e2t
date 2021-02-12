@@ -622,6 +622,8 @@ github.com/olekukonko/tablewriter v0.0.0-20170122224234-a0225b3f23b5/go.mod h1:v
 github.com/onosproject/config-models/modelplugin/ric-1.0.0 v0.0.0-20201206002829-0f3b7ebb025b/go.mod h1:S0h1CfyT3wxR8BYINzdnkqP80GfXB2YoL8X7ChvxPEU=
 github.com/onosproject/helmit v0.6.8 h1:f/DjOzQp/NFzbTClM7qn4WwQ5DgR/13OD1FWJ4VxqfE=
 github.com/onosproject/helmit v0.6.8/go.mod h1:EorNGSNGWojXGxBEuiNmPScae+R2C5WYfg/13gKEPLw=
+github.com/onosproject/onos-api v0.7.3 h1:EtGsvfa8isaGSi0bJPwAWbTcnw78TSrDDDjPCGp5XDs=
+github.com/onosproject/onos-api v0.7.3/go.mod h1:dZshiDmSU6bt1Pd/yTw6WIx6qHaoz+MVwm+2gVH/BNI=
 github.com/onosproject/onos-api/go v0.7.0 h1:BjfN78bE/TXadUODrkYbaDsb1hyiV90dNiLoIkl5eV0=
 github.com/onosproject/onos-api/go v0.7.0/go.mod h1:HLfWE9aouIeOmi4soR6bxK2cZ33NbnFMvdyv9fmjaSg=
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.0 h1:GiJ3qsCjPcbDTCGogKh1eIiS/y0t4xpQ+SnLtFJVYy0=
