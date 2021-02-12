@@ -622,16 +622,14 @@ github.com/olekukonko/tablewriter v0.0.0-20170122224234-a0225b3f23b5/go.mod h1:v
 github.com/onosproject/config-models/modelplugin/ric-1.0.0 v0.0.0-20201206002829-0f3b7ebb025b/go.mod h1:S0h1CfyT3wxR8BYINzdnkqP80GfXB2YoL8X7ChvxPEU=
 github.com/onosproject/helmit v0.6.8 h1:f/DjOzQp/NFzbTClM7qn4WwQ5DgR/13OD1FWJ4VxqfE=
 github.com/onosproject/helmit v0.6.8/go.mod h1:EorNGSNGWojXGxBEuiNmPScae+R2C5WYfg/13gKEPLw=
-github.com/onosproject/onos-api v0.7.3 h1:EtGsvfa8isaGSi0bJPwAWbTcnw78TSrDDDjPCGp5XDs=
-github.com/onosproject/onos-api v0.7.3/go.mod h1:dZshiDmSU6bt1Pd/yTw6WIx6qHaoz+MVwm+2gVH/BNI=
 github.com/onosproject/onos-api/go v0.7.0 h1:BjfN78bE/TXadUODrkYbaDsb1hyiV90dNiLoIkl5eV0=
 github.com/onosproject/onos-api/go v0.7.0/go.mod h1:HLfWE9aouIeOmi4soR6bxK2cZ33NbnFMvdyv9fmjaSg=
+github.com/onosproject/onos-api/go v0.7.3 h1:ttIYZMylxcpmouFDdQDvb32BO/PlKXdKY2/zzV9W4Ow=
+github.com/onosproject/onos-api/go v0.7.3/go.mod h1:Has28v1hruZLUxY1E5cCZq76UHXJZLbh62h1W8KQztQ=
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.0 h1:GiJ3qsCjPcbDTCGogKh1eIiS/y0t4xpQ+SnLtFJVYy0=
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.0/go.mod h1:XhAq30aC7880EVt5ru0/SZbFgPh3uf2Ty1+L+xUB+9E=
 github.com/onosproject/onos-lib-go v0.7.0 h1:+BxQc0K4nej8qsciArvk6QC3Do6VKQevbIegpR3Kil8=
 github.com/onosproject/onos-lib-go v0.7.0/go.mod h1:ttkK+fV2CULZFHiq6FBZ69i7/Nymi1Wow1DNy0Ik/2o=
-github.com/onosproject/onos-ric-sdk-go v0.7.0 h1:z24x5pT13q1kt9FdMy8Nnpz4a3GMfSuiNZ4cf5CE1qc=
-github.com/onosproject/onos-ric-sdk-go v0.7.0/go.mod h1:ep1Fe1OUcmKi4zzyFHhYr0dWcE5aPD7nQJn8Q50b2VU=
 github.com/onosproject/onos-ric-sdk-go v0.7.6 h1:Xmbv20oy/BLPCmke7pW82Ccwz/PvdfMDbYMPK0dZgbA=
 github.com/onosproject/onos-ric-sdk-go v0.7.6/go.mod h1:ep1Fe1OUcmKi4zzyFHhYr0dWcE5aPD7nQJn8Q50b2VU=
 github.com/onosproject/onos-test v0.6.4 h1:ocJhMv5mZ5RsojkhBUadE68Q6uSgBZpyDDjnwOPmu6g=
@@ -798,6 +796,8 @@ github.com/stretchr/testify v1.5.1 h1:nOGnQDM7FYENwehXlg/kFVnos3rEvtKTjRvOWSzb6H
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.6.1 h1:hDPOHmpOpP40lSULcqw7IrRb/u7w6RpDC9399XyoNd0=
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
+github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/subosito/gotenv v1.2.0 h1:Slr1R9HxAlEKefgq5jn9U+DnETlIUa6HfgEzj0g5d7s=
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
 github.com/syndtr/gocapability v0.0.0-20170704070218-db04d3cc01c8/go.mod h1:hkRG7XYTFWNJGYcbNJQlaLq0fg1yr4J4t/NcTQtrfww=
