@@ -337,7 +337,11 @@ github.com/onosproject/helmit/pkg/test
 github.com/onosproject/helmit/pkg/util/files
 github.com/onosproject/helmit/pkg/util/logging
 github.com/onosproject/helmit/pkg/util/random
+<<<<<<< HEAD
 # github.com/onosproject/onos-api/go v0.7.3
+=======
+# github.com/onosproject/onos-api/go v0.7.0 => ../onos-api/go
+>>>>>>> Implement control service API
 ## explicit
 github.com/onosproject/onos-api/go/onos/e2sub/endpoint
 github.com/onosproject/onos-api/go/onos/e2sub/subscription
@@ -362,7 +366,11 @@ github.com/onosproject/onos-lib-go/pkg/logging
 github.com/onosproject/onos-lib-go/pkg/logging/service
 github.com/onosproject/onos-lib-go/pkg/northbound
 github.com/onosproject/onos-lib-go/pkg/southbound
+<<<<<<< HEAD
 # github.com/onosproject/onos-ric-sdk-go v0.7.7
+=======
+# github.com/onosproject/onos-ric-sdk-go v0.7.6 => ../onos-ric-sdk-go
+>>>>>>> Implement control service API
 ## explicit
 github.com/onosproject/onos-ric-sdk-go/pkg/app
 github.com/onosproject/onos-ric-sdk-go/pkg/e2
@@ -1000,3 +1008,5 @@ sigs.k8s.io/kustomize/pkg/types
 # sigs.k8s.io/yaml v1.1.0
 sigs.k8s.io/yaml
 # github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
+# github.com/onosproject/onos-api/go => ../onos-api/go
+# github.com/onosproject/onos-ric-sdk-go => ../onos-ric-sdk-go

@@ -6,10 +6,11 @@ package procedures
 
 import (
 	"context"
+	"sync"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"sync"
 )
 
 // RICControl is a RIC control procedure
@@ -31,6 +32,7 @@ type RICControlInitiator struct {
 }
 
 func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducontents.RiccontrolRequest) (*e2appducontents.RiccontrolAcknowledge, *e2appducontents.RiccontrolFailure, error) {
+	log.Info("Initiate Ric Control")
 	requestPDU := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
