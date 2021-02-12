@@ -7,6 +7,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"strconv"
 
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -57,13 +58,23 @@ type E2ChannelServer struct {
 	modelRegistry *modelregistry.ModelRegistry
 }
 
+// uint24ToUint32 converts uint24 uint32
+func uint24ToUint32(val []byte) uint32 {
+	r := uint32(0)
+	for i := uint32(0); i < 3; i++ {
+		r |= uint32(val[i]) << (8 * i)
+	}
+	return r
+}
+
 func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
 	nodeID, ranFuncs, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
 		return nil, nil, err
 	}
 	channelID := ChannelID(fmt.Sprintf("%x:%d", string(nodeID.NodeIdentifier), nodeID.NodeType))
-	plmnID := string([]byte{nodeID.Plmn[0], nodeID.Plmn[1], nodeID.Plmn[2]})
+	rawPlmnid := []byte{nodeID.Plmn[0], nodeID.Plmn[1], nodeID.Plmn[2]}
+	plmnID := strconv.FormatUint(uint64(uint24ToUint32(rawPlmnid)), 10)
 
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
