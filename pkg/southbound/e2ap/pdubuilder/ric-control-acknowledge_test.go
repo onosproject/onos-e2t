@@ -19,7 +19,7 @@ func TestRicControlAcknowledge(t *testing.T) {
 	var ricCallPrID types.RicCallProcessID = []byte("123")
 	ricControlStatus := e2apies.RiccontrolStatus_RICCONTROL_STATUS_SUCCESS
 	var ricCtrlOut types.RicControlOutcome = []byte("456")
-	newE2apPdu, err := RicControlAcknowledgeE2apPdu(ricRequestID,
+	newE2apPdu, err := CreateRicControlAcknowledgeE2apPdu(ricRequestID,
 		ranFuncID, ricCallPrID, ricControlStatus, ricCtrlOut)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)

@@ -95,6 +95,23 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2sC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2sC.protocolIEs.list.size))
 
+	} else if pc := im.GetProcedureCode().GetRicControl(); pc != nil &&
+		pc.GetInitiatingMessage() != nil {
+
+		presentC = C.InitiatingMessage__value_PR_RICcontrolRequest
+		pcC = C.ProcedureCode_id_RICcontrol
+		critC = C.long(C.Criticality_reject)
+		e2sC, err := newRicControlRequest(pc.GetInitiatingMessage())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2sC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2sC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2sC.protocolIEs.list.size))
+
 	} else if pc := im.GetProcedureCode().GetErrorIndication(); pc != nil &&
 		pc.GetInitiatingMessage() != nil {
 
@@ -164,7 +181,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
 			protocolIEs: C.ProtocolIE_Container_1544P0_t{
-				list: C.struct___70{ // TODO: tie this down with a predictable name
+				list: C.struct___72{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -193,7 +210,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 		ricsdrC := *(**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		sdrC := C.RICsubscriptionDeleteRequest_t{
 			protocolIEs: C.ProtocolIE_Container_1544P3_t{
-				list: C.struct___64{ // TODO: tie this down with a predictable name
+				list: C.struct___66{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(ricsdrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -222,7 +239,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 		riIesC := *(**C.RICindication_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		riC := C.RICindication_t{
 			protocolIEs: C.ProtocolIE_Container_1544P6_t{
-				list: C.struct___61{ // TODO: tie this down with a predictable name
+				list: C.struct___63{ // TODO: tie this down with a predictable name
 					array: (**C.RICindication_IEs_t)(unsafe.Pointer(riIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -243,6 +260,35 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+				},
+			},
+		}
+
+	case C.InitiatingMessage__value_PR_RICcontrolRequest:
+		rcrIesC := *(**C.RICcontrolRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
+		rcrC := C.RICcontrolRequest_t{
+			protocolIEs: C.ProtocolIE_Container_1544P7_t{
+				list: C.struct___62{ // TODO: tie this down with a predictable name
+					array: (**C.RICcontrolRequest_IEs_t)(unsafe.Pointer(rcrIesC)),
+					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
+					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
+				},
+			},
+		}
+		fmt.Printf("RICcontrolRequest_t %+v\n %+v\n", initMsgC, rcrC)
+
+		rcr, err := decodeRicControlRequest(&rcrC)
+		if err != nil {
+			return nil, fmt.Errorf("decodeRicControlRequest() %s", err.Error())
+		}
+		initiatingMessage.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			RicControl: &e2appdudescriptions.RicControl{
+				InitiatingMessage: rcr,
+				ProcedureCode: &e2ap_constants.IdRiccontrol{
+					Value: int32(v1beta1.ProcedureCodeIDRICcontrol),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 				},
 			},
 		}
