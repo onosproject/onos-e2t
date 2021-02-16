@@ -9,52 +9,79 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 
-	"gotest.tools/assert"
+	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
+	"github.com/stretchr/testify/assert"
 
 	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestSubscription
+// TestSubscription tests e2 subscription and subscription delete procedures
 func (s *TestSuite) TestSubscription(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
-	assert.Assert(t, sim != nil)
+	assert.NotNil(t, sim)
 
 	clientConfig := e2client.Config{
 		AppID: "subscription-test",
 		SubscriptionService: e2client.ServiceConfig{
-			Host: SubscriptionServiceHost,
-			Port: SubscriptionServicePort,
+			Host: utils.SubscriptionServiceHost,
+			Port: utils.SubscriptionServicePort,
 		},
 	}
 	client, err := e2client.NewClient(clientConfig)
-	assert.NilError(t, err)
+	assert.NoError(t, err)
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	nodeIDs, err := utils.GetNodeIDs()
-	assert.NilError(t, err)
+	assert.NoError(t, err)
 
-	subReq, err := createSubscriptionRequest(nodeIDs[0])
-	assert.NilError(t, err)
+	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
+	assert.NoError(t, err)
 
-	_, err = client.Subscribe(ctx, subReq, ch)
-	assert.NilError(t, err)
+	subRequest := utils.Subscription{
+		NodeID:               nodeIDs[0],
+		EncodingType:         subapi.Encoding_ENCODING_PROTO,
+		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
+		EventTrigger:         eventTriggerBytes,
+		ServiceModelID:       utils.KpmServiceModelID,
+		ActionID:             100,
+		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+	}
+
+	subReq, err := subRequest.Create()
+	assert.NoError(t, err)
+
+	sub, err := client.Subscribe(ctx, subReq, ch)
+	assert.NoError(t, err)
 
 	select {
 	case indicationMsg := <-ch:
 		t.Log(indicationMsg)
 
-	case <-time.After(20 * time.Second):
+	case <-time.After(10 * time.Second):
 		t.Fatal("test is failed because of timeout")
 
 	}
 
-	_ = sim.Uninstall()
+	err = sub.Close()
+	assert.NoError(t, err)
+
+	select {
+	case <-ch:
+		t.Fatal("received an extraneous indication")
+
+	case <-time.After(10 * time.Second):
+		t.Log("Subscription test is PASSED")
+	}
+
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 
 }

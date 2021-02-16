@@ -6,12 +6,14 @@ package e2
 
 import (
 	"context"
+	"testing"
+	"time"
+
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2t/test/utils"
 	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
-	"testing"
-	"time"
 )
 
 // TestE2NodeDownSubscription checks that a subscription channel read times out if
@@ -24,10 +26,10 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	// Create an e2client
 	clientConfig := e2client.Config{
-		AppID: "subscription-test",
+		AppID: "subscription-e2node-down-test",
 		SubscriptionService: e2client.ServiceConfig{
-			Host: SubscriptionServiceHost,
-			Port: SubscriptionServicePort,
+			Host: utils.SubscriptionServiceHost,
+			Port: utils.SubscriptionServicePort,
 		},
 	}
 	client, err := e2client.NewClient(clientConfig)
@@ -40,8 +42,22 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
 
+	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
+	assert.NoError(t, err)
+
+	subRequest := utils.Subscription{
+		NodeID:               nodeIDs[0],
+		EncodingType:         subapi.Encoding_ENCODING_PROTO,
+		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
+		EventTrigger:         eventTriggerBytes,
+		ServiceModelID:       utils.KpmServiceModelID,
+		ActionID:             100,
+		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+	}
+
 	// Create a subscription request to indication messages from the client
-	subReq, err := createSubscriptionRequest(nodeIDs[0])
+	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
 	// Cause the simulator to crash
@@ -61,7 +77,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 		gotIndication = true
 		t.Log(indicationMsg)
 
-	case <-time.After(20 * time.Second):
+	case <-time.After(10 * time.Second):
 		// The read timed out. This is the expected behavior.
 		gotIndication = false
 	}
