@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	sdksub "github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/stretchr/testify/assert"
 
@@ -21,7 +22,7 @@ import (
 )
 
 func checkSubscriptionList(t *testing.T, expectedLen int) []subscription.Subscription {
-	conn, err := connectSubscriptionServiceHost()
+	conn, err := utils.ConnectSubscriptionServiceHost()
 	assert.NoError(t, err)
 	assert.NotNil(t, conn)
 
@@ -34,10 +35,10 @@ func checkSubscriptionList(t *testing.T, expectedLen int) []subscription.Subscri
 
 func checkSubscription(t *testing.T) sdksub.Context {
 	clientConfig := e2client.Config{
-		AppID: "subscription-test",
+		AppID: "subscription-delete-test",
 		SubscriptionService: e2client.ServiceConfig{
-			Host: SubscriptionServiceHost,
-			Port: SubscriptionServicePort,
+			Host: utils.SubscriptionServiceHost,
+			Port: utils.SubscriptionServicePort,
 		},
 	}
 	client, err := e2client.NewClient(clientConfig)
@@ -50,7 +51,21 @@ func checkSubscription(t *testing.T) sdksub.Context {
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
 
-	subReq, err := createSubscriptionRequest(nodeIDs[0])
+	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
+	assert.NoError(t, err)
+
+	subRequest := utils.Subscription{
+		NodeID:               nodeIDs[0],
+		EncodingType:         subapi.Encoding_ENCODING_PROTO,
+		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
+		EventTrigger:         eventTriggerBytes,
+		ServiceModelID:       utils.KpmServiceModelID,
+		ActionID:             100,
+		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+	}
+
+	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
 	sub, err := client.Subscribe(ctx, subReq, ch)
@@ -59,22 +74,22 @@ func checkSubscription(t *testing.T) sdksub.Context {
 
 	select {
 	case indicationMsg := <-ch:
+		t.Log(indicationMsg)
 		assert.NotNil(t, indicationMsg)
 
-	case <-time.After(20 * time.Second):
+	case <-time.After(10 * time.Second):
 		t.Fatal("test is failed because of timeout")
 
 	}
-
 	return sub
 }
 
-// TestSubscriptionDelete
+// TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
 	assert.NotNil(t, sim)
 
-	conn, err := connectSubscriptionServiceHost()
+	conn, err := utils.ConnectSubscriptionServiceHost()
 	assert.NoError(t, err)
 	assert.NotNil(t, conn)
 
@@ -96,5 +111,6 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	assert.NotNil(t, sub)
 	checkSubscriptionList(t, 1)
 
-	_ = sim.Uninstall()
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 }
