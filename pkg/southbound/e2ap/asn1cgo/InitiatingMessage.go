@@ -279,7 +279,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 
 		rcr, err := decodeRicControlRequest(&rcrC)
 		if err != nil {
-			return nil, fmt.Errorf("decodeRicIndication() %s", err.Error())
+			return nil, fmt.Errorf("decodeRicControlRequest() %s", err.Error())
 		}
 		initiatingMessage.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
 			RicControl: &e2appdudescriptions.RicControl{

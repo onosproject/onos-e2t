@@ -13,6 +13,7 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
+	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"unsafe"
 )
@@ -30,6 +31,17 @@ func xerEncodeRICcontrolRequest(rcr *e2appducontents.RiccontrolRequest) ([]byte,
 	return bytes, nil
 }
 
+func xerDecodeRICcontrolRequest(bytes []byte) (*e2appducontents.RiccontrolRequest, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_RICcontrolRequest)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeRicControlRequest((*C.RICcontrolRequest_t)(unsafePtr))
+}
+
 func perEncodeRICcontrolRequest(rcr *e2appducontents.RiccontrolRequest) ([]byte, error) {
 	rcrC, err := newRicControlRequest(rcr)
 	if err != nil {
@@ -41,6 +53,17 @@ func perEncodeRICcontrolRequest(rcr *e2appducontents.RiccontrolRequest) ([]byte,
 		return nil, err
 	}
 	return bytes, nil
+}
+
+func perDecodeRICcontrolRequest(bytes []byte) (*e2appducontents.RiccontrolRequest, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_RICcontrolRequest)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeRicControlRequest((*C.RICcontrolRequest_t)(unsafePtr))
 }
 
 func newRicControlRequest(rcr *e2appducontents.RiccontrolRequest) (*C.RICcontrolRequest_t, error) {

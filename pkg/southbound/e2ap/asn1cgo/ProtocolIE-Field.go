@@ -1980,7 +1980,7 @@ func decodeRicControlRequestIE(rcRIeC *C.RICcontrolRequest_IEs_t) (*e2appduconte
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
 
-	case C.RICindication_IEs__value_PR_RICindicationMessage:
+	case C.RICcontrolRequest_IEs__value_PR_RICcontrolAckRequest:
 		rcar := decodeRicControlAckRequestBytes(rcRIeC.value.choice[0:16])
 		ret.E2ApProtocolIes21 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes21{
 			Id:          int32(v1beta1.ProtocolIeIDRiccontrolAckRequest),

@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func Test_xerEncodeRICcontrolRequest(t *testing.T) {
+func Test_RICcontrolRequest(t *testing.T) {
 	ricRequestID := types.RicRequest{
 		RequestorID: 21,
 		InstanceID:  22,
@@ -27,14 +27,21 @@ func Test_xerEncodeRICcontrolRequest(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, e2ApPduRcr != nil)
 
-	assert.NilError(t, err)
 	xer, err := xerEncodeRICcontrolRequest(
 		e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage())
 	assert.NilError(t, err)
 	t.Logf("XER RICcontrolRequest\n%s", xer)
 
+	e2apPdu, err := xerDecodeRICcontrolRequest(xer)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage(), e2apPdu)
+
 	per, err := perEncodeRICcontrolRequest(
 		e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage())
 	assert.NilError(t, err)
 	t.Logf("PER RICcontrolRequest\n%s", per)
+
+	e2apPdu, err = perDecodeRICcontrolRequest(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage(), e2apPdu)
 }
