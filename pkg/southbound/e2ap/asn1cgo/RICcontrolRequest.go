@@ -71,11 +71,11 @@ func newRicControlRequest(rcr *e2appducontents.RiccontrolRequest) (*C.RICcontrol
 	if err != nil {
 		return nil, err
 	}
-	riC := C.RICcontrolRequest_t{
+	rcrC := C.RICcontrolRequest_t{
 		protocolIEs: *pIeC1544P7,
 	}
 
-	return &riC, nil
+	return &rcrC, nil
 }
 
 func decodeRicControlRequest(rcrC *C.RICcontrolRequest_t) (*e2appducontents.RiccontrolRequest, error) {
