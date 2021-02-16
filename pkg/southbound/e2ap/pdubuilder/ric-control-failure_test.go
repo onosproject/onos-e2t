@@ -23,7 +23,7 @@ func TestRicControlFailure(t *testing.T) {
 			RicRequest: e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID,
 		},
 	}
-	newE2apPdu, err := RicControlFailureE2apPdu(ricRequestID,
+	newE2apPdu, err := CreateRicControlFailureE2apPdu(ricRequestID,
 		ranFuncID, ricCallPrID, cause, ricCtrlOut)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)

@@ -1,16 +1,18 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
-package pdubuilder
+
+package asn1cgo
 
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
-func TestRicControlRequest(t *testing.T) {
+func Test_xerEncodeRICcontrolRequest(t *testing.T) {
 	ricRequestID := types.RicRequest{
 		RequestorID: 21,
 		InstanceID:  22,
@@ -20,12 +22,19 @@ func TestRicControlRequest(t *testing.T) {
 	var ricCtrlHdr types.RicControlHeader = []byte("456")
 	var ricCtrlMsg types.RicControlMessage = []byte("789")
 	ricCtrlAckRequest := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_N_ACK
-	newE2apPdu, err := CreateRicControlRequestE2apPdu(ricRequestID,
+	e2ApPduRcr, err := pdubuilder.CreateRicControlRequestE2apPdu(ricRequestID,
 		ranFuncID, ricCallPrID, ricCtrlHdr, ricCtrlMsg, ricCtrlAckRequest)
 	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+	assert.Assert(t, e2ApPduRcr != nil)
 
-	//xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("RIC Control Request XER\n%s", string(xer))
+	assert.NilError(t, err)
+	xer, err := xerEncodeRICcontrolRequest(
+		e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage())
+	assert.NilError(t, err)
+	t.Logf("XER RICcontrolRequest\n%s", xer)
+
+	per, err := perEncodeRICcontrolRequest(
+		e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage())
+	assert.NilError(t, err)
+	t.Logf("PER RICcontrolRequest\n%s", per)
 }

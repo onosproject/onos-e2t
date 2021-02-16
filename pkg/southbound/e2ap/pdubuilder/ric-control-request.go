@@ -14,7 +14,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func RicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
+func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 	ricCallPrID types.RicCallProcessID, ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage,
 	ricCtrlAckRequest e2apies.RiccontrolAckRequest) (*e2appdudescriptions.E2ApPdu, error) {
 
