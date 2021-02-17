@@ -5,9 +5,9 @@
 package pdudecoder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"gotest.tools/assert"
 	"io/ioutil"
@@ -29,7 +29,7 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 	assert.Equal(t, 22, int(rrID.RequestorID))
 	assert.Equal(t, 6, int(rrID.InstanceID))
 
-	assert.Equal(t, v1beta1.ProcedureCodeIDRICsubscription, pc)
+	assert.Equal(t, v1.ProcedureCodeIDRICsubscription, pc)
 	assert.Equal(t, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE, crit)
 	assert.Equal(t, e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME, tm)
 

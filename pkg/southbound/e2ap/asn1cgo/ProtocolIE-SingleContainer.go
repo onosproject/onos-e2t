@@ -15,8 +15,8 @@ package asn1cgo
 import "C"
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
 )
 
 func newRicActionToBeSetupItemIesSingleContainer(rfItemIes *e2appducontents.RicactionToBeSetupItemIes) (*C.ProtocolIE_SingleContainer_1547P0_t, error) {
@@ -46,7 +46,7 @@ func newRanFunctionIDcauseItemIesSingleContainer(rfIDcauseItemIes *e2appduconten
 func decodeRicActionToBeSetupItemIesSingleContainer(ratbsIeScC *C.ProtocolIE_SingleContainer_1547P0_t) (*e2appducontents.RicactionToBeSetupItemIes, error) {
 	//fmt.Printf("Value %T %v\n", ratbsIeScC, ratbsIeScC)
 	switch id := ratbsIeScC.id; id {
-	case C.long(v1beta1.ProtocolIeIDRicactionToBeSetupItem):
+	case C.long(v1.ProtocolIeIDRicactionToBeSetupItem):
 		return decodeRicActionToBeSetupItemIes(&ratbsIeScC.value)
 	default:
 		return nil, fmt.Errorf("unexpected id for RicActionToBeSetupItem %v", id)
@@ -57,7 +57,7 @@ func decodeRicActionToBeSetupItemIesSingleContainer(ratbsIeScC *C.ProtocolIE_Sin
 func decodeRicActionAdmittedItemIesSingleContainer(raaiIeScC *C.ProtocolIE_SingleContainer_1547P1_t) (*e2appducontents.RicactionAdmittedItemIes, error) {
 	//fmt.Printf("Value %T %v\n", raaiIeScC, raaiIeScC)
 	switch id := raaiIeScC.id; id {
-	case C.long(v1beta1.ProtocolIeIDRicactionAdmittedItem):
+	case C.long(v1.ProtocolIeIDRicactionAdmittedItem):
 		return decodeRicActionAdmittedIDItemIes(&raaiIeScC.value)
 	default:
 		return nil, fmt.Errorf("unexpected id for RicactionAdmittedItemIes %v", id)
@@ -68,7 +68,7 @@ func decodeRicActionAdmittedItemIesSingleContainer(raaiIeScC *C.ProtocolIE_Singl
 func decodeRicActionNotAdmittedItemIesSingleContainer(ranaiIeScC *C.ProtocolIE_SingleContainer_1547P2_t) (*e2appducontents.RicactionNotAdmittedItemIes, error) {
 	//fmt.Printf("Value %T %v\n", ranaiIeScC, ranaiIeScC)
 	switch id := ranaiIeScC.id; id {
-	case C.long(v1beta1.ProtocolIeIDRicactionNotAdmittedItem):
+	case C.long(v1.ProtocolIeIDRicactionNotAdmittedItem):
 		return decodeRicActionNotAdmittedIDItemIes(&ranaiIeScC.value)
 	default:
 		return nil, fmt.Errorf("unexpected id for RicactionNotAdmittedItemIes %v", id)
@@ -79,7 +79,7 @@ func decodeRicActionNotAdmittedItemIesSingleContainer(ranaiIeScC *C.ProtocolIE_S
 func decodeRanFunctionItemIesSingleContainer(rfiIeScC *C.ProtocolIE_SingleContainer_1547P3_t) (*e2appducontents.RanfunctionItemIes, error) {
 	//fmt.Printf("Value %T %v\n", rfiIeScC, rfiIeScC)
 	switch id := rfiIeScC.id; id {
-	case C.long(v1beta1.ProtocolIeIDRanfunctionItem):
+	case C.long(v1.ProtocolIeIDRanfunctionItem):
 		return decodeRANfunctionItemIes(&rfiIeScC.value)
 	default:
 		return nil, fmt.Errorf("unexpected id for RanFunctionItem %v", id)
@@ -90,7 +90,7 @@ func decodeRanFunctionItemIesSingleContainer(rfiIeScC *C.ProtocolIE_SingleContai
 func decodeRanFunctionIDItemIesSingleContainer(rfIDiIeScC *C.ProtocolIE_SingleContainer_1547P4_t) (*e2appducontents.RanfunctionIdItemIes, error) {
 	//fmt.Printf("Value %T %v\n", rfIDiIeScC, rfIDiIeScC)
 	switch id := rfIDiIeScC.id; id {
-	case C.long(v1beta1.ProtocolIeIDRanfunctionIDItem):
+	case C.long(v1.ProtocolIeIDRanfunctionIDItem):
 		return decodeRANfunctionIDItemIes(&rfIDiIeScC.value)
 	default:
 		return nil, fmt.Errorf("unexpected id for RanfunctionIDItem %v", id)
@@ -101,7 +101,7 @@ func decodeRanFunctionIDItemIesSingleContainer(rfIDiIeScC *C.ProtocolIE_SingleCo
 func decodeRanFunctionIDCauseItemIesSingleContainer(rfIDciIeScC *C.ProtocolIE_SingleContainer_1547P5_t) (*e2appducontents.RanfunctionIdcauseItemIes, error) {
 	//fmt.Printf("Value %T %v\n", rfIDciIeScC, rfIDciIeScC)
 	switch id := rfIDciIeScC.id; id {
-	case C.long(v1beta1.ProtocolIeIDRanfunctionIeCauseItem):
+	case C.long(v1.ProtocolIeIDRanfunctionIeCauseItem):
 		return decodeRANfunctionIDCauseItemIes(&rfIDciIeScC.value)
 	default:
 		return nil, fmt.Errorf("unexpected id for RanfunctionIeCauseItem %v", id)

@@ -13,7 +13,7 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
 )
 
 func newRicIndication(ri *e2appducontents.Ricindication) (*C.RICindication_t, error) {

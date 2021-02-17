@@ -5,12 +5,12 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-constants"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -19,7 +19,7 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	ricCtrlAckRequest e2apies.RiccontrolAckRequest) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes29{
-		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+		Id:          int32(v1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -29,7 +29,7 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	}
 
 	ranFunctionID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes5{
-		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+		Id:          int32(v1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -38,7 +38,7 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	}
 
 	ricCallProcessID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes20{
-		Id:          int32(v1beta1.ProtocolIeIDRiccallProcessID),
+		Id:          int32(v1.ProtocolIeIDRiccallProcessID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_commondatatypes.RiccallProcessId{
 			Value: []byte(ricCallPrID),
@@ -47,7 +47,7 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	}
 
 	ricControlHeader := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes22{
-		Id:          int32(v1beta1.ProtocolIeIDRiccontrolHeader),
+		Id:          int32(v1.ProtocolIeIDRiccontrolHeader),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_commondatatypes.RiccontrolHeader{
 			Value: []byte(ricCtrlHdr),
@@ -56,7 +56,7 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	}
 
 	ricControlMessage := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes23{
-		Id:          int32(v1beta1.ProtocolIeIDRiccontrolMessage),
+		Id:          int32(v1.ProtocolIeIDRiccontrolMessage),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_commondatatypes.RiccontrolMessage{
 			Value: []byte(ricCtrlMsg),
@@ -65,7 +65,7 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	}
 
 	ricControlAckRequest := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes21{
-		Id:          int32(v1beta1.ProtocolIeIDRiccontrolAckRequest),
+		Id:          int32(v1.ProtocolIeIDRiccontrolAckRequest),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       ricCtrlAckRequest, //2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -87,7 +87,7 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRiccontrol{
-							Value: int32(v1beta1.ProcedureCodeIDRICcontrol),
+							Value: int32(v1.ProcedureCodeIDRICcontrol),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

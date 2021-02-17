@@ -24,6 +24,22 @@ ASN_MODULE_SRCS=	\
 	./E2setupRequest.c	\
 	./E2setupResponse.c	\
 	./E2setupFailure.c	\
+	./E2connectionUpdate.c	\
+	./E2connectionUpdate-List.c	\
+	./E2connectionUpdate-Item.c	\
+	./E2connectionUpdateRemove-List.c	\
+	./E2connectionUpdateRemove-Item.c	\
+	./E2connectionUpdateAcknowledge.c	\
+	./E2connectionSetupFailed-List.c	\
+	./E2connectionSetupFailed-Item.c	\
+	./E2connectionUpdateFailure.c	\
+	./E2nodeConfigurationUpdate.c	\
+	./E2nodeComponentConfigUpdate-List.c	\
+	./E2nodeComponentConfigUpdate-Item.c	\
+	./E2nodeConfigurationUpdateAcknowledge.c	\
+	./E2nodeComponentConfigUpdateAck-List.c	\
+	./E2nodeComponentConfigUpdateAck-Item.c	\
+	./E2nodeConfigurationUpdateFailure.c	\
 	./ResetRequest.c	\
 	./ResetResponse.c	\
 	./RICserviceUpdate.c	\
@@ -45,6 +61,16 @@ ASN_MODULE_SRCS=	\
 	./CriticalityDiagnostics.c	\
 	./CriticalityDiagnostics-IE-List.c	\
 	./CriticalityDiagnostics-IE-Item.c	\
+	./E2nodeComponentConfigUpdate.c	\
+	./E2nodeComponentConfigUpdateGNB.c	\
+	./E2nodeComponentConfigUpdateENgNB.c	\
+	./E2nodeComponentConfigUpdateNGeNB.c	\
+	./E2nodeComponentConfigUpdateENB.c	\
+	./E2nodeComponentConfigUpdateAck.c	\
+	./E2nodeComponentType.c	\
+	./E2nodeComponentID.c	\
+	./E2nodeComponentGNB-CU-UP-ID.c	\
+	./E2nodeComponentGNB-DU-ID.c	\
 	./ENB-ID.c	\
 	./ENB-ID-Choice.c	\
 	./ENGNB-ID.c	\
@@ -64,6 +90,7 @@ ASN_MODULE_SRCS=	\
 	./PLMN-Identity.c	\
 	./RANfunctionDefinition.c	\
 	./RANfunctionID.c	\
+	./RANfunctionOID.c	\
 	./RANfunctionRevision.c	\
 	./RICactionDefinition.c	\
 	./RICactionID.c	\
@@ -84,6 +111,8 @@ ASN_MODULE_SRCS=	\
 	./RICsubsequentActionType.c	\
 	./RICtimeToWait.c	\
 	./TimeToWait.c	\
+	./TNLinformation.c	\
+	./TNLusage.c	\
 	./TypeOfError.c	\
 	./Criticality.c	\
 	./Presence.c	\
@@ -124,6 +153,22 @@ ASN_MODULE_HDRS=	\
 	./E2setupRequest.h	\
 	./E2setupResponse.h	\
 	./E2setupFailure.h	\
+	./E2connectionUpdate.h	\
+	./E2connectionUpdate-List.h	\
+	./E2connectionUpdate-Item.h	\
+	./E2connectionUpdateRemove-List.h	\
+	./E2connectionUpdateRemove-Item.h	\
+	./E2connectionUpdateAcknowledge.h	\
+	./E2connectionSetupFailed-List.h	\
+	./E2connectionSetupFailed-Item.h	\
+	./E2connectionUpdateFailure.h	\
+	./E2nodeConfigurationUpdate.h	\
+	./E2nodeComponentConfigUpdate-List.h	\
+	./E2nodeComponentConfigUpdate-Item.h	\
+	./E2nodeConfigurationUpdateAcknowledge.h	\
+	./E2nodeComponentConfigUpdateAck-List.h	\
+	./E2nodeComponentConfigUpdateAck-Item.h	\
+	./E2nodeConfigurationUpdateFailure.h	\
 	./ResetRequest.h	\
 	./ResetResponse.h	\
 	./RICserviceUpdate.h	\
@@ -145,6 +190,16 @@ ASN_MODULE_HDRS=	\
 	./CriticalityDiagnostics.h	\
 	./CriticalityDiagnostics-IE-List.h	\
 	./CriticalityDiagnostics-IE-Item.h	\
+	./E2nodeComponentConfigUpdate.h	\
+	./E2nodeComponentConfigUpdateGNB.h	\
+	./E2nodeComponentConfigUpdateENgNB.h	\
+	./E2nodeComponentConfigUpdateNGeNB.h	\
+	./E2nodeComponentConfigUpdateENB.h	\
+	./E2nodeComponentConfigUpdateAck.h	\
+	./E2nodeComponentType.h	\
+	./E2nodeComponentID.h	\
+	./E2nodeComponentGNB-CU-UP-ID.h	\
+	./E2nodeComponentGNB-DU-ID.h	\
 	./ENB-ID.h	\
 	./ENB-ID-Choice.h	\
 	./ENGNB-ID.h	\
@@ -164,6 +219,7 @@ ASN_MODULE_HDRS=	\
 	./PLMN-Identity.h	\
 	./RANfunctionDefinition.h	\
 	./RANfunctionID.h	\
+	./RANfunctionOID.h	\
 	./RANfunctionRevision.h	\
 	./RICactionDefinition.h	\
 	./RICactionID.h	\
@@ -184,6 +240,8 @@ ASN_MODULE_HDRS=	\
 	./RICsubsequentActionType.h	\
 	./RICtimeToWait.h	\
 	./TimeToWait.h	\
+	./TNLinformation.h	\
+	./TNLusage.h	\
 	./TypeOfError.h	\
 	./Criticality.h	\
 	./Presence.h	\
@@ -210,6 +268,8 @@ ASN_MODULE_HDRS+=./NativeEnumerated.h
 ASN_MODULE_SRCS+=./NativeEnumerated.c
 ASN_MODULE_HDRS+=./NativeInteger.h
 ASN_MODULE_SRCS+=./NativeInteger.c
+ASN_MODULE_HDRS+=./PrintableString.h
+ASN_MODULE_SRCS+=./PrintableString.c
 ASN_MODULE_HDRS+=./asn_SEQUENCE_OF.h
 ASN_MODULE_SRCS+=./asn_SEQUENCE_OF.c
 ASN_MODULE_HDRS+=./asn_SET_OF.h

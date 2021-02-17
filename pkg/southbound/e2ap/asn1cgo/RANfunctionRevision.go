@@ -12,7 +12,7 @@ package asn1cgo
 //#include "RANfunctionRevision.h"
 import "C"
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
 )
 
 func newRanFunctionRevision(revision *e2apies.RanfunctionRevision) C.long {

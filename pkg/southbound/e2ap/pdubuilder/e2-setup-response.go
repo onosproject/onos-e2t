@@ -5,11 +5,11 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -25,7 +25,7 @@ func NewE2SetupResponse(plmnID types.PlmnID, ricID types.RicIdentifier, rfAccept
 	}
 
 	globalRicID := e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
-		Id:          int32(v1beta1.ProtocolIeIDGlobalRicID),
+		Id:          int32(v1.ProtocolIeIDGlobalRicID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.GlobalRicId{
 			PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
@@ -40,7 +40,7 @@ func NewE2SetupResponse(plmnID types.PlmnID, ricID types.RicIdentifier, rfAccept
 	}
 
 	ranFunctionsAccepted := e2appducontents.E2SetupResponseIes_E2SetupResponseIes9{
-		Id:          int32(v1beta1.ProtocolIeIDRanfunctionsAccepted),
+		Id:          int32(v1.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
@@ -51,7 +51,7 @@ func NewE2SetupResponse(plmnID types.PlmnID, ricID types.RicIdentifier, rfAccept
 	for rfID, rfRevision := range rfAccepted {
 		rfIDiIe := e2appducontents.RanfunctionIdItemIes{
 			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-				Id:          int32(v1beta1.ProtocolIeIDRanfunctionIDItem),
+				Id:          int32(v1.ProtocolIeIDRanfunctionIDItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.RanfunctionIdItem{
 					RanFunctionId: &e2apies.RanfunctionId{
@@ -68,7 +68,7 @@ func NewE2SetupResponse(plmnID types.PlmnID, ricID types.RicIdentifier, rfAccept
 	}
 
 	ranFunctionsRejected := e2appducontents.E2SetupResponseIes_E2SetupResponseIes13{
-		Id:          int32(v1beta1.ProtocolIeIDRanfunctionsRejected),
+		Id:          int32(v1.ProtocolIeIDRanfunctionsRejected),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsIdcauseList{
 			Value: make([]*e2appducontents.RanfunctionIdcauseItemIes, 0),
@@ -79,7 +79,7 @@ func NewE2SetupResponse(plmnID types.PlmnID, ricID types.RicIdentifier, rfAccept
 	for id, cause := range rfRejected {
 		rfIDcIIe := e2appducontents.RanfunctionIdcauseItemIes{
 			RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
-				Id:          int32(v1beta1.ProtocolIeIDRanfunctionIeCauseItem),
+				Id:          int32(v1.ProtocolIeIDRanfunctionIeCauseItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.RanfunctionIdcauseItem{
 					RanFunctionId: &e2apies.RanfunctionId{

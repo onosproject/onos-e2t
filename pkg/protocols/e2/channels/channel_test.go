@@ -6,10 +6,10 @@ package channels
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2/procedures"
 	"github.com/stretchr/testify/assert"
 	"io"
@@ -40,7 +40,7 @@ func TestChannels(t *testing.T) {
 	e2SetupRequest := &e2appducontents.E2SetupRequest{
 		ProtocolIes: &e2appducontents.E2SetupRequestIes{
 			E2ApProtocolIes3: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
-				Id:          int32(v1beta1.ProtocolIeIDGlobalE2nodeID),
+				Id:          int32(v1.ProtocolIeIDGlobalE2nodeID),
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.GlobalE2NodeId{
@@ -63,7 +63,7 @@ func TestChannels(t *testing.T) {
 				},
 			},
 			E2ApProtocolIes10: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
-				Id:          int32(v1beta1.ProtocolIeIDRanfunctionsAdded),
+				Id:          int32(v1.ProtocolIeIDRanfunctionsAdded),
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2appducontents.RanfunctionsList{
@@ -80,7 +80,7 @@ func TestChannels(t *testing.T) {
 	ricSubscriptionRequest := &e2appducontents.RicsubscriptionRequest{
 		ProtocolIes: &e2appducontents.RicsubscriptionRequestIes{
 			E2ApProtocolIes5: &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
-				Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+				Id:          int32(v1.ProtocolIeIDRanfunctionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RanfunctionId{
 					Value: 1,
@@ -88,7 +88,7 @@ func TestChannels(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes29: &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
-				Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v1.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RicrequestId{
 					RicRequestorId: 1,
@@ -97,14 +97,14 @@ func TestChannels(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes30: &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
-				Id:          int32(v1beta1.ProtocolIeIDRicsubscriptionDetails),
+				Id:          int32(v1.ProtocolIeIDRicsubscriptionDetails),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2appducontents.RicsubscriptionDetails{
 					RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{},
 					RicActionToBeSetupList: &e2appducontents.RicactionsToBeSetupList{
 						Value: []*e2appducontents.RicactionToBeSetupItemIes{
 							{
-								Id:          int32(v1beta1.ProtocolIeIDRicactionToBeSetupItem),
+								Id:          int32(v1.ProtocolIeIDRicactionToBeSetupItem),
 								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 								Value: &e2appducontents.RicactionToBeSetupItem{
 									RicActionId: &e2apies.RicactionId{
@@ -131,7 +131,7 @@ func TestChannels(t *testing.T) {
 	ricIndication := &e2appducontents.Ricindication{
 		ProtocolIes: &e2appducontents.RicindicationIes{
 			E2ApProtocolIes29: &e2appducontents.RicindicationIes_RicindicationIes29{
-				Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v1.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RicrequestId{
 					RicRequestorId: 1,
@@ -140,7 +140,7 @@ func TestChannels(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes5: &e2appducontents.RicindicationIes_RicindicationIes5{
-				Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+				Id:          int32(v1.ProtocolIeIDRanfunctionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RanfunctionId{
 					Value: 1,
@@ -148,7 +148,7 @@ func TestChannels(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes15: &e2appducontents.RicindicationIes_RicindicationIes15{
-				Id:          int32(v1beta1.ProtocolIeIDRicactionID),
+				Id:          int32(v1.ProtocolIeIDRicactionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RicactionId{
 					Value: 2,
@@ -156,7 +156,7 @@ func TestChannels(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes27: &e2appducontents.RicindicationIes_RicindicationIes27{
-				Id:          int32(v1beta1.ProtocolIeIDRicindicationSn),
+				Id:          int32(v1.ProtocolIeIDRicindicationSn),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RicindicationSn{
 					Value: 3,
@@ -164,13 +164,13 @@ func TestChannels(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 			},
 			E2ApProtocolIes28: &e2appducontents.RicindicationIes_RicindicationIes28{
-				Id:          int32(v1beta1.ProtocolIeIDRicindicationType),
+				Id:          int32(v1.ProtocolIeIDRicindicationType),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       e2apies.RicindicationType_RICINDICATION_TYPE_REPORT,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes25: &e2appducontents.RicindicationIes_RicindicationIes25{
-				Id:          int32(v1beta1.ProtocolIeIDRicindicationHeader),
+				Id:          int32(v1.ProtocolIeIDRicindicationHeader),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2ap_commondatatypes.RicindicationHeader{
 					Value: []byte("foo"),
@@ -178,7 +178,7 @@ func TestChannels(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes26: &e2appducontents.RicindicationIes_RicindicationIes26{
-				Id:          int32(v1beta1.ProtocolIeIDRicindicationMessage),
+				Id:          int32(v1.ProtocolIeIDRicindicationMessage),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2ap_commondatatypes.RicindicationMessage{
 					Value: []byte("bar"),
@@ -186,7 +186,7 @@ func TestChannels(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes20: &e2appducontents.RicindicationIes_RicindicationIes20{
-				Id:          int32(v1beta1.ProtocolIeIDRiccallProcessID),
+				Id:          int32(v1.ProtocolIeIDRiccallProcessID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2ap_commondatatypes.RiccallProcessId{
 					Value: []byte("baz"),
@@ -231,7 +231,7 @@ func (p *testClientProcedures) RICControl(ctx context.Context, request *e2appduc
 	return &e2appducontents.RiccontrolAcknowledge{
 		ProtocolIes: &e2appducontents.RiccontrolAcknowledgeIes{
 			E2ApProtocolIes29: &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29{
-				Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v1.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       request.ProtocolIes.E2ApProtocolIes29.Value,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -244,7 +244,7 @@ func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2a
 	return &e2appducontents.RicsubscriptionResponse{
 		ProtocolIes: &e2appducontents.RicsubscriptionResponseIes{
 			E2ApProtocolIes29: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes29{
-				Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v1.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       request.ProtocolIes.E2ApProtocolIes29.Value,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -257,7 +257,7 @@ func (p *testClientProcedures) RICSubscriptionDelete(ctx context.Context, reques
 	return &e2appducontents.RicsubscriptionDeleteResponse{
 		ProtocolIes: &e2appducontents.RicsubscriptionDeleteResponseIes{
 			E2ApProtocolIes29: &e2appducontents.RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29{
-				Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v1.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       request.ProtocolIes.E2ApProtocolIes29.Value,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),

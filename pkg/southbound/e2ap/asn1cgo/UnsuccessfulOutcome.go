@@ -15,10 +15,10 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-constants"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-constants"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-descriptions"
 	"unsafe"
 )
 
@@ -115,7 +115,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicSubscription: &e2appdudescriptions.RicSubscription{
 				UnsuccessfulOutcome: rsf,
 				ProcedureCode: &e2ap_constants.IdRicsubscription{
-					Value: int32(v1beta1.ProcedureCodeIDRICsubscription),
+					Value: int32(v1.ProcedureCodeIDRICsubscription),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -140,7 +140,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
 				UnsuccessfulOutcome: rsdf,
 				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
-					Value: int32(v1beta1.ProcedureCodeIDRICsubscriptionDelete),
+					Value: int32(v1.ProcedureCodeIDRICsubscriptionDelete),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -165,7 +165,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			E2Setup: &e2appdudescriptions.E2Setup{
 				UnsuccessfulOutcome: e2sf,
 				ProcedureCode: &e2ap_constants.IdE2Setup{
-					Value: int32(v1beta1.ProcedureCodeIDE2setup),
+					Value: int32(v1.ProcedureCodeIDE2setup),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},

@@ -9,8 +9,8 @@ import (
 	"io"
 	"sync"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/config"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 

@@ -13,7 +13,7 @@ package asn1cgo
 import "C"
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
 )
 
 func newCriticalityDiagnosticsIEItem(cdIeI *e2apies.CriticalityDiagnosticsIeItem) (*C.CriticalityDiagnostics_IE_Item_t, error) {

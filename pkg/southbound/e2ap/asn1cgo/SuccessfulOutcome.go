@@ -15,10 +15,10 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-constants"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-constants"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-descriptions"
 	"unsafe"
 )
 
@@ -140,7 +140,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 			RicSubscription: &e2appdudescriptions.RicSubscription{
 				SuccessfulOutcome: rsresp,
 				ProcedureCode: &e2ap_constants.IdRicsubscription{
-					Value: int32(v1beta1.ProcedureCodeIDRICsubscription),
+					Value: int32(v1.ProcedureCodeIDRICsubscription),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -163,7 +163,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 			E2Setup: &e2appdudescriptions.E2Setup{
 				SuccessfulOutcome: e2Sr,
 				ProcedureCode: &e2ap_constants.IdE2Setup{
-					Value: int32(v1beta1.ProcedureCodeIDE2setup),
+					Value: int32(v1.ProcedureCodeIDE2setup),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -187,7 +187,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 			RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
 				SuccessfulOutcome: rsresp,
 				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
-					Value: int32(v1beta1.ProcedureCodeIDRICsubscriptionDelete),
+					Value: int32(v1.ProcedureCodeIDRICsubscriptionDelete),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -211,7 +211,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 			RicControl: &e2appdudescriptions.RicControl{
 				SuccessfulOutcome: rca,
 				ProcedureCode: &e2ap_constants.IdRiccontrol{
-					Value: int32(v1beta1.ProcedureCodeIDRICcontrol),
+					Value: int32(v1.ProcedureCodeIDRICcontrol),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},

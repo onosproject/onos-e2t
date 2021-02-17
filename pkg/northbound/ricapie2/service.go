@@ -9,7 +9,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"io"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 

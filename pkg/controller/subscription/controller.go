@@ -22,7 +22,7 @@ import (
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/config"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )

@@ -5,7 +5,7 @@
 package asn1cgo
 
 import (
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
 	"gotest.tools/assert"
 	"testing"
 )

@@ -4,7 +4,7 @@
 
 package types
 
-import "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+import e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
 
 type RicActionID int32
 

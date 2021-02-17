@@ -15,10 +15,10 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-constants"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-constants"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-descriptions"
 	"unsafe"
 )
 
@@ -172,7 +172,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			E2Setup: &e2appdudescriptions.E2Setup{
 				InitiatingMessage: e2sr,
 				ProcedureCode: &e2ap_constants.IdE2Setup{
-					Value: int32(v1beta1.ProcedureCodeIDE2setup),
+					Value: int32(v1.ProcedureCodeIDE2setup),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -200,7 +200,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicSubscription: &e2appdudescriptions.RicSubscription{
 				InitiatingMessage: sr,
 				ProcedureCode: &e2ap_constants.IdRicsubscription{
-					Value: int32(v1beta1.ProcedureCodeIDRICsubscription),
+					Value: int32(v1.ProcedureCodeIDRICsubscription),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -229,7 +229,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
 				InitiatingMessage: sdr,
 				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
-					Value: int32(v1beta1.ProcedureCodeIDRICsubscriptionDelete),
+					Value: int32(v1.ProcedureCodeIDRICsubscriptionDelete),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -256,7 +256,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicIndication: &e2appdudescriptions.RicIndication{
 				InitiatingMessage: ri,
 				ProcedureCode: &e2ap_constants.IdRicindication{
-					Value: int32(v1beta1.ProcedureCodeIDRICindication),
+					Value: int32(v1.ProcedureCodeIDRICindication),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
@@ -285,7 +285,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicControl: &e2appdudescriptions.RicControl{
 				InitiatingMessage: rcr,
 				ProcedureCode: &e2ap_constants.IdRiccontrol{
-					Value: int32(v1beta1.ProcedureCodeIDRICcontrol),
+					Value: int32(v1.ProcedureCodeIDRICcontrol),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -314,7 +314,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			ErrorIndication: &e2appdudescriptions.ErrorIndicationEp{
 				InitiatingMessage: ri,
 				ProcedureCode: &e2ap_constants.IdErrorIndication{
-					Value: int32(v1beta1.ProcedureCodeIDErrorIndication),
+					Value: int32(v1.ProcedureCodeIDErrorIndication),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,

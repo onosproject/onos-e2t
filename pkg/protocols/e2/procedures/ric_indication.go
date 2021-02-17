@@ -6,11 +6,11 @@ package procedures
 
 import (
 	"context"
-	e2ap "github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-constants"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	e2ap "github.com/onosproject/onos-e2t/api/e2ap/v1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-constants"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 

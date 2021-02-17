@@ -9,8 +9,8 @@ import (
 	"io"
 	"net"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2/procedures"
 	"github.com/onosproject/onos-e2t/pkg/utils/async"
 )

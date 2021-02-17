@@ -4,9 +4,9 @@
 package pdubuilder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 	"testing"
@@ -20,7 +20,7 @@ func TestE2SetupFailure(t *testing.T) {
 			},
 		},
 		e2apies.TimeToWait_TIME_TO_WAIT_V10S,
-		v1beta1.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+		v1.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
 		&types.RicRequest{
 			RequestorID: 10,
@@ -29,7 +29,7 @@ func TestE2SetupFailure(t *testing.T) {
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v1beta1.ProtocolIeIDRicsubscriptionDetails,
+				IEId:          v1.ProtocolIeIDRicsubscriptionDetails,
 			},
 		},
 	)

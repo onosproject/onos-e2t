@@ -6,15 +6,15 @@ package pdudecoder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-ies"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
 func DecodeRicSubscriptionFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
-	*types.RicRequest, *types.RanFunctionID, v1beta1.ProcedureCodeT,
+	*types.RicRequest, *types.RanFunctionID, v1.ProcedureCodeT,
 	e2ap_commondatatypes.Criticality, e2ap_commondatatypes.TriggeringMessage,
 	*types.RicRequest, map[types.RicActionID]*e2apies.Cause, []*types.CritDiag, error) {
 
@@ -52,13 +52,13 @@ func DecodeRicSubscriptionFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 	}
 
 	critDiagnostics := ricSubscription.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2()
-	var pc v1beta1.ProcedureCodeT
+	var pc v1.ProcedureCodeT
 	var crit e2ap_commondatatypes.Criticality
 	var tm e2ap_commondatatypes.TriggeringMessage
 	var critDiagRequestID *types.RicRequest
 	var diags []*types.CritDiag
 	if critDiagnostics != nil { //It's optional
-		pc = v1beta1.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
+		pc = v1.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
 		crit = critDiagnostics.GetValue().GetProcedureCriticality()
 		tm = critDiagnostics.GetValue().GetTriggeringMessage()
 		critDiagRequestID = &types.RicRequest{
