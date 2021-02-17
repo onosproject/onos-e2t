@@ -91,8 +91,6 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		return controller.Result{}, nil
 	}
 
-	log.Info("Debug: after status", task.Lifecycle.Status)
-
 	// Process the request based on the lifecycle phase
 	switch task.Lifecycle.Phase {
 	case subtaskapi.Phase_OPEN:
@@ -218,7 +216,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 			return controller.Result{}, err
 		}
 	} else if failure != nil {
-		log.Warnf("Failed to initialize SubscriptionTask test: %+v, %+v", failure, err)
+		log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
 		cause := getTaskFailureCause(failure)
 		task.Lifecycle.Status = subtaskapi.Status_FAILED
 		task.Lifecycle.Failure = &subtaskapi.Failure{
@@ -230,7 +228,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 		_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
 		if err != nil {
-			log.Warnf("Failed to update SubscriptionTask in open %+v: %s", task, err)
+			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
 		return controller.Result{}, fmt.Errorf("failed to initialize subscription %+v", sub)
@@ -292,11 +290,11 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		}
 		_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
 		if err != nil {
-			log.Warnf("Failed to update SubscriptionTask in close %+v: %s", task, err)
+			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
 	} else if failure != nil {
-		log.Warnf("Failed to initialize SubscriptionTask test2 %+v:", failure)
+		log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
 		return controller.Result{}, fmt.Errorf("failed to delete subscription %+v", sub)
 	}
 	return controller.Result{}, nil
