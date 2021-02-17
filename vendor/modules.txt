@@ -12,6 +12,7 @@ github.com/Masterminds/semver/v3
 # github.com/Masterminds/sprig/v3 v3.0.2
 github.com/Masterminds/sprig/v3
 # github.com/Microsoft/go-winio v0.4.15
+## explicit
 github.com/Microsoft/go-winio
 github.com/Microsoft/go-winio/pkg/guid
 # github.com/Microsoft/hcsshim v0.8.7
@@ -103,6 +104,7 @@ github.com/docker/distribution/registry/client/transport
 github.com/docker/distribution/registry/storage/cache
 github.com/docker/distribution/registry/storage/cache/memory
 # github.com/docker/docker v1.13.1 => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
+## explicit
 github.com/docker/docker/api/types
 github.com/docker/docker/api/types/blkiodev
 github.com/docker/docker/api/types/container
@@ -167,6 +169,8 @@ github.com/exponent-io/jsonpath
 github.com/fatih/color
 # github.com/fsnotify/fsnotify v1.4.9
 github.com/fsnotify/fsnotify
+# github.com/garyburd/redigo v1.1.1-0.20170914051019-70e1b1943d4f
+## explicit
 # github.com/ghodss/yaml v1.0.0
 github.com/ghodss/yaml
 # github.com/go-openapi/jsonpointer v0.19.3
@@ -206,8 +210,6 @@ github.com/golang/protobuf/ptypes/timestamp
 github.com/golang/snappy
 # github.com/google/btree v1.0.0
 github.com/google/btree
-# github.com/google/gnxi v0.0.0-20201130113533-3b2d93b83a53
-## explicit
 # github.com/google/go-cmp v0.5.3
 github.com/google/go-cmp/cmp
 github.com/google/go-cmp/cmp/internal/diff
@@ -223,6 +225,7 @@ github.com/googleapis/gnostic/OpenAPIv2
 github.com/googleapis/gnostic/compiler
 github.com/googleapis/gnostic/extensions
 # github.com/gorilla/mux v1.8.0
+## explicit
 github.com/gorilla/mux
 # github.com/gosuri/uitable v0.0.4
 github.com/gosuri/uitable
@@ -284,6 +287,7 @@ github.com/mailru/easyjson/buffer
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
 # github.com/mattn/go-colorable v0.0.10-0.20170816031813-ad5389df28cd
+## explicit
 github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.4
 github.com/mattn/go-isatty
@@ -307,8 +311,6 @@ github.com/modern-go/concurrent
 github.com/modern-go/reflect2
 # github.com/morikuni/aec v1.0.0
 github.com/morikuni/aec
-# github.com/onosproject/config-models/modelplugin/ric-1.0.0 v0.0.0-20201206002829-0f3b7ebb025b
-## explicit
 # github.com/onosproject/helmit v0.6.8
 ## explicit
 github.com/onosproject/helmit/pkg/helm
@@ -376,6 +378,7 @@ github.com/onosproject/onos-ric-sdk-go/pkg/e2/termination
 ## explicit
 github.com/onosproject/onos-test/pkg/onostest
 # github.com/opencontainers/go-digest v1.0.0
+## explicit
 github.com/opencontainers/go-digest
 # github.com/opencontainers/image-spec v1.0.1
 github.com/opencontainers/image-spec/specs-go
@@ -423,6 +426,7 @@ github.com/spf13/afero/mem
 # github.com/spf13/cast v1.3.1
 github.com/spf13/cast
 # github.com/spf13/cobra v1.1.1
+## explicit
 github.com/spf13/cobra
 # github.com/spf13/jwalterweatherman v1.1.0
 github.com/spf13/jwalterweatherman
