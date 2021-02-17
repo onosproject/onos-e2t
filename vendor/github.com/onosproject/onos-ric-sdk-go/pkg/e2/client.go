@@ -40,8 +40,6 @@ type Config struct {
 	InstanceID app.InstanceID
 	// SubscriptionService is the subscription service configuration
 	SubscriptionService ServiceConfig
-
-	E2TService ServiceConfig
 }
 
 // ServiceConfig is an E2 service configuration
@@ -75,9 +73,6 @@ type Client interface {
 	// If the subscription is successful, a subscription.Context will be returned. The subscription
 	// context can be used to cancel the subscription by calling Close() on the subscription.Context.
 	Subscribe(ctx context.Context, details subapi.SubscriptionDetails, ch chan<- indication.Indication) (subscription.Context, error)
-
-	// Control
-	Control(ctx context.Context, request *e2tapi.ControlRequest) (*e2tapi.ControlResponse, error)
 }
 
 // NewClient creates a new E2 client
@@ -85,36 +80,25 @@ func NewClient(config Config) (Client, error) {
 	uuid.SetNodeID([]byte(fmt.Sprintf("%s:%s", config.AppID, config.InstanceID)))
 	conns := connection.NewManager()
 	subConn, err := conns.Connect(fmt.Sprintf("%s:%d", config.SubscriptionService.GetHost(), config.SubscriptionService.GetPort()))
-	e2tConn, err := conns.Connect(fmt.Sprintf("%s:%d", config.E2TService.GetHost(), config.E2TService.GetPort()))
 	if err != nil {
 		return nil, err
 	}
 	return &e2Client{
-		config:            config,
-		epClient:          endpoint.NewClient(subConn),
-		subClient:         subscription.NewClient(subConn),
-		taskClient:        subscriptiontask.NewClient(subConn),
-		terminationClient: termination.NewClient(e2tConn),
-		conns:             conns,
+		config:     config,
+		epClient:   endpoint.NewClient(subConn),
+		subClient:  subscription.NewClient(subConn),
+		taskClient: subscriptiontask.NewClient(subConn),
+		conns:      conns,
 	}, nil
 }
 
 // e2Client is the default E2 client implementation
 type e2Client struct {
-	config            Config
-	epClient          endpoint.Client
-	subClient         subscription.Client
-	taskClient        subscriptiontask.Client
-	terminationClient termination.Client
-	conns             *connection.Manager
-}
-
-func (c *e2Client) Control(ctx context.Context, request *e2tapi.ControlRequest) (*e2tapi.ControlResponse, error) {
-	response, err := c.terminationClient.Control(ctx, request)
-	if err != nil {
-		return nil, err
-	}
-	return response, nil
+	config     Config
+	epClient   endpoint.Client
+	subClient  subscription.Client
+	taskClient subscriptiontask.Client
+	conns      *connection.Manager
 }
 
 func (c *e2Client) Subscribe(ctx context.Context, details subapi.SubscriptionDetails, ch chan<- indication.Indication) (subscription.Context, error) {

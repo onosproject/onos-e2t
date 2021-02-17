@@ -8,10 +8,9 @@ import (
 	"context"
 	"io"
 
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 
 	"github.com/onosproject/onos-e2t/pkg/config"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
@@ -67,8 +66,23 @@ type Server struct {
 	controlRequestID RequestID
 }
 
+func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRequest {
+	var controlAckRequest e2apies.RiccontrolAckRequest
+	switch request.ControlAckRequest {
+	case e2api.ControlAckRequest_ACK:
+		controlAckRequest = e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
+	case e2api.ControlAckRequest_NACK:
+		controlAckRequest = e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_N_ACK
+	case e2api.ControlAckRequest_NO_ACK:
+		controlAckRequest = e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_NO_ACK
+	default:
+		controlAckRequest = e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
+	}
+	return controlAckRequest
+}
+
 func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
-	log.Info("Received Control Request %v", request)
+	log.Info("Received E2 Control Request %+v", request)
 	channel, err := s.channels.Get(ctx, e2server.ChannelID(request.E2NodeID))
 	response := &e2api.ControlResponse{}
 	if err != nil {
@@ -77,7 +91,6 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 	serviceModelID := modelregistry.ModelFullName(request.Header.ServiceModel.ID)
 	_, ok := s.modelRegistry.ModelPlugins[serviceModelID]
 	if !ok {
-		response := &e2api.ControlResponse{}
 		return response, err
 	}
 	s.controlRequestID++
@@ -88,39 +101,44 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		InstanceID:  config.InstanceID,
 	}
 
+	if request.Header.EncodingType == e2api.EncodingType_PROTO {
+		log.Debug("Convert protobuf control header and messages to ASN.1 bytes")
+		// TODO convert control header and messages to ASN.1 bytes using service model encoders
+	}
+
 	ranFuncID := channel.GetRANFunctionID(serviceModelID)
+	controlAckRequest := getControlAckRequest(request)
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, request.ControlHeader, request.ControlMessage, controlAckRequest)
 
-	ricRequestID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes29{
-		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2apies.RicrequestId{
-			RicRequestorId: int32(ricRequest.RequestorID), // sequence from e2ap-v01.00.asn1:1126
-			RicInstanceId:  int32(ricRequest.InstanceID),  // sequence from e2ap-v01.00.asn1:1127
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
-	ranFunctionID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes5{
-		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2apies.RanfunctionId{
-			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
-	controlRequest := e2appducontents.RiccontrolRequest{
-		ProtocolIes: &e2appducontents.RiccontrolRequestIes{
-			E2ApProtocolIes29: &ricRequestID,
-			E2ApProtocolIes5:  &ranFunctionID,
-		},
-	}
-
-	log.Info("Call Ric Channel")
-	_, _, err = channel.RICControl(ctx, &controlRequest)
 	if err != nil {
 		log.Error(err)
 		return nil, err
+	}
+
+	ack, failure, err := channel.RICControl(ctx, controlRequest)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	if ack != nil {
+		response = &e2api.ControlResponse{
+			Response: &e2api.ControlResponse_ControlAcknowledge{
+				ControlAcknowledge: &e2api.ControlAcknowledge{
+					ControlOutcome: ack.ProtocolIes.E2ApProtocolIes32.Value.Value,
+				},
+			},
+		}
+	}
+
+	if failure != nil {
+		response = &e2api.ControlResponse{
+			Response: &e2api.ControlResponse_ControlFailure{
+				ControlFailure: &e2api.ControlFailure{
+					ControlOutcome: failure.ProtocolIes.E2ApProtocolIes32.Value.Value,
+				},
+			},
+		}
 	}
 
 	return response, nil

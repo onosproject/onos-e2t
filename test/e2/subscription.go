@@ -41,7 +41,7 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
 
-	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
+	eventTriggerBytes, err := utils.CreateKpmEventTrigger(18)
 	assert.NoError(t, err)
 
 	subRequest := utils.Subscription{
