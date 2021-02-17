@@ -7,8 +7,9 @@ package subscription
 import (
 	"context"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"time"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
@@ -220,7 +221,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		task.Lifecycle.Status = subtaskapi.Status_FAILED
 		task.Lifecycle.Failure = &subtaskapi.Failure{
 			Cause:   cause,
-			Message: string(cause),
+			Message: cause.String(),
 		}
 		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
 			Task: task,
