@@ -1057,6 +1057,14 @@ message RanfunctionsIdcauseList {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:988
 message RanfunctionIdcauseItemIes {
+    message RanfunctionIdcauseItemIes7 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 7];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+        RanfunctionIdcauseItem value = 3;
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2];
+    }
+
+    RanfunctionIdcauseItemIes7 ran_function_idcause_item_ies7 = 1;
 };
 
 // sequence from e2ap-v01.01.00.asn1:995
