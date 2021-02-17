@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package v1beta1
+package v1beta2
 
 // Driven from e2ap_constants.proto
 // TODO: Automate the generation of this file
