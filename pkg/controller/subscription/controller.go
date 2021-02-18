@@ -87,7 +87,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 	// If the task is COMPLETE or FAILED, ignore the request
 	switch task.Lifecycle.Status {
-	case subtaskapi.Status_COMPLETE | subtaskapi.Status_FAILED:
+	case subtaskapi.Status_COMPLETE, subtaskapi.Status_FAILED:
 		return controller.Result{}, nil
 	}
 
