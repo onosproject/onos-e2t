@@ -6,9 +6,10 @@ package modelregistry
 
 import (
 	"fmt"
+	"plugin"
+
 	types "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"plugin"
 )
 
 var log = logging.GetLogger("modelregistry")
@@ -36,6 +37,12 @@ type ServiceModel interface {
 	ActionDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error)
 	ActionDefinitionProtoToASN1(protoBytes []byte) ([]byte, error)
 	DecodeRanFunctionDescription(asn1bytes []byte) (*types.RanfunctionNameDef, *types.RicEventTriggerList, *types.RicReportList, error)
+	ControlHeaderASN1toProto(asn1Bytes []byte) ([]byte, error)
+	ControlHeaderProtoToASN1(protoBytes []byte) ([]byte, error)
+	ControlMessageASN1toProto(asn1Bytes []byte) ([]byte, error)
+	ControlMessageProtoToASN1(protoBytes []byte) ([]byte, error)
+	ControlOutcomeASN1toProto(asn1Bytes []byte) ([]byte, error)
+	ControlOutcomeProtoToASN1(protoBytes []byte) ([]byte, error)
 }
 
 // RegisterModelPlugin adds an external model plugin to the model registry at startup
