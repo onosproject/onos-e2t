@@ -1056,22 +1056,24 @@ func decodeE2connectionUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P14_t)
 	ieCount := int(protocolIEsC.list.count)
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
-		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		eiIeC := *(**C.E2connectionUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		//ToDo - uncomment once decodeE2connectionUpdateIe is implemented
+		//offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		//eiIeC := *(**C.E2connectionUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
-		ie, err := decodeE2connectionUpdateIes(eiIeC)
-		if err != nil {
-			return nil, err
-		}
-		if ie.E2ApProtocolIes44 != nil {
-			pIEs.E2ApProtocolIes44 = ie.E2ApProtocolIes44
-		}
-		if ie.E2ApProtocolIes45 != nil {
-			pIEs.E2ApProtocolIes45 = ie.E2ApProtocolIes45
-		}
-		if ie.E2ApProtocolIes46 != nil {
-			pIEs.E2ApProtocolIes46 = ie.E2ApProtocolIes46
-		}
+		//ToDo - Implement decodeE2connectionUpdateIe function -- see analogical function in RICcontrolRequest message chain
+		//ie, err := decodeE2connectionUpdateIe(eiIeC)
+		//if err != nil {
+		//	return nil, err
+		//}
+		//if ie.E2ApProtocolIes44 != nil {
+		//	pIEs.E2ApProtocolIes44 = ie.E2ApProtocolIes44
+		//}
+		//if ie.E2ApProtocolIes45 != nil {
+		//	pIEs.E2ApProtocolIes45 = ie.E2ApProtocolIes45
+		//}
+		//if ie.E2ApProtocolIes46 != nil {
+		//	pIEs.E2ApProtocolIes46 = ie.E2ApProtocolIes46
+		//}
 	}
 
 	return pIEs, nil

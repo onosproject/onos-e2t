@@ -124,7 +124,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1710P1_t{
-				list: C.struct___79{ // TODO: tie this down with a predictable name
+				list: C.struct___91{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -148,7 +148,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_E2setupResponse:
 		e2SrC := C.E2setupResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1710P12_t{
-				list: C.struct___78{ // TODO: tie this down with a predictable name
+				list: C.struct___90{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupResponseIEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -171,7 +171,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionDeleteResponse:
 		rsrespC := C.RICsubscriptionDeleteResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1710P4_t{
-				list: C.struct___80{ // TODO: tie this down with a predictable name
+				list: C.struct___92{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteResponse_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -195,7 +195,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICcontrolAcknowledge:
 		rsrespC := C.RICcontrolAcknowledge_t{
 			protocolIEs: C.ProtocolIE_Container_1710P8_t{
-				list: C.struct___81{ // TODO: tie this down with a predictable name
+				list: C.struct___93{ // TODO: tie this down with a predictable name
 					array: (**C.RICcontrolAcknowledge_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,

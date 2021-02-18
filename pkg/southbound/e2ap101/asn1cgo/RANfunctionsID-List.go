@@ -41,7 +41,7 @@ func decodeRanFunctionsIDListBytes(ranFunctionIDListChoice [112]byte) (*e2appduc
 	size := C.int(binary.LittleEndian.Uint32(ranFunctionIDListChoice[12:16]))
 
 	rfIDlC := C.RANfunctionsID_List_t{
-		list: C.struct___85{
+		list: C.struct___95{
 			array: array,
 			size:  size,
 			count: count,
@@ -60,7 +60,7 @@ func decodeRanFunctionsIDList(rfIDlC *C.RANfunctionsID_List_t) (*e2appducontents
 	//fmt.Printf("RanFunctionIDListC %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*rfIDlC.list.array)) * uintptr(i)
-		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1713P4_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rfIDlC.list.array)) + offset))
+		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1713P9_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rfIDlC.list.array)) + offset))
 		//fmt.Printf("Value %T %p %v\n", rfIDiIeC, rfIDiIeC, rfIDiIeC)
 		rfIDiIe, err := decodeRanFunctionIDItemIesSingleContainer(rfIDiIeC)
 		if err != nil {
