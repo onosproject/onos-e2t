@@ -28,7 +28,7 @@ func newRanFunctionItem(rfItem *e2appducontents.RanfunctionItem) *C.RANfunction_
 	return &rfItemC
 }
 
-func decodeRanFunctionItemBytes(bytes [80]byte) (*e2appducontents.RanfunctionItem, error) {
+func decodeRanFunctionItemBytes(bytes [88]byte) (*e2appducontents.RanfunctionItem, error) {
 	size := binary.LittleEndian.Uint64(bytes[16:24])
 	gobytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16]))), C.int(size))
 
