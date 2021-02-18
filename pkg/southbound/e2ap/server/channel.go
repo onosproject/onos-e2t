@@ -35,7 +35,6 @@ type E2Channel struct {
 }
 
 func (c *E2Channel) GetRANFunctionID(modelName modelregistry.ModelFullName) types.RanFunctionID {
-	log.Info("Test get Ran function IDs:", c.modelFuncIDs)
 	return c.modelFuncIDs[modelName]
 }
 
