@@ -1,21 +1,20 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
-
-package asn1cgo
+package pdubuilder
 
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
-func Test_CriticalityDiagnostics(t *testing.T) {
-	newE2apPdu, err := pdubuilder.CreateRicSubscriptionDeleteFailureE2apPdu(&types.RicRequest{
+func TestRicSubscriptionDeleteFailure(t *testing.T) {
+	newE2apPdu, err := CreateRicSubscriptionDeleteFailureE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
 	}, 9,
@@ -39,11 +38,11 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
-	critDiagsTestC, err := newCriticalityDiagnostics(newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue())
+	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, critDiagsTestC != nil)
+	t.Logf("RicSubscriptionDeleteFailure E2AP PDU XER\n%s", string(xer))
 
-	critDiagsReversed, err := decodeCriticalityDiagnostics(critDiagsTestC)
+	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
-	assert.Assert(t, critDiagsReversed != nil)
+	t.Logf("RicSubscriptionDeleteFailure E2AP PDU PER\n%v", per)
 }
