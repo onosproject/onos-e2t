@@ -82,7 +82,7 @@ func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRe
 }
 
 func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
-	log.Info("Received E2 Control Request %+v", request)
+	log.Infof("Received E2 Control Request %v", request)
 	channel, err := s.channels.Get(ctx, e2server.ChannelID(request.E2NodeID))
 	response := &e2api.ControlResponse{}
 	if err != nil {
