@@ -11,8 +11,7 @@ github.com/Masterminds/goutils
 github.com/Masterminds/semver/v3
 # github.com/Masterminds/sprig/v3 v3.0.2
 github.com/Masterminds/sprig/v3
-# github.com/Microsoft/go-winio v0.4.15
-## explicit
+# github.com/Microsoft/go-winio v0.4.15-0.20190919025122-fc70bd9a86b5
 github.com/Microsoft/go-winio
 github.com/Microsoft/go-winio/pkg/guid
 # github.com/Microsoft/hcsshim v0.8.7
@@ -103,8 +102,7 @@ github.com/docker/distribution/registry/client/auth/challenge
 github.com/docker/distribution/registry/client/transport
 github.com/docker/distribution/registry/storage/cache
 github.com/docker/distribution/registry/storage/cache/memory
-# github.com/docker/docker v1.13.1 => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
-## explicit
+# github.com/docker/docker v1.4.2-0.20200203170920-46ec8731fbce => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
 github.com/docker/docker/api/types
 github.com/docker/docker/api/types/blkiodev
 github.com/docker/docker/api/types/container
@@ -169,8 +167,6 @@ github.com/exponent-io/jsonpath
 github.com/fatih/color
 # github.com/fsnotify/fsnotify v1.4.9
 github.com/fsnotify/fsnotify
-# github.com/garyburd/redigo v1.1.1-0.20170914051019-70e1b1943d4f
-## explicit
 # github.com/ghodss/yaml v1.0.0
 github.com/ghodss/yaml
 # github.com/go-openapi/jsonpointer v0.19.3
@@ -224,8 +220,7 @@ github.com/google/uuid
 github.com/googleapis/gnostic/OpenAPIv2
 github.com/googleapis/gnostic/compiler
 github.com/googleapis/gnostic/extensions
-# github.com/gorilla/mux v1.8.0
-## explicit
+# github.com/gorilla/mux v1.7.2
 github.com/gorilla/mux
 # github.com/gosuri/uitable v0.0.4
 github.com/gosuri/uitable
@@ -286,8 +281,7 @@ github.com/magiconair/properties
 github.com/mailru/easyjson/buffer
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
-# github.com/mattn/go-colorable v0.0.10-0.20170816031813-ad5389df28cd
-## explicit
+# github.com/mattn/go-colorable v0.0.9
 github.com/mattn/go-colorable
 # github.com/mattn/go-isatty v0.0.4
 github.com/mattn/go-isatty
@@ -337,7 +331,7 @@ github.com/onosproject/helmit/pkg/test
 github.com/onosproject/helmit/pkg/util/files
 github.com/onosproject/helmit/pkg/util/logging
 github.com/onosproject/helmit/pkg/util/random
-# github.com/onosproject/onos-api/go v0.7.3
+# github.com/onosproject/onos-api/go v0.7.5
 ## explicit
 github.com/onosproject/onos-api/go/onos/e2sub/endpoint
 github.com/onosproject/onos-api/go/onos/e2sub/subscription
@@ -349,6 +343,8 @@ github.com/onosproject/onos-api/go/onos/e2t/e2sm
 ## explicit
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/pdubuilder
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/v1beta1/e2sm-kpm-ies
+# github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.6
+## explicit
 # github.com/onosproject/onos-lib-go v0.7.0
 ## explicit
 github.com/onosproject/onos-lib-go/api/logging
@@ -362,7 +358,7 @@ github.com/onosproject/onos-lib-go/pkg/logging
 github.com/onosproject/onos-lib-go/pkg/logging/service
 github.com/onosproject/onos-lib-go/pkg/northbound
 github.com/onosproject/onos-lib-go/pkg/southbound
-# github.com/onosproject/onos-ric-sdk-go v0.7.7
+# github.com/onosproject/onos-ric-sdk-go v0.7.9
 ## explicit
 github.com/onosproject/onos-ric-sdk-go/pkg/app
 github.com/onosproject/onos-ric-sdk-go/pkg/e2
@@ -377,8 +373,7 @@ github.com/onosproject/onos-ric-sdk-go/pkg/e2/termination
 # github.com/onosproject/onos-test v0.6.4
 ## explicit
 github.com/onosproject/onos-test/pkg/onostest
-# github.com/opencontainers/go-digest v1.0.0
-## explicit
+# github.com/opencontainers/go-digest v1.0.0-rc1
 github.com/opencontainers/go-digest
 # github.com/opencontainers/image-spec v1.0.1
 github.com/opencontainers/image-spec/specs-go
@@ -425,8 +420,7 @@ github.com/spf13/afero
 github.com/spf13/afero/mem
 # github.com/spf13/cast v1.3.1
 github.com/spf13/cast
-# github.com/spf13/cobra v1.1.1
-## explicit
+# github.com/spf13/cobra v0.0.6
 github.com/spf13/cobra
 # github.com/spf13/jwalterweatherman v1.1.0
 github.com/spf13/jwalterweatherman

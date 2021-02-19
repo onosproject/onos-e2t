@@ -5,9 +5,19 @@
 package ricapie2
 
 import (
+	"context"
+	"io"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+
+	"github.com/onosproject/onos-e2t/pkg/config"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	"io"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
@@ -22,11 +32,12 @@ import (
 var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
-func NewService(subs subapi.E2SubscriptionServiceClient, streams *stream.Manager, modelRegistry *modelregistry.ModelRegistry) northbound.Service {
+func NewService(subs subapi.E2SubscriptionServiceClient, streams *stream.Manager, modelRegistry *modelregistry.ModelRegistry, channels *e2server.ChannelManager) northbound.Service {
 	return &Service{
 		subs:          subs,
 		streams:       streams,
 		modelRegistry: modelRegistry,
+		channels:      channels,
 	}
 }
 
@@ -36,19 +47,114 @@ type Service struct {
 	subs          subapi.E2SubscriptionServiceClient
 	streams       *stream.Manager
 	modelRegistry *modelregistry.ModelRegistry
+	channels      *e2server.ChannelManager
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
-	server := &Server{subs: s.subs, streams: s.streams, modelRegistry: s.modelRegistry}
+	server := &Server{subs: s.subs, streams: s.streams, modelRegistry: s.modelRegistry,
+		channels: s.channels, controlRequestID: RequestID(0)}
 	e2api.RegisterE2TServiceServer(r, server)
 }
 
 // Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
-	subs          subapi.E2SubscriptionServiceClient
-	streams       *stream.Manager
-	modelRegistry *modelregistry.ModelRegistry
+	subs             subapi.E2SubscriptionServiceClient
+	streams          *stream.Manager
+	modelRegistry    *modelregistry.ModelRegistry
+	channels         *e2server.ChannelManager
+	controlRequestID RequestID
+}
+
+func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRequest {
+	var controlAckRequest e2apies.RiccontrolAckRequest
+	switch request.ControlAckRequest {
+	case e2api.ControlAckRequest_ACK:
+		controlAckRequest = e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
+	case e2api.ControlAckRequest_NACK:
+		controlAckRequest = e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_N_ACK
+	case e2api.ControlAckRequest_NO_ACK:
+		controlAckRequest = e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_NO_ACK
+	default:
+		controlAckRequest = e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
+	}
+	return controlAckRequest
+}
+
+func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
+	log.Infof("Received E2 Control Request %v", request)
+	channel, err := s.channels.Get(ctx, e2server.ChannelID(request.E2NodeID))
+	response := &e2api.ControlResponse{}
+	if err != nil {
+		return response, err
+	}
+	serviceModelID := modelregistry.ModelFullName(request.Header.ServiceModel.ID)
+	serviceModelPlugin, ok := s.modelRegistry.ModelPlugins[serviceModelID]
+	if !ok {
+		return response, err
+	}
+	s.controlRequestID++
+	requestID := s.controlRequestID
+
+	ricRequest := types.RicRequest{
+		RequestorID: types.RicRequestorID(requestID),
+		InstanceID:  config.InstanceID,
+	}
+
+	controlHeaderBytes := request.ControlHeader
+	controlMessageBytes := request.ControlMessage
+
+	if request.Header.EncodingType == e2api.EncodingType_PROTO {
+		controlHeader, err := serviceModelPlugin.ControlHeaderProtoToASN1(controlHeaderBytes)
+		if err != nil {
+			log.Errorf("Error transforming Control Header Proto bytes to ASN: %s", err.Error())
+			return nil, err
+		}
+		controlHeaderBytes = controlHeader
+		controlMessage, err := serviceModelPlugin.ControlMessageProtoToASN1(controlMessageBytes)
+		if err != nil {
+			log.Errorf("Error transforming Control Message Proto bytes to ASN: %s", err.Error())
+			return nil, err
+		}
+		controlMessageBytes = controlMessage
+	}
+
+	ranFuncID := channel.GetRANFunctionID(serviceModelID)
+	controlAckRequest := getControlAckRequest(request)
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
+
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	ack, failure, err := channel.RICControl(ctx, controlRequest)
+	if err != nil {
+		log.Error(err)
+		return nil, err
+	}
+
+	if ack != nil {
+		response = &e2api.ControlResponse{
+			Response: &e2api.ControlResponse_ControlAcknowledge{
+				ControlAcknowledge: &e2api.ControlAcknowledge{
+					ControlOutcome: ack.ProtocolIes.E2ApProtocolIes32.Value.Value,
+				},
+			},
+		}
+	}
+
+	if failure != nil {
+		response = &e2api.ControlResponse{
+			Response: &e2api.ControlResponse_ControlFailure{
+				ControlFailure: &e2api.ControlFailure{
+					ControlOutcome: failure.ProtocolIes.E2ApProtocolIes32.Value.Value,
+				},
+			},
+		}
+	}
+
+	return response, nil
 }
 
 func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
@@ -130,12 +236,12 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 				return errors.NewInvalid(err.Error())
 			}
 			log.Infof("Indication Message %d bytes", len(indMessageProto))
-			response.Header.IndicationHeader = indHeaderProto
+			response.IndicationHeader = indHeaderProto
 			response.IndicationMessage = indMessageProto
 			log.Infof("RICIndication successfully decoded from ASN1 to Proto #Bytes - Header: %d, Message: %d",
 				len(indHeaderProto), len(indMessageProto))
 		case e2api.EncodingType_ASN1_PER:
-			response.Header.IndicationHeader = indHeaderAsn1
+			response.IndicationHeader = indHeaderAsn1
 			response.IndicationMessage = indMessageAsn1
 		default:
 			log.Errorf("encoding type %v not supported", request.Header.EncodingType)

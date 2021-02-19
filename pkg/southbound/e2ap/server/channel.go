@@ -6,12 +6,13 @@ package server
 
 import (
 	"context"
+	"sync"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
-	"sync"
 )
 
 func newE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, modelFuncIDs map[modelregistry.ModelFullName]types.RanFunctionID) *E2Channel {

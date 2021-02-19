@@ -6,8 +6,9 @@ package manager
 
 import (
 	"context"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"time"
+
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
@@ -138,7 +139,7 @@ func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *e2ser
 		northbound.SecurityConfig{}))
 	s.AddService(admin.NewService(channels))
 	s.AddService(logging.Service{})
-	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry))
+	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry, channels))
 
 	doneCh := make(chan error)
 	go func() {

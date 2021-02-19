@@ -6,10 +6,11 @@ package procedures
 
 import (
 	"context"
+	"sync"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"sync"
 )
 
 // RICControl is a RIC control procedure

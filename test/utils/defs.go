@@ -12,6 +12,8 @@ const (
 	SubscriptionServiceHost = "onos-e2sub"
 	SubscriptionServicePort = 5150
 	KpmServiceModelID       = "e2sm_kpm-v1beta1"
+	E2TServiceHost          = "onos-e2t"
+	E2TServicePort          = 5150
 )
 
 var (
