@@ -9,13 +9,57 @@ import (
 	"testing"
 	"time"
 
+	"github.com/golang/protobuf/proto"
+
 	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
+	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/pdubuilder"
 	"github.com/stretchr/testify/assert"
 
 	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
+
+func createControlHeader() ([]byte, error) {
+	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlHeader()
+	if err != nil {
+		return []byte{}, err
+	}
+
+	err = newE2SmRcPrePdu.Validate()
+	if err != nil {
+		return []byte{}, err
+	}
+
+	protoBytes, err := proto.Marshal(newE2SmRcPrePdu)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	return protoBytes, nil
+
+}
+
+func createControlMessage() ([]byte, error) {
+	var ranParameterName = "PCITEST"
+	var ranParameterValue int32 = 15
+
+	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlMessage(ranParameterName, ranParameterValue)
+	if err != nil {
+		return []byte{}, err
+	}
+	err = newE2SmRcPrePdu.Validate()
+	if err != nil {
+		return []byte{}, err
+	}
+
+	protoBytes, err := proto.Marshal(newE2SmRcPrePdu)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	return protoBytes, nil
+}
 
 // TestControl
 func (s *TestSuite) TestControl(t *testing.T) {
@@ -29,6 +73,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 			Port: utils.E2TServicePort,
 		},
 	}
+
 	client, err := e2client.NewClient(clientConfig)
 	assert.NoError(t, err)
 
@@ -37,6 +82,9 @@ func (s *TestSuite) TestControl(t *testing.T) {
 
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
+
+	controlMessageBytes, err := createControlMessage()
+	controlHeaderBytes, err := createControlHeader()
 
 	request := &e2tapi.ControlRequest{
 		E2NodeID: e2tapi.E2NodeID(nodeIDs[1]),
@@ -47,15 +95,21 @@ func (s *TestSuite) TestControl(t *testing.T) {
 			},
 		},
 		ControlAckRequest: e2tapi.ControlAckRequest_ACK,
+		ControlMessage:    controlMessageBytes,
+		ControlHeader:     controlHeaderBytes,
 	}
 
+	start := time.Now()
 	response, err := client.Control(ctx, request)
+	duration := time.Since(start)
+	t.Log(duration.Microseconds())
 	assert.NoError(t, err)
 	if response == nil {
 		return
 	}
 
-	t.Log(response)
+	//t.Log(response)
+	// Code to measure
 
 	//_ = sim.Uninstall()
 

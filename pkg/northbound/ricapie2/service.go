@@ -89,7 +89,7 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		return response, err
 	}
 	serviceModelID := modelregistry.ModelFullName(request.Header.ServiceModel.ID)
-	_, ok := s.modelRegistry.ModelPlugins[serviceModelID]
+	serviceModelPlugin, ok := s.modelRegistry.ModelPlugins[serviceModelID]
 	if !ok {
 		return response, err
 	}
@@ -101,14 +101,27 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		InstanceID:  config.InstanceID,
 	}
 
+	controlHeaderBytes := request.ControlHeader
+	controlMessageBytes := request.ControlMessage
+
 	if request.Header.EncodingType == e2api.EncodingType_PROTO {
-		log.Debug("Convert protobuf control header and messages to ASN.1 bytes")
-		// TODO convert control header and messages to ASN.1 bytes using service model encoders
+		controlHeader, err := serviceModelPlugin.ControlHeaderProtoToASN1(controlHeaderBytes)
+		if err != nil {
+			log.Errorf("Error transforming Control Header Proto bytes to ASN: %s", err.Error())
+			return nil, err
+		}
+		controlHeaderBytes = controlHeader
+		controlMessage, err := serviceModelPlugin.ControlMessageProtoToASN1(controlMessageBytes)
+		if err != nil {
+			log.Errorf("Error transforming Control Message Proto bytes to ASN: %s", err.Error())
+			return nil, err
+		}
+		controlMessageBytes = controlMessage
 	}
 
 	ranFuncID := channel.GetRANFunctionID(serviceModelID)
 	controlAckRequest := getControlAckRequest(request)
-	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, request.ControlHeader, request.ControlMessage, controlAckRequest)
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
 
 	if err != nil {
 		log.Error(err)
