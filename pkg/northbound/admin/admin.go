@@ -7,7 +7,7 @@ package admin
 import (
 	"context"
 	"errors"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
 	sctpnet "github.com/ishidawataru/sctp"
 	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
