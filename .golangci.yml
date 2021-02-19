@@ -36,6 +36,9 @@ issues:
     - path: pkg/southbound/e2ap/pdubuilder/error-indication_test.go
       linters:
         - misspell
+    - path: pkg/southbound/e2ap101/asn1cgo/TriggeringMessage.go
+      linters:
+        - misspell
     - path: pkg/southbound/e2ap101/pdubuilder/ric-subscription-delete-failure_test.go
       linters:
         - misspell
