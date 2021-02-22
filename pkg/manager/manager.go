@@ -8,7 +8,7 @@ import (
 	"context"
 	"time"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"

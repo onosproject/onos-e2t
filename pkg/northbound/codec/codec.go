@@ -7,8 +7,8 @@ package codec
 import (
 	"github.com/gogo/protobuf/proto"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 )
 
 // getCodec gets the codec for the given encoding

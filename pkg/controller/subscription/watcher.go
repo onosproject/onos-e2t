@@ -6,7 +6,7 @@ package subscription
 
 import (
 	"context"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"io"
 	"sync"
 

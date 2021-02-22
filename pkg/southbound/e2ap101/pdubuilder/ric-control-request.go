@@ -5,6 +5,7 @@ package pdubuilder
 
 import (
 	"fmt"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
@@ -14,10 +15,9 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
+func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 	ricCallPrID types.RicCallProcessID, ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage,
-	ricCtrlAckRequest e2apies.RiccontrolAckRequest) (*e2appdudescriptions.E2ApPdu, error) {
-
+	ricCtrlAckRequest e2apies.RiccontrolAckRequest) (*e2appducontents.RiccontrolRequest, error) {
 	ricRequestID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes29{
 		Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
@@ -71,21 +71,36 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
+	controlRequest := &e2appducontents.RiccontrolRequest{
+		ProtocolIes: &e2appducontents.RiccontrolRequestIes{
+			E2ApProtocolIes29: &ricRequestID,         // RIC Requestor & RIC Instance ID
+			E2ApProtocolIes5:  &ranFunctionID,        // RAN function ID
+			E2ApProtocolIes20: &ricCallProcessID,     // RIC Call Process ID
+			E2ApProtocolIes22: &ricControlHeader,     // RIC Control Header
+			E2ApProtocolIes23: &ricControlMessage,    // RIC Control Message
+			E2ApProtocolIes21: &ricControlAckRequest, // RIC Control Ack Request
+		},
+	}
+
+	return controlRequest, nil
+
+}
+
+func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
+	ricCallPrID types.RicCallProcessID, ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage,
+	ricCtrlAckRequest e2apies.RiccontrolAckRequest) (*e2appdudescriptions.E2ApPdu, error) {
+
+	request, err := NewControlRequest(ricReqID, ranFuncID, ricCallPrID, ricCtrlHdr, ricCtrlMsg, ricCtrlAckRequest)
+	if err != nil {
+		return nil, err
+	}
+
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
 					RicControl: &e2appdudescriptions.RicControl{
-						InitiatingMessage: &e2appducontents.RiccontrolRequest{
-							ProtocolIes: &e2appducontents.RiccontrolRequestIes{
-								E2ApProtocolIes29: &ricRequestID,         // RIC Requestor & RIC Instance ID
-								E2ApProtocolIes5:  &ranFunctionID,        // RAN function ID
-								E2ApProtocolIes20: &ricCallProcessID,     // RIC Call Process ID
-								E2ApProtocolIes22: &ricControlHeader,     // RIC Control Header
-								E2ApProtocolIes23: &ricControlMessage,    // RIC Control Message
-								E2ApProtocolIes21: &ricControlAckRequest, // RIC Control Ack Request
-							},
-						},
+						InitiatingMessage: request,
 						ProcedureCode: &e2ap_constants.IdRiccontrol{
 							Value: int32(v1beta2.ProcedureCodeIDRICcontrol),
 						},

@@ -8,7 +8,7 @@ import (
 	"context"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
