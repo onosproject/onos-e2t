@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	"testing"
 	"time"
 
@@ -65,7 +66,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	//  Create the subscription
-	_, err = client.Subscribe(ctx, subReq, ch)
+	sub, err := client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 
 	// Make sure that reads on the subscription channel time out. There should be no
@@ -80,6 +81,16 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	case <-time.After(10 * time.Second):
 		// The read timed out. This is the expected behavior.
 		gotIndication = false
+
+		select {
+		// Now check the error channel
+		case err = <-sub.Err():
+			t.Log(err.Error())
+			assert.Equal(t, err.Error(), subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED.String())
+
+		case <-time.After(10 * time.Second):
+			t.Fatal("No error received for failed subscription")
+		}
 	}
 
 	assert.False(t, gotIndication, "Indication message was delivered for a node that is down")
