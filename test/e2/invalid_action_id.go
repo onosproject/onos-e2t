@@ -21,8 +21,7 @@ import (
 // TestInvalidActionID tests invalid action ID (i.e. INSERT action) for kpm service model that
 // supports just REPORT action
 func (s *TestSuite) TestInvalidActionID(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
-	assert.NotNil(t, sim)
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "ran-simulator")
 
 	clientConfig := e2client.Config{
 		AppID: "invalid-action-id",
