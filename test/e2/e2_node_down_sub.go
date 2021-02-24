@@ -21,8 +21,7 @@ import (
 func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	// Create a simulator
-	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
-	assert.NotNil(t, sim)
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "ran-simulator")
 
 	// Create an e2client
 	clientConfig := e2client.Config{

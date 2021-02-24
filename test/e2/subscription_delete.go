@@ -9,7 +9,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	sdksub "github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/stretchr/testify/assert"
@@ -20,18 +19,6 @@ import (
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
-
-func checkSubscriptionList(t *testing.T, expectedLen int) []subscription.Subscription {
-	conn, err := utils.ConnectSubscriptionServiceHost()
-	assert.NoError(t, err)
-	assert.NotNil(t, conn)
-
-	subClient := sdksub.NewClient(conn)
-	subList, err := subClient.List(context.Background())
-	assert.NoError(t, err)
-	assert.Len(t, subList, expectedLen)
-	return subList
-}
 
 func checkSubscription(t *testing.T) sdksub.Context {
 	clientConfig := e2client.Config{
@@ -86,31 +73,40 @@ func checkSubscription(t *testing.T) sdksub.Context {
 
 // TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
-	assert.NotNil(t, sim)
-
-	conn, err := utils.ConnectSubscriptionServiceHost()
-	assert.NoError(t, err)
-	assert.NotNil(t, conn)
+	// Start up a ran-sim instance
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "ran-simulator")
 
 	//  Initially the subscription list should be empty
 	checkSubscriptionList(t, 0)
 
-	// Add a subscription and that there is one item in the list
-	sub := checkSubscription(t)
-	assert.NotNil(t, sub)
-	checkSubscriptionList(t, 1)
+	// Add a subscription
+	subBeforeDelete := checkSubscription(t)
 
-	//  Close the subscription and check that the list is empty again
-	err = sub.Close()
+	// Check that the subscription list is correct
+	subListBeforeDelete := checkSubscriptionList(t, 1)
+	checkSubscriptionIDInList(t, subBeforeDelete.ID(), subListBeforeDelete)
+
+	// Check that querying the subscription is correct
+	checkSubscriptionGet(t, subBeforeDelete.ID())
+
+	//  Close the subscription
+	err := subBeforeDelete.Close()
 	assert.NoError(t, err)
+
+	// List should be empty now
 	checkSubscriptionList(t, 0)
 
 	//  Open the subscription again and make sure it is open
-	sub = checkSubscription(t)
-	assert.NotNil(t, sub)
-	checkSubscriptionList(t, 1)
+	subAfterDelete := checkSubscription(t)
 
+	// List should be one item now
+	subListAfterDelete := checkSubscriptionList(t, 1)
+	checkSubscriptionIDInList(t, subAfterDelete.ID(), subListAfterDelete)
+
+	// Check that querying the subscription is correct
+	checkSubscriptionGet(t, subAfterDelete.ID())
+
+	// Clean up the ran-sim instance
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 }

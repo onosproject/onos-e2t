@@ -21,8 +21,7 @@ import (
 
 // TestSubscription tests e2 subscription and subscription delete procedures
 func (s *TestSuite) TestSubscription(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
-	assert.NotNil(t, sim)
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "ran-simulator")
 
 	clientConfig := e2client.Config{
 		AppID: "subscription-test",
