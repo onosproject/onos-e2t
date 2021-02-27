@@ -305,6 +305,10 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 			Task: task,
 		}
 		_, err = r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
+		if err != nil {
+			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
+			return controller.Result{}, err
+		}
 		return controller.Result{}, fmt.Errorf("failed to delete subscription %+v", sub)
 	}
 	return controller.Result{}, nil
