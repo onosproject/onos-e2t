@@ -217,7 +217,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 	} else if failure != nil {
 		log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
-		cause := getTaskFailureCause(failure)
+		cause := getSubscriptionFailureCause(failure)
 		task.Lifecycle.Status = subtaskapi.Status_FAILED
 		task.Lifecycle.Failure = &subtaskapi.Failure{
 			Cause:   cause,
@@ -295,84 +295,104 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		}
 	} else if failure != nil {
 		log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
+		cause := getSubscriptionDeleteFailureCause(failure)
+		task.Lifecycle.Status = subtaskapi.Status_FAILED
+		task.Lifecycle.Failure = &subtaskapi.Failure{
+			Cause:   cause,
+			Message: cause.String(),
+		}
+		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
+			Task: task,
+		}
+		_, err = r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
 		return controller.Result{}, fmt.Errorf("failed to delete subscription %+v", sub)
 	}
 	return controller.Result{}, nil
 }
 
-func getTaskFailureCause(failure *e2appducontents.RicsubscriptionFailure) subtaskapi.Cause {
-	for _, item := range failure.ProtocolIes.E2ApProtocolIes18.Value.Value {
-		switch c := item.Value.Cause.Cause.(type) {
-		case *e2apies.Cause_RicRequest:
-			switch c.RicRequest {
-			case e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
-				return subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
-				return subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED
-			case e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
-				return subtaskapi.Cause_CAUSE_RIC_EXCESSIVE_ACTIONS
-			case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
-				return subtaskapi.Cause_CAUSE_RIC_DUPLICATE_ACTION
-			case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
-				return subtaskapi.Cause_CAUSE_RIC_DUPLICATE_EVENT
-			case e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
-				return subtaskapi.Cause_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT
-			case e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
-				return subtaskapi.Cause_CAUSE_RIC_REQUEST_ID_UNKNOWN
-			case e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
-				return subtaskapi.Cause_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE
-			case e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
-				return subtaskapi.Cause_CAUSE_RIC_CONTROL_MESSAGE_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
-				return subtaskapi.Cause_CAUSE_RIC_CALL_PROCESS_ID_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED:
-				return subtaskapi.Cause_CAUSE_RIC_UNSPECIFIED
-			}
-		case *e2apies.Cause_RicService:
-			switch c.RicService {
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
-				return subtaskapi.Cause_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
-				return subtaskapi.Cause_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
-				return subtaskapi.Cause_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT
-			}
-		case *e2apies.Cause_Protocol:
-			switch c.Protocol {
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR:
-				return subtaskapi.Cause_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT:
-				return subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY:
-				return subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE:
-				return subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR:
-				return subtaskapi.Cause_CAUSE_PROTOCOL_SEMANTIC_ERROR
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE:
-				return subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED:
-				return subtaskapi.Cause_CAUSE_PROTOCOL_UNSPECIFIED
-			}
-		case *e2apies.Cause_Transport:
-			switch c.Transport {
-			case e2apies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED:
-				return subtaskapi.Cause_CAUSE_TRANSPORT_UNSPECIFIED
-			case e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE:
-				return subtaskapi.Cause_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE
-			}
-		case *e2apies.Cause_Misc:
-			switch c.Misc {
-			case e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD:
-				return subtaskapi.Cause_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD
-			case e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE:
-				return subtaskapi.Cause_CAUSE_MISC_HARDWARE_FAILURE
-			case e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION:
-				return subtaskapi.Cause_CAUSE_MISC_OM_INTERVENTION
-			case e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED:
-				return subtaskapi.Cause_CAUSE_MISC_UNSPECIFIED
-			}
+func getFailureCause(cause *e2apies.Cause) subtaskapi.Cause {
+	switch c := cause.Cause.(type) {
+	case *e2apies.Cause_RicRequest:
+		switch c.RicRequest {
+		case e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
+			return subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID
+		case e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
+			return subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED
+		case e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
+			return subtaskapi.Cause_CAUSE_RIC_EXCESSIVE_ACTIONS
+		case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
+			return subtaskapi.Cause_CAUSE_RIC_DUPLICATE_ACTION
+		case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
+			return subtaskapi.Cause_CAUSE_RIC_DUPLICATE_EVENT
+		case e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
+			return subtaskapi.Cause_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT
+		case e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
+			return subtaskapi.Cause_CAUSE_RIC_REQUEST_ID_UNKNOWN
+		case e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
+			return subtaskapi.Cause_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE
+		case e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
+			return subtaskapi.Cause_CAUSE_RIC_CONTROL_MESSAGE_INVALID
+		case e2apies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
+			return subtaskapi.Cause_CAUSE_RIC_CALL_PROCESS_ID_INVALID
+		case e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED:
+			return subtaskapi.Cause_CAUSE_RIC_UNSPECIFIED
 		}
+	case *e2apies.Cause_RicService:
+		switch c.RicService {
+		case e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
+			return subtaskapi.Cause_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED
+		case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
+			return subtaskapi.Cause_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS
+		case e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
+			return subtaskapi.Cause_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT
+		}
+	case *e2apies.Cause_Protocol:
+		switch c.Protocol {
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR:
+			return subtaskapi.Cause_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT:
+			return subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY:
+			return subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE:
+			return subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR:
+			return subtaskapi.Cause_CAUSE_PROTOCOL_SEMANTIC_ERROR
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE:
+			return subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED:
+			return subtaskapi.Cause_CAUSE_PROTOCOL_UNSPECIFIED
+		}
+	case *e2apies.Cause_Transport:
+		switch c.Transport {
+		case e2apies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED:
+			return subtaskapi.Cause_CAUSE_TRANSPORT_UNSPECIFIED
+		case e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE:
+			return subtaskapi.Cause_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE
+		}
+	case *e2apies.Cause_Misc:
+		switch c.Misc {
+		case e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD:
+			return subtaskapi.Cause_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD
+		case e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE:
+			return subtaskapi.Cause_CAUSE_MISC_HARDWARE_FAILURE
+		case e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION:
+			return subtaskapi.Cause_CAUSE_MISC_OM_INTERVENTION
+		case e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED:
+			return subtaskapi.Cause_CAUSE_MISC_UNSPECIFIED
+		}
+	}
+	return 0
+}
+
+func getSubscriptionDeleteFailureCause(failure *e2appducontents.RicsubscriptionDeleteFailure) subtaskapi.Cause {
+	cause := failure.ProtocolIes.E2ApProtocolIes1.Value
+	return getFailureCause(cause)
+}
+
+func getSubscriptionFailureCause(failure *e2appducontents.RicsubscriptionFailure) subtaskapi.Cause {
+	for _, item := range failure.ProtocolIes.E2ApProtocolIes18.Value.Value {
+		return getFailureCause(item.Value.Cause)
 	}
 	return 0
 }
