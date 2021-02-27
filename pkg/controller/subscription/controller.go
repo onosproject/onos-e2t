@@ -136,7 +136,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		log.Warnf("Service Model Plugin cannot be loaded %s", serviceModelID)
 		task.Lifecycle.Status = subtaskapi.Status_FAILED
 		task.Lifecycle.Failure = &subtaskapi.Failure{
-			Cause: subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID,
+			Cause:   subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID,
 			Message: subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID.String(),
 		}
 		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{

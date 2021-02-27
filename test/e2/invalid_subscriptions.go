@@ -77,13 +77,7 @@ func runTestCase(t *testing.T, testCase testCase) {
 // TestInvalidActionID tests invalid action ID (i.e. INSERT action) for kpm service model that
 // supports just REPORT action
 func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
-	testCases := []struct {
-		description   string
-		encodingType  subapi.Encoding
-		actionType    subapi.ActionType
-		serviceModeID string
-		expectedError subtaskapi.Cause
-	}{
+	testCases := []testCase{
 		{description: "Non-existent Service Model ID",
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
@@ -107,8 +101,9 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "ran-simulator")
 
 	for _, testCase := range testCases {
-		t.Run(testCase.description, func(t *testing.T) {
-			runTestCase(t, testCase)
+		pinTestCase := testCase
+		t.Run(pinTestCase.description, func(t *testing.T) {
+			runTestCase(t, pinTestCase)
 		})
 	}
 	err := sim.Uninstall()
