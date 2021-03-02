@@ -27,4 +27,7 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 
 	//assert.Assert(t, ranFunctions != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on line 29
 	assert.Equal(t, 1, len(*ranFunctions))
+	rf0 := (*ranFunctions)[20]
+	assert.Equal(t, 10, int(rf0.Revision))
+	assert.DeepEqual(t, []byte("abc"), []byte(rf0.OID))
 }

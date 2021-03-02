@@ -15,11 +15,13 @@ func TestE2SetupRequest(t *testing.T) {
 	ranFunctionList[100] = types.RanFunctionItem{
 		Description: []byte("Type 1"),
 		Revision:    1,
+		OID:         []byte("oid1"),
 	}
 
 	ranFunctionList[200] = types.RanFunctionItem{
 		Description: []byte("Type 2"),
-		Revision:    1,
+		Revision:    2,
+		OID:         []byte("oid2"),
 	}
 
 	newE2apPdu, err := CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, ranFunctionList)

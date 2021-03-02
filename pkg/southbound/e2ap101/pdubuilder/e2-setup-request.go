@@ -64,6 +64,9 @@ func CreateE2SetupRequestPdu(plmnID types.PlmnID, ranFunctionIds types.RanFuncti
 					RanFunctionRevision: &e2apies.RanfunctionRevision{
 						Value: int32(ranFunctionID.Revision),
 					},
+					RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
+						Value: ranFunctionID.OID,
+					},
 				},
 			},
 		}
