@@ -80,6 +80,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	rfRejected := make(types.RanFunctionCauses)
 	ranFuncIDs := make(map[modelregistry.ModelFullName]types.RanFunctionID)
 	for id, ranFunc := range *ranFuncs {
+		log.Infof("Processing RanFunction, OID: %s", ranFunc.OID)
 		rfAccepted[id] = ranFunc.Revision
 		for smID, sm := range e.modelRegistry.ModelPlugins {
 			names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
