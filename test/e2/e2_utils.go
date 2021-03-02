@@ -6,11 +6,14 @@ package e2
 
 import (
 	"context"
+	"io"
+	"testing"
+
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
 	sdksub "github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/stretchr/testify/assert"
-	"testing"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
@@ -22,6 +25,31 @@ func getSubClient(t *testing.T) sdksub.Client {
 	assert.NotNil(t, conn)
 
 	return sdksub.NewClient(conn)
+}
+
+func getNumNodes(t *testing.T, nodeClient modelapi.NodeModelClient) int {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	stream, err := nodeClient.ListNodes(ctx, &modelapi.ListNodesRequest{})
+	assert.NoError(t, err)
+	numNodes := 0
+	for {
+		_, err := stream.Recv()
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			return 0
+		}
+		numNodes++
+	}
+	return numNodes
+}
+
+func getRansimNodeClient(t *testing.T) modelapi.NodeModelClient {
+	conn, err := utils.ConnectRansimServiceHost()
+	assert.NoError(t, err)
+	assert.NotNil(t, conn)
+	return modelapi.NewNodeModelClient(conn)
 }
 
 // checkSubscriptionList checks that the list of subscriptions has the correct length
