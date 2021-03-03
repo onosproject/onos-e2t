@@ -6,11 +6,12 @@ package e2
 
 import (
 	"context"
+	"testing"
+
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	sdksub "github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/stretchr/testify/assert"
-	"testing"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
