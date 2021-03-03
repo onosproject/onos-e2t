@@ -90,6 +90,7 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		ranFunctionsList[types.RanFunctionID(rfItem.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 			Description: types.RanFunctionDescription(string(rfItem.GetRanFunctionDefinition().GetValue())),
 			Revision:    types.RanFunctionRevision(rfItem.GetRanFunctionRevision().GetValue()),
+			OID:         types.RanFunctionOID(string(rfItem.GetRanFunctionOid().GetValue())),
 		}
 	}
 
