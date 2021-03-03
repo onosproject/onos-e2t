@@ -94,6 +94,7 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	nodeIDs, err = utils.GetNodeIDs()
 	assert.NoError(t, err)
 	assert.Equal(t, numRequestedE2Nodes, numNodes-defaultNumNodes)
+	assert.Equal(t, len(nodeIDs), numNodes)
 	e2nodes := utils.GetNodes(t, nodeClient)
 	for _, e2node := range e2nodes {
 		_, err = nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
