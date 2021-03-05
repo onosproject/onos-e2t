@@ -108,5 +108,7 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, 0, numNodes)
 	assert.Equal(t, 0, len(nodeIDs))
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 
 }

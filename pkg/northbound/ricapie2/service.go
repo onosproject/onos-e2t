@@ -135,22 +135,50 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 	}
 
 	if ack != nil {
-		response = &e2api.ControlResponse{
-			Response: &e2api.ControlResponse_ControlAcknowledge{
-				ControlAcknowledge: &e2api.ControlAcknowledge{
-					ControlOutcome: ack.ProtocolIes.E2ApProtocolIes32.Value.Value,
+		if request.Header.EncodingType == e2api.EncodingType_PROTO {
+			outcomeProtoBytes, err := serviceModelPlugin.ControlOutcomeASN1toProto(ack.ProtocolIes.E2ApProtocolIes32.Value.Value)
+			if err != nil {
+				return nil, err
+			}
+			response = &e2api.ControlResponse{
+				Response: &e2api.ControlResponse_ControlAcknowledge{
+					ControlAcknowledge: &e2api.ControlAcknowledge{
+						ControlOutcome: outcomeProtoBytes,
+					},
 				},
-			},
+			}
+		} else {
+			response = &e2api.ControlResponse{
+				Response: &e2api.ControlResponse_ControlAcknowledge{
+					ControlAcknowledge: &e2api.ControlAcknowledge{
+						ControlOutcome: ack.ProtocolIes.E2ApProtocolIes32.Value.Value,
+					},
+				},
+			}
 		}
 	}
 
 	if failure != nil {
-		response = &e2api.ControlResponse{
-			Response: &e2api.ControlResponse_ControlFailure{
-				ControlFailure: &e2api.ControlFailure{
-					ControlOutcome: failure.ProtocolIes.E2ApProtocolIes32.Value.Value,
+		if request.Header.EncodingType == e2api.EncodingType_PROTO {
+			outcomeProtoBytes, err := serviceModelPlugin.ControlOutcomeASN1toProto(failure.ProtocolIes.E2ApProtocolIes32.Value.Value)
+			if err != nil {
+				return nil, err
+			}
+			response = &e2api.ControlResponse{
+				Response: &e2api.ControlResponse_ControlFailure{
+					ControlFailure: &e2api.ControlFailure{
+						ControlOutcome: outcomeProtoBytes,
+					},
 				},
-			},
+			}
+		} else {
+			response = &e2api.ControlResponse{
+				Response: &e2api.ControlResponse_ControlAcknowledge{
+					ControlAcknowledge: &e2api.ControlAcknowledge{
+						ControlOutcome: failure.ProtocolIes.E2ApProtocolIes32.Value.Value,
+					},
+				},
+			}
 		}
 	}
 
