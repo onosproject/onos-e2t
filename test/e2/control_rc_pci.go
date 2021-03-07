@@ -82,7 +82,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
-	_, err = client.Subscribe(ctx, subReq, ch)
+	sub, err := client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 	indMessage := <-ch
 	header := indMessage.Payload.Header
@@ -150,6 +150,8 @@ func (s *TestSuite) TestControl(t *testing.T) {
 		t.Fail()
 	}
 
+	err = sub.Close()
+	assert.NoError(t, err)
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 
