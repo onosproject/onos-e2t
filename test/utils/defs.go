@@ -12,6 +12,7 @@ const (
 	SubscriptionServiceHost = "onos-e2sub"
 	SubscriptionServicePort = 5150
 	KpmServiceModelID       = "e2sm_kpm-v1beta1"
+	RcServiceModelID        = "e2sm_rc_pre-v1"
 	E2TServiceHost          = "onos-e2t"
 	E2TServicePort          = 5150
 	RansimServiceHost       = "ran-simulator"
