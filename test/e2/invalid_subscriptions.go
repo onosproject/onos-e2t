@@ -74,8 +74,7 @@ func runTestCase(t *testing.T, testCase testCase) {
 	}
 }
 
-// TestInvalidActionID tests invalid action ID (i.e. INSERT action) for kpm service model that
-// supports just REPORT action
+// TestInvalidSubscriptions tests invalid inputs into the SDK
 func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	testCases := []testCase{
 		{description: "Non-existent Service Model ID",
