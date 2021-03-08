@@ -186,7 +186,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		if action.Payload.Encoding == subapi.Encoding_ENCODING_ASN1 {
 			actionBytes = action.Payload.Data
 		} else if action.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
-			actionBytes := action.Payload.Data
+			actionBytes = action.Payload.Data
 			bytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
 			if err != nil {
 				log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
