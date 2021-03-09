@@ -30,13 +30,13 @@ var (
 )
 
 func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "ran-simulator")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "multi-e2nodes")
 	assert.NotNil(t, sim)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	nodeClient := utils.GetRansimNodeClient(t)
+	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
-	cellClient := utils.GetRansimCellClient(t)
+	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 	defaultNumCells := utils.GetNumCells(t, cellClient)
 

@@ -36,7 +36,7 @@ const (
 
 // TestControl tests E2 control procedure using ransim and SDK
 func (s *TestSuite) TestControl(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithName(t, "ran-simulator")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "control")
 	assert.NotNil(t, sim)
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
@@ -53,9 +53,9 @@ func (s *TestSuite) TestControl(t *testing.T) {
 			Port: utils.SubscriptionServicePort,
 		},
 	}
-	nodeClient := utils.GetRansimNodeClient(t)
+	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
-	cellClient := utils.GetRansimCellClient(t)
+	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 	client, err := e2client.NewClient(clientConfig)
 	assert.NoError(t, err)

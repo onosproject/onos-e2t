@@ -74,34 +74,36 @@ func checkSubscription(t *testing.T) sdksub.Context {
 // TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	// Start up a ran-sim instance
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "ran-simulator")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-delete")
 
 	//  Initially the subscription list should be empty
-	checkSubscriptionList(t, 0)
+	subList := getSubscriptionList(t)
+	defaultNumSubs := len(subList)
 
 	// Add a subscription
 	subBeforeDelete := checkSubscription(t)
 
 	// Check that the subscription list is correct
-	subListBeforeDelete := checkSubscriptionList(t, 1)
-	checkSubscriptionIDInList(t, subBeforeDelete.ID(), subListBeforeDelete)
+	subList = getSubscriptionList(t)
+	assert.Equal(t, defaultNumSubs+1, len(subList))
+	checkSubscriptionIDInList(t, subBeforeDelete.ID(), subList)
 
 	// Check that querying the subscription is correct
 	checkSubscriptionGet(t, subBeforeDelete.ID())
 
-	//  Close the subscription
+	// Close the subscription
 	err := subBeforeDelete.Close()
 	assert.NoError(t, err)
 
-	// List should be empty now
-	checkSubscriptionList(t, 0)
+	// Check number of subscriptions is correct after deleting the subscription
+	subList = getSubscriptionList(t)
+	assert.Equal(t, defaultNumSubs, len(subList))
 
 	//  Open the subscription again and make sure it is open
 	subAfterDelete := checkSubscription(t)
-
-	// List should be one item now
-	subListAfterDelete := checkSubscriptionList(t, 1)
-	checkSubscriptionIDInList(t, subAfterDelete.ID(), subListAfterDelete)
+	subList = getSubscriptionList(t)
+	assert.Equal(t, defaultNumSubs+1, len(subList))
+	checkSubscriptionIDInList(t, subAfterDelete.ID(), subList)
 
 	// Check that querying the subscription is correct
 	checkSubscriptionGet(t, subAfterDelete.ID())

@@ -15,11 +15,13 @@ const (
 	RcServiceModelID        = "e2sm_rc_pre-v1"
 	E2TServiceHost          = "onos-e2t"
 	E2TServicePort          = 5150
-	RansimServiceHost       = "ran-simulator"
 	RansimServicePort       = 5150
 )
 
 var (
 	SubscriptionServiceAddress = SubscriptionServiceHost + ":" + strconv.Itoa(SubscriptionServicePort)
-	RansimServiceAddress       = RansimServiceHost + ":" + strconv.Itoa(RansimServicePort)
 )
+
+func getRansimServiceAddress(ransimServiceHost string) string {
+	return ransimServiceHost + ":" + strconv.Itoa(RansimServicePort)
+}

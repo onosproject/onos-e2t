@@ -25,12 +25,11 @@ func getSubClient(t *testing.T) sdksub.Client {
 	return sdksub.NewClient(conn)
 }
 
-// checkSubscriptionList checks that the list of subscriptions has the correct length
-func checkSubscriptionList(t *testing.T, expectedLen int) []subscription.Subscription {
+// getSubscriptionList get  list of subscriptions
+func getSubscriptionList(t *testing.T) []subscription.Subscription {
 	subClient := getSubClient(t)
 	subList, err := subClient.List(context.Background())
 	assert.NoError(t, err)
-	assert.Len(t, subList, expectedLen)
 	return subList
 }
 
