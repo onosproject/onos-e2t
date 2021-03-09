@@ -149,28 +149,66 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 
 	ranFuncID := channel.GetRANFunctionID(serviceModelID)
 
-	eventTriggerBytes := sub.Details.EventTrigger.Payload.Data
-	if sub.Details.EventTrigger.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
+	var eventTriggerBytes []byte
+	if sub.Details.EventTrigger.Payload.Encoding == subapi.Encoding_ENCODING_ASN1 {
+		eventTriggerBytes = sub.Details.EventTrigger.Payload.Data
+	} else if sub.Details.EventTrigger.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
+		eventTriggerBytes = sub.Details.EventTrigger.Payload.Data
 		bytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(eventTriggerBytes)
 		if err != nil {
 			log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
 			return controller.Result{}, nil
 		}
 		eventTriggerBytes = bytes
+	} else {
+		cause := subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE
+		task.Lifecycle.Status = subtaskapi.Status_FAILED
+		task.Lifecycle.Failure = &subtaskapi.Failure{
+			Cause:   cause,
+			Message: cause.String(),
+		}
+		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
+			Task: task,
+		}
+		_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
+		if err != nil {
+			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
+			return controller.Result{}, err
+		}
+		return controller.Result{}, fmt.Errorf("failed to initialize subscription %+v", sub)
 	}
 
 	ricEventDef := types.RicEventDefintion(eventTriggerBytes)
 
 	ricActionsToBeSetup := make(map[types.RicActionID]types.RicActionDef)
 	for _, action := range sub.Details.Actions {
-		actionBytes := action.Payload.Data
-		if action.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
+		var actionBytes []byte
+		if action.Payload.Encoding == subapi.Encoding_ENCODING_ASN1 {
+			actionBytes = action.Payload.Data
+		} else if action.Payload.Encoding == subapi.Encoding_ENCODING_PROTO {
+			actionBytes = action.Payload.Data
 			bytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
 			if err != nil {
 				log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
 				return controller.Result{}, nil
 			}
 			actionBytes = bytes
+		} else {
+			cause := subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE
+			task.Lifecycle.Status = subtaskapi.Status_FAILED
+			task.Lifecycle.Failure = &subtaskapi.Failure{
+				Cause:   cause,
+				Message: cause.String(),
+			}
+			updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
+				Task: task,
+			}
+			_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
+			if err != nil {
+				log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
+				return controller.Result{}, err
+			}
+			return controller.Result{}, fmt.Errorf("failed to initialize subscription %+v", sub)
 		}
 
 		ricActionsToBeSetup[types.RicActionID(action.ID)] = types.RicActionDef{
