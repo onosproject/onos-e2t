@@ -10,7 +10,6 @@ import (
 	"time"
 
 	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
-	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
 
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 
@@ -30,7 +29,6 @@ const (
 	ranParameterValue int32 = 200
 	ranParameterName        = "pci"
 	ranParameterID    int32 = 1
-	defaultPlmnID           = 314628
 	priority                = 10
 )
 
@@ -87,15 +85,16 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	indMessage := <-ch
 	header := indMessage.Payload.Header
 	ricIndicationHeader := e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
+
 	err = proto.Unmarshal(header, &ricIndicationHeader)
 	assert.NoError(t, err)
+	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetEUtraCgi().GetPLmnIdentity().Value
 	testEci := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetEUtraCgi().GetEUtracellIdentity().Value.Value
-	plmnID := ransimtypes.NewUint24(defaultPlmnID)
 
 	rcControlHeader := utils.RcControlHeader{
 		Priority: priority,
 		CellID:   testEci,
-		PlmnID:   plmnID.ToBytes(),
+		PlmnID:   plmnID,
 	}
 
 	rcControlMessage := utils.RcControlMessage{
