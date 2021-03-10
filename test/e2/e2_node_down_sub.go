@@ -19,6 +19,7 @@ import (
 // TestE2NodeDownSubscription checks that a subscription channel read times out if
 // the e2 node is down.
 func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
+	t.Skip()
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "e2node-down-subscription")
 

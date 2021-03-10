@@ -82,7 +82,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 
 	sub, err := client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
-	indMessage := <-ch
+	indMessage := checkIndicationMessage(t, defaultIndicationTimeout, ch)
 	header := indMessage.Payload.Header
 	ricIndicationHeader := e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
 
