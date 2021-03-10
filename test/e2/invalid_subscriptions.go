@@ -23,10 +23,17 @@ type testCase struct {
 	encodingType  subapi.Encoding
 	actionType    subapi.ActionType
 	serviceModeID string
+	eventTrigger  []byte
+	actionID      int32
 	expectedError subtaskapi.Cause
+	enabled       bool
 }
 
 func runTestCase(t *testing.T, testCase testCase) {
+	if !testCase.enabled {
+		t.Skip()
+		return
+	}
 	clientConfig := e2client.Config{
 		AppID: "invalid-action-id",
 		SubscriptionService: e2client.ServiceConfig{
@@ -44,16 +51,13 @@ func runTestCase(t *testing.T, testCase testCase) {
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
 
-	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
-	assert.NoError(t, err)
-
 	subRequest := utils.Subscription{
 		NodeID:               nodeIDs[0],
 		EncodingType:         testCase.encodingType,
 		ActionType:           testCase.actionType,
-		EventTrigger:         eventTriggerBytes,
+		EventTrigger:         testCase.eventTrigger,
 		ServiceModelID:       testCase.serviceModeID,
-		ActionID:             100,
+		ActionID:             testCase.actionID,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
 	}
@@ -66,7 +70,6 @@ func runTestCase(t *testing.T, testCase testCase) {
 
 	select {
 	case err = <-sub.Err():
-		t.Log(err.Error())
 		assert.Equal(t, testCase.expectedError.String(), err.Error())
 	case <-time.After(10 * time.Second):
 		t.Fatal("test is failed because of timeout")
@@ -76,28 +79,66 @@ func runTestCase(t *testing.T, testCase testCase) {
 
 // TestInvalidSubscriptions tests invalid inputs into the SDK
 func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
+	const actionID = 11
+	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
+	assert.NoError(t, err)
+
 	testCases := []testCase{
-		{description: "Non-existent Service Model ID",
+		{
+			description:   "Non-existent Service Model ID",
+			enabled:       true,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModeID: "no-such-service-model",
+			eventTrigger:  eventTriggerBytes,
+			actionID:      actionID,
 			expectedError: subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID,
 		},
-		{description: "Invalid Action ID",
+		{
+			description:   "Invalid action type",
+			enabled:       true,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_INSERT,
 			serviceModeID: utils.KpmServiceModelID,
+			eventTrigger:  eventTriggerBytes,
+			actionID:      actionID,
 			expectedError: subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED,
 		},
-		{description: "Invalid encoding type",
+		{
+			description:   "Invalid encoding type",
+			enabled:       true,
 			encodingType:  77,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModeID: utils.KpmServiceModelID,
-			expectedError: subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED,
+			eventTrigger:  eventTriggerBytes,
+			actionID:      actionID,
+			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
+		},
+		{
+			description:   "Invalid action ID",
+			// See https://jira.opennetworking.org/browse/SDRAN-534 for why this is disabled
+			enabled:       false,
+			encodingType:  subapi.Encoding_ENCODING_PROTO,
+			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
+			serviceModeID: utils.KpmServiceModelID,
+			eventTrigger:  eventTriggerBytes,
+			actionID:      100000,
+			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
+		},
+		{
+			description:   "Invalid event trigger",
+			// See https://jira.opennetworking.org/browse/SDRAN-535 for why this is disabled
+			enabled:       false,
+			encodingType:  subapi.Encoding_ENCODING_PROTO,
+			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
+			serviceModeID: utils.KpmServiceModelID,
+			eventTrigger:  make([]byte, 50),
+			actionID:      actionID,
+			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
 		},
 	}
 
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "ran-simulator")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "invalid-subscriptions")
 
 	for _, testCase := range testCases {
 		pinTestCase := testCase
@@ -105,6 +146,6 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			runTestCase(t, pinTestCase)
 		})
 	}
-	err := sim.Uninstall()
+	err = sim.Uninstall()
 	assert.NoError(t, err)
 }
