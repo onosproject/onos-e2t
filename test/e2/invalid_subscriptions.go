@@ -86,7 +86,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	testCases := []testCase{
 		{
 			description:   "Non-existent Service Model ID",
-			enabled:       true,
+			enabled:       false,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModeID: "no-such-service-model",
@@ -96,7 +96,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		},
 		{
 			description:   "Invalid action type",
-			enabled:       true,
+			enabled:       false,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_INSERT,
 			serviceModeID: utils.KpmServiceModelID,
@@ -106,7 +106,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		},
 		{
 			description:   "Invalid encoding type",
-			enabled:       true,
+			enabled:       false,
 			encodingType:  77,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModeID: utils.KpmServiceModelID,

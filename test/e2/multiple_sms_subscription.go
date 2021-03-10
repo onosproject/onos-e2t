@@ -25,7 +25,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	done := make(chan struct{})
 	defer close(done)
 	clientConfig := e2client.Config{
-		AppID: "multiple-sm-subscription-test",
+		AppID: "multi-sm-subscription-test",
 		SubscriptionService: e2client.ServiceConfig{
 			Host: utils.SubscriptionServiceHost,
 			Port: utils.SubscriptionServicePort,
