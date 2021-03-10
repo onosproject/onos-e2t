@@ -7,6 +7,9 @@ package e2
 import (
 	"context"
 	"testing"
+	"time"
+
+	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
@@ -14,6 +17,10 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
+)
+
+const (
+	defaultIndicationTimeout = 10 * time.Second
 )
 
 // getSubClient returns an SDK subscription client
@@ -53,4 +60,16 @@ func checkSubscriptionIDInList(t *testing.T, expectedID subapi.ID, subList []sub
 		}
 	}
 	assert.Equal(t, 1, found, "Subscription %s not found in subscription list", expectedID)
+}
+
+func checkIndicationMessage(t *testing.T, timeout time.Duration, ch chan indication.Indication) indication.Indication {
+	select {
+	case indicationMsg := <-ch:
+		t.Log(indicationMsg)
+		return indicationMsg
+	case <-time.After(timeout):
+		t.Fatal("failed to receive indication message")
+
+	}
+	return indication.Indication{}
 }

@@ -60,14 +60,7 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 	sub, err := client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 
-	select {
-	case indicationMsg := <-ch:
-		t.Log(indicationMsg)
-
-	case <-time.After(10 * time.Second):
-		t.Fatal("test is failed because of timeout")
-
-	}
+	checkIndicationMessage(t, defaultIndicationTimeout, ch)
 
 	err = sub.Close()
 	assert.NoError(t, err)
