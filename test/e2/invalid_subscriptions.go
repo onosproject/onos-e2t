@@ -35,7 +35,7 @@ func runTestCase(t *testing.T, testCase testCase) {
 		return
 	}
 	clientConfig := e2client.Config{
-		AppID: "invalid-action-id",
+		AppID: "invalid-subscriptions",
 		SubscriptionService: e2client.ServiceConfig{
 			Host: utils.SubscriptionServiceHost,
 			Port: utils.SubscriptionServicePort,
