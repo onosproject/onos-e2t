@@ -115,7 +115,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
 		},
 		{
-			description:   "Invalid action ID",
+			description: "Invalid action ID",
 			// See https://jira.opennetworking.org/browse/SDRAN-534 for why this is disabled
 			enabled:       false,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
@@ -126,7 +126,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
 		},
 		{
-			description:   "Invalid event trigger",
+			description: "Invalid event trigger",
 			// See https://jira.opennetworking.org/browse/SDRAN-535 for why this is disabled
 			enabled:       false,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
