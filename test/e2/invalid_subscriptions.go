@@ -86,7 +86,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	testCases := []testCase{
 		{
 			description:   "Non-existent Service Model ID",
-			enabled:       false,
+			enabled:       true,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModeID: "no-such-service-model",
