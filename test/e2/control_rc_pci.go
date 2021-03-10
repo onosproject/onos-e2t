@@ -7,7 +7,6 @@ package e2
 import (
 	"context"
 	"testing"
-	"time"
 
 	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
 
@@ -37,8 +36,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "control")
 	assert.NotNil(t, sim)
 	ch := make(chan indication.Indication)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
-	defer cancel()
+	ctx := context.Background()
 
 	clientConfig := e2client.Config{
 		AppID: "control-pci-test",

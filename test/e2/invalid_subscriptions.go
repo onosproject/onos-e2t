@@ -96,7 +96,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		},
 		{
 			description:   "Invalid action type",
-			enabled:       false,
+			enabled:       true,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_INSERT,
 			serviceModeID: utils.KpmServiceModelID,
@@ -106,7 +106,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		},
 		{
 			description:   "Invalid encoding type",
-			enabled:       false,
+			enabled:       true,
 			encodingType:  77,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModeID: utils.KpmServiceModelID,
