@@ -168,7 +168,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		eventTriggerBytes = sub.Details.EventTrigger.Payload.Data
 		bytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(eventTriggerBytes)
 		if err != nil {
-			log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
+			log.Warnf("Error transforming Proto bytes to ASN: %s", err.Error())
 			cause := subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
 			task.Lifecycle.Status = subtaskapi.Status_FAILED
 			task.Lifecycle.Failure = &subtaskapi.Failure{
@@ -216,7 +216,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 			actionBytes = action.Payload.Data
 			bytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
 			if err != nil {
-				log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
+				log.Warnf("Error transforming Proto bytes to ASN: %s", err.Error())
 				cause := subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
 				task.Lifecycle.Status = subtaskapi.Status_FAILED
 				task.Lifecycle.Failure = &subtaskapi.Failure{
