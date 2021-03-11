@@ -115,26 +115,24 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
 		},
 		{
-			description: "Invalid action ID",
-			// See https://jira.opennetworking.org/browse/SDRAN-534 for why this is disabled
-			enabled:       false,
+			description:   "Invalid action ID",
+			enabled:       true,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModeID: utils.KpmServiceModelID,
 			eventTrigger:  eventTriggerBytes,
 			actionID:      100000,
-			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
+			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
 		},
 		{
-			description: "Invalid event trigger",
-			// See https://jira.opennetworking.org/browse/SDRAN-535 for why this is disabled
-			enabled:       false,
+			description:   "Invalid event trigger",
+			enabled:       true,
 			encodingType:  subapi.Encoding_ENCODING_PROTO,
 			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModeID: utils.KpmServiceModelID,
 			eventTrigger:  make([]byte, 50),
 			actionID:      actionID,
-			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
+			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
 		},
 	}
 

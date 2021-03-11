@@ -168,7 +168,22 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		eventTriggerBytes = sub.Details.EventTrigger.Payload.Data
 		bytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(eventTriggerBytes)
 		if err != nil {
-			log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
+			log.Warnf("Error transforming Proto bytes to ASN: %s", err.Error())
+			cause := subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
+			task.Lifecycle.Status = subtaskapi.Status_FAILED
+			task.Lifecycle.Failure = &subtaskapi.Failure{
+				Cause:   cause,
+				Message: cause.String(),
+			}
+			updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
+				Task: task,
+			}
+			_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
+			if err != nil {
+				log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
+				return controller.Result{}, err
+			}
+
 			return controller.Result{}, nil
 		}
 		eventTriggerBytes = bytes
@@ -201,7 +216,22 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 			actionBytes = action.Payload.Data
 			bytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
 			if err != nil {
-				log.Errorf("Error transforming Proto bytes to ASN: %s", err.Error())
+				log.Warnf("Error transforming Proto bytes to ASN: %s", err.Error())
+				cause := subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
+				task.Lifecycle.Status = subtaskapi.Status_FAILED
+				task.Lifecycle.Failure = &subtaskapi.Failure{
+					Cause:   cause,
+					Message: cause.String(),
+				}
+				updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
+					Task: task,
+				}
+				_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
+				if err != nil {
+					log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
+					return controller.Result{}, err
+				}
+
 				return controller.Result{}, nil
 			}
 			actionBytes = bytes
@@ -241,6 +271,20 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	// Validate the subscribe request
 	if err := request.Validate(); err != nil {
 		log.Warnf("Failed to validate E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
+		cause := subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
+		task.Lifecycle.Status = subtaskapi.Status_FAILED
+		task.Lifecycle.Failure = &subtaskapi.Failure{
+			Cause:   cause,
+			Message: cause.String(),
+		}
+		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
+			Task: task,
+		}
+		_, err := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
+		if err != nil {
+			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
+			return controller.Result{}, err
+		}
 		return controller.Result{}, err
 	}
 
