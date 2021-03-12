@@ -92,7 +92,7 @@ func (c *RequestJournal) Remove(id subapi.ID) {
 		log.Infof("Removed RequestEntry %v", record)
 		delete(c.records, id)
 		c.eventCh <- RequestEvent{
-			Type:   RequestEventAdded,
+			Type:   RequestEventRemoved,
 			Record: record,
 		}
 	}
