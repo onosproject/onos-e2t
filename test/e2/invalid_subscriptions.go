@@ -18,7 +18,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type testCase struct {
+type invalidSubscriptionTestCase struct {
 	description   string
 	encodingType  subapi.Encoding
 	actionType    subapi.ActionType
@@ -29,7 +29,7 @@ type testCase struct {
 	enabled       bool
 }
 
-func runTestCase(t *testing.T, testCase testCase) {
+func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 	if !testCase.enabled {
 		t.Skip()
 		return
@@ -83,7 +83,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
 	assert.NoError(t, err)
 
-	testCases := []testCase{
+	testCases := []invalidSubscriptionTestCase{
 		{
 			description:   "Non-existent Service Model ID",
 			enabled:       true,

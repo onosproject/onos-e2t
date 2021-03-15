@@ -91,6 +91,8 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 	serviceModelID := modelregistry.ModelFullName(request.Header.ServiceModel.ID)
 	serviceModelPlugin, ok := s.modelRegistry.ModelPlugins[serviceModelID]
 	if !ok {
+		err = errors.New(errors.NotFound, "service model %s not found", serviceModelID)
+		log.Warn(err)
 		return response, err
 	}
 	s.controlRequestID++
@@ -101,10 +103,16 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		InstanceID:  config.InstanceID,
 	}
 
-	controlHeaderBytes := request.ControlHeader
-	controlMessageBytes := request.ControlMessage
+	var controlHeaderBytes []byte
+	var controlMessageBytes []byte
 
-	if request.Header.EncodingType == e2api.EncodingType_PROTO {
+	if request.Header.EncodingType == e2api.EncodingType_ASN1_PER ||
+		request.Header.EncodingType == e2api.EncodingType_ASN1_XER {
+		controlHeaderBytes = request.ControlHeader
+		controlMessageBytes = request.ControlMessage
+	} else if request.Header.EncodingType == e2api.EncodingType_PROTO {
+		controlHeaderBytes = request.ControlHeader
+		controlMessageBytes = request.ControlMessage
 		controlHeader, err := serviceModelPlugin.ControlHeaderProtoToASN1(controlHeaderBytes)
 		if err != nil {
 			log.Errorf("Error transforming Control Header Proto bytes to ASN: %s", err.Error())
@@ -117,6 +125,10 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 			return nil, err
 		}
 		controlMessageBytes = controlMessage
+	} else {
+		err = errors.New(errors.Invalid, "invalid encoding type")
+		log.Warn(err)
+		return nil, err
 	}
 
 	ranFuncID := channel.GetRANFunctionID(serviceModelID)
