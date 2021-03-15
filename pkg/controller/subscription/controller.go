@@ -131,9 +131,9 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	}
 
 	serviceModelID := modelregistry.ModelFullName(sub.Details.ServiceModel.ID)
-	serviceModelPlugin, ok := r.models.ModelPlugins[serviceModelID]
-	if !ok {
-		log.Warnf("Service Model Plugin cannot be loaded %s", serviceModelID)
+	serviceModelPlugin, err := r.models.GetPlugin(serviceModelID)
+	if err != nil {
+		log.Warn(err)
 		task.Lifecycle.Status = subtaskapi.Status_FAILED
 		task.Lifecycle.Failure = &subtaskapi.Failure{
 			Cause:   subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID,

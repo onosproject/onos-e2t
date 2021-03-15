@@ -58,11 +58,12 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "invalid-control")
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
+	nodeID := nodeIDs[0]
 
 	testCases := []invalidControlTestCase{
 		{
 			control: utils.Control{
-				NodeID:         nodeIDs[0],
+				NodeID:         nodeID,
 				EncodingType:   10,
 				ServiceModelID: utils.RcServiceModelID,
 			},
@@ -72,7 +73,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 		},
 		{
 			control: utils.Control{
-				NodeID:         nodeIDs[0],
+				NodeID:         nodeID,
 				EncodingType:   e2tapi.EncodingType_PROTO,
 				ServiceModelID: "no-such-service-model",
 			},

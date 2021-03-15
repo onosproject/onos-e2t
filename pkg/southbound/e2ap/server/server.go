@@ -79,9 +79,10 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
 	ranFuncIDs := make(map[modelregistry.ModelFullName]types.RanFunctionID)
+	plugins := e.modelRegistry.GetPlugins()
 	for id, ranFunc := range *ranFuncs {
 		rfAccepted[id] = ranFunc.Revision
-		for smID, sm := range e.modelRegistry.ModelPlugins {
+		for smID, sm := range plugins {
 			names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
 			if err == nil && string(names.RanFunctionShortName) == string(smID) {
 				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
