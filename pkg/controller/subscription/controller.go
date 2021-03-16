@@ -388,7 +388,11 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 			return controller.Result{}, err
 		}
 	} else if failure != nil {
-		log.Warnf("Failed to initialize SubscriptionTask %+v: %s", task, err)
+		switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
+		case *e2apies.Cause_RicRequest:
+			return controller.Result{}, nil
+		}
+		log.Warnf("SubscriptionDeleteRequest %+v failed: %+v", request, failure)
 		return controller.Result{}, fmt.Errorf("failed to delete subscription %+v", sub)
 	}
 	return controller.Result{}, nil
