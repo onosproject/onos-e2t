@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/helmit/pkg/kubernetes"
 	"testing"
 	"time"
 
@@ -19,7 +20,6 @@ import (
 // TestE2NodeDownSubscription checks that a subscription channel read times out if
 // the e2 node is down.
 func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
-	//t.Skip()
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "e2node-down-subscription")
 
@@ -59,9 +59,22 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
+	kube, err := kubernetes.NewForRelease(sim)
+	assert.NoError(t, err)
+
 	// Cause the simulator to crash
 	err = sim.Uninstall()
 	assert.NoError(t, err)
+
+	for {
+		pods, err := kube.CoreV1().Pods().List()
+		assert.NoError(t, err)
+		if len(pods) > 0 {
+			time.Sleep(time.Second)
+		} else {
+			break
+		}
+	}
 
 	//  Create the subscription
 	sub, err := client.Subscribe(ctx, subReq, ch)
