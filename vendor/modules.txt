@@ -331,8 +331,6 @@ github.com/onosproject/helmit/pkg/test
 github.com/onosproject/helmit/pkg/util/files
 github.com/onosproject/helmit/pkg/util/logging
 github.com/onosproject/helmit/pkg/util/random
-# github.com/onosproject/onos-api v0.7.14
-## explicit
 # github.com/onosproject/onos-api/go v0.7.14
 ## explicit
 github.com/onosproject/onos-api/go/onos/e2sub/endpoint
@@ -351,7 +349,7 @@ github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/v1beta1/e2sm-kpm-ies
 ## explicit
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/pdubuilder
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v1/e2sm-rc-pre-ies
-# github.com/onosproject/onos-lib-go v0.7.0
+# github.com/onosproject/onos-lib-go v0.7.6
 ## explicit
 github.com/onosproject/onos-lib-go/api/logging
 github.com/onosproject/onos-lib-go/pkg/auth

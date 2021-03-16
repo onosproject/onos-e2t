@@ -8,11 +8,10 @@ require (
 	github.com/golang/protobuf v1.4.3
 	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07
 	github.com/onosproject/helmit v0.6.8
-	github.com/onosproject/onos-api v0.7.14 // indirect
 	github.com/onosproject/onos-api/go v0.7.14
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.8
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.8
-	github.com/onosproject/onos-lib-go v0.7.0
+	github.com/onosproject/onos-lib-go v0.7.6
 	github.com/onosproject/onos-ric-sdk-go v0.7.9
 	github.com/onosproject/onos-test v0.6.4
 	github.com/stretchr/testify v1.7.0
