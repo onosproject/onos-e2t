@@ -8,20 +8,23 @@ import (
 	"context"
 	"testing"
 
+	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
+
+	"github.com/onosproject/onos-lib-go/pkg/errors"
+
 	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
 
 	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
 type invalidControlTestCase struct {
 	description   string
 	control       utils.Control
 	enabled       bool
-	expectedError errors.Type
+	expectedError func(err error) bool
 }
 
 func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
@@ -49,7 +52,9 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
 	assert.NoError(t, err)
 	response, err := client.Control(ctx, request)
 	assert.Nil(t, response)
-	assert.Error(t, err, testCase.expectedError)
+	err = errors.FromGRPC(err)
+	assert.Equal(t, true, testCase.expectedError(err))
+	t.Log(err)
 
 }
 
@@ -60,6 +65,24 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	assert.NoError(t, err)
 	nodeID := nodeIDs[0]
 
+	// The values in the header are for testing of error checking in the NB
+	rcControlHeader := utils.RcControlHeader{
+		Priority: priority,
+		CellID:   123456,
+		PlmnID:   ransimtypes.NewUint24(654321).ToBytes(),
+	}
+
+	rcControlMessage := utils.RcControlMessage{
+		RanParameterName:  ranParameterName,
+		RanParameterID:    ranParameterID,
+		RanParameterValue: ranParameterValue,
+	}
+
+	controlMessageBytes, err := rcControlMessage.CreateRcControlMessage()
+	assert.NoError(t, err)
+	controlHeaderBytes, err := rcControlHeader.CreateRcControlHeader()
+	assert.NoError(t, err)
+
 	testCases := []invalidControlTestCase{
 		{
 			control: utils.Control{
@@ -69,7 +92,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 			},
 			description:   "Invalid encoding type",
 			enabled:       true,
-			expectedError: errors.Invalid,
+			expectedError: errors.IsInvalid,
 		},
 		{
 			control: utils.Control{
@@ -79,7 +102,31 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 			},
 			description:   "Invalid service model",
 			enabled:       true,
-			expectedError: errors.NotFound,
+			expectedError: errors.IsNotFound,
+		},
+		{
+			control: utils.Control{
+				NodeID:         nodeID,
+				EncodingType:   e2tapi.EncodingType_PROTO,
+				ServiceModelID: utils.RcServiceModelID,
+				ControlHeader:  []byte("invalid-control-header"),
+				ControlMessage: controlMessageBytes,
+			},
+			description:   "Invalid control header",
+			enabled:       true,
+			expectedError: errors.IsInvalid,
+		},
+		{
+			control: utils.Control{
+				NodeID:         nodeID,
+				EncodingType:   e2tapi.EncodingType_PROTO,
+				ServiceModelID: utils.RcServiceModelID,
+				ControlHeader:  controlHeaderBytes,
+				ControlMessage: []byte("invalid-control-message"),
+			},
+			description:   "Invalid control message",
+			enabled:       true,
+			expectedError: errors.IsInvalid,
 		},
 	}
 	for _, testCase := range testCases {
