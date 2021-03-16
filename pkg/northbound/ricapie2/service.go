@@ -86,12 +86,13 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 	channel, err := s.channels.Get(ctx, e2server.ChannelID(request.E2NodeID))
 	response := &e2api.ControlResponse{}
 	if err != nil {
-		return response, err
+		return nil, errors.Status(err).Err()
 	}
 	serviceModelID := modelregistry.ModelFullName(request.Header.ServiceModel.ID)
-	serviceModelPlugin, ok := s.modelRegistry.ModelPlugins[serviceModelID]
-	if !ok {
-		return response, err
+	serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelID)
+	if err != nil {
+		log.Warn(err)
+		return nil, errors.Status(err).Err()
 	}
 	s.controlRequestID++
 	requestID := s.controlRequestID
@@ -101,22 +102,32 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		InstanceID:  config.InstanceID,
 	}
 
-	controlHeaderBytes := request.ControlHeader
-	controlMessageBytes := request.ControlMessage
+	var controlHeaderBytes []byte
+	var controlMessageBytes []byte
 
-	if request.Header.EncodingType == e2api.EncodingType_PROTO {
+	if request.Header.EncodingType == e2api.EncodingType_ASN1_PER ||
+		request.Header.EncodingType == e2api.EncodingType_ASN1_XER {
+		controlHeaderBytes = request.ControlHeader
+		controlMessageBytes = request.ControlMessage
+	} else if request.Header.EncodingType == e2api.EncodingType_PROTO {
+		controlHeaderBytes = request.ControlHeader
+		controlMessageBytes = request.ControlMessage
 		controlHeader, err := serviceModelPlugin.ControlHeaderProtoToASN1(controlHeaderBytes)
 		if err != nil {
-			log.Errorf("Error transforming Control Header Proto bytes to ASN: %s", err.Error())
-			return nil, err
+			log.Warnf("Error transforming Control Header Proto bytes to ASN: %s", err.Error())
+			return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 		}
 		controlHeaderBytes = controlHeader
 		controlMessage, err := serviceModelPlugin.ControlMessageProtoToASN1(controlMessageBytes)
 		if err != nil {
-			log.Errorf("Error transforming Control Message Proto bytes to ASN: %s", err.Error())
-			return nil, err
+			log.Warnf("Error transforming Control Message Proto bytes to ASN: %s", err.Error())
+			return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 		}
 		controlMessageBytes = controlMessage
+	} else {
+		err = errors.New(errors.Invalid, "invalid encoding type")
+		log.Warn(err)
+		return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 	}
 
 	ranFuncID := channel.GetRANFunctionID(serviceModelID)
@@ -124,21 +135,22 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
 
 	if err != nil {
-		log.Error(err)
-		return nil, err
+		log.Warn(err)
+		return nil, errors.Status(err).Err()
 	}
 
 	ack, failure, err := channel.RICControl(ctx, controlRequest)
 	if err != nil {
-		log.Error(err)
-		return nil, err
+		log.Warn(err)
+		return nil, errors.Status(err).Err()
 	}
 
 	if ack != nil {
 		if request.Header.EncodingType == e2api.EncodingType_PROTO {
 			outcomeProtoBytes, err := serviceModelPlugin.ControlOutcomeASN1toProto(ack.ProtocolIes.E2ApProtocolIes32.Value.Value)
 			if err != nil {
-				return nil, err
+				log.Warnf("Error transforming Control Outcome ASN1 to Proto bytes: %s", err.Error())
+				return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 			}
 			response = &e2api.ControlResponse{
 				Response: &e2api.ControlResponse_ControlAcknowledge{
@@ -162,7 +174,8 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		if request.Header.EncodingType == e2api.EncodingType_PROTO {
 			outcomeProtoBytes, err := serviceModelPlugin.ControlOutcomeASN1toProto(failure.ProtocolIes.E2ApProtocolIes32.Value.Value)
 			if err != nil {
-				return nil, err
+				log.Warnf("Error transforming Control Outcome ASN1 to Proto bytes: %s", err.Error())
+				return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 			}
 			response = &e2api.ControlResponse{
 				Response: &e2api.ControlResponse_ControlFailure{
@@ -243,10 +256,10 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 		serviceModelID := modelregistry.ModelFullName(sub.Subscription.Details.ServiceModel.ID)
 		switch encodingType {
 		case e2api.EncodingType_PROTO:
-			serviceModelPlugin, ok := s.modelRegistry.ModelPlugins[serviceModelID]
-			if !ok {
-				log.Errorf("Service Model Plugin cannot be loaded %s", serviceModelID)
-				return errors.NewInvalid("Service Model Plugin cannot be loaded", serviceModelID)
+			serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelID)
+			if err != nil {
+				log.Warn(err)
+				return errors.Status(err).Err()
 			}
 			a, b, c := serviceModelPlugin.ServiceModelData()
 			log.Infof("Service model found %s %s %s", a, b, c)
@@ -254,14 +267,14 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
 			if err != nil {
 				log.Errorf("Error transforming Header ASN Bytes to Proto %s", err.Error())
-				return errors.NewInvalid(err.Error())
+				return errors.Status(errors.NewInvalid(err.Error())).Err()
 			}
 			log.Infof("Indication Header %d bytes", len(indHeaderProto))
 
 			indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(indMessageAsn1)
 			if err != nil {
 				log.Errorf("Error transforming Message ASN Bytes to Proto %s", err.Error())
-				return errors.NewInvalid(err.Error())
+				return errors.Status(errors.NewInvalid(err.Error())).Err()
 			}
 			log.Infof("Indication Message %d bytes", len(indMessageProto))
 			response.IndicationHeader = indHeaderProto
@@ -273,7 +286,8 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 			response.IndicationMessage = indMessageAsn1
 		default:
 			log.Errorf("encoding type %v not supported", request.Header.EncodingType)
-			return errors.NewInvalid("encoding type %v not supported", request.Header.EncodingType)
+			err = errors.NewInvalid("encoding type %v not supported", request.Header.EncodingType)
+			return errors.Status(err).Err()
 		}
 
 		err = server.Send(response)

@@ -48,9 +48,7 @@ func NewManager(config Config) *Manager {
 		log.Fatal(err)
 	}
 
-	modelRegistry := modelregistry.ModelRegistry{
-		ModelPlugins: make(map[modelregistry.ModelFullName]modelregistry.ServiceModel),
-	}
+	modelRegistry := modelregistry.NewModelRegistry()
 	for _, smp := range config.ServiceModelPlugins {
 		if _, _, err := modelRegistry.RegisterModelPlugin(smp); err != nil {
 			log.Fatal(err)

@@ -7,6 +7,9 @@ package modelregistry
 import (
 	"fmt"
 	"plugin"
+	"sync"
+
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 
 	types "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -20,7 +23,15 @@ type ModelFullName string
 
 // ModelRegistry is the object for the saving information about device models
 type ModelRegistry struct {
-	ModelPlugins map[ModelFullName]ServiceModel
+	plugins map[ModelFullName]ServiceModel
+	mu      sync.RWMutex
+}
+
+// NewModelRegistry create an instance of model registry
+func NewModelRegistry() ModelRegistry {
+	return ModelRegistry{
+		plugins: make(map[ModelFullName]ServiceModel),
+	}
 }
 
 // ServiceModel is a set of methods that each model plugin should implement
@@ -45,9 +56,33 @@ type ServiceModel interface {
 	ControlOutcomeProtoToASN1(protoBytes []byte) ([]byte, error)
 }
 
+// GetModelPlugins get model plugins
+func (r *ModelRegistry) GetPlugins() map[ModelFullName]ServiceModel {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+	plugins := make(map[ModelFullName]ServiceModel, len(r.plugins))
+	for id, plugin := range r.plugins {
+		plugins[id] = plugin
+	}
+	return plugins
+}
+
+// GetPlugin returns the model plugin interface
+func (r *ModelRegistry) GetPlugin(name ModelFullName) (ServiceModel, error) {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+	serviceModel, ok := r.plugins[name]
+	if !ok {
+		err := errors.NewNotFound("Model plugin '%s' not found", name)
+		return nil, err
+	}
+	return serviceModel, nil
+
+}
+
 // RegisterModelPlugin adds an external model plugin to the model registry at startup
 // or through the 'admin' gRPC interface. Once plugins are loaded they cannot be unloaded
-func (registry *ModelRegistry) RegisterModelPlugin(moduleName string) (ModelType, ModelVersion, error) {
+func (r *ModelRegistry) RegisterModelPlugin(moduleName string) (ModelType, ModelVersion, error) {
 	log.Info("Loading module ", moduleName)
 	modelPluginModule, err := plugin.Open(moduleName)
 	if err != nil {
@@ -68,7 +103,9 @@ func (registry *ModelRegistry) RegisterModelPlugin(moduleName string) (ModelType
 	name, version, _ := serviceModelPlugin.ServiceModelData()
 	log.Infof("Loaded %s %s from %s", name, version, moduleName)
 	fullName := ToModelName(ModelType(name), ModelVersion(version))
-	registry.ModelPlugins[fullName] = serviceModelPlugin
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	r.plugins[fullName] = serviceModelPlugin
 
 	return ModelType(name), ModelVersion(version), nil
 }
