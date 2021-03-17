@@ -53,6 +53,8 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 
 	// Create an e2 node with 3 cells from list of available cells.
 	cells := utils.GetCells(t, cellClient)
+	assert.Greater(t, len(cells), 2)
+
 	cell1Index := rand.Intn(len(cells))
 	cell2Index := rand.Intn(len(cells))
 	cell3Index := rand.Intn(len(cells))
@@ -73,6 +75,8 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	assert.NotNil(t, e2node)
 
 	// Waits until the connection gets established and make sure there is just one node connected
+	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
+	// for the number of nodes
 	time.Sleep(10 * time.Second)
 	nodeIDs, err = utils.GetNodeIDs()
 	assert.NoError(t, err)
