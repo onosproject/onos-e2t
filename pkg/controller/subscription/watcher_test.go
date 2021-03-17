@@ -25,11 +25,21 @@ import (
 	"testing"
 )
 
+const E2NodeID = "e2node"
+
 var (
 	lis       = bufconn.Listen(1024 * 1024)
 	server    = grpc.NewServer()
 	taskStore taskstore.Store
 	subStore  substore.Store
+
+	subTask = &subtaskapi.SubscriptionTask{
+		ID:             "1",
+		Revision:       0,
+		SubscriptionID: "1",
+		EndpointID:     E2NodeID,
+		Lifecycle:      subtaskapi.Lifecycle{},
+	}
 )
 
 func bufDialer(context.Context, string) (net.Conn, error) {
@@ -112,7 +122,7 @@ func TestWatcher(t *testing.T) {
 	_, subscriptionTaskClient := createClients(t)
 
 	watch := Watcher{
-		endpointID: "1",
+		endpointID: E2NodeID,
 		tasks:      subscriptionTaskClient,
 		cancel:     nil,
 		mu:         sync.Mutex{},
@@ -120,14 +130,6 @@ func TestWatcher(t *testing.T) {
 	ch := make(chan controller.ID)
 	err := watch.Start(ch)
 	assert.NoError(t, err)
-
-	subTask := &subtaskapi.SubscriptionTask{
-		ID:             "1",
-		Revision:       0,
-		SubscriptionID: "1",
-		EndpointID:     "1",
-		Lifecycle:      subtaskapi.Lifecycle{},
-	}
 
 	err = taskStore.Create(context.Background(), subTask)
 	assert.NoError(t, err)
@@ -142,7 +144,7 @@ func TestChannelWatcher(t *testing.T) {
 	subscriptionClient, subscriptionTaskClient := createClients(t)
 
 	watch := ChannelWatcher{
-		endpointID: "e2node",
+		endpointID: E2NodeID,
 		tasks:      subscriptionTaskClient,
 		subs:       subscriptionClient,
 		channels:   server2.NewChannelManager(),
@@ -154,36 +156,20 @@ func TestChannelWatcher(t *testing.T) {
 	err := watch.Start(ch)
 	assert.NoError(t, err)
 
-	subTask := &subtaskapi.SubscriptionTask{
-		ID:             "1",
-		Revision:       0,
-		SubscriptionID: "1",
-		EndpointID:     "e2node",
-		Lifecycle:      subtaskapi.Lifecycle{},
-	}
-
 	err = taskStore.Create(context.Background(), subTask)
 	assert.NoError(t, err)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: "e2node", ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
 	}
 	_, err = subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
 	})
 	assert.NoError(t, err)
 
-	watch.channelCh <- &server2.E2Channel{ID: "e2node"}
+	watch.channelCh <- &server2.E2Channel{ID: E2NodeID}
 	newID := <-ch
 	assert.Equal(t, controller.NewID(subTask.ID), newID)
 
 	watch.Stop()
 }
-
-//subscription := &subapi.Subscription{
-//ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: "bar", ServiceModel: subapi.ServiceModel{ID: "sm1"}},
-//}
-//_, err = subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-//	Subscription: subscription,
-//})
-//assert.NoError(t, err)
