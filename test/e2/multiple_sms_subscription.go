@@ -13,7 +13,6 @@ import (
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2t/test/utils"
-	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
@@ -24,15 +23,8 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "multi-sm-subscription")
 	done := make(chan struct{})
 	defer close(done)
-	clientConfig := e2client.Config{
-		AppID: "multi-sm-subscription-test",
-		SubscriptionService: e2client.ServiceConfig{
-			Host: utils.SubscriptionServiceHost,
-			Port: utils.SubscriptionServicePort,
-		},
-	}
-	client, err := e2client.NewClient(clientConfig)
-	assert.NoError(t, err)
+	// Create an E2 client
+	e2Client := getE2Client(t, "multi-sm-subscription-test")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
@@ -65,7 +57,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
-	sub1, err := client.Subscribe(ctx, subReq, ch1)
+	sub1, err := e2Client.Subscribe(ctx, subReq, ch1)
 	assert.NoError(t, err)
 
 	// Subscribe to RC service model
@@ -87,7 +79,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	subReq, err = subRequest.Create()
 	assert.NoError(t, err)
 
-	sub2, err := client.Subscribe(ctx, subReq, ch2)
+	sub2, err := e2Client.Subscribe(ctx, subReq, ch2)
 	assert.NoError(t, err)
 
 	msg1 := checkIndicationMessage(t, defaultIndicationTimeout, ch1)

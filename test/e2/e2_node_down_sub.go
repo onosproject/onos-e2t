@@ -6,13 +6,13 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/helmit/pkg/kubernetes"
 	"testing"
 	"time"
 
+	"github.com/onosproject/helmit/pkg/kubernetes"
+
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2t/test/utils"
-	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
 )
@@ -23,16 +23,8 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "e2node-down-subscription")
 
-	// Create an e2client
-	clientConfig := e2client.Config{
-		AppID: "subscription-e2node-down-test",
-		SubscriptionService: e2client.ServiceConfig{
-			Host: utils.SubscriptionServiceHost,
-			Port: utils.SubscriptionServicePort,
-		},
-	}
-	client, err := e2client.NewClient(clientConfig)
-	assert.NoError(t, err)
+	// Create an e2 client
+	e2Client := getE2Client(t, "subscription-e2node-down-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
@@ -77,7 +69,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	}
 
 	//  Create the subscription
-	sub, err := client.Subscribe(ctx, subReq, ch)
+	sub, err := e2Client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 
 	// Make sure that reads on the subscription channel time out. There should be no

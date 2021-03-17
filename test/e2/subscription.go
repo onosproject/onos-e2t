@@ -14,8 +14,6 @@ import (
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
 
-	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
-
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
@@ -23,15 +21,7 @@ import (
 func (s *TestSuite) TestSubscription(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription")
 
-	clientConfig := e2client.Config{
-		AppID: "subscription-test",
-		SubscriptionService: e2client.ServiceConfig{
-			Host: utils.SubscriptionServiceHost,
-			Port: utils.SubscriptionServicePort,
-		},
-	}
-	client, err := e2client.NewClient(clientConfig)
-	assert.NoError(t, err)
+	e2Client := getE2Client(t, "subscription-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
@@ -57,7 +47,7 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
-	sub, err := client.Subscribe(ctx, subReq, ch)
+	sub, err := e2Client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 
 	checkIndicationMessage(t, defaultIndicationTimeout, ch)
