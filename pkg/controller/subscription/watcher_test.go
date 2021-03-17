@@ -90,6 +90,7 @@ func serve(t *testing.T) {
 }
 
 func createServers(t *testing.T) (*grpc.ClientConn, *grpc.ClientConn) {
+	server    = grpc.NewServer()
 	subConn := createSubServerConnection(t)
 	taskConn := createTaskServerConnection(t)
 	serve(t)
@@ -142,7 +143,7 @@ func TestChannelWatcher(t *testing.T) {
 	assert.NotNil(t, subscriptionTaskClient)
 
 	watch := ChannelWatcher{
-		endpointID: "1",
+		endpointID: "e2node",
 		tasks:      subscriptionTaskClient,
 		subs:       subscriptionClient,
 		channels:   server2.NewChannelManager(),
@@ -158,7 +159,7 @@ func TestChannelWatcher(t *testing.T) {
 		ID:             "1",
 		Revision:       0,
 		SubscriptionID: "1",
-		EndpointID:     "1",
+		EndpointID:     "e2node",
 		Lifecycle:      subtaskapi.Lifecycle{},
 	}
 
@@ -166,14 +167,14 @@ func TestChannelWatcher(t *testing.T) {
 	assert.NoError(t, err)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: "bar", ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: "e2node", ServiceModel: subapi.ServiceModel{ID: "sm1"}},
 	}
 	_, err = subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
 	})
 	assert.NoError(t, err)
 
-	watch.channelCh <- nil
+	watch.channelCh <- &server2.E2Channel{ID: "e2node"}
 	newID := <-ch
 	assert.Equal(t, controller.NewID(subTask.ID), newID)
 
