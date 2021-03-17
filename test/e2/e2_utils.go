@@ -9,10 +9,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
+	"github.com/onosproject/onos-ric-sdk-go/pkg/app"
 
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
+	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	sdksub "github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/stretchr/testify/assert"
 
@@ -22,6 +24,26 @@ import (
 const (
 	defaultIndicationTimeout = 10 * time.Second
 )
+
+// getE2Client gets an E2 client
+func getE2Client(t *testing.T, appID string) e2client.Client {
+	clientConfig := e2client.Config{
+		AppID: app.ID(appID),
+		E2TService: e2client.ServiceConfig{
+			Host: utils.E2TServiceHost,
+			Port: utils.E2TServicePort,
+		},
+		SubscriptionService: e2client.ServiceConfig{
+			Host: utils.SubscriptionServiceHost,
+			Port: utils.SubscriptionServicePort,
+		},
+	}
+	client, err := e2client.NewClient(clientConfig)
+	assert.NoError(t, err)
+	assert.NotNil(t, client)
+	return client
+
+}
 
 // getSubClient returns an SDK subscription client
 func getSubClient(t *testing.T) sdksub.Client {

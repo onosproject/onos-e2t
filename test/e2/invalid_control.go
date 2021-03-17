@@ -14,7 +14,6 @@ import (
 
 	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
 
-	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -33,24 +32,11 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
 		t.Skip()
 		return
 	}
-	clientConfig := e2client.Config{
-		AppID: "invalid-control-test",
-		E2TService: e2client.ServiceConfig{
-			Host: utils.E2TServiceHost,
-			Port: utils.E2TServicePort,
-		},
-		SubscriptionService: e2client.ServiceConfig{
-			Host: utils.SubscriptionServiceHost,
-			Port: utils.SubscriptionServicePort,
-		},
-	}
 
-	client, err := e2client.NewClient(clientConfig)
-	assert.NoError(t, err)
-
+	e2Client := getE2Client(t, "invalid-control-test")
 	request, err := testCase.control.Create()
 	assert.NoError(t, err)
-	response, err := client.Control(ctx, request)
+	response, err := e2Client.Control(ctx, request)
 	assert.Nil(t, response)
 	err = errors.FromGRPC(err)
 	assert.Equal(t, true, testCase.expectedError(err))

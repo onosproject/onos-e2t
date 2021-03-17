@@ -15,21 +15,12 @@ import (
 
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 
-	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
-
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
 func checkSubscription(t *testing.T) sdksub.Context {
-	clientConfig := e2client.Config{
-		AppID: "subscription-delete-test",
-		SubscriptionService: e2client.ServiceConfig{
-			Host: utils.SubscriptionServiceHost,
-			Port: utils.SubscriptionServicePort,
-		},
-	}
-	client, err := e2client.NewClient(clientConfig)
-	assert.NoError(t, err)
+
+	e2Client := getE2Client(t, "subscription-delete-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
@@ -55,7 +46,7 @@ func checkSubscription(t *testing.T) sdksub.Context {
 	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
-	sub, err := client.Subscribe(ctx, subReq, ch)
+	sub, err := e2Client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 	assert.NotNil(t, sub)
 
