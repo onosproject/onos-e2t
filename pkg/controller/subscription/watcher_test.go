@@ -90,7 +90,7 @@ func serve(t *testing.T) {
 }
 
 func createServers(t *testing.T) (*grpc.ClientConn, *grpc.ClientConn) {
-	server    = grpc.NewServer()
+	server = grpc.NewServer()
 	subConn := createSubServerConnection(t)
 	taskConn := createTaskServerConnection(t)
 	serve(t)
