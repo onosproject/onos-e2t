@@ -10,6 +10,7 @@ import (
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	e2sub "github.com/onosproject/onos-e2sub/pkg/northbound/subscription"
 	e2task "github.com/onosproject/onos-e2sub/pkg/northbound/task"
+	server2 "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"sync"
 
@@ -125,6 +126,54 @@ func TestWatcher(t *testing.T) {
 	err = taskStore.Create(context.Background(), subTask)
 	assert.NoError(t, err)
 
+	newID := <-ch
+	assert.Equal(t, controller.NewID(subTask.ID), newID)
+
+	watch.Stop()
+}
+
+func TestChannelWatcher(t *testing.T) {
+	subConn, taskConn := createServers(t)
+
+	subscriptionClient := subapi.NewE2SubscriptionServiceClient(subConn)
+	assert.NotNil(t, subscriptionClient)
+
+	subscriptionTaskClient := subtaskapi.NewE2SubscriptionTaskServiceClient(taskConn)
+	assert.NotNil(t, subscriptionTaskClient)
+
+	watch := ChannelWatcher{
+		endpointID: "1",
+		tasks:      subscriptionTaskClient,
+		subs:       subscriptionClient,
+		channels:   server2.NewChannelManager(),
+		cancel:     nil,
+		mu:         sync.Mutex{},
+	}
+
+	ch := make(chan controller.ID)
+	err := watch.Start(ch)
+	assert.NoError(t, err)
+
+	subTask := &subtaskapi.SubscriptionTask{
+		ID:             "1",
+		Revision:       0,
+		SubscriptionID: "1",
+		EndpointID:     "1",
+		Lifecycle:      subtaskapi.Lifecycle{},
+	}
+
+	err = taskStore.Create(context.Background(), subTask)
+	assert.NoError(t, err)
+
+	subscription := &subapi.Subscription{
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: "bar", ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+	}
+	_, err = subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
+		Subscription: subscription,
+	})
+	assert.NoError(t, err)
+
+	watch.channelCh <- nil
 	newID := <-ch
 	assert.Equal(t, controller.NewID(subTask.ID), newID)
 

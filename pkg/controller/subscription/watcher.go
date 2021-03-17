@@ -82,6 +82,7 @@ type ChannelWatcher struct {
 	channels   *e2server.ChannelManager
 	cancel     context.CancelFunc
 	mu         sync.Mutex
+	channelCh  chan *e2server.E2Channel
 }
 
 // Start starts the channel watcher
@@ -92,9 +93,9 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	channelCh := make(chan *e2server.E2Channel, queueSize)
+	w.channelCh = make(chan *e2server.E2Channel, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.channels.Watch(ctx, channelCh)
+	err := w.channels.Watch(ctx, w.channelCh)
 	if err != nil {
 		cancel()
 		return err
@@ -102,7 +103,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		for c := range channelCh {
+		for c := range w.channelCh {
 			request := &subtaskapi.ListSubscriptionTasksRequest{
 				EndpointID: w.endpointID,
 			}
