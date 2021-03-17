@@ -97,7 +97,7 @@ func createServers(t *testing.T) (*grpc.ClientConn, *grpc.ClientConn) {
 	return subConn, taskConn
 }
 
-func TestWatcher(t *testing.T) {
+func createClients(t *testing.T) (subapi.E2SubscriptionServiceClient, subtaskapi.E2SubscriptionTaskServiceClient) {
 	subConn, taskConn := createServers(t)
 
 	subscriptionClient := subapi.NewE2SubscriptionServiceClient(subConn)
@@ -105,6 +105,11 @@ func TestWatcher(t *testing.T) {
 
 	subscriptionTaskClient := subtaskapi.NewE2SubscriptionTaskServiceClient(taskConn)
 	assert.NotNil(t, subscriptionTaskClient)
+	return subscriptionClient, subscriptionTaskClient
+}
+
+func TestWatcher(t *testing.T) {
+	_, subscriptionTaskClient := createClients(t)
 
 	watch := Watcher{
 		endpointID: "1",
@@ -134,13 +139,7 @@ func TestWatcher(t *testing.T) {
 }
 
 func TestChannelWatcher(t *testing.T) {
-	subConn, taskConn := createServers(t)
-
-	subscriptionClient := subapi.NewE2SubscriptionServiceClient(subConn)
-	assert.NotNil(t, subscriptionClient)
-
-	subscriptionTaskClient := subtaskapi.NewE2SubscriptionTaskServiceClient(taskConn)
-	assert.NotNil(t, subscriptionTaskClient)
+	subscriptionClient, subscriptionTaskClient := createClients(t)
 
 	watch := ChannelWatcher{
 		endpointID: "e2node",
