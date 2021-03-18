@@ -42,11 +42,57 @@ github.com/Shopify/sarama
 # github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
 github.com/asaskevich/govalidator
 # github.com/atomix/api v0.3.3
+github.com/atomix/api/proto/atomix/counter
 github.com/atomix/api/proto/atomix/database
+github.com/atomix/api/proto/atomix/election
 github.com/atomix/api/proto/atomix/headers
+github.com/atomix/api/proto/atomix/indexedmap
+github.com/atomix/api/proto/atomix/leader
+github.com/atomix/api/proto/atomix/list
+github.com/atomix/api/proto/atomix/lock
+github.com/atomix/api/proto/atomix/log
+github.com/atomix/api/proto/atomix/map
+github.com/atomix/api/proto/atomix/membership
 github.com/atomix/api/proto/atomix/primitive
+github.com/atomix/api/proto/atomix/session
+github.com/atomix/api/proto/atomix/set
+github.com/atomix/api/proto/atomix/value
 # github.com/atomix/go-client v0.4.1
+github.com/atomix/go-client/pkg/client
+github.com/atomix/go-client/pkg/client/counter
+github.com/atomix/go-client/pkg/client/election
 github.com/atomix/go-client/pkg/client/errors
+github.com/atomix/go-client/pkg/client/indexedmap
+github.com/atomix/go-client/pkg/client/leader
+github.com/atomix/go-client/pkg/client/list
+github.com/atomix/go-client/pkg/client/lock
+github.com/atomix/go-client/pkg/client/log
+github.com/atomix/go-client/pkg/client/map
+github.com/atomix/go-client/pkg/client/peer
+github.com/atomix/go-client/pkg/client/primitive
+github.com/atomix/go-client/pkg/client/set
+github.com/atomix/go-client/pkg/client/util
+github.com/atomix/go-client/pkg/client/util/net
+github.com/atomix/go-client/pkg/client/value
+# github.com/atomix/go-framework v0.5.1
+github.com/atomix/go-framework/pkg/atomix
+github.com/atomix/go-framework/pkg/atomix/cluster
+github.com/atomix/go-framework/pkg/atomix/counter
+github.com/atomix/go-framework/pkg/atomix/election
+github.com/atomix/go-framework/pkg/atomix/errors
+github.com/atomix/go-framework/pkg/atomix/indexedmap
+github.com/atomix/go-framework/pkg/atomix/leader
+github.com/atomix/go-framework/pkg/atomix/list
+github.com/atomix/go-framework/pkg/atomix/lock
+github.com/atomix/go-framework/pkg/atomix/log
+github.com/atomix/go-framework/pkg/atomix/map
+github.com/atomix/go-framework/pkg/atomix/primitive
+github.com/atomix/go-framework/pkg/atomix/set
+github.com/atomix/go-framework/pkg/atomix/stream
+github.com/atomix/go-framework/pkg/atomix/util
+github.com/atomix/go-framework/pkg/atomix/value
+# github.com/atomix/go-local v0.5.1
+github.com/atomix/go-local/pkg/atomix/local
 # github.com/beorn7/perks v1.0.0
 github.com/beorn7/perks/quantile
 # github.com/cenkalti/backoff v2.2.1+incompatible
@@ -192,6 +238,7 @@ github.com/gogo/protobuf/gogoproto
 github.com/gogo/protobuf/proto
 github.com/gogo/protobuf/protoc-gen-gogo/descriptor
 github.com/gogo/protobuf/sortkeys
+github.com/gogo/protobuf/types
 # github.com/golang/mock v1.4.4
 github.com/golang/mock/gomock
 # github.com/golang/protobuf v1.4.3
@@ -349,11 +396,21 @@ github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/v1beta1/e2sm-kpm-ies
 ## explicit
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/pdubuilder
 github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v1/e2sm-rc-pre-ies
+# github.com/onosproject/onos-e2sub v0.7.2
+## explicit
+github.com/onosproject/onos-e2sub/pkg/config
+github.com/onosproject/onos-e2sub/pkg/northbound/subscription
+github.com/onosproject/onos-e2sub/pkg/northbound/task
+github.com/onosproject/onos-e2sub/pkg/store/subscription
+github.com/onosproject/onos-e2sub/pkg/store/task
 # github.com/onosproject/onos-lib-go v0.7.6
 ## explicit
 github.com/onosproject/onos-lib-go/api/logging
+github.com/onosproject/onos-lib-go/pkg/atomix
 github.com/onosproject/onos-lib-go/pkg/auth
 github.com/onosproject/onos-lib-go/pkg/certs
+github.com/onosproject/onos-lib-go/pkg/cluster
+github.com/onosproject/onos-lib-go/pkg/config
 github.com/onosproject/onos-lib-go/pkg/controller
 github.com/onosproject/onos-lib-go/pkg/env
 github.com/onosproject/onos-lib-go/pkg/errors
@@ -593,6 +650,7 @@ google.golang.org/grpc/serviceconfig
 google.golang.org/grpc/stats
 google.golang.org/grpc/status
 google.golang.org/grpc/tap
+google.golang.org/grpc/test/bufconn
 # google.golang.org/protobuf v1.25.0
 ## explicit
 google.golang.org/protobuf/encoding/prototext
