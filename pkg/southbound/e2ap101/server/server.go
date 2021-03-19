@@ -111,8 +111,8 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 			}
 		}
 	}
-	
-	e.e2Channel = newE2Channel(channelID, plmnID, e.serverChannel, e.subs, ranFuncIDs)
+
+	e.e2Channel = NewE2Channel(channelID, plmnID, e.serverChannel, e.subs, ranFuncIDs)
 	e.manager.Open(channelID, e.e2Channel)
 
 	// Create an E2 setup response
