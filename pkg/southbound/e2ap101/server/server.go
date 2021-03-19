@@ -23,7 +23,7 @@ var ricID = types.RicIdentifier{
 	RicIdentifierLen:   20,
 }
 
-func NewE2Server(manager *ChannelManager, modelRegistry *modelregistry.ModelRegistry) *E2Server {
+func NewE2Server(manager ChannelManager, modelRegistry *modelregistry.ModelRegistry) *E2Server {
 	return &E2Server{
 		server:        e2.NewServer(),
 		manager:       manager,
@@ -33,7 +33,7 @@ func NewE2Server(manager *ChannelManager, modelRegistry *modelregistry.ModelRegi
 
 type E2Server struct {
 	server        *e2.Server
-	manager       *ChannelManager
+	manager       ChannelManager
 	modelRegistry *modelregistry.ModelRegistry
 }
 
@@ -52,7 +52,7 @@ func (s *E2Server) Stop() error {
 }
 
 type E2ChannelServer struct {
-	manager       *ChannelManager
+	manager       ChannelManager
 	serverChannel e2.ServerChannel
 	e2Channel     *E2Channel
 	modelRegistry *modelregistry.ModelRegistry
