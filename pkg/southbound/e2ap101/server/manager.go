@@ -19,7 +19,6 @@ type ChannelManager interface {
 	List(ctx context.Context) ([]*E2Channel, error)
 	Watch(ctx context.Context, ch chan<- *E2Channel) error
 	open(id ChannelID, channel *E2Channel)
-	Close() error
 }
 
 // NewChannelManager creates a new channel manager
