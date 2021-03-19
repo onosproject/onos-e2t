@@ -107,7 +107,7 @@ func (m *Manager) Start() error {
 }
 
 // startSubscriptionBroker starts the subscription broker
-func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, streams *stream.Manager, channels *e2server.ChannelManager) error {
+func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, streams *stream.Manager, channels e2server.ChannelManager) error {
 	controller := subctrl.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn), subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn), channels, m.ModelRegistry)
 	if err := controller.Start(); err != nil {
 		return err
@@ -121,13 +121,13 @@ func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, strea
 }
 
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(channels *e2server.ChannelManager) error {
+func (m *Manager) startSouthboundServer(channels e2server.ChannelManager) error {
 	server := e2server.NewE2Server(channels, m.ModelRegistry)
 	return server.Serve()
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(streams *stream.Manager, channels *e2server.ChannelManager) error {
+func (m *Manager) startNorthboundServer(streams *stream.Manager, channels e2server.ChannelManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,

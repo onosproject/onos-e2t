@@ -6,7 +6,6 @@ package server
 
 import (
 	"context"
-	"io"
 	"sync"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
@@ -15,19 +14,27 @@ import (
 
 var log = logging.GetLogger("southbound", "e2ap", "server")
 
+type ChannelManager interface {
+	Get(ctx context.Context, id ChannelID) (*E2Channel, error)
+	List(ctx context.Context) ([]*E2Channel, error)
+	Watch(ctx context.Context, ch chan<- *E2Channel) error
+	open(id ChannelID, channel *E2Channel)
+}
+
 // NewChannelManager creates a new channel manager
-func NewChannelManager() *ChannelManager {
-	mgr := &ChannelManager{
+func NewChannelManager() ChannelManager {
+	mgr := channelManager{
 		channels: make(map[ChannelID]*E2Channel),
 		eventCh:  make(chan *E2Channel),
 	}
 	go mgr.processEvents()
-	return mgr
+
+	return &mgr
 }
 
 type ChannelID string
 
-type ChannelManager struct {
+type channelManager struct {
 	channels   map[ChannelID]*E2Channel
 	channelsMu sync.RWMutex
 	watchers   []chan<- *E2Channel
@@ -35,13 +42,13 @@ type ChannelManager struct {
 	eventCh    chan *E2Channel
 }
 
-func (m *ChannelManager) processEvents() {
+func (m *channelManager) processEvents() {
 	for channel := range m.eventCh {
 		m.processEvent(channel)
 	}
 }
 
-func (m *ChannelManager) processEvent(channel *E2Channel) {
+func (m *channelManager) processEvent(channel *E2Channel) {
 	log.Info("Notifying channel")
 	m.watchersMu.RLock()
 	for _, watcher := range m.watchers {
@@ -50,7 +57,7 @@ func (m *ChannelManager) processEvent(channel *E2Channel) {
 	m.watchersMu.RUnlock()
 }
 
-func (m *ChannelManager) open(id ChannelID, channel *E2Channel) {
+func (m *channelManager) open(id ChannelID, channel *E2Channel) {
 	log.Infof("Opened channel %s", id)
 	m.channelsMu.Lock()
 	defer m.channelsMu.Unlock()
@@ -66,7 +73,7 @@ func (m *ChannelManager) open(id ChannelID, channel *E2Channel) {
 }
 
 // Get gets a channel by ID
-func (m *ChannelManager) Get(ctx context.Context, id ChannelID) (*E2Channel, error) {
+func (m *channelManager) Get(ctx context.Context, id ChannelID) (*E2Channel, error) {
 	m.channelsMu.RLock()
 	defer m.channelsMu.RUnlock()
 	channel, ok := m.channels[id]
@@ -77,7 +84,7 @@ func (m *ChannelManager) Get(ctx context.Context, id ChannelID) (*E2Channel, err
 }
 
 // List lists channels
-func (m *ChannelManager) List(ctx context.Context) ([]*E2Channel, error) {
+func (m *channelManager) List(ctx context.Context) ([]*E2Channel, error) {
 	m.channelsMu.RLock()
 	defer m.channelsMu.RUnlock()
 	channels := make([]*E2Channel, 0, len(m.channels))
@@ -88,7 +95,7 @@ func (m *ChannelManager) List(ctx context.Context) ([]*E2Channel, error) {
 }
 
 // Watch watches for new channels
-func (m *ChannelManager) Watch(ctx context.Context, ch chan<- *E2Channel) error {
+func (m *channelManager) Watch(ctx context.Context, ch chan<- *E2Channel) error {
 	m.watchersMu.Lock()
 	m.channelsMu.Lock()
 	m.watchers = append(m.watchers, ch)
@@ -115,9 +122,9 @@ func (m *ChannelManager) Watch(ctx context.Context, ch chan<- *E2Channel) error 
 }
 
 // Close closes the manager
-func (m *ChannelManager) Close() error {
+func (m *channelManager) Close() error {
 	close(m.eventCh)
 	return nil
 }
 
-var _ io.Closer = &ChannelManager{}
+var _ ChannelManager = &channelManager{}

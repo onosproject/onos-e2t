@@ -15,7 +15,7 @@ import (
 var log = logging.GetLogger("broker", "subscription")
 
 // NewBroker creates a new subscription broker
-func NewBroker(requests *subctrl.RequestJournal, streams *stream.Manager, channels *e2server.ChannelManager) *Broker {
+func NewBroker(requests *subctrl.RequestJournal, streams *stream.Manager, channels e2server.ChannelManager) *Broker {
 	return &Broker{
 		requests: requests,
 		streams:  streams,
@@ -27,7 +27,7 @@ func NewBroker(requests *subctrl.RequestJournal, streams *stream.Manager, channe
 type Broker struct {
 	requests *subctrl.RequestJournal
 	streams  *stream.Manager
-	channels *e2server.ChannelManager
+	channels e2server.ChannelManager
 	cancel   context.CancelFunc
 }
 

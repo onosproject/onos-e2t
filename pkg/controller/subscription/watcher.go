@@ -79,7 +79,7 @@ type ChannelWatcher struct {
 	endpointID epapi.ID
 	tasks      subtaskapi.E2SubscriptionTaskServiceClient
 	subs       subapi.E2SubscriptionServiceClient
-	channels   *e2server.ChannelManager
+	channels   e2server.ChannelManager
 	cancel     context.CancelFunc
 	mu         sync.Mutex
 	channelCh  chan *e2server.E2Channel
