@@ -6,7 +6,6 @@ package server
 
 import (
 	"context"
-	"io"
 	"sync"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
@@ -129,4 +128,4 @@ func (m *channelManager) Close() error {
 	return nil
 }
 
-var _ io.Closer = &channelManager{}
+var _ ChannelManager = &channelManager{}
