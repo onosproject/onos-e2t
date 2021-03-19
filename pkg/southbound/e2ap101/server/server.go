@@ -111,9 +111,9 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 			}
 		}
 	}
-
+	
 	e.e2Channel = newE2Channel(channelID, plmnID, e.serverChannel, e.subs, ranFuncIDs)
-	e.manager.open(channelID, e.e2Channel)
+	e.manager.Open(channelID, e.e2Channel)
 
 	// Create an E2 setup response
 	response, err := pdubuilder.NewE2SetupResponse(nodeID.Plmn, ricID, rfAccepted, rfRejected)
