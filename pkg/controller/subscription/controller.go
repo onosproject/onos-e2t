@@ -34,7 +34,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager, models *modelregistry.ModelRegistry) *controller.Controller {
+func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager, models modelregistry.ModelRegistry) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: epapi.ID(env.GetPodID()),
@@ -62,7 +62,7 @@ type Reconciler struct {
 	subs      subapi.E2SubscriptionServiceClient
 	tasks     subtaskapi.E2SubscriptionTaskServiceClient
 	channels  e2server.ChannelManager
-	models    *modelregistry.ModelRegistry
+	models    modelregistry.ModelRegistry
 	requestID RequestID
 }
 

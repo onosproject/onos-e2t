@@ -22,14 +22,20 @@ type ModelVersion string
 type ModelFullName string
 
 // ModelRegistry is the object for the saving information about device models
-type ModelRegistry struct {
+type ModelRegistry interface {
+	GetPlugins() map[ModelFullName]ServiceModel
+	GetPlugin(name ModelFullName) (ServiceModel, error)
+	RegisterModelPlugin(moduleName string) (ModelType, ModelVersion, error)
+}
+
+type modelRegistry struct {
 	plugins map[ModelFullName]ServiceModel
 	mu      sync.RWMutex
 }
 
 // NewModelRegistry create an instance of model registry
 func NewModelRegistry() ModelRegistry {
-	return ModelRegistry{
+	return &modelRegistry{
 		plugins: make(map[ModelFullName]ServiceModel),
 	}
 }
@@ -57,7 +63,7 @@ type ServiceModel interface {
 }
 
 // GetModelPlugins get model plugins
-func (r *ModelRegistry) GetPlugins() map[ModelFullName]ServiceModel {
+func (r *modelRegistry) GetPlugins() map[ModelFullName]ServiceModel {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	plugins := make(map[ModelFullName]ServiceModel, len(r.plugins))
@@ -68,7 +74,7 @@ func (r *ModelRegistry) GetPlugins() map[ModelFullName]ServiceModel {
 }
 
 // GetPlugin returns the model plugin interface
-func (r *ModelRegistry) GetPlugin(name ModelFullName) (ServiceModel, error) {
+func (r *modelRegistry) GetPlugin(name ModelFullName) (ServiceModel, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	serviceModel, ok := r.plugins[name]
@@ -82,7 +88,7 @@ func (r *ModelRegistry) GetPlugin(name ModelFullName) (ServiceModel, error) {
 
 // RegisterModelPlugin adds an external model plugin to the model registry at startup
 // or through the 'admin' gRPC interface. Once plugins are loaded they cannot be unloaded
-func (r *ModelRegistry) RegisterModelPlugin(moduleName string) (ModelType, ModelVersion, error) {
+func (r *modelRegistry) RegisterModelPlugin(moduleName string) (ModelType, ModelVersion, error) {
 	log.Info("Loading module ", moduleName)
 	modelPluginModule, err := plugin.Open(moduleName)
 	if err != nil {
