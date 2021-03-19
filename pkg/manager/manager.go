@@ -63,7 +63,7 @@ func NewManager(config Config) *Manager {
 	}
 	return &Manager{
 		Config:        config,
-		ModelRegistry: &modelRegistry,
+		ModelRegistry: modelRegistry,
 		conn:          conn,
 	}
 }
@@ -71,7 +71,7 @@ func NewManager(config Config) *Manager {
 // Manager is a manager for the E2T service
 type Manager struct {
 	Config        Config
-	ModelRegistry *modelregistry.ModelRegistry
+	ModelRegistry modelregistry.ModelRegistry
 	conn          *grpc.ClientConn
 }
 
