@@ -6,6 +6,7 @@ package subscription
 
 import (
 	"context"
+	"errors"
 	"github.com/golang/mock/gomock"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
@@ -18,41 +19,74 @@ import (
 	"testing"
 )
 
-func TestOpenNoPlugin(t *testing.T) {
+type controllerTestContext struct {
+	ctrl                   *gomock.Controller
+	channelManager         *MockChannelManager
+	subscriptionClient     subapi.E2SubscriptionServiceClient
+	subscriptionTaskClient subtaskapi.E2SubscriptionTaskServiceClient
+	requestJournal         *RequestJournal
+	modelRegistry          *MockModelRegistry
+	reconciler             Reconciler
+}
+
+func initControllerTest(t *testing.T, testContext *controllerTestContext) {
+	// subscription and task clients
+	testContext.subscriptionClient, testContext.subscriptionTaskClient = createClients(t)
+
+	// Controller for mocks
 	ctrl := gomock.NewController(t)
-	channelManager := NewMockChannelManager(ctrl)
-	var channel *e2server.E2Channel
-	channelManager.EXPECT().Get(gomock.Any(), gomock.Any()).Return(channel, nil)
 
+	// Mock channel manager
+	testContext.channelManager = NewMockChannelManager(ctrl)
+
+	// Mock request journal
+	testContext.requestJournal = NewRequestJournal()
+
+	// Function ID map for mocked service models
+	modelFuncIDs := make(map[modelregistry.ModelFullName]types.RanFunctionID)
+	modelFuncIDs["sm1"] = 2
+
+	// Mocked RIC channel
+	serverChannel := NewMockRICChannel(ctrl)
+	resp := e2ap_pdu_contents.RicsubscriptionResponse{}
+	serverChannel.EXPECT().RICSubscription(gomock.Any(), gomock.Any()).Return(&resp, nil, nil).AnyTimes()
+	channel := e2server.NewE2Channel("channel", "plmnid", serverChannel, modelFuncIDs)
+	testContext.channelManager = NewMockChannelManager(ctrl)
+	testContext.channelManager.EXPECT().Get(gomock.Any(), gomock.Any()).Return(channel, nil)
+
+	// Mocked model registry
+	testContext.modelRegistry = NewMockModelRegistry(ctrl)
+	testContext.ctrl = ctrl
+
+	// reconciler to test
+	testContext.reconciler = Reconciler{
+		catalog:  testContext.requestJournal,
+		subs:     testContext.subscriptionClient,
+		tasks:    testContext.subscriptionTaskClient,
+		channels: testContext.channelManager,
+		models:   testContext.modelRegistry,
+	}
+}
+
+func TestOpenNoPlugin(t *testing.T) {
+	var testContext controllerTestContext
 	createServerScaffolding(t)
-	subscriptionClient, subscriptionTaskClient := createClients(t)
-	requestJournal := NewRequestJournal()
+	initControllerTest(t, &testContext)
 
-	modelRegistry := modelregistry.NewModelRegistry()
-	c := NewController(requestJournal, subscriptionClient, subscriptionTaskClient, channelManager, modelRegistry)
-	assert.NotNil(t, c)
+	testContext.modelRegistry.EXPECT().GetPlugin(modelregistry.ModelFullName("sm1")).Return(nil, errors.New("no such model"))
 
 	subscription := &subapi.Subscription{
 		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
 	}
-	_, err := subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
+	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
 	})
 	assert.NoError(t, err)
 
-	reconciler := Reconciler{
-		catalog:   requestJournal,
-		subs:      subscriptionClient,
-		tasks:     subscriptionTaskClient,
-		channels:  channelManager,
-		models:    modelRegistry,
-		requestID: 0,
-	}
 	err = scaffold.taskStore.Create(context.Background(), subTask)
 	assert.NoError(t, err)
 
-	result, err := reconciler.Reconcile(controller.ID{Value: subTask.ID})
-
+	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
 	assert.NotNil(t, result)
 	assert.NotNil(t, err)
 
@@ -61,51 +95,66 @@ func TestOpenNoPlugin(t *testing.T) {
 	assert.NotNil(t, updatedTask)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID, updatedTask.Lifecycle.Failure.Cause)
+
+	testContext.ctrl.Finish()
 }
 
-func TestOpenValidPlugin(t *testing.T) {
-	ctrl := gomock.NewController(t)
-	channelManager := NewMockChannelManager(ctrl)
-	modelFuncIDs := make(map[modelregistry.ModelFullName]types.RanFunctionID)
-	modelFuncIDs["sm1"] = 2
-	serverChannel := NewMockRICChannel(ctrl)
-	resp := e2ap_pdu_contents.RicsubscriptionResponse{}
-	serverChannel.EXPECT().RICSubscription(gomock.Any(), gomock.Any()).Return(&resp, nil, nil)
-	channel := e2server.NewE2Channel("channel", "plmnid", serverChannel, modelFuncIDs)
-	channelManager.EXPECT().Get(gomock.Any(), gomock.Any()).Return(channel, nil)
-	modelRegistry := NewMockModelRegistry(ctrl)
-	sm := NewMockServiceModel(ctrl)
-	sm.EXPECT().ServiceModelData().Return("D1", "D2", "D3")
-	modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
-
+func TestOpenProtoError(t *testing.T) {
+	var testContext controllerTestContext
 	createServerScaffolding(t)
-	subscriptionClient, subscriptionTaskClient := createClients(t)
-	requestJournal := NewRequestJournal()
+	initControllerTest(t, &testContext)
 
-	c := NewController(requestJournal, subscriptionClient, subscriptionTaskClient, channelManager, modelRegistry)
-	assert.NotNil(t, c)
+	sm := NewMockServiceModel(testContext.ctrl)
+	sm.EXPECT().ServiceModelData().Return("D1", "D2", "D3")
+	sm.EXPECT().EventTriggerDefinitionProtoToASN1(gomock.Any()).Return(nil, errors.New("this should fail"))
+	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
 	subscription := &subapi.Subscription{
 		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
 	}
-	_, err := subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
+	subscription.Details.EventTrigger.Payload.Encoding = subapi.Encoding_ENCODING_PROTO
+
+	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
 	})
 	assert.NoError(t, err)
 
-	reconciler := Reconciler{
-		catalog:   requestJournal,
-		subs:      subscriptionClient,
-		tasks:     subscriptionTaskClient,
-		channels:  channelManager,
-		models:    modelRegistry,
-		requestID: 0,
-	}
 	err = scaffold.taskStore.Create(context.Background(), subTask)
 	assert.NoError(t, err)
 
-	result, err := reconciler.Reconcile(controller.ID{Value: subTask.ID})
+	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
+	assert.NotNil(t, result)
+	assert.NoError(t, err)
 
+	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
+	assert.NoError(t, err)
+	assert.NotNil(t, updatedTask)
+	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
+
+	testContext.ctrl.Finish()
+}
+
+func TestOpenValidPlugin(t *testing.T) {
+	var testContext controllerTestContext
+	createServerScaffolding(t)
+	initControllerTest(t, &testContext)
+
+	sm := NewMockServiceModel(testContext.ctrl)
+	sm.EXPECT().ServiceModelData().Return("D1", "D2", "D3")
+	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
+
+	subscription := &subapi.Subscription{
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+	}
+	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
+		Subscription: subscription,
+	})
+	assert.NoError(t, err)
+
+	err = scaffold.taskStore.Create(context.Background(), subTask)
+	assert.NoError(t, err)
+
+	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
 	assert.NotNil(t, result)
 	assert.NoError(t, err)
 
@@ -113,4 +162,6 @@ func TestOpenValidPlugin(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, updatedTask)
 	assert.Equal(t, subtaskapi.Status_COMPLETE, updatedTask.Lifecycle.Status)
+
+	testContext.ctrl.Finish()
 }
