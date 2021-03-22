@@ -84,8 +84,14 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		log.Infof("Processing RanFunction, OID: %s", ranFunc.OID)
 		rfAccepted[id] = ranFunc.Revision
 		for smID, sm := range plugins {
+			log.Infof("Checking service model: %s for RanFunction OID: %s", string(smID), ranFunc.OID)
 			names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
-			if err == nil && string(names.RanFunctionShortName) == string(smID) {
+			if err != nil {
+				log.Errorf("Failure decoding RanFunctionDescription %s", err)
+				continue
+			}
+			log.Infof("Attempting to decode, %s, %s", string(names.RanFunctionShortName), string(smID))
+			if string(names.RanFunctionShortName) == string(smID) {
 				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
 					"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
 					names.RanFunctionShortName,
