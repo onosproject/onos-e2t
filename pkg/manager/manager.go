@@ -8,6 +8,8 @@ import (
 	"context"
 	"time"
 
+	"github.com/onosproject/onos-e2t/pkg/oid"
+
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
@@ -55,6 +57,8 @@ func NewManager(config Config) *Manager {
 		}
 	}
 
+	oidRegistry := oid.NewOidRegistry()
+
 	opts = append(opts, grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()))
 	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(time.Second)))
 	conn, err := grpc.Dial(config.E2SubAddress, opts...)
@@ -64,6 +68,7 @@ func NewManager(config Config) *Manager {
 	return &Manager{
 		Config:        config,
 		ModelRegistry: modelRegistry,
+		OidRegistry:   oidRegistry,
 		conn:          conn,
 	}
 }
@@ -72,6 +77,7 @@ func NewManager(config Config) *Manager {
 type Manager struct {
 	Config        Config
 	ModelRegistry modelregistry.ModelRegistry
+	OidRegistry   oid.Registry
 	conn          *grpc.ClientConn
 }
 
@@ -108,7 +114,9 @@ func (m *Manager) Start() error {
 
 // startSubscriptionBroker starts the subscription broker
 func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, streams *stream.Manager, channels e2server.ChannelManager) error {
-	controller := subctrl.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn), subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn), channels, m.ModelRegistry)
+	controller := subctrl.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn),
+		subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn),
+		channels, m.ModelRegistry, m.OidRegistry)
 	if err := controller.Start(); err != nil {
 		return err
 	}
@@ -137,7 +145,8 @@ func (m *Manager) startNorthboundServer(streams *stream.Manager, channels e2serv
 		northbound.SecurityConfig{}))
 	s.AddService(admin.NewService(channels))
 	s.AddService(logging.Service{})
-	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry, channels))
+	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry,
+		channels, m.OidRegistry))
 
 	doneCh := make(chan error)
 	go func() {

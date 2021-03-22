@@ -88,7 +88,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 			},
 			description:   "Invalid service model",
 			enabled:       true,
-			expectedError: errors.IsNotFound,
+			expectedError: errors.IsInvalid,
 		},
 		{
 			control: utils.Control{

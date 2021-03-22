@@ -92,7 +92,8 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 					names.RanFunctionInstance,
 					names.RanFunctionE2SmOid,
 					len(*triggers), len(*reports))
-				ranFuncIDs[smID] = id
+				// TODO fix this
+				//ranFuncIDs[smID] = id
 			}
 		}
 	}

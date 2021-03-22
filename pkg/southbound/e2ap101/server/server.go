@@ -78,20 +78,19 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
-	ranFuncIDs := make(map[modelregistry.ModelFullName]types.RanFunctionID)
+	ranFuncIDs := make(map[modelregistry.ModelOid]types.RanFunctionID)
 	plugins := e.modelRegistry.GetPlugins()
 	for id, ranFunc := range *ranFuncs {
 		log.Infof("Processing RanFunction, OID: %s", ranFunc.OID)
 		rfAccepted[id] = ranFunc.Revision
-		for smID, sm := range plugins {
-			log.Infof("Checking service model: %s for RanFunction OID: %s", string(smID), ranFunc.OID)
+		for smOid, sm := range plugins {
 			names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
 			if err != nil {
-				log.Errorf("Failure decoding RanFunctionDescription %s", err)
+				log.Warn(err)
 				continue
 			}
-			log.Infof("Attempting to decode, %s, %s", string(names.RanFunctionShortName), string(smID))
-			if string(names.RanFunctionShortName) == string(smID) {
+
+			if string(names.RanFunctionE2SmOid) == string(smOid) {
 				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
 					"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
 					names.RanFunctionShortName,
@@ -99,7 +98,8 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 					names.RanFunctionInstance,
 					names.RanFunctionE2SmOid,
 					len(*triggers), len(*reports))
-				ranFuncIDs[smID] = id
+				oid := modelregistry.ModelOid(names.RanFunctionE2SmOid)
+				ranFuncIDs[oid] = id
 			}
 		}
 	}
