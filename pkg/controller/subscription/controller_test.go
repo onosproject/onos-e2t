@@ -27,6 +27,7 @@ type controllerTestContext struct {
 	requestJournal         *RequestJournal
 	modelRegistry          *MockModelRegistry
 	reconciler             Reconciler
+	controller             *controller.Controller
 }
 
 func initControllerTest(t *testing.T, testContext *controllerTestContext) {
@@ -58,7 +59,11 @@ func initControllerTest(t *testing.T, testContext *controllerTestContext) {
 	testContext.modelRegistry = NewMockModelRegistry(ctrl)
 	testContext.ctrl = ctrl
 
-	// reconciler to test
+	// Controller
+	testContext.controller = NewController(testContext.requestJournal, testContext.subscriptionClient, testContext.subscriptionTaskClient, testContext.channelManager, testContext.modelRegistry)
+
+
+		// reconciler to test
 	testContext.reconciler = Reconciler{
 		catalog:  testContext.requestJournal,
 		subs:     testContext.subscriptionClient,
@@ -99,7 +104,7 @@ func TestOpenNoPlugin(t *testing.T) {
 	testContext.ctrl.Finish()
 }
 
-func TestOpenProtoError(t *testing.T) {
+func TestOpenProtoToASNError(t *testing.T) {
 	var testContext controllerTestContext
 	createServerScaffolding(t)
 	initControllerTest(t, &testContext)
@@ -130,6 +135,42 @@ func TestOpenProtoError(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, updatedTask)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
+	assert.Equal(t, subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE, updatedTask.Lifecycle.Failure.Cause)
+
+	testContext.ctrl.Finish()
+}
+
+func TestOpenBadProtocolError(t *testing.T) {
+	var testContext controllerTestContext
+	createServerScaffolding(t)
+	initControllerTest(t, &testContext)
+
+	sm := NewMockServiceModel(testContext.ctrl)
+	sm.EXPECT().ServiceModelData().Return("D1", "D2", "D3")
+	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
+
+	subscription := &subapi.Subscription{
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+	}
+	subscription.Details.EventTrigger.Payload.Encoding = 123
+
+	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
+		Subscription: subscription,
+	})
+	assert.NoError(t, err)
+
+	err = scaffold.taskStore.Create(context.Background(), subTask)
+	assert.NoError(t, err)
+
+	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
+	assert.NotNil(t, result)
+	assert.Error(t, err)
+
+	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
+	assert.NoError(t, err)
+	assert.NotNil(t, updatedTask)
+	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
+	assert.Equal(t, subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE, updatedTask.Lifecycle.Failure.Cause)
 
 	testContext.ctrl.Finish()
 }
