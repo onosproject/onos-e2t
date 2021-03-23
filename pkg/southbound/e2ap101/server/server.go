@@ -81,16 +81,16 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	ranFuncIDs := make(map[modelregistry.ModelOid]types.RanFunctionID)
 	plugins := e.modelRegistry.GetPlugins()
 	for id, ranFunc := range *ranFuncs {
-		log.Infof("Processing RanFunction, OID: %s", ranFunc.OID)
 		rfAccepted[id] = ranFunc.Revision
 		for smOid, sm := range plugins {
-			names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
-			if err != nil {
-				log.Warn(err)
-				continue
-			}
+			if string(smOid) == string(ranFunc.OID) {
+				log.Infof("Decoding RanFunction description for OID: %s", ranFunc.OID)
+				names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
+				if err != nil {
+					log.Warn(err)
+					continue
+				}
 
-			if string(names.RanFunctionE2SmOid) == string(smOid) {
 				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
 					"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
 					names.RanFunctionShortName,
@@ -100,6 +100,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 					len(*triggers), len(*reports))
 				oid := modelregistry.ModelOid(names.RanFunctionE2SmOid)
 				ranFuncIDs[oid] = id
+
 			}
 		}
 	}
