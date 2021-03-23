@@ -19,7 +19,8 @@ import (
 // Subscription subscription request for subscription SDK api
 type Subscription struct {
 	NodeID               string
-	ServiceModelID       string
+	ServiceModelName     subapi.ServiceModelName
+	ServiceModelVersion  subapi.ServiceModelVersion
 	ActionType           subapi.ActionType
 	ActionID             int32
 	EncodingType         subapi.Encoding
@@ -67,7 +68,8 @@ func (subRequest *Subscription) Create() (subapi.SubscriptionDetails, error) {
 	subReq := subapi.SubscriptionDetails{
 		E2NodeID: subapi.E2NodeID(subRequest.NodeID),
 		ServiceModel: subapi.ServiceModel{
-			ID: subapi.ServiceModelID(subRequest.ServiceModelID),
+			Name:    subRequest.ServiceModelName,
+			Version: subRequest.ServiceModelVersion,
 		},
 		EventTrigger: subapi.EventTrigger{
 			Payload: subapi.Payload{

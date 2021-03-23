@@ -13,12 +13,13 @@ import (
 
 // Control control request fields
 type Control struct {
-	NodeID            string
-	ServiceModelID    string
-	ControlMessage    []byte
-	ControlHeader     []byte
-	ControlAckRequest e2tapi.ControlAckRequest
-	EncodingType      e2tapi.EncodingType
+	NodeID              string
+	ServiceModelName    e2tapi.ServiceModelName
+	ServiceModelVersion e2tapi.ServiceModelVersion
+	ControlMessage      []byte
+	ControlHeader       []byte
+	ControlAckRequest   e2tapi.ControlAckRequest
+	EncodingType        e2tapi.EncodingType
 }
 
 // RcControlHeader required fields for creating RC service model control header
@@ -85,7 +86,8 @@ func (cr *Control) Create() (*e2tapi.ControlRequest, error) {
 		Header: &e2tapi.RequestHeader{
 			EncodingType: cr.EncodingType,
 			ServiceModel: &e2tapi.ServiceModel{
-				ID: e2tapi.ServiceModelID(cr.ServiceModelID),
+				Name:    cr.ServiceModelName,
+				Version: cr.ServiceModelVersion,
 			},
 		},
 		ControlAckRequest: cr.ControlAckRequest,

@@ -97,7 +97,9 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 	if err != nil {
 		return nil, errors.Status(err).Err()
 	}
-	serviceModelID, err := oid.ModelIDToOid(s.oidRegistry, string(request.Header.ServiceModel.ID))
+	serviceModelID, err := oid.ModelIDToOid(s.oidRegistry,
+		string(request.Header.ServiceModel.Name),
+		string(request.Header.ServiceModel.Version))
 	if err != nil {
 		log.Warn(err)
 		return nil, errors.Status(err).Err()
@@ -266,7 +268,9 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 			},
 		}
 
-		serviceModelID, err := oid.ModelIDToOid(s.oidRegistry, string(sub.Subscription.Details.ServiceModel.ID))
+		serviceModelID, err := oid.ModelIDToOid(s.oidRegistry,
+			string(sub.Subscription.Details.ServiceModel.Name),
+			string(sub.Subscription.Details.ServiceModel.Version))
 		if err != nil {
 			log.Warn(err)
 			return err

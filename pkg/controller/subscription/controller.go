@@ -136,7 +136,9 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 
-	serviceModelOid, err := oid.ModelIDToOid(r.oidRegistry, string(sub.Details.ServiceModel.ID))
+	serviceModelOid, err := oid.ModelIDToOid(r.oidRegistry,
+		string(sub.Details.ServiceModel.Name),
+		string(sub.Details.ServiceModel.Version))
 	if err != nil {
 		log.Warn(err)
 		task.Lifecycle.Status = subtaskapi.Status_FAILED
@@ -151,7 +153,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		if updateError != nil {
 			log.Errorf("Unable to update subscription task for unknown service model. resp %v err %v", updateResponse, updateError)
 		}
-		return controller.Result{}, errors.NewInvalid("Service model ID cannot be converted to OID", sub.Details.ServiceModel.ID)
+		return controller.Result{}, errors.NewInvalid("Service model ID cannot be converted to OID", sub.Details.ServiceModel)
 	}
 	serviceModelPlugin, err := r.models.GetPlugin(serviceModelOid)
 	if err != nil {
@@ -386,7 +388,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		InstanceID:  config.InstanceID,
 	}
 
-	serviceModelOid, err := oid.ModelIDToOid(r.oidRegistry, string(sub.Details.ServiceModel.ID))
+	serviceModelOid, err := oid.ModelIDToOid(r.oidRegistry, string(sub.Details.ServiceModel.Name), string(sub.Details.ServiceModel.Version))
 	if err != nil {
 		log.Warn(err)
 		return controller.Result{}, err
