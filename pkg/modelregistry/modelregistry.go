@@ -54,6 +54,7 @@ type ServiceModel interface {
 	ActionDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error)
 	ActionDefinitionProtoToASN1(protoBytes []byte) ([]byte, error)
 	DecodeRanFunctionDescription(asn1bytes []byte) (*types.RanfunctionNameDef, *types.RicEventTriggerList, *types.RicReportList, error)
+	GetRANfunctionOID() string
 	ControlHeaderASN1toProto(asn1Bytes []byte) ([]byte, error)
 	ControlHeaderProtoToASN1(protoBytes []byte) ([]byte, error)
 	ControlMessageASN1toProto(asn1Bytes []byte) ([]byte, error)
