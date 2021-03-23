@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"strconv"
 
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
+
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
@@ -78,7 +80,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
-	ranFuncIDs := make(map[modelregistry.ModelOid]types.RanFunctionID)
+	ranFuncIDs := make(map[e2smtypes.OID]types.RanFunctionID)
 	plugins := e.modelRegistry.GetPlugins()
 	for id, ranFunc := range *ranFuncs {
 		rfAccepted[id] = ranFunc.Revision
@@ -98,7 +100,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 					names.RanFunctionInstance,
 					names.RanFunctionE2SmOid,
 					len(*triggers), len(*reports))
-				oid := modelregistry.ModelOid(names.RanFunctionE2SmOid)
+				oid := names.RanFunctionE2SmOid
 				ranFuncIDs[oid] = id
 
 			}

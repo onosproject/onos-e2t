@@ -17,33 +17,28 @@ import (
 
 var log = logging.GetLogger("modelregistry")
 
-type ModelFullName string
-type ModelVersion string
-type ModelOid string
-
 // ModelRegistry is the object for the saving information about device models
 type ModelRegistry interface {
-	GetPlugins() map[ModelOid]ServiceModel
-	GetPlugin(name ModelOid) (ServiceModel, error)
-	RegisterModelPlugin(moduleName string) (ModelFullName, ModelVersion, error)
+	GetPlugins() map[types.OID]ServiceModel
+	GetPlugin(oid types.OID) (ServiceModel, error)
+	RegisterModelPlugin(moduleName string) (types.ShortName, types.Version, error)
 }
 
 type modelRegistry struct {
-	plugins map[ModelOid]ServiceModel
+	plugins map[types.OID]ServiceModel
 	mu      sync.RWMutex
 }
 
 // NewModelRegistry create an instance of model registry
 func NewModelRegistry() ModelRegistry {
 	return &modelRegistry{
-		plugins: make(map[ModelOid]ServiceModel),
+		plugins: make(map[types.OID]ServiceModel),
 	}
 }
 
 // ServiceModel is a set of methods that each model plugin should implement
 type ServiceModel interface {
-	ServiceModelData2() (string, string, string, string)
-	ServiceModelData() (string, string, string)
+	ServiceModelData() (smData types.ServiceModelData)
 	IndicationHeaderASN1toProto(asn1Bytes []byte) ([]byte, error)
 	IndicationHeaderProtoToASN1(protoBytes []byte) ([]byte, error)
 	IndicationMessageASN1toProto(asn1Bytes []byte) ([]byte, error)
@@ -64,10 +59,10 @@ type ServiceModel interface {
 }
 
 // GetModelPlugins get model plugins
-func (r *modelRegistry) GetPlugins() map[ModelOid]ServiceModel {
+func (r *modelRegistry) GetPlugins() map[types.OID]ServiceModel {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
-	plugins := make(map[ModelOid]ServiceModel, len(r.plugins))
+	plugins := make(map[types.OID]ServiceModel, len(r.plugins))
 	for id, plugin := range r.plugins {
 		plugins[id] = plugin
 	}
@@ -75,7 +70,7 @@ func (r *modelRegistry) GetPlugins() map[ModelOid]ServiceModel {
 }
 
 // GetPlugin returns the model plugin interface
-func (r *modelRegistry) GetPlugin(oid ModelOid) (ServiceModel, error) {
+func (r *modelRegistry) GetPlugin(oid types.OID) (ServiceModel, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	serviceModel, ok := r.plugins[oid]
@@ -89,7 +84,7 @@ func (r *modelRegistry) GetPlugin(oid ModelOid) (ServiceModel, error) {
 
 // RegisterModelPlugin adds an external model plugin to the model registry at startup
 // or through the 'admin' gRPC interface. Once plugins are loaded they cannot be unloaded
-func (r *modelRegistry) RegisterModelPlugin(moduleName string) (ModelFullName, ModelVersion, error) {
+func (r *modelRegistry) RegisterModelPlugin(moduleName string) (types.ShortName, types.Version, error) {
 	log.Info("Loading module ", moduleName)
 	modelPluginModule, err := plugin.Open(moduleName)
 	if err != nil {
@@ -107,12 +102,12 @@ func (r *modelRegistry) RegisterModelPlugin(moduleName string) (ModelFullName, M
 		return "", "", fmt.Errorf("symbol loaded from module %s is not a ServiceModel",
 			moduleName)
 	}
-	name, version, _, oid := serviceModelPlugin.ServiceModelData2()
-	modelOid := ModelOid(oid)
-	log.Infof("Loaded %s %s from %s", name, version, moduleName)
+	smData := serviceModelPlugin.ServiceModelData()
+	modelOid := smData.OID
+	log.Infof("Loaded %s %s %s from %s", smData.Name, smData.Version, smData.OID, moduleName)
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	r.plugins[modelOid] = serviceModelPlugin
 
-	return ModelFullName(name), ModelVersion(version), nil
+	return smData.Name, smData.Version, nil
 }

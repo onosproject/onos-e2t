@@ -170,8 +170,8 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 		return controller.Result{}, errors.NewInvalid("Service Model Plugin cannot be loaded", serviceModelOid)
 	}
-	a, b, c, oid := serviceModelPlugin.ServiceModelData2()
-	log.Infof("Service model found %s %s %s", a, b, c, oid)
+	smData := serviceModelPlugin.ServiceModelData()
+	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
 	r.requestID++
 	requestID := r.requestID

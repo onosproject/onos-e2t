@@ -58,11 +58,10 @@ type Service struct {
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
 	server := &Server{subs: s.subs,
-		streams:          s.streams,
-		modelRegistry:    s.modelRegistry,
-		channels:         s.channels,
-		controlRequestID: RequestID(0),
-		oidRegistry:      s.oidRegistry}
+		streams:       s.streams,
+		modelRegistry: s.modelRegistry,
+		channels:      s.channels,
+		oidRegistry:   s.oidRegistry}
 	e2api.RegisterE2TServiceServer(r, server)
 }
 
@@ -279,8 +278,8 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 				log.Warn(err)
 				return errors.Status(err).Err()
 			}
-			a, b, c, oid := serviceModelPlugin.ServiceModelData2()
-			log.Infof("Service model found %s %s %s", a, b, c, oid)
+			smData := serviceModelPlugin.ServiceModelData()
+			log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
 			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
 			if err != nil {

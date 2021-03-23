@@ -7,12 +7,13 @@ package oid
 import (
 	"strings"
 
-	"github.com/onosproject/onos-e2t/pkg/modelregistry"
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
+
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
 // ModelIDToOid converts service model ID to OID
-func ModelIDToOid(r Registry, modelID string) (modelregistry.ModelOid, error) {
+func ModelIDToOid(r Registry, modelID string) (e2smtypes.OID, error) {
 	log.Debugf("Converting service model ID %s to OID", modelID)
 	id := strings.Split(modelID, dotDelimiter)
 	if len(id) != 2 {
@@ -32,6 +33,6 @@ func ModelIDToOid(r Registry, modelID string) (modelregistry.ModelOid, error) {
 		getOid(r, e2)})
 
 	modelOid := createDottedOid([]string{oidPrefix, version, getOid(r, e2sm), smName})
-	return modelregistry.ModelOid(modelOid), nil
+	return e2smtypes.OID(modelOid), nil
 
 }
