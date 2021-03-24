@@ -75,7 +75,7 @@ func (r *modelRegistry) GetPlugin(oid types.OID) (ServiceModel, error) {
 	defer r.mu.RUnlock()
 	serviceModel, ok := r.plugins[oid]
 	if !ok {
-		err := errors.NewNotFound("Model plugin '%s' not found", oid)
+		err := errors.NewNotFound("Model plugin for service model with OID '%s' not found", oid)
 		return nil, err
 	}
 	return serviceModel, nil
