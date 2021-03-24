@@ -97,14 +97,14 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 	if err != nil {
 		return nil, errors.Status(err).Err()
 	}
-	serviceModelID, err := oid.ModelIDToOid(s.oidRegistry,
+	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
 		string(request.Header.ServiceModel.Name),
 		string(request.Header.ServiceModel.Version))
 	if err != nil {
 		log.Warn(err)
 		return nil, errors.Status(err).Err()
 	}
-	serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelID)
+	serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelOID)
 	if err != nil {
 		log.Warn(err)
 		return nil, errors.Status(err).Err()
@@ -145,7 +145,7 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 	}
 
-	ranFuncID := channel.GetRANFunctionID(serviceModelID)
+	ranFuncID := channel.GetRANFunctionID(serviceModelOID)
 	controlAckRequest := getControlAckRequest(request)
 	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
 
@@ -268,7 +268,7 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 			},
 		}
 
-		serviceModelID, err := oid.ModelIDToOid(s.oidRegistry,
+		serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
 			string(sub.Subscription.Details.ServiceModel.Name),
 			string(sub.Subscription.Details.ServiceModel.Version))
 		if err != nil {
@@ -277,7 +277,7 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 		}
 		switch encodingType {
 		case e2api.EncodingType_PROTO:
-			serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelID)
+			serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelOID)
 			if err != nil {
 				log.Warn(err)
 				return errors.Status(err).Err()
