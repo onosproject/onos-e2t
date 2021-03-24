@@ -10,8 +10,9 @@ import (
 	"github.com/golang/mock/gomock"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/modelregistry"
+	"github.com/onosproject/onos-e2t/pkg/oid"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -26,6 +27,7 @@ type controllerTestContext struct {
 	subscriptionTaskClient subtaskapi.E2SubscriptionTaskServiceClient
 	requestJournal         *RequestJournal
 	modelRegistry          *MockModelRegistry
+	oidRegistry            *MockRegistry
 	reconciler             Reconciler
 	controller             *controller.Controller
 }
@@ -44,7 +46,7 @@ func initControllerTest(t *testing.T, testContext *controllerTestContext) {
 	testContext.requestJournal = NewRequestJournal()
 
 	// Function ID map for mocked service models
-	modelFuncIDs := make(map[modelregistry.ModelFullName]types.RanFunctionID)
+	modelFuncIDs := make(map[e2smtypes.OID]types.RanFunctionID)
 	modelFuncIDs["sm1"] = 2
 
 	// Mocked RIC channel
@@ -60,16 +62,21 @@ func initControllerTest(t *testing.T, testContext *controllerTestContext) {
 	testContext.ctrl = ctrl
 
 	// Controller
-	testContext.controller = NewController(testContext.requestJournal, testContext.subscriptionClient, testContext.subscriptionTaskClient, testContext.channelManager, testContext.modelRegistry)
+	testContext.controller = NewController(testContext.requestJournal, testContext.subscriptionClient,
+		testContext.subscriptionTaskClient, testContext.channelManager, testContext.modelRegistry, testContext.oidRegistry)
 
+	// OID registry
+	testContext.oidRegistry = NewMockRegistry(ctrl)
+	testContext.oidRegistry.EXPECT().GetOid(gomock.Any()).Return(oid.Oid(12)).AnyTimes()
 
-		// reconciler to test
+	// reconciler to test
 	testContext.reconciler = Reconciler{
-		catalog:  testContext.requestJournal,
-		subs:     testContext.subscriptionClient,
-		tasks:    testContext.subscriptionTaskClient,
-		channels: testContext.channelManager,
-		models:   testContext.modelRegistry,
+		catalog:     testContext.requestJournal,
+		subs:        testContext.subscriptionClient,
+		tasks:       testContext.subscriptionTaskClient,
+		channels:    testContext.channelManager,
+		models:      testContext.modelRegistry,
+		oidRegistry: testContext.oidRegistry,
 	}
 }
 
@@ -78,10 +85,10 @@ func TestOpenNoPlugin(t *testing.T) {
 	createServerScaffolding(t)
 	initControllerTest(t, &testContext)
 
-	testContext.modelRegistry.EXPECT().GetPlugin(modelregistry.ModelFullName("sm1")).Return(nil, errors.New("no such model"))
+	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(nil, errors.New("no such model"))
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
 	}
 	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
@@ -110,12 +117,13 @@ func TestOpenProtoToASNError(t *testing.T) {
 	initControllerTest(t, &testContext)
 
 	sm := NewMockServiceModel(testContext.ctrl)
-	sm.EXPECT().ServiceModelData().Return("D1", "D2", "D3")
+	smd := e2smtypes.ServiceModelData{}
+	sm.EXPECT().ServiceModelData().Return(smd)
 	sm.EXPECT().EventTriggerDefinitionProtoToASN1(gomock.Any()).Return(nil, errors.New("this should fail"))
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
 	}
 	subscription.Details.EventTrigger.Payload.Encoding = subapi.Encoding_ENCODING_PROTO
 
@@ -146,11 +154,12 @@ func TestOpenBadProtocolError(t *testing.T) {
 	initControllerTest(t, &testContext)
 
 	sm := NewMockServiceModel(testContext.ctrl)
-	sm.EXPECT().ServiceModelData().Return("D1", "D2", "D3")
+	smd := e2smtypes.ServiceModelData{}
+	sm.EXPECT().ServiceModelData().Return(smd)
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
 	}
 	subscription.Details.EventTrigger.Payload.Encoding = 123
 
@@ -181,11 +190,12 @@ func TestOpenValidPlugin(t *testing.T) {
 	initControllerTest(t, &testContext)
 
 	sm := NewMockServiceModel(testContext.ctrl)
-	sm.EXPECT().ServiceModelData().Return("D1", "D2", "D3")
+	smd := e2smtypes.ServiceModelData{}
+	sm.EXPECT().ServiceModelData().Return(smd)
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
 	}
 	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,

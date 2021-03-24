@@ -8,6 +8,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
+	types "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	modelregistry "github.com/onosproject/onos-e2t/pkg/modelregistry"
 )
 
@@ -35,25 +36,25 @@ func (m *MockModelRegistry) EXPECT() *MockModelRegistryMockRecorder {
 }
 
 // GetPlugin mocks base method.
-func (m *MockModelRegistry) GetPlugin(name modelregistry.ModelFullName) (modelregistry.ServiceModel, error) {
+func (m *MockModelRegistry) GetPlugin(oid types.OID) (modelregistry.ServiceModel, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetPlugin", name)
+	ret := m.ctrl.Call(m, "GetPlugin", oid)
 	ret0, _ := ret[0].(modelregistry.ServiceModel)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // GetPlugin indicates an expected call of GetPlugin.
-func (mr *MockModelRegistryMockRecorder) GetPlugin(name interface{}) *gomock.Call {
+func (mr *MockModelRegistryMockRecorder) GetPlugin(oid interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPlugin", reflect.TypeOf((*MockModelRegistry)(nil).GetPlugin), name)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPlugin", reflect.TypeOf((*MockModelRegistry)(nil).GetPlugin), oid)
 }
 
 // GetPlugins mocks base method.
-func (m *MockModelRegistry) GetPlugins() map[modelregistry.ModelFullName]modelregistry.ServiceModel {
+func (m *MockModelRegistry) GetPlugins() map[types.OID]modelregistry.ServiceModel {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetPlugins")
-	ret0, _ := ret[0].(map[modelregistry.ModelFullName]modelregistry.ServiceModel)
+	ret0, _ := ret[0].(map[types.OID]modelregistry.ServiceModel)
 	return ret0
 }
 
@@ -64,11 +65,11 @@ func (mr *MockModelRegistryMockRecorder) GetPlugins() *gomock.Call {
 }
 
 // RegisterModelPlugin mocks base method.
-func (m *MockModelRegistry) RegisterModelPlugin(moduleName string) (modelregistry.ModelType, modelregistry.ModelVersion, error) {
+func (m *MockModelRegistry) RegisterModelPlugin(moduleName string) (types.ShortName, types.Version, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RegisterModelPlugin", moduleName)
-	ret0, _ := ret[0].(modelregistry.ModelType)
-	ret1, _ := ret[1].(modelregistry.ModelVersion)
+	ret0, _ := ret[0].(types.ShortName)
+	ret1, _ := ret[1].(types.Version)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }

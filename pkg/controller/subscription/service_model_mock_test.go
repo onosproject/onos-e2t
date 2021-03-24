@@ -11,6 +11,7 @@ import (
 	types "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 )
 
+
 // MockServiceModel is a mock of ServiceModel interface.
 type MockServiceModel struct {
 	ctrl     *gomock.Controller
@@ -292,13 +293,11 @@ func (mr *MockServiceModelMockRecorder) RanFuncDescriptionProtoToASN1(protoBytes
 }
 
 // ServiceModelData mocks base method.
-func (m *MockServiceModel) ServiceModelData() (string, string, string) {
+func (m *MockServiceModel) ServiceModelData() types.ServiceModelData {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ServiceModelData")
-	ret0, _ := ret[0].(string)
-	ret1, _ := ret[1].(string)
-	ret2, _ := ret[2].(string)
-	return ret0, ret1, ret2
+	ret0, _ := ret[0].(types.ServiceModelData)
+	return ret0
 }
 
 // ServiceModelData indicates an expected call of ServiceModelData.
