@@ -72,9 +72,10 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	testCases := []invalidControlTestCase{
 		{
 			control: utils.Control{
-				NodeID:         nodeID,
-				EncodingType:   10,
-				ServiceModelID: utils.RcServiceModelID,
+				NodeID:              nodeID,
+				EncodingType:        10,
+				ServiceModelName:    utils.RcServiceModelName,
+				ServiceModelVersion: utils.RcServiceModelVersion1,
 			},
 			description:   "Invalid encoding type",
 			enabled:       true,
@@ -82,9 +83,10 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 		},
 		{
 			control: utils.Control{
-				NodeID:         nodeID,
-				EncodingType:   e2tapi.EncodingType_PROTO,
-				ServiceModelID: "no-such-service-model",
+				NodeID:              nodeID,
+				EncodingType:        e2tapi.EncodingType_PROTO,
+				ServiceModelName:    "no-such-service-model",
+				ServiceModelVersion: "v1",
 			},
 			description:   "Invalid service model",
 			enabled:       true,
@@ -92,11 +94,12 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 		},
 		{
 			control: utils.Control{
-				NodeID:         nodeID,
-				EncodingType:   e2tapi.EncodingType_PROTO,
-				ServiceModelID: utils.RcServiceModelID,
-				ControlHeader:  []byte("invalid-control-header"),
-				ControlMessage: controlMessageBytes,
+				NodeID:              nodeID,
+				EncodingType:        e2tapi.EncodingType_PROTO,
+				ServiceModelName:    utils.RcServiceModelName,
+				ServiceModelVersion: utils.RcServiceModelVersion1,
+				ControlHeader:       []byte("invalid-control-header"),
+				ControlMessage:      controlMessageBytes,
 			},
 			description:   "Invalid control header",
 			enabled:       true,
@@ -104,11 +107,12 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 		},
 		{
 			control: utils.Control{
-				NodeID:         nodeID,
-				EncodingType:   e2tapi.EncodingType_PROTO,
-				ServiceModelID: utils.RcServiceModelID,
-				ControlHeader:  controlHeaderBytes,
-				ControlMessage: []byte("invalid-control-message"),
+				NodeID:              nodeID,
+				EncodingType:        e2tapi.EncodingType_PROTO,
+				ServiceModelName:    utils.RcServiceModelName,
+				ServiceModelVersion: utils.RcServiceModelVersion1,
+				ControlHeader:       controlHeaderBytes,
+				ControlMessage:      []byte("invalid-control-message"),
 			},
 			description:   "Invalid control message",
 			enabled:       true,

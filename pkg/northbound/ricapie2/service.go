@@ -8,6 +8,8 @@ import (
 	"context"
 	"io"
 
+	"github.com/onosproject/onos-e2t/pkg/oid"
+
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
@@ -32,12 +34,14 @@ import (
 var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
-func NewService(subs subapi.E2SubscriptionServiceClient, streams *stream.Manager, modelRegistry modelregistry.ModelRegistry, channels e2server.ChannelManager) northbound.Service {
+func NewService(subs subapi.E2SubscriptionServiceClient, streams *stream.Manager, modelRegistry modelregistry.ModelRegistry,
+	channels e2server.ChannelManager, oidRegistry oid.Registry) northbound.Service {
 	return &Service{
 		subs:          subs,
 		streams:       streams,
 		modelRegistry: modelRegistry,
 		channels:      channels,
+		oidRegistry:   oidRegistry,
 	}
 }
 
@@ -48,12 +52,16 @@ type Service struct {
 	streams       *stream.Manager
 	modelRegistry modelregistry.ModelRegistry
 	channels      e2server.ChannelManager
+	oidRegistry   oid.Registry
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
-	server := &Server{subs: s.subs, streams: s.streams, modelRegistry: s.modelRegistry,
-		channels: s.channels, controlRequestID: RequestID(0)}
+	server := &Server{subs: s.subs,
+		streams:       s.streams,
+		modelRegistry: s.modelRegistry,
+		channels:      s.channels,
+		oidRegistry:   s.oidRegistry}
 	e2api.RegisterE2TServiceServer(r, server)
 }
 
@@ -64,6 +72,7 @@ type Server struct {
 	modelRegistry    modelregistry.ModelRegistry
 	channels         e2server.ChannelManager
 	controlRequestID RequestID
+	oidRegistry      oid.Registry
 }
 
 func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRequest {
@@ -88,8 +97,14 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 	if err != nil {
 		return nil, errors.Status(err).Err()
 	}
-	serviceModelID := modelregistry.ModelFullName(request.Header.ServiceModel.ID)
-	serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelID)
+	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
+		string(request.Header.ServiceModel.Name),
+		string(request.Header.ServiceModel.Version))
+	if err != nil {
+		log.Warn(err)
+		return nil, errors.Status(err).Err()
+	}
+	serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelOID)
 	if err != nil {
 		log.Warn(err)
 		return nil, errors.Status(err).Err()
@@ -130,7 +145,7 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 	}
 
-	ranFuncID := channel.GetRANFunctionID(serviceModelID)
+	ranFuncID := channel.GetRANFunctionID(serviceModelOID)
 	controlAckRequest := getControlAckRequest(request)
 	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
 
@@ -253,16 +268,22 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 			},
 		}
 
-		serviceModelID := modelregistry.ModelFullName(sub.Subscription.Details.ServiceModel.ID)
+		serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
+			string(sub.Subscription.Details.ServiceModel.Name),
+			string(sub.Subscription.Details.ServiceModel.Version))
+		if err != nil {
+			log.Warn(err)
+			return err
+		}
 		switch encodingType {
 		case e2api.EncodingType_PROTO:
-			serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelID)
+			serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelOID)
 			if err != nil {
 				log.Warn(err)
 				return errors.Status(err).Err()
 			}
-			a, b, c := serviceModelPlugin.ServiceModelData()
-			log.Infof("Service model found %s %s %s", a, b, c)
+			smData := serviceModelPlugin.ServiceModelData()
+			log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
 			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
 			if err != nil {

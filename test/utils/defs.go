@@ -11,8 +11,10 @@ import (
 const (
 	SubscriptionServiceHost = "onos-e2sub"
 	SubscriptionServicePort = 5150
-	KpmServiceModelID       = "e2sm_kpm-v1beta1"
-	RcServiceModelID        = "e2sm_rc_pre-v1"
+	KpmServiceModelName     = "oran-e2sm-kpm"
+	KpmServiceModelVersion1 = "v1"
+	RcServiceModelName      = "oran-e2sm-rc-pre"
+	RcServiceModelVersion1  = "v1"
 	E2TServiceHost          = "onos-e2t"
 	E2TServicePort          = 5150
 	RansimServicePort       = 5150

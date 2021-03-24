@@ -6,15 +6,17 @@ package server
 
 import (
 	"context"
+	"sync"
+
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
+
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
+	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
-	"sync"
 )
 
-func newE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, modelFuncIDs map[modelregistry.ModelFullName]types.RanFunctionID) *E2Channel {
+func newE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, modelFuncIDs map[e2smtypes.OID]types.RanFunctionID) *E2Channel {
 	return &E2Channel{
 		ServerChannel: channel,
 		ID:            id,
@@ -28,13 +30,13 @@ type E2Channel struct {
 	e2.ServerChannel
 	ID           ChannelID
 	PlmnID       string
-	modelFuncIDs map[modelregistry.ModelFullName]types.RanFunctionID
+	modelFuncIDs map[e2smtypes.OID]types.RanFunctionID
 	watchers     map[int32]chan<- e2appducontents.Ricindication
 	watchersMu   sync.RWMutex
 }
 
-func (c *E2Channel) GetRANFunctionID(modelName modelregistry.ModelFullName) types.RanFunctionID {
-	return c.modelFuncIDs[modelName]
+func (c *E2Channel) GetRANFunctionID(modelOid e2smtypes.OID) types.RanFunctionID {
+	return c.modelFuncIDs[modelOid]
 }
 
 func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {

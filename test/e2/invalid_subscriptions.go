@@ -18,14 +18,15 @@ import (
 )
 
 type invalidSubscriptionTestCase struct {
-	description   string
-	encodingType  subapi.Encoding
-	actionType    subapi.ActionType
-	serviceModeID string
-	eventTrigger  []byte
-	actionID      int32
-	expectedError subtaskapi.Cause
-	enabled       bool
+	description         string
+	encodingType        subapi.Encoding
+	actionType          subapi.ActionType
+	serviceModelName    subapi.ServiceModelName
+	serviceModelVersion subapi.ServiceModelVersion
+	eventTrigger        []byte
+	actionID            int32
+	expectedError       subtaskapi.Cause
+	enabled             bool
 }
 
 func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
@@ -47,7 +48,8 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		EncodingType:         testCase.encodingType,
 		ActionType:           testCase.actionType,
 		EventTrigger:         testCase.eventTrigger,
-		ServiceModelID:       testCase.serviceModeID,
+		ServiceModelName:     testCase.serviceModelName,
+		ServiceModelVersion:  testCase.serviceModelVersion,
 		ActionID:             testCase.actionID,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
@@ -76,54 +78,59 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 
 	testCases := []invalidSubscriptionTestCase{
 		{
-			description:   "Non-existent Service Model ID",
-			enabled:       true,
-			encodingType:  subapi.Encoding_ENCODING_PROTO,
-			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
-			serviceModeID: "no-such-service-model",
-			eventTrigger:  eventTriggerBytes,
-			actionID:      actionID,
-			expectedError: subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID,
+			description:         "Non-existent Service Model ID",
+			enabled:             true,
+			encodingType:        subapi.Encoding_ENCODING_PROTO,
+			actionType:          subapi.ActionType_ACTION_TYPE_REPORT,
+			serviceModelName:    "no-such-service-model",
+			serviceModelVersion: "v1",
+			eventTrigger:        eventTriggerBytes,
+			actionID:            actionID,
+			expectedError:       subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID,
 		},
 		{
-			description:   "Invalid action type",
-			enabled:       true,
-			encodingType:  subapi.Encoding_ENCODING_PROTO,
-			actionType:    subapi.ActionType_ACTION_TYPE_INSERT,
-			serviceModeID: utils.KpmServiceModelID,
-			eventTrigger:  eventTriggerBytes,
-			actionID:      actionID,
-			expectedError: subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED,
+			description:         "Invalid action type",
+			enabled:             true,
+			encodingType:        subapi.Encoding_ENCODING_PROTO,
+			actionType:          subapi.ActionType_ACTION_TYPE_INSERT,
+			serviceModelName:    utils.KpmServiceModelName,
+			serviceModelVersion: utils.KpmServiceModelVersion1,
+			eventTrigger:        eventTriggerBytes,
+			actionID:            actionID,
+			expectedError:       subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED,
 		},
 		{
-			description:   "Invalid encoding type",
-			enabled:       true,
-			encodingType:  77,
-			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
-			serviceModeID: utils.KpmServiceModelID,
-			eventTrigger:  eventTriggerBytes,
-			actionID:      actionID,
-			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
+			description:         "Invalid encoding type",
+			enabled:             true,
+			encodingType:        77,
+			actionType:          subapi.ActionType_ACTION_TYPE_REPORT,
+			serviceModelName:    utils.KpmServiceModelName,
+			serviceModelVersion: utils.KpmServiceModelVersion1,
+			eventTrigger:        eventTriggerBytes,
+			actionID:            actionID,
+			expectedError:       subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
 		},
 		{
-			description:   "Invalid action ID",
-			enabled:       true,
-			encodingType:  subapi.Encoding_ENCODING_PROTO,
-			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
-			serviceModeID: utils.KpmServiceModelID,
-			eventTrigger:  eventTriggerBytes,
-			actionID:      100000,
-			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+			description:         "Invalid action ID",
+			enabled:             true,
+			encodingType:        subapi.Encoding_ENCODING_PROTO,
+			actionType:          subapi.ActionType_ACTION_TYPE_REPORT,
+			serviceModelName:    utils.KpmServiceModelName,
+			serviceModelVersion: utils.KpmServiceModelVersion1,
+			eventTrigger:        eventTriggerBytes,
+			actionID:            100000,
+			expectedError:       subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
 		},
 		{
-			description:   "Invalid event trigger",
-			enabled:       true,
-			encodingType:  subapi.Encoding_ENCODING_PROTO,
-			actionType:    subapi.ActionType_ACTION_TYPE_REPORT,
-			serviceModeID: utils.KpmServiceModelID,
-			eventTrigger:  make([]byte, 50),
-			actionID:      actionID,
-			expectedError: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+			description:         "Invalid event trigger",
+			enabled:             true,
+			encodingType:        subapi.Encoding_ENCODING_PROTO,
+			actionType:          subapi.ActionType_ACTION_TYPE_REPORT,
+			serviceModelName:    utils.KpmServiceModelName,
+			serviceModelVersion: utils.KpmServiceModelVersion1,
+			eventTrigger:        make([]byte, 50),
+			actionID:            actionID,
+			expectedError:       subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
 		},
 	}
 

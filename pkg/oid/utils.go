@@ -1,0 +1,26 @@
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+//
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+
+package oid
+
+import (
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
+)
+
+// ModelIDToOid converts service model ID to OID
+func ModelIDToOid(r Registry, name string, version string) (e2smtypes.OID, error) {
+	log.Debugf("Converting service model ID %s:%s to the corresponding OID", name, version)
+	oidPrefix := createDottedOid([]string{getOid(r, iso),
+		getOid(r, identifiedOrganization),
+		getOid(r, dod),
+		getOid(r, internet),
+		getOid(r, private),
+		getOid(r, enterprise),
+		getOid(r, oran),
+		getOid(r, e2)})
+
+	modelOid := createDottedOid([]string{oidPrefix, getOid(r, version), getOid(r, e2sm), getOid(r, name)})
+	return e2smtypes.OID(modelOid), nil
+
+}

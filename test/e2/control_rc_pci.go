@@ -56,7 +56,8 @@ func (s *TestSuite) TestControl(t *testing.T) {
 		EncodingType:         subapi.Encoding_ENCODING_PROTO,
 		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
 		EventTrigger:         eventTriggerBytes,
-		ServiceModelID:       utils.RcServiceModelID,
+		ServiceModelName:     utils.RcServiceModelName,
+		ServiceModelVersion:  utils.RcServiceModelVersion1,
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
@@ -94,12 +95,13 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	controlRequest := utils.Control{
-		NodeID:            testNodeID,
-		EncodingType:      e2tapi.EncodingType_PROTO,
-		ServiceModelID:    utils.RcServiceModelID,
-		ControlAckRequest: e2tapi.ControlAckRequest_ACK,
-		ControlMessage:    controlMessageBytes,
-		ControlHeader:     controlHeaderBytes,
+		NodeID:              testNodeID,
+		EncodingType:        e2tapi.EncodingType_PROTO,
+		ServiceModelName:    utils.RcServiceModelName,
+		ServiceModelVersion: utils.RcServiceModelVersion1,
+		ControlAckRequest:   e2tapi.ControlAckRequest_ACK,
+		ControlMessage:      controlMessageBytes,
+		ControlHeader:       controlHeaderBytes,
 	}
 
 	request, err := controlRequest.Create()

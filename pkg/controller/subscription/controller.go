@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/onosproject/onos-e2t/pkg/oid"
+
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -34,7 +36,9 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient, tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager, models modelregistry.ModelRegistry) *controller.Controller {
+func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient,
+	tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager,
+	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: epapi.ID(env.GetPodID()),
@@ -47,23 +51,25 @@ func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceCli
 		channels:   channels,
 	})
 	c.Reconcile(&Reconciler{
-		catalog:  catalog,
-		subs:     subs,
-		tasks:    tasks,
-		channels: channels,
-		models:   models,
+		catalog:     catalog,
+		subs:        subs,
+		tasks:       tasks,
+		channels:    channels,
+		models:      models,
+		oidRegistry: oidRegistry,
 	})
 	return c
 }
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	catalog   *RequestJournal
-	subs      subapi.E2SubscriptionServiceClient
-	tasks     subtaskapi.E2SubscriptionTaskServiceClient
-	channels  e2server.ChannelManager
-	models    modelregistry.ModelRegistry
-	requestID RequestID
+	catalog     *RequestJournal
+	subs        subapi.E2SubscriptionServiceClient
+	tasks       subtaskapi.E2SubscriptionTaskServiceClient
+	channels    e2server.ChannelManager
+	models      modelregistry.ModelRegistry
+	oidRegistry oid.Registry
+	requestID   RequestID
 }
 
 // Reconcile reconciles the state of a device change
@@ -130,8 +136,9 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 
-	serviceModelID := modelregistry.ModelFullName(sub.Details.ServiceModel.ID)
-	serviceModelPlugin, err := r.models.GetPlugin(serviceModelID)
+	serviceModelOID, err := oid.ModelIDToOid(r.oidRegistry,
+		string(sub.Details.ServiceModel.Name),
+		string(sub.Details.ServiceModel.Version))
 	if err != nil {
 		log.Warn(err)
 		task.Lifecycle.Status = subtaskapi.Status_FAILED
@@ -146,10 +153,27 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		if updateError != nil {
 			log.Errorf("Unable to update subscription task for unknown service model. resp %v err %v", updateResponse, updateError)
 		}
-		return controller.Result{}, errors.NewInvalid("Service Model Plugin cannot be loaded", serviceModelID)
+		return controller.Result{}, errors.NewInvalid("Service model ID cannot be converted to OID", sub.Details.ServiceModel)
 	}
-	a, b, c := serviceModelPlugin.ServiceModelData()
-	log.Infof("Service model found %s %s %s", a, b, c)
+	serviceModelPlugin, err := r.models.GetPlugin(serviceModelOID)
+	if err != nil {
+		log.Warn(err)
+		task.Lifecycle.Status = subtaskapi.Status_FAILED
+		task.Lifecycle.Failure = &subtaskapi.Failure{
+			Cause:   subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID,
+			Message: subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID.String(),
+		}
+		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
+			Task: task,
+		}
+		updateResponse, updateError := r.tasks.UpdateSubscriptionTask(ctx, updateRequest)
+		if updateError != nil {
+			log.Errorf("Unable to update subscription task for unknown service model. resp %v err %v", updateResponse, updateError)
+		}
+		return controller.Result{}, errors.NewInvalid("Service Model Plugin cannot be loaded", serviceModelOID)
+	}
+	smData := serviceModelPlugin.ServiceModelData()
+	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
 	r.requestID++
 	requestID := r.requestID
@@ -159,7 +183,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFuncID := channel.GetRANFunctionID(serviceModelID)
+	ranFuncID := channel.GetRANFunctionID(serviceModelOID)
 
 	var eventTriggerBytes []byte
 	if sub.Details.EventTrigger.Payload.Encoding == subapi.Encoding_ENCODING_ASN1 {
@@ -364,8 +388,12 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		InstanceID:  config.InstanceID,
 	}
 
-	serviceModelID := modelregistry.ModelFullName(sub.Details.ServiceModel.ID)
-	ranFuncID := channel.GetRANFunctionID(serviceModelID)
+	serviceModelOid, err := oid.ModelIDToOid(r.oidRegistry, string(sub.Details.ServiceModel.Name), string(sub.Details.ServiceModel.Version))
+	if err != nil {
+		log.Warn(err)
+		return controller.Result{}, err
+	}
+	ranFuncID := channel.GetRANFunctionID(serviceModelOid)
 
 	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFuncID)
 	if err != nil {

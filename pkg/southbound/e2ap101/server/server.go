@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"strconv"
 
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
+
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
@@ -78,20 +80,19 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
-	ranFuncIDs := make(map[modelregistry.ModelFullName]types.RanFunctionID)
+	ranFuncIDs := make(map[e2smtypes.OID]types.RanFunctionID)
 	plugins := e.modelRegistry.GetPlugins()
 	for id, ranFunc := range *ranFuncs {
-		log.Infof("Processing RanFunction, OID: %s", ranFunc.OID)
 		rfAccepted[id] = ranFunc.Revision
-		for smID, sm := range plugins {
-			log.Infof("Checking service model: %s for RanFunction OID: %s", string(smID), ranFunc.OID)
-			names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
-			if err != nil {
-				log.Errorf("Failure decoding RanFunctionDescription %s", err)
-				continue
-			}
-			log.Infof("Attempting to decode, %s, %s", string(names.RanFunctionShortName), string(smID))
-			if string(names.RanFunctionShortName) == string(smID) {
+		for smOid, sm := range plugins {
+			if string(smOid) == string(ranFunc.OID) {
+				log.Infof("Decoding RanFunction description for OID: %s", ranFunc.OID)
+				names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
+				if err != nil {
+					log.Warn(err)
+					continue
+				}
+
 				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
 					"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
 					names.RanFunctionShortName,
@@ -99,7 +100,9 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 					names.RanFunctionInstance,
 					names.RanFunctionE2SmOid,
 					len(*triggers), len(*reports))
-				ranFuncIDs[smID] = id
+				oid := names.RanFunctionE2SmOid
+				ranFuncIDs[oid] = id
+
 			}
 		}
 	}

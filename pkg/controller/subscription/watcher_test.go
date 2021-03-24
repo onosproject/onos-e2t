@@ -6,13 +6,15 @@ package subscription
 
 import (
 	"context"
+	"sync"
+
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	server2 "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
-	"sync"
+
+	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestWatcher(t *testing.T) {
@@ -59,7 +61,10 @@ func TestChannelWatcher(t *testing.T) {
 	assert.NoError(t, err)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{ID: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{
+			Name:    "sm1",
+			Version: "v1",
+		}},
 	}
 	_, err = subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
