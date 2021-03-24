@@ -40,7 +40,7 @@ func decodeRanFunctionItemBytes(bytes [88]byte) (*e2appducontents.RanfunctionIte
 			size: C.ulong(size),
 		},
 		ranFunctionRevision: C.long(binary.LittleEndian.Uint64(bytes[48:56])),
-		ranFunctionOID: (*C.PrintableString_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64])))),
+		ranFunctionOID:      (*C.PrintableString_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64])))),
 	}
 
 	return decodeRanFunctionItem(&rfiC)
