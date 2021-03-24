@@ -14,7 +14,7 @@ require (
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.16
 	github.com/onosproject/onos-e2sub v0.7.2
 	github.com/onosproject/onos-lib-go v0.7.6
-	github.com/onosproject/onos-ric-sdk-go v0.7.9
+	github.com/onosproject/onos-ric-sdk-go v0.7.11
 	github.com/onosproject/onos-test v0.6.4
 	github.com/stretchr/testify v1.7.0
 	google.golang.org/grpc v1.33.2
