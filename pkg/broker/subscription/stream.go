@@ -138,6 +138,7 @@ func (s *bufferedWriter) drain() {
 	for {
 		ind, ok := s.next()
 		if !ok {
+			close(s.ch)
 			break
 		}
 		s.ch <- *ind
@@ -178,6 +179,5 @@ func (s *bufferedWriter) Close() error {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	s.closed = true
-	close(s.ch)
 	return nil
 }
