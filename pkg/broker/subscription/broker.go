@@ -2,9 +2,10 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package broker
+package subscription
 
 import (
+	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
@@ -14,35 +15,35 @@ import (
 var log = logging.GetLogger("broker", "stream")
 
 // NewStreamBroker creates a new subscription broker
-func NewStreamBroker() StreamBroker {
+func NewStreamBroker() Broker {
 	return &streamBroker{
-		subs:    make(map[SubscriptionID]Stream),
+		subs:    make(map[subscription.ID]Stream),
 		streams: make(map[StreamID]Stream),
 	}
 }
 
-// StreamBroker is a subscription stream broker
-type StreamBroker interface {
+// Broker is a subscription stream broker
+type Broker interface {
 	io.Closer
 
 	// OpenStream opens a subscription stream
-	OpenStream(id SubscriptionID) (StreamReader, error)
+	OpenStream(id subscription.ID) (StreamReader, error)
 
 	// CloseStream closes a subscription stream
-	CloseStream(id SubscriptionID) (StreamReader, error)
+	CloseStream(id subscription.ID) (StreamReader, error)
 
 	// GetStream gets a write stream by ID
 	GetStream(id StreamID) (StreamWriter, error)
 }
 
 type streamBroker struct {
-	subs     map[SubscriptionID]Stream
+	subs     map[subscription.ID]Stream
 	streams  map[StreamID]Stream
 	streamID StreamID
 	mu       sync.RWMutex
 }
 
-func (b *streamBroker) OpenStream(id SubscriptionID) (StreamReader, error) {
+func (b *streamBroker) OpenStream(id subscription.ID) (StreamReader, error) {
 	b.mu.RLock()
 	stream, ok := b.subs[id]
 	b.mu.RUnlock()
@@ -66,7 +67,7 @@ func (b *streamBroker) OpenStream(id SubscriptionID) (StreamReader, error) {
 	return stream, nil
 }
 
-func (b *streamBroker) CloseStream(id SubscriptionID) (StreamReader, error) {
+func (b *streamBroker) CloseStream(id subscription.ID) (StreamReader, error) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	stream, ok := b.subs[id]
@@ -101,4 +102,4 @@ func (b *streamBroker) Close() error {
 	return err
 }
 
-var _ StreamBroker = &streamBroker{}
+var _ Broker = &streamBroker{}

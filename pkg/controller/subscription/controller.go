@@ -7,7 +7,7 @@ package subscription
 import (
 	"context"
 	"fmt"
-	"github.com/onosproject/onos-e2t/pkg/broker"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -37,7 +37,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams broker.StreamBroker, subs subapi.E2SubscriptionServiceClient,
+func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServiceClient,
 	tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
@@ -64,7 +64,7 @@ func NewController(streams broker.StreamBroker, subs subapi.E2SubscriptionServic
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	streams     broker.StreamBroker
+	streams     subscription.Broker
 	subs        subapi.E2SubscriptionServiceClient
 	tasks       subtaskapi.E2SubscriptionTaskServiceClient
 	channels    e2server.ChannelManager
@@ -175,7 +175,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	stream, err := r.streams.OpenStream(broker.SubscriptionID(sub.ID))
+	stream, err := r.streams.OpenStream(sub.ID)
 	if err != nil {
 		log.Warn(err)
 		return controller.Result{}, err
@@ -379,7 +379,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		return controller.Result{}, err
 	}
 
-	stream, err := r.streams.OpenStream(broker.SubscriptionID(sub.ID))
+	stream, err := r.streams.OpenStream(sub.ID)
 	if err != nil {
 		log.Warn(err)
 		return controller.Result{}, err
@@ -418,7 +418,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
-		_, _ = r.streams.CloseStream(broker.SubscriptionID(sub.ID))
+		_, _ = r.streams.CloseStream(sub.ID)
 	} else if failure != nil {
 		switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
 		case *e2apies.Cause_RicRequest:

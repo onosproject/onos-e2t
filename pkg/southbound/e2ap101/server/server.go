@@ -7,7 +7,7 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/onosproject/onos-e2t/pkg/broker"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"strconv"
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
@@ -26,7 +26,7 @@ var ricID = types.RicIdentifier{
 	RicIdentifierLen:   20,
 }
 
-func NewE2Server(channels ChannelManager, subs broker.StreamBroker, modelRegistry modelregistry.ModelRegistry) *E2Server {
+func NewE2Server(channels ChannelManager, subs subscription.Broker, modelRegistry modelregistry.ModelRegistry) *E2Server {
 	return &E2Server{
 		server:        e2.NewServer(),
 		channels:      channels,
@@ -38,7 +38,7 @@ func NewE2Server(channels ChannelManager, subs broker.StreamBroker, modelRegistr
 type E2Server struct {
 	server        *e2.Server
 	channels      ChannelManager
-	subs          broker.StreamBroker
+	subs          subscription.Broker
 	modelRegistry modelregistry.ModelRegistry
 }
 
@@ -59,7 +59,7 @@ func (s *E2Server) Stop() error {
 
 type E2ChannelServer struct {
 	manager       ChannelManager
-	subs          broker.StreamBroker
+	subs          subscription.Broker
 	serverChannel e2.ServerChannel
 	e2Channel     *E2Channel
 	modelRegistry modelregistry.ModelRegistry

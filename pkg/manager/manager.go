@@ -6,7 +6,7 @@ package manager
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/broker"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -90,7 +90,7 @@ func (m *Manager) Run() {
 
 // Start starts the manager
 func (m *Manager) Start() error {
-	streams := broker.NewStreamBroker()
+	streams := subscription.NewStreamBroker()
 	channels := e2server.NewChannelManager()
 
 	err := m.startSubscriptionBroker(streams, channels)
@@ -111,7 +111,7 @@ func (m *Manager) Start() error {
 }
 
 // startSubscriptionBroker starts the subscription broker
-func (m *Manager) startSubscriptionBroker(streams broker.StreamBroker, channels e2server.ChannelManager) error {
+func (m *Manager) startSubscriptionBroker(streams subscription.Broker, channels e2server.ChannelManager) error {
 	controller := subctrl.NewController(streams, subapi.NewE2SubscriptionServiceClient(m.conn),
 		subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn),
 		channels, m.ModelRegistry, m.OidRegistry)
@@ -122,13 +122,13 @@ func (m *Manager) startSubscriptionBroker(streams broker.StreamBroker, channels 
 }
 
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, streams broker.StreamBroker) error {
+func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, streams subscription.Broker) error {
 	server := e2server.NewE2Server(channels, streams, m.ModelRegistry)
 	return server.Serve()
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(streams broker.StreamBroker, channels e2server.ChannelManager) error {
+func (m *Manager) startNorthboundServer(streams subscription.Broker, channels e2server.ChannelManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,

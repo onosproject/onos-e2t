@@ -2,11 +2,12 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package broker
+package subscription
 
 import (
 	"container/list"
 	"context"
+	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"io"
 	"sync"
@@ -28,15 +29,12 @@ type StreamWriter interface {
 	Send(indication *e2appducontents.Ricindication) error
 }
 
-// SubscriptionID is a stream subscription identifier
-type SubscriptionID string
-
 // StreamID is a stream identifier
 type StreamID int
 
 type StreamIO interface {
 	io.Closer
-	SubscriptionID() SubscriptionID
+	SubscriptionID() subscription.ID
 	StreamID() StreamID
 }
 
@@ -47,7 +45,7 @@ type Stream interface {
 	StreamWriter
 }
 
-func newBufferedStream(id SubscriptionID, streamID StreamID) Stream {
+func newBufferedStream(id subscription.ID, streamID StreamID) Stream {
 	ch := make(chan e2appducontents.Ricindication)
 	return &bufferedStream{
 		bufferedIO: &bufferedIO{
@@ -60,11 +58,11 @@ func newBufferedStream(id SubscriptionID, streamID StreamID) Stream {
 }
 
 type bufferedIO struct {
-	subID    SubscriptionID
+	subID    subscription.ID
 	streamID StreamID
 }
 
-func (s *bufferedIO) SubscriptionID() SubscriptionID {
+func (s *bufferedIO) SubscriptionID() subscription.ID {
 	return s.subID
 }
 

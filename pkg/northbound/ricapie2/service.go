@@ -6,7 +6,7 @@ package ricapie2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/broker"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"io"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -33,7 +33,7 @@ import (
 var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
-func NewService(subs subapi.E2SubscriptionServiceClient, streams broker.StreamBroker, modelRegistry modelregistry.ModelRegistry,
+func NewService(subs subapi.E2SubscriptionServiceClient, streams subscription.Broker, modelRegistry modelregistry.ModelRegistry,
 	channels e2server.ChannelManager, oidRegistry oid.Registry) northbound.Service {
 	return &Service{
 		subs:          subs,
@@ -48,7 +48,7 @@ func NewService(subs subapi.E2SubscriptionServiceClient, streams broker.StreamBr
 type Service struct {
 	northbound.Service
 	subs          subapi.E2SubscriptionServiceClient
-	streams       broker.StreamBroker
+	streams       subscription.Broker
 	modelRegistry modelregistry.ModelRegistry
 	channels      e2server.ChannelManager
 	oidRegistry   oid.Registry
@@ -67,7 +67,7 @@ func (s Service) Register(r *grpc.Server) {
 // Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
 	subs             subapi.E2SubscriptionServiceClient
-	streams          broker.StreamBroker
+	streams          subscription.Broker
 	modelRegistry    modelregistry.ModelRegistry
 	channels         e2server.ChannelManager
 	controlRequestID RequestID
@@ -231,7 +231,7 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 		return err
 	}
 
-	reader, err := s.streams.OpenStream(broker.SubscriptionID(request.SubscriptionID))
+	reader, err := s.streams.OpenStream(subapi.ID(request.SubscriptionID))
 	if err != nil {
 		log.Warnf("StreamRequest %+v failed: %v", request, err)
 		return err
