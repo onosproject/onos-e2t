@@ -64,6 +64,7 @@ func TestStreamBroker(t *testing.T) {
 	assert.NoError(t, err)
 
 	reader, err = broker.CloseStream("test")
+	assert.NoError(t, err)
 
 	ind, err = reader.Recv(ctx)
 	assert.NoError(t, err)
