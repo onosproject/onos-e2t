@@ -6,6 +6,7 @@ package manager
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -15,12 +16,10 @@ import (
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
-	subbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
-	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -91,16 +90,15 @@ func (m *Manager) Run() {
 
 // Start starts the manager
 func (m *Manager) Start() error {
-	requests := subctrl.NewRequestJournal()
-	streams := stream.NewManager()
+	streams := subscription.NewBroker()
 	channels := e2server.NewChannelManager()
 
-	err := m.startSubscriptionBroker(requests, streams, channels)
+	err := m.startSubscriptionBroker(streams, channels)
 	if err != nil {
 		return err
 	}
 
-	err = m.startSouthboundServer(channels)
+	err = m.startSouthboundServer(channels, streams)
 	if err != nil {
 		return err
 	}
@@ -113,29 +111,24 @@ func (m *Manager) Start() error {
 }
 
 // startSubscriptionBroker starts the subscription broker
-func (m *Manager) startSubscriptionBroker(catalog *subctrl.RequestJournal, streams *stream.Manager, channels e2server.ChannelManager) error {
-	controller := subctrl.NewController(catalog, subapi.NewE2SubscriptionServiceClient(m.conn),
+func (m *Manager) startSubscriptionBroker(streams subscription.Broker, channels e2server.ChannelManager) error {
+	controller := subctrl.NewController(streams, subapi.NewE2SubscriptionServiceClient(m.conn),
 		subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn),
 		channels, m.ModelRegistry, m.OidRegistry)
 	if err := controller.Start(); err != nil {
-		return err
-	}
-
-	broker := subbroker.NewBroker(catalog, streams, channels)
-	if err := broker.Start(); err != nil {
 		return err
 	}
 	return nil
 }
 
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(channels e2server.ChannelManager) error {
-	server := e2server.NewE2Server(channels, m.ModelRegistry)
+func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, streams subscription.Broker) error {
+	server := e2server.NewE2Server(channels, streams, m.ModelRegistry)
 	return server.Serve()
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(streams *stream.Manager, channels e2server.ChannelManager) error {
+func (m *Manager) startNorthboundServer(streams subscription.Broker, channels e2server.ChannelManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,

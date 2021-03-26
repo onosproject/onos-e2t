@@ -6,6 +6,7 @@ package ricapie2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"io"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -21,8 +22,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2"
@@ -34,7 +33,7 @@ import (
 var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
-func NewService(subs subapi.E2SubscriptionServiceClient, streams *stream.Manager, modelRegistry modelregistry.ModelRegistry,
+func NewService(subs subapi.E2SubscriptionServiceClient, streams subscription.Broker, modelRegistry modelregistry.ModelRegistry,
 	channels e2server.ChannelManager, oidRegistry oid.Registry) northbound.Service {
 	return &Service{
 		subs:          subs,
@@ -49,7 +48,7 @@ func NewService(subs subapi.E2SubscriptionServiceClient, streams *stream.Manager
 type Service struct {
 	northbound.Service
 	subs          subapi.E2SubscriptionServiceClient
-	streams       *stream.Manager
+	streams       subscription.Broker
 	modelRegistry modelregistry.ModelRegistry
 	channels      e2server.ChannelManager
 	oidRegistry   oid.Registry
@@ -68,7 +67,7 @@ func (s Service) Register(r *grpc.Server) {
 // Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
 	subs             subapi.E2SubscriptionServiceClient
-	streams          *stream.Manager
+	streams          subscription.Broker
 	modelRegistry    modelregistry.ModelRegistry
 	channels         e2server.ChannelManager
 	controlRequestID RequestID
@@ -220,6 +219,7 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 		return nil
 	}
 	if err != nil {
+		log.Warnf("StreamRequest %+v failed: %v", request, err)
 		return err
 	}
 	encodingType := request.GetHeader().GetEncodingType()
@@ -227,39 +227,27 @@ func (s *Server) Stream(server e2api.E2TService_StreamServer) error {
 	log.Infof("Received StreamRequest %+v", request)
 	sub, err := s.subs.GetSubscription(server.Context(), &subapi.GetSubscriptionRequest{ID: subapi.ID(request.SubscriptionID)})
 	if err != nil {
+		log.Warnf("StreamRequest %+v failed: %v", request, err)
 		return err
 	}
 
-	streamCh := make(chan stream.Message)
-	streamMeta := stream.Metadata{
-		AppID:          request.AppID,
-		InstanceID:     request.InstanceID,
-		SubscriptionID: request.SubscriptionID,
-	}
-	stream, err := s.streams.Open(server.Context(), streamMeta, streamCh)
+	reader, err := s.streams.OpenStream(subapi.ID(request.SubscriptionID))
 	if err != nil {
 		log.Warnf("StreamRequest %+v failed: %v", request, err)
 		return err
 	}
 
 	for {
-		message, err := stream.Recv()
-		if err == io.EOF {
-			return nil
-		}
+		indication, err := reader.Recv(server.Context())
 		if err != nil {
 			log.Warnf("StreamRequest %+v failed: %v", request, err)
 			return err
 		}
 
-		ricIndication, ok := message.Payload.(e2appducontents.Ricindication)
-		if !ok {
-			return errors.NewInvalid("payload cannot be converted to E2AP PDU", message.Payload)
-		}
-		ranFuncID := ricIndication.ProtocolIes.E2ApProtocolIes5.Value.Value
-		ricActionID := ricIndication.ProtocolIes.E2ApProtocolIes15.Value.Value
-		indHeaderAsn1 := ricIndication.ProtocolIes.E2ApProtocolIes25.Value.Value
-		indMessageAsn1 := ricIndication.ProtocolIes.E2ApProtocolIes26.Value.Value
+		ranFuncID := indication.ProtocolIes.E2ApProtocolIes5.Value.Value
+		ricActionID := indication.ProtocolIes.E2ApProtocolIes15.Value.Value
+		indHeaderAsn1 := indication.ProtocolIes.E2ApProtocolIes25.Value.Value
+		indMessageAsn1 := indication.ProtocolIes.E2ApProtocolIes26.Value.Value
 		log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)
 
 		response := &e2api.StreamResponse{

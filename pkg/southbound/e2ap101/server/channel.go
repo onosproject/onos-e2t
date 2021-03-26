@@ -6,23 +6,21 @@ package server
 
 import (
 	"context"
-	"sync"
-
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func newE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, modelFuncIDs map[e2smtypes.OID]types.RanFunctionID) *E2Channel {
+func newE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, streams subscription.Broker, modelFuncIDs map[e2smtypes.OID]types.RanFunctionID) *E2Channel {
 	return &E2Channel{
 		ServerChannel: channel,
 		ID:            id,
 		PlmnID:        plmdID,
 		modelFuncIDs:  modelFuncIDs,
-		watchers:      make(map[int32]chan<- e2appducontents.Ricindication),
+		streams:       streams,
 	}
 }
 
@@ -31,8 +29,7 @@ type E2Channel struct {
 	ID           ChannelID
 	PlmnID       string
 	modelFuncIDs map[e2smtypes.OID]types.RanFunctionID
-	watchers     map[int32]chan<- e2appducontents.Ricindication
-	watchersMu   sync.RWMutex
+	streams      subscription.Broker
 }
 
 func (c *E2Channel) GetRANFunctionID(modelOid e2smtypes.OID) types.RanFunctionID {
@@ -40,37 +37,10 @@ func (c *E2Channel) GetRANFunctionID(modelOid e2smtypes.OID) types.RanFunctionID
 }
 
 func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
-	c.watchersMu.RLock()
-	watcher, ok := c.watchers[request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId]
-	c.watchersMu.RUnlock()
-	if ok {
-		watcher <- *request
+	streamID := subscription.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
+	stream, err := c.streams.GetStream(streamID)
+	if err != nil {
+		return err
 	}
-	return nil
-}
-
-func (c *E2Channel) WatchRICIndications(ctx context.Context, requestID e2apies.RicrequestId, ch chan<- e2appducontents.Ricindication) {
-	watchCh := make(chan e2appducontents.Ricindication)
-	c.watchersMu.Lock()
-	c.watchers[requestID.RicRequestorId] = watchCh
-	c.watchersMu.Unlock()
-	go func() {
-		defer close(ch)
-		for {
-			select {
-			case indication, ok := <-watchCh:
-				if !ok {
-					return
-				}
-				ch <- indication
-			case <-ctx.Done():
-				c.watchersMu.Lock()
-				if _, ok := c.watchers[requestID.RicRequestorId]; ok {
-					delete(c.watchers, requestID.RicRequestorId)
-					close(watchCh)
-				}
-				c.watchersMu.Unlock()
-			}
-		}
-	}()
+	return stream.Send(request)
 }

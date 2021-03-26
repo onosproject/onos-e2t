@@ -36,7 +36,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	assert.NoError(t, err)
 	subClient := subscription.NewClient(subConn)
 
-	e2tConn, err := conns.Connect(fmt.Sprintf("%s:%d", utils.SubscriptionServiceHost, utils.SubscriptionServicePort))
+	e2tConn, err := conns.Connect(fmt.Sprintf("%s:%d", utils.E2TServiceHost, utils.E2TServicePort))
 	assert.NoError(t, err)
 	e2tClient := termination.NewClient(e2tConn)
 

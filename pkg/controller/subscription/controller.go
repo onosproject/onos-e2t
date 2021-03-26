@@ -7,6 +7,7 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -36,7 +37,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceClient,
+func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServiceClient,
 	tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
@@ -51,7 +52,7 @@ func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceCli
 		channels:   channels,
 	})
 	c.Reconcile(&Reconciler{
-		catalog:     catalog,
+		streams:     streams,
 		subs:        subs,
 		tasks:       tasks,
 		channels:    channels,
@@ -63,13 +64,12 @@ func NewController(catalog *RequestJournal, subs subapi.E2SubscriptionServiceCli
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	catalog     *RequestJournal
+	streams     subscription.Broker
 	subs        subapi.E2SubscriptionServiceClient
 	tasks       subtaskapi.E2SubscriptionTaskServiceClient
 	channels    e2server.ChannelManager
 	models      modelregistry.ModelRegistry
 	oidRegistry oid.Registry
-	requestID   RequestID
 }
 
 // Reconcile reconciles the state of a device change
@@ -175,9 +175,13 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	r.requestID++
-	requestID := r.requestID
+	stream, err := r.streams.OpenStream(sub.ID)
+	if err != nil {
+		log.Warn(err)
+		return controller.Result{}, err
+	}
 
+	requestID := stream.StreamID()
 	ricRequest := types.RicRequest{
 		RequestorID: types.RicRequestorID(requestID),
 		InstanceID:  config.InstanceID,
@@ -318,12 +322,6 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		log.Warnf("Failed to send E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
 	} else if response != nil {
-		record := RequestEntry{
-			RequestID:    requestID,
-			Subscription: *sub,
-		}
-		r.catalog.Add(sub.ID, record)
-
 		task.Lifecycle.Status = subtaskapi.Status_COMPLETE
 		updateRequest := &subtaskapi.UpdateSubscriptionTaskRequest{
 			Task: task,
@@ -381,10 +379,15 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		return controller.Result{}, err
 	}
 
-	record := r.catalog.Get(sub.ID)
+	stream, err := r.streams.OpenStream(sub.ID)
+	if err != nil {
+		log.Warn(err)
+		return controller.Result{}, err
+	}
 
+	requestID := stream.StreamID()
 	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(record.RequestID),
+		RequestorID: types.RicRequestorID(requestID),
 		InstanceID:  config.InstanceID,
 	}
 
@@ -415,6 +418,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
+		_, _ = r.streams.CloseStream(sub.ID)
 	} else if failure != nil {
 		switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
 		case *e2apies.Cause_RicRequest:

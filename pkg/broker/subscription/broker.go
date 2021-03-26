@@ -5,73 +5,108 @@
 package subscription
 
 import (
-	"context"
-	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
-	"github.com/onosproject/onos-e2t/pkg/northbound/stream"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"io"
+	"sync"
 )
 
 var log = logging.GetLogger("broker", "subscription")
 
-// NewBroker creates a new subscription broker
-func NewBroker(requests *subctrl.RequestJournal, streams *stream.Manager, channels e2server.ChannelManager) *Broker {
-	return &Broker{
-		requests: requests,
-		streams:  streams,
-		channels: channels,
+// NewBroker creates a new subscription stream broker
+func NewBroker() Broker {
+	return &streamBroker{
+		subs:    make(map[subscription.ID]Stream),
+		streams: make(map[StreamID]Stream),
 	}
 }
 
-// Broker is a subscription broker
-type Broker struct {
-	requests *subctrl.RequestJournal
-	streams  *stream.Manager
-	channels e2server.ChannelManager
-	cancel   context.CancelFunc
+// Broker is a subscription stream broker
+// The Broker is responsible for managing Streams for propagating indications from the southbound API
+// to the northbound API.
+type Broker interface {
+	io.Closer
+
+	// OpenStream opens a subscription Stream
+	// If a stream already exists for the subscription, the existing stream will be returned.
+	// If no stream exists, a new stream will be allocated with a unique StreamID.
+	OpenStream(id subscription.ID) (StreamReader, error)
+
+	// CloseStream closes a subscription Stream
+	// The associated Stream will be closed gracefully: the reader will continue receiving pending indications
+	// until the buffer is empty.
+	CloseStream(id subscription.ID) (StreamReader, error)
+
+	// GetStream gets a write stream by its StreamID
+	// If no Stream exists for the given StreamID, a NotFound error will be returned.
+	GetStream(id StreamID) (StreamWriter, error)
 }
 
-// Start starts the broker
-func (b *Broker) Start() error {
-	log.Infof("Starting Subscription Broker")
-	ctx, cancel := context.WithCancel(context.Background())
-	b.cancel = cancel
+type streamBroker struct {
+	subs     map[subscription.ID]Stream
+	streams  map[StreamID]Stream
+	streamID StreamID
+	mu       sync.RWMutex
+}
 
-	channelCh := make(chan *e2server.E2Channel)
-	if err := b.channels.Watch(ctx, channelCh); err != nil {
-		cancel()
-		return err
+func (b *streamBroker) OpenStream(id subscription.ID) (StreamReader, error) {
+	b.mu.RLock()
+	stream, ok := b.subs[id]
+	b.mu.RUnlock()
+	if ok {
+		return stream, nil
 	}
-	go b.processChannels(channelCh)
-	return nil
-}
 
-// processChannels processes channel events
-func (b *Broker) processChannels(ch <-chan *e2server.E2Channel) {
-	for conn := range ch {
-		b.processChannel(conn)
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	stream, ok = b.subs[id]
+	if ok {
+		return stream, nil
 	}
+
+	b.streamID++
+	streamID := b.streamID
+	stream = newBufferedStream(id, streamID)
+	b.subs[id] = stream
+	b.streams[streamID] = stream
+	log.Infof("Opened new stream %d for subscription '%s'", streamID, id)
+	return stream, nil
 }
 
-// processChannel processes a channel event
-func (b *Broker) processChannel(channel *e2server.E2Channel) {
-	log.Infof("Received Channel %s", channel.ID)
-	dispatcher, err := newDispatcher(b.requests, channel, b.streams)
-	if err != nil {
-		log.Errorf("Failed to create dispatcher for Channel %s: %v", channel.ID, err)
-	} else {
-		go func() {
-			<-channel.Context().Done()
-			err := dispatcher.Close()
-			if err != nil {
-				log.Errorf("Failed to close dispatcher for Channel %s: %v", channel.ID, err)
-			}
-		}()
+func (b *streamBroker) CloseStream(id subscription.ID) (StreamReader, error) {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	stream, ok := b.subs[id]
+	if !ok {
+		return nil, errors.NewNotFound("subscription '%s' not found", id)
 	}
+	delete(b.subs, stream.SubscriptionID())
+	delete(b.streams, stream.StreamID())
+	log.Infof("Closed stream %d for subscription '%s'", stream.StreamID(), id)
+	return stream, stream.Close()
 }
 
-// Stop stops the broker
-func (b *Broker) Stop() error {
-	b.cancel()
-	return nil
+func (b *streamBroker) GetStream(id StreamID) (StreamWriter, error) {
+	b.mu.RLock()
+	defer b.mu.RUnlock()
+	stream, ok := b.streams[id]
+	if !ok {
+		return nil, errors.NewNotFound("stream %d not found", id)
+	}
+	return stream, nil
 }
+
+func (b *streamBroker) Close() error {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+	var err error
+	for _, stream := range b.streams {
+		if e := stream.Close(); e != nil {
+			err = e
+		}
+	}
+	return err
+}
+
+var _ Broker = &streamBroker{}

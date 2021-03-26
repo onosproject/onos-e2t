@@ -7,6 +7,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"strconv"
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
@@ -25,17 +26,19 @@ var ricID = types.RicIdentifier{
 	RicIdentifierLen:   20,
 }
 
-func NewE2Server(manager ChannelManager, modelRegistry modelregistry.ModelRegistry) *E2Server {
+func NewE2Server(channels ChannelManager, subs subscription.Broker, modelRegistry modelregistry.ModelRegistry) *E2Server {
 	return &E2Server{
 		server:        e2.NewServer(),
-		manager:       manager,
+		channels:      channels,
+		subs:          subs,
 		modelRegistry: modelRegistry,
 	}
 }
 
 type E2Server struct {
 	server        *e2.Server
-	manager       ChannelManager
+	channels      ChannelManager
+	subs          subscription.Broker
 	modelRegistry modelregistry.ModelRegistry
 }
 
@@ -43,7 +46,8 @@ func (s *E2Server) Serve() error {
 	return s.server.Serve(func(channel e2.ServerChannel) e2.ServerInterface {
 		return &E2ChannelServer{
 			serverChannel: channel,
-			manager:       s.manager,
+			manager:       s.channels,
+			subs:          s.subs,
 			modelRegistry: s.modelRegistry,
 		}
 	})
@@ -55,6 +59,7 @@ func (s *E2Server) Stop() error {
 
 type E2ChannelServer struct {
 	manager       ChannelManager
+	subs          subscription.Broker
 	serverChannel e2.ServerChannel
 	e2Channel     *E2Channel
 	modelRegistry modelregistry.ModelRegistry
@@ -107,7 +112,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		}
 	}
 
-	e.e2Channel = newE2Channel(channelID, plmnID, e.serverChannel, ranFuncIDs)
+	e.e2Channel = newE2Channel(channelID, plmnID, e.serverChannel, e.subs, ranFuncIDs)
 	e.manager.open(channelID, e.e2Channel)
 
 	// Create an E2 setup response
