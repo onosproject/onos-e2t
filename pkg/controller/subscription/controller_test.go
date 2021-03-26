@@ -502,45 +502,38 @@ func TestFailureCause(t *testing.T) {
 
 	tests := []test{
 		{description: "invalid function id", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID}}, resultCause: subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID},
-		{description: "action not supported", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest:e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED}}, resultCause: subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED},
-		{description: "excessive actions", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest:e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS}}, resultCause: subtaskapi.Cause_CAUSE_RIC_EXCESSIVE_ACTIONS},
+		{description: "action not supported", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED}}, resultCause: subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED},
+		{description: "excessive actions", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS}}, resultCause: subtaskapi.Cause_CAUSE_RIC_EXCESSIVE_ACTIONS},
 		{description: "duplicate action", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION}}, resultCause: subtaskapi.Cause_CAUSE_RIC_DUPLICATE_ACTION},
-		{description: "duplicate event", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest:e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT}}, resultCause: subtaskapi.Cause_CAUSE_RIC_DUPLICATE_EVENT},
-		{description: "function resorce limit", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest:e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT}}, resultCause: subtaskapi.Cause_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT},
+		{description: "duplicate event", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT}}, resultCause: subtaskapi.Cause_CAUSE_RIC_DUPLICATE_EVENT},
+		{description: "function resorce limit", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT}}, resultCause: subtaskapi.Cause_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT},
 		{description: "request ID unknown", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN}}, resultCause: subtaskapi.Cause_CAUSE_RIC_REQUEST_ID_UNKNOWN},
-		{description: "inconsistent action", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest:e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE}}, resultCause: subtaskapi.Cause_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE},
-		{description: "control message invalid", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest:e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID}}, resultCause: subtaskapi.Cause_CAUSE_RIC_CONTROL_MESSAGE_INVALID},
+		{description: "inconsistent action", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE}}, resultCause: subtaskapi.Cause_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE},
+		{description: "control message invalid", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID}}, resultCause: subtaskapi.Cause_CAUSE_RIC_CONTROL_MESSAGE_INVALID},
 		{description: "call process ID invalid", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID}}, resultCause: subtaskapi.Cause_CAUSE_RIC_CALL_PROCESS_ID_INVALID},
-		{description: "unspecified", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest:e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED}}, resultCause: subtaskapi.Cause_CAUSE_RIC_UNSPECIFIED},
+		{description: "unspecified", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED}}, resultCause: subtaskapi.Cause_CAUSE_RIC_UNSPECIFIED},
 
-		{description: "function not required", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService:e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED},
-		{description: "excessive functions", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService:e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS},
-		{description: "resourcelimit", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService:e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT},
+		{description: "function not required", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED},
+		{description: "excessive functions", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS},
+		{description: "resourcelimit", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT},
 
+		{description: "transfer syntax error", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR},
+		{description: "abstract syntax error reject", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT},
+		{description: "abstract syntax error ignore and notify", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY},
+		{description: "message not compatible with receiver state", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE},
+		{description: "semantic error", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_SEMANTIC_ERROR},
+		{description: "abstract syntax falsely constructed message", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE},
+		{description: "unspecified protocol", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_UNSPECIFIED},
 
+		{description: "transport unspecified", cause: &e2apies.Cause{Cause: &e2apies.Cause_Transport{Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED}}, resultCause: subtaskapi.Cause_CAUSE_TRANSPORT_UNSPECIFIED},
+		{description: "transport resource unavailable", cause: &e2apies.Cause{Cause: &e2apies.Cause_Transport{Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE}}, resultCause: subtaskapi.Cause_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE},
 
+		{description: "control processing overload", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc: e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD}}, resultCause: subtaskapi.Cause_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD},
+		{description: "hardware failure", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE}}, resultCause: subtaskapi.Cause_CAUSE_MISC_HARDWARE_FAILURE},
+		{description: "OM intervention", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc: e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION}}, resultCause: subtaskapi.Cause_CAUSE_MISC_OM_INTERVENTION},
+		{description: "unspecified misc", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc: e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED}}, resultCause: subtaskapi.Cause_CAUSE_MISC_UNSPECIFIED},
 
-		{description: "transfer syntax error", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol:e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR},
-		{description: "abstract syntax error reject", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol:e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT},
-		{description: "abstract syntax error ignore and notify", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol:e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY},
-		{description: "message not compatible with receiver state", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol:e2apies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE},
-		{description: "semantic error", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol:e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_SEMANTIC_ERROR},
-		{description: "abstract syntax falsely constructed message", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol:e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE},
-		{description: "unspecified protocol", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol:e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_UNSPECIFIED},
-
-
-		{description: "transport unspecified", cause: &e2apies.Cause{Cause: &e2apies.Cause_Transport{Transport:e2apies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED}}, resultCause: subtaskapi.Cause_CAUSE_TRANSPORT_UNSPECIFIED},
-		{description: "transport resource unavailable", cause: &e2apies.Cause{Cause: &e2apies.Cause_Transport{Transport:e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE}}, resultCause: subtaskapi.Cause_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE},
-
-
-
-		{description: "control processing overload", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc:e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD}}, resultCause: subtaskapi.Cause_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD},
-		{description: "hardware failure", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc:e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE}}, resultCause: subtaskapi.Cause_CAUSE_MISC_HARDWARE_FAILURE},
-		{description: "OM intervention", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc:e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION}}, resultCause: subtaskapi.Cause_CAUSE_MISC_OM_INTERVENTION},
-		{description: "unspecified misc", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc:e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED}}, resultCause: subtaskapi.Cause_CAUSE_MISC_UNSPECIFIED},
-
-		{description: "invalid entry", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc:77}}, resultCause: 0},
-
+		{description: "invalid entry", cause: &e2apies.Cause{Cause: &e2apies.Cause_Misc{Misc: 77}}, resultCause: 0},
 	}
 
 	for _, tc := range tests {
