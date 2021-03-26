@@ -13,6 +13,7 @@ import (
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	broker "github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/oid"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
@@ -27,7 +28,7 @@ type controllerTestContext struct {
 	channelManager         *MockChannelManager
 	subscriptionClient     subapi.E2SubscriptionServiceClient
 	subscriptionTaskClient subtaskapi.E2SubscriptionTaskServiceClient
-	requestJournal         *RequestJournal
+	broker                 *MockBroker
 	modelRegistry          *MockModelRegistry
 	oidRegistry            *MockRegistry
 	reconciler             Reconciler
@@ -50,8 +51,14 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 	// Mock channel manager
 	testContext.channelManager = NewMockChannelManager(ctrl)
 
-	// Mock request journal
-	testContext.requestJournal = NewRequestJournal()
+	// Mock broker
+	testContext.broker = NewMockBroker(ctrl)
+	stream := NewMockStream(ctrl)
+	stream.EXPECT().SubscriptionID().Return(subapi.ID("1")).AnyTimes()
+	stream.EXPECT().StreamID().Return(broker.StreamID(1)).AnyTimes()
+	testContext.broker.EXPECT().GetStream(gomock.Any()).Return(stream, nil).AnyTimes()
+	testContext.broker.EXPECT().OpenStream(gomock.Any()).Return(stream, nil).AnyTimes()
+	testContext.broker.EXPECT().CloseStream(gomock.Any()).Return(stream, nil).AnyTimes()
 
 	// Function ID map for mocked service models
 	modelFuncIDs := make(map[e2smtypes.OID]types.RanFunctionID)
@@ -60,7 +67,7 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 	// Mocked RIC channel
 	serverChannel := NewMockRICChannel(ctrl)
 	testContext.serverChannel = serverChannel
-	channel := e2server.NewE2Channel("channel", "plmnid", serverChannel, modelFuncIDs)
+	channel := e2server.NewE2Channel("channel", "plmnid", serverChannel, testContext.broker, modelFuncIDs)
 	testContext.channelManager = NewMockChannelManager(ctrl)
 	testContext.channelManager.EXPECT().Get(gomock.Any(), gomock.Any()).Return(channel, nil)
 
@@ -69,7 +76,7 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 	testContext.ctrl = ctrl
 
 	// Controller
-	testContext.controller = NewController(testContext.requestJournal, testContext.subscriptionClient,
+	testContext.controller = NewController(testContext.broker, testContext.subscriptionClient,
 		testContext.subscriptionTaskClient, testContext.channelManager, testContext.modelRegistry, testContext.oidRegistry)
 
 	// OID registry
@@ -78,7 +85,7 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 
 	// reconciler to test
 	testContext.reconciler = Reconciler{
-		catalog:     testContext.requestJournal,
+		streams:     testContext.broker,
 		subs:        testContext.subscriptionClient,
 		tasks:       testContext.subscriptionTaskClient,
 		channels:    testContext.channelManager,
@@ -96,6 +103,35 @@ func TestOpenNoPlugin(t *testing.T) {
 
 	subscription := &subapi.Subscription{
 		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
+	}
+	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
+		Subscription: subscription,
+	})
+	assert.NoError(t, err)
+
+	err = scaffold.taskStore.Create(context.Background(), subTask)
+	assert.NoError(t, err)
+
+	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
+	assert.NotNil(t, result)
+	assert.NotNil(t, err)
+
+	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
+	assert.Nil(t, err)
+	assert.NotNil(t, updatedTask)
+	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
+	assert.Equal(t, subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID, updatedTask.Lifecycle.Failure.Cause)
+
+	testContext.ctrl.Finish()
+}
+
+func TestOpenSMError(t *testing.T) {
+	var testContext controllerTestContext
+	createServerScaffolding(t)
+	initControllerTest(t, &testContext)
+
+	subscription := &subapi.Subscription{
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: ""}},
 	}
 	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
