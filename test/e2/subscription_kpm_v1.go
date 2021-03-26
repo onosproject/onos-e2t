@@ -17,11 +17,11 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestSubscription tests e2 subscription and subscription delete procedures
-func (s *TestSuite) TestSubscription(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription")
+// TestSubscriptionKpmV1 tests e2 subscription and subscription delete procedures
+func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-kpm-v1")
 
-	e2Client := getE2Client(t, "subscription-test")
+	e2Client := getE2Client(t, "subscription-kpm-v1-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())

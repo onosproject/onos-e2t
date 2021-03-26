@@ -9,6 +9,7 @@ import (
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/pdubuilder"
+	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/pdubuilder"
 	rcpdubuilder "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/pdubuilder"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/creds"
 	"google.golang.org/grpc"
@@ -32,6 +33,23 @@ type Subscription struct {
 // CreateRcEventTrigger creates a rc service model event trigger
 func CreateRcEventTrigger() ([]byte, error) {
 	e2SmKpmEventTriggerDefinition, err := rcpdubuilder.CreateE2SmRcPreEventTriggerDefinitionUponChange()
+	if err != nil {
+		return []byte{}, err
+	}
+	err = e2SmKpmEventTriggerDefinition.Validate()
+	if err != nil {
+		return []byte{}, err
+	}
+	protoBytes, err := proto.Marshal(e2SmKpmEventTriggerDefinition)
+	if err != nil {
+		return []byte{}, err
+	}
+	return protoBytes, nil
+}
+
+// CreateKpmEventTrigger creates a kpm service model event trigger
+func CreateKpmV2EventTrigger(rtPeriod int32) ([]byte, error) {
+	e2SmKpmEventTriggerDefinition, err := e2smkpmv2.CreateE2SmKpmEventTriggerDefinition(rtPeriod)
 	if err != nil {
 		return []byte{}, err
 	}
