@@ -14,8 +14,8 @@ import (
 
 var log = logging.GetLogger("broker", "stream")
 
-// NewStreamBroker creates a new subscription broker
-func NewStreamBroker() Broker {
+// NewBroker creates a new subscription stream broker
+func NewBroker() Broker {
 	return &streamBroker{
 		subs:    make(map[subscription.ID]Stream),
 		streams: make(map[StreamID]Stream),
@@ -23,16 +23,23 @@ func NewStreamBroker() Broker {
 }
 
 // Broker is a subscription stream broker
+// The Broker is responsible for managing Streams for propagating indications from the southbound API
+// to the northbound API.
 type Broker interface {
 	io.Closer
 
-	// OpenStream opens a subscription stream
+	// OpenStream opens a subscription Stream
+	// If a stream already exists for the subscription, the existing stream will be returned.
+	// If no stream exists, a new stream will be allocated with a unique StreamID.
 	OpenStream(id subscription.ID) (StreamReader, error)
 
-	// CloseStream closes a subscription stream
+	// CloseStream closes a subscription Stream
+	// The associated Stream will be closed gracefully: the reader will continue receiving pending indications
+	// until the buffer is empty.
 	CloseStream(id subscription.ID) (StreamReader, error)
 
-	// GetStream gets a write stream by ID
+	// GetStream gets a write stream by its StreamID
+	// If no Stream exists for the given StreamID, a NotFound error will be returned.
 	GetStream(id StreamID) (StreamWriter, error)
 }
 

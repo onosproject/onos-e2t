@@ -90,7 +90,7 @@ func (m *Manager) Run() {
 
 // Start starts the manager
 func (m *Manager) Start() error {
-	streams := subscription.NewStreamBroker()
+	streams := subscription.NewBroker()
 	channels := e2server.NewChannelManager()
 
 	err := m.startSubscriptionBroker(streams, channels)

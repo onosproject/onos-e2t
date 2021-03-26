@@ -9,15 +9,22 @@ import (
 	"context"
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"io"
 	"sync"
 )
 
-// StreamReader is a read stream
+const bufferMaxSize = 10000
+
+// StreamReader defines methods for reading indications from a Stream
 type StreamReader interface {
 	StreamIO
 
-	// Recv reads a message from the stream
+	// Recv reads an indication from the stream
+	// This method is thread-safe. If multiple goroutines are receiving from the stream, indications will be
+	// distributed randomly between them. If no indications are available, the goroutine will be blocked until
+	// an indication is received or the Context is canceled. If the context is canceled, a context.Canceled error
+	// will be returned. If the stream has been closed, an io.EOF error will be returned.
 	Recv(context.Context) (*e2appducontents.Ricindication, error)
 }
 
@@ -25,13 +32,17 @@ type StreamReader interface {
 type StreamWriter interface {
 	StreamIO
 
-	// Send sends a message on the stream
+	// Send sends an indication on the stream
+	// The Send method is non-blocking. If no StreamReader is immediately available to consume the indication
+	// it will be placed in a bounded memory buffer. If the buffer is full, an Unavailable error will be returned.
+	// This method is thread-safe.
 	Send(indication *e2appducontents.Ricindication) error
 }
 
 // StreamID is a stream identifier
 type StreamID int
 
+// StreamIO is a base interface for Stream information
 type StreamIO interface {
 	io.Closer
 	SubscriptionID() subscription.ID
@@ -106,7 +117,7 @@ func newBufferedWriter(ch chan<- e2appducontents.Ricindication) *bufferedWriter 
 		buffer: list.New(),
 		cond:   sync.NewCond(&sync.Mutex{}),
 	}
-	go writer.open()
+	writer.open()
 	return writer
 }
 
@@ -117,17 +128,24 @@ type bufferedWriter struct {
 	closed bool
 }
 
+// open starts the goroutine propagating indications from the writer to the reader
 func (s *bufferedWriter) open() {
+	go s.drain()
+}
+
+// drain dequeues indications and writes them to the read channel
+func (s *bufferedWriter) drain() {
 	for {
-		message, ok := s.recv()
+		ind, ok := s.next()
 		if !ok {
 			break
 		}
-		s.ch <- *message
+		s.ch <- *ind
 	}
 }
 
-func (s *bufferedWriter) recv() (*e2appducontents.Ricindication, bool) {
+// next reads the next indication from the buffer or blocks until one becomes available
+func (s *bufferedWriter) next() (*e2appducontents.Ricindication, bool) {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	for s.buffer.Len() == 0 {
@@ -141,13 +159,17 @@ func (s *bufferedWriter) recv() (*e2appducontents.Ricindication, bool) {
 	return result, true
 }
 
-func (s *bufferedWriter) Send(message *e2appducontents.Ricindication) error {
+// Send appends the indication to the buffer and notifies the reader
+func (s *bufferedWriter) Send(ind *e2appducontents.Ricindication) error {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	if s.closed {
 		return io.EOF
 	}
-	s.buffer.PushBack(message)
+	if s.buffer.Len() == bufferMaxSize {
+		return errors.NewUnavailable("cannot append indication to stream: maximum buffer size has been reached")
+	}
+	s.buffer.PushBack(ind)
 	s.cond.Signal()
 	return nil
 }

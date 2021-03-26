@@ -14,7 +14,7 @@ import (
 )
 
 func TestStreamBroker(t *testing.T) {
-	broker := NewStreamBroker()
+	broker := NewBroker()
 	writer, err := broker.GetStream(1)
 	assert.True(t, errors.IsNotFound(err))
 	assert.Nil(t, writer)
