@@ -31,6 +31,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
 
+	// Kpm v2 interval is defined in ms
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(1000)
 	assert.NoError(t, err)
 
