@@ -12,7 +12,7 @@ import (
 	"sync"
 )
 
-var log = logging.GetLogger("broker", "stream")
+var log = logging.GetLogger("broker", "subscription")
 
 // NewBroker creates a new subscription stream broker
 func NewBroker() Broker {
