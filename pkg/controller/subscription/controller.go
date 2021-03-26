@@ -244,6 +244,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 			actionBytes = action.Payload.Data
 			bytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
 			if err != nil {
+				resultErr := err
 				log.Warnf("Error transforming Proto bytes to ASN: %s", err.Error())
 				cause := subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
 				task.Lifecycle.Status = subtaskapi.Status_FAILED
@@ -260,7 +261,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 					return controller.Result{}, err
 				}
 
-				return controller.Result{}, nil
+				return controller.Result{}, resultErr
 			}
 			actionBytes = bytes
 		} else {
