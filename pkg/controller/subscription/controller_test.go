@@ -102,7 +102,7 @@ func TestOpenNoPlugin(t *testing.T) {
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(nil, errors.New("no such model"))
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
 	}
 	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
@@ -166,7 +166,7 @@ func TestOpenProtoToASNError(t *testing.T) {
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
 	}
 	subscription.Details.EventTrigger.Payload.Encoding = subapi.Encoding_ENCODING_PROTO
 
@@ -202,7 +202,7 @@ func TestOpenBadProtocolError(t *testing.T) {
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
 	}
 	subscription.Details.EventTrigger.Payload.Encoding = 123
 
@@ -238,7 +238,7 @@ func TestOpenValidPlugin(t *testing.T) {
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
 	}
 	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
@@ -278,7 +278,7 @@ func TestOpenActionBadProtocolError(t *testing.T) {
 		ID: "1", AppID: "foo",
 		Details: &subapi.SubscriptionDetails{
 			E2NodeID:     E2NodeID,
-			ServiceModel: subapi.ServiceModel{Name: "sm1"},
+			ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"},
 			Actions:      action,
 		},
 	}
@@ -324,7 +324,7 @@ func TestOpenActionBadProtoPayload(t *testing.T) {
 		ID: "1", AppID: "foo",
 		Details: &subapi.SubscriptionDetails{
 			E2NodeID:     E2NodeID,
-			ServiceModel: subapi.ServiceModel{Name: "sm1"},
+			ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"},
 			Actions:      action,
 		},
 	}
@@ -385,7 +385,7 @@ func TestOpenBadChannelResponse(t *testing.T) {
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
 	}
 	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
@@ -431,7 +431,7 @@ func TestOpenAction(t *testing.T) {
 		ID: "1", AppID: "foo",
 		Details: &subapi.SubscriptionDetails{
 			E2NodeID:     E2NodeID,
-			ServiceModel: subapi.ServiceModel{Name: "sm1"},
+			ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"},
 			Actions:      action,
 		},
 	}
@@ -465,7 +465,7 @@ func TestClose(t *testing.T) {
 	testContext.serverChannel.EXPECT().RICSubscriptionDelete(gomock.Any(), gomock.Any()).Return(&response, nil, nil).AnyTimes()
 
 	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1"}},
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
 	}
 	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
 		Subscription: subscription,
