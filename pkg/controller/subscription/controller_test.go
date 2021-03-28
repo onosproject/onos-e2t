@@ -42,6 +42,14 @@ func initControllerTest(t *testing.T, testContext *controllerTestContext) {
 }
 
 func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTestContext) {
+	subTask = &subtaskapi.SubscriptionTask{
+		ID:             "1",
+		Revision:       0,
+		SubscriptionID: "1",
+		EndpointID:     E2NodeID,
+		Lifecycle:      subtaskapi.Lifecycle{},
+	}
+
 	// subscription and task clients
 	testContext.subscriptionClient, testContext.subscriptionTaskClient = createClients(t)
 
@@ -94,6 +102,43 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 	}
 }
 
+func getTaskOrDie(t *testing.T) *subtaskapi.SubscriptionTask {
+	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
+	assert.NoError(t, err)
+	assert.NotNil(t, updatedTask)
+	return updatedTask
+}
+
+func createTaskOrDie(t *testing.T) {
+	err := scaffold.taskStore.Create(context.Background(), subTask)
+	assert.NoError(t, err)
+}
+
+func defaultSubscription() *subapi.Subscription {
+	return &subapi.Subscription{
+		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
+	}
+}
+
+func addSubscriptionOrDie(t *testing.T, testContext controllerTestContext, subscription *subapi.Subscription) {
+	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
+		Subscription: subscription,
+	})
+	assert.NoError(t, err)
+}
+
+func reconcileOrDie(t *testing.T, testContext controllerTestContext) {
+	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
+	assert.NotNil(t, result)
+	assert.NoError(t, err)
+}
+
+func reconcileExpectError(t *testing.T, testContext controllerTestContext) {
+	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
+	assert.NotNil(t, result)
+	assert.Error(t, err)
+}
+
 func TestOpenNoPlugin(t *testing.T) {
 	var testContext controllerTestContext
 	createServerScaffolding(t)
@@ -101,24 +146,12 @@ func TestOpenNoPlugin(t *testing.T) {
 
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(nil, errors.New("no such model"))
 
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
-	}
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	addSubscriptionOrDie(t, testContext, defaultSubscription())
+	createTaskOrDie(t)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
+	reconcileExpectError(t, testContext)
 
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.NotNil(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.Nil(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID, updatedTask.Lifecycle.Failure.Cause)
 
@@ -130,24 +163,14 @@ func TestOpenSMError(t *testing.T) {
 	createServerScaffolding(t)
 	initControllerTest(t, &testContext)
 
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: ""}},
-	}
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	subscription := defaultSubscription()
+	subscription.Details.ServiceModel.Version = ""
+	addSubscriptionOrDie(t, testContext, subscription)
+	createTaskOrDie(t)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
+	reconcileExpectError(t, testContext)
 
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.NotNil(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.Nil(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID, updatedTask.Lifecycle.Failure.Cause)
 
@@ -165,26 +188,14 @@ func TestOpenProtoToASNError(t *testing.T) {
 	sm.EXPECT().EventTriggerDefinitionProtoToASN1(gomock.Any()).Return(nil, errors.New("this should fail"))
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
-	}
+	subscription := defaultSubscription()
 	subscription.Details.EventTrigger.Payload.Encoding = subapi.Encoding_ENCODING_PROTO
+	addSubscriptionOrDie(t, testContext, subscription)
+	createTaskOrDie(t)
 
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	reconcileOrDie(t, testContext)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
-
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.NoError(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.NoError(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE, updatedTask.Lifecycle.Failure.Cause)
 
@@ -201,26 +212,14 @@ func TestOpenBadProtocolError(t *testing.T) {
 	sm.EXPECT().ServiceModelData().Return(smd)
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
-	}
+	subscription := defaultSubscription()
 	subscription.Details.EventTrigger.Payload.Encoding = 123
+	addSubscriptionOrDie(t, testContext, subscription)
+	createTaskOrDie(t)
 
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	reconcileExpectError(t, testContext)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
-
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.Error(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.NoError(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE, updatedTask.Lifecycle.Failure.Cause)
 
@@ -237,24 +236,12 @@ func TestOpenValidPlugin(t *testing.T) {
 	sm.EXPECT().ServiceModelData().Return(smd)
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
-	}
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	addSubscriptionOrDie(t, testContext, defaultSubscription())
+	createTaskOrDie(t)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
+	reconcileOrDie(t, testContext)
 
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.NoError(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.NoError(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_COMPLETE, updatedTask.Lifecycle.Status)
 
 	testContext.ctrl.Finish()
@@ -271,34 +258,18 @@ func TestOpenActionBadProtocolError(t *testing.T) {
 	sm.EXPECT().EventTriggerDefinitionProtoToASN1(gomock.Any()).Return(make([]byte, 1), nil)
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
-	action := []subapi.Action{{
+	actions := []subapi.Action{{
 		Payload: subapi.Payload{Encoding: 55},
 	}}
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo",
-		Details: &subapi.SubscriptionDetails{
-			E2NodeID:     E2NodeID,
-			ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"},
-			Actions:      action,
-		},
-	}
+	subscription := defaultSubscription()
+	subscription.Details.Actions = actions
 	subscription.Details.EventTrigger.Payload.Encoding = subapi.Encoding_ENCODING_PROTO
+	addSubscriptionOrDie(t, testContext, subscription)
+	createTaskOrDie(t)
 
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	reconcileExpectError(t, testContext)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
-
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.Error(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.NoError(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE, updatedTask.Lifecycle.Failure.Cause)
 
@@ -317,34 +288,18 @@ func TestOpenActionBadProtoPayload(t *testing.T) {
 	sm.EXPECT().ActionDefinitionProtoToASN1(gomock.Any()).Return(nil, errors.New("bad proto payload"))
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
-	action := []subapi.Action{{
+	actions := []subapi.Action{{
 		Payload: subapi.Payload{Encoding: subapi.Encoding_ENCODING_PROTO},
 	}}
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo",
-		Details: &subapi.SubscriptionDetails{
-			E2NodeID:     E2NodeID,
-			ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"},
-			Actions:      action,
-		},
-	}
+	subscription := defaultSubscription()
+	subscription.Details.Actions = actions
 	subscription.Details.EventTrigger.Payload.Encoding = subapi.Encoding_ENCODING_PROTO
+	addSubscriptionOrDie(t, testContext, subscription)
+	createTaskOrDie(t)
 
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	reconcileExpectError(t, testContext)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
-
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.Error(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.NoError(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE, updatedTask.Lifecycle.Failure.Cause)
 
@@ -384,24 +339,12 @@ func TestOpenBadChannelResponse(t *testing.T) {
 	sm.EXPECT().ServiceModelData().Return(smd)
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
-	}
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	addSubscriptionOrDie(t, testContext, defaultSubscription())
+	createTaskOrDie(t)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
+	reconcileExpectError(t, testContext)
 
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.Error(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.NoError(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID, updatedTask.Lifecycle.Failure.Cause)
 
@@ -420,38 +363,22 @@ func TestOpenAction(t *testing.T) {
 	sm.EXPECT().ActionDefinitionProtoToASN1(gomock.Any()).Return(make([]byte, 1), nil)
 	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
 
-	action := []subapi.Action{{
+	actions := []subapi.Action{{
 		Payload: subapi.Payload{Encoding: subapi.Encoding_ENCODING_PROTO},
 		SubsequentAction: &subapi.SubsequentAction{
 			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 			TimeToWait: 5,
 		},
 	}}
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo",
-		Details: &subapi.SubscriptionDetails{
-			E2NodeID:     E2NodeID,
-			ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"},
-			Actions:      action,
-		},
-	}
+	subscription := defaultSubscription()
+	subscription.Details.Actions = actions
 	subscription.Details.EventTrigger.Payload.Encoding = subapi.Encoding_ENCODING_PROTO
+	addSubscriptionOrDie(t, testContext, subscription)
+	createTaskOrDie(t)
 
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
+	reconcileOrDie(t, testContext)
 
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
-
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.NoError(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.NoError(t, err)
-	assert.NotNil(t, updatedTask)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_COMPLETE, updatedTask.Lifecycle.Status)
 
 	testContext.ctrl.Finish()
@@ -464,30 +391,16 @@ func TestClose(t *testing.T) {
 	response := e2appducontents.RicsubscriptionDeleteResponse{}
 	testContext.serverChannel.EXPECT().RICSubscriptionDelete(gomock.Any(), gomock.Any()).Return(&response, nil, nil).AnyTimes()
 
-	subscription := &subapi.Subscription{
-		ID: "1", AppID: "foo", Details: &subapi.SubscriptionDetails{E2NodeID: E2NodeID, ServiceModel: subapi.ServiceModel{Name: "sm1", Version: "v1"}},
-	}
-	_, err := testContext.subscriptionClient.AddSubscription(context.Background(), &subapi.AddSubscriptionRequest{
-		Subscription: subscription,
-	})
-	assert.NoError(t, err)
-
-	_, err = testContext.subscriptionClient.RemoveSubscription(context.Background(), &subapi.RemoveSubscriptionRequest{
+	addSubscriptionOrDie(t, testContext, defaultSubscription())
+	_, err := testContext.subscriptionClient.RemoveSubscription(context.Background(), &subapi.RemoveSubscriptionRequest{
 		ID: "1",
 	})
 	assert.NoError(t, err)
 
 	subTask.Lifecycle.Phase = subtaskapi.Phase_CLOSE
-	err = scaffold.taskStore.Create(context.Background(), subTask)
-	assert.NoError(t, err)
-
-	result, err := testContext.reconciler.Reconcile(controller.ID{Value: subTask.ID})
-	assert.NotNil(t, result)
-	assert.NoError(t, err)
-
-	updatedTask, err := scaffold.taskStore.Get(context.Background(), subTask.ID)
-	assert.NoError(t, err)
-	assert.NotNil(t, updatedTask)
+	createTaskOrDie(t)
+	reconcileOrDie(t, testContext)
+	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_COMPLETE, updatedTask.Lifecycle.Status)
 
 	testContext.ctrl.Finish()
