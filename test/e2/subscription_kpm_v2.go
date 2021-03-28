@@ -7,7 +7,9 @@ package e2
 import (
 	"context"
 	"testing"
-	"time"
+
+	"github.com/golang/protobuf/proto"
+	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 
@@ -32,7 +34,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Kpm v2 interval is defined in ms
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(1000)
+	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
 
 	subRequest := utils.Subscription{
@@ -53,18 +55,18 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	sub, err := e2Client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 
-	checkIndicationMessage(t, defaultIndicationTimeout, ch)
+	indicationReport := checkIndicationMessage(t, defaultIndicationTimeout, ch)
+	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
+	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
+
+	err = proto.Unmarshal(indicationReport.Payload.Message, &indicationMessage)
+	assert.NoError(t, err)
+
+	err = proto.Unmarshal(indicationReport.Payload.Header, &indicationHeader)
+	assert.NoError(t, err)
 
 	err = sub.Close()
 	assert.NoError(t, err)
-
-	select {
-	case <-ch:
-		t.Fatal("received an extraneous indication")
-
-	case <-time.After(10 * time.Second):
-		t.Log("Subscription test is PASSED")
-	}
 
 	err = sim.Uninstall()
 	assert.NoError(t, err)
