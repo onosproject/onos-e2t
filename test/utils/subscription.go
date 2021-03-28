@@ -65,7 +65,7 @@ func CreateKpmV2EventTrigger(rtPeriod int32) ([]byte, error) {
 }
 
 // CreateKpmEventTrigger creates a kpm service model event trigger
-func CreateKpmEventTrigger(rtPeriod int32) ([]byte, error) {
+func CreateKpmV1EventTrigger(rtPeriod int32) ([]byte, error) {
 	e2SmKpmEventTriggerDefinition, err := pdubuilder.CreateE2SmKpmEventTriggerDefinition(rtPeriod)
 	if err != nil {
 		return []byte{}, err
