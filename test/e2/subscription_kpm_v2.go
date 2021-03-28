@@ -7,7 +7,9 @@ package e2
 import (
 	"context"
 	"testing"
-	"time"
+
+	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
+	"google.golang.org/protobuf/proto"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 
@@ -17,11 +19,12 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestSubscription tests e2 subscription and subscription delete procedures
-func (s *TestSuite) TestSubscription(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription")
+// TestSubscriptionKpmV2 tests e2 subscription and subscription delete procedures using kpm version 2
+func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-kpm-v2")
+	assert.NotNil(t, sim)
 
-	e2Client := getE2Client(t, "subscription-test")
+	e2Client := getE2Client(t, "subscription-kpm-v2-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
@@ -30,7 +33,8 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
 
-	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
+	// Kpm v2 interval is defined in ms
+	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
 
 	subRequest := utils.Subscription{
@@ -39,7 +43,7 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
 		EventTrigger:         eventTriggerBytes,
 		ServiceModelName:     utils.KpmServiceModelName,
-		ServiceModelVersion:  utils.KpmServiceModelVersion1,
+		ServiceModelVersion:  utils.KpmServiceModelVersion2,
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
@@ -51,18 +55,18 @@ func (s *TestSuite) TestSubscription(t *testing.T) {
 	sub, err := e2Client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 
-	checkIndicationMessage(t, defaultIndicationTimeout, ch)
+	indicationReport := checkIndicationMessage(t, defaultIndicationTimeout, ch)
+	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
+	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
+
+	err = proto.Unmarshal(indicationReport.Payload.Message, &indicationMessage)
+	assert.NoError(t, err)
+
+	err = proto.Unmarshal(indicationReport.Payload.Header, &indicationHeader)
+	assert.NoError(t, err)
 
 	err = sub.Close()
 	assert.NoError(t, err)
-
-	select {
-	case <-ch:
-		t.Fatal("received an extraneous indication")
-
-	case <-time.After(10 * time.Second):
-		t.Log("Subscription test is PASSED")
-	}
 
 	err = sim.Uninstall()
 	assert.NoError(t, err)

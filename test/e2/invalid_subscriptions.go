@@ -73,7 +73,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 // TestInvalidSubscriptions tests invalid inputs into the SDK
 func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	const actionID = 11
-	eventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
+	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
 	assert.NoError(t, err)
 
 	testCases := []invalidSubscriptionTestCase{

@@ -40,7 +40,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	testNode1 := nodeIDs[0]
 	testNode2 := nodeIDs[1]
 
-	kpmEventTriggerBytes, err := utils.CreateKpmEventTrigger(12)
+	kpmEventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
 	assert.NoError(t, err)
 
 	subRequest := utils.Subscription{
