@@ -14,7 +14,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func newE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, streams subscription.Broker, modelFuncIDs map[e2smtypes.OID]types.RanFunctionID) *E2Channel {
+func NewE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, streams subscription.Broker, modelFuncIDs map[e2smtypes.OID]types.RanFunctionID) *E2Channel {
 	return &E2Channel{
 		ServerChannel: channel,
 		ID:            id,

@@ -18,7 +18,7 @@ type ChannelManager interface {
 	Get(ctx context.Context, id ChannelID) (*E2Channel, error)
 	List(ctx context.Context) ([]*E2Channel, error)
 	Watch(ctx context.Context, ch chan<- *E2Channel) error
-	open(id ChannelID, channel *E2Channel)
+	Open(id ChannelID, channel *E2Channel)
 }
 
 // NewChannelManager creates a new channel manager
@@ -57,7 +57,7 @@ func (m *channelManager) processEvent(channel *E2Channel) {
 	m.watchersMu.RUnlock()
 }
 
-func (m *channelManager) open(id ChannelID, channel *E2Channel) {
+func (m *channelManager) Open(id ChannelID, channel *E2Channel) {
 	log.Infof("Opened channel %s", id)
 	m.channelsMu.Lock()
 	defer m.channelsMu.Unlock()
