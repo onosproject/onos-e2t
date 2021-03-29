@@ -15,6 +15,7 @@ import (
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	broker "github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/oid"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -93,12 +94,13 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 
 	// reconciler to test
 	testContext.reconciler = Reconciler{
-		streams:     testContext.broker,
-		subs:        testContext.subscriptionClient,
-		tasks:       testContext.subscriptionTaskClient,
-		channels:    testContext.channelManager,
-		models:      testContext.modelRegistry,
-		oidRegistry: testContext.oidRegistry,
+		streams:                   testContext.broker,
+		subs:                      testContext.subscriptionClient,
+		tasks:                     testContext.subscriptionTaskClient,
+		channels:                  testContext.channelManager,
+		models:                    testContext.modelRegistry,
+		oidRegistry:               testContext.oidRegistry,
+		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 	}
 }
 
@@ -139,6 +141,16 @@ func reconcileExpectError(t *testing.T, testContext controllerTestContext) {
 	assert.Error(t, err)
 }
 
+func newInvalidRicSubscriptionRequest(ricReq types.RicRequest,
+	ranFuncID types.RanFunctionID, ricEventDef types.RicEventDefintion,
+	ricActionsToBeSetup map[types.RicActionID]types.RicActionDef) (
+	*e2appducontents.RicsubscriptionRequest, error) {
+
+	request, _ := pdubuilder.NewRicSubscriptionRequest(ricReq, ranFuncID, ricEventDef, ricActionsToBeSetup)
+	request.ProtocolIes.E2ApProtocolIes29.Criticality = 77
+	return request, nil
+}
+
 func TestOpenNoPlugin(t *testing.T) {
 	var testContext controllerTestContext
 	createServerScaffolding(t)
@@ -154,6 +166,29 @@ func TestOpenNoPlugin(t *testing.T) {
 	updatedTask := getTaskOrDie(t)
 	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
 	assert.Equal(t, subtaskapi.Cause_CAUSE_RIC_RAN_FUNCTION_ID_INVALID, updatedTask.Lifecycle.Failure.Cause)
+
+	testContext.ctrl.Finish()
+}
+
+func TestOpenInvalidRequest(t *testing.T) {
+	var testContext controllerTestContext
+	createServerScaffolding(t)
+	initControllerTest(t, &testContext)
+	testContext.reconciler.newRicSubscriptionRequest = newInvalidRicSubscriptionRequest
+
+	sm := NewMockServiceModel(testContext.ctrl)
+	smd := e2smtypes.ServiceModelData{}
+	sm.EXPECT().ServiceModelData().Return(smd)
+	testContext.modelRegistry.EXPECT().GetPlugin(gomock.Any()).Return(sm, nil)
+
+	addSubscriptionOrDie(t, testContext, defaultSubscription())
+	createTaskOrDie(t)
+
+	reconcileExpectError(t, testContext)
+
+	updatedTask := getTaskOrDie(t)
+	assert.Equal(t, subtaskapi.Status_FAILED, updatedTask.Lifecycle.Status)
+	assert.Equal(t, subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE, updatedTask.Lifecycle.Failure.Cause)
 
 	testContext.ctrl.Finish()
 }
@@ -406,6 +441,44 @@ func TestClose(t *testing.T) {
 	testContext.ctrl.Finish()
 }
 
+func TestCloseBadChannelResponseRicRequest(t *testing.T) {
+	var testContext controllerTestContext
+	createServerScaffolding(t)
+	initControllerTestNoRICSubscription(t, &testContext)
+	cause := &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID}
+	failure := e2appducontents.RicsubscriptionDeleteFailure{
+		ProtocolIes: &e2appducontents.RicsubscriptionDeleteFailureIes{
+			E2ApProtocolIes29: nil,
+			E2ApProtocolIes5:  nil,
+			E2ApProtocolIes1: &e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1{
+				Id:          0,
+				Criticality: 0,
+				Value: &e2apies.Cause{
+					Cause: cause,
+				},
+				Presence: 0,
+			},
+			E2ApProtocolIes2: nil,
+		},
+	}
+	testContext.serverChannel.EXPECT().RICSubscriptionDelete(gomock.Any(), gomock.Any()).Return(nil, &failure, nil).AnyTimes()
+
+	addSubscriptionOrDie(t, testContext, defaultSubscription())
+	_, err := testContext.subscriptionClient.RemoveSubscription(context.Background(), &subapi.RemoveSubscriptionRequest{
+		ID: "1",
+	})
+	assert.NoError(t, err)
+
+	subTask.Lifecycle.Phase = subtaskapi.Phase_CLOSE
+	createTaskOrDie(t)
+	reconcileOrDie(t, testContext)
+	updatedTask := getTaskOrDie(t)
+	//assert.Equal(t, subtaskapi.Status_COMPLETE, updatedTask.Lifecycle.Status)
+	assert.Equal(t, subtaskapi.Status_PENDING, updatedTask.Lifecycle.Status)
+
+	testContext.ctrl.Finish()
+}
+
 func TestFailureCause(t *testing.T) {
 	type test struct {
 		description string
@@ -419,7 +492,7 @@ func TestFailureCause(t *testing.T) {
 		{description: "excessive actions", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS}}, resultCause: subtaskapi.Cause_CAUSE_RIC_EXCESSIVE_ACTIONS},
 		{description: "duplicate action", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION}}, resultCause: subtaskapi.Cause_CAUSE_RIC_DUPLICATE_ACTION},
 		{description: "duplicate event", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT}}, resultCause: subtaskapi.Cause_CAUSE_RIC_DUPLICATE_EVENT},
-		{description: "function resorce limit", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT}}, resultCause: subtaskapi.Cause_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT},
+		{description: "function resource limit", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT}}, resultCause: subtaskapi.Cause_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT},
 		{description: "request ID unknown", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN}}, resultCause: subtaskapi.Cause_CAUSE_RIC_REQUEST_ID_UNKNOWN},
 		{description: "inconsistent action", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE}}, resultCause: subtaskapi.Cause_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE},
 		{description: "control message invalid", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicRequest{RicRequest: e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID}}, resultCause: subtaskapi.Cause_CAUSE_RIC_CONTROL_MESSAGE_INVALID},
@@ -428,7 +501,7 @@ func TestFailureCause(t *testing.T) {
 
 		{description: "function not required", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED},
 		{description: "excessive functions", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS},
-		{description: "resourcelimit", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT},
+		{description: "resource limit", cause: &e2apies.Cause{Cause: &e2apies.Cause_RicService{RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT}}, resultCause: subtaskapi.Cause_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT},
 
 		{description: "transfer syntax error", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR},
 		{description: "abstract syntax error reject", cause: &e2apies.Cause{Cause: &e2apies.Cause_Protocol{Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT}}, resultCause: subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT},

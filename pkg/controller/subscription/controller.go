@@ -52,24 +52,31 @@ func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServic
 		channels:   channels,
 	})
 	c.Reconcile(&Reconciler{
-		streams:     streams,
-		subs:        subs,
-		tasks:       tasks,
-		channels:    channels,
-		models:      models,
-		oidRegistry: oidRegistry,
+		streams:                   streams,
+		subs:                      subs,
+		tasks:                     tasks,
+		channels:                  channels,
+		models:                    models,
+		oidRegistry:               oidRegistry,
+		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 	})
 	return c
 }
 
+type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
+	ranFuncID types.RanFunctionID, ricEventDef types.RicEventDefintion,
+	ricActionsToBeSetup map[types.RicActionID]types.RicActionDef) (
+	*e2appducontents.RicsubscriptionRequest, error)
+
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	streams     subscription.Broker
-	subs        subapi.E2SubscriptionServiceClient
-	tasks       subtaskapi.E2SubscriptionTaskServiceClient
-	channels    e2server.ChannelManager
-	models      modelregistry.ModelRegistry
-	oidRegistry oid.Registry
+	streams                   subscription.Broker
+	subs                      subapi.E2SubscriptionServiceClient
+	tasks                     subtaskapi.E2SubscriptionTaskServiceClient
+	channels                  e2server.ChannelManager
+	models                    modelregistry.ModelRegistry
+	oidRegistry               oid.Registry
+	newRicSubscriptionRequest RicSubscriptionRequestBuilder
 }
 
 // Reconcile reconciles the state of a device change
@@ -291,14 +298,14 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 	}
 
-	request, err := pdubuilder.NewRicSubscriptionRequest(ricRequest, ranFuncID, ricEventDef, ricActionsToBeSetup)
+	request, err := r.newRicSubscriptionRequest(ricRequest, ranFuncID, ricEventDef, ricActionsToBeSetup)
 	if err != nil {
 		log.Warnf("Failed to create E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
 	}
 
 	// Validate the subscribe request
-	if err := request.Validate(); err != nil {
+	if validationErr := request.Validate(); validationErr != nil {
 		log.Warnf("Failed to validate E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		cause := subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
 		task.Lifecycle.Status = subtaskapi.Status_FAILED
@@ -314,7 +321,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 			log.Warnf("Failed to update SubscriptionTask %+v: %s", task, err)
 			return controller.Result{}, err
 		}
-		return controller.Result{}, err
+		return controller.Result{}, validationErr
 	}
 
 	// Send the subscription request and await a response

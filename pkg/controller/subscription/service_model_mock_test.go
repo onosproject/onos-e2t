@@ -11,7 +11,6 @@ import (
 	types "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 )
 
-
 // MockServiceModel is a mock of ServiceModel interface.
 type MockServiceModel struct {
 	ctrl     *gomock.Controller
