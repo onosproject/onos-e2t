@@ -60,6 +60,8 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 
 	numCells := utils.GetNumCells(t, cellClient)
 	assert.Equal(t, numRequestedCells, numCells-defaultNumCells)
+	// TODO this should be replaced with a mechanism to make sure all of the nodes are connected before asking
+	time.Sleep(20 * time.Second)
 
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
 	nodeIDs, err := utils.GetNodeIDs()
@@ -91,7 +93,7 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	// Wait for a few seconds to make sure all of the connections are established
 	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
 	// for the number of nodes
-	time.Sleep(10 * time.Second)
+	time.Sleep(20 * time.Second)
 	numNodes := utils.GetNumNodes(t, nodeClient)
 	nodeIDs, err = utils.GetNodeIDs()
 	assert.NoError(t, err)
