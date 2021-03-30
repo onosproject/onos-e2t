@@ -105,6 +105,7 @@ func (c *threadSafeChannel) processSends() {
 	for msg := range c.sendCh {
 		err := c.processSend(msg.msg)
 		if err == io.EOF {
+			log.Warn(err)
 			c.Close()
 		} else if err != nil {
 			msg.errCh <- err
@@ -117,6 +118,7 @@ func (c *threadSafeChannel) processSends() {
 func (c *threadSafeChannel) processSend(msg e2appdudescriptions.E2ApPdu) error {
 	bytes, err := asn1cgo.PerEncodeE2apPdu(&msg)
 	if err != nil {
+		log.Warn(err)
 		return err
 	}
 	_, err = c.conn.Write(bytes)
@@ -127,6 +129,7 @@ func (c *threadSafeChannel) processSend(msg e2appdudescriptions.E2ApPdu) error {
 func (c *threadSafeChannel) recv() (*e2appdudescriptions.E2ApPdu, error) {
 	msg, ok := <-c.recvCh
 	if !ok {
+		log.Warn("no more messages to receive")
 		return nil, io.EOF
 	}
 	return &msg, nil
@@ -138,6 +141,7 @@ func (c *threadSafeChannel) processRecvs() {
 	for {
 		n, err := c.conn.Read(buf)
 		if err != nil {
+			log.Warn(err)
 			c.Close()
 			return
 		}
@@ -153,6 +157,7 @@ func (c *threadSafeChannel) processRecvs() {
 func (c *threadSafeChannel) processRecv(bytes []byte) error {
 	msg, err := asn1cgo.PerDecodeE2apPdu(bytes)
 	if err != nil {
+		log.Warn(err)
 		return err
 	}
 	c.recvCh <- *msg

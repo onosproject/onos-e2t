@@ -61,6 +61,7 @@ func (c *ricChannel) recvPDUs() {
 	for {
 		pdu, err := c.recv()
 		if err == io.EOF {
+			log.Warn(err)
 			c.Close()
 			return
 		}
