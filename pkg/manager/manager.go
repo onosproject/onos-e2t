@@ -7,6 +7,7 @@ package manager
 import (
 	"context"
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -165,7 +166,14 @@ func (m *Manager) joinSubscriptionManager() error {
 		},
 	}
 	_, err := client.AddTermination(context.Background(), request)
-	return err
+	if err != nil {
+		err = errors.FromGRPC(err)
+		if errors.IsAlreadyExists(err) {
+			return nil
+		}
+		return err
+	}
+	return nil
 }
 
 // leaveSubscriptionManager removes the termination point from the subscription manager
