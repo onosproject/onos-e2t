@@ -13,19 +13,67 @@ package asn1cgo
 import "C"
 import (
 	"encoding/binary"
+	"fmt"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
 )
 
+func xerEncodeRanFunctionItem(rfi *e2appducontents.RanfunctionItem) ([]byte, error) {
+	rfiCP := newRanFunctionItem(rfi)
+
+	bytes, err := encodeXer(&C.asn_DEF_RANfunction_Item, unsafe.Pointer(rfiCP))
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeRanFunctionItem() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func perEncodeRanFunctionItem(rfi *e2appducontents.RanfunctionItem) ([]byte, error) {
+	rfiCP := newRanFunctionItem(rfi)
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_RANfunction_Item, unsafe.Pointer(rfiCP))
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeRanFunctionItem() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func xerDecodeRanFunctionItem(bytes []byte) (*e2appducontents.RanfunctionItem, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_RANfunction_Item)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeRanFunctionItem((*C.RANfunction_Item_t)(unsafePtr))
+}
+
+func perDecodeRanFunctionItem(bytes []byte) (*e2appducontents.RanfunctionItem, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_RANfunction_Item)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeRanFunctionItem((*C.RANfunction_Item_t)(unsafePtr))
+}
+
 func newRanFunctionItem(rfItem *e2appducontents.RanfunctionItem) *C.RANfunction_Item_t {
 	rfItemC := C.RANfunction_Item_t{
 		ranFunctionID:         newRanFunctionID(rfItem.GetRanFunctionId()),
 		ranFunctionRevision:   *newRanFunctionRevision(rfItem.GetRanFunctionRevision()),
 		ranFunctionDefinition: *newOctetString(string(rfItem.GetRanFunctionDefinition().GetValue())),
-		ranFunctionOID:        newRanFunctionOID(rfItem.GetRanFunctionOid()),
+		//ranFunctionOID:        newRanFunctionOID(rfItem.GetRanFunctionOid()),
 	}
+
+	if rfItem.GetRanFunctionOid() != nil {
+		rfItemC.ranFunctionOID = newRanFunctionOID(rfItem.GetRanFunctionOid())
+	}
+
 	return &rfItemC
 }
 
@@ -57,10 +105,15 @@ func decodeRanFunctionItem(rfiC *C.RANfunction_Item_t) (*e2appducontents.Ranfunc
 		RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
 			Value: []byte(decodeOctetString(&rfiC.ranFunctionDefinition)),
 		},
-		RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-			Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,
-		},
+		//RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
+		//	Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,
+		//},
 	}
 
+	if rfiC.ranFunctionOID != nil {
+		rfi.RanFunctionOid = &e2ap_commondatatypes.RanfunctionOid{
+			Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,
+		}
+	}
 	return &rfi, nil
 }

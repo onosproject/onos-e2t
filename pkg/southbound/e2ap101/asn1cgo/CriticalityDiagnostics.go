@@ -20,31 +20,88 @@ import (
 	"unsafe"
 )
 
+func xerEncodeCriticalityDiagnostics(cd *e2apies.CriticalityDiagnostics) ([]byte, error) {
+	cdCP, err := newCriticalityDiagnostics(cd)
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeCriticalityDiagnostic() %s", err.Error())
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_CriticalityDiagnostics, unsafe.Pointer(cdCP))
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeCriticalityDiagnostic() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func perEncodeCriticalityDiagnostics(cd *e2apies.CriticalityDiagnostics) ([]byte, error) {
+	cdCP, err := newCriticalityDiagnostics(cd)
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeCriticalityDiagnostic() %s", err.Error())
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_CriticalityDiagnostics, unsafe.Pointer(cdCP))
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeCriticalityDiagnostic() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func xerDecodeCriticalityDiagnostics(bytes []byte) (*e2apies.CriticalityDiagnostics, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_CriticalityDiagnostics)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeCriticalityDiagnostics((*C.CriticalityDiagnostics_t)(unsafePtr))
+}
+
+func perDecodeCriticalityDiagnostics(bytes []byte) (*e2apies.CriticalityDiagnostics, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_CriticalityDiagnostics)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeCriticalityDiagnostics((*C.CriticalityDiagnostics_t)(unsafePtr))
+}
+
 func newCriticalityDiagnostics(cd *e2apies.CriticalityDiagnostics) (*C.CriticalityDiagnostics_t, error) {
-	pc, err := newProcedureCode(cd.GetProcedureCode())
-	if err != nil {
-		return nil, fmt.Errorf("newProcedureCode() %s", err.Error())
+
+	var err error
+	cdC := C.CriticalityDiagnostics_t{}
+
+	if cd.GetProcedureCode() != nil {
+		pc, err := newProcedureCode(cd.GetProcedureCode())
+		if err != nil {
+			return nil, fmt.Errorf("newProcedureCode() %s", err.Error())
+		}
+		cdC.procedureCode = &pc
 	}
-	tm, err := newTriggeringMessage(cd.GetTriggeringMessage())
-	if err != nil {
-		return nil, fmt.Errorf("newTriggeringMessage() %s", err.Error())
+
+	if cd.GetTriggeringMessage() != -1 {
+		tm, err := newTriggeringMessage(cd.GetTriggeringMessage())
+		if err != nil {
+			return nil, fmt.Errorf("newTriggeringMessage() %s", err.Error())
+		}
+		cdC.triggeringMessage = &tm
 	}
-	c, err := criticalityToC(cd.GetProcedureCriticality())
-	if err != nil {
-		return nil, fmt.Errorf("criticalityToC() %s", err.Error())
+
+	if cd.GetProcedureCriticality() != -1 {
+		c, err := criticalityToC(cd.GetProcedureCriticality())
+		if err != nil {
+			return nil, fmt.Errorf("criticalityToC() %s", err.Error())
+		}
+		cdC.procedureCriticality = &c
 	}
-	// TODO - add this back in
-	cdie, err := newCriticalityDiagnosticsIeList(cd.GetIEsCriticalityDiagnostics())
-	if err != nil {
-		return nil, fmt.Errorf("newCriticalityDiagnosticsIeList() %s", err.Error())
-	}
-	cdC := C.CriticalityDiagnostics_t{
-		procedureCode:        &pc,
-		triggeringMessage:    &tm,
-		procedureCriticality: &c,
-		ricRequestorID:       newRicRequestID(cd.GetRicRequestorId()),
-		// TODO - add this back in
-		iEsCriticalityDiagnostics: cdie,
+
+	if cd.GetIEsCriticalityDiagnostics() != nil {
+		cdC.iEsCriticalityDiagnostics, err = newCriticalityDiagnosticsIeList(cd.GetIEsCriticalityDiagnostics())
+		if err != nil {
+			return nil, fmt.Errorf("newCriticalityDiagnosticsIeList() %s", err.Error())
+		}
 	}
 
 	return &cdC, nil
@@ -67,17 +124,30 @@ func decodeCriticalityDiagnosticsBytes(bytes []byte) (*e2apies.CriticalityDiagno
 
 func decodeCriticalityDiagnostics(cdC *C.CriticalityDiagnostics_t) (*e2apies.CriticalityDiagnostics, error) {
 
-	cdie, err := decodeCriticalityDiagnosticsIeList(cdC.iEsCriticalityDiagnostics)
-	if err != nil {
+	var err error
+	ret := e2apies.CriticalityDiagnostics{}
+
+	if cdC.iEsCriticalityDiagnostics != nil{
+		ret.IEsCriticalityDiagnostics, err = decodeCriticalityDiagnosticsIeList(cdC.iEsCriticalityDiagnostics)
+		if err != nil{
 		return nil, fmt.Errorf("decodeCriticalityDiagnostics() %s", err.Error())
 	}
+	}
 
-	ret := e2apies.CriticalityDiagnostics{
-		ProcedureCode:             decodeProcedureCode(*cdC.procedureCode),
-		TriggeringMessage:         decodeTriggeringMessage(*cdC.triggeringMessage),
-		ProcedureCriticality:      decodeCriticality(*cdC.procedureCriticality),
-		RicRequestorId:            decodeRicRequestID(cdC.ricRequestorID),
-		IEsCriticalityDiagnostics: cdie,
+	if cdC.procedureCode != nil {
+		ret.ProcedureCode = decodeProcedureCode(*cdC.procedureCode)
+	}
+
+	if cdC.triggeringMessage != nil {
+		ret.TriggeringMessage = decodeTriggeringMessage(*cdC.triggeringMessage)
+	}
+
+	if cdC.procedureCriticality != nil {
+		ret.ProcedureCriticality = decodeCriticality(*cdC.procedureCriticality)
+	}
+
+	if cdC.ricRequestorID != nil {
+		ret.RicRequestorId = decodeRicRequestID(cdC.ricRequestorID)
 	}
 
 	return &ret, nil
