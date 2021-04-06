@@ -28,6 +28,7 @@ type Subscription struct {
 	TimeToWait           subapi.TimeToWait
 	SubSequentActionType subapi.SubsequentActionType
 	EventTrigger         []byte
+	RANFunctionID        subapi.RANFunctionID
 }
 
 // CreateRcEventTrigger creates a rc service model event trigger
@@ -86,8 +87,9 @@ func (subRequest *Subscription) Create() (subapi.SubscriptionDetails, error) {
 	subReq := subapi.SubscriptionDetails{
 		E2NodeID: subapi.E2NodeID(subRequest.NodeID),
 		ServiceModel: subapi.ServiceModel{
-			Name:    subRequest.ServiceModelName,
-			Version: subRequest.ServiceModelVersion,
+			Name:          subRequest.ServiceModelName,
+			Version:       subRequest.ServiceModelVersion,
+			RANFunctionID: subRequest.RANFunctionID,
 		},
 		EventTrigger: subapi.EventTrigger{
 			Payload: subapi.Payload{

@@ -46,6 +46,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		RANFunctionID:        1,
 	}
 
 	// Create a subscription request to indication messages from the client

@@ -42,6 +42,7 @@ func checkSubscription(t *testing.T) sdksub.Context {
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		RANFunctionID:        1,
 	}
 
 	subReq, err := subRequest.Create()

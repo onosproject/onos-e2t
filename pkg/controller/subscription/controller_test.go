@@ -7,6 +7,10 @@ package subscription
 import (
 	"context"
 	"errors"
+	"testing"
+
+	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
+
 	"github.com/golang/mock/gomock"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
@@ -20,7 +24,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 type controllerTestContext struct {
@@ -32,6 +35,7 @@ type controllerTestContext struct {
 	broker                 *MockBroker
 	modelRegistry          *MockModelRegistry
 	oidRegistry            *MockRegistry
+	ranFunctionRegistry    ranfunctions.Registry
 	reconciler             Reconciler
 	controller             *controller.Controller
 }
@@ -69,14 +73,16 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 	testContext.broker.EXPECT().OpenStream(gomock.Any()).Return(stream, nil).AnyTimes()
 	testContext.broker.EXPECT().CloseStream(gomock.Any()).Return(stream, nil).AnyTimes()
 
-	// Function ID map for mocked service models
-	modelFuncIDs := make(map[e2smtypes.OID]types.RanFunctionID)
-	modelFuncIDs["sm1"] = 2
+	testContext.ranFunctionRegistry = ranfunctions.NewRegistry()
+	_ = testContext.ranFunctionRegistry.Add(ranfunctions.NewID("12"), ranfunctions.RANFunction{
+		ID: 2,
+	})
 
 	// Mocked RIC channel
 	serverChannel := NewMockRICChannel(ctrl)
 	testContext.serverChannel = serverChannel
-	channel := e2server.NewE2Channel("channel", "plmnid", serverChannel, testContext.broker, modelFuncIDs)
+
+	channel := e2server.NewE2Channel("channel", "plmnid", serverChannel, testContext.broker)
 	testContext.channelManager = NewMockChannelManager(ctrl)
 	testContext.channelManager.EXPECT().Get(gomock.Any(), gomock.Any()).Return(channel, nil)
 
@@ -86,7 +92,8 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 
 	// Controller
 	testContext.controller = NewController(testContext.broker, testContext.subscriptionClient,
-		testContext.subscriptionTaskClient, testContext.channelManager, testContext.modelRegistry, testContext.oidRegistry)
+		testContext.subscriptionTaskClient, testContext.channelManager,
+		testContext.modelRegistry, testContext.oidRegistry, testContext.ranFunctionRegistry)
 
 	// OID registry
 	testContext.oidRegistry = NewMockRegistry(ctrl)

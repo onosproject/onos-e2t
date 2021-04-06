@@ -61,6 +61,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		RANFunctionID:        3,
 	}
 
 	subReq, err := subRequest.Create()
@@ -102,6 +103,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 		ControlAckRequest:   e2tapi.ControlAckRequest_ACK,
 		ControlMessage:      controlMessageBytes,
 		ControlHeader:       controlHeaderBytes,
+		RANFunctionID:       3,
 	}
 
 	request, err := controlRequest.Create()

@@ -7,8 +7,10 @@ package subscription
 import (
 	"context"
 	"fmt"
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"time"
+
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
+	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
@@ -39,7 +41,9 @@ var log = logging.GetLogger("controller", "subscription")
 // NewController returns a new network controller
 func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServiceClient,
 	tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager,
-	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
+	models modelregistry.ModelRegistry,
+	oidRegistry oid.Registry,
+	ranFunctionRegistry ranfunctions.Registry) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: epapi.ID(env.GetPodID()),
@@ -59,6 +63,7 @@ func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServic
 		models:                    models,
 		oidRegistry:               oidRegistry,
 		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
+		ranFunctionRegistry:       ranFunctionRegistry,
 	})
 	return c
 }
@@ -77,6 +82,7 @@ type Reconciler struct {
 	models                    modelregistry.ModelRegistry
 	oidRegistry               oid.Registry
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
+	ranFunctionRegistry       ranfunctions.Registry
 }
 
 // Reconcile reconciles the state of a device change
@@ -194,7 +200,12 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFuncID := channel.GetRANFunctionID(serviceModelOID)
+	ranFuncID := types.RanFunctionID(sub.Details.ServiceModel.RANFunctionID)
+	log.Info("Test Ran function ID:", ranFuncID)
+	ranFunctionFound := r.ranFunctionRegistry.Contains(ranfunctions.NewID(serviceModelOID), ranFuncID)
+	if !ranFunctionFound {
+		log.Warn("Ran function has not been found")
+	}
 
 	var eventTriggerBytes []byte
 	if sub.Details.EventTrigger.Payload.Encoding == subapi.Encoding_ENCODING_ASN1 {
@@ -399,12 +410,16 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		InstanceID:  config.InstanceID,
 	}
 
-	serviceModelOid, err := oid.ModelIDToOid(r.oidRegistry, string(sub.Details.ServiceModel.Name), string(sub.Details.ServiceModel.Version))
+	serviceModelOID, err := oid.ModelIDToOid(r.oidRegistry, string(sub.Details.ServiceModel.Name), string(sub.Details.ServiceModel.Version))
 	if err != nil {
 		log.Warn(err)
 		return controller.Result{}, err
 	}
-	ranFuncID := channel.GetRANFunctionID(serviceModelOid)
+	ranFuncID := types.RanFunctionID(sub.Details.ServiceModel.RANFunctionID)
+	ranFunctionFound := r.ranFunctionRegistry.Contains(ranfunctions.NewID(serviceModelOID), ranFuncID)
+	if !ranFunctionFound {
+		log.Warn("Ran function has not been found")
+	}
 
 	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFuncID)
 	if err != nil {

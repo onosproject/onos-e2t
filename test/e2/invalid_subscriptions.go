@@ -27,6 +27,7 @@ type invalidSubscriptionTestCase struct {
 	actionID            int32
 	expectedError       subtaskapi.Cause
 	enabled             bool
+	ranFunctionID       subapi.RANFunctionID
 }
 
 func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
@@ -53,6 +54,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		ActionID:             testCase.actionID,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		RANFunctionID:        testCase.ranFunctionID,
 	}
 
 	subReq, err := subRequest.Create()
@@ -98,6 +100,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			eventTrigger:        eventTriggerBytes,
 			actionID:            actionID,
 			expectedError:       subtaskapi.Cause_CAUSE_RIC_ACTION_NOT_SUPPORTED,
+			ranFunctionID:       1,
 		},
 		{
 			description:         "Invalid encoding type",
@@ -109,6 +112,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			eventTrigger:        eventTriggerBytes,
 			actionID:            actionID,
 			expectedError:       subtaskapi.Cause_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE,
+			ranFunctionID:       1,
 		},
 		{
 			description:         "Invalid action ID",
@@ -120,6 +124,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			eventTrigger:        eventTriggerBytes,
 			actionID:            100000,
 			expectedError:       subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+			ranFunctionID:       1,
 		},
 		{
 			description:         "Invalid event trigger",
@@ -131,6 +136,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			eventTrigger:        make([]byte, 50),
 			actionID:            actionID,
 			expectedError:       subtaskapi.Cause_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+			ranFunctionID:       1,
 		},
 	}
 

@@ -47,6 +47,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		RANFunctionID:        4,
 	}
 
 	subReq, err := subRequest.Create()
