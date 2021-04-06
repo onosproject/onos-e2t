@@ -13,6 +13,7 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
+	"fmt"
 	"unsafe"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
@@ -514,6 +515,101 @@ func decodeRicControlRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P7_t) (
 		}
 		if ie.E2ApProtocolIes21 != nil {
 			pIEs.E2ApProtocolIes21 = ie.E2ApProtocolIes21
+		}
+		if ie.E2ApProtocolIes29 != nil {
+			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newRicControlFailureIEs(rcFIes *e2appducontents.RiccontrolFailureIes) (*C.ProtocolIE_Container_1710P9_t, error) {
+	pIeC1710P9 := new(C.ProtocolIE_Container_1710P9_t)
+
+	if rcFIes.GetE2ApProtocolIes5() != nil {
+		ie5c, err := newRicControlFailureIe5RanFunctionID(rcFIes.GetE2ApProtocolIes5())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P9), unsafe.Pointer(ie5c)); err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, fmt.Errorf("newRicControlFailureIEs() RanFunctionID should be mandatory present in the message")
+	}
+
+	if rcFIes.GetE2ApProtocolIes20() != nil {
+		ie20c, err := newRicControlFailureIe20RiccallProcessID(rcFIes.GetE2ApProtocolIes20())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P9), unsafe.Pointer(ie20c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rcFIes.GetE2ApProtocolIes32() != nil {
+		ie22c, err := newRicControlFailureIe32RiccontrolOutcome(rcFIes.GetE2ApProtocolIes32())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P9), unsafe.Pointer(ie22c)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rcFIes.GetE2ApProtocolIes1() != nil {
+		ie21c, err := newRicControlFailureIe1Cause(rcFIes.GetE2ApProtocolIes1())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P9), unsafe.Pointer(ie21c)); err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, fmt.Errorf("newRicControlFailureIEs() Cause should be mandatory present in the message")
+	}
+
+	if rcFIes.GetE2ApProtocolIes29() != nil {
+		ie29c, err := newRicControlFailureIe29RicRequestID(rcFIes.GetE2ApProtocolIes29())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P9), unsafe.Pointer(ie29c)); err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, fmt.Errorf("newRicControlFailureIEs() RicRequestID should be mandatory present in the message")
+	}
+
+	return pIeC1710P9, nil
+}
+
+func decodeRicControlFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P9_t) (*e2appducontents.RiccontrolFailureIes, error) {
+	pIEs := new(e2appducontents.RiccontrolFailureIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P9 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i) // Forget the rest - this works - 7Nov20
+		rcfIeC := *(**C.RICcontrolFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicControlFailureIE(rcfIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes5 != nil {
+			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		}
+		if ie.E2ApProtocolIes20 != nil {
+			pIEs.E2ApProtocolIes20 = ie.E2ApProtocolIes20
+		}
+		if ie.E2ApProtocolIes32 != nil {
+			pIEs.E2ApProtocolIes32 = ie.E2ApProtocolIes32
+		}
+		if ie.E2ApProtocolIes1 != nil {
+			pIEs.E2ApProtocolIes1 = ie.E2ApProtocolIes1
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
