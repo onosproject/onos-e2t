@@ -20,7 +20,6 @@ type Control struct {
 	ControlHeader       []byte
 	ControlAckRequest   e2tapi.ControlAckRequest
 	EncodingType        e2tapi.EncodingType
-	RANFunctionID       e2tapi.RANFunctionID
 }
 
 // RcControlHeader required fields for creating RC service model control header
@@ -87,9 +86,8 @@ func (cr *Control) Create() (*e2tapi.ControlRequest, error) {
 		Header: &e2tapi.RequestHeader{
 			EncodingType: cr.EncodingType,
 			ServiceModel: &e2tapi.ServiceModel{
-				Name:          cr.ServiceModelName,
-				Version:       cr.ServiceModelVersion,
-				RANFunctionID: cr.RANFunctionID,
+				Name:    cr.ServiceModelName,
+				Version: cr.ServiceModelVersion,
 			},
 		},
 		ControlAckRequest: cr.ControlAckRequest,

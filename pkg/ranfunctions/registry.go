@@ -7,91 +7,90 @@ package ranfunctions
 import (
 	"sync"
 
-	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-var log = logging.GetLogger("registry", "ranfunctions")
-
 // RANFunctions supported RAN functions per service model
 type RANFunctions struct {
-	ranFunctions map[ID][]RANFunction
+	ranFunctions map[ID]RANFunction
 	mu           sync.RWMutex
 }
 
 // RANFunction RAN function information
 type RANFunction struct {
-	ID          types.RanFunctionID
-	Name        string
-	Description string
+	OID e2smtypes.OID
+	ID  types.RanFunctionID
+	// protobuf encoded description
+	Description []byte
 }
 
 // ID ID for a RAN function
 type ID struct {
-	oid e2smtypes.OID
-	// TODO Node ID should be added as well since RAN function IDs are unique inside each E2 node
+	oid    e2smtypes.OID
+	nodeID string
 }
 
 // NewID creates a key for RANFunction based on OID and node ID
-func NewID(oid e2smtypes.OID) ID {
+func NewID(oid e2smtypes.OID, nodeID string) ID {
 	return ID{
-		oid: oid,
+		oid:    oid,
+		nodeID: nodeID,
 	}
 }
 
 // NewRegistry creates a new registry
 func NewRegistry() *RANFunctions {
 	return &RANFunctions{
-		ranFunctions: make(map[ID][]RANFunction),
+		ranFunctions: make(map[ID]RANFunction),
 	}
 
 }
 
 // Remove removes a RAN function from registry
 func (r *RANFunctions) Remove(id ID, ranFunction RANFunction) error {
-	panic("implement me")
-}
-
-func (r *RANFunctions) Contains(id ID, ranFunctionID types.RanFunctionID) bool {
-	r.mu.RLock()
-	defer r.mu.RUnlock()
-
-	ranFunctions, ok := r.ranFunctions[id]
-	if !ok {
-		return false
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if id.nodeID == "" || id.oid == "" {
+		return errors.NewInvalid("node ID or OID cannot be empty")
 	}
-	log.Info("Test: ranfunctions:", r.ranFunctions)
-	for _, ranFunctionValue := range ranFunctions {
-		if ranFunctionID == ranFunctionValue.ID {
-			return true
-		}
-	}
-	return false
+	delete(r.ranFunctions, id)
+	return nil
 }
 
 // Add adds a RAN function to the registry
 func (r *RANFunctions) Add(id ID, ranFunction RANFunction) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	ranFunctions, ok := r.ranFunctions[id]
-	if !ok {
-		var ranFunctions []RANFunction
-		ranFunctions = append(ranFunctions, ranFunction)
-		r.ranFunctions[id] = ranFunctions
-		return nil
+	r.ranFunctions[id] = ranFunction
+	return nil
+}
 
+// Get gets a RANFunction per id
+func (r *RANFunctions) Get(id ID) (RANFunction, error) {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+	ranFunction, ok := r.ranFunctions[id]
+	if !ok {
+		return RANFunction{}, errors.New(errors.NotFound, "ran function has not been found")
 	}
-	for _, ranFunctionValue := range ranFunctions {
-		if ranFunctionValue.ID == ranFunction.ID {
-			return nil
+	return ranFunction, nil
+}
+
+// GetRANFunctionsPerNode ...
+func (r *RANFunctions) GetRANFunctionsByNodeID(nodeID string) []RANFunction {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+	var ranFunctions []RANFunction
+	for ranFunctionID, ranFunction := range r.ranFunctions {
+		if nodeID == ranFunctionID.nodeID {
+			ranFunctions = append(ranFunctions, ranFunction)
 		}
 	}
 
-	ranFunctions = append(ranFunctions, ranFunction)
-	r.ranFunctions[id] = ranFunctions
-	return nil
+	return ranFunctions
 }
 
 // Registry register RAN functions for each service model
@@ -100,8 +99,12 @@ type Registry interface {
 	Add(id ID, ranFunction RANFunction) error
 	// Remove removes a RAN function ID for a service model
 	Remove(id ID, ranFunction RANFunction) error
-	// Contains checks if a RAN function ID does exist for a service model
-	Contains(id ID, ranFunctionID types.RanFunctionID) bool
+
+	// Get gets a RANFunction per id
+	Get(id ID) (RANFunction, error)
+
+	// GetRANFunctionsPerNode get RAN functions per node
+	GetRANFunctionsByNodeID(nodeID string) []RANFunction
 }
 
 var _ Registry = &RANFunctions{}

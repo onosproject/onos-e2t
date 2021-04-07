@@ -16,6 +16,7 @@ const (
 	KpmServiceModelVersion2 = "v2"
 	RcServiceModelName      = "oran-e2sm-rc-pre"
 	RcServiceModelVersion1  = "v1"
+	KpmServiceModelOIDV2    = "1.3.6.1.4.1.53148.1.2.2.2"
 
 	E2TServiceHost    = "onos-e2t"
 	E2TServicePort    = 5150

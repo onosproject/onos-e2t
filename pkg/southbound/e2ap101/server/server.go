@@ -93,11 +93,12 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
 	plugins := e.modelRegistry.GetPlugins()
-	for id, ranFunc := range *ranFuncs {
-		rfAccepted[id] = ranFunc.Revision
+	for ranFunctionID, ranFunc := range *ranFuncs {
+		rfAccepted[ranFunctionID] = ranFunc.Revision
 		for smOid, sm := range plugins {
 			if string(smOid) == string(ranFunc.OID) {
 				log.Infof("Decoding RanFunction description for OID: %s", ranFunc.OID)
+
 				name, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
 				if err != nil {
 					log.Warn(err)
@@ -113,12 +114,18 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 					len(*triggers), len(*reports))
 				oid := name.RanFunctionE2SmOid
 
-				ranFunction := ranfunctions.RANFunction{
-					ID:          id,
-					Name:        string(name.RanFunctionShortName),
-					Description: string(name.RanFunctionDescription),
+				ranFunctionDescriptionProto, err := sm.RanFuncDescriptionASN1toProto(ranFunc.Description)
+				if err != nil {
+					log.Warn(err)
+					continue
 				}
-				id := ranfunctions.NewID(oid)
+
+				ranFunction := ranfunctions.RANFunction{
+					OID:         oid,
+					ID:          ranFunctionID,
+					Description: ranFunctionDescriptionProto,
+				}
+				id := ranfunctions.NewID(oid, string(channelID))
 				err = e.ranFunctionRegistry.Add(id, ranFunction)
 				if err != nil {
 					log.Warn(err)

@@ -53,7 +53,6 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
-		RANFunctionID:        1,
 	}
 
 	subReq, err := subRequest.Create()
@@ -77,7 +76,6 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
-		RANFunctionID:        3,
 	}
 
 	subReq, err = subRequest.Create()

@@ -106,7 +106,6 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
-		RANFunctionID:        3,
 	}
 
 	subDetails, err := subBuilder.Create()
@@ -131,9 +130,8 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 		Header: &e2.RequestHeader{
 			EncodingType: e2.EncodingType_PROTO,
 			ServiceModel: &e2.ServiceModel{
-				Name:          utils.RcServiceModelName,
-				Version:       utils.RcServiceModelVersion1,
-				RANFunctionID: 3,
+				Name:    utils.RcServiceModelName,
+				Version: utils.RcServiceModelVersion1,
 			},
 		},
 		AppID:          "subscription-indication-buffering-test",

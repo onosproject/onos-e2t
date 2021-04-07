@@ -151,14 +151,13 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 	}
 
-	ranFuncID := types.RanFunctionID(request.Header.ServiceModel.RANFunctionID)
-	ranFunctionFound := s.ranFunctionRegistry.Contains(ranfunctions.NewID(serviceModelOID), ranFuncID)
-	if !ranFunctionFound {
-		log.Warn("Ran function has not been found")
+	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(request.E2NodeID)))
+	if err != nil {
+		log.Warn(err)
 	}
 
 	controlAckRequest := getControlAckRequest(request)
-	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
 
 	if err != nil {
 		log.Warn(err)

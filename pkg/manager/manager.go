@@ -143,7 +143,7 @@ func (m *Manager) startNorthboundServer(streams subscription.Broker,
 		int16(m.Config.GRPCPort),
 		true,
 		northbound.SecurityConfig{}))
-	s.AddService(admin.NewService(channels))
+	s.AddService(admin.NewService(channels, ranFunctionRegistry))
 	s.AddService(logging.Service{})
 	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry,
 		channels, m.OidRegistry, ranFunctionRegistry))
