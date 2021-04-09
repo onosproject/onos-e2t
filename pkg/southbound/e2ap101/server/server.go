@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"strconv"
 
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
+
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
@@ -96,24 +98,8 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	for ranFunctionID, ranFunc := range *ranFuncs {
 		rfAccepted[ranFunctionID] = ranFunc.Revision
 		for smOid, sm := range plugins {
-			if string(smOid) == string(ranFunc.OID) {
-				log.Infof("Decoding RanFunction description for OID: %s", ranFunc.OID)
-
-				name, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
-				if err != nil {
-					log.Warn(err)
-					continue
-				}
-
-				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
-					"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
-					name.RanFunctionShortName,
-					name.RanFunctionDescription,
-					name.RanFunctionInstance,
-					name.RanFunctionE2SmOid,
-					len(*triggers), len(*reports))
-				oid := name.RanFunctionE2SmOid
-
+			oid := e2smtypes.OID(ranFunc.OID)
+			if smOid == oid {
 				ranFunctionDescriptionProto, err := sm.RanFuncDescriptionASN1toProto(ranFunc.Description)
 				if err != nil {
 					log.Warn(err)

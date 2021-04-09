@@ -7,9 +7,9 @@ package ranfunctions
 import (
 	"sync"
 
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
-	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
