@@ -249,6 +249,22 @@ func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2a
 				Value:       request.ProtocolIes.E2ApProtocolIes29.Value,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
+			E2ApProtocolIes5: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes5{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Value: &e2apies.RanfunctionId{
+					Value: int32(1),
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+			E2ApProtocolIes17: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17{
+				Id:          int32(v1beta2.ProtocolIeIDRicactionsAdmitted),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Value: &e2appducontents.RicactionAdmittedList{
+					Value: nil,
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
 		},
 	}, nil, nil
 }
@@ -269,7 +285,24 @@ func (p *testClientProcedures) RICSubscriptionDelete(ctx context.Context, reques
 type testServerProcedures struct{}
 
 func (p *testServerProcedures) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (response *e2appducontents.E2SetupResponse, failure *e2appducontents.E2SetupFailure, err error) {
-	return &e2appducontents.E2SetupResponse{}, nil, nil
+	return &e2appducontents.E2SetupResponse{
+		ProtocolIes: &e2appducontents.E2SetupResponseIes{
+			E2ApProtocolIes4: &e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
+				Id:          int32(v1beta2.ProtocolIeIDGlobalRicID),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Value: &e2apies.GlobalRicId{
+					PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
+						Value: []byte{0x01, 0x02, 0x03},
+					},
+					RicId: &e2ap_commondatatypes.BitString{
+						Value: uint64(1),
+						Len:   uint32(1),
+					},
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+		},
+	}, nil, nil
 }
 
 func (p *testServerProcedures) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) (err error) {
