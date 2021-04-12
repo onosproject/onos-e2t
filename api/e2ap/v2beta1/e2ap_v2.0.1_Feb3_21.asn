@@ -156,12 +156,12 @@ E2AP-ELEMENTARY-PROCEDURES-CLASS-2 E2AP-ELEMENTARY-PROCEDURE ::= {
 --
 -- **************************************************************
 
--- New for v01.01
-e2connectionUpdate		E2AP-ELEMENTARY-PROCEDURE ::= {
-	INITIATING MESSAGE		E2connectionUpdate
-	SUCCESSFUL OUTCOME		E2connectionUpdateAcknowledge
-	UNSUCCESSFUL OUTCOME	E2connectionUpdateFailure
-	PROCEDURE CODE			id-E2connectionUpdate
+-- New for v01.01
+e2connectionUpdate	E2AP-ELEMENTARY-PROCEDURE ::= {
+	INITIATING MESSAGE		E2connectionUpdate
+	SUCCESSFUL OUTCOME		E2connectionUpdateAcknowledge
+	UNSUCCESSFUL OUTCOME	E2connectionUpdateFailure
+	PROCEDURE CODE			id-E2connectionUpdate
 	CRITICALITY				reject
 }
 
@@ -705,7 +705,7 @@ E2setupFailureIEs E2AP-PROTOCOL-IES ::= {
 	{ ID id-Cause						CRITICALITY ignore	TYPE Cause						PRESENCE mandatory	}|
 	{ ID id-TimeToWait					CRITICALITY ignore	TYPE TimeToWait					PRESENCE optional	}|
 	{ ID id-CriticalityDiagnostics		CRITICALITY ignore	TYPE CriticalityDiagnostics		PRESENCE optional	}|
-	{ ID id-TNLinformation				CRITICALITY ignore	TYPE TNLinformation				PRESENCE optional	},
+	{ ID id-TNLinformation				CRITICALITY ignore	TYPE TNLinformation		PRESENCE optional	},
 	...
 }
 
@@ -872,7 +872,7 @@ E2nodeComponentConfigUpdateAck-ItemIEs 	E2AP-PROTOCOL-IES ::= {
 E2nodeComponentConfigUpdateAck-Item ::= SEQUENCE {
 	e2nodeComponentType					E2nodeComponentType,
 	e2nodeComponentID					E2nodeComponentID			OPTIONAL,
-	e2nodeComponentConfigUpdateAck		E2nodeComponentConfigUpdateAck,
+	e2nodeComponentConfigUpdateAck	E2nodeComponentConfigUpdateAck,
 	...
 }
 
@@ -1551,10 +1551,6 @@ ProtocolIE-ID		::= INTEGER (0..65535)
 TriggeringMessage	::= ENUMERATED { initiating-message, successful-outcome, unsuccessfull-outcome }
 
 END
--- ASN1STOP
-
-
--- ASN1START
 -- **************************************************************
 --
 -- Constant definitions
