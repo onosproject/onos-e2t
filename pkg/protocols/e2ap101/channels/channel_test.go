@@ -11,6 +11,7 @@ import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap101/procedures"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"github.com/stretchr/testify/assert"
 	"io"
 	"net"
@@ -241,6 +242,23 @@ func (p *testClientProcedures) RICControl(ctx context.Context, request *e2appduc
 }
 
 func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2appducontents.RicsubscriptionRequest) (response *e2appducontents.RicsubscriptionResponse, failure *e2appducontents.RicsubscriptionFailure, err error) {
+	var ricActionAdmitted10 types.RicActionID = 10
+	var ricActionAdmitted20 types.RicActionID = 20
+	ricActionsAccepted := []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}
+	res := make([]*e2appducontents.RicactionAdmittedItemIes, 0)
+	for _, raa := range ricActionsAccepted {
+		raaIe := &e2appducontents.RicactionAdmittedItemIes{
+			Id:          int32(v1beta2.ProtocolIeIDRicactionAdmittedItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.RicactionAdmittedItem{
+				RicActionId: &e2apies.RicactionId{
+					Value: int32(*raa),
+				},
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		res = append(res, raaIe)
+	}
 	return &e2appducontents.RicsubscriptionResponse{
 		ProtocolIes: &e2appducontents.RicsubscriptionResponseIes{
 			E2ApProtocolIes29: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes29{
@@ -248,6 +266,22 @@ func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2a
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       request.ProtocolIes.E2ApProtocolIes29.Value,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+			E2ApProtocolIes5: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes5{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Value: &e2apies.RanfunctionId{
+					Value: int32(1),
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+			E2ApProtocolIes17: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17{
+				Id:          int32(v1beta2.ProtocolIeIDRicactionsAdmitted),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Value: &e2appducontents.RicactionAdmittedList{
+					Value: res,
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 		},
 	}, nil, nil
@@ -269,7 +303,24 @@ func (p *testClientProcedures) RICSubscriptionDelete(ctx context.Context, reques
 type testServerProcedures struct{}
 
 func (p *testServerProcedures) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (response *e2appducontents.E2SetupResponse, failure *e2appducontents.E2SetupFailure, err error) {
-	return &e2appducontents.E2SetupResponse{}, nil, nil
+	return &e2appducontents.E2SetupResponse{
+		ProtocolIes: &e2appducontents.E2SetupResponseIes{
+			E2ApProtocolIes4: &e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
+				Id:          int32(v1beta2.ProtocolIeIDGlobalRicID),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Value: &e2apies.GlobalRicId{
+					PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
+						Value: []byte{0x01, 0x02, 0x03},
+					},
+					RicId: &e2ap_commondatatypes.BitString{
+						Value: 0xABCDE,
+						Len:   20,
+					},
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+		},
+	}, nil, nil
 }
 
 func (p *testServerProcedures) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) (err error) {

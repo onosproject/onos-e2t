@@ -13,11 +13,11 @@ build:
 
 test: # @HELP run the unit tests and source code validation producing a golang style report
 test: build deps linters license_check
-	go test -race github.com/onosproject/onos-e2t/...
+	GODEBUG=cgocheck=0 go test -race github.com/onosproject/onos-e2t/...
 
 jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
 jenkins-test: build-tools deps license_check linters
-	TEST_PACKAGES=github.com/onosproject/onos-e2t/... ./../build-tools/build/jenkins/make-unit
+	GODEBUG=cgocheck=0 TEST_PACKAGES=github.com/onosproject/onos-e2t/... ./../build-tools/build/jenkins/make-unit
 
 coverage: # @HELP generate unit test coverage data
 coverage: build deps linters license_check

@@ -30,6 +30,8 @@ func newE2SetupRequestIes(esv *e2appducontents.E2SetupRequestIes) (*C.ProtocolIE
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P11), unsafe.Pointer(ie3C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newE2SetupRequestIes(): GlobalE2NodeID should be mandatory present in the message")
 	}
 
 	if esv.GetE2ApProtocolIes10() != nil {
@@ -70,6 +72,8 @@ func decodeE2SetupRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P11_t) (*e
 		}
 		if ie.E2ApProtocolIes3 != nil {
 			pIEs.E2ApProtocolIes3 = ie.E2ApProtocolIes3
+		//} else {
+		//	return nil, fmt.Errorf("decodeE2SetupRequestIes(): obtained payload doesn't contain GlobalE2NodeID")
 		}
 		if ie.E2ApProtocolIes10 != nil {
 			pIEs.E2ApProtocolIes10 = ie.E2ApProtocolIes10
@@ -93,6 +97,8 @@ func newE2SetupResponseIes(e2srIEs *e2appducontents.E2SetupResponseIes) (*C.Prot
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P12), unsafe.Pointer(ie4C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newE2SetupResponseIes(): GlobalRicID should be mandatory present in the message")
 	}
 
 	if e2srIEs.GetE2ApProtocolIes9() != nil {
@@ -143,6 +149,8 @@ func decodeE2SetupResponseIes(protocolIEsC *C.ProtocolIE_Container_1710P12_t) (*
 		}
 		if ie.E2ApProtocolIes4 != nil {
 			pIEs.E2ApProtocolIes4 = ie.E2ApProtocolIes4
+		//} else {
+		//	return nil, fmt.Errorf("decodeE2SetupResponseIes(): obtained payload doesn't contain GlobalRicID")
 		}
 		if ie.E2ApProtocolIes9 != nil {
 			pIEs.E2ApProtocolIes9 = ie.E2ApProtocolIes9
@@ -169,6 +177,8 @@ func newRicSubscriptionResponseIe(rsrIEs *e2appducontents.RicsubscriptionRespons
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P1), unsafe.Pointer(ie5C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionResponseIe(): RanFunctionID should be mandatory present in the message")
 	}
 	if rsrIEs.GetE2ApProtocolIes17() != nil {
 		ie17C, err := newRicSubscriptionResponseIe17RactionAdmittedList(rsrIEs.GetE2ApProtocolIes17())
@@ -178,10 +188,12 @@ func newRicSubscriptionResponseIe(rsrIEs *e2appducontents.RicsubscriptionRespons
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P1), unsafe.Pointer(ie17C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionResponseIe(): RicActionAdmittedList should be mandatory present in the message")
 	}
-	// TODO: Comment back in when RICactionRejected is handled
+	//TODO: Comment back in when RICactionRejected is handled
 	//if rsrIEs.GetE2ApProtocolIes18() != nil {
-	//	ie18C, err := newE2setupResponseIe4GlobalRicID(rsrIEs.GetE2ApProtocolIes18())
+	//	ie18C, err := newRicSubscriptionResponseIe18RicActionNotAdmittedList(rsrIEs.GetE2ApProtocolIes18())
 	//	if err != nil {
 	//		return nil, err
 	//	}
@@ -197,6 +209,8 @@ func newRicSubscriptionResponseIe(rsrIEs *e2appducontents.RicsubscriptionRespons
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P1), unsafe.Pointer(ie29C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionResponseIe(): RicRequestID should be mandatory present in the message")
 	}
 	return pIeC1710P1, nil
 }
@@ -216,15 +230,21 @@ func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1710P
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes17 != nil {
 			pIEs.E2ApProtocolIes17 = ie.E2ApProtocolIes17
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RicActionAdmittedList")
 		}
 		if ie.E2ApProtocolIes18 != nil {
 			pIEs.E2ApProtocolIes18 = ie.E2ApProtocolIes18
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RicRequestID")
 		}
 	}
 
@@ -305,6 +325,8 @@ func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P6), unsafe.Pointer(ie5c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicIndicationIEs(): RanFunctionID should be mandatory present in the message")
 	}
 
 	if riIes.GetE2ApProtocolIes15() != nil {
@@ -315,6 +337,8 @@ func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P6), unsafe.Pointer(ie15c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicIndicationIEs(): RicActionID should be mandatory present in the message")
 	}
 
 	if riIes.GetE2ApProtocolIes20() != nil {
@@ -335,6 +359,8 @@ func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P6), unsafe.Pointer(ie25c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicIndicationIEs(): RicIndicationHeader should be mandatory present in the message")
 	}
 
 	if riIes.GetE2ApProtocolIes26() != nil {
@@ -345,6 +371,8 @@ func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P6), unsafe.Pointer(ie26c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicIndicationIEs(): RicIndicationMessage should be mandatory present in the message")
 	}
 
 	if riIes.GetE2ApProtocolIes27() != nil {
@@ -365,6 +393,8 @@ func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P6), unsafe.Pointer(ie28c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicIndicationIEs(): RicIndicationType should be mandatory present in the message")
 	}
 
 	if riIes.GetE2ApProtocolIes29() != nil {
@@ -375,6 +405,8 @@ func newRicIndicationIEs(riIes *e2appducontents.RicindicationIes) (*C.ProtocolIE
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P6), unsafe.Pointer(ie29c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicIndicationIEs(): RicRequestID should be mandatory present in the message")
 	}
 
 	return pIeC1710P6, nil
@@ -395,27 +427,39 @@ func decodeRicIndicationIes(protocolIEsC *C.ProtocolIE_Container_1710P6_t) (*e2a
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes15 != nil {
 			pIEs.E2ApProtocolIes15 = ie.E2ApProtocolIes15
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicActionID")
 		}
 		if ie.E2ApProtocolIes20 != nil {
 			pIEs.E2ApProtocolIes20 = ie.E2ApProtocolIes20
 		}
 		if ie.E2ApProtocolIes25 != nil {
 			pIEs.E2ApProtocolIes25 = ie.E2ApProtocolIes25
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationHeader")
 		}
 		if ie.E2ApProtocolIes26 != nil {
 			pIEs.E2ApProtocolIes26 = ie.E2ApProtocolIes26
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationMessage")
 		}
 		if ie.E2ApProtocolIes27 != nil {
 			pIEs.E2ApProtocolIes27 = ie.E2ApProtocolIes27
 		}
 		if ie.E2ApProtocolIes28 != nil {
 			pIEs.E2ApProtocolIes28 = ie.E2ApProtocolIes28
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationType")
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicrequestID")
 		}
 	}
 
@@ -433,6 +477,8 @@ func newRicControlRequestIEs(rcRIes *e2appducontents.RiccontrolRequestIes) (*C.P
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P7), unsafe.Pointer(ie5c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicControlRequestIEs(): RanFunctionID should be mandatory present in the message")
 	}
 
 	if rcRIes.GetE2ApProtocolIes20() != nil {
@@ -453,6 +499,8 @@ func newRicControlRequestIEs(rcRIes *e2appducontents.RiccontrolRequestIes) (*C.P
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P7), unsafe.Pointer(ie22c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicControlRequestIEs(): RicControlHeader should be mandatory present in the message")
 	}
 
 	if rcRIes.GetE2ApProtocolIes23() != nil {
@@ -463,6 +511,8 @@ func newRicControlRequestIEs(rcRIes *e2appducontents.RiccontrolRequestIes) (*C.P
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P7), unsafe.Pointer(ie23c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicControlRequestIEs(): RicControlMessage should be mandatory present in the message")
 	}
 
 	if rcRIes.GetE2ApProtocolIes21() != nil {
@@ -483,6 +533,8 @@ func newRicControlRequestIEs(rcRIes *e2appducontents.RiccontrolRequestIes) (*C.P
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P7), unsafe.Pointer(ie29c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicControlRequestIEs(): RicRequestID should be mandatory present in the message")
 	}
 
 	return pIeC1710P7, nil
@@ -503,21 +555,29 @@ func decodeRicControlRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P7_t) (
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes20 != nil {
 			pIEs.E2ApProtocolIes20 = ie.E2ApProtocolIes20
 		}
 		if ie.E2ApProtocolIes22 != nil {
 			pIEs.E2ApProtocolIes22 = ie.E2ApProtocolIes22
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicControlHeader")
 		}
 		if ie.E2ApProtocolIes23 != nil {
 			pIEs.E2ApProtocolIes23 = ie.E2ApProtocolIes23
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicControlMessage")
 		}
 		if ie.E2ApProtocolIes21 != nil {
 			pIEs.E2ApProtocolIes21 = ie.E2ApProtocolIes21
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicRequestID")
 		}
 	}
 
@@ -630,6 +690,8 @@ func newRicControlAcknowledgeIEs(rcaIes *e2appducontents.RiccontrolAcknowledgeIe
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P8), unsafe.Pointer(ie5c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicControlAcknowledgeIEs(): RanFunctionID should be mandatory present in the message")
 	}
 
 	if rcaIes.GetE2ApProtocolIes20() != nil {
@@ -650,6 +712,8 @@ func newRicControlAcknowledgeIEs(rcaIes *e2appducontents.RiccontrolAcknowledgeIe
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P8), unsafe.Pointer(ie22c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicControlAcknowledgeIEs(): RicControlStatus should be mandatory present in the message")
 	}
 
 	if rcaIes.GetE2ApProtocolIes29() != nil {
@@ -660,6 +724,8 @@ func newRicControlAcknowledgeIEs(rcaIes *e2appducontents.RiccontrolAcknowledgeIe
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P8), unsafe.Pointer(ie29c)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicControlAcknowledgeIEs(): RicRequestID should be mandatory present in the message")
 	}
 
 	if rcaIes.GetE2ApProtocolIes32() != nil {
@@ -690,15 +756,21 @@ func decodeRicControlAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container_1710P8_
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes20 != nil {
 			pIEs.E2ApProtocolIes20 = ie.E2ApProtocolIes20
 		}
 		if ie.E2ApProtocolIes24 != nil {
 			pIEs.E2ApProtocolIes24 = ie.E2ApProtocolIes24
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RicControlStatus")
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RicRequestID")
 		}
 		if ie.E2ApProtocolIes32 != nil {
 			pIEs.E2ApProtocolIes32 = ie.E2ApProtocolIes32
@@ -828,6 +900,8 @@ func newRicSubscriptionFailureIe(rsdIEs *e2appducontents.RicsubscriptionFailureI
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P2), unsafe.Pointer(ie5C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionFailureIe(): RanFunctionID should be mandatory present in the message")
 	}
 
 	if rsdIEs.GetE2ApProtocolIes18() != nil {
@@ -838,6 +912,8 @@ func newRicSubscriptionFailureIe(rsdIEs *e2appducontents.RicsubscriptionFailureI
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P2), unsafe.Pointer(ie2C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionFailureIe(): RicActionNotAdmittedList should be mandatory present in the message")
 	}
 
 	if rsdIEs.GetE2ApProtocolIes29() != nil {
@@ -848,6 +924,8 @@ func newRicSubscriptionFailureIe(rsdIEs *e2appducontents.RicsubscriptionFailureI
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P2), unsafe.Pointer(ie29C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionFailureIe(): RicRequestID should be mandatory present in the message")
 	}
 
 	return pIeC1710P2, nil
@@ -871,12 +949,18 @@ func decodeRicSubscriptionFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P2
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RanFunctionID")
 		}
 		if ie.E2ApProtocolIes18 != nil {
 			pIEs.E2ApProtocolIes18 = ie.E2ApProtocolIes18
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RicActionNotAdmittedList")
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RicRequestID")
 		}
 	}
 
@@ -894,6 +978,8 @@ func newRicSubscriptionDeleteFailureIe(rsdfIEs *e2appducontents.RicsubscriptionD
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P5), unsafe.Pointer(ie5C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionDeleteFailureIe(): RanFunctionID should be mandatory present in the message")
 	}
 
 	if rsdfIEs.GetE2ApProtocolIes29() != nil {
@@ -904,6 +990,8 @@ func newRicSubscriptionDeleteFailureIe(rsdfIEs *e2appducontents.RicsubscriptionD
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P5), unsafe.Pointer(ie29C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionDeleteFailureIe(): RicRequestID should be mandatory present in the message")
 	}
 
 	if rsdfIEs.GetE2ApProtocolIes1() != nil {
@@ -914,6 +1002,8 @@ func newRicSubscriptionDeleteFailureIe(rsdfIEs *e2appducontents.RicsubscriptionD
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P5), unsafe.Pointer(ie1C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionDeleteFailureIe(): Cause should be mandatory present in the message")
 	}
 
 	if rsdfIEs.GetE2ApProtocolIes2() != nil {
@@ -943,12 +1033,18 @@ func decodeRicSubscriptionDeleteFailureIes(protocolIEsC *C.ProtocolIE_Container_
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain RicRequestID")
 		}
 		if ie.E2ApProtocolIes1 != nil {
 			pIEs.E2ApProtocolIes1 = ie.E2ApProtocolIes1
+		//} else {
+		//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain Cause")
 		}
 		if ie.E2ApProtocolIes2 != nil {
 			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2
@@ -1045,6 +1141,8 @@ func newE2setupFailureIe(e2sfIEs *e2appducontents.E2SetupFailureIes) (*C.Protoco
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P13), unsafe.Pointer(ie1C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newE2setupFailureIe(): Cause should be mandatory present in the message")
 	}
 
 	if e2sfIEs.GetE2ApProtocolIes2() != nil {
@@ -1095,6 +1193,8 @@ func decodeE2setupFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P13_t) (*e
 		}
 		if ie.E2ApProtocolIes1 != nil {
 			pIEs.E2ApProtocolIes1 = ie.E2ApProtocolIes1
+		//} else {
+		//	return nil, fmt. Errorf("decodeE2setupFailureIes(): obtained payload doesn't contain Cause")
 		}
 		if ie.E2ApProtocolIes2 != nil {
 			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2

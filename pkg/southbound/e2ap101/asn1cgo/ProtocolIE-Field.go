@@ -856,6 +856,38 @@ func newRicSubscriptionResponseIe17RactionAdmittedList(rsrRrIe *e2appducontents.
 	return &ie, nil
 }
 
+func newRicSubscriptionResponseIe18RicActionNotAdmittedList(rsrRanaIe *e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes18) (*C.RICsubscriptionResponse_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsrRanaIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicactionsNotAdmitted)
+	if err != nil {
+		return nil, err
+	}
+
+	listC := [48]byte{} // The size of the E2setupResponseIEs__value_u
+
+	ricActionNotAdmittedListC, err := newRicActionNotAdmittedList(rsrRanaIe.Value)
+	if err != nil {
+		return nil, fmt.Errorf("newRicActionAdmittedList() %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(listC[0:], uint64(uintptr(unsafe.Pointer(ricActionNotAdmittedListC.list.array))))
+	binary.LittleEndian.PutUint32(listC[8:], uint32(ricActionNotAdmittedListC.list.count))
+	binary.LittleEndian.PutUint32(listC[12:], uint32(ricActionNotAdmittedListC.list.size))
+
+	ie := C.RICsubscriptionResponse_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_RICsubscriptionResponse_IEs__value{
+			present: C.RICsubscriptionResponse_IEs__value_PR_RICaction_NotAdmitted_List,
+			choice:  listC,
+		},
+	}
+
+	return &ie, nil
+}
+
 func newRicSubscriptionFailureIe18RicActionNotAdmittedList(rsfRanaIe *e2appducontents.RicsubscriptionFailureIes_RicsubscriptionFailureIes18) (*C.RICsubscriptionFailure_IEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rsfRanaIe.GetCriticality()))
 	if err != nil {

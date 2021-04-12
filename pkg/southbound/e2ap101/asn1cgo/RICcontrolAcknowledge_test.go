@@ -26,6 +26,8 @@ func Test_RICcontrolAcknowledge(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, e2ApPduRca != nil)
 
+	t.Logf("That's what we're going to encode: \n %v \n", e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome())
+
 	xer, err := xerEncodeRICcontrolAcknowledge(
 		e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome())
 	assert.NilError(t, err)
