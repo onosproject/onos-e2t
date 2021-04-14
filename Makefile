@@ -15,9 +15,11 @@ test: # @HELP run the unit tests and source code validation producing a golang s
 test: build deps linters license_check
 	GODEBUG=cgocheck=0 go test -race github.com/onosproject/onos-e2t/...
 
-jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
-jenkins-test: build-tools deps license_check linters
+git-setup:
 	git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
+
+jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
+jenkins-test: git-setup build-tools deps license_check linters
 	GOPRIVATE="github.com/onosproject/*" GODEBUG=cgocheck=0 TEST_PACKAGES=github.com/onosproject/onos-e2t/... ./../build-tools/build/jenkins/make-unit
 
 coverage: # @HELP generate unit test coverage data
