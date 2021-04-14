@@ -6,8 +6,10 @@ package ricapie2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"io"
+
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
+	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
@@ -34,44 +36,49 @@ var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
 func NewService(subs subapi.E2SubscriptionServiceClient, streams subscription.Broker, modelRegistry modelregistry.ModelRegistry,
-	channels e2server.ChannelManager, oidRegistry oid.Registry) northbound.Service {
+	channels e2server.ChannelManager,
+	oidRegistry oid.Registry, ranFunctionRegistry ranfunctions.Registry) northbound.Service {
 	return &Service{
-		subs:          subs,
-		streams:       streams,
-		modelRegistry: modelRegistry,
-		channels:      channels,
-		oidRegistry:   oidRegistry,
+		subs:                subs,
+		streams:             streams,
+		modelRegistry:       modelRegistry,
+		channels:            channels,
+		oidRegistry:         oidRegistry,
+		ranFunctionRegistry: ranFunctionRegistry,
 	}
 }
 
 // Service is a Service implementation for E2T service.
 type Service struct {
 	northbound.Service
-	subs          subapi.E2SubscriptionServiceClient
-	streams       subscription.Broker
-	modelRegistry modelregistry.ModelRegistry
-	channels      e2server.ChannelManager
-	oidRegistry   oid.Registry
+	subs                subapi.E2SubscriptionServiceClient
+	streams             subscription.Broker
+	modelRegistry       modelregistry.ModelRegistry
+	channels            e2server.ChannelManager
+	oidRegistry         oid.Registry
+	ranFunctionRegistry ranfunctions.Registry
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
 	server := &Server{subs: s.subs,
-		streams:       s.streams,
-		modelRegistry: s.modelRegistry,
-		channels:      s.channels,
-		oidRegistry:   s.oidRegistry}
+		streams:             s.streams,
+		modelRegistry:       s.modelRegistry,
+		channels:            s.channels,
+		oidRegistry:         s.oidRegistry,
+		ranFunctionRegistry: s.ranFunctionRegistry}
 	e2api.RegisterE2TServiceServer(r, server)
 }
 
 // Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
-	subs             subapi.E2SubscriptionServiceClient
-	streams          subscription.Broker
-	modelRegistry    modelregistry.ModelRegistry
-	channels         e2server.ChannelManager
-	controlRequestID RequestID
-	oidRegistry      oid.Registry
+	subs                subapi.E2SubscriptionServiceClient
+	streams             subscription.Broker
+	modelRegistry       modelregistry.ModelRegistry
+	channels            e2server.ChannelManager
+	controlRequestID    RequestID
+	oidRegistry         oid.Registry
+	ranFunctionRegistry ranfunctions.Registry
 }
 
 func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRequest {
@@ -144,9 +151,13 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 	}
 
-	ranFuncID := channel.GetRANFunctionID(serviceModelOID)
+	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(request.E2NodeID)))
+	if err != nil {
+		log.Warn(err)
+	}
+
 	controlAckRequest := getControlAckRequest(request)
-	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, nil, controlHeaderBytes, controlMessageBytes, controlAckRequest)
 
 	if err != nil {
 		log.Warn(err)

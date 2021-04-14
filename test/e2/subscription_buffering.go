@@ -7,13 +7,14 @@ package e2
 import (
 	"context"
 	"fmt"
+	"math/rand"
+	"testing"
+	"time"
+
 	"github.com/onosproject/onos-api/go/onos/e2t/e2"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/connection"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/termination"
-	"math/rand"
-	"testing"
-	"time"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"

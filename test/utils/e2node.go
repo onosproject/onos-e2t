@@ -57,3 +57,43 @@ func GetNodeIDs() ([]string, error) {
 	}
 	return nodeIDs, nil
 }
+
+// GetRANFunctions get list of RAN functions for a given node
+func GetRANFunctions(nodeID string) ([]*admin.RANFunction, error) {
+	tlsConfig, err := creds.GetClientCredentials()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	var ranFunctions []*admin.RANFunction
+	if err != nil {
+		return nil, err
+	}
+	opts := []grpc.DialOption{
+		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
+	}
+
+	conn, err := grpc.DialContext(ctx, OnosE2TAddress, opts...)
+	if err != nil {
+		return nil, err
+	}
+	adminClient := admin.NewE2TAdminServiceClient(conn)
+	connections, err := adminClient.ListE2NodeConnections(ctx, &admin.ListE2NodeConnectionsRequest{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	for {
+		connection, err := connections.Recv()
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		if connection != nil {
+			if connection.Id == nodeID {
+				ranFunctions = connection.RanFunctions
+			}
+		}
+	}
+	return ranFunctions, nil
+}

@@ -7,6 +7,9 @@ package admin
 import (
 	"context"
 	"errors"
+
+	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
+
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
 	sctpnet "github.com/ishidawataru/sctp"
@@ -19,18 +22,23 @@ import (
 var log = logging.GetLogger("northbound", "admin")
 
 // NewService creates a new admin service
-func NewService(channels e2server.ChannelManager) northbound.Service {
-	return &Service{channels}
+func NewService(channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry) northbound.Service {
+	return &Service{
+		channels:            channels,
+		ranFunctionRegistry: ranFunctionRegistry}
 }
 
 // Service is a Service implementation for administration.
 type Service struct {
-	channels e2server.ChannelManager
+	channels            e2server.ChannelManager
+	ranFunctionRegistry ranfunctions.Registry
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
-	server := &Server{s.channels}
+	server := &Server{
+		channels:            s.channels,
+		ranFunctionRegistry: s.ranFunctionRegistry}
 	adminapi.RegisterE2TAdminServiceServer(r, server)
 }
 
@@ -38,7 +46,8 @@ var _ northbound.Service = &Service{}
 
 // Server implements the gRPC service for administrative facilities.
 type Server struct {
-	channels e2server.ChannelManager
+	channels            e2server.ChannelManager
+	ranFunctionRegistry ranfunctions.Registry
 }
 
 // UploadRegisterServiceModel uploads and adds the model plugin to the list of supported models
@@ -73,6 +82,18 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 		for _, remoteAddr := range remoteAddrs {
 			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
 		}
+		var ranFunctions []*adminapi.RANFunction
+		registeredRANFunctions := s.ranFunctionRegistry.GetRANFunctionsByNodeID(string(channel.ID))
+
+		for _, ranFunctionValue := range registeredRANFunctions {
+			ranFunction := &adminapi.RANFunction{
+				Oid:           string(ranFunctionValue.OID),
+				RanFunctionId: string(ranFunctionValue.ID),
+				Description:   ranFunctionValue.Description,
+			}
+			ranFunctions = append(ranFunctions, ranFunction)
+		}
+
 		msg := &adminapi.ListE2NodeConnectionsResponse{
 			RemoteIp:   remoteAddrsStrings,
 			RemotePort: remotePort,
@@ -80,6 +101,7 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 			PlmnId:     channel.PlmnID,
 			// TODO: This should come from the connection data
 			ConnectionType: adminapi.E2NodeConnectionType_G_NB,
+			RanFunctions:   ranFunctions,
 		}
 
 		err = stream.Send(msg)

@@ -7,10 +7,12 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"strconv"
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
+
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
+	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -26,29 +28,35 @@ var ricID = types.RicIdentifier{
 	RicIdentifierLen:   20,
 }
 
-func NewE2Server(channels ChannelManager, subs subscription.Broker, modelRegistry modelregistry.ModelRegistry) *E2Server {
+func NewE2Server(channels ChannelManager,
+	subs subscription.Broker,
+	modelRegistry modelregistry.ModelRegistry,
+	ranFunctionRegistry ranfunctions.Registry) *E2Server {
 	return &E2Server{
-		server:        e2.NewServer(),
-		channels:      channels,
-		subs:          subs,
-		modelRegistry: modelRegistry,
+		server:              e2.NewServer(),
+		channels:            channels,
+		subs:                subs,
+		modelRegistry:       modelRegistry,
+		ranFunctionRegistry: ranFunctionRegistry,
 	}
 }
 
 type E2Server struct {
-	server        *e2.Server
-	channels      ChannelManager
-	subs          subscription.Broker
-	modelRegistry modelregistry.ModelRegistry
+	server              *e2.Server
+	channels            ChannelManager
+	subs                subscription.Broker
+	modelRegistry       modelregistry.ModelRegistry
+	ranFunctionRegistry ranfunctions.Registry
 }
 
 func (s *E2Server) Serve() error {
 	return s.server.Serve(func(channel e2.ServerChannel) e2.ServerInterface {
 		return &E2ChannelServer{
-			serverChannel: channel,
-			manager:       s.channels,
-			subs:          s.subs,
-			modelRegistry: s.modelRegistry,
+			serverChannel:       channel,
+			manager:             s.channels,
+			subs:                s.subs,
+			modelRegistry:       s.modelRegistry,
+			ranFunctionRegistry: s.ranFunctionRegistry,
 		}
 	})
 }
@@ -58,11 +66,12 @@ func (s *E2Server) Stop() error {
 }
 
 type E2ChannelServer struct {
-	manager       ChannelManager
-	subs          subscription.Broker
-	serverChannel e2.ServerChannel
-	e2Channel     *E2Channel
-	modelRegistry modelregistry.ModelRegistry
+	manager             ChannelManager
+	subs                subscription.Broker
+	serverChannel       e2.ServerChannel
+	e2Channel           *E2Channel
+	modelRegistry       modelregistry.ModelRegistry
+	ranFunctionRegistry ranfunctions.Registry
 }
 
 // uint24ToUint32 converts uint24 uint32
@@ -85,34 +94,34 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
-	ranFuncIDs := make(map[e2smtypes.OID]types.RanFunctionID)
 	plugins := e.modelRegistry.GetPlugins()
-	for id, ranFunc := range *ranFuncs {
-		rfAccepted[id] = ranFunc.Revision
+	for ranFunctionID, ranFunc := range *ranFuncs {
+		rfAccepted[ranFunctionID] = ranFunc.Revision
 		for smOid, sm := range plugins {
-			if string(smOid) == string(ranFunc.OID) {
-				log.Infof("Decoding RanFunction description for OID: %s", ranFunc.OID)
-				names, triggers, reports, err := sm.DecodeRanFunctionDescription(ranFunc.Description)
+			oid := e2smtypes.OID(ranFunc.OID)
+			if smOid == oid {
+				ranFunctionDescriptionProto, err := sm.RanFuncDescriptionASN1toProto(ranFunc.Description)
 				if err != nil {
 					log.Warn(err)
 					continue
 				}
 
-				log.Infof("RanFunctionDescription ShortName: %s, Desc: %s,"+
-					"Instance: %d, Oid: %s. #Triggers: %d. #Reports: %d",
-					names.RanFunctionShortName,
-					names.RanFunctionDescription,
-					names.RanFunctionInstance,
-					names.RanFunctionE2SmOid,
-					len(*triggers), len(*reports))
-				oid := names.RanFunctionE2SmOid
-				ranFuncIDs[oid] = id
+				ranFunction := ranfunctions.RANFunction{
+					OID:         oid,
+					ID:          ranFunctionID,
+					Description: ranFunctionDescriptionProto,
+				}
+				id := ranfunctions.NewID(oid, string(channelID))
+				err = e.ranFunctionRegistry.Add(id, ranFunction)
+				if err != nil {
+					log.Warn(err)
+				}
 
 			}
 		}
 	}
 
-	e.e2Channel = NewE2Channel(channelID, plmnID, e.serverChannel, e.subs, ranFuncIDs)
+	e.e2Channel = NewE2Channel(channelID, plmnID, e.serverChannel, e.subs)
 	e.manager.Open(channelID, e.e2Channel)
 
 	// Create an E2 setup response

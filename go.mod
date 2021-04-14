@@ -9,7 +9,7 @@ require (
 	github.com/golang/protobuf v1.4.3
 	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07
 	github.com/onosproject/helmit v0.6.8
-	github.com/onosproject/onos-api/go v0.7.21
+	github.com/onosproject/onos-api/go v0.7.23
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.19
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.19
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.19
