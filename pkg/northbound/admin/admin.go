@@ -12,10 +12,10 @@ import (
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
-	sctpnet "github.com/ishidawataru/sctp"
 	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
+	"github.com/onosproject/onos-lib-go/pkg/sctp/addressing"
 	"google.golang.org/grpc"
 )
 
@@ -71,13 +71,13 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 	}
 
 	for _, channel := range channels {
-		sctpAddr := channel.RemoteAddr().(*sctpnet.SCTPAddr)
+		sctpAddr := channel.RemoteAddr()
 		if sctpAddr == nil {
 			log.Errorf("Found non-SCTP connection in CreateConnection: %v", channel)
 			return errors.New("found non-SCTP connection")
 		}
-		remoteAddrs := channel.RemoteAddr().(*sctpnet.SCTPAddr).IPAddrs
-		remotePort := uint32(channel.RemoteAddr().(*sctpnet.SCTPAddr).Port)
+		remoteAddrs := channel.RemoteAddr().(*addressing.Address).IPAddrs
+		remotePort := uint32(channel.RemoteAddr().(*addressing.Address).Port)
 		var remoteAddrsStrings []string
 		for _, remoteAddr := range remoteAddrs {
 			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
