@@ -61,6 +61,7 @@ protos: buflint
 
 onos-e2t-docker: # @HELP build onos-e2t Docker image
 onos-e2t-docker:
+	@go mod vendor
 	docker build . -f build/onos-e2t/Dockerfile \
 		-t onosproject/onos-e2t:${ONOS_E2T_VERSION}
 

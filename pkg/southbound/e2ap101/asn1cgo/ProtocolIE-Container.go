@@ -72,8 +72,8 @@ func decodeE2SetupRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P11_t) (*e
 		}
 		if ie.E2ApProtocolIes3 != nil {
 			pIEs.E2ApProtocolIes3 = ie.E2ApProtocolIes3
-		//} else {
-		//	return nil, fmt.Errorf("decodeE2SetupRequestIes(): obtained payload doesn't contain GlobalE2NodeID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeE2SetupRequestIes(): obtained payload doesn't contain GlobalE2NodeID")
 		}
 		if ie.E2ApProtocolIes10 != nil {
 			pIEs.E2ApProtocolIes10 = ie.E2ApProtocolIes10
@@ -149,8 +149,8 @@ func decodeE2SetupResponseIes(protocolIEsC *C.ProtocolIE_Container_1710P12_t) (*
 		}
 		if ie.E2ApProtocolIes4 != nil {
 			pIEs.E2ApProtocolIes4 = ie.E2ApProtocolIes4
-		//} else {
-		//	return nil, fmt.Errorf("decodeE2SetupResponseIes(): obtained payload doesn't contain GlobalRicID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeE2SetupResponseIes(): obtained payload doesn't contain GlobalRicID")
 		}
 		if ie.E2ApProtocolIes9 != nil {
 			pIEs.E2ApProtocolIes9 = ie.E2ApProtocolIes9
@@ -230,21 +230,21 @@ func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1710P
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RanFunctionID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes17 != nil {
 			pIEs.E2ApProtocolIes17 = ie.E2ApProtocolIes17
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RicActionAdmittedList")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RicActionAdmittedList")
 		}
 		if ie.E2ApProtocolIes18 != nil {
 			pIEs.E2ApProtocolIes18 = ie.E2ApProtocolIes18
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RicRequestID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionResponseIes(): obtained payload doesn't contain RicRequestID")
 		}
 	}
 
@@ -427,39 +427,39 @@ func decodeRicIndicationIes(protocolIEsC *C.ProtocolIE_Container_1710P6_t) (*e2a
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RanFunctionID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes15 != nil {
 			pIEs.E2ApProtocolIes15 = ie.E2ApProtocolIes15
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicActionID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicActionID")
 		}
 		if ie.E2ApProtocolIes20 != nil {
 			pIEs.E2ApProtocolIes20 = ie.E2ApProtocolIes20
 		}
 		if ie.E2ApProtocolIes25 != nil {
 			pIEs.E2ApProtocolIes25 = ie.E2ApProtocolIes25
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationHeader")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationHeader")
 		}
 		if ie.E2ApProtocolIes26 != nil {
 			pIEs.E2ApProtocolIes26 = ie.E2ApProtocolIes26
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationMessage")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationMessage")
 		}
 		if ie.E2ApProtocolIes27 != nil {
 			pIEs.E2ApProtocolIes27 = ie.E2ApProtocolIes27
 		}
 		if ie.E2ApProtocolIes28 != nil {
 			pIEs.E2ApProtocolIes28 = ie.E2ApProtocolIes28
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationType")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicIndicationType")
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicrequestID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicIndicationIes(): obtained payload doesn't contain RicrequestID")
 		}
 	}
 
@@ -555,29 +555,29 @@ func decodeRicControlRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P7_t) (
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RanFunctionID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes20 != nil {
 			pIEs.E2ApProtocolIes20 = ie.E2ApProtocolIes20
 		}
 		if ie.E2ApProtocolIes22 != nil {
 			pIEs.E2ApProtocolIes22 = ie.E2ApProtocolIes22
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicControlHeader")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicControlHeader")
 		}
 		if ie.E2ApProtocolIes23 != nil {
 			pIEs.E2ApProtocolIes23 = ie.E2ApProtocolIes23
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicControlMessage")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicControlMessage")
 		}
 		if ie.E2ApProtocolIes21 != nil {
 			pIEs.E2ApProtocolIes21 = ie.E2ApProtocolIes21
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicRequestID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicControlRequestIes(): obtained payload doesn't contain RicRequestID")
 		}
 	}
 
@@ -756,21 +756,21 @@ func decodeRicControlAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container_1710P8_
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RanFunctionID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes20 != nil {
 			pIEs.E2ApProtocolIes20 = ie.E2ApProtocolIes20
 		}
 		if ie.E2ApProtocolIes24 != nil {
 			pIEs.E2ApProtocolIes24 = ie.E2ApProtocolIes24
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RicControlStatus")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RicControlStatus")
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RicRequestID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicControlAcknowledgeIes(): obtained payload doesn't contain RicRequestID")
 		}
 		if ie.E2ApProtocolIes32 != nil {
 			pIEs.E2ApProtocolIes32 = ie.E2ApProtocolIes32
@@ -949,18 +949,18 @@ func decodeRicSubscriptionFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P2
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RanFunctionID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RanFunctionID")
 		}
 		if ie.E2ApProtocolIes18 != nil {
 			pIEs.E2ApProtocolIes18 = ie.E2ApProtocolIes18
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RicActionNotAdmittedList")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RicActionNotAdmittedList")
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RicRequestID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionFailureIes(): obtained payload doesn't contain mandatory RicRequestID")
 		}
 	}
 
@@ -1033,18 +1033,18 @@ func decodeRicSubscriptionDeleteFailureIes(protocolIEsC *C.ProtocolIE_Container_
 		}
 		if ie.E2ApProtocolIes5 != nil {
 			pIEs.E2ApProtocolIes5 = ie.E2ApProtocolIes5
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain RanFunctionID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain RanFunctionID")
 		}
 		if ie.E2ApProtocolIes29 != nil {
 			pIEs.E2ApProtocolIes29 = ie.E2ApProtocolIes29
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain RicRequestID")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain RicRequestID")
 		}
 		if ie.E2ApProtocolIes1 != nil {
 			pIEs.E2ApProtocolIes1 = ie.E2ApProtocolIes1
-		//} else {
-		//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain Cause")
+			//} else {
+			//	return nil, fmt.Errorf("decodeRicSubscriptionDeleteFailureIes(): obtained payload doesn't contain Cause")
 		}
 		if ie.E2ApProtocolIes2 != nil {
 			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2
@@ -1193,8 +1193,8 @@ func decodeE2setupFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P13_t) (*e
 		}
 		if ie.E2ApProtocolIes1 != nil {
 			pIEs.E2ApProtocolIes1 = ie.E2ApProtocolIes1
-		//} else {
-		//	return nil, fmt. Errorf("decodeE2setupFailureIes(): obtained payload doesn't contain Cause")
+			//} else {
+			//	return nil, fmt. Errorf("decodeE2setupFailureIes(): obtained payload doesn't contain Cause")
 		}
 		if ie.E2ApProtocolIes2 != nil {
 			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2

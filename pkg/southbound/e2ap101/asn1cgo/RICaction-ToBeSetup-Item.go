@@ -73,8 +73,8 @@ func newRicActionToBeSetupItem(ratbsItem *e2appducontents.RicactionToBeSetupItem
 	}
 
 	ratbsItemC := C.RICaction_ToBeSetup_Item_t{
-		ricActionID:         *newRicActionID(ratbsItem.GetRicActionId()),
-		ricActionType:       *ratC,
+		ricActionID:   *newRicActionID(ratbsItem.GetRicActionId()),
+		ricActionType: *ratC,
 		//ricActionDefinition: newRicActionDefinition(ratbsItem.GetRicActionDefinition()),
 		//ricSubsequentAction: rsaC,
 	}
@@ -108,8 +108,8 @@ func decodeRicActionToBeSetupItem(rfiC *C.RICaction_ToBeSetup_Item_t) (*e2appduc
 
 	var err error
 	rfi := e2appducontents.RicactionToBeSetupItem{
-		RicActionId:         decodeRicActionID(&rfiC.ricActionID),
-		RicActionType:       decodeRicActionType(&rfiC.ricActionType),
+		RicActionId:   decodeRicActionID(&rfiC.ricActionID),
+		RicActionType: decodeRicActionType(&rfiC.ricActionType),
 		//RicActionDefinition: decodeRicActionDefinition(rfiC.ricActionDefinition),
 		//RicSubsequentAction: rsa,
 	}
