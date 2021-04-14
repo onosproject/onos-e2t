@@ -1,4 +1,5 @@
 build/_output/onos-e2t
+vendor/*
 **/_output
 *.DS_Store
 coverage.txt

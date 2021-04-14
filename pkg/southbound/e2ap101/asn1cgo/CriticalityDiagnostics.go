@@ -127,11 +127,11 @@ func decodeCriticalityDiagnostics(cdC *C.CriticalityDiagnostics_t) (*e2apies.Cri
 	var err error
 	ret := e2apies.CriticalityDiagnostics{}
 
-	if cdC.iEsCriticalityDiagnostics != nil{
+	if cdC.iEsCriticalityDiagnostics != nil {
 		ret.IEsCriticalityDiagnostics, err = decodeCriticalityDiagnosticsIeList(cdC.iEsCriticalityDiagnostics)
-		if err != nil{
-		return nil, fmt.Errorf("decodeCriticalityDiagnostics() %s", err.Error())
-	}
+		if err != nil {
+			return nil, fmt.Errorf("decodeCriticalityDiagnostics() %s", err.Error())
+		}
 	}
 
 	if cdC.procedureCode != nil {
