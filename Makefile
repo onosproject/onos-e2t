@@ -17,6 +17,7 @@ test: build deps linters license_check
 
 jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
 jenkins-test: build-tools deps license_check linters
+	git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
 	GOPRIVATE="github.com/onosproject/*" GODEBUG=cgocheck=0 TEST_PACKAGES=github.com/onosproject/onos-e2t/... ./../build-tools/build/jenkins/make-unit
 
 coverage: # @HELP generate unit test coverage data
