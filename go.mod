@@ -7,7 +7,6 @@ require (
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.4.3
-	github.com/ishidawataru/sctp v0.0.0-20191218070446-00ab2ac2db07 // indirect
 	github.com/onosproject/helmit v0.6.8
 	github.com/onosproject/onos-api/go v0.7.24
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.19

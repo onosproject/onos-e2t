@@ -68,7 +68,6 @@ func (s *Server) Serve(handler Handler) error {
 	}
 
 	ln, err := listener.NewListener(addr,
-		listener.WithInitMsg(types.InitMsg{}),
 		listener.WithMode(types.OneToOne),
 		listener.WithNonBlocking(false))
 	if err != nil {
