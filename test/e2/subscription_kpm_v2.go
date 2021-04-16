@@ -33,8 +33,27 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
 
+	ranFunctions, err := utils.GetRANFunctions(nodeIDs[0])
+	assert.NoError(t, err)
+
+	ranFunctionDescription := &e2smkpmv2.E2SmKpmRanfunctionDescription{}
+	ranFunctionFound := false
+	for _, ranFunction := range ranFunctions {
+		if ranFunction.Oid == utils.KpmServiceModelOIDV2 {
+			err = proto.Unmarshal(ranFunction.Description, ranFunctionDescription)
+			assert.NoError(t, err)
+			ranFunctionFound = true
+		}
+	}
+
+	assert.Equal(t, ranFunctionFound, true)
 	// Kpm v2 interval is defined in ms
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
+	assert.NoError(t, err)
+
+	// Use one of the cell object IDs for action definition
+	cellObjectID := ranFunctionDescription.GetRicKpmNodeList()[0].GetCellMeasurementObjectList()[0].CellObjectId.Value
+	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID)
 	assert.NoError(t, err)
 
 	subRequest := utils.Subscription{
@@ -47,9 +66,10 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 		ActionID:             100,
 		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		ActionDefinition:     actionDefinitionBytes,
 	}
 
-	subReq, err := subRequest.Create()
+	subReq, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	sub, err := e2Client.Subscribe(ctx, subReq, ch)
@@ -61,6 +81,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 
 	err = proto.Unmarshal(indicationReport.Payload.Message, &indicationMessage)
 	assert.NoError(t, err)
+	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
 
 	err = proto.Unmarshal(indicationReport.Payload.Header, &indicationHeader)
 	assert.NoError(t, err)
