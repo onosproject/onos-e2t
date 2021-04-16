@@ -42,17 +42,24 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	kpmEventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
 	assert.NoError(t, err)
+	var actions []subapi.Action
+	action := subapi.Action{
+		ID:   100,
+		Type: subapi.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &subapi.SubsequentAction{
+			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		},
+	}
+	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:               testNode1,
-		EncodingType:         subapi.Encoding_ENCODING_PROTO,
-		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
-		EventTrigger:         kpmEventTriggerBytes,
-		ServiceModelName:     utils.KpmServiceModelName,
-		ServiceModelVersion:  utils.KpmServiceModelVersion1,
-		ActionID:             100,
-		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		NodeID:              testNode1,
+		EncodingType:        subapi.Encoding_ENCODING_PROTO,
+		Actions:             actions,
+		EventTrigger:        kpmEventTriggerBytes,
+		ServiceModelName:    utils.KpmServiceModelName,
+		ServiceModelVersion: utils.KpmServiceModelVersion1,
 	}
 
 	subReq, err := subRequest.Create()
@@ -67,15 +74,12 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	subRequest = utils.Subscription{
-		NodeID:               testNode2,
-		EncodingType:         subapi.Encoding_ENCODING_PROTO,
-		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
-		EventTrigger:         rcEventTriggerBytes,
-		ServiceModelName:     utils.RcServiceModelName,
-		ServiceModelVersion:  utils.RcServiceModelVersion1,
-		ActionID:             100,
-		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		NodeID:              testNode2,
+		EncodingType:        subapi.Encoding_ENCODING_PROTO,
+		Actions:             actions,
+		EventTrigger:        rcEventTriggerBytes,
+		ServiceModelName:    utils.RcServiceModelName,
+		ServiceModelVersion: utils.RcServiceModelVersion1,
 	}
 
 	subReq, err = subRequest.Create()

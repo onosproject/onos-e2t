@@ -56,17 +56,29 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID)
 	assert.NoError(t, err)
 
+	var actions []subapi.Action
+	action := subapi.Action{
+		ID:   100,
+		Type: subapi.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &subapi.SubsequentAction{
+			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		},
+		Payload: subapi.Payload{
+			Encoding: subapi.Encoding_ENCODING_PROTO,
+			Data:     actionDefinitionBytes,
+		},
+	}
+
+	actions = append(actions, action)
+
 	subRequest := utils.Subscription{
-		NodeID:               nodeIDs[0],
-		EncodingType:         subapi.Encoding_ENCODING_PROTO,
-		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
-		EventTrigger:         eventTriggerBytes,
-		ServiceModelName:     utils.KpmServiceModelName,
-		ServiceModelVersion:  utils.KpmServiceModelVersion2,
-		ActionID:             100,
-		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
-		ActionDefinition:     actionDefinitionBytes,
+		NodeID:              nodeIDs[0],
+		EncodingType:        subapi.Encoding_ENCODING_PROTO,
+		EventTrigger:        eventTriggerBytes,
+		ServiceModelName:    utils.KpmServiceModelName,
+		ServiceModelVersion: utils.KpmServiceModelVersion2,
+		Actions:             actions,
 	}
 
 	subReq, err := subRequest.CreateWithActionDefinition()

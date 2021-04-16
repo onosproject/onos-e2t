@@ -20,16 +20,12 @@ import (
 
 // Subscription subscription request for subscription SDK api
 type Subscription struct {
-	NodeID               string
-	ServiceModelName     subapi.ServiceModelName
-	ServiceModelVersion  subapi.ServiceModelVersion
-	ActionType           subapi.ActionType
-	ActionID             int32
-	EncodingType         subapi.Encoding
-	TimeToWait           subapi.TimeToWait
-	SubSequentActionType subapi.SubsequentActionType
-	EventTrigger         []byte
-	ActionDefinition     []byte
+	NodeID              string
+	ServiceModelName    subapi.ServiceModelName
+	ServiceModelVersion subapi.ServiceModelVersion
+	Actions             []subapi.Action
+	EncodingType        subapi.Encoding
+	EventTrigger        []byte
 }
 
 // CreateRcEventTrigger creates a rc service model event trigger
@@ -146,20 +142,7 @@ func (subRequest *Subscription) CreateWithActionDefinition() (subapi.Subscriptio
 				Data:     subRequest.EventTrigger,
 			},
 		},
-		Actions: []subapi.Action{
-			{
-				ID:   subRequest.ActionID,
-				Type: subRequest.ActionType,
-				SubsequentAction: &subapi.SubsequentAction{
-					Type:       subRequest.SubSequentActionType,
-					TimeToWait: subRequest.TimeToWait,
-				},
-				Payload: subapi.Payload{
-					Encoding: subapi.Encoding_ENCODING_PROTO,
-					Data:     subRequest.ActionDefinition,
-				},
-			},
-		},
+		Actions: subRequest.Actions,
 	}
 
 	return subReq, nil
@@ -180,16 +163,7 @@ func (subRequest *Subscription) Create() (subapi.SubscriptionDetails, error) {
 				Data:     subRequest.EventTrigger,
 			},
 		},
-		Actions: []subapi.Action{
-			{
-				ID:   subRequest.ActionID,
-				Type: subRequest.ActionType,
-				SubsequentAction: &subapi.SubsequentAction{
-					Type:       subRequest.SubSequentActionType,
-					TimeToWait: subRequest.TimeToWait,
-				},
-			},
-		},
+		Actions: subRequest.Actions,
 	}
 
 	return subReq, nil
