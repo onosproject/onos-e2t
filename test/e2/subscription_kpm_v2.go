@@ -78,6 +78,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
 		ServiceModelVersion: utils.KpmServiceModelVersion2,
+		Actions:             actions,
 	}
 
 	subReq, err := subRequest.CreateWithActionDefinition()
