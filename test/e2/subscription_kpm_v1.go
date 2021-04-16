@@ -32,17 +32,24 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 
 	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
 	assert.NoError(t, err)
+	var actions []subapi.Action
+	action := subapi.Action{
+		ID:   100,
+		Type: subapi.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &subapi.SubsequentAction{
+			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		},
+	}
+	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:               nodeIDs[0],
-		EncodingType:         subapi.Encoding_ENCODING_PROTO,
-		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
-		EventTrigger:         eventTriggerBytes,
-		ServiceModelName:     utils.KpmServiceModelName,
-		ServiceModelVersion:  utils.KpmServiceModelVersion1,
-		ActionID:             100,
-		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		NodeID:              nodeIDs[0],
+		EncodingType:        subapi.Encoding_ENCODING_PROTO,
+		Actions:             actions,
+		EventTrigger:        eventTriggerBytes,
+		ServiceModelName:    utils.KpmServiceModelName,
+		ServiceModelVersion: utils.KpmServiceModelVersion1,
 	}
 
 	subReq, err := subRequest.Create()

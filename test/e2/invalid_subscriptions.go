@@ -42,17 +42,24 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
+	var actions []subapi.Action
+	action := subapi.Action{
+		ID:   testCase.actionID,
+		Type: testCase.actionType,
+		SubsequentAction: &subapi.SubsequentAction{
+			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		},
+	}
+	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:               nodeIDs[0],
-		EncodingType:         testCase.encodingType,
-		ActionType:           testCase.actionType,
-		EventTrigger:         testCase.eventTrigger,
-		ServiceModelName:     testCase.serviceModelName,
-		ServiceModelVersion:  testCase.serviceModelVersion,
-		ActionID:             testCase.actionID,
-		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		NodeID:              nodeIDs[0],
+		EncodingType:        testCase.encodingType,
+		Actions:             actions,
+		EventTrigger:        testCase.eventTrigger,
+		ServiceModelName:    testCase.serviceModelName,
+		ServiceModelVersion: testCase.serviceModelVersion,
 	}
 
 	subReq, err := subRequest.Create()

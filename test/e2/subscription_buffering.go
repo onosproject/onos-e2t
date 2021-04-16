@@ -95,17 +95,24 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()
 	assert.NoError(t, err)
+	var actions []subapi.Action
+	action := subapi.Action{
+		ID:   100,
+		Type: subapi.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &subapi.SubsequentAction{
+			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		},
+	}
+	actions = append(actions, action)
 
 	subBuilder := utils.Subscription{
-		NodeID:               testNodeID,
-		EncodingType:         subapi.Encoding_ENCODING_PROTO,
-		ActionType:           subapi.ActionType_ACTION_TYPE_REPORT,
-		EventTrigger:         eventTriggerBytes,
-		ServiceModelName:     utils.RcServiceModelName,
-		ServiceModelVersion:  utils.RcServiceModelVersion1,
-		ActionID:             100,
-		SubSequentActionType: subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-		TimeToWait:           subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		NodeID:              testNodeID,
+		EncodingType:        subapi.Encoding_ENCODING_PROTO,
+		Actions:             actions,
+		EventTrigger:        eventTriggerBytes,
+		ServiceModelName:    utils.RcServiceModelName,
+		ServiceModelVersion: utils.RcServiceModelVersion1,
 	}
 
 	subDetails, err := subBuilder.Create()
