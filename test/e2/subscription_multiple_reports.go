@@ -119,10 +119,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 		err = proto.Unmarshal(indicationReport.Payload.Header, &indicationHeader)
 		assert.NoError(t, err)
 		cellObjectID := indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value
-		if cellObjectID != cellObjectIDList[0] && cellObjectID != cellObjectIDList[1] {
-			t.Fail()
-		}
-
+		assert.True(t, cellObjectID == cellObjectIDList[0] || cellObjectID == cellObjectIDList[1])
 	}
 
 	err = sub.Close()
