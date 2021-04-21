@@ -3809,13 +3809,34 @@ func (m *E2ConnectionUpdateItemIes) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes43()).(interface{ Validate() error }); ok {
+	if m.GetId() != 43 {
+		return E2ConnectionUpdateItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 43",
+		}
+	}
+
+	if m.GetCriticality() != 0 {
+		return E2ConnectionUpdateItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 0",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateItemIesValidationError{
-				field:  "E2ApProtocolIes43",
+				field:  "Value",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
+		}
+	}
+
+	if m.GetPresence() != 0 {
+		return E2ConnectionUpdateItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 0",
 		}
 	}
 
@@ -4055,13 +4076,34 @@ func (m *E2ConnectionUpdateRemoveItemIes) Validate() error {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes47()).(interface{ Validate() error }); ok {
+	if m.GetId() != 47 {
+		return E2ConnectionUpdateRemoveItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 47",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return E2ConnectionUpdateRemoveItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateRemoveItemIesValidationError{
-				field:  "E2ApProtocolIes47",
+				field:  "Value",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return E2ConnectionUpdateRemoveItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
 		}
 	}
 
@@ -13885,224 +13927,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = E2ConnectionUpdateIes_E2ConnectionUpdateIes45ValidationError{}
-
-// Validate checks the field values on
-// E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43 with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if m.GetId() != 43 {
-		return E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError{
-			field:  "Id",
-			reason: "value must equal 43",
-		}
-	}
-
-	if m.GetCriticality() != 0 {
-		return E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError{
-			field:  "Criticality",
-			reason: "value must equal 0",
-		}
-	}
-
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError{
-				field:  "Value",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if m.GetPresence() != 0 {
-		return E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError{
-			field:  "Presence",
-			reason: "value must equal 0",
-		}
-	}
-
-	return nil
-}
-
-// E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError is the
-// validation error returned by
-// E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43.Validate if the
-// designated constraints aren't met.
-type E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError) Field() string {
-	return e.field
-}
-
-// Reason function returns reason value.
-func (e E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError) Reason() string {
-	return e.reason
-}
-
-// Cause function returns cause value.
-func (e E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError) Cause() error {
-	return e.cause
-}
-
-// Key function returns key value.
-func (e E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError) Key() bool {
-	return e.key
-}
-
-// ErrorName returns error name.
-func (e E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError) ErrorName() string {
-	return "E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sE2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = E2ConnectionUpdateItemIes_E2ConnectionUpdateItemIes43ValidationError{}
-
-// Validate checks the field values on
-// E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47 with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
-func (m *E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47) Validate() error {
-	if m == nil {
-		return nil
-	}
-
-	if m.GetId() != 47 {
-		return E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError{
-			field:  "Id",
-			reason: "value must equal 47",
-		}
-	}
-
-	if m.GetCriticality() != 1 {
-		return E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError{
-			field:  "Criticality",
-			reason: "value must equal 1",
-		}
-	}
-
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError{
-				field:  "Value",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if m.GetPresence() != 2 {
-		return E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError{
-			field:  "Presence",
-			reason: "value must equal 2",
-		}
-	}
-
-	return nil
-}
-
-// E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError
-// is the validation error returned by
-// E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47.Validate
-// if the designated constraints aren't met.
-type E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError) Field() string {
-	return e.field
-}
-
-// Reason function returns reason value.
-func (e E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError) Reason() string {
-	return e.reason
-}
-
-// Cause function returns cause value.
-func (e E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError) Cause() error {
-	return e.cause
-}
-
-// Key function returns key value.
-func (e E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError) Key() bool {
-	return e.key
-}
-
-// ErrorName returns error name.
-func (e E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError) ErrorName() string {
-	return "E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sE2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = E2ConnectionUpdateRemoveItemIes_E2ConnectionUpdateRemoveItemIes47ValidationError{}
 
 // Validate checks the field values on
 // E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39 with the rules defined
