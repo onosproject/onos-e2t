@@ -3809,6 +3809,37 @@ func (m *E2ConnectionUpdateItemIes) Validate() error {
 		return nil
 	}
 
+	if m.GetId() != 43 {
+		return E2ConnectionUpdateItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 43",
+		}
+	}
+
+	if m.GetCriticality() != 0 {
+		return E2ConnectionUpdateItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 0",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2ConnectionUpdateItemIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 0 {
+		return E2ConnectionUpdateItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 0",
+		}
+	}
+
 	return nil
 }
 
@@ -4043,6 +4074,37 @@ var _ interface {
 func (m *E2ConnectionUpdateRemoveItemIes) Validate() error {
 	if m == nil {
 		return nil
+	}
+
+	if m.GetId() != 47 {
+		return E2ConnectionUpdateRemoveItemIesValidationError{
+			field:  "Id",
+			reason: "value must equal 47",
+		}
+	}
+
+	if m.GetCriticality() != 1 {
+		return E2ConnectionUpdateRemoveItemIesValidationError{
+			field:  "Criticality",
+			reason: "value must equal 1",
+		}
+	}
+
+	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return E2ConnectionUpdateRemoveItemIesValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetPresence() != 2 {
+		return E2ConnectionUpdateRemoveItemIesValidationError{
+			field:  "Presence",
+			reason: "value must equal 2",
+		}
 	}
 
 	return nil

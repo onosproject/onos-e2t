@@ -713,6 +713,10 @@ message E2connectionUpdateList {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:726
 message E2connectionUpdateItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 43];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 0];
+    E2connectionUpdateItem value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 0];
 };
 
 // sequence from e2ap-v01.01.00.asn1:732
@@ -728,6 +732,10 @@ message E2connectionUpdateRemoveList {
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap-v01.01.00.asn1:739
 message E2connectionUpdateRemoveItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 47];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1];
+    E2connectionUpdateRemoveItem value = 3;
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2];
 };
 
 // sequence from e2ap-v01.01.00.asn1:745
