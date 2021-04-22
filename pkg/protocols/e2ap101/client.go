@@ -13,7 +13,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap101/channels"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap101/procedures"
 
-	//"github.com/onosproject/onos-e2t/pkg/protocols/sctp"
 	sctp "github.com/onosproject/onos-lib-go/pkg/sctp"
 )
 
