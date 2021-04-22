@@ -5,9 +5,13 @@
 package sctp
 
 import (
-	"github.com/ishidawataru/sctp"
-	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"net"
+
+	"github.com/onosproject/onos-lib-go/pkg/sctp/addressing"
+
+	"github.com/onosproject/onos-lib-go/pkg/logging"
+	"github.com/onosproject/onos-lib-go/pkg/sctp/listener"
+	"github.com/onosproject/onos-lib-go/pkg/sctp/types"
 )
 
 var log = logging.GetLogger("southbound", "sctp")
@@ -53,51 +57,33 @@ func NewServer(opts ...ServerOption) *Server {
 // Server is a southbound server
 type Server struct {
 	options ServerOptions
-	lis     net.Listener
+	lis     *listener.Listener
 }
 
 // Serve starts the server
 func (s *Server) Serve(handler Handler) error {
-	addr := &sctp.SCTPAddr{
+	addr := &addressing.Address{
 		IPAddrs: []net.IPAddr{},
 		Port:    s.options.Port,
 	}
 
-	lis, err := sctp.ListenSCTP("sctp", addr)
+	ln, err := listener.NewListener(addr,
+		listener.WithMode(types.OneToOne),
+		listener.WithNonBlocking(false))
 	if err != nil {
 		return err
 	}
-	s.lis = lis
+	s.lis = ln
 
 	go func() {
 		for {
-			conn, err := lis.Accept()
+			conn, err := ln.Accept()
 			if err != nil {
 				log.Errorf("Failed to accept connection: %v", err)
 				continue
 			}
 
 			log.Infof("Accepted connection from %s", conn.RemoteAddr())
-			sconn := conn.(*sctp.SCTPConn)
-
-			// Configure the connection read buffer
-			if s.options.ReadBufferSize != 0 {
-				err := sconn.SetWriteBuffer(s.options.WriteBufferSize)
-				if err != nil {
-					log.Errorf("Failed to configure connection: %v", err)
-					continue
-				}
-			}
-
-			// Configure the connection write buffer
-			if s.options.WriteBufferSize != 0 {
-				err := sconn.SetWriteBuffer(s.options.WriteBufferSize)
-				if err != nil {
-					log.Errorf("Failed to configure connection: %v", err)
-					continue
-				}
-			}
-
 			go handler(conn)
 		}
 	}()
