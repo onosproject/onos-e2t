@@ -52,7 +52,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.KpmServiceModelVersion1,
+		ServiceModelVersion: utils.Version1,
 	}
 
 	// Create a subscription request to indication messages from the client

@@ -112,7 +112,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.RcServiceModelName,
-		ServiceModelVersion: utils.RcServiceModelVersion1,
+		ServiceModelVersion: utils.Version2,
 	}
 
 	subDetails, err := subBuilder.Create()
@@ -138,7 +138,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 			EncodingType: e2.EncodingType_PROTO,
 			ServiceModel: &e2.ServiceModel{
 				Name:    utils.RcServiceModelName,
-				Version: utils.RcServiceModelVersion1,
+				Version: utils.Version2,
 			},
 		},
 		AppID:          "subscription-indication-buffering-test",

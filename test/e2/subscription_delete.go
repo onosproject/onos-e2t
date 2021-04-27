@@ -48,7 +48,7 @@ func checkSubscription(t *testing.T) sdksub.Context {
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.KpmServiceModelVersion1,
+		ServiceModelVersion: utils.Version1,
 	}
 
 	subReq, err := subRequest.Create()

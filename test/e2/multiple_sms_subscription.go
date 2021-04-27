@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	e2sm_kpm_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/v1beta1/e2sm-kpm-ies"
-	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v1/e2sm-rc-pre-ies"
+	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -59,7 +59,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 		Actions:             actions,
 		EventTrigger:        kpmEventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.KpmServiceModelVersion1,
+		ServiceModelVersion: utils.Version1,
 	}
 
 	subReq, err := subRequest.Create()
@@ -79,7 +79,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 		Actions:             actions,
 		EventTrigger:        rcEventTriggerBytes,
 		ServiceModelName:    utils.RcServiceModelName,
-		ServiceModelVersion: utils.RcServiceModelVersion1,
+		ServiceModelVersion: utils.Version2,
 	}
 
 	subReq, err = subRequest.Create()

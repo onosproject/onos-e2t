@@ -11,7 +11,7 @@ import (
 	"time"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v1/e2sm-rc-pre-ies"
+	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 	"google.golang.org/protobuf/proto"
 
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
@@ -103,7 +103,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.RcServiceModelName,
-		ServiceModelVersion: utils.RcServiceModelVersion1,
+		ServiceModelVersion: utils.Version2,
 	}
 
 	subReq, err := subRequest.Create()
@@ -134,7 +134,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	assert.False(t, gotIndication, "received an extraneous indication")
 
 	header := indMessage.Payload.Header
-	ricIndicationHeader := e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
+	ricIndicationHeader := e2smrcpreies.E2SmRcPreIndicationHeader{}
 
 	err = proto.Unmarshal(header, &ricIndicationHeader)
 	assert.NoError(t, err)

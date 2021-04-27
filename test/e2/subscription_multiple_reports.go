@@ -99,7 +99,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.KpmServiceModelVersion2,
+		ServiceModelVersion: utils.Version2,
 		Actions:             actions,
 	}
 

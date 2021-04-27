@@ -15,7 +15,7 @@ import (
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"google.golang.org/protobuf/proto"
 
-	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v1/e2sm-rc-pre-ies"
+	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 
 	"github.com/stretchr/testify/assert"
 
@@ -67,7 +67,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.RcServiceModelName,
-		ServiceModelVersion: utils.RcServiceModelVersion1,
+		ServiceModelVersion: utils.Version2,
 	}
 
 	subReq, err := subRequest.Create()
@@ -105,7 +105,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 		NodeID:              testNodeID,
 		EncodingType:        e2tapi.EncodingType_PROTO,
 		ServiceModelName:    utils.RcServiceModelName,
-		ServiceModelVersion: utils.RcServiceModelVersion1,
+		ServiceModelVersion: utils.Version2,
 		ControlAckRequest:   e2tapi.ControlAckRequest_ACK,
 		ControlMessage:      controlMessageBytes,
 		ControlHeader:       controlHeaderBytes,
@@ -130,14 +130,8 @@ func (s *TestSuite) TestControl(t *testing.T) {
 			GetControlOutcomeFormat1().
 			GetOutcomeElementList()[0].
 			RanParameterId.Value
-		outcomeRanParameterValue := controlOutcome.
-			GetControlOutcomeFormat1().
-			GetOutcomeElementList()[0].
-			RanParameterValue.
-			GetValueInt()
 
 		assert.Equal(t, ranParameterID, outcomeRanParameterID)
-		assert.Equal(t, ranParameterValue, outcomeRanParameterValue)
 	}
 	if failure != nil {
 		t.Fail()
