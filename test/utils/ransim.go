@@ -6,8 +6,10 @@ package utils
 
 import (
 	"context"
+	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	"io"
 	"testing"
+	"time"
 
 	"github.com/onosproject/helmit/pkg/kubernetes"
 
@@ -34,6 +36,7 @@ func ConnectRansimServiceHost(release *helm.HelmRelease) (*grpc.ClientConn, erro
 	}
 	opts := []grpc.DialOption{
 		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
+		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(time.Second)),
 	}
 
 	ransimServiceAddress := getRansimServiceAddress(services[0].Name)
