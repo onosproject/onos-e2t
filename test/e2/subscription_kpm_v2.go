@@ -47,13 +47,15 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	}
 
 	assert.Equal(t, ranFunctionFound, true)
+	reportPeriod := int32(5000)
+	granularity := int32(500)
 	// Kpm v2 interval is defined in ms
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
+	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
 	cellObjectID := ranFunctionDescription.GetRicKpmNodeList()[0].GetCellMeasurementObjectList()[0].CellObjectId.Value
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID)
+	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 
 	var actions []subapi.Action
@@ -94,6 +96,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Payload.Message, &indicationMessage)
 	assert.NoError(t, err)
 	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
+	assert.Equal(t, int(reportPeriod/granularity), len(indicationMessage.GetIndicationMessageFormat1().GetMeasData().GetValue()))
 
 	err = proto.Unmarshal(indicationReport.Payload.Header, &indicationHeader)
 	assert.NoError(t, err)
