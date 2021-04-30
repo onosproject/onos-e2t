@@ -5,6 +5,7 @@
 package utils
 
 import (
+	"github.com/onosproject/helmit/pkg/input"
 	"testing"
 
 	"github.com/onosproject/helmit/pkg/helm"
@@ -30,8 +31,9 @@ func getCredentials() (string, string, error) {
 }
 
 // CreateSdranRelease creates a helm release for an sd-ran instance
-func CreateSdranRelease() (*helm.HelmRelease, error) {
+func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 	username, password, err := getCredentials()
+	registry := c.GetArg("registry").String("")
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +46,8 @@ func CreateSdranRelease() (*helm.HelmRelease, error) {
 		Set("import.onos-topo.enabled", false).
 		Set("onos-e2t.image.tag", "latest").
 		Set("onos-e2sub.image.tag", "latest").
-		Set("ran-simulator.image.tag", "latest")
+		Set("ran-simulator.image.tag", "latest").
+		Set("global.image.registry", registry)
 
 	return sdran, nil
 }
@@ -72,7 +75,8 @@ func CreateRanSimulatorWithName(t *testing.T, name string) *helm.HelmRelease {
 		SetUsername(username).
 		SetPassword(password).
 		Set("image.tag", "latest").
-		Set("fullnameOverride", "")
+		Set("fullnameOverride", "").
+		Set("global.image.registry", "mirror.registry.opennetworking.org")
 	err = simulator.Install(true)
 	assert.NoError(t, err, "could not install device simulator %v", err)
 
