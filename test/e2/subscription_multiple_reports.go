@@ -59,9 +59,9 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	cellObjectIDList[0] = cellObjectID0
 	cellObjectIDList[1] = cellObjectID1
 
-	actionDefinitionBytes0, err := utils.CreateKpmV2ActionDefinition(cellObjectIDList[0])
+	actionDefinitionBytes0, err := utils.CreateKpmV2ActionDefinition(cellObjectIDList[0], 1000)
 	assert.NoError(t, err)
-	actionDefinitionBytes1, err := utils.CreateKpmV2ActionDefinition(cellObjectIDList[1])
+	actionDefinitionBytes1, err := utils.CreateKpmV2ActionDefinition(cellObjectIDList[1], 1000)
 	assert.NoError(t, err)
 
 	var actions []subapi.Action

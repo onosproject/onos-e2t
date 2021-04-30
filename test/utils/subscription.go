@@ -45,7 +45,7 @@ func CreateRcEventTrigger() ([]byte, error) {
 	return protoBytes, nil
 }
 
-func CreateKpmV2ActionDefinition(cellObjectID string) ([]byte, error) {
+func CreateKpmV2ActionDefinition(cellObjectID string, granularity int32) ([]byte, error) {
 	rrcConAvgName, err := e2smkpmv2.CreateMeasurementTypeMeasName("RRC.Conn.Avg")
 	if err != nil {
 		return nil, err
@@ -78,7 +78,7 @@ func CreateKpmV2ActionDefinition(cellObjectID string) ([]byte, error) {
 	measInfoList.Value = append(measInfoList.Value, measInfoConMaxItem)
 	measInfoList.Value = append(measInfoList.Value, measInfoConnEstabAttItem)
 
-	actionDefinition, err := e2smkpmv2.CreateActionDefinitionFormat1(cellObjectID, measInfoList, 12, 1234)
+	actionDefinition, err := e2smkpmv2.CreateActionDefinitionFormat1(cellObjectID, measInfoList, granularity, 1234)
 	if err != nil {
 		return nil, err
 	}
