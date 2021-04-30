@@ -5,6 +5,7 @@
 package e2
 
 import (
+	"github.com/onosproject/helmit/pkg/input"
 	"github.com/onosproject/helmit/pkg/test"
 	"github.com/onosproject/onos-e2t/test/utils"
 )
@@ -15,10 +16,13 @@ type TestSuite struct {
 }
 
 // SetupTestSuite sets up the onos-e2t test suite
-func (s *TestSuite) SetupTestSuite() error {
-	sdran, err := utils.CreateSdranRelease()
+func (s *TestSuite) SetupTestSuite(c *input.Context) error {
+	sdran, err := utils.CreateSdranRelease(c)
 	if err != nil {
 		return err
 	}
-	return sdran.Install(true)
+
+	registry := c.GetArg("registry").String("")
+
+	return sdran.Set("global.image.registry", registry).Install(true)
 }
