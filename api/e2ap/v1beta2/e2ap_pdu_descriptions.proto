@@ -19,6 +19,7 @@ import "e2ap/v1beta2/e2ap_constants.proto";
 import "validate/v1/validate.proto";
 
 // sequence from e2ap-v01.01.00.asn1:97
+//{-}
 message E2ApPdu {
     // choice from e2ap-v01.01.00.asn1:97
     oneof e2_ap_pdu {
@@ -29,6 +30,7 @@ message E2ApPdu {
 };
 
 // sequence from e2ap-v01.01.00.asn1:104
+//{-}
 message InitiatingMessage {
     E2ApElementaryProcedures procedure_code = 1;
 //    @procedureCode criticality = 2;
@@ -36,6 +38,7 @@ message InitiatingMessage {
 };
 
 // sequence from e2ap-v01.01.00.asn1:110
+//{-}
 message SuccessfulOutcome {
     E2ApElementaryProcedures procedure_code = 1;
 //    @procedureCode criticality = 2;
@@ -43,6 +46,7 @@ message SuccessfulOutcome {
 };
 
 // sequence from e2ap-v01.01.00.asn1:116
+//{-}
 message UnsuccessfulOutcome {
     E2ApElementaryProcedures procedure_code = 1;
 //    @procedureCode criticality = 2;
@@ -50,6 +54,7 @@ message UnsuccessfulOutcome {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:127
+//{-}
 message E2ApElementaryProcedures {
     RicSubscription ric_subscription = 1;
     RicSubscriptionDelete ric_subscription_delete = 2;
@@ -65,6 +70,7 @@ message E2ApElementaryProcedures {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:133
+//{-}
 message E2ApElementaryProceduresClass1 {
     RicSubscription ric_subscription = 1;
     RicSubscriptionDelete ric_subscription_delete = 2;
@@ -77,6 +83,7 @@ message E2ApElementaryProceduresClass1 {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:145
+//{-}
 message E2ApElementaryProceduresClass2 {
     RicIndication ric_indication = 1;
     RicServiceQuery ric_service_query = 2;
@@ -84,6 +91,7 @@ message E2ApElementaryProceduresClass2 {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:159
+//{-}
 message E2connectionUpdateEp {
     E2connectionUpdate initiating_message = 1;
     E2connectionUpdateAcknowledge successful_outcome = 2;
@@ -93,6 +101,7 @@ message E2connectionUpdateEp {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:167
+//{-}
 message E2nodeConfigurationUpdateEp {
     E2nodeConfigurationUpdate initiating_message = 1;
     E2nodeConfigurationUpdateAcknowledge successful_outcome = 2;
@@ -102,6 +111,7 @@ message E2nodeConfigurationUpdateEp {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:175
+//{-}
 message E2setup {
     E2setupRequest initiating_message = 1;
     E2setupResponse successful_outcome = 2;
@@ -111,6 +121,7 @@ message E2setup {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:183
+//{-}
 message ErrorIndicationEp {
     ErrorIndication initiating_message = 1;
     IdErrorIndication procedure_code = 2;
@@ -118,6 +129,7 @@ message ErrorIndicationEp {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:189
+//{-}
 message Reset {
     ResetRequest initiating_message = 1;
     ResetResponse successful_outcome = 2;
@@ -126,6 +138,7 @@ message Reset {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:196
+//{-}
 message RicControl {
     RiccontrolRequest initiating_message = 1;
     RiccontrolAcknowledge successful_outcome = 2;
@@ -135,6 +148,7 @@ message RicControl {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:204
+//{-}
 message RicIndication {
     Ricindication initiating_message = 1;
     IdRicindication procedure_code = 2;
@@ -142,6 +156,7 @@ message RicIndication {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:210
+//{-}
 message RicServiceQuery {
     RicserviceQuery initiating_message = 1;
     IdRicserviceQuery procedure_code = 2;
@@ -149,6 +164,7 @@ message RicServiceQuery {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:216
+//{-}
 message RicServiceUpdate {
     RicserviceUpdate initiating_message = 1;
     RicserviceUpdateAcknowledge successful_outcome = 2;
@@ -158,6 +174,7 @@ message RicServiceUpdate {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:224
+//{-}
 message RicSubscription {
     RicsubscriptionRequest initiating_message = 1;
     RicsubscriptionResponse successful_outcome = 2;
@@ -167,6 +184,7 @@ message RicSubscription {
 };
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:232
+//{-}
 message RicSubscriptionDelete {
     RicsubscriptionDeleteRequest initiating_message = 1;
     RicsubscriptionDeleteResponse successful_outcome = 2;

@@ -23,6 +23,7 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // reference from e2ap-v01.01.00.asn1:1539
+//{-}
 type IdE2Setup struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -62,6 +63,7 @@ func (m *IdE2Setup) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1540
+//{-}
 type IdErrorIndication struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -101,6 +103,7 @@ func (m *IdErrorIndication) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1541
+//{-}
 type IdReset struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -140,6 +143,7 @@ func (m *IdReset) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1542
+//{-}
 type IdRiccontrol struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -179,6 +183,7 @@ func (m *IdRiccontrol) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1543
+//{-}
 type IdRicindication struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -218,6 +223,7 @@ func (m *IdRicindication) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1544
+//{-}
 type IdRicserviceQuery struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -257,6 +263,7 @@ func (m *IdRicserviceQuery) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1545
+//{-}
 type IdRicserviceUpdate struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -296,6 +303,7 @@ func (m *IdRicserviceUpdate) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1546
+//{-}
 type IdRicsubscription struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -335,6 +343,7 @@ func (m *IdRicsubscription) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1547
+//{-}
 type IdRicsubscriptionDelete struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -374,6 +383,7 @@ func (m *IdRicsubscriptionDelete) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1548
+//{-}
 type IdE2NodeConfigurationUpdate struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -413,6 +423,7 @@ func (m *IdE2NodeConfigurationUpdate) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1549
+//{-}
 type IdE2ConnectionUpdate struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -452,6 +463,7 @@ func (m *IdE2ConnectionUpdate) GetValue() int32 {
 }
 
 // constant Integer from e2ap-v01.01.00.asn1:1557
+//{-}
 type MaxProtocolIes struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -491,6 +503,7 @@ func (m *MaxProtocolIes) GetValue() int32 {
 }
 
 // constant Integer from e2ap-v01.01.00.asn1:1565
+//{-}
 type MaxnoofErrors struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -530,6 +543,7 @@ func (m *MaxnoofErrors) GetValue() int32 {
 }
 
 // constant Integer from e2ap-v01.01.00.asn1:1566
+//{-}
 type MaxofE2NodeComponents struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -569,6 +583,7 @@ func (m *MaxofE2NodeComponents) GetValue() int32 {
 }
 
 // constant Integer from e2ap-v01.01.00.asn1:1567
+//{-}
 type MaxofRanfunctionId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -608,6 +623,7 @@ func (m *MaxofRanfunctionId) GetValue() int32 {
 }
 
 // constant Integer from e2ap-v01.01.00.asn1:1568
+//{-}
 type MaxofRicactionId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -647,6 +663,7 @@ func (m *MaxofRicactionId) GetValue() int32 {
 }
 
 // constant Integer from e2ap-v01.01.00.asn1:1569
+//{-}
 type MaxofTnla struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -686,6 +703,7 @@ func (m *MaxofTnla) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1576
+//{-}
 type IdCause struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -725,6 +743,7 @@ func (m *IdCause) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1577
+//{-}
 type IdCriticalityDiagnostics struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -764,6 +783,7 @@ func (m *IdCriticalityDiagnostics) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1578
+//{-}
 type IdGlobalE2NodeId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -803,6 +823,7 @@ func (m *IdGlobalE2NodeId) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1579
+//{-}
 type IdGlobalRicId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -842,6 +863,7 @@ func (m *IdGlobalRicId) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1580
+//{-}
 type IdRanfunctionId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -881,6 +903,7 @@ func (m *IdRanfunctionId) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1581
+//{-}
 type IdRanfunctionIdItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -920,6 +943,7 @@ func (m *IdRanfunctionIdItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1582
+//{-}
 type IdRanfunctionIecauseItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -959,6 +983,7 @@ func (m *IdRanfunctionIecauseItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1583
+//{-}
 type IdRanfunctionItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -998,6 +1023,7 @@ func (m *IdRanfunctionItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1584
+//{-}
 type IdRanfunctionsAccepted struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1037,6 +1063,7 @@ func (m *IdRanfunctionsAccepted) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1585
+//{-}
 type IdRanfunctionsAdded struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1076,6 +1103,7 @@ func (m *IdRanfunctionsAdded) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1586
+//{-}
 type IdRanfunctionsDeleted struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1115,6 +1143,7 @@ func (m *IdRanfunctionsDeleted) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1587
+//{-}
 type IdRanfunctionsModified struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1154,6 +1183,7 @@ func (m *IdRanfunctionsModified) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1588
+//{-}
 type IdRanfunctionsRejected struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1193,6 +1223,7 @@ func (m *IdRanfunctionsRejected) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1589
+//{-}
 type IdRicactionAdmittedItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1232,6 +1263,7 @@ func (m *IdRicactionAdmittedItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1590
+//{-}
 type IdRicactionId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1271,6 +1303,7 @@ func (m *IdRicactionId) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1591
+//{-}
 type IdRicactionNotAdmittedItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1310,6 +1343,7 @@ func (m *IdRicactionNotAdmittedItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1592
+//{-}
 type IdRicactionsAdmitted struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1349,6 +1383,7 @@ func (m *IdRicactionsAdmitted) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1593
+//{-}
 type IdRicactionsNotAdmitted struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1388,6 +1423,7 @@ func (m *IdRicactionsNotAdmitted) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1594
+//{-}
 type IdRicactionToBeSetupItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1427,6 +1463,7 @@ func (m *IdRicactionToBeSetupItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1595
+//{-}
 type IdRiccallProcessId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1466,6 +1503,7 @@ func (m *IdRiccallProcessId) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1596
+//{-}
 type IdRiccontrolAckRequest struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1505,6 +1543,7 @@ func (m *IdRiccontrolAckRequest) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1597
+//{-}
 type IdRiccontrolHeader struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1544,6 +1583,7 @@ func (m *IdRiccontrolHeader) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1598
+//{-}
 type IdRiccontrolMessage struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1583,6 +1623,7 @@ func (m *IdRiccontrolMessage) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1599
+//{-}
 type IdRiccontrolStatus struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1622,6 +1663,7 @@ func (m *IdRiccontrolStatus) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1600
+//{-}
 type IdRicindicationHeader struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1661,6 +1703,7 @@ func (m *IdRicindicationHeader) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1601
+//{-}
 type IdRicindicationMessage struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1700,6 +1743,7 @@ func (m *IdRicindicationMessage) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1602
+//{-}
 type IdRicindicationSn struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1739,6 +1783,7 @@ func (m *IdRicindicationSn) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1603
+//{-}
 type IdRicindicationType struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1778,6 +1823,7 @@ func (m *IdRicindicationType) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1604
+//{-}
 type IdRicrequestId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1817,6 +1863,7 @@ func (m *IdRicrequestId) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1605
+//{-}
 type IdRicsubscriptionDetails struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1856,6 +1903,7 @@ func (m *IdRicsubscriptionDetails) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1606
+//{-}
 type IdTimeToWait struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1895,6 +1943,7 @@ func (m *IdTimeToWait) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1607
+//{-}
 type IdRiccontrolOutcome struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1934,6 +1983,7 @@ func (m *IdRiccontrolOutcome) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1608
+//{-}
 type IdE2NodeComponentConfigUpdate struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1973,6 +2023,7 @@ func (m *IdE2NodeComponentConfigUpdate) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1609
+//{-}
 type IdE2NodeComponentConfigUpdateItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2012,6 +2063,7 @@ func (m *IdE2NodeComponentConfigUpdateItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1610
+//{-}
 type IdE2NodeComponentConfigUpdateAck struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2051,6 +2103,7 @@ func (m *IdE2NodeComponentConfigUpdateAck) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1611
+//{-}
 type IdE2NodeComponentConfigUpdateAckItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2090,6 +2143,7 @@ func (m *IdE2NodeComponentConfigUpdateAckItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1612
+//{-}
 type IdE2ConnectionSetup struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2129,6 +2183,7 @@ func (m *IdE2ConnectionSetup) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1613
+//{-}
 type IdE2ConnectionSetupFailed struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2168,6 +2223,7 @@ func (m *IdE2ConnectionSetupFailed) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1614
+//{-}
 type IdE2ConnectionSetupFailedItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2207,6 +2263,7 @@ func (m *IdE2ConnectionSetupFailedItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1615
+//{-}
 type IdE2ConnectionFailedItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2246,6 +2303,7 @@ func (m *IdE2ConnectionFailedItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1616
+//{-}
 type IdE2ConnectionUpdateItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2285,6 +2343,7 @@ func (m *IdE2ConnectionUpdateItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1617
+//{-}
 type IdE2ConnectionUpdateAdd struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2324,6 +2383,7 @@ func (m *IdE2ConnectionUpdateAdd) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1618
+//{-}
 type IdE2ConnectionUpdateModify struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2363,6 +2423,7 @@ func (m *IdE2ConnectionUpdateModify) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1619
+//{-}
 type IdE2ConnectionUpdateRemove struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2402,6 +2463,7 @@ func (m *IdE2ConnectionUpdateRemove) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1620
+//{-}
 type IdE2ConnectionUpdateRemoveItem struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2441,6 +2503,7 @@ func (m *IdE2ConnectionUpdateRemoveItem) GetValue() int32 {
 }
 
 // reference from e2ap-v01.01.00.asn1:1621
+//{-}
 type IdTnlinformation struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`

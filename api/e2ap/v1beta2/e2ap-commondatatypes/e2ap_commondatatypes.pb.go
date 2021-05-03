@@ -22,6 +22,7 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // enumerated from e2ap-v01.01.00.asn1:1505
+//{-}
 type Criticality int32
 
 const (
@@ -51,6 +52,7 @@ func (Criticality) EnumDescriptor() ([]byte, []int) {
 }
 
 // enumerated from e2ap-v01.00.00.asn:1294
+//{-}
 type Presence int32
 
 const (
@@ -80,6 +82,7 @@ func (Presence) EnumDescriptor() ([]byte, []int) {
 }
 
 // enumerated from e2ap-v01.00.00.asn:1300
+//{-}
 type TriggeringMessage int32
 
 const (
@@ -108,6 +111,7 @@ func (TriggeringMessage) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_e94582a7ccbfcfd6, []int{2}
 }
 
+//{-}
 type CriticalityReject struct {
 	Criticality          Criticality `protobuf:"varint,1,opt,name=criticality,proto3,enum=e2ap.v1beta2.Criticality" json:"criticality,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
@@ -146,6 +150,7 @@ func (m *CriticalityReject) GetCriticality() Criticality {
 	return Criticality_CRITICALITY_REJECT
 }
 
+//{-}
 type CriticalityIgnore struct {
 	Criticality          Criticality `protobuf:"varint,1,opt,name=criticality,proto3,enum=e2ap.v1beta2.Criticality" json:"criticality,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
@@ -184,6 +189,7 @@ func (m *CriticalityIgnore) GetCriticality() Criticality {
 	return Criticality_CRITICALITY_REJECT
 }
 
+//{-}
 type CriticalityNotify struct {
 	Criticality          Criticality `protobuf:"varint,1,opt,name=criticality,proto3,enum=e2ap.v1beta2.Criticality" json:"criticality,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
@@ -222,6 +228,7 @@ func (m *CriticalityNotify) GetCriticality() Criticality {
 	return Criticality_CRITICALITY_REJECT
 }
 
+//{-}
 type PresenceOptional struct {
 	Presence             Presence `protobuf:"varint,1,opt,name=presence,proto3,enum=e2ap.v1beta2.Presence" json:"presence,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -260,6 +267,7 @@ func (m *PresenceOptional) GetPresence() Presence {
 	return Presence_PRESENCE_OPTIONAL
 }
 
+//{-}
 type PresenceConditional struct {
 	Presence             Presence `protobuf:"varint,1,opt,name=presence,proto3,enum=e2ap.v1beta2.Presence" json:"presence,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -298,6 +306,7 @@ func (m *PresenceConditional) GetPresence() Presence {
 	return Presence_PRESENCE_OPTIONAL
 }
 
+//{-}
 type PresenceMandatory struct {
 	Presence             Presence `protobuf:"varint,1,opt,name=presence,proto3,enum=e2ap.v1beta2.Presence" json:"presence,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -337,6 +346,7 @@ func (m *PresenceMandatory) GetPresence() Presence {
 }
 
 // range of Integer from e2ap-v01.01.00.asn1:1509
+//{-}
 type ProcedureCode struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -376,6 +386,7 @@ func (m *ProcedureCode) GetValue() int32 {
 }
 
 // range of Integer from e2ap-v01.01.00.asn1:1511
+//{-}
 type ProtocolIeId struct {
 	Value                int32    `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -414,6 +425,7 @@ func (m *ProtocolIeId) GetValue() int32 {
 	return 0
 }
 
+//{-}
 type RiccallProcessId struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -452,6 +464,7 @@ func (m *RiccallProcessId) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RiccontrolHeader struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -490,6 +503,7 @@ func (m *RiccontrolHeader) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RiccontrolMessage struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -528,6 +542,7 @@ func (m *RiccontrolMessage) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RiccontrolOutcome struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -566,6 +581,7 @@ func (m *RiccontrolOutcome) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RicindicationHeader struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -604,6 +620,7 @@ func (m *RicindicationHeader) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RicindicationMessage struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -642,6 +659,7 @@ func (m *RicindicationMessage) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RanfunctionDefinition struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -680,6 +698,7 @@ func (m *RanfunctionDefinition) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RanfunctionOid struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -718,6 +737,7 @@ func (m *RanfunctionOid) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type PlmnIdentity struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -756,6 +776,7 @@ func (m *PlmnIdentity) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RiceventTriggerDefinition struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -794,6 +815,7 @@ func (m *RiceventTriggerDefinition) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type RicactionDefinition struct {
 	Value                []byte   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -832,6 +854,7 @@ func (m *RicactionDefinition) GetValue() []byte {
 	return nil
 }
 
+//{-}
 type BitString struct {
 	Value                uint64   `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
 	Len                  uint32   `protobuf:"varint,2,opt,name=len,proto3" json:"len,omitempty"`
