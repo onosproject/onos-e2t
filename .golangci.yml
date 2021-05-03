@@ -57,6 +57,18 @@ issues:
     - path: pkg/southbound/e2ap101/pdubuilder/error-indication_test.go
       linters:
         - misspell
+    - path: pkg/southbound/e2ap101/pdubuilder/e2-connection-update-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap101/pdubuilder/e2-node-configuration-update-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap101/pdubuilder/reset-response_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap101/pdubuilder/ric-service-update-failure_test.go
+      linters:
+        - misspell
     - path: pkg/southbound/e2ap101/asn1cgo/
       linters:
         - deadcode

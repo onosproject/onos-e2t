@@ -18,6 +18,7 @@ import "e2ap/v1beta2/e2ap_constants.proto";
 import "validate/v1/validate.proto";
 
 // enumerated from e2ap-v01.01.00.asn1:1077
+//{CauseMisc}
 enum CauseMisc {
     CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD = 0;
     CAUSE_MISC_HARDWARE_FAILURE = 1;
@@ -26,6 +27,7 @@ enum CauseMisc {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1084
+//{CauseProtocol}
 enum CauseProtocol {
     CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR = 0;
     CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT = 1;
@@ -37,6 +39,7 @@ enum CauseProtocol {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1095
+//{CauseRIC}
 enum CauseRic {
     CAUSE_RIC_RAN_FUNCTION_ID_INVALID = 0;
     CAUSE_RIC_ACTION_NOT_SUPPORTED = 1;
@@ -52,6 +55,7 @@ enum CauseRic {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1110
+//{CauseRICservice}
 enum CauseRicservice {
     CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED = 0;
     CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS = 1;
@@ -59,12 +63,14 @@ enum CauseRicservice {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1116
+//{CauseTransport}
 enum CauseTransport {
     CAUSE_TRANSPORT_UNSPECIFIED = 0;
     CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE = 1;
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1186
+//{E2nodeComponentType}
 enum E2nodeComponentType {
     E2NODE_COMPONENT_TYPE_G_NB = 0;
     E2NODE_COMPONENT_TYPE_G_NB_CU_UP = 1;
@@ -75,6 +81,7 @@ enum E2nodeComponentType {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1355
+//{RICactionType}
 enum RicactionType {
     RICACTION_TYPE_REPORT = 0;
     RICACTION_TYPE_INSERT = 1;
@@ -82,6 +89,7 @@ enum RicactionType {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1367
+//{RICcontrolAckRequest}
 enum RiccontrolAckRequest {
     RICCONTROL_ACK_REQUEST_NO_ACK = 0;
     RICCONTROL_ACK_REQUEST_ACK = 1;
@@ -89,6 +97,7 @@ enum RiccontrolAckRequest {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1389
+//{RICcontrolStatus}
 enum RiccontrolStatus {
     RICCONTROL_STATUS_SUCCESS = 0;
     RICCONTROL_STATUS_REJECTED = 1;
@@ -96,18 +105,21 @@ enum RiccontrolStatus {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1413
+//{RICindicationType}
 enum RicindicationType {
     RICINDICATION_TYPE_REPORT = 0;
     RICINDICATION_TYPE_INSERT = 1;
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1431
+//{RICsubsequentActionType}
 enum RicsubsequentActionType {
     RICSUBSEQUENT_ACTION_TYPE_CONTINUE = 0;
     RICSUBSEQUENT_ACTION_TYPE_WAIT = 1;
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1437
+//{RICtimeToWait}
 enum RictimeToWait {
     RICTIME_TO_WAIT_ZERO = 0;
     RICTIME_TO_WAIT_W1MS = 1;
@@ -130,6 +142,7 @@ enum RictimeToWait {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1462
+//{TimeToWait}
 enum TimeToWait {
     TIME_TO_WAIT_V1S = 0;
     TIME_TO_WAIT_V2S = 1;
@@ -140,6 +153,7 @@ enum TimeToWait {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1471
+//{TNLusage}
 enum Tnlusage {
     TNLUSAGE_RIC_SERVICE = 0;
     TNLUSAGE_SUPPORT_FUNCTION = 1;
@@ -147,251 +161,288 @@ enum Tnlusage {
 };
 
 // enumerated from e2ap-v01.01.00.asn1:1478
+//{TypeOfError}
 enum TypeOfError {
     TYPE_OF_ERROR_NOT_UNDERSTOOD = 0;
     TYPE_OF_ERROR_MISSING = 1;
 };
 
 // sequence from e2ap-v01.01.00.asn1:1068
+//{Cause}
 message Cause {
     // choice from e2ap-v01.01.00.asn1:1068
     oneof cause {
-        CauseRic ric_request = 1;
-        CauseRicservice ric_service = 2;
-        CauseTransport transport = 3;
-        CauseProtocol protocol = 4;
-        CauseMisc misc = 5;
+        CauseRic ric_request = 1 [json_name="ricRequest"];
+        CauseRicservice ric_service = 2 [json_name="ricService"];
+        CauseTransport transport = 3 [json_name="transport"];
+        CauseProtocol protocol = 4 [json_name="protocol"];
+        CauseMisc misc = 5 [json_name="misc"];
     }
 };
 
 // sequence from e2ap-v01.01.00.asn1:1126
+//{CriticalityDiagnostics}
 message CriticalityDiagnostics {
-    ProcedureCode procedure_code = 1;
-    TriggeringMessage triggering_message = 2;
-    Criticality procedure_criticality = 3;
-    RicrequestId ric_requestor_id = 4;
-    CriticalityDiagnosticsIeList i_es_criticality_diagnostics = 5;
+    ProcedureCode procedure_code = 1 [json_name="procedureCode"];
+    TriggeringMessage triggering_message = 2 [json_name="triggeringMessage"];
+    Criticality procedure_criticality = 3 [json_name="procedureCriticality"];
+    RicrequestId ric_requestor_id = 4 [json_name="ricRequestorID"];
+    CriticalityDiagnosticsIeList i_es_criticality_diagnostics = 5 [json_name="iEsCriticalityDiagnostics"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1136
+//{CriticalityDiagnostics-IE-List}
 message CriticalityDiagnosticsIeList {
-    repeated CriticalityDiagnosticsIeItem value = 1;
+    repeated CriticalityDiagnosticsIeItem value = 1 [json_name="list"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1137
+//{CriticalityDiagnostics-IE-Item}
 message CriticalityDiagnosticsIeItem {
-    Criticality i_ecriticality = 1;
-    ProtocolIeId i_e_id = 2;
-    TypeOfError type_of_error = 3;
+    Criticality i_ecriticality = 1 [json_name="iECriticality"];
+    ProtocolIeId i_e_id = 2 [json_name="iE_ID"];
+    TypeOfError type_of_error = 3 [json_name="typeOfError"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1148
+//{E2nodeComponentConfigUpdate}
 message E2nodeComponentConfigUpdate {
     // choice from e2ap-v01.01.00.asn1:1148
     oneof e2node_component_config_update {
-        E2nodeComponentConfigUpdateGnb g_nbconfig_update = 1;
-        E2nodeComponentConfigUpdateEngNb en_g_nbconfig_update = 2;
-        E2nodeComponentConfigUpdateNgeNb ng_e_nbconfig_update = 3;
-        E2nodeComponentConfigUpdateEnb e_nbconfig_update = 4;
+        E2nodeComponentConfigUpdateGnb g_nbconfig_update = 1 [json_name="gNBconfigUpdate"];
+        E2nodeComponentConfigUpdateEngNb en_g_nbconfig_update = 2 [json_name="en_gNBconfigUpdate"];
+        E2nodeComponentConfigUpdateNgeNb ng_e_nbconfig_update = 3 [json_name="ng_eNBconfigUpdate"];
+        E2nodeComponentConfigUpdateEnb e_nbconfig_update = 4 [json_name="eNBconfigUpdate"];
     }
 };
 
 // sequence from e2ap-v01.01.00.asn1:1156
+//{E2nodeComponentConfigUpdateGNB}
 message E2nodeComponentConfigUpdateGnb {
-    int32 ng_apconfig_update = 1;
-    int32 xn_apconfig_update = 2;
-    int32 e1_apconfig_update = 3;
-    int32 f1_apconfig_update = 4;
+    string ng_apconfig_update = 1 [json_name="ngAPconfigUpdate"];
+    string xn_apconfig_update = 2 [json_name="xnAPconfigUpdate"];
+    string e1_apconfig_update = 3 [json_name="e1APconfigUpdate"];
+    string f1_apconfig_update = 4 [json_name="f1APconfigUpdate"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1164
+//{E2nodeComponentConfigUpdateENgNB}
 message E2nodeComponentConfigUpdateEngNb {
-    int32 x2_apconfig_update = 1;
+    string x2_apconfig_update = 1 [json_name="x2APconfigUpdate"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1169
+//{E2nodeComponentConfigUpdateNGeNB}
 message E2nodeComponentConfigUpdateNgeNb {
-    int32 ng_apconfig_update = 1;
-    int32 xn_apconfig_update = 2;
+    string ng_apconfig_update = 1 [json_name="ngAPconfigUpdate"];
+    string xn_apconfig_update = 2 [json_name="xnAPconfigUpdate"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1175
+//{E2nodeComponentConfigUpdateENB}
 message E2nodeComponentConfigUpdateEnb {
-    int32 s1_apconfig_update = 1;
-    int32 x2_apconfig_update = 2;
+    string s1_apconfig_update = 1 [json_name="s1APconfigUpdate"];
+    string x2_apconfig_update = 2 [json_name="x2APconfigUpdate"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1181
+//{E2nodeComponentConfigUpdateAck}
 message E2nodeComponentConfigUpdateAck {
-    int32 update_outcome = 1;
-    Cause failure_cause = 2;
+    int32 update_outcome = 1 [json_name="updateOutcome"];
+    Cause failure_cause = 2 [json_name="failureCause"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1189
+//{E2nodeComponentID}
 message E2nodeComponentId {
     // choice from e2ap-v01.01.00.asn1:1189
     oneof e2node_component_id {
-        E2nodeComponentGnbCuUpId e2node_component_type_gnb_cu_up = 1;
-        E2nodeComponentGnbDuId e2node_component_type_gnb_du = 2;
+        E2nodeComponentGnbCuUpId e2node_component_type_gnb_cu_up = 1 [json_name="e2nodeComponentTypeGNB_CU_UP"];
+        E2nodeComponentGnbDuId e2node_component_type_gnb_du = 2 [json_name="e2nodeComponentTypeGNB_DU"];
     }
 };
 
 // sequence from e2ap-v01.01.00.asn1:1195
+//{E2nodeComponentGNB-CU-UP-ID}
 message E2nodeComponentGnbCuUpId {
-    GnbCuUpId g_nb_cu_up_id = 1;
+    GnbCuUpId g_nb_cu_up_id = 1 [json_name="gNB_CU_UP_ID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1200
+//{E2nodeComponentGNB-DU-ID}
 message E2nodeComponentGnbDuId {
-    GnbDuId g_nb_du_id = 1;
+    GnbDuId g_nb_du_id = 1 [json_name="gNB_DU_ID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1209
+//{ENB-ID}
 message EnbId {
     // choice from e2ap-v01.01.00.asn1:1209
     oneof enb_id {
-        BitString macro_e_nb_id = 1;
-        BitString home_e_nb_id = 2;
-        BitString short_macro_e_nb_id = 3;
-        BitString long_macro_e_nb_id = 4;
+        BitString macro_e_nb_id = 1 [json_name="macro_eNB_ID"];
+        BitString home_e_nb_id = 2 [json_name="home_eNB_ID"];
+        BitString short_macro_e_nb_id = 3 [json_name="short_Macro_eNB_ID"];
+        BitString long_macro_e_nb_id = 4 [json_name="long_Macro_eNB_ID"];
     }
 };
 
 // sequence from e2ap-v01.01.00.asn1:1219
+//{ENB-ID-Choice}
 message EnbIdChoice {
     // choice from e2ap-v01.01.00.asn1:1219
     oneof enb_id_choice {
-        BitString enb_id_macro = 1;
-        BitString enb_id_shortmacro = 2;
-        BitString enb_id_longmacro = 3;
+        BitString enb_id_macro = 1 [json_name="enb_ID_macro"];
+        BitString enb_id_shortmacro = 2 [json_name="enb_ID_shortmacro"];
+        BitString enb_id_longmacro = 3 [json_name="enb_ID_longmacro"];
     }
 };
 
 // sequence from e2ap-v01.01.00.asn1:1231
+//{ENGNB-ID}
 message EngnbId {
     // choice from e2ap-v01.01.00.asn1:1231
     oneof engnb_id {
-        BitString g_nb_id = 1;
+        BitString g_nb_id = 1 [json_name="gNB_ID"];
     }
 };
 
 // sequence from e2ap-v01.01.00.asn1:1238
+//{GlobalE2node-ID}
 message GlobalE2nodeId {
     // choice from e2ap-v01.01.00.asn1:1238
     oneof global_e2node_id {
-        GlobalE2nodeGnbId g_nb = 1;
-        GlobalE2nodeEnGnbId en_g_nb = 2;
-        GlobalE2nodeNgEnbId ng_e_nb = 3;
-        GlobalE2nodeEnbId e_nb = 4;
+        GlobalE2nodeGnbId g_nb = 1 [json_name="gNB"];
+        GlobalE2nodeEnGnbId en_g_nb = 2 [json_name="en_gNB"];
+        GlobalE2nodeNgEnbId ng_e_nb = 3 [json_name="ng_eNB"];
+        GlobalE2nodeEnbId e_nb = 4 [json_name="eNB"];
     }
 };
 
 // sequence from e2ap-v01.01.00.asn1:1246
+//{GlobalE2node-en-gNB-ID}
 message GlobalE2nodeEnGnbId {
-    GlobalenGnbId global_g_nb_id = 1;
+    GlobalenGnbId global_g_nb_id = 1 [json_name="global_gNB_ID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1250
+//{GlobalE2node-eNB-ID}
 message GlobalE2nodeEnbId {
-    GlobalEnbId global_e_nb_id = 1;
+    GlobalEnbId global_e_nb_id = 1 [json_name="global_eNB_ID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1254
+//{GlobalE2node-gNB-ID}
 message GlobalE2nodeGnbId {
-    GlobalgNbId global_g_nb_id = 1;
-    GnbCuUpId g_nb_cu_up_id = 2;
-    GnbDuId g_nb_du_id = 3;
+    GlobalgNbId global_g_nb_id = 1 [json_name="global_gNB_ID"];
+    GnbCuUpId g_nb_cu_up_id = 2 [json_name="gNB_CU_UP_ID"];
+    GnbDuId g_nb_du_id = 3 [json_name="gNB_DU_ID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1260
+//{GlobalE2node-ng-eNB-ID}
 message GlobalE2nodeNgEnbId {
-    GlobalngeNbId global_ng_e_nb_id = 1;
+    GlobalngeNbId global_ng_e_nb_id = 1 [json_name="global_ng_eNB_ID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1269
+//{GlobalENB-ID}
 message GlobalEnbId {
-    PlmnIdentity p_lmn_identity = 1;
-    EnbId e_nb_id = 2;
+    PlmnIdentity p_lmn_identity = 1 [json_name="pLMN_Identity"];
+    EnbId e_nb_id = 2 [json_name="eNB_ID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1278
+//{GlobalenGNB-ID}
 message GlobalenGnbId {
-    PlmnIdentity p_lmn_identity = 1;
-    EngnbId g_nb_id = 2;
+    PlmnIdentity p_lmn_identity = 1 [json_name="pLMN_Identity"];
+    EngnbId g_nb_id = 2 [json_name="gNB_ID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1286
+//{GlobalgNB-ID}
 message GlobalgNbId {
-    PlmnIdentity plmn_id = 1;
-    GnbIdChoice gnb_id = 2;
+    PlmnIdentity plmn_id = 1 [json_name="plmn_id"];
+    GnbIdChoice gnb_id = 2 [json_name="gnb_id"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1296
+//{GlobalngeNB-ID}
 message GlobalngeNbId {
-    PlmnIdentity plmn_id = 1;
-    EnbIdChoice enb_id = 2;
+    PlmnIdentity plmn_id = 1 [json_name="plmn_id"];
+    EnbIdChoice enb_id = 2 [json_name="enb_id"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1302
+//{GlobalRIC-ID}
 message GlobalRicId {
-    PlmnIdentity p_lmn_identity = 1;
-    BitString ric_id = 2;
+    PlmnIdentity p_lmn_identity = 1 [json_name="pLMN_Identity"];
+    BitString ric_id = 2 [json_name="ric_ID"];
 };
 
 // range of Integer from e2ap-v01.01.00.asn1:1310
+//{GNB-CU-UP-ID}
 message GnbCuUpId {
-    int64 value = 1 [(validate.v1.rules).int64 = {gte: 0, lte: 68719476735}];
+    int64 value = 1 [(validate.v1.rules).int64 = {gte: 0, lte: 68719476735}, json_name="value"];
 };
 
 // range of Integer from e2ap-v01.01.00.asn1:1311
+//{GNB-DU-ID}
 message GnbDuId {
-    int64 value = 1 [(validate.v1.rules).int64 = {gte: 0, lte: 68719476735}];
+    int64 value = 1 [(validate.v1.rules).int64 = {gte: 0, lte: 68719476735}, json_name="value"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1317
+//{GNB-ID-Choice}
 message GnbIdChoice {
     // choice from e2ap-v01.01.00.asn1:1317
     oneof gnb_id_choice {
-        BitString gnb_id = 1;
+        BitString gnb_id = 1 [json_name="gnb_ID"];
     }
 };
 
 // range of Integer from e2ap-v01.01.00.asn1:1341
+//{RANfunctionID}
 message RanfunctionId {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095}];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095}, json_name="value"];
 };
 
 // range of Integer from e2ap-v01.01.00.asn1:1345
+//{RANfunctionRevision}
 message RanfunctionRevision {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095}];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095}, json_name="value"];
 };
 
 // range of Integer from e2ap-v01.01.00.asn1:1352
+//{RICactionID}
 message RicactionId {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}, json_name="value"];
 };
 
 // range of Integer from e2ap-v01.01.00.asn1:1410
+//{RICindicationSN}
 message RicindicationSn {
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 65535}];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 65535}, json_name="value"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1419
+//{RICrequestID}
 message RicrequestId {
-    int32 ric_requestor_id = 1;
-    int32 ric_instance_id = 2;
+    int32 ric_requestor_id = 1 [json_name="ricRequestorID"];
+    int32 ric_instance_id = 2 [json_name="ricInstanceID"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1425
+//{RICsubsequentAction}
 message RicsubsequentAction {
-    RicsubsequentActionType ric_subsequent_action_type = 1;
-    RictimeToWait ric_time_to_wait = 2;
+    RicsubsequentActionType ric_subsequent_action_type = 1 [json_name="ricSubsequentActionType"];
+    RictimeToWait ric_time_to_wait = 2 [json_name="ricTimeToWait"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:1466
+//{TNLinformation}
 message Tnlinformation {
-    BitString tnl_address = 1;
-    BitString tnl_port = 2;
+    BitString tnl_address = 1 [json_name="tnlAddress"];
+    BitString tnl_port = 2 [json_name="tnlPort:OPTIONAL"];
 };
 
 

@@ -25,6 +25,7 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // sequence from e2ap-v01.01.00.asn1:1710
 // Param E2AP-PROTOCOL-IES:IEsSetParam
+//{-}
 type ProtocolIeContainer001 struct {
 	Value                []*ProtocolIeField001 `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
@@ -65,6 +66,7 @@ func (m *ProtocolIeContainer001) GetValue() []*ProtocolIeField001 {
 
 // reference from e2ap-v01.01.00.asn1:1713
 // Param E2AP-PROTOCOL-IES:IEsSetParam
+//{-}
 type ProtocolIeSingleContainer001 struct {
 	Value                *ProtocolIeField001 `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
@@ -105,6 +107,7 @@ func (m *ProtocolIeSingleContainer001) GetValue() *ProtocolIeField001 {
 
 // sequence from e2ap-v01.01.00.asn1:1716
 // Param E2AP-PROTOCOL-IES:IEsSetParam
+//{-}
 type ProtocolIeField001 struct {
 	Id                   *e2ap_constants.IdRicrequestId   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality          e2ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap.v1beta2.Criticality" json:"criticality,omitempty"`
@@ -153,6 +156,7 @@ func (m *ProtocolIeField001) GetCriticality() e2ap_commondatatypes.Criticality {
 
 // sequence from e2ap-v01.01.00.asn1:1729
 // Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+//{-}
 type ProtocolIeContainerPair struct {
 	Value                []*ProtocolIeFieldPair `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
@@ -193,6 +197,7 @@ func (m *ProtocolIeContainerPair) GetValue() []*ProtocolIeFieldPair {
 
 // sequence from e2ap-v01.01.00.asn1:1732
 // Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+//{-}
 type ProtocolIeFieldPair struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -227,6 +232,7 @@ var xxx_messageInfo_ProtocolIeFieldPair proto.InternalMessageInfo
 // Param INTEGER:lowerBound
 // Param INTEGER:upperBound
 // Param E2AP-PROTOCOL-IES:IEsSetParam
+//{-}
 type ProtocolIeContainerList struct {
 	Value                []*ProtocolIeSingleContainer001 `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                        `json:"-"`
@@ -269,6 +275,7 @@ func (m *ProtocolIeContainerList) GetValue() []*ProtocolIeSingleContainer001 {
 // Param INTEGER:lowerBound
 // Param INTEGER:upperBound
 // Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+//{-}
 type ProtocolIeContainerPairList struct {
 	Value                []*ProtocolIeContainerPair `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                   `json:"-"`

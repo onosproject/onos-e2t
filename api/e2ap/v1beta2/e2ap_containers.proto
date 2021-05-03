@@ -19,18 +19,21 @@ import "validate/v1/validate.proto";
 
 // sequence from e2ap-v01.01.00.asn1:1710
 // Param E2AP-PROTOCOL-IES:IEsSetParam
+//{-}
 message ProtocolIeContainer001 {
     repeated ProtocolIeField001 value = 1;
 };
 
 // reference from e2ap-v01.01.00.asn1:1713
 // Param E2AP-PROTOCOL-IES:IEsSetParam
+//{-}
 message ProtocolIeSingleContainer001 {
     ProtocolIeField001 value = 1;
 };
 
 // sequence from e2ap-v01.01.00.asn1:1716
 // Param E2AP-PROTOCOL-IES:IEsSetParam
+//{-}
 message ProtocolIeField001 {
     IdRicrequestId id = 1;
     Criticality criticality = 2;
@@ -38,12 +41,14 @@ message ProtocolIeField001 {
 
 // sequence from e2ap-v01.01.00.asn1:1729
 // Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+//{-}
 message ProtocolIeContainerPair {
     repeated ProtocolIeFieldPair value = 1;
 };
 
 // sequence from e2ap-v01.01.00.asn1:1732
 // Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+//{-}
 message ProtocolIeFieldPair {
 };
 
@@ -51,6 +56,7 @@ message ProtocolIeFieldPair {
 // Param INTEGER:lowerBound
 // Param INTEGER:upperBound
 // Param E2AP-PROTOCOL-IES:IEsSetParam
+//{-}
 message ProtocolIeContainerList {
     repeated ProtocolIeSingleContainer001 value = 1;
 };
@@ -59,6 +65,7 @@ message ProtocolIeContainerList {
 // Param INTEGER:lowerBound
 // Param INTEGER:upperBound
 // Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+//{-}
 message ProtocolIeContainerPairList {
     repeated ProtocolIeContainerPair value = 1;
 };

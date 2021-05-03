@@ -25,6 +25,7 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // sequence from e2ap-v01.01.00.asn1:97
+//{-}
 type E2ApPdu struct {
 	// choice from e2ap-v01.01.00.asn1:97
 	//
@@ -118,6 +119,7 @@ func (*E2ApPdu) XXX_OneofWrappers() []interface{} {
 }
 
 // sequence from e2ap-v01.01.00.asn1:104
+//{-}
 type InitiatingMessage struct {
 	ProcedureCode        *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
@@ -157,6 +159,7 @@ func (m *InitiatingMessage) GetProcedureCode() *E2ApElementaryProcedures {
 }
 
 // sequence from e2ap-v01.01.00.asn1:110
+//{-}
 type SuccessfulOutcome struct {
 	ProcedureCode        *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
@@ -196,6 +199,7 @@ func (m *SuccessfulOutcome) GetProcedureCode() *E2ApElementaryProcedures {
 }
 
 // sequence from e2ap-v01.01.00.asn1:116
+//{-}
 type UnsuccessfulOutcome struct {
 	ProcedureCode        *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
@@ -235,6 +239,7 @@ func (m *UnsuccessfulOutcome) GetProcedureCode() *E2ApElementaryProcedures {
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:127
+//{-}
 type E2ApElementaryProcedures struct {
 	RicSubscription           *RicSubscription             `protobuf:"bytes,1,opt,name=ric_subscription,json=ricSubscription,proto3" json:"ric_subscription,omitempty"`
 	RicSubscriptionDelete     *RicSubscriptionDelete       `protobuf:"bytes,2,opt,name=ric_subscription_delete,json=ricSubscriptionDelete,proto3" json:"ric_subscription_delete,omitempty"`
@@ -354,6 +359,7 @@ func (m *E2ApElementaryProcedures) GetErrorIndication() *ErrorIndicationEp {
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:133
+//{-}
 type E2ApElementaryProceduresClass1 struct {
 	RicSubscription           *RicSubscription             `protobuf:"bytes,1,opt,name=ric_subscription,json=ricSubscription,proto3" json:"ric_subscription,omitempty"`
 	RicSubscriptionDelete     *RicSubscriptionDelete       `protobuf:"bytes,2,opt,name=ric_subscription_delete,json=ricSubscriptionDelete,proto3" json:"ric_subscription_delete,omitempty"`
@@ -449,6 +455,7 @@ func (m *E2ApElementaryProceduresClass1) GetReset_() *Reset {
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:145
+//{-}
 type E2ApElementaryProceduresClass2 struct {
 	RicIndication        *RicIndication     `protobuf:"bytes,1,opt,name=ric_indication,json=ricIndication,proto3" json:"ric_indication,omitempty"`
 	RicServiceQuery      *RicServiceQuery   `protobuf:"bytes,2,opt,name=ric_service_query,json=ricServiceQuery,proto3" json:"ric_service_query,omitempty"`
@@ -504,6 +511,7 @@ func (m *E2ApElementaryProceduresClass2) GetErrorIndication() *ErrorIndicationEp
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:159
+//{-}
 type E2ConnectionUpdateEp struct {
 	InitiatingMessage    *e2ap_pdu_contents.E2ConnectionUpdate            `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	SuccessfulOutcome    *e2ap_pdu_contents.E2ConnectionUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3" json:"successful_outcome,omitempty"`
@@ -575,6 +583,7 @@ func (m *E2ConnectionUpdateEp) GetCriticality() *e2ap_commondatatypes.Criticalit
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:167
+//{-}
 type E2NodeConfigurationUpdateEp struct {
 	InitiatingMessage    *e2ap_pdu_contents.E2NodeConfigurationUpdate            `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	SuccessfulOutcome    *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3" json:"successful_outcome,omitempty"`
@@ -646,6 +655,7 @@ func (m *E2NodeConfigurationUpdateEp) GetCriticality() *e2ap_commondatatypes.Cri
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:175
+//{-}
 type E2Setup struct {
 	InitiatingMessage    *e2ap_pdu_contents.E2SetupRequest       `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	SuccessfulOutcome    *e2ap_pdu_contents.E2SetupResponse      `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3" json:"successful_outcome,omitempty"`
@@ -717,6 +727,7 @@ func (m *E2Setup) GetCriticality() *e2ap_commondatatypes.CriticalityReject {
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:183
+//{-}
 type ErrorIndicationEp struct {
 	InitiatingMessage    *e2ap_pdu_contents.ErrorIndication      `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	ProcedureCode        *e2ap_constants.IdErrorIndication       `protobuf:"bytes,2,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
@@ -772,6 +783,7 @@ func (m *ErrorIndicationEp) GetCriticality() *e2ap_commondatatypes.CriticalityIg
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:189
+//{-}
 type Reset struct {
 	InitiatingMessage    *e2ap_pdu_contents.ResetRequest         `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	SuccessfulOutcome    *e2ap_pdu_contents.ResetResponse        `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3" json:"successful_outcome,omitempty"`
@@ -835,6 +847,7 @@ func (m *Reset) GetCriticality() *e2ap_commondatatypes.CriticalityReject {
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:196
+//{-}
 type RicControl struct {
 	InitiatingMessage    *e2ap_pdu_contents.RiccontrolRequest     `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	SuccessfulOutcome    *e2ap_pdu_contents.RiccontrolAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3" json:"successful_outcome,omitempty"`
@@ -906,6 +919,7 @@ func (m *RicControl) GetCriticality() *e2ap_commondatatypes.CriticalityReject {
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:204
+//{-}
 type RicIndication struct {
 	InitiatingMessage    *e2ap_pdu_contents.Ricindication        `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	ProcedureCode        *e2ap_constants.IdRicindication         `protobuf:"bytes,2,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
@@ -961,6 +975,7 @@ func (m *RicIndication) GetCriticality() *e2ap_commondatatypes.CriticalityIgnore
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:210
+//{-}
 type RicServiceQuery struct {
 	InitiatingMessage    *e2ap_pdu_contents.RicserviceQuery      `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	ProcedureCode        *e2ap_constants.IdRicserviceQuery       `protobuf:"bytes,2,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
@@ -1016,6 +1031,7 @@ func (m *RicServiceQuery) GetCriticality() *e2ap_commondatatypes.CriticalityIgno
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:216
+//{-}
 type RicServiceUpdate struct {
 	InitiatingMessage    *e2ap_pdu_contents.RicserviceUpdate            `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	SuccessfulOutcome    *e2ap_pdu_contents.RicserviceUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3" json:"successful_outcome,omitempty"`
@@ -1087,6 +1103,7 @@ func (m *RicServiceUpdate) GetCriticality() *e2ap_commondatatypes.CriticalityRej
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:224
+//{-}
 type RicSubscription struct {
 	InitiatingMessage    *e2ap_pdu_contents.RicsubscriptionRequest  `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	SuccessfulOutcome    *e2ap_pdu_contents.RicsubscriptionResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3" json:"successful_outcome,omitempty"`
@@ -1158,6 +1175,7 @@ func (m *RicSubscription) GetCriticality() *e2ap_commondatatypes.CriticalityReje
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap-v01.01.00.asn1:232
+//{-}
 type RicSubscriptionDelete struct {
 	InitiatingMessage    *e2ap_pdu_contents.RicsubscriptionDeleteRequest  `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3" json:"initiating_message,omitempty"`
 	SuccessfulOutcome    *e2ap_pdu_contents.RicsubscriptionDeleteResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3" json:"successful_outcome,omitempty"`

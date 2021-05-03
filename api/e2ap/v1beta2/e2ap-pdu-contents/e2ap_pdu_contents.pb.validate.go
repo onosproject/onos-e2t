@@ -13644,10 +13644,10 @@ func (m *E2ConnectionUpdateIes_E2ConnectionUpdateIes44) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetConnectionAdd()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateIes_E2ConnectionUpdateIes44ValidationError{
-				field:  "Value",
+				field:  "ConnectionAdd",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -13746,10 +13746,10 @@ func (m *E2ConnectionUpdateIes_E2ConnectionUpdateIes46) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetConnectionRemove()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateIes_E2ConnectionUpdateIes46ValidationError{
-				field:  "Value",
+				field:  "ConnectionRemove",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -13848,10 +13848,10 @@ func (m *E2ConnectionUpdateIes_E2ConnectionUpdateIes45) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetConnectionModify()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateIes_E2ConnectionUpdateIes45ValidationError{
-				field:  "Value",
+				field:  "ConnectionModify",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -13951,10 +13951,10 @@ func (m *E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetConnectionSetup()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39ValidationError{
-				field:  "Value",
+				field:  "ConnectionSetup",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -14058,10 +14058,10 @@ func (m *E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes40) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetConnectionSetupFailed()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes40ValidationError{
-				field:  "Value",
+				field:  "ConnectionSetupFailed",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -15000,10 +15000,10 @@ func (m *RicserviceUpdateIes_RicserviceUpdateIes10) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetRanFunctionsAddedList()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
-				field:  "Value",
+				field:  "RanFunctionsAddedList",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -15099,10 +15099,10 @@ func (m *RicserviceUpdateIes_RicserviceUpdateIes12) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetRanFunctionsModifiedList()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
-				field:  "Value",
+				field:  "RanFunctionsModifiedList",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -15198,10 +15198,10 @@ func (m *RicserviceUpdateIes_RicserviceUpdateIes11) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if v, ok := interface{}(m.GetRanFunctionsDeletedList()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
-				field:  "Value",
+				field:  "RanFunctionsDeletedList",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
