@@ -7,7 +7,7 @@ package utils
 import (
 	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/pdubuilder"
-	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v1/e2sm-rc-pre-ies"
+	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -36,13 +36,18 @@ type RcControlMessage struct {
 	RanParameterValue int32
 }
 
-// CreatRcControlHeader creates rc control header
+// CreateRcControlHeader  creates rc control header
 func (ch *RcControlHeader) CreateRcControlHeader() ([]byte, error) {
-	cellID := &e2sm_rc_pre_ies.BitString{
+	cellID := &e2smrcpreies.BitString{
 		Value: ch.CellID,
-		Len:   28,
+		Len:   36,
 	}
-	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlHeader(ch.Priority, ch.PlmnID, cellID)
+	cgi, err := pdubuilder.CreateCellGlobalIDNrCgi(ch.PlmnID, cellID)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlHeader(ch.Priority, cgi)
 	if err != nil {
 		return []byte{}, err
 	}
@@ -62,7 +67,8 @@ func (ch *RcControlHeader) CreateRcControlHeader() ([]byte, error) {
 
 // CreateRcControlMessage creates rc control message
 func (cm *RcControlMessage) CreateRcControlMessage() ([]byte, error) {
-	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlMessage(cm.RanParameterID, cm.RanParameterName, cm.RanParameterValue)
+	ranParameterValue := pdubuilder.CreateRanParameterValueInt(cm.RanParameterValue)
+	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlMessage(cm.RanParameterID, cm.RanParameterName, ranParameterValue)
 	if err != nil {
 		return []byte{}, err
 	}
