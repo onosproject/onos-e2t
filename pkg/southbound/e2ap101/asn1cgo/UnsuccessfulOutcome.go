@@ -87,6 +87,21 @@ func newUnsuccessfulOutcome(uso *e2appdudescriptions.UnsuccessfulOutcome) (*C.Un
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2sfC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2sfC.protocolIEs.list.size))
 
+	} else if pc := uso.GetProcedureCode().GetRicServiceUpdate(); pc != nil &&
+		pc.GetUnsuccessfulOutcome() != nil {
+
+		presentC = C.UnsuccessfulOutcome__value_PR_RICserviceUpdateFailure
+		pcC = C.ProcedureCode_id_RICserviceUpdate
+		critC = C.long(C.Criticality_reject)
+		rsufC, err := newRicServiceUpdateFailure(pc.GetUnsuccessfulOutcome())
+		if err != nil {
+			return nil, err
+		}
+
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(rsufC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(rsufC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(rsufC.protocolIEs.list.size))
+
 	} else {
 		return nil, fmt.Errorf("newUnsuccessfulOutcomeValue type not yet implemented")
 	}
@@ -114,7 +129,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 	case C.UnsuccessfulOutcome__value_PR_RICsubscriptionFailure:
 		rsfC := C.RICsubscriptionFailure_t{
 			protocolIEs: C.ProtocolIE_Container_1710P2_t{
-				list: C.struct___131{ // TODO: tie this down with a predictable name
+				list: C.struct___132{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -139,7 +154,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 	case C.UnsuccessfulOutcome__value_PR_RICcontrolFailure:
 		rcfC := C.RICcontrolFailure_t{
 			protocolIEs: C.ProtocolIE_Container_1710P9_t{
-				list: C.struct___133{ // TODO: tie this down with a predictable name
+				list: C.struct___134{ // TODO: tie this down with a predictable name
 					array: (**C.RICcontrolFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -164,7 +179,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 	case C.UnsuccessfulOutcome__value_PR_RICsubscriptionDeleteFailure:
 		rsdfC := C.RICsubscriptionDeleteFailure_t{
 			protocolIEs: C.ProtocolIE_Container_1710P5_t{
-				list: C.struct___132{ // TODO: tie this down with a predictable name
+				list: C.struct___133{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -189,7 +204,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 	case C.UnsuccessfulOutcome__value_PR_E2setupFailure:
 		e2sfC := C.E2setupFailure_t{
 			protocolIEs: C.ProtocolIE_Container_1710P13_t{
-				list: C.struct___130{ // TODO: tie this down with a predictable name
+				list: C.struct___131{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupFailureIEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -206,6 +221,31 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 				UnsuccessfulOutcome: e2sf,
 				ProcedureCode: &e2ap_constants.IdE2Setup{
 					Value: int32(v1beta2.ProcedureCodeIDE2setup),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
+
+	case C.UnsuccessfulOutcome__value_PR_RICserviceUpdateFailure:
+		rsufC := C.RICserviceUpdateFailure_t{
+			protocolIEs: C.ProtocolIE_Container_1710P24_t{
+				list: C.struct___132{ // TODO: tie this down with a predictable name
+					array: (**C.RICserviceUpdateFailure_IEs_t)(listArrayAddr),
+					count: count,
+					size:  size,
+				},
+			},
+		}
+		//fmt.Printf("RICsubscriptionDeleteFailure %+v\n %+v\n", failureC, rsfC)
+		rsuf, err := decodeRicServiceUpdateFailure(&rsufC)
+		if err != nil {
+			return nil, err
+		}
+		uso.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			RicServiceUpdate: &e2appdudescriptions.RicServiceUpdate{
+				UnsuccessfulOutcome: rsuf,
+				ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
+					Value: int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},

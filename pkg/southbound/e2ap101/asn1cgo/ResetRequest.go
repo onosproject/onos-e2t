@@ -13,93 +13,32 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
-	"fmt"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"unsafe"
 )
 
-func xerEncodeResetRequest(resetRequest *e2ap_pdu_contents.ResetRequest) ([]byte, error) {
-	resetRequestCP, err := newResetRequest(resetRequest)
-	if err != nil {
-		return nil, fmt.Errorf("xerEncodeResetRequest() %s", err.Error())
-	}
+func newResetRequest(rr *e2ap_pdu_contents.ResetRequest) (*C.ResetRequest_t, error) {
 
-	bytes, err := encodeXer(&C.asn_DEF_ResetRequest, unsafe.Pointer(resetRequestCP))
-	if err != nil {
-		return nil, fmt.Errorf("xerEncodeResetRequest() %s", err.Error())
-	}
-	return bytes, nil
-}
-
-func perEncodeResetRequest(resetRequest *e2ap_pdu_contents.ResetRequest) ([]byte, error) {
-	resetRequestCP, err := newResetRequest(resetRequest)
-	if err != nil {
-		return nil, fmt.Errorf("perEncodeResetRequest() %s", err.Error())
-	}
-
-	bytes, err := encodePerBuffer(&C.asn_DEF_ResetRequest, unsafe.Pointer(resetRequestCP))
-	if err != nil {
-		return nil, fmt.Errorf("perEncodeResetRequest() %s", err.Error())
-	}
-	return bytes, nil
-}
-
-func xerDecodeResetRequest(bytes []byte) (*e2ap_pdu_contents.ResetRequest, error) {
-	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_ResetRequest)
+	pIeC1710P20, err := newResetRequestIe(rr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
-	if unsafePtr == nil {
-		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	rrC := C.ResetRequest_t{
+		protocolIEs: *pIeC1710P20,
 	}
-	return decodeResetRequest((*C.ResetRequest_t)(unsafePtr))
+
+	return &rrC, nil
 }
 
-func perDecodeResetRequest(bytes []byte) (*e2ap_pdu_contents.ResetRequest, error) {
-	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_ResetRequest)
+func decodeResetRequest(rrC *C.ResetRequest_t) (*e2ap_pdu_contents.ResetRequest, error) {
+
+	pIEs, err := decodeResetRequestIes(&rrC.protocolIEs)
 	if err != nil {
 		return nil, err
 	}
-	if unsafePtr == nil {
-		return nil, fmt.Errorf("pointer decoded from PER is nil")
-	}
-	return decodeResetRequest((*C.ResetRequest_t)(unsafePtr))
-}
 
-func newResetRequest(resetRequest *e2ap_pdu_contents.ResetRequest) (*C.ResetRequest_t, error) {
-
-	//var err error
-	resetRequestC := C.ResetRequest_t{}
-
-	//protocolIesC, err := newResetRequestIes(resetRequest.ProtocolIes)
-	//if err != nil {
-	//	return nil, fmt.Errorf("newResetRequestIes() %s", err.Error())
-	//}
-
-	//resetRequestC.protocolIEs = protocolIesC
-
-	return &resetRequestC, nil
-}
-
-func decodeResetRequest(resetRequestC *C.ResetRequest_t) (*e2ap_pdu_contents.ResetRequest, error) {
-
-	//var err error
-	resetRequest := e2ap_pdu_contents.ResetRequest{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//ProtocolIes: protocolIes,
+	rr := e2ap_pdu_contents.ResetRequest{
+		ProtocolIes: pIEs,
 	}
 
-	//resetRequest.ProtocolIes, err = decodeResetRequestIes(resetRequestC.protocolIEs)
-	//if err != nil {
-	//	return nil, fmt.Errorf("decodeResetRequestIes() %s", err.Error())
-	//}
-
-	return &resetRequest, nil
-}
-
-func decodeResetRequestBytes(array [8]byte) (*e2ap_pdu_contents.ResetRequest, error) {
-	resetRequestC := (*C.ResetRequest_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeResetRequest(resetRequestC)
+	return &rr, nil
 }

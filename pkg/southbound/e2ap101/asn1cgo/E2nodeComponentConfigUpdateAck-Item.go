@@ -124,8 +124,12 @@ func decodeE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItem
 	return &e2nodeComponentConfigUpdateAckItem, nil
 }
 
-func decodeE2nodeComponentConfigUpdateAckItemBytes(array [8]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem, error) {
-	e2nodeComponentConfigUpdateAckItemC := (*C.E2nodeComponentConfigUpdateAck_Item_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2nodeComponentConfigUpdateAckItemBytes(bytes [48]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem, error) {
+	e2nccuaiC := C.E2nodeComponentConfigUpdateAck_Item_t{
+		e2nodeComponentType:            C.long(binary.LittleEndian.Uint64(bytes[0:8])),
+		e2nodeComponentID:              C.long(binary.LittleEndian.Uint64(bytes[8:16])),
+		e2nodeComponentConfigUpdateAck: C.long(binary.LittleEndian.Uint64(bytes[16:24])),
+	}
 
-	return decodeE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItemC)
+	return decodeE2nodeComponentConfigUpdateAckItem(&e2nccuaiC)
 }

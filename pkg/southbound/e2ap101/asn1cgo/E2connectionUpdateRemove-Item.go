@@ -99,8 +99,11 @@ func decodeE2connectionUpdateRemoveItem(e2connectionUpdateRemoveItemC *C.E2conne
 	return &e2connectionUpdateRemoveItem, nil
 }
 
-func decodeE2connectionUpdateRemoveItemBytes(array [8]byte) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveItem, error) {
-	e2connectionUpdateRemoveItemC := (*C.E2connectionUpdateRemove_Item_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2connectionUpdateRemoveItemBytes(bytes [32]byte) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveItem, error) {
 
-	return decodeE2connectionUpdateRemoveItem(e2connectionUpdateRemoveItemC)
+	e2csfItemC := C.E2connectionUpdateRemove_Item_t{
+		tnlInformation: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
+	}
+
+	return decodeE2connectionUpdateRemoveItem(&e2csfItemC)
 }

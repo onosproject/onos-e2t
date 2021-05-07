@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
@@ -95,6 +96,12 @@ func CreateRicServiceUpdateFailureE2apPdu(failureProcCode v1beta2.ProcedureCodeT
 								E2ApProtocolIes31: &timeToWait,             //Time to Wait
 								E2ApProtocolIes2:  &criticalityDiagnostics, //Criticality Diagnostics
 							},
+						},
+						ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
+							Value: int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 						},
 					},
 				},

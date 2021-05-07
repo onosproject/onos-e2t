@@ -95,6 +95,57 @@ func newSuccessfulOutcome(so *e2appdudescriptions.SuccessfulOutcome) (*C.Success
 		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2srC.protocolIEs.list.count))
 		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2srC.protocolIEs.list.size))
 
+	} else if pc := so.GetProcedureCode().GetReset_(); pc != nil &&
+		pc.GetSuccessfulOutcome() != nil {
+
+		presentC = C.SuccessfulOutcome__value_PR_ResetResponse
+		pcC = C.ProcedureCode_id_Reset
+		critC = C.long(C.Criticality_reject)
+		e2srC, err := newResetResponse(pc.GetSuccessfulOutcome())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2srC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2srC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2srC.protocolIEs.list.size))
+
+	} else if pc := so.GetProcedureCode().GetRicServiceUpdate(); pc != nil &&
+		pc.GetSuccessfulOutcome() != nil {
+
+		presentC = C.SuccessfulOutcome__value_PR_RICserviceUpdateAcknowledge
+		pcC = C.ProcedureCode_id_RICserviceUpdate
+		critC = C.long(C.Criticality_reject)
+		e2srC, err := newRicServiceUpdateAcknowledge(pc.GetSuccessfulOutcome())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2srC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2srC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2srC.protocolIEs.list.size))
+
+	} else if pc := so.GetProcedureCode().GetE2NodeConfigurationUpdate(); pc != nil &&
+		pc.GetSuccessfulOutcome() != nil {
+
+		presentC = C.SuccessfulOutcome__value_PR_RICserviceUpdateAcknowledge
+		pcC = C.ProcedureCode_id_RICserviceUpdate
+		critC = C.long(C.Criticality_reject)
+		e2srC, err := newE2nodeConfigurationUpdateAcknowledge(pc.GetSuccessfulOutcome())
+		if err != nil {
+			return nil, err
+		}
+		//	//fmt.Printf("Protocol IEs %v %v %v\n", rsrC.protocolIEs.list.array, rsrC.protocolIEs.list.count, rsrC.protocolIEs.list.size)
+		//	// Now copy the rsrC over in to the choice byte by byte - the union is [72]byte
+		//	// It's A_SET_OF, so has <address(8), count(4), size(4)>
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2srC.protocolIEs.list.array))))
+		binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2srC.protocolIEs.list.count))
+		binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2srC.protocolIEs.list.size))
+
 	} else {
 		return nil, fmt.Errorf("newSuccessfulOutcomeValue type not yet implemented")
 	}
@@ -124,7 +175,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1710P1_t{
-				list: C.struct___121{ // TODO: tie this down with a predictable name
+				list: C.struct___122{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -148,7 +199,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_E2setupResponse:
 		e2SrC := C.E2setupResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1710P12_t{
-				list: C.struct___120{ // TODO: tie this down with a predictable name
+				list: C.struct___121{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupResponseIEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -171,7 +222,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionDeleteResponse:
 		rsrespC := C.RICsubscriptionDeleteResponse_t{
 			protocolIEs: C.ProtocolIE_Container_1710P4_t{
-				list: C.struct___122{ // TODO: tie this down with a predictable name
+				list: C.struct___123{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteResponse_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -195,7 +246,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	case C.SuccessfulOutcome__value_PR_RICcontrolAcknowledge:
 		rsrespC := C.RICcontrolAcknowledge_t{
 			protocolIEs: C.ProtocolIE_Container_1710P8_t{
-				list: C.struct___123{ // TODO: tie this down with a predictable name
+				list: C.struct___124{ // TODO: tie this down with a predictable name
 					array: (**C.RICcontrolAcknowledge_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -216,6 +267,81 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
 		}
+	case C.SuccessfulOutcome__value_PR_ResetResponse:
+		rrC := C.ResetResponse_t{
+			protocolIEs: C.ProtocolIE_Container_1710P21_t{
+				list: C.struct___125{ // TODO: tie this down with a predictable name
+					array: (**C.ResetResponseIEs_t)(listArrayAddr),
+					count: count,
+					size:  size,
+				},
+			},
+		}
+		//fmt.Printf("ResetResponse_t %+v\n %+v\n", successC, rsrespC)
+		rr, err := decodeResetResponse(&rrC)
+		if err != nil {
+			return nil, err
+		}
+		successfulOutcome.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			Reset_: &e2appdudescriptions.Reset{
+				SuccessfulOutcome: rr,
+				ProcedureCode: &e2ap_constants.IdReset{
+					Value: int32(v1beta2.ProcedureCodeIDReset),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
+
+	case C.SuccessfulOutcome__value_PR_RICserviceUpdateAcknowledge:
+		rrC := C.RICserviceUpdateAcknowledge_t{
+			protocolIEs: C.ProtocolIE_Container_1710P23_t{
+				list: C.struct___126{ // TODO: tie this down with a predictable name
+					array: (**C.RICserviceUpdateAcknowledge_IEs_t)(listArrayAddr),
+					count: count,
+					size:  size,
+				},
+			},
+		}
+		//fmt.Printf("ResetResponse_t %+v\n %+v\n", successC, rsrespC)
+		rsua, err := decodeRicServiceUpdateAcknowledge(&rrC)
+		if err != nil {
+			return nil, err
+		}
+		successfulOutcome.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			RicServiceUpdate: &e2appdudescriptions.RicServiceUpdate{
+				SuccessfulOutcome: rsua,
+				ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
+					Value: int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
+
+	case C.SuccessfulOutcome__value_PR_E2nodeConfigurationUpdateAcknowledge:
+		rrC := C.E2nodeConfigurationUpdateAcknowledge_t{
+			protocolIEs: C.ProtocolIE_Container_1710P18_t{
+				list: C.struct___127{ // TODO: tie this down with a predictable name
+					array: (**C.E2nodeConfigurationUpdateAcknowledge_IEs_t)(listArrayAddr),
+					count: count,
+					size:  size,
+				},
+			},
+		}
+		//fmt.Printf("ResetResponse_t %+v\n %+v\n", successC, rsrespC)
+		e2cua, err := decodeE2nodeConfigurationUpdateAcknowledge(&rrC)
+		if err != nil {
+			return nil, err
+		}
+		successfulOutcome.ProcedureCode = &e2appdudescriptions.E2ApElementaryProcedures{
+			E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
+				SuccessfulOutcome: e2cua,
+				ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
+					Value: int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate),
+				},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+			},
+		}
+
 	default:
 		return nil, fmt.Errorf("decodeSuccessfulOutcome() %v not yet implemented", successC.value.present)
 	}

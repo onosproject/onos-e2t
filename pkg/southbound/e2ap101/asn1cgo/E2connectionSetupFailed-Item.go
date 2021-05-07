@@ -111,8 +111,12 @@ func decodeE2connectionSetupFailedItem(e2connectionSetupFailedItemC *C.E2connect
 	return &e2connectionSetupFailedItem, nil
 }
 
-func decodeE2connectionSetupFailedItemBytes(array [8]byte) (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
-	e2connectionSetupFailedItemC := (*C.E2connectionSetupFailed_Item_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2connectionSetupFailedItemBytes(bytes [40]byte) (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
 
-	return decodeE2connectionSetupFailedItem(e2connectionSetupFailedItemC)
+	e2csfItemC := C.E2connectionSetupFailed_Item_t{
+		tnlInformation: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
+		cause:          C.long(binary.LittleEndian.Uint64(bytes[8:16])),
+	}
+
+	return decodeE2connectionSetupFailedItem(&e2csfItemC)
 }

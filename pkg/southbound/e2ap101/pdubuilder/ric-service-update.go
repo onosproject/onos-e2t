@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
@@ -15,7 +16,7 @@ import (
 func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 
 	ranFunctionsAddedList := e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes10{
-		Id:          int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate),
+		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		RanFunctionsAddedList: &e2appducontents.RanfunctionsList{
 			Value: make([]*e2appducontents.RanfunctionItemIes, 0),
@@ -47,7 +48,7 @@ func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 	ranFunctionsAddedList.RanFunctionsAddedList.Value = append(ranFunctionsAddedList.RanFunctionsAddedList.Value, rfi)
 
 	ranFunctionsDeletedList := e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes11{
-		Id:          int32(v1beta2.ProcedureCodeIDE2connectionUpdate),
+		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsDeleted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		RanFunctionsDeletedList: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
@@ -115,6 +116,12 @@ func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 								E2ApProtocolIes11: &ranFunctionsDeletedList,  //RAN functions ID (deleted) List
 								E2ApProtocolIes12: &ranFunctionsModifiedList, //RAN functions (modified) List
 							},
+						},
+						ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
+							Value: int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 						},
 					},
 				},
