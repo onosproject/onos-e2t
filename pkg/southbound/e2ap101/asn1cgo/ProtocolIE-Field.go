@@ -161,7 +161,7 @@ func newResetRequestIe1Cause(rrCauseIe *e2appducontents.ResetRequestIes_ResetReq
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [80]byte{} // The size of the ResetRequest_IEs__value
+	choiceC := [40]byte{} // The size of the ResetRequest_IEs__value
 
 	rrCauseIeC, err := newCause(rrCauseIe.GetValue())
 	if err != nil {
@@ -194,7 +194,7 @@ func newE2nodeConfigurationUpdateFailureIes1Cause(e2cuaIe *e2appducontents.E2Nod
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [80]byte{} // The size of the ResetRequest_IEs__value
+	choiceC := [64]byte{} // The size of the ResetRequest_IEs__value
 
 	rrCauseIeC, err := newCause(e2cuaIe.GetValue())
 	if err != nil {
@@ -227,7 +227,7 @@ func newE2connectionUpdateFailureIes1Cause(e2cuaIe *e2appducontents.E2Connection
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [80]byte{} // The size of the ResetRequest_IEs__value
+	choiceC := [64]byte{} // The size of the ResetRequest_IEs__value
 
 	rrCauseIeC, err := newCause(e2cuaIe.GetValue())
 	if err != nil {
@@ -1150,7 +1150,7 @@ func newRicServiceUpdateAcknowledgeIe13RanFunctionsRejected(rsuaIe *e2appduconte
 		return nil, err
 	}
 
-	choiceC := [112]byte{} // The size of the RICserviceUpdateAcknowledge_IEs__value_u
+	choiceC := [48]byte{} // The size of the RICserviceUpdateAcknowledge_IEs__value_u
 
 	ranFunctionsIDCauseList, err := newRanFunctionsIDcauseList(rsuaIe.Value)
 	if err != nil {
@@ -1182,7 +1182,7 @@ func newRicServiceUpdateFailureIe13RanFunctionsRejected(rsuaIe *e2appducontents.
 		return nil, err
 	}
 
-	choiceC := [112]byte{} // The size of the RICserviceUpdateAcknowledge_IEs__value_u
+	choiceC := [64]byte{} // The size of the RICserviceUpdateAcknowledge_IEs__value_u
 
 	ranFunctionsIDCauseList, err := newRanFunctionsIDcauseList(rsuaIe.Value)
 	if err != nil {
@@ -2115,7 +2115,7 @@ func newRicServiceUpdateFailureIe31TimeToWait(e2sfIe *e2appducontents.Ricservice
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [80]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
+	choiceC := [64]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	e2sfTtwC, err := newTimeToWait(e2sfIe.GetValue())
 	if err != nil {
@@ -2148,7 +2148,7 @@ func newE2connectionUpdateFailureIes31TimeToWait(e2cuafIe *e2appducontents.E2Con
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [80]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
+	choiceC := [64]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	e2sfTtwC, err := newTimeToWait(e2cuafIe.GetValue())
 	if err != nil {
@@ -2181,7 +2181,7 @@ func newE2nodeConfigurationUpdateFailureIes31TimeToWait(e2cuaIe *e2appducontents
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [80]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
+	choiceC := [64]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	e2sfTtwC, err := newTimeToWait(e2cuaIe.GetValue())
 	if err != nil {
@@ -2291,7 +2291,7 @@ func newE2connectionUpdateAck39E2connectionUpdateList(e2cuaIe *e2appducontents.E
 		return nil, err
 	}
 
-	choiceC := [112]byte{} // The size of the E2connectionUpdate_IEs__value_u
+	choiceC := [48]byte{} // The size of the E2connectionUpdate_IEs__value_u
 
 	e2ncuIeC, err := newE2connectionUpdateList(e2cuaIe.ConnectionSetup)
 	if err != nil {
@@ -2323,7 +2323,7 @@ func newE2connectionUpdateAck40E2connectionSetupFailedList(e2cuaIe *e2appduconte
 		return nil, err
 	}
 
-	choiceC := [112]byte{} // The size of the E2connectionUpdate_IEs__value_u
+	choiceC := [48]byte{} // The size of the E2connectionUpdate_IEs__value_u
 
 	e2ncuIeC, err := newE2connectionSetupFailedList(e2cuaIe.ConnectionSetupFailed)
 	if err != nil {
@@ -2355,7 +2355,7 @@ func newE2connectionUpdateIe44E2connectionUpdateList(e2cuIe *e2appducontents.E2C
 		return nil, err
 	}
 
-	choiceC := [112]byte{} // The size of the E2connectionUpdate_IEs__value_u
+	choiceC := [48]byte{} // The size of the E2connectionUpdate_IEs__value_u
 
 	e2ncuIeC, err := newE2connectionUpdateList(e2cuIe.ConnectionAdd)
 	if err != nil {
@@ -2422,7 +2422,7 @@ func newE2connectionUpdateIe46E2connectionUpdateRemoveList(e2cuIe *e2appduconten
 		return nil, err
 	}
 
-	choiceC := [112]byte{} // The size of the E2connectionUpdate_IEs__value_u
+	choiceC := [48]byte{} // The size of the E2connectionUpdate_IEs__value_u
 
 	e2ncuIeC, err := newE2connectionUpdateRemoveList(e2cuIe.ConnectionRemove)
 	if err != nil {
@@ -2459,7 +2459,7 @@ func newE2nodeConfigurationUpdateIeE2nodeComponentConfigUpdateList(e2ncuIe *e2ap
 		return nil, err
 	}
 
-	choiceC := [112]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
+	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
 
 	e2ncuIeC, err := newE2nodeComponentConfigUpdateList(e2ncuIe.Value)
 	if err != nil {
@@ -2491,7 +2491,7 @@ func newE2nodeConfigurationUpdateAcknowledgeIeE2nodeComponentConfigUpdateList(e2
 		return nil, err
 	}
 
-	choiceC := [112]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
+	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
 
 	e2ncuaIeC, err := newE2nodeComponentConfigUpdateAckList(e2ncuaIe.Value)
 	if err != nil {
@@ -2589,7 +2589,7 @@ func newE2nodeComponentConfigUpdateItemIEs(e2nccuItemIes *e2appducontents.E2Node
 	//ToDo - verify correctness of passing bytes there..
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccuItemC.e2nodeComponentType))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2nccuItemC.e2nodeComponentID))
-	binary.LittleEndian.PutUint64(choiceC[16:24], uint64(e2nccuItemC.e2nodeComponentConfigUpdate))
+	binary.LittleEndian.PutUint64(choiceC[16:24], binary.LittleEndian.Uint64(e2nccuItemC.e2nodeComponentConfigUpdate))
 
 	rfItemIesC := C.E2nodeComponentConfigUpdate_ItemIEs_t{
 		id:          idC,

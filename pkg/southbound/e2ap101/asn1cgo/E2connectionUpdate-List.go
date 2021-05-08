@@ -109,7 +109,7 @@ func decodeE2connectionUpdateListBytes(e2curlC [16]byte) (*e2ap_pdu_contents.E2C
 	size := C.int(binary.LittleEndian.Uint32(e2curlC[12:16]))
 
 	rfIDlC := C.E2connectionUpdate_List_t{
-		list: C.struct___127{
+		list: C.struct___141{
 			array: array,
 			size:  size,
 			count: count,

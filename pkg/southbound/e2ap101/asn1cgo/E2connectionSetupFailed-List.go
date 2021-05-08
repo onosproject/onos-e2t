@@ -69,7 +69,7 @@ func perDecodeE2connectionSetupFailedList(bytes []byte) (*e2ap_pdu_contents.E2Co
 
 func newE2connectionSetupFailedList(e2connectionSetupFailedList *e2ap_pdu_contents.E2ConnectionSetupFailedList) (*C.E2connectionSetupFailed_List_t, error) {
 
-	e2connectionSetupFailedListC := C.E2connectionSetupFailed_List_t{}
+	e2connectionSetupFailedListC := new(C.E2connectionSetupFailed_List_t)
 	for _, ie := range e2connectionSetupFailedList.GetValue() {
 		ieC, err := newE2connectionSetupFailedIesSingleContainer(ie)
 		if err != nil {
@@ -80,7 +80,7 @@ func newE2connectionSetupFailedList(e2connectionSetupFailedList *e2ap_pdu_conten
 		}
 	}
 
-	return &e2connectionSetupFailedListC, nil
+	return e2connectionSetupFailedListC, nil
 }
 
 func decodeE2connectionSetupFailedList(e2connectionSetupFailedListC *C.E2connectionSetupFailed_List_t) (*e2ap_pdu_contents.E2ConnectionSetupFailedList, error) {
@@ -109,7 +109,7 @@ func decodeE2connectionSetupFailedListBytes(e2cuflC [16]byte) (*e2ap_pdu_content
 	size := C.int(binary.LittleEndian.Uint32(e2cuflC[12:16]))
 
 	e2csflC := C.E2connectionSetupFailed_List_t{
-		list: C.struct___127{
+		list: C.struct___141{
 			array: array,
 			size:  size,
 			count: count,

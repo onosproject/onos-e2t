@@ -61,7 +61,7 @@ func decodeE2nodeComponentConfigUpdateAckListBytes(e2nccualC [16]byte) (*e2ap_pd
 	size := C.int(binary.LittleEndian.Uint32(e2nccualC[12:16]))
 
 	rfIDlC := C.E2nodeComponentConfigUpdateAck_List_t{
-		list: C.struct___127{
+		list: C.struct___141{
 			array: array,
 			size:  size,
 			count: count,

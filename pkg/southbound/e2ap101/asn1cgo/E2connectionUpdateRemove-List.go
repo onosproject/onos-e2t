@@ -61,7 +61,7 @@ func decodeE2connectionUpdateRemoveListBytes(e2curlC [16]byte) (*e2ap_pdu_conten
 	size := C.int(binary.LittleEndian.Uint32(e2curlC[12:16]))
 
 	rfIDlC := C.E2connectionUpdateRemove_List_t{
-		list: C.struct___127{
+		list: C.struct___97{
 			array: array,
 			size:  size,
 			count: count,

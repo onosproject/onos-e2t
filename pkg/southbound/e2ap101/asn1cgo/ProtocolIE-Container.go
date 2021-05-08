@@ -1400,7 +1400,7 @@ func decodeRicServiceUpdateFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsuIeC := *(**C.RICserviceUpdateAcknowledge_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsuIeC := *(**C.RICserviceUpdateFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicServiceUpdateFailureIE(rsuIeC)
 		if err != nil {
