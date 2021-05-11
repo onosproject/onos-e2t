@@ -13,7 +13,6 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -100,10 +99,4 @@ func decodeTnlinformation(tnlinformationC *C.TNLinformation_t) (*e2ap_ies.Tnlinf
 	}
 
 	return &tnlinformation, nil
-}
-
-func decodeTnlinformationBytes(array [8]byte) (*e2ap_ies.Tnlinformation, error) {
-	tnlinformationC := (*C.TNLinformation_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeTnlinformation(tnlinformationC)
 }

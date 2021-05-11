@@ -192,15 +192,15 @@ func newRicSubscriptionResponseIe(rsrIEs *e2appducontents.RicsubscriptionRespons
 		return nil, fmt.Errorf("newRicSubscriptionResponseIe(): RicActionAdmittedList should be mandatory present in the message")
 	}
 	//TODO: Comment back in when RICactionRejected is handled
-	//if rsrIEs.GetE2ApProtocolIes18() != nil {
-	//	ie18C, err := newRicSubscriptionResponseIe18RicActionNotAdmittedList(rsrIEs.GetE2ApProtocolIes18())
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//	if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P1), unsafe.Pointer(ie18C)); err != nil {
-	//		return nil, err
-	//	}
-	//}
+	if rsrIEs.GetE2ApProtocolIes18() != nil {
+		ie18C, err := newRicSubscriptionResponseIe18RicActionNotAdmittedList(rsrIEs.GetE2ApProtocolIes18())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P1), unsafe.Pointer(ie18C)); err != nil {
+			return nil, err
+		}
+	}
 	if rsrIEs.GetE2ApProtocolIes29() != nil {
 		ie29C, err := newRicSubscriptionResponseIe29RicRequestID(rsrIEs.GetE2ApProtocolIes29())
 		if err != nil {
@@ -1426,7 +1426,7 @@ func newE2nodeConfigurationUpdateIe(rsuIEs *e2appducontents.E2NodeConfigurationU
 	pIeC1710P17 := new(C.ProtocolIE_Container_1710P17_t)
 
 	if rsuIEs.GetValue() != nil {
-		ie1C, err := newE2nodeConfigurationUpdateIeE2nodeComponentConfigUpdateList(rsuIEs)
+		ie1C, err := newE2nodeConfigurationUpdateIe33E2nodeComponentConfigUpdateList(rsuIEs)
 		if err != nil {
 			return nil, err
 		}
@@ -1529,7 +1529,7 @@ func newE2nodeConfigurationUpdateAcknowledgeIe(e2ncuaIEs *e2appducontents.E2Node
 	pIeC1710P18 := new(C.ProtocolIE_Container_1710P18_t)
 
 	if e2ncuaIEs.GetValue() != nil {
-		ie1C, err := newE2nodeConfigurationUpdateAcknowledgeIeE2nodeComponentConfigUpdateList(e2ncuaIEs)
+		ie1C, err := newE2nodeConfigurationUpdateAcknowledgeIe35E2nodeComponentConfigUpdateAckList(e2ncuaIEs)
 		if err != nil {
 			return nil, err
 		}

@@ -2262,23 +2262,131 @@ func newRicControlAcknowledgeIe32RiccontrolOutcome(rcrIe32 *e2appducontents.Ricc
 }
 
 func newE2setupRequestIe33E2nodeComponentConfigUpdateList(e2sfIe *e2appducontents.E2SetupRequestIes_E2SetupRequestIes33) (*C.E2setupRequestIEs_t, error) {
-	// TODO new for E2AP 1.0.1
-	return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1")
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2sfIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
+
+	e2ncuIeC, err := newE2nodeComponentConfigUpdateList(e2sfIe.Value)
+	if err != nil {
+		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuIeC.list.array))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuIeC.list.count))
+	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuIeC.list.size))
+
+	ie := C.E2setupRequestIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2setupRequestIEs__value{
+			present: C.E2setupRequestIEs__value_PR_E2nodeComponentConfigUpdate_List,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
 }
 
 func newE2nodeConfigurationUpdateIe33E2nodeComponentConfigUpdateList(e2ncuIe *e2appducontents.E2NodeConfigurationUpdateIes) (*C.E2nodeConfigurationUpdate_IEs_t, error) {
-	// TODO new for E2AP 1.0.1
-	return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1")
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2ncuIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
+
+	e2ncuIeC, err := newE2nodeComponentConfigUpdateList(e2ncuIe.Value)
+	if err != nil {
+		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuIeC.list.array))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuIeC.list.count))
+	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuIeC.list.size))
+
+	ie := C.E2nodeConfigurationUpdate_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2nodeConfigurationUpdate_IEs__value{
+			present: C.E2nodeConfigurationUpdate_IEs__value_PR_E2nodeComponentConfigUpdate_List,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
 }
 
-func newE2setupResponseIe35E2nodeComponentConfigUpdateAckList(e2sfIe *e2appducontents.E2SetupResponseIes_E2SetupResponseIes35) (*C.E2setupResponseIEs_t, error) {
-	// TODO new for E2AP 1.0.1
-	return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1")
+func newE2setupResponseIe35E2nodeComponentConfigUpdateAckList(e2srIe *e2appducontents.E2SetupResponseIes_E2SetupResponseIes35) (*C.E2setupResponseIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2srIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [112]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
+
+	e2ncuaIeC, err := newE2nodeComponentConfigUpdateAckList(e2srIe.Value)
+	if err != nil {
+		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuaIeC.list.array))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuaIeC.list.count))
+	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuaIeC.list.size))
+
+	ie := C.E2setupResponseIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2setupResponseIEs__value{
+			present: C.E2setupResponseIEs__value_PR_E2nodeComponentConfigUpdateAck_List,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
 }
 
-func newE2nodeConfigurationUpdateIe35E2nodeComponentConfigUpdateAckList(e2sfIe *e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes) (*C.E2nodeConfigurationUpdateAcknowledge_IEs_t, error) {
-	// TODO new for E2AP 1.0.1
-	return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1")
+func newE2nodeConfigurationUpdateAcknowledgeIe35E2nodeComponentConfigUpdateAckList(e2ncuaIe *e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes) (*C.E2nodeConfigurationUpdateAcknowledge_IEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2ncuaIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
+
+	e2ncuaIeC, err := newE2nodeComponentConfigUpdateAckList(e2ncuaIe.Value)
+	if err != nil {
+		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuaIeC.list.array))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuaIeC.list.count))
+	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuaIeC.list.size))
+
+	ie := C.E2nodeConfigurationUpdateAcknowledge_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2nodeConfigurationUpdateAcknowledge_IEs__value{
+			present: C.E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_E2nodeComponentConfigUpdateAck_List,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
 }
 
 func newE2connectionUpdateAck39E2connectionUpdateList(e2cuaIe *e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39) (*C.E2connectionUpdateAck_IEs_t, error) {
@@ -2378,38 +2486,38 @@ func newE2connectionUpdateIe44E2connectionUpdateList(e2cuIe *e2appducontents.E2C
 }
 
 func newE2connectionUpdateIe45E2connectionUpdateList(e2cuIe *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes45) (*C.E2connectionUpdate_IEs_t, error) {
-	//critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2cuIe.GetCriticality()))
-	//if err != nil {
-	//	return nil, err
-	//}
-	//idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionUpdateModify)
-	//if err != nil {
-	//	return nil, err
-	//}
-	//
-	//choiceC := [112]byte{} // The size of the E2connectionUpdate_IEs__value_u
-	//
-	//e2ncuIeC, err := newE2connectionUpdateList(e2cuIe.ConnectionModify)
-	//if err != nil {
-	//	return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
-	//}
-	//binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuIeC.list.array))))
-	//binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuIeC.list.count))
-	//binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuIeC.list.size))
-	//
-	//ie := C.E2connectionUpdate_IEs_t{
-	//	id:          idC,
-	//	criticality: critC,
-	//	value: C.struct_E2connectionUpdate_IEs__value{
-	//		present: C.E2connectionUpdate_IEs__value_PR_E2connectionUpdate_List,
-	//		choice:  choiceC,
-	//	},
-	//}
-	//
-	//return &ie, nil
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2cuIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionUpdateModify)
+	if err != nil {
+		return nil, err
+	}
 
-	// TODO new for E2AP 1.0.1 -- should be fixed somehow
-	return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1 - needs a fix")
+	choiceC := [48]byte{} // The size of the E2connectionUpdate_IEs__value_u
+
+	e2ncuIeC, err := newE2connectionUpdateList(e2cuIe.ConnectionModify)
+	if err != nil {
+		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuIeC.list.array))))
+	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuIeC.list.count))
+	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuIeC.list.size))
+
+	ie := C.E2connectionUpdate_IEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2connectionUpdate_IEs__value{
+			present: C.E2connectionUpdate_IEs__value_PR_E2connectionUpdate_List,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
+
+	//TODO new for E2AP 1.0.1 -- should be fixed somehow
+	//return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1 - needs a fix")
 }
 
 func newE2connectionUpdateIe46E2connectionUpdateRemoveList(e2cuIe *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46) (*C.E2connectionUpdate_IEs_t, error) {
@@ -2449,69 +2557,69 @@ func newE2setupFailureIe48Tnlinformation(e2sfIe *e2appducontents.E2SetupFailureI
 	return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1")
 }
 
-func newE2nodeConfigurationUpdateIeE2nodeComponentConfigUpdateList(e2ncuIe *e2appducontents.E2NodeConfigurationUpdateIes) (*C.E2nodeConfigurationUpdate_IEs_t, error) {
-	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2ncuIe.GetCriticality()))
-	if err != nil {
-		return nil, err
-	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
-	if err != nil {
-		return nil, err
-	}
+//func newE2nodeConfigurationUpdateIeE2nodeComponentConfigUpdateList(e2ncuIe *e2appducontents.E2NodeConfigurationUpdateIes) (*C.E2nodeConfigurationUpdate_IEs_t, error) {
+//	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2ncuIe.GetCriticality()))
+//	if err != nil {
+//		return nil, err
+//	}
+//	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
+//
+//	e2ncuIeC, err := newE2nodeComponentConfigUpdateList(e2ncuIe.Value)
+//	if err != nil {
+//		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
+//	}
+//	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuIeC.list.array))))
+//	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuIeC.list.count))
+//	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuIeC.list.size))
+//
+//	ie := C.E2nodeConfigurationUpdate_IEs_t{
+//		id:          idC,
+//		criticality: critC,
+//		value: C.struct_E2nodeConfigurationUpdate_IEs__value{
+//			present: C.E2nodeConfigurationUpdate_IEs__value_PR_E2nodeComponentConfigUpdate_List,
+//			choice:  choiceC,
+//		},
+//	}
+//
+//	return &ie, nil
+//}
 
-	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
-
-	e2ncuIeC, err := newE2nodeComponentConfigUpdateList(e2ncuIe.Value)
-	if err != nil {
-		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
-	}
-	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuIeC.list.array))))
-	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuIeC.list.count))
-	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuIeC.list.size))
-
-	ie := C.E2nodeConfigurationUpdate_IEs_t{
-		id:          idC,
-		criticality: critC,
-		value: C.struct_E2nodeConfigurationUpdate_IEs__value{
-			present: C.E2nodeConfigurationUpdate_IEs__value_PR_E2nodeComponentConfigUpdate_List,
-			choice:  choiceC,
-		},
-	}
-
-	return &ie, nil
-}
-
-func newE2nodeConfigurationUpdateAcknowledgeIeE2nodeComponentConfigUpdateList(e2ncuaIe *e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes) (*C.E2nodeConfigurationUpdateAcknowledge_IEs_t, error) {
-	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2ncuaIe.GetCriticality()))
-	if err != nil {
-		return nil, err
-	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
-	if err != nil {
-		return nil, err
-	}
-
-	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
-
-	e2ncuaIeC, err := newE2nodeComponentConfigUpdateAckList(e2ncuaIe.Value)
-	if err != nil {
-		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
-	}
-	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuaIeC.list.array))))
-	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuaIeC.list.count))
-	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuaIeC.list.size))
-
-	ie := C.E2nodeConfigurationUpdateAcknowledge_IEs_t{
-		id:          idC,
-		criticality: critC,
-		value: C.struct_E2nodeConfigurationUpdateAcknowledge_IEs__value{
-			present: C.E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_E2nodeComponentConfigUpdateAck_List,
-			choice:  choiceC,
-		},
-	}
-
-	return &ie, nil
-}
+//func newE2nodeConfigurationUpdateAcknowledgeIeE2nodeComponentConfigUpdateList(e2ncuaIe *e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes) (*C.E2nodeConfigurationUpdateAcknowledge_IEs_t, error) {
+//	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2ncuaIe.GetCriticality()))
+//	if err != nil {
+//		return nil, err
+//	}
+//	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_IEs__value_u
+//
+//	e2ncuaIeC, err := newE2nodeComponentConfigUpdateAckList(e2ncuaIe.Value)
+//	if err != nil {
+//		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
+//	}
+//	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuaIeC.list.array))))
+//	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuaIeC.list.count))
+//	binary.LittleEndian.PutUint32(choiceC[12:], uint32(e2ncuaIeC.list.size))
+//
+//	ie := C.E2nodeConfigurationUpdateAcknowledge_IEs_t{
+//		id:          idC,
+//		criticality: critC,
+//		value: C.struct_E2nodeConfigurationUpdateAcknowledge_IEs__value{
+//			present: C.E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_E2nodeComponentConfigUpdateAck_List,
+//			choice:  choiceC,
+//		},
+//	}
+//
+//	return &ie, nil
+//}
 
 func newRANfunctionItemIEs(rfItemIes *e2appducontents.RanfunctionItemIes) (*C.RANfunction_ItemIEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(rfItemIes.GetE2ApProtocolIes10().GetCriticality()))
@@ -2901,6 +3009,18 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 			Value:       rfl,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
+
+	case C.E2setupRequestIEs__value_PR_E2nodeComponentConfigUpdate_List:
+		rfl, err := decodeE2nodeComponentConfigUpdateListBytes(e2srIeC.value.choice)
+		if err != nil {
+			return nil, err
+		}
+		ret.E2ApProtocolIes33 = &e2appducontents.E2SetupRequestIes_E2SetupRequestIes33{
+			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       rfl,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
 	case C.E2setupRequestIEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeE2setupRequestIE(). %v not yet implemneted", e2srIeC.value.present)
 
@@ -2947,6 +3067,17 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsRejected),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfRejected,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+	case C.E2setupResponseIEs__value_PR_E2nodeComponentConfigUpdateAck_List:
+		e2nccual, err := decodeE2nodeComponentConfigUpdateAckListBytes(e2srIeC.value.choice)
+		if err != nil {
+			return nil, err
+		}
+		ret.E2ApProtocolIes35 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes35{
+			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       e2nccual,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
 	case C.E2setupResponseIEs__value_PR_NOTHING:
@@ -3900,31 +4031,29 @@ func decodeRicServiceUpdateIE(rrIeC *C.RICserviceUpdate_IEs_t) (*e2appducontents
 	case C.RICserviceUpdate_IEs__value_PR_RANfunctions_List: //This one is for added
 		//a := [112]byte{}
 		//copy(a[0:48], rrIeC.value.choice[:])
-		rfal, err := decodeRanFunctionsListBytes(rrIeC.value.choice)
+		rfl, err := decodeRanFunctionsListBytes(rrIeC.value.choice)
 		if err != nil {
 			return nil, err
 		}
-		ret.E2ApProtocolIes10 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes10{
-			Id:                    int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
-			Criticality:           int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			RanFunctionsAddedList: rfal,
-			Presence:              int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+
+		id := decodeProtocolIeID(rrIeC.id)
+		if id.GetValue() == int32(v1beta2.ProtocolIeIDRanfunctionsAdded) {
+			ret.E2ApProtocolIes10 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes10{
+				Id:                    int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
+				Criticality:           int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				RanFunctionsAddedList: rfl,
+				Presence:              int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+			}
 		}
 
-		//ToDo - how to distinguish these two lists?? Adjusting .h file would probably solve the situation..
-	//case C.RICserviceUpdate_IEs__value_PR_RANfunctions_List: // this one is for modified
-	//	//a := [112]byte{}
-	//	//copy(a[0:48], rrIeC.value.choice[:])
-	//	rfml, err := decodeRanFunctionsListBytes(rrIeC.value.choice)
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//	ret.E2ApProtocolIes12 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes12{
-	//		Id:                       int32(v1beta2.ProtocolIeIDRanfunctionsModified),
-	//		Criticality:              int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-	//		RanFunctionsModifiedList: rfml,
-	//		Presence:                 int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	//	}
+		if id.GetValue() == int32(v1beta2.ProtocolIeIDRanfunctionsModified) {
+			ret.E2ApProtocolIes12 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes12{
+				Id:                       int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
+				Criticality:              int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				RanFunctionsModifiedList: rfl,
+				Presence:                 int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+			}
+		}
 
 	case C.RICserviceUpdate_IEs__value_PR_RANfunctionsID_List:
 		a := [112]byte{}
@@ -4059,7 +4188,7 @@ func decodeE2nodeConfigurationUpdateIE(e2ncuIeC *C.E2nodeConfigurationUpdate_IEs
 			return nil, err
 		}
 
-		ret.Id = int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate)
+		ret.Id = int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
 		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT)
 		ret.Value = e2ncul
 		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL)
@@ -4080,12 +4209,14 @@ func decodeE2nodeConfigurationUpdateAcknowledgeIE(e2ncuaIeC *C.E2nodeConfigurati
 
 	switch e2ncuaIeC.value.present {
 	case C.E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_E2nodeComponentConfigUpdateAck_List:
-		e2ncual, err := decodeE2nodeComponentConfigUpdateAckListBytes(e2ncuaIeC.value.choice)
+		a := [112]byte{}
+		copy(a[0:48], e2ncuaIeC.value.choice[:])
+		e2ncual, err := decodeE2nodeComponentConfigUpdateAckListBytes(a)
 		if err != nil {
 			return nil, err
 		}
 
-		ret.Id = int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate)
+		ret.Id = int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
 		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT)
 		ret.Value = e2ncual
 		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL)
@@ -4222,27 +4353,32 @@ func decodeE2connectionUpdateIE(e2cuIeC *C.E2connectionUpdate_IEs_t) (*e2appduco
 		if err != nil {
 			return nil, err
 		}
+
+		id := decodeProtocolIeID(e2cuIeC.id)
+		if id.GetValue() == int32(v1beta2.ProtocolIeIDRanfunctionsAdded) {
+			ret.E2ApProtocolIes44 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
+				Id:                    int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
+				Criticality:           int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				ConnectionAdd: cul,
+				Presence:              int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+			}
+		}
+
+		if id.GetValue() == int32(v1beta2.ProtocolIeIDE2connectionUpdateModify) {
+			ret.E2ApProtocolIes45 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes45{
+				Id:                       int32(v1beta2.ProtocolIeIDE2connectionUpdateModify),
+				Criticality:              int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				ConnectionModify: cul,
+				Presence:                 int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+			}
+		}
+
 		ret.E2ApProtocolIes44 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
 			Id:            int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
 			Criticality:   int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionAdd: cul,
 			Presence:      int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
-
-		//ToDo - how to distinguish these two lists?? Adjusting .h file would probably solve the situation..
-	//case C.E2connectionUpdate_IEs__value_PR_E2connectionUpdate_List: // this one is for modified
-	//	//a := [112]byte{}
-	//	//copy(a[0:48], rrIeC.value.choice[:])
-	//	cul, err := decodeE2connectionUpdateListBytes(e2cuIeC.value.choice)
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//	ret.E2ApProtocolIes45 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
-	//		Id:                       int32(v1beta2.ProtocolIeIDE2connectionUpdateModified),
-	//		Criticality:              int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-	//		ConnectionModify: cul,
-	//		Presence:                 int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	//	}
 
 	case C.E2connectionUpdate_IEs__value_PR_E2connectionUpdateRemove_List:
 		//a := [112]byte{}

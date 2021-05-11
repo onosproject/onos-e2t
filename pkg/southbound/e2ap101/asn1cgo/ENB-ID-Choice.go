@@ -69,8 +69,8 @@ func perDecodeEnbIDChoice(bytes []byte) (*e2ap_ies.EnbIdChoice, error) {
 
 func newEnbIDChoice(enbIDChoice *e2ap_ies.EnbIdChoice) (*C.ENB_ID_Choice_t, error) {
 
-	var pr C.ENB_ID_Choice_PR //ToDo - verify correctness of the name
-	choiceC := [48]byte{}      //ToDo - Check if number of bytes is sufficient
+	var pr C.ENB_ID_Choice_PR
+	choiceC := [48]byte{}
 
 	switch choice := enbIDChoice.EnbIdChoice.(type) {
 	case *e2ap_ies.EnbIdChoice_EnbIdMacro:
@@ -143,10 +143,4 @@ func decodeEnbIDChoice(enbIDChoiceC *C.ENB_ID_Choice_t) (*e2ap_ies.EnbIdChoice, 
 	}
 
 	return enbIDChoice, nil
-}
-
-func decodeEnbIDChoiceBytes(array [8]byte) (*e2ap_ies.EnbIdChoice, error) {
-	enbIDChoiceC := (*C.ENB_ID_Choice_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeEnbIDChoice(enbIDChoiceC)
 }

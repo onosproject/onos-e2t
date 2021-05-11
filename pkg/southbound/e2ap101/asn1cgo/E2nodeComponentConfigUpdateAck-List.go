@@ -55,7 +55,7 @@ func decodeE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList
 	return &e2nodeComponentConfigUpdateAckList, nil
 }
 
-func decodeE2nodeComponentConfigUpdateAckListBytes(e2nccualC [48]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList, error) {
+func decodeE2nodeComponentConfigUpdateAckListBytes(e2nccualC [112]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList, error) {
 	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2nccualC[0:8]))))
 	count := C.int(binary.LittleEndian.Uint32(e2nccualC[8:12]))
 	size := C.int(binary.LittleEndian.Uint32(e2nccualC[12:16]))

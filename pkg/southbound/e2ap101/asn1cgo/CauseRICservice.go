@@ -12,7 +12,6 @@ package asn1cgo
 //#include "CauseRICservice.h"
 import "C"
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -88,10 +87,4 @@ func decodeCauseRicservice(causeRicserviceC *C.CauseRICservice_t) (*e2ap_ies.Cau
 	causeRicservice := e2ap_ies.CauseRicservice(int32(*causeRicserviceC))
 
 	return &causeRicservice, nil
-}
-
-func decodeCauseRicserviceBytes(array [8]byte) (*e2ap_ies.CauseRicservice, error) { //ToDo - Check addressing correct structure in Protobuf
-	causeRicserviceC := (*C.CauseRICservice_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:]))))
-
-	return decodeCauseRicservice(causeRicserviceC)
 }
