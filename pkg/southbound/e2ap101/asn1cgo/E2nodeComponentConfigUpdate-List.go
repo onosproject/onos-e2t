@@ -21,7 +21,7 @@ import (
 
 func newE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList *e2ap_pdu_contents.E2NodeComponentConfigUpdateList) (*C.E2nodeComponentConfigUpdate_List_t, error) {
 
-	e2nodeComponentConfigUpdateListC := C.E2nodeComponentConfigUpdate_List_t{}
+	e2nodeComponentConfigUpdateListC := new(C.E2nodeComponentConfigUpdate_List_t)
 	for _, ie := range e2nodeComponentConfigUpdateList.GetValue() {
 		ieC, err := newE2nodeConfigurationUpdateIesSingleContainer(ie)
 		if err != nil {
@@ -32,7 +32,7 @@ func newE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList *e2ap_pd
 		}
 	}
 
-	return &e2nodeComponentConfigUpdateListC, nil
+	return e2nodeComponentConfigUpdateListC, nil
 }
 
 func decodeE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateListC *C.E2nodeComponentConfigUpdate_List_t) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
@@ -55,7 +55,7 @@ func decodeE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateListC *C.E
 	return &e2nodeComponentConfigUpdateList, nil
 }
 
-func decodeE2nodeComponentConfigUpdateListBytes(e2ncculC [16]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
+func decodeE2nodeComponentConfigUpdateListBytes(e2ncculC [48]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
 	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2ncculC[0:8]))))
 	count := C.int(binary.LittleEndian.Uint32(e2ncculC[8:12]))
 	size := C.int(binary.LittleEndian.Uint32(e2ncculC[12:16]))

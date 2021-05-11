@@ -1495,7 +1495,7 @@ func newE2connectionUpdateIe(e2cuIEs *e2appducontents.E2ConnectionUpdateIes) (*C
 	return pIeC1710P14, nil
 }
 
-func decodeE2connectionUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P17_t) (*e2appducontents.E2ConnectionUpdateIes, error) {
+func decodeE2connectionUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P14_t) (*e2appducontents.E2ConnectionUpdateIes, error) {
 	pIEs := new(e2appducontents.E2ConnectionUpdateIes)
 
 	ieCount := int(protocolIEsC.list.count)

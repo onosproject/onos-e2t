@@ -21,7 +21,7 @@ import (
 
 func newE2connectionUpdateRemoveList(e2curl *e2ap_pdu_contents.E2ConnectionUpdateRemoveList) (*C.E2connectionUpdateRemove_List_t, error) {
 
-	e2curlC := C.E2nodeComponentConfigUpdate_List_t{}
+	e2curlC := new(C.E2connectionUpdateRemove_List_t)
 	for _, ie := range e2curl.GetValue() {
 		ieC, err := newE2connectionUpdateRemoveIesSingleContainer(ie)
 		if err != nil {
@@ -32,7 +32,7 @@ func newE2connectionUpdateRemoveList(e2curl *e2ap_pdu_contents.E2ConnectionUpdat
 		}
 	}
 
-	return &e2curlC, nil
+	return e2curlC, nil
 }
 
 func decodeE2connectionUpdateRemoveList(e2curlC *C.E2connectionUpdateRemove_List_t) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveList, error) {
@@ -44,7 +44,7 @@ func decodeE2connectionUpdateRemoveList(e2curlC *C.E2connectionUpdateRemove_List
 	ieCount := int(e2curlC.list.count)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(e2curlC.list.array)) * uintptr(i)
-		ieC := *(**C.ProtocolIE_SingleContainer_1713P6_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2curlC.list.array)) + offset))
+		ieC := *(**C.ProtocolIE_SingleContainer_1713P4_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2curlC.list.array)) + offset))
 		ie, err := decodeE2connectionUpdateRemoveItemIesSingleContainer(ieC)
 		if err != nil {
 			return nil, fmt.Errorf("decodeE2connectionUpdateRemoveItemIesSingleContainer() %s", err.Error())
@@ -55,7 +55,7 @@ func decodeE2connectionUpdateRemoveList(e2curlC *C.E2connectionUpdateRemove_List
 	return &e2curl, nil
 }
 
-func decodeE2connectionUpdateRemoveListBytes(e2curlC [16]byte) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveList, error) {
+func decodeE2connectionUpdateRemoveListBytes(e2curlC [48]byte) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveList, error) {
 	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2curlC[0:8]))))
 	count := C.int(binary.LittleEndian.Uint32(e2curlC[8:12]))
 	size := C.int(binary.LittleEndian.Uint32(e2curlC[12:16]))

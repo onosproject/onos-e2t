@@ -103,7 +103,7 @@ func decodeE2connectionSetupFailedList(e2connectionSetupFailedListC *C.E2connect
 	return &e2connectionSetupFailedList, nil
 }
 
-func decodeE2connectionSetupFailedListBytes(e2cuflC [16]byte) (*e2ap_pdu_contents.E2ConnectionSetupFailedList, error) {
+func decodeE2connectionSetupFailedListBytes(e2cuflC [48]byte) (*e2ap_pdu_contents.E2ConnectionSetupFailedList, error) {
 	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2cuflC[0:8]))))
 	count := C.int(binary.LittleEndian.Uint32(e2cuflC[8:12]))
 	size := C.int(binary.LittleEndian.Uint32(e2cuflC[12:16]))

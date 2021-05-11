@@ -99,10 +99,28 @@ func decodeE2connectionUpdateRemoveItem(e2connectionUpdateRemoveItemC *C.E2conne
 	return &e2connectionUpdateRemoveItem, nil
 }
 
-func decodeE2connectionUpdateRemoveItemBytes(bytes [32]byte) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveItem, error) {
+func decodeE2connectionUpdateRemoveItemBytes(array [104]byte) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveItem, error) {
+
+	tnlAddrsize := binary.LittleEndian.Uint64(array[8:16])
+	tnlAddrbitsUnused := int(binary.LittleEndian.Uint32(array[16:20]))
+	tnlAddrbytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[:8]))), C.int(tnlAddrsize))
+	tnlPortsize := binary.LittleEndian.Uint64(array[56:64])
+	tnlPortbitsUnused := int(binary.LittleEndian.Uint32(array[64:68]))
+	tnlPortbytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[48:56]))), C.int(tnlPortsize))
 
 	e2csfItemC := C.E2connectionUpdateRemove_Item_t{
-		tnlInformation: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
+		tnlInformation: C.TNLinformation_t{
+			tnlAddress: C.BIT_STRING_t{
+				buf:         (*C.uchar)(C.CBytes(tnlAddrbytes)),
+				size:        C.ulong(tnlAddrsize),
+				bits_unused: C.int(tnlAddrbitsUnused),
+			},
+			tnlPort: &C.BIT_STRING_t{
+				buf:         (*C.uchar)(C.CBytes(tnlPortbytes)),
+				size:        C.ulong(tnlPortsize),
+				bits_unused: C.int(tnlPortbitsUnused),
+			},
+		},
 	}
 
 	return decodeE2connectionUpdateRemoveItem(&e2csfItemC)

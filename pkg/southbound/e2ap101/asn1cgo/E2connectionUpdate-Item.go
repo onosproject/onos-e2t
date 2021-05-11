@@ -92,12 +92,7 @@ func newE2connectionUpdateItem(e2connectionUpdateItem *e2ap_pdu_contents.E2Conne
 func decodeE2connectionUpdateItem(e2connectionUpdateItemC *C.E2connectionUpdate_Item_t) (*e2ap_pdu_contents.E2ConnectionUpdateItem, error) {
 
 	var err error
-	e2connectionUpdateItem := e2ap_pdu_contents.E2ConnectionUpdateItem{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//TnlInformation: tnlInformation,
-		//TnlUsage: tnlUsage,
-
-	}
+	e2connectionUpdateItem := e2ap_pdu_contents.E2ConnectionUpdateItem{}
 
 	e2connectionUpdateItem.TnlInformation, err = decodeTnlinformation(&e2connectionUpdateItemC.tnlInformation)
 	if err != nil {
@@ -113,11 +108,29 @@ func decodeE2connectionUpdateItem(e2connectionUpdateItemC *C.E2connectionUpdate_
 	return &e2connectionUpdateItem, nil
 }
 
-func decodeE2connectionUpdateItemBytes(bytes [40]byte) (*e2ap_pdu_contents.E2ConnectionUpdateItem, error) {
+func decodeE2connectionUpdateItemBytes(array [112]byte) (*e2ap_pdu_contents.E2ConnectionUpdateItem, error) {
+
+	tnlAddrsize := binary.LittleEndian.Uint64(array[8:16])
+	tnlAddrbitsUnused := int(binary.LittleEndian.Uint32(array[16:20]))
+	tnlAddrbytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[:8]))), C.int(tnlAddrsize))
+	tnlPortsize := binary.LittleEndian.Uint64(array[56:64])
+	tnlPortbitsUnused := int(binary.LittleEndian.Uint32(array[64:68]))
+	tnlPortbytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[48:56]))), C.int(tnlPortsize))
 
 	e2cuItemC := C.E2connectionUpdate_Item_t{
-		tnlInformation: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
-		tnlUsage:       C.long(binary.LittleEndian.Uint64(bytes[8:16])),
+		tnlInformation: C.TNLinformation_t{
+			tnlAddress: C.BIT_STRING_t{
+				buf:         (*C.uchar)(C.CBytes(tnlAddrbytes)),
+				size:        C.ulong(tnlAddrsize),
+				bits_unused: C.int(tnlAddrbitsUnused),
+			},
+			tnlPort: &C.BIT_STRING_t{
+				buf:         (*C.uchar)(C.CBytes(tnlPortbytes)),
+				size:        C.ulong(tnlPortsize),
+				bits_unused: C.int(tnlPortbitsUnused),
+			},
+		},
+		tnlUsage: C.long(binary.LittleEndian.Uint64(array[96:])),
 	}
 
 	return decodeE2connectionUpdateItem(&e2cuItemC)

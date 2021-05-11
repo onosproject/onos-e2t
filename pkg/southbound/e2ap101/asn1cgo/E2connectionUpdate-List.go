@@ -69,7 +69,7 @@ func perDecodeE2connectionUpdateList(bytes []byte) (*e2ap_pdu_contents.E2Connect
 
 func newE2connectionUpdateList(e2cul *e2ap_pdu_contents.E2ConnectionUpdateList) (*C.E2connectionUpdate_List_t, error) {
 
-	e2culC := C.E2nodeComponentConfigUpdate_List_t{}
+	e2culC := new(C.E2connectionUpdate_List_t)
 	for _, ie := range e2cul.GetValue() {
 		ieC, err := newE2connectionUpdateIesSingleContainer(ie)
 		if err != nil {
@@ -80,10 +80,10 @@ func newE2connectionUpdateList(e2cul *e2ap_pdu_contents.E2ConnectionUpdateList) 
 		}
 	}
 
-	return &e2culC, nil
+	return e2culC, nil
 }
 
-func decodeE2connectionUpdateList(e2culC *C.E2connectionUpdateRemove_List_t) (*e2ap_pdu_contents.E2ConnectionUpdateList, error) {
+func decodeE2connectionUpdateList(e2culC *C.E2connectionUpdate_List_t) (*e2ap_pdu_contents.E2ConnectionUpdateList, error) {
 
 	e2cul := e2ap_pdu_contents.E2ConnectionUpdateList{
 		Value: make([]*e2ap_pdu_contents.E2ConnectionUpdateItemIes, 0),
@@ -92,7 +92,7 @@ func decodeE2connectionUpdateList(e2culC *C.E2connectionUpdateRemove_List_t) (*e
 	ieCount := int(e2culC.list.count)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(e2culC.list.array)) * uintptr(i)
-		ieC := *(**C.ProtocolIE_SingleContainer_1713P6_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2culC.list.array)) + offset))
+		ieC := *(**C.ProtocolIE_SingleContainer_1713P3_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2culC.list.array)) + offset))
 		ie, err := decodeE2connectionUpdateItemIesSingleContainer(ieC)
 		if err != nil {
 			return nil, fmt.Errorf("decodeE2connectionUpdateItemIesSingleContainer() %s", err.Error())
@@ -103,7 +103,7 @@ func decodeE2connectionUpdateList(e2culC *C.E2connectionUpdateRemove_List_t) (*e
 	return &e2cul, nil
 }
 
-func decodeE2connectionUpdateListBytes(e2curlC [16]byte) (*e2ap_pdu_contents.E2ConnectionUpdateList, error) {
+func decodeE2connectionUpdateListBytes(e2curlC [48]byte) (*e2ap_pdu_contents.E2ConnectionUpdateList, error) {
 	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2curlC[0:8]))))
 	count := C.int(binary.LittleEndian.Uint32(e2curlC[8:12]))
 	size := C.int(binary.LittleEndian.Uint32(e2curlC[12:16]))

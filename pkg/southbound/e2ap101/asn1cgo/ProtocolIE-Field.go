@@ -2581,7 +2581,7 @@ func newE2nodeComponentConfigUpdateItemIEs(e2nccuItemIes *e2appducontents.E2Node
 		return nil, err
 	}
 
-	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
+	choiceC := [80]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
 	e2nccuItemC, err := newE2nodeComponentConfigUpdateItem(e2nccuItemIes.GetValue())
 	if err != nil {
 		return nil, err
@@ -2594,7 +2594,7 @@ func newE2nodeComponentConfigUpdateItemIEs(e2nccuItemIes *e2appducontents.E2Node
 	rfItemIesC := C.E2nodeComponentConfigUpdate_ItemIEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2nodeComponentConfigUpdate_ItemIEs_value{
+		value: C.struct_E2nodeComponentConfigUpdate_ItemIEs__value{
 			present: C.E2nodeComponentConfigUpdate_ItemIEs__value_PR_E2nodeComponentConfigUpdate_Item,
 			choice:  choiceC,
 		},
@@ -2613,7 +2613,7 @@ func newE2nodeComponentConfigUpdateAckItemIEs(e2nccuaItemIes *e2appducontents.E2
 		return nil, err
 	}
 
-	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
+	choiceC := [80]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
 	e2nccuItemC, err := newE2nodeComponentConfigUpdateAckItem(e2nccuaItemIes.GetValue())
 	if err != nil {
 		return nil, err
@@ -2621,12 +2621,13 @@ func newE2nodeComponentConfigUpdateAckItemIEs(e2nccuaItemIes *e2appducontents.E2
 	//ToDo - verify correctness of passing bytes there..
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccuItemC.e2nodeComponentType))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2nccuItemC.e2nodeComponentID))
-	binary.LittleEndian.PutUint64(choiceC[16:24], uint64(e2nccuItemC.e2nodeComponentConfigUpdateAck))
+	binary.LittleEndian.PutUint64(choiceC[16:24], uint64(e2nccuItemC.e2nodeComponentConfigUpdateAck.updateOutcome))
+	binary.LittleEndian.PutUint64(choiceC[24:32], uint64(e2nccuItemC.e2nodeComponentConfigUpdateAck.failureCause))
 
 	rfItemIesC := C.E2nodeComponentConfigUpdateAck_ItemIEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2nodeComponentConfigUpdateAck_ItemIEs_value{
+		value: C.struct_E2nodeComponentConfigUpdateAck_ItemIEs__value{
 			present: C.E2nodeComponentConfigUpdateAck_ItemIEs__value_PR_E2nodeComponentConfigUpdateAck_Item,
 			choice:  choiceC,
 		},
@@ -2645,19 +2646,29 @@ func newE2connectionUpdateItemIEs(e2cuItemIes *e2appducontents.E2ConnectionUpdat
 		return nil, err
 	}
 
-	choiceC := [40]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
+	choiceC := [112]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
 	e2cuItemC, err := newE2connectionUpdateItem(e2cuItemIes.GetValue())
 	if err != nil {
 		return nil, err
 	}
 	//ToDo - verify correctness of passing bytes there..
-	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2cuItemC.tnlInformation))
-	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2cuItemC.cause))
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(e2cuItemC.tnlInformation.tnlAddress.buf))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlAddress.size))))
+	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2cuItemC.tnlInformation.tnlAddress.bits_unused))
+	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
+	binary.LittleEndian.PutUint64(choiceC[48:], uint64(e2cuItemC.tnlInformation.tnlPort.buf))
+	binary.LittleEndian.PutUint64(choiceC[56:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlPort.size))))
+	binary.LittleEndian.PutUint64(choiceC[64:], uint64(e2cuItemC.tnlInformation.tnlPort.bits_unused))
+	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
+	binary.LittleEndian.PutUint64(choiceC[96:], uint64(e2cuItemC.tnlUsage))
+
+	//ToDo - print it out
+	//fmt.Printf("Choice is \n%v", hex.Dump(choiceC))
 
 	rfItemIesC := C.E2connectionUpdate_ItemIEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2connectionUpdate_ItemIEs_value{
+		value: C.struct_E2connectionUpdate_ItemIEs__value{
 			present: C.E2connectionUpdate_ItemIEs__value_PR_E2connectionUpdate_Item,
 			choice:  choiceC,
 		},
@@ -2676,18 +2687,24 @@ func newE2connectionUpdateRemoveItemIEs(e2curItemIes *e2appducontents.E2Connecti
 		return nil, err
 	}
 
-	choiceC := [32]byte{} // The size of the E2connectionUpdateRemove_ItemIEs__value_u
+	choiceC := [104]byte{} // The size of the E2connectionUpdateRemove_ItemIEs__value_u
 	e2cuItemC, err := newE2connectionUpdateRemoveItem(e2curItemIes.GetValue())
 	if err != nil {
 		return nil, err
 	}
 	//ToDo - verify correctness of passing bytes there..
-	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2cuItemC.tnlInformation))
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(e2cuItemC.tnlInformation.tnlAddress.buf))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlAddress.size))))
+	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2cuItemC.tnlInformation.tnlAddress.bits_unused))
+	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
+	binary.LittleEndian.PutUint64(choiceC[48:], uint64(e2cuItemC.tnlInformation.tnlPort.buf))
+	binary.LittleEndian.PutUint64(choiceC[56:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlPort.size))))
+	binary.LittleEndian.PutUint64(choiceC[64:], uint64(e2cuItemC.tnlInformation.tnlPort.bits_unused))
 
 	rfItemIesC := C.E2connectionUpdateRemove_ItemIEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2connectionUpdateRemove_ItemIEs_value{
+		value: C.struct_E2connectionUpdateRemove_ItemIEs__value{
 			present: C.E2connectionUpdateRemove_ItemIEs__value_PR_E2connectionUpdateRemove_Item,
 			choice:  choiceC,
 		},
@@ -2706,19 +2723,26 @@ func newE2connectionSetupFailedItemIEs(e2csfItemIes *e2appducontents.E2Connectio
 		return nil, err
 	}
 
-	choiceC := [48]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
+	choiceC := [144]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
 	e2csfItemC, err := newE2connectionSetupFailedItem(e2csfItemIes.GetValue())
 	if err != nil {
 		return nil, err
 	}
 	//ToDo - verify correctness of passing bytes there..
-	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2csfItemC.tnlInformation))
-	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2csfItemC.tnlUsage))
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(e2csfItemC.tnlInformation.tnlAddress.buf))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(e2csfItemC.tnlInformation.tnlAddress.size))))
+	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2csfItemC.tnlInformation.tnlAddress.bits_unused))
+	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
+	binary.LittleEndian.PutUint64(choiceC[48:], uint64(e2csfItemC.tnlInformation.tnlPort.buf))
+	binary.LittleEndian.PutUint64(choiceC[56:], uint64(uintptr(unsafe.Pointer(e2csfItemC.tnlInformation.tnlPort.size))))
+	binary.LittleEndian.PutUint64(choiceC[64:], uint64(e2csfItemC.tnlInformation.tnlPort.bits_unused))
+	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
+	binary.LittleEndian.PutUint64(choiceC[96:], uint64(e2csfItemC.cause))
 
 	e2csfItemIesC := C.E2connectionSetupFailed_ItemIEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2connectionSetupFailed_ItemIEs_value{
+		value: C.struct_E2connectionSetupFailed_ItemIEs__value{
 			present: C.E2connectionSetupFailed_ItemIEs__value_PR_E2connectionSetupFailed_Item,
 			choice:  choiceC,
 		},
@@ -3814,9 +3838,9 @@ func decodeResetRequestIE(rrIeC *C.ResetRequestIEs_t) (*e2appducontents.ResetReq
 
 	switch rrIeC.value.present {
 	case C.ResetRequestIEs__value_PR_Cause:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		cause, err := decodeCauseBytes(rrIeC.value.choice)
+		a := []byte{}
+		copy(a, rrIeC.value.choice[:])
+		cause, err := decodeCauseBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -3843,9 +3867,9 @@ func decodeResetResponseIE(rrIeC *C.ResetResponseIEs_t) (*e2appducontents.ResetR
 
 	switch rrIeC.value.present {
 	case C.ResetResponseIEs__value_PR_CriticalityDiagnostics:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		criticalityDiagnostics, err := decodeCriticalityDiagnosticsBytes(rrIeC.value.choice)
+		a := []byte{}
+		copy(a, rrIeC.value.choice[:])
+		criticalityDiagnostics, err := decodeCriticalityDiagnosticsBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -3901,9 +3925,9 @@ func decodeRicServiceUpdateIE(rrIeC *C.RICserviceUpdate_IEs_t) (*e2appducontents
 	//	}
 
 	case C.RICserviceUpdate_IEs__value_PR_RANfunctionsID_List:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		rfdl, err := decodeRanFunctionsIDListBytes(rrIeC.value.choice)
+		a := [112]byte{}
+		copy(a[0:48], rrIeC.value.choice[:])
+		rfdl, err := decodeRanFunctionsIDListBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -3930,9 +3954,9 @@ func decodeRicServiceUpdateAcknowledgeIE(rrIeC *C.RICserviceUpdateAcknowledge_IE
 
 	switch rrIeC.value.present {
 	case C.RICserviceUpdateAcknowledge_IEs__value_PR_RANfunctionsID_List: //This one is for added
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		rfIDl, err := decodeRanFunctionsIDListBytes(rrIeC.value.choice)
+		a := [112]byte{}
+		copy(a[0:48], rrIeC.value.choice[:])
+		rfIDl, err := decodeRanFunctionsIDListBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -3944,9 +3968,9 @@ func decodeRicServiceUpdateAcknowledgeIE(rrIeC *C.RICserviceUpdateAcknowledge_IE
 		}
 
 	case C.RICserviceUpdateAcknowledge_IEs__value_PR_RANfunctionsIDcause_List:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		rfIDcl, err := decodeRanFunctionsIDCauseListBytes(rrIeC.value.choice)
+		a := [112]byte{}
+		copy(a[0:48], rrIeC.value.choice[:])
+		rfIDcl, err := decodeRanFunctionsIDCauseListBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -3973,9 +3997,9 @@ func decodeRicServiceUpdateFailureIE(rsufIeC *C.RICserviceUpdateFailure_IEs_t) (
 
 	switch rsufIeC.value.present {
 	case C.RICserviceUpdateFailure_IEs__value_PR_CriticalityDiagnostics: //This one is for added
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		cd, err := decodeCriticalityDiagnosticsBytes(rsufIeC.value.choice)
+		a := []byte{}
+		copy(a, rsufIeC.value.choice[:])
+		cd, err := decodeCriticalityDiagnosticsBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -3987,9 +4011,9 @@ func decodeRicServiceUpdateFailureIE(rsufIeC *C.RICserviceUpdateFailure_IEs_t) (
 		}
 
 	case C.RICserviceUpdateFailure_IEs__value_PR_TimeToWait: //This one is for added
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		ttw := decodeTimeToWaitBytes(rsufIeC.value.choice)
+		a := []byte{}
+		copy(a, rsufIeC.value.choice[:])
+		ttw := decodeTimeToWaitBytes(a)
 
 		ret.E2ApProtocolIes31 = &e2appducontents.RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31{
 			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
@@ -3999,9 +4023,9 @@ func decodeRicServiceUpdateFailureIE(rsufIeC *C.RICserviceUpdateFailure_IEs_t) (
 		}
 
 	case C.RICserviceUpdateFailure_IEs__value_PR_RANfunctionsIDcause_List:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		rfIDcl, err := decodeRanFunctionsIDCauseListBytes(rsufIeC.value.choice)
+		a := [112]byte{}
+		copy(a[0:48], rsufIeC.value.choice[:])
+		rfIDcl, err := decodeRanFunctionsIDCauseListBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -4028,8 +4052,6 @@ func decodeE2nodeConfigurationUpdateIE(e2ncuIeC *C.E2nodeConfigurationUpdate_IEs
 
 	switch e2ncuIeC.value.present {
 	case C.E2nodeConfigurationUpdate_IEs__value_PR_E2nodeComponentConfigUpdate_List:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
 		e2ncul, err := decodeE2nodeComponentConfigUpdateListBytes(e2ncuIeC.value.choice)
 		if err != nil {
 			return nil, err
@@ -4057,8 +4079,6 @@ func decodeE2nodeConfigurationUpdateAcknowledgeIE(e2ncuaIeC *C.E2nodeConfigurati
 
 	switch e2ncuaIeC.value.present {
 	case C.E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_E2nodeComponentConfigUpdateAck_List:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
 		e2ncual, err := decodeE2nodeComponentConfigUpdateAckListBytes(e2ncuaIeC.value.choice)
 		if err != nil {
 			return nil, err
@@ -4086,9 +4106,9 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 
 	switch e2ncufIeC.value.present {
 	case C.E2nodeConfigurationUpdateFailure_IEs__value_PR_Cause:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		cause, err := decodeCauseBytes(e2ncufIeC.value.choice)
+		a := []byte{}
+		copy(a, e2ncufIeC.value.choice[:])
+		cause, err := decodeCauseBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -4100,9 +4120,9 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 		}
 
 	case C.E2nodeConfigurationUpdateFailure_IEs__value_PR_CriticalityDiagnostics: //This one is for added
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		cd, err := decodeCriticalityDiagnosticsBytes(e2ncufIeC.value.choice)
+		a := []byte{}
+		copy(a, e2ncufIeC.value.choice[:])
+		cd, err := decodeCriticalityDiagnosticsBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -4114,9 +4134,9 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 		}
 
 	case C.E2nodeConfigurationUpdateFailure_IEs__value_PR_TimeToWait: //This one is for added
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		ttw := decodeTimeToWaitBytes(e2ncufIeC.value.choice)
+		a := []byte{}
+		copy(a, e2ncufIeC.value.choice[:])
+		ttw := decodeTimeToWaitBytes(a)
 
 		ret.E2ApProtocolIes31 = &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes31{
 			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
@@ -4141,9 +4161,9 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 
 	switch e2cufIeC.value.present {
 	case C.E2connectionUpdateFailure_IEs__value_PR_Cause:
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		cause, err := decodeCauseBytes(e2cufIeC.value.choice)
+		a := []byte{}
+		copy(a, e2cufIeC.value.choice[:])
+		cause, err := decodeCauseBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -4155,9 +4175,9 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 		}
 
 	case C.E2connectionUpdateFailure_IEs__value_PR_CriticalityDiagnostics: //This one is for added
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		cd, err := decodeCriticalityDiagnosticsBytes(e2cufIeC.value.choice)
+		a := []byte{}
+		copy(a, e2cufIeC.value.choice[:])
+		cd, err := decodeCriticalityDiagnosticsBytes(a)
 		if err != nil {
 			return nil, err
 		}
@@ -4169,9 +4189,9 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 		}
 
 	case C.E2connectionUpdateFailure_IEs__value_PR_TimeToWait: //This one is for added
-		//a := [112]byte{}
-		//copy(a[0:48], rrIeC.value.choice[:])
-		ttw := decodeTimeToWaitBytes(e2cufIeC.value.choice)
+		a := []byte{}
+		copy(a, e2cufIeC.value.choice[:])
+		ttw := decodeTimeToWaitBytes(a)
 
 		ret.E2ApProtocolIes31 = &e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes31{
 			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
