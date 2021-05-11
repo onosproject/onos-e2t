@@ -2879,7 +2879,7 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 
 	switch e2srIeC.value.present {
 	case C.E2setupRequestIEs__value_PR_GlobalE2node_ID:
-		gE2nID, err := decodeGlobalE2NodeID(e2srIeC.value.choice)
+		gE2nID, err := decodeGlobalE2NodeIDBytes(e2srIeC.value.choice)
 		if err != nil {
 			return nil, err
 		}
@@ -4058,12 +4058,11 @@ func decodeE2nodeConfigurationUpdateIE(e2ncuIeC *C.E2nodeConfigurationUpdate_IEs
 		if err != nil {
 			return nil, err
 		}
-		ret = &e2appducontents.E2NodeConfigurationUpdateIes{
-			Id:          int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value:       e2ncul,
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
+
+		ret.Id = int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate)
+		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT)
+		ret.Value = e2ncul
+		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL)
 
 	case C.E2nodeConfigurationUpdate_IEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeE2nodeConfigurationUpdateIE(). %v not yet implemneted", e2ncuIeC.value.present)
@@ -4085,12 +4084,11 @@ func decodeE2nodeConfigurationUpdateAcknowledgeIE(e2ncuaIeC *C.E2nodeConfigurati
 		if err != nil {
 			return nil, err
 		}
-		ret = &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes{
-			Id:          int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value:       e2ncual,
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
+
+		ret.Id = int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate)
+		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT)
+		ret.Value = e2ncual
+		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL)
 
 	case C.E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeE2nodeConfigurationUpdateAcknowledgeIE(). %v not yet implemneted", e2ncuaIeC.value.present)
