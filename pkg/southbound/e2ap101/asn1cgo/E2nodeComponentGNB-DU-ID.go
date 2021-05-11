@@ -9,7 +9,7 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2nodeComponentGNB-DU-ID.h" //ToDo - if there is an anonymous C-struct option, it would require linking additional C-struct file definition (the one above or before)
+//#include "E2nodeComponentGNB-DU-ID.h"
 import "C"
 
 import (
