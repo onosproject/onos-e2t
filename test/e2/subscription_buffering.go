@@ -107,7 +107,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	actions = append(actions, action)
 
 	subBuilder := utils.Subscription{
-		NodeID:              testNodeID,
+		NodeID:              string(testNodeID),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,

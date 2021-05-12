@@ -35,6 +35,7 @@ func main() {
 	certPath := flag.String("certPath", "", "path to client certificate")
 	sctpPort := flag.Uint("sctpport", 36421, "sctp server port")
 	e2SubAddress := flag.String("e2SubAddress", "onos-e2sub:5150", "onos-e2sub endpoint address")
+	topoEndpoint := flag.String("topoEndpoint", "onos-topo:5150", "onos-topo endpoint address")
 
 	flag.Parse()
 
@@ -46,6 +47,7 @@ func main() {
 		GRPCPort:            5150,
 		E2Port:              int(*sctpPort),
 		E2SubAddress:        *e2SubAddress,
+		TopoAddress:         *topoEndpoint,
 		ServiceModelPlugins: serviceModelPlugins,
 	}
 	mgr := manager.NewManager(cfg)

@@ -23,8 +23,6 @@ type RANFunctions struct {
 type RANFunction struct {
 	OID e2smtypes.OID
 	ID  types.RanFunctionID
-	// protobuf encoded description
-	Description []byte
 }
 
 // ID ID for a RAN function
@@ -79,20 +77,6 @@ func (r *RANFunctions) Get(id ID) (RANFunction, error) {
 	return ranFunction, nil
 }
 
-// GetRANFunctionsPerNode ...
-func (r *RANFunctions) GetRANFunctionsByNodeID(nodeID string) []RANFunction {
-	r.mu.RLock()
-	defer r.mu.RUnlock()
-	var ranFunctions []RANFunction
-	for ranFunctionID, ranFunction := range r.ranFunctions {
-		if nodeID == ranFunctionID.nodeID {
-			ranFunctions = append(ranFunctions, ranFunction)
-		}
-	}
-
-	return ranFunctions
-}
-
 // Registry register RAN functions for each service model
 type Registry interface {
 	// Add adds a RAN function for a service model
@@ -102,9 +86,6 @@ type Registry interface {
 
 	// Get gets a RANFunction per id
 	Get(id ID) (RANFunction, error)
-
-	// GetRANFunctionsPerNode get RAN functions per node
-	GetRANFunctionsByNodeID(nodeID string) []RANFunction
 }
 
 var _ Registry = &RANFunctions{}

@@ -200,8 +200,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFuncID, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
-
+	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
 	if err != nil {
 		log.Warn(err)
 	}
@@ -308,7 +307,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 	}
 
-	request, err := r.newRicSubscriptionRequest(ricRequest, ranFuncID.ID, ricEventDef, ricActionsToBeSetup)
+	request, err := r.newRicSubscriptionRequest(ricRequest, ranFunction.ID, ricEventDef, ricActionsToBeSetup)
 	if err != nil {
 		log.Warnf("Failed to create E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
@@ -415,12 +414,12 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		return controller.Result{}, err
 	}
 
-	ranFuncID, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
+	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
 	if err != nil {
 		log.Warn(err)
 	}
 
-	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFuncID.ID)
+	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFunction.ID)
 	if err != nil {
 		return controller.Result{}, err
 	}

@@ -6,94 +6,123 @@ package utils
 
 import (
 	"context"
-	"io"
+	"time"
 
-	"github.com/onosproject/onos-api/go/onos/e2t/admin"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/creds"
+	gogotypes "github.com/gogo/protobuf/types"
+
+	"github.com/onosproject/onos-lib-go/pkg/certs"
+
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-lib-go/pkg/southbound"
+
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 const (
-	OnosE2TAddress = "onos-e2t:5150"
+	OnosE2TAddress  = "onos-e2t:5150"
+	OnosTopoAddress = "onos-topo:5150"
 )
 
-// GetNodeIDs get list of E2 node IDs
-// TODO this function should be replaced with topology API
-func GetNodeIDs() ([]string, error) {
-	tlsConfig, err := creds.GetClientCredentials()
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	var nodeIDs []string
-	if err != nil {
-		return []string{}, err
-	}
-	opts := []grpc.DialOption{
-		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
-	}
+// GetTopoConn gets a gRPC connection to the topology service
+func GetTopoConn(topoEndpoint string, opts ...grpc.DialOption) (*grpc.ClientConn, error) {
+	return grpc.Dial(topoEndpoint, opts...)
+}
 
-	conn, err := grpc.DialContext(ctx, OnosE2TAddress, opts...)
-	if err != nil {
-		return []string{}, err
-	}
-	adminClient := admin.NewE2TAdminServiceClient(conn)
-	connections, err := adminClient.ListE2NodeConnections(ctx, &admin.ListE2NodeConnectionsRequest{})
-
-	if err != nil {
-		return []string{}, err
-	}
-
-	for {
-		connection, err := connections.Recv()
-		if err == io.EOF {
-			break
-		} else if err != nil {
-			return []string{}, err
+func contains(s []string, str string) bool {
+	for _, v := range s {
+		if v == str {
+			return true
 		}
-		if connection != nil {
-			nodeID := connection.Id
-			nodeIDs = append(nodeIDs, nodeID)
+	}
+
+	return false
+}
+
+func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	opts, err := certs.HandleCertPaths("", "", "", true)
+	if err != nil {
+		return nil, err
+	}
+	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(100*time.Millisecond)))
+
+	conn, _ := GetTopoConn(OnosTopoAddress, opts...)
+	client := topoapi.CreateTopoClient(conn)
+	listResponse, err := client.List(ctx, &topoapi.ListRequest{})
+	if err != nil {
+		return nil, err
+	}
+	var cells []*topoapi.E2Cell
+
+	for _, obj := range listResponse.Objects {
+		if obj.Type == topoapi.Object_RELATION {
+			switch relation := obj.Obj.(type) {
+			case *topoapi.Object_Relation:
+				if relation.Relation.SrcEntityID == nodeID {
+					targetEntity := relation.Relation.TgtEntityID
+					getRequest := &topoapi.GetRequest{
+						ID: targetEntity,
+					}
+					response, err := client.Get(ctx, getRequest)
+					if err != nil {
+						return nil, err
+					}
+					object := response.Object
+					if object != nil {
+						//if object.GetEntity().GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()) {
+						anyObject := object.GetAttributes()[topoapi.RANEntityKinds_E2CELL.String()]
+						cellObject := &topoapi.E2Cell{}
+						err := gogotypes.UnmarshalAny(anyObject, cellObject)
+						if err != nil {
+							return nil, err
+						}
+						cells = append(cells, cellObject)
+
+						//}
+
+					}
+
+				}
+
+			}
+
+		}
+	}
+
+	return cells, nil
+}
+
+// GetNodeIDs get list of E2 node IDs using topology subsystem
+func GetNodeIDs() ([]topoapi.ID, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	opts, err := certs.HandleCertPaths("", "", "", true)
+	if err != nil {
+		return nil, err
+	}
+	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(100*time.Millisecond)))
+
+	conn, _ := GetTopoConn(OnosTopoAddress, opts...)
+	client := topoapi.CreateTopoClient(conn)
+	listResponse, err := client.List(ctx, &topoapi.ListRequest{})
+	if err != nil {
+		return nil, err
+	}
+
+	var nodeIDs []topoapi.ID
+	for _, obj := range listResponse.Objects {
+		if obj.Type == topoapi.Object_ENTITY {
+			switch entity := obj.Obj.(type) {
+			case *topoapi.Object_Entity:
+				if entity.Entity.KindID == topoapi.ID(topoapi.RANEntityKinds_E2NODE.String()) {
+					nodeIDs = append(nodeIDs, obj.ID)
+				}
+
+			}
+
 		}
 	}
 	return nodeIDs, nil
-}
 
-// GetRANFunctions get list of RAN functions for a given node
-func GetRANFunctions(nodeID string) ([]*admin.RANFunction, error) {
-	tlsConfig, err := creds.GetClientCredentials()
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	var ranFunctions []*admin.RANFunction
-	if err != nil {
-		return nil, err
-	}
-	opts := []grpc.DialOption{
-		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
-	}
-
-	conn, err := grpc.DialContext(ctx, OnosE2TAddress, opts...)
-	if err != nil {
-		return nil, err
-	}
-	adminClient := admin.NewE2TAdminServiceClient(conn)
-	connections, err := adminClient.ListE2NodeConnections(ctx, &admin.ListE2NodeConnectionsRequest{})
-
-	if err != nil {
-		return nil, err
-	}
-
-	for {
-		connection, err := connections.Recv()
-		if err == io.EOF {
-			break
-		} else if err != nil {
-			return nil, err
-		}
-		if connection != nil {
-			if connection.Id == nodeID {
-				ranFunctions = connection.RanFunctions
-			}
-		}
-	}
-	return ranFunctions, nil
 }

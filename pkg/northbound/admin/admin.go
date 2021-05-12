@@ -82,17 +82,6 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 		for _, remoteAddr := range remoteAddrs {
 			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
 		}
-		var ranFunctions []*adminapi.RANFunction
-		registeredRANFunctions := s.ranFunctionRegistry.GetRANFunctionsByNodeID(string(channel.ID))
-
-		for _, ranFunctionValue := range registeredRANFunctions {
-			ranFunction := &adminapi.RANFunction{
-				Oid:           string(ranFunctionValue.OID),
-				RanFunctionId: string(ranFunctionValue.ID),
-				Description:   ranFunctionValue.Description,
-			}
-			ranFunctions = append(ranFunctions, ranFunction)
-		}
 
 		msg := &adminapi.ListE2NodeConnectionsResponse{
 			RemoteIp:   remoteAddrsStrings,
@@ -101,7 +90,6 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 			PlmnId:     channel.PlmnID,
 			// TODO: This should come from the connection data
 			ConnectionType: adminapi.E2NodeConnectionType_G_NB,
-			RanFunctions:   ranFunctions,
 		}
 
 		err = stream.Send(msg)

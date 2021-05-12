@@ -8,6 +8,10 @@ import (
 	"context"
 	"time"
 
+	"github.com/onosproject/onos-e2t/pkg/topo"
+
+	"github.com/onosproject/onos-e2t/pkg/store/device"
+
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
@@ -41,6 +45,7 @@ type Config struct {
 	GRPCPort            int
 	E2Port              int
 	E2SubAddress        string
+	TopoAddress         string
 	ServiceModelPlugins []string
 }
 
@@ -96,13 +101,23 @@ func (m *Manager) Start() error {
 	streams := subscription.NewBroker()
 	channels := e2server.NewChannelManager()
 	ranFunctionRegistry := ranfunctions.NewRegistry()
-
-	err := m.startSubscriptionBroker(streams, channels, ranFunctionRegistry)
+	opts, err := certs.HandleCertPaths(m.Config.CAPath, m.Config.KeyPath, m.Config.CertPath, true)
+	if err != nil {
+		return err
+	}
+	deviceStore, err := device.NewTopoStore(m.Config.TopoAddress, opts...)
 	if err != nil {
 		return err
 	}
 
-	err = m.startSouthboundServer(channels, streams, ranFunctionRegistry)
+	topoManager := topo.NewTopoManager(deviceStore)
+
+	err = m.startSubscriptionBroker(streams, channels, ranFunctionRegistry)
+	if err != nil {
+		return err
+	}
+
+	err = m.startSouthboundServer(channels, streams, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
@@ -128,8 +143,9 @@ func (m *Manager) startSubscriptionBroker(streams subscription.Broker,
 
 // startSouthboundServer starts the southbound server
 func (m *Manager) startSouthboundServer(channels e2server.ChannelManager,
-	streams subscription.Broker, ranFunctionRegistry ranfunctions.Registry) error {
-	server := e2server.NewE2Server(channels, streams, m.ModelRegistry, ranFunctionRegistry)
+	streams subscription.Broker, ranFunctionRegistry ranfunctions.Registry,
+	topoManager topo.Manager) error {
+	server := e2server.NewE2Server(channels, streams, m.ModelRegistry, ranFunctionRegistry, topoManager)
 	return server.Serve()
 }
 
