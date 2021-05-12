@@ -4,7 +4,6 @@
 package pdubuilder
 
 import (
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
@@ -30,7 +29,6 @@ func TestE2NodeConfigurationUpdateFailure(t *testing.T) {
 	)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
-	fmt.Printf("TimeToWait is \n%v\n", newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes31())
 
 	//xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	//assert.NilError(t, err)

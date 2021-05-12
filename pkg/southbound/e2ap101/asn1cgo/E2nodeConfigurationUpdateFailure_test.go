@@ -37,12 +37,6 @@ func createE2nodeConfigurationUpdateFailureMsg() (*e2ap_pdu_contents.E2NodeConfi
 	if err != nil {
 		return nil, err
 	}
-	if e2nodeConfigurationUpdateFailure == nil {
-		return nil, fmt.Errorf("returned structure is nil")
-	}
-
-	fmt.Printf("Cause is \n%v\n", e2nodeConfigurationUpdateFailure.GetUnsuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes1())
-	fmt.Printf("TimeToWait is \n%v\n", e2nodeConfigurationUpdateFailure.GetUnsuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes31())
 
 	if err := e2nodeConfigurationUpdateFailure.Validate(); err != nil {
 		return nil, fmt.Errorf("error validating E2nodeConfigurationUpdateFailure %s", err.Error())
@@ -54,7 +48,6 @@ func Test_xerEncodingE2nodeConfigurationUpdateFailure(t *testing.T) {
 
 	e2nodeConfigurationUpdateFailure, err := createE2nodeConfigurationUpdateFailureMsg()
 	assert.NilError(t, err, "Error creating E2nodeConfigurationUpdateFailure PDU")
-	t.Logf("Created message is \n%v", e2nodeConfigurationUpdateFailure.GetProtocolIes().GetE2ApProtocolIes31())
 
 	xer, err := xerEncodeE2nodeConfigurationUpdateFailure(e2nodeConfigurationUpdateFailure)
 	assert.NilError(t, err)

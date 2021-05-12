@@ -22,7 +22,7 @@ import (
 	"unsafe"
 )
 
-func XerEncodeGlobalE2nodeID(ge2n *e2apies.GlobalE2NodeId) ([]byte, error) {
+func xerEncodeGlobalE2nodeID(ge2n *e2apies.GlobalE2NodeId) ([]byte, error) {
 	ge2nCP, err := newGlobalE2nodeID(ge2n)
 	if err != nil {
 		return nil, fmt.Errorf("xerEncodeGlobalE2nodeID() %s", err.Error())
@@ -48,7 +48,7 @@ func PerEncodeGlobalE2nodeID(ge2n *e2apies.GlobalE2NodeId) ([]byte, error) {
 	return bytes, nil
 }
 
-func XerDecodeGlobalE2nodeID(bytes []byte) (*e2apies.GlobalE2NodeId, error) {
+func xerDecodeGlobalE2nodeID(bytes []byte) (*e2apies.GlobalE2NodeId, error) {
 	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_GlobalE2node_ID)
 	if err != nil {
 		return nil, err

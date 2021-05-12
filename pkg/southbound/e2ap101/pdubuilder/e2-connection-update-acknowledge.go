@@ -38,6 +38,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu,
 					Len:   64,
 				},
 			},
+			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH,
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}

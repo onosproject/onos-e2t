@@ -16,7 +16,7 @@ import (
 func CreateRicServiceQueryE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 
 	ranFunctionsAccepted := e2appducontents.RicserviceQueryIes_RicserviceQueryIes9{
-		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
+		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),

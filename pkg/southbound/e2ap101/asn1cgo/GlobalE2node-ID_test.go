@@ -114,12 +114,12 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 
 	ge2n := createGlobalE2nodeIDGNb()
 
-	xer, err := XerEncodeGlobalE2nodeID(ge2n)
+	xer, err := xerEncodeGlobalE2nodeID(ge2n)
 	assert.NilError(t, err)
 	t.Logf("GlobalE2nodeID (GNb) XER\n%s", xer)
 
 	// Now reverse the XER
-	ge2nReversed, err := XerDecodeGlobalE2nodeID(xer)
+	ge2nReversed, err := xerDecodeGlobalE2nodeID(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (GNb) decoded from XER is \n%v", ge2nReversed)
@@ -127,12 +127,12 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 
 	ge2n = createGlobalE2nodeIDenGNb()
 
-	xer, err = XerEncodeGlobalE2nodeID(ge2n)
+	xer, err = xerEncodeGlobalE2nodeID(ge2n)
 	assert.NilError(t, err)
 	t.Logf("GlobalE2nodeID (en-GNb) XER\n%s", xer)
 
 	// Now reverse the XER
-	ge2nReversed, err = XerDecodeGlobalE2nodeID(xer)
+	ge2nReversed, err = xerDecodeGlobalE2nodeID(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (en-GNb) decoded from XER is \n%v", ge2nReversed)
@@ -140,12 +140,12 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 
 	ge2n = createGlobalE2nodeIDENb()
 
-	xer, err = XerEncodeGlobalE2nodeID(ge2n)
+	xer, err = xerEncodeGlobalE2nodeID(ge2n)
 	assert.NilError(t, err)
 	t.Logf("GlobalE2nodeID (ENb) XER\n%s", xer)
 
 	// Now reverse the XER
-	ge2nReversed, err = XerDecodeGlobalE2nodeID(xer)
+	ge2nReversed, err = xerDecodeGlobalE2nodeID(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (ENb) decoded from XER is \n%v", ge2nReversed)
@@ -153,12 +153,12 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 
 	ge2n = createGlobalE2nodeIDngENb()
 
-	xer, err = XerEncodeGlobalE2nodeID(ge2n)
+	xer, err = xerEncodeGlobalE2nodeID(ge2n)
 	assert.NilError(t, err)
 	t.Logf("GlobalE2nodeID (ng-ENb) XER\n%s", xer)
 
 	// Now reverse the XER
-	ge2nReversed, err = XerDecodeGlobalE2nodeID(xer)
+	ge2nReversed, err = xerDecodeGlobalE2nodeID(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (ng-ENb) decoded from XER is \n%v", ge2nReversed)

@@ -34,7 +34,7 @@ func CreateE2NodeConfigurationUpdateFailureE2apPdu(failureProcCode v1beta2.Proce
 	timeToWait := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes31{
 		Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value:       e2ap_ies.TimeToWait_TIME_TO_WAIT_V2S,
+		Value:       e2ap_ies.TimeToWait_TIME_TO_WAIT_V10S,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
