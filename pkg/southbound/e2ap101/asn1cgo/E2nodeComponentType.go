@@ -12,7 +12,6 @@ package asn1cgo
 //#include "E2nodeComponentType.h"
 import "C"
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -94,10 +93,4 @@ func decodeE2nodeComponentType(e2nodeComponentTypeC *C.E2nodeComponentType_t) (*
 	e2nodeComponentType := e2ap_ies.E2NodeComponentType(int32(*e2nodeComponentTypeC))
 
 	return &e2nodeComponentType, nil
-}
-
-func decodeE2nodeComponentTypeBytes(array [8]byte) (*e2ap_ies.E2NodeComponentType, error) { //ToDo - Check addressing correct structure in Protobuf
-	e2nodeComponentTypeC := (*C.E2nodeComponentType_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:]))))
-
-	return decodeE2nodeComponentType(e2nodeComponentTypeC)
 }

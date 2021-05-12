@@ -128,9 +128,3 @@ func decodeE2nodeComponentID(e2nodeComponentIDC *C.E2nodeComponentID_t) (*e2ap_i
 
 	return e2nodeComponentID, nil
 }
-
-func decodeE2nodeComponentIDBytes(array [8]byte) (*e2ap_ies.E2NodeComponentId, error) {
-	e2nodeComponentIDC := (*C.E2nodeComponentID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeE2nodeComponentID(e2nodeComponentIDC)
-}
