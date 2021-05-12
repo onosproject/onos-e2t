@@ -70,6 +70,7 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 					object := response.Object
 					if object != nil {
 						//if object.GetEntity().GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()) {
+						fmt.Println("KIND ID:", object.GetEntity().GetKindID())
 						cellObject := &topoapi.E2Cell{}
 						object.GetAspect(cellObject)
 						fmt.Println("Cell Object:", cellObject)

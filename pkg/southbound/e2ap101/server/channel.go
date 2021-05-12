@@ -13,11 +13,10 @@ import (
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
 )
 
-func NewE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, streams subscription.Broker) *E2Channel {
+func NewE2Channel(id ChannelID, channel e2.ServerChannel, streams subscription.Broker) *E2Channel {
 	return &E2Channel{
 		ServerChannel: channel,
 		ID:            id,
-		PlmnID:        plmdID,
 		streams:       streams,
 	}
 }
@@ -25,7 +24,6 @@ func NewE2Channel(id ChannelID, plmdID string, channel e2.ServerChannel, streams
 type E2Channel struct {
 	e2.ServerChannel
 	ID      ChannelID
-	PlmnID  string
 	streams subscription.Broker
 }
 

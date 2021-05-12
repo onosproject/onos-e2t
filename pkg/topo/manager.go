@@ -5,6 +5,8 @@
 package topo
 
 import (
+	"os"
+
 	gogotypes "github.com/gogo/protobuf/types"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/device"
@@ -16,6 +18,34 @@ var log = logging.GetLogger("topo", "manager")
 
 type topoManager struct {
 	deviceStore device.Store
+}
+
+func (d *topoManager) CreateOrUpdateE2Relations(deviceID topoapi.ID, relationID topoapi.ID) error {
+	podID := os.Getenv("POD_ID")
+	currentDeviceObject, err := d.deviceStore.Get(deviceID)
+	if err != nil {
+		return err
+	}
+
+	if currentDeviceObject != nil {
+		e2Relation := &topoapi.Object{
+			ID:   relationID,
+			Type: topoapi.Object_RELATION,
+			Obj: &topoapi.Object_Relation{
+				Relation: &topoapi.Relation{
+					KindID:      topoapi.ID(topoapi.RANRelationKinds_CONTROLS.String()),
+					SrcEntityID: topoapi.ID(podID),
+					TgtEntityID: deviceID,
+				},
+			},
+		}
+		err = d.deviceStore.Create(e2Relation)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // CreateOrUpdateE2Cells creates or update E2 cells entities and relations
@@ -33,16 +63,13 @@ func (d *topoManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topo
 				Type: topoapi.Object_ENTITY,
 				Obj: &topoapi.Object_Entity{
 					Entity: &topoapi.Entity{
-						KindID: topoapi.ID(topoapi.RANEntityKinds_E2CELL),
+						KindID: topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()),
 					},
 				},
 				Aspects: make(map[string]*gogotypes.Any),
 				Labels:  []string{topoapi.RANEntityKinds_E2CELL.String()},
 			}
-			/*e2CellEntity, err := gogotypes.MarshalAny(e2Cell)
-			if err != nil {
-				return err
-			}*/
+
 			err := cellObject.SetAspect(e2Cell)
 			if err != nil {
 				log.Warn(err)
@@ -71,11 +98,12 @@ func (d *topoManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topo
 			}
 
 		} else if currentCellObject != nil && err == nil {
-			e2CellEntity, err := gogotypes.MarshalAny(e2Cell)
+
+			err := currentCellObject.SetAspect(e2Cell)
 			if err != nil {
 				return err
 			}
-			currentCellObject.Aspects[topoapi.RANEntityKinds_E2CELL.String()] = e2CellEntity
+
 			_, err = d.deviceStore.Update(currentCellObject)
 			if err != nil {
 				return err
@@ -109,10 +137,6 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 			ServiceModels: serviceModels,
 		}
 
-		/*e2NodeEntity, err := gogotypes.MarshalAny(&topoapi.E2Node{
-			ServiceModels: serviceModels,
-		})*/
-
 		err = deviceObject.SetAspect(e2Node)
 		if err != nil {
 			return err
@@ -122,13 +146,15 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 			return err
 		}
 	} else if currentDeviceObject != nil && err == nil {
-		e2NodeEntity, err := gogotypes.MarshalAny(&topoapi.E2Node{
+		e2Node := &topoapi.E2Node{
 			ServiceModels: serviceModels,
-		})
+		}
+
+		err := currentDeviceObject.SetAspect(e2Node)
 		if err != nil {
 			return err
 		}
-		currentDeviceObject.Aspects[topoapi.RANEntityKinds_E2NODE.String()] = e2NodeEntity
+
 		_, err = d.deviceStore.Update(currentDeviceObject)
 		if err != nil {
 			return err
@@ -144,6 +170,7 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 type Manager interface {
 	CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error
 	CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error
+	CreateOrUpdateE2Relations(deviceID topoapi.ID, relationID topoapi.ID) error
 }
 
 // NewTopoManager creates topology manager

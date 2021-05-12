@@ -98,9 +98,7 @@ func (m *Manager) Run() {
 
 // Start starts the manager
 func (m *Manager) Start() error {
-	streams := subscription.NewBroker()
-	channels := e2server.NewChannelManager()
-	ranFunctionRegistry := ranfunctions.NewRegistry()
+
 	opts, err := certs.HandleCertPaths(m.Config.CAPath, m.Config.KeyPath, m.Config.CertPath, true)
 	if err != nil {
 		return err
@@ -109,8 +107,10 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-
 	topoManager := topo.NewTopoManager(deviceStore)
+	streams := subscription.NewBroker()
+	channels := e2server.NewChannelManager(topoManager)
+	ranFunctionRegistry := ranfunctions.NewRegistry()
 
 	err = m.startSubscriptionBroker(streams, channels, ranFunctionRegistry)
 	if err != nil {

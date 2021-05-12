@@ -87,7 +87,6 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 			RemoteIp:   remoteAddrsStrings,
 			RemotePort: remotePort,
 			Id:         string(channel.ID),
-			PlmnId:     channel.PlmnID,
 			// TODO: This should come from the connection data
 			ConnectionType: adminapi.E2NodeConnectionType_G_NB,
 		}

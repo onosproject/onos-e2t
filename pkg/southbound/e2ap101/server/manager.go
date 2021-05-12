@@ -8,6 +8,8 @@ import (
 	"context"
 	"sync"
 
+	"github.com/onosproject/onos-e2t/pkg/topo"
+
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
@@ -22,10 +24,11 @@ type ChannelManager interface {
 }
 
 // NewChannelManager creates a new channel manager
-func NewChannelManager() ChannelManager {
+func NewChannelManager(topoManager topo.Manager) ChannelManager {
 	mgr := channelManager{
-		channels: make(map[ChannelID]*E2Channel),
-		eventCh:  make(chan *E2Channel),
+		channels:    make(map[ChannelID]*E2Channel),
+		eventCh:     make(chan *E2Channel),
+		topoManager: topoManager,
 	}
 	go mgr.processEvents()
 
@@ -35,11 +38,12 @@ func NewChannelManager() ChannelManager {
 type ChannelID string
 
 type channelManager struct {
-	channels   map[ChannelID]*E2Channel
-	channelsMu sync.RWMutex
-	watchers   []chan<- *E2Channel
-	watchersMu sync.RWMutex
-	eventCh    chan *E2Channel
+	channels    map[ChannelID]*E2Channel
+	channelsMu  sync.RWMutex
+	watchers    []chan<- *E2Channel
+	watchersMu  sync.RWMutex
+	eventCh     chan *E2Channel
+	topoManager topo.Manager
 }
 
 func (m *channelManager) processEvents() {
