@@ -104,6 +104,10 @@ func newCriticalityDiagnostics(cd *e2apies.CriticalityDiagnostics) (*C.Criticali
 		}
 	}
 
+	if cd.GetRicRequestorId() != nil {
+		cdC.ricRequestorID = newRicRequestID(cd.GetRicRequestorId())
+	}
+
 	return &cdC, nil
 }
 

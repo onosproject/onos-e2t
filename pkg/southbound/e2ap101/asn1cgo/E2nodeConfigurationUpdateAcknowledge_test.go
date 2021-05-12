@@ -33,7 +33,7 @@ func Test_xerEncodingE2nodeConfigurationUpdateAcknowledge(t *testing.T) {
 
 	xer, err := xerEncodeE2nodeConfigurationUpdateAcknowledge(e2nodeConfigurationUpdateAcknowledge)
 	assert.NilError(t, err)
-	assert.Equal(t, 1, len(xer)) //ToDo - adjust length of the XER encoded message
+	assert.Equal(t, 1628, len(xer))
 	t.Logf("E2nodeConfigurationUpdateAcknowledge XER\n%s", string(xer))
 
 	result, err := xerDecodeE2nodeConfigurationUpdateAcknowledge(xer)
@@ -53,7 +53,7 @@ func Test_perEncodingE2nodeConfigurationUpdateAcknowledge(t *testing.T) {
 
 	per, err := perEncodeE2nodeConfigurationUpdateAcknowledge(e2nodeConfigurationUpdateAcknowledge)
 	assert.NilError(t, err)
-	assert.Equal(t, 1, len(per)) // ToDo - adjust length of the PER encoded message
+	assert.Equal(t, 18, len(per))
 	t.Logf("E2nodeConfigurationUpdateAcknowledge PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2nodeConfigurationUpdateAcknowledge(per)

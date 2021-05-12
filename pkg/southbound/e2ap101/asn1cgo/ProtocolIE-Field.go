@@ -2089,7 +2089,7 @@ func newE2setupFailureIe31TimeToWait(e2sfIe *e2appducontents.E2SetupFailureIes_E
 		return nil, err
 	}
 
-	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2sfTtwC))))
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*e2sfTtwC))
 	//copy(choiceC[8:16], e2sfCauseC.choice[:8])
 
 	ie := C.E2setupFailureIEs_t{
@@ -2122,7 +2122,7 @@ func newRicServiceUpdateFailureIe31TimeToWait(e2sfIe *e2appducontents.Ricservice
 		return nil, err
 	}
 
-	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2sfTtwC))))
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*e2sfTtwC))
 	//copy(choiceC[8:16], e2sfCauseC.choice[:8])
 
 	ie := C.RICserviceUpdateFailure_IEs_t{
@@ -2155,7 +2155,7 @@ func newE2connectionUpdateFailureIes31TimeToWait(e2cuafIe *e2appducontents.E2Con
 		return nil, err
 	}
 
-	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2sfTtwC))))
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*e2sfTtwC))
 	//copy(choiceC[8:16], e2sfCauseC.choice[:8])
 
 	ie := C.E2connectionUpdateFailure_IEs_t{
@@ -2188,7 +2188,7 @@ func newE2nodeConfigurationUpdateFailureIes31TimeToWait(e2cuaIe *e2appducontents
 		return nil, err
 	}
 
-	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2sfTtwC))))
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*e2sfTtwC))
 	//copy(choiceC[8:16], e2sfCauseC.choice[:8])
 
 	ie := C.E2nodeConfigurationUpdateFailure_IEs_t{
@@ -2696,9 +2696,10 @@ func newE2nodeComponentConfigUpdateItemIEs(e2nccuItemIes *e2appducontents.E2Node
 	}
 	//ToDo - verify correctness of passing bytes there..
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccuItemC.e2nodeComponentType))
+	//ToDo - something wrong with conversion here
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(uintptr(unsafe.Pointer(e2nccuItemC.e2nodeComponentID))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2nccuItemC.e2nodeComponentConfigUpdate.present))
-	copy(choiceC[16:24], e2nccuItemC.e2nodeComponentConfigUpdate.choice[:])
+	copy(choiceC[24:], e2nccuItemC.e2nodeComponentConfigUpdate.choice[:])
 
 	rfItemIesC := C.E2nodeComponentConfigUpdate_ItemIEs_t{
 		id:          idC,
@@ -2847,7 +2848,7 @@ func newE2connectionSetupFailedItemIEs(e2csfItemIes *e2appducontents.E2Connectio
 	binary.LittleEndian.PutUint64(choiceC[64:], uint64(e2csfItemC.tnlInformation.tnlPort.bits_unused))
 	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
 	binary.LittleEndian.PutUint64(choiceC[96:], uint64(e2csfItemC.cause.present))
-	copy(choiceC[104:112], e2csfItemC.cause.choice[:])
+	copy(choiceC[104:112], e2csfItemC.cause.choice[:8])
 
 	e2csfItemIesC := C.E2connectionSetupFailed_ItemIEs_t{
 		id:          idC,
@@ -4237,9 +4238,9 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 
 	switch e2ncufIeC.value.present {
 	case C.E2nodeConfigurationUpdateFailure_IEs__value_PR_Cause:
-		a := []byte{}
-		copy(a, e2ncufIeC.value.choice[:])
-		cause, err := decodeCauseBytes(a)
+		//a := []byte{}
+		//copy(a[:64], e2ncufIeC.value.choice[:64])
+		cause, err := decodeCauseBytes(e2ncufIeC.value.choice[:48])
 		if err != nil {
 			return nil, err
 		}
@@ -4251,9 +4252,9 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 		}
 
 	case C.E2nodeConfigurationUpdateFailure_IEs__value_PR_CriticalityDiagnostics: //This one is for added
-		a := []byte{}
-		copy(a, e2ncufIeC.value.choice[:])
-		cd, err := decodeCriticalityDiagnosticsBytes(a)
+		//a := []byte{}
+		//copy(a, e2ncufIeC.value.choice[:])
+		cd, err := decodeCriticalityDiagnosticsBytes(e2ncufIeC.value.choice[:48])
 		if err != nil {
 			return nil, err
 		}
@@ -4265,9 +4266,9 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 		}
 
 	case C.E2nodeConfigurationUpdateFailure_IEs__value_PR_TimeToWait: //This one is for added
-		a := []byte{}
-		copy(a, e2ncufIeC.value.choice[:])
-		ttw := decodeTimeToWaitBytes(a)
+		//a := []byte{}
+		//copy(a, e2ncufIeC.value.choice[:])
+		ttw := decodeTimeToWaitBytes(e2ncufIeC.value.choice[:8])
 
 		ret.E2ApProtocolIes31 = &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes31{
 			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
@@ -4292,9 +4293,9 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 
 	switch e2cufIeC.value.present {
 	case C.E2connectionUpdateFailure_IEs__value_PR_Cause:
-		a := []byte{}
-		copy(a, e2cufIeC.value.choice[:])
-		cause, err := decodeCauseBytes(a)
+		//a := []byte{}
+		//copy(a, e2cufIeC.value.choice[:])
+		cause, err := decodeCauseBytes(e2cufIeC.value.choice[:48])
 		if err != nil {
 			return nil, err
 		}
@@ -4308,7 +4309,7 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 	case C.E2connectionUpdateFailure_IEs__value_PR_CriticalityDiagnostics: //This one is for added
 		a := []byte{}
 		copy(a, e2cufIeC.value.choice[:])
-		cd, err := decodeCriticalityDiagnosticsBytes(a)
+		cd, err := decodeCriticalityDiagnosticsBytes(e2cufIeC.value.choice[:48])
 		if err != nil {
 			return nil, err
 		}
@@ -4320,9 +4321,9 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 		}
 
 	case C.E2connectionUpdateFailure_IEs__value_PR_TimeToWait: //This one is for added
-		a := []byte{}
-		copy(a, e2cufIeC.value.choice[:])
-		ttw := decodeTimeToWaitBytes(a)
+		//a := []byte{}
+		//copy(a, e2cufIeC.value.choice[:])
+		ttw := decodeTimeToWaitBytes(e2cufIeC.value.choice[:8])
 
 		ret.E2ApProtocolIes31 = &e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes31{
 			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),

@@ -127,12 +127,12 @@ func decodeE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItemC *C.E
 func decodeE2nodeComponentConfigUpdateItemBytes(bytes [80]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateItem, error) {
 
 	//ToDo - God knows, if it's going to work...
-	e2nccu := (*C.E2nodeComponentConfigUpdate_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:24]))))
+	//e2nccu := (*C.E2nodeComponentConfigUpdate_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:]))))
 
 	e2nodeComponentConfigUpdateItemC := C.E2nodeComponentConfigUpdate_Item_t{
 		e2nodeComponentType:         C.long(binary.LittleEndian.Uint64(bytes[0:8])),
 		e2nodeComponentID:           (*C.struct_E2nodeComponentID)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16])))),
-		e2nodeComponentConfigUpdate: *e2nccu,
+		//e2nodeComponentConfigUpdate: *e2nccu,
 	}
 
 	return decodeE2nodeComponentConfigUpdateItem(&e2nodeComponentConfigUpdateItemC)
