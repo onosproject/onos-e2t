@@ -9,7 +9,10 @@ import (
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/device"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
+
+var log = logging.GetLogger("topo", "manager")
 
 type topoManager struct {
 	deviceStore device.Store
@@ -36,12 +39,13 @@ func (d *topoManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topo
 				Aspects: make(map[string]*gogotypes.Any),
 				Labels:  []string{topoapi.RANEntityKinds_E2CELL.String()},
 			}
-			e2CellEntity, err := gogotypes.MarshalAny(e2Cell)
+			/*e2CellEntity, err := gogotypes.MarshalAny(e2Cell)
 			if err != nil {
 				return err
-			}
-			err = cellObject.SetAspect(e2CellEntity)
+			}*/
+			err := cellObject.SetAspect(e2Cell)
 			if err != nil {
+				log.Warn(err)
 				return err
 			}
 			err = d.deviceStore.Create(cellObject)
@@ -101,13 +105,15 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 			Aspects: make(map[string]*gogotypes.Any),
 			Labels:  []string{topoapi.RANEntityKinds_E2NODE.String()},
 		}
-		e2NodeEntity, err := gogotypes.MarshalAny(&topoapi.E2Node{
+		e2Node := &topoapi.E2Node{
 			ServiceModels: serviceModels,
-		})
-		if err != nil {
-			return err
 		}
-		err = deviceObject.SetAspect(e2NodeEntity)
+
+		/*e2NodeEntity, err := gogotypes.MarshalAny(&topoapi.E2Node{
+			ServiceModels: serviceModels,
+		})*/
+
+		err = deviceObject.SetAspect(e2Node)
 		if err != nil {
 			return err
 		}

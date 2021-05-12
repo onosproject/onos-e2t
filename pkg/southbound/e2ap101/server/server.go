@@ -167,12 +167,14 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 
 	err = e.topoManager.CreateOrUpdateE2Device(deviceID, serviceModels)
 	if err != nil {
+		log.Warn(err)
 		return nil, nil, err
 	}
 
 	if len(e2Cells) != 0 {
 		err := e.topoManager.CreateOrUpdateE2Cells(deviceID, e2Cells)
 		if err != nil {
+			log.Warn(err)
 			return nil, nil, err
 		}
 	}
