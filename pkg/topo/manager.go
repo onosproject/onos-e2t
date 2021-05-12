@@ -33,14 +33,17 @@ func (d *topoManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topo
 						KindID: topoapi.ID(topoapi.RANEntityKinds_E2CELL),
 					},
 				},
-				Attributes: make(map[string]*gogotypes.Any),
-				Labels:     []string{topoapi.RANEntityKinds_E2CELL.String()},
+				Aspects: make(map[string]*gogotypes.Any),
+				Labels:  []string{topoapi.RANEntityKinds_E2CELL.String()},
 			}
 			e2CellEntity, err := gogotypes.MarshalAny(e2Cell)
 			if err != nil {
 				return err
 			}
-			cellObject.Attributes[topoapi.RANEntityKinds_E2CELL.String()] = e2CellEntity
+			err = cellObject.SetAspect(e2CellEntity)
+			if err != nil {
+				return err
+			}
 			err = d.deviceStore.Create(cellObject)
 			if err != nil {
 				return err
@@ -68,7 +71,7 @@ func (d *topoManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topo
 			if err != nil {
 				return err
 			}
-			currentCellObject.Attributes[topoapi.RANEntityKinds_E2CELL.String()] = e2CellEntity
+			currentCellObject.Aspects[topoapi.RANEntityKinds_E2CELL.String()] = e2CellEntity
 			_, err = d.deviceStore.Update(currentCellObject)
 			if err != nil {
 				return err
@@ -95,8 +98,8 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 					},
 				},
 			},
-			Attributes: make(map[string]*gogotypes.Any),
-			Labels:     []string{topoapi.RANEntityKinds_E2NODE.String()},
+			Aspects: make(map[string]*gogotypes.Any),
+			Labels:  []string{topoapi.RANEntityKinds_E2NODE.String()},
 		}
 		e2NodeEntity, err := gogotypes.MarshalAny(&topoapi.E2Node{
 			ServiceModels: serviceModels,
@@ -104,7 +107,10 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 		if err != nil {
 			return err
 		}
-		deviceObject.Attributes[topoapi.RANEntityKinds_E2NODE.String()] = e2NodeEntity
+		err = deviceObject.SetAspect(e2NodeEntity)
+		if err != nil {
+			return err
+		}
 		err = d.deviceStore.Create(deviceObject)
 		if err != nil {
 			return err
@@ -116,7 +122,7 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 		if err != nil {
 			return err
 		}
-		currentDeviceObject.Attributes[topoapi.RANEntityKinds_E2NODE.String()] = e2NodeEntity
+		currentDeviceObject.Aspects[topoapi.RANEntityKinds_E2NODE.String()] = e2NodeEntity
 		_, err = d.deviceStore.Update(currentDeviceObject)
 		if err != nil {
 			return err

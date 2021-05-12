@@ -6,9 +6,8 @@ package utils
 
 import (
 	"context"
+	"fmt"
 	"time"
-
-	gogotypes "github.com/gogo/protobuf/types"
 
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 
@@ -71,12 +70,10 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 					object := response.Object
 					if object != nil {
 						//if object.GetEntity().GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()) {
-						anyObject := object.GetAttributes()[topoapi.RANEntityKinds_E2CELL.String()]
 						cellObject := &topoapi.E2Cell{}
-						err := gogotypes.UnmarshalAny(anyObject, cellObject)
-						if err != nil {
-							return nil, err
-						}
+						object.GetAspect(cellObject)
+						fmt.Println("Cell Object:", cellObject)
+
 						cells = append(cells, cellObject)
 
 						//}
