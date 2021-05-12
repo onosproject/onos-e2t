@@ -98,12 +98,7 @@ func newE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItem *e
 func decodeE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItemC *C.E2nodeComponentConfigUpdateAck_Item_t) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem, error) {
 
 	var err error
-	e2nodeComponentConfigUpdateAckItem := e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//E2nodeComponentType: e2nodeComponentType,
-		//E2nodeComponentId: e2nodeComponentId,
-		//E2nodeComponentConfigUpdateAck: e2nodeComponentConfigUpdateAck,
-	}
+	e2nodeComponentConfigUpdateAckItem := e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem{}
 
 	e2NodeComponentType, err := decodeE2nodeComponentType(&e2nodeComponentConfigUpdateAckItemC.e2nodeComponentType)
 	if err != nil {
@@ -124,8 +119,16 @@ func decodeE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItem
 	return &e2nodeComponentConfigUpdateAckItem, nil
 }
 
-func decodeE2nodeComponentConfigUpdateAckItemBytes(array [8]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem, error) {
-	e2nodeComponentConfigUpdateAckItemC := (*C.E2nodeComponentConfigUpdateAck_Item_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2nodeComponentConfigUpdateAckItemBytes(bytes [80]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem, error) {
 
-	return decodeE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItemC)
+	e2nccuaiC := C.E2nodeComponentConfigUpdateAck_Item_t{
+		e2nodeComponentType: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
+		e2nodeComponentID:   (*C.struct_E2nodeComponentID)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16])))),
+		e2nodeComponentConfigUpdateAck: C.E2nodeComponentConfigUpdateAck_t{
+			updateOutcome: C.long(binary.LittleEndian.Uint64(bytes[16:24])),
+			failureCause:  (*C.struct_Cause)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
+		},
+	}
+
+	return decodeE2nodeComponentConfigUpdateAckItem(&e2nccuaiC)
 }

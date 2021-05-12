@@ -12,7 +12,6 @@ package asn1cgo
 //#include "CauseProtocol.h"
 import "C"
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -96,10 +95,4 @@ func decodeCauseProtocol(causeProtocolC *C.CauseProtocol_t) (*e2ap_ies.CauseProt
 	causeProtocol := e2ap_ies.CauseProtocol(int32(*causeProtocolC))
 
 	return &causeProtocol, nil
-}
-
-func decodeCauseProtocolBytes(array [8]byte) (*e2ap_ies.CauseProtocol, error) { //ToDo - Check addressing correct structure in Protobuf
-	causeProtocolC := (*C.CauseProtocol_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:]))))
-
-	return decodeCauseProtocol(causeProtocolC)
 }

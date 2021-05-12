@@ -13,7 +13,6 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -101,10 +100,4 @@ func decodeE2nodeComponentConfigUpdateAck(e2nodeComponentConfigUpdateAckC *C.E2n
 	}
 
 	return &e2nodeComponentConfigUpdateAck, nil
-}
-
-func decodeE2nodeComponentConfigUpdateAckBytes(array [8]byte) (*e2ap_ies.E2NodeComponentConfigUpdateAck, error) {
-	e2nodeComponentConfigUpdateAckC := (*C.E2nodeComponentConfigUpdateAck_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeE2nodeComponentConfigUpdateAck(e2nodeComponentConfigUpdateAckC)
 }

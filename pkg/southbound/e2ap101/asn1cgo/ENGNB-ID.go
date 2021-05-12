@@ -112,9 +112,3 @@ func decodeEngnbID(engnbIDC *C.ENGNB_ID_t) (*e2ap_ies.EngnbId, error) {
 
 	return engnbID, nil
 }
-
-func decodeEngnbIDBytes(array [8]byte) (*e2ap_ies.EngnbId, error) {
-	engnbIDC := (*C.ENGNB_ID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeEngnbID(engnbIDC)
-}

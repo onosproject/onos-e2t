@@ -63,6 +63,7 @@
 #include "E2connectionUpdate-List.h"
 #include "E2connectionUpdateRemove-List.h"
 #include "E2connectionSetupFailed-List.h"
+#include "E2nodeComponentID.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
@@ -15,7 +16,7 @@ import (
 func CreateRicServiceUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 
 	ranFunctionsAccepted := e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9{
-		Id:          int32(v1beta2.ProcedureCodeIDRICsubscriptionDelete),
+		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
@@ -51,7 +52,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu, e
 
 	rfri := &e2appducontents.RanfunctionIdcauseItemIes{
 		RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
-			Id:          int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
+			Id:          int32(v1beta2.ProtocolIeIDRanfunctionIeCauseItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2appducontents.RanfunctionIdcauseItem{
 				RanFunctionId: &e2apies.RanfunctionId{
@@ -79,6 +80,12 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu, e
 								E2ApProtocolIes9:  &ranFunctionsAccepted, //RAN functions Accepted
 								E2ApProtocolIes13: &ranFunctionsRejected, //RAN functions Rejected
 							},
+						},
+						ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
+							Value: int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 						},
 					},
 				},

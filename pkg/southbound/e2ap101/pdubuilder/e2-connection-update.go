@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
@@ -110,6 +111,12 @@ func CreateE2connectionUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 								E2ApProtocolIes45: &connectionModifyList, //E2 Connection Modify List
 								E2ApProtocolIes46: &connectionRemoveList, //E2 Connection Remove List
 							},
+						},
+						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
+							Value: int32(v1beta2.ProcedureCodeIDE2connectionUpdate),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 						},
 					},
 				},

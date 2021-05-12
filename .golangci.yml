@@ -73,3 +73,4 @@ issues:
       linters:
         - deadcode
         - unused
+        - misspell

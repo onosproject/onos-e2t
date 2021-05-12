@@ -43,6 +43,26 @@ func newRanFunctionIDcauseItemIesSingleContainer(rfIDcauseItemIes *e2appduconten
 	return newRANfunctionIDCauseItemIEs(rfIDcauseItemIes)
 }
 
+func newE2nodeConfigurationUpdateIesSingleContainer(e2nccuItemIes *e2appducontents.E2NodeComponentConfigUpdateItemIes) (*C.ProtocolIE_SingleContainer_1713P6_t, error) {
+	return newE2nodeComponentConfigUpdateItemIEs(e2nccuItemIes)
+}
+
+func newE2nodeConfigurationUpdateAckIesSingleContainer(e2nccuaItemIes *e2appducontents.E2NodeComponentConfigUpdateAckItemIes) (*C.ProtocolIE_SingleContainer_1713P7_t, error) {
+	return newE2nodeComponentConfigUpdateAckItemIEs(e2nccuaItemIes)
+}
+
+func newE2connectionUpdateIesSingleContainer(e2cuItemIes *e2appducontents.E2ConnectionUpdateItemIes) (*C.ProtocolIE_SingleContainer_1713P3_t, error) {
+	return newE2connectionUpdateItemIEs(e2cuItemIes)
+}
+
+func newE2connectionUpdateRemoveIesSingleContainer(e2curItemIes *e2appducontents.E2ConnectionUpdateRemoveItemIes) (*C.ProtocolIE_SingleContainer_1713P4_t, error) {
+	return newE2connectionUpdateRemoveItemIEs(e2curItemIes)
+}
+
+func newE2connectionSetupFailedIesSingleContainer(e2csfItemIes *e2appducontents.E2ConnectionSetupFailedItemIes) (*C.ProtocolIE_SingleContainer_1713P5_t, error) {
+	return newE2connectionSetupFailedItemIEs(e2csfItemIes)
+}
+
 func decodeRicActionToBeSetupItemIesSingleContainer(ratbsIeScC *C.ProtocolIE_SingleContainer_1713P0_t) (*e2appducontents.RicactionToBeSetupItemIes, error) {
 	//fmt.Printf("Value %T %v\n", ratbsIeScC, ratbsIeScC)
 	switch id := ratbsIeScC.id; id {
@@ -94,6 +114,61 @@ func decodeRanFunctionIDItemIesSingleContainer(rfIDiIeScC *C.ProtocolIE_SingleCo
 		return decodeRANfunctionIDItemIes(&rfIDiIeScC.value)
 	default:
 		return nil, fmt.Errorf("unexpected id for RanfunctionIDItem %v", id)
+	}
+
+}
+
+func decodeE2nodeComponentConfigUpdateItemIesSingleContainer(e2nccuiIeScC *C.ProtocolIE_SingleContainer_1713P6_t) (*e2appducontents.E2NodeComponentConfigUpdateItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfIDiIeScC, rfIDiIeScC)
+	switch id := e2nccuiIeScC.id; id {
+	case C.long(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateItem):
+		return decodeE2nodeComponentConfigUpdateItemIes(&e2nccuiIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for E2nodeComponentConfigUpdateItem %v", id)
+	}
+
+}
+
+func decodeE2nodeComponentConfigUpdateAckItemIesSingleContainer(e2nccuaiIeScC *C.ProtocolIE_SingleContainer_1713P7_t) (*e2appducontents.E2NodeComponentConfigUpdateAckItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfIDiIeScC, rfIDiIeScC)
+	switch id := e2nccuaiIeScC.id; id {
+	case C.long(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem):
+		return decodeE2nodeComponentConfigUpdateAckItemIes(&e2nccuaiIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for E2nodeComponentConfigUpdateAckItem %v", id)
+	}
+
+}
+
+func decodeE2connectionUpdateItemIesSingleContainer(e2cuiIeScC *C.ProtocolIE_SingleContainer_1713P3_t) (*e2appducontents.E2ConnectionUpdateItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfIDiIeScC, rfIDiIeScC)
+	switch id := e2cuiIeScC.id; id {
+	case C.long(v1beta2.ProtocolIeIDE2connectionUpdateItem):
+		return decodeE2connectionUpdateItemIes(&e2cuiIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for E2connectionUpdateItem %v", id)
+	}
+
+}
+
+func decodeE2connectionUpdateRemoveItemIesSingleContainer(e2csfiIeScC *C.ProtocolIE_SingleContainer_1713P4_t) (*e2appducontents.E2ConnectionUpdateRemoveItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfIDiIeScC, rfIDiIeScC)
+	switch id := e2csfiIeScC.id; id {
+	case C.long(v1beta2.ProtocolIeIDE2connectionUpdateRemoveItem):
+		return decodeE2connectionUpdateRemoveItemIes(&e2csfiIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for E2connectionSetupFailedItem %v", id)
+	}
+
+}
+
+func decodeE2connectionSetupFailedItemIesSingleContainer(e2csfiIeScC *C.ProtocolIE_SingleContainer_1713P5_t) (*e2appducontents.E2ConnectionSetupFailedItemIes, error) {
+	//fmt.Printf("Value %T %v\n", rfIDiIeScC, rfIDiIeScC)
+	switch id := e2csfiIeScC.id; id {
+	case C.long(v1beta2.ProtocolIeIDE2connectionSetupFailedItem):
+		return decodeE2connectionSetupFailedItemIes(&e2csfiIeScC.value)
+	default:
+		return nil, fmt.Errorf("unexpected id for E2connectionSetupFailedItem %v", id)
 	}
 
 }

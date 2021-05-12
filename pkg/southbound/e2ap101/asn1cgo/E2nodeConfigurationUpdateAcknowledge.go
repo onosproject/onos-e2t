@@ -13,7 +13,6 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
@@ -67,40 +66,29 @@ func perDecodeE2nodeConfigurationUpdateAcknowledge(bytes []byte) (*e2ap_pdu_cont
 	return decodeE2nodeConfigurationUpdateAcknowledge((*C.E2nodeConfigurationUpdateAcknowledge_t)(unsafePtr))
 }
 
-func newE2nodeConfigurationUpdateAcknowledge(e2nodeConfigurationUpdateAcknowledge *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge) (*C.E2nodeConfigurationUpdateAcknowledge_t, error) {
+func newE2nodeConfigurationUpdateAcknowledge(e2cua *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge) (*C.E2nodeConfigurationUpdateAcknowledge_t, error) {
 
-	//var err error
-	e2nodeConfigurationUpdateAcknowledgeC := C.E2nodeConfigurationUpdateAcknowledge_t{}
-
-	//protocolIesC, err := newE2nodeConfigurationUpdateAcknowledgeIes(e2nodeConfigurationUpdateAcknowledge.ProtocolIes)
-	//if err != nil {
-	//	return nil, fmt.Errorf("newE2nodeConfigurationUpdateAcknowledgeIes() %s", err.Error())
-	//}
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	//e2nodeConfigurationUpdateAcknowledgeC.protocolIEs = protocolIesC
-
-	return &e2nodeConfigurationUpdateAcknowledgeC, nil
-}
-
-func decodeE2nodeConfigurationUpdateAcknowledge(e2nodeConfigurationUpdateAcknowledgeC *C.E2nodeConfigurationUpdateAcknowledge_t) (*e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge, error) {
-
-	//var err error
-	e2nodeConfigurationUpdateAcknowledge := e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//ProtocolIes: protocolIes,
+	pIeC1710P18, err := newE2nodeConfigurationUpdateAcknowledgeIe(e2cua.ProtocolIes)
+	if err != nil {
+		return nil, err
+	}
+	e2cuaC := C.E2nodeConfigurationUpdateAcknowledge_t{
+		protocolIEs: *pIeC1710P18,
 	}
 
-	//e2nodeConfigurationUpdateAcknowledge.ProtocolIes, err = decodeE2nodeConfigurationUpdateAcknowledgeIes(e2nodeConfigurationUpdateAcknowledgeC.protocolIEs)
-	//if err != nil {
-	//	return nil, fmt.Errorf("decodeE2nodeConfigurationUpdateAcknowledgeIes() %s", err.Error())
-	//}
-
-	return &e2nodeConfigurationUpdateAcknowledge, nil
+	return &e2cuaC, nil
 }
 
-func decodeE2nodeConfigurationUpdateAcknowledgeBytes(array [8]byte) (*e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge, error) {
-	e2nodeConfigurationUpdateAcknowledgeC := (*C.E2nodeConfigurationUpdateAcknowledge_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2nodeConfigurationUpdateAcknowledge(e2cuaC *C.E2nodeConfigurationUpdateAcknowledge_t) (*e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge, error) {
 
-	return decodeE2nodeConfigurationUpdateAcknowledge(e2nodeConfigurationUpdateAcknowledgeC)
+	pIEs, err := decodeE2nodeConfigurationUpdateAcknowledgeIes(&e2cuaC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	e2cua := e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge{
+		ProtocolIes: pIEs,
+	}
+
+	return &e2cua, nil
 }

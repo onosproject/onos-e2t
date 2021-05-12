@@ -10,7 +10,7 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "E2connectionUpdate-List.h"
-//#include "E2connectionUpdate-Item.h"
+//#include "ProtocolIE-SingleContainer.h"
 import "C"
 import (
 	"encoding/binary"
@@ -67,44 +67,54 @@ func perDecodeE2connectionUpdateList(bytes []byte) (*e2ap_pdu_contents.E2Connect
 	return decodeE2connectionUpdateList((*C.E2connectionUpdate_List_t)(unsafePtr))
 }
 
-func newE2connectionUpdateList(e2connectionUpdateList *e2ap_pdu_contents.E2ConnectionUpdateList) (*C.E2connectionUpdate_List_t, error) {
+func newE2connectionUpdateList(e2cul *e2ap_pdu_contents.E2ConnectionUpdateList) (*C.E2connectionUpdate_List_t, error) {
 
-	e2connectionUpdateListC := C.E2connectionUpdate_List_t{}
-	//for _, ie := range e2connectionUpdateList.GetValue() {     //ToDo - Verify if GetSmth() function is called correctly
-	//	ieC, err := newE2connectionUpdateItemIes(ie)
-	//	if err != nil {
-	//		return nil, fmt.Errorf("newE2connectionUpdateItemIes() %s", err.Error())
-	//	}
-	//	if _, err = C.asn_sequence_add(unsafe.Pointer(e2connectionUpdateListC), unsafe.Pointer(ieC)); err != nil {
-	//		return nil, err
-	//	}
-	//}
+	e2culC := new(C.E2connectionUpdate_List_t)
+	for _, ie := range e2cul.GetValue() {
+		ieC, err := newE2connectionUpdateIesSingleContainer(ie)
+		if err != nil {
+			return nil, fmt.Errorf("newE2connectionUpdateRemoveItemIesSingleContainer() %s", err.Error())
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(e2culC), unsafe.Pointer(ieC)); err != nil {
+			return nil, err
+		}
+	}
 
-	return &e2connectionUpdateListC, nil
+	return e2culC, nil
 }
 
-func decodeE2connectionUpdateList(e2connectionUpdateListC *C.E2connectionUpdate_List_t) (*e2ap_pdu_contents.E2ConnectionUpdateList, error) {
+func decodeE2connectionUpdateList(e2culC *C.E2connectionUpdate_List_t) (*e2ap_pdu_contents.E2ConnectionUpdateList, error) {
 
-	//var ieCount int
+	e2cul := e2ap_pdu_contents.E2ConnectionUpdateList{
+		Value: make([]*e2ap_pdu_contents.E2ConnectionUpdateItemIes, 0),
+	}
 
-	e2connectionUpdateList := e2ap_pdu_contents.E2ConnectionUpdateList{}
+	ieCount := int(e2culC.list.count)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(e2culC.list.array)) * uintptr(i)
+		ieC := *(**C.ProtocolIE_SingleContainer_1713P3_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2culC.list.array)) + offset))
+		ie, err := decodeE2connectionUpdateItemIesSingleContainer(ieC)
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2connectionUpdateItemIesSingleContainer() %s", err.Error())
+		}
+		e2cul.Value = append(e2cul.Value, ie)
+	}
 
-	//ieCount = int(e2connectionUpdateListC.list.count)
-	//for i := 0; i < ieCount; i++ {
-	//	offset := unsafe.Sizeof(unsafe.Pointer(e2connectionUpdateListC.list.array)) * uintptr(i)
-	//	ieC := *(**C.E2connectionUpdate_Item_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2connectionUpdateListC.list.array)) + offset))
-	//	ie, err := decodeE2connectionUpdateItemIes(ieC)
-	//	if err != nil {
-	//		return nil, fmt.Errorf("decodeE2connectionUpdateItemIes() %s", err.Error())
-	//	}
-	//	e2connectionUpdateList.Value = append(e2connectionUpdateList.Value, ie)
-	//}
-
-	return &e2connectionUpdateList, nil
+	return &e2cul, nil
 }
 
-func decodeE2connectionUpdateListBytes(array [8]byte) (*e2ap_pdu_contents.E2ConnectionUpdateList, error) {
-	e2connectionUpdateListC := (*C.E2connectionUpdate_List_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2connectionUpdateListBytes(e2curlC [48]byte) (*e2ap_pdu_contents.E2ConnectionUpdateList, error) {
+	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2curlC[0:8]))))
+	count := C.int(binary.LittleEndian.Uint32(e2curlC[8:12]))
+	size := C.int(binary.LittleEndian.Uint32(e2curlC[12:16]))
 
-	return decodeE2connectionUpdateList(e2connectionUpdateListC)
+	rfIDlC := C.E2connectionUpdate_List_t{
+		list: C.struct___141{
+			array: array,
+			size:  size,
+			count: count,
+		},
+	}
+
+	return decodeE2connectionUpdateList(&rfIDlC)
 }

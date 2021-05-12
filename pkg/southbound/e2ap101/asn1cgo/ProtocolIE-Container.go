@@ -192,15 +192,15 @@ func newRicSubscriptionResponseIe(rsrIEs *e2appducontents.RicsubscriptionRespons
 		return nil, fmt.Errorf("newRicSubscriptionResponseIe(): RicActionAdmittedList should be mandatory present in the message")
 	}
 	//TODO: Comment back in when RICactionRejected is handled
-	//if rsrIEs.GetE2ApProtocolIes18() != nil {
-	//	ie18C, err := newRicSubscriptionResponseIe18RicActionNotAdmittedList(rsrIEs.GetE2ApProtocolIes18())
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//	if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P1), unsafe.Pointer(ie18C)); err != nil {
-	//		return nil, err
-	//	}
-	//}
+	if rsrIEs.GetE2ApProtocolIes18() != nil {
+		ie18C, err := newRicSubscriptionResponseIe18RicActionNotAdmittedList(rsrIEs.GetE2ApProtocolIes18())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P1), unsafe.Pointer(ie18C)); err != nil {
+			return nil, err
+		}
+	}
 	if rsrIEs.GetE2ApProtocolIes29() != nil {
 		ie29C, err := newRicSubscriptionResponseIe29RicRequestID(rsrIEs.GetE2ApProtocolIes29())
 		if err != nil {
@@ -1130,6 +1130,618 @@ func decodeErrorIndicationIes(protocolIEsC *C.ProtocolIE_Container_1710P10_t) (*
 	return pIEs, nil
 }
 
+func newRicServiceQueryIe(rsqIEs *e2appducontents.RicserviceQueryIes) (*C.ProtocolIE_Container_1710P25_t, error) {
+	pIeC1710P25 := new(C.ProtocolIE_Container_1710P25_t)
+
+	if rsqIEs.GetRicserviceQueryIes9() != nil {
+		ie9C, err := newRicServiceQueryIe9RanFunctionsAccepted(rsqIEs.GetRicserviceQueryIes9())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P25), unsafe.Pointer(ie9C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P25, nil
+}
+
+func decodeRicServiceQueryIes(protocolIEsC *C.ProtocolIE_Container_1710P25_t) (*e2appducontents.RicserviceQueryIes, error) {
+	pIEs := new(e2appducontents.RicserviceQueryIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		eiIeC := *(**C.RICserviceQuery_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicServiceQueryIE(eiIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.RicserviceQueryIes9 != nil {
+			pIEs.RicserviceQueryIes9 = ie.RicserviceQueryIes9
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newResetRequestIe(rrIEs *e2appducontents.ResetRequestIes) (*C.ProtocolIE_Container_1710P20_t, error) {
+	pIeC1710P20 := new(C.ProtocolIE_Container_1710P20_t)
+
+	if rrIEs.GetResetRequestIes1() != nil {
+		ie1C, err := newResetRequestIe1Cause(rrIEs.GetResetRequestIes1())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P20), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P20, nil
+}
+
+func decodeResetRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P20_t) (*e2appducontents.ResetRequestIes, error) {
+	pIEs := new(e2appducontents.ResetRequestIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		eiIeC := *(**C.ResetRequestIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeResetRequestIE(eiIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.ResetRequestIes1 != nil {
+			pIEs.ResetRequestIes1 = ie.ResetRequestIes1
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newResetResponseIe(rrIEs *e2appducontents.ResetResponseIes) (*C.ProtocolIE_Container_1710P21_t, error) {
+	pIeC1710P21 := new(C.ProtocolIE_Container_1710P21_t)
+
+	if rrIEs.GetResetResponseIes2() != nil {
+		ie1C, err := newResetResponseIe2CriticalityDiagnostics(rrIEs.GetResetResponseIes2())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P21), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P21, nil
+}
+
+func decodeResetResponseIes(protocolIEsC *C.ProtocolIE_Container_1710P21_t) (*e2appducontents.ResetResponseIes, error) {
+	pIEs := new(e2appducontents.ResetResponseIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		eiIeC := *(**C.ResetResponseIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeResetResponseIE(eiIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.ResetResponseIes2 != nil {
+			pIEs.ResetResponseIes2 = ie.ResetResponseIes2
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newRicServiceUpdateIe(rsuIEs *e2appducontents.RicserviceUpdateIes) (*C.ProtocolIE_Container_1710P22_t, error) {
+	pIeC1710P22 := new(C.ProtocolIE_Container_1710P22_t)
+
+	if rsuIEs.GetE2ApProtocolIes10() != nil {
+		ie1C, err := newRicServiceUpdateIe10RanFunctionAddedList(rsuIEs.GetE2ApProtocolIes10())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P22), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsuIEs.GetE2ApProtocolIes11() != nil {
+		ie1C, err := newRicServiceUpdateIe11RanFunctionDeletedList(rsuIEs.GetE2ApProtocolIes11())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P22), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsuIEs.GetE2ApProtocolIes12() != nil {
+		ie1C, err := newRicServiceUpdateIe12RanFunctionModifiedList(rsuIEs.GetE2ApProtocolIes12())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P22), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P22, nil
+}
+
+func decodeRicServiceUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P22_t) (*e2appducontents.RicserviceUpdateIes, error) {
+	pIEs := new(e2appducontents.RicserviceUpdateIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsuIeC := *(**C.RICserviceUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicServiceUpdateIE(rsuIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.GetE2ApProtocolIes10() != nil {
+			pIEs.E2ApProtocolIes10 = ie.E2ApProtocolIes10
+		}
+
+		if ie.GetE2ApProtocolIes11() != nil {
+			pIEs.E2ApProtocolIes11 = ie.E2ApProtocolIes11
+		}
+
+		if ie.GetE2ApProtocolIes12() != nil {
+			pIEs.E2ApProtocolIes12 = ie.E2ApProtocolIes12
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newRicServiceUpdateAcknowledgeIe(rsuIEs *e2appducontents.RicserviceUpdateAcknowledgeIes) (*C.ProtocolIE_Container_1710P23_t, error) {
+	pIeC1710P23 := new(C.ProtocolIE_Container_1710P23_t)
+
+	if rsuIEs.GetE2ApProtocolIes9() != nil {
+		ie1C, err := newRicServiceUpdateAcknowledgeIe9RanFunctionsAccepted(rsuIEs.GetE2ApProtocolIes9())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P23), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsuIEs.GetE2ApProtocolIes13() != nil {
+		ie1C, err := newRicServiceUpdateAcknowledgeIe13RanFunctionsRejected(rsuIEs.GetE2ApProtocolIes13())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P23), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P23, nil
+}
+
+func decodeRicServiceUpdateAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container_1710P23_t) (*e2appducontents.RicserviceUpdateAcknowledgeIes, error) {
+	pIEs := new(e2appducontents.RicserviceUpdateAcknowledgeIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsuIeC := *(**C.RICserviceUpdateAcknowledge_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicServiceUpdateAcknowledgeIE(rsuIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.GetE2ApProtocolIes9() != nil {
+			pIEs.E2ApProtocolIes9 = ie.E2ApProtocolIes9
+		}
+
+		if ie.GetE2ApProtocolIes13() != nil {
+			pIEs.E2ApProtocolIes13 = ie.E2ApProtocolIes13
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newRicServiceUpdateFailureIe(rsuIEs *e2appducontents.RicserviceUpdateFailureIes) (*C.ProtocolIE_Container_1710P24_t, error) {
+	pIeC1710P24 := new(C.ProtocolIE_Container_1710P24_t)
+
+	if rsuIEs.GetE2ApProtocolIes2() != nil {
+		ie1C, err := newRicServiceUpdateFailureIe2CriticalityDiagnostics(rsuIEs.GetE2ApProtocolIes2())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P24), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsuIEs.GetE2ApProtocolIes13() != nil {
+		ie1C, err := newRicServiceUpdateFailureIe13RanFunctionsRejected(rsuIEs.GetE2ApProtocolIes13())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P24), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsuIEs.GetE2ApProtocolIes31() != nil {
+		ie1C, err := newRicServiceUpdateFailureIe31TimeToWait(rsuIEs.GetE2ApProtocolIes31())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P24), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P24, nil
+}
+
+func decodeRicServiceUpdateFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P24_t) (*e2appducontents.RicserviceUpdateFailureIes, error) {
+	pIEs := new(e2appducontents.RicserviceUpdateFailureIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsuIeC := *(**C.RICserviceUpdateFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicServiceUpdateFailureIE(rsuIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.GetE2ApProtocolIes2() != nil {
+			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2
+		}
+
+		if ie.GetE2ApProtocolIes13() != nil {
+			pIEs.E2ApProtocolIes13 = ie.E2ApProtocolIes13
+		}
+
+		if ie.GetE2ApProtocolIes31() != nil {
+			pIEs.E2ApProtocolIes31 = ie.E2ApProtocolIes31
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newE2nodeConfigurationUpdateIe(rsuIEs *e2appducontents.E2NodeConfigurationUpdateIes) (*C.ProtocolIE_Container_1710P17_t, error) {
+	pIeC1710P17 := new(C.ProtocolIE_Container_1710P17_t)
+
+	if rsuIEs.GetValue() != nil {
+		ie1C, err := newE2nodeConfigurationUpdateIe33E2nodeComponentConfigUpdateList(rsuIEs)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P17), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P17, nil
+}
+
+func decodeE2nodeConfigurationUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P17_t) (*e2appducontents.E2NodeConfigurationUpdateIes, error) {
+	pIEs := new(e2appducontents.E2NodeConfigurationUpdateIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		e2ncuIeC := *(**C.E2nodeConfigurationUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeE2nodeConfigurationUpdateIE(e2ncuIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.Value != nil {
+			pIEs.Value = ie.Value
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newE2connectionUpdateIe(e2cuIEs *e2appducontents.E2ConnectionUpdateIes) (*C.ProtocolIE_Container_1710P14_t, error) {
+	pIeC1710P14 := new(C.ProtocolIE_Container_1710P14_t)
+
+	if e2cuIEs.GetE2ApProtocolIes44() != nil {
+		ie44C, err := newE2connectionUpdateIe44E2connectionUpdateList(e2cuIEs.GetE2ApProtocolIes44())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie44C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if e2cuIEs.GetE2ApProtocolIes45() != nil {
+		ie45C, err := newE2connectionUpdateIe45E2connectionUpdateList(e2cuIEs.GetE2ApProtocolIes45())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie45C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if e2cuIEs.GetE2ApProtocolIes46() != nil {
+		ie46C, err := newE2connectionUpdateIe46E2connectionUpdateRemoveList(e2cuIEs.GetE2ApProtocolIes46())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie46C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P14, nil
+}
+
+func decodeE2connectionUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P14_t) (*e2appducontents.E2ConnectionUpdateIes, error) {
+	pIEs := new(e2appducontents.E2ConnectionUpdateIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		e2cuIeC := *(**C.E2connectionUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeE2connectionUpdateIE(e2cuIeC)
+		if err != nil {
+			return nil, err
+		}
+
+		if ie.E2ApProtocolIes44 != nil {
+			pIEs.E2ApProtocolIes44 = ie.E2ApProtocolIes44
+		}
+
+		if ie.E2ApProtocolIes45 != nil {
+			pIEs.E2ApProtocolIes45 = ie.E2ApProtocolIes45
+		}
+
+		if ie.E2ApProtocolIes46 != nil {
+			pIEs.E2ApProtocolIes46 = ie.E2ApProtocolIes46
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newE2nodeConfigurationUpdateAcknowledgeIe(e2ncuaIEs *e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes) (*C.ProtocolIE_Container_1710P18_t, error) {
+	pIeC1710P18 := new(C.ProtocolIE_Container_1710P18_t)
+
+	if e2ncuaIEs.GetValue() != nil {
+		ie1C, err := newE2nodeConfigurationUpdateAcknowledgeIe35E2nodeComponentConfigUpdateAckList(e2ncuaIEs)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P18), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P18, nil
+}
+
+func decodeE2nodeConfigurationUpdateAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container_1710P18_t) (*e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes, error) {
+	pIEs := new(e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsuIeC := *(**C.E2nodeConfigurationUpdateAcknowledge_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeE2nodeConfigurationUpdateAcknowledgeIE(rsuIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.Value != nil {
+			pIEs.Value = ie.Value
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newE2connectionUpdateAcknowledgeIe(e2cuaIEs *e2appducontents.E2ConnectionUpdateAckIes) (*C.ProtocolIE_Container_1710P15_t, error) {
+	pIeC1710P15 := new(C.ProtocolIE_Container_1710P15_t)
+
+	if e2cuaIEs.GetE2ApProtocolIes39() != nil {
+		ie39C, err := newE2connectionUpdateAck39E2connectionUpdateList(e2cuaIEs.GetE2ApProtocolIes39())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P15), unsafe.Pointer(ie39C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if e2cuaIEs.GetE2ApProtocolIes40() != nil {
+		ie40C, err := newE2connectionUpdateAck40E2connectionSetupFailedList(e2cuaIEs.GetE2ApProtocolIes40())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P15), unsafe.Pointer(ie40C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P15, nil
+}
+
+func decodeE2connectionUpdateAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container_1710P15_t) (*e2appducontents.E2ConnectionUpdateAckIes, error) {
+	pIEs := new(e2appducontents.E2ConnectionUpdateAckIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		e2cuaIeC := *(**C.E2connectionUpdateAck_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeE2connectionUpdateAckIE(e2cuaIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes39 != nil {
+			pIEs.E2ApProtocolIes39 = ie.E2ApProtocolIes39
+		}
+		if ie.E2ApProtocolIes40 != nil {
+			pIEs.E2ApProtocolIes40 = ie.E2ApProtocolIes40
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newE2nodeConfigurationUpdateFailureIe(rsuIEs *e2appducontents.E2NodeConfigurationUpdateFailureIes) (*C.ProtocolIE_Container_1710P19_t, error) {
+	pIeC1710P19 := new(C.ProtocolIE_Container_1710P19_t)
+
+	if rsuIEs.GetE2ApProtocolIes1() != nil {
+		ie1C, err := newE2nodeConfigurationUpdateFailureIes1Cause(rsuIEs.GetE2ApProtocolIes1())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P19), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsuIEs.GetE2ApProtocolIes2() != nil {
+		ie2C, err := newE2nodeConfigurationUpdateFailureIes2CriticalityDiagnostics(rsuIEs.GetE2ApProtocolIes2())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P19), unsafe.Pointer(ie2C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if rsuIEs.GetE2ApProtocolIes31() != nil {
+		ie31C, err := newE2nodeConfigurationUpdateFailureIes31TimeToWait(rsuIEs.GetE2ApProtocolIes31())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P19), unsafe.Pointer(ie31C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P19, nil
+}
+
+func decodeE2nodeConfigurationUpdateFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P19_t) (*e2appducontents.E2NodeConfigurationUpdateFailureIes, error) {
+	pIEs := new(e2appducontents.E2NodeConfigurationUpdateFailureIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsuIeC := *(**C.E2nodeConfigurationUpdateFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeE2nodeConfigurationUpdateFailureIE(rsuIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes1 != nil {
+			pIEs.E2ApProtocolIes1 = ie.E2ApProtocolIes1
+		}
+
+		if ie.E2ApProtocolIes2 != nil {
+			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2
+		}
+
+		if ie.E2ApProtocolIes31 != nil {
+			pIEs.E2ApProtocolIes31 = ie.E2ApProtocolIes31
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newE2connectionUpdateFailureIe(e2cufIEs *e2appducontents.E2ConnectionUpdateFailureIes) (*C.ProtocolIE_Container_1710P16_t, error) {
+	pIeC1710P16 := new(C.ProtocolIE_Container_1710P16_t)
+
+	if e2cufIEs.GetE2ApProtocolIes1() != nil {
+		ie1C, err := newE2connectionUpdateFailureIes1Cause(e2cufIEs.GetE2ApProtocolIes1())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P16), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if e2cufIEs.GetE2ApProtocolIes2() != nil {
+		ie2C, err := newE2connectionUpdateFailureIes2CriticalityDiagnostics(e2cufIEs.GetE2ApProtocolIes2())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P16), unsafe.Pointer(ie2C)); err != nil {
+			return nil, err
+		}
+	}
+
+	if e2cufIEs.GetE2ApProtocolIes31() != nil {
+		ie31C, err := newE2connectionUpdateFailureIes31TimeToWait(e2cufIEs.GetE2ApProtocolIes31())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P16), unsafe.Pointer(ie31C)); err != nil {
+			return nil, err
+		}
+	}
+
+	return pIeC1710P16, nil
+}
+
+func decodeE2connectionUpdateFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P16_t) (*e2appducontents.E2ConnectionUpdateFailureIes, error) {
+	pIEs := new(e2appducontents.E2ConnectionUpdateFailureIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsuIeC := *(**C.E2connectionUpdateFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeE2connectionUpdateFailureIE(rsuIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie.E2ApProtocolIes1 != nil {
+			pIEs.E2ApProtocolIes1 = ie.E2ApProtocolIes1
+		}
+
+		if ie.E2ApProtocolIes2 != nil {
+			pIEs.E2ApProtocolIes2 = ie.E2ApProtocolIes2
+		}
+
+		if ie.E2ApProtocolIes31 != nil {
+			pIEs.E2ApProtocolIes31 = ie.E2ApProtocolIes31
+		}
+	}
+
+	return pIEs, nil
+}
+
 func newE2setupFailureIe(e2sfIEs *e2appducontents.E2SetupFailureIes) (*C.ProtocolIE_Container_1710P13_t, error) {
 	pIeC1710P13 := new(C.ProtocolIE_Container_1710P13_t)
 
@@ -1210,67 +1822,67 @@ func decodeE2setupFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P13_t) (*e
 	return pIEs, nil
 }
 
-func newE2ConnectionUpdateIe(e2cuIEs *e2appducontents.E2ConnectionUpdateIes) (*C.ProtocolIE_Container_1710P14_t, error) {
-	pIeC1710P14 := new(C.ProtocolIE_Container_1710P14_t)
-
-	if e2cuIEs.GetE2ApProtocolIes44() != nil {
-		ie44C, err := newE2connectionUpdateIe44E2connectionUpdateList(e2cuIEs.GetE2ApProtocolIes44())
-		if err != nil {
-			return nil, err
-		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie44C)); err != nil {
-			return nil, err
-		}
-	}
-
-	if e2cuIEs.GetE2ApProtocolIes45() != nil {
-		ie45C, err := newE2connectionUpdateIe45E2connectionUpdateList(e2cuIEs.GetE2ApProtocolIes45())
-		if err != nil {
-			return nil, err
-		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie45C)); err != nil {
-			return nil, err
-		}
-	}
-
-	if e2cuIEs.GetE2ApProtocolIes46() != nil {
-		ie46C, err := newE2connectionUpdateIe46E2connectionUpdateRemoveList(e2cuIEs.GetE2ApProtocolIes46())
-		if err != nil {
-			return nil, err
-		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie46C)); err != nil {
-			return nil, err
-		}
-	}
-
-	return pIeC1710P14, nil
-}
-
-func decodeE2connectionUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P14_t) (*e2appducontents.E2ConnectionUpdateIes, error) {
-	pIEs := new(e2appducontents.E2ConnectionUpdateIes)
-
-	ieCount := int(protocolIEsC.list.count)
-	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
-	for i := 0; i < ieCount; i++ {
-		//ToDo - uncomment once decodeE2connectionUpdateIe is implemented
-		//offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		//eiIeC := *(**C.E2connectionUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
-
-		//ToDo - Implement decodeE2connectionUpdateIe function -- see analogical function in RICcontrolRequest message chain
-		//ie, err := decodeE2connectionUpdateIe(eiIeC)
-		//if err != nil {
-		//	return nil, err
-		//}
-		//if ie.E2ApProtocolIes44 != nil {
-		//	pIEs.E2ApProtocolIes44 = ie.E2ApProtocolIes44
-		//}
-		//if ie.E2ApProtocolIes45 != nil {
-		//	pIEs.E2ApProtocolIes45 = ie.E2ApProtocolIes45
-		//}
-		//if ie.E2ApProtocolIes46 != nil {
-		//	pIEs.E2ApProtocolIes46 = ie.E2ApProtocolIes46
-		//}
-	}
-
-	return pIEs, nil
-}
+//func newE2connectionUpdateIe(e2cuIEs *e2appducontents.E2ConnectionUpdateIes) (*C.ProtocolIE_Container_1710P14_t, error) {
+//	pIeC1710P14 := new(C.ProtocolIE_Container_1710P14_t)
+//
+//	if e2cuIEs.GetE2ApProtocolIes44() != nil {
+//		ie44C, err := newE2connectionUpdateIe44E2connectionUpdateList(e2cuIEs.GetE2ApProtocolIes44())
+//		if err != nil {
+//			return nil, err
+//		}
+//		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie44C)); err != nil {
+//			return nil, err
+//		}
+//	}
+//
+//	if e2cuIEs.GetE2ApProtocolIes45() != nil {
+//		ie45C, err := newE2connectionUpdateIe45E2connectionUpdateList(e2cuIEs.GetE2ApProtocolIes45())
+//		if err != nil {
+//			return nil, err
+//		}
+//		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie45C)); err != nil {
+//			return nil, err
+//		}
+//	}
+//
+//	if e2cuIEs.GetE2ApProtocolIes46() != nil {
+//		ie46C, err := newE2connectionUpdateIe46E2connectionUpdateRemoveList(e2cuIEs.GetE2ApProtocolIes46())
+//		if err != nil {
+//			return nil, err
+//		}
+//		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1710P14), unsafe.Pointer(ie46C)); err != nil {
+//			return nil, err
+//		}
+//	}
+//
+//	return pIeC1710P14, nil
+//}
+//
+//func decodeE2connectionUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P14_t) (*e2appducontents.E2ConnectionUpdateIes, error) {
+//	pIEs := new(e2appducontents.E2ConnectionUpdateIes)
+//
+//	ieCount := int(protocolIEsC.list.count)
+//	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+//	for i := 0; i < ieCount; i++ {
+//		//ToDo - uncomment once decodeE2connectionUpdateIe is implemented
+//		//offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+//		//eiIeC := *(**C.E2connectionUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+//
+//		//ToDo - Implement decodeE2connectionUpdateIe function -- see analogical function in RICcontrolRequest message chain
+//		//ie, err := decodeE2connectionUpdateIe(eiIeC)
+//		//if err != nil {
+//		//	return nil, err
+//		//}
+//		//if ie.E2ApProtocolIes44 != nil {
+//		//	pIEs.E2ApProtocolIes44 = ie.E2ApProtocolIes44
+//		//}
+//		//if ie.E2ApProtocolIes45 != nil {
+//		//	pIEs.E2ApProtocolIes45 = ie.E2ApProtocolIes45
+//		//}
+//		//if ie.E2ApProtocolIes46 != nil {
+//		//	pIEs.E2ApProtocolIes46 = ie.E2ApProtocolIes46
+//		//}
+//	}
+//
+//	return pIEs, nil
+//}
