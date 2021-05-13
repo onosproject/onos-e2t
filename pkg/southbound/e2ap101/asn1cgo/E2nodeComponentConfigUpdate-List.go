@@ -19,6 +19,54 @@ import (
 	"unsafe"
 )
 
+func xerEncodeE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList *e2ap_pdu_contents.E2NodeComponentConfigUpdateList) ([]byte, error) {
+	e2nodeComponentConfigUpdateListCP, err := newE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList)
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_E2nodeComponentConfigUpdate_List, unsafe.Pointer(e2nodeComponentConfigUpdateListCP))
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func perEncodeE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList *e2ap_pdu_contents.E2NodeComponentConfigUpdateList) ([]byte, error) {
+	e2nodeComponentConfigUpdateListCP, err := newE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList)
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_E2nodeComponentConfigUpdate_List, unsafe.Pointer(e2nodeComponentConfigUpdateListCP))
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeE2nodeComponentConfigUpdateList() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func xerDecodeE2nodeComponentConfigUpdateList(bytes []byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_E2nodeComponentConfigUpdate_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeE2nodeComponentConfigUpdateList((*C.E2nodeComponentConfigUpdate_List_t)(unsafePtr))
+}
+
+func perDecodeE2nodeComponentConfigUpdateList(bytes []byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_E2nodeComponentConfigUpdate_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeE2nodeComponentConfigUpdateList((*C.E2nodeComponentConfigUpdate_List_t)(unsafePtr))
+}
+
 func newE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList *e2ap_pdu_contents.E2NodeComponentConfigUpdateList) (*C.E2nodeComponentConfigUpdate_List_t, error) {
 
 	e2nodeComponentConfigUpdateListC := new(C.E2nodeComponentConfigUpdate_List_t)

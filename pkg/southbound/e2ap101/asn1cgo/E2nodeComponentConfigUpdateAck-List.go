@@ -19,6 +19,54 @@ import (
 	"unsafe"
 )
 
+func xerEncodeE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList *e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList) ([]byte, error) {
+	e2nodeComponentConfigUpdateAckListCP, err := newE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList)
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeE2nodeComponentConfigUpdateAckList() %s", err.Error())
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_E2nodeComponentConfigUpdateAck_List, unsafe.Pointer(e2nodeComponentConfigUpdateAckListCP))
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeE2nodeComponentConfigUpdateAckList() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func perEncodeE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList *e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList) ([]byte, error) {
+	e2nodeComponentConfigUpdateAckListCP, err := newE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList)
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeE2nodeComponentConfigUpdateAckList() %s", err.Error())
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_E2nodeComponentConfigUpdateAck_List, unsafe.Pointer(e2nodeComponentConfigUpdateAckListCP))
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeE2nodeComponentConfigUpdateAckList() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func xerDecodeE2nodeComponentConfigUpdateAckList(bytes []byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_E2nodeComponentConfigUpdateAck_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeE2nodeComponentConfigUpdateAckList((*C.E2nodeComponentConfigUpdateAck_List_t)(unsafePtr))
+}
+
+func perDecodeE2nodeComponentConfigUpdateAckList(bytes []byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_E2nodeComponentConfigUpdateAck_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeE2nodeComponentConfigUpdateAckList((*C.E2nodeComponentConfigUpdateAck_List_t)(unsafePtr))
+}
+
 func newE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList *e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList) (*C.E2nodeComponentConfigUpdateAck_List_t, error) {
 
 	e2nodeComponentConfigUpdateAckListC := new(C.E2nodeComponentConfigUpdateAck_List_t)
