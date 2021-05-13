@@ -136,30 +136,42 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 
 }
 
+func (e *E2ChannelServer) updateTopoObjects(deviceID topoapi.ID,
+	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell) error {
+
+	// Add E2 node entities to the topo
+	err := e.topoManager.CreateOrUpdateE2Device(deviceID, serviceModels)
+	if err != nil {
+		return err
+	}
+
+	// Add E2 cells if there are any associated with an E2 node
+	if len(e2Cells) != 0 {
+		err := e.topoManager.CreateOrUpdateE2Cells(deviceID, e2Cells)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
 	nodeID, ranFuncs, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
 		return nil, nil, err
 	}
 
+	// TODO decode it using E2AP utility functions when they are available
 	deviceID := topoapi.ID(strconv.FormatUint(binary.BigEndian.Uint64(nodeID.NodeIdentifier), 10))
 
 	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
 	var e2Cells []*topoapi.E2Cell
 	rfAccepted, rfRejected, err := e.processRANFunctions(ranFuncs, deviceID, serviceModels, &e2Cells)
 
-	err = e.topoManager.CreateOrUpdateE2Device(deviceID, serviceModels)
+	err = e.updateTopoObjects(deviceID, serviceModels, e2Cells)
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
-	}
-
-	if len(e2Cells) != 0 {
-		err := e.topoManager.CreateOrUpdateE2Cells(deviceID, e2Cells)
-		if err != nil {
-			log.Warn(err)
-			return nil, nil, err
-		}
 	}
 
 	channelID := ChannelID(deviceID)

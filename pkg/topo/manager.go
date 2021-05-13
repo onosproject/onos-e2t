@@ -24,7 +24,7 @@ func (d *topoManager) DeleteE2Relation(relationID topoapi.ID) error {
 	return d.deviceStore.Delete(relationID)
 }
 
-func (d *topoManager) CreateOrUpdateE2Relations(deviceID topoapi.ID, relationID topoapi.ID) error {
+func (d *topoManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
 	podID := os.Getenv("POD_ID")
 	currentDeviceObject, err := d.deviceStore.Get(deviceID)
 	if err != nil {
@@ -174,7 +174,7 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 type Manager interface {
 	CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error
 	CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error
-	CreateOrUpdateE2Relations(deviceID topoapi.ID, relationID topoapi.ID) error
+	CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error
 	DeleteE2Relation(relationID topoapi.ID) error
 }
 
