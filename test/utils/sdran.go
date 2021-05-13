@@ -5,8 +5,9 @@
 package utils
 
 import (
-	"github.com/onosproject/helmit/pkg/input"
 	"testing"
+
+	"github.com/onosproject/helmit/pkg/input"
 
 	"github.com/onosproject/helmit/pkg/helm"
 	"github.com/onosproject/helmit/pkg/kubernetes"
@@ -76,7 +77,7 @@ func CreateRanSimulatorWithName(t *testing.T, name string) *helm.HelmRelease {
 		SetPassword(password).
 		Set("image.tag", "latest").
 		Set("fullnameOverride", "").
-		Set("global.image.registry", "mirror.registry.opennetworking.org")
+		Set("global.image.registry", "")
 	err = simulator.Install(true)
 	assert.NoError(t, err, "could not install device simulator %v", err)
 
