@@ -68,7 +68,7 @@ func CreateE2connectionUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 				},
 			},
 		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY	),
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 	connectionModifyList.ConnectionModify.Value = append(connectionModifyList.ConnectionModify.Value, cmi)
 
