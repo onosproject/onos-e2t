@@ -85,21 +85,6 @@ type E2ChannelServer struct {
 	topoManager         topo.Manager
 }
 
-// uint24ToUint32 converts uint24 uint32
-func uint24ToUint32(val []byte) uint32 {
-	r := uint32(0)
-	for i := uint32(0); i < 3; i++ {
-		r |= uint32(val[i]) << (8 * i)
-	}
-	return r
-}
-
-func getPlmnID(plmn types.PlmnID) string {
-	rawPlmnid := []byte{plmn[0], plmn[1], plmn[2]}
-	plmnID := strconv.FormatUint(uint64(uint24ToUint32(rawPlmnid)), 10)
-	return plmnID
-}
-
 func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 	deviceID topoapi.ID,
 	serviceModels map[string]*topoapi.ServiceModelInfo,

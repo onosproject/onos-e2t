@@ -38,6 +38,9 @@ type Store interface {
 	// List lists topo objects
 	List() ([]topoapi.Object, error)
 
+	// Delete deletes a topo object using the given ID
+	Delete(id topoapi.ID) error
+
 	// Watch watches topology events
 	Watch(ch chan<- topoapi.Event) error
 }
@@ -119,6 +122,17 @@ func (s *topoStore) List() ([]topoapi.Object, error) {
 	}
 
 	return listResponse.Objects, nil
+}
+
+// Delete deletes a topo object using the given ID
+func (s *topoStore) Delete(id topoapi.ID) error {
+	_, err := s.client.Delete(context.Background(), &topoapi.DeleteRequest{
+		ID: id,
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // Watch watches topology events

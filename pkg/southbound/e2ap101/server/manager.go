@@ -8,6 +8,8 @@ import (
 	"context"
 	"sync"
 
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
@@ -70,6 +72,10 @@ func (m *channelManager) Open(id ChannelID, channel *E2Channel) {
 	go func() {
 		<-channel.Context().Done()
 		log.Infof("Closing channel %s", id)
+		err := m.topoManager.DeleteE2Relation(topoapi.ID(id))
+		if err != nil {
+			return
+		}
 		m.channelsMu.Lock()
 		delete(m.channels, id)
 		m.channelsMu.Unlock()
