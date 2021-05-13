@@ -47,8 +47,8 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	}
 
 	assert.Equal(t, ranFunctionFound, true)
-	reportPeriod := int32(5000)
-	granularity := int32(500)
+	reportPeriod := uint32(5000)
+	granularity := uint32(500)
 	// Kpm v2 interval is defined in ms
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
 	assert.NoError(t, err)

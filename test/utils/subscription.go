@@ -45,7 +45,7 @@ func CreateRcEventTrigger() ([]byte, error) {
 	return protoBytes, nil
 }
 
-func CreateKpmV2ActionDefinition(cellObjectID string, granularity int32) ([]byte, error) {
+func CreateKpmV2ActionDefinition(cellObjectID string, granularity uint32) ([]byte, error) {
 	rrcConAvgName, err := e2smkpmv2.CreateMeasurementTypeMeasName("RRC.Conn.Avg")
 	if err != nil {
 		return nil, err
@@ -96,7 +96,7 @@ func CreateKpmV2ActionDefinition(cellObjectID string, granularity int32) ([]byte
 }
 
 // CreateKpmEventTrigger creates a kpm service model event trigger
-func CreateKpmV2EventTrigger(rtPeriod int32) ([]byte, error) {
+func CreateKpmV2EventTrigger(rtPeriod uint32) ([]byte, error) {
 	e2SmKpmEventTriggerDefinition, err := e2smkpmv2.CreateE2SmKpmEventTriggerDefinition(rtPeriod)
 	if err != nil {
 		return []byte{}, err
