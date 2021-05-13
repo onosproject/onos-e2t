@@ -6,7 +6,6 @@ package utils
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/onosproject/onos-lib-go/pkg/certs"
@@ -68,17 +67,10 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 						return nil, err
 					}
 					object := response.Object
-					if object != nil {
-						//if object.GetEntity().GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()) {
-						fmt.Println("KIND ID:", object.GetEntity().GetKindID())
+					if object != nil && object.GetEntity().GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()) {
 						cellObject := &topoapi.E2Cell{}
 						object.GetAspect(cellObject)
-						fmt.Println("Cell Object:", cellObject)
-
 						cells = append(cells, cellObject)
-
-						//}
-
 					}
 
 				}
@@ -113,7 +105,7 @@ func GetNodeIDs() ([]topoapi.ID, error) {
 		if obj.Type == topoapi.Object_ENTITY {
 			switch entity := obj.Obj.(type) {
 			case *topoapi.Object_Entity:
-				if entity.Entity.KindID == topoapi.ID(topoapi.RANEntityKinds_E2NODE.String()) {
+				if entity.Entity.GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2NODE.String()) {
 					nodeIDs = append(nodeIDs, obj.ID)
 				}
 

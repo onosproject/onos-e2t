@@ -181,11 +181,6 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	e.e2Channel = NewE2Channel(channelID, e.serverChannel, e.subs)
 	e.manager.Open(channelID, e.e2Channel)
 
-	err = e.topoManager.CreateOrUpdateE2Relations(deviceID, topoapi.ID(channelID))
-	if err != nil {
-		return nil, nil, err
-	}
-
 	// Create an E2 setup response
 	response, err := pdubuilder.NewE2SetupResponse(nodeID.Plmn, ricID, rfAccepted, rfRejected)
 	if err != nil {
