@@ -3816,10 +3816,10 @@ func (m *E2ConnectionUpdateItemIes) Validate() error {
 		}
 	}
 
-	if m.GetCriticality() != 0 {
+	if m.GetCriticality() != 1 {
 		return E2ConnectionUpdateItemIesValidationError{
 			field:  "Criticality",
-			reason: "value must equal 0",
+			reason: "value must equal 1",
 		}
 	}
 
@@ -3833,10 +3833,10 @@ func (m *E2ConnectionUpdateItemIes) Validate() error {
 		}
 	}
 
-	if m.GetPresence() != 0 {
+	if m.GetPresence() != 2 {
 		return E2ConnectionUpdateItemIesValidationError{
 			field:  "Presence",
-			reason: "value must equal 0",
+			reason: "value must equal 2",
 		}
 	}
 

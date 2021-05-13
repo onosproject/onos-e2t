@@ -19,6 +19,54 @@ import (
 	"unsafe"
 )
 
+func xerEncodeE2connectionUpdateRemoveList(e2connectionUpdateRemoveList *e2ap_pdu_contents.E2ConnectionUpdateRemoveList) ([]byte, error) {
+	e2connectionUpdateRemoveListCP, err := newE2connectionUpdateRemoveList(e2connectionUpdateRemoveList)
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeE2connectionUpdateRemoveList() %s", err.Error())
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_E2connectionUpdateRemove_List, unsafe.Pointer(e2connectionUpdateRemoveListCP))
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeE2connectionUpdateRemoveList() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func perEncodeE2connectionUpdateRemoveList(e2connectionUpdateRemoveList *e2ap_pdu_contents.E2ConnectionUpdateRemoveList) ([]byte, error) {
+	e2connectionUpdateRemoveListCP, err := newE2connectionUpdateRemoveList(e2connectionUpdateRemoveList)
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeE2connectionUpdateRemoveList() %s", err.Error())
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_E2connectionUpdateRemove_List, unsafe.Pointer(e2connectionUpdateRemoveListCP))
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeE2connectionUpdateRemoveList() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func xerDecodeE2connectionUpdateRemoveList(bytes []byte) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveList, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_E2connectionUpdateRemove_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeE2connectionUpdateRemoveList((*C.E2connectionUpdateRemove_List_t)(unsafePtr))
+}
+
+func perDecodeE2connectionUpdateRemoveList(bytes []byte) (*e2ap_pdu_contents.E2ConnectionUpdateRemoveList, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_E2connectionUpdateRemove_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeE2connectionUpdateRemoveList((*C.E2connectionUpdateRemove_List_t)(unsafePtr))
+}
+
 func newE2connectionUpdateRemoveList(e2curl *e2ap_pdu_contents.E2ConnectionUpdateRemoveList) (*C.E2connectionUpdateRemove_List_t, error) {
 
 	e2curlC := new(C.E2connectionUpdateRemove_List_t)

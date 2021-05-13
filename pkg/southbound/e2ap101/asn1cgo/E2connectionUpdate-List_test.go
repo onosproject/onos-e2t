@@ -55,7 +55,7 @@ func Test_xerEncodingE2connectionUpdateList(t *testing.T) {
 
 	xer, err := xerEncodeE2connectionUpdateList(e2connectionUpdateList)
 	assert.NilError(t, err)
-	assert.Equal(t, 1, len(xer)) //ToDo - adjust length of the XER encoded message
+	assert.Equal(t, 656, len(xer)) //ToDo - adjust length of the XER encoded message
 	t.Logf("E2connectionUpdateList XER\n%s", string(xer))
 
 	result, err := xerDecodeE2connectionUpdateList(xer)

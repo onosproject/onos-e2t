@@ -817,9 +817,9 @@ message E2connectionUpdateList {
 //{E2connectionUpdateItemIEs}
 message E2connectionUpdateItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 43, json_name="id"];
-    int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     E2connectionUpdateItem value = 3 [json_name="E2connectionUpdateItem"];
-    int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="presence"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:732

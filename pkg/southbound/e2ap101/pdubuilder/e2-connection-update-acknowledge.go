@@ -26,7 +26,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu,
 
 	csi := &e2appducontents.E2ConnectionUpdateItemIes{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2appducontents.E2ConnectionUpdateItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{
 				TnlPort: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
@@ -40,7 +40,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu,
 			},
 			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH,
 		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 	connectionSetup.ConnectionSetup.Value = append(connectionSetup.ConnectionSetup.Value, csi)
 
