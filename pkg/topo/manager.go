@@ -104,7 +104,7 @@ func (d *topoManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topo
 				return err
 			}
 
-			_, err = d.deviceStore.Update(currentCellObject)
+			err = d.deviceStore.Update(currentCellObject)
 			if err != nil {
 				return err
 			}
@@ -155,7 +155,7 @@ func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels 
 			return err
 		}
 
-		_, err = d.deviceStore.Update(currentDeviceObject)
+		err = d.deviceStore.Update(currentDeviceObject)
 		if err != nil {
 			return err
 		}

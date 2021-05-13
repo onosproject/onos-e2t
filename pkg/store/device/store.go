@@ -30,7 +30,7 @@ type Store interface {
 	Create(object *topoapi.Object) error
 
 	// Update updates an existing topo object
-	Update(object *topoapi.Object) (*topoapi.Object, error)
+	Update(object *topoapi.Object) error
 
 	// Get gets a topo object
 	Get(id topoapi.ID) (*topoapi.Object, error)
@@ -81,17 +81,17 @@ func (s *topoStore) Create(object *topoapi.Object) error {
 }
 
 // Update updates the given object in topo store
-func (s *topoStore) Update(object *topoapi.Object) (*topoapi.Object, error) {
+func (s *topoStore) Update(object *topoapi.Object) error {
 	log.Debugf("Updating topo object: %v", object)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
 	defer cancel()
-	updateResponse, err := s.client.Update(ctx, &topoapi.UpdateRequest{
+	_, err := s.client.Update(ctx, &topoapi.UpdateRequest{
 		Object: object,
 	})
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return updateResponse.Object, nil
+	return nil
 }
 
 // Get gets an object based on a given ID
