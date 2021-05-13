@@ -17,23 +17,12 @@ import (
 )
 
 const (
-	OnosE2TAddress  = "onos-e2t:5150"
 	OnosTopoAddress = "onos-topo:5150"
 )
 
 // GetTopoConn gets a gRPC connection to the topology service
 func GetTopoConn(topoEndpoint string, opts ...grpc.DialOption) (*grpc.ClientConn, error) {
 	return grpc.Dial(topoEndpoint, opts...)
-}
-
-func contains(s []string, str string) bool {
-	for _, v := range s {
-		if v == str {
-			return true
-		}
-	}
-
-	return false
 }
 
 func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {

@@ -16,15 +16,15 @@ import (
 
 var log = logging.GetLogger("topo", "manager")
 
-type topoManager struct {
+type DeviceManager struct {
 	deviceStore device.Store
 }
 
-func (d *topoManager) DeleteE2Relation(relationID topoapi.ID) error {
+func (d *DeviceManager) DeleteE2Relation(relationID topoapi.ID) error {
 	return d.deviceStore.Delete(relationID)
 }
 
-func (d *topoManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
+func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
 	podID := os.Getenv("POD_ID")
 	currentDeviceObject, err := d.deviceStore.Get(deviceID)
 	if err != nil {
@@ -53,7 +53,7 @@ func (d *topoManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID t
 }
 
 // CreateOrUpdateE2Cells creates or update E2 cells entities and relations
-func (d *topoManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error {
+func (d *DeviceManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error {
 	currentDeviceObject, err := d.deviceStore.Get(deviceID)
 	if currentDeviceObject == nil && errors.IsNotFound(errors.FromGRPC(err)) {
 		return err
@@ -118,7 +118,7 @@ func (d *topoManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topo
 }
 
 // CreateOrUpdateE2Device creates or updates E2 entities
-func (d *topoManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error {
+func (d *DeviceManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error {
 	currentDeviceObject, err := d.deviceStore.Get(deviceID)
 	if currentDeviceObject == nil && errors.IsNotFound(errors.FromGRPC(err)) {
 		deviceObject := &topoapi.Object{
@@ -178,11 +178,11 @@ type Manager interface {
 	DeleteE2Relation(relationID topoapi.ID) error
 }
 
-// NewTopoManager creates topology manager
-func NewTopoManager(deviceStore device.Store) *topoManager {
-	return &topoManager{
+// NewDeviceManager creates topology manager
+func NewDeviceManager(deviceStore device.Store) *DeviceManager {
+	return &DeviceManager{
 		deviceStore: deviceStore,
 	}
 }
 
-var _ Manager = &topoManager{}
+var _ Manager = &DeviceManager{}

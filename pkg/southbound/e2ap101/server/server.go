@@ -127,8 +127,9 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 				err := e.ranFunctionRegistry.Add(id, ranFunction)
 				if err != nil {
 					log.Warn(err)
+				} else {
+					rfAccepted[ranFunctionID] = ranFunc.Revision
 				}
-				rfAccepted[ranFunctionID] = ranFunc.Revision
 			}
 		}
 	}
@@ -145,7 +146,7 @@ func (e *E2ChannelServer) updateTopoObjects(deviceID topoapi.ID,
 		return err
 	}
 
-	// Add E2 cells if there are any associated with an E2 node
+	// Add E2 cells if there are any associated cells with an E2 node
 	if len(e2Cells) != 0 {
 		err := e.topoManager.CreateOrUpdateE2Cells(deviceID, e2Cells)
 		if err != nil {
@@ -167,6 +168,10 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
 	var e2Cells []*topoapi.E2Cell
 	rfAccepted, rfRejected, err := e.processRANFunctions(ranFuncs, deviceID, serviceModels, &e2Cells)
+	if err != nil {
+		log.Warn(err)
+		return nil, nil, err
+	}
 
 	err = e.updateTopoObjects(deviceID, serviceModels, e2Cells)
 	if err != nil {
