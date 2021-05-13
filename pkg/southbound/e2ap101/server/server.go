@@ -153,6 +153,12 @@ func (e *E2ChannelServer) updateTopoObjects(deviceID topoapi.ID,
 			return err
 		}
 	}
+
+	err = e.topoManager.CreateOrUpdateE2Relation(deviceID)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

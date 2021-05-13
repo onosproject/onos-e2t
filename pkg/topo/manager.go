@@ -7,6 +7,8 @@ package topo
 import (
 	"os"
 
+	"github.com/google/uuid"
+
 	gogotypes "github.com/gogo/protobuf/types"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/device"
@@ -24,7 +26,7 @@ func (d *DeviceManager) DeleteE2Relation(relationID topoapi.ID) error {
 	return d.deviceStore.Delete(relationID)
 }
 
-func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
+func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID) error {
 	podID := os.Getenv("POD_ID")
 	currentDeviceObject, err := d.deviceStore.Get(deviceID)
 	if err != nil {
@@ -33,7 +35,7 @@ func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID
 
 	if currentDeviceObject != nil {
 		e2Relation := &topoapi.Object{
-			ID:   relationID,
+			ID:   topoapi.ID(uuid.New().String()),
 			Type: topoapi.Object_RELATION,
 			Obj: &topoapi.Object_Relation{
 				Relation: &topoapi.Relation{
@@ -174,7 +176,7 @@ func (d *DeviceManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModel
 type Manager interface {
 	CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error
 	CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error
-	CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error
+	CreateOrUpdateE2Relation(deviceID topoapi.ID) error
 	DeleteE2Relation(relationID topoapi.ID) error
 }
 
