@@ -23,7 +23,7 @@ func createE2connectionUpdateListMsg() (*e2ap_pdu_contents.E2ConnectionUpdateLis
 
 	item := &e2ap_pdu_contents.E2ConnectionUpdateItemIes{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2ap_pdu_contents.E2ConnectionUpdateItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{
 				TnlPort: &e2ap_commondatatypes.BitString{
@@ -37,7 +37,7 @@ func createE2connectionUpdateListMsg() (*e2ap_pdu_contents.E2ConnectionUpdateLis
 			},
 			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH,
 		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	e2connectionUpdateList.Value = append(e2connectionUpdateList.Value, item)
