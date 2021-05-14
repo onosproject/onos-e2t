@@ -13,8 +13,58 @@ package asn1cgo
 import "C"
 
 import (
+	"fmt"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"unsafe"
 )
+
+func xerEncodeResetRequest(rr *e2ap_pdu_contents.ResetRequest) ([]byte, error) {
+	rrCP, err := newResetRequest(rr)
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeResetRequest() %s", err.Error())
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_ResetRequest, unsafe.Pointer(rrCP))
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeResetRequest() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func perEncodeResetRequest(rr *e2ap_pdu_contents.ResetRequest) ([]byte, error) {
+	rrCP, err := newResetRequest(rr)
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeResetRequest() %s", err.Error())
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_ResetRequest, unsafe.Pointer(rrCP))
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeResetRequest() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func xerDecodeResetRequest(bytes []byte) (*e2ap_pdu_contents.ResetRequest, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_ResetRequest)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeResetRequest((*C.ResetRequest_t)(unsafePtr))
+}
+
+func perDecodeResetRequest(bytes []byte) (*e2ap_pdu_contents.ResetRequest, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_ResetRequest)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeResetRequest((*C.ResetRequest_t)(unsafePtr))
+}
 
 func newResetRequest(rr *e2ap_pdu_contents.ResetRequest) (*C.ResetRequest_t, error) {
 
