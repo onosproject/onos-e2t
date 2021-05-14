@@ -269,7 +269,7 @@ func newResetResponseIe2CriticalityDiagnostics(rrCritDiagsIe *e2appducontents.Re
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.triggeringMessage))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.procedureCriticality))))
 	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.ricRequestorID))))
-	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.iEsCriticalityDiagnostics))))
+	binary.LittleEndian.PutUint64(choiceC[32:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.iEsCriticalityDiagnostics))))
 
 	ie := C.ResetResponseIEs_t{
 		id:          idC,
@@ -303,7 +303,7 @@ func newRicServiceUpdateFailureIe2CriticalityDiagnostics(rsufCritDiagsIe *e2appd
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.triggeringMessage))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.procedureCriticality))))
 	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.ricRequestorID))))
-	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.iEsCriticalityDiagnostics))))
+	binary.LittleEndian.PutUint64(choiceC[32:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.iEsCriticalityDiagnostics))))
 
 	ie := C.RICserviceUpdateFailure_IEs_t{
 		id:          idC,
@@ -337,7 +337,7 @@ func newRicSubscriptionDeleteFailureIe2CriticalityDiagnostics(rsdfCritDiagsIe *e
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.triggeringMessage))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.procedureCriticality))))
 	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.ricRequestorID))))
-	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.iEsCriticalityDiagnostics))))
+	binary.LittleEndian.PutUint64(choiceC[32:], uint64(uintptr(unsafe.Pointer(rsdfCritDiagsC.iEsCriticalityDiagnostics))))
 
 	ie := C.RICsubscriptionDeleteFailure_IEs_t{
 		id:          idC,
@@ -372,7 +372,7 @@ func newErrorIndicationIe2CriticalityDiagnostics(eiCritDiagsIe *e2appducontents.
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(eiCritDiagsC.triggeringMessage))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(eiCritDiagsC.procedureCriticality))))
 	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(eiCritDiagsC.ricRequestorID))))
-	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(eiCritDiagsC.iEsCriticalityDiagnostics))))
+	binary.LittleEndian.PutUint64(choiceC[32:], uint64(uintptr(unsafe.Pointer(eiCritDiagsC.iEsCriticalityDiagnostics))))
 
 	ie := C.ErrorIndication_IEs_t{
 		id:          idC,
@@ -407,7 +407,7 @@ func newE2setupIe2CriticalityDiagnostics(e2sfCritDiagsIe *e2appducontents.E2Setu
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(e2sfCritDiagsC.triggeringMessage))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(e2sfCritDiagsC.procedureCriticality))))
 	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(e2sfCritDiagsC.ricRequestorID))))
-	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(e2sfCritDiagsC.iEsCriticalityDiagnostics))))
+	binary.LittleEndian.PutUint64(choiceC[32:], uint64(uintptr(unsafe.Pointer(e2sfCritDiagsC.iEsCriticalityDiagnostics))))
 
 	ie := C.E2setupFailureIEs_t{
 		id:          idC,
@@ -441,7 +441,7 @@ func newRicSubscriptionFailureIe2CriticalityDiagnostics(rsfCritDiagsIe *e2appduc
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rsfCritDiagsC.triggeringMessage))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(rsfCritDiagsC.procedureCriticality))))
 	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(rsfCritDiagsC.ricRequestorID))))
-	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(rsfCritDiagsC.iEsCriticalityDiagnostics))))
+	binary.LittleEndian.PutUint64(choiceC[32:], uint64(uintptr(unsafe.Pointer(rsfCritDiagsC.iEsCriticalityDiagnostics))))
 
 	ie := C.RICsubscriptionFailure_IEs_t{
 		id:          idC,
@@ -476,7 +476,7 @@ func newE2connectionUpdateFailureIes2CriticalityDiagnostics(e2cufIe *e2appducont
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.triggeringMessage))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.procedureCriticality))))
 	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.ricRequestorID))))
-	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.iEsCriticalityDiagnostics))))
+	binary.LittleEndian.PutUint64(choiceC[32:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.iEsCriticalityDiagnostics))))
 
 	ie := C.E2connectionUpdateFailure_IEs_t{
 		id:          idC,
@@ -510,7 +510,7 @@ func newE2nodeConfigurationUpdateFailureIes2CriticalityDiagnostics(e2ncufIe *e2a
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.triggeringMessage))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.procedureCriticality))))
 	binary.LittleEndian.PutUint64(choiceC[24:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.ricRequestorID))))
-	binary.LittleEndian.PutUint64(choiceC[40:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.iEsCriticalityDiagnostics))))
+	binary.LittleEndian.PutUint64(choiceC[32:], uint64(uintptr(unsafe.Pointer(rrCritDiagsIeC.iEsCriticalityDiagnostics))))
 
 	ie := C.E2nodeConfigurationUpdateFailure_IEs_t{
 		id:          idC,

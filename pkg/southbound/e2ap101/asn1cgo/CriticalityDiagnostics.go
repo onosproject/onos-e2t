@@ -113,15 +113,15 @@ func newCriticalityDiagnostics(cd *e2apies.CriticalityDiagnostics) (*C.Criticali
 
 func decodeCriticalityDiagnosticsBytes(bytes []byte) (*e2apies.CriticalityDiagnostics, error) {
 
-	var ieCrDiag []byte
-	copy(bytes[40:64], ieCrDiag)
+	//var ieCrDiag []byte
+	//copy(bytes[32:], ieCrDiag)
 
 	cdC := C.CriticalityDiagnostics_t{
 		procedureCode:             (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[:8])))),
 		triggeringMessage:         (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:])))),
 		procedureCriticality:      (*C.long)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:])))),
 		ricRequestorID:            (*C.RICrequestID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
-		iEsCriticalityDiagnostics: (*C.CriticalityDiagnostics_IE_List_t)(unsafe.Pointer(&ieCrDiag)),
+		iEsCriticalityDiagnostics: (*C.CriticalityDiagnostics_IE_List_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[32:])))),
 	}
 	return decodeCriticalityDiagnostics(&cdC)
 }

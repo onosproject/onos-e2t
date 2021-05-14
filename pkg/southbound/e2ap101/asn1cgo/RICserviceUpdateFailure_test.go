@@ -50,7 +50,7 @@ func Test_xerEncodingRicserviceUpdateFailure(t *testing.T) {
 
 	xer, err := xerEncodeRicServiceUpdateFailure(rsuf)
 	assert.NilError(t, err)
-	assert.Equal(t, 1885, len(xer))
+	assert.Equal(t, 2278, len(xer))
 	t.Logf("RicServiceUpdateFailure XER\n%s", string(xer))
 
 	result, err := xerDecodeRicServiceUpdateFailure(xer)
@@ -63,10 +63,9 @@ func Test_xerEncodingRicserviceUpdateFailure(t *testing.T) {
 	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
 	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
 	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetTriggeringMessage(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetTriggeringMessage())
-	//ToDo - understand where CriticalityDiagnosticsIEs are..
-	//assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
-	//assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue())
-	//assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
+	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
+	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue())
+	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
 }
 
 func Test_perEncodingRicserviceUpdateFailure(t *testing.T) {
@@ -76,7 +75,7 @@ func Test_perEncodingRicserviceUpdateFailure(t *testing.T) {
 
 	per, err := perEncodeRicServiceUpdateFailure(rsuf)
 	assert.NilError(t, err)
-	assert.Equal(t, 33, len(per))
+	assert.Equal(t, 38, len(per))
 	t.Logf("RicServiceUpdateFailure PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeRicServiceUpdateFailure(per)
@@ -89,8 +88,7 @@ func Test_perEncodingRicserviceUpdateFailure(t *testing.T) {
 	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
 	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
 	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetTriggeringMessage(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetTriggeringMessage())
-	//ToDo - understand where CriticalityDiagnosticsIEs are..
-	//assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
-	//assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue())
-	//assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
+	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
+	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue())
+	assert.Equal(t, rsuf.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
 }

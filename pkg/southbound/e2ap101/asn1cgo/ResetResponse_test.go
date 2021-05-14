@@ -50,7 +50,7 @@ func Test_xerEncodingResetResponse(t *testing.T) {
 
 	xer, err := xerEncodeResetResponse(resetResponse)
 	assert.NilError(t, err)
-	assert.Equal(t, 726, len(xer))
+	assert.Equal(t, 1119, len(xer))
 	t.Logf("ResetResponse XER\n%s", string(xer))
 
 	result, err := xerDecodeResetResponse(xer)
@@ -61,9 +61,8 @@ func Test_xerEncodingResetResponse(t *testing.T) {
 	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
 	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetTriggeringMessage(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetTriggeringMessage())
 	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetProcedureCriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetProcedureCriticality())
-	//ToDo - understand where CriticalityDiagnosticsIEs are..
-	//assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
-	//assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
 
 }
 
@@ -74,7 +73,7 @@ func Test_perEncodingResetResponse(t *testing.T) {
 
 	per, err := perEncodeResetResponse(resetResponse)
 	assert.NilError(t, err)
-	assert.Equal(t, 14, len(per))
+	assert.Equal(t, 19, len(per))
 	t.Logf("ResetResponse PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeResetResponse(per)
@@ -85,7 +84,6 @@ func Test_perEncodingResetResponse(t *testing.T) {
 	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
 	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetTriggeringMessage(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetTriggeringMessage())
 	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetProcedureCriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetProcedureCriticality())
-	//ToDo - understand where CriticalityDiagnosticsIEs are..
-	//assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
-	//assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
 }
