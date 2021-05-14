@@ -3972,9 +3972,9 @@ func decodeResetRequestIE(rrIeC *C.ResetRequestIEs_t) (*e2appducontents.ResetReq
 
 	switch rrIeC.value.present {
 	case C.ResetRequestIEs__value_PR_Cause:
-		a := []byte{}
-		copy(a, rrIeC.value.choice[:])
-		cause, err := decodeCauseBytes(a)
+		//a := []byte{}
+		//copy(a, rrIeC.value.choice[:])
+		cause, err := decodeCauseBytes(rrIeC.value.choice[:16])
 		if err != nil {
 			return nil, err
 		}
@@ -4001,16 +4001,16 @@ func decodeResetResponseIE(rrIeC *C.ResetResponseIEs_t) (*e2appducontents.ResetR
 
 	switch rrIeC.value.present {
 	case C.ResetResponseIEs__value_PR_CriticalityDiagnostics:
-		a := []byte{}
-		copy(a, rrIeC.value.choice[:])
-		criticalityDiagnostics, err := decodeCriticalityDiagnosticsBytes(a)
+		//a := []byte{}
+		//copy(a, rrIeC.value.choice[:])
+		cd, err := decodeCriticalityDiagnosticsBytes(rrIeC.value.choice[:48])
 		if err != nil {
 			return nil, err
 		}
 		ret.ResetResponseIes2 = &e2appducontents.ResetResponseIes_ResetResponseIes2{
 			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value:       criticalityDiagnostics,
+			Value:       cd,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
 
@@ -4129,9 +4129,9 @@ func decodeRicServiceUpdateFailureIE(rsufIeC *C.RICserviceUpdateFailure_IEs_t) (
 
 	switch rsufIeC.value.present {
 	case C.RICserviceUpdateFailure_IEs__value_PR_CriticalityDiagnostics: //This one is for added
-		a := []byte{}
-		copy(a, rsufIeC.value.choice[:])
-		cd, err := decodeCriticalityDiagnosticsBytes(a)
+		//a := []byte{}
+		//copy(a[0:64], rsufIeC.value.choice[:])
+		cd, err := decodeCriticalityDiagnosticsBytes(rsufIeC.value.choice[:48])
 		if err != nil {
 			return nil, err
 		}
@@ -4143,9 +4143,9 @@ func decodeRicServiceUpdateFailureIE(rsufIeC *C.RICserviceUpdateFailure_IEs_t) (
 		}
 
 	case C.RICserviceUpdateFailure_IEs__value_PR_TimeToWait: //This one is for added
-		a := []byte{}
-		copy(a, rsufIeC.value.choice[:])
-		ttw := decodeTimeToWaitBytes(a)
+		//a := []byte{}
+		//copy(a, rsufIeC.value.choice[:])
+		ttw := decodeTimeToWaitBytes(rsufIeC.value.choice[:8])
 
 		ret.E2ApProtocolIes31 = &e2appducontents.RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31{
 			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
@@ -4307,8 +4307,8 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 		}
 
 	case C.E2connectionUpdateFailure_IEs__value_PR_CriticalityDiagnostics: //This one is for added
-		a := []byte{}
-		copy(a, e2cufIeC.value.choice[:])
+		//a := []byte{}
+		//copy(a, e2cufIeC.value.choice[:])
 		cd, err := decodeCriticalityDiagnosticsBytes(e2cufIeC.value.choice[:48])
 		if err != nil {
 			return nil, err

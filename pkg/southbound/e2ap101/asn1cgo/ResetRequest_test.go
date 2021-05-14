@@ -33,16 +33,14 @@ func Test_xerEncodingResetRequest(t *testing.T) {
 
 	xer, err := xerEncodeResetRequest(resetRequest)
 	assert.NilError(t, err)
-	assert.Equal(t, 349, len(xer)) //ToDo - adjust length of the XER encoded message
+	assert.Equal(t, 349, len(xer))
 	t.Logf("ResetRequest XER\n%s", string(xer))
 
 	result, err := xerDecodeResetRequest(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("ResetRequest XER - decoded\n%v", result)
-	//ToDo - adjust field's verification
-	assert.Equal(t, resetRequest.GetProtocolIes(), result.GetProtocolIes())
-
+	assert.Equal(t, resetRequest.GetProtocolIes().GetResetRequestIes1().GetValue().GetProtocol(), result.GetProtocolIes().GetResetRequestIes1().GetValue().GetProtocol())
 }
 
 func Test_perEncodingResetRequest(t *testing.T) {
@@ -52,14 +50,12 @@ func Test_perEncodingResetRequest(t *testing.T) {
 
 	per, err := perEncodeResetRequest(resetRequest)
 	assert.NilError(t, err)
-	assert.Equal(t, 8, len(per)) // ToDo - adjust length of the PER encoded message
+	assert.Equal(t, 8, len(per))
 	t.Logf("ResetRequest PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeResetRequest(per)
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("ResetRequest PER - decoded\n%v", result)
-	//ToDo - adjust field's verification
-	assert.Equal(t, resetRequest.GetProtocolIes(), result.GetProtocolIes())
-
+	assert.Equal(t, resetRequest.GetProtocolIes().GetResetRequestIes1().GetValue().GetProtocol(), result.GetProtocolIes().GetResetRequestIes1().GetValue().GetProtocol())
 }

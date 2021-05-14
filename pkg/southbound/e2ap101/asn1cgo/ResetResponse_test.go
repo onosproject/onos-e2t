@@ -57,8 +57,13 @@ func Test_xerEncodingResetResponse(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("ResetResponse XER - decoded\n%v", result)
-	//ToDo - adjust field's verification
-	assert.Equal(t, resetResponse.GetProtocolIes(), result.GetProtocolIes())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetTriggeringMessage(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetTriggeringMessage())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetProcedureCriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetProcedureCriticality())
+	//ToDo - understand where CriticalityDiagnosticsIEs are..
+	//assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
+	//assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
 
 }
 
@@ -76,7 +81,11 @@ func Test_perEncodingResetResponse(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("ResetResponse PER - decoded\n%v", result)
-	//ToDo - adjust field's verification
-	assert.Equal(t, resetResponse.GetProtocolIes(), result.GetProtocolIes())
-
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetTriggeringMessage(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetTriggeringMessage())
+	assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetProcedureCriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetProcedureCriticality())
+	//ToDo - understand where CriticalityDiagnosticsIEs are..
+	//assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality())
+	//assert.Equal(t, resetResponse.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError(), result.GetProtocolIes().GetResetResponseIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError())
 }

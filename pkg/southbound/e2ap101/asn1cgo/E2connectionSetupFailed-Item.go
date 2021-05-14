@@ -133,6 +133,7 @@ func decodeE2connectionSetupFailedItemBytes(array [144]byte) (*e2ap_pdu_contents
 			present: C.Cause_PR(binary.LittleEndian.Uint64(array[96:])),
 		},
 	}
+	copy(e2csfItemC.cause.choice[:], array[104:112])
 
 	return decodeE2connectionSetupFailedItem(&e2csfItemC)
 }
