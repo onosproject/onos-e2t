@@ -22,7 +22,7 @@ func createE2connectionSetupFailedListMsg() (*e2ap_pdu_contents.E2ConnectionSetu
 	}
 
 	bs1 := &e2ap_commondatatypes.BitString{
-		Value: 0x89bcd,
+		Value: 0x89abcdef01234567,
 		Len:   64,
 	}
 
@@ -65,7 +65,7 @@ func Test_xerEncodingE2connectionSetupFailedList(t *testing.T) {
 
 	xer, err := xerEncodeE2connectionSetupFailedList(e2connectionSetupFailedList)
 	assert.NilError(t, err)
-	assert.Equal(t, 1, len(xer)) //ToDo - adjust length of the XER encoded message
+	assert.Equal(t, 756, len(xer))
 	t.Logf("E2connectionSetupFailedList XER\n%s", string(xer))
 
 	result, err := xerDecodeE2connectionSetupFailedList(xer)
@@ -85,7 +85,7 @@ func Test_perEncodingE2connectionSetupFailedList(t *testing.T) {
 
 	per, err := perEncodeE2connectionSetupFailedList(e2connectionSetupFailedList)
 	assert.NilError(t, err)
-	assert.Equal(t, 1, len(per)) // ToDo - adjust length of the PER encoded message
+	assert.Equal(t, 18, len(per))
 	t.Logf("E2connectionSetupFailedList PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2connectionSetupFailedList(per)

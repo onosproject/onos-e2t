@@ -112,9 +112,8 @@ func decodeE2connectionSetupFailedItemBytes(array [144]byte) (*e2ap_pdu_contents
 	tnlAddrsize := binary.LittleEndian.Uint64(array[8:16])
 	tnlAddrbitsUnused := int(binary.LittleEndian.Uint32(array[16:20]))
 	tnlAddrbytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[:8]))), C.int(tnlAddrsize))
-	tnlPortsize := binary.LittleEndian.Uint64(array[56:64])
-	tnlPortbitsUnused := int(binary.LittleEndian.Uint32(array[64:68]))
-	tnlPortbytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[48:56]))), C.int(tnlPortsize))
+
+		tnlPortPtrC := (*C.BIT_STRING_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[48:56]))))
 
 	e2csfItemC := C.E2connectionSetupFailed_Item_t{
 		tnlInformation: C.TNLinformation_t{
@@ -123,17 +122,13 @@ func decodeE2connectionSetupFailedItemBytes(array [144]byte) (*e2ap_pdu_contents
 				size:        C.ulong(tnlAddrsize),
 				bits_unused: C.int(tnlAddrbitsUnused),
 			},
-			tnlPort: &C.BIT_STRING_t{
-				buf:         (*C.uchar)(C.CBytes(tnlPortbytes)),
-				size:        C.ulong(tnlPortsize),
-				bits_unused: C.int(tnlPortbitsUnused),
-			},
+			tnlPort: tnlPortPtrC,
 		},
 		cause: C.Cause_t{
-			present: C.Cause_PR(binary.LittleEndian.Uint64(array[96:])),
+			present: C.Cause_PR(binary.LittleEndian.Uint64(array[80:])),
 		},
 	}
-	copy(e2csfItemC.cause.choice[:], array[104:112])
+	copy(e2csfItemC.cause.choice[:], array[88:96])
 
 	return decodeE2connectionSetupFailedItem(&e2csfItemC)
 }

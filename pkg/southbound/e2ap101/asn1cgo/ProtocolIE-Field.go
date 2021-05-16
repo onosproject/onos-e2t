@@ -2766,11 +2766,9 @@ func newE2connectionUpdateItemIEs(e2cuItemIes *e2appducontents.E2ConnectionUpdat
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(e2cuItemC.tnlInformation.tnlAddress.size))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2cuItemC.tnlInformation.tnlAddress.bits_unused))
 	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
-	binary.LittleEndian.PutUint64(choiceC[48:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlPort.buf))))
-	binary.LittleEndian.PutUint64(choiceC[56:], uint64(e2cuItemC.tnlInformation.tnlPort.size))
-	binary.LittleEndian.PutUint64(choiceC[64:], uint64(e2cuItemC.tnlInformation.tnlPort.bits_unused))
+	binary.LittleEndian.PutUint64(choiceC[48:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlPort))))
 	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
-	binary.LittleEndian.PutUint64(choiceC[96:], uint64(e2cuItemC.tnlUsage))
+	binary.LittleEndian.PutUint64(choiceC[80:], uint64(e2cuItemC.tnlUsage))
 
 	//ToDo - print it out
 	//fmt.Printf("Choice is \n%v", hex.Dump(choiceC))
@@ -2807,9 +2805,7 @@ func newE2connectionUpdateRemoveItemIEs(e2curItemIes *e2appducontents.E2Connecti
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(e2cuItemC.tnlInformation.tnlAddress.size))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2cuItemC.tnlInformation.tnlAddress.bits_unused))
 	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
-	binary.LittleEndian.PutUint64(choiceC[48:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlPort.buf))))
-	binary.LittleEndian.PutUint64(choiceC[56:], uint64(e2cuItemC.tnlInformation.tnlPort.size))
-	binary.LittleEndian.PutUint64(choiceC[64:], uint64(e2cuItemC.tnlInformation.tnlPort.bits_unused))
+	binary.LittleEndian.PutUint64(choiceC[48:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlPort))))
 
 	rfItemIesC := C.E2connectionUpdateRemove_ItemIEs_t{
 		id:          idC,
@@ -2843,12 +2839,10 @@ func newE2connectionSetupFailedItemIEs(e2csfItemIes *e2appducontents.E2Connectio
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(e2csfItemC.tnlInformation.tnlAddress.size))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2csfItemC.tnlInformation.tnlAddress.bits_unused))
 	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
-	binary.LittleEndian.PutUint64(choiceC[48:], uint64(uintptr(unsafe.Pointer(e2csfItemC.tnlInformation.tnlPort.buf))))
-	binary.LittleEndian.PutUint64(choiceC[56:], uint64(e2csfItemC.tnlInformation.tnlPort.size))
-	binary.LittleEndian.PutUint64(choiceC[64:], uint64(e2csfItemC.tnlInformation.tnlPort.bits_unused))
+	binary.LittleEndian.PutUint64(choiceC[48:], uint64(uintptr(unsafe.Pointer(e2csfItemC.tnlInformation.tnlPort))))
 	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
-	binary.LittleEndian.PutUint64(choiceC[96:], uint64(e2csfItemC.cause.present))
-	copy(choiceC[104:112], e2csfItemC.cause.choice[:8])
+	binary.LittleEndian.PutUint64(choiceC[80:], uint64(e2csfItemC.cause.present))
+	copy(choiceC[88:96], e2csfItemC.cause.choice[:8])
 
 	e2csfItemIesC := C.E2connectionSetupFailed_ItemIEs_t{
 		id:          idC,

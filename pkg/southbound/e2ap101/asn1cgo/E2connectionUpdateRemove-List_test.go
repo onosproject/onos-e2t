@@ -27,7 +27,7 @@ func createE2connectionUpdateRemoveListMsg() (*e2ap_pdu_contents.E2ConnectionUpd
 		Value: &e2ap_pdu_contents.E2ConnectionUpdateRemoveItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{
 				TnlAddress: &e2ap_commondatatypes.BitString{
-					Value: 0x89bcd,
+					Value: 0x89abcdef01234567,
 					Len:   64,
 				},
 				TnlPort: &e2ap_commondatatypes.BitString{
@@ -54,7 +54,7 @@ func Test_xerEncodingE2connectionUpdateRemoveList(t *testing.T) {
 
 	xer, err := xerEncodeE2connectionUpdateRemoveList(e2connectionUpdateRemoveList)
 	assert.NilError(t, err)
-	assert.Equal(t, 628, len(xer))
+	assert.Equal(t, 644, len(xer))
 	t.Logf("E2connectionUpdateRemoveList XER\n%s", string(xer))
 
 	result, err := xerDecodeE2connectionUpdateRemoveList(xer)
@@ -73,7 +73,7 @@ func Test_perEncodingE2connectionUpdateRemoveList(t *testing.T) {
 
 	per, err := perEncodeE2connectionUpdateRemoveList(e2connectionUpdateRemoveList)
 	assert.NilError(t, err)
-	assert.Equal(t, 12, len(per))
+	assert.Equal(t, 17, len(per))
 	t.Logf("E2connectionUpdateRemoveList PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2connectionUpdateRemoveList(per)

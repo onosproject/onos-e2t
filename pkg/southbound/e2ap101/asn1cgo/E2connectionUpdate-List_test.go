@@ -31,7 +31,7 @@ func createE2connectionUpdateListMsg() (*e2ap_pdu_contents.E2ConnectionUpdateLis
 					Len:   16,
 				},
 				TnlAddress: &e2ap_commondatatypes.BitString{
-					Value: 0x89bcd,
+					Value: 0x89abcdef01234567,
 					Len:   64,
 				},
 			},
@@ -55,7 +55,7 @@ func Test_xerEncodingE2connectionUpdateList(t *testing.T) {
 
 	xer, err := xerEncodeE2connectionUpdateList(e2connectionUpdateList)
 	assert.NilError(t, err)
-	assert.Equal(t, 656, len(xer)) //ToDo - adjust length of the XER encoded message
+	assert.Equal(t, 665, len(xer))
 	t.Logf("E2connectionUpdateList XER\n%s", string(xer))
 
 	result, err := xerDecodeE2connectionUpdateList(xer)
@@ -75,7 +75,7 @@ func Test_perEncodingE2connectionUpdateList(t *testing.T) {
 
 	per, err := perEncodeE2connectionUpdateList(e2connectionUpdateList)
 	assert.NilError(t, err)
-	assert.Equal(t, 1, len(per)) // ToDo - adjust length of the PER encoded message
+	assert.Equal(t, 18, len(per))
 	t.Logf("E2connectionUpdateList PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2connectionUpdateList(per)

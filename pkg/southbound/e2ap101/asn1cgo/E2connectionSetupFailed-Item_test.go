@@ -17,7 +17,7 @@ import (
 func createE2connectionSetupFailedItemMsg() (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
 
 	bs1 := &e2ap_commondatatypes.BitString{
-		Value: 0x89bcd,
+		Value: 0x89abcdef01234567,
 		Len:   64,
 	}
 

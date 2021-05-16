@@ -19,7 +19,7 @@ func createE2connectionUpdateRemoveItemMsg() (*e2ap_pdu_contents.E2ConnectionUpd
 	e2connectionUpdateRemoveItem := e2ap_pdu_contents.E2ConnectionUpdateRemoveItem{
 		TnlInformation: &e2ap_ies.Tnlinformation{
 			TnlAddress: &e2ap_commondatatypes.BitString{
-				Value: 0x89bcd,
+				Value: 0x89abcdef01234567,
 				Len:   64,
 			},
 			TnlPort: &e2ap_commondatatypes.BitString{
