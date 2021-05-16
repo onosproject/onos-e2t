@@ -81,12 +81,12 @@ func (s *TestSuite) TestControl(t *testing.T) {
 
 	err = proto.Unmarshal(header, &ricIndicationHeader)
 	assert.NoError(t, err)
-	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetEUtraCgi().GetPLmnIdentity().Value
-	testEci := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetEUtraCgi().GetEUtracellIdentity().Value.Value
+	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetPLmnIdentity().Value
+	nrcid := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.Value
 
 	rcControlHeader := utils.RcControlHeader{
 		Priority: priority,
-		CellID:   testEci,
+		CellID:   nrcid,
 		PlmnID:   plmnID,
 	}
 
