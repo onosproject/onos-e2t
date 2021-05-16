@@ -138,10 +138,10 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 
 	err = proto.Unmarshal(header, &ricIndicationHeader)
 	assert.NoError(t, err)
-	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetEUtraCgi().GetPLmnIdentity().Value
-	testEci := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetEUtraCgi().GetEUtracellIdentity().Value.Value
+	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetPLmnIdentity().Value
+	nrcid := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.Value
 	plmnIDValue := ransimtypes.Uint24ToUint32(plmnID)
-	ecgi := ransimtypes.ToECGI(ransimtypes.PlmnID(plmnIDValue), ransimtypes.GetECI(testEci))
+	ecgi := ransimtypes.ToECGI(ransimtypes.PlmnID(plmnIDValue), ransimtypes.GetECI(nrcid))
 
 	testCell, err := cellClient.GetCell(ctx, &modelapi.GetCellRequest{
 		ECGI: ecgi,
