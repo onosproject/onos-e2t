@@ -6,6 +6,7 @@ package utils
 
 import (
 	"context"
+	"testing"
 	"time"
 
 	"github.com/onosproject/onos-lib-go/pkg/certs"
@@ -72,8 +73,7 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 	return cells, nil
 }
 
-// GetNodeIDs get list of E2 node IDs using topology subsystem
-func GetNodeIDs() ([]topoapi.ID, error) {
+func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 	opts, err := certs.HandleCertPaths("", "", "", true)
@@ -89,19 +89,50 @@ func GetNodeIDs() ([]topoapi.ID, error) {
 		return nil, err
 	}
 
-	var nodeIDs []topoapi.ID
+	var connectedNodes []topoapi.ID
 	for _, obj := range listResponse.Objects {
-		if obj.Type == topoapi.Object_ENTITY {
-			switch entity := obj.Obj.(type) {
-			case *topoapi.Object_Entity:
-				if entity.Entity.GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2NODE.String()) {
-					nodeIDs = append(nodeIDs, obj.ID)
+		if obj.Type == topoapi.Object_RELATION {
+			switch relation := obj.Obj.(type) {
+			case *topoapi.Object_Relation:
+				if relation.Relation.GetKindID() == topoapi.ID(topoapi.RANRelationKinds_CONTROLS.String()) {
+					connectedNodes = append(connectedNodes, relation.Relation.TgtEntityID)
 				}
 
 			}
 
 		}
 	}
-	return nodeIDs, nil
+	return connectedNodes, nil
+}
 
+func GetAllE2Connections(t *testing.T) ([]topoapi.ID, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	opts, err := certs.HandleCertPaths("", "", "", true)
+	if err != nil {
+		return nil, err
+	}
+	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(100*time.Millisecond)))
+
+	conn, _ := GetTopoConn(OnosTopoAddress, opts...)
+	client := topoapi.CreateTopoClient(conn)
+	listResponse, err := client.List(ctx, &topoapi.ListRequest{})
+	if err != nil {
+		return nil, err
+	}
+
+	var connections []topoapi.ID
+	for _, obj := range listResponse.Objects {
+		if obj.Type == topoapi.Object_RELATION {
+			switch relation := obj.Obj.(type) {
+			case *topoapi.Object_Relation:
+				if relation.Relation.GetKindID() == topoapi.ID(topoapi.RANRelationKinds_CONTROLS.String()) {
+					connections = append(connections, obj.ID)
+				}
+
+			}
+
+		}
+	}
+	return connections, nil
 }

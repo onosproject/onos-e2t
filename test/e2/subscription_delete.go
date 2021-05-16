@@ -27,7 +27,7 @@ func checkSubscription(t *testing.T) sdksub.Context {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 
 	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)

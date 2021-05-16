@@ -31,7 +31,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 
 	nodeID := nodeIDs[0]

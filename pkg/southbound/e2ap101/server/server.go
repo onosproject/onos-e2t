@@ -11,6 +11,8 @@ import (
 	"encoding/binary"
 	"strconv"
 
+	"github.com/google/uuid"
+
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -138,9 +140,9 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 }
 
 func (e *E2ChannelServer) updateTopoObjects(deviceID topoapi.ID,
-	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell) error {
+	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell, relationID topoapi.ID) error {
 
-	// Add E2 node entities to the topo
+	// create or update E2 node entities
 	err := e.topoManager.CreateOrUpdateE2Device(deviceID, serviceModels)
 	if err != nil {
 		return err
@@ -154,7 +156,8 @@ func (e *E2ChannelServer) updateTopoObjects(deviceID topoapi.ID,
 		}
 	}
 
-	err = e.topoManager.CreateOrUpdateE2Relation(deviceID)
+	// create or update E2T to E2 node relations
+	err = e.topoManager.CreateOrUpdateE2Relation(deviceID, relationID)
 	if err != nil {
 		return err
 	}
@@ -179,15 +182,15 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 
-	err = e.updateTopoObjects(deviceID, serviceModels, e2Cells)
+	channelID := uuid.New().String()
+	err = e.updateTopoObjects(deviceID, serviceModels, e2Cells, topoapi.ID(channelID))
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
 	}
 
-	channelID := ChannelID(deviceID)
-	e.e2Channel = NewE2Channel(channelID, e.serverChannel, e.subs)
-	e.manager.Open(channelID, e.e2Channel)
+	e.e2Channel = NewE2Channel(ChannelID(channelID), e.serverChannel, e.subs)
+	e.manager.Open(ChannelID(channelID), e.e2Channel)
 
 	// Create an E2 setup response
 	response, err := pdubuilder.NewE2SetupResponse(nodeID.Plmn, ricID, rfAccepted, rfRejected)

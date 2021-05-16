@@ -31,13 +31,11 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs()
-	t.Log(nodeIDs)
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 
 	cells, err := utils.GetCellIDsPerNode(nodeIDs[0])
 	assert.NoError(t, err)
-	t.Log(cells)
 
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)

@@ -9,6 +9,10 @@ import (
 	"fmt"
 	"time"
 
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
+	"github.com/onosproject/onos-e2t/pkg/topo"
+
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
@@ -43,7 +47,7 @@ func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServic
 	tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager,
 	models modelregistry.ModelRegistry,
 	oidRegistry oid.Registry,
-	ranFunctionRegistry ranfunctions.Registry) *controller.Controller {
+	ranFunctionRegistry ranfunctions.Registry, deviceManager topo.Manager) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: epapi.ID(env.GetPodID()),
@@ -64,6 +68,7 @@ func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServic
 		oidRegistry:               oidRegistry,
 		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 		ranFunctionRegistry:       ranFunctionRegistry,
+		deviceManage:              deviceManager,
 	})
 	return c
 }
@@ -83,6 +88,7 @@ type Reconciler struct {
 	oidRegistry               oid.Registry
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
 	ranFunctionRegistry       ranfunctions.Registry
+	deviceManage              topo.Manager
 }
 
 // Reconcile reconciles the state of a device change
@@ -139,8 +145,12 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 	sub := subResponse.Subscription
-
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(sub.Details.E2NodeID))
+	channelList, err := r.deviceManage.GetE2RelationsPerDevice(topoapi.ID(sub.Details.E2NodeID))
+	if err != nil || len(channelList) == 0 {
+		return controller.Result{}, err
+	}
+	log.Info("Channel List IDs:", channelList)
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelList[0]))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -387,7 +397,11 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	sub := subResponse.Subscription
 
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(sub.Details.E2NodeID))
+	channelList, err := r.deviceManage.GetE2RelationsPerDevice(topoapi.ID(sub.Details.E2NodeID))
+	if err != nil || len(channelList) == 0 {
+		return controller.Result{}, err
+	}
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelList[0]))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil

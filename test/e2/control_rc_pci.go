@@ -44,7 +44,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 	testNodeID := nodeIDs[0]
 
