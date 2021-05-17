@@ -6,9 +6,10 @@ package ha
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 
@@ -33,7 +34,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 
 	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
@@ -50,7 +51,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              nodeIDs[0],
+		NodeID:              string(nodeIDs[0]),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
