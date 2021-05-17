@@ -82,7 +82,10 @@ func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID
 }
 
 func (d *DeviceManager) createOrUpdateE2CellRelation(deviceID topoapi.ID, cellID topoapi.ID) error {
-	cellRelationID := deviceID + ":" + cellID
+	cellRelationID, err := getE2CellRelationID(deviceID, cellID)
+	if err != nil {
+		return err
+	}
 	currentCellRelation, err := d.deviceStore.Get(cellRelationID)
 	if currentCellRelation == nil && errors.IsNotFound(errors.FromGRPC(err)) {
 		cellRelation := &topoapi.Object{
@@ -100,6 +103,13 @@ func (d *DeviceManager) createOrUpdateE2CellRelation(deviceID topoapi.ID, cellID
 		if err != nil {
 			return err
 		}
+	} else if currentCellRelation != nil && err == nil {
+		err := d.deviceStore.Update(currentCellRelation)
+		if err != nil {
+			return err
+		}
+	} else if err != nil {
+		return err
 	}
 	return nil
 }
