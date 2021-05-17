@@ -21,7 +21,7 @@ func createTnlinformationMsg() (*e2ap_ies.Tnlinformation, error) {
 	}
 
 	bs2 := &e2ap_commondatatypes.BitString{
-		Value: 0x89bcd,
+		Value: 0x89bc,
 		Len:   16,
 	}
 
@@ -54,8 +54,7 @@ func Test_xerEncodingTnlinformation(t *testing.T) {
 
 	assert.Equal(t, tnlinformation.GetTnlAddress().GetValue(), result.GetTnlAddress().GetValue())
 	assert.Equal(t, tnlinformation.GetTnlAddress().GetLen(), result.GetTnlAddress().GetLen())
-	//ToDo - could be a problem in encoding/decoding
-	//assert.Equal(t, tnlinformation.GetTnlPort().GetValue(), result.GetTnlPort().GetValue())
+	assert.Equal(t, tnlinformation.GetTnlPort().GetValue(), result.GetTnlPort().GetValue())
 	assert.Equal(t, tnlinformation.GetTnlPort().GetLen(), result.GetTnlPort().GetLen())
 }
 
@@ -77,7 +76,6 @@ func Test_perEncodingTnlinformation(t *testing.T) {
 
 	assert.Equal(t, tnlinformation.GetTnlAddress().GetValue(), result.GetTnlAddress().GetValue())
 	assert.Equal(t, tnlinformation.GetTnlAddress().GetLen(), result.GetTnlAddress().GetLen())
-	//ToDo - could be a problem in encoding/decoding
-	//assert.Equal(t, tnlinformation.GetTnlPort().GetValue(), result.GetTnlPort().GetValue())
+	assert.Equal(t, tnlinformation.GetTnlPort().GetValue(), result.GetTnlPort().GetValue())
 	assert.Equal(t, tnlinformation.GetTnlPort().GetLen(), result.GetTnlPort().GetLen())
 }

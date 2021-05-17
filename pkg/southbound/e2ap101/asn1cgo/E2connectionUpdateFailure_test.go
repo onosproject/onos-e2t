@@ -50,7 +50,7 @@ func Test_xerEncodingE2connectionUpdateFailure(t *testing.T) {
 
 	xer, err := xerEncodeE2connectionUpdateFailure(e2connectionUpdateFailure)
 	assert.NilError(t, err)
-	assert.Equal(t, 1328, len(xer))
+	assert.Equal(t, 1721, len(xer))
 	t.Logf("E2connectionUpdateFailure XER\n%s", string(xer))
 
 	result, err := xerDecodeE2connectionUpdateFailure(xer)
@@ -71,7 +71,7 @@ func Test_perEncodingE2connectionUpdateFailure(t *testing.T) {
 
 	per, err := perEncodeE2connectionUpdateFailure(e2connectionUpdateFailure)
 	assert.NilError(t, err)
-	assert.Equal(t, 24, len(per))
+	assert.Equal(t, 29, len(per))
 	t.Logf("E2connectionUpdateFailure PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2connectionUpdateFailure(per)

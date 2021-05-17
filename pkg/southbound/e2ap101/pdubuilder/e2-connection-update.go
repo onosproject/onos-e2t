@@ -30,7 +30,7 @@ func CreateE2connectionUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 		Value: &e2appducontents.E2ConnectionUpdateItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{
 				TnlPort: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
+					Value: 0x89bc,
 					Len:   16,
 				},
 				TnlAddress: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
