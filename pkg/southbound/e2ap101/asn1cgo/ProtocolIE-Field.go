@@ -1088,7 +1088,7 @@ func newRicServiceUpdateIe11RanFunctionDeletedList(esIe *e2appducontents.Ricserv
 
 	listC := [48]byte{} // The size of theRICserviceUpdateIEs__value_u
 
-	ranFunctionsListC, err := newRanFunctionsIDList(esIe.GetRanFunctionsDeletedList())
+	ranFunctionsListC, err := newRanFunctionsIDList(esIe.RanFunctionsDeletedList)
 	if err != nil {
 		return nil, fmt.Errorf("newRanFunctionsList() %s", err.Error())
 	}

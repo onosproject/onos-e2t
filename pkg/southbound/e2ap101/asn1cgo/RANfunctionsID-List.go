@@ -19,6 +19,58 @@ import (
 	"unsafe"
 )
 
+func xerEncodeRanFunctionsIDList(rfl *e2appducontents.RanfunctionsIdList) ([]byte, error) {
+	rflC, err := newRanFunctionsIDList(rfl)
+
+	if err != nil {
+		return nil, err
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_RANfunctionsID_List, unsafe.Pointer(rflC))
+	if err != nil {
+		return nil, err
+	}
+	return bytes, nil
+}
+
+func perEncodeRanFunctionsIDList(rfl *e2appducontents.RanfunctionsIdList) ([]byte, error) {
+	rflC, err := newRanFunctionsIDList(rfl)
+
+	if err != nil {
+		return nil, err
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_RANfunctionsID_List, unsafe.Pointer(rflC))
+	if err != nil {
+		return nil, err
+	}
+	return bytes, nil
+}
+
+func xerDecodeRanFunctionsIDList(xer []byte) (*e2appducontents.RanfunctionsIdList, error) {
+	unsafePtr, err := decodeXer(xer, &C.asn_DEF_RANfunctionsID_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	rflC := (*C.RANfunctionsID_List_t)(unsafePtr)
+	return decodeRanFunctionsIDList(rflC)
+}
+
+func perDecodeRanFunctionsIDList(per []byte) (*e2appducontents.RanfunctionsIdList, error) {
+	unsafePtr, err := decodePer(per, len(per), &C.asn_DEF_RANfunctionsID_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	rflC := (*C.RANfunctionsID_List_t)(unsafePtr)
+	return decodeRanFunctionsIDList(rflC)
+}
+
 func newRanFunctionsIDList(rfIDl *e2appducontents.RanfunctionsIdList) (*C.RANfunctionsID_List_t, error) {
 	rfIDlC := new(C.RANfunctionsID_List_t)
 

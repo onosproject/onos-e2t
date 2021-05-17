@@ -39,7 +39,7 @@ func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 					Value: 1,
 				},
 				RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-					Value: []byte{0x01, 0x02, 0x03},
+					Value: []byte{0x61, 0x62, 0x63, 0x64},
 				},
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -97,7 +97,7 @@ func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 					Value: 1,
 				},
 				RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-					Value: []byte{0x01, 0x02, 0x03},
+					Value: []byte{0x61, 0x62, 0x63},
 				},
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
