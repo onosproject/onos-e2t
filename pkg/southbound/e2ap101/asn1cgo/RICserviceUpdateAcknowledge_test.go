@@ -29,7 +29,7 @@ func createRicServiceUpdateAcknowledgeMsg() (*e2ap_pdu_contents.RicserviceUpdate
 func Test_xerEncodingRicserviceUpdateAcknowledge(t *testing.T) {
 
 	ricserviceUpdateAcknowledge, err := createRicServiceUpdateAcknowledgeMsg()
-	assert.NilError(t, err, "Error creating RicserviceUpdateAcknowledge PDU")
+	assert.NilError(t, err, "Error creating RicServiceUpdateAcknowledge PDU")
 
 	xer, err := xerEncodeRicServiceUpdateAcknowledge(ricserviceUpdateAcknowledge)
 	assert.NilError(t, err)
@@ -49,7 +49,7 @@ func Test_xerEncodingRicserviceUpdateAcknowledge(t *testing.T) {
 func Test_perEncodingRicServiceUpdateAcknowledge(t *testing.T) {
 
 	ricserviceUpdateAcknowledge, err := createRicServiceUpdateAcknowledgeMsg()
-	assert.NilError(t, err, "Error creating RicserviceUpdateAcknowledge PDU")
+	assert.NilError(t, err, "Error creating RicServiceUpdateAcknowledge PDU")
 
 	per, err := perEncodeRicServiceUpdateAcknowledge(ricserviceUpdateAcknowledge)
 	assert.NilError(t, err)

@@ -1090,7 +1090,7 @@ func newRicServiceUpdateIe11RanFunctionDeletedList(esIe *e2appducontents.Ricserv
 
 	ranFunctionsListC, err := newRanFunctionsIDList(esIe.RanFunctionsDeletedList)
 	if err != nil {
-		return nil, fmt.Errorf("newRanFunctionsList() %s", err.Error())
+		return nil, fmt.Errorf("newRanFunctionsIDList() %s", err.Error())
 	}
 	binary.LittleEndian.PutUint64(listC[0:], uint64(uintptr(unsafe.Pointer(ranFunctionsListC.list.array))))
 	binary.LittleEndian.PutUint32(listC[8:], uint32(ranFunctionsListC.list.count))

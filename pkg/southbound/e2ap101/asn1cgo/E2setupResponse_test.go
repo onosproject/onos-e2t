@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
@@ -33,5 +34,5 @@ func Test_newE2setupResponse(t *testing.T) {
 
 	per, err := perEncodeE2setupResponse(e2SetupResponse)
 	assert.NilError(t, err)
-	t.Logf("E2SetupResponse PER\n%v", per)
+	t.Logf("E2SetupResponse PER\n%v", hex.Dump(per))
 }
