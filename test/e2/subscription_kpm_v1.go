@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 	"time"
 
@@ -58,7 +59,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	sub, err := e2Client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 
-	CheckIndicationMessage(t, defaultIndicationTimeout, ch)
+	e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 
 	err = sub.Close()
 	assert.NoError(t, err)

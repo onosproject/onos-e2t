@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"math/rand"
 	"testing"
 	"time"
@@ -115,7 +116,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	var indMessage indication.Indication
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
-		indMessage = CheckIndicationMessage(t, defaultIndicationTimeout, ch)
+		indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	}
 
 	// Make sure that reads on the subscription channel time out. There should be no
@@ -156,7 +157,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	// Expect to receive indication message on neighbor list change
-	indMessage = CheckIndicationMessage(t, defaultIndicationTimeout, ch)
+	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	err = sub.Close()
 	assert.NoError(t, err)
 	err = sim.Uninstall()

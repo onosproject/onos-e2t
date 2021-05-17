@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 
 	e2sm_kpm_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/v1beta1/e2sm-kpm-ies"
@@ -88,8 +89,8 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	sub2, err := e2Client.Subscribe(ctx, subReq, ch2)
 	assert.NoError(t, err)
 
-	msg1 := CheckIndicationMessage(t, defaultIndicationTimeout, ch1)
-	msg2 := CheckIndicationMessage(t, defaultIndicationTimeout, ch2)
+	msg1 := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch1)
+	msg2 := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch2)
 
 	kpmIndicationHeader := &e2sm_kpm_ies.E2SmKpmIndicationHeader{}
 	rcIndicationHeader := &e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}

@@ -6,6 +6,7 @@ package ha
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 	"time"
 
@@ -14,7 +15,6 @@ import (
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/onosproject/onos-e2t/test/e2"
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
@@ -23,7 +23,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 
 	// Test currently does not work
 	t.Skip()
-	
+
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-kpm-v1")
 	assert.NotNil(t, sim)
 
@@ -60,7 +60,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 
 	const ITERATIONS = 1
 
-	for i:= 1; i <= ITERATIONS; i++ {
+	for i := 1; i <= ITERATIONS; i++ {
 		subReq, err := subRequest.Create()
 		assert.NoError(t, err)
 
@@ -68,9 +68,9 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, sub)
 
-		e2.CheckIndicationMessage(t, 60*time.Second, ch)
-		e2.CheckIndicationMessage(t, 120*time.Second, ch)
-		e2.CheckIndicationMessage(t, 20*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 60*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 120*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 20*time.Second, ch)
 
 		e2tPod := FindPodWithPrefix(t, "onos-e2t")
 		CrashPodOrFail(t, e2tPod)
