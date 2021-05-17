@@ -107,12 +107,12 @@ func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRe
 func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
-	channels, err := s.deviceManager.GetE2RelationsPerDevice(topoapi.ID(request.E2NodeID))
-	if err != nil || len(channels) == 0 {
+	channelID, err := s.deviceManager.GetE2Relation(topoapi.ID(request.E2NodeID))
+	if err != nil || channelID == "" {
 		return nil, err
 	}
 
-	channel, err := s.channels.Get(ctx, e2server.ChannelID(channels[0]))
+	channel, err := s.channels.Get(ctx, e2server.ChannelID(channelID))
 	if err != nil {
 		return nil, errors.Status(err).Err()
 	}

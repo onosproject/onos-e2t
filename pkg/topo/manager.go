@@ -30,13 +30,12 @@ func getPodID() string {
 	return os.Getenv("POD_ID")
 }
 
-func (d *DeviceManager) GetE2RelationsPerDevice(deviceID topoapi.ID) ([]topoapi.ID, error) {
+func (d *DeviceManager) GetE2Relation(deviceID topoapi.ID) (topoapi.ID, error) {
 	objects, err := d.deviceStore.List()
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	podID := getPodID()
-	var relationIDs []topoapi.ID
 	for _, object := range objects {
 		if object.Type == topoapi.Object_RELATION {
 			switch val := object.Obj.(type) {
@@ -44,14 +43,14 @@ func (d *DeviceManager) GetE2RelationsPerDevice(deviceID topoapi.ID) ([]topoapi.
 				srcEntity := val.Relation.GetSrcEntityID()
 				dstEntity := val.Relation.GetTgtEntityID()
 				if srcEntity == topoapi.ID(podID) && dstEntity == deviceID {
-					relationIDs = append(relationIDs, object.ID)
+					return object.ID, nil
 				}
 
 			}
 
 		}
 	}
-	return relationIDs, nil
+	return "", errors.New(errors.NotFound, "E2 relation ID is not found")
 }
 
 func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
@@ -206,7 +205,7 @@ type Manager interface {
 	CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error
 	CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error
 	DeleteE2Relation(relationID topoapi.ID) error
-	GetE2RelationsPerDevice(deviceID topoapi.ID) ([]topoapi.ID, error)
+	GetE2Relation(deviceID topoapi.ID) (topoapi.ID, error)
 }
 
 // NewDeviceManager creates topology manager
