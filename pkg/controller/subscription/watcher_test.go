@@ -48,7 +48,7 @@ func TestChannelWatcher(t *testing.T) {
 	subscriptionClient, subscriptionTaskClient := createClients(t)
 	// TODO this should be changed to mock the store but the test is not using it
 	store, _ := device.NewTopoStore("")
-	topoManager := topo.NewDeviceManager(store)
+	topoManager := topo.NewManager(store)
 
 	watch := ChannelWatcher{
 		endpointID: E2NodeID,

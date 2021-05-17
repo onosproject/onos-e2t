@@ -234,8 +234,8 @@ type Manager interface {
 	GetE2Relation(deviceID topoapi.ID) (topoapi.ID, error)
 }
 
-// NewDeviceManager creates topology manager
-func NewDeviceManager(deviceStore device.Store) *DeviceManager {
+// NewManager creates topology manager
+func NewManager(deviceStore device.Store) *DeviceManager {
 	return &DeviceManager{
 		deviceStore: deviceStore,
 	}

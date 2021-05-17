@@ -107,7 +107,7 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	deviceManager := topo.NewDeviceManager(deviceStore)
+	deviceManager := topo.NewManager(deviceStore)
 	streams := subscription.NewBroker()
 	channels := e2server.NewChannelManager(deviceManager)
 	ranFunctionRegistry := ranfunctions.NewRegistry()

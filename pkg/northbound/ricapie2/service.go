@@ -41,7 +41,7 @@ var log = logging.GetLogger("northbound", "ricapi", "e2")
 // NewService creates a new E2T service
 func NewService(subs subapi.E2SubscriptionServiceClient, streams subscription.Broker, modelRegistry modelregistry.ModelRegistry,
 	channels e2server.ChannelManager,
-	oidRegistry oid.Registry, ranFunctionRegistry ranfunctions.Registry, deviceManage topo.Manager) northbound.Service {
+	oidRegistry oid.Registry, ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) northbound.Service {
 	return &Service{
 		subs:                subs,
 		streams:             streams,
@@ -49,7 +49,7 @@ func NewService(subs subapi.E2SubscriptionServiceClient, streams subscription.Br
 		channels:            channels,
 		oidRegistry:         oidRegistry,
 		ranFunctionRegistry: ranFunctionRegistry,
-		deviceManager:       deviceManage,
+		topoManager:         topoManager,
 	}
 }
 
@@ -62,7 +62,7 @@ type Service struct {
 	channels            e2server.ChannelManager
 	oidRegistry         oid.Registry
 	ranFunctionRegistry ranfunctions.Registry
-	deviceManager       topo.Manager
+	topoManager         topo.Manager
 }
 
 // Register registers the Service with the gRPC server.
@@ -73,7 +73,7 @@ func (s Service) Register(r *grpc.Server) {
 		channels:            s.channels,
 		oidRegistry:         s.oidRegistry,
 		ranFunctionRegistry: s.ranFunctionRegistry,
-		deviceManager:       s.deviceManager}
+		topoManager:         s.topoManager}
 	e2api.RegisterE2TServiceServer(r, server)
 }
 
@@ -86,7 +86,7 @@ type Server struct {
 	controlRequestID    RequestID
 	oidRegistry         oid.Registry
 	ranFunctionRegistry ranfunctions.Registry
-	deviceManager       topo.Manager
+	topoManager         topo.Manager
 }
 
 func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRequest {
@@ -107,7 +107,7 @@ func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRe
 func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
-	channelID, err := s.deviceManager.GetE2Relation(topoapi.ID(request.E2NodeID))
+	channelID, err := s.topoManager.GetE2Relation(topoapi.ID(request.E2NodeID))
 	if err != nil || channelID == "" {
 		return nil, err
 	}
