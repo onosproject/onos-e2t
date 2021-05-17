@@ -24,7 +24,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-kpm-v2")
 	assert.NotNil(t, sim)
 
-	e2Client := getE2Client(t, "subscription-kpm-v2-test")
+	e2Client := utils.GetE2Client(t, "subscription-kpm-v2-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
@@ -89,7 +89,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	sub, err := e2Client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
 
-	indicationReport := checkIndicationMessage(t, defaultIndicationTimeout, ch)
+	indicationReport := CheckIndicationMessage(t, defaultIndicationTimeout, ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 

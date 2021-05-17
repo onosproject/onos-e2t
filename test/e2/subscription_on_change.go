@@ -30,7 +30,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	ch := make(chan indication.Indication)
 	ctx := context.Background()
 
-	e2Client := getE2Client(t, "subscription-on-change-test")
+	e2Client := utils.GetE2Client(t, "subscription-on-change-test")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
@@ -115,7 +115,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	var indMessage indication.Indication
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
-		indMessage = checkIndicationMessage(t, defaultIndicationTimeout, ch)
+		indMessage = CheckIndicationMessage(t, defaultIndicationTimeout, ch)
 	}
 
 	// Make sure that reads on the subscription channel time out. There should be no
@@ -156,7 +156,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	// Expect to receive indication message on neighbor list change
-	indMessage = checkIndicationMessage(t, defaultIndicationTimeout, ch)
+	indMessage = CheckIndicationMessage(t, defaultIndicationTimeout, ch)
 	err = sub.Close()
 	assert.NoError(t, err)
 	err = sim.Uninstall()

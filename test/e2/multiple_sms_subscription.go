@@ -24,7 +24,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	done := make(chan struct{})
 	defer close(done)
 	// Create an E2 client
-	e2Client := getE2Client(t, "multi-sm-subscription-test")
+	e2Client := utils.GetE2Client(t, "multi-sm-subscription-test")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
@@ -88,8 +88,8 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	sub2, err := e2Client.Subscribe(ctx, subReq, ch2)
 	assert.NoError(t, err)
 
-	msg1 := checkIndicationMessage(t, defaultIndicationTimeout, ch1)
-	msg2 := checkIndicationMessage(t, defaultIndicationTimeout, ch2)
+	msg1 := CheckIndicationMessage(t, defaultIndicationTimeout, ch1)
+	msg2 := CheckIndicationMessage(t, defaultIndicationTimeout, ch2)
 
 	kpmIndicationHeader := &e2sm_kpm_ies.E2SmKpmIndicationHeader{}
 	rcIndicationHeader := &e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}

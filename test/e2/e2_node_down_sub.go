@@ -24,7 +24,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "e2node-down-subscription")
 
 	// Create an e2 client
-	e2Client := getE2Client(t, "subscription-e2node-down-test")
+	e2Client := utils.GetE2Client(t, "subscription-e2node-down-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())

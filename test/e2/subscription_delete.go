@@ -20,7 +20,7 @@ import (
 
 func checkSubscription(t *testing.T) sdksub.Context {
 
-	e2Client := getE2Client(t, "subscription-delete-test")
+	e2Client := utils.GetE2Client(t, "subscription-delete-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
