@@ -36,7 +36,7 @@ func NewModelRegistry() ModelRegistry {
 	}
 }
 
-type Setup interface {
+type E2Setup interface {
 	OnSetup(request *types.OnSetupRequest) error
 }
 

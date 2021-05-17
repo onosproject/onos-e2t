@@ -108,7 +108,7 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 					OID: string(oid),
 				}
 
-				if setup, ok := sm.(modelregistry.Setup); ok {
+				if setup, ok := sm.(modelregistry.E2Setup); ok {
 					onSetupRequest := &e2smtypes.OnSetupRequest{
 						ServiceModels:          serviceModels,
 						E2Cells:                e2cells,
@@ -156,8 +156,8 @@ func (e *E2ChannelServer) updateTopoObjects(deviceID topoapi.ID,
 		}
 	}
 
-	// create or update E2T to E2 node relations
-	err = e.topoManager.CreateOrUpdateE2Relation(deviceID, relationID)
+	// create E2T to E2 node relation
+	err = e.topoManager.CreateE2Relation(deviceID, relationID)
 	if err != nil {
 		return err
 	}

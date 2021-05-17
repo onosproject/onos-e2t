@@ -5,8 +5,6 @@
 package topo
 
 import (
-	"os"
-
 	"github.com/google/uuid"
 
 	gogotypes "github.com/gogo/protobuf/types"
@@ -24,10 +22,6 @@ type DeviceManager struct {
 
 func (d *DeviceManager) DeleteE2Relation(relationID topoapi.ID) error {
 	return d.deviceStore.Delete(relationID)
-}
-
-func getPodID() string {
-	return os.Getenv("POD_ID")
 }
 
 func (d *DeviceManager) GetE2Relation(deviceID topoapi.ID) (topoapi.ID, error) {
@@ -53,7 +47,7 @@ func (d *DeviceManager) GetE2Relation(deviceID topoapi.ID) (topoapi.ID, error) {
 	return "", errors.New(errors.NotFound, "E2 relation ID is not found")
 }
 
-func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
+func (d *DeviceManager) CreateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
 	podID := getPodID()
 	currentDeviceObject, err := d.deviceStore.Get(deviceID)
 	if err != nil {
@@ -203,7 +197,7 @@ func (d *DeviceManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModel
 type Manager interface {
 	CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error
 	CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error
-	CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error
+	CreateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error
 	DeleteE2Relation(relationID topoapi.ID) error
 	GetE2Relation(deviceID topoapi.ID) (topoapi.ID, error)
 }
