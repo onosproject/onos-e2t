@@ -33,7 +33,7 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
 		return
 	}
 
-	e2Client := getE2Client(t, "invalid-control-test")
+	e2Client := utils.GetE2Client(t, "invalid-control-test")
 	request, err := testCase.control.Create()
 	assert.NoError(t, err)
 	response, err := e2Client.Control(ctx, request)

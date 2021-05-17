@@ -19,6 +19,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
@@ -36,7 +37,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	ch := make(chan indication.Indication)
 	ctx := context.Background()
 
-	e2Client := getE2Client(t, "control-pci-test")
+	e2Client := utils.GetE2Client(t, "control-pci-test")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
@@ -75,7 +76,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 
 	sub, err := e2Client.Subscribe(ctx, subReq, ch)
 	assert.NoError(t, err)
-	indMessage := checkIndicationMessage(t, defaultIndicationTimeout, ch)
+	indMessage := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	header := indMessage.Payload.Header
 	ricIndicationHeader := e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
 

@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
@@ -24,7 +25,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-multiple-reports")
 	assert.NotNil(t, sim)
 
-	e2Client := getE2Client(t, "subscription-multiple-reports")
+	e2Client := utils.GetE2Client(t, "subscription-multiple-reports")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
@@ -113,7 +114,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
 	for i := 0; i < 2; i++ {
-		indicationReport := checkIndicationMessage(t, defaultIndicationTimeout, ch)
+		indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 		err = proto.Unmarshal(indicationReport.Payload.Message, &indicationMessage)
 		assert.NoError(t, err)
 		err = proto.Unmarshal(indicationReport.Payload.Header, &indicationHeader)

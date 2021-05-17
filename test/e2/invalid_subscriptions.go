@@ -34,7 +34,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		t.Skip()
 		return
 	}
-	e2Client := getE2Client(t, "invalid-subscriptions-id")
+	e2Client := utils.GetE2Client(t, "invalid-subscriptions-id")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())

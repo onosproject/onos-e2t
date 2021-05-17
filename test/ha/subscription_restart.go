@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package e2
+package ha
 
 import (
 	"context"
@@ -18,9 +18,14 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestSubscriptionKpmV1 tests e2 subscription and subscription delete procedures
-func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
+// TestSubscriptionRestart :
+func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
+
+	// Test currently does not work
+	t.Skip()
+
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-kpm-v1")
+	assert.NotNil(t, sim)
 
 	e2Client := utils.GetE2Client(t, "subscription-kpm-v1-test")
 
@@ -53,26 +58,33 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 		ServiceModelVersion: utils.Version1,
 	}
 
-	subReq, err := subRequest.Create()
-	assert.NoError(t, err)
+	const ITERATIONS = 1
 
-	sub, err := e2Client.Subscribe(ctx, subReq, ch)
-	assert.NoError(t, err)
+	for i := 1; i <= ITERATIONS; i++ {
+		subReq, err := subRequest.Create()
+		assert.NoError(t, err)
 
-	e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+		sub, err := e2Client.Subscribe(ctx, subReq, ch)
+		assert.NoError(t, err)
+		assert.NotNil(t, sub)
 
-	err = sub.Close()
-	assert.NoError(t, err)
+		e2utils.CheckIndicationMessage(t, 60*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 120*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 20*time.Second, ch)
 
-	select {
-	case <-ch:
-		t.Fatal("received an extraneous indication")
+		e2tPod := FindPodWithPrefix(t, "onos-e2t")
+		CrashPodOrFail(t, e2tPod)
 
-	case <-time.After(10 * time.Second):
-		t.Log("Subscription test is PASSED")
+		time.Sleep(15 * time.Second)
+		e2tPodReboot := FindPodWithPrefix(t, "onos-e2t")
+		err = e2tPodReboot.Wait(45 * time.Second)
+		assert.NoError(t, err)
+		time.Sleep(30 * time.Second)
+
+		err = sub.Close()
+		assert.NoError(t, err)
 	}
-
-	err = sim.Uninstall()
+	//err = sim.Uninstall()
 	assert.NoError(t, err)
 
 }

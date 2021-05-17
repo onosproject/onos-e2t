@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 	"time"
 
@@ -20,7 +21,7 @@ import (
 
 func checkSubscription(t *testing.T) sdksub.Context {
 
-	e2Client := getE2Client(t, "subscription-delete-test")
+	e2Client := utils.GetE2Client(t, "subscription-delete-test")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
@@ -76,36 +77,36 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-delete")
 
 	//  Initially the subscription list should be empty
-	subList := getSubscriptionList(t)
+	subList := e2utils.GetSubscriptionList(t)
 	defaultNumSubs := len(subList)
 
 	// Add a subscription
 	subBeforeDelete := checkSubscription(t)
 
 	// Check that the subscription list is correct
-	subList = getSubscriptionList(t)
+	subList = e2utils.GetSubscriptionList(t)
 	assert.Equal(t, defaultNumSubs+1, len(subList))
-	checkSubscriptionIDInList(t, subBeforeDelete.ID(), subList)
+	e2utils.CheckSubscriptionIDInList(t, subBeforeDelete.ID(), subList)
 
 	// Check that querying the subscription is correct
-	checkSubscriptionGet(t, subBeforeDelete.ID())
+	e2utils.CheckSubscriptionGet(t, subBeforeDelete.ID())
 
 	// Close the subscription
 	err := subBeforeDelete.Close()
 	assert.NoError(t, err)
 
 	// Check number of subscriptions is correct after deleting the subscription
-	subList = getSubscriptionList(t)
+	subList = e2utils.GetSubscriptionList(t)
 	assert.Equal(t, defaultNumSubs, len(subList))
 
 	//  Open the subscription again and make sure it is open
 	subAfterDelete := checkSubscription(t)
-	subList = getSubscriptionList(t)
+	subList = e2utils.GetSubscriptionList(t)
 	assert.Equal(t, defaultNumSubs+1, len(subList))
-	checkSubscriptionIDInList(t, subAfterDelete.ID(), subList)
+	e2utils.CheckSubscriptionIDInList(t, subAfterDelete.ID(), subList)
 
 	// Check that querying the subscription is correct
-	checkSubscriptionGet(t, subAfterDelete.ID())
+	e2utils.CheckSubscriptionGet(t, subAfterDelete.ID())
 
 	// Clean up the ran-sim instance
 	err = sim.Uninstall()
