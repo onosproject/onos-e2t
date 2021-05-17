@@ -52,7 +52,8 @@ func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID
 		return err
 	}
 
-	if currentDeviceObject != nil {
+	currentRelationObject, err := d.deviceStore.Get(relationID)
+	if currentDeviceObject != nil && currentRelationObject == nil && errors.IsNotFound(errors.FromGRPC(err)) {
 		e2Relation := &topoapi.Object{
 			ID:   relationID,
 			Type: topoapi.Object_RELATION,
@@ -68,6 +69,13 @@ func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID
 		if err != nil {
 			return err
 		}
+	} else if currentDeviceObject != nil && currentRelationObject != nil && err == nil {
+		err = d.deviceStore.Update(currentRelationObject)
+		if err != nil {
+			return err
+		}
+	} else if err != nil {
+		return err
 	}
 
 	return nil
