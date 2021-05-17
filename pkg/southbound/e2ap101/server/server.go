@@ -157,12 +157,24 @@ func (e *E2ChannelServer) updateTopoObjects(deviceID topoapi.ID,
 	}
 
 	// create E2T to E2 node relation
-	err = e.topoManager.CreateE2Relation(deviceID, relationID)
+	err = e.topoManager.CreateOrUpdateE2Relation(deviceID, relationID)
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func getChannelID(deviceID topoapi.ID) (ChannelID, error) {
+	bs := make([]byte, 16)
+	copy(bs, deviceID)
+	uuid, err := uuid.FromBytes(bs)
+	if err != nil {
+		return "", err
+	}
+
+	return ChannelID(uuid.String()), nil
+
 }
 
 func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
@@ -182,15 +194,20 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 
-	channelID := uuid.New().String()
-	err = e.updateTopoObjects(deviceID, serviceModels, e2Cells, topoapi.ID(channelID))
+	channelID, err := getChannelID(deviceID)
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
 	}
 
-	e.e2Channel = NewE2Channel(ChannelID(channelID), e.serverChannel, e.subs)
-	e.manager.Open(ChannelID(channelID), e.e2Channel)
+	e.e2Channel = NewE2Channel(channelID, e.serverChannel, e.subs)
+	e.manager.Open(channelID, e.e2Channel)
+
+	err = e.updateTopoObjects(deviceID, serviceModels, e2Cells, topoapi.ID(channelID))
+	if err != nil {
+		log.Warn(err)
+		return nil, nil, err
+	}
 
 	// Create an E2 setup response
 	response, err := pdubuilder.NewE2SetupResponse(nodeID.Plmn, ricID, rfAccepted, rfRejected)

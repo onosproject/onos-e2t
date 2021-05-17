@@ -5,8 +5,6 @@
 package topo
 
 import (
-	"github.com/google/uuid"
-
 	gogotypes "github.com/gogo/protobuf/types"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/device"
@@ -47,7 +45,7 @@ func (d *DeviceManager) GetE2Relation(deviceID topoapi.ID) (topoapi.ID, error) {
 	return "", errors.New(errors.NotFound, "E2 relation ID is not found")
 }
 
-func (d *DeviceManager) CreateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
+func (d *DeviceManager) CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error {
 	podID := getPodID()
 	currentDeviceObject, err := d.deviceStore.Get(deviceID)
 	if err != nil {
@@ -72,6 +70,29 @@ func (d *DeviceManager) CreateE2Relation(deviceID topoapi.ID, relationID topoapi
 		}
 	}
 
+	return nil
+}
+
+func (d *DeviceManager) createOrUpdateE2CellRelation(deviceID topoapi.ID, cellID topoapi.ID) error {
+	cellRelationID := deviceID + ":" + cellID
+	currentCellRelation, err := d.deviceStore.Get(cellRelationID)
+	if currentCellRelation == nil && errors.IsNotFound(errors.FromGRPC(err)) {
+		cellRelation := &topoapi.Object{
+			ID:   cellRelationID,
+			Type: topoapi.Object_RELATION,
+			Obj: &topoapi.Object_Relation{
+				Relation: &topoapi.Relation{
+					KindID:      topoapi.ID(topoapi.RANRelationKinds_CONTAINS.String()),
+					SrcEntityID: deviceID,
+					TgtEntityID: cellID,
+				},
+			},
+		}
+		err = d.deviceStore.Create(cellRelation)
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -107,19 +128,7 @@ func (d *DeviceManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*to
 				return err
 			}
 
-			cellRelationID := uuid.New().String()
-			cellRelation := &topoapi.Object{
-				ID:   topoapi.ID(cellRelationID),
-				Type: topoapi.Object_RELATION,
-				Obj: &topoapi.Object_Relation{
-					Relation: &topoapi.Relation{
-						KindID:      topoapi.ID(topoapi.RANRelationKinds_CONTAINS.String()),
-						SrcEntityID: deviceID,
-						TgtEntityID: cellID,
-					},
-				},
-			}
-			err = d.deviceStore.Create(cellRelation)
+			err = d.createOrUpdateE2CellRelation(deviceID, cellID)
 			if err != nil {
 				return err
 			}
@@ -132,6 +141,11 @@ func (d *DeviceManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*to
 			}
 
 			err = d.deviceStore.Update(currentCellObject)
+			if err != nil {
+				return err
+			}
+
+			err = d.createOrUpdateE2CellRelation(deviceID, cellID)
 			if err != nil {
 				return err
 			}
@@ -197,7 +211,7 @@ func (d *DeviceManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModel
 type Manager interface {
 	CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error
 	CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error
-	CreateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error
+	CreateOrUpdateE2Relation(deviceID topoapi.ID, relationID topoapi.ID) error
 	DeleteE2Relation(relationID topoapi.ID) error
 	GetE2Relation(deviceID topoapi.ID) (topoapi.ID, error)
 }
