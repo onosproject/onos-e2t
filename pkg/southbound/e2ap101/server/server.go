@@ -19,13 +19,11 @@ import (
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
-	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
-
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
+	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdudecoder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
@@ -183,24 +181,22 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	if err != nil {
 		return nil, nil, err
 	}
-	globalE2NodeID, err := asn1cgo.PerDecodeGlobalE2nodeID(nodeID.NodeIdentifier)
+
+	// TODO verify it decodes correctly
+	e2NodeID, err := GetE2NodeID(nodeID.NodeIdentifier, nodeID.NodeType)
 	if err != nil {
 		return nil, nil, err
 	}
-	log.Info("Global E2 Node ID:", globalE2NodeID, globalE2NodeID.GetGNb().GlobalGNbId.PlmnId.String())
-
-	// TODO decode it using E2AP utility functions when they are available
-	deviceID := topoapi.ID(strconv.FormatUint(binary.BigEndian.Uint64(nodeID.NodeIdentifier), 10))
 
 	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
 	var e2Cells []*topoapi.E2Cell
-	rfAccepted, rfRejected, err := e.processRANFunctions(ranFuncs, deviceID, serviceModels, &e2Cells)
+	rfAccepted, rfRejected, err := e.processRANFunctions(ranFuncs, e2NodeID, serviceModels, &e2Cells)
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
 	}
 
-	channelID, err := getChannelID(deviceID)
+	channelID, err := getChannelID(e2NodeID)
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
@@ -209,7 +205,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	e.e2Channel = NewE2Channel(channelID, e.serverChannel, e.subs)
 	e.manager.Open(channelID, e.e2Channel)
 
-	err = e.updateTopoObjects(deviceID, serviceModels, e2Cells, topoapi.ID(channelID))
+	err = e.updateTopoObjects(e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
