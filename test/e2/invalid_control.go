@@ -46,7 +46,7 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
 
 // TestInvalidControl tests invalid control requests
 func (s *TestSuite) TestInvalidControl(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "invalid-control")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "invalid-control")
 	nodeIDs, err := utils.GetNodeIDs()
 	assert.NoError(t, err)
 	nodeID := nodeIDs[0]

@@ -20,7 +20,7 @@ import (
 
 // TestSubscriptionKpmV1 tests e2 subscription and subscription delete procedures
 func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-kpm-v1")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v1")
 
 	e2Client := utils.GetE2Client(t, "subscription-kpm-v1-test")
 

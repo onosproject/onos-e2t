@@ -26,7 +26,7 @@ import (
 
 // TestSubscriptionOnChange tests E2 subscription on change using ransim, SDK
 func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-on-change")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-on-change")
 	assert.NotNil(t, sim)
 	ch := make(chan indication.Indication)
 	ctx := context.Background()

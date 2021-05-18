@@ -74,7 +74,7 @@ func checkSubscription(t *testing.T) sdksub.Context {
 // TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	// Start up a ran-sim instance
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-delete")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-delete")
 
 	//  Initially the subscription list should be empty
 	subList := e2utils.GetSubscriptionList(t)

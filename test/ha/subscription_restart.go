@@ -24,7 +24,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 	// Test currently does not work
 	t.Skip()
 
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-kpm-v1")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v1")
 	assert.NotNil(t, sim)
 
 	e2Client := utils.GetE2Client(t, "subscription-kpm-v1-test")
