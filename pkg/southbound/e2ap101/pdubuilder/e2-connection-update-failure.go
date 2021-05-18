@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
@@ -19,7 +20,7 @@ func CreateE2connectionUpdateFailureE2apPdu(failureProcCode v1beta2.ProcedureCod
 
 	//ToDo - Pass cause as a parameter
 	cause := e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes1{
-		Id:          int32(v1beta2.ProcedureCodeIDE2setup),
+		Id:          int32(v1beta2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_ies.Cause{
 			Cause: &e2ap_ies.Cause_Protocol{
@@ -79,6 +80,12 @@ func CreateE2connectionUpdateFailureE2apPdu(failureProcCode v1beta2.ProcedureCod
 								E2ApProtocolIes31: &timeToWait,             //E2 Connection Setup Failed List
 								E2ApProtocolIes2:  &criticalityDiagnostics, //E2 Connection Setup Failed List
 							},
+						},
+						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
+							Value: int32(v1beta2.ProcedureCodeIDE2connectionUpdate),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 						},
 					},
 				},

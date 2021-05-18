@@ -12,7 +12,6 @@ package asn1cgo
 //#include "TNLusage.h"
 import "C"
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -87,10 +86,4 @@ func decodeTnlusage(tnlusageC *C.TNLusage_t) (*e2ap_ies.Tnlusage, error) {
 	tnlusage := e2ap_ies.Tnlusage(int32(*tnlusageC))
 
 	return &tnlusage, nil
-}
-
-func decodeTnlusageBytes(array [8]byte) (*e2ap_ies.Tnlusage, error) { //ToDo - Check addressing correct structure in Protobuf
-	tnlusageC := (*C.TNLusage_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:]))))
-
-	return decodeTnlusage(tnlusageC)
 }

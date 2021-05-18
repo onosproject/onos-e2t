@@ -4,55 +4,60 @@
 
 package asn1cgo
 
-//
-//func createRicserviceQueryMsg() (*e2ap_pdu_contents.RicserviceQuery, error) {
-//
-//	// ricserviceQuery := pdubuilder.CreateRicserviceQuery() //ToDo - fill in arguments here(if this function exists
-//
-//	ricserviceQuery := e2ap_pdu_contents.RicserviceQuery{
-//		ProtocolIes: nil,
-//	}
-//
-//	if err := ricserviceQuery.Validate(); err != nil {
-//		return nil, fmt.Errorf("error validating RicserviceQuery %s", err.Error())
-//	}
-//	return &ricserviceQuery, nil
-//}
-//
-//func Test_xerEncodingRicserviceQuery(t *testing.T) {
-//
-//	ricserviceQuery, err := createRicserviceQueryMsg()
-//	assert.NilError(t, err, "Error creating RicserviceQuery PDU")
-//
-//	xer, err := xerEncodeRicserviceQuery(ricserviceQuery)
-//	assert.NilError(t, err)
-//	assert.Equal(t, 1, len(xer)) //ToDo - adjust length of the XER encoded message
-//	t.Logf("RicserviceQuery XER\n%s", string(xer))
-//
-//	result, err := xerDecodeRicserviceQuery(xer)
-//	assert.NilError(t, err)
-//	assert.Assert(t, result != nil)
-//	t.Logf("RicserviceQuery XER - decoded\n%v", result)
-//	//ToDo - adjust field's verification
-//	assert.Equal(t, ricserviceQuery.GetProtocolIes(), result.GetProtocolIes())
-//
-//}
-//
-//func Test_perEncodingRicserviceQuery(t *testing.T) {
-//
-//	ricserviceQuery, err := createRicserviceQueryMsg()
-//	assert.NilError(t, err, "Error creating RicserviceQuery PDU")
-//
-//	per, err := perEncodeRicserviceQuery(ricserviceQuery)
-//	assert.NilError(t, err)
-//	assert.Equal(t, 1, len(per)) // ToDo - adjust length of the PER encoded message
-//	t.Logf("RicserviceQuery PER\n%v", hex.Dump(per))
-//
-//	result, err := perDecodeRicserviceQuery(per)
-//	assert.NilError(t, err)
-//	assert.Assert(t, result != nil)
-//	t.Logf("RicserviceQuery PER - decoded\n%v", result)
-//	//ToDo - adjust field's verification
-//	assert.Equal(t, ricserviceQuery.GetProtocolIes(), result.GetProtocolIes())
-//
-//}
+import (
+	"encoding/hex"
+	"fmt"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
+	"gotest.tools/assert"
+	"testing"
+)
+
+func createRicServiceQueryMsg() (*e2ap_pdu_contents.RicserviceQuery, error) {
+
+	rsq, err := pdubuilder.CreateRicServiceQueryE2apPdu()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := rsq.Validate(); err != nil {
+		return nil, fmt.Errorf("error validating RicServiceQuery %s", err.Error())
+	}
+	return rsq.GetInitiatingMessage().GetProcedureCode().GetRicServiceQuery().GetInitiatingMessage(), nil
+}
+
+func Test_xerEncodingRicServiceQuery(t *testing.T) {
+
+	rsq, err := createRicServiceQueryMsg()
+	assert.NilError(t, err, "Error creating RicServiceUpdate PDU")
+
+	xer, err := xerEncodeRicServiceQuery(rsq)
+	assert.NilError(t, err)
+	assert.Equal(t, 828, len(xer))
+	t.Logf("RicServiceQuery XER\n%s", string(xer))
+
+	result, err := xerDecodeRicServiceQuery(xer)
+	assert.NilError(t, err)
+	assert.Assert(t, result != nil)
+	t.Logf("RicServiceQuery XER - decoded\n%v", result)
+	assert.Equal(t, rsq.GetProtocolIes().GetRicserviceQueryIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetRicserviceQueryIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionRevision().GetValue())
+	assert.Equal(t, rsq.GetProtocolIes().GetRicserviceQueryIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetRicserviceQueryIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue())
+}
+
+func Test_perEncodingRicServiceQuery(t *testing.T) {
+
+	rsq, err := createRicServiceQueryMsg()
+	assert.NilError(t, err, "Error creating RicServiceUpdate PDU")
+
+	per, err := perEncodeRicServiceQuery(rsq)
+	assert.NilError(t, err)
+	assert.Equal(t, 18, len(per))
+	t.Logf("RicServiceQuery PER\n%v", hex.Dump(per))
+
+	result, err := perDecodeRicServiceQuery(per)
+	assert.NilError(t, err)
+	assert.Assert(t, result != nil)
+	t.Logf("RicServiceQuery PER - decoded\n%v", result)
+	assert.Equal(t, rsq.GetProtocolIes().GetRicserviceQueryIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetRicserviceQueryIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionRevision().GetValue())
+	assert.Equal(t, rsq.GetProtocolIes().GetRicserviceQueryIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetRicserviceQueryIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue())
+}

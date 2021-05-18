@@ -4,55 +4,64 @@
 
 package asn1cgo
 
-//
-//func createRicserviceUpdateAcknowledgeMsg() (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
-//
-//	// ricserviceUpdateAcknowledge := pdubuilder.CreateRicserviceUpdateAcknowledge() //ToDo - fill in arguments here(if this function exists
-//
-//	ricserviceUpdateAcknowledge := e2ap_pdu_contents.RicserviceUpdateAcknowledge{
-//		ProtocolIes: nil,
-//	}
-//
-//	if err := ricserviceUpdateAcknowledge.Validate(); err != nil {
-//		return nil, fmt.Errorf("error validating RicserviceUpdateAcknowledge %s", err.Error())
-//	}
-//	return &ricserviceUpdateAcknowledge, nil
-//}
-//
-//func Test_xerEncodingRicserviceUpdateAcknowledge(t *testing.T) {
-//
-//	ricserviceUpdateAcknowledge, err := createRicserviceUpdateAcknowledgeMsg()
-//	assert.NilError(t, err, "Error creating RicserviceUpdateAcknowledge PDU")
-//
-//	xer, err := xerEncodeRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledge)
-//	assert.NilError(t, err)
-//	assert.Equal(t, 1, len(xer)) //ToDo - adjust length of the XER encoded message
-//	t.Logf("RicserviceUpdateAcknowledge XER\n%s", string(xer))
-//
-//	result, err := xerDecodeRicserviceUpdateAcknowledge(xer)
-//	assert.NilError(t, err)
-//	assert.Assert(t, result != nil)
-//	t.Logf("RicserviceUpdateAcknowledge XER - decoded\n%v", result)
-//	//ToDo - adjust field's verification
-//	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes(), result.GetProtocolIes())
-//
-//}
-//
-//func Test_perEncodingRicserviceUpdateAcknowledge(t *testing.T) {
-//
-//	ricserviceUpdateAcknowledge, err := createRicserviceUpdateAcknowledgeMsg()
-//	assert.NilError(t, err, "Error creating RicserviceUpdateAcknowledge PDU")
-//
-//	per, err := perEncodeRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledge)
-//	assert.NilError(t, err)
-//	assert.Equal(t, 1, len(per)) // ToDo - adjust length of the PER encoded message
-//	t.Logf("RicserviceUpdateAcknowledge PER\n%v", hex.Dump(per))
-//
-//	result, err := perDecodeRicserviceUpdateAcknowledge(per)
-//	assert.NilError(t, err)
-//	assert.Assert(t, result != nil)
-//	t.Logf("RicserviceUpdateAcknowledge PER - decoded\n%v", result)
-//	//ToDo - adjust field's verification
-//	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes(), result.GetProtocolIes())
-//
-//}
+import (
+	"encoding/hex"
+	"fmt"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
+	"gotest.tools/assert"
+	"testing"
+)
+
+func createRicServiceUpdateAcknowledgeMsg() (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
+
+	ricserviceUpdateAcknowledge, err := pdubuilder.CreateRicServiceUpdateAcknowledgeE2apPdu()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := ricserviceUpdateAcknowledge.Validate(); err != nil {
+		return nil, fmt.Errorf("error validating RicserviceUpdateAcknowledge %s", err.Error())
+	}
+	return ricserviceUpdateAcknowledge.GetSuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetSuccessfulOutcome(), nil
+}
+
+func Test_xerEncodingRicserviceUpdateAcknowledge(t *testing.T) {
+
+	ricserviceUpdateAcknowledge, err := createRicServiceUpdateAcknowledgeMsg()
+	assert.NilError(t, err, "Error creating RicServiceUpdateAcknowledge PDU")
+
+	xer, err := xerEncodeRicServiceUpdateAcknowledge(ricserviceUpdateAcknowledge)
+	assert.NilError(t, err)
+	assert.Equal(t, 1762, len(xer))
+	t.Logf("RicServiceUpdateAcknowledge XER\n%s", string(xer))
+
+	result, err := xerDecodeRicServiceUpdateAcknowledge(xer)
+	assert.NilError(t, err)
+	assert.Assert(t, result != nil)
+	t.Logf("RicServiceUpdateAcknowledge XER - decoded\n%v", result)
+	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionRevision().GetValue())
+	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue())
+	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()[0].GetRanFunctionIdcauseItemIes7().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()[0].GetRanFunctionIdcauseItemIes7().GetValue().GetRanFunctionId().GetValue())
+	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()[0].GetRanFunctionIdcauseItemIes7().GetValue().GetCause().GetRicService(), result.GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()[0].GetRanFunctionIdcauseItemIes7().GetValue().GetCause().GetRicService())
+}
+
+func Test_perEncodingRicServiceUpdateAcknowledge(t *testing.T) {
+
+	ricserviceUpdateAcknowledge, err := createRicServiceUpdateAcknowledgeMsg()
+	assert.NilError(t, err, "Error creating RicServiceUpdateAcknowledge PDU")
+
+	per, err := perEncodeRicServiceUpdateAcknowledge(ricserviceUpdateAcknowledge)
+	assert.NilError(t, err)
+	assert.Equal(t, 32, len(per))
+	t.Logf("RicServiceUpdateAcknowledge PER\n%v", hex.Dump(per))
+
+	result, err := perDecodeRicServiceUpdateAcknowledge(per)
+	assert.NilError(t, err)
+	assert.Assert(t, result != nil)
+	t.Logf("RicServiceUpdateAcknowledge PER - decoded\n%v", result)
+	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionRevision().GetValue())
+	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes9().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue())
+	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()[0].GetRanFunctionIdcauseItemIes7().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()[0].GetRanFunctionIdcauseItemIes7().GetValue().GetRanFunctionId().GetValue())
+	assert.Equal(t, ricserviceUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()[0].GetRanFunctionIdcauseItemIes7().GetValue().GetCause().GetRicService(), result.GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()[0].GetRanFunctionIdcauseItemIes7().GetValue().GetCause().GetRicService())
+}

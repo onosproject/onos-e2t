@@ -4,55 +4,83 @@
 
 package asn1cgo
 
-//
-//func createE2connectionUpdateFailureMsg() (*e2ap_pdu_contents.E2ConnectionUpdateFailure, error) {
-//
-//	// e2connectionUpdateFailure := pdubuilder.CreateE2connectionUpdateFailure() //ToDo - fill in arguments here(if this function exists
-//
-//	e2connectionUpdateFailure := e2ap_pdu_contents.E2ConnectionUpdateFailure{
-//		ProtocolIes: nil,
-//	}
-//
-//	if err := e2connectionUpdateFailure.Validate(); err != nil {
-//		return nil, fmt.Errorf("error validating E2connectionUpdateFailure %s", err.Error())
-//	}
-//	return &e2connectionUpdateFailure, nil
-//}
-//
-//func Test_xerEncodingE2connectionUpdateFailure(t *testing.T) {
-//
-//	e2connectionUpdateFailure, err := createE2connectionUpdateFailureMsg()
-//	assert.NilError(t, err, "Error creating E2connectionUpdateFailure PDU")
-//
-//	xer, err := xerEncodeE2connectionUpdateFailure(e2connectionUpdateFailure)
-//	assert.NilError(t, err)
-//	assert.Equal(t, 1, len(xer)) //ToDo - adjust length of the XER encoded message
-//	t.Logf("E2connectionUpdateFailure XER\n%s", string(xer))
-//
-//	result, err := xerDecodeE2connectionUpdateFailure(xer)
-//	assert.NilError(t, err)
-//	assert.Assert(t, result != nil)
-//	t.Logf("E2connectionUpdateFailure XER - decoded\n%v", result)
-//	//ToDo - adjust field's verification
-//	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes(), result.GetProtocolIes())
-//
-//}
-//
-//func Test_perEncodingE2connectionUpdateFailure(t *testing.T) {
-//
-//	e2connectionUpdateFailure, err := createE2connectionUpdateFailureMsg()
-//	assert.NilError(t, err, "Error creating E2connectionUpdateFailure PDU")
-//
-//	per, err := perEncodeE2connectionUpdateFailure(e2connectionUpdateFailure)
-//	assert.NilError(t, err)
-//	assert.Equal(t, 1, len(per)) // ToDo - adjust length of the PER encoded message
-//	t.Logf("E2connectionUpdateFailure PER\n%v", hex.Dump(per))
-//
-//	result, err := perDecodeE2connectionUpdateFailure(per)
-//	assert.NilError(t, err)
-//	assert.Assert(t, result != nil)
-//	t.Logf("E2connectionUpdateFailure PER - decoded\n%v", result)
-//	//ToDo - adjust field's verification
-//	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes(), result.GetProtocolIes())
-//
-//}
+import (
+	"encoding/hex"
+	"fmt"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"gotest.tools/assert"
+	"testing"
+)
+
+func createE2connectionUpdateFailureMsg() (*e2ap_pdu_contents.E2ConnectionUpdateFailure, error) {
+
+	e2connectionUpdateFailure, err := pdubuilder.CreateE2connectionUpdateFailureE2apPdu(
+		v1beta2.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
+		&types.RicRequest{
+			RequestorID: 10,
+			InstanceID:  20,
+		}, []*types.CritDiag{
+			{
+				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
+				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+				IEId:          v1beta2.ProtocolIeIDRicsubscriptionDetails,
+			},
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := e2connectionUpdateFailure.Validate(); err != nil {
+		return nil, fmt.Errorf("error validating E2connectionUpdateFailure %s", err.Error())
+	}
+	return e2connectionUpdateFailure.GetUnsuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetUnsuccessfulOutcome(), nil
+}
+
+func Test_xerEncodingE2connectionUpdateFailure(t *testing.T) {
+
+	e2connectionUpdateFailure, err := createE2connectionUpdateFailureMsg()
+	assert.NilError(t, err, "Error creating E2connectionUpdateFailure PDU")
+
+	xer, err := xerEncodeE2connectionUpdateFailure(e2connectionUpdateFailure)
+	assert.NilError(t, err)
+	assert.Equal(t, 1721, len(xer))
+	t.Logf("E2connectionUpdateFailure XER\n%s", string(xer))
+
+	result, err := xerDecodeE2connectionUpdateFailure(xer)
+	assert.NilError(t, err)
+	assert.Assert(t, result != nil)
+	t.Logf("E2connectionUpdateFailure XER - decoded\n%v", result)
+	//ToDo - adjust field's verification
+	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol(), result.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol())
+	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
+	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
+	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes31().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes31().GetValue())
+}
+
+func Test_perEncodingE2connectionUpdateFailure(t *testing.T) {
+
+	e2connectionUpdateFailure, err := createE2connectionUpdateFailureMsg()
+	assert.NilError(t, err, "Error creating E2connectionUpdateFailure PDU")
+
+	per, err := perEncodeE2connectionUpdateFailure(e2connectionUpdateFailure)
+	assert.NilError(t, err)
+	assert.Equal(t, 29, len(per))
+	t.Logf("E2connectionUpdateFailure PER\n%v", hex.Dump(per))
+
+	result, err := perDecodeE2connectionUpdateFailure(per)
+	assert.NilError(t, err)
+	assert.Assert(t, result != nil)
+	t.Logf("E2connectionUpdateFailure PER - decoded\n%v", result)
+	//ToDo - adjust field's verification
+	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol(), result.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol())
+	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
+	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
+	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes31().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes31().GetValue())
+}

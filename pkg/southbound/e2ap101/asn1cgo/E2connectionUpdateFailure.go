@@ -9,11 +9,10 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2connectionUpdateFailure.h" //ToDo - if there is an anonymous C-struct option, it would require linking additional C-struct file definition (the one above or before)
+//#include "E2connectionUpdateFailure.h"
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
@@ -67,40 +66,29 @@ func perDecodeE2connectionUpdateFailure(bytes []byte) (*e2ap_pdu_contents.E2Conn
 	return decodeE2connectionUpdateFailure((*C.E2connectionUpdateFailure_t)(unsafePtr))
 }
 
-func newE2connectionUpdateFailure(e2connectionUpdateFailure *e2ap_pdu_contents.E2ConnectionUpdateFailure) (*C.E2connectionUpdateFailure_t, error) {
+func newE2connectionUpdateFailure(e2cuf *e2ap_pdu_contents.E2ConnectionUpdateFailure) (*C.E2connectionUpdateFailure_t, error) {
 
-	//var err error
-	e2connectionUpdateFailureC := C.E2connectionUpdateFailure_t{}
-
-	//protocolIesC, err := newE2connectionUpdateFailureIes(e2connectionUpdateFailure.ProtocolIes)
-	//if err != nil {
-	//	return nil, fmt.Errorf("newE2connectionUpdateFailureIes() %s", err.Error())
-	//}
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	//e2connectionUpdateFailureC.protocolIEs = protocolIesC
-
-	return &e2connectionUpdateFailureC, nil
-}
-
-func decodeE2connectionUpdateFailure(e2connectionUpdateFailureC *C.E2connectionUpdateFailure_t) (*e2ap_pdu_contents.E2ConnectionUpdateFailure, error) {
-
-	//var err error
-	e2connectionUpdateFailure := e2ap_pdu_contents.E2ConnectionUpdateFailure{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//ProtocolIes: protocolIes,
+	pIeC1710P16, err := newE2connectionUpdateFailureIe(e2cuf.ProtocolIes)
+	if err != nil {
+		return nil, err
+	}
+	e2cufC := C.E2connectionUpdateFailure_t{
+		protocolIEs: *pIeC1710P16,
 	}
 
-	//e2connectionUpdateFailure.ProtocolIes, err = decodeE2connectionUpdateFailureIes(e2connectionUpdateFailureC.protocolIEs)
-	//if err != nil {
-	//	return nil, fmt.Errorf("decodeE2connectionUpdateFailureIes() %s", err.Error())
-	//}
-
-	return &e2connectionUpdateFailure, nil
+	return &e2cufC, nil
 }
 
-func decodeE2connectionUpdateFailureBytes(array [8]byte) (*e2ap_pdu_contents.E2ConnectionUpdateFailure, error) {
-	e2connectionUpdateFailureC := (*C.E2connectionUpdateFailure_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2connectionUpdateFailure(e2cufC *C.E2connectionUpdateFailure_t) (*e2ap_pdu_contents.E2ConnectionUpdateFailure, error) {
 
-	return decodeE2connectionUpdateFailure(e2connectionUpdateFailureC)
+	pIEs, err := decodeE2connectionUpdateFailureIes(&e2cufC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	e2cuf := e2ap_pdu_contents.E2ConnectionUpdateFailure{
+		ProtocolIes: pIEs,
+	}
+
+	return &e2cuf, nil
 }

@@ -10,7 +10,7 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "E2nodeComponentConfigUpdate-List.h"
-//#include "E2nodeComponentConfigUpdate-Item.h"
+//#include "ProtocolIE-SingleContainer.h"
 import "C"
 import (
 	"encoding/binary"
@@ -69,42 +69,52 @@ func perDecodeE2nodeComponentConfigUpdateList(bytes []byte) (*e2ap_pdu_contents.
 
 func newE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList *e2ap_pdu_contents.E2NodeComponentConfigUpdateList) (*C.E2nodeComponentConfigUpdate_List_t, error) {
 
-	e2nodeComponentConfigUpdateListC := C.E2nodeComponentConfigUpdate_List_t{}
-	//for _, ie := range e2nodeComponentConfigUpdateList.GetValue() {
-	//	ieC, err := newE2nodeComponentConfigUpdateItemIes(ie)
-	//	if err != nil {
-	//		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateItemIes() %s", err.Error())
-	//	}
-	//	if _, err = C.asn_sequence_add(unsafe.Pointer(e2nodeComponentConfigUpdateListC), unsafe.Pointer(ieC)); err != nil {
-	//		return nil, err
-	//	}
-	//}
+	e2nodeComponentConfigUpdateListC := new(C.E2nodeComponentConfigUpdate_List_t)
+	for _, ie := range e2nodeComponentConfigUpdateList.GetValue() {
+		ieC, err := newE2nodeConfigurationUpdateIesSingleContainer(ie)
+		if err != nil {
+			return nil, fmt.Errorf("newE2nodeConfigurationUpdateIesSingleContainer() %s", err.Error())
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(e2nodeComponentConfigUpdateListC), unsafe.Pointer(ieC)); err != nil {
+			return nil, err
+		}
+	}
 
-	return &e2nodeComponentConfigUpdateListC, nil
+	return e2nodeComponentConfigUpdateListC, nil
 }
 
 func decodeE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateListC *C.E2nodeComponentConfigUpdate_List_t) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
 
-	//var ieCount int
+	e2nodeComponentConfigUpdateList := e2ap_pdu_contents.E2NodeComponentConfigUpdateList{
+		Value: make([]*e2ap_pdu_contents.E2NodeComponentConfigUpdateItemIes, 0),
+	}
 
-	e2nodeComponentConfigUpdateList := e2ap_pdu_contents.E2NodeComponentConfigUpdateList{}
-
-	//ieCount = int(e2nodeComponentConfigUpdateListC.list.count)
-	//for i := 0; i < ieCount; i++ {
-	//	offset := unsafe.Sizeof(unsafe.Pointer(e2nodeComponentConfigUpdateListC.list.array)) * uintptr(i)
-	//	ieC := *(**C.E2nodeComponentConfigUpdate_Item_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2nodeComponentConfigUpdateListC.list.array)) + offset))
-	//	ie, err := decodeE2nodeComponentConfigUpdateItemIes(ieC)
-	//	if err != nil {
-	//		return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdateItemIes() %s", err.Error())
-	//	}
-	//	e2nodeComponentConfigUpdateList.Value = append(e2nodeComponentConfigUpdateList.Value, ie)
-	//}
+	ieCount := int(e2nodeComponentConfigUpdateListC.list.count)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(e2nodeComponentConfigUpdateListC.list.array)) * uintptr(i)
+		ieC := *(**C.ProtocolIE_SingleContainer_1713P6_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2nodeComponentConfigUpdateListC.list.array)) + offset))
+		ie, err := decodeE2nodeComponentConfigUpdateItemIesSingleContainer(ieC)
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdateItemIesSingleContainer() %s", err.Error())
+		}
+		e2nodeComponentConfigUpdateList.Value = append(e2nodeComponentConfigUpdateList.Value, ie)
+	}
 
 	return &e2nodeComponentConfigUpdateList, nil
 }
 
-func decodeE2nodeComponentConfigUpdateListBytes(array [8]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
-	e2nodeComponentConfigUpdateListC := (*C.E2nodeComponentConfigUpdate_List_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2nodeComponentConfigUpdateListBytes(e2ncculC [48]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
+	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2ncculC[0:8]))))
+	count := C.int(binary.LittleEndian.Uint32(e2ncculC[8:12]))
+	size := C.int(binary.LittleEndian.Uint32(e2ncculC[12:16]))
 
-	return decodeE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateListC)
+	rfIDlC := C.E2nodeComponentConfigUpdate_List_t{
+		list: C.struct___97{
+			array: array,
+			size:  size,
+			count: count,
+		},
+	}
+
+	return decodeE2nodeComponentConfigUpdateList(&rfIDlC)
 }

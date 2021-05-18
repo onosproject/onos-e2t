@@ -13,39 +13,38 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
 )
 
-func xerEncodeRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledge *e2ap_pdu_contents.RicserviceUpdateAcknowledge) ([]byte, error) {
-	ricserviceUpdateAcknowledgeCP, err := newRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledge)
+func xerEncodeRicServiceUpdateAcknowledge(rsua *e2ap_pdu_contents.RicserviceUpdateAcknowledge) ([]byte, error) {
+	rsuaCP, err := newRicServiceUpdateAcknowledge(rsua)
 	if err != nil {
-		return nil, fmt.Errorf("xerEncodeRicserviceUpdateAcknowledge() %s", err.Error())
+		return nil, fmt.Errorf("xerEncodeRicServiceUpdateAcknowledge() %s", err.Error())
 	}
 
-	bytes, err := encodeXer(&C.asn_DEF_RICserviceUpdateAcknowledge, unsafe.Pointer(ricserviceUpdateAcknowledgeCP))
+	bytes, err := encodeXer(&C.asn_DEF_RICserviceUpdateAcknowledge, unsafe.Pointer(rsuaCP))
 	if err != nil {
-		return nil, fmt.Errorf("xerEncodeRicserviceUpdateAcknowledge() %s", err.Error())
-	}
-	return bytes, nil
-}
-
-func perEncodeRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledge *e2ap_pdu_contents.RicserviceUpdateAcknowledge) ([]byte, error) {
-	ricserviceUpdateAcknowledgeCP, err := newRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledge)
-	if err != nil {
-		return nil, fmt.Errorf("perEncodeRicserviceUpdateAcknowledge() %s", err.Error())
-	}
-
-	bytes, err := encodePerBuffer(&C.asn_DEF_RICserviceUpdateAcknowledge, unsafe.Pointer(ricserviceUpdateAcknowledgeCP))
-	if err != nil {
-		return nil, fmt.Errorf("perEncodeRicserviceUpdateAcknowledge() %s", err.Error())
+		return nil, fmt.Errorf("xerEncodeRicServiceUpdateAcknowledge() %s", err.Error())
 	}
 	return bytes, nil
 }
 
-func xerDecodeRicserviceUpdateAcknowledge(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
+func perEncodeRicServiceUpdateAcknowledge(rsua *e2ap_pdu_contents.RicserviceUpdateAcknowledge) ([]byte, error) {
+	rsuaCP, err := newRicServiceUpdateAcknowledge(rsua)
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeRicServiceUpdateAcknowledge() %s", err.Error())
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_RICserviceUpdateAcknowledge, unsafe.Pointer(rsuaCP))
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeRicServiceUpdateAcknowledge() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func xerDecodeRicServiceUpdateAcknowledge(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
 	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_RICserviceUpdateAcknowledge)
 	if err != nil {
 		return nil, err
@@ -53,10 +52,10 @@ func xerDecodeRicserviceUpdateAcknowledge(bytes []byte) (*e2ap_pdu_contents.Rics
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
-	return decodeRicserviceUpdateAcknowledge((*C.RICserviceUpdateAcknowledge_t)(unsafePtr))
+	return decodeRicServiceUpdateAcknowledge((*C.RICserviceUpdateAcknowledge_t)(unsafePtr))
 }
 
-func perDecodeRicserviceUpdateAcknowledge(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
+func perDecodeRicServiceUpdateAcknowledge(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
 	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_RICserviceUpdateAcknowledge)
 	if err != nil {
 		return nil, err
@@ -64,43 +63,32 @@ func perDecodeRicserviceUpdateAcknowledge(bytes []byte) (*e2ap_pdu_contents.Rics
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from PER is nil")
 	}
-	return decodeRicserviceUpdateAcknowledge((*C.RICserviceUpdateAcknowledge_t)(unsafePtr))
+	return decodeRicServiceUpdateAcknowledge((*C.RICserviceUpdateAcknowledge_t)(unsafePtr))
 }
 
-func newRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledge *e2ap_pdu_contents.RicserviceUpdateAcknowledge) (*C.RICserviceUpdateAcknowledge_t, error) {
+func newRicServiceUpdateAcknowledge(rsua *e2ap_pdu_contents.RicserviceUpdateAcknowledge) (*C.RICserviceUpdateAcknowledge_t, error) {
 
-	//var err error
-	ricserviceUpdateAcknowledgeC := C.RICserviceUpdateAcknowledge_t{}
-
-	//protocolIesC, err := newRicserviceUpdateAcknowledgeIes(ricserviceUpdateAcknowledge.ProtocolIes)
-	//if err != nil {
-	//	return nil, fmt.Errorf("newRicserviceUpdateAcknowledgeIes() %s", err.Error())
-	//}
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	//ricserviceUpdateAcknowledgeC.protocolIEs = protocolIesC
-
-	return &ricserviceUpdateAcknowledgeC, nil
-}
-
-func decodeRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledgeC *C.RICserviceUpdateAcknowledge_t) (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
-
-	//var err error
-	ricserviceUpdateAcknowledge := e2ap_pdu_contents.RicserviceUpdateAcknowledge{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//ProtocolIes: protocolIes,
+	pIeC1710P23, err := newRicServiceUpdateAcknowledgeIe(rsua.ProtocolIes)
+	if err != nil {
+		return nil, err
+	}
+	rsuaC := C.RICserviceUpdateAcknowledge_t{
+		protocolIEs: *pIeC1710P23,
 	}
 
-	//ricserviceUpdateAcknowledge.ProtocolIes, err = decodeRicserviceUpdateAcknowledgeIes(ricserviceUpdateAcknowledgeC.protocolIEs)
-	//if err != nil {
-	//	return nil, fmt.Errorf("decodeRicserviceUpdateAcknowledgeIes() %s", err.Error())
-	//}
-
-	return &ricserviceUpdateAcknowledge, nil
+	return &rsuaC, nil
 }
 
-func decodeRicserviceUpdateAcknowledgeBytes(array [8]byte) (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
-	ricserviceUpdateAcknowledgeC := (*C.RICserviceUpdateAcknowledge_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeRicServiceUpdateAcknowledge(rsuaC *C.RICserviceUpdateAcknowledge_t) (*e2ap_pdu_contents.RicserviceUpdateAcknowledge, error) {
 
-	return decodeRicserviceUpdateAcknowledge(ricserviceUpdateAcknowledgeC)
+	pIEs, err := decodeRicServiceUpdateAcknowledgeIes(&rsuaC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	rsua := e2ap_pdu_contents.RicserviceUpdateAcknowledge{
+		ProtocolIes: pIEs,
+	}
+
+	return &rsua, nil
 }

@@ -51,7 +51,15 @@ func TestRicSubscriptionFailure(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionDeleteFailure E2AP PDU XER\n%s", string(xer))
 
+	result, err := asn1cgo.XerDecodeE2apPdu(xer)
+	assert.NilError(t, err)
+	t.Logf("RicSubscriptionDeleteFailure E2AP PDU XER - decoded\n%v\n", result)
+
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionDeleteFailure E2AP PDU PER\n%v", per)
+
+	result1, err := asn1cgo.PerDecodeE2apPdu(per)
+	assert.NilError(t, err)
+	t.Logf("RicSubscriptionDeleteFailure E2AP PDU PER - decoded\n%v\n", result1)
 }

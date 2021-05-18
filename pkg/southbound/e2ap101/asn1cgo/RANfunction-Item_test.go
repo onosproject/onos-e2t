@@ -19,7 +19,7 @@ func createRanFunctionItem() (*e2appducontents.RanfunctionItem, error) {
 	ranFunctionList[200] = types.RanFunctionItem{
 		Description: []byte("Type 2"),
 		Revision:    2,
-		//OID:         []byte("oid2"),
+		OID:         []byte("oid2"),
 	}
 
 	newE2apPdu, err := pdubuilder.CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, ranFunctionList)

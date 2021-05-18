@@ -9,11 +9,10 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2nodeConfigurationUpdate.h" //ToDo - if there is an anonymous C-struct option, it would require linking additional C-struct file definition (the one above or before)
+//#include "E2nodeConfigurationUpdate.h"
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
@@ -67,40 +66,29 @@ func perDecodeE2nodeConfigurationUpdate(bytes []byte) (*e2ap_pdu_contents.E2Node
 	return decodeE2nodeConfigurationUpdate((*C.E2nodeConfigurationUpdate_t)(unsafePtr))
 }
 
-func newE2nodeConfigurationUpdate(e2nodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdate) (*C.E2nodeConfigurationUpdate_t, error) {
+func newE2nodeConfigurationUpdate(e2cu *e2ap_pdu_contents.E2NodeConfigurationUpdate) (*C.E2nodeConfigurationUpdate_t, error) {
 
-	//var err error
-	e2nodeConfigurationUpdateC := C.E2nodeConfigurationUpdate_t{}
-
-	//protocolIesC, err := newE2nodeConfigurationUpdateIes(e2nodeConfigurationUpdate.ProtocolIes)
-	//if err != nil {
-	//	return nil, fmt.Errorf("newE2nodeConfigurationUpdateIes() %s", err.Error())
-	//}
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	//e2nodeConfigurationUpdateC.protocolIEs = protocolIesC
-
-	return &e2nodeConfigurationUpdateC, nil
-}
-
-func decodeE2nodeConfigurationUpdate(e2nodeConfigurationUpdateC *C.E2nodeConfigurationUpdate_t) (*e2ap_pdu_contents.E2NodeConfigurationUpdate, error) {
-
-	//var err error
-	e2nodeConfigurationUpdate := e2ap_pdu_contents.E2NodeConfigurationUpdate{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//ProtocolIes: protocolIes,
+	pIeC1710P17, err := newE2nodeConfigurationUpdateIe(e2cu.ProtocolIes)
+	if err != nil {
+		return nil, err
+	}
+	e2cuC := C.E2nodeConfigurationUpdate_t{
+		protocolIEs: *pIeC1710P17,
 	}
 
-	//e2nodeConfigurationUpdate.ProtocolIes, err = decodeE2nodeConfigurationUpdateIes(e2nodeConfigurationUpdateC.protocolIEs)
-	//if err != nil {
-	//	return nil, fmt.Errorf("decodeE2nodeConfigurationUpdateIes() %s", err.Error())
-	//}
-
-	return &e2nodeConfigurationUpdate, nil
+	return &e2cuC, nil
 }
 
-func decodeE2nodeConfigurationUpdateBytes(array [8]byte) (*e2ap_pdu_contents.E2NodeConfigurationUpdate, error) {
-	e2nodeConfigurationUpdateC := (*C.E2nodeConfigurationUpdate_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2nodeConfigurationUpdate(e2cuC *C.E2nodeConfigurationUpdate_t) (*e2ap_pdu_contents.E2NodeConfigurationUpdate, error) {
 
-	return decodeE2nodeConfigurationUpdate(e2nodeConfigurationUpdateC)
+	pIEs, err := decodeE2nodeConfigurationUpdateIes(&e2cuC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	e2cu := e2ap_pdu_contents.E2NodeConfigurationUpdate{
+		ProtocolIes: pIEs,
+	}
+
+	return &e2cu, nil
 }

@@ -92,11 +92,7 @@ func newE2connectionSetupFailedItem(e2connectionSetupFailedItem *e2ap_pdu_conten
 func decodeE2connectionSetupFailedItem(e2connectionSetupFailedItemC *C.E2connectionSetupFailed_Item_t) (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
 
 	var err error
-	e2connectionSetupFailedItem := e2ap_pdu_contents.E2ConnectionSetupFailedItem{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//TnlInformation: tnlInformation,
-		//Cause: cause,
-	}
+	e2connectionSetupFailedItem := e2ap_pdu_contents.E2ConnectionSetupFailedItem{}
 
 	e2connectionSetupFailedItem.TnlInformation, err = decodeTnlinformation(&e2connectionSetupFailedItemC.tnlInformation)
 	if err != nil {
@@ -111,8 +107,28 @@ func decodeE2connectionSetupFailedItem(e2connectionSetupFailedItemC *C.E2connect
 	return &e2connectionSetupFailedItem, nil
 }
 
-func decodeE2connectionSetupFailedItemBytes(array [8]byte) (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
-	e2connectionSetupFailedItemC := (*C.E2connectionSetupFailed_Item_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2connectionSetupFailedItemBytes(array [144]byte) (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
 
-	return decodeE2connectionSetupFailedItem(e2connectionSetupFailedItemC)
+	tnlAddrsize := binary.LittleEndian.Uint64(array[8:16])
+	tnlAddrbitsUnused := int(binary.LittleEndian.Uint32(array[16:20]))
+	tnlAddrbytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[:8]))), C.int(tnlAddrsize))
+
+		tnlPortPtrC := (*C.BIT_STRING_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[48:56]))))
+
+	e2csfItemC := C.E2connectionSetupFailed_Item_t{
+		tnlInformation: C.TNLinformation_t{
+			tnlAddress: C.BIT_STRING_t{
+				buf:         (*C.uchar)(C.CBytes(tnlAddrbytes)),
+				size:        C.ulong(tnlAddrsize),
+				bits_unused: C.int(tnlAddrbitsUnused),
+			},
+			tnlPort: tnlPortPtrC,
+		},
+		cause: C.Cause_t{
+			present: C.Cause_PR(binary.LittleEndian.Uint64(array[80:])),
+		},
+	}
+	copy(e2csfItemC.cause.choice[:], array[88:96])
+
+	return decodeE2connectionSetupFailedItem(&e2csfItemC)
 }

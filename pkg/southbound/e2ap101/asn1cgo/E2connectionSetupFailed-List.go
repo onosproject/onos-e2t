@@ -9,8 +9,8 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2connectionSetupFailed-List.h" //ToDo - if there is an anonymous C-struct option, it would require linking additional C-struct file definition (the one above or before)
-//#include "E2connectionSetupFailed-Item.h" //ToDo - include correct .h file for corresponding C-struct of "Repeated" field or other anonymous structure defined in .h file
+//#include "E2connectionSetupFailed-List.h"
+//#include "ProtocolIE-SingleContainer.h"
 import "C"
 import (
 	"encoding/binary"
@@ -69,42 +69,52 @@ func perDecodeE2connectionSetupFailedList(bytes []byte) (*e2ap_pdu_contents.E2Co
 
 func newE2connectionSetupFailedList(e2connectionSetupFailedList *e2ap_pdu_contents.E2ConnectionSetupFailedList) (*C.E2connectionSetupFailed_List_t, error) {
 
-	e2connectionSetupFailedListC := C.E2connectionSetupFailed_List_t{}
-	//for _, ie := range e2connectionSetupFailedList.GetValue() {
-	//	ieC, err := newE2connectionSetupFailedItemIes(ie)
-	//	if err != nil {
-	//		return nil, fmt.Errorf("newE2connectionSetupFailedItemIes() %s", err.Error())
-	//	}
-	//	if _, err = C.asn_sequence_add(unsafe.Pointer(e2connectionSetupFailedListC), unsafe.Pointer(ieC)); err != nil {
-	//		return nil, err
-	//	}
-	//}
+	e2connectionSetupFailedListC := new(C.E2connectionSetupFailed_List_t)
+	for _, ie := range e2connectionSetupFailedList.GetValue() {
+		ieC, err := newE2connectionSetupFailedIesSingleContainer(ie)
+		if err != nil {
+			return nil, fmt.Errorf("newE2connectionSetupFailedIesSingleContainer() %s", err.Error())
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(e2connectionSetupFailedListC), unsafe.Pointer(ieC)); err != nil {
+			return nil, err
+		}
+	}
 
-	return &e2connectionSetupFailedListC, nil
+	return e2connectionSetupFailedListC, nil
 }
 
 func decodeE2connectionSetupFailedList(e2connectionSetupFailedListC *C.E2connectionSetupFailed_List_t) (*e2ap_pdu_contents.E2ConnectionSetupFailedList, error) {
 
-	//var ieCount int
+	e2connectionSetupFailedList := e2ap_pdu_contents.E2ConnectionSetupFailedList{
+		Value: make([]*e2ap_pdu_contents.E2ConnectionSetupFailedItemIes, 0),
+	}
 
-	e2connectionSetupFailedList := e2ap_pdu_contents.E2ConnectionSetupFailedList{}
-
-	//ieCount = int(e2connectionSetupFailedListC.list.count)
-	//for i := 0; i < ieCount; i++ {
-	//	offset := unsafe.Sizeof(unsafe.Pointer(e2connectionSetupFailedListC.list.array)) * uintptr(i)
-	//	ieC := *(**C.E2connectionSetupFailed_Item_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2connectionSetupFailedListC.list.array)) + offset))
-	//	ie, err := decodeE2connectionSetupFailedItemIes(ieC)
-	//	if err != nil {
-	//		return nil, fmt.Errorf("decodeE2connectionSetupFailedItemIes() %s", err.Error())
-	//	}
-	//	e2connectionSetupFailedList.Value = append(e2connectionSetupFailedList.Value, ie)
-	//}
+	ieCount := int(e2connectionSetupFailedListC.list.count)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(e2connectionSetupFailedListC.list.array)) * uintptr(i)
+		ieC := *(**C.ProtocolIE_SingleContainer_1713P5_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2connectionSetupFailedListC.list.array)) + offset))
+		ie, err := decodeE2connectionSetupFailedItemIesSingleContainer(ieC)
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2connectionSetupFailedItemIesSingleContainer() %s", err.Error())
+		}
+		e2connectionSetupFailedList.Value = append(e2connectionSetupFailedList.Value, ie)
+	}
 
 	return &e2connectionSetupFailedList, nil
 }
 
-func decodeE2connectionSetupFailedListBytes(array [8]byte) (*e2ap_pdu_contents.E2ConnectionSetupFailedList, error) {
-	e2connectionSetupFailedListC := (*C.E2connectionSetupFailed_List_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2connectionSetupFailedListBytes(e2cuflC [48]byte) (*e2ap_pdu_contents.E2ConnectionSetupFailedList, error) {
+	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2cuflC[0:8]))))
+	count := C.int(binary.LittleEndian.Uint32(e2cuflC[8:12]))
+	size := C.int(binary.LittleEndian.Uint32(e2cuflC[12:16]))
 
-	return decodeE2connectionSetupFailedList(e2connectionSetupFailedListC)
+	e2csflC := C.E2connectionSetupFailed_List_t{
+		list: C.struct___141{
+			array: array,
+			size:  size,
+			count: count,
+		},
+	}
+
+	return decodeE2connectionSetupFailedList(&e2csflC)
 }

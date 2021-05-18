@@ -4,9 +4,12 @@
 package pdubuilder
 
 import (
+	"encoding/hex"
+	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
 	"testing"
@@ -35,12 +38,21 @@ func TestE2SetupFailure(t *testing.T) {
 	)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	fmt.Printf("TimeToWait is \n%v\n", newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2Setup().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes31())
 
-	//xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("ErrorIndication E2AP PDU XER\n%s", string(xer))
-	//
-	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("ErrorIndication E2AP PDU PER\n%v", per)
+	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
+	assert.NilError(t, err)
+	t.Logf("ErrorIndication E2AP PDU XER\n%s", string(xer))
+
+	result, err := asn1cgo.XerDecodeE2apPdu(xer)
+	assert.NilError(t, err)
+	t.Logf("ErrorIndication E2AP PDU XER - decoded\n%v", result)
+
+	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	assert.NilError(t, err)
+	t.Logf("ErrorIndication E2AP PDU PER\n%v", hex.Dump(per))
+
+	result1, err := asn1cgo.PerDecodeE2apPdu(per)
+	assert.NilError(t, err)
+	t.Logf("ErrorIndication E2AP PDU PER - decoded\n%v", result1)
 }

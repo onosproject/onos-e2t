@@ -12,8 +12,10 @@ package asn1cgo
 //#include "GlobalE2node-eNB-ID.h"
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	"unsafe"
 )
 
 func newGlobalE2nodeeNBID(enbID *e2apies.GlobalE2NodeEnbId) (*C.GlobalE2node_eNB_ID_t, error) {
@@ -39,4 +41,10 @@ func decodeGlobalE2nodeeNBID(eNBC *C.GlobalE2node_eNB_ID_t) (*e2apies.GlobalE2No
 	}
 
 	return result, nil
+}
+
+func decodeGlobalE2nodeeNBIDBytes(array [8]byte) (*e2apies.GlobalE2NodeEnbId, error) {
+	gNBC := (*C.GlobalE2node_eNB_ID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+
+	return decodeGlobalE2nodeeNBID(gNBC)
 }

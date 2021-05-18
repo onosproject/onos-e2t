@@ -13,32 +13,31 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
 )
 
-func xerEncodeResetResponse(resetResponse *e2ap_pdu_contents.ResetResponse) ([]byte, error) {
-	resetResponseCP, err := newResetResponse(resetResponse)
+func xerEncodeResetResponse(rr *e2ap_pdu_contents.ResetResponse) ([]byte, error) {
+	rrCP, err := newResetResponse(rr)
 	if err != nil {
 		return nil, fmt.Errorf("xerEncodeResetResponse() %s", err.Error())
 	}
 
-	bytes, err := encodeXer(&C.asn_DEF_ResetResponse, unsafe.Pointer(resetResponseCP))
+	bytes, err := encodeXer(&C.asn_DEF_ResetResponse, unsafe.Pointer(rrCP))
 	if err != nil {
 		return nil, fmt.Errorf("xerEncodeResetResponse() %s", err.Error())
 	}
 	return bytes, nil
 }
 
-func perEncodeResetResponse(resetResponse *e2ap_pdu_contents.ResetResponse) ([]byte, error) {
-	resetResponseCP, err := newResetResponse(resetResponse)
+func perEncodeResetResponse(rr *e2ap_pdu_contents.ResetResponse) ([]byte, error) {
+	rrCP, err := newResetResponse(rr)
 	if err != nil {
 		return nil, fmt.Errorf("perEncodeResetResponse() %s", err.Error())
 	}
 
-	bytes, err := encodePerBuffer(&C.asn_DEF_ResetResponse, unsafe.Pointer(resetResponseCP))
+	bytes, err := encodePerBuffer(&C.asn_DEF_ResetResponse, unsafe.Pointer(rrCP))
 	if err != nil {
 		return nil, fmt.Errorf("perEncodeResetResponse() %s", err.Error())
 	}
@@ -67,41 +66,29 @@ func perDecodeResetResponse(bytes []byte) (*e2ap_pdu_contents.ResetResponse, err
 	return decodeResetResponse((*C.ResetResponse_t)(unsafePtr))
 }
 
-func newResetResponse(resetResponse *e2ap_pdu_contents.ResetResponse) (*C.ResetResponse_t, error) {
+func newResetResponse(rr *e2ap_pdu_contents.ResetResponse) (*C.ResetResponse_t, error) {
 
-	//var err error
-	resetResponseC := C.ResetResponse_t{}
-
-	//protocolIesC, err := newResetResponseIes(resetResponse.ProtocolIes)
-	//if err != nil {
-	//	return nil, fmt.Errorf("newResetResponseIes() %s", err.Error())
-	//}
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	//resetResponseC.protocolIEs = protocolIesC
-
-	return &resetResponseC, nil
-}
-
-func decodeResetResponse(resetResponseC *C.ResetResponse_t) (*e2ap_pdu_contents.ResetResponse, error) {
-
-	//var err error
-	resetResponse := e2ap_pdu_contents.ResetResponse{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//ProtocolIes: protocolIes,
-
+	pIeC1710P21, err := newResetResponseIe(rr.ProtocolIes)
+	if err != nil {
+		return nil, err
+	}
+	rrC := C.ResetResponse_t{
+		protocolIEs: *pIeC1710P21,
 	}
 
-	//resetResponse.ProtocolIes, err = decodeResetResponseIes(resetResponseC.protocolIEs)
-	//if err != nil {
-	//	return nil, fmt.Errorf("decodeResetResponseIes() %s", err.Error())
-	//}
-
-	return &resetResponse, nil
+	return &rrC, nil
 }
 
-func decodeResetResponseBytes(array [8]byte) (*e2ap_pdu_contents.ResetResponse, error) {
-	resetResponseC := (*C.ResetResponse_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeResetResponse(rrC *C.ResetResponse_t) (*e2ap_pdu_contents.ResetResponse, error) {
 
-	return decodeResetResponse(resetResponseC)
+	pIEs, err := decodeResetResponseIes(&rrC.protocolIEs)
+	if err != nil {
+		return nil, err
+	}
+
+	rr := e2ap_pdu_contents.ResetResponse{
+		ProtocolIes: pIEs,
+	}
+
+	return &rr, nil
 }

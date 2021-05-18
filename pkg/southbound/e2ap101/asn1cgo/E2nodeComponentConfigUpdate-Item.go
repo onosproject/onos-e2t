@@ -98,12 +98,7 @@ func newE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItem *e2ap_pd
 func decodeE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItemC *C.E2nodeComponentConfigUpdate_Item_t) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateItem, error) {
 
 	var err error
-	e2nodeComponentConfigUpdateItem := e2ap_pdu_contents.E2NodeComponentConfigUpdateItem{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//E2nodeComponentType: e2nodeComponentType,
-		//E2nodeComponentId: e2nodeComponentId,
-		//E2nodeComponentConfigUpdate: e2nodeComponentConfigUpdate,
-	}
+	e2nodeComponentConfigUpdateItem := e2ap_pdu_contents.E2NodeComponentConfigUpdateItem{}
 
 	componentType, err := decodeE2nodeComponentType(&e2nodeComponentConfigUpdateItemC.e2nodeComponentType)
 	if err != nil {
@@ -124,8 +119,18 @@ func decodeE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItemC *C.E
 	return &e2nodeComponentConfigUpdateItem, nil
 }
 
-func decodeE2nodeComponentConfigUpdateItemBytes(array [8]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateItem, error) {
-	e2nodeComponentConfigUpdateItemC := (*C.E2nodeComponentConfigUpdate_Item_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2nodeComponentConfigUpdateItemBytes(bytes [80]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateItem, error) {
 
-	return decodeE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItemC)
+	e2nccuC := C.E2nodeComponentConfigUpdate_t{
+		present: C.E2nodeComponentConfigUpdate_PR(binary.LittleEndian.Uint64(bytes[16:24])),
+	}
+	copy(e2nccuC.choice[:8], bytes[24:32])
+
+	e2nodeComponentConfigUpdateItemC := C.E2nodeComponentConfigUpdate_Item_t{
+		e2nodeComponentType:         C.long(binary.LittleEndian.Uint64(bytes[0:8])),
+		e2nodeComponentID:           (*C.struct_E2nodeComponentID)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16])))),
+		e2nodeComponentConfigUpdate: e2nccuC,
+	}
+
+	return decodeE2nodeComponentConfigUpdateItem(&e2nodeComponentConfigUpdateItemC)
 }

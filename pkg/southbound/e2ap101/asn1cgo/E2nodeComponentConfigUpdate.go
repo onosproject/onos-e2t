@@ -160,9 +160,3 @@ func decodeE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdateC *C.E2nodeCom
 
 	return e2nodeComponentConfigUpdate, nil
 }
-
-func decodeE2nodeComponentConfigUpdateBytes(array [8]byte) (*e2ap_ies.E2NodeComponentConfigUpdate, error) {
-	e2nodeComponentConfigUpdateC := (*C.E2nodeComponentConfigUpdate_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdateC)
-}

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
@@ -25,7 +26,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu,
 
 	csi := &e2appducontents.E2ConnectionUpdateItemIes{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2appducontents.E2ConnectionUpdateItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{
 				TnlPort: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
@@ -37,8 +38,9 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu,
 					Len:   64,
 				},
 			},
+			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH,
 		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 	connectionSetup.ConnectionSetup.Value = append(connectionSetup.ConnectionSetup.Value, csi)
 
@@ -85,6 +87,12 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu,
 								E2ApProtocolIes39: &connectionSetup,       //E2 Connection Setup List
 								E2ApProtocolIes40: &connectionSetupFailed, //E2 Connection Setup Failed List
 							},
+						},
+						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
+							Value: int32(v1beta2.ProcedureCodeIDE2connectionUpdate),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 						},
 					},
 				},

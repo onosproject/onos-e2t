@@ -12,7 +12,6 @@ package asn1cgo
 //#include "CauseMisc.h"
 import "C"
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -90,10 +89,4 @@ func decodeCauseMisc(causeMiscC *C.CauseMisc_t) (*e2ap_ies.CauseMisc, error) {
 	causeMisc := e2ap_ies.CauseMisc(int32(*causeMiscC))
 
 	return &causeMisc, nil
-}
-
-func decodeCauseMiscBytes(array [8]byte) (*e2ap_ies.CauseMisc, error) { //ToDo - Check addressing correct structure in Protobuf
-	causeMiscC := (*C.CauseMisc_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:]))))
-
-	return decodeCauseMisc(causeMiscC)
 }

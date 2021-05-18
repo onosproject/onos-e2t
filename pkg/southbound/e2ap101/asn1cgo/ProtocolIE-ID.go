@@ -82,6 +82,34 @@ func protocolIeIDToC(pcIeID v1beta2.ProtocolIeID) (C.ProtocolIE_ID_t, error) {
 		return C.ProtocolIE_ID_id_TimeToWait, nil
 	case v1beta2.ProtocolIeIDRiccontrolOutcome:
 		return C.ProtocolIE_ID_id_RICcontrolOutcome, nil
+	case v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigUpdate, nil
+	case v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateItem:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigUpdate_Item, nil
+	case v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigUpdateAck, nil
+	case v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigUpdateAck_Item, nil
+	case v1beta2.ProtocolIeIDE2connectionSetup:
+		return C.ProtocolIE_ID_id_E2connectionSetup, nil
+	case v1beta2.ProtocolIeIDE2connectionSetupFailed:
+		return C.ProtocolIE_ID_id_E2connectionSetupFailed, nil
+	case v1beta2.ProtocolIeIDE2connectionSetupFailedItem:
+		return C.ProtocolIE_ID_id_E2connectionSetupFailed_Item, nil
+	case v1beta2.ProtocolIeIDE2connectionFailedItem:
+		return C.ProtocolIE_ID_id_E2connectionFailed_Item, nil
+	case v1beta2.ProtocolIeIDE2connectionUpdateItem:
+		return C.ProtocolIE_ID_id_E2connectionUpdate_Item, nil
+	case v1beta2.ProtocolIeIDE2connectionUpdateAdd:
+		return C.ProtocolIE_ID_id_E2connectionUpdateAdd, nil
+	case v1beta2.ProtocolIeIDE2connectionUpdateModify:
+		return C.ProtocolIE_ID_id_E2connectionUpdateModify, nil
+	case v1beta2.ProtocolIeIDE2connectionUpdateRemove:
+		return C.ProtocolIE_ID_id_E2connectionUpdateRemove, nil
+	case v1beta2.ProtocolIeIDE2connectionUpdateRemoveItem:
+		return C.ProtocolIE_ID_id_E2connectionUpdateRemove_Item, nil
+	case v1beta2.ProtocolIeIDTNLinformation:
+		return C.ProtocolIE_ID_id_TNLinformation, nil
 	default:
 		return C.ProtocolIE_ID_t(-1), fmt.Errorf("unexpected value for ProtocolIE_IDT %v", pcIeID)
 	}

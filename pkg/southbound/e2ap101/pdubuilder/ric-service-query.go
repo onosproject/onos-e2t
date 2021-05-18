@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
@@ -15,7 +16,7 @@ import (
 func CreateRicServiceQueryE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 
 	ranFunctionsAccepted := e2appducontents.RicserviceQueryIes_RicserviceQueryIes9{
-		Id:          int32(v1beta2.ProcedureCodeIDRICsubscriptionDelete),
+		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
@@ -49,6 +50,12 @@ func CreateRicServiceQueryE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 							ProtocolIes: &e2appducontents.RicserviceQueryIes{
 								RicserviceQueryIes9: &ranFunctionsAccepted, //RAN functions Accepted List
 							},
+						},
+						ProcedureCode: &e2ap_constants.IdRicserviceQuery{
+							Value: int32(v1beta2.ProcedureCodeIDRICserviceQuery),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityIgnore{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 						},
 					},
 				},

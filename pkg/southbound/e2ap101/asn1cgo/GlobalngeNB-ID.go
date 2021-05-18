@@ -13,7 +13,6 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -82,7 +81,6 @@ func newGlobalngeNbID(globalngeNbID *e2ap_ies.GlobalngeNbId) (*C.GlobalngeNB_ID_
 		return nil, fmt.Errorf("newEnbIDChoice() %s", err.Error())
 	}
 
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
 	globalngeNbIDC.plmn_id = *plmnIDC
 	globalngeNbIDC.enb_id = *enbIDC
 
@@ -92,12 +90,7 @@ func newGlobalngeNbID(globalngeNbID *e2ap_ies.GlobalngeNbId) (*C.GlobalngeNB_ID_
 func decodeGlobalngeNbID(globalngeNbIDC *C.GlobalngeNB_ID_t) (*e2ap_ies.GlobalngeNbId, error) {
 
 	var err error
-	globalngeNbID := e2ap_ies.GlobalngeNbId{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//PlmnId: plmnId,
-		//EnbId: enbId,
-
-	}
+	globalngeNbID := e2ap_ies.GlobalngeNbId{}
 
 	globalngeNbID.PlmnId, err = decodePlmnIdentity(&globalngeNbIDC.plmn_id)
 	if err != nil {
@@ -110,10 +103,4 @@ func decodeGlobalngeNbID(globalngeNbIDC *C.GlobalngeNB_ID_t) (*e2ap_ies.Globalng
 	}
 
 	return &globalngeNbID, nil
-}
-
-func decodeGlobalngeNbIDBytes(array [8]byte) (*e2ap_ies.GlobalngeNbId, error) {
-	globalngeNbIDC := (*C.GlobalngeNB_ID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeGlobalngeNbID(globalngeNbIDC)
 }

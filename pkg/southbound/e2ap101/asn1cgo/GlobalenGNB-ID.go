@@ -13,7 +13,6 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
@@ -108,10 +107,4 @@ func decodeGlobalenGnbID(globalenGnbIDC *C.GlobalenGNB_ID_t) (*e2ap_ies.Globalen
 	}
 
 	return &globalenGnbID, nil
-}
-
-func decodeGlobalenGnbIDBytes(array [8]byte) (*e2ap_ies.GlobalenGnbId, error) {
-	globalenGnbIDC := (*C.GlobalenGNB_ID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeGlobalenGnbID(globalenGnbIDC)
 }
