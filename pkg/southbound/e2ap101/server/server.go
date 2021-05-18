@@ -21,6 +21,7 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -182,6 +183,11 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	if err != nil {
 		return nil, nil, err
 	}
+	globalE2NodeID, err := asn1cgo.PerDecodeGlobalE2nodeID(nodeID.NodeIdentifier)
+	if err != nil {
+		return nil, nil, err
+	}
+	log.Info("Global E2 Node ID:", globalE2NodeID, globalE2NodeID.GetGNb().GlobalGNbId.PlmnId.String())
 
 	// TODO decode it using E2AP utility functions when they are available
 	deviceID := topoapi.ID(strconv.FormatUint(binary.BigEndian.Uint64(nodeID.NodeIdentifier), 10))
