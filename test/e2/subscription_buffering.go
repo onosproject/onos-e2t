@@ -27,7 +27,7 @@ import (
 
 // TestSubscriptionIndicationBuffering tests E2 indication buffering
 func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-indication-buffering")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-indication-buffering")
 	assert.NotNil(t, sim)
 	ctx := context.Background()
 

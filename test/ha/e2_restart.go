@@ -56,7 +56,7 @@ func FindPodWithPrefix(t *testing.T, prefix string) *v1.Pod {
 // TestE2NodeRestart :
 func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "e2node-restart")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-restart")
 	assert.NotNil(t, sim)
 
 	e2Client := utils.GetE2Client(t, "e2node-restart-test")

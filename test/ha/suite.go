@@ -13,10 +13,12 @@ import (
 // TestSuite is the primary onos-e2t test suite
 type TestSuite struct {
 	test.Suite
+	c *input.Context
 }
 
 // SetupTestSuite sets up the onos-e2t test suite
 func (s *TestSuite) SetupTestSuite(c *input.Context) error {
+	s.c = c
 	sdran, err := utils.CreateSdranRelease(c)
 	if err != nil {
 		return err

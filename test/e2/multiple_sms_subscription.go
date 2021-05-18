@@ -21,7 +21,7 @@ import (
 
 // TestMultipleSmSubscription tests multiple subscription to different service models
 func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "multi-sm-subscription")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-sm-subscription")
 	done := make(chan struct{})
 	defer close(done)
 	// Create an E2 client

@@ -22,7 +22,7 @@ import (
 
 // TestSubscriptionMultipleReports tests e2 subscription with multiple reports in one subscription
 func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "subscription-multiple-reports")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-multiple-reports")
 	assert.NotNil(t, sim)
 
 	e2Client := utils.GetE2Client(t, "subscription-multiple-reports")

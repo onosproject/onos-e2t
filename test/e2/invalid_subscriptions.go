@@ -141,7 +141,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		},
 	}
 
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "invalid-subscriptions")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "invalid-subscriptions")
 
 	for _, testCase := range testCases {
 		pinTestCase := testCase

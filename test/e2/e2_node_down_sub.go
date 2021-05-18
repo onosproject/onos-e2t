@@ -21,7 +21,7 @@ import (
 // the e2 node is down.
 func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "e2node-down-subscription")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
 
 	// Create an e2 client
 	e2Client := utils.GetE2Client(t, "subscription-e2node-down-test")

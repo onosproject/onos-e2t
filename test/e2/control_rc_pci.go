@@ -32,7 +32,7 @@ const (
 
 // TestControl tests E2 control procedure using ransim and SDK
 func (s *TestSuite) TestControl(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, "control")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "control")
 	assert.NotNil(t, sim)
 	ch := make(chan indication.Indication)
 	ctx := context.Background()
