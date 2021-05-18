@@ -133,7 +133,7 @@ func (d *DeviceManager) CreateOrUpdateE2Cells(deviceID topoapi.ID, e2Cells []*to
 					},
 				},
 				Aspects: make(map[string]*gogotypes.Any),
-				Labels:  []string{topoapi.RANEntityKinds_E2CELL.String()},
+				Labels:  map[string]string{},
 			}
 
 			err := cellObject.SetAspect(e2Cell)
@@ -190,7 +190,7 @@ func (d *DeviceManager) CreateOrUpdateE2Device(deviceID topoapi.ID, serviceModel
 				},
 			},
 			Aspects: make(map[string]*gogotypes.Any),
-			Labels:  []string{topoapi.RANEntityKinds_E2NODE.String()},
+			Labels:  map[string]string{},
 		}
 		e2Node := &topoapi.E2Node{
 			ServiceModels: serviceModels,
