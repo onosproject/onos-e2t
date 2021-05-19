@@ -69,7 +69,7 @@ type topoStore struct {
 // Create creates an object in topo store
 func (s *topoStore) Create(ctx context.Context, object *topoapi.Object) error {
 	log.Debugf("Creating topo object: %v", object)
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
 	_, err := s.client.Create(ctx, &topoapi.CreateRequest{
 		Object: object,
@@ -86,7 +86,7 @@ func (s *topoStore) Create(ctx context.Context, object *topoapi.Object) error {
 // Update updates the given object in topo store
 func (s *topoStore) Update(ctx context.Context, object *topoapi.Object) error {
 	log.Debugf("Updating topo object: %v", object)
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
 	response, err := s.client.Update(ctx, &topoapi.UpdateRequest{
 		Object: object,
@@ -101,7 +101,7 @@ func (s *topoStore) Update(ctx context.Context, object *topoapi.Object) error {
 // Get gets an object based on a given ID
 func (s *topoStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error) {
 	log.Debugf("Getting the topo object with ID: %v", id)
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
 	getResponse, err := s.client.Get(ctx, &topoapi.GetRequest{
 		ID: id,
@@ -115,7 +115,7 @@ func (s *topoStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, er
 // List lists all of the topo objects
 func (s *topoStore) List(ctx context.Context) ([]topoapi.Object, error) {
 	log.Debugf("Listing topo objects")
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
 	listResponse, err := s.client.List(ctx, &topoapi.ListRequest{})
 	if err != nil {
@@ -127,7 +127,7 @@ func (s *topoStore) List(ctx context.Context) ([]topoapi.Object, error) {
 
 // Delete deletes a topo object using the given ID
 func (s *topoStore) Delete(ctx context.Context, id topoapi.ID) error {
-	_, err := s.client.Delete(context.Background(), &topoapi.DeleteRequest{
+	_, err := s.client.Delete(ctx, &topoapi.DeleteRequest{
 		ID: id,
 	})
 	if err != nil {
@@ -138,7 +138,7 @@ func (s *topoStore) Delete(ctx context.Context, id topoapi.ID) error {
 
 // Watch watches topology events
 func (s *topoStore) Watch(ctx context.Context, ch chan<- topoapi.Event) error {
-	stream, err := s.client.Watch(context.Background(), &topoapi.WatchRequest{
+	stream, err := s.client.Watch(ctx, &topoapi.WatchRequest{
 		Noreplay: false,
 	})
 	if err != nil {
