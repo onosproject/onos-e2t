@@ -203,7 +203,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	}
 
 	e.e2Channel = NewE2Channel(channelID, e.serverChannel, e.subs)
-	e.manager.Open(ctx, channelID, e.e2Channel)
+	e.manager.Open(channelID, e.e2Channel)
 
 	err = e.updateTopoObjects(ctx, e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))
 	if err != nil {

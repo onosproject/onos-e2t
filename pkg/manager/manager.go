@@ -103,26 +103,26 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	deviceStore, err := object.NewTopoStore(m.Config.TopoAddress, opts...)
+	topoStore, err := object.NewTopoStore(m.Config.TopoAddress, opts...)
 	if err != nil {
 		return err
 	}
-	deviceManager := topo.NewManager(deviceStore)
+	topoManager := topo.NewManager(topoStore)
 	streams := subscription.NewBroker()
-	channels := e2server.NewChannelManager(deviceManager)
+	channels := e2server.NewChannelManager(topoManager)
 	ranFunctionRegistry := ranfunctions.NewRegistry()
 
-	err = m.startSubscriptionBroker(streams, channels, ranFunctionRegistry, deviceManager)
+	err = m.startSubscriptionBroker(streams, channels, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
 
-	err = m.startSouthboundServer(channels, streams, ranFunctionRegistry, deviceManager)
+	err = m.startSouthboundServer(channels, streams, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
 
-	err = m.startNorthboundServer(streams, channels, ranFunctionRegistry, deviceManager)
+	err = m.startNorthboundServer(streams, channels, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
