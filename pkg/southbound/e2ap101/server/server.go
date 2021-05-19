@@ -138,25 +138,25 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 
 }
 
-func (e *E2ChannelServer) updateTopoObjects(deviceID topoapi.ID,
+func (e *E2ChannelServer) updateTopoObjects(ctx context.Context, deviceID topoapi.ID,
 	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell, relationID topoapi.ID) error {
 
 	// create or update E2 node entities
-	err := e.topoManager.CreateOrUpdateE2Device(deviceID, serviceModels)
+	err := e.topoManager.CreateOrUpdateE2Device(ctx, deviceID, serviceModels)
 	if err != nil {
 		return err
 	}
 
 	// Add E2 cells if there are any associated cells with an E2 node
 	if len(e2Cells) != 0 {
-		err := e.topoManager.CreateOrUpdateE2Cells(deviceID, e2Cells)
+		err := e.topoManager.CreateOrUpdateE2Cells(ctx, deviceID, e2Cells)
 		if err != nil {
 			return err
 		}
 	}
 
 	// create E2T to E2 node relation
-	err = e.topoManager.CreateOrUpdateE2Relation(deviceID, relationID)
+	err = e.topoManager.CreateOrUpdateE2Relation(ctx, deviceID, relationID)
 	if err != nil {
 		return err
 	}
@@ -203,9 +203,9 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	}
 
 	e.e2Channel = NewE2Channel(channelID, e.serverChannel, e.subs)
-	e.manager.Open(channelID, e.e2Channel)
+	e.manager.Open(ctx, channelID, e.e2Channel)
 
-	err = e.updateTopoObjects(e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))
+	err = e.updateTopoObjects(ctx, e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err

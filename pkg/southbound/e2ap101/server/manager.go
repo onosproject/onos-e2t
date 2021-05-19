@@ -22,7 +22,7 @@ type ChannelManager interface {
 	Get(ctx context.Context, id ChannelID) (*E2Channel, error)
 	List(ctx context.Context) ([]*E2Channel, error)
 	Watch(ctx context.Context, ch chan<- *E2Channel) error
-	Open(id ChannelID, channel *E2Channel)
+	Open(ctx context.Context, id ChannelID, channel *E2Channel)
 }
 
 // NewChannelManager creates a new channel manager
@@ -63,7 +63,7 @@ func (m *channelManager) processEvent(channel *E2Channel) {
 	m.watchersMu.RUnlock()
 }
 
-func (m *channelManager) Open(id ChannelID, channel *E2Channel) {
+func (m *channelManager) Open(ctx context.Context, id ChannelID, channel *E2Channel) {
 	log.Infof("Opened channel %s", id)
 	m.channelsMu.Lock()
 	defer m.channelsMu.Unlock()
@@ -72,7 +72,7 @@ func (m *channelManager) Open(id ChannelID, channel *E2Channel) {
 	go func() {
 		<-channel.Context().Done()
 		log.Infof("Closing channel %s", id)
-		err := m.topoManager.DeleteE2Relation(topoapi.ID(id))
+		err := m.topoManager.DeleteE2Relation(ctx, topoapi.ID(id))
 		if err != nil {
 			return
 		}

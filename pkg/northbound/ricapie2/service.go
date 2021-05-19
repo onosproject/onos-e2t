@@ -107,7 +107,7 @@ func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRe
 func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
-	channelID, err := s.topoManager.GetE2Relation(topoapi.ID(request.E2NodeID))
+	channelID, err := s.topoManager.GetE2Relation(ctx, topoapi.ID(request.E2NodeID))
 	if err != nil || channelID == "" {
 		return nil, err
 	}

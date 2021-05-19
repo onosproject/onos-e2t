@@ -145,7 +145,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 	sub := subResponse.Subscription
-	channelID, err := r.deviceManager.GetE2Relation(topoapi.ID(sub.Details.E2NodeID))
+	channelID, err := r.deviceManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
 	if err != nil || channelID == "" {
 		return controller.Result{}, err
 	}
@@ -396,7 +396,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	sub := subResponse.Subscription
 
-	channelID, err := r.deviceManager.GetE2Relation(topoapi.ID(sub.Details.E2NodeID))
+	channelID, err := r.deviceManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
 	if err != nil || channelID == "" {
 		return controller.Result{}, err
 	}

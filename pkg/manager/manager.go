@@ -10,7 +10,7 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
-	"github.com/onosproject/onos-e2t/pkg/store/device"
+	"github.com/onosproject/onos-e2t/pkg/store/object"
 
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
@@ -103,7 +103,7 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	deviceStore, err := device.NewTopoStore(m.Config.TopoAddress, opts...)
+	deviceStore, err := object.NewTopoStore(m.Config.TopoAddress, opts...)
 	if err != nil {
 		return err
 	}

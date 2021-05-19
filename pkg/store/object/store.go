@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package device
+package object
 
 import (
 	"context"
@@ -17,7 +17,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-var log = logging.GetLogger("store", "device")
+var log = logging.GetLogger("store", "object")
 
 const (
 	defaultTimeout      = 15
@@ -27,22 +27,22 @@ const (
 // Store topo store client interface
 type Store interface {
 	// Create creates a topo object
-	Create(object *topoapi.Object) error
+	Create(ctx context.Context, object *topoapi.Object) error
 
 	// Update updates an existing topo object
-	Update(object *topoapi.Object) error
+	Update(ctx context.Context, object *topoapi.Object) error
 
 	// Get gets a topo object
-	Get(id topoapi.ID) (*topoapi.Object, error)
+	Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error)
 
 	// List lists topo objects
-	List() ([]topoapi.Object, error)
+	List(ctx context.Context) ([]topoapi.Object, error)
 
 	// Delete deletes a topo object using the given ID
-	Delete(id topoapi.ID) error
+	Delete(ctx context.Context, id topoapi.ID) error
 
 	// Watch watches topology events
-	Watch(ch chan<- topoapi.Event) error
+	Watch(ctx context.Context, ch chan<- topoapi.Event) error
 }
 
 // NewTopoStore returns a new topo device store
@@ -67,7 +67,7 @@ type topoStore struct {
 }
 
 // Create creates an object in topo store
-func (s *topoStore) Create(object *topoapi.Object) error {
+func (s *topoStore) Create(ctx context.Context, object *topoapi.Object) error {
 	log.Debugf("Creating topo object: %v", object)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
 	defer cancel()
@@ -84,21 +84,22 @@ func (s *topoStore) Create(object *topoapi.Object) error {
 }
 
 // Update updates the given object in topo store
-func (s *topoStore) Update(object *topoapi.Object) error {
+func (s *topoStore) Update(ctx context.Context, object *topoapi.Object) error {
 	log.Debugf("Updating topo object: %v", object)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
 	defer cancel()
-	_, err := s.client.Update(ctx, &topoapi.UpdateRequest{
+	response, err := s.client.Update(ctx, &topoapi.UpdateRequest{
 		Object: object,
 	})
 	if err != nil {
 		return err
 	}
+	object = response.Object
 	return nil
 }
 
 // Get gets an object based on a given ID
-func (s *topoStore) Get(id topoapi.ID) (*topoapi.Object, error) {
+func (s *topoStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error) {
 	log.Debugf("Getting the topo object with ID: %v", id)
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
 	defer cancel()
@@ -112,7 +113,7 @@ func (s *topoStore) Get(id topoapi.ID) (*topoapi.Object, error) {
 }
 
 // List lists all of the topo objects
-func (s *topoStore) List() ([]topoapi.Object, error) {
+func (s *topoStore) List(ctx context.Context) ([]topoapi.Object, error) {
 	log.Debugf("Listing topo objects")
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout*time.Second)
 	defer cancel()
@@ -125,7 +126,7 @@ func (s *topoStore) List() ([]topoapi.Object, error) {
 }
 
 // Delete deletes a topo object using the given ID
-func (s *topoStore) Delete(id topoapi.ID) error {
+func (s *topoStore) Delete(ctx context.Context, id topoapi.ID) error {
 	_, err := s.client.Delete(context.Background(), &topoapi.DeleteRequest{
 		ID: id,
 	})
@@ -136,7 +137,7 @@ func (s *topoStore) Delete(id topoapi.ID) error {
 }
 
 // Watch watches topology events
-func (s *topoStore) Watch(ch chan<- topoapi.Event) error {
+func (s *topoStore) Watch(ctx context.Context, ch chan<- topoapi.Event) error {
 	stream, err := s.client.Watch(context.Background(), &topoapi.WatchRequest{
 		Noreplay: false,
 	})
@@ -144,10 +145,10 @@ func (s *topoStore) Watch(ch chan<- topoapi.Event) error {
 		return err
 	}
 	go func() {
+		defer close(ch)
 		for {
 			resp, err := stream.Recv()
 			if err == io.EOF {
-				log.Warn(err)
 				break
 			}
 			if err != nil {

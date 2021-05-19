@@ -8,7 +8,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/onosproject/onos-e2t/pkg/store/device"
+	"github.com/onosproject/onos-e2t/pkg/store/object"
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
@@ -47,7 +47,7 @@ func TestChannelWatcher(t *testing.T) {
 	createServerScaffolding(t)
 	subscriptionClient, subscriptionTaskClient := createClients(t)
 	// TODO this should be changed to mock the store but the test is not using it
-	store, _ := device.NewTopoStore("")
+	store, _ := object.NewTopoStore("")
 	topoManager := topo.NewManager(store)
 
 	watch := ChannelWatcher{
