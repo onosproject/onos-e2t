@@ -78,9 +78,7 @@ func (s *topoStore) Create(ctx context.Context, object *topoapi.Object) error {
 		log.Warn(err)
 		return err
 	}
-
 	return nil
-
 }
 
 // Update updates the given object in topo store
