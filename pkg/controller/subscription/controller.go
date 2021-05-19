@@ -47,7 +47,7 @@ func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServic
 	tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager,
 	models modelregistry.ModelRegistry,
 	oidRegistry oid.Registry,
-	ranFunctionRegistry ranfunctions.Registry, deviceManager topo.Manager) *controller.Controller {
+	ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: epapi.ID(env.GetPodID()),
@@ -68,7 +68,7 @@ func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServic
 		oidRegistry:               oidRegistry,
 		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 		ranFunctionRegistry:       ranFunctionRegistry,
-		deviceManager:             deviceManager,
+		topoManager:               topoManager,
 	})
 	return c
 }
@@ -88,7 +88,7 @@ type Reconciler struct {
 	oidRegistry               oid.Registry
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
 	ranFunctionRegistry       ranfunctions.Registry
-	deviceManager             topo.Manager
+	topoManager               topo.Manager
 }
 
 // Reconcile reconciles the state of a device change
@@ -145,7 +145,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 	sub := subResponse.Subscription
-	channelID, err := r.deviceManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
+	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
 	if err != nil || channelID == "" {
 		return controller.Result{}, err
 	}
@@ -396,7 +396,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	sub := subResponse.Subscription
 
-	channelID, err := r.deviceManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
+	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
 	if err != nil || channelID == "" {
 		return controller.Result{}, err
 	}

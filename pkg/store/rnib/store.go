@@ -20,7 +20,7 @@ import (
 var log = logging.GetLogger("store", "rnib")
 
 const (
-	defaultTimeout      = 15
+	defaultTimeout      = 60
 	defaultRetryTimeout = 100
 )
 
