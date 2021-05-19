@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package object
+package rnib
 
 import (
 	"context"
@@ -17,7 +17,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-var log = logging.GetLogger("store", "object")
+var log = logging.GetLogger("store", "rnib")
 
 const (
 	defaultTimeout      = 15
@@ -36,17 +36,17 @@ type Store interface {
 	Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error)
 
 	// List lists topo objects
-	List(ctx context.Context) ([]topoapi.Object, error)
+	List(ctx context.Context, filters *topoapi.Filters) ([]topoapi.Object, error)
 
 	// Delete deletes a topo object using the given ID
 	Delete(ctx context.Context, id topoapi.ID) error
 
 	// Watch watches topology events
-	Watch(ctx context.Context, ch chan<- topoapi.Event) error
+	Watch(ctx context.Context, ch chan<- topoapi.Event, filters *topoapi.Filters) error
 }
 
-// NewTopoStore returns a new topo device store
-func NewTopoStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
+// NewStore creates a new R-NIB store
+func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 	if len(opts) == 0 {
 		return nil, errors.New(errors.Invalid, "no opts given when creating topo store")
 	}
@@ -57,17 +57,17 @@ func NewTopoStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 		return nil, err
 	}
 	client := topoapi.CreateTopoClient(conn)
-	return &topoStore{
+	return &rnibStore{
 		client: client,
 	}, nil
 }
 
-type topoStore struct {
+type rnibStore struct {
 	client topoapi.TopoClient
 }
 
 // Create creates an object in topo store
-func (s *topoStore) Create(ctx context.Context, object *topoapi.Object) error {
+func (s *rnibStore) Create(ctx context.Context, object *topoapi.Object) error {
 	log.Debugf("Creating topo object: %v", object)
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
@@ -82,7 +82,7 @@ func (s *topoStore) Create(ctx context.Context, object *topoapi.Object) error {
 }
 
 // Update updates the given object in topo store
-func (s *topoStore) Update(ctx context.Context, object *topoapi.Object) error {
+func (s *rnibStore) Update(ctx context.Context, object *topoapi.Object) error {
 	log.Debugf("Updating topo object: %v", object)
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
@@ -93,11 +93,12 @@ func (s *topoStore) Update(ctx context.Context, object *topoapi.Object) error {
 		return err
 	}
 	object = response.Object
+	log.Debug("Updated object:", object)
 	return nil
 }
 
 // Get gets an object based on a given ID
-func (s *topoStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error) {
+func (s *rnibStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error) {
 	log.Debugf("Getting the topo object with ID: %v", id)
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
@@ -111,11 +112,13 @@ func (s *topoStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, er
 }
 
 // List lists all of the topo objects
-func (s *topoStore) List(ctx context.Context) ([]topoapi.Object, error) {
+func (s *rnibStore) List(ctx context.Context, filters *topoapi.Filters) ([]topoapi.Object, error) {
 	log.Debugf("Listing topo objects")
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
-	listResponse, err := s.client.List(ctx, &topoapi.ListRequest{})
+	listResponse, err := s.client.List(ctx, &topoapi.ListRequest{
+		Filters: filters,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +127,7 @@ func (s *topoStore) List(ctx context.Context) ([]topoapi.Object, error) {
 }
 
 // Delete deletes a topo object using the given ID
-func (s *topoStore) Delete(ctx context.Context, id topoapi.ID) error {
+func (s *rnibStore) Delete(ctx context.Context, id topoapi.ID) error {
 	_, err := s.client.Delete(ctx, &topoapi.DeleteRequest{
 		ID: id,
 	})
@@ -135,9 +138,10 @@ func (s *topoStore) Delete(ctx context.Context, id topoapi.ID) error {
 }
 
 // Watch watches topology events
-func (s *topoStore) Watch(ctx context.Context, ch chan<- topoapi.Event) error {
+func (s *rnibStore) Watch(ctx context.Context, ch chan<- topoapi.Event, filters *topoapi.Filters) error {
 	stream, err := s.client.Watch(ctx, &topoapi.WatchRequest{
 		Noreplay: false,
+		Filters:  filters,
 	})
 	if err != nil {
 		return err
@@ -164,4 +168,4 @@ func getTopoConn(topoEndpoint string, opts ...grpc.DialOption) (*grpc.ClientConn
 	return grpc.Dial(topoEndpoint, opts...)
 }
 
-var _ Store = &topoStore{}
+var _ Store = &rnibStore{}

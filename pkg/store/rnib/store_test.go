@@ -2,4 +2,4 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package object
+package rnib

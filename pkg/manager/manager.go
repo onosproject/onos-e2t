@@ -8,9 +8,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/onosproject/onos-e2t/pkg/topo"
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	"github.com/onosproject/onos-e2t/pkg/store/object"
+	"github.com/onosproject/onos-e2t/pkg/topo"
 
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
@@ -103,11 +103,11 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	topoStore, err := object.NewTopoStore(m.Config.TopoAddress, opts...)
+	rnibStore, err := rnib.NewStore(m.Config.TopoAddress, opts...)
 	if err != nil {
 		return err
 	}
-	topoManager := topo.NewManager(topoStore)
+	topoManager := topo.NewManager(rnibStore)
 	streams := subscription.NewBroker()
 	channels := e2server.NewChannelManager(topoManager)
 	ranFunctionRegistry := ranfunctions.NewRegistry()

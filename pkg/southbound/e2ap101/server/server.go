@@ -142,7 +142,7 @@ func (e *E2ChannelServer) updateTopoObjects(ctx context.Context, deviceID topoap
 	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell, relationID topoapi.ID) error {
 
 	// create or update E2 node entities
-	err := e.topoManager.CreateOrUpdateE2Device(ctx, deviceID, serviceModels)
+	err := e.topoManager.CreateOrUpdateE2Node(ctx, deviceID, serviceModels)
 	if err != nil {
 		return err
 	}
