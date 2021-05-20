@@ -6,6 +6,7 @@ package server
 
 import (
 	"context"
+	"encoding/hex"
 	"fmt"
 	"strconv"
 
@@ -103,6 +104,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 				ranFunctionDescriptionProto, err := sm.RanFuncDescriptionASN1toProto(ranFunc.Description)
 				if err != nil {
 					log.Warn(err)
+					log.Warnf("Following set of bytes of length %v were pushed to the decoder \n%v\n", len(ranFunc.Description), hex.Dump(ranFunc.Description))
 					continue
 				}
 
