@@ -7,15 +7,55 @@ package asn1cgo
 import (
 	"encoding/hex"
 	"fmt"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func createE2connectionUpdateMsg() (*e2ap_pdu_contents.E2ConnectionUpdate, error) {
 
-	e2connectionUpdate, err := pdubuilder.CreateE2connectionUpdateE2apPdu()
+	e2connectionUpdate, err := pdubuilder.CreateE2connectionUpdateE2apPdu([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
+		TnlPort: e2ap_commondatatypes.BitString{
+			Value: 0x89ae,
+			Len:   16,
+		},
+		TnlAddress: e2ap_commondatatypes.BitString{
+			Value: 0x89abdcdf01234567,
+			Len:   64,
+		}},
+		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
+		[]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
+			TnlPort: e2ap_commondatatypes.BitString{
+				Value: 0x91ab,
+				Len:   16,
+			},
+			TnlAddress: e2ap_commondatatypes.BitString{
+				Value: 0x65abcdef01234567,
+				Len:   64,
+			}},
+			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE}},
+		[]*types.TnlInformation{
+			{TnlPort: e2ap_commondatatypes.BitString{
+				Value: 0x89ab,
+				Len:   16,
+			},
+				TnlAddress: e2ap_commondatatypes.BitString{
+					Value: 0x89abcdef01234567,
+					Len:   64,
+				}},
+			{TnlPort: e2ap_commondatatypes.BitString{
+				Value: 0x89cd,
+				Len:   16,
+			},
+				TnlAddress: e2ap_commondatatypes.BitString{
+					Value: 0x89abcdef12345678,
+					Len:   64,
+				}},
+		})
 	if err != nil {
 		return nil, err
 	}
@@ -33,7 +73,7 @@ func Test_xerEncodingE2connectionUpdate(t *testing.T) {
 
 	xer, err := xerEncodeE2connectionUpdate(e2connectionUpdate)
 	assert.NilError(t, err)
-	assert.Equal(t, 3500, len(xer))
+	assert.Equal(t, 4335, len(xer))
 	t.Logf("E2connectionUpdate XER\n%s", string(xer))
 
 	//result, err := xerDecodeE2connectionUpdate(xer)
@@ -58,7 +98,7 @@ func Test_perEncodingE2connectionUpdate(t *testing.T) {
 
 	per, err := perEncodeE2connectionUpdate(e2connectionUpdate)
 	assert.NilError(t, err)
-	assert.Equal(t, 68, len(per))
+	assert.Equal(t, 84, len(per))
 	t.Logf("E2connectionUpdate PER\n%v", hex.Dump(per))
 
 	//result, err := perDecodeE2connectionUpdate(per)

@@ -11,9 +11,11 @@ import (
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateE2connectionUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
+func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, modifyItems []*types.E2ConnectionUpdateItem,
+	removeItems []*types.TnlInformation) (*e2appdudescriptions.E2ApPdu, error) {
 
 	connectionAddList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
@@ -24,25 +26,21 @@ func CreateE2connectionUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	cai := &e2appducontents.E2ConnectionUpdateItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value: &e2appducontents.E2ConnectionUpdateItem{
-			TnlInformation: &e2ap_ies.Tnlinformation{
-				TnlPort: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bc,
-					Len:   16,
+	for _, addItem := range addItems {
+		cai := &e2appducontents.E2ConnectionUpdateItemIes{
+			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.E2ConnectionUpdateItem{
+				TnlInformation: &e2ap_ies.Tnlinformation{
+					TnlPort:    &addItem.TnlInformation.TnlPort,
+					TnlAddress: &addItem.TnlInformation.TnlAddress,
 				},
-				TnlAddress: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   64,
-				},
+				TnlUsage: addItem.TnlUsage,
 			},
-			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH, //ToDo - pass as a parameter
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		connectionAddList.ConnectionAdd.Value = append(connectionAddList.ConnectionAdd.Value, cai)
 	}
-	connectionAddList.ConnectionAdd.Value = append(connectionAddList.ConnectionAdd.Value, cai)
 
 	connectionModifyList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes45{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateModify),
@@ -53,24 +51,21 @@ func CreateE2connectionUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	cmi := &e2appducontents.E2ConnectionUpdateItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value: &e2appducontents.E2ConnectionUpdateItem{
-			TnlInformation: &e2ap_ies.Tnlinformation{
-				TnlPort: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   16,
+	for _, modifyItem := range modifyItems {
+		cmi := &e2appducontents.E2ConnectionUpdateItemIes{
+			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.E2ConnectionUpdateItem{
+				TnlInformation: &e2ap_ies.Tnlinformation{
+					TnlPort:    &modifyItem.TnlInformation.TnlPort,
+					TnlAddress: &modifyItem.TnlInformation.TnlAddress,
 				},
-				TnlAddress: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   64,
-				},
+				TnlUsage: modifyItem.TnlUsage,
 			},
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		connectionModifyList.ConnectionModify.Value = append(connectionModifyList.ConnectionModify.Value, cmi)
 	}
-	connectionModifyList.ConnectionModify.Value = append(connectionModifyList.ConnectionModify.Value, cmi)
 
 	connectionRemoveList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateRemove),
@@ -81,24 +76,20 @@ func CreateE2connectionUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	cri := &e2appducontents.E2ConnectionUpdateRemoveItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateRemoveItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value: &e2appducontents.E2ConnectionUpdateRemoveItem{
-			TnlInformation: &e2ap_ies.Tnlinformation{
-				TnlPort: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   16,
-				},
-				TnlAddress: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   64,
+	for _, removeItem := range removeItems {
+		cri := &e2appducontents.E2ConnectionUpdateRemoveItemIes{
+			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateRemoveItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.E2ConnectionUpdateRemoveItem{
+				TnlInformation: &e2ap_ies.Tnlinformation{
+					TnlPort:    &removeItem.TnlPort,
+					TnlAddress: &removeItem.TnlAddress,
 				},
 			},
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		connectionRemoveList.ConnectionRemove.Value = append(connectionRemoveList.ConnectionRemove.Value, cri)
 	}
-	connectionRemoveList.ConnectionRemove.Value = append(connectionRemoveList.ConnectionRemove.Value, cri)
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
