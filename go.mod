@@ -3,6 +3,7 @@ module github.com/onosproject/onos-e2t
 go 1.15
 
 require (
+	github.com/cenkalti/backoff/v4 v4.0.0
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.1
 	github.com/golang/mock v1.4.4

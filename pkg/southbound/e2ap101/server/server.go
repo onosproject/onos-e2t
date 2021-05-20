@@ -10,8 +10,9 @@ import (
 
 	"encoding/binary"
 	"strconv"
+	"time"
 
-	"github.com/google/uuid"
+	"github.com/cenkalti/backoff/v4"
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
@@ -87,7 +88,7 @@ type E2ChannelServer struct {
 }
 
 func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
-	deviceID topoapi.ID,
+	e2NodeID topoapi.ID,
 	serviceModels map[string]*topoapi.ServiceModelInfo,
 	e2cells *[]*topoapi.E2Cell) (types.RanFunctionRevisions, types.RanFunctionCauses, error) {
 	rfAccepted := make(types.RanFunctionRevisions)
@@ -116,6 +117,8 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 					err := setup.OnSetup(onSetupRequest)
 					if err != nil {
 						log.Warn(err)
+						log.Debugf("Length of RAN function Description Bytes is: %d", len(onSetupRequest.RANFunctionDescription))
+						log.Debugf(" RAN Function Description Bytes in hex format: %v", hex.Dump(onSetupRequest.RANFunctionDescription))
 					}
 				}
 
@@ -124,7 +127,7 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 					ID:  ranFunctionID,
 				}
 
-				id := ranfunctions.NewID(oid, string(deviceID))
+				id := ranfunctions.NewID(oid, string(e2NodeID))
 				err := e.ranFunctionRegistry.Add(id, ranFunction)
 				if err != nil {
 					log.Warn(err)
@@ -138,42 +141,35 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 
 }
 
-func (e *E2ChannelServer) updateTopoObjects(ctx context.Context, deviceID topoapi.ID,
+func (e *E2ChannelServer) updateRNIB(ctx context.Context, e2NodeID topoapi.ID,
 	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell, relationID topoapi.ID) error {
 
-	// create or update E2 node entities
-	err := e.topoManager.CreateOrUpdateE2Node(ctx, deviceID, serviceModels)
-	if err != nil {
-		return err
+	notifier := func(err error, t time.Duration) {
+		log.Infof("Updating R-NIB is failed: %v", err)
 	}
+	// create or update E2 node entities
+	err := backoff.RetryNotify(func() error {
+		err := e.topoManager.CreateOrUpdateE2Node(ctx, e2NodeID, serviceModels)
+		return err
+
+	}, newExpBackoff(), notifier)
 
 	// Add E2 cells if there are any associated cells with an E2 node
 	if len(e2Cells) != 0 {
-		err := e.topoManager.CreateOrUpdateE2Cells(ctx, deviceID, e2Cells)
-		if err != nil {
+		err = backoff.RetryNotify(func() error {
+			err := e.topoManager.CreateOrUpdateE2Cells(ctx, e2NodeID, e2Cells)
 			return err
-		}
+		}, newExpBackoff(), notifier)
+
 	}
 
 	// create E2T to E2 node relation
-	err = e.topoManager.CreateOrUpdateE2Relation(ctx, deviceID, relationID)
-	if err != nil {
+	err = backoff.RetryNotify(func() error {
+		err = e.topoManager.CreateOrUpdateE2Relation(ctx, e2NodeID, relationID)
 		return err
-	}
+	}, newExpBackoff(), notifier)
 
-	return nil
-}
-
-func getChannelID(deviceID topoapi.ID) (ChannelID, error) {
-	bs := make([]byte, 16)
-	copy(bs, deviceID)
-	uuid, err := uuid.FromBytes(bs)
-	if err != nil {
-		return "", err
-	}
-
-	return ChannelID(uuid.String()), nil
-
+	return err
 }
 
 func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
@@ -182,9 +178,9 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 
-	// TODO verify it decodes correctly
-	e2NodeID, err := GetE2NodeID(nodeID.NodeIdentifier, nodeID.NodeType)
+	e2NodeID, err := GetNodeID(nodeID.NodeIdentifier)
 	if err != nil {
+		log.Warn(err)
 		return nil, nil, err
 	}
 
@@ -205,7 +201,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	e.e2Channel = NewE2Channel(channelID, e.serverChannel, e.subs)
 	e.manager.Open(channelID, e.e2Channel)
 
-	err = e.updateTopoObjects(ctx, e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))
+	err = e.updateRNIB(ctx, e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
