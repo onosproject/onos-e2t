@@ -76,6 +76,8 @@ func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID
 			return err
 		}
 	} else if err == nil {
+		currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.SrcEntityID = topoapi.ID(getPodID())
+		currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.TgtEntityID = deviceID
 		err = r.store.Update(ctx, currentRelationObject)
 		if err != nil {
 			return err

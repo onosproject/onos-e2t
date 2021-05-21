@@ -152,7 +152,7 @@ func (m *Manager) startSouthboundServer(channels e2server.ChannelManager,
 // startSouthboundServer starts the northbound gRPC server
 func (m *Manager) startNorthboundServer(streams subscription.Broker,
 	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry,
-	deviceManager topo.Manager) error {
+	topoManager topo.Manager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,
@@ -163,7 +163,7 @@ func (m *Manager) startNorthboundServer(streams subscription.Broker,
 	s.AddService(admin.NewService(channels, ranFunctionRegistry))
 	s.AddService(logging.Service{})
 	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry,
-		channels, m.OidRegistry, ranFunctionRegistry, deviceManager))
+		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
 
 	doneCh := make(chan error)
 	go func() {
