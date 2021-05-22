@@ -33,7 +33,7 @@ type RcControlHeader struct {
 type RcControlMessage struct {
 	RanParameterID    int32
 	RanParameterName  string
-	RanParameterValue int32
+	RanParameterValue uint32
 }
 
 // CreateRcControlHeader  creates rc control header
@@ -67,19 +67,22 @@ func (ch *RcControlHeader) CreateRcControlHeader() ([]byte, error) {
 
 // CreateRcControlMessage creates rc control message
 func (cm *RcControlMessage) CreateRcControlMessage() ([]byte, error) {
-	ranParameterValue := pdubuilder.CreateRanParameterValueInt(cm.RanParameterValue)
+	ranParameterValue, err := pdubuilder.CreateRanParameterValueInt(cm.RanParameterValue)
+	if err != nil {
+		return nil, err
+	}
 	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlMessage(cm.RanParameterID, cm.RanParameterName, ranParameterValue)
 	if err != nil {
-		return []byte{}, err
+		return nil, err
 	}
 	err = newE2SmRcPrePdu.Validate()
 	if err != nil {
-		return []byte{}, err
+		return nil, err
 	}
 
 	protoBytes, err := proto.Marshal(newE2SmRcPrePdu)
 	if err != nil {
-		return []byte{}, err
+		return nil, err
 	}
 
 	return protoBytes, nil
