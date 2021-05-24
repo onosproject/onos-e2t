@@ -26,19 +26,19 @@ const (
 
 // Store topo store client interface
 type Store interface {
-	// Create creates a topo object
+	// Create creates an R-NIB object
 	Create(ctx context.Context, object *topoapi.Object) error
 
-	// Update updates an existing topo object
+	// Update updates an existing R-NIB object
 	Update(ctx context.Context, object *topoapi.Object) error
 
-	// Get gets a topo object
+	// Get gets an R-NIB object
 	Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error)
 
-	// List lists topo objects
+	// List lists R-NIB objects
 	List(ctx context.Context, filters *topoapi.Filters) ([]topoapi.Object, error)
 
-	// Delete deletes a topo object using the given ID
+	// Delete deletes an R-NIB object using the given ID
 	Delete(ctx context.Context, id topoapi.ID) error
 
 	// Watch watches topology events
@@ -48,7 +48,7 @@ type Store interface {
 // NewStore creates a new R-NIB store
 func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 	if len(opts) == 0 {
-		return nil, errors.New(errors.Invalid, "no opts given when creating topo store")
+		return nil, errors.New(errors.Invalid, "no opts given when creating R-NIB store")
 	}
 	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)))
 	conn, err := getTopoConn(topoEndpoint, opts...)
@@ -66,9 +66,9 @@ type rnibStore struct {
 	client topoapi.TopoClient
 }
 
-// Create creates an object in topo store
+// Create creates an R-NIB object in topo store
 func (s *rnibStore) Create(ctx context.Context, object *topoapi.Object) error {
-	log.Debugf("Creating topo object: %v", object)
+	log.Debugf("Creating R-NIB object: %v", object)
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
 	_, err := s.client.Create(ctx, &topoapi.CreateRequest{
@@ -81,9 +81,9 @@ func (s *rnibStore) Create(ctx context.Context, object *topoapi.Object) error {
 	return nil
 }
 
-// Update updates the given object in topo store
+// Update updates the given R-NIB object in topo store
 func (s *rnibStore) Update(ctx context.Context, object *topoapi.Object) error {
-	log.Debugf("Updating topo object: %v", object)
+	log.Debugf("Updating R-NIB object: %v", object)
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
 	response, err := s.client.Update(ctx, &topoapi.UpdateRequest{
@@ -93,13 +93,13 @@ func (s *rnibStore) Update(ctx context.Context, object *topoapi.Object) error {
 		return err
 	}
 	object = response.Object
-	log.Debug("Updated object:", object)
+	log.Debug("Updated R-NIB object is:", object)
 	return nil
 }
 
-// Get gets an object based on a given ID
+// Get gets an R-NIB object based on a given ID
 func (s *rnibStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error) {
-	log.Debugf("Getting the topo object with ID: %v", id)
+	log.Debugf("Getting R-NIB object with ID: %v", id)
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
 	getResponse, err := s.client.Get(ctx, &topoapi.GetRequest{
@@ -111,9 +111,9 @@ func (s *rnibStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, er
 	return getResponse.Object, nil
 }
 
-// List lists all of the topo objects
+// List lists all of the R-NIB objects
 func (s *rnibStore) List(ctx context.Context, filters *topoapi.Filters) ([]topoapi.Object, error) {
-	log.Debugf("Listing topo objects")
+	log.Debugf("Listing R-NIB objects")
 	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
 	defer cancel()
 	listResponse, err := s.client.List(ctx, &topoapi.ListRequest{
@@ -126,7 +126,7 @@ func (s *rnibStore) List(ctx context.Context, filters *topoapi.Filters) ([]topoa
 	return listResponse.Objects, nil
 }
 
-// Delete deletes a topo object using the given ID
+// Delete deletes an R-NIB object using the given ID
 func (s *rnibStore) Delete(ctx context.Context, id topoapi.ID) error {
 	_, err := s.client.Delete(ctx, &topoapi.DeleteRequest{
 		ID: id,
