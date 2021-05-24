@@ -7,9 +7,6 @@ package server
 import (
 	"context"
 	"encoding/hex"
-
-	"encoding/binary"
-	"strconv"
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
@@ -98,12 +95,6 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 		for smOid, sm := range plugins {
 			oid := e2smtypes.OID(ranFunc.OID)
 			if smOid == oid {
-				ranFunctionDescriptionProto, err := sm.RanFuncDescriptionASN1toProto(ranFunc.Description)
-				if err != nil {
-					log.Warn(err)
-					log.Warnf("Following set of bytes of length %v were pushed to the decoder \n%v\n", len(ranFunc.Description), hex.Dump(ranFunc.Description))
-					continue
-
 				serviceModels[string(oid)] = &topoapi.ServiceModelInfo{
 					OID: string(oid),
 				}
