@@ -19,7 +19,11 @@ import (
 
 func createE2nodeConfigurationUpdateFailureMsg() (*e2ap_pdu_contents.E2NodeConfigurationUpdateFailure, error) {
 
-	e2nodeConfigurationUpdateFailure, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(
+	e2nodeConfigurationUpdateFailure, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(e2apies.Cause{
+		Cause: &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+		},
+	}, e2apies.TimeToWait_TIME_TO_WAIT_V2S,
 		v1beta2.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
 		&types.RicRequest{
@@ -51,14 +55,13 @@ func Test_xerEncodingE2nodeConfigurationUpdateFailure(t *testing.T) {
 
 	xer, err := xerEncodeE2nodeConfigurationUpdateFailure(e2nodeConfigurationUpdateFailure)
 	assert.NilError(t, err)
-	assert.Equal(t, 1778, len(xer))
+	assert.Equal(t, 1777, len(xer))
 	t.Logf("E2nodeConfigurationUpdateFailure XER\n%s", string(xer))
 
 	result, err := xerDecodeE2nodeConfigurationUpdateFailure(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeConfigurationUpdateFailure XER - decoded\n%v", result)
-	//ToDo - adjust field's verification
 	assert.Equal(t, e2nodeConfigurationUpdateFailure.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol(), result.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol())
 	assert.Equal(t, e2nodeConfigurationUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
 	assert.Equal(t, e2nodeConfigurationUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
@@ -79,7 +82,6 @@ func Test_perEncodingE2nodeConfigurationUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeConfigurationUpdateFailure PER - decoded\n%v", result)
-	//ToDo - adjust field's verification
 	assert.Equal(t, e2nodeConfigurationUpdateFailure.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol(), result.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol())
 	assert.Equal(t, e2nodeConfigurationUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
 	assert.Equal(t, e2nodeConfigurationUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId())

@@ -7,15 +7,40 @@ package asn1cgo
 import (
 	"encoding/hex"
 	"fmt"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func createE2connectionUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2ConnectionUpdateAcknowledge, error) {
 
-	e2connectionUpdateAcknowledge, err := pdubuilder.CreateE2connectionUpdateAcknowledgeE2apPdu()
+	e2connectionUpdateAcknowledge, err := pdubuilder.CreateE2connectionUpdateAcknowledgeE2apPdu([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
+		TnlPort: e2ap_commondatatypes.BitString{
+			Value: 0x89ae,
+			Len:   16,
+		},
+		TnlAddress: e2ap_commondatatypes.BitString{
+			Value: 0x89abdcdf01234567,
+			Len:   64,
+		}},
+		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
+		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
+			TnlPort: e2ap_commondatatypes.BitString{
+				Value: 0x89ae,
+				Len:   16,
+			},
+			TnlAddress: e2ap_commondatatypes.BitString{
+				Value: 0x89abdcdf01234567,
+				Len:   64,
+			}},
+			Cause: e2ap_ies.Cause{
+				Cause: &e2ap_ies.Cause_Protocol{
+					Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+				}}}})
 	if err != nil {
 		return nil, err
 	}
@@ -33,14 +58,13 @@ func Test_xerEncodingE2connectionUpdateAcknowledge(t *testing.T) {
 
 	xer, err := xerEncodeE2connectionUpdateAcknowledge(e2connectionUpdateAcknowledge)
 	assert.NilError(t, err)
-	assert.Equal(t, 2536, len(xer))
+	assert.Equal(t, 2529, len(xer))
 	t.Logf("E2connectionUpdateAcknowledge XER\n%s", string(xer))
 
 	result, err := xerDecodeE2connectionUpdateAcknowledge(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateAcknowledge XER - decoded\n%v", result)
-	//ToDo - adjust field's verification
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlUsage(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlUsage())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
@@ -63,7 +87,6 @@ func Test_perEncodingE2connectionUpdateAcknowledge(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateAcknowledge PER - decoded\n%v", result)
-	//ToDo - adjust field's verification
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlUsage(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlUsage())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())

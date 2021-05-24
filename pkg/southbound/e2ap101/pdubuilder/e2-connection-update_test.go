@@ -57,9 +57,9 @@ func TestE2connectionUpdate(t *testing.T) {
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicServiceQuery E2AP PDU XER\n%s", string(xer))
+	t.Logf("E2connectionUpdate E2AP PDU XER\n%s", string(xer))
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicServiceQuery E2AP PDU PER\n%v", hex.Dump(per))
+	t.Logf("E2connectionUpdate E2AP PDU PER\n%v", hex.Dump(per))
 }

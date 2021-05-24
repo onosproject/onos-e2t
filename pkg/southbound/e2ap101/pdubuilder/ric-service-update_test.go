@@ -6,12 +6,43 @@ package pdubuilder
 import (
 	"encoding/hex"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func TestRicServiceUpdate(t *testing.T) {
-	newE2apPdu, err := CreateRicServiceUpdateE2apPdu()
+	ranFunctionAddedList := make(map[types.RanFunctionID]types.RanFunctionItem)
+	ranFunctionAddedList[100] = types.RanFunctionItem{
+		Description: []byte("Type 1"),
+		Revision:    1,
+		OID:         []byte("oid1"),
+	}
+
+	ranFunctionAddedList[200] = types.RanFunctionItem{
+		Description: []byte("Type 2"),
+		Revision:    2,
+		OID:         []byte("oid2"),
+	}
+
+	rfDeleted := make(types.RanFunctionRevisions)
+	rfDeleted[100] = 2
+	rfDeleted[200] = 2
+
+	ranFunctionModifiedList := make(map[types.RanFunctionID]types.RanFunctionItem)
+	ranFunctionModifiedList[100] = types.RanFunctionItem{
+		Description: []byte("Type 3"),
+		Revision:    3,
+		OID:         []byte("oid3"),
+	}
+
+	ranFunctionModifiedList[200] = types.RanFunctionItem{
+		Description: []byte("Type 4"),
+		Revision:    4,
+		OID:         []byte("oid4"),
+	}
+
+	newE2apPdu, err := CreateRicServiceUpdateE2apPdu(ranFunctionAddedList, rfDeleted, ranFunctionModifiedList)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 

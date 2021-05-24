@@ -13,18 +13,13 @@ import (
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
 )
 
-func CreateResetRequestE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
+func CreateResetRequestE2apPdu(c e2ap_ies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
 
-	//ToDo - Pass cause as a parameter
 	cause := e2appducontents.ResetRequestIes_ResetRequestIes1{
 		Id:          int32(v1beta2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value: &e2ap_ies.Cause{
-			Cause: &e2ap_ies.Cause_Protocol{
-				Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
-			},
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		Value:       &c,
+		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{

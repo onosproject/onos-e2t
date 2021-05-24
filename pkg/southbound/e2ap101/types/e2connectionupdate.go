@@ -12,3 +12,8 @@ type E2ConnectionUpdateItem struct {
 	TnlInformation TnlInformation
 	TnlUsage       e2ap_ies.Tnlusage
 }
+
+type E2ConnectionSetupFailedItem struct {
+	TnlInformation TnlInformation
+	Cause          e2ap_ies.Cause
+}

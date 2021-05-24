@@ -11,9 +11,10 @@ import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateRicServiceUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
+func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisions, rfRejected types.RanFunctionCauses) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ranFunctionsAccepted := e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9{
 		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
@@ -24,22 +25,24 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu, e
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	rfai := &e2appducontents.RanfunctionIdItemIes{
-		RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RanfunctionIdItem{
-				RanFunctionId: &e2apies.RanfunctionId{
-					Value: 123,
+	for rfID, rfRevision := range rfAccepted {
+		rfIDiIe := e2appducontents.RanfunctionIdItemIes{
+			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionIdItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(rfID),
+					},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(rfRevision),
+					},
 				},
-				RanFunctionRevision: &e2apies.RanfunctionRevision{
-					Value: 1,
-				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		},
+		}
+		ranFunctionsAccepted.Value.Value = append(ranFunctionsAccepted.Value.Value, &rfIDiIe)
 	}
-	ranFunctionsAccepted.Value.Value = append(ranFunctionsAccepted.Value.Value, rfai)
 
 	ranFunctionsRejected := e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13{
 		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsRejected),
@@ -50,25 +53,48 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu, e
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	rfri := &e2appducontents.RanfunctionIdcauseItemIes{
-		RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionIeCauseItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RanfunctionIdcauseItem{
-				RanFunctionId: &e2apies.RanfunctionId{
-					Value: 123,
-				},
-				//ToDo - Pass cause as a parameter
-				Cause: &e2apies.Cause{
-					Cause: &e2apies.Cause_RicService{
-						RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT,
+	for id, cause := range rfRejected {
+		rfIDcIIe := e2appducontents.RanfunctionIdcauseItemIes{
+			RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionIeCauseItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionIdcauseItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(id),
 					},
+					Cause: &e2apies.Cause{},
 				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		},
+		}
+
+		switch causeType := cause.GetCause().(type) {
+		case *e2apies.Cause_Misc:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Misc{
+				Misc: cause.GetMisc(),
+			}
+		case *e2apies.Cause_Protocol:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Protocol{
+				Protocol: cause.GetProtocol(),
+			}
+		case *e2apies.Cause_RicService:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_RicService{
+				RicService: cause.GetRicService(),
+			}
+		case *e2apies.Cause_RicRequest:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_RicRequest{
+				RicRequest: cause.GetRicRequest(),
+			}
+		case *e2apies.Cause_Transport:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Transport{
+				Transport: cause.GetTransport(),
+			}
+
+		default:
+			return nil, fmt.Errorf("unexpected cause type %v", causeType)
+		}
+		ranFunctionsRejected.Value.Value = append(ranFunctionsRejected.Value.Value, &rfIDcIIe)
 	}
-	ranFunctionsRejected.Value.Value = append(ranFunctionsRejected.Value.Value, rfri)
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{

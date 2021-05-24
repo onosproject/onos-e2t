@@ -14,27 +14,21 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateE2connectionUpdateFailureE2apPdu(failureProcCode v1beta2.ProcedureCodeT, failureCrit e2ap_commondatatypes.Criticality,
-	failureTrigMsg e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
+func CreateE2connectionUpdateFailureE2apPdu(c e2ap_ies.Cause, ttw e2ap_ies.TimeToWait, failureProcCode v1beta2.ProcedureCodeT,
+	failureCrit e2ap_commondatatypes.Criticality, failureTrigMsg e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
 	critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
-	//ToDo - Pass cause as a parameter
 	cause := e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes1{
 		Id:          int32(v1beta2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2ap_ies.Cause{
-			Cause: &e2ap_ies.Cause_Protocol{
-				Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
-			},
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		Value:       &c,
+		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	// ToDo pass it as a parameter
 	timeToWait := e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes31{
 		Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value:       e2ap_ies.TimeToWait_TIME_TO_WAIT_V1S,
+		Value:       ttw,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 

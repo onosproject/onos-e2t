@@ -11,9 +11,11 @@ import (
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
+func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionUpdateItem,
+	connSetFail []*types.E2ConnectionSetupFailedItem) (*e2appdudescriptions.E2ApPdu, error) {
 
 	connectionSetup := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionSetup),
@@ -24,25 +26,21 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu,
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	csi := &e2appducontents.E2ConnectionUpdateItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value: &e2appducontents.E2ConnectionUpdateItem{
-			TnlInformation: &e2ap_ies.Tnlinformation{
-				TnlPort: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   16,
+	for _, setupItem := range connSetup {
+		si := &e2appducontents.E2ConnectionUpdateItemIes{
+			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.E2ConnectionUpdateItem{
+				TnlInformation: &e2ap_ies.Tnlinformation{
+					TnlPort:    &setupItem.TnlInformation.TnlPort,
+					TnlAddress: &setupItem.TnlInformation.TnlAddress,
 				},
-				TnlAddress: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   64,
-				},
+				TnlUsage: setupItem.TnlUsage,
 			},
-			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH,
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		connectionSetup.ConnectionSetup.Value = append(connectionSetup.ConnectionSetup.Value, si)
 	}
-	connectionSetup.ConnectionSetup.Value = append(connectionSetup.ConnectionSetup.Value, csi)
 
 	connectionSetupFailed := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes40{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailed),
@@ -53,29 +51,21 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu() (*e2appdudescriptions.E2ApPdu,
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	csfi := &e2appducontents.E2ConnectionSetupFailedItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailedItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value: &e2appducontents.E2ConnectionSetupFailedItem{
-			TnlInformation: &e2ap_ies.Tnlinformation{
-				TnlPort: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   16,
+	for _, sfItem := range connSetFail {
+		sfi := &e2appducontents.E2ConnectionSetupFailedItemIes{
+			Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailedItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.E2ConnectionSetupFailedItem{
+				TnlInformation: &e2ap_ies.Tnlinformation{
+					TnlPort:    &sfItem.TnlInformation.TnlPort,
+					TnlAddress: &sfItem.TnlInformation.TnlAddress,
 				},
-				TnlAddress: &e2ap_commondatatypes.BitString{ //ToDo - pass as a parameter
-					Value: 0x89bcd,
-					Len:   64,
-				},
+				Cause: &sfItem.Cause,
 			},
-			Cause: &e2ap_ies.Cause{
-				Cause: &e2ap_ies.Cause_Protocol{
-					Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
-				},
-			},
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		connectionSetupFailed.ConnectionSetupFailed.Value = append(connectionSetupFailed.ConnectionSetupFailed.Value, sfi)
 	}
-	connectionSetupFailed.ConnectionSetupFailed.Value = append(connectionSetupFailed.ConnectionSetupFailed.Value, csfi)
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
