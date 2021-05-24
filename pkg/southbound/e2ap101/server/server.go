@@ -117,8 +117,8 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 					err := setup.OnSetup(onSetupRequest)
 					if err != nil {
 						log.Warn(err)
-						log.Infof("Length of RAN function Description Bytes is: %d", len(onSetupRequest.RANFunctionDescription))
-						log.Infof(" RAN Function Description Bytes in hex format: %v", hex.Dump(onSetupRequest.RANFunctionDescription))
+						log.Debugf("Length of RAN function Description Bytes is: %d", len(onSetupRequest.RANFunctionDescription))
+						log.Debugf("RAN Function Description Bytes in hex format: %v", hex.Dump(onSetupRequest.RANFunctionDescription))
 					}
 				}
 
