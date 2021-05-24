@@ -78,6 +78,7 @@ func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID
 	} else if err == nil {
 		currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.SrcEntityID = topoapi.ID(getPodID())
 		currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.TgtEntityID = deviceID
+		currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.KindID = topoapi.ID(topoapi.RANRelationKinds_CONTROLS.String())
 		err = r.store.Update(ctx, currentRelationObject)
 		if err != nil {
 			return err
@@ -177,6 +178,9 @@ func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e
 
 // CreateOrUpdateE2Node creates or updates E2 entities
 func (r *Rnib) CreateOrUpdateE2Node(ctx context.Context, deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error {
+	e2NodeAspects := &topoapi.E2Node{
+		ServiceModels: serviceModels,
+	}
 	currentE2NodeObject, err := r.store.Get(ctx, deviceID)
 	if errors.IsNotFound(errors.FromGRPC(err)) {
 		e2NodeObject := &topoapi.Object{
@@ -195,22 +199,15 @@ func (r *Rnib) CreateOrUpdateE2Node(ctx context.Context, deviceID topoapi.ID, se
 			Aspects: make(map[string]*gogotypes.Any),
 			Labels:  map[string]string{},
 		}
-		e2Node := &topoapi.E2Node{
-			ServiceModels: serviceModels,
-		}
 
-		err = e2NodeObject.SetAspect(e2Node)
+		err = e2NodeObject.SetAspect(e2NodeAspects)
 		if err != nil {
 			return err
 		}
 		err = r.store.Create(ctx, e2NodeObject)
 		return err
 	} else if err == nil {
-		e2Node := &topoapi.E2Node{
-			ServiceModels: serviceModels,
-		}
-
-		err := currentE2NodeObject.SetAspect(e2Node)
+		err := currentE2NodeObject.SetAspect(e2NodeAspects)
 		if err != nil {
 			return err
 		}
