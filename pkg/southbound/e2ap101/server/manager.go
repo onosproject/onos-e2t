@@ -8,6 +8,10 @@ import (
 	"context"
 	"sync"
 
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
+	"github.com/onosproject/onos-e2t/pkg/topo"
+
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
@@ -22,10 +26,11 @@ type ChannelManager interface {
 }
 
 // NewChannelManager creates a new channel manager
-func NewChannelManager() ChannelManager {
+func NewChannelManager(topoManager topo.Manager) ChannelManager {
 	mgr := channelManager{
-		channels: make(map[ChannelID]*E2Channel),
-		eventCh:  make(chan *E2Channel),
+		channels:    make(map[ChannelID]*E2Channel),
+		eventCh:     make(chan *E2Channel),
+		topoManager: topoManager,
 	}
 	go mgr.processEvents()
 
@@ -35,11 +40,12 @@ func NewChannelManager() ChannelManager {
 type ChannelID string
 
 type channelManager struct {
-	channels   map[ChannelID]*E2Channel
-	channelsMu sync.RWMutex
-	watchers   []chan<- *E2Channel
-	watchersMu sync.RWMutex
-	eventCh    chan *E2Channel
+	channels    map[ChannelID]*E2Channel
+	channelsMu  sync.RWMutex
+	watchers    []chan<- *E2Channel
+	watchersMu  sync.RWMutex
+	eventCh     chan *E2Channel
+	topoManager topo.Manager
 }
 
 func (m *channelManager) processEvents() {
@@ -66,6 +72,10 @@ func (m *channelManager) Open(id ChannelID, channel *E2Channel) {
 	go func() {
 		<-channel.Context().Done()
 		log.Infof("Closing channel %s", id)
+		err := m.topoManager.DeleteE2Relation(context.Background(), topoapi.ID(id))
+		if err != nil {
+			return
+		}
 		m.channelsMu.Lock()
 		delete(m.channels, id)
 		m.channelsMu.Unlock()

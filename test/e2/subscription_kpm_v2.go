@@ -31,31 +31,21 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 
-	ranFunctions, err := utils.GetRANFunctions(nodeIDs[0])
+	cells, err := utils.GetCellIDsPerNode(nodeIDs[0])
 	assert.NoError(t, err)
 
-	ranFunctionDescription := &e2smkpmv2.E2SmKpmRanfunctionDescription{}
-	ranFunctionFound := false
-	for _, ranFunction := range ranFunctions {
-		if ranFunction.Oid == utils.KpmServiceModelOIDV2 {
-			err = proto.Unmarshal(ranFunction.Description, ranFunctionDescription)
-			assert.NoError(t, err)
-			ranFunctionFound = true
-		}
-	}
-
-	assert.Equal(t, ranFunctionFound, true)
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
+
 	// Kpm v2 interval is defined in ms
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID := ranFunctionDescription.GetRicKpmNodeList()[0].GetCellMeasurementObjectList()[0].CellObjectId.Value
+	cellObjectID := cells[0].CID
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 
@@ -76,7 +66,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              nodeIDs[0],
+		NodeID:              string(nodeIDs[0]),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,

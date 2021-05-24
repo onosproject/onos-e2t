@@ -56,9 +56,9 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 		assert.NoError(t, err)
 	}
 	// Get list of all available e2 nodes and make sure no node is connected
-	nodeIDs, err := utils.GetNodeIDs()
+	connections, err := utils.GetAllE2Connections(t)
 	assert.NoError(t, err)
-	assert.Equal(t, 0, len(nodeIDs))
+	assert.Equal(t, 0, len(connections))
 
 	// Create an e2 node with 3 cells from list of available cells.
 	cells := utils.GetCells(t, cellClient)
@@ -87,9 +87,11 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
 	// for the number of nodes
 	time.Sleep(10 * time.Second)
-	nodeIDs, err = utils.GetNodeIDs()
+	connections, err = utils.GetAllE2Connections(t)
 	assert.NoError(t, err)
-	assert.Equal(t, 1, len(nodeIDs))
+	assert.Equal(t, 1, len(connections))
+	nodeIDs, err := utils.GetNodeIDs(t)
+	assert.NoError(t, err)
 	testNodeID := nodeIDs[0]
 
 	// Creates a subscription using RC service model
@@ -107,7 +109,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	actions = append(actions, action)
 
 	subBuilder := utils.Subscription{
-		NodeID:              testNodeID,
+		NodeID:              string(testNodeID),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,

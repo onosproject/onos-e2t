@@ -31,30 +31,20 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 
-	ranFunctions, err := utils.GetRANFunctions(nodeIDs[0])
+	nodeID := nodeIDs[0]
+	cells, err := utils.GetCellIDsPerNode(nodeID)
 	assert.NoError(t, err)
 
-	ranFunctionDescription := &e2smkpmv2.E2SmKpmRanfunctionDescription{}
-	ranFunctionFound := false
-	for _, ranFunction := range ranFunctions {
-		if ranFunction.Oid == utils.KpmServiceModelOIDV2 {
-			err = proto.Unmarshal(ranFunction.Description, ranFunctionDescription)
-			assert.NoError(t, err)
-			ranFunctionFound = true
-		}
-	}
-
-	assert.Equal(t, ranFunctionFound, true)
 	// Kpm v2 interval is defined in ms
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID0 := ranFunctionDescription.GetRicKpmNodeList()[0].GetCellMeasurementObjectList()[0].CellObjectId.Value
-	cellObjectID1 := ranFunctionDescription.GetRicKpmNodeList()[0].GetCellMeasurementObjectList()[1].CellObjectId.Value
+	cellObjectID0 := cells[0].CID
+	cellObjectID1 := cells[1].CID
 
 	cellObjectIDList := make([]string, 2)
 	cellObjectIDList[0] = cellObjectID0
@@ -96,7 +86,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	actions = append(actions, action1)
 
 	subRequest := utils.Subscription{
-		NodeID:              nodeIDs[0],
+		NodeID:              string(nodeID),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,

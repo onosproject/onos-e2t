@@ -44,7 +44,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 	testNodeID := nodeIDs[0]
 
@@ -63,7 +63,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              testNodeID,
+		NodeID:              string(testNodeID),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
@@ -103,7 +103,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	controlRequest := utils.Control{
-		NodeID:              testNodeID,
+		NodeID:              string(testNodeID),
 		EncodingType:        e2tapi.EncodingType_PROTO,
 		ServiceModelName:    utils.RcServiceModelName,
 		ServiceModelVersion: utils.Version2,

@@ -40,7 +40,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 	var actions []subapi.Action
 	action := subapi.Action{
@@ -54,7 +54,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              nodeIDs[0],
+		NodeID:              string(nodeIDs[0]),
 		EncodingType:        testCase.encodingType,
 		Actions:             actions,
 		EventTrigger:        testCase.eventTrigger,

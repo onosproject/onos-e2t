@@ -8,6 +8,10 @@ import (
 	"context"
 	"sync"
 
+	"github.com/onosproject/onos-e2t/pkg/topo"
+
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
+
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	server2 "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -43,12 +47,15 @@ func TestWatcher(t *testing.T) {
 func TestChannelWatcher(t *testing.T) {
 	createServerScaffolding(t)
 	subscriptionClient, subscriptionTaskClient := createClients(t)
+	// TODO this should be changed to mock the store but the test is not using it
+	store, _ := rnib.NewStore("")
+	topoManager := topo.NewManager(store)
 
 	watch := ChannelWatcher{
 		endpointID: E2NodeID,
 		tasks:      subscriptionTaskClient,
 		subs:       subscriptionClient,
-		channels:   server2.NewChannelManager(),
+		channels:   server2.NewChannelManager(topoManager),
 		cancel:     nil,
 		mu:         sync.Mutex{},
 	}

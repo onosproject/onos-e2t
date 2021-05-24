@@ -36,6 +36,10 @@ func NewModelRegistry() ModelRegistry {
 	}
 }
 
+type E2Setup interface {
+	OnSetup(request *types.OnSetupRequest) error
+}
+
 // ServiceModel is a set of methods that each model plugin should implement
 type ServiceModel interface {
 	ServiceModelData() (smData types.ServiceModelData)

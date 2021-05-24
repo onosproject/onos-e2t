@@ -47,9 +47,10 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
 // TestInvalidControl tests invalid control requests
 func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "invalid-control")
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
+
 	assert.NoError(t, err)
-	nodeID := nodeIDs[0]
+	nodeID := string(nodeIDs[0])
 
 	// The values in the header are for testing of error checking in the NB
 	rcControlHeader := utils.RcControlHeader{

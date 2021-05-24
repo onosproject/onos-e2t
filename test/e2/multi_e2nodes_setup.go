@@ -64,8 +64,8 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	time.Sleep(20 * time.Second)
 
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
-	nodeIDs, err := utils.GetNodeIDs()
-	assert.Equal(t, len(nodeIDs), defaultNumNodes)
+	connections, err := utils.GetAllE2Connections(t)
+	assert.Equal(t, len(connections), defaultNumNodes)
 	assert.NoError(t, err)
 	cells := utils.GetCells(t, cellClient)
 
@@ -95,10 +95,10 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	// for the number of nodes
 	time.Sleep(20 * time.Second)
 	numNodes := utils.GetNumNodes(t, nodeClient)
-	nodeIDs, err = utils.GetNodeIDs()
+	connections, err = utils.GetAllE2Connections(t)
 	assert.NoError(t, err)
 	assert.Equal(t, numRequestedE2Nodes, numNodes-defaultNumNodes)
-	assert.Equal(t, len(nodeIDs), numNodes)
+	assert.Equal(t, len(connections), numNodes)
 	e2nodes := utils.GetNodes(t, nodeClient)
 	for _, e2node := range e2nodes {
 		_, err = nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
@@ -108,10 +108,10 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	}
 	time.Sleep(10 * time.Second)
 	numNodes = utils.GetNumNodes(t, nodeClient)
-	nodeIDs, err = utils.GetNodeIDs()
+	connections, err = utils.GetAllE2Connections(t)
 	assert.NoError(t, err)
 	assert.Equal(t, 0, numNodes)
-	assert.Equal(t, 0, len(nodeIDs))
+	assert.Equal(t, 0, len(connections))
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 

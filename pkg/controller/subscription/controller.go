@@ -9,6 +9,10 @@ import (
 	"fmt"
 	"time"
 
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
+	"github.com/onosproject/onos-e2t/pkg/topo"
+
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
@@ -43,7 +47,7 @@ func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServic
 	tasks subtaskapi.E2SubscriptionTaskServiceClient, channels e2server.ChannelManager,
 	models modelregistry.ModelRegistry,
 	oidRegistry oid.Registry,
-	ranFunctionRegistry ranfunctions.Registry) *controller.Controller {
+	ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) *controller.Controller {
 	c := controller.NewController("SubscriptionTask")
 	c.Watch(&Watcher{
 		endpointID: epapi.ID(env.GetPodID()),
@@ -64,6 +68,7 @@ func NewController(streams subscription.Broker, subs subapi.E2SubscriptionServic
 		oidRegistry:               oidRegistry,
 		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 		ranFunctionRegistry:       ranFunctionRegistry,
+		topoManager:               topoManager,
 	})
 	return c
 }
@@ -83,6 +88,7 @@ type Reconciler struct {
 	oidRegistry               oid.Registry
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
 	ranFunctionRegistry       ranfunctions.Registry
+	topoManager               topo.Manager
 }
 
 // Reconcile reconciles the state of a device change
@@ -139,8 +145,11 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 	sub := subResponse.Subscription
-
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(sub.Details.E2NodeID))
+	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
+	if err != nil || channelID == "" {
+		return controller.Result{}, err
+	}
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -200,8 +209,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFuncID, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
-
+	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
 	if err != nil {
 		log.Warn(err)
 	}
@@ -308,7 +316,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		}
 	}
 
-	request, err := r.newRicSubscriptionRequest(ricRequest, ranFuncID.ID, ricEventDef, ricActionsToBeSetup)
+	request, err := r.newRicSubscriptionRequest(ricRequest, ranFunction.ID, ricEventDef, ricActionsToBeSetup)
 	if err != nil {
 		log.Warnf("Failed to create E2ApPdu %+v for SubscriptionTask %+v: %s", request, task, err)
 		return controller.Result{}, err
@@ -388,7 +396,11 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	sub := subResponse.Subscription
 
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(sub.Details.E2NodeID))
+	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
+	if err != nil || channelID == "" {
+		return controller.Result{}, err
+	}
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -415,12 +427,12 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		return controller.Result{}, err
 	}
 
-	ranFuncID, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
+	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
 	if err != nil {
 		log.Warn(err)
 	}
 
-	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFuncID.ID)
+	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFunction.ID)
 	if err != nil {
 		return controller.Result{}, err
 	}

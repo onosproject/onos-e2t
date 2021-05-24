@@ -35,7 +35,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 
 	testNode1 := nodeIDs[0]
@@ -55,7 +55,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              testNode1,
+		NodeID:              string(testNode1),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        kpmEventTriggerBytes,
@@ -75,7 +75,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	subRequest = utils.Subscription{
-		NodeID:              testNode2,
+		NodeID:              string(testNode2),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        rcEventTriggerBytes,
