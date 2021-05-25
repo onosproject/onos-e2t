@@ -189,11 +189,6 @@ func (r *Rnib) CreateOrUpdateE2Node(ctx context.Context, deviceID topoapi.ID, se
 			Obj: &topoapi.Object_Entity{
 				Entity: &topoapi.Entity{
 					KindID: topoapi.ID(topoapi.RANEntityKinds_E2NODE.String()),
-					Protocols: []*topoapi.ProtocolState{
-						{
-							Protocol: topoapi.Protocol_E2AP,
-						},
-					},
 				},
 			},
 			Aspects: make(map[string]*gogotypes.Any),
