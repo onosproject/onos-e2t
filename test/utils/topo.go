@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-lib-go/pkg/certs"
-
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/southbound"
+	toposdk "github.com/onosproject/onos-ric-sdk-go/pkg/topo"
 
 	"google.golang.org/grpc"
 )
@@ -32,6 +32,7 @@ func GetTopoConn(topoEndpoint string) (*grpc.ClientConn, error) {
 }
 
 func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
+
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
@@ -73,12 +74,40 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 func GetContainRelationObjects() ([]topoapi.Object, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	conn, err := GetTopoConn(OnosTopoAddress)
+
+	client, err := toposdk.NewClient(toposdk.Config{
+		TopoService: toposdk.ServiceConfig{
+			Host: "onos-topo",
+			Port: 5150,
+		},
+	})
 	if err != nil {
 		return nil, err
 	}
-	client := topoapi.CreateTopoClient(conn)
-	listResponse, err := client.List(ctx, &topoapi.ListRequest{
+	filters := &topoapi.Filters{
+		KindFilters: []*topoapi.Filter{
+			{
+				Filter: &topoapi.Filter_Equal_{
+					Equal_: &topoapi.EqualFilter{
+						Value: topoapi.RANRelationKinds_CONTAINS.String(),
+					},
+				},
+			},
+		},
+	}
+
+	response, err := client.List(ctx, filters)
+	if err != nil {
+		return nil, err
+	}
+
+	/*conn, err := GetTopoConn(OnosTopoAddress)
+	if err != nil {
+		return nil, err
+	}
+	client := topoapi.CreateTopoClient(conn)*/
+
+	/*listResponse, err := client.List(ctx, &topoapi.ListRequest{
 		Filters: &topoapi.Filters{
 			KindFilters: []*topoapi.Filter{
 				{
@@ -93,9 +122,9 @@ func GetContainRelationObjects() ([]topoapi.Object, error) {
 	})
 	if err != nil {
 		return nil, err
-	}
+	}*/
 
-	return listResponse.Objects, nil
+	return response, nil
 
 }
 
