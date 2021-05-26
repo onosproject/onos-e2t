@@ -50,7 +50,7 @@ gofmt: # @HELP run the Go format validation
 buflint: #@HELP run the "buf check lint" command on the proto files in 'api'
 	docker run -it -v `pwd`:/go/src/github.com/onosproject/onos-e2t \
 		-w /go/src/github.com/onosproject/onos-e2t/api \
-		bufbuild/buf:${BUF_VERSION} lint
+		bufbuild/buf:${BUF_VERSION} lint --path e2ap
 
 protos: # @HELP compile the protobuf files (using protoc-go Docker)
 protos: buflint
