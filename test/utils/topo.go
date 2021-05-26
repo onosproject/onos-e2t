@@ -10,37 +10,23 @@ import (
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-lib-go/pkg/certs"
-	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	toposdk "github.com/onosproject/onos-ric-sdk-go/pkg/topo"
-
-	"google.golang.org/grpc"
 )
 
 const (
-	OnosTopoAddress = "onos-topo:5150"
+	TopoServiceHost = "onos-topo"
+	TopoServicePort = 5150
 )
-
-// GetTopoConn gets a gRPC connection to the topology service
-func GetTopoConn(topoEndpoint string) (*grpc.ClientConn, error) {
-	opts, err := certs.HandleCertPaths("", "", "", true)
-	if err != nil {
-		return nil, err
-	}
-	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(100*time.Millisecond)))
-	return grpc.Dial(topoEndpoint, opts...)
-}
 
 func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	conn, err := GetTopoConn(OnosTopoAddress)
+	client, err := getTopoClient()
 	if err != nil {
 		return nil, err
 	}
-	client := topoapi.CreateTopoClient(conn)
 	objects, err := GetContainRelationObjects()
 	if err != nil {
 		return nil, err
@@ -51,39 +37,42 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 		relation := obj.Obj.(*topoapi.Object_Relation)
 		if relation.Relation.SrcEntityID == nodeID {
 			targetEntity := relation.Relation.TgtEntityID
-			getRequest := &topoapi.GetRequest{
-				ID: targetEntity,
-			}
-			response, err := client.Get(ctx, getRequest)
+
+			object, err := client.Get(ctx, targetEntity)
 			if err != nil {
 				return nil, err
 			}
-			object := response.Object
 			if object != nil && object.GetEntity().GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()) {
 				cellObject := &topoapi.E2Cell{}
 				object.GetAspect(cellObject)
 				cells = append(cells, cellObject)
 			}
-
 		}
 	}
 
 	return cells, nil
 }
 
+func getTopoClient() (toposdk.Client, error) {
+	client, err := toposdk.NewClient(toposdk.Config{
+		TopoService: toposdk.ServiceConfig{
+			Host: TopoServiceHost,
+			Port: TopoServicePort,
+		},
+	})
+
+	return client, err
+}
+
 func GetContainRelationObjects() ([]topoapi.Object, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	client, err := toposdk.NewClient(toposdk.Config{
-		TopoService: toposdk.ServiceConfig{
-			Host: "onos-topo",
-			Port: 5150,
-		},
-	})
+	client, err := getTopoClient()
 	if err != nil {
 		return nil, err
 	}
+
 	filters := &topoapi.Filters{
 		KindFilters: []*topoapi.Filter{
 			{
@@ -100,30 +89,6 @@ func GetContainRelationObjects() ([]topoapi.Object, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	/*conn, err := GetTopoConn(OnosTopoAddress)
-	if err != nil {
-		return nil, err
-	}
-	client := topoapi.CreateTopoClient(conn)*/
-
-	/*listResponse, err := client.List(ctx, &topoapi.ListRequest{
-		Filters: &topoapi.Filters{
-			KindFilters: []*topoapi.Filter{
-				{
-					Filter: &topoapi.Filter_Equal_{
-						Equal_: &topoapi.EqualFilter{
-							Value: topoapi.RANRelationKinds_CONTAINS.String(),
-						},
-					},
-				},
-			},
-		},
-	})
-	if err != nil {
-		return nil, err
-	}*/
-
 	return response, nil
 
 }
@@ -131,29 +96,28 @@ func GetContainRelationObjects() ([]topoapi.Object, error) {
 func GetControlRelationObjects() ([]topoapi.Object, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	conn, err := GetTopoConn(OnosTopoAddress)
+	client, err := getTopoClient()
 	if err != nil {
 		return nil, err
 	}
-	client := topoapi.CreateTopoClient(conn)
-	listResponse, err := client.List(ctx, &topoapi.ListRequest{
-		Filters: &topoapi.Filters{
-			KindFilters: []*topoapi.Filter{
-				{
-					Filter: &topoapi.Filter_Equal_{
-						Equal_: &topoapi.EqualFilter{
-							Value: topoapi.RANRelationKinds_CONTROLS.String(),
-						},
+	filters := &topoapi.Filters{
+		KindFilters: []*topoapi.Filter{
+			{
+				Filter: &topoapi.Filter_Equal_{
+					Equal_: &topoapi.EqualFilter{
+						Value: topoapi.RANRelationKinds_CONTROLS.String(),
 					},
 				},
 			},
 		},
-	})
+	}
+
+	response, err := client.List(ctx, filters)
 	if err != nil {
 		return nil, err
 	}
 
-	return listResponse.Objects, nil
+	return response, nil
 
 }
 
