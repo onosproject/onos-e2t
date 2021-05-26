@@ -61,11 +61,12 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 
 	numCells := utils.GetNumCells(t, cellClient)
 	assert.Equal(t, numRequestedCells, numCells-defaultNumCells)
+
 	// TODO this should be replaced with a mechanism to make sure all of the nodes are connected before asking
 	time.Sleep(20 * time.Second)
 
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
-	connections, err := utils.GetAllE2Connections(t)
+	connections, err := utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.Equal(t, len(connections), defaultNumNodes)
 	assert.NoError(t, err)
 	cells := utils.GetCells(t, cellClient)
@@ -96,7 +97,7 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	// for the number of nodes
 	time.Sleep(20 * time.Second)
 	numNodes := utils.GetNumNodes(t, nodeClient)
-	connections, err = utils.GetAllE2Connections(t)
+	connections, err = utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.NoError(t, err)
 	assert.Equal(t, numRequestedE2Nodes, numNodes-defaultNumNodes)
 	assert.Equal(t, len(connections), numNodes)
@@ -109,7 +110,7 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	}
 	time.Sleep(10 * time.Second)
 	numNodes = utils.GetNumNodes(t, nodeClient)
-	connections, err = utils.GetAllE2Connections(t)
+	connections, err = utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.NoError(t, err)
 	assert.Equal(t, 0, numNodes)
 	assert.Equal(t, 0, len(connections))

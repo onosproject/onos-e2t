@@ -6,10 +6,14 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-ric-sdk-go/pkg/topo/options"
+
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
@@ -48,7 +52,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		assert.NoError(t, err)
 	}
 	// Get list of all available e2 nodes and make sure no node is connected
-	connections, err := utils.GetAllE2Connections(t)
+	connections, err := utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.NoError(t, err)
 	assert.Equal(t, 0, len(connections))
 
@@ -75,16 +79,18 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, e2node)
 
-	// Waits until the connection gets established and make sure there is just one node connected
-	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
-	// for the number of nodes
-	time.Sleep(10 * time.Second)
-	connections, err = utils.GetAllE2Connections(t)
+	topoClient, err := utils.GetTopoClient()
+	assert.NoError(t, err)
+	topoCh := make(chan topoapi.Event)
+	err = topoClient.Watch(ctx, topoCh, options.WithWatchFilters(utils.GetControlRelationFilter()))
+	assert.NoError(t, err)
+	<-topoCh
+
+	connections, err = utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.NoError(t, err)
 	assert.Equal(t, 1, len(connections))
-	nodeIDs, err := utils.GetNodeIDs(t)
+	testNodeID, err := utils.GetTestNodeID()
 	assert.NoError(t, err)
-	testNodeID := nodeIDs[0]
 
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()

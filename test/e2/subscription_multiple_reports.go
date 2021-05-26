@@ -6,8 +6,9 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	"google.golang.org/protobuf/proto"
@@ -31,11 +32,10 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	testNodeID, err := utils.GetTestNodeID()
 	assert.NoError(t, err)
 
-	nodeID := nodeIDs[0]
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	cells, err := utils.GetCellIDsPerNode(testNodeID)
 	assert.NoError(t, err)
 
 	// Kpm v2 interval is defined in ms
@@ -86,7 +86,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	actions = append(actions, action1)
 
 	subRequest := utils.Subscription{
-		NodeID:              string(nodeID),
+		NodeID:              string(testNodeID),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,

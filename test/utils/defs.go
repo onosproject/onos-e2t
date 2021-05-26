@@ -6,6 +6,8 @@ package utils
 
 import (
 	"strconv"
+
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 )
 
 const (
@@ -29,3 +31,5 @@ var (
 func getRansimServiceAddress(ransimServiceHost string) string {
 	return ransimServiceHost + ":" + strconv.Itoa(RansimServicePort)
 }
+
+var E2NodeFilter = &topoapi.Filters{}

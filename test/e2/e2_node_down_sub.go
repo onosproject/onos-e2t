@@ -30,7 +30,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	testNodeID, err := utils.GetTestNodeID()
 	assert.NoError(t, err)
 
 	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
@@ -47,7 +47,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              string(nodeIDs[0]),
+		NodeID:              string(testNodeID),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,

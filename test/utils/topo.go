@@ -9,6 +9,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/onosproject/onos-ric-sdk-go/pkg/topo/options"
+
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	toposdk "github.com/onosproject/onos-ric-sdk-go/pkg/topo"
 )
@@ -23,11 +25,11 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	client, err := getTopoClient()
+	client, err := GetTopoClient()
 	if err != nil {
 		return nil, err
 	}
-	objects, err := GetContainRelationObjects()
+	objects, err := GetTopoObjects(GetContainsRelationFilter())
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +55,7 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 	return cells, nil
 }
 
-func getTopoClient() (toposdk.Client, error) {
+func GetTopoClient() (toposdk.Client, error) {
 	client, err := toposdk.NewClient(toposdk.Config{
 		TopoService: toposdk.ServiceConfig{
 			Host: TopoServiceHost,
@@ -64,28 +66,16 @@ func getTopoClient() (toposdk.Client, error) {
 	return client, err
 }
 
-func GetContainRelationObjects() ([]topoapi.Object, error) {
+func GetTopoObjects(filters *topoapi.Filters) ([]topoapi.Object, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
-	client, err := getTopoClient()
+	client, err := GetTopoClient()
 	if err != nil {
 		return nil, err
 	}
 
-	filters := &topoapi.Filters{
-		KindFilters: []*topoapi.Filter{
-			{
-				Filter: &topoapi.Filter_Equal_{
-					Equal_: &topoapi.EqualFilter{
-						Value: topoapi.RANRelationKinds_CONTAINS.String(),
-					},
-				},
-			},
-		},
-	}
-
-	response, err := client.List(ctx, filters)
+	response, err := client.List(ctx, options.WithListFilters(filters))
 	if err != nil {
 		return nil, err
 	}
@@ -93,36 +83,26 @@ func GetContainRelationObjects() ([]topoapi.Object, error) {
 
 }
 
-func GetControlRelationObjects() ([]topoapi.Object, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-	client, err := getTopoClient()
+func GetTestNodeID() (topoapi.ID, error) {
+	topoClient, err := GetTopoClient()
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	filters := &topoapi.Filters{
-		KindFilters: []*topoapi.Filter{
-			{
-				Filter: &topoapi.Filter_Equal_{
-					Equal_: &topoapi.EqualFilter{
-						Value: topoapi.RANRelationKinds_CONTROLS.String(),
-					},
-				},
-			},
-		},
-	}
-
-	response, err := client.List(ctx, filters)
+	ctx := context.Background()
+	topoCh := make(chan topoapi.Event)
+	err = topoClient.Watch(ctx, topoCh, options.WithWatchFilters(GetControlRelationFilter()))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
-	return response, nil
-
+	topoEvent := <-topoCh
+	relation := topoEvent.Object.Obj.(*topoapi.Object_Relation)
+	testNodeID := relation.Relation.TgtEntityID
+	return testNodeID, nil
 }
 
 func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
-	objects, err := GetControlRelationObjects()
+	objects, err := GetTopoObjects(GetControlRelationFilter())
 	if err != nil {
 		return nil, err
 	}
@@ -135,15 +115,49 @@ func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
 	return connectedNodes, nil
 }
 
-func GetAllE2Connections(t *testing.T) ([]topoapi.ID, error) {
-	objects, err := GetControlRelationObjects()
-	if err != nil {
-		return nil, err
+func GetE2NodeEntityFilter() *topoapi.Filters {
+	e2nodeEntityFilter := &topoapi.Filters{
+		KindFilters: []*topoapi.Filter{
+			{
+				Filter: &topoapi.Filter_Equal_{
+					Equal_: &topoapi.EqualFilter{
+						Value: topoapi.RANEntityKinds_E2NODE.String(),
+					},
+				},
+			},
+		},
 	}
-	var connectionIDs []topoapi.ID
-	for _, obj := range objects {
-		connectionIDs = append(connectionIDs, obj.ID)
+	return e2nodeEntityFilter
+}
 
+func GetControlRelationFilter() *topoapi.Filters {
+	controlRelationFilter := &topoapi.Filters{
+		KindFilters: []*topoapi.Filter{
+			{
+				Filter: &topoapi.Filter_Equal_{
+					Equal_: &topoapi.EqualFilter{
+						Value: topoapi.RANRelationKinds_CONTROLS.String(),
+					},
+				},
+			},
+		},
 	}
-	return connectionIDs, nil
+	return controlRelationFilter
+}
+
+func GetContainsRelationFilter() *topoapi.Filters {
+	containsRelationFilter := &topoapi.Filters{
+		KindFilters: []*topoapi.Filter{
+			{
+				Filter: &topoapi.Filter_Equal_{
+					Equal_: &topoapi.EqualFilter{
+						Value: topoapi.RANRelationKinds_CONTAINS.String(),
+					},
+				},
+			},
+		},
+	}
+
+	return containsRelationFilter
+
 }

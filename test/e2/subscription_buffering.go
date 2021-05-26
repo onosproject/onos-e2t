@@ -56,7 +56,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 		assert.NoError(t, err)
 	}
 	// Get list of all available e2 nodes and make sure no node is connected
-	connections, err := utils.GetAllE2Connections(t)
+	connections, err := utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.NoError(t, err)
 	assert.Equal(t, 0, len(connections))
 
@@ -87,12 +87,11 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
 	// for the number of nodes
 	time.Sleep(10 * time.Second)
-	connections, err = utils.GetAllE2Connections(t)
+	connections, err = utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.NoError(t, err)
 	assert.Equal(t, 1, len(connections))
-	nodeIDs, err := utils.GetNodeIDs(t)
+	testNodeID, err := utils.GetTestNodeID()
 	assert.NoError(t, err)
-	testNodeID := nodeIDs[0]
 
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()

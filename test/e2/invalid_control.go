@@ -47,10 +47,8 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
 // TestInvalidControl tests invalid control requests
 func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "invalid-control")
-	nodeIDs, err := utils.GetNodeIDs(t)
-
+	testNodeID, err := utils.GetTestNodeID()
 	assert.NoError(t, err)
-	nodeID := string(nodeIDs[0])
 
 	// The values in the header are for testing of error checking in the NB
 	rcControlHeader := utils.RcControlHeader{
@@ -73,7 +71,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	testCases := []invalidControlTestCase{
 		{
 			control: utils.Control{
-				NodeID:              nodeID,
+				NodeID:              string(testNodeID),
 				EncodingType:        10,
 				ServiceModelName:    utils.RcServiceModelName,
 				ServiceModelVersion: utils.Version2,
@@ -84,7 +82,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 		},
 		{
 			control: utils.Control{
-				NodeID:              nodeID,
+				NodeID:              string(testNodeID),
 				EncodingType:        e2tapi.EncodingType_PROTO,
 				ServiceModelName:    "no-such-service-model",
 				ServiceModelVersion: "v1",
@@ -95,7 +93,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 		},
 		{
 			control: utils.Control{
-				NodeID:              nodeID,
+				NodeID:              string(testNodeID),
 				EncodingType:        e2tapi.EncodingType_PROTO,
 				ServiceModelName:    utils.RcServiceModelName,
 				ServiceModelVersion: utils.Version2,
@@ -108,7 +106,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 		},
 		{
 			control: utils.Control{
-				NodeID:              nodeID,
+				NodeID:              string(testNodeID),
 				EncodingType:        e2tapi.EncodingType_PROTO,
 				ServiceModelName:    utils.RcServiceModelName,
 				ServiceModelVersion: utils.Version2,

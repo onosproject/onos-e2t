@@ -6,9 +6,10 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 
@@ -28,7 +29,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	testNodeID, err := utils.GetTestNodeID()
 	assert.NoError(t, err)
 
 	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
@@ -45,7 +46,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              string(nodeIDs[0]),
+		NodeID:              string(testNodeID),
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
