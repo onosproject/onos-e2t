@@ -21,8 +21,8 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestSubscriptionKpmV2AdminApi tests e2 subscription and subscription delete procedures using kpm version 2
-func (s *TestSuite) TestSubscriptionKpmV2AdminApi(t *testing.T) {
+// TestSubscriptionKpmV2AdminAPI tests e2 subscription and subscription delete procedures using kpm version 2
+func (s *TestSuite) TestSubscriptionKpmV2AdminAPI(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
 	assert.NotNil(t, sim)
 

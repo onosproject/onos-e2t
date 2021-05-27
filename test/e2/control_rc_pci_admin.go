@@ -63,7 +63,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              string(testNodeID),
+		NodeID:              testNodeID,
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
@@ -103,7 +103,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	controlRequest := utils.Control{
-		NodeID:              string(testNodeID),
+		NodeID:              testNodeID,
 		EncodingType:        e2tapi.EncodingType_PROTO,
 		ServiceModelName:    utils.RcServiceModelName,
 		ServiceModelVersion: utils.Version2,

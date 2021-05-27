@@ -81,7 +81,7 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 	serverChannel := NewMockRICChannel(ctrl)
 	testContext.serverChannel = serverChannel
 
-	channel := e2server.NewE2Channel("channel", serverChannel, testContext.broker)
+	channel := e2server.NewE2Channel("channel", "123", serverChannel, testContext.broker)
 	testContext.channelManager = NewMockChannelManager(ctrl)
 	testContext.channelManager.EXPECT().Get(gomock.Any(), gomock.Any()).Return(channel, nil)
 
