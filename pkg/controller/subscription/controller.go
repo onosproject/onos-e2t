@@ -221,6 +221,8 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		InstanceID:  config.InstanceID,
 	}
 
+	// TODO to keep admin API the channel ID is used for ran function registry mapping but
+	//  should be changed to e2nodeID later one
 	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channel.ID)))
 	if err != nil {
 		log.Warn(err)
@@ -435,6 +437,8 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		return controller.Result{}, err
 	}
 
+	// TODO to keep admin API the channel ID is used for ran function registry mapping but
+	//  should be changed to e2nodeID later one
 	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channel.ID)))
 	if err != nil {
 		log.Warn(err)

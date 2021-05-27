@@ -176,6 +176,8 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 	}
 
+	// TODO to keep admin API the channel ID is used for ran function registry mapping but
+	//  should be changed to e2nodeID later one
 	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channel.ID)))
 	if err != nil {
 		log.Warn(err)
