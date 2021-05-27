@@ -32,12 +32,12 @@ const (
 
 // TestControl tests E2 control procedure using ransim and SDK
 func (s *TestSuite) TestControl(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "control")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "control-admin-api")
 	assert.NotNil(t, sim)
 	ch := make(chan indication.Indication)
 	ctx := context.Background()
 
-	e2Client := utils.GetE2Client(t, "control-pci-test")
+	e2Client := utils.GetE2Client(t, "control-pci-test-admin-api")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)

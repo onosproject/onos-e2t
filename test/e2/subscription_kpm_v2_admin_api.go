@@ -23,10 +23,10 @@ import (
 
 // TestSubscriptionKpmV2AdminAPI tests e2 subscription and subscription delete procedures using kpm version 2
 func (s *TestSuite) TestSubscriptionKpmV2AdminAPI(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2-admin")
 	assert.NotNil(t, sim)
 
-	e2Client := utils.GetE2Client(t, "subscription-kpm-v2-test")
+	e2Client := utils.GetE2Client(t, "subscription-kpm-v2-test-admin")
 
 	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
