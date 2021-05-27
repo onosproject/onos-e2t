@@ -32,19 +32,19 @@ const (
 
 // TestControl tests E2 control procedure using ransim and SDK
 func (s *TestSuite) TestControl(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "control")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "control-admin-api")
 	assert.NotNil(t, sim)
 	ch := make(chan indication.Indication)
 	ctx := context.Background()
 
-	e2Client := utils.GetE2Client(t, "control-pci-test")
+	e2Client := utils.GetE2Client(t, "control-pci-test-admin-api")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
 	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	nodeIDs, err := utils.NodeIDs()
 	assert.NoError(t, err)
 	testNodeID := nodeIDs[0]
 
@@ -63,7 +63,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              string(testNodeID),
+		NodeID:              testNodeID,
 		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
@@ -103,7 +103,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	controlRequest := utils.Control{
-		NodeID:              string(testNodeID),
+		NodeID:              testNodeID,
 		EncodingType:        e2tapi.EncodingType_PROTO,
 		ServiceModelName:    utils.RcServiceModelName,
 		ServiceModelVersion: utils.Version2,

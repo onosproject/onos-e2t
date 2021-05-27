@@ -7,6 +7,7 @@ package server
 import (
 	"context"
 	"encoding/hex"
+	"strconv"
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
@@ -87,7 +88,7 @@ type E2ChannelServer struct {
 func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 	e2NodeID topoapi.ID,
 	serviceModels map[string]*topoapi.ServiceModelInfo,
-	e2cells *[]*topoapi.E2Cell) (types.RanFunctionRevisions, types.RanFunctionCauses, error) {
+	e2cells *[]*topoapi.E2Cell, channelID ChannelID) (types.RanFunctionRevisions, types.RanFunctionCauses, error) {
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
 	plugins := e.modelRegistry.GetPlugins()
@@ -95,6 +96,7 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 		for smOid, sm := range plugins {
 			oid := e2smtypes.OID(ranFunc.OID)
 			if smOid == oid {
+
 				serviceModels[string(oid)] = &topoapi.ServiceModelInfo{
 					OID: string(oid),
 				}
@@ -113,13 +115,22 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 					}
 				}
 
-				ranFunction := ranfunctions.RANFunction{
-					OID: oid,
-					ID:  ranFunctionID,
+				ranFunctionDescriptionProto, err := sm.RanFuncDescriptionASN1toProto(ranFunc.Description)
+				if err != nil {
+					log.Warn(err)
+					log.Warnf("Following set of bytes of length %v were pushed to the decoder \n%v\n", len(ranFunc.Description), hex.Dump(ranFunc.Description))
+					continue
 				}
 
-				id := ranfunctions.NewID(oid, string(e2NodeID))
-				err := e.ranFunctionRegistry.Add(id, ranFunction)
+				ranFunction := ranfunctions.RANFunction{
+					OID:         oid,
+					ID:          ranFunctionID,
+					Description: ranFunctionDescriptionProto,
+				}
+
+				// TODO channel ID should be changed to e2node ID after admin API is removed
+				id := ranfunctions.NewID(oid, string(channelID))
+				err = e.ranFunctionRegistry.Add(id, ranFunction)
 				if err != nil {
 					log.Warn(err)
 				} else {
@@ -163,6 +174,15 @@ func (e *E2ChannelServer) updateRNIB(ctx context.Context, e2NodeID topoapi.ID,
 	return err
 }
 
+// uint24ToUint32 converts uint24 uint32
+func uint24ToUint32(val []byte) uint32 {
+	r := uint32(0)
+	for i := uint32(0); i < 3; i++ {
+		r |= uint32(val[i]) << (8 * i)
+	}
+	return r
+}
+
 func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
 	nodeID, ranFuncs, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
@@ -174,22 +194,24 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		log.Warn(err)
 		return nil, nil, err
 	}
+	rawPlmnid := []byte{nodeID.Plmn[0], nodeID.Plmn[1], nodeID.Plmn[2]}
+	plmnID := strconv.FormatUint(uint64(uint24ToUint32(rawPlmnid)), 10)
 
 	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
 	var e2Cells []*topoapi.E2Cell
-	rfAccepted, rfRejected, err := e.processRANFunctions(ranFuncs, e2NodeID, serviceModels, &e2Cells)
-	if err != nil {
-		log.Warn(err)
-		return nil, nil, err
-	}
-
 	channelID, err := getChannelID(e2NodeID)
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
 	}
 
-	e.e2Channel = NewE2Channel(channelID, e.serverChannel, e.subs)
+	rfAccepted, rfRejected, err := e.processRANFunctions(ranFuncs, e2NodeID, serviceModels, &e2Cells, channelID)
+	if err != nil {
+		log.Warn(err)
+		return nil, nil, err
+	}
+
+	e.e2Channel = NewE2Channel(channelID, plmnID, e.serverChannel, e.subs)
 	e.manager.Open(channelID, e.e2Channel)
 
 	err = e.updateRNIB(ctx, e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))

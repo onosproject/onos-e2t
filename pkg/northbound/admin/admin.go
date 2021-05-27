@@ -6,6 +6,7 @@ package admin
 
 import (
 	"context"
+	"errors"
 
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
@@ -14,6 +15,7 @@ import (
 	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
+	"github.com/onosproject/onos-lib-go/pkg/sctp/addressing"
 	"google.golang.org/grpc"
 )
 
@@ -62,9 +64,52 @@ func (s *Server) ListRegisteredServiceModels(req *adminapi.ListRegisteredService
 }
 
 // ListE2NodeConnections returns a stream of existing SCTP connections.
-// Deprecated
 func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsRequest, stream adminapi.E2TAdminService_ListE2NodeConnectionsServer) error {
-	return nil
+	channels, err := s.channels.List(stream.Context())
+	if err != nil {
+		return err
+	}
+
+	for _, channel := range channels {
+		sctpAddr := channel.RemoteAddr()
+		if sctpAddr == nil {
+			log.Errorf("Found non-SCTP connection in CreateConnection: %v", channel)
+			return errors.New("found non-SCTP connection")
+		}
+		remoteAddrs := channel.RemoteAddr().(*addressing.Address).IPAddrs
+		remotePort := uint32(channel.RemoteAddr().(*addressing.Address).Port)
+		var remoteAddrsStrings []string
+		for _, remoteAddr := range remoteAddrs {
+			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
+		}
+		var ranFunctions []*adminapi.RANFunction
+		registeredRANFunctions := s.ranFunctionRegistry.GetRANFunctionsByNodeID(string(channel.ID))
+
+		for _, ranFunctionValue := range registeredRANFunctions {
+			ranFunction := &adminapi.RANFunction{
+				Oid:           string(ranFunctionValue.OID),
+				RanFunctionId: string(ranFunctionValue.ID),
+				Description:   ranFunctionValue.Description,
+			}
+			ranFunctions = append(ranFunctions, ranFunction)
+		}
+
+		msg := &adminapi.ListE2NodeConnectionsResponse{
+			RemoteIp:   remoteAddrsStrings,
+			RemotePort: remotePort,
+			Id:         string(channel.ID),
+			PlmnId:     channel.PlmnID,
+			// TODO: This should come from the connection data
+			ConnectionType: adminapi.E2NodeConnectionType_G_NB,
+			RanFunctions:   ranFunctions,
+		}
+
+		err = stream.Send(msg)
+		if err != nil {
+			return err
+		}
+	}
+	return err
 }
 
 // DropE2NodeConnections drops the specified E2 node SCTP connections

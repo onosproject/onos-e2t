@@ -128,6 +128,22 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	return controller.Result{}, nil
 }
 
+func (r *Reconciler) getChannel(ctx context.Context, e2NodeID subapi.E2NodeID) (*e2server.E2Channel, error) {
+	// TODO this line of code is just added to keep admin API for a while
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(e2NodeID))
+	if err != nil {
+		channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(e2NodeID))
+		if err != nil || channelID == "" {
+			return nil, err
+		}
+		channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
+		return channel, err
+	}
+
+	return channel, nil
+
+}
+
 func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.SubscriptionTask) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
@@ -145,11 +161,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		return controller.Result{}, err
 	}
 	sub := subResponse.Subscription
-	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
-	if err != nil || channelID == "" {
-		return controller.Result{}, err
-	}
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
+	channel, err := r.getChannel(ctx, sub.Details.E2NodeID)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -209,7 +221,9 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *subtaskapi.Subscription
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
+	// TODO to keep admin API the channel ID is used for ran function registry mapping but
+	//  should be changed to e2nodeID later one
+	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channel.ID)))
 	if err != nil {
 		log.Warn(err)
 	}
@@ -396,11 +410,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 	}
 	sub := subResponse.Subscription
 
-	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.Details.E2NodeID))
-	if err != nil || channelID == "" {
-		return controller.Result{}, err
-	}
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
+	channel, err := r.getChannel(ctx, sub.Details.E2NodeID)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
@@ -427,7 +437,9 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *subtaskapi.Subscriptio
 		return controller.Result{}, err
 	}
 
-	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(sub.Details.E2NodeID)))
+	// TODO to keep admin API the channel ID is used for ran function registry mapping but
+	//  should be changed to e2nodeID later one
+	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channel.ID)))
 	if err != nil {
 		log.Warn(err)
 	}

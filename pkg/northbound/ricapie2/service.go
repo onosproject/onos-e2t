@@ -104,15 +104,26 @@ func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRe
 	return controlAckRequest
 }
 
+func (s *Server) getChannel(ctx context.Context, e2NodeID e2api.E2NodeID) (*e2server.E2Channel, error) {
+	// TODO this line of code is just added to keep admin API for a while
+	channel, err := s.channels.Get(ctx, e2server.ChannelID(e2NodeID))
+	if err != nil {
+		channelID, err := s.topoManager.GetE2Relation(ctx, topoapi.ID(e2NodeID))
+		if err != nil || channelID == "" {
+			return nil, err
+		}
+		channel, err := s.channels.Get(ctx, e2server.ChannelID(channelID))
+		return channel, err
+	}
+
+	return channel, nil
+
+}
+
 func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
-	channelID, err := s.topoManager.GetE2Relation(ctx, topoapi.ID(request.E2NodeID))
-	if err != nil || channelID == "" {
-		return nil, err
-	}
-
-	channel, err := s.channels.Get(ctx, e2server.ChannelID(channelID))
+	channel, err := s.getChannel(ctx, request.GetE2NodeID())
 	if err != nil {
 		return nil, errors.Status(err).Err()
 	}
@@ -165,7 +176,9 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 		return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 	}
 
-	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(request.E2NodeID)))
+	// TODO to keep admin API the channel ID is used for ran function registry mapping but
+	//  should be changed to e2nodeID later one
+	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channel.ID)))
 	if err != nil {
 		log.Warn(err)
 	}
