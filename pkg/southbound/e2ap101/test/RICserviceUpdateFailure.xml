@@ -1,41 +1,35 @@
 <E2AP-PDU>
-    <successfulOutcome>
+    <unsuccessfulOutcome>
         <procedureCode>7</procedureCode>
         <criticality><reject/></criticality>
         <value>
-            <RICserviceUpdateAcknowledge>
+            <RICserviceUpdateFailure>
                 <protocolIEs>
-                    <RICserviceUpdateAcknowledge-IEs>
-                        <id>9</id>
-                        <criticality><reject/></criticality>
+                    <RICserviceUpdateFailure-IEs>
+                        <id>2</id>
+                        <criticality><ignore/></criticality>
                         <value>
-                            <RANfunctionsID-List>
-                                <ProtocolIE-SingleContainer>
-                                    <id>6</id>
-                                    <criticality><ignore/></criticality>
-                                    <value>
-                                        <RANfunctionID-Item>
-                                            <ranFunctionID>100</ranFunctionID>
-                                            <ranFunctionRevision>2</ranFunctionRevision>
-                                        </RANfunctionID-Item>
-                                    </value>
-                                </ProtocolIE-SingleContainer>
-                                <ProtocolIE-SingleContainer>
-                                    <id>6</id>
-                                    <criticality><ignore/></criticality>
-                                    <value>
-                                        <RANfunctionID-Item>
-                                            <ranFunctionID>200</ranFunctionID>
-                                            <ranFunctionRevision>2</ranFunctionRevision>
-                                        </RANfunctionID-Item>
-                                    </value>
-                                </ProtocolIE-SingleContainer>
-                            </RANfunctionsID-List>
+                            <CriticalityDiagnostics>
+                                <procedureCode>8</procedureCode>
+                                <triggeringMessage><unsuccessfull-outcome/></triggeringMessage>
+                                <procedureCriticality><ignore/></procedureCriticality>
+                                <ricRequestorID>
+                                    <ricRequestorID>10</ricRequestorID>
+                                    <ricInstanceID>20</ricInstanceID>
+                                </ricRequestorID>
+                                <iEsCriticalityDiagnostics>
+                                    <CriticalityDiagnostics-IE-Item>
+                                        <iECriticality><ignore/></iECriticality>
+                                        <iE-ID>30</iE-ID>
+                                        <typeOfError><missing/></typeOfError>
+                                    </CriticalityDiagnostics-IE-Item>
+                                </iEsCriticalityDiagnostics>
+                            </CriticalityDiagnostics>
                         </value>
-                    </RICserviceUpdateAcknowledge-IEs>
-                    <RICserviceUpdateAcknowledge-IEs>
+                    </RICserviceUpdateFailure-IEs>
+                    <RICserviceUpdateFailure-IEs>
                         <id>13</id>
-                        <criticality><reject/></criticality>
+                        <criticality><ignore/></criticality>
                         <value>
                             <RANfunctionsIDcause-List>
                                 <ProtocolIE-SingleContainer>
@@ -64,9 +58,16 @@
                                 </ProtocolIE-SingleContainer>
                             </RANfunctionsIDcause-List>
                         </value>
-                    </RICserviceUpdateAcknowledge-IEs>
+                    </RICserviceUpdateFailure-IEs>
+                    <RICserviceUpdateFailure-IEs>
+                        <id>31</id>
+                        <criticality><ignore/></criticality>
+                        <value>
+                            <TimeToWait><v2s/></TimeToWait>
+                        </value>
+                    </RICserviceUpdateFailure-IEs>
                 </protocolIEs>
-            </RICserviceUpdateAcknowledge>
+            </RICserviceUpdateFailure>
         </value>
-    </successfulOutcome>
+    </unsuccessfulOutcome>
 </E2AP-PDU>

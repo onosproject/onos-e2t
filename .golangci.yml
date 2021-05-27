@@ -69,6 +69,9 @@ issues:
     - path: pkg/southbound/e2ap101/pdubuilder/ric-service-update-failure_test.go
       linters:
         - misspell
+    - path: pkg/southbound/e2ap101/pdudecoder/
+      linters:
+        - misspell
     - path: pkg/southbound/e2ap101/asn1cgo/
       linters:
         - deadcode
