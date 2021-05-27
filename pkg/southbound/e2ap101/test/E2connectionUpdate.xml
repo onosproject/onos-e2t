@@ -17,10 +17,10 @@
                                         <E2connectionUpdate-Item>
                                             <tnlInformation>
                                                 <tnlAddress>
-                                                    1100110110011011000010000000000000000000000000000000000000000000
+                                                    0110011101000101001000110000000111011111110111001010101110001001
                                                 </tnlAddress>
                                                 <tnlPort>
-                                                    1011110010001001
+                                                    1010111010001001
                                                 </tnlPort>
                                             </tnlInformation>
                                             <tnlUsage><both/></tnlUsage>
@@ -42,10 +42,10 @@
                                         <E2connectionUpdate-Item>
                                             <tnlInformation>
                                                 <tnlAddress>
-                                                    1100110110011011000010000000000000000000000000000000000000000000
+                                                    0110011101000101001000110000000111101111110011011010101101100101
                                                 </tnlAddress>
                                                 <tnlPort>
-                                                    1100110110011011
+                                                    1010101110010001
                                                 </tnlPort>
                                             </tnlInformation>
                                             <tnlUsage><ric-service/></tnlUsage>
@@ -67,10 +67,26 @@
                                         <E2connectionUpdateRemove-Item>
                                             <tnlInformation>
                                                 <tnlAddress>
-                                                    1100110110011011000010000000000000000000000000000000000000000000
+                                                    0110011101000101001000110000000111101111110011011010101110001001
                                                 </tnlAddress>
                                                 <tnlPort>
-                                                    1100110110011011
+                                                    1010101110001001
+                                                </tnlPort>
+                                            </tnlInformation>
+                                        </E2connectionUpdateRemove-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>47</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <E2connectionUpdateRemove-Item>
+                                            <tnlInformation>
+                                                <tnlAddress>
+                                                    0111100001010110001101000001001011101111110011011010101110001001
+                                                </tnlAddress>
+                                                <tnlPort>
+                                                    1100110110001001
                                                 </tnlPort>
                                             </tnlInformation>
                                         </E2connectionUpdateRemove-Item>

@@ -11,9 +11,10 @@ import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateRicServiceQueryE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
+func CreateRicServiceQueryE2apPdu(rfAccepted types.RanFunctionRevisions) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ranFunctionsAccepted := e2appducontents.RicserviceQueryIes_RicserviceQueryIes9{
 		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
@@ -24,22 +25,24 @@ func CreateRicServiceQueryE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	rfii := &e2appducontents.RanfunctionIdItemIes{
-		RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RanfunctionIdItem{
-				RanFunctionId: &e2apies.RanfunctionId{
-					Value: 123,
+	for rfID, rfRevision := range rfAccepted {
+		rfIDiIe := e2appducontents.RanfunctionIdItemIes{
+			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionIdItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(rfID),
+					},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(rfRevision),
+					},
 				},
-				RanFunctionRevision: &e2apies.RanfunctionRevision{
-					Value: 1,
-				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		},
+		}
+		ranFunctionsAccepted.Value.Value = append(ranFunctionsAccepted.Value.Value, &rfIDiIe)
 	}
-	ranFunctionsAccepted.Value.Value = append(ranFunctionsAccepted.Value.Value, rfii)
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{

@@ -15,8 +15,18 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionID-Item>
-                                            <ranFunctionID>123</ranFunctionID>
-                                            <ranFunctionRevision>1</ranFunctionRevision>
+                                            <ranFunctionID>100</ranFunctionID>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
+                                        </RANfunctionID-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>6</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunctionID-Item>
+                                            <ranFunctionID>200</ranFunctionID>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
                                         </RANfunctionID-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
@@ -33,9 +43,21 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionIDcause-Item>
-                                            <ranFunctionID>123</ranFunctionID>
+                                            <ranFunctionID>101</ranFunctionID>
                                             <cause>
-                                                <ricService><ric-resource-limit/></ricService>
+                                                <misc><hardware-failure/></misc>
+                                            </cause>
+                                        </RANfunctionIDcause-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>7</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunctionIDcause-Item>
+                                            <ranFunctionID>102</ranFunctionID>
+                                            <cause>
+                                                <protocol><semantic-error/></protocol>
                                             </cause>
                                         </RANfunctionIDcause-Item>
                                     </value>

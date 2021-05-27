@@ -16,7 +16,7 @@ func createE2nodeComponentConfigUpdateAckMsg() (*e2ap_ies.E2NodeComponentConfigU
 
 	e2nodeComponentConfigUpdateAck := e2ap_ies.E2NodeComponentConfigUpdateAck{
 		UpdateOutcome: 1,
-		FailureCause: &e2ap_ies.Cause{ //ToDo - pass as a parameter
+		FailureCause: &e2ap_ies.Cause{
 			Cause: &e2ap_ies.Cause_Protocol{
 				Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 			},

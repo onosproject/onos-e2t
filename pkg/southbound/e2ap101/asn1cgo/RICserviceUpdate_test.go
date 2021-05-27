@@ -9,13 +9,43 @@ import (
 	"fmt"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func createRicServiceUpdateMsg() (*e2ap_pdu_contents.RicserviceUpdate, error) {
+	ranFunctionAddedList := make(map[types.RanFunctionID]types.RanFunctionItem)
+	ranFunctionAddedList[100] = types.RanFunctionItem{
+		Description: []byte("Type 1"),
+		Revision:    1,
+		OID:         []byte("oid1"),
+	}
 
-	rsu, err := pdubuilder.CreateRicServiceUpdateE2apPdu()
+	ranFunctionAddedList[200] = types.RanFunctionItem{
+		Description: []byte("Type 2"),
+		Revision:    2,
+		OID:         []byte("oid2"),
+	}
+
+	rfDeleted := make(types.RanFunctionRevisions)
+	rfDeleted[100] = 2
+	rfDeleted[200] = 2
+
+	ranFunctionModifiedList := make(map[types.RanFunctionID]types.RanFunctionItem)
+	ranFunctionModifiedList[100] = types.RanFunctionItem{
+		Description: []byte("Type 3"),
+		Revision:    3,
+		OID:         []byte("oid3"),
+	}
+
+	ranFunctionModifiedList[200] = types.RanFunctionItem{
+		Description: []byte("Type 4"),
+		Revision:    4,
+		OID:         []byte("oid4"),
+	}
+
+	rsu, err := pdubuilder.CreateRicServiceUpdateE2apPdu(ranFunctionAddedList, rfDeleted, ranFunctionModifiedList)
 	if err != nil {
 		return nil, err
 	}

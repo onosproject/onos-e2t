@@ -42,7 +42,7 @@ func createE2nodeComponentConfigUpdateListMsg() (*e2ap_pdu_contents.E2NodeCompon
 
 	item := e2ap_pdu_contents.E2NodeComponentConfigUpdateItemIes{
 		Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       &e2nodeComponentConfigUpdateItem,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}

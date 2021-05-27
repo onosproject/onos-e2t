@@ -4,6 +4,7 @@
 package pdubuilder
 
 import (
+	"encoding/hex"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
@@ -31,4 +32,8 @@ func TestRicIndication(t *testing.T) {
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
 	t.Logf("RIC Indication XER\n%s", string(xer))
+
+	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	assert.NilError(t, err)
+	t.Logf("RIC Indication PER\n%s", hex.Dump(per))
 }

@@ -15,10 +15,22 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunction-Item>
-                                            <ranFunctionID>123</ranFunctionID>
-                                            <ranFunctionDefinition>01 02 03</ranFunctionDefinition>
+                                            <ranFunctionID>100</ranFunctionID>
+                                            <ranFunctionDefinition>54 79 70 65 20 31</ranFunctionDefinition>
                                             <ranFunctionRevision>1</ranFunctionRevision>
-                                            <ranFunctionOID>abcd</ranFunctionOID>
+                                            <ranFunctionOID>oid1</ranFunctionOID>
+                                        </RANfunction-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>8</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunction-Item>
+                                            <ranFunctionID>200</ranFunctionID>
+                                            <ranFunctionDefinition>54 79 70 65 20 32</ranFunctionDefinition>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
+                                            <ranFunctionOID>oid2</ranFunctionOID>
                                         </RANfunction-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
@@ -35,8 +47,18 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionID-Item>
-                                            <ranFunctionID>123</ranFunctionID>
-                                            <ranFunctionRevision>1</ranFunctionRevision>
+                                            <ranFunctionID>200</ranFunctionID>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
+                                        </RANfunctionID-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>6</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunctionID-Item>
+                                            <ranFunctionID>100</ranFunctionID>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
                                         </RANfunctionID-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
@@ -53,10 +75,22 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunction-Item>
-                                            <ranFunctionID>123</ranFunctionID>
-                                            <ranFunctionDefinition>01 02 03</ranFunctionDefinition>
-                                            <ranFunctionRevision>1</ranFunctionRevision>
-                                            <ranFunctionOID>abc</ranFunctionOID>
+                                            <ranFunctionID>100</ranFunctionID>
+                                            <ranFunctionDefinition>54 79 70 65 20 33</ranFunctionDefinition>
+                                            <ranFunctionRevision>3</ranFunctionRevision>
+                                            <ranFunctionOID>oid3</ranFunctionOID>
+                                        </RANfunction-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>8</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RANfunction-Item>
+                                            <ranFunctionID>200</ranFunctionID>
+                                            <ranFunctionDefinition>54 79 70 65 20 34</ranFunctionDefinition>
+                                            <ranFunctionRevision>4</ranFunctionRevision>
+                                            <ranFunctionOID>oid4</ranFunctionOID>
                                         </RANfunction-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>

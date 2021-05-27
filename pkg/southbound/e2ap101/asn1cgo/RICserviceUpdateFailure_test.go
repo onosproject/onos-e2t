@@ -18,8 +18,19 @@ import (
 )
 
 func createRicServiceUpdateFailureMsg() (*e2ap_pdu_contents.RicserviceUpdateFailure, error) {
+	rfRejected := make(types.RanFunctionCauses)
+	rfRejected[101] = &e2apies.Cause{
+		Cause: &e2apies.Cause_Misc{
+			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
+		},
+	}
+	rfRejected[102] = &e2apies.Cause{
+		Cause: &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+		},
+	}
 
-	rsuf, err := pdubuilder.CreateRicServiceUpdateFailureE2apPdu(
+	rsuf, err := pdubuilder.CreateRicServiceUpdateFailureE2apPdu(rfRejected, e2apies.TimeToWait_TIME_TO_WAIT_V2S,
 		v1beta2.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
 		&types.RicRequest{
@@ -50,7 +61,7 @@ func Test_xerEncodingRicserviceUpdateFailure(t *testing.T) {
 
 	xer, err := xerEncodeRicServiceUpdateFailure(rsuf)
 	assert.NilError(t, err)
-	assert.Equal(t, 2278, len(xer))
+	assert.Equal(t, 2856, len(xer))
 	t.Logf("RicServiceUpdateFailure XER\n%s", string(xer))
 
 	result, err := xerDecodeRicServiceUpdateFailure(xer)
@@ -75,7 +86,7 @@ func Test_perEncodingRicserviceUpdateFailure(t *testing.T) {
 
 	per, err := perEncodeRicServiceUpdateFailure(rsuf)
 	assert.NilError(t, err)
-	assert.Equal(t, 38, len(per))
+	assert.Equal(t, 46, len(per))
 	t.Logf("RicServiceUpdateFailure PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeRicServiceUpdateFailure(per)

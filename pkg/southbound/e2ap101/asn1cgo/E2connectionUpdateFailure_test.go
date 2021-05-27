@@ -19,7 +19,11 @@ import (
 
 func createE2connectionUpdateFailureMsg() (*e2ap_pdu_contents.E2ConnectionUpdateFailure, error) {
 
-	e2connectionUpdateFailure, err := pdubuilder.CreateE2connectionUpdateFailureE2apPdu(
+	e2connectionUpdateFailure, err := pdubuilder.CreateE2connectionUpdateFailureE2apPdu(e2apies.Cause{
+		Cause: &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+		},
+	}, e2apies.TimeToWait_TIME_TO_WAIT_V5S,
 		v1beta2.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
 		&types.RicRequest{
@@ -57,7 +61,6 @@ func Test_xerEncodingE2connectionUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateFailure XER - decoded\n%v", result)
-	//ToDo - adjust field's verification
 	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol(), result.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol())
 	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
 	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId())
@@ -78,7 +81,6 @@ func Test_perEncodingE2connectionUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateFailure PER - decoded\n%v", result)
-	//ToDo - adjust field's verification
 	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol(), result.GetProtocolIes().GetE2ApProtocolIes1().GetValue().GetProtocol())
 	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId())
 	assert.Equal(t, e2connectionUpdateFailure.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), result.GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId())

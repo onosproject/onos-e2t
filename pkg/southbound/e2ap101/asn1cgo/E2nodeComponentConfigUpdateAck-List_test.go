@@ -40,7 +40,7 @@ func createE2nodeComponentConfigUpdateAckListMsg() (*e2ap_pdu_contents.E2NodeCom
 
 	item := &e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItemIes{
 		Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       &e2nodeComponentConfigUpdateAckItem,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}

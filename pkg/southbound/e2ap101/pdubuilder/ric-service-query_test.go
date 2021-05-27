@@ -6,12 +6,17 @@ package pdubuilder
 import (
 	"encoding/hex"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func TestRicServiceQuery(t *testing.T) {
-	newE2apPdu, err := CreateRicServiceQueryE2apPdu()
+	rfAccepted := make(types.RanFunctionRevisions)
+	rfAccepted[100] = 2
+	rfAccepted[200] = 2
+
+	newE2apPdu, err := CreateRicServiceQueryE2apPdu(rfAccepted)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 

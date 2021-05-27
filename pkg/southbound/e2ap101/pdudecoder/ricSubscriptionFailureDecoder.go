@@ -65,7 +65,14 @@ func DecodeRicSubscriptionFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 			RequestorID: types.RicRequestorID(critDiagnostics.GetValue().GetRicRequestorId().GetRicRequestorId()),
 			InstanceID:  types.RicInstanceID(critDiagnostics.GetValue().GetRicRequestorId().GetRicInstanceId()),
 		}
-		// TODO: handle Diags
+		for _, ie := range critDiagnostics.GetValue().GetIEsCriticalityDiagnostics().GetValue() {
+			diag := types.CritDiag{
+				IECriticality: ie.IEcriticality,
+				IEId:          v1beta2.ProtocolIeID(ie.GetIEId().GetValue()),
+				TypeOfError:   ie.TypeOfError,
+			}
+			diags = append(diags, &diag)
+		}
 	}
 
 	return &ricRequestID, &ranFunctionID, pc, crit, tm, critDiagRequestID, causes, diags, nil

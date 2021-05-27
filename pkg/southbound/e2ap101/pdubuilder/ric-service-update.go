@@ -11,9 +11,10 @@ import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
+func CreateRicServiceUpdateE2apPdu(rfal types.RanFunctions, rfDeleted types.RanFunctionRevisions, rfml types.RanFunctions) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ranFunctionsAddedList := e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes10{
 		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
@@ -24,28 +25,30 @@ func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	rfi := &e2appducontents.RanfunctionItemIes{
-		E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RanfunctionItem{
-				RanFunctionId: &e2apies.RanfunctionId{
-					Value: 123,
-				},
-				RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
-					Value: []byte{0x01, 0x02, 0x03},
-				},
-				RanFunctionRevision: &e2apies.RanfunctionRevision{
-					Value: 1,
-				},
-				RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-					Value: []byte{0x61, 0x62, 0x63, 0x64},
+	for id, ranFunctionID := range rfal {
+		ranFunction := e2appducontents.RanfunctionItemIes{
+			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionItem),
+				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(id),
+					},
+					RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
+						Value: []byte(ranFunctionID.Description),
+					},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(ranFunctionID.Revision),
+					},
+					RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
+						Value: ranFunctionID.OID,
+					},
 				},
 			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		},
+		}
+		ranFunctionsAddedList.RanFunctionsAddedList.Value = append(ranFunctionsAddedList.RanFunctionsAddedList.Value, &ranFunction)
 	}
-	ranFunctionsAddedList.RanFunctionsAddedList.Value = append(ranFunctionsAddedList.RanFunctionsAddedList.Value, rfi)
 
 	ranFunctionsDeletedList := e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes11{
 		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsDeleted),
@@ -56,22 +59,24 @@ func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	rfdi := &e2appducontents.RanfunctionIdItemIes{
-		RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RanfunctionIdItem{
-				RanFunctionId: &e2apies.RanfunctionId{
-					Value: 123,
+	for rfID, rfRevision := range rfDeleted {
+		rfIDiIe := e2appducontents.RanfunctionIdItemIes{
+			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionIdItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(rfID),
+					},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(rfRevision),
+					},
 				},
-				RanFunctionRevision: &e2apies.RanfunctionRevision{
-					Value: 1,
-				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		},
+		}
+		ranFunctionsDeletedList.RanFunctionsDeletedList.Value = append(ranFunctionsDeletedList.RanFunctionsDeletedList.Value, &rfIDiIe)
 	}
-	ranFunctionsDeletedList.RanFunctionsDeletedList.Value = append(ranFunctionsDeletedList.RanFunctionsDeletedList.Value, rfdi)
 
 	ranFunctionsModifiedList := e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes12{
 		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsModified),
@@ -82,28 +87,30 @@ func CreateRicServiceUpdateE2apPdu() (*e2appdudescriptions.E2ApPdu, error) {
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	rfmi := &e2appducontents.RanfunctionItemIes{
-		E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RanfunctionItem{
-				RanFunctionId: &e2apies.RanfunctionId{
-					Value: 123,
-				},
-				RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
-					Value: []byte{0x01, 0x02, 0x03},
-				},
-				RanFunctionRevision: &e2apies.RanfunctionRevision{
-					Value: 1,
-				},
-				RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-					Value: []byte{0x61, 0x62, 0x63},
+	for id, ranFunctionID := range rfml {
+		ranFunction := e2appducontents.RanfunctionItemIes{
+			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionItem),
+				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(id),
+					},
+					RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
+						Value: []byte(ranFunctionID.Description),
+					},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(ranFunctionID.Revision),
+					},
+					RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
+						Value: ranFunctionID.OID,
+					},
 				},
 			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		},
+		}
+		ranFunctionsModifiedList.RanFunctionsModifiedList.Value = append(ranFunctionsModifiedList.RanFunctionsModifiedList.Value, &ranFunction)
 	}
-	ranFunctionsModifiedList.RanFunctionsModifiedList.Value = append(ranFunctionsModifiedList.RanFunctionsModifiedList.Value, rfmi)
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{

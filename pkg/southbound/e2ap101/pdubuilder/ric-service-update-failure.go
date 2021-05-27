@@ -14,7 +14,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateRicServiceUpdateFailureE2apPdu(failureProcCode v1beta2.ProcedureCodeT, failureCrit e2ap_commondatatypes.Criticality,
+func CreateRicServiceUpdateFailureE2apPdu(rfRejected types.RanFunctionCauses, ttw e2apies.TimeToWait, failureProcCode v1beta2.ProcedureCodeT, failureCrit e2ap_commondatatypes.Criticality,
 	failureTrigMsg e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
 	critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
@@ -27,30 +27,53 @@ func CreateRicServiceUpdateFailureE2apPdu(failureProcCode v1beta2.ProcedureCodeT
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	rfri := &e2appducontents.RanfunctionIdcauseItemIes{
-		RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
-			Id:          int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.RanfunctionIdcauseItem{
-				RanFunctionId: &e2apies.RanfunctionId{
-					Value: 123,
-				},
-				//ToDo - Pass cause as a parameter
-				Cause: &e2apies.Cause{
-					Cause: &e2apies.Cause_RicService{
-						RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT,
+	for id, cause := range rfRejected {
+		rfIDcIIe := e2appducontents.RanfunctionIdcauseItemIes{
+			RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
+				Id:          int32(v1beta2.ProtocolIeIDRanfunctionIeCauseItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionIdcauseItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(id),
 					},
+					Cause: &e2apies.Cause{},
 				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		},
+		}
+
+		switch causeType := cause.GetCause().(type) {
+		case *e2apies.Cause_Misc:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Misc{
+				Misc: cause.GetMisc(),
+			}
+		case *e2apies.Cause_Protocol:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Protocol{
+				Protocol: cause.GetProtocol(),
+			}
+		case *e2apies.Cause_RicService:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_RicService{
+				RicService: cause.GetRicService(),
+			}
+		case *e2apies.Cause_RicRequest:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_RicRequest{
+				RicRequest: cause.GetRicRequest(),
+			}
+		case *e2apies.Cause_Transport:
+			rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Transport{
+				Transport: cause.GetTransport(),
+			}
+
+		default:
+			return nil, fmt.Errorf("unexpected cause type %v", causeType)
+		}
+		ranFunctionsRejected.Value.Value = append(ranFunctionsRejected.Value.Value, &rfIDcIIe)
 	}
-	ranFunctionsRejected.Value.Value = append(ranFunctionsRejected.Value.Value, rfri)
 
 	timeToWait := e2appducontents.RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31{
 		Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value:       e2apies.TimeToWait_TIME_TO_WAIT_V1S,
+		Value:       ttw,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 

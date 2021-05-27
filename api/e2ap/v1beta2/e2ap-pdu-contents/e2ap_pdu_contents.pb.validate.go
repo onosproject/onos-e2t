@@ -4954,10 +4954,10 @@ func (m *E2NodeConfigurationUpdateIes) Validate() error {
 		}
 	}
 
-	if m.GetCriticality() != 1 {
+	if m.GetCriticality() != 0 {
 		return E2NodeConfigurationUpdateIesValidationError{
 			field:  "Criticality",
-			reason: "value must equal 1",
+			reason: "value must equal 0",
 		}
 	}
 
@@ -5143,10 +5143,10 @@ func (m *E2NodeComponentConfigUpdateItemIes) Validate() error {
 		}
 	}
 
-	if m.GetCriticality() != 1 {
+	if m.GetCriticality() != 0 {
 		return E2NodeComponentConfigUpdateItemIesValidationError{
 			field:  "Criticality",
-			reason: "value must equal 1",
+			reason: "value must equal 0",
 		}
 	}
 
@@ -5410,10 +5410,10 @@ func (m *E2NodeConfigurationUpdateAcknowledgeIes) Validate() error {
 		}
 	}
 
-	if m.GetCriticality() != 1 {
+	if m.GetCriticality() != 0 {
 		return E2NodeConfigurationUpdateAcknowledgeIesValidationError{
 			field:  "Criticality",
-			reason: "value must equal 1",
+			reason: "value must equal 0",
 		}
 	}
 
@@ -5427,10 +5427,10 @@ func (m *E2NodeConfigurationUpdateAcknowledgeIes) Validate() error {
 		}
 	}
 
-	if m.GetPresence() != 2 {
+	if m.GetPresence() != 0 {
 		return E2NodeConfigurationUpdateAcknowledgeIesValidationError{
 			field:  "Presence",
-			reason: "value must equal 2",
+			reason: "value must equal 0",
 		}
 	}
 
@@ -5599,10 +5599,10 @@ func (m *E2NodeComponentConfigUpdateAckItemIes) Validate() error {
 		}
 	}
 
-	if m.GetCriticality() != 1 {
+	if m.GetCriticality() != 0 {
 		return E2NodeComponentConfigUpdateAckItemIesValidationError{
 			field:  "Criticality",
-			reason: "value must equal 1",
+			reason: "value must equal 0",
 		}
 	}
 
