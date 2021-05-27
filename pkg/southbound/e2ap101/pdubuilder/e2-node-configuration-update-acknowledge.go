@@ -23,7 +23,7 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeC
 	for _, e2nccuai := range e2nccual {
 		cuai := &e2appducontents.E2NodeComponentConfigUpdateAckItemIes{
 			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2appducontents.E2NodeComponentConfigUpdateAckItem{
 				E2NodeComponentType: e2nccuai.E2NodeComponentType,
 				E2NodeComponentId:   &e2nccuai.E2NodeComponentID,
@@ -45,9 +45,9 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeC
 						SuccessfulOutcome: &e2appducontents.E2NodeConfigurationUpdateAcknowledge{
 							ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes{
 								Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck),
-								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 								Value:       &configUpdateAckList,
-								Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+								Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{

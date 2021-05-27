@@ -949,7 +949,7 @@ message E2nodeConfigurationUpdate {
 //{E2nodeConfigurationUpdateIEs}
 message E2nodeConfigurationUpdateIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 33, json_name="id"];
-    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     E2nodeComponentConfigUpdateList value = 3 [json_name="e2NodeConfigUpdateList"];
     int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="presence"];
 };
@@ -964,7 +964,7 @@ message E2nodeComponentConfigUpdateList {
 //{E2nodeComponentConfigUpdateItemIEs}
 message E2nodeComponentConfigUpdateItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 34, json_name="id"];
-    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     E2nodeComponentConfigUpdateItem value = 3 [json_name="E2nodeComponentConfigUpdateItem"];
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
@@ -987,9 +987,9 @@ message E2nodeConfigurationUpdateAcknowledge {
 //{E2nodeConfigurationUpdateAcknowledgeIEs}
 message E2nodeConfigurationUpdateAcknowledgeIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 35, json_name="id"];
-    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     E2nodeComponentConfigUpdateAckList value = 3 [json_name="E2nodeConfigurationUpdateAckList"];
-    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="presence"];
 };
 
 // sequence from e2ap-v01.01.00.asn1:848
@@ -1002,7 +1002,7 @@ message E2nodeComponentConfigUpdateAckList {
 //{E2nodeComponentConfigUpdateAckItemIEs}
 message E2nodeComponentConfigUpdateAckItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 36, json_name="id"];
-    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     E2nodeComponentConfigUpdateAckItem value = 3 [json_name="E2nodeComponentConfigUpdateAckItem"];
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };

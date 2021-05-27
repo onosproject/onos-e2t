@@ -1451,8 +1451,8 @@ func decodeE2nodeConfigurationUpdateIes(protocolIEsC *C.ProtocolIE_Container_171
 		if err != nil {
 			return nil, err
 		}
-		if ie.Value != nil {
-			pIEs.Value = ie.Value
+		if ie != nil {
+			pIEs = ie
 		}
 	}
 
@@ -1554,8 +1554,8 @@ func decodeE2nodeConfigurationUpdateAcknowledgeIes(protocolIEsC *C.ProtocolIE_Co
 		if err != nil {
 			return nil, err
 		}
-		if ie.Value != nil {
-			pIEs.Value = ie.Value
+		if ie != nil {
+			pIEs = ie
 		}
 	}
 

@@ -18,7 +18,6 @@ func CreateE2NodeConfigurationUpdateFailureE2apPdu(c e2ap_ies.Cause, ttw e2ap_ie
 	failureCrit e2ap_commondatatypes.Criticality, failureTrigMsg e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
 	critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
-	//ToDo - Pass cause as a parameter
 	cause := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
 		Id:          int32(v1beta2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
@@ -26,7 +25,6 @@ func CreateE2NodeConfigurationUpdateFailureE2apPdu(c e2ap_ies.Cause, ttw e2ap_ie
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	// ToDo pass it as a parameter
 	timeToWait := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes31{
 		Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),

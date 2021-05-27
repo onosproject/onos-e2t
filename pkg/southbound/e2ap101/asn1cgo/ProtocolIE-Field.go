@@ -4183,7 +4183,7 @@ func decodeE2nodeConfigurationUpdateIE(e2ncuIeC *C.E2nodeConfigurationUpdate_IEs
 			return nil, err
 		}
 
-		ret.Id = int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
+		ret.Id = int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
 		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT)
 		ret.Value = e2ncul
 		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL)
@@ -4295,9 +4295,9 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 		}
 		ret.E2ApProtocolIes1 = &e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes1{
 			Id:          int32(v1beta2.ProtocolIeIDCause),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       cause,
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
 
 	case C.E2connectionUpdateFailure_IEs__value_PR_CriticalityDiagnostics: //This one is for added

@@ -23,7 +23,7 @@ func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConf
 	for _, e2nccui := range e2nccul {
 		cui := &e2appducontents.E2NodeComponentConfigUpdateItemIes{
 			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2appducontents.E2NodeComponentConfigUpdateItem{
 				E2NodeComponentType:         e2nccui.E2NodeComponentType,
 				E2NodeComponentId:           &e2nccui.E2NodeComponentID,
@@ -42,7 +42,7 @@ func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConf
 						InitiatingMessage: &e2appducontents.E2NodeConfigurationUpdate{
 							ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateIes{
 								Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate),
-								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 								Value:       &configUpdateList,
 								Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 							},
