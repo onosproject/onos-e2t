@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package subscription
+package task
 
 import (
 	"context"
@@ -28,7 +28,7 @@ import (
 	api "github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
 )
 
-var log = logging.GetLogger("store", "subscriptiontask")
+var log = logging.GetLogger("store", "task")
 
 // NewAtomixStore returns a new persistent Store
 func NewAtomixStore(client atomix.Client) (Store, error) {

@@ -11,7 +11,7 @@ import (
 
 // Key gets the task ID as a string key
 func (s *TaskID) Key() string {
-	return fmt.Sprintf("%s:%s", s.NodeID, s.RequestID)
+	return fmt.Sprintf("%s:%s:%s", s.NodeID, s.RequestID, s.Hash)
 }
 
 // Validate verifies that the ID is valid
@@ -21,6 +21,9 @@ func (s *TaskID) Validate() error {
 	}
 	if s.RequestID == "" {
 		return errors.NewInvalid("RequestID is required")
+	}
+	if s.Hash == "" {
+		return errors.NewInvalid("Hash is required")
 	}
 	return nil
 }
