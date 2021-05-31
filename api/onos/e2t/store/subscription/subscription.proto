@@ -21,81 +21,66 @@ package onos.e2t.store.subscription;
 
 import "gogoproto/gogo.proto";
 
+message SubscriptionID {
+    string node_id = 1 [(gogoproto.customname) = "NodeID", (gogoproto.casttype) = "NodeID"];
+    string request_id = 2 [(gogoproto.customname) = "RequestID", (gogoproto.casttype) = "RequestID"];
+    string app_id = 3 [(gogoproto.customname) = "AppID", (gogoproto.casttype) = "AppID"];
+    string instance_id = 4 [(gogoproto.customname) = "InstanceID", (gogoproto.casttype) = "InstanceID"];
+}
+
 // Subscription is a subscription state
 message Subscription {
     SubscriptionMeta meta = 1 [(gogoproto.nullable) = false, (gogoproto.embed) = true];
-    SubscriptionSpec spec = 6 [(gogoproto.nullable) = false];
-    SubscriptionStatus status = 7 [(gogoproto.nullable) = false];
+    SubscriptionSpec spec = 2 [(gogoproto.nullable) = false];
+    SubscriptionStatus status = 3 [(gogoproto.nullable) = false];
 }
 
 // SubscriptionMeta is subscription metadata
 message SubscriptionMeta {
-    string id = 1 [(gogoproto.casttype) = "ID", (gogoproto.customname) = "ID"];
+    SubscriptionID id = 1 [(gogoproto.customname) = "ID", (gogoproto.nullable) = false];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
-    string app_id = 3 [(gogoproto.casttype) = "AppID", (gogoproto.customname) = "AppID"];
-    string app_node_id = 4 [(gogoproto.casttype) = "AppNodeID", (gogoproto.customname) = "AppNodeID"];
-    string e2_node_id = 5 [(gogoproto.casttype) = "E2NodeID", (gogoproto.customname) = "E2NodeID"];
 }
 
 message SubscriptionSpec {
-    ServiceModel service_model = 2 [(gogoproto.nullable) = false];
-    EventTrigger event_trigger = 3 [(gogoproto.nullable) = false];
-    repeated Action actions = 4 [(gogoproto.nullable) = false];
+    SubscriptionEventTrigger event_trigger = 1;
+    repeated SubscriptionAction actions = 2 [(gogoproto.nullable) = false];
 }
 
 // SubscriptionStatus is the subscription status
 message SubscriptionStatus {
-    State state = 1;
-    string task_id = 2 [(gogoproto.customname) = "TaskID", (gogoproto.casttype) = "github.com/onosproject/onos-e2t/api/store/task.ID"];
+    SubscriptionState state = 1;
 }
 
-// State is a subscription state
-enum State {
-    ACTIVE = 0;
-    PENDING_DELETE = 1;
-    FAILED = 2;
+// SubscriptionState is a subscription state
+enum SubscriptionState {
+    SUBSCRIPTION_ACTIVE = 0;
+    SUBSCRIPTION_PENDING_DELETE = 1;
+    SUBSCRIPTION_FAILED = 2;
 }
 
-// EventType is a subscription event type
-enum EventType {
-    NONE = 0;
-    ADDED = 1;
-    UPDATED = 2;
-    REMOVED = 3;
-    REPLAYED = 4;
+// SubscriptionEventType is a subscription event type
+enum SubscriptionEventType {
+    SUBSCRIPTION_EVENT_UNKNOWN = 0;
+    SUBSCRIPTION_CREATED = 1;
+    SUBSCRIPTION_UPDATED = 2;
+    SUBSCRIPTION_DELETED = 3;
+    SUBSCRIPTION_REPLAYED = 4;
 }
 
-// Event is a subscription event
-message Event {
-    EventType type = 1;
+// SubscriptionEvent is a subscription event
+message SubscriptionEvent {
+    SubscriptionEventType type = 1;
     Subscription subscription = 2 [(gogoproto.nullable) = false];
 }
 
-// ServiceModel is a service model definition
-message ServiceModel {
-    string name = 1;
-    string version = 2;
+message SubscriptionEventTrigger {
+    bytes contents = 1;
 }
 
-// Encoding indicates a payload encoding
-enum Encoding {
-    ENCODING_ASN1 = 0;
-    ENCODING_PROTO = 1;
-}
-
-message Payload {
-    Encoding encoding = 1;
-    bytes data = 2;
-}
-
-message EventTrigger {
-    Payload payload = 1 [(gogoproto.nullable) = false];
-}
-
-message Action {
+message SubscriptionAction {
     int32 id = 1 [(gogoproto.customname) = "ID"];
     ActionType type = 2;
-    Payload payload = 3 [(gogoproto.nullable) = false];
+    bytes contents = 3;
     SubsequentAction subsequent_action = 4;
 }
 
