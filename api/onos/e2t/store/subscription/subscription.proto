@@ -31,6 +31,7 @@ message SubscriptionID {
     string request_id = 2 [(gogoproto.customname) = "RequestID", (gogoproto.casttype) = "RequestID"];
     string app_id = 3 [(gogoproto.customname) = "AppID", (gogoproto.casttype) = "AppID"];
     string instance_id = 4 [(gogoproto.customname) = "InstanceID", (gogoproto.casttype) = "InstanceID"];
+    string hash = 5;
 }
 
 // Subscription is a subscription state

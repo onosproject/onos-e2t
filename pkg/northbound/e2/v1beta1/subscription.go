@@ -5,15 +5,17 @@
 package v1beta1
 
 import (
+	"crypto/md5"
+	"fmt"
+	"github.com/gogo/protobuf/proto"
 	"io"
 
 	substoreapi "github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
+	subbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
@@ -23,7 +25,7 @@ import (
 )
 
 // NewSubscriptionService creates a new E2T subscription service
-func NewSubscriptionService(subs substore.Store, streams subscription.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry) northbound.Service {
+func NewSubscriptionService(subs substore.Store, streams subbroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry) northbound.Service {
 	return &SubscriptionService{
 		subs:          subs,
 		streams:       streams,
@@ -36,7 +38,7 @@ func NewSubscriptionService(subs substore.Store, streams subscription.Broker, mo
 type SubscriptionService struct {
 	northbound.Service
 	subs          substore.Store
-	streams       subscription.Broker
+	streams       subbroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 }
@@ -55,7 +57,7 @@ func (s SubscriptionService) Register(r *grpc.Server) {
 // SubscriptionServer implements the gRPC service for E2 Subscription related functions.
 type SubscriptionServer struct {
 	subs          substore.Store
-	streams       subscription.Broker
+	streams       subbroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 }
@@ -81,57 +83,67 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	subID := substoreapi.SubscriptionID{
-		NodeID:     substoreapi.NodeID(request.Headers.NodeID),
-		AppID:      substoreapi.AppID(request.Headers.AppID),
-		InstanceID: substoreapi.InstanceID(request.Headers.InstanceID),
-		RequestID:  substoreapi.RequestID(request.Subscription.ID),
-	}
-	taskID := substoreapi.TaskID{
-		NodeID:    substoreapi.NodeID(request.Headers.NodeID),
-		RequestID: substoreapi.RequestID(request.Subscription.ID),
-	}
-	sub, err := s.subs.Get(server.Context(), subID)
-	if err != nil {
-		if !errors.IsNotFound(err) {
+	eventTriggerBytes := request.Subscription.EventTrigger.Payload
+	if encoding == e2api.Encoding_PROTO {
+		eventTriggerBytes, err = serviceModelPlugin.EventTriggerDefinitionProtoToASN1(eventTriggerBytes)
+		if err != nil {
 			log.Error(err)
-			return errors.Status(err).Err()
+			return err
 		}
+	}
+	eventTrigger := &substoreapi.SubscriptionEventTrigger{
+		Payload: eventTriggerBytes,
+	}
 
-		eventTriggerBytes := request.Subscription.EventTrigger.Payload
+	actions := make([]substoreapi.SubscriptionAction, len(request.Subscription.Actions))
+	for i, action := range request.Subscription.Actions {
+		actionBytes := action.Payload
 		if encoding == e2api.Encoding_PROTO {
-			eventTriggerBytes, err = serviceModelPlugin.EventTriggerDefinitionProtoToASN1(eventTriggerBytes)
+			actionBytes, err = serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
 			if err != nil {
 				log.Error(err)
 				return err
 			}
 		}
-		eventTrigger := &substoreapi.SubscriptionEventTrigger{
-			Payload: eventTriggerBytes,
+		subAction := substoreapi.SubscriptionAction{
+			ID:      action.ID,
+			Type:    substoreapi.ActionType(action.Type),
+			Payload: actionBytes,
 		}
+		if action.SubsequentAction != nil {
+			subAction.SubsequentAction = &substoreapi.SubsequentAction{
+				Type:       substoreapi.SubsequentActionType(action.SubsequentAction.Type),
+				TimeToWait: substoreapi.TimeToWait(action.SubsequentAction.TimeToWait),
+			}
+		}
+		actions[i] = subAction
+	}
 
-		actions := make([]substoreapi.SubscriptionAction, len(request.Subscription.Actions))
-		for i, action := range request.Subscription.Actions {
-			actionBytes := action.Payload
-			if encoding == e2api.Encoding_PROTO {
-				actionBytes, err = serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
-				if err != nil {
-					log.Error(err)
-					return err
-				}
-			}
-			subAction := substoreapi.SubscriptionAction{
-				ID:      action.ID,
-				Type:    substoreapi.ActionType(action.Type),
-				Payload: actionBytes,
-			}
-			if action.SubsequentAction != nil {
-				subAction.SubsequentAction = &substoreapi.SubsequentAction{
-					Type:       substoreapi.SubsequentActionType(action.SubsequentAction.Type),
-					TimeToWait: substoreapi.TimeToWait(action.SubsequentAction.TimeToWait),
-				}
-			}
-			actions[i] = subAction
+	spec := substoreapi.SubscriptionSpec{
+		EventTrigger: eventTrigger,
+		Actions:      actions,
+	}
+
+	subBytes, err := proto.Marshal(&spec)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	subHash := fmt.Sprintf("%x", md5.Sum(subBytes))
+
+	subID := substoreapi.SubscriptionID{
+		NodeID:     substoreapi.NodeID(request.Headers.NodeID),
+		AppID:      substoreapi.AppID(request.Headers.AppID),
+		InstanceID: substoreapi.InstanceID(request.Headers.InstanceID),
+		RequestID:  substoreapi.RequestID(request.Subscription.ID),
+		Hash:       subHash,
+	}
+
+	sub, err := s.subs.Get(server.Context(), subID)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Error(err)
+			return errors.Status(err).Err()
 		}
 
 		sub = &substoreapi.Subscription{
@@ -142,10 +154,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 					Version: substoreapi.ServiceModelVersion(request.Headers.ServiceModel.Version),
 				},
 			},
-			Spec: substoreapi.SubscriptionSpec{
-				EventTrigger: eventTrigger,
-				Actions:      actions,
-			},
+			Spec: spec,
 		}
 		err = s.subs.Create(server.Context(), sub)
 		if err != nil {
@@ -153,13 +162,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		}
 	}
 
-	// TODO: Handle identical subscriptions from multiple xApps
-	reader, err := s.streams.OpenStream(subapi.ID(taskID.Key()))
-	if err != nil {
-		log.Warnf("SubscribeRequest %+v failed: %v", request, err)
-		return err
-	}
-
+	reader := s.streams.OpenReader(subID)
 	response := &e2api.SubscribeResponse{
 		Headers: e2api.ResponseHeaders{
 			Encoding: encoding,

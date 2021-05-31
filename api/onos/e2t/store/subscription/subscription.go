@@ -5,9 +5,7 @@
 package subscription
 
 import (
-	"crypto/md5"
 	"fmt"
-	"github.com/gogo/protobuf/proto"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
@@ -28,7 +26,16 @@ type Revision uint64
 
 // Key gets the subscription ID as a string key
 func (s *SubscriptionID) Key() string {
-	return fmt.Sprintf("%s:%s:%s:%s", s.NodeID, s.RequestID, s.AppID, s.InstanceID)
+	return fmt.Sprintf("%s:%s:%s:%s:%s", s.NodeID, s.RequestID, s.AppID, s.InstanceID, s.Hash)
+}
+
+// TaskID returns the task ID for the subscription
+func (s *SubscriptionID) TaskID() TaskID {
+	return TaskID{
+		NodeID:    s.NodeID,
+		RequestID: s.RequestID,
+		Hash:      s.Hash,
+	}
 }
 
 // Validate verifies that the ID is valid
@@ -45,18 +52,8 @@ func (s *SubscriptionID) Validate() error {
 	if s.InstanceID == "" {
 		return errors.NewInvalid("InstanceID is required")
 	}
-	return nil
-}
-
-// GetTaskID returns the task ID for the subscription
-func (s *Subscription) GetTaskID() (TaskID, error) {
-	bytes, err := proto.Marshal(&s.Spec)
-	if err != nil {
-		return TaskID{}, err
+	if s.Hash == "" {
+		return errors.NewInvalid("Hash is required")
 	}
-	return TaskID{
-		NodeID:    s.ID.NodeID,
-		RequestID: s.ID.RequestID,
-		Hash:      fmt.Sprintf("%x", md5.Sum(bytes)),
-	}, nil
+	return nil
 }
