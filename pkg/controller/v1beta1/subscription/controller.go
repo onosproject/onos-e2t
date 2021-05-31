@@ -71,7 +71,7 @@ func (r *Reconciler) reconcileActiveSubscription(sub *api.Subscription) (control
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	task, err := r.tasks.Get(ctx, sub.ID.TaskID())
+	_, err := r.tasks.Get(ctx, sub.ID.TaskID())
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
@@ -79,7 +79,7 @@ func (r *Reconciler) reconcileActiveSubscription(sub *api.Subscription) (control
 		}
 
 		log.Warnf("Creating Task for Subscription %+v: %s", sub, err)
-		task = &api.Task{
+		task := &api.Task{
 			TaskMeta: api.TaskMeta{
 				ID:           sub.ID.TaskID(),
 				ServiceModel: sub.ServiceModel,

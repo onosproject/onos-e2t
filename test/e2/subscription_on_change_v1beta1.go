@@ -13,7 +13,6 @@ import (
 	"testing"
 	"time"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 	"google.golang.org/protobuf/proto"
 
@@ -95,16 +94,6 @@ func (s *TestSuite) TestSubscriptionOnChangeV1beta1(t *testing.T) {
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()
 	assert.NoError(t, err)
-	var actions []subapi.Action
-	action := subapi.Action{
-		ID:   100,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-	}
-	actions = append(actions, action)
 
 	subscription := &e2v1beta1api.Subscription{
 		ID: "subscription-on-change-v1beta1",
