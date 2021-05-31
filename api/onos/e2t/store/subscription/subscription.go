@@ -5,7 +5,9 @@
 package subscription
 
 import (
+	"crypto/md5"
 	"fmt"
+	"github.com/gogo/protobuf/proto"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
@@ -16,6 +18,10 @@ type NodeID string
 type AppID string
 
 type InstanceID string
+
+type ServiceModelName string
+
+type ServiceModelVersion string
 
 // Revision is a subscription object revision
 type Revision uint64
@@ -40,4 +46,17 @@ func (s *SubscriptionID) Validate() error {
 		return errors.NewInvalid("InstanceID is required")
 	}
 	return nil
+}
+
+// GetTaskID returns the task ID for the subscription
+func (s *Subscription) GetTaskID() (TaskID, error) {
+	bytes, err := proto.Marshal(&s.Spec)
+	if err != nil {
+		return TaskID{}, err
+	}
+	return TaskID{
+		NodeID:    s.ID.NodeID,
+		RequestID: s.ID.RequestID,
+		Hash:      fmt.Sprintf("%x", md5.Sum(bytes)),
+	}, nil
 }

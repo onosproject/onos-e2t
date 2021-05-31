@@ -25,6 +25,7 @@ import "onos/e2t/store/subscription/subscription.proto";
 message TaskID {
     string node_id = 1 [(gogoproto.customname) = "NodeID", (gogoproto.casttype) = "NodeID"];
     string request_id = 2 [(gogoproto.customname) = "RequestID", (gogoproto.casttype) = "RequestID"];
+    string hash = 3;
 }
 
 // Task is a subscription task
@@ -38,6 +39,7 @@ message Task {
 message TaskMeta {
     TaskID id = 1 [(gogoproto.customname) = "ID", (gogoproto.nullable) = false];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
+    ServiceModel service_model = 3 [(gogoproto.nullable) = false];
 }
 
 message TaskSpec {

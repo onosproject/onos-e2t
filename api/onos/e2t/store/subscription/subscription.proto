@@ -21,6 +21,11 @@ package onos.e2t.store.subscription;
 
 import "gogoproto/gogo.proto";
 
+message ServiceModel {
+    string name = 1 [(gogoproto.casttype) = "ServiceModelName"];
+    string version = 2 [(gogoproto.casttype) = "ServiceModelVersion"];
+}
+
 message SubscriptionID {
     string node_id = 1 [(gogoproto.customname) = "NodeID", (gogoproto.casttype) = "NodeID"];
     string request_id = 2 [(gogoproto.customname) = "RequestID", (gogoproto.casttype) = "RequestID"];
@@ -39,9 +44,11 @@ message Subscription {
 message SubscriptionMeta {
     SubscriptionID id = 1 [(gogoproto.customname) = "ID", (gogoproto.nullable) = false];
     uint64 revision = 2 [(gogoproto.casttype) = "Revision"];
+    ServiceModel service_model = 3 [(gogoproto.nullable) = false];
 }
 
 message SubscriptionSpec {
+    option (gogoproto.equal) = true;
     SubscriptionEventTrigger event_trigger = 1;
     repeated SubscriptionAction actions = 2 [(gogoproto.nullable) = false];
 }
@@ -74,13 +81,15 @@ message SubscriptionEvent {
 }
 
 message SubscriptionEventTrigger {
-    bytes contents = 1;
+    option (gogoproto.equal) = true;
+    bytes payload = 1;
 }
 
 message SubscriptionAction {
+    option (gogoproto.equal) = true;
     int32 id = 1 [(gogoproto.customname) = "ID"];
     ActionType type = 2;
-    bytes contents = 3;
+    bytes payload = 3;
     SubsequentAction subsequent_action = 4;
 }
 
@@ -92,6 +101,7 @@ enum ActionType {
 
 // sequence from e2ap-v01.00.00.asn1:1132
 message SubsequentAction {
+    option (gogoproto.equal) = true;
     SubsequentActionType type = 1;
     TimeToWait time_to_wait = 2;
 }
