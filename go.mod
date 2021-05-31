@@ -30,3 +30,5 @@ require (
 replace github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
 
 replace github.com/onosproject/onos-api/go => ../onos-api/go
+
+replace github.com/onosproject/onos-ric-sdk-go => ../onos-ric-sdk-go

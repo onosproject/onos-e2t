@@ -7,6 +7,7 @@ package subscription
 import (
 	"context"
 	"errors"
+	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"testing"
 
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
@@ -81,7 +82,7 @@ func initControllerTestNoRICSubscription(t *testing.T, testContext *controllerTe
 	serverChannel := NewMockRICChannel(ctrl)
 	testContext.serverChannel = serverChannel
 
-	channel := e2server.NewE2Channel("channel", "123", serverChannel, testContext.broker)
+	channel := e2server.NewE2Channel("channel", "123", serverChannel, testContext.broker, subscriptionv1beta1.NewBroker())
 	testContext.channelManager = NewMockChannelManager(ctrl)
 	testContext.channelManager.EXPECT().Get(gomock.Any(), gomock.Any()).Return(channel, nil)
 
