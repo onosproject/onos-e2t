@@ -7,14 +7,13 @@ package subscription
 import (
 	"context"
 	"fmt"
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
+	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -173,15 +172,13 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *storeapi.Task) (control
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	stream, err := r.streams.OpenStream(subapi.ID(task.ID.Key()))
-	if err != nil {
-		log.Warn(err)
-		return controller.Result{}, err
+	stream, ok := r.streams.GetReader(task.ID)
+	if !ok {
+		return controller.Result{}, errors.NewNotFound("stream not found for task %s", task.ID)
 	}
 
-	requestID := stream.StreamID()
 	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(requestID),
+		RequestorID: types.RicRequestorID(stream.ID()),
 		InstanceID:  config.InstanceID,
 	}
 
@@ -267,15 +264,13 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *storeapi.Task) (contro
 		return controller.Result{}, err
 	}
 
-	stream, err := r.streams.OpenStream(subapi.ID(task.ID.Key()))
-	if err != nil {
-		log.Warn(err)
-		return controller.Result{}, err
+	stream, ok := r.streams.GetReader(task.ID)
+	if !ok {
+		return controller.Result{}, errors.NewNotFound("stream not found for task %s", task.ID)
 	}
 
-	requestID := stream.StreamID()
 	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(requestID),
+		RequestorID: types.RicRequestorID(stream.ID()),
 		InstanceID:  config.InstanceID,
 	}
 
@@ -306,7 +301,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *storeapi.Task) (contro
 		if err != nil {
 			return controller.Result{}, err
 		}
-		_, _ = r.streams.CloseStream(subapi.ID(task.ID.Key()))
+		_ = stream.Close()
 		return controller.Result{}, nil
 	} else if failure != nil {
 		switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
