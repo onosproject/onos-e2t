@@ -139,14 +139,14 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		Hash:       subHash,
 	}
 
-	sub, err := s.subs.Get(server.Context(), subID)
+	_, err = s.subs.Get(server.Context(), subID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Error(err)
 			return errors.Status(err).Err()
 		}
 
-		sub = &substoreapi.Subscription{
+		sub := &substoreapi.Subscription{
 			SubscriptionMeta: substoreapi.SubscriptionMeta{
 				ID: subID,
 				ServiceModel: substoreapi.ServiceModel{
