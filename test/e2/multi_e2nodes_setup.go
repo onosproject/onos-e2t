@@ -8,7 +8,9 @@ import (
 	"context"
 	"math/rand"
 	"testing"
-	"time"
+
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-ric-sdk-go/pkg/topo/options"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 
@@ -19,8 +21,9 @@ import (
 )
 
 const (
-	numRequestedE2Nodes = 50
-	numRequestedCells   = 150
+	numRequestedE2Nodes       = 50
+	numRequestedCells         = 150
+	expectedDefaultNumE2Nodes = 2 // Based on default helm chart
 )
 
 var (
@@ -30,10 +33,17 @@ var (
 )
 
 func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-e2nodes")
-	assert.NotNil(t, sim)
+	topoClient, err := utils.GetTopoClient()
+	assert.NoError(t, err)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+	ch := make(chan topoapi.Event)
+	err = topoClient.Watch(ctx, ch, options.WithWatchFilters(utils.GetControlRelationFilter()))
+	assert.NoError(t, err)
+
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-e2nodes")
+	assert.NotNil(t, sim)
+
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
 	cellClient := utils.GetRansimCellClient(t, sim)
@@ -62,10 +72,12 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	numCells := utils.GetNumCells(t, cellClient)
 	assert.Equal(t, numRequestedCells, numCells-defaultNumCells)
 
-	// TODO this should be replaced with a mechanism to make sure all of the nodes are connected before asking
-	time.Sleep(20 * time.Second)
+	for i := 0; i < expectedDefaultNumE2Nodes; i++ {
+		<-ch
+	}
 
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
+	assert.Equal(t, defaultNumNodes, expectedDefaultNumE2Nodes)
 	connections, err := utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.Equal(t, len(connections), defaultNumNodes)
 	assert.NoError(t, err)
@@ -91,11 +103,10 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, e2node)
 	}
+	for i := 0; i < numRequestedE2Nodes; i++ {
+		<-ch
+	}
 
-	// Wait for a few seconds to make sure all of the connections are established
-	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
-	// for the number of nodes
-	time.Sleep(20 * time.Second)
 	numNodes := utils.GetNumNodes(t, nodeClient)
 	connections, err = utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.NoError(t, err)
@@ -108,7 +119,9 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 		})
 		assert.NoError(t, err)
 	}
-	time.Sleep(10 * time.Second)
+	for i := 0; i < numRequestedE2Nodes; i++ {
+		<-ch
+	}
 	numNodes = utils.GetNumNodes(t, nodeClient)
 	connections, err = utils.GetTopoObjects(utils.GetControlRelationFilter())
 	assert.NoError(t, err)

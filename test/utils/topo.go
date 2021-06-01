@@ -15,11 +15,6 @@ import (
 	toposdk "github.com/onosproject/onos-ric-sdk-go/pkg/topo"
 )
 
-const (
-	TopoServiceHost = "onos-topo"
-	TopoServicePort = 5150
-)
-
 func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
@@ -56,13 +51,7 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 }
 
 func GetTopoClient() (toposdk.Client, error) {
-	client, err := toposdk.NewClient(toposdk.Config{
-		TopoService: toposdk.ServiceConfig{
-			Host: TopoServiceHost,
-			Port: TopoServicePort,
-		},
-	})
-
+	client, err := toposdk.NewClient()
 	return client, err
 }
 
@@ -90,6 +79,7 @@ func GetTestNodeID() (topoapi.ID, error) {
 	}
 	ctx := context.Background()
 	topoCh := make(chan topoapi.Event)
+
 	err = topoClient.Watch(ctx, topoCh, options.WithWatchFilters(GetControlRelationFilter()))
 	if err != nil {
 		return "", err
