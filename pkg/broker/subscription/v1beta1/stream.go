@@ -150,9 +150,11 @@ func (s *subStream) open() {
 	for {
 		select {
 		case ind := <-s.ch:
+			s.mu.RLock()
 			for _, appStream := range s.apps {
 				_ = appStream.Send(&ind)
 			}
+			s.mu.RUnlock()
 		case <-s.closer:
 			return
 		}
