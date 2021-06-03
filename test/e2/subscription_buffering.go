@@ -155,7 +155,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 			t.Log(response)
 			assert.True(t, ok)
 		case <-time.After(10 * time.Second):
-			assert.Equal(t,false, "failed to receive indication message")
+			assert.Equal(t, false, "failed to receive indication message")
 		}
 	}
 
