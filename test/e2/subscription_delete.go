@@ -65,7 +65,7 @@ func checkSubscription(t *testing.T) sdksub.Context {
 		assert.NotNil(t, indicationMsg)
 
 	case <-time.After(10 * time.Second):
-		t.Fatal("test is failed because of timeout")
+		assert.Equal(t, false, "test is failed because of timeout")
 
 	}
 	return sub

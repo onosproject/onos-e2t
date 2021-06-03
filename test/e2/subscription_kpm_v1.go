@@ -66,7 +66,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 
 	select {
 	case <-ch:
-		t.Fatal("received an extraneous indication")
+		assert.Equal(t, false, "received an extraneous indication")
 
 	case <-time.After(10 * time.Second):
 		t.Log("Subscription test is PASSED")

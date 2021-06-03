@@ -72,7 +72,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 	case err = <-sub.Err():
 		assert.Equal(t, testCase.expectedError.String(), err.Error())
 	case <-time.After(10 * time.Second):
-		t.Fatal("test is failed because of timeout")
+		assert.Equal(t, false, "test is failed because of timeout")
 
 	}
 }
