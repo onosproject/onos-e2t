@@ -6,8 +6,10 @@ package e2
 
 import (
 	"context"
+	"fmt"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"math/rand"
+	"os"
 	"testing"
 	"time"
 
@@ -26,13 +28,14 @@ import (
 
 // TestSubscriptionOnChange tests E2 subscription on change using ransim, SDK
 func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
-	t.Skip()
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-on-change")
 	assert.NotNil(t, sim)
+	fmt.Fprintf(os.Stderr, "Created simulator\n")
 	ch := make(chan indication.Indication)
 	ctx := context.Background()
 
 	e2Client := utils.GetE2Client(t, "subscription-on-change-test")
+	fmt.Fprintf(os.Stderr, "Got Client\n")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
@@ -48,10 +51,14 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		})
 		assert.NoError(t, err)
 	}
+	fmt.Fprintf(os.Stderr, "got sim nodes\n")
+
 	// Get list of all available e2 nodes and make sure no node is connected
 	connections, err := utils.GetAllE2Connections(t)
 	assert.NoError(t, err)
 	assert.Equal(t, 0, len(connections))
+
+	fmt.Fprintf(os.Stderr, "checked sim nodes\n")
 
 	// Create an e2 node with 3 cells from list of available cells.
 	cells := utils.GetCells(t, cellClient)
@@ -75,6 +82,8 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	e2node, err := nodeClient.CreateNode(ctx, createNodeRequest)
 	assert.NoError(t, err)
 	assert.NotNil(t, e2node)
+
+	fmt.Fprintf(os.Stderr, "Created cells\n")
 
 	// Waits until the connection gets established and make sure there is just one node connected
 	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
@@ -136,6 +145,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		gotIndication = false
 	}
 	assert.False(t, gotIndication, "received an extraneous indication")
+	fmt.Fprintf(os.Stderr, "indication read timed out\n")
 
 	header := indMessage.Payload.Header
 	ricIndicationHeader := e2smrcpreies.E2SmRcPreIndicationHeader{}
@@ -159,11 +169,20 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		Cell: testCell.Cell,
 	})
 	assert.NoError(t, err)
+	fmt.Fprintf(os.Stderr, "Neightbor list done\n")
+
 	// Expect to receive indication message on neighbor list change
 	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+
+	fmt.Fprintf(os.Stderr, "got neighbor list changs indication\n")
+
 	err = sub.Close()
 	assert.NoError(t, err)
+	fmt.Fprintf(os.Stderr, "subscription closed\n")
+
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 
+	fmt.Fprintf(os.Stderr, "destroyed simulator\n")
+	time.Sleep(time.Minute)
 }
