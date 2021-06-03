@@ -58,8 +58,7 @@ func CheckIndicationMessage(t *testing.T, timeout time.Duration, ch chan indicat
 		t.Log(indicationMsg)
 		return indicationMsg
 	case <-time.After(timeout):
-		t.Fatal("failed to receive indication message")
-
+		assert.Equal(t, false, "failed to receive indication message")
 	}
 	return indication.Indication{}
 }
