@@ -200,8 +200,8 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	assert.NoError(t, err)
 	fmt.Fprintf(os.Stderr, "subscription closed\n")
 
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	//err = sim.Uninstall()
+	//assert.NoError(t, err)
 
 	fmt.Fprintf(os.Stderr, "destroyed simulator\n")
 	time.Sleep(time.Minute)
