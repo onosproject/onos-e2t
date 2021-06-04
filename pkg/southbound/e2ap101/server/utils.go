@@ -5,7 +5,6 @@
 package server
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
@@ -18,12 +17,9 @@ import (
 
 func GetNodeID(nodeID []byte) (topoapi.ID, error) {
 
-	e2NodeID, err := pdudecoder.GetE2NodeID(nodeID)
-	if err != nil {
-		return "", err
-	}
+	e2NodeID := pdudecoder.GetE2NodeID(nodeID)
 
-	e2NodeTopoID := topoapi.ID(strconv.FormatUint(e2NodeID, 10))
+	e2NodeTopoID := topoapi.ID(e2NodeID)
 	return e2NodeTopoID, nil
 }
 

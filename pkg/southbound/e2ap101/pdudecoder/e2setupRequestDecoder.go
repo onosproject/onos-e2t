@@ -10,7 +10,6 @@ import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"math"
 )
@@ -110,44 +109,7 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 	return DecodeE2SetupRequest(e2setup.GetInitiatingMessage())
 }
 
-func GetE2NodeID(nodeID []byte) (uint64, error) {
-	globalE2NodeID, e2NodeType, err := asn1cgo.PerDecodeGlobalE2nodeID(nodeID)
-	if err != nil {
-		return 0, err
-	}
-	var res uint64
-	switch *e2NodeType {
-	case types.E2NodeTypeGNB:
-		res = globalE2NodeID.GetGNb().GetGlobalGNbId().GnbId.GetGnbId().GetValue()
-	case types.E2NodeTypeENB:
-		switch enbt := globalE2NodeID.GetENb().GlobalENbId.GetENbId().GetEnbId().(type) {
-		case *e2apies.EnbId_MacroENbId:
-			res = enbt.MacroENbId.Value
-		case *e2apies.EnbId_HomeENbId:
-			res = enbt.HomeENbId.Value
-		case *e2apies.EnbId_ShortMacroENbId:
-			res = enbt.ShortMacroENbId.Value
-		case *e2apies.EnbId_LongMacroENbId:
-			res = enbt.LongMacroENbId.Value
-		default:
-			return 0, fmt.Errorf("GetE2NodeID() Couldn't find proper Enb-E2NodeType, received %T", globalE2NodeID.GetENb().GlobalENbId.GetENbId().GetEnbId())
-		}
-	case types.E2NodeTypeEnGNB:
-		res = globalE2NodeID.GetEnGNb().GetGlobalGNbId().GNbId.GetGNbId().GetValue()
-	case types.E2NodeTypeNgENB:
-		switch ngenbt := globalE2NodeID.GetNgENb().GlobalNgENbId.GetEnbId().GetEnbIdChoice().(type) {
-		case *e2apies.EnbIdChoice_EnbIdMacro:
-			res = ngenbt.EnbIdMacro.GetValue()
-		case *e2apies.EnbIdChoice_EnbIdShortmacro:
-			res = ngenbt.EnbIdShortmacro.GetValue()
-		case *e2apies.EnbIdChoice_EnbIdLongmacro:
-			res = ngenbt.EnbIdLongmacro.GetValue()
-		default:
-			return 0, fmt.Errorf("GetE2NodeID() Couldn't find proper ngEnb-E2NodeType, received %T", globalE2NodeID.GetNgENb().GlobalNgENbId.GetEnbId().GetEnbIdChoice())
-		}
-	default:
-		return 0, fmt.Errorf("GetE2NodeID() Couldn't find proper E2nodeType, received %v", e2NodeType)
-	}
+func GetE2NodeID(nodeID []byte) string {
 
-	return res, nil
+	return fmt.Sprintf("%x", nodeID)
 }

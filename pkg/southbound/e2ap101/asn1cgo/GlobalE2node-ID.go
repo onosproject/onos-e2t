@@ -19,7 +19,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"unsafe"
 )
 
@@ -49,24 +48,24 @@ func PerEncodeGlobalE2nodeID(ge2n *e2apies.GlobalE2NodeId) ([]byte, error) {
 	return bytes, nil
 }
 
-func xerDecodeGlobalE2nodeID(bytes []byte) (*e2apies.GlobalE2NodeId, *types.E2NodeType, error) {
+func xerDecodeGlobalE2nodeID(bytes []byte) (*e2apies.GlobalE2NodeId, error) {
 	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_GlobalE2node_ID)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	if unsafePtr == nil {
-		return nil, nil, fmt.Errorf("pointer decoded from XER is nil")
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
 	return decodeGlobalE2NodeID((*C.GlobalE2node_ID_t)(unsafePtr))
 }
 
-func PerDecodeGlobalE2nodeID(bytes []byte) (*e2apies.GlobalE2NodeId, *types.E2NodeType, error) {
+func PerDecodeGlobalE2nodeID(bytes []byte) (*e2apies.GlobalE2NodeId, error) {
 	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_GlobalE2node_ID)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	if unsafePtr == nil {
-		return nil, nil, fmt.Errorf("pointer decoded from PER is nil")
+		return nil,  fmt.Errorf("pointer decoded from PER is nil")
 	}
 	return decodeGlobalE2NodeID((*C.GlobalE2node_ID_t)(unsafePtr))
 }
@@ -120,57 +119,52 @@ func newGlobalE2nodeID(gnID *e2apies.GlobalE2NodeId) (*C.GlobalE2node_ID_t, erro
 	return &gnIDC, nil
 }
 
-func decodeGlobalE2NodeID(globalE2nodeID *C.GlobalE2node_ID_t) (*e2apies.GlobalE2NodeId, *types.E2NodeType, error) {
+func decodeGlobalE2NodeID(globalE2nodeID *C.GlobalE2node_ID_t) (*e2apies.GlobalE2NodeId, error) {
 
 	result := new(e2apies.GlobalE2NodeId)
-	var e2NodeType types.E2NodeType
 
 	switch globalE2nodeID.present {
 	case C.GlobalE2node_ID_PR_gNB:
 		gNB, err := decodeGlobalE2nodegNBIDBytes(globalE2nodeID.choice)
 		if err != nil {
-			return nil, nil, fmt.Errorf("decodeGlobalE2NodeID() %v", err)
+			return nil, fmt.Errorf("decodeGlobalE2NodeID() %v", err)
 		}
 
 		result.GlobalE2NodeId = &e2apies.GlobalE2NodeId_GNb{
 			GNb: gNB,
 		}
-		e2NodeType = types.E2NodeTypeGNB
 	case C.GlobalE2node_ID_PR_en_gNB:
 		enGNb, err := decodeGlobalE2nodeEnGnbIDBytes(globalE2nodeID.choice)
 		if err != nil {
-			return nil, nil, fmt.Errorf("decodeGlobalE2NodeID() %v", err)
+			return nil, fmt.Errorf("decodeGlobalE2NodeID() %v", err)
 		}
 
 		result.GlobalE2NodeId = &e2apies.GlobalE2NodeId_EnGNb{
 			EnGNb: enGNb,
 		}
-		e2NodeType = types.E2NodeTypeEnGNB
 	case C.GlobalE2node_ID_PR_eNB:
 		eNB, err := decodeGlobalE2nodeeNBIDBytes(globalE2nodeID.choice)
 		if err != nil {
-			return nil, nil, fmt.Errorf("decodeGlobalE2nodeeNBID() %v", err)
+			return nil, fmt.Errorf("decodeGlobalE2nodeeNBID() %v", err)
 		}
 
 		result.GlobalE2NodeId = &e2apies.GlobalE2NodeId_ENb{
 			ENb: eNB,
 		}
-		e2NodeType = types.E2NodeTypeENB
 	case C.GlobalE2node_ID_PR_ng_eNB:
 		ngENb, err := decodeGlobalE2nodeNgEnbIDBytes(globalE2nodeID.choice)
 		if err != nil {
-			return nil, nil, fmt.Errorf("decodeGlobalE2nodeeNBID() %v", err)
+			return nil, fmt.Errorf("decodeGlobalE2nodeeNBID() %v", err)
 		}
 
 		result.GlobalE2NodeId = &e2apies.GlobalE2NodeId_NgENb{
 			NgENb: ngENb,
 		}
-		e2NodeType = types.E2NodeTypeNgENB
 	default:
-		return nil, nil, fmt.Errorf("decodeGlobalE2NodeID(). %v not yet implemneted", globalE2nodeID.present)
+		return nil, fmt.Errorf("decodeGlobalE2NodeID(). %v not yet implemneted", globalE2nodeID.present)
 	}
 
-	return result, &e2NodeType, nil
+	return result, nil
 }
 
 func decodeGlobalE2NodeIDBytes(globalE2nodeIDchoice [48]byte) (*e2apies.GlobalE2NodeId, error) {
