@@ -109,10 +109,7 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 	return DecodeE2SetupRequest(e2setup.GetInitiatingMessage())
 }
 
-func GetE2NodeID(nodeID []byte) uint64 {
-	var b [8]byte
-	copy(b[:8-len(nodeID)], nodeID)
-	out := binary.LittleEndian.Uint64(b[:])
+func GetE2NodeID(nodeID []byte) string {
 
-	return out
+	return fmt.Sprintf("%x", nodeID)
 }
