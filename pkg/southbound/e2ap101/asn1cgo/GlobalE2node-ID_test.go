@@ -119,7 +119,7 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	t.Logf("GlobalE2nodeID (GNb) XER\n%s", xer)
 
 	// Now reverse the XER
-	ge2nReversed, _, err := xerDecodeGlobalE2nodeID(xer)
+	ge2nReversed, err := xerDecodeGlobalE2nodeID(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (GNb) decoded from XER is \n%v", ge2nReversed)
@@ -132,7 +132,7 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	t.Logf("GlobalE2nodeID (en-GNb) XER\n%s", xer)
 
 	// Now reverse the XER
-	ge2nReversed, _, err = xerDecodeGlobalE2nodeID(xer)
+	ge2nReversed, err = xerDecodeGlobalE2nodeID(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (en-GNb) decoded from XER is \n%v", ge2nReversed)
@@ -145,7 +145,7 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	t.Logf("GlobalE2nodeID (ENb) XER\n%s", xer)
 
 	// Now reverse the XER
-	ge2nReversed, _, err = xerDecodeGlobalE2nodeID(xer)
+	ge2nReversed, err = xerDecodeGlobalE2nodeID(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (ENb) decoded from XER is \n%v", ge2nReversed)
@@ -158,7 +158,7 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	t.Logf("GlobalE2nodeID (ng-ENb) XER\n%s", xer)
 
 	// Now reverse the XER
-	ge2nReversed, _, err = xerDecodeGlobalE2nodeID(xer)
+	ge2nReversed, err = xerDecodeGlobalE2nodeID(xer)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (ng-ENb) decoded from XER is \n%v", ge2nReversed)
@@ -174,7 +174,7 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	t.Logf("GlobalE2nodeID (GNb) PER\n%s", hex.Dump(per))
 
 	// Now reverse the PER
-	ge2nReversedFromPer, _, err := PerDecodeGlobalE2nodeID(per)
+	ge2nReversedFromPer, err := PerDecodeGlobalE2nodeID(per)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (GNb) decoded from PER is \n%v", ge2nReversedFromPer)
@@ -187,7 +187,7 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	t.Logf("GlobalE2nodeID (en-GNb) PER\n%s", hex.Dump(per))
 
 	// Now reverse the PER
-	ge2nReversedFromPer, _, err = PerDecodeGlobalE2nodeID(per)
+	ge2nReversedFromPer, err = PerDecodeGlobalE2nodeID(per)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (en-GNb) decoded from PER is \n%v", ge2nReversedFromPer)
@@ -200,7 +200,7 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	t.Logf("GlobalE2nodeID (ENb) PER\n%s", hex.Dump(per))
 
 	// Now reverse the PER
-	ge2nReversedFromPer, _, err = PerDecodeGlobalE2nodeID(per)
+	ge2nReversedFromPer, err = PerDecodeGlobalE2nodeID(per)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (ENb) decoded from PER is \n%v", ge2nReversedFromPer)
@@ -213,7 +213,7 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	t.Logf("GlobalE2nodeID (ng-ENb) PER\n%s", hex.Dump(per))
 
 	// Now reverse the PER
-	ge2nReversedFromPer, _, err = PerDecodeGlobalE2nodeID(per)
+	ge2nReversedFromPer, err = PerDecodeGlobalE2nodeID(per)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (ng-ENb) decoded from PER is \n%v", ge2nReversedFromPer)

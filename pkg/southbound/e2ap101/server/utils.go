@@ -18,10 +18,10 @@ import (
 
 func GetNodeID(nodeID []byte) (topoapi.ID, error) {
 
-	e2NodeID, err := pdudecoder.GetE2NodeID(nodeID)
-	if err != nil {
-		return "", err
-	}
+	e2NodeID := pdudecoder.GetE2NodeID(nodeID)
+	//if err != nil {
+	//	return "", err
+	//}
 
 	e2NodeTopoID := topoapi.ID(strconv.FormatUint(e2NodeID, 10))
 	return e2NodeTopoID, nil
