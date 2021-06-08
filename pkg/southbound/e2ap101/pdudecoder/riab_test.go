@@ -48,6 +48,7 @@ func Test_PerDecodeE2SetupRequest(t *testing.T) {
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(e2apPdu1)
 	assert.NilError(t, err)
+	// Printing message in XER to verify that it's the same as ../test/RiaB_E2setupRequest.xml
 	t.Logf("Encoded message is \n%s", xer)
 
 	identifier, ranFunctions, err := DecodeE2SetupRequestPdu(e2apPdu1)
