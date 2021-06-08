@@ -1,0 +1,70 @@
+<E2AP-PDU>
+    <initiatingMessage>
+        <procedureCode>1</procedureCode>
+        <criticality><reject/></criticality>
+        <value>
+            <E2setupRequest>
+                <protocolIEs>
+                    <E2setupRequestIEs>
+                        <id>3</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <GlobalE2node-ID>
+                                <eNB>
+                                    <global-eNB-ID>
+                                        <pLMN-Identity>02 F8 10</pLMN-Identity>
+                                        <eNB-ID>
+                                            <macro-eNB-ID>
+                                                00000000111000000000
+                                            </macro-eNB-ID>
+                                        </eNB-ID>
+                                    </global-eNB-ID>
+                                </eNB>
+                            </GlobalE2node-ID>
+                        </value>
+                    </E2setupRequestIEs>
+                    <E2setupRequestIEs>
+                        <id>10</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RANfunctions-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>8</id>
+                                    <criticality><reject/></criticality>
+                                    <value>
+                                        <RANfunction-Item>
+                                            <ranFunctionID>1</ranFunctionID>
+                                            <ranFunctionDefinition>
+                                                74 18 4F 52 41 4E 2D 45 32 53 4D 2D 4B 50 4D 00
+                                                00 18 31 2E 33 2E 36 2E 31 2E 34 2E 31 2E 35 33
+                                                31 34 38 2E 31 2E 32 2E 32 2E 32 05 00 4B 50 4D
+                                                20 6D 6F 6E 69 74 6F 72 00 00 00 00 58 02 F8 10
+                                                00 00 E0 00 00 00 00 00 0D 45 55 74 72 61 6E 43
+                                                65 6C 6C 46 44 44 40 02 F8 10 00 E0 00 00 00 01
+                                                03 80 54 72 69 67 67 65 72 31 00 01 00 06 1E 80
+                                                4F 2D 43 55 2D 55 50 20 4D 65 61 73 75 72 65 6D
+                                                65 6E 74 20 43 6F 6E 74 61 69 6E 65 72 20 66 6F
+                                                72 20 74 68 65 20 45 50 43 20 63 6F 6E 6E 65 63
+                                                74 65 64 20 64 65 70 6C 6F 79 6D 65 6E 74 00 06
+                                                00 04 42 60 52 52 43 2E 43 6F 6E 6E 45 73 74 61
+                                                62 41 74 74 2E 73 75 6D 00 00 00 42 80 52 52 43
+                                                2E 43 6F 6E 6E 45 73 74 61 62 53 75 63 63 2E 73
+                                                75 6D 00 00 01 42 A0 52 52 43 2E 43 6F 6E 6E 52
+                                                65 45 73 74 61 62 41 74 74 2E 73 75 6D 00 00 02
+                                                41 60 52 52 43 2E 43 6F 6E 6E 4D 65 61 6E 00 00
+                                                03 41 40 52 52 43 2E 43 6F 6E 6E 4D 61 78 00 00
+                                                04 00 01 00 01
+                                            </ranFunctionDefinition>
+                                            <ranFunctionRevision>1</ranFunctionRevision>
+                                            <ranFunctionOID>1.3.6.1.4.1.53148.1.2.2.2</ranFunctionOID>
+                                        </RANfunction-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </RANfunctions-List>
+                        </value>
+                    </E2setupRequestIEs>
+                </protocolIEs>
+            </E2setupRequest>
+        </value>
+    </initiatingMessage>
+</E2AP-PDU>
