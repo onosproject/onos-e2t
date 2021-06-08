@@ -6,11 +6,6 @@ package manager
 
 import (
 	"context"
-	"github.com/atomix/atomix-go-client/pkg/atomix"
-	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
-	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
-	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
-	taskstore "github.com/onosproject/onos-e2t/pkg/store/task"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
@@ -29,8 +24,6 @@ import (
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
-	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
-	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/task"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
@@ -105,6 +98,7 @@ func (m *Manager) Run() {
 
 // Start starts the manager
 func (m *Manager) Start() error {
+
 	opts, err := certs.HandleCertPaths(m.Config.CAPath, m.Config.KeyPath, m.Config.CertPath, true)
 	if err != nil {
 		return err
@@ -113,51 +107,30 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-
-	atomixClient := atomix.NewClient(atomix.WithClientID(env.GetPodName()))
-
-	subStore, err := substore.NewAtomixStore(atomixClient)
-	if err != nil {
-		return err
-	}
-	taskStore, err := taskstore.NewAtomixStore(atomixClient)
-	if err != nil {
-		return err
-	}
-
 	topoManager := topo.NewManager(rnibStore)
 	streams := subscription.NewBroker()
-	streamsv1beta1 := subscriptionv1beta1.NewBroker()
 	channels := e2server.NewChannelManager(topoManager)
 	ranFunctionRegistry := ranfunctions.NewRegistry()
 
-	err = m.startSubscriptionController(streams, channels, ranFunctionRegistry, topoManager)
-	if err != nil {
-		return err
-	}
-	err = m.startSubscriptionv1beta1Controller(subStore, taskStore)
-	if err != nil {
-		return err
-	}
-	err = m.startTaskv1beta1Controller(subStore, taskStore, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
+	err = m.startSubscriptionBroker(streams, channels, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
 
-	err = m.startSouthboundServer(channels, streams, streamsv1beta1, ranFunctionRegistry, topoManager)
+	err = m.startSouthboundServer(channels, streams, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
 
-	err = m.startNorthboundServer(subStore, streams, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
+	err = m.startNorthboundServer(streams, channels, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
 	return m.joinSubscriptionManager()
 }
 
-// startSubscriptionController starts the subscription controllers
-func (m *Manager) startSubscriptionController(streams subscription.Broker,
+// startSubscriptionBroker starts the subscription broker
+func (m *Manager) startSubscriptionBroker(streams subscription.Broker,
 	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, deviceManager topo.Manager) error {
 	controller := subctrl.NewController(streams, subapi.NewE2SubscriptionServiceClient(m.conn),
 		subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn),
@@ -168,36 +141,18 @@ func (m *Manager) startSubscriptionController(streams subscription.Broker,
 	return nil
 }
 
-// startSubscriptionv1beta1Controller starts the subscription controllers
-func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, tasks taskstore.Store) error {
-	subsv1beta1 := subctrlv1beta1.NewController(subs, tasks)
-	if err := subsv1beta1.Start(); err != nil {
-		return err
-	}
-	return nil
-}
-
-// startTaskv1beta1Controller starts the subscription controllers
-func (m *Manager) startTaskv1beta1Controller(subs substore.Store, tasks taskstore.Store, streams subscriptionv1beta1.Broker,
-	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, deviceManager topo.Manager) error {
-	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, tasks,
-		channels, m.ModelRegistry, m.OidRegistry, ranFunctionRegistry, deviceManager)
-	if err := tasksv1beta1.Start(); err != nil {
-		return err
-	}
-	return nil
-}
-
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, streams subscription.Broker,
-	streamsv1beta1 subscriptionv1beta1.Broker, ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) error {
-	server := e2server.NewE2Server(channels, streams, streamsv1beta1, m.ModelRegistry, ranFunctionRegistry, topoManager)
+func (m *Manager) startSouthboundServer(channels e2server.ChannelManager,
+	streams subscription.Broker, ranFunctionRegistry ranfunctions.Registry,
+	topoManager topo.Manager) error {
+	server := e2server.NewE2Server(channels, streams, m.ModelRegistry, ranFunctionRegistry, topoManager)
 	return server.Serve()
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(subs substore.Store, streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
-	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) error {
+func (m *Manager) startNorthboundServer(streams subscription.Broker,
+	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry,
+	topoManager topo.Manager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,
@@ -209,9 +164,6 @@ func (m *Manager) startNorthboundServer(subs substore.Store, streams subscriptio
 	s.AddService(logging.Service{})
 	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry,
 		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
-	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry,
-		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
-	s.AddService(e2v1beta1service.NewSubscriptionService(subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry))
 
 	doneCh := make(chan error)
 	go func() {
