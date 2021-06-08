@@ -6,15 +6,14 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	"github.com/onosproject/onos-e2t/test/e2utils"
+	"google.golang.org/protobuf/proto"
 	"testing"
 
-	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
-	"google.golang.org/protobuf/proto"
-
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -25,16 +24,14 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
 	assert.NotNil(t, sim)
 
-	e2Client := utils.GetE2Client(t, "subscription-kpm-v2-test")
-
-	ch := make(chan indication.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 
-	cells, err := utils.GetCellIDsPerNode(nodeIDs[0])
+	nodeID := nodeIDs[0]
+	cells, err := utils.GetCellIDsPerNode(nodeID)
 	assert.NoError(t, err)
 
 	reportPeriod := uint32(5000)
@@ -49,50 +46,46 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 
-	var actions []subapi.Action
-	action := subapi.Action{
+	var actions []e2api.Action
+	action := e2api.Action{
 		ID:   100,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
-		Payload: subapi.Payload{
-			Encoding: subapi.Encoding_ENCODING_PROTO,
-			Data:     actionDefinitionBytes,
-		},
+		Payload: actionDefinitionBytes,
 	}
 
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription{
+	subRequest := utils.Subscription2{
 		NodeID:              string(nodeIDs[0]),
-		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
 		ServiceModelVersion: utils.Version2,
 		Actions:             actions,
 	}
 
-	subReq, err := subRequest.CreateWithActionDefinition()
+	subReq, err := subRequest.CreateWithActionDefinition2()
 	assert.NoError(t, err)
 
-	sub, err := e2Client.Subscribe(ctx, subReq, ch)
+	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2)
+	node := sdkClient.Node(sdkclient.NodeID(nodeID))
+	ch := make(chan v1beta1.Indication)
+	err = node.Subscribe(ctx, &subReq, ch)
 	assert.NoError(t, err)
 
-	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationReport := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
-	err = proto.Unmarshal(indicationReport.Payload.Message, &indicationMessage)
+	err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
 	assert.NoError(t, err)
 	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
 	assert.Equal(t, int(reportPeriod/granularity), len(indicationMessage.GetIndicationMessageFormat1().GetMeasData().GetValue()))
 
-	err = proto.Unmarshal(indicationReport.Payload.Header, &indicationHeader)
-	assert.NoError(t, err)
-
-	err = sub.Close()
+	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

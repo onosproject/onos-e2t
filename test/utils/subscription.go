@@ -8,6 +8,7 @@ import (
 	"context"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/pdubuilder"
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/pdubuilder"
 	kpmv2types "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
@@ -180,4 +181,29 @@ func ConnectSubscriptionServiceHost() (*grpc.ClientConn, error) {
 	}
 
 	return grpc.DialContext(context.Background(), SubscriptionServiceAddress, opts...)
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+// New API stuff
+/////////////////////////////////////////////////////////////////////////////////////
+// Subscription subscription request for subscription SDK api
+type Subscription2 struct {
+	NodeID              string
+	ServiceModelName    subapi.ServiceModelName
+	ServiceModelVersion subapi.ServiceModelVersion
+	Actions             []e2api.Action
+	EventTrigger        []byte
+}
+
+func (subRequest *Subscription2) CreateWithActionDefinition2() (e2api.Subscription, error) {
+	subReq := e2api.Subscription{
+		ID: "sub1",
+		EventTrigger: e2api.EventTrigger{
+			Payload: subRequest.EventTrigger,
+		},
+		Actions: subRequest.Actions,
+	}
+
+	return subReq, nil
+
 }
