@@ -8,7 +8,7 @@ extern struct asn_TYPE_descriptor_s asn_DEF_E2AP_PDU;
 
 
 struct asn_TYPE_descriptor_s *asn_pdu_collection[] = {
-	/* From module E2AP-PDU-Descriptions in e2ap-v01.01.00.asn1 */
+	/* From module E2AP-PDU-Descriptions in ../../../../api/e2ap/v1beta2/e2ap-v01.01.00.asn1 */
 	&asn_DEF_E2AP_PDU,	
 	0
 };

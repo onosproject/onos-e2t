@@ -44,27 +44,27 @@ func perEncodeE2connectionUpdate(e2connectionUpdate *e2ap_pdu_contents.E2Connect
 	return bytes, nil
 }
 
-//func xerDecodeE2connectionUpdate(bytes []byte) (*e2ap_pdu_contents.E2ConnectionUpdate, error) {
-//	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_E2connectionUpdate)
-//	if err != nil {
-//		return nil, err
-//	}
-//	if unsafePtr == nil {
-//		return nil, fmt.Errorf("pointer decoded from XER is nil")
-//	}
-//	return decodeE2connectionUpdate((*C.E2connectionUpdate_t)(unsafePtr))
-//}
-//
-//func perDecodeE2connectionUpdate(bytes []byte) (*e2ap_pdu_contents.E2ConnectionUpdate, error) {
-//	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_E2connectionUpdate)
-//	if err != nil {
-//		return nil, err
-//	}
-//	if unsafePtr == nil {
-//		return nil, fmt.Errorf("pointer decoded from PER is nil")
-//	}
-//	return decodeE2connectionUpdate((*C.E2connectionUpdate_t)(unsafePtr))
-//}
+func xerDecodeE2connectionUpdate(bytes []byte) (*e2ap_pdu_contents.E2ConnectionUpdate, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_E2connectionUpdate)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeE2connectionUpdate((*C.E2connectionUpdate_t)(unsafePtr))
+}
+
+func perDecodeE2connectionUpdate(bytes []byte) (*e2ap_pdu_contents.E2ConnectionUpdate, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_E2connectionUpdate)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeE2connectionUpdate((*C.E2connectionUpdate_t)(unsafePtr))
+}
 
 func newE2connectionUpdate(e2cu *e2ap_pdu_contents.E2ConnectionUpdate) (*C.E2connectionUpdate_t, error) {
 
