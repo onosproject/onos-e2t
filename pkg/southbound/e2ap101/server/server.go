@@ -7,6 +7,7 @@ package server
 import (
 	"context"
 	"encoding/hex"
+	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"strconv"
 	"time"
 
@@ -35,14 +36,16 @@ var ricID = types.RicIdentifier{
 }
 
 func NewE2Server(channels ChannelManager,
-	subs subscription.Broker,
+	streams subscription.Broker,
+	streamsv1beta1 subscriptionv1beta1.Broker,
 	modelRegistry modelregistry.ModelRegistry,
 	ranFunctionRegistry ranfunctions.Registry,
 	topoManager topo.Manager) *E2Server {
 	return &E2Server{
 		server:              e2.NewServer(),
 		channels:            channels,
-		subs:                subs,
+		subs:                streams,
+		streamsv1beta1:      streamsv1beta1,
 		modelRegistry:       modelRegistry,
 		ranFunctionRegistry: ranFunctionRegistry,
 		topoManager:         topoManager,
@@ -53,6 +56,7 @@ type E2Server struct {
 	server              *e2.Server
 	channels            ChannelManager
 	subs                subscription.Broker
+	streamsv1beta1      subscriptionv1beta1.Broker
 	modelRegistry       modelregistry.ModelRegistry
 	ranFunctionRegistry ranfunctions.Registry
 	topoManager         topo.Manager
@@ -63,7 +67,8 @@ func (s *E2Server) Serve() error {
 		return &E2ChannelServer{
 			serverChannel:       channel,
 			manager:             s.channels,
-			subs:                s.subs,
+			streams:             s.subs,
+			streamsv1beta1:      s.streamsv1beta1,
 			modelRegistry:       s.modelRegistry,
 			ranFunctionRegistry: s.ranFunctionRegistry,
 			topoManager:         s.topoManager,
@@ -77,7 +82,8 @@ func (s *E2Server) Stop() error {
 
 type E2ChannelServer struct {
 	manager             ChannelManager
-	subs                subscription.Broker
+	streams             subscription.Broker
+	streamsv1beta1      subscriptionv1beta1.Broker
 	serverChannel       e2.ServerChannel
 	e2Channel           *E2Channel
 	modelRegistry       modelregistry.ModelRegistry
@@ -211,7 +217,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 
-	e.e2Channel = NewE2Channel(channelID, plmnID, e.serverChannel, e.subs)
+	e.e2Channel = NewE2Channel(channelID, plmnID, e.serverChannel, e.streams, e.streamsv1beta1)
 	e.manager.Open(channelID, e.e2Channel)
 
 	err = e.updateRNIB(ctx, e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))
