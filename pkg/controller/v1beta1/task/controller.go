@@ -182,7 +182,7 @@ func (r *Reconciler) reconcileOpenSubscriptionTask(task *storeapi.Task) (control
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(task.ID.NodeID)))
+	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channelID)))
 	if err != nil {
 		log.Warn(err)
 	}
@@ -280,7 +280,7 @@ func (r *Reconciler) reconcileCloseSubscriptionTask(task *storeapi.Task) (contro
 		return controller.Result{}, err
 	}
 
-	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(task.ID.NodeID)))
+	ranFunction, err := r.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channelID)))
 	if err != nil {
 		log.Warn(err)
 	}

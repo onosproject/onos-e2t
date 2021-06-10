@@ -45,6 +45,7 @@ func NewE2Server(channels ChannelManager,
 		server:              e2.NewServer(),
 		channels:            channels,
 		subs:                streams,
+		streamsv1beta1:      streamsv1beta1,
 		modelRegistry:       modelRegistry,
 		ranFunctionRegistry: ranFunctionRegistry,
 		topoManager:         topoManager,
@@ -55,6 +56,7 @@ type E2Server struct {
 	server              *e2.Server
 	channels            ChannelManager
 	subs                subscription.Broker
+	streamsv1beta1      subscriptionv1beta1.Broker
 	modelRegistry       modelregistry.ModelRegistry
 	ranFunctionRegistry ranfunctions.Registry
 	topoManager         topo.Manager
@@ -66,6 +68,7 @@ func (s *E2Server) Serve() error {
 			serverChannel:       channel,
 			manager:             s.channels,
 			streams:             s.subs,
+			streamsv1beta1:      s.streamsv1beta1,
 			modelRegistry:       s.modelRegistry,
 			ranFunctionRegistry: s.ranFunctionRegistry,
 			topoManager:         s.topoManager,

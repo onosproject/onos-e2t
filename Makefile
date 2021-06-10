@@ -64,6 +64,7 @@ onos-e2t-docker:
 	@go mod vendor
 	docker build . -f build/onos-e2t/Dockerfile \
 		-t onosproject/onos-e2t:${ONOS_E2T_VERSION}
+	@rm -r vendor
 
 images: # @HELP build all Docker images
 images: build onos-e2t-docker
