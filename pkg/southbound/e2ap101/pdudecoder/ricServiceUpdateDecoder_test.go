@@ -17,8 +17,6 @@ func Test_DecodeRicServiceUpdatePdu(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(rsuXer)
 	assert.NilError(t, err)
 
-	//ToDo - for some reason PDU is decoded in inverted order - investigate in it
-	// Validation fails due to bad ID - could be mistake in the Go code - see ProtocolIE-Field
 	rfal, rfdl, rfml, err := DecodeRicServiceUpdatePdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 23, 24 & 25

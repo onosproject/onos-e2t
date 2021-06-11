@@ -12,9 +12,9 @@ import (
 
 func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (types.RanFunctions, types.RanFunctionRevisions,
 	types.RanFunctions, error) {
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
 	rsu := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceUpdate()
 	if rsu == nil {

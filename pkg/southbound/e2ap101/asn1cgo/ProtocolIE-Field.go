@@ -4043,7 +4043,7 @@ func decodeRicServiceUpdateIE(rrIeC *C.RICserviceUpdate_IEs_t) (*e2appducontents
 
 		if id.GetValue() == int32(v1beta2.ProtocolIeIDRanfunctionsModified) {
 			ret.E2ApProtocolIes12 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes12{
-				Id:                       int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
+				Id:                       int32(v1beta2.ProtocolIeIDRanfunctionsModified),
 				Criticality:              int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				RanFunctionsModifiedList: rfl,
 				Presence:                 int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
