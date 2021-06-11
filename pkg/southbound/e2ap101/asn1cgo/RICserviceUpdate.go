@@ -44,27 +44,27 @@ func perEncodeRicServiceUpdate(rsu *e2ap_pdu_contents.RicserviceUpdate) ([]byte,
 	return bytes, nil
 }
 
-//func xerDecodeRicServiceUpdate(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdate, error) {
-//	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_RICserviceUpdate)
-//	if err != nil {
-//		return nil, err
-//	}
-//	if unsafePtr == nil {
-//		return nil, fmt.Errorf("pointer decoded from XER is nil")
-//	}
-//	return decodeRicServiceUpdate((*C.RICserviceUpdate_t)(unsafePtr))
-//}
-//
-//func perDecodeRicServiceUpdate(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdate, error) {
-//	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_RICserviceUpdate)
-//	if err != nil {
-//		return nil, err
-//	}
-//	if unsafePtr == nil {
-//		return nil, fmt.Errorf("pointer decoded from PER is nil")
-//	}
-//	return decodeRicServiceUpdate((*C.RICserviceUpdate_t)(unsafePtr))
-//}
+func xerDecodeRicServiceUpdate(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdate, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_RICserviceUpdate)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeRicServiceUpdate((*C.RICserviceUpdate_t)(unsafePtr))
+}
+
+func perDecodeRicServiceUpdate(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdate, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_RICserviceUpdate)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeRicServiceUpdate((*C.RICserviceUpdate_t)(unsafePtr))
+}
 
 func newRicServiceUpdate(rsu *e2ap_pdu_contents.RicserviceUpdate) (*C.RICserviceUpdate_t, error) {
 

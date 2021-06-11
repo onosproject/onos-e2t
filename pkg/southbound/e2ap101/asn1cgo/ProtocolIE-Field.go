@@ -4043,7 +4043,7 @@ func decodeRicServiceUpdateIE(rrIeC *C.RICserviceUpdate_IEs_t) (*e2appducontents
 
 		if id.GetValue() == int32(v1beta2.ProtocolIeIDRanfunctionsModified) {
 			ret.E2ApProtocolIes12 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes12{
-				Id:                       int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
+				Id:                       int32(v1beta2.ProtocolIeIDRanfunctionsModified),
 				Criticality:              int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				RanFunctionsModifiedList: rfl,
 				Presence:                 int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4350,29 +4350,22 @@ func decodeE2connectionUpdateIE(e2cuIeC *C.E2connectionUpdate_IEs_t) (*e2appduco
 		}
 
 		id := decodeProtocolIeID(e2cuIeC.id)
-		if id.GetValue() == int32(v1beta2.ProtocolIeIDRanfunctionsAdded) {
+		if id.GetValue() == int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd) {
 			ret.E2ApProtocolIes44 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
-				Id:                    int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
-				Criticality:           int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Id:            int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
+				Criticality:   int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				ConnectionAdd: cul,
-				Presence:              int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+				Presence:      int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 			}
 		}
 
 		if id.GetValue() == int32(v1beta2.ProtocolIeIDE2connectionUpdateModify) {
 			ret.E2ApProtocolIes45 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes45{
-				Id:                       int32(v1beta2.ProtocolIeIDE2connectionUpdateModify),
-				Criticality:              int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				Id:               int32(v1beta2.ProtocolIeIDE2connectionUpdateModify),
+				Criticality:      int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				ConnectionModify: cul,
-				Presence:                 int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+				Presence:         int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 			}
-		}
-
-		ret.E2ApProtocolIes44 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
-			Id:            int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
-			Criticality:   int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			ConnectionAdd: cul,
-			Presence:      int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
 
 	case C.E2connectionUpdate_IEs__value_PR_E2connectionUpdateRemove_List:
