@@ -6,12 +6,13 @@ package e2utils
 
 import (
 	"context"
+	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"testing"
 	"time"
 
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -61,4 +62,20 @@ func CheckIndicationMessage(t *testing.T, timeout time.Duration, ch chan indicat
 		assert.Equal(t, false, "failed to receive indication message")
 	}
 	return indication.Indication{}
+}
+
+////////////////////////////////////////////////////////////////////////
+//  New API Stuff
+///////////////////////////////////////////////////////////////////////
+
+// CheckIndicationMessage2 makes sure that a valid indication message can be read from the channel
+func CheckIndicationMessage2(t *testing.T, timeout time.Duration, ch chan v1beta1.Indication) v1beta1.Indication {
+	select {
+	case indicationMsg := <-ch:
+		t.Log(indicationMsg)
+		return indicationMsg
+	case <-time.After(timeout):
+		assert.Equal(t, false, "failed to receive indication message")
+	}
+	return v1beta1.Indication{}
 }

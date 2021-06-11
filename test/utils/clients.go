@@ -6,6 +6,7 @@ package utils
 
 import (
 	"github.com/onosproject/onos-ric-sdk-go/pkg/app"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"testing"
 
 	e2client "github.com/onosproject/onos-ric-sdk-go/pkg/e2"
@@ -40,4 +41,13 @@ func GetSubClient(t *testing.T) sdksub.Client {
 	assert.NotNil(t, conn)
 
 	return sdksub.NewClient(conn)
+}
+
+// getE2Client gets an E2 client
+func GetE2Client2(t *testing.T, serviceModelName string, serviceModelVersion string) sdkclient.Client {
+	client := sdkclient.NewClient(sdkclient.WithE2TAddress(E2TServiceHost, E2TServicePort),
+		sdkclient.WithServiceModel(sdkclient.ServiceModelName(serviceModelName),
+			sdkclient.ServiceModelVersion(serviceModelVersion)))
+	assert.NotNil(t, client)
+	return client
 }
