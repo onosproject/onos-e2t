@@ -24,8 +24,7 @@ func Test_DecodeE2connectionUpdatePdu(t *testing.T) {
 
 	assert.Equal(t, int32(connSetup[0].TnlInformation.TnlAddress.GetLen()), int32(64))
 	assert.Equal(t, int32(connSetup[0].TnlInformation.TnlPort.GetLen()), int32(16))
-	//ToDo - Decoded IE 44 and IE 45 are the same - that isn't correct, investigate in it
-	//assert.Equal(t, int32(connSetup[0].TnlUsage), int32(e2ap_ies.Tnlusage_TNLUSAGE_BOTH))
+	assert.Equal(t, int32(connSetup[0].TnlUsage), int32(e2ap_ies.Tnlusage_TNLUSAGE_BOTH))
 	assert.Equal(t, int32(connModify[0].TnlInformation.TnlAddress.GetLen()), int32(64))
 	assert.Equal(t, int32(connModify[0].TnlInformation.TnlPort.GetLen()), int32(16))
 	assert.Equal(t, int32(connModify[0].TnlUsage), int32(e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE))

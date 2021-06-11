@@ -64,5 +64,5 @@ func TestRicServiceUpdate(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("RicServiceUpdate E2AP PDU PER - decoded is \n%v", result1)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu, result1)
 }

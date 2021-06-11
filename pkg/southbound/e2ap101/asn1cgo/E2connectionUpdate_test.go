@@ -80,10 +80,8 @@ func Test_xerEncodingE2connectionUpdate(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdate XER - decoded\n%v", result)
-	//ToDo - IE 44 and IE 45 are identical in the decoded message - shouldn't be like this
-	//assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlUsage().String(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlUsage())
+	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlUsage(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlUsage())
 	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
-	//ToDo - compare actual value of BitString..
 	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
 	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
 	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes45().GetConnectionModify().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes45().GetConnectionModify().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
@@ -107,10 +105,8 @@ func Test_perEncodingE2connectionUpdate(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdate PER - decoded\n%v", result)
-	//ToDo - IE 44 and IE 45 are identical in the decoded message - shouldn't be like this
-	//assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlUsage(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlUsage())
+	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlUsage(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlUsage())
 	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
-	//ToDo - compare actual value of BitString..
 	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
 	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
 	assert.Equal(t, e2connectionUpdate.GetProtocolIes().GetE2ApProtocolIes45().GetConnectionModify().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes45().GetConnectionModify().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
