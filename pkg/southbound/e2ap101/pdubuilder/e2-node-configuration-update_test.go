@@ -21,10 +21,10 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 
 	newE2apPdu, err := CreateE2NodeConfigurationUpdateE2apPdu([]*types.E2NodeComponentConfigUpdateItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-			E2NodeComponentID:           e2ncID1,
+			E2NodeComponentID:           &e2ncID1,
 			E2NodeComponentConfigUpdate: e2nccu1},
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-			E2NodeComponentID:           e2ncID2,
+			E2NodeComponentID:           &e2ncID2,
 			E2NodeComponentConfigUpdate: e2nccu2},
 	})
 	assert.NilError(t, err)

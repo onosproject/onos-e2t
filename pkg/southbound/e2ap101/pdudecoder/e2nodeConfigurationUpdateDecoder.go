@@ -25,7 +25,7 @@ func DecodeE2nodeConfigurationUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) 
 	for _, ie := range list {
 		e2nccuai := types.E2NodeComponentConfigUpdateItem{}
 		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentType()
-		e2nccuai.E2NodeComponentID = *ie.GetValue().GetE2NodeComponentId()
+		e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentId()
 		e2nccuai.E2NodeComponentConfigUpdate = *ie.GetValue().GetE2NodeComponentConfigUpdate()
 
 		e2nccual = append(e2nccual, &e2nccuai)
