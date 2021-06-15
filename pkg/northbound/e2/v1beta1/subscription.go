@@ -7,8 +7,9 @@ package v1beta1
 import (
 	"crypto/md5"
 	"fmt"
-	"github.com/gogo/protobuf/proto"
 	"io"
+
+	"github.com/gogo/protobuf/proto"
 
 	substoreapi "github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
 	subbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
@@ -98,7 +99,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	actions := make([]substoreapi.SubscriptionAction, len(request.Subscription.Actions))
 	for i, action := range request.Subscription.Actions {
 		actionBytes := action.Payload
-		if encoding == e2api.Encoding_PROTO {
+		if encoding == e2api.Encoding_PROTO && action.Payload != nil {
 			actionBytes, err = serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
 			if err != nil {
 				log.Error(err)
