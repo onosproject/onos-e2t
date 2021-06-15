@@ -6,6 +6,7 @@ package utils
 
 import (
 	"context"
+	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
 
@@ -140,6 +141,13 @@ func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
 
 	}
 	return connectedNodes, nil
+}
+
+func GetFirstNodeID(t *testing.T) topoapi.ID {
+	nodeIDs, err := GetNodeIDs(t)
+	assert.NoError(t, err)
+	assert.GreaterOrEqual(t, len(nodeIDs), 1, "No nodes found")
+	return nodeIDs[0]
 }
 
 func GetAllE2Connections(t *testing.T) ([]topoapi.ID, error) {
