@@ -14,32 +14,33 @@ import (
 
 func TestE2NodeConfigurationUpdateAck(t *testing.T) {
 
-	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
-	e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
+	//e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
+	//e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
 
 	newE2apPdu, err := CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu([]*types.E2NodeComponentConfigUpdateAckItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-			E2NodeComponentID: e2ncID1,
+			//E2NodeComponentID: e2ncID1,
 			E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
 				UpdateOutcome: 1,
-				FailureCause: e2ap_ies.Cause{
-					Cause: &e2ap_ies.Cause_Protocol{
-						Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
-					},
-				},
+				//FailureCause: e2ap_ies.Cause{
+				//	Cause: &e2ap_ies.Cause_Protocol{
+				//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+				//	},
+				//},
 			}},
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-			E2NodeComponentID: e2ncID2,
+			//E2NodeComponentID: e2ncID2,
 			E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
 				UpdateOutcome: 1,
-				FailureCause: e2ap_ies.Cause{
-					Cause: &e2ap_ies.Cause_Protocol{
-						Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
-					},
-				},
+				//FailureCause: e2ap_ies.Cause{
+				//	Cause: &e2ap_ies.Cause_Protocol{
+				//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+				//	},
+				//},
 			}}})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU \n%v", newE2apPdu)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
