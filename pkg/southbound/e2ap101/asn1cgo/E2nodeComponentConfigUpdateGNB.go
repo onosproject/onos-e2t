@@ -9,7 +9,7 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2nodeComponentConfigUpdateGNB.h" //ToDo - if there is an anonymous C-struct option, it would require linking additional C-struct file definition (the one above or before)
+//#include "E2nodeComponentConfigUpdateGNB.h"
 import "C"
 
 import (
@@ -71,34 +71,38 @@ func newE2nodeComponentConfigUpdateGnb(e2nodeComponentConfigUpdateGnb *e2ap_ies.
 
 	e2nodeComponentConfigUpdateGnbC := C.E2nodeComponentConfigUpdateGNB_t{}
 
-	ngApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateGnb.NgApconfigUpdate)
-	xnApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateGnb.XnApconfigUpdate)
-	e1ApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateGnb.E1ApconfigUpdate)
-	f1ApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateGnb.F1ApconfigUpdate)
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	e2nodeComponentConfigUpdateGnbC.ngAPconfigUpdate = ngApconfigUpdateC
-	e2nodeComponentConfigUpdateGnbC.xnAPconfigUpdate = xnApconfigUpdateC
-	e2nodeComponentConfigUpdateGnbC.e1APconfigUpdate = e1ApconfigUpdateC
-	e2nodeComponentConfigUpdateGnbC.f1APconfigUpdate = f1ApconfigUpdateC
+	if e2nodeComponentConfigUpdateGnb.NgApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateGnbC.ngAPconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateGnb.NgApconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateGnb.XnApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateGnbC.xnAPconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateGnb.XnApconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateGnb.E1ApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateGnbC.e1APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateGnb.E1ApconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateGnb.F1ApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateGnbC.f1APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateGnb.F1ApconfigUpdate)
+	}
 
 	return &e2nodeComponentConfigUpdateGnbC, nil
 }
 
 func decodeE2nodeComponentConfigUpdateGnb(e2nodeComponentConfigUpdateGnbC *C.E2nodeComponentConfigUpdateGNB_t) (*e2ap_ies.E2NodeComponentConfigUpdateGnb, error) {
 
-	e2nodeComponentConfigUpdateGnb := e2ap_ies.E2NodeComponentConfigUpdateGnb{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//NgApconfigUpdate: ngApconfigUpdate,
-		//XnApconfigUpdate: xnApconfigUpdate,
-		//E1ApconfigUpdate: e1ApconfigUpdate,
-		//F1ApconfigUpdate: f1ApconfigUpdate,
-	}
+	e2nodeComponentConfigUpdateGnb := e2ap_ies.E2NodeComponentConfigUpdateGnb{}
 
-	e2nodeComponentConfigUpdateGnb.NgApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateGnbC.ngAPconfigUpdate)
-	e2nodeComponentConfigUpdateGnb.XnApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateGnbC.xnAPconfigUpdate)
-	e2nodeComponentConfigUpdateGnb.E1ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateGnbC.e1APconfigUpdate)
-	e2nodeComponentConfigUpdateGnb.F1ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateGnbC.f1APconfigUpdate)
+	if e2nodeComponentConfigUpdateGnbC.ngAPconfigUpdate != nil {
+		e2nodeComponentConfigUpdateGnb.NgApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateGnbC.ngAPconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateGnbC.xnAPconfigUpdate != nil {
+		e2nodeComponentConfigUpdateGnb.XnApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateGnbC.xnAPconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateGnbC.e1APconfigUpdate != nil {
+		e2nodeComponentConfigUpdateGnb.E1ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateGnbC.e1APconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateGnbC.f1APconfigUpdate != nil {
+		e2nodeComponentConfigUpdateGnb.F1ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateGnbC.f1APconfigUpdate)
+	}
 
 	return &e2nodeComponentConfigUpdateGnb, nil
 }

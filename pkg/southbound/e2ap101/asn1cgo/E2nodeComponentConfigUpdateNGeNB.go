@@ -69,32 +69,28 @@ func perDecodeE2nodeComponentConfigUpdateNgeNb(bytes []byte) (*e2ap_ies.E2NodeCo
 
 func newE2nodeComponentConfigUpdateNgeNb(e2nodeComponentConfigUpdateNgeNb *e2ap_ies.E2NodeComponentConfigUpdateNgeNb) (*C.E2nodeComponentConfigUpdateNGeNB_t, error) {
 
-	//var err error
 	e2nodeComponentConfigUpdateNgeNbC := C.E2nodeComponentConfigUpdateNGeNB_t{}
 
-	ngApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateNgeNb.NgApconfigUpdate)
-
-	xnApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateNgeNb.XnApconfigUpdate)
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	e2nodeComponentConfigUpdateNgeNbC.ngAPconfigUpdate = ngApconfigUpdateC
-	e2nodeComponentConfigUpdateNgeNbC.xnAPconfigUpdate = xnApconfigUpdateC
+	if e2nodeComponentConfigUpdateNgeNb.NgApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateNgeNbC.ngAPconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateNgeNb.NgApconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateNgeNb.XnApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateNgeNbC.xnAPconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateNgeNb.XnApconfigUpdate)
+	}
 
 	return &e2nodeComponentConfigUpdateNgeNbC, nil
 }
 
 func decodeE2nodeComponentConfigUpdateNgeNb(e2nodeComponentConfigUpdateNgeNbC *C.E2nodeComponentConfigUpdateNGeNB_t) (*e2ap_ies.E2NodeComponentConfigUpdateNgeNb, error) {
 
-	//var err error
-	e2nodeComponentConfigUpdateNgeNb := e2ap_ies.E2NodeComponentConfigUpdateNgeNb{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//NgApconfigUpdate: ngApconfigUpdate,
-		//XnApconfigUpdate: xnApconfigUpdate,
+	e2nodeComponentConfigUpdateNgeNb := e2ap_ies.E2NodeComponentConfigUpdateNgeNb{}
+
+	if e2nodeComponentConfigUpdateNgeNbC.ngAPconfigUpdate != nil {
+		e2nodeComponentConfigUpdateNgeNb.NgApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateNgeNbC.ngAPconfigUpdate)
 	}
-
-	e2nodeComponentConfigUpdateNgeNb.NgApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateNgeNbC.ngAPconfigUpdate)
-
-	e2nodeComponentConfigUpdateNgeNb.XnApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateNgeNbC.xnAPconfigUpdate)
+	if e2nodeComponentConfigUpdateNgeNbC.xnAPconfigUpdate != nil {
+		e2nodeComponentConfigUpdateNgeNb.XnApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateNgeNbC.xnAPconfigUpdate)
+	}
 
 	return &e2nodeComponentConfigUpdateNgeNb, nil
 }
