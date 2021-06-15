@@ -2371,7 +2371,7 @@ func newE2nodeConfigurationUpdateAcknowledgeIe35E2nodeComponentConfigUpdateAckLi
 
 	e2ncuaIeC, err := newE2nodeComponentConfigUpdateAckList(e2ncuaIe.Value)
 	if err != nil {
-		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateList() %s", err.Error())
+		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateAckList() %s", err.Error())
 	}
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2ncuaIeC.list.array))))
 	binary.LittleEndian.PutUint32(choiceC[8:], uint32(e2ncuaIeC.list.count))
@@ -2726,7 +2726,7 @@ func newE2nodeComponentConfigUpdateAckItemIEs(e2nccuaItemIes *e2appducontents.E2
 	choiceC := [80]byte{} // The size of the E2nodeComponentConfigUpdate_ItemIEs__value_u
 	e2nccuItemC, err := newE2nodeComponentConfigUpdateAckItem(e2nccuaItemIes.GetValue())
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateAckItemIEs() %s", err.Error())
 	}
 	//ToDo - verify correctness of passing bytes there..
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccuItemC.e2nodeComponentType))

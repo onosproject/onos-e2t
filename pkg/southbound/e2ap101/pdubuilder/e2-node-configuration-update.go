@@ -26,7 +26,7 @@ func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConf
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2appducontents.E2NodeComponentConfigUpdateItem{
 				E2NodeComponentType:         e2nccui.E2NodeComponentType,
-				E2NodeComponentId:           &e2nccui.E2NodeComponentID,
+				E2NodeComponentId:           e2nccui.E2NodeComponentID,
 				E2NodeComponentConfigUpdate: &e2nccui.E2NodeComponentConfigUpdate,
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),

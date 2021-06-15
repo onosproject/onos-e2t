@@ -68,18 +68,18 @@ func perDecodeE2nodeComponentConfigUpdateAck(bytes []byte) (*e2ap_ies.E2NodeComp
 
 func newE2nodeComponentConfigUpdateAck(e2nodeComponentConfigUpdateAck *e2ap_ies.E2NodeComponentConfigUpdateAck) (*C.E2nodeComponentConfigUpdateAck_t, error) {
 
-	var err error
 	e2nodeComponentConfigUpdateAckC := C.E2nodeComponentConfigUpdateAck_t{}
 
 	updateOutcomeC := C.long(e2nodeComponentConfigUpdateAck.UpdateOutcome)
-	failureCauseC, err := newCause(e2nodeComponentConfigUpdateAck.FailureCause)
-	if err != nil {
-		return nil, fmt.Errorf("newCause() %s", err.Error())
+	if e2nodeComponentConfigUpdateAck.GetFailureCause() != nil {
+		failureCauseC, err := newCause(e2nodeComponentConfigUpdateAck.FailureCause)
+		if err != nil {
+			return nil, fmt.Errorf("newCause() %s", err.Error())
+		}
+		e2nodeComponentConfigUpdateAckC.failureCause = failureCauseC
 	}
 
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
 	e2nodeComponentConfigUpdateAckC.updateOutcome = updateOutcomeC
-	e2nodeComponentConfigUpdateAckC.failureCause = failureCauseC
 
 	return &e2nodeComponentConfigUpdateAckC, nil
 }
@@ -87,16 +87,14 @@ func newE2nodeComponentConfigUpdateAck(e2nodeComponentConfigUpdateAck *e2ap_ies.
 func decodeE2nodeComponentConfigUpdateAck(e2nodeComponentConfigUpdateAckC *C.E2nodeComponentConfigUpdateAck_t) (*e2ap_ies.E2NodeComponentConfigUpdateAck, error) {
 
 	var err error
-	e2nodeComponentConfigUpdateAck := e2ap_ies.E2NodeComponentConfigUpdateAck{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//UpdateOutcome: updateOutcome,
-		//FailureCause: failureCause,
-	}
+	e2nodeComponentConfigUpdateAck := e2ap_ies.E2NodeComponentConfigUpdateAck{}
 
 	e2nodeComponentConfigUpdateAck.UpdateOutcome = int32(e2nodeComponentConfigUpdateAckC.updateOutcome)
-	e2nodeComponentConfigUpdateAck.FailureCause, err = decodeCause(e2nodeComponentConfigUpdateAckC.failureCause)
-	if err != nil {
-		return nil, fmt.Errorf("decodeCause() %s", err.Error())
+	if e2nodeComponentConfigUpdateAckC.failureCause != nil {
+		e2nodeComponentConfigUpdateAck.FailureCause, err = decodeCause(e2nodeComponentConfigUpdateAckC.failureCause)
+		if err != nil {
+			return nil, fmt.Errorf("decodeCause() %s", err.Error())
+		}
 	}
 
 	return &e2nodeComponentConfigUpdateAck, nil

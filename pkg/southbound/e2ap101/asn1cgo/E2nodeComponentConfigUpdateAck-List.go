@@ -73,7 +73,7 @@ func newE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList *e
 	for _, ie := range e2nodeComponentConfigUpdateAckList.GetValue() {
 		ieC, err := newE2nodeConfigurationUpdateAckIesSingleContainer(ie)
 		if err != nil {
-			return nil, fmt.Errorf("newE2nodeComponentConfigUpdateAckItemIes() %s", err.Error())
+			return nil, fmt.Errorf("newE2nodeConfigurationUpdateAckIesSingleContainer() %s", err.Error())
 		}
 		if _, err = C.asn_sequence_add(unsafe.Pointer(e2nodeComponentConfigUpdateAckListC), unsafe.Pointer(ieC)); err != nil {
 			return nil, err

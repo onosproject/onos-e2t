@@ -25,10 +25,10 @@ func DecodeE2nodeConfigurationUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_description
 	for _, ie := range list {
 		e2nccuai := types.E2NodeComponentConfigUpdateAckItem{}
 		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentType()
-		e2nccuai.E2NodeComponentID = *ie.GetValue().GetE2NodeComponentId()
+		e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentId()
 		e2nccuai.E2NodeComponentConfigUpdateAck = types.E2NodeComponentConfigUpdateAck{
 			UpdateOutcome: ie.GetValue().GetE2NodeComponentConfigUpdateAck().GetUpdateOutcome(),
-			FailureCause:  *ie.GetValue().GetE2NodeComponentConfigUpdateAck().GetFailureCause(),
+			FailureCause:  ie.GetValue().GetE2NodeComponentConfigUpdateAck().GetFailureCause(),
 		}
 
 		e2nccual = append(e2nccual, &e2nccuai)

@@ -71,26 +71,26 @@ func newE2nodeComponentConfigUpdateEnb(e2nodeComponentConfigUpdateEnb *e2ap_ies.
 
 	e2nodeComponentConfigUpdateEnbC := C.E2nodeComponentConfigUpdateENB_t{}
 
-	s1ApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate)
-	x2ApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate)
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate = s1ApconfigUpdateC
-	e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate = x2ApconfigUpdateC
+	if e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate)
+	}
 
 	return &e2nodeComponentConfigUpdateEnbC, nil
 }
 
 func decodeE2nodeComponentConfigUpdateEnb(e2nodeComponentConfigUpdateEnbC *C.E2nodeComponentConfigUpdateENB_t) (*e2ap_ies.E2NodeComponentConfigUpdateEnb, error) {
 
-	e2nodeComponentConfigUpdateEnb := e2ap_ies.E2NodeComponentConfigUpdateEnb{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//S1ApconfigUpdate: s1ApconfigUpdate,
-		//X2ApconfigUpdate: x2ApconfigUpdate,
-	}
+	e2nodeComponentConfigUpdateEnb := e2ap_ies.E2NodeComponentConfigUpdateEnb{}
 
-	e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate)
-	e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate)
+	if e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate)
+	}
 
 	return &e2nodeComponentConfigUpdateEnb, nil
 }

@@ -69,25 +69,22 @@ func perDecodeE2nodeComponentConfigUpdateEngNb(bytes []byte) (*e2ap_ies.E2NodeCo
 
 func newE2nodeComponentConfigUpdateEngNb(e2nodeComponentConfigUpdateEngNb *e2ap_ies.E2NodeComponentConfigUpdateEngNb) (*C.E2nodeComponentConfigUpdateENgNB_t, error) {
 
-	//var err error
 	e2nodeComponentConfigUpdateEngNbC := C.E2nodeComponentConfigUpdateENgNB_t{}
 
-	x2ApconfigUpdateC := newPrintableString(e2nodeComponentConfigUpdateEngNb.X2ApconfigUpdate)
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
-	e2nodeComponentConfigUpdateEngNbC.x2APconfigUpdate = x2ApconfigUpdateC
+	if e2nodeComponentConfigUpdateEngNb.X2ApconfigUpdate != "" {
+		e2nodeComponentConfigUpdateEngNbC.x2APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateEngNb.X2ApconfigUpdate)
+	}
 
 	return &e2nodeComponentConfigUpdateEngNbC, nil
 }
 
 func decodeE2nodeComponentConfigUpdateEngNb(e2nodeComponentConfigUpdateEngNbC *C.E2nodeComponentConfigUpdateENgNB_t) (*e2ap_ies.E2NodeComponentConfigUpdateEngNb, error) {
 
-	e2nodeComponentConfigUpdateEngNb := e2ap_ies.E2NodeComponentConfigUpdateEngNb{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//X2ApconfigUpdate: x2ApconfigUpdate,
-	}
+	e2nodeComponentConfigUpdateEngNb := e2ap_ies.E2NodeComponentConfigUpdateEngNb{}
 
-	e2nodeComponentConfigUpdateEngNb.X2ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateEngNbC.x2APconfigUpdate)
+	if e2nodeComponentConfigUpdateEngNbC.x2APconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEngNb.X2ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateEngNbC.x2APconfigUpdate)
+	}
 
 	return &e2nodeComponentConfigUpdateEngNb, nil
 }

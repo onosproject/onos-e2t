@@ -77,19 +77,19 @@ func newE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItem *e2ap_pd
 		return nil, fmt.Errorf("newE2nodeComponentType() %s", err.Error())
 	}
 
-	e2nodeComponentIDC, err := newE2nodeComponentID(e2nodeComponentConfigUpdateItem.E2NodeComponentId)
-	if err != nil {
-		return nil, fmt.Errorf("newE2nodeComponentID() %s", err.Error())
+	//optional structure
+	if e2nodeComponentConfigUpdateItem.GetE2NodeComponentId() != nil {
+		e2nodeComponentConfigUpdateItemC.e2nodeComponentID, err = newE2nodeComponentID(e2nodeComponentConfigUpdateItem.E2NodeComponentId)
+		if err != nil {
+			return nil, fmt.Errorf("newE2nodeComponentID() %s", err.Error())
+		}
 	}
-
 	e2nodeComponentConfigUpdateC, err := newE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdateItem.E2NodeComponentConfigUpdate)
 	if err != nil {
 		return nil, fmt.Errorf("newE2nodeComponentConfigUpdate() %s", err.Error())
 	}
 
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
 	e2nodeComponentConfigUpdateItemC.e2nodeComponentType = *e2nodeComponentTypeC
-	e2nodeComponentConfigUpdateItemC.e2nodeComponentID = e2nodeComponentIDC
 	e2nodeComponentConfigUpdateItemC.e2nodeComponentConfigUpdate = *e2nodeComponentConfigUpdateC
 
 	return &e2nodeComponentConfigUpdateItemC, nil
@@ -106,11 +106,12 @@ func decodeE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItemC *C.E
 	}
 	e2nodeComponentConfigUpdateItem.E2NodeComponentType = *componentType
 
-	e2nodeComponentConfigUpdateItem.E2NodeComponentId, err = decodeE2nodeComponentID(e2nodeComponentConfigUpdateItemC.e2nodeComponentID)
-	if err != nil {
+	if e2nodeComponentConfigUpdateItemC.e2nodeComponentID != nil{
+		e2nodeComponentConfigUpdateItem.E2NodeComponentId, err = decodeE2nodeComponentID(e2nodeComponentConfigUpdateItemC.e2nodeComponentID)
+		if err != nil{
 		return nil, fmt.Errorf("decodeE2nodeComponentID() %s", err.Error())
 	}
-
+	}
 	e2nodeComponentConfigUpdateItem.E2NodeComponentConfigUpdate, err = decodeE2nodeComponentConfigUpdate(&e2nodeComponentConfigUpdateItemC.e2nodeComponentConfigUpdate)
 	if err != nil {
 		return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdate() %s", err.Error())

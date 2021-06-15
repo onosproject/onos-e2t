@@ -10,17 +10,17 @@ import (
 
 type E2NodeComponentConfigUpdateItem struct {
 	E2NodeComponentType         e2ap_ies.E2NodeComponentType
-	E2NodeComponentID           e2ap_ies.E2NodeComponentId
+	E2NodeComponentID           *e2ap_ies.E2NodeComponentId
 	E2NodeComponentConfigUpdate e2ap_ies.E2NodeComponentConfigUpdate
 }
 
 type E2NodeComponentConfigUpdateAckItem struct {
 	E2NodeComponentType            e2ap_ies.E2NodeComponentType
-	E2NodeComponentID              e2ap_ies.E2NodeComponentId
+	E2NodeComponentID              *e2ap_ies.E2NodeComponentId
 	E2NodeComponentConfigUpdateAck E2NodeComponentConfigUpdateAck
 }
 
 type E2NodeComponentConfigUpdateAck struct {
 	UpdateOutcome int32
-	FailureCause  e2ap_ies.Cause
+	FailureCause  *e2ap_ies.Cause
 }

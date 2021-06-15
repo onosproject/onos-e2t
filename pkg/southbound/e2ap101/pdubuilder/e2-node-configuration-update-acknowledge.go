@@ -26,14 +26,21 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeC
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2appducontents.E2NodeComponentConfigUpdateAckItem{
 				E2NodeComponentType: e2nccuai.E2NodeComponentType,
-				E2NodeComponentId:   &e2nccuai.E2NodeComponentID,
+				//E2NodeComponentId:   e2nccuai.E2NodeComponentID,
 				E2NodeComponentConfigUpdateAck: &e2ap_ies.E2NodeComponentConfigUpdateAck{
 					UpdateOutcome: e2nccuai.E2NodeComponentConfigUpdateAck.UpdateOutcome,
-					FailureCause:  &e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
+					//FailureCause:  e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
 				},
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
+		if e2nccuai.E2NodeComponentID != nil {
+			cuai.Value.E2NodeComponentId = e2nccuai.E2NodeComponentID
+		}
+		if e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause != nil {
+			cuai.Value.E2NodeComponentConfigUpdateAck.FailureCause = e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause
+		}
+
 		configUpdateAckList.Value = append(configUpdateAckList.Value, cuai)
 	}
 
@@ -61,6 +68,9 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeC
 			},
 		},
 	}
+
+	fmt.Printf("Composed message is \n%v", configUpdateAckList)
+
 	if err := e2apPdu.Validate(); err != nil {
 		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	}

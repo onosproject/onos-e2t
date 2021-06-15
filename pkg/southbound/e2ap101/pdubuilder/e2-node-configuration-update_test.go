@@ -14,17 +14,17 @@ import (
 
 func TestE2NodeConfigurationUpdate(t *testing.T) {
 
-	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
-	e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
-	e2nccu1 := CreateE2NodeComponentConfigUpdateGnb("ngAp", "xnAp", "e1Ap", "f1Ap")
-	e2nccu2 := CreateE2NodeComponentConfigUpdateEnb("s1", "x2")
+	//e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
+	//e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
+	e2nccu1 := CreateE2NodeComponentConfigUpdateGnb("ngAp", "", "e1Ap", "f1Ap")
+	e2nccu2 := CreateE2NodeComponentConfigUpdateEnb("s1", "")
 
 	newE2apPdu, err := CreateE2NodeConfigurationUpdateE2apPdu([]*types.E2NodeComponentConfigUpdateItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-			E2NodeComponentID:           e2ncID1,
+			//E2NodeComponentID:           &e2ncID1,
 			E2NodeComponentConfigUpdate: e2nccu1},
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-			E2NodeComponentID:           e2ncID2,
+			//E2NodeComponentID:           &e2ncID2,
 			E2NodeComponentConfigUpdate: e2nccu2},
 	})
 	assert.NilError(t, err)
@@ -34,7 +34,17 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("E2NodeConfigurationUpdate E2AP PDU XER\n%s", string(xer))
 
+	result1, err := asn1cgo.XerDecodeE2apPdu(xer)
+	assert.NilError(t, err)
+	t.Logf("E2NodeConfigurationUpdate E2AP PDU XER - decoded\n%v", result1)
+	assert.DeepEqual(t, newE2apPdu, result1)
+
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
 	t.Logf("E2NodeConfigurationUpdate E2AP PDU PER\n%v", hex.Dump(per))
+
+	resultPer, err := asn1cgo.PerDecodeE2apPdu(per)
+	assert.NilError(t, err)
+	t.Logf("E2NodeConfigurationUpdate E2AP PDU PER - decoded\n%v", resultPer)
+	assert.DeepEqual(t, newE2apPdu, resultPer)
 }
