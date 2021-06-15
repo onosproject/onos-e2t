@@ -46,7 +46,17 @@ func TestE2NodeConfigurationUpdateAck(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU XER\n%s", string(xer))
 
+	result1, err := asn1cgo.XerDecodeE2apPdu(xer)
+	assert.NilError(t, err)
+	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU XER - decoded\n%v", result1)
+	assert.DeepEqual(t, newE2apPdu, result1)
+
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
 	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER\n%v", hex.Dump(per))
+
+	resultPer, err := asn1cgo.PerDecodeE2apPdu(per)
+	assert.NilError(t, err)
+	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER - decoded\n%v", resultPer)
+	assert.DeepEqual(t, newE2apPdu, resultPer)
 }
