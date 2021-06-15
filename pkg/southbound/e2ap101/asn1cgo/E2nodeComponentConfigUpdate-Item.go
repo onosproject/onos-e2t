@@ -90,7 +90,6 @@ func newE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItem *e2ap_pd
 	}
 
 	e2nodeComponentConfigUpdateItemC.e2nodeComponentType = *e2nodeComponentTypeC
-	//e2nodeComponentConfigUpdateItemC.e2nodeComponentID = e2nodeComponentIDC
 	e2nodeComponentConfigUpdateItemC.e2nodeComponentConfigUpdate = *e2nodeComponentConfigUpdateC
 
 	return &e2nodeComponentConfigUpdateItemC, nil

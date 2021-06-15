@@ -69,7 +69,6 @@ func perDecodeE2nodeComponentConfigUpdateEngNb(bytes []byte) (*e2ap_ies.E2NodeCo
 
 func newE2nodeComponentConfigUpdateEngNb(e2nodeComponentConfigUpdateEngNb *e2ap_ies.E2NodeComponentConfigUpdateEngNb) (*C.E2nodeComponentConfigUpdateENgNB_t, error) {
 
-	//var err error
 	e2nodeComponentConfigUpdateEngNbC := C.E2nodeComponentConfigUpdateENgNB_t{}
 
 	if e2nodeComponentConfigUpdateEngNb.X2ApconfigUpdate != "" {
