@@ -5,6 +5,7 @@
 package v1beta1
 
 import (
+	"context"
 	"crypto/md5"
 	"fmt"
 	"io"
@@ -61,6 +62,10 @@ type SubscriptionServer struct {
 	streams       subbroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
+}
+
+func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.UnsubscribeRequest) (*e2api.UnsubscribeResponse, error) {
+	panic("implement me")
 }
 
 func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e2api.SubscriptionService_SubscribeServer) error {

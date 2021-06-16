@@ -6,12 +6,13 @@ package e2
 
 import (
 	"context"
+	"testing"
+
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"google.golang.org/protobuf/proto"
-	"testing"
 
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
@@ -42,7 +43,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CID
+	cellObjectID := cells[0].CellObjectID
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 

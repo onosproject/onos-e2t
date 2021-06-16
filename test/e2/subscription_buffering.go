@@ -51,7 +51,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	// Delete all of the available nodes
 	for _, e2node := range e2nodes {
 		_, err := nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
-			EnbID: e2node.EnbID,
+			GnbID: e2node.GnbID,
 		})
 		assert.NoError(t, err)
 	}
@@ -73,10 +73,10 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	enbID := 157000
 	createNodeRequest := &modelapi.CreateNodeRequest{
 		Node: &ransimtypes.Node{
-			EnbID:         ransimtypes.EnbID(enbID),
+			GnbID:         ransimtypes.GnbID(enbID),
 			ServiceModels: serviceModels,
 			Controllers:   controllers,
-			CellECGIs:     []ransimtypes.ECGI{cell1.ECGI, cell2.ECGI, cell3.ECGI},
+			CellNCGIs:     []ransimtypes.NCGI{cell1.NCGI, cell2.NCGI, cell3.NCGI},
 		},
 	}
 	e2node, err := nodeClient.CreateNode(ctx, createNodeRequest)
