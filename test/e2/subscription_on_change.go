@@ -6,10 +6,11 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
@@ -43,7 +44,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	// Delete all of the available nodes
 	for _, e2node := range e2nodes {
 		_, err := nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
-			EnbID: e2node.EnbID,
+			GnbID: e2node.GnbID,
 		})
 		assert.NoError(t, err)
 	}
@@ -65,10 +66,10 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	enbID := 157000
 	createNodeRequest := &modelapi.CreateNodeRequest{
 		Node: &ransimtypes.Node{
-			EnbID:         ransimtypes.EnbID(enbID),
+			GnbID:         ransimtypes.GnbID(enbID),
 			ServiceModels: serviceModels,
 			Controllers:   controllers,
-			CellECGIs:     []ransimtypes.ECGI{cell1.ECGI, cell2.ECGI, cell3.ECGI},
+			CellNCGIs:     []ransimtypes.NCGI{cell1.NCGI, cell2.NCGI, cell3.NCGI},
 		},
 	}
 	e2node, err := nodeClient.CreateNode(ctx, createNodeRequest)
@@ -144,10 +145,10 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetPLmnIdentity().Value
 	nrcid := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.Value
 	plmnIDValue := ransimtypes.Uint24ToUint32(plmnID)
-	ecgi := ransimtypes.ToECGI(ransimtypes.PlmnID(plmnIDValue), ransimtypes.GetECI(nrcid))
+	ncgi := ransimtypes.ToNCGI(ransimtypes.PlmnID(plmnIDValue), ransimtypes.NCI(nrcid))
 
 	testCell, err := cellClient.GetCell(ctx, &modelapi.GetCellRequest{
-		ECGI: ecgi,
+		NCGI: ncgi,
 	})
 	assert.NoError(t, err)
 	neighborsList := testCell.GetCell().Neighbors

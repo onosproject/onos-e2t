@@ -7,9 +7,10 @@ package server
 import (
 	"context"
 	"encoding/hex"
-	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"strconv"
 	"time"
+
+	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	"github.com/cenkalti/backoff/v4"
 

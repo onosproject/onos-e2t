@@ -6,8 +6,9 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	"google.golang.org/protobuf/proto"
@@ -43,8 +44,8 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID0 := cells[0].CID
-	cellObjectID1 := cells[1].CID
+	cellObjectID0 := cells[0].CellObjectID
+	cellObjectID1 := cells[1].CellObjectID
 
 	cellObjectIDList := make([]string, 2)
 	cellObjectIDList[0] = cellObjectID0

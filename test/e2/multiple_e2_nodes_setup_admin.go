@@ -32,9 +32,9 @@ func (s *TestSuite) TestMultiE2NodesAdminAPI(t *testing.T) {
 	for i := 1; i < numRequestedCells+1; i++ {
 		_, err := cellClient.CreateCell(ctx, &modelapi.CreateCellRequest{
 			Cell: &ransimtypes.Cell{
-				ECGI:      ransimtypes.ECGI(i),
+				NCGI:      ransimtypes.NCGI(i),
 				Color:     "red",
-				Neighbors: []ransimtypes.ECGI{ransimtypes.ECGI(i + 1)},
+				Neighbors: []ransimtypes.NCGI{ransimtypes.NCGI(i + 1)},
 				Sector: &ransimtypes.Sector{Arc: 180,
 					Centroid: &ransimtypes.Point{
 						Lat: 56.0,
@@ -69,10 +69,10 @@ func (s *TestSuite) TestMultiE2NodesAdminAPI(t *testing.T) {
 		enbID := i + initialEnbID
 		createNodeRequest := &modelapi.CreateNodeRequest{
 			Node: &ransimtypes.Node{
-				EnbID:         ransimtypes.EnbID(enbID),
+				GnbID:         ransimtypes.GnbID(enbID),
 				ServiceModels: serviceModels,
 				Controllers:   controllers,
-				CellECGIs:     []ransimtypes.ECGI{cell1.ECGI, cell2.ECGI, cell3.ECGI},
+				CellNCGIs:     []ransimtypes.NCGI{cell1.NCGI, cell2.NCGI, cell3.NCGI},
 			},
 		}
 		e2node, err := nodeClient.CreateNode(ctx, createNodeRequest)
@@ -92,7 +92,7 @@ func (s *TestSuite) TestMultiE2NodesAdminAPI(t *testing.T) {
 	e2nodes := utils.GetNodes(t, nodeClient)
 	for _, e2node := range e2nodes {
 		_, err = nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
-			EnbID: e2node.EnbID,
+			GnbID: e2node.GnbID,
 		})
 		assert.NoError(t, err)
 	}

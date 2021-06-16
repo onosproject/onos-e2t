@@ -12,7 +12,7 @@ require (
 	github.com/golang/protobuf v1.5.0
 	github.com/google/uuid v1.1.2
 	github.com/onosproject/helmit v0.6.12
-	github.com/onosproject/onos-api/go v0.7.50
+	github.com/onosproject/onos-api/go v0.7.58
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.35
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.35
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.35
