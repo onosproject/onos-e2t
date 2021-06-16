@@ -145,10 +145,10 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetPLmnIdentity().Value
 	nrcid := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.Value
 	plmnIDValue := ransimtypes.Uint24ToUint32(plmnID)
-	ecgi := ransimtypes.ToNCGI(ransimtypes.PlmnID(plmnIDValue), ransimtypes.NCI(nrcid))
+	ncgi := ransimtypes.ToNCGI(ransimtypes.PlmnID(plmnIDValue), ransimtypes.NCI(nrcid))
 
 	testCell, err := cellClient.GetCell(ctx, &modelapi.GetCellRequest{
-		NCGI: ecgi,
+		NCGI: ncgi,
 	})
 	assert.NoError(t, err)
 	neighborsList := testCell.GetCell().Neighbors
