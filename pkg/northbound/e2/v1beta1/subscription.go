@@ -8,13 +8,14 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"io"
 
 	"github.com/gogo/protobuf/proto"
 
-	substoreapi "github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
-	subbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
-	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
+	channelbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
+	channelstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
@@ -27,9 +28,9 @@ import (
 )
 
 // NewSubscriptionService creates a new E2T subscription service
-func NewSubscriptionService(subs substore.Store, streams subbroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry) northbound.Service {
+func NewSubscriptionService(subs channelstore.Store, streams channelbroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry) northbound.Service {
 	return &SubscriptionService{
-		subs:          subs,
+		channels:      subs,
 		streams:       streams,
 		modelRegistry: modelRegistry,
 		oidRegistry:   oidRegistry,
@@ -39,8 +40,8 @@ func NewSubscriptionService(subs substore.Store, streams subbroker.Broker, model
 // SubscriptionService is a Service implementation for E2 Subscription service.
 type SubscriptionService struct {
 	northbound.Service
-	subs          substore.Store
-	streams       subbroker.Broker
+	channels      channelstore.Store
+	streams       channelbroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 }
@@ -48,7 +49,7 @@ type SubscriptionService struct {
 // Register registers the SubscriptionService with the gRPC server.
 func (s SubscriptionService) Register(r *grpc.Server) {
 	server := &SubscriptionServer{
-		subs:          s.subs,
+		channels:      s.channels,
 		streams:       s.streams,
 		modelRegistry: s.modelRegistry,
 		oidRegistry:   s.oidRegistry,
@@ -58,8 +59,8 @@ func (s SubscriptionService) Register(r *grpc.Server) {
 
 // SubscriptionServer implements the gRPC service for E2 Subscription related functions.
 type SubscriptionServer struct {
-	subs          substore.Store
-	streams       subbroker.Broker
+	channels      channelstore.Store
+	streams       channelbroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 }
@@ -89,104 +90,122 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	eventTriggerBytes := request.Subscription.EventTrigger.Payload
+	subSpec := request.Subscription
 	if encoding == e2api.Encoding_PROTO {
-		eventTriggerBytes, err = serviceModelPlugin.EventTriggerDefinitionProtoToASN1(eventTriggerBytes)
+		eventTriggerBytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(subSpec.EventTrigger.Payload)
 		if err != nil {
 			log.Error(err)
 			return err
 		}
-	}
-	eventTrigger := &substoreapi.SubscriptionEventTrigger{
-		Payload: eventTriggerBytes,
+		subSpec.EventTrigger.Payload = eventTriggerBytes
 	}
 
-	actions := make([]substoreapi.SubscriptionAction, len(request.Subscription.Actions))
-	for i, action := range request.Subscription.Actions {
-		actionBytes := action.Payload
+	for i, action := range subSpec.Actions {
 		if encoding == e2api.Encoding_PROTO && action.Payload != nil {
-			actionBytes, err = serviceModelPlugin.ActionDefinitionProtoToASN1(actionBytes)
+			actionBytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(action.Payload)
 			if err != nil {
 				log.Error(err)
 				return err
 			}
+			action.Payload = actionBytes
+			subSpec.Actions[i] = action
 		}
-		subAction := substoreapi.SubscriptionAction{
-			ID:      action.ID,
-			Type:    substoreapi.ActionType(action.Type),
-			Payload: actionBytes,
-		}
-		if action.SubsequentAction != nil {
-			subAction.SubsequentAction = &substoreapi.SubsequentAction{
-				Type:       substoreapi.SubsequentActionType(action.SubsequentAction.Type),
-				TimeToWait: substoreapi.TimeToWait(action.SubsequentAction.TimeToWait),
-			}
-		}
-		actions[i] = subAction
 	}
 
-	spec := substoreapi.SubscriptionSpec{
-		EventTrigger: eventTrigger,
-		Actions:      actions,
-	}
-
-	subBytes, err := proto.Marshal(&spec)
+	subBytes, err := proto.Marshal(&subSpec)
 	if err != nil {
 		log.Error(err)
 		return err
 	}
-	subHash := fmt.Sprintf("%x", md5.Sum(subBytes))
+	subID := e2api.SubscriptionID(fmt.Sprintf("%x", md5.Sum(subBytes)))
 
-	subID := substoreapi.SubscriptionID{
-		NodeID:     substoreapi.NodeID(request.Headers.NodeID),
-		AppID:      substoreapi.AppID(request.Headers.AppID),
-		InstanceID: substoreapi.InstanceID(request.Headers.InstanceID),
-		RequestID:  substoreapi.RequestID(request.Subscription.ID),
-		Hash:       subHash,
-	}
+	channelID := e2api.ChannelID(fmt.Sprintf("%s:%s:%s:%s",
+		request.Headers.AppID,
+		request.Headers.InstanceID,
+		request.Headers.NodeID,
+		request.TransactionID))
 
-	_, err = s.subs.Get(server.Context(), subID)
+	_, err = s.channels.Get(server.Context(), channelID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Error(err)
 			return errors.Status(err).Err()
 		}
 
-		sub := &substoreapi.Subscription{
-			SubscriptionMeta: substoreapi.SubscriptionMeta{
-				ID: subID,
-				ServiceModel: substoreapi.ServiceModel{
-					Name:    substoreapi.ServiceModelName(request.Headers.ServiceModel.Name),
-					Version: substoreapi.ServiceModelVersion(request.Headers.ServiceModel.Version),
-				},
+		channel := &e2api.Channel{
+			ID: channelID,
+			ChannelMeta: e2api.ChannelMeta{
+				AppID:          request.Headers.AppID,
+				InstanceID:     request.Headers.InstanceID,
+				NodeID:         request.Headers.NodeID,
+				TransactionID:  request.TransactionID,
+				SubscriptionID: subID,
+				ServiceModel:   request.Headers.ServiceModel,
+				Encoding:       e2api.Encoding_ASN1_PER,
 			},
-			Spec: spec,
+			Spec: e2api.ChannelSpec{
+				SubscriptionSpec: subSpec,
+			},
 		}
-		err = s.subs.Create(server.Context(), sub)
+		err = s.channels.Create(server.Context(), channel)
 		if err != nil {
 			return errors.Status(err).Err()
 		}
 	}
 
-	reader := s.streams.OpenReader(subID)
-	response := &e2api.SubscribeResponse{
-		Headers: e2api.ResponseHeaders{
-			Encoding: encoding,
-		},
-		Message: &e2api.SubscribeResponse_Ack{
-			Ack: &e2api.Acknowledgement{},
-		},
+	// Open a stream reader for the app instance
+	reader := s.streams.OpenReader(subID, request.Headers.AppID, request.Headers.InstanceID)
+
+	// Watch the channel store for changes
+	eventCh := make(chan e2api.ChannelEvent)
+	ctx, cancel := context.WithCancel(server.Context())
+	if err := s.channels.Watch(ctx, eventCh); err != nil {
+		cancel()
+		return errors.Status(err).Err()
 	}
 
-	err = server.Send(response)
-	if err == io.EOF {
-		return nil
-	}
-	if err != nil {
-		log.Warnf("SubscribeResponse %+v failed: %v", response, err)
-		return err
+	// Wait for the channel state to indicate the subscription has been established
+	for event := range eventCh {
+		if event.Channel.ID == channelID && event.Channel.Status.Phase == e2api.ChannelPhase_CHANNEL_OPEN {
+			switch event.Channel.Status.State {
+			case e2api.ChannelState_CHANNEL_COMPLETE:
+				cancel()
+
+				// If the channel open is complete, send an ack response to the client
+				response := &e2api.SubscribeResponse{
+					Headers: e2api.ResponseHeaders{
+						Encoding: encoding,
+					},
+					Message: &e2api.SubscribeResponse_Ack{
+						Ack: &e2api.Acknowledgement{
+							ChannelID: channelID,
+						},
+					},
+				}
+
+				err = server.Send(response)
+				if err == io.EOF {
+					return nil
+				}
+				if err != nil {
+					log.Warnf("SubscribeResponse %+v failed: %v", response, err)
+					return err
+				}
+				break
+			case e2api.ChannelState_CHANNEL_FAILED:
+				// If the channel open failed, send the failure to the client as an error
+				errStat := status.New(codes.Aborted, "an E2AP failure occurred")
+				errStat, err := errStat.WithDetails(event.Channel.Status.Error)
+				if err != nil {
+					return err
+				}
+				cancel()
+				return errStat.Err()
+			}
+		}
 	}
 
+	// Read indications from the stream and send them to the client
 	for {
 		indication, err := reader.Recv(server.Context())
 		if err != nil {
@@ -250,4 +269,56 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			return err
 		}
 	}
+}
+
+func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.UnsubscribeRequest) (*e2api.UnsubscribeResponse, error) {
+	channelID := e2api.ChannelID(fmt.Sprintf("%s:%s:%s:%s",
+		request.Headers.AppID,
+		request.Headers.InstanceID,
+		request.Headers.NodeID,
+		request.TransactionID))
+
+	// Get the channel for the subscription/app/instance
+	channel, err := s.channels.Get(ctx, channelID)
+	if err != nil {
+		return nil, errors.Status(err).Err()
+	}
+
+	// Ensure the channel phase is CLOSED
+	if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
+		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
+		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
+		channel.Status.Error = nil
+		if err := s.channels.Update(ctx, channel); err != nil {
+			return nil, errors.Status(err).Err()
+		}
+	}
+
+	// Watch the channel store for changes
+	eventCh := make(chan e2api.ChannelEvent)
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	if err := s.channels.Watch(ctx, eventCh); err != nil {
+		return nil, errors.Status(err).Err()
+	}
+
+	// Wait for the channel state to indicate the subscription has been established
+	for event := range eventCh {
+		if event.Channel.ID == channelID && event.Channel.Status.Phase == e2api.ChannelPhase_CHANNEL_CLOSED {
+			switch event.Channel.Status.State {
+			case e2api.ChannelState_CHANNEL_COMPLETE:
+				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.InstanceID)
+				return &e2api.UnsubscribeResponse{}, nil
+			case e2api.ChannelState_CHANNEL_FAILED:
+				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.InstanceID)
+				errStat := status.New(codes.Aborted, "an E2AP failure occurred")
+				errStat, err := errStat.WithDetails(event.Channel.Status.Error)
+				if err != nil {
+					return nil, err
+				}
+				return nil, errStat.Err()
+			}
+		}
+	}
+	return nil, ctx.Err()
 }

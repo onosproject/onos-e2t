@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package subscription
+package channel
 
 import (
 	"context"
@@ -15,7 +15,7 @@ import (
 	"time"
 )
 
-func TestSubscriptionStore(t *testing.T) {
+func TestChannelStore(t *testing.T) {
 	test := test.NewTest(
 		rsm.NewProtocol(),
 		test.WithReplicas(1),
@@ -35,14 +35,14 @@ func TestSubscriptionStore(t *testing.T) {
 	store2, err := NewAtomixStore(client2)
 	assert.NoError(t, err)
 
-	ch := make(chan api.SubscriptionEvent)
+	ch := make(chan api.ChannelEvent)
 	err = store2.Watch(context.Background(), ch)
 	assert.NoError(t, err)
 
-	obj1 := &api.Subscription{
+	obj1 := &api.Channel{
 		ID: "foo",
 	}
-	obj2 := &api.Subscription{
+	obj2 := &api.Channel{
 		ID: "bar",
 	}
 
@@ -79,10 +79,10 @@ func TestSubscriptionStore(t *testing.T) {
 	assert.True(t, errors.IsNotFound(err))
 }
 
-func nextEvent(t *testing.T, ch chan api.SubscriptionEvent) *api.Subscription {
+func nextEvent(t *testing.T, ch chan api.ChannelEvent) *api.Channel {
 	select {
 	case c := <-ch:
-		return &c.Subscription
+		return &c.Channel
 	case <-time.After(5 * time.Second):
 		t.FailNow()
 	}

@@ -20,8 +20,5 @@ protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$g
 protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v1beta2/e2ap_pdu_contents.proto
 protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v1beta2/e2ap_pdu_descriptions.proto
 
-protoc -I=$proto_imports --proto_path=api --gogofaster_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription:.     api/onos/e2t/store/subscription/subscription.proto
-protoc -I=$proto_imports --proto_path=api --gogofaster_out=$go_import_paths,Monos/e2t/store/subscription/subscription.proto=github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription,import_path=github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription:.     api/onos/e2t/store/subscription/task.proto
-
 cp -r github.com/onosproject/onos-e2t/* .
 rm -rf github.com

@@ -8,6 +8,7 @@ import (
 	"context"
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	"github.com/atomix/atomix-go-framework/pkg/atomix/meta"
+	api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
@@ -15,7 +16,6 @@ import (
 
 	_map "github.com/atomix/atomix-go-client/pkg/atomix/map"
 	"github.com/gogo/protobuf/proto"
-	api "github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
 )
 
 var log = logging.GetLogger("store", "subscription")
@@ -78,11 +78,7 @@ type atomixStore struct {
 }
 
 func (s *atomixStore) Get(ctx context.Context, id api.SubscriptionID) (*api.Subscription, error) {
-	if err := id.Validate(); err != nil {
-		return nil, err
-	}
-
-	entry, err := s.subs.Get(ctx, id.Key())
+	entry, err := s.subs.Get(ctx, string(id))
 	if err != nil {
 		return nil, errors.FromAtomix(err)
 	}
@@ -90,10 +86,6 @@ func (s *atomixStore) Get(ctx context.Context, id api.SubscriptionID) (*api.Subs
 }
 
 func (s *atomixStore) Create(ctx context.Context, sub *api.Subscription) error {
-	if err := sub.ID.Validate(); err != nil {
-		return err
-	}
-
 	log.Infof("Creating subscription %+v", sub)
 	bytes, err := proto.Marshal(sub)
 	if err != nil {
@@ -102,7 +94,7 @@ func (s *atomixStore) Create(ctx context.Context, sub *api.Subscription) error {
 	}
 
 	// Put the subscription in the map using an optimistic lock if this is an update
-	entry, err := s.subs.Put(ctx, sub.ID.Key(), bytes, _map.IfNotSet())
+	entry, err := s.subs.Put(ctx, string(sub.ID), bytes, _map.IfNotSet())
 	if err != nil {
 		log.Errorf("Failed to create subscription %+v: %s", sub, err)
 		return errors.FromAtomix(err)
@@ -113,9 +105,6 @@ func (s *atomixStore) Create(ctx context.Context, sub *api.Subscription) error {
 }
 
 func (s *atomixStore) Update(ctx context.Context, sub *api.Subscription) error {
-	if err := sub.ID.Validate(); err != nil {
-		return err
-	}
 	if sub.Revision == 0 {
 		return errors.NewInvalid("subscription must contain a revision on update")
 	}
@@ -128,7 +117,7 @@ func (s *atomixStore) Update(ctx context.Context, sub *api.Subscription) error {
 	}
 
 	// Update the subscription in the map
-	entry, err := s.subs.Put(ctx, sub.ID.Key(), bytes, _map.IfMatch(meta.NewRevision(meta.Revision(sub.Revision))))
+	entry, err := s.subs.Put(ctx, string(sub.ID), bytes, _map.IfMatch(meta.NewRevision(meta.Revision(sub.Revision))))
 	if err != nil {
 		log.Errorf("Failed to update subscription %+v: %s", sub, err)
 		return errors.FromAtomix(err)
@@ -138,15 +127,12 @@ func (s *atomixStore) Update(ctx context.Context, sub *api.Subscription) error {
 }
 
 func (s *atomixStore) Delete(ctx context.Context, sub *api.Subscription) error {
-	if err := sub.ID.Validate(); err != nil {
-		return err
-	}
 	if sub.Revision == 0 {
 		return errors.NewInvalid("subscription must contain a revision on update")
 	}
 
 	log.Infof("Deleting subscription %s", sub.ID)
-	_, err := s.subs.Remove(ctx, sub.ID.Key(), _map.IfMatch(meta.NewRevision(meta.Revision(sub.Revision))))
+	_, err := s.subs.Remove(ctx, string(sub.ID), _map.IfMatch(meta.NewRevision(meta.Revision(sub.Revision))))
 	if err != nil {
 		log.Errorf("Failed to delete subscription %s: %s", sub.ID, err)
 		return errors.FromAtomix(err)
