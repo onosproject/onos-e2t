@@ -6,10 +6,11 @@ package v1beta1
 
 import (
 	"context"
+	"sync"
+
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"sync"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
@@ -127,14 +128,15 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 			log.Warnf("Error transforming Control Header Proto bytes to ASN: %s", err.Error())
 			return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 		}
-		controlMessageBytes, err = serviceModelPlugin.ControlMessageProtoToASN1(controlHeaderBytes)
+		controlMessageBytes, err = serviceModelPlugin.ControlMessageProtoToASN1(controlMessageBytes)
 		if err != nil {
 			log.Warnf("Error transforming Control Message Proto bytes to ASN: %s", err.Error())
 			return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 		}
 	}
 
-	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(request.Headers.NodeID)))
+	// TODO ran function registry should be based on node ID
+	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channelID)))
 	if err != nil {
 		log.Warn(err)
 	}
