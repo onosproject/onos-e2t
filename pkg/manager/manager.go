@@ -149,7 +149,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startNorthboundServer(chanStore, streams, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
+	err = m.startNorthboundServer(chanStore, subStore, streams, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
@@ -195,7 +195,7 @@ func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, stream
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(subs chanstore.Store, streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
+func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
 	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
@@ -210,7 +210,7 @@ func (m *Manager) startNorthboundServer(subs chanstore.Store, streams subscripti
 		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
 	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry,
 		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
-	s.AddService(e2v1beta1service.NewSubscriptionService(subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry))
+	s.AddService(e2v1beta1service.NewSubscriptionService(chans, subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry))
 
 	doneCh := make(chan error)
 	go func() {
