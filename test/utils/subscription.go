@@ -211,7 +211,21 @@ func (subRequest *Subscription2) CreateWithActionDefinition2() (e2api.Subscripti
 		EventTrigger: e2api.EventTrigger{
 			Payload: subRequest.EventTrigger,
 		},
+
 		Actions: subRequest.Actions,
 	}
 	return spec, nil
+}
+
+// ConnectE2tServiceHost connects to subscription service
+func ConnectE2tServiceHost() (*grpc.ClientConn, error) {
+	tlsConfig, err := creds.GetClientCredentials()
+	if err != nil {
+		return nil, err
+	}
+	opts := []grpc.DialOption{
+		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
+	}
+
+	return grpc.DialContext(context.Background(), E2tServiceAddress, opts...)
 }

@@ -30,6 +30,15 @@ func GetSubscriptionList(t *testing.T) []subscription.Subscription {
 	return subList
 }
 
+// GetSubscriptionList2 get  list of subscriptions
+func GetSubscriptionList2(t *testing.T) []v1beta1.Subscription {
+	subClient := utils.GetSubAdminClient(t)
+	req := v1beta1.ListSubscriptionsRequest{}
+	subList, err := subClient.ListSubscriptions(context.Background(), &req)
+	assert.NoError(t, err)
+	return subList.GetSubscriptions()
+}
+
 // CheckSubscriptionGet make sure that the given subscription ID can be fetched via the subscription API
 func CheckSubscriptionGet(t *testing.T, expectedID subapi.ID) {
 	subClient := utils.GetSubClient(t)
@@ -41,8 +50,31 @@ func CheckSubscriptionGet(t *testing.T, expectedID subapi.ID) {
 	assert.Equal(t, expectedID, fetched.ID)
 }
 
+// CheckSubscriptionGet2 make sure that the given subscription ID can be fetched via the subscription API
+func CheckSubscriptionGet2(t *testing.T, expectedID v1beta1.SubscriptionID) {
+	subClient := utils.GetSubAdminClient(t)
+	req := v1beta1.GetSubscriptionRequest{
+		SubscriptionID: expectedID,
+	}
+	fetched, err := subClient.GetSubscription(context.Background(), &req)
+	assert.NoError(t, err)
+
+	assert.Equal(t, expectedID, fetched.GetSubscription().ID)
+}
+
 // CheckSubscriptionIDInList makes sure that the give subscription ID appears once and only once in the subscription list
 func CheckSubscriptionIDInList(t *testing.T, expectedID subapi.ID, subList []subscription.Subscription) {
+	found := 0
+	for _, sub := range subList {
+		if sub.ID == expectedID {
+			found++
+		}
+	}
+	assert.Equal(t, 1, found, "Subscription %s not found in subscription list", expectedID)
+}
+
+// CheckSubscriptionIDInList2 makes sure that the give subscription ID appears once and only once in the subscription list
+func CheckSubscriptionIDInList2(t *testing.T, expectedID v1beta1.SubscriptionID, subList []v1beta1.Subscription) {
 	found := 0
 	for _, sub := range subList {
 		if sub.ID == expectedID {

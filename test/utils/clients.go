@@ -5,6 +5,7 @@
 package utils
 
 import (
+	subapi "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/app"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"testing"
@@ -41,6 +42,15 @@ func GetSubClient(t *testing.T) sdksub.Client {
 	assert.NotNil(t, conn)
 
 	return sdksub.NewClient(conn)
+}
+
+// getSubClient returns an SDK subscription client
+func GetSubAdminClient(t *testing.T) subapi.SubscriptionAdminServiceClient {
+	conn, err := ConnectE2tServiceHost()
+	assert.NoError(t, err)
+	assert.NotNil(t, conn)
+
+	return subapi.NewSubscriptionAdminServiceClient(conn)
 }
 
 // getE2Client gets an E2 client
