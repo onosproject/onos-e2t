@@ -7,7 +7,6 @@ package v1beta1
 import (
 	"context"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
@@ -16,80 +15,55 @@ import (
 func TestBroker(t *testing.T) {
 	broker := NewBroker()
 
-	sub1ID := subscription.SubscriptionID{
-		NodeID:     "node-1",
-		RequestID:  "request-1",
-		AppID:      "app-1",
-		InstanceID: "instance-1",
-	}
-	sub2ID := subscription.SubscriptionID{
-		NodeID:     "node-1",
-		RequestID:  "request-1",
-		AppID:      "app-1",
-		InstanceID: "instance-2",
-	}
-	sub3ID := subscription.SubscriptionID{
-		NodeID:     "node-1",
-		RequestID:  "request-1",
-		AppID:      "app-2",
-		InstanceID: "instance-1",
-	}
-	sub4ID := subscription.SubscriptionID{
-		NodeID:     "node-1",
-		RequestID:  "request-2",
-		AppID:      "app-2",
-		InstanceID: "instance-1",
-	}
-
 	writer, ok := broker.GetWriter(1)
 	assert.Nil(t, writer)
 	assert.False(t, ok)
 
-	reader1, ok := broker.GetReader(sub1ID.TaskID())
+	reader1, ok := broker.GetReader("sub-1")
 	assert.Nil(t, reader1)
 	assert.False(t, ok)
 
-	reader2, ok := broker.GetReader(sub2ID.TaskID())
+	reader2, ok := broker.GetReader("sub-1")
 	assert.Nil(t, reader2)
 	assert.False(t, ok)
 
-	reader3, ok := broker.GetReader(sub3ID.TaskID())
+	reader3, ok := broker.GetReader("sub-1")
 	assert.Nil(t, reader3)
 	assert.False(t, ok)
 
-	reader4, ok := broker.GetReader(sub4ID.TaskID())
+	reader4, ok := broker.GetReader("sub-2")
 	assert.Nil(t, reader4)
 	assert.False(t, ok)
 
-	reader1 = broker.OpenReader(sub1ID)
-	reader2 = broker.OpenReader(sub2ID)
-	reader3 = broker.OpenReader(sub3ID)
-	reader4 = broker.OpenReader(sub4ID)
+	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1")
+	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2")
+	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1")
+	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1")
 
 	assert.Equal(t, reader1.ID(), reader2.ID())
 	assert.Equal(t, reader2.ID(), reader3.ID())
 	assert.NotEqual(t, reader3.ID(), reader4.ID())
 
-	reader1, ok = broker.GetReader(sub1ID.TaskID())
+	reader1, ok = broker.GetReader("sub-1")
 	assert.NotNil(t, reader1)
 	assert.True(t, ok)
 
-	reader2, ok = broker.GetReader(sub2ID.TaskID())
+	reader2, ok = broker.GetReader("sub-1")
 	assert.NotNil(t, reader2)
 	assert.True(t, ok)
 
-	reader3, ok = broker.GetReader(sub3ID.TaskID())
+	reader3, ok = broker.GetReader("sub-1")
 	assert.NotNil(t, reader3)
 	assert.True(t, ok)
 
-	reader4, ok = broker.GetReader(sub4ID.TaskID())
+	reader4, ok = broker.GetReader("sub-2")
 	assert.NotNil(t, reader4)
 	assert.True(t, ok)
 
-	reader1 = broker.OpenReader(sub1ID)
-	reader2 = broker.OpenReader(sub2ID)
-	reader3 = broker.OpenReader(sub3ID)
-	reader4 = broker.OpenReader(sub4ID)
+	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1")
+	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2")
+	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1")
+	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1")
 
 	writer1, ok := broker.GetWriter(reader1.ID())
 	assert.NotNil(t, writer1)
