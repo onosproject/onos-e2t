@@ -29,6 +29,6 @@ require (
 
 replace github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
 
-replace github.com/onosproject/onos-api/go => github.com/kuujo/onos-api/go v0.0.0-20210616014438-75078968dc85
+replace github.com/onosproject/onos-api/go => github.com/kuujo/onos-api/go v0.0.0-20210618000044-f5cffb89e63f
 
-replace github.com/onosproject/onos-ric-sdk-go => github.com/kuujo/onos-ric-sdk-go v0.7.6-0.20210617211506-64a1efeaa3ad
+replace github.com/onosproject/onos-ric-sdk-go => github.com/kuujo/onos-ric-sdk-go v0.7.6-0.20210618000156-6b9ed9b35372
