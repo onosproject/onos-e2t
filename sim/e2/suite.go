@@ -89,256 +89,40 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 	}
 	cellObjectID := cells[0].CellObjectID
 
-	s.apps = []*simApp{
-		{
-			name: fmt.Sprintf("sim-%s-1", sim.Name),
-			instances: []*simAppInstance{
-				{
-					name: fmt.Sprintf("sim-%s-1-0", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-				{
-					name: fmt.Sprintf("sim-%s-1-1", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-				{
-					name: fmt.Sprintf("sim-%s-1-2", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-1-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-			},
-		},
-		{
-			name: fmt.Sprintf("sim-%s-2", sim.Name),
-			instances: []*simAppInstance{
-				{
-					name: fmt.Sprintf("sim-%s-2-0", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-				{
-					name: fmt.Sprintf("sim-%s-2-1", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-				{
-					name: fmt.Sprintf("sim-%s-2-2", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-2-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-			},
-		},
-		{
-			name: fmt.Sprintf("sim-%s-3", sim.Name),
-			instances: []*simAppInstance{
-				{
-					name: fmt.Sprintf("sim-%s-3-0", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-				{
-					name: fmt.Sprintf("sim-%s-3-1", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-				{
-					name: fmt.Sprintf("sim-%s-3-2", sim.Name),
-					subs: []*simAppSub{
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-1", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 1000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-2", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 5000,
-							granularity:  500,
-						},
-						{
-							name:         fmt.Sprintf("sim-%s-3-sub-3", sim.Name),
-							nodeID:       string(nodeID),
-							cellObjectID: cellObjectID,
-							reportPeriod: 10000,
-							granularity:  1000,
-						},
-					},
-				},
-			},
-		},
+	numApps := sim.Arg("app-count").Int(1)
+	numInstances := sim.Arg("replica-count").Int(1)
+	numSubs := sim.Arg("sub-count").Int(1)
+
+	subs := make([]simAppSub, numSubs)
+	for i := 0; i < numSubs; i++ {
+		subs[i] = simAppSub{
+			name:         fmt.Sprintf("sub-%d", i+1),
+			nodeID:       string(nodeID),
+			cellObjectID: cellObjectID,
+			reportPeriod: uint32((i + 1) * 5 * 1000),
+			granularity:  500,
+		}
+	}
+
+	s.apps = make([]*simApp, numApps)
+	for i := 0; i < numApps; i++ {
+		appID := fmt.Sprintf("sim-%s-%d", sim.Name, i+1)
+		instances := make([]*simAppInstance, numInstances)
+		for j := 0; j < numInstances; j++ {
+			instanceSubs := make([]*simAppSub, len(subs))
+			for k := 0; k < len(subs); k++ {
+				sub := subs[k]
+				instanceSubs[k] = &sub
+			}
+			instances[j] = &simAppInstance{
+				name: fmt.Sprintf("%s-%d", appID, j),
+				subs: instanceSubs,
+			}
+		}
+		s.apps[i] = &simApp{
+			name:      appID,
+			instances: instances,
+		}
 	}
 	return nil
 }
@@ -349,7 +133,7 @@ func (s *SimSuite) ScheduleSimulator(sim *simulation.Simulator) {
 	sim.Schedule("stop-app", s.SimulateStopApp, 1*time.Hour, .3)
 	sim.Schedule("start-sub", s.SimulateStartSub, 10*time.Minute, .5)
 	sim.Schedule("stop-sub", s.SimulateStopSub, 30*time.Minute, .3)
-	sim.Schedule("kill-instance", s.SimulateKillInstance, 30*time.Minute, .8)
+	sim.Schedule("crash-instance", s.SimulateCrashInstance, 30*time.Minute, .8)
 }
 
 func (s *SimSuite) getStoppedApp() (*simApp, bool) {
@@ -598,7 +382,7 @@ func (s *SimSuite) SimulateStopSub(sim *simulation.Simulator) error {
 	return nil
 }
 
-func (s *SimSuite) SimulateKillInstance(sim *simulation.Simulator) error {
+func (s *SimSuite) SimulateCrashInstance(sim *simulation.Simulator) error {
 	instance, ok := s.getRunningInstance()
 	if !ok {
 		return nil
