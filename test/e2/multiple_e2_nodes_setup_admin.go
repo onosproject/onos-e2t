@@ -40,9 +40,8 @@ func (s *TestSuite) TestMultiE2NodesAdminAPI(t *testing.T) {
 						Lat: 56.0,
 						Lng: 78.9,
 					}},
-				Location:      &ransimtypes.Point{Lat: 42.0, Lng: 54.23},
-				MaxUEs:        12,
-				EventA3Params: &ransimtypes.EventA3Params{},
+				Location: &ransimtypes.Point{Lat: 42.0, Lng: 54.23},
+				MaxUEs:   12,
 			},
 		})
 		assert.NoError(t, err)

@@ -269,53 +269,67 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	// Open a stream reader for the app instance
 	reader := s.streams.OpenReader(subID, request.Headers.AppID, request.Headers.AppInstanceID)
 
-	// Watch the channel store for changes
-	eventCh := make(chan e2api.ChannelEvent)
-	ctx, cancel := context.WithCancel(server.Context())
-	if err := s.chans.Watch(ctx, eventCh); err != nil {
-		cancel()
-		return errors.Status(err).Err()
-	}
+	completeCh := make(chan error)
+	go func() {
+		defer close(completeCh)
+		// Watch the channel store for changes
+		eventCh := make(chan e2api.ChannelEvent)
+		ctx, cancel := context.WithCancel(server.Context())
+		defer cancel()
+		if err := s.chans.Watch(ctx, eventCh); err != nil {
+			completeCh <- errors.Status(err).Err()
+			return
+		}
 
-	// Wait for the channel state to indicate the subscription has been established
-	for event := range eventCh {
-		if event.Channel.ID == channelID && event.Channel.Status.Phase == e2api.ChannelPhase_CHANNEL_OPEN {
-			switch event.Channel.Status.State {
-			case e2api.ChannelState_CHANNEL_COMPLETE:
-				cancel()
-
-				// If the channel open is complete, send an ack response to the client
-				response := &e2api.SubscribeResponse{
-					Headers: e2api.ResponseHeaders{
-						Encoding: encoding,
-					},
-					Message: &e2api.SubscribeResponse_Ack{
-						Ack: &e2api.Acknowledgement{
-							ChannelID: channelID,
-						},
-					},
+		for event := range eventCh {
+			if event.Channel.ID == channelID && event.Channel.Status.Phase == e2api.ChannelPhase_CHANNEL_OPEN {
+				switch event.Channel.Status.State {
+				case e2api.ChannelState_CHANNEL_COMPLETE:
+					return
+				case e2api.ChannelState_CHANNEL_FAILED:
+					// If the channel open failed, send the failure to the client as an error
+					errStat := status.New(codes.Aborted, "an E2AP failure occurred")
+					errStat, err := errStat.WithDetails(event.Channel.Status.Error)
+					if err != nil {
+						completeCh <- err
+					} else {
+						completeCh <- errStat.Err()
+					}
+					return
 				}
-
-				err = server.Send(response)
-				if err == io.EOF {
-					return nil
-				}
-				if err != nil {
-					log.Warnf("SubscribeResponse %+v failed: %v", response, err)
-					return err
-				}
-				break
-			case e2api.ChannelState_CHANNEL_FAILED:
-				// If the channel open failed, send the failure to the client as an error
-				errStat := status.New(codes.Aborted, "an E2AP failure occurred")
-				errStat, err := errStat.WithDetails(event.Channel.Status.Error)
-				if err != nil {
-					return err
-				}
-				cancel()
-				return errStat.Err()
 			}
 		}
+	}()
+
+	// Wait for the channel subscription to be completed
+	select {
+	case err := <-completeCh:
+		if err != nil {
+			return err
+		}
+
+		// If the channel open is complete, send an ack response to the client
+		response := &e2api.SubscribeResponse{
+			Headers: e2api.ResponseHeaders{
+				Encoding: encoding,
+			},
+			Message: &e2api.SubscribeResponse_Ack{
+				Ack: &e2api.Acknowledgement{
+					ChannelID: channelID,
+				},
+			},
+		}
+
+		err = server.Send(response)
+		if err == io.EOF {
+			return nil
+		}
+		if err != nil {
+			log.Warnf("SubscribeResponse %+v failed: %v", response, err)
+			return err
+		}
+	case <-server.Context().Done():
+		return nil
 	}
 
 	// Read indications from the stream and send them to the client
