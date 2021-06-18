@@ -7,8 +7,8 @@ package v1beta1
 import (
 	"container/list"
 	"context"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"io"
 	"sync"
@@ -65,13 +65,13 @@ func (s *streamIO) ID() StreamID {
 
 func newStreamRegistry() *streamRegistry {
 	return &streamRegistry{
-		subs:    make(map[subscription.TaskID]*subStream),
+		subs:    make(map[e2api.SubscriptionID]*subStream),
 		streams: make(map[StreamID]*subStream),
 	}
 }
 
 type streamRegistry struct {
-	subs     map[subscription.TaskID]*subStream
+	subs     map[e2api.SubscriptionID]*subStream
 	streams  map[StreamID]*subStream
 	streamID StreamID
 	mu       sync.RWMutex
@@ -84,32 +84,32 @@ func (s *streamRegistry) getStream(streamID StreamID) (*subStream, bool) {
 	return stream, ok
 }
 
-func (s *streamRegistry) getSubStream(subID subscription.TaskID) (*subStream, bool) {
+func (s *streamRegistry) getSubStream(subID e2api.SubscriptionID) (*subStream, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	stream, ok := s.subs[subID]
 	return stream, ok
 }
 
-func (s *streamRegistry) openSubStream(taskID subscription.TaskID) *subStream {
+func (s *streamRegistry) openSubStream(subID e2api.SubscriptionID) *subStream {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	stream, ok := s.subs[taskID]
+	stream, ok := s.subs[subID]
 	if !ok {
 		s.streamID++
-		stream = newSubStream(s, taskID, s.streamID)
-		s.subs[taskID] = stream
+		stream = newSubStream(s, subID, s.streamID)
+		s.subs[subID] = stream
 		s.streams[s.streamID] = stream
 	}
 	return stream
 }
 
-func (s *streamRegistry) closeSubStream(taskID subscription.TaskID) {
+func (s *streamRegistry) closeSubStream(subID e2api.SubscriptionID) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	stream, ok := s.subs[taskID]
+	stream, ok := s.subs[subID]
 	if ok {
-		delete(s.subs, taskID)
+		delete(s.subs, subID)
 		delete(s.streams, stream.ID())
 	}
 }
@@ -121,16 +121,16 @@ func (s *streamRegistry) Close() error {
 	return nil
 }
 
-func newSubStream(registry *streamRegistry, taskID subscription.TaskID, streamID StreamID) *subStream {
+func newSubStream(registry *streamRegistry, subID e2api.SubscriptionID, streamID StreamID) *subStream {
 	stream := &subStream{
 		streamIO: &streamIO{
 			streamID: streamID,
 		},
 		streams: registry,
-		taskID:  taskID,
+		subID:   subID,
 		ch:      make(chan e2appducontents.Ricindication),
 		closer:  make(chan struct{}),
-		apps:    make(map[subscription.AppID]*appStream),
+		apps:    make(map[e2api.AppID]*appStream),
 	}
 	go stream.open()
 	return stream
@@ -139,9 +139,9 @@ func newSubStream(registry *streamRegistry, taskID subscription.TaskID, streamID
 type subStream struct {
 	*streamIO
 	streams *streamRegistry
-	taskID  subscription.TaskID
+	subID   e2api.SubscriptionID
 	ch      chan e2appducontents.Ricindication
-	apps    map[subscription.AppID]*appStream
+	apps    map[e2api.AppID]*appStream
 	mu      sync.RWMutex
 	closer  chan struct{}
 }
@@ -161,7 +161,7 @@ func (s *subStream) open() {
 	}
 }
 
-func (s *subStream) openAppStream(appID subscription.AppID) *appStream {
+func (s *subStream) openAppStream(appID e2api.AppID) *appStream {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	stream, ok := s.apps[appID]
@@ -172,19 +172,19 @@ func (s *subStream) openAppStream(appID subscription.AppID) *appStream {
 	return stream
 }
 
-func (s *subStream) getAppStream(appID subscription.AppID) (*appStream, bool) {
+func (s *subStream) getAppStream(appID e2api.AppID) (*appStream, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	stream, ok := s.apps[appID]
 	return stream, ok
 }
 
-func (s *subStream) closeAppStream(appID subscription.AppID) {
+func (s *subStream) closeAppStream(appID e2api.AppID) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	delete(s.apps, appID)
 	if len(s.apps) == 0 {
-		s.streams.closeSubStream(s.taskID)
+		s.streams.closeSubStream(s.subID)
 	}
 }
 
@@ -203,7 +203,7 @@ func (s *subStream) Close() error {
 	return nil
 }
 
-func newAppStream(subStream *subStream, appID subscription.AppID) *appStream {
+func newAppStream(subStream *subStream, appID e2api.AppID) *appStream {
 	ch := make(chan e2appducontents.Ricindication)
 	return &appStream{
 		subStream:       subStream,
@@ -211,7 +211,7 @@ func newAppStream(subStream *subStream, appID subscription.AppID) *appStream {
 		streamIO:        subStream.streamIO,
 		appStreamReader: newAppStreamReader(ch),
 		appStreamWriter: newAppStreamWriter(ch),
-		instances:       make(map[subscription.InstanceID]*instanceStreamReader),
+		instances:       make(map[e2api.AppInstanceID]*instanceStreamReader),
 	}
 }
 
@@ -220,12 +220,12 @@ type appStream struct {
 	*appStreamReader
 	*appStreamWriter
 	subStream *subStream
-	appID     subscription.AppID
-	instances map[subscription.InstanceID]*instanceStreamReader
+	appID     e2api.AppID
+	instances map[e2api.AppInstanceID]*instanceStreamReader
 	mu        sync.RWMutex
 }
 
-func (s *appStream) openInstanceStream(instanceID subscription.InstanceID) StreamReader {
+func (s *appStream) openInstanceStream(instanceID e2api.AppInstanceID) StreamReader {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	stream, ok := s.instances[instanceID]
@@ -236,14 +236,14 @@ func (s *appStream) openInstanceStream(instanceID subscription.InstanceID) Strea
 	return stream
 }
 
-func (s *appStream) getInstanceStream(instanceID subscription.InstanceID) (StreamReader, bool) {
+func (s *appStream) getInstanceStream(instanceID e2api.AppInstanceID) (StreamReader, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	stream, ok := s.instances[instanceID]
 	return stream, ok
 }
 
-func (s *appStream) closeInstanceStream(instanceID subscription.InstanceID) {
+func (s *appStream) closeInstanceStream(instanceID e2api.AppInstanceID) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	delete(s.instances, instanceID)
@@ -348,7 +348,7 @@ func (s *appStreamWriter) Close() error {
 	return nil
 }
 
-func newInstanceStreamReader(instanceID subscription.InstanceID, appStream *appStream) *instanceStreamReader {
+func newInstanceStreamReader(instanceID e2api.AppInstanceID, appStream *appStream) *instanceStreamReader {
 	return &instanceStreamReader{
 		instanceID: instanceID,
 		appStream:  appStream,
@@ -356,7 +356,7 @@ func newInstanceStreamReader(instanceID subscription.InstanceID, appStream *appS
 }
 
 type instanceStreamReader struct {
-	instanceID subscription.InstanceID
+	instanceID e2api.AppInstanceID
 	appStream  *appStream
 }
 

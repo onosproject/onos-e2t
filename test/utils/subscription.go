@@ -196,27 +196,22 @@ type Subscription2 struct {
 }
 
 // Create creates a subscription request using SDK
-func (subRequest *Subscription2) Create() (e2api.Subscription, error) {
-	subReq := e2api.Subscription{
-		ID: "sub1",
+func (subRequest *Subscription2) Create() (e2api.SubscriptionSpec, error) {
+	spec := e2api.SubscriptionSpec{
 		EventTrigger: e2api.EventTrigger{
 			Payload: subRequest.EventTrigger,
 		},
 		Actions: subRequest.Actions,
 	}
-
-	return subReq, nil
+	return spec, nil
 }
 
-func (subRequest *Subscription2) CreateWithActionDefinition2() (e2api.Subscription, error) {
-	subReq := e2api.Subscription{
-		ID: "sub1",
+func (subRequest *Subscription2) CreateWithActionDefinition2() (e2api.SubscriptionSpec, error) {
+	spec := e2api.SubscriptionSpec{
 		EventTrigger: e2api.EventTrigger{
 			Payload: subRequest.EventTrigger,
 		},
 		Actions: subRequest.Actions,
 	}
-
-	return subReq, nil
-
+	return spec, nil
 }

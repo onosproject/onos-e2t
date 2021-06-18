@@ -5,7 +5,7 @@
 package v1beta1
 
 import (
-	"github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"sync"
@@ -29,11 +29,14 @@ type Broker interface {
 	// OpenReader opens a subscription StreamReader
 	// If a stream already exists for the subscription, the existing stream will be returned.
 	// If no stream exists, a new stream will be allocated with a unique StreamID.
-	OpenReader(subID subscription.SubscriptionID) StreamReader
+	OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) StreamReader
+
+	// CloseReader closes a subscription StreamReader
+	CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID)
 
 	// GetReader gets a read stream by its StreamID
 	// If no StreamReader exists for the given StreamID, ok will be false
-	GetReader(taskID subscription.TaskID) (reader StreamReader, ok bool)
+	GetReader(subID e2api.SubscriptionID) (reader StreamReader, ok bool)
 
 	// GetWriter gets a write stream by its StreamID
 	// If no StreamWriter exists for the given StreamID, ok will be false
@@ -45,26 +48,26 @@ type streamBroker struct {
 	mu      sync.RWMutex
 }
 
-func (b *streamBroker) OpenReader(subID subscription.SubscriptionID) StreamReader {
+func (b *streamBroker) OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) StreamReader {
 	b.mu.Lock()
 	defer b.mu.Unlock()
-	return b.streams.openSubStream(subID.TaskID()).
-		openAppStream(subID.AppID).
-		openInstanceStream(subID.InstanceID)
+	return b.streams.openSubStream(subID).
+		openAppStream(appID).
+		openInstanceStream(instanceID)
 }
 
-func (b *streamBroker) CloseReader(subID subscription.SubscriptionID) {
+func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
-	subStream, ok := b.streams.getSubStream(subID.TaskID())
+	subStream, ok := b.streams.getSubStream(subID)
 	if !ok {
 		return
 	}
-	appStream, ok := subStream.getAppStream(subID.AppID)
+	appStream, ok := subStream.getAppStream(appID)
 	if !ok {
 		return
 	}
-	instanceStream, ok := appStream.getInstanceStream(subID.InstanceID)
+	instanceStream, ok := appStream.getInstanceStream(instanceID)
 	if !ok {
 		return
 	}
@@ -72,10 +75,10 @@ func (b *streamBroker) CloseReader(subID subscription.SubscriptionID) {
 	instanceStream.Close()
 }
 
-func (b *streamBroker) GetReader(taskID subscription.TaskID) (StreamReader, bool) {
+func (b *streamBroker) GetReader(subID e2api.SubscriptionID) (StreamReader, bool) {
 	b.mu.RLock()
 	defer b.mu.RUnlock()
-	stream, ok := b.streams.getSubStream(taskID)
+	stream, ok := b.streams.getSubStream(subID)
 	return stream, ok
 }
 

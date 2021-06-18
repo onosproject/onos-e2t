@@ -9,8 +9,8 @@ import (
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
+	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
-	taskstore "github.com/onosproject/onos-e2t/pkg/store/task"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
@@ -29,8 +29,8 @@ import (
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
-	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
-	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/task"
+	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
+	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
@@ -116,11 +116,11 @@ func (m *Manager) Start() error {
 
 	atomixClient := atomix.NewClient(atomix.WithClientID(env.GetPodName()))
 
-	subStore, err := substore.NewAtomixStore(atomixClient)
+	chanStore, err := chanstore.NewAtomixStore(atomixClient)
 	if err != nil {
 		return err
 	}
-	taskStore, err := taskstore.NewAtomixStore(atomixClient)
+	subStore, err := substore.NewAtomixStore(atomixClient)
 	if err != nil {
 		return err
 	}
@@ -135,11 +135,11 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	err = m.startSubscriptionv1beta1Controller(subStore, taskStore)
+	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1)
 	if err != nil {
 		return err
 	}
-	err = m.startTaskv1beta1Controller(subStore, taskStore, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
+	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
@@ -149,7 +149,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startNorthboundServer(subStore, streams, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
+	err = m.startNorthboundServer(chanStore, subStore, streams, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
 	if err != nil {
 		return err
 	}
@@ -168,20 +168,19 @@ func (m *Manager) startSubscriptionController(streams subscription.Broker,
 	return nil
 }
 
-// startSubscriptionv1beta1Controller starts the subscription controllers
-func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, tasks taskstore.Store) error {
-	subsv1beta1 := subctrlv1beta1.NewController(subs, tasks)
+// startChannelv1beta1Controller starts the subscription controllers
+func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams subscriptionv1beta1.Broker) error {
+	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams)
 	if err := subsv1beta1.Start(); err != nil {
 		return err
 	}
 	return nil
 }
 
-// startTaskv1beta1Controller starts the subscription controllers
-func (m *Manager) startTaskv1beta1Controller(subs substore.Store, tasks taskstore.Store, streams subscriptionv1beta1.Broker,
+// startSubscriptionv1beta1Controller starts the subscription controllers
+func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker,
 	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, deviceManager topo.Manager) error {
-	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, tasks,
-		channels, m.ModelRegistry, m.OidRegistry, ranFunctionRegistry, deviceManager)
+	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, channels, m.ModelRegistry, m.OidRegistry, ranFunctionRegistry, deviceManager)
 	if err := tasksv1beta1.Start(); err != nil {
 		return err
 	}
@@ -196,7 +195,7 @@ func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, stream
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(subs substore.Store, streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
+func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
 	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
@@ -211,7 +210,7 @@ func (m *Manager) startNorthboundServer(subs substore.Store, streams subscriptio
 		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
 	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry,
 		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
-	s.AddService(e2v1beta1service.NewSubscriptionService(subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry))
+	s.AddService(e2v1beta1service.NewSubscriptionService(chans, subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry))
 
 	doneCh := make(chan error)
 	go func() {

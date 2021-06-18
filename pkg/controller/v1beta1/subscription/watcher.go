@@ -6,11 +6,11 @@ package subscription
 
 import (
 	"context"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"sync"
 
-	api "github.com/onosproject/onos-e2t/api/onos/e2t/store/subscription"
-	"github.com/onosproject/onos-e2t/pkg/store/subscription"
-	"github.com/onosproject/onos-e2t/pkg/store/task"
+	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 )
 
@@ -18,7 +18,7 @@ const queueSize = 100
 
 // Watcher is a subscription watcher
 type Watcher struct {
-	subs   subscription.Store
+	subs   substore.Store
 	cancel context.CancelFunc
 	mu     sync.Mutex
 }
@@ -31,9 +31,9 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	subCh := make(chan api.SubscriptionEvent, queueSize)
+	eventCh := make(chan e2api.SubscriptionEvent, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.subs.Watch(ctx, subCh)
+	err := w.subs.Watch(ctx, eventCh)
 	if err != nil {
 		cancel()
 		return err
@@ -41,8 +41,8 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		for request := range subCh {
-			ch <- controller.NewID(request.Subscription.ID)
+		for event := range eventCh {
+			ch <- controller.NewID(event.Subscription.ID)
 		}
 		close(ch)
 	}()
@@ -61,25 +61,26 @@ func (w *Watcher) Stop() {
 
 var _ controller.Watcher = &Watcher{}
 
-// TaskWatcher is a termination endpoint watcher
-type TaskWatcher struct {
-	subs   subscription.Store
-	tasks  task.Store
-	cancel context.CancelFunc
-	mu     sync.Mutex
+// ChannelWatcher is a channel watcher
+type ChannelWatcher struct {
+	subs      substore.Store
+	channels  e2server.ChannelManager
+	cancel    context.CancelFunc
+	mu        sync.Mutex
+	channelCh chan *e2server.E2Channel
 }
 
 // Start starts the channel watcher
-func (w *TaskWatcher) Start(ch chan<- controller.ID) error {
+func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.cancel != nil {
 		return nil
 	}
 
-	taskCh := make(chan api.TaskEvent, queueSize)
+	w.channelCh = make(chan *e2server.E2Channel, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.tasks.Watch(ctx, taskCh)
+	err := w.channels.Watch(ctx, w.channelCh)
 	if err != nil {
 		cancel()
 		return err
@@ -87,15 +88,13 @@ func (w *TaskWatcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		for event := range taskCh {
+		for range w.channelCh {
 			subs, err := w.subs.List(ctx)
 			if err != nil {
 				log.Error(err)
 			} else {
 				for _, sub := range subs {
-					if sub.ID.NodeID == event.Task.ID.NodeID && sub.ID.RequestID == event.Task.ID.RequestID {
-						ch <- controller.NewID(sub.ID)
-					}
+					ch <- controller.NewID(sub.ID)
 				}
 			}
 		}
@@ -105,7 +104,7 @@ func (w *TaskWatcher) Start(ch chan<- controller.ID) error {
 }
 
 // Stop stops the channel watcher
-func (w *TaskWatcher) Stop() {
+func (w *ChannelWatcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
 		w.cancel()
@@ -113,5 +112,3 @@ func (w *TaskWatcher) Stop() {
 	}
 	w.mu.Unlock()
 }
-
-var _ controller.Watcher = &TaskWatcher{}
