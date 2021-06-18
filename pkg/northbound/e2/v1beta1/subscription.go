@@ -256,6 +256,9 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			Spec: e2api.ChannelSpec{
 				SubscriptionSpec: subSpec,
 			},
+			Status: e2api.ChannelStatus{
+				Phase: e2api.ChannelPhase_CHANNEL_OPEN,
+			},
 		}
 		err = s.chans.Create(server.Context(), channel)
 		if err != nil {

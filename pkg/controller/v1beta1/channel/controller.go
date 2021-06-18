@@ -98,6 +98,7 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 			},
 			Spec: channel.Spec.SubscriptionSpec,
 			Status: e2api.SubscriptionStatus{
+				Phase:    e2api.SubscriptionPhase_SUBSCRIPTION_OPEN,
 				Channels: []e2api.ChannelID{channel.ID},
 			},
 		}
