@@ -25,6 +25,8 @@ require (
 	google.golang.org/grpc v1.33.2
 	google.golang.org/protobuf v1.26.0
 	gotest.tools v2.2.0+incompatible
+	k8s.io/api v0.17.3
+	k8s.io/apimachinery v0.17.3
 )
 
 replace github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
