@@ -84,7 +84,7 @@ kind: # @HELP build Docker images and add them to the currently configured kind 
 kind: images
 	@if [ "`kind get clusters`" = '' ]; then echo "no kind cluster found" && exit 1; fi
 	kind load docker-image onosproject/onos-e2t:${ONOS_E2T_VERSION}
-	kind load docker-image onosproject/onos-e2t-sim:${ONOS_E2T_VERSION}
+	kind load docker-image onosproject/onos-e2t-sim-app:${ONOS_E2T_VERSION}
 
 all: build images
 
