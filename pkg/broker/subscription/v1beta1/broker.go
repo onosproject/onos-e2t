@@ -29,10 +29,10 @@ type Broker interface {
 	// OpenReader opens a subscription StreamReader
 	// If a stream already exists for the subscription, the existing stream will be returned.
 	// If no stream exists, a new stream will be allocated with a unique StreamID.
-	OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.InstanceID) StreamReader
+	OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) StreamReader
 
 	// CloseReader closes a subscription StreamReader
-	CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.InstanceID)
+	CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID)
 
 	// GetReader gets a read stream by its StreamID
 	// If no StreamReader exists for the given StreamID, ok will be false
@@ -48,7 +48,7 @@ type streamBroker struct {
 	mu      sync.RWMutex
 }
 
-func (b *streamBroker) OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.InstanceID) StreamReader {
+func (b *streamBroker) OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) StreamReader {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	return b.streams.openSubStream(subID).
@@ -56,7 +56,7 @@ func (b *streamBroker) OpenReader(subID e2api.SubscriptionID, appID e2api.AppID,
 		openInstanceStream(instanceID)
 }
 
-func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.InstanceID) {
+func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	subStream, ok := b.streams.getSubStream(subID)

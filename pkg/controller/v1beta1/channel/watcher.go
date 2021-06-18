@@ -93,7 +93,7 @@ func (w *TaskWatcher) Start(ch chan<- controller.ID) error {
 				log.Error(err)
 			} else {
 				for _, channel := range chans {
-					if channel.ChannelMeta.NodeID == event.Subscription.SubscriptionMeta.NodeID {
+					if channel.ChannelMeta.E2NodeID == event.Subscription.SubscriptionMeta.E2NodeID {
 						ch <- controller.NewID(channel.ID)
 					}
 				}

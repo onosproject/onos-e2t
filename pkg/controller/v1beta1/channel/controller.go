@@ -92,7 +92,7 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 		sub := &e2api.Subscription{
 			ID: channel.SubscriptionID,
 			SubscriptionMeta: e2api.SubscriptionMeta{
-				NodeID:       channel.NodeID,
+				E2NodeID:     channel.E2NodeID,
 				ServiceModel: channel.ServiceModel,
 				Encoding:     channel.Encoding,
 			},
@@ -169,14 +169,14 @@ func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.
 			if err := r.chans.Update(ctx, channel); err != nil {
 				return controller.Result{}, err
 			}
-			r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.InstanceID)
+			r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
 		case e2api.SubscriptionState_SUBSCRIPTION_FAILED:
 			channel.Status.State = e2api.ChannelState_CHANNEL_FAILED
 			channel.Status.Error = sub.Status.Error
 			if err := r.chans.Update(ctx, channel); err != nil {
 				return controller.Result{}, err
 			}
-			r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.InstanceID)
+			r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
 		}
 		return controller.Result{}, nil
 	}
@@ -205,7 +205,7 @@ func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.
 		if err := r.chans.Update(ctx, channel); err != nil {
 			return controller.Result{}, err
 		}
-		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.InstanceID)
+		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
 	}
 	return controller.Result{}, nil
 }

@@ -87,7 +87,7 @@ type ControlServer struct {
 func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
-	channelID, err := s.topoManager.GetE2Relation(ctx, topoapi.ID(request.Headers.NodeID))
+	channelID, err := s.topoManager.GetE2Relation(ctx, topoapi.ID(request.Headers.E2NodeID))
 	if err != nil || channelID == "" {
 		return nil, err
 	}

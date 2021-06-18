@@ -211,7 +211,7 @@ func newAppStream(subStream *subStream, appID e2api.AppID) *appStream {
 		streamIO:        subStream.streamIO,
 		appStreamReader: newAppStreamReader(ch),
 		appStreamWriter: newAppStreamWriter(ch),
-		instances:       make(map[e2api.InstanceID]*instanceStreamReader),
+		instances:       make(map[e2api.AppInstanceID]*instanceStreamReader),
 	}
 }
 
@@ -221,11 +221,11 @@ type appStream struct {
 	*appStreamWriter
 	subStream *subStream
 	appID     e2api.AppID
-	instances map[e2api.InstanceID]*instanceStreamReader
+	instances map[e2api.AppInstanceID]*instanceStreamReader
 	mu        sync.RWMutex
 }
 
-func (s *appStream) openInstanceStream(instanceID e2api.InstanceID) StreamReader {
+func (s *appStream) openInstanceStream(instanceID e2api.AppInstanceID) StreamReader {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	stream, ok := s.instances[instanceID]
@@ -236,14 +236,14 @@ func (s *appStream) openInstanceStream(instanceID e2api.InstanceID) StreamReader
 	return stream
 }
 
-func (s *appStream) getInstanceStream(instanceID e2api.InstanceID) (StreamReader, bool) {
+func (s *appStream) getInstanceStream(instanceID e2api.AppInstanceID) (StreamReader, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	stream, ok := s.instances[instanceID]
 	return stream, ok
 }
 
-func (s *appStream) closeInstanceStream(instanceID e2api.InstanceID) {
+func (s *appStream) closeInstanceStream(instanceID e2api.AppInstanceID) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	delete(s.instances, instanceID)
@@ -348,7 +348,7 @@ func (s *appStreamWriter) Close() error {
 	return nil
 }
 
-func newInstanceStreamReader(instanceID e2api.InstanceID, appStream *appStream) *instanceStreamReader {
+func newInstanceStreamReader(instanceID e2api.AppInstanceID, appStream *appStream) *instanceStreamReader {
 	return &instanceStreamReader{
 		instanceID: instanceID,
 		appStream:  appStream,
@@ -356,7 +356,7 @@ func newInstanceStreamReader(instanceID e2api.InstanceID, appStream *appStream) 
 }
 
 type instanceStreamReader struct {
-	instanceID e2api.InstanceID
+	instanceID e2api.AppInstanceID
 	appStream  *appStream
 }
 

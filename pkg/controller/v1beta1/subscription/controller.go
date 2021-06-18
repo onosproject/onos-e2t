@@ -129,7 +129,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	}
 
 	// Get the southbound channel for the E2 node
-	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.SubscriptionMeta.NodeID))
+	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.SubscriptionMeta.E2NodeID))
 	if err != nil || channelID == "" {
 		return controller.Result{}, err
 	}
@@ -281,7 +281,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	}
 
 	// Get the southbound channel ID for the E2 node
-	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.SubscriptionMeta.NodeID))
+	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.SubscriptionMeta.E2NodeID))
 	if err != nil || channelID == "" {
 		return controller.Result{}, err
 	}
