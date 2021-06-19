@@ -154,9 +154,9 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 
 // ScheduleSimulator :: simulation
 func (s *SimSuite) ScheduleSimulator(sim *simulation.Simulator) {
-	sim.Schedule("start-app", s.SimulateStartApp, 5*time.Minute, 1)
-	sim.Schedule("stop-app", s.SimulateStopApp, 30*time.Minute, 3)
-	sim.Schedule("start-sub", s.SimulateStartSub, 1*time.Minute, 1)
+	sim.Schedule("start-app", s.SimulateStartApp, 2*time.Minute, 1)
+	sim.Schedule("stop-app", s.SimulateStopApp, 10*time.Minute, 3)
+	sim.Schedule("start-sub", s.SimulateStartSub, 1*time.Minute, 2)
 	sim.Schedule("stop-sub", s.SimulateStopSub, 5*time.Minute, 1)
 	sim.Schedule("crash-instance", s.SimulateCrashInstance, 10*time.Minute, 2)
 }
@@ -285,7 +285,7 @@ func (s *SimSuite) startApp(sim *simulation.Simulator, app *simApp) error {
 							},
 							Env: []corev1.EnvVar{
 								{
-									Name: "NODE_ID",
+									Name: "POD_NAME",
 									ValueFrom: &corev1.EnvVarSource{
 										FieldRef: &corev1.ObjectFieldSelector{
 											FieldPath: "metadata.name",
