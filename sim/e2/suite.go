@@ -16,9 +16,13 @@ import (
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/intstr"
+	"k8s.io/utils/pointer"
 	"math/rand"
 	"time"
 )
+
+const controlPort = 5000
 
 type simApp struct {
 	name      string
@@ -68,11 +72,13 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 		Release(sim.Name).
 		Install(true)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
 	objects, err := utils.GetControlRelationObjects()
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -106,7 +112,7 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 
 	s.apps = make([]*simApp, numApps)
 	for i := 0; i < numApps; i++ {
-		appID := fmt.Sprintf("sim-%s-%d", sim.Name, i+1)
+		appID := fmt.Sprintf("sim-%s-%d-%d", sim.Name, sim.Process, i+1)
 		instances := make([]*simAppInstance, numInstances)
 		for j := 0; j < numInstances; j++ {
 			instanceSubs := make([]*simAppSub, len(subs))
@@ -124,16 +130,24 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 			instances: instances,
 		}
 	}
+
+	for _, app := range s.apps {
+		err := s.startApp(sim, app)
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+	}
 	return nil
 }
 
 // ScheduleSimulator :: simulation
 func (s *SimSuite) ScheduleSimulator(sim *simulation.Simulator) {
-	sim.Schedule("start-app", s.SimulateStartApp, 10*time.Minute, .5)
-	sim.Schedule("stop-app", s.SimulateStopApp, 1*time.Hour, .3)
-	sim.Schedule("start-sub", s.SimulateStartSub, 10*time.Minute, .5)
-	sim.Schedule("stop-sub", s.SimulateStopSub, 30*time.Minute, .3)
-	sim.Schedule("crash-instance", s.SimulateCrashInstance, 30*time.Minute, .8)
+	sim.Schedule("start-app", s.SimulateStartApp, 5*time.Minute, 5)
+	sim.Schedule("stop-app", s.SimulateStopApp, 30*time.Minute, 3)
+	sim.Schedule("start-sub", s.SimulateStartSub, 5*time.Minute, 1)
+	sim.Schedule("stop-sub", s.SimulateStopSub, 30*time.Minute, 3)
+	sim.Schedule("crash-instance", s.SimulateCrashInstance, 30*time.Minute, 5)
 }
 
 func (s *SimSuite) getStoppedApp() (*simApp, bool) {
@@ -216,9 +230,13 @@ func (s *SimSuite) SimulateStartApp(sim *simulation.Simulator) error {
 	if !ok {
 		return nil
 	}
+	return s.startApp(sim, app)
+}
 
+func (s *SimSuite) startApp(sim *simulation.Simulator, app *simApp) error {
 	client, err := kubernetes.New()
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -230,6 +248,13 @@ func (s *SimSuite) SimulateStartApp(sim *simulation.Simulator) error {
 			},
 		},
 		Spec: appsv1.StatefulSetSpec{
+			ServiceName: app.name,
+			Replicas:    pointer.Int32Ptr(int32(sim.Arg("replica-count").Int(1))),
+			Selector: &metav1.LabelSelector{
+				MatchLabels: map[string]string{
+					"app": app.name,
+				},
+			},
 			Template: corev1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
 					Labels: map[string]string{
@@ -239,11 +264,38 @@ func (s *SimSuite) SimulateStartApp(sim *simulation.Simulator) error {
 				Spec: corev1.PodSpec{
 					Containers: []corev1.Container{
 						{
-							Name:  "app",
-							Image: "onosproject/onos-e2t-sim-app:latest",
+							Name:            "sim-app",
+							Image:           "onosproject/onos-e2t-sim-app:latest",
+							ImagePullPolicy: corev1.PullIfNotPresent,
 							Args: []string{
 								app.name,
 								"$(POD_NAME)",
+							},
+							Env: []corev1.EnvVar{
+								{
+									Name: "NODE_ID",
+									ValueFrom: &corev1.EnvVarSource{
+										FieldRef: &corev1.ObjectFieldSelector{
+											FieldPath: "metadata.name",
+										},
+									},
+								},
+							},
+							Ports: []corev1.ContainerPort{
+								{
+									Name:          "control",
+									ContainerPort: controlPort,
+								},
+							},
+							ReadinessProbe: &corev1.Probe{
+								Handler: corev1.Handler{
+									TCPSocket: &corev1.TCPSocketAction{
+										Port: intstr.FromInt(controlPort),
+									},
+								},
+								InitialDelaySeconds: 5,
+								TimeoutSeconds:      10,
+								FailureThreshold:    6,
 							},
 						},
 					},
@@ -257,6 +309,7 @@ func (s *SimSuite) SimulateStartApp(sim *simulation.Simulator) error {
 		StatefulSets(client.Namespace()).
 		Create(ss)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -274,8 +327,8 @@ func (s *SimSuite) SimulateStartApp(sim *simulation.Simulator) error {
 			ClusterIP: corev1.ClusterIPNone,
 			Ports: []corev1.ServicePort{
 				{
-					Name: "sim",
-					Port: 5000,
+					Name: "control",
+					Port: controlPort,
 				},
 			},
 		},
@@ -286,6 +339,7 @@ func (s *SimSuite) SimulateStartApp(sim *simulation.Simulator) error {
 		Services(client.Namespace()).
 		Create(svc)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	app.running = false
@@ -297,9 +351,13 @@ func (s *SimSuite) SimulateStopApp(sim *simulation.Simulator) error {
 	if !ok {
 		return nil
 	}
+	return s.stopApp(sim, app)
+}
 
+func (s *SimSuite) stopApp(sim *simulation.Simulator, app *simApp) error {
 	client, err := kubernetes.New()
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -309,6 +367,7 @@ func (s *SimSuite) SimulateStopApp(sim *simulation.Simulator) error {
 		StatefulSets(client.Namespace()).
 		Delete(app.name, &metav1.DeleteOptions{PropagationPolicy: &propagate})
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -317,9 +376,16 @@ func (s *SimSuite) SimulateStopApp(sim *simulation.Simulator) error {
 		Services(client.Namespace()).
 		Delete(app.name, &metav1.DeleteOptions{PropagationPolicy: &propagate})
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
+
 	app.running = true
+	for _, instance := range app.instances {
+		for _, sub := range instance.subs {
+			sub.open = false
+		}
+	}
 	return nil
 }
 
@@ -329,8 +395,9 @@ func (s *SimSuite) SimulateStartSub(sim *simulation.Simulator) error {
 		return nil
 	}
 
-	conn, err := grpc.Dial(fmt.Sprintf("%s:5000", instance.name), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf("%s:%d", instance.name, controlPort), grpc.WithInsecure())
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	defer conn.Close()
@@ -348,6 +415,7 @@ func (s *SimSuite) SimulateStartSub(sim *simulation.Simulator) error {
 	}
 	_, err = client.StartSubscription(ctx, request)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	sub.open = true
@@ -360,8 +428,9 @@ func (s *SimSuite) SimulateStopSub(sim *simulation.Simulator) error {
 		return nil
 	}
 
-	conn, err := grpc.Dial(fmt.Sprintf("%s:5000", instance.name), grpc.WithInsecure())
+	conn, err := grpc.Dial(fmt.Sprintf("%s:%d", instance.name, controlPort), grpc.WithInsecure())
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	defer conn.Close()
@@ -376,6 +445,7 @@ func (s *SimSuite) SimulateStopSub(sim *simulation.Simulator) error {
 	}
 	_, err = client.StopSubscription(ctx, request)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 	sub.open = false
@@ -390,11 +460,21 @@ func (s *SimSuite) SimulateCrashInstance(sim *simulation.Simulator) error {
 
 	client, err := kubernetes.New()
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
-	return client.Clientset().
+	err = client.Clientset().
 		CoreV1().
 		Pods(client.Namespace()).
 		Delete(instance.name, &metav1.DeleteOptions{})
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	for _, sub := range instance.subs {
+		sub.open = false
+	}
+	return nil
 }

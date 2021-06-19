@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"fmt"
 	"github.com/atomix/atomix-go-framework/pkg/atomix/logging"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -76,7 +77,7 @@ func (a *App) stopSubscription(ctx context.Context, id string, nodeID string) er
 
 func (a *App) Start() error {
 	a.server = grpc.NewServer()
-	lis, err := net.Listen("tcp", ":5000")
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", controlPort))
 	if err != nil {
 		return err
 	}
