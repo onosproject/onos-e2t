@@ -29,7 +29,6 @@ var log = logging.GetLogger("sim", "e2")
 
 type simApp struct {
 	name      string
-	running   bool
 	instances []*simAppInstance
 }
 
@@ -136,56 +135,31 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 				subs:    instanceSubs,
 			}
 		}
-		s.apps[i] = &simApp{
+
+		app := &simApp{
 			name:      appID,
 			instances: instances,
 		}
-	}
 
-	for _, app := range s.apps {
 		err := s.startApp(sim, app)
 		if err != nil {
 			log.Error(err)
 			return err
 		}
+		s.apps[i] = app
 	}
 	return nil
 }
 
 // ScheduleSimulator :: simulation
 func (s *SimSuite) ScheduleSimulator(sim *simulation.Simulator) {
-	sim.Schedule("start-app", s.SimulateStartApp, 2*time.Minute, 1)
-	sim.Schedule("stop-app", s.SimulateStopApp, 10*time.Minute, 3)
-	sim.Schedule("start-sub", s.SimulateStartSub, 1*time.Minute, 2)
-	sim.Schedule("stop-sub", s.SimulateStopSub, 5*time.Minute, 1)
-	sim.Schedule("crash-instance", s.SimulateCrashInstance, 10*time.Minute, 2)
-}
-
-func (s *SimSuite) getStoppedApp() (*simApp, bool) {
-	stoppedApps := make([]*simApp, 0, len(s.apps))
-	for _, app := range s.apps {
-		if !app.running {
-			stoppedApps = append(stoppedApps, app)
-		}
-	}
-	if len(stoppedApps) == 0 {
-		return nil, false
-	}
-	app := stoppedApps[rand.Intn(len(stoppedApps))]
-	return app, true
+	sim.Schedule("subscribe", s.SimulateSubscribe, 1*time.Minute, 2)
+	sim.Schedule("unsubscribe", s.SimulateUnsubscribe, 5*time.Minute, 1)
+	sim.Schedule("crash", s.SimulateCrash, 10*time.Minute, 2)
 }
 
 func (s *SimSuite) getRunningApp() (*simApp, bool) {
-	runningApps := make([]*simApp, 0, len(s.apps))
-	for _, app := range s.apps {
-		if app.running {
-			runningApps = append(runningApps, app)
-		}
-	}
-	if len(runningApps) == 0 {
-		return nil, false
-	}
-	app := runningApps[rand.Intn(len(runningApps))]
+	app := s.apps[rand.Intn(len(s.apps))]
 	return app, true
 }
 
@@ -234,14 +208,6 @@ func (s *SimSuite) getOpenSub() (*simAppInstance, *simAppSub, bool) {
 	}
 	sub := openSubs[rand.Intn(len(openSubs))]
 	return instance, sub, true
-}
-
-func (s *SimSuite) SimulateStartApp(sim *simulation.Simulator) error {
-	app, ok := s.getStoppedApp()
-	if !ok {
-		return nil
-	}
-	return s.startApp(sim, app)
 }
 
 func (s *SimSuite) startApp(sim *simulation.Simulator, app *simApp) error {
@@ -354,55 +320,10 @@ func (s *SimSuite) startApp(sim *simulation.Simulator, app *simApp) error {
 		log.Error(err)
 		return err
 	}
-	app.running = true
 	return nil
 }
 
-func (s *SimSuite) SimulateStopApp(sim *simulation.Simulator) error {
-	app, ok := s.getRunningApp()
-	if !ok {
-		return nil
-	}
-	return s.stopApp(sim, app)
-}
-
-func (s *SimSuite) stopApp(sim *simulation.Simulator, app *simApp) error {
-	log.Infof("Stopping app '%s'", app.name)
-	client, err := kubernetes.New()
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	propagate := metav1.DeletePropagationForeground
-	err = client.Clientset().
-		AppsV1().
-		StatefulSets(client.Namespace()).
-		Delete(app.name, &metav1.DeleteOptions{PropagationPolicy: &propagate})
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	err = client.Clientset().
-		CoreV1().
-		Services(client.Namespace()).
-		Delete(app.name, &metav1.DeleteOptions{PropagationPolicy: &propagate})
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	app.running = false
-	for _, instance := range app.instances {
-		for _, sub := range instance.subs {
-			sub.open = false
-		}
-	}
-	return nil
-}
-
-func (s *SimSuite) SimulateStartSub(sim *simulation.Simulator) error {
+func (s *SimSuite) SimulateSubscribe(sim *simulation.Simulator) error {
 	instance, sub, ok := s.getClosedSub()
 	if !ok {
 		return nil
@@ -436,7 +357,7 @@ func (s *SimSuite) SimulateStartSub(sim *simulation.Simulator) error {
 	return nil
 }
 
-func (s *SimSuite) SimulateStopSub(sim *simulation.Simulator) error {
+func (s *SimSuite) SimulateUnsubscribe(sim *simulation.Simulator) error {
 	instance, sub, ok := s.getOpenSub()
 	if !ok {
 		return nil
@@ -467,7 +388,7 @@ func (s *SimSuite) SimulateStopSub(sim *simulation.Simulator) error {
 	return nil
 }
 
-func (s *SimSuite) SimulateCrashInstance(sim *simulation.Simulator) error {
+func (s *SimSuite) SimulateCrash(sim *simulation.Simulator) error {
 	instance, ok := s.getRunningInstance()
 	if !ok {
 		return nil

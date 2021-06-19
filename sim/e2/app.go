@@ -58,7 +58,7 @@ func (a *App) startSubscription(ctx context.Context, id string, nodeID string, c
 		},
 	}
 
-	err = a.client.Node(e2.NodeID(nodeID)).Subscribe(context.Background(), id, spec, ch)
+	_, err = a.client.Node(e2.NodeID(nodeID)).Subscribe(context.Background(), id, spec, ch)
 	if err != nil {
 		log.Error(err)
 		return err
