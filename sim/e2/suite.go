@@ -143,11 +143,11 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 
 // ScheduleSimulator :: simulation
 func (s *SimSuite) ScheduleSimulator(sim *simulation.Simulator) {
-	sim.Schedule("start-app", s.SimulateStartApp, 5*time.Minute, 5)
-	sim.Schedule("stop-app", s.SimulateStopApp, 30*time.Minute, 3)
+	sim.Schedule("start-app", s.SimulateStartApp, 5*time.Minute, 1)
+	sim.Schedule("stop-app", s.SimulateStopApp, time.Hour, 3)
 	sim.Schedule("start-sub", s.SimulateStartSub, 5*time.Minute, 1)
 	sim.Schedule("stop-sub", s.SimulateStopSub, 30*time.Minute, 3)
-	sim.Schedule("crash-instance", s.SimulateCrashInstance, 30*time.Minute, 5)
+	sim.Schedule("crash-instance", s.SimulateCrashInstance, 10*time.Minute, 5)
 }
 
 func (s *SimSuite) getStoppedApp() (*simApp, bool) {
