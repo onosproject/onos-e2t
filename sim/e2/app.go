@@ -68,6 +68,7 @@ func (a *App) startSubscription(ctx context.Context, id string, nodeID string, c
 		for ind := range ch {
 			log.Infof("Received indication for subscription %s: %v", id, ind)
 		}
+		log.Infof("Indication channel closed for subscription %s", id)
 	}()
 	return nil
 }

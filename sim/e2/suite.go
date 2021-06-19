@@ -66,6 +66,7 @@ func (s *SimSuite) SetupSimulation(sim *simulation.Simulator) error {
 		Set("onos-e2sub.image.tag", "latest").
 		Set("ran-simulator.image.tag", "latest").
 		Set("global.image.registry", sim.Arg("registry").String("")).
+		Set("onos-e2t.logging.loggers.root.level", "debug").
 		Install(true)
 	if err != nil {
 		log.Error(err)
