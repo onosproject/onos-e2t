@@ -20,5 +20,6 @@ FROM frolvlad/alpine-glibc:alpine-3.12
 USER nobody
 
 COPY --from=build /build/build/_output/onos-e2t-sim-app /usr/local/bin/onos-e2t-sim-app
+ADD build/onos-e2t-sim-app/logging.yaml logging.yaml
 
 ENTRYPOINT ["onos-e2t-sim-app"]

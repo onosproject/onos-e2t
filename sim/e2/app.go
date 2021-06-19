@@ -7,15 +7,12 @@ package e2
 import (
 	"context"
 	"fmt"
-	"github.com/atomix/atomix-go-framework/pkg/atomix/logging"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/utils"
 	e2 "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"google.golang.org/grpc"
 	"net"
 )
-
-var log = logging.GetLogger("sim", "app")
 
 func NewApp(client e2.Client) *App {
 	return &App{
@@ -29,14 +26,17 @@ type App struct {
 }
 
 func (a *App) startSubscription(ctx context.Context, id string, nodeID string, cellObjectID string, reportPeriod uint32, granularity uint32) error {
+	log.Infof("Starting %s subscription %s", nodeID, id)
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
 	if err != nil {
+		log.Error(err)
 		return err
 	}
 
 	// Use one of the cell object IDs for action definition
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	if err != nil {
+		log.Error(err)
 		return err
 	}
 
@@ -60,6 +60,7 @@ func (a *App) startSubscription(ctx context.Context, id string, nodeID string, c
 
 	err = a.client.Node(e2.NodeID(nodeID)).Subscribe(context.Background(), id, spec, ch)
 	if err != nil {
+		log.Error(err)
 		return err
 	}
 
@@ -72,18 +73,26 @@ func (a *App) startSubscription(ctx context.Context, id string, nodeID string, c
 }
 
 func (a *App) stopSubscription(ctx context.Context, id string, nodeID string) error {
-	return a.client.Node(e2.NodeID(nodeID)).Unsubscribe(ctx, id)
+	log.Infof("Stopping %s subscription %s", nodeID, id)
+	err := a.client.Node(e2.NodeID(nodeID)).Unsubscribe(ctx, id)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	return nil
 }
 
 func (a *App) Start() error {
 	a.server = grpc.NewServer()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", controlPort))
 	if err != nil {
+		log.Error(err)
 		return err
 	}
 	RegisterSimServiceServer(a.server, &AppServer{a})
 	err = a.server.Serve(lis)
 	if err != nil {
+		log.Error(err)
 		return err
 	}
 	return nil

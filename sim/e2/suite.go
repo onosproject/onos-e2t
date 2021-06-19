@@ -12,6 +12,7 @@ import (
 	"github.com/onosproject/helmit/pkg/simulation"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/test/utils"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -24,6 +25,8 @@ import (
 
 const controlPort = 5000
 
+var log = logging.GetLogger("sim", "e2")
+
 type simApp struct {
 	name      string
 	running   bool
@@ -31,8 +34,9 @@ type simApp struct {
 }
 
 type simAppInstance struct {
-	name string
-	subs []*simAppSub
+	name    string
+	address string
+	subs    []*simAppSub
 }
 
 type simAppSub struct {
@@ -52,7 +56,7 @@ type SimSuite struct {
 
 // SetupSimulation :: simulation
 func (s *SimSuite) SetupSimulation(sim *simulation.Simulator) error {
-	return helm.Chart("sd-ran").
+	err := helm.Chart("sd-ran").
 		Release("sd-ran").
 		Set("import.onos-config.enabled", false).
 		Set("import.onos-e2sub.enabled", true).
@@ -63,6 +67,11 @@ func (s *SimSuite) SetupSimulation(sim *simulation.Simulator) error {
 		Set("ran-simulator.image.tag", "latest").
 		Set("global.image.registry", sim.Arg("registry").String("")).
 		Install(true)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	return nil
 }
 
 // SetupSimulator :: simulation
@@ -72,13 +81,13 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 		Release(sim.Name).
 		Install(true)
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
 	objects, err := utils.GetControlRelationObjects()
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
@@ -121,8 +130,9 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 				instanceSubs[k] = &sub
 			}
 			instances[j] = &simAppInstance{
-				name: fmt.Sprintf("%s-%d", appID, j),
-				subs: instanceSubs,
+				name:    fmt.Sprintf("%s-%d", appID, j),
+				address: fmt.Sprintf("%s-%d.%s:%d", appID, j, appID, controlPort),
+				subs:    instanceSubs,
 			}
 		}
 		s.apps[i] = &simApp{
@@ -134,7 +144,7 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 	for _, app := range s.apps {
 		err := s.startApp(sim, app)
 		if err != nil {
-			fmt.Println(err)
+			log.Error(err)
 			return err
 		}
 	}
@@ -144,10 +154,10 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 // ScheduleSimulator :: simulation
 func (s *SimSuite) ScheduleSimulator(sim *simulation.Simulator) {
 	sim.Schedule("start-app", s.SimulateStartApp, 5*time.Minute, 1)
-	sim.Schedule("stop-app", s.SimulateStopApp, time.Hour, 3)
-	sim.Schedule("start-sub", s.SimulateStartSub, 5*time.Minute, 1)
-	sim.Schedule("stop-sub", s.SimulateStopSub, 30*time.Minute, 3)
-	sim.Schedule("crash-instance", s.SimulateCrashInstance, 10*time.Minute, 5)
+	sim.Schedule("stop-app", s.SimulateStopApp, 30*time.Minute, 3)
+	sim.Schedule("start-sub", s.SimulateStartSub, 1*time.Minute, 1)
+	sim.Schedule("stop-sub", s.SimulateStopSub, 5*time.Minute, 1)
+	sim.Schedule("crash-instance", s.SimulateCrashInstance, 10*time.Minute, 2)
 }
 
 func (s *SimSuite) getStoppedApp() (*simApp, bool) {
@@ -234,9 +244,10 @@ func (s *SimSuite) SimulateStartApp(sim *simulation.Simulator) error {
 }
 
 func (s *SimSuite) startApp(sim *simulation.Simulator, app *simApp) error {
+	log.Infof("Starting app '%s'", app.name)
 	client, err := kubernetes.New()
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
@@ -309,7 +320,7 @@ func (s *SimSuite) startApp(sim *simulation.Simulator, app *simApp) error {
 		StatefulSets(client.Namespace()).
 		Create(ss)
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
@@ -339,7 +350,7 @@ func (s *SimSuite) startApp(sim *simulation.Simulator, app *simApp) error {
 		Services(client.Namespace()).
 		Create(svc)
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 	app.running = true
@@ -355,9 +366,10 @@ func (s *SimSuite) SimulateStopApp(sim *simulation.Simulator) error {
 }
 
 func (s *SimSuite) stopApp(sim *simulation.Simulator, app *simApp) error {
+	log.Infof("Stopping app '%s'", app.name)
 	client, err := kubernetes.New()
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
@@ -367,7 +379,7 @@ func (s *SimSuite) stopApp(sim *simulation.Simulator, app *simApp) error {
 		StatefulSets(client.Namespace()).
 		Delete(app.name, &metav1.DeleteOptions{PropagationPolicy: &propagate})
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
@@ -376,7 +388,7 @@ func (s *SimSuite) stopApp(sim *simulation.Simulator, app *simApp) error {
 		Services(client.Namespace()).
 		Delete(app.name, &metav1.DeleteOptions{PropagationPolicy: &propagate})
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
@@ -395,9 +407,10 @@ func (s *SimSuite) SimulateStartSub(sim *simulation.Simulator) error {
 		return nil
 	}
 
-	conn, err := grpc.Dial(fmt.Sprintf("%s:%d", instance.name, controlPort), grpc.WithInsecure())
+	log.Infof("Starting '%s' subscription '%s' on '%s'", sub.nodeID, sub.name, instance.name)
+	conn, err := grpc.Dial(instance.address, grpc.WithInsecure())
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 	defer conn.Close()
@@ -415,7 +428,7 @@ func (s *SimSuite) SimulateStartSub(sim *simulation.Simulator) error {
 	}
 	_, err = client.StartSubscription(ctx, request)
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 	sub.open = true
@@ -428,9 +441,10 @@ func (s *SimSuite) SimulateStopSub(sim *simulation.Simulator) error {
 		return nil
 	}
 
-	conn, err := grpc.Dial(fmt.Sprintf("%s:%d", instance.name, controlPort), grpc.WithInsecure())
+	log.Infof("Stopping '%s' subscription '%s' on '%s'", sub.nodeID, sub.name, instance.name)
+	conn, err := grpc.Dial(instance.address, grpc.WithInsecure())
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 	defer conn.Close()
@@ -445,7 +459,7 @@ func (s *SimSuite) SimulateStopSub(sim *simulation.Simulator) error {
 	}
 	_, err = client.StopSubscription(ctx, request)
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 	sub.open = false
@@ -458,9 +472,10 @@ func (s *SimSuite) SimulateCrashInstance(sim *simulation.Simulator) error {
 		return nil
 	}
 
+	log.Infof("Crashing pod '%s'", instance.name)
 	client, err := kubernetes.New()
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
@@ -469,7 +484,7 @@ func (s *SimSuite) SimulateCrashInstance(sim *simulation.Simulator) error {
 		Pods(client.Namespace()).
 		Delete(instance.name, &metav1.DeleteOptions{})
 	if err != nil {
-		fmt.Println(err)
+		log.Error(err)
 		return err
 	}
 
