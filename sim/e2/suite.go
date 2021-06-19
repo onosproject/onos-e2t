@@ -342,7 +342,7 @@ func (s *SimSuite) startApp(sim *simulation.Simulator, app *simApp) error {
 		fmt.Println(err)
 		return err
 	}
-	app.running = false
+	app.running = true
 	return nil
 }
 
@@ -380,7 +380,7 @@ func (s *SimSuite) stopApp(sim *simulation.Simulator, app *simApp) error {
 		return err
 	}
 
-	app.running = true
+	app.running = false
 	for _, instance := range app.instances {
 		for _, sub := range instance.subs {
 			sub.open = false
