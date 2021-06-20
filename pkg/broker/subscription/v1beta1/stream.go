@@ -44,8 +44,8 @@ type StreamID int
 
 // StreamIO is a base interface for Stream information
 type StreamIO interface {
-	io.Closer
 	ID() StreamID
+	close()
 }
 
 // Stream is a read/write stream
@@ -116,7 +116,7 @@ func (s *streamRegistry) closeSubStream(subID e2api.SubscriptionID) {
 
 func (s *streamRegistry) Close() error {
 	for _, stream := range s.subs {
-		stream.Close()
+		stream.close()
 	}
 	return nil
 }
@@ -129,10 +129,9 @@ func newSubStream(registry *streamRegistry, subID e2api.SubscriptionID, streamID
 		streams: registry,
 		subID:   subID,
 		ch:      make(chan e2appducontents.Ricindication),
-		closer:  make(chan struct{}),
 		apps:    make(map[e2api.AppID]*appStream),
 	}
-	go stream.open()
+	stream.open()
 	return stream
 }
 
@@ -143,21 +142,21 @@ type subStream struct {
 	ch      chan e2appducontents.Ricindication
 	apps    map[e2api.AppID]*appStream
 	mu      sync.RWMutex
-	closer  chan struct{}
+	closed  bool
 }
 
 func (s *subStream) open() {
-	for {
-		select {
-		case ind := <-s.ch:
-			s.mu.RLock()
-			for _, appStream := range s.apps {
-				_ = appStream.Send(&ind)
-			}
-			s.mu.RUnlock()
-		case <-s.closer:
-			return
+	go s.drain()
+}
+
+func (s *subStream) drain() {
+	for ind := range s.ch {
+		i := ind
+		s.mu.RLock()
+		for _, appStream := range s.apps {
+			_ = appStream.Send(&i)
 		}
+		s.mu.RUnlock()
 	}
 }
 
@@ -185,11 +184,17 @@ func (s *subStream) closeAppStream(appID e2api.AppID) {
 	delete(s.apps, appID)
 	if len(s.apps) == 0 {
 		s.streams.closeSubStream(s.subID)
+		close(s.ch)
+		s.closed = true
 	}
 }
 
 func (s *subStream) Send(indication *e2appducontents.Ricindication) error {
-	s.ch <- *indication
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	if !s.closed {
+		s.ch <- *indication
+	}
 	return nil
 }
 
@@ -197,10 +202,12 @@ func (s *subStream) Recv(ctx context.Context) (*e2appducontents.Ricindication, e
 	return nil, errors.NewNotSupported("Recv not supported")
 }
 
-func (s *subStream) Close() error {
-	close(s.ch)
-	close(s.closer)
-	return nil
+func (s *subStream) close() {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if !s.closed {
+		close(s.ch)
+	}
 }
 
 func newAppStream(subStream *subStream, appID e2api.AppID) *appStream {
@@ -340,24 +347,25 @@ func (s *appStreamWriter) Send(ind *e2appducontents.Ricindication) error {
 	return nil
 }
 
-func (s *appStreamWriter) Close() error {
+func (s *appStreamWriter) close() {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	s.closed = true
 	s.cond.Signal()
-	return nil
 }
 
 func newInstanceStreamReader(instanceID e2api.AppInstanceID, appStream *appStream) *instanceStreamReader {
 	return &instanceStreamReader{
 		instanceID: instanceID,
 		appStream:  appStream,
+		done:       make(chan error),
 	}
 }
 
 type instanceStreamReader struct {
 	instanceID e2api.AppInstanceID
 	appStream  *appStream
+	done       chan error
 }
 
 func (s *instanceStreamReader) ID() StreamID {
@@ -365,12 +373,25 @@ func (s *instanceStreamReader) ID() StreamID {
 }
 
 func (s *instanceStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
-	return s.appStream.Recv(ctx)
+	select {
+	case ind, ok := <-s.appStream.appStreamReader.ch:
+		if !ok {
+			return nil, io.EOF
+		}
+		return &ind, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	case err, ok := <-s.done:
+		if !ok {
+			return nil, io.EOF
+		}
+		return nil, err
+	}
 }
 
-func (s *instanceStreamReader) Close() error {
+func (s *instanceStreamReader) close() {
 	s.appStream.closeInstanceStream(s.instanceID)
-	return nil
+	close(s.done)
 }
 
 var _ StreamReader = &instanceStreamReader{}

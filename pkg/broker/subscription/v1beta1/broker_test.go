@@ -8,6 +8,7 @@ import (
 	"context"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/stretchr/testify/assert"
+	"io"
 	"testing"
 	"time"
 )
@@ -129,8 +130,9 @@ func TestBroker(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, ind)
 
-	err = writer4.Send(&e2appducontents.Ricindication{})
-	assert.NoError(t, err)
+	broker.CloseReader("sub-2", "app-2", "instance-1")
 
-	reader4.Close()
+	ind, err = reader4.Recv(context.Background())
+	assert.Nil(t, ind)
+	assert.ErrorIs(t, err, io.EOF)
 }
