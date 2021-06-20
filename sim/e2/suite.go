@@ -5,21 +5,28 @@
 package e2
 
 import (
+	"bufio"
 	"context"
+	"errors"
 	"fmt"
+	"github.com/cenkalti/backoff"
 	"github.com/onosproject/helmit/pkg/helm"
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	"github.com/onosproject/helmit/pkg/simulation"
+	"github.com/onosproject/helmit/pkg/util/async"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
+	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
 	"k8s.io/utils/pointer"
 	"math/rand"
+	"os"
+	"sync"
 	"time"
 )
 
@@ -65,6 +72,12 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 		return err
 	}
 
+	client, err := kubernetes.New()
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+
 	objects, err := utils.GetControlRelationObjects()
 	if err != nil {
 		log.Error(err)
@@ -88,42 +101,40 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 	numInstances := sim.Arg("replica-count").Int(1)
 	numSubs := sim.Arg("sub-count").Int(1)
 
-	subs := make([]simAppSub, numSubs)
-	for i := 0; i < numSubs; i++ {
-		subs[i] = simAppSub{
-			name:         fmt.Sprintf("sub-%d", i+1),
-			nodeID:       string(nodeID),
-			cellObjectID: cellObjectID,
-			reportPeriod: uint32((i + 1) * 5 * 1000),
-			granularity:  500,
-		}
-	}
-
 	s.apps = make([]*simApp, numApps)
 	for i := 0; i < numApps; i++ {
 		appID := fmt.Sprintf("sim-%s-%d-%d", sim.Name, sim.Process, i+1)
 		instances := make([]*simAppInstance, numInstances)
 		for j := 0; j < numInstances; j++ {
-			instanceSubs := make([]*simAppSub, len(subs))
-			for k := 0; k < len(subs); k++ {
-				sub := subs[k]
-				instanceSubs[k] = &sub
-			}
-			instances[j] = &simAppInstance{
+			instance := &simAppInstance{
 				name:    fmt.Sprintf("%s-%d", appID, j),
 				address: fmt.Sprintf("%s-%d.%s:%d", appID, j, appID, controlPort),
-				subs:    instanceSubs,
+				client:  client,
 			}
+
+			for k := 0; k < numSubs; k++ {
+				sub := &simAppSub{
+					name:         fmt.Sprintf("%s-%d", appID, k+1),
+					instance:     instance,
+					nodeID:       string(nodeID),
+					cellObjectID: cellObjectID,
+					reportPeriod: uint32((k + 1) * 5 * 1000),
+					granularity:  500,
+				}
+				instance.subs = append(instance.subs, sub)
+			}
+
+			instances[j] = instance
 		}
 
 		app := &simApp{
 			name:      appID,
 			instances: instances,
+			client:    client,
 		}
 
 		err := app.start()
 		if err != nil {
-			log.Error(err)
 			return err
 		}
 		s.apps[i] = app
@@ -133,161 +144,90 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 
 // ScheduleSimulator :: simulation
 func (s *SimSuite) ScheduleSimulator(sim *simulation.Simulator) {
-	sim.Schedule("subscribe", s.SimulateSubscribe, 1*time.Minute, 2)
-	sim.Schedule("unsubscribe", s.SimulateUnsubscribe, 5*time.Minute, 1)
-	sim.Schedule("crash", s.SimulateCrash, 10*time.Minute, 2)
+	sim.Schedule("subscribe", s.SimulateSubscribe, 10*time.Second, 5)
+	sim.Schedule("unsubscribe", s.SimulateUnsubscribe, 30*time.Second, 3)
+	sim.Schedule("crash", s.SimulateCrash, 1*time.Minute, 4)
 }
 
-func (s *SimSuite) getRandApp() *simApp {
-	return s.apps[rand.Intn(len(s.apps))]
-}
-
-func (s *SimSuite) getRandInstance() *simAppInstance {
-	app := s.getRandApp()
-	instance := app.instances[rand.Intn(len(app.instances))]
-	return instance
-}
-
-func (s *SimSuite) getRandSub(predicate func(sub *simAppSub) bool) (*simAppInstance, *simAppSub, bool) {
+func (s *SimSuite) getRandInstance(predicate func(instance *simAppInstance) bool) (*simAppInstance, bool) {
 	var instances []*simAppInstance
 	for _, app := range s.apps {
 		for _, instance := range app.instances {
-			for _, sub := range instance.subs {
-				if predicate(sub) {
-					instances = append(instances, instance)
-					break
-				}
+			if predicate(instance) {
+				instances = append(instances, instance)
 			}
 		}
 	}
 
 	if len(instances) == 0 {
-		return nil, nil, false
+		return nil, false
 	}
 
 	instance := instances[rand.Intn(len(instances))]
+	return instance, true
+}
 
-	subs := make([]*simAppSub, 0, len(instance.subs))
-	for _, sub := range instance.subs {
-		if predicate(sub) {
-			subs = append(subs, sub)
+func (s *SimSuite) getRandSub(predicate func(sub *simAppSub) bool) (*simAppSub, bool) {
+	var subs []*simAppSub
+	for _, app := range s.apps {
+		for _, instance := range app.instances {
+			if instance.ready() {
+				for _, sub := range instance.subs {
+					if predicate(sub) {
+						subs = append(subs, sub)
+						break
+					}
+				}
+			}
 		}
 	}
 
 	if len(subs) == 0 {
-		return nil, nil, false
+		return nil, false
 	}
 
 	sub := subs[rand.Intn(len(subs))]
-	return instance, sub, true
+	return sub, true
 }
 
 func (s *SimSuite) SimulateSubscribe(sim *simulation.Simulator) error {
-	instance, sub, ok := s.getRandSub(func(sub *simAppSub) bool {
-		return !sub.open
+	sub, ok := s.getRandSub(func(sub *simAppSub) bool {
+		return !sub.running()
 	})
 	if !ok {
 		return nil
 	}
-
-	log.Infof("Starting '%s' subscription '%s' on '%s'", sub.nodeID, sub.name, instance.name)
-	conn, err := grpc.Dial(instance.address, grpc.WithInsecure())
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-	defer conn.Close()
-	client := NewSimServiceClient(conn)
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	request := &StartSubscriptionRequest{
-		SubscriptionId: sub.name,
-		NodeId:         sub.nodeID,
-		CellObjectId:   sub.cellObjectID,
-		ReportPeriod:   sub.reportPeriod,
-		Granularity:    sub.granularity,
-	}
-	_, err = client.StartSubscription(ctx, request)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-	sub.open = true
-	return nil
+	return sub.start()
 }
 
 func (s *SimSuite) SimulateUnsubscribe(sim *simulation.Simulator) error {
-	instance, sub, ok := s.getRandSub(func(sub *simAppSub) bool {
-		return sub.open
+	sub, ok := s.getRandSub(func(sub *simAppSub) bool {
+		return sub.running()
 	})
 	if !ok {
 		return nil
 	}
-
-	log.Infof("Stopping '%s' subscription '%s' on '%s'", sub.nodeID, sub.name, instance.name)
-	conn, err := grpc.Dial(instance.address, grpc.WithInsecure())
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-	defer conn.Close()
-	client := NewSimServiceClient(conn)
-
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	request := &StopSubscriptionRequest{
-		SubscriptionId: sub.name,
-		NodeId:         sub.nodeID,
-	}
-	_, err = client.StopSubscription(ctx, request)
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-	sub.open = false
-	return nil
+	return sub.stop()
 }
 
 func (s *SimSuite) SimulateCrash(sim *simulation.Simulator) error {
-	instance := s.getRandInstance()
-	log.Infof("Crashing pod '%s'", instance.name)
-	client, err := kubernetes.New()
-	if err != nil {
-		log.Error(err)
-		return err
+	instance, ok := s.getRandInstance(func(instance *simAppInstance) bool {
+		return instance.ready()
+	})
+	if !ok {
+		return nil
 	}
-
-	err = client.Clientset().
-		CoreV1().
-		Pods(client.Namespace()).
-		Delete(instance.name, &metav1.DeleteOptions{})
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	for _, sub := range instance.subs {
-		sub.open = false
-	}
-	return nil
+	return instance.crash()
 }
 
 type simApp struct {
 	name      string
 	instances []*simAppInstance
+	client    kubernetes.Client
 }
 
 func (s *simApp) start() error {
 	log.Infof("Starting app '%s'", s.name)
-	client, err := kubernetes.New()
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
 	ss := &appsv1.StatefulSet{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: s.name,
@@ -352,9 +292,9 @@ func (s *simApp) start() error {
 		},
 	}
 
-	_, err = client.Clientset().
+	_, err := s.client.Clientset().
 		AppsV1().
-		StatefulSets(client.Namespace()).
+		StatefulSets(s.client.Namespace()).
 		Create(ss)
 	if err != nil {
 		log.Error(err)
@@ -382,28 +322,222 @@ func (s *simApp) start() error {
 		},
 	}
 
-	_, err = client.Clientset().
+	_, err = s.client.Clientset().
 		CoreV1().
-		Services(client.Namespace()).
+		Services(s.client.Namespace()).
 		Create(svc)
 	if err != nil {
 		log.Error(err)
 		return err
 	}
-	return nil
+	return async.IterAsync(len(s.instances), func(i int) error {
+		return s.instances[i].start()
+	})
 }
 
 type simAppInstance struct {
 	name    string
 	address string
 	subs    []*simAppSub
+	client  kubernetes.Client
+	running bool
+	mu      sync.RWMutex
+}
+
+func (s *simAppInstance) ready() bool {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.running
+}
+
+func (s *simAppInstance) start() error {
+	t := time.Now()
+	if err := s.awaitPodReady(); err != nil {
+		log.Error(err)
+		return err
+	}
+	go s.streamLogs(t)
+	return nil
+}
+
+func (s *simAppInstance) awaitPodReady() error {
+	log.Infof("Waiting for pod '%s'", s.name)
+	err := backoff.Retry(func() error {
+		s.mu.Lock()
+		running := s.running
+		s.mu.Unlock()
+		if running {
+			return nil
+		}
+
+		pod, err := s.client.Clientset().
+			CoreV1().
+			Pods(s.client.Namespace()).
+			Get(s.name, metav1.GetOptions{})
+		if err != nil {
+			if k8serrors.IsNotFound(err) {
+				return err
+			}
+			return backoff.Permanent(err)
+		}
+		if pod.Status.Phase != corev1.PodRunning {
+			return errors.New("retry")
+		}
+		if len(pod.Status.ContainerStatuses) == 0 {
+			return errors.New("retry")
+		}
+		for _, container := range pod.Status.ContainerStatuses {
+			if !container.Ready {
+				return errors.New("retry")
+			}
+		}
+		s.running = true
+		return nil
+	}, backoff.NewExponentialBackOff())
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *simAppInstance) streamLogs(since time.Time) {
+	log.Infof("Following pod '%s'", s.name)
+	t := metav1.NewTime(since)
+	req := s.client.Clientset().
+		CoreV1().
+		Pods(s.client.Namespace()).
+		GetLogs(s.name, &corev1.PodLogOptions{
+			Container: "sim-app",
+			Follow:    true,
+			SinceTime: &t,
+		})
+	reader, err := req.Stream()
+	if err != nil {
+		log.Error(err)
+		return
+	}
+	defer reader.Close()
+
+	// Stream the logs to stdout
+	scanner := bufio.NewScanner(reader)
+	for scanner.Scan() {
+		fmt.Fprintln(os.Stdout, scanner.Text())
+	}
+}
+
+func (s *simAppInstance) crash() error {
+	s.mu.Lock()
+	running := s.running
+	s.mu.Unlock()
+	if !running {
+		return nil
+	}
+
+	s.mu.Lock()
+	s.running = false
+	for _, sub := range s.subs {
+		sub.reset()
+	}
+	s.mu.Unlock()
+
+	log.Infof("Crashing pod '%s'", s.name)
+	err := s.client.Clientset().
+		CoreV1().
+		Pods(s.client.Namespace()).
+		Delete(s.name, &metav1.DeleteOptions{})
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	return s.start()
 }
 
 type simAppSub struct {
 	name         string
+	instance     *simAppInstance
 	nodeID       string
 	cellObjectID string
 	reportPeriod uint32
 	granularity  uint32
-	open         bool
+	started      bool
+	mu           sync.RWMutex
+}
+
+func (s *simAppSub) running() bool {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return s.started
+}
+
+func (s *simAppSub) start() error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.started {
+		return nil
+	}
+
+	log.Infof("Starting '%s' subscription '%s' on '%s'", s.nodeID, s.name, s.instance.name)
+	conn, err := grpc.Dial(s.instance.address, grpc.WithInsecure())
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	defer conn.Close()
+	client := NewSimServiceClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	request := &StartSubscriptionRequest{
+		SubscriptionId: s.name,
+		NodeId:         s.nodeID,
+		CellObjectId:   s.cellObjectID,
+		ReportPeriod:   s.reportPeriod,
+		Granularity:    s.granularity,
+	}
+	_, err = client.StartSubscription(ctx, request)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	s.started = true
+	return nil
+}
+
+func (s *simAppSub) stop() error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if !s.started {
+		return nil
+	}
+
+	log.Infof("Stopping '%s' subscription '%s' on '%s'", s.nodeID, s.name, s.instance.name)
+	conn, err := grpc.Dial(s.instance.address, grpc.WithInsecure())
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	defer conn.Close()
+	client := NewSimServiceClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	request := &StopSubscriptionRequest{
+		SubscriptionId: s.name,
+		NodeId:         s.nodeID,
+	}
+	_, err = client.StopSubscription(ctx, request)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	s.started = false
+	return nil
+}
+
+func (s *simAppSub) reset() {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.started = false
 }
