@@ -334,7 +334,6 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		if err != nil {
 			return controller.Result{}, err
 		}
-		_ = stream.Close()
 		return controller.Result{}, nil
 	} else if failure != nil {
 		switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
