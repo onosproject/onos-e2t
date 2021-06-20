@@ -53,7 +53,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version1)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan v1beta1.Indication)
-	err = node.Subscribe(ctx, "TestSubscriptionKpmV1", subReq, ch)
+	_, err = node.Subscribe(ctx, "TestSubscriptionKpmV1", subReq, ch)
 	assert.NoError(t, err)
 
 	e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)

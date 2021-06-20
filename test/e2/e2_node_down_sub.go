@@ -73,7 +73,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
-	err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subReq, ch)
+	_, err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subReq, ch)
 	assert.NoError(t, err)
 
 	// Make sure that reads on the subscription channel time out. There should be no
