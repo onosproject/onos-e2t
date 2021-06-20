@@ -72,7 +72,7 @@ func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID
 		return
 	}
 	log.Infof("Closed reader for subscription %s", subID)
-	instanceStream.Close()
+	instanceStream.close()
 }
 
 func (b *streamBroker) GetReader(subID e2api.SubscriptionID) (StreamReader, bool) {
