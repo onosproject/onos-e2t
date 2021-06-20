@@ -180,6 +180,7 @@ func (s *SubscriptionServer) WatchSubscriptions(request *e2api.WatchSubscription
 }
 
 func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e2api.SubscriptionService_SubscribeServer) error {
+	log.Debugf("Received SubscribeRequest %+v", request)
 	encoding := request.Headers.Encoding
 
 	log.Infof("Received SubscribeRequest %+v", request)
@@ -188,13 +189,13 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		string(request.Headers.ServiceModel.Name),
 		string(request.Headers.ServiceModel.Version))
 	if err != nil {
-		log.Warn(err)
+		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return err
 	}
 
 	serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelOID)
 	if err != nil {
-		log.Warn(err)
+		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return errors.Status(err).Err()
 	}
 	smData := serviceModelPlugin.ServiceModelData()
@@ -204,7 +205,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	if encoding == e2api.Encoding_PROTO {
 		eventTriggerBytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(subSpec.EventTrigger.Payload)
 		if err != nil {
-			log.Error(err)
+			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 			return err
 		}
 		subSpec.EventTrigger.Payload = eventTriggerBytes
@@ -214,7 +215,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		if encoding == e2api.Encoding_PROTO && action.Payload != nil {
 			actionBytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(action.Payload)
 			if err != nil {
-				log.Error(err)
+				log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 				return err
 			}
 			action.Payload = actionBytes
@@ -224,7 +225,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 
 	subBytes, err := proto.Marshal(&subSpec)
 	if err != nil {
-		log.Error(err)
+		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return err
 	}
 	subID := e2api.SubscriptionID(fmt.Sprintf("%x", md5.Sum(subBytes)))
@@ -238,7 +239,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	_, err = s.chans.Get(server.Context(), channelID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
-			log.Error(err)
+			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 			return errors.Status(err).Err()
 		}
 
@@ -262,6 +263,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		}
 		err = s.chans.Create(server.Context(), channel)
 		if err != nil {
+			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 			return errors.Status(err).Err()
 		}
 	}
@@ -305,6 +307,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	select {
 	case err := <-completeCh:
 		if err != nil {
+			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 			return err
 		}
 
@@ -320,6 +323,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			},
 		}
 
+		log.Debugf("Sending SubscribeResponse %+v", response)
 		err = server.Send(response)
 		if err == io.EOF {
 			return nil
@@ -335,6 +339,9 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	// Read indications from the stream and send them to the client
 	for {
 		indication, err := reader.Recv(server.Context())
+		if err == io.EOF {
+			break
+		}
 		if err != nil {
 			log.Warnf("SubscribeRequest %+v failed: %v", request, err)
 			return err
@@ -387,18 +394,22 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			return errors.Status(errors.NewInvalid("encoding type %v not supported", encoding)).Err()
 		}
 
+		log.Debugf("Sending SubscribeResponse %+v", response)
 		err = server.Send(response)
 		if err == io.EOF {
 			return nil
 		}
 		if err != nil {
-			log.Warnf("SubscribeResponse %+v failed: %v", response, err)
+			log.Warnf("Sending SubscribeResponse %+v failed: %v", response, err)
 			return err
 		}
 	}
+	log.Debugf("Subscription %+v closed", request)
+	return nil
 }
 
 func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.UnsubscribeRequest) (*e2api.UnsubscribeResponse, error) {
+	log.Debugf("Received UnsubscribeRequest %+v", request)
 	channelID := e2api.ChannelID(fmt.Sprintf("%s:%s:%s:%s",
 		request.Headers.AppID,
 		request.Headers.AppInstanceID,
@@ -408,6 +419,7 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 	// Get the channel for the subscription/app/instance
 	channel, err := s.chans.Get(ctx, channelID)
 	if err != nil {
+		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 		return nil, errors.Status(err).Err()
 	}
 
@@ -417,6 +429,7 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 		channel.Status.Error = nil
 		if err := s.chans.Update(ctx, channel); err != nil {
+			log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 			return nil, errors.Status(err).Err()
 		}
 	}
@@ -426,6 +439,7 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 	if err := s.chans.Watch(ctx, eventCh); err != nil {
+		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 		return nil, errors.Status(err).Err()
 	}
 
@@ -435,14 +449,18 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 			switch event.Channel.Status.State {
 			case e2api.ChannelState_CHANNEL_COMPLETE:
 				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
-				return &e2api.UnsubscribeResponse{}, nil
+				response := &e2api.UnsubscribeResponse{}
+				log.Debugf("Sending UnsubscribeResponse %+v", response)
+				return response, nil
 			case e2api.ChannelState_CHANNEL_FAILED:
 				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
 				errStat := status.New(codes.Aborted, "an E2AP failure occurred")
 				errStat, err := errStat.WithDetails(event.Channel.Status.Error)
 				if err != nil {
+					log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 					return nil, err
 				}
+				log.Warnf("UnsubscribeRequest %+v failed: %s", request, errStat.Err())
 				return nil, errStat.Err()
 			}
 		}

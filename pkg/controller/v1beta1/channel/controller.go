@@ -61,12 +61,6 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 	log.Infof("Reconciling Channel %+v", channel)
 
-	// If the channel state is COMPLETE or FAILED, ignore the request
-	switch channel.Status.State {
-	case e2api.ChannelState_CHANNEL_COMPLETE, e2api.ChannelState_CHANNEL_FAILED:
-		return controller.Result{}, nil
-	}
-
 	// Reconcile the channel state according to its phase
 	switch channel.Status.Phase {
 	case e2api.ChannelPhase_CHANNEL_OPEN:
@@ -78,6 +72,10 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Result, error) {
+	if channel.Status.State != e2api.ChannelState_CHANNEL_PENDING {
+		return controller.Result{}, nil
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -88,7 +86,6 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 			return controller.Result{}, err
 		}
 
-		log.Warnf("Creating Subscription for Channel %+v: %s", channel, err)
 		sub := &e2api.Subscription{
 			ID: channel.SubscriptionID,
 			SubscriptionMeta: e2api.SubscriptionMeta{
@@ -102,6 +99,7 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 				Channels: []e2api.ChannelID{channel.ID},
 			},
 		}
+		log.Debugf("Creating Channel %+v Subscription %+v", channel, sub)
 		err := r.subs.Create(ctx, sub)
 		if err != nil {
 			if !errors.IsAlreadyExists(err) {
@@ -120,8 +118,10 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 
 	// If the channel is not linked to the subscription, add it
 	if _, ok := channels[channel.ID]; !ok {
+		log.Debugf("Binding Channel %+v to existing Subscription %+v", channel, sub)
 		sub.Status.Channels = append(sub.Status.Channels, channel.ID)
 		if err := r.subs.Update(ctx, sub); err != nil {
+			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
 		return controller.Result{}, nil
@@ -135,14 +135,18 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 	// If the subscription is in a finished state, update the channel state
 	switch sub.Status.State {
 	case e2api.SubscriptionState_SUBSCRIPTION_COMPLETE:
+		log.Debugf("Completing Channel %+v: Subscription complete", channel)
 		channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
 		if err := r.chans.Update(ctx, channel); err != nil {
+			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
 	case e2api.SubscriptionState_SUBSCRIPTION_FAILED:
+		log.Debugf("Failing Channel %+v: Subscription failed", channel)
 		channel.Status.State = e2api.ChannelState_CHANNEL_FAILED
 		channel.Status.Error = sub.Status.Error
 		if err := r.chans.Update(ctx, channel); err != nil {
+			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
 	}
@@ -153,32 +157,32 @@ func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	sub, err := r.subs.Get(ctx, channel.SubscriptionID)
-	if err != nil {
-		if !errors.IsNotFound(err) {
+	// If the close has completed, delete the channel
+	if channel.Status.State == e2api.ChannelState_CHANNEL_COMPLETE {
+		log.Debugf("Deleting closed Channel %+v", channel)
+		err := r.chans.Delete(ctx, channel)
+		if err != nil && !errors.IsNotFound(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
 		return controller.Result{}, nil
 	}
 
-	// If the subscription is in the CLOSED phase with a finished state, update the channel state
-	if sub.Status.Phase == e2api.SubscriptionPhase_SUBSCRIPTION_CLOSED {
-		switch sub.Status.State {
-		case e2api.SubscriptionState_SUBSCRIPTION_COMPLETE:
-			channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
-			if err := r.chans.Update(ctx, channel); err != nil {
-				return controller.Result{}, err
-			}
-			r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
-		case e2api.SubscriptionState_SUBSCRIPTION_FAILED:
-			channel.Status.State = e2api.ChannelState_CHANNEL_FAILED
-			channel.Status.Error = sub.Status.Error
-			if err := r.chans.Update(ctx, channel); err != nil {
-				return controller.Result{}, err
-			}
-			r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
+	sub, err := r.subs.Get(ctx, channel.SubscriptionID)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
+			return controller.Result{}, err
 		}
+
+		// If the subscription is not found, complete the channel close
+		log.Debugf("Completing closed Channel %+v: subscription not found", channel)
+		channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
+		if err := r.chans.Update(ctx, channel); err != nil {
+			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
+			return controller.Result{}, err
+		}
+		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
 		return controller.Result{}, nil
 	}
 
@@ -192,21 +196,31 @@ func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.
 
 	// If the linked channels changed, update the subscription status
 	if len(sub.Status.Channels) != len(channels) {
+		if len(channels) == 0 {
+			log.Debugf("Closing Subscription %+v", sub)
+			sub.Status.Phase = e2api.SubscriptionPhase_SUBSCRIPTION_CLOSED
+			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_PENDING
+		} else {
+			log.Debugf("Unbinding Channel %+v from Subscription %+v", channel, sub)
+		}
 		sub.Status.Channels = channels
 		if err := r.subs.Update(ctx, sub); err != nil {
+			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
 		return controller.Result{}, nil
 	}
 
-	// If northbound channels are still linked to the subscription, the subscription will remain open
-	// Complete the channel phase
-	if len(sub.Status.Channels) > 0 {
+	// If the subscription is OPEN or it's CLOSED phase with a finished state, update the channel state
+	if sub.Status.Phase == e2api.SubscriptionPhase_SUBSCRIPTION_OPEN || sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
+		log.Debugf("Completing close Channel %+v: subscription closed", channel)
 		channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
 		if err := r.chans.Update(ctx, channel); err != nil {
+			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
 		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
+		return controller.Result{}, nil
 	}
 	return controller.Result{}, nil
 }
