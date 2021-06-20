@@ -1,0 +1,39 @@
+/*
+SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+syntax = "proto3";
+
+package onos.e2t.sim.e2;
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/duration.proto";
+
+message StartSubscriptionRequest {
+    string subscription_id = 1;
+    string node_id = 2;
+    string cell_object_id = 3;
+    uint32 report_period = 4;
+    uint32 granularity = 5;
+}
+
+message StartSubscriptionResponse {
+
+}
+
+message StopSubscriptionRequest {
+    string subscription_id = 1;
+    string node_id = 2;
+}
+
+message StopSubscriptionResponse {
+
+}
+
+// SimService is an E2 simulator service
+service SimService {
+    rpc StartSubscription (StartSubscriptionRequest) returns (StartSubscriptionResponse);
+    rpc StopSubscription (StopSubscriptionRequest) returns (StopSubscriptionResponse);
+}

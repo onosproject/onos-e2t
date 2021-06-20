@@ -11,6 +11,10 @@ build: # @HELP build the Go binaries and run all validations (default)
 build:
 	go build -o build/_output/onos-e2t ./cmd/onos-e2t
 
+sim-app: # @HELP build the Go binaries for the simulator
+sim-app:
+	go build -o build/_output/onos-e2t-sim-app ./cmd/onos-e2t-sim-app
+
 test: # @HELP run the unit tests and source code validation producing a golang style report
 test: build deps linters license_check
 	GODEBUG=cgocheck=0 go test -race github.com/onosproject/onos-e2t/...
@@ -66,13 +70,21 @@ onos-e2t-docker:
 		-t onosproject/onos-e2t:${ONOS_E2T_VERSION}
 	@rm -r vendor
 
+onos-e2t-sim-app-docker: # @HELP build onos-e2t-sim-app Docker image
+onos-e2t-sim-app-docker:
+	@go mod vendor
+	docker build . -f build/onos-e2t-sim-app/Dockerfile \
+		-t onosproject/onos-e2t-sim-app:${ONOS_E2T_VERSION}
+	@rm -r vendor
+
 images: # @HELP build all Docker images
-images: build onos-e2t-docker
+images: build onos-e2t-docker onos-e2t-sim-app-docker
 
 kind: # @HELP build Docker images and add them to the currently configured kind cluster
 kind: images
 	@if [ "`kind get clusters`" = '' ]; then echo "no kind cluster found" && exit 1; fi
 	kind load docker-image onosproject/onos-e2t:${ONOS_E2T_VERSION}
+	kind load docker-image onosproject/onos-e2t-sim-app:${ONOS_E2T_VERSION}
 
 all: build images
 
