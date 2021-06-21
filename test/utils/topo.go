@@ -144,8 +144,18 @@ func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
 }
 
 func GetFirstNodeID(t *testing.T) topoapi.ID {
-	nodeIDs, err := GetNodeIDs(t)
-	assert.NoError(t, err)
+	const maxAttempts = 15
+	var nodeIDs []topoapi.ID
+	var err error
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		nodeIDs, err = GetNodeIDs(t)
+		if err != nil || len(nodeIDs) == 0 {
+			time.Sleep(2 * time.Second)
+		} else {
+			break
+		}
+	}
+
 	assert.GreaterOrEqual(t, len(nodeIDs), 1, "No nodes found")
 	return nodeIDs[0]
 }

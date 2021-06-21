@@ -24,6 +24,7 @@ const (
 
 var (
 	SubscriptionServiceAddress = SubscriptionServiceHost + ":" + strconv.Itoa(SubscriptionServicePort)
+	E2tServiceAddress          = E2TServiceHost + ":" + strconv.Itoa(E2TServicePort)
 )
 
 func getRansimServiceAddress(ransimServiceHost string) string {
