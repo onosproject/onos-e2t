@@ -26,7 +26,7 @@ import (
 // ConnectRansimServiceHost connects to ransim service
 func ConnectRansimServiceHost(release *helm.HelmRelease) (*grpc.ClientConn, error) {
 	client := kubernetes.NewForReleaseOrDie(release)
-	services, err := client.CoreV1().Services().List()
+	services, err := client.CoreV1().Services().List(context.Background())
 	if err != nil {
 		return nil, err
 	}

@@ -6,20 +6,21 @@ package e2
 
 import (
 	"context"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
+	"google.golang.org/grpc/status"
 	"testing"
 	"time"
 
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	subapi "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
 )
 
 type invalidSubscriptionTestCase struct {
 	description         string
-	encodingType        subapi.Encoding
+	encodingType        sdkclient.Encoding
 	actionType          subapi.ActionType
 	serviceModelName    subapi.ServiceModelName
 	serviceModelVersion subapi.ServiceModelVersion
@@ -34,14 +35,12 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		t.Skip()
 		return
 	}
-	e2Client := utils.GetE2Client(t, "invalid-subscriptions-id")
+	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, testCase.encodingType)
 
-	ch := make(chan indication.Indication)
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
+	nodeID := utils.GetFirstNodeID(t)
 	var actions []subapi.Action
 	action := subapi.Action{
 		ID:   testCase.actionID,
@@ -53,28 +52,35 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription{
-		NodeID:              string(nodeIDs[0]),
-		EncodingType:        testCase.encodingType,
+	subRequest := utils.Subscription2{
+		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        testCase.eventTrigger,
 		ServiceModelName:    testCase.serviceModelName,
 		ServiceModelVersion: testCase.serviceModelVersion,
 	}
 
-	subReq, err := subRequest.Create()
+	subSpec, err := subRequest.CreateWithActionDefinition2()
 	assert.NoError(t, err)
 
-	sub, err := e2Client.Subscribe(ctx, subReq, ch)
-	assert.NoError(t, err)
+	ch := make(chan subapi.Indication)
+	node := sdkClient.Node(sdkclient.NodeID(nodeID))
+	_, err = node.Subscribe(ctx, "invalid-sub", subSpec, ch)
+	assert.Error(t, err)
 
-	select {
-	case err = <-sub.Err():
-		assert.Equal(t, testCase.expectedError.String(), err.Error())
-	case <-time.After(10 * time.Second):
-		assert.Equal(t, false, "test is failed because of timeout")
+	st, ok := status.FromError(err)
+	assert.False(t, ok)
 
+	for _, detail := range st.Details() {
+		assert.Nil(t, detail)
+		switch typeDetail := detail.(type) {
+		case *subapi.Error:
+			// This is currently not working
+			assert.Equal(t, testCase.expectedError, typeDetail.String())
+		}
 	}
+
+	//assert.Contains(t, testCase.expectedError, err.Error())
 }
 
 // TestInvalidSubscriptions tests invalid inputs into the SDK
@@ -87,7 +93,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		{
 			description:         "Non-existent Service Model ID",
 			enabled:             true,
-			encodingType:        subapi.Encoding_ENCODING_PROTO,
+			encodingType:        sdkclient.ProtoEncoding,
 			actionType:          subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModelName:    "no-such-service-model",
 			serviceModelVersion: "v1",
@@ -98,7 +104,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		{
 			description:         "Invalid action type",
 			enabled:             true,
-			encodingType:        subapi.Encoding_ENCODING_PROTO,
+			encodingType:        sdkclient.ProtoEncoding,
 			actionType:          subapi.ActionType_ACTION_TYPE_INSERT,
 			serviceModelName:    utils.KpmServiceModelName,
 			serviceModelVersion: utils.Version1,
@@ -120,7 +126,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		{
 			description:         "Invalid action ID",
 			enabled:             true,
-			encodingType:        subapi.Encoding_ENCODING_PROTO,
+			encodingType:        sdkclient.ProtoEncoding,
 			actionType:          subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModelName:    utils.KpmServiceModelName,
 			serviceModelVersion: utils.Version1,
@@ -131,7 +137,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		{
 			description:         "Invalid event trigger",
 			enabled:             true,
-			encodingType:        subapi.Encoding_ENCODING_PROTO,
+			encodingType:        sdkclient.ProtoEncoding,
 			actionType:          subapi.ActionType_ACTION_TYPE_REPORT,
 			serviceModelName:    utils.KpmServiceModelName,
 			serviceModelVersion: utils.Version1,

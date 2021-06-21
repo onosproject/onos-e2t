@@ -295,7 +295,7 @@ func (s *simApp) start() error {
 	_, err := s.client.Clientset().
 		AppsV1().
 		StatefulSets(s.client.Namespace()).
-		Create(ss)
+		Create(context.Background(), ss, metav1.CreateOptions{})
 	if err != nil {
 		log.Error(err)
 		return err
@@ -325,7 +325,7 @@ func (s *simApp) start() error {
 	_, err = s.client.Clientset().
 		CoreV1().
 		Services(s.client.Namespace()).
-		Create(svc)
+		Create(context.Background(), svc, metav1.CreateOptions{})
 	if err != nil {
 		log.Error(err)
 		return err
@@ -373,7 +373,7 @@ func (s *simAppInstance) awaitPodReady() error {
 		pod, err := s.client.Clientset().
 			CoreV1().
 			Pods(s.client.Namespace()).
-			Get(s.name, metav1.GetOptions{})
+			Get(context.Background(), s.name, metav1.GetOptions{})
 		if err != nil {
 			if k8serrors.IsNotFound(err) {
 				return err
@@ -411,7 +411,7 @@ func (s *simAppInstance) streamLogs(since time.Time) {
 			Follow:    true,
 			SinceTime: &t,
 		})
-	reader, err := req.Stream()
+	reader, err := req.Stream(context.Background())
 	if err != nil {
 		log.Error(err)
 		return
@@ -444,7 +444,7 @@ func (s *simAppInstance) crash() error {
 	err := s.client.Clientset().
 		CoreV1().
 		Pods(s.client.Namespace()).
-		Delete(s.name, &metav1.DeleteOptions{})
+		Delete(context.Background(), s.name, metav1.DeleteOptions{})
 	if err != nil {
 		log.Error(err)
 		return err

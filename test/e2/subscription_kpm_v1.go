@@ -50,7 +50,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version1)
+	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version1, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan v1beta1.Indication)
 	_, err = node.Subscribe(ctx, "TestSubscriptionKpmV1", subReq, ch)

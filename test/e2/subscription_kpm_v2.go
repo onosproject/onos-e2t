@@ -71,7 +71,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	subSpec, err := subRequest.CreateWithActionDefinition2()
 	assert.NoError(t, err)
 
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2)
+	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan v1beta1.Indication)
 	_, err = node.Subscribe(ctx, "TestSubscriptionKpmV2", subSpec, ch)

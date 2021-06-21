@@ -78,7 +78,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 
 		time.Sleep(15 * time.Second)
 		e2tPodReboot := FindPodWithPrefix(t, "onos-e2t")
-		err = e2tPodReboot.Wait(45 * time.Second)
+		err = e2tPodReboot.Wait(context.Background(), 45*time.Second)
 		assert.NoError(t, err)
 		time.Sleep(30 * time.Second)
 
