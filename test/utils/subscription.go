@@ -189,8 +189,8 @@ func ConnectSubscriptionServiceHost() (*grpc.ClientConn, error) {
 // Subscription subscription request for subscription SDK api
 type Subscription2 struct {
 	NodeID              string
-	ServiceModelName    subapi.ServiceModelName
-	ServiceModelVersion subapi.ServiceModelVersion
+	ServiceModelName    e2api.ServiceModelName
+	ServiceModelVersion e2api.ServiceModelVersion
 	Actions             []e2api.Action
 	EventTrigger        []byte
 }

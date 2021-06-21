@@ -54,10 +54,11 @@ func GetSubAdminClient(t *testing.T) subapi.SubscriptionAdminServiceClient {
 }
 
 // getE2Client gets an E2 client
-func GetE2Client2(t *testing.T, serviceModelName string, serviceModelVersion string) sdkclient.Client {
+func GetE2Client2(t *testing.T, serviceModelName string, serviceModelVersion string, encoding sdkclient.Encoding) sdkclient.Client {
 	client := sdkclient.NewClient(sdkclient.WithE2TAddress(E2TServiceHost, E2TServicePort),
 		sdkclient.WithServiceModel(sdkclient.ServiceModelName(serviceModelName),
-			sdkclient.ServiceModelVersion(serviceModelVersion)))
+			sdkclient.ServiceModelVersion(serviceModelVersion)),
+		sdkclient.WithEncoding(encoding))
 	assert.NotNil(t, client)
 	return client
 }

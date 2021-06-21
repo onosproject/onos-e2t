@@ -60,7 +60,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	for {
-		pods, err := kube.CoreV1().Pods().List()
+		pods, err := kube.CoreV1().Pods().List(context.Background())
 		assert.NoError(t, err)
 		if len(pods) > 0 {
 			time.Sleep(time.Second)
@@ -70,7 +70,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	}
 
 	//  Create the subscription
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2)
+	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
 	_, err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subReq, ch)

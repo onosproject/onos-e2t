@@ -5,15 +5,15 @@
 package utils
 
 import (
-	"testing"
-
-	"github.com/onosproject/helmit/pkg/input"
-
+	"context"
 	"github.com/onosproject/helmit/pkg/helm"
+	"github.com/onosproject/helmit/pkg/input"
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	"github.com/onosproject/helmit/pkg/util/random"
 	"github.com/onosproject/onos-test/pkg/onostest"
 	"github.com/stretchr/testify/assert"
+	"testing"
+	"time"
 )
 
 func getCredentials() (string, string, error) {
@@ -21,7 +21,7 @@ func getCredentials() (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	secrets, err := kubClient.CoreV1().Secrets().Get(onostest.SecretsName)
+	secrets, err := kubClient.CoreV1().Secrets().Get(context.Background(), onostest.SecretsName)
 	if err != nil {
 		return "", "", err
 	}
@@ -43,6 +43,7 @@ func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 		Release("sd-ran").
 		SetUsername(username).
 		SetPassword(password).
+		WithTimeout(6*time.Minute).
 		Set("import.onos-config.enabled", false).
 		Set("import.onos-e2sub.enabled", true).
 		Set("global.storage.consensus.enabled", "true").

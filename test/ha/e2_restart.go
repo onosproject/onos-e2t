@@ -29,14 +29,14 @@ func GetPodListOrFail(t *testing.T) []*v1.Pod {
 	podList, err := client.
 		CoreV1().
 		Pods().
-		List()
+		List(context.Background())
 	assert.NoError(t, err)
 	return podList
 }
 
 // CrashPodOrFail deletes the given pod and fails the test if there is an error
 func CrashPodOrFail(t *testing.T, pod *v1.Pod) {
-	err := pod.Delete()
+	err := pod.Delete(context.Background())
 	assert.NoError(t, err)
 }
 
@@ -77,7 +77,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 
 	time.Sleep(15 * time.Second)
 	e2tPodReboot := FindPodWithPrefix(t, "onos-e2t")
-	err = e2tPodReboot.Wait(45 * time.Second)
+	err = e2tPodReboot.Wait(context.Background(), 45*time.Second)
 	assert.NoError(t, err)
 	time.Sleep(15 * time.Second)
 

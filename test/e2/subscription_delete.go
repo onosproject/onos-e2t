@@ -101,7 +101,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 
 	// Create a Node
 	nodeID := utils.GetFirstNodeID(t)
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2)
+	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
