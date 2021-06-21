@@ -4,6 +4,7 @@
 package pdubuilder
 
 import (
+	"encoding/hex"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
@@ -16,7 +17,7 @@ func TestRicSubscriptionResponse(t *testing.T) {
 	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}, 0)
+	}, 1, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}, 0)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
@@ -26,5 +27,5 @@ func TestRicSubscriptionResponse(t *testing.T) {
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicSubscriptionResponse E2AP PDU PER\n%v", per)
+	t.Logf("RicSubscriptionResponse E2AP PDU PER\n%v", hex.Dump(per))
 }
