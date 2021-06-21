@@ -126,7 +126,7 @@ func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e
 		return err
 	}
 	for _, e2Cell := range e2Cells {
-		cellID := topoapi.ID(e2Cell.CellObjectID)
+		cellID := topoapi.ID(e2Cell.CellGlobalID.Value)
 		currentCellObject, err := r.store.Get(ctx, cellID)
 		if errors.IsNotFound(errors.FromGRPC(err)) {
 			cellObject := &topoapi.Object{

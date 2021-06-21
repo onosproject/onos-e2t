@@ -7,11 +7,12 @@ package pdudecoder
 import (
 	"encoding/binary"
 	"fmt"
+	"math"
+
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
-	"math"
 )
 
 func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2NodeIdentity, *types.RanFunctions, error) {
