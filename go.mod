@@ -5,6 +5,7 @@ go 1.15
 require (
 	github.com/atomix/atomix-go-client v0.5.19
 	github.com/atomix/atomix-go-framework v0.7.0
+	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/cenkalti/backoff/v4 v4.0.0
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
