@@ -120,6 +120,21 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		indMessage = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
 	}
 
+	// Make sure that reads on the subscription channel time out. There should be no
+	// indication messages available
+	var gotIndication bool
+	select {
+	case indicationMsg := <-ch:
+		// We got an indication. This is an error, as there is no E2 node to send one
+		gotIndication = true
+		t.Log(indicationMsg)
+
+	case <-time.After(10 * time.Second):
+		// The read timed out. This is the expected behavior.
+		gotIndication = false
+	}
+	assert.False(t, gotIndication, "received an extraneous indication")
+
 	header := indMessage.Header
 	ricIndicationHeader := e2smrcpreies.E2SmRcPreIndicationHeader{}
 
