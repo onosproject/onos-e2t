@@ -6,13 +6,14 @@ package e2
 
 import (
 	"context"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"math/rand"
 	"testing"
 	"time"
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 	"google.golang.org/protobuf/proto"
 
@@ -21,7 +22,6 @@ import (
 	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
 
 	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -29,10 +29,7 @@ import (
 func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-on-change")
 	assert.NotNil(t, sim)
-	ch := make(chan indication.Indication)
 	ctx := context.Background()
-
-	e2Client := utils.GetE2Client(t, "subscription-on-change-test")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
@@ -83,43 +80,44 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	connections, err = utils.GetAllE2Connections(t)
 	assert.NoError(t, err)
 	assert.Equal(t, 1, len(connections))
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	testNodeID := nodeIDs[0]
+
+	testNodeID := utils.GetFirstNodeID(t)
 
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()
 	assert.NoError(t, err)
-	var actions []subapi.Action
-	action := subapi.Action{
+	var actions []e2api.Action
+	action := e2api.Action{
 		ID:   100,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription{
+	subRequest := utils.Subscription2{
 		NodeID:              string(testNodeID),
-		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.RcServiceModelName,
 		ServiceModelVersion: utils.Version2,
 	}
 
-	subReq, err := subRequest.Create()
+	subSpec, err := subRequest.Create()
 	assert.NoError(t, err)
 
-	sub, err := e2Client.Subscribe(ctx, subReq, ch)
+	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
+	ch := make(chan e2api.Indication)
+	_, err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subSpec, ch)
 	assert.NoError(t, err)
 
-	var indMessage indication.Indication
+	var indMessage e2api.Indication
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
-		indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+		indMessage = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
 	}
 
 	// Make sure that reads on the subscription channel time out. There should be no
@@ -137,7 +135,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	}
 	assert.False(t, gotIndication, "received an extraneous indication")
 
-	header := indMessage.Payload.Header
+	header := indMessage.Header
 	ricIndicationHeader := e2smrcpreies.E2SmRcPreIndicationHeader{}
 
 	err = proto.Unmarshal(header, &ricIndicationHeader)
@@ -160,9 +158,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	// Expect to receive indication message on neighbor list change
-	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
-	err = sub.Close()
-	assert.NoError(t, err)
+	indMessage = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
 
 	err = sim.Uninstall()
 	assert.NoError(t, err)
