@@ -70,7 +70,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
-	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	_, err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subReq, ch)
 
 	//  Subscribe should have failed because of a timeout
