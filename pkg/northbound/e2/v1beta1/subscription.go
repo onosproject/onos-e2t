@@ -8,10 +8,11 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"io"
+
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"io"
 
 	"github.com/gogo/protobuf/proto"
 
@@ -228,7 +229,8 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return err
 	}
-	subID := e2api.SubscriptionID(fmt.Sprintf("%x", md5.Sum(subBytes)))
+
+	subID := e2api.SubscriptionID(fmt.Sprintf("%x:%s", md5.Sum(subBytes), request.Headers.E2NodeID))
 
 	channelID := e2api.ChannelID(fmt.Sprintf("%s:%s:%s:%s",
 		request.Headers.AppID,
