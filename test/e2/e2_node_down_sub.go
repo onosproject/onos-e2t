@@ -22,12 +22,9 @@ import (
 func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
-
-	ctx, cancel := context.WithCancel(context.Background())
-
 	nodeID := utils.GetFirstNodeID(t)
 
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(12)
+	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
 	var actions []subapi.Action
 	action := subapi.Action{
@@ -73,24 +70,10 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	_, err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subReq, ch)
-	assert.NoError(t, err)
 
-	// Make sure that reads on the subscription channel time out. There should be no
-	// indication messages available
-	indicationFailed := false
-
-	select {
-	case indicationMsg := <-ch:
-		// We got an indication. This is an error, as there is no E2 node to send one
-		t.Log(indicationMsg)
-
-	case <-time.After(10 * time.Second):
-		// The read timed out. This is the expected behavior.
-		indicationFailed = true
-
-	}
-
-	assert.True(t, indicationFailed, "Indication message was delivered for a node that is down")
+	//  Subscribe should have failed because of a timeout
+	assert.Error(t, err)
 	cancel()
 }
