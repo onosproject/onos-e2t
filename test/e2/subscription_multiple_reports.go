@@ -14,7 +14,7 @@ import (
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	"google.golang.org/protobuf/proto"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 
 	"github.com/stretchr/testify/assert"
 
@@ -53,23 +53,23 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	actionDefinitionBytes1, err := utils.CreateKpmV2ActionDefinition(cellObjectIDList[1], 1000)
 	assert.NoError(t, err)
 
-	var actions []subapi.Action
-	action0 := subapi.Action{
+	var actions []e2api.Action
+	action0 := e2api.Action{
 		ID:   100,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
 		Payload: actionDefinitionBytes0,
 	}
 
-	action1 := subapi.Action{
+	action1 := e2api.Action{
 		ID:   101,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
 		Payload: actionDefinitionBytes1,
 	}
@@ -90,7 +90,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
-	ch := make(chan subapi.Indication)
+	ch := make(chan e2api.Indication)
 	_, err = node.Subscribe(ctx, "TestSubscriptionKpmV2", subSpec, ch)
 	assert.NoError(t, err)
 
