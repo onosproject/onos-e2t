@@ -111,6 +111,11 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 }
 
 func GetE2NodeID(nodeID []byte) string {
-
-	return fmt.Sprintf("%x", nodeID)
+	var id uint64 = 0
+	shift := 8 * (len(nodeID) - 1)
+	for _, b := range nodeID {
+		id = id | uint64(b)<<shift
+		shift = shift - 8
+	}
+	return fmt.Sprintf("%x", id)
 }
