@@ -35,3 +35,9 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 	assert.Equal(t, 10, int(rf0.Revision))
 	assert.DeepEqual(t, []byte("abc"), []byte(rf0.OID))
 }
+
+func Test_GetE2NodeID(t *testing.T) {
+	nodeId := []byte{0, 0, 0, 0, 0, 0, 0x51, 0x53}
+	id := GetE2NodeID(nodeId)
+	assert.Equal(t, id, "5153")
+}
