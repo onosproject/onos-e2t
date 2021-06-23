@@ -13,7 +13,6 @@ import (
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"time"
 )
 
 // TestSubscriptionKpmV1 tests e2 subscription and subscription delete procedures
@@ -58,16 +57,8 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 
 	e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
 
-	cancel()
-
-	select {
-	case <-ch:
-		assert.Equal(t, false, "received an extraneous indication")
-
-	case <-time.After(10 * time.Second):
-		t.Log("Subscription test is PASSED")
-	}
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 
+	cancel()
 }
