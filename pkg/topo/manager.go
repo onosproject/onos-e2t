@@ -25,12 +25,10 @@ func (r *Rnib) DeleteE2Relation(ctx context.Context, relationID topoapi.ID) erro
 
 func (r *Rnib) GetE2Relation(ctx context.Context, deviceID topoapi.ID) (topoapi.ID, error) {
 	objects, err := r.store.List(ctx, &topoapi.Filters{
-		KindFilters: []*topoapi.Filter{
-			{
-				Filter: &topoapi.Filter_Equal_{
-					Equal_: &topoapi.EqualFilter{
-						Value: topoapi.RANRelationKinds_CONTROLS.String(),
-					},
+		KindFilter: &topoapi.Filter{
+			Filter: &topoapi.Filter_Equal_{
+				Equal_: &topoapi.EqualFilter{
+					Value: topoapi.RANRelationKinds_CONTROLS.String(),
 				},
 			},
 		},
