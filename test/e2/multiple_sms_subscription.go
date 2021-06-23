@@ -64,7 +64,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node1 := sdkClient.Node(sdkclient.NodeID(testNode1))
-	ctx1, cancel1 := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx1, cancel1 := context.WithTimeout(context.Background(), 15*time.Second)
 	_, err = node1.Subscribe(ctx1, "TestSubscriptionKpmV1", subReq, ch1)
 	assert.NoError(t, err)
 
@@ -86,7 +86,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	sdkClient2 := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node2 := sdkClient2.Node(sdkclient.NodeID(testNode1))
-	ctx2, cancel2 := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx2, cancel2 := context.WithTimeout(context.Background(), 15*time.Second)
 	_, err = node2.Subscribe(ctx2, "TestSubscriptionKpmV2", subReq, ch2)
 	assert.NoError(t, err)
 
