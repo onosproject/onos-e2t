@@ -7,16 +7,16 @@ package e2
 import (
 	"context"
 	"fmt"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"math/rand"
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-api/go/onos/e2t/e2"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/connection"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/termination"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
 
 	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
@@ -29,7 +29,7 @@ import (
 func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-indication-buffering")
 	assert.NotNil(t, sim)
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	conns := connection.NewManager()
 
@@ -97,56 +97,36 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()
 	assert.NoError(t, err)
-	var actions []subapi.Action
-	action := subapi.Action{
+	var actions []e2api.Action
+	action := e2api.Action{
 		ID:   100,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
 	}
 	actions = append(actions, action)
 
-	subBuilder := utils.Subscription{
+	subBuilder := utils.Subscription2{
 		NodeID:              string(testNodeID),
-		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.RcServiceModelName,
 		ServiceModelVersion: utils.Version2,
 	}
 
-	subDetails, err := subBuilder.Create()
-	assert.NoError(t, err)
-
-	subscription := &subapi.Subscription{
-		ID:      "test-subscription",
-		AppID:   "subscription-indication-buffering-test",
-		Details: &subDetails,
-	}
-	err = subClient.Add(context.Background(), subscription)
+	subSpec, err := subBuilder.Create()
 	assert.NoError(t, err)
 
 	// Sleep for ten seconds to ensure indications are sent before opening a stream
 	time.Sleep(10 * time.Second)
 
-	// Open the subscription stream
-	responseCh := make(chan e2.StreamResponse)
-	requestCh, err := e2tClient.Stream(context.Background(), responseCh)
+	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
+	responseCh := make(chan e2api.Indication)
+	_, err = node.Subscribe(ctx, "test-subscription", subSpec, responseCh)
 	assert.NoError(t, err)
-	requestCh <- e2.StreamRequest{
-		Header: &e2.RequestHeader{
-			EncodingType: e2.EncodingType_PROTO,
-			ServiceModel: &e2.ServiceModel{
-				Name:    utils.RcServiceModelName,
-				Version: utils.Version2,
-			},
-		},
-		AppID:          "subscription-indication-buffering-test",
-		InstanceID:     "subscription-indication-buffering-test-1",
-		SubscriptionID: e2.SubscriptionID(subscription.ID),
-	}
 
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
@@ -179,4 +159,6 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	assert.NoError(t, err)
 	err = sim.Uninstall()
 	assert.NoError(t, err)
+
+	cancel()
 }
