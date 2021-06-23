@@ -40,4 +40,8 @@ func Test_GetE2NodeID(t *testing.T) {
 	nodeID := []byte{0, 0, 0, 0, 0, 0, 0x51, 0x53}
 	id := GetE2NodeID(nodeID)
 	assert.Equal(t, id, "5153")
+
+	nodeID2 := []byte{0, 0x51, 0x53}
+	id = GetE2NodeID(nodeID2)
+	assert.Equal(t, id, "5153")
 }
