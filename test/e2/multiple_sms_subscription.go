@@ -66,6 +66,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	node1 := sdkClient.Node(sdkclient.NodeID(testNode1))
 	ctx1, cancel1 := context.WithTimeout(context.Background(), 15*time.Second)
 	_, err = node1.Subscribe(ctx1, "TestSubscriptionKpmV1", subReq, ch1)
+	assert.NoError(t, err)
 
 	// Subscribe to RC service model
 	ch2 := make(chan e2api.Indication)
