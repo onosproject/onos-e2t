@@ -81,12 +81,10 @@ func GetContainRelationObjects() ([]topoapi.Object, error) {
 	client := topoapi.CreateTopoClient(conn)
 	listResponse, err := client.List(ctx, &topoapi.ListRequest{
 		Filters: &topoapi.Filters{
-			KindFilters: []*topoapi.Filter{
-				{
-					Filter: &topoapi.Filter_Equal_{
-						Equal_: &topoapi.EqualFilter{
-							Value: topoapi.RANRelationKinds_CONTAINS.String(),
-						},
+			KindFilter: &topoapi.Filter{
+				Filter: &topoapi.Filter_Equal_{
+					Equal_: &topoapi.EqualFilter{
+						Value: topoapi.RANRelationKinds_CONTAINS.String(),
 					},
 				},
 			},
@@ -110,12 +108,10 @@ func GetControlRelationObjects() ([]topoapi.Object, error) {
 	client := topoapi.CreateTopoClient(conn)
 	listResponse, err := client.List(ctx, &topoapi.ListRequest{
 		Filters: &topoapi.Filters{
-			KindFilters: []*topoapi.Filter{
-				{
-					Filter: &topoapi.Filter_Equal_{
-						Equal_: &topoapi.EqualFilter{
-							Value: topoapi.RANRelationKinds_CONTROLS.String(),
-						},
+			KindFilter: &topoapi.Filter{
+				Filter: &topoapi.Filter_Equal_{
+					Equal_: &topoapi.EqualFilter{
+						Value: topoapi.RANRelationKinds_CONTROLS.String(),
 					},
 				},
 			},
@@ -126,7 +122,6 @@ func GetControlRelationObjects() ([]topoapi.Object, error) {
 	}
 
 	return listResponse.Objects, nil
-
 }
 
 func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
