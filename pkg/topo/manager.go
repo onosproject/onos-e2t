@@ -28,7 +28,7 @@ func (r *Rnib) GetE2Relation(ctx context.Context, deviceID topoapi.ID) (topoapi.
 		KindFilter: &topoapi.Filter{
 			Filter: &topoapi.Filter_Equal_{
 				Equal_: &topoapi.EqualFilter{
-					Value: topoapi.RANRelationKinds_CONTROLS.String(),
+					Value: topoapi.CONTROLS,
 				},
 			},
 		},
@@ -63,7 +63,7 @@ func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID
 			Type: topoapi.Object_RELATION,
 			Obj: &topoapi.Object_Relation{
 				Relation: &topoapi.Relation{
-					KindID:      topoapi.ID(topoapi.RANRelationKinds_CONTROLS.String()),
+					KindID:      topoapi.ID(topoapi.CONTROLS),
 					SrcEntityID: topoapi.ID(getPodID()),
 					TgtEntityID: deviceID,
 				},
@@ -98,7 +98,7 @@ func (r *Rnib) CreateOrUpdateE2CellRelation(ctx context.Context, deviceID topoap
 			Type: topoapi.Object_RELATION,
 			Obj: &topoapi.Object_Relation{
 				Relation: &topoapi.Relation{
-					KindID:      topoapi.ID(topoapi.RANRelationKinds_CONTAINS.String()),
+					KindID:      topoapi.ID(topoapi.CONTAINS),
 					SrcEntityID: deviceID,
 					TgtEntityID: cellID,
 				},
@@ -132,7 +132,7 @@ func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e
 				Type: topoapi.Object_ENTITY,
 				Obj: &topoapi.Object_Entity{
 					Entity: &topoapi.Entity{
-						KindID: topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()),
+						KindID: topoapi.ID(topoapi.E2CELL),
 					},
 				},
 				Aspects: make(map[string]*gogotypes.Any),
@@ -186,7 +186,7 @@ func (r *Rnib) CreateOrUpdateE2Node(ctx context.Context, deviceID topoapi.ID, se
 			Type: topoapi.Object_ENTITY,
 			Obj: &topoapi.Object_Entity{
 				Entity: &topoapi.Entity{
-					KindID: topoapi.ID(topoapi.RANEntityKinds_E2NODE.String()),
+					KindID: topoapi.ID(topoapi.E2NODE),
 				},
 			},
 			Aspects: make(map[string]*gogotypes.Any),
