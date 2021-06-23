@@ -126,18 +126,25 @@ func GetControlRelationObjects() ([]topoapi.Object, error) {
 }
 
 func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
-	objects, err := GetControlRelationObjects()
-	if err != nil {
-		return nil, err
-	}
+	const maxAttempts = 15
+	var err error
 	var connectedNodes []topoapi.ID
-	for _, obj := range objects {
-		relation := obj.Obj.(*topoapi.Object_Relation)
-		connectedNodes = append(connectedNodes, relation.Relation.TgtEntityID)
-
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		objects, err := GetControlRelationObjects()
+		if err != nil || len(objects) == 0 {
+			time.Sleep(2 * time.Second)
+			continue
+		} else {
+			for _, obj := range objects {
+				relation := obj.Obj.(*topoapi.Object_Relation)
+				connectedNodes = append(connectedNodes, relation.Relation.TgtEntityID)
+			}
+			break
+		}
 	}
-	return connectedNodes, nil
+	return connectedNodes, err
 }
+
 
 func GetFirstNodeID(t *testing.T) topoapi.ID {
 	const maxAttempts = 15

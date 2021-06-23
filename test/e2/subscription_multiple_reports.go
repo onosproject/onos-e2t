@@ -91,7 +91,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan e2api.Indication)
-	_, err = node.Subscribe(ctx, "TestSubscriptionKpmV2", subSpec, ch)
+	_, err = node.Subscribe(ctx, "TestSubscriptionMultipleReports-kpm", subSpec, ch)
 	assert.NoError(t, err)
 
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
