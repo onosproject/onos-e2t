@@ -6,12 +6,13 @@ package manager
 
 import (
 	"context"
+	"time"
+
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
-	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
@@ -27,8 +28,6 @@ import (
 
 	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
-	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -131,10 +130,6 @@ func (m *Manager) Start() error {
 	channels := e2server.NewChannelManager(topoManager)
 	ranFunctionRegistry := ranfunctions.NewRegistry()
 
-	err = m.startSubscriptionController(streams, channels, ranFunctionRegistry, topoManager)
-	if err != nil {
-		return err
-	}
 	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1)
 	if err != nil {
 		return err
@@ -154,18 +149,6 @@ func (m *Manager) Start() error {
 		return err
 	}
 	return m.joinSubscriptionManager()
-}
-
-// startSubscriptionController starts the subscription controllers
-func (m *Manager) startSubscriptionController(streams subscription.Broker,
-	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, deviceManager topo.Manager) error {
-	controller := subctrl.NewController(streams, subapi.NewE2SubscriptionServiceClient(m.conn),
-		subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn),
-		channels, m.ModelRegistry, m.OidRegistry, ranFunctionRegistry, deviceManager)
-	if err := controller.Start(); err != nil {
-		return err
-	}
-	return nil
 }
 
 // startChannelv1beta1Controller starts the subscription controllers
