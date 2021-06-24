@@ -5,7 +5,7 @@
 package utils
 
 import (
-	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/pdubuilder"
 	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 	"google.golang.org/protobuf/proto"
@@ -13,13 +13,8 @@ import (
 
 // Control control request fields
 type Control struct {
-	NodeID              string
-	ServiceModelName    e2tapi.ServiceModelName
-	ServiceModelVersion e2tapi.ServiceModelVersion
-	ControlMessage      []byte
-	ControlHeader       []byte
-	ControlAckRequest   e2tapi.ControlAckRequest
-	EncodingType        e2tapi.EncodingType
+	Header  []byte
+	Payload []byte
 }
 
 // RcControlHeader required fields for creating RC service model control header
@@ -89,19 +84,10 @@ func (cm *RcControlMessage) CreateRcControlMessage() ([]byte, error) {
 }
 
 // Create creates a control request using SDK
-func (cr *Control) Create() (*e2tapi.ControlRequest, error) {
-	request := &e2tapi.ControlRequest{
-		E2NodeID: e2tapi.E2NodeID(cr.NodeID),
-		Header: &e2tapi.RequestHeader{
-			EncodingType: cr.EncodingType,
-			ServiceModel: &e2tapi.ServiceModel{
-				Name:    cr.ServiceModelName,
-				Version: cr.ServiceModelVersion,
-			},
-		},
-		ControlAckRequest: cr.ControlAckRequest,
-		ControlHeader:     cr.ControlHeader,
-		ControlMessage:    cr.ControlMessage,
+func (cr *Control) Create() (*e2api.ControlMessage, error) {
+	request := &e2api.ControlMessage{
+		Header:  cr.Header,
+		Payload: cr.Payload,
 	}
 
 	return request, nil

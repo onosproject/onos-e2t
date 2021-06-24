@@ -7,13 +7,13 @@ package e2
 import (
 	"context"
 	"fmt"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"math/rand"
 	"testing"
 	"time"
 
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
+
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/connection"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/subscription"
 	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/termination"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -32,10 +32,6 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 
 	conns := connection.NewManager()
-
-	subConn, err := conns.Connect(fmt.Sprintf("%s:%d", utils.SubscriptionServiceHost, utils.SubscriptionServicePort))
-	assert.NoError(t, err)
-	subClient := subscription.NewClient(subConn)
 
 	e2tConn, err := conns.Connect(fmt.Sprintf("%s:%d", utils.E2TServiceHost, utils.E2TServicePort))
 	assert.NoError(t, err)
@@ -153,8 +149,6 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	}
 	assert.False(t, gotResponse, "received an extraneous indication")
 
-	err = subClient.Close()
-	assert.NoError(t, err)
 	err = e2tClient.Close()
 	assert.NoError(t, err)
 	err = sim.Uninstall()
