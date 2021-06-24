@@ -112,10 +112,9 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 	response, err := node.Control(ctx, request)
 	assert.NoError(t, err)
-	if response == nil {
-		t.Fail()
-	}
 
+	assert.NotNil(t, response)
+	assert.NotNil(t, response.Payload)
 	controlOutcome := &e2sm_rc_pre_ies.E2SmRcPreControlOutcome{}
 	err = proto.Unmarshal(response.Payload, controlOutcome)
 	assert.NoError(t, err)

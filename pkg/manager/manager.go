@@ -5,8 +5,6 @@
 package manager
 
 import (
-	"time"
-
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
@@ -32,8 +30,6 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
-	"github.com/onosproject/onos-lib-go/pkg/southbound"
-	"google.golang.org/grpc"
 )
 
 var log = logging.GetLogger("manager")
@@ -52,11 +48,6 @@ type Config struct {
 // NewManager creates a new manager
 func NewManager(config Config) *Manager {
 	log.Info("Creating Manager")
-	opts, err := certs.HandleCertPaths(config.CAPath, config.KeyPath, config.CertPath, true)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	modelRegistry := modelregistry.NewModelRegistry()
 	for _, smp := range config.ServiceModelPlugins {
 		if _, _, err := modelRegistry.RegisterModelPlugin(smp); err != nil {
@@ -65,9 +56,6 @@ func NewManager(config Config) *Manager {
 	}
 
 	oidRegistry := oid.NewOidRegistry()
-
-	opts = append(opts, grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()))
-	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(time.Second)))
 
 	return &Manager{
 		Config:        config,

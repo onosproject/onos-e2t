@@ -5,7 +5,16 @@
 package e2
 
 import (
+	"context"
 	"testing"
+
+	"google.golang.org/grpc/status"
+
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
+
+	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
@@ -17,27 +26,28 @@ type invalidControlTestCase struct {
 	expectedError func(err error) bool
 }
 
-func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
-	/*ctx := context.Background()
+func runControlTestCase(t *testing.T, testCase invalidControlTestCase, testNodeID string) {
+	ctx := context.Background()
 	if !testCase.enabled {
 		t.Skip()
 		return
 	}
 
-	e2Client := utils.GetE2Client(t, "invalid-control-test")
+	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	request, err := testCase.control.Create()
 	assert.NoError(t, err)
-	response, err := e2Client.Control(ctx, request)
+	response, err := node.Control(ctx, request)
 	assert.Nil(t, response)
-	err = errors.FromGRPC(err)
+	t.Log(status.Code(err))
 	assert.Equal(t, true, testCase.expectedError(err))
-	t.Log(err)*/
+	//t.Log(err)
 
 }
 
 // TestInvalidControl tests invalid control requests
 func (s *TestSuite) TestInvalidControl(t *testing.T) {
-	/*sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "invalid-control")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "invalid-control")
 	nodeIDs, err := utils.GetNodeIDs(t)
 
 	assert.NoError(t, err)
@@ -62,7 +72,8 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	testCases := []invalidControlTestCase{
-		{
+		// TODO these test cases should be in a seperate test for invalid input to SDK client
+		/*{
 			control: utils.Control{
 				NodeID:              nodeID,
 				EncodingType:        10,
@@ -83,7 +94,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 			description:   "Invalid service model",
 			enabled:       true,
 			expectedError: errors.IsNotFound,
-		},
+		},*/
 		{
 			control: utils.Control{
 				Header:  []byte("invalid-control-header"),
@@ -106,10 +117,10 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	for _, testCase := range testCases {
 		pinTestCase := testCase
 		t.Run(pinTestCase.description, func(t *testing.T) {
-			runControlTestCase(t, pinTestCase)
+			runControlTestCase(t, pinTestCase, nodeID)
 		})
 	}
 	err = sim.Uninstall()
-	assert.NoError(t, err)*/
+	assert.NoError(t, err)
 
 }
