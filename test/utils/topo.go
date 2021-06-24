@@ -6,6 +6,8 @@ package utils
 
 import (
 	"context"
+	"fmt"
+	"os"
 	"testing"
 	"time"
 
@@ -126,12 +128,13 @@ func GetControlRelationObjects() ([]topoapi.Object, error) {
 }
 
 func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
-	const maxAttempts = 15
+	const maxAttempts = 30
 	var err error
 	var connectedNodes []topoapi.ID
 	for attempt := 1; attempt <= maxAttempts; attempt++ {
 		objects, err := GetControlRelationObjects()
 		if err != nil || len(objects) == 0 {
+			fmt.Fprintf(os.Stderr, "Attempt %d got an error, sleeping\n", attempt)
 			time.Sleep(2 * time.Second)
 			continue
 		} else {

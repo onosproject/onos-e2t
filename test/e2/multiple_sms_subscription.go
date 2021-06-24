@@ -99,7 +99,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	sdkClient2 := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	node2 := sdkClient2.Node(sdkclient.NodeID(testNode1))
+	node2 := sdkClient2.Node(sdkclient.NodeID(testNode2))
 	ctx2, cancel2 := context.WithTimeout(context.Background(), 15*time.Second)
 	_, err = node2.Subscribe(ctx2, "TestMultiSmSubscription-rc", subReq, ch2)
 	assert.NoError(t, err)
