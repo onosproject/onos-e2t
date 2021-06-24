@@ -6,9 +6,10 @@ package utils
 
 import (
 	"context"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 
@@ -59,7 +60,7 @@ func GetCellIDsPerNode(nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 				return nil, err
 			}
 			object := response.Object
-			if object != nil && object.GetEntity().GetKindID() == topoapi.ID(topoapi.RANEntityKinds_E2CELL.String()) {
+			if object != nil && object.GetEntity().GetKindID() == topoapi.E2CELL {
 				cellObject := &topoapi.E2Cell{}
 				object.GetAspect(cellObject)
 				cells = append(cells, cellObject)
@@ -84,7 +85,7 @@ func GetContainRelationObjects() ([]topoapi.Object, error) {
 			KindFilter: &topoapi.Filter{
 				Filter: &topoapi.Filter_Equal_{
 					Equal_: &topoapi.EqualFilter{
-						Value: topoapi.RANRelationKinds_CONTAINS.String(),
+						Value: topoapi.CONTAINS,
 					},
 				},
 			},
@@ -111,7 +112,7 @@ func GetControlRelationObjects() ([]topoapi.Object, error) {
 			KindFilter: &topoapi.Filter{
 				Filter: &topoapi.Filter_Equal_{
 					Equal_: &topoapi.EqualFilter{
-						Value: topoapi.RANRelationKinds_CONTROLS.String(),
+						Value: topoapi.CONTROLS,
 					},
 				},
 			},
