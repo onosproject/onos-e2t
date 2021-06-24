@@ -6,15 +6,16 @@ package ha
 
 import (
 	"context"
-	"github.com/onosproject/helmit/pkg/helm"
-	"github.com/onosproject/helmit/pkg/kubernetes"
-	"github.com/onosproject/helmit/pkg/kubernetes/core/v1"
-	"github.com/onosproject/onos-api/go/onos/e2t/e2"
-	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/onosproject/helmit/pkg/helm"
+	"github.com/onosproject/helmit/pkg/kubernetes"
+	"github.com/onosproject/helmit/pkg/kubernetes/core/v1"
+	"github.com/onosproject/onos-e2t/test/utils"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
+	"github.com/stretchr/testify/assert"
 )
 
 const (
@@ -59,31 +60,32 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-restart")
 	assert.NotNil(t, sim)
 
-	e2Client := utils.GetE2Client(t, "e2node-restart-test")
-	controlRequest := &e2.ControlRequest{
+	utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	/*controlRequest := &e2.ControlRequest{
 		Header: &e2.RequestHeader{
 			EncodingType: 0,
 			ServiceModel: nil,
 		},
 		E2NodeID: "e2 node",
-	}
-	controlResponse, err := e2Client.Control(context.Background(), controlRequest)
-	assert.Nil(t, controlResponse)
-	assert.Error(t, err)
-	assert.Regexp(t, ".*channel 'e2 node' not found.*", err.Error())
+	}*/
+	//controlResponse, err := sdkclient.Control(context.Background(), controlRequest)
+	//assert.Nil(t, controlResponse)
+	//assert.Error(t, err)
+	//assert.Regexp(t, ".*channel 'e2 node' not found.*", err.Error())
 
 	e2tPod := FindPodWithPrefix(t, "onos-e2t")
 	CrashPodOrFail(t, e2tPod)
 
 	time.Sleep(15 * time.Second)
 	e2tPodReboot := FindPodWithPrefix(t, "onos-e2t")
-	err = e2tPodReboot.Wait(context.Background(), 45*time.Second)
+	err := e2tPodReboot.Wait(context.Background(), 45*time.Second)
 	assert.NoError(t, err)
 	time.Sleep(15 * time.Second)
 
-	e2Client2 := utils.GetE2Client(t, "e2node-restart-test")
-	controlResponse2, err := e2Client2.Control(context.Background(), controlRequest)
-	assert.Nil(t, controlResponse2)
-	assert.Error(t, err)
-	assert.Regexp(t, ".*channel 'e2 node' not found.*", err.Error())
+	utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+
+	//controlResponse2, err := sdkClient2.Control(context.Background(), controlRequest)
+	//assert.Nil(t, controlResponse2)
+	//assert.Error(t, err)
+	//assert.Regexp(t, ".*channel 'e2 node' not found.*", err.Error())
 }
