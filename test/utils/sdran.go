@@ -6,14 +6,15 @@ package utils
 
 import (
 	"context"
+	"testing"
+	"time"
+
 	"github.com/onosproject/helmit/pkg/helm"
 	"github.com/onosproject/helmit/pkg/input"
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	"github.com/onosproject/helmit/pkg/util/random"
 	"github.com/onosproject/onos-test/pkg/onostest"
 	"github.com/stretchr/testify/assert"
-	"testing"
-	"time"
 )
 
 func getCredentials() (string, string, error) {
@@ -49,7 +50,6 @@ func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 		Set("global.storage.consensus.enabled", "true").
 		Set("onos-topo.image.tag", "latest").
 		Set("onos-e2t.image.tag", "latest").
-		Set("onos-e2sub.image.tag", "latest").
 		Set("ran-simulator.image.tag", "latest").
 		Set("global.image.registry", registry)
 
