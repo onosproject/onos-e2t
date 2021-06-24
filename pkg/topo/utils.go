@@ -15,6 +15,6 @@ func getPodID() string {
 }
 
 func getE2CellRelationID(deviceID topoapi.ID, cellID topoapi.ID) (topoapi.ID, error) {
-	cellRelationID := deviceID + ":" + cellID
+	cellRelationID := deviceID + "-" + cellID
 	return cellRelationID, nil
 }
