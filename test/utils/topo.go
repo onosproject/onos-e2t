@@ -148,7 +148,6 @@ func GetNodeIDs(t *testing.T) ([]topoapi.ID, error) {
 	return connectedNodes, err
 }
 
-
 func GetFirstNodeID(t *testing.T) topoapi.ID {
 	const maxAttempts = 15
 	var nodeIDs []topoapi.ID
