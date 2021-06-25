@@ -112,10 +112,6 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (controller.Result, error) {
-	if sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_FAILED {
-		return controller.Result{}, nil
-	}
-
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -159,6 +155,10 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		}
 		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 		return controller.Result{}, err
+	}
+
+	if sub.Status.State != e2api.SubscriptionState_SUBSCRIPTION_PENDING {
+		return controller.Result{}, nil
 	}
 
 	serviceModelOID, err := oid.ModelIDToOid(r.oidRegistry,
