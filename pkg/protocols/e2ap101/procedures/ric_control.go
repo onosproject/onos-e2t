@@ -189,7 +189,7 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 			}
 		}
 	} else {
-		log.Errorf("RIC Control function returned invalid output: no response message found")
+		log.Debugf("RIC Control function does not have a response message")
 	}
 }
 
