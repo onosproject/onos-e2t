@@ -9,7 +9,6 @@ require (
 	github.com/cenkalti/backoff/v4 v4.0.0
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
-	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.5.0
 	github.com/google/uuid v1.1.2
 	github.com/onosproject/helmit v0.6.13
@@ -17,7 +16,6 @@ require (
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.43
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.43
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.43
-	github.com/onosproject/onos-e2sub v0.7.3
 	github.com/onosproject/onos-lib-go v0.7.13
 	github.com/onosproject/onos-ric-sdk-go v0.7.18
 	github.com/onosproject/onos-test v0.6.4

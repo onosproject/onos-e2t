@@ -8,11 +8,10 @@ import (
 	"context"
 	"testing"
 
-	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	"google.golang.org/protobuf/proto"
 
 	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
@@ -32,39 +31,39 @@ const (
 
 // TestControl tests E2 control procedure using ransim and SDK
 func (s *TestSuite) TestControl(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "control-admin-api")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "test-control-oran-e2sm-rc-pre-v2")
 	assert.NotNil(t, sim)
-	ch := make(chan indication.Indication)
+	ch := make(chan e2api.Indication)
 	ctx := context.Background()
-
-	e2Client := utils.GetE2Client(t, "control-pci-test-admin-api")
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
 	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 
-	nodeIDs, err := utils.NodeIDs()
+	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 	testNodeID := nodeIDs[0]
+
+	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 
 	// Subscription
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()
 	assert.NoError(t, err)
-	var actions []subapi.Action
-	action := subapi.Action{
+	var actions []e2api.Action
+	action := e2api.Action{
 		ID:   100,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription{
-		NodeID:              testNodeID,
-		EncodingType:        subapi.Encoding_ENCODING_PROTO,
+	subRequest := utils.Subscription2{
+		NodeID:              string(testNodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.RcServiceModelName,
@@ -74,10 +73,12 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
-	sub, err := e2Client.Subscribe(ctx, subReq, ch)
+	subName := "test-control-subscribe-oran-e2sm-rc-pre-v2"
+
+	_, err = node.Subscribe(ctx, subName, subReq, ch)
 	assert.NoError(t, err)
-	indMessage := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
-	header := indMessage.Payload.Header
+	indMessage := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	header := indMessage.Header
 	ricIndicationHeader := e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
 
 	err = proto.Unmarshal(header, &ricIndicationHeader)
@@ -103,42 +104,28 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	controlRequest := utils.Control{
-		NodeID:              testNodeID,
-		EncodingType:        e2tapi.EncodingType_PROTO,
-		ServiceModelName:    utils.RcServiceModelName,
-		ServiceModelVersion: utils.Version2,
-		ControlAckRequest:   e2tapi.ControlAckRequest_ACK,
-		ControlMessage:      controlMessageBytes,
-		ControlHeader:       controlHeaderBytes,
+		Payload: controlMessageBytes,
+		Header:  controlHeaderBytes,
 	}
 
 	request, err := controlRequest.Create()
 	assert.NoError(t, err)
-	response, err := e2Client.Control(ctx, request)
+	response, err := node.Control(ctx, request)
 	assert.NoError(t, err)
-	if response == nil {
-		t.Fail()
-	}
 
-	ack := response.GetControlAcknowledge()
-	failure := response.GetControlFailure()
-	if ack != nil {
-		controlOutcome := &e2sm_rc_pre_ies.E2SmRcPreControlOutcome{}
-		err = proto.Unmarshal(ack.GetControlOutcome(), controlOutcome)
-		assert.NoError(t, err)
+	assert.NotNil(t, response)
+	assert.NotNil(t, response.Payload)
+	controlOutcome := &e2sm_rc_pre_ies.E2SmRcPreControlOutcome{}
+	err = proto.Unmarshal(response.Payload, controlOutcome)
+	assert.NoError(t, err)
 
-		outcomeRanParameterID := controlOutcome.
-			GetControlOutcomeFormat1().
-			GetOutcomeElementList()[0].
-			RanParameterId.Value
+	outcomeRanParameterID := controlOutcome.
+		GetControlOutcomeFormat1().
+		GetOutcomeElementList()[0].
+		RanParameterId.Value
 
-		assert.Equal(t, ranParameterID, outcomeRanParameterID)
-	}
-	if failure != nil {
-		t.Fail()
-	}
-
-	err = sub.Close()
+	assert.Equal(t, ranParameterID, outcomeRanParameterID)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 	err = sim.Uninstall()
 	assert.NoError(t, err)

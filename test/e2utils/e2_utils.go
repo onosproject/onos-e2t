@@ -6,10 +6,11 @@ package e2utils
 
 import (
 	"context"
-	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 
 	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
@@ -22,14 +23,6 @@ const (
 	DefaultIndicationTimeout = 10 * time.Second
 )
 
-// GetSubscriptionList get  list of subscriptions
-func GetSubscriptionList(t *testing.T) []subscription.Subscription {
-	subClient := utils.GetSubClient(t)
-	subList, err := subClient.List(context.Background())
-	assert.NoError(t, err)
-	return subList
-}
-
 // GetSubscriptionList2 get  list of subscriptions
 func GetSubscriptionList2(t *testing.T) []v1beta1.Subscription {
 	subClient := utils.GetSubAdminClient(t)
@@ -37,17 +30,6 @@ func GetSubscriptionList2(t *testing.T) []v1beta1.Subscription {
 	subList, err := subClient.ListSubscriptions(context.Background(), &req)
 	assert.NoError(t, err)
 	return subList.GetSubscriptions()
-}
-
-// CheckSubscriptionGet make sure that the given subscription ID can be fetched via the subscription API
-func CheckSubscriptionGet(t *testing.T, expectedID subapi.ID) {
-	subClient := utils.GetSubClient(t)
-
-	fetched, err := subClient.Get(context.Background(), expectedID)
-	assert.NoError(t, err)
-	assert.NotNil(t, fetched)
-
-	assert.Equal(t, expectedID, fetched.ID)
 }
 
 // CheckSubscriptionGet2 make sure that the given subscription ID can be fetched via the subscription API

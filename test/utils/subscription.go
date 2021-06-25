@@ -7,7 +7,6 @@ package utils
 import (
 	"context"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/pdubuilder"
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/pdubuilder"
@@ -18,16 +17,6 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/protobuf/proto"
 )
-
-// Subscription subscription request for subscription SDK api
-type Subscription struct {
-	NodeID              string
-	ServiceModelName    subapi.ServiceModelName
-	ServiceModelVersion subapi.ServiceModelVersion
-	Actions             []subapi.Action
-	EncodingType        subapi.Encoding
-	EventTrigger        []byte
-}
 
 // CreateRcEventTrigger creates a rc service model event trigger
 func CreateRcEventTrigger() ([]byte, error) {
@@ -128,59 +117,6 @@ func CreateKpmV1EventTrigger(rtPeriod int32) ([]byte, error) {
 		return []byte{}, err
 	}
 	return protoBytes, nil
-}
-
-func (subRequest *Subscription) CreateWithActionDefinition() (subapi.SubscriptionDetails, error) {
-	subReq := subapi.SubscriptionDetails{
-		E2NodeID: subapi.E2NodeID(subRequest.NodeID),
-		ServiceModel: subapi.ServiceModel{
-			Name:    subRequest.ServiceModelName,
-			Version: subRequest.ServiceModelVersion,
-		},
-		EventTrigger: subapi.EventTrigger{
-			Payload: subapi.Payload{
-				Encoding: subRequest.EncodingType,
-				Data:     subRequest.EventTrigger,
-			},
-		},
-		Actions: subRequest.Actions,
-	}
-
-	return subReq, nil
-
-}
-
-// Create creates a subscription request using SDK
-func (subRequest *Subscription) Create() (subapi.SubscriptionDetails, error) {
-	subReq := subapi.SubscriptionDetails{
-		E2NodeID: subapi.E2NodeID(subRequest.NodeID),
-		ServiceModel: subapi.ServiceModel{
-			Name:    subRequest.ServiceModelName,
-			Version: subRequest.ServiceModelVersion,
-		},
-		EventTrigger: subapi.EventTrigger{
-			Payload: subapi.Payload{
-				Encoding: subRequest.EncodingType,
-				Data:     subRequest.EventTrigger,
-			},
-		},
-		Actions: subRequest.Actions,
-	}
-
-	return subReq, nil
-}
-
-// ConnectSubscriptionServiceHost connects to subscription service
-func ConnectSubscriptionServiceHost() (*grpc.ClientConn, error) {
-	tlsConfig, err := creds.GetClientCredentials()
-	if err != nil {
-		return nil, err
-	}
-	opts := []grpc.DialOption{
-		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
-	}
-
-	return grpc.DialContext(context.Background(), SubscriptionServiceAddress, opts...)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////

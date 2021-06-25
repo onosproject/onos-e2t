@@ -5,13 +5,11 @@
 package manager
 
 import (
-	"context"
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
-	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
@@ -19,27 +17,19 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
-	epapi "github.com/onosproject/onos-api/go/onos/e2sub/endpoint"
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
-	subctrl "github.com/onosproject/onos-e2t/pkg/controller/subscription"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
-	"github.com/onosproject/onos-e2t/pkg/northbound/ricapie2"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
-	"github.com/onosproject/onos-lib-go/pkg/southbound"
-	"google.golang.org/grpc"
 )
 
 var log = logging.GetLogger("manager")
@@ -51,7 +41,6 @@ type Config struct {
 	CertPath            string
 	GRPCPort            int
 	E2Port              int
-	E2SubAddress        string
 	TopoAddress         string
 	ServiceModelPlugins []string
 }
@@ -59,11 +48,6 @@ type Config struct {
 // NewManager creates a new manager
 func NewManager(config Config) *Manager {
 	log.Info("Creating Manager")
-	opts, err := certs.HandleCertPaths(config.CAPath, config.KeyPath, config.CertPath, true)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	modelRegistry := modelregistry.NewModelRegistry()
 	for _, smp := range config.ServiceModelPlugins {
 		if _, _, err := modelRegistry.RegisterModelPlugin(smp); err != nil {
@@ -73,17 +57,10 @@ func NewManager(config Config) *Manager {
 
 	oidRegistry := oid.NewOidRegistry()
 
-	opts = append(opts, grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()))
-	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(time.Second)))
-	conn, err := grpc.Dial(config.E2SubAddress, opts...)
-	if err != nil {
-		log.Fatal(err)
-	}
 	return &Manager{
 		Config:        config,
 		ModelRegistry: modelRegistry,
 		OidRegistry:   oidRegistry,
-		conn:          conn,
 	}
 }
 
@@ -92,7 +69,6 @@ type Manager struct {
 	Config        Config
 	ModelRegistry modelregistry.ModelRegistry
 	OidRegistry   oid.Registry
-	conn          *grpc.ClientConn
 }
 
 // Run starts the manager and the associated services
@@ -131,10 +107,6 @@ func (m *Manager) Start() error {
 	channels := e2server.NewChannelManager(topoManager)
 	ranFunctionRegistry := ranfunctions.NewRegistry()
 
-	err = m.startSubscriptionController(streams, channels, ranFunctionRegistry, topoManager)
-	if err != nil {
-		return err
-	}
 	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1)
 	if err != nil {
 		return err
@@ -151,18 +123,6 @@ func (m *Manager) Start() error {
 
 	err = m.startNorthboundServer(chanStore, subStore, streams, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
 	if err != nil {
-		return err
-	}
-	return m.joinSubscriptionManager()
-}
-
-// startSubscriptionController starts the subscription controllers
-func (m *Manager) startSubscriptionController(streams subscription.Broker,
-	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, deviceManager topo.Manager) error {
-	controller := subctrl.NewController(streams, subapi.NewE2SubscriptionServiceClient(m.conn),
-		subtaskapi.NewE2SubscriptionTaskServiceClient(m.conn),
-		channels, m.ModelRegistry, m.OidRegistry, ranFunctionRegistry, deviceManager)
-	if err := controller.Start(); err != nil {
 		return err
 	}
 	return nil
@@ -206,8 +166,6 @@ func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Sto
 		northbound.SecurityConfig{}))
 	s.AddService(admin.NewService(channels, ranFunctionRegistry))
 	s.AddService(logging.Service{})
-	s.AddService(ricapie2.NewService(subapi.NewE2SubscriptionServiceClient(m.conn), streams, m.ModelRegistry,
-		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
 	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry,
 		channels, m.OidRegistry, ranFunctionRegistry, topoManager))
 	s.AddService(e2v1beta1service.NewSubscriptionService(chans, subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry))
@@ -225,37 +183,6 @@ func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Sto
 	return <-doneCh
 }
 
-// joinSubscriptionManager joins the termination point to the subscription manager
-func (m *Manager) joinSubscriptionManager() error {
-	client := epapi.NewE2RegistryServiceClient(m.conn)
-	request := &epapi.AddTerminationRequest{
-		Endpoint: &epapi.TerminationEndpoint{
-			ID:   epapi.ID(env.GetPodID()),
-			IP:   epapi.IP(env.GetPodIP()),
-			Port: epapi.Port(5150),
-		},
-	}
-	_, err := client.AddTermination(context.Background(), request)
-	if err != nil {
-		err = errors.FromGRPC(err)
-		if errors.IsAlreadyExists(err) {
-			return nil
-		}
-		return err
-	}
-	return nil
-}
-
-// leaveSubscriptionManager removes the termination point from the subscription manager
-func (m *Manager) leaveSubscriptionManager() error {
-	client := epapi.NewE2RegistryServiceClient(m.conn)
-	request := &epapi.RemoveTerminationRequest{
-		ID: epapi.ID(env.GetPodID()),
-	}
-	_, err := client.RemoveTermination(context.Background(), request)
-	return err
-}
-
 // Close kills the channels and manager related objects
 func (m *Manager) Close() {
 	log.Info("Closing Manager")
@@ -266,7 +193,5 @@ func (m *Manager) Close() {
 
 // Stop stops the manager
 func (m *Manager) Stop() error {
-	err := m.leaveSubscriptionManager()
-	_ = m.conn.Close()
-	return err
+	return nil
 }

@@ -9,11 +9,12 @@ import (
 	"testing"
 	"time"
 
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
+
 	"github.com/onosproject/onos-e2t/test/e2utils"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-
-	"github.com/onosproject/onos-ric-sdk-go/pkg/e2/indication"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -25,34 +26,36 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 	// Test currently does not work
 	t.Skip()
 
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v1")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "ha-subscription-kpm-v2")
 	assert.NotNil(t, sim)
 
-	e2Client := utils.GetE2Client(t, "subscription-kpm-v1-test")
+	e2Client := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 
-	ch := make(chan indication.Indication)
+	ch := make(chan e2api.Indication)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
+	nodeID := nodeIDs[0]
+	node := e2Client.Node(sdkclient.NodeID(nodeID))
 
-	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
+	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
-	var actions []subapi.Action
-	action := subapi.Action{
+	var actions []e2api.Action
+	action := e2api.Action{
 		ID:   100,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
 	}
+
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription{
+	subRequest := utils.Subscription2{
 		NodeID:              string(nodeIDs[0]),
-		EncodingType:        subapi.Encoding_ENCODING_PROTO,
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
@@ -65,13 +68,13 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 		subReq, err := subRequest.Create()
 		assert.NoError(t, err)
 
-		sub, err := e2Client.Subscribe(ctx, subReq, ch)
+		sub, err := node.Subscribe(ctx, "subscription-restart", subReq, ch)
 		assert.NoError(t, err)
 		assert.NotNil(t, sub)
 
-		e2utils.CheckIndicationMessage(t, 60*time.Second, ch)
-		e2utils.CheckIndicationMessage(t, 120*time.Second, ch)
-		e2utils.CheckIndicationMessage(t, 20*time.Second, ch)
+		e2utils.CheckIndicationMessage2(t, 60*time.Second, ch)
+		e2utils.CheckIndicationMessage2(t, 120*time.Second, ch)
+		e2utils.CheckIndicationMessage2(t, 20*time.Second, ch)
 
 		e2tPod := FindPodWithPrefix(t, "onos-e2t")
 		CrashPodOrFail(t, e2tPod)
@@ -82,7 +85,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 		assert.NoError(t, err)
 		time.Sleep(30 * time.Second)
 
-		err = sub.Close()
+		//err = sub.Close()
 		assert.NoError(t, err)
 	}
 	//err = sim.Uninstall()

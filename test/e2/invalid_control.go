@@ -8,39 +8,39 @@ import (
 	"context"
 	"testing"
 
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
+
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
-
 	"github.com/onosproject/onos-lib-go/pkg/errors"
-
-	e2tapi "github.com/onosproject/onos-api/go/onos/e2t/e2"
-
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
 type invalidControlTestCase struct {
-	description   string
-	control       utils.Control
-	enabled       bool
-	expectedError func(err error) bool
+	description         string
+	control             utils.Control
+	enabled             bool
+	expectedError       func(err error) bool
+	serviceModelName    string
+	serviceModelVersion string
+	encodingType        sdkclient.Encoding
 }
 
-func runControlTestCase(t *testing.T, testCase invalidControlTestCase) {
+func runControlTestCase(t *testing.T, testCase invalidControlTestCase, testNodeID string) {
 	ctx := context.Background()
 	if !testCase.enabled {
 		t.Skip()
 		return
 	}
 
-	e2Client := utils.GetE2Client(t, "invalid-control-test")
+	sdkClient := utils.GetE2Client2(t, testCase.serviceModelName, testCase.serviceModelVersion, testCase.encodingType)
+	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	request, err := testCase.control.Create()
 	assert.NoError(t, err)
-	response, err := e2Client.Control(ctx, request)
+	response, err := node.Control(ctx, request)
 	assert.Nil(t, response)
-	err = errors.FromGRPC(err)
 	assert.Equal(t, true, testCase.expectedError(err))
-	t.Log(err)
 
 }
 
@@ -71,7 +71,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	testCases := []invalidControlTestCase{
-		{
+		/*{
 			control: utils.Control{
 				NodeID:              nodeID,
 				EncodingType:        10,
@@ -81,49 +81,45 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 			description:   "Invalid encoding type",
 			enabled:       true,
 			expectedError: errors.IsInvalid,
+		},*/
+		{
+			control:             utils.Control{},
+			description:         "Invalid service model",
+			enabled:             true,
+			expectedError:       errors.IsNotFound,
+			serviceModelName:    "no-such-service-model",
+			serviceModelVersion: utils.Version2,
+			encodingType:        sdkclient.ProtoEncoding,
 		},
 		{
 			control: utils.Control{
-				NodeID:              nodeID,
-				EncodingType:        e2tapi.EncodingType_PROTO,
-				ServiceModelName:    "no-such-service-model",
-				ServiceModelVersion: "v1",
+				Header:  []byte("invalid-control-header"),
+				Payload: controlMessageBytes,
 			},
-			description:   "Invalid service model",
-			enabled:       true,
-			expectedError: errors.IsNotFound,
+			description:         "Invalid control header",
+			enabled:             true,
+			expectedError:       errors.IsInvalid,
+			serviceModelName:    utils.RcServiceModelName,
+			serviceModelVersion: utils.Version2,
+			encodingType:        sdkclient.ProtoEncoding,
 		},
 		{
 			control: utils.Control{
-				NodeID:              nodeID,
-				EncodingType:        e2tapi.EncodingType_PROTO,
-				ServiceModelName:    utils.RcServiceModelName,
-				ServiceModelVersion: utils.Version2,
-				ControlHeader:       []byte("invalid-control-header"),
-				ControlMessage:      controlMessageBytes,
+				Header:  controlHeaderBytes,
+				Payload: []byte("invalid-control-message"),
 			},
-			description:   "Invalid control header",
-			enabled:       true,
-			expectedError: errors.IsInvalid,
-		},
-		{
-			control: utils.Control{
-				NodeID:              nodeID,
-				EncodingType:        e2tapi.EncodingType_PROTO,
-				ServiceModelName:    utils.RcServiceModelName,
-				ServiceModelVersion: utils.Version2,
-				ControlHeader:       controlHeaderBytes,
-				ControlMessage:      []byte("invalid-control-message"),
-			},
-			description:   "Invalid control message",
-			enabled:       true,
-			expectedError: errors.IsInvalid,
+			description:         "Invalid control message",
+			enabled:             true,
+			expectedError:       errors.IsInvalid,
+			serviceModelName:    utils.RcServiceModelName,
+			serviceModelVersion: utils.Version2,
+			encodingType:        sdkclient.ProtoEncoding,
 		},
 	}
 	for _, testCase := range testCases {
 		pinTestCase := testCase
 		t.Run(pinTestCase.description, func(t *testing.T) {
-			runControlTestCase(t, pinTestCase)
+			runControlTestCase(t, pinTestCase, nodeID)
 		})
 	}
 	err = sim.Uninstall()
