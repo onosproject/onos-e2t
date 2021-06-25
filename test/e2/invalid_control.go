@@ -34,7 +34,7 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase, testNodeI
 		return
 	}
 
-	sdkClient := utils.GetE2Client2(t, testCase.serviceModelName, testCase.serviceModelVersion, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client2(t, testCase.serviceModelName, testCase.serviceModelVersion, testCase.encodingType)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	request, err := testCase.control.Create()
 	assert.NoError(t, err)
