@@ -7,12 +7,8 @@ package server
 import (
 	"context"
 	"encoding/hex"
-	"strconv"
-	"time"
-
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
-
-	"github.com/cenkalti/backoff/v4"
+	"strconv"
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
@@ -153,32 +149,29 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 func (e *E2ChannelServer) updateRNIB(ctx context.Context, e2NodeID topoapi.ID,
 	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell, relationID topoapi.ID) error {
 
-	notifier := func(err error, t time.Duration) {
-		log.Infof("Updating R-NIB is failed: %v", err)
-	}
 	// create or update E2 node entities
-	err := backoff.RetryNotify(func() error {
-		err := e.topoManager.CreateOrUpdateE2Node(ctx, e2NodeID, serviceModels)
+	err := e.topoManager.CreateOrUpdateE2Node(ctx, e2NodeID, serviceModels)
+	if err != nil {
+		log.Infof("Updating R-NIB is failed: %v", err)
 		return err
-
-	}, newExpBackoff(), notifier)
+	}
 
 	// Add E2 cells if there are any associated cells with an E2 node
 	if len(e2Cells) != 0 {
-		err = backoff.RetryNotify(func() error {
-			err := e.topoManager.CreateOrUpdateE2Cells(ctx, e2NodeID, e2Cells)
+		err := e.topoManager.CreateOrUpdateE2Cells(ctx, e2NodeID, e2Cells)
+		if err != nil {
+			log.Infof("Updating R-NIB is failed: %v", err)
 			return err
-		}, newExpBackoff(), notifier)
-
+		}
 	}
 
 	// create E2T to E2 node relation
-	err = backoff.RetryNotify(func() error {
-		err = e.topoManager.CreateOrUpdateE2Relation(ctx, e2NodeID, relationID)
+	err = e.topoManager.CreateOrUpdateE2Relation(ctx, e2NodeID, relationID)
+	if err != nil {
+		log.Infof("Updating R-NIB is failed: %v", err)
 		return err
-	}, newExpBackoff(), notifier)
-
-	return err
+	}
+	return nil
 }
 
 // uint24ToUint32 converts uint24 uint32

@@ -50,7 +50,9 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 	if len(opts) == 0 {
 		return nil, errors.New(errors.Invalid, "no opts given when creating R-NIB store")
 	}
-	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)))
+	opts = append(opts,
+		grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()),
+		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)))
 	conn, err := getTopoConn(topoEndpoint, opts...)
 	if err != nil {
 		log.Warn(err)
@@ -76,7 +78,7 @@ func (s *rnibStore) Create(ctx context.Context, object *topoapi.Object) error {
 	})
 	if err != nil {
 		log.Warn(err)
-		return err
+		return errors.FromGRPC(err)
 	}
 	return nil
 }
@@ -90,7 +92,7 @@ func (s *rnibStore) Update(ctx context.Context, object *topoapi.Object) error {
 		Object: object,
 	})
 	if err != nil {
-		return err
+		return errors.FromGRPC(err)
 	}
 	object = response.Object
 	log.Debug("Updated R-NIB object is:", object)
@@ -106,7 +108,7 @@ func (s *rnibStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, er
 		ID: id,
 	})
 	if err != nil {
-		return nil, err
+		return nil, errors.FromGRPC(err)
 	}
 	return getResponse.Object, nil
 }
@@ -120,7 +122,7 @@ func (s *rnibStore) List(ctx context.Context, filters *topoapi.Filters) ([]topoa
 		Filters: filters,
 	})
 	if err != nil {
-		return nil, err
+		return nil, errors.FromGRPC(err)
 	}
 
 	return listResponse.Objects, nil
@@ -132,7 +134,7 @@ func (s *rnibStore) Delete(ctx context.Context, id topoapi.ID) error {
 		ID: id,
 	})
 	if err != nil {
-		return err
+		return errors.FromGRPC(err)
 	}
 	return nil
 }
@@ -144,7 +146,7 @@ func (s *rnibStore) Watch(ctx context.Context, ch chan<- topoapi.Event, filters 
 		Filters:  filters,
 	})
 	if err != nil {
-		return err
+		return errors.FromGRPC(err)
 	}
 	go func() {
 		defer close(ch)
