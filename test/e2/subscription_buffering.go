@@ -151,12 +151,12 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	}
 	assert.False(t, gotResponse, "received an extraneous indication")
 
+	err = node.Unsubscribe(context.Background(), subName)
+	assert.NoError(t, err)
+	
 	err = e2tClient.Close()
 	assert.NoError(t, err)
 	err = sim.Uninstall()
-	assert.NoError(t, err)
-
-	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 
 	cancel()
