@@ -26,6 +26,15 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
+
+	cells, err := utils.GetCellIDsPerNode(nodeID)
+	assert.NoError(t, err)
+	
+	// Use one of the cell object IDs for action definition
+	cellObjectID := cells[0].CellObjectID
+	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
+	assert.NoError(t, err)
+
 	var actions []subapi.Action
 	action := subapi.Action{
 		ID:   100,
@@ -34,6 +43,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
+		Payload: actionDefinitionBytes,
 	}
 	actions = append(actions, action)
 
