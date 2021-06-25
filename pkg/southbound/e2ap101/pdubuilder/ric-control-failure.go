@@ -37,29 +37,11 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	ricCallProcessID := e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes20{
-		Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2ap_commondatatypes.RiccallProcessId{
-			Value: []byte(ricCallPrID),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	}
-
 	ricCause := e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes1{
 		Id:          int32(v1beta2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value:       &cause,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
-	ricControlOutcome := e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes32{
-		Id:          int32(v1beta2.ProtocolIeIDRiccontrolOutcome),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2ap_commondatatypes.RiccontrolOutcome{
-			Value: []byte(ricCtrlOut),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
@@ -69,11 +51,11 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 					RicControl: &e2appdudescriptions.RicControl{
 						UnsuccessfulOutcome: &e2appducontents.RiccontrolFailure{
 							ProtocolIes: &e2appducontents.RiccontrolFailureIes{
-								E2ApProtocolIes29: &ricRequestID,      // RIC Requestor & RIC Instance ID
-								E2ApProtocolIes5:  &ranFunctionID,     // RAN function ID
-								E2ApProtocolIes20: &ricCallProcessID,  // RIC Call Process ID
-								E2ApProtocolIes1:  &ricCause,          // Cause
-								E2ApProtocolIes32: &ricControlOutcome, // RIC Control Outcome
+								E2ApProtocolIes29: &ricRequestID,  // RIC Requestor & RIC Instance ID
+								E2ApProtocolIes5:  &ranFunctionID, // RAN function ID
+								//E2ApProtocolIes20: &ricCallProcessID,  // RIC Call Process ID
+								E2ApProtocolIes1: &ricCause, // Cause
+								//E2ApProtocolIes32: &ricControlOutcome, // RIC Control Outcome
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRiccontrol{
@@ -87,6 +69,29 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 			},
 		},
 	}
+
+	if ricCallPrID != nil {
+		e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().GetProtocolIes().E2ApProtocolIes20 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes20{
+			Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &e2ap_commondatatypes.RiccallProcessId{
+				Value: []byte(ricCallPrID),
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+	}
+
+	if ricCtrlOut != nil {
+		e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().GetProtocolIes().E2ApProtocolIes32 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes32{
+			Id:          int32(v1beta2.ProtocolIeIDRiccontrolOutcome),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &e2ap_commondatatypes.RiccontrolOutcome{
+				Value: []byte(ricCtrlOut),
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+	}
+
 	if err := e2apPdu.Validate(); err != nil {
 		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	}

@@ -16,6 +16,10 @@ import (
 
 func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConfigUpdateItem) (*e2appdudescriptions.E2ApPdu, error) {
 
+	if e2nccul == nil {
+		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
+	}
+
 	configUpdateList := e2appducontents.E2NodeComponentConfigUpdateList{
 		Value: make([]*e2appducontents.E2NodeComponentConfigUpdateItemIes, 0),
 	}

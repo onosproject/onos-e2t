@@ -4,6 +4,7 @@
 package pdubuilder
 
 import (
+	"encoding/hex"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
@@ -17,11 +18,11 @@ func TestRicControlAcknowledge(t *testing.T) {
 		InstanceID:  22,
 	}
 	var ranFuncID types.RanFunctionID = 9
-	var ricCallPrID types.RicCallProcessID = []byte("123")
+	//var ricCallPrID types.RicCallProcessID = []byte("123")
 	ricControlStatus := e2apies.RiccontrolStatus_RICCONTROL_STATUS_SUCCESS
-	var ricCtrlOut types.RicControlOutcome = []byte("456")
+	//var ricCtrlOut types.RicControlOutcome = []byte("456")
 	newE2apPdu, err := CreateRicControlAcknowledgeE2apPdu(ricRequestID,
-		ranFuncID, ricCallPrID, ricControlStatus, ricCtrlOut)
+		ranFuncID, nil, ricControlStatus, nil)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
@@ -35,7 +36,7 @@ func TestRicControlAcknowledge(t *testing.T) {
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RIC Control Request E2AP PDU\n%v", per)
+	t.Logf("RIC Control Request E2AP PDU\n%v", hex.Dump(per))
 
 	e2apPdu, err = asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)

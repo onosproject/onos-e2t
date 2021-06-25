@@ -16,6 +16,9 @@ import (
 )
 
 func Test_CriticalityDiagnostics(t *testing.T) {
+	procCode := v1beta2.ProcedureCodeIDRICsubscription
+	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 	newE2apPdu, err := pdubuilder.CreateRicSubscriptionDeleteFailureE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
@@ -24,9 +27,7 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 			Cause: &e2apies.Cause_Transport{
 				Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE,
 			},
-		}, v1beta2.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-		//e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
-		-1,
+		}, &procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
@@ -63,6 +64,7 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 	assert.Assert(t, cdReversed != nil)
 	t.Logf("CriticalityDiagnostics decoded from XER is \n%v", cdReversed)
 	//assert.Equal(t, 2, len(rflReversed.GetValue()))
+	assert.DeepEqual(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue(), cdReversed)
 
 	// Now reverse the PER
 	cdReversedFromPer, err := perDecodeCriticalityDiagnostics(per)
@@ -70,4 +72,5 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 	assert.Assert(t, cdReversedFromPer != nil)
 	t.Logf("CriticalityDiagnostics decoded from PER is \n%v", cdReversedFromPer)
 	//assert.Equal(t, 2, len(rflReversedFromPer.GetValue()))
+	assert.DeepEqual(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue(), cdReversedFromPer)
 }

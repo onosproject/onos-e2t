@@ -22,7 +22,12 @@ func createRanFunctionItem() (*e2appducontents.RanfunctionItem, error) {
 		OID:         []byte("oid2"),
 	}
 
-	newE2apPdu, err := pdubuilder.CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, ranFunctionList)
+	gnbID, err := pdubuilder.CreateGnbIDchoice(1, 22)
+	if err != nil {
+		return nil, err
+	}
+
+	newE2apPdu, err := pdubuilder.CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, gnbID, ranFunctionList)
 	if err != nil {
 		return nil, err
 	}
