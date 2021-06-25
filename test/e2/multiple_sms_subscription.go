@@ -42,6 +42,8 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
+	KPMSubName := "TestSubscriptionKpmV2"
+	RCSubName := "TestSubscriptionKpmV2"
 
 	// Kpm v2 interval is defined in ms
 	KPMEventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
@@ -80,7 +82,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	KPMNode := KPMSdkClient.Node(sdkclient.NodeID(KPMNodeID))
 	KPMch := make(chan e2api.Indication)
 	KPMCtx, KPMCancel := context.WithTimeout(context.Background(), 30*time.Second)
-	_, err = KPMNode.Subscribe(KPMCtx, "TestSubscriptionKpmV2", KPMSubSpec, KPMch)
+	_, err = KPMNode.Subscribe(KPMCtx, KPMSubName, KPMSubSpec, KPMch)
 	assert.NoError(t, err)
 
 	// Subscribe to RC service model
@@ -114,7 +116,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	RCNode := RCSdkClient.Node(sdkclient.NodeID(nodeIDs[1]))
 	assert.NotNil(t, RCNode)
 	RCCtx, RCCancel := context.WithTimeout(context.Background(), 30*time.Second)
-	_, err = RCNode.Subscribe(RCCtx, "TestMultiSmSubscriptionRc", RCSubReq, RCch)
+	_, err = RCNode.Subscribe(RCCtx, RCSubName, RCSubReq, RCch)
 	assert.NoError(t, err)
 
 	// Check that indications can be received
@@ -128,6 +130,13 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	err = proto.Unmarshal(RCMsg.Header, rcIndicationHeader)
+	assert.NoError(t, err)
+
+	// Clean up subscriptions
+	err = KPMNode.Unsubscribe(context.Background(), KPMSubName)
+	assert.NoError(t, err)
+
+	err = RCNode.Unsubscribe(context.Background(), RCSubName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

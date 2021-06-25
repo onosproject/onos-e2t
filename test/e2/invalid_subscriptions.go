@@ -80,6 +80,8 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		}
 	}
 
+	_ = node.Unsubscribe(context.Background(), "invalid-sub")
+
 	//assert.Contains(t, testCase.expectedError, err.Error())
 }
 
