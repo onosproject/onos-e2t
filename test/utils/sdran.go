@@ -46,7 +46,7 @@ func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 		SetPassword(password).
 		WithTimeout(6*time.Minute).
 		Set("import.onos-config.enabled", false).
-		Set("import.onos-e2sub.enabled", true).
+		Set("import.onos-e2sub.enabled", false).
 		Set("global.storage.consensus.enabled", "true").
 		Set("onos-topo.image.tag", "latest").
 		Set("onos-e2t.image.tag", "latest").
