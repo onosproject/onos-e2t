@@ -8,8 +8,6 @@ import (
 	"context"
 	"testing"
 
-	"google.golang.org/grpc/status"
-
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
@@ -39,7 +37,6 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase, testNodeI
 	assert.NoError(t, err)
 	response, err := node.Control(ctx, request)
 	assert.Nil(t, response)
-	t.Log(status.Code(err))
 	assert.Equal(t, true, testCase.expectedError(err))
 	//t.Log(err)
 
@@ -72,7 +69,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	testCases := []invalidControlTestCase{
-		// TODO these test cases should be in a seperate test for invalid input to SDK client
+		// TODO these test cases should be in a separate test for invalid input to SDK client
 		/*{
 			control: utils.Control{
 				NodeID:              nodeID,
