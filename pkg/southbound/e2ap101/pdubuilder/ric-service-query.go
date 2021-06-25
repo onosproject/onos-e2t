@@ -16,6 +16,10 @@ import (
 
 func CreateRicServiceQueryE2apPdu(rfAccepted types.RanFunctionRevisions) (*e2appdudescriptions.E2ApPdu, error) {
 
+	if rfAccepted == nil {
+		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
+	}
+
 	ranFunctionsAccepted := e2appducontents.RicserviceQueryIes_RicserviceQueryIes9{
 		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),

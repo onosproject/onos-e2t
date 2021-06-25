@@ -30,9 +30,13 @@ func createRicServiceUpdateFailureMsg() (*e2ap_pdu_contents.RicserviceUpdateFail
 		},
 	}
 
-	rsuf, err := pdubuilder.CreateRicServiceUpdateFailureE2apPdu(rfRejected, e2apies.TimeToWait_TIME_TO_WAIT_V2S,
-		v1beta2.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
+	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V2S
+	procCode := v1beta2.ProcedureCodeIDRICsubscription
+	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+
+	rsuf, err := pdubuilder.CreateRicServiceUpdateFailureE2apPdu(rfRejected, &ttw,
+		&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,

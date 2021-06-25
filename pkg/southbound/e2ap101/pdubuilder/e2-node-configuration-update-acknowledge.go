@@ -16,6 +16,10 @@ import (
 
 func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeComponentConfigUpdateAckItem) (*e2appdudescriptions.E2ApPdu, error) {
 
+	if e2nccual == nil {
+		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
+	}
+
 	configUpdateAckList := e2appducontents.E2NodeComponentConfigUpdateAckList{
 		Value: make([]*e2appducontents.E2NodeComponentConfigUpdateAckItemIes, 0),
 	}

@@ -17,7 +17,7 @@ import (
 
 func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 	ricCallPrID types.RicCallProcessID, ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage,
-	ricCtrlAckRequest e2apies.RiccontrolAckRequest) (*e2appducontents.RiccontrolRequest, error) {
+	ricCtrlAckRequest *e2apies.RiccontrolAckRequest) (*e2appducontents.RiccontrolRequest, error) {
 	ricRequestID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes29{
 		Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
@@ -35,15 +35,6 @@ func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
-	ricCallProcessID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes20{
-		Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2ap_commondatatypes.RiccallProcessId{
-			Value: []byte(ricCallPrID),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
 	ricControlHeader := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes22{
@@ -64,22 +55,35 @@ func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	ricControlAckRequest := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes21{
-		Id:          int32(v1beta2.ProtocolIeIDRiccontrolAckRequest),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value:       ricCtrlAckRequest, //2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK,
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	}
-
 	controlRequest := &e2appducontents.RiccontrolRequest{
 		ProtocolIes: &e2appducontents.RiccontrolRequestIes{
-			E2ApProtocolIes29: &ricRequestID,         // RIC Requestor & RIC Instance ID
-			E2ApProtocolIes5:  &ranFunctionID,        // RAN function ID
-			E2ApProtocolIes20: &ricCallProcessID,     // RIC Call Process ID
-			E2ApProtocolIes22: &ricControlHeader,     // RIC Control Header
-			E2ApProtocolIes23: &ricControlMessage,    // RIC Control Message
-			E2ApProtocolIes21: &ricControlAckRequest, // RIC Control Ack Request
+			E2ApProtocolIes29: &ricRequestID,  // RIC Requestor & RIC Instance ID
+			E2ApProtocolIes5:  &ranFunctionID, // RAN function ID
+			//E2ApProtocolIes20: &ricCallProcessID,     // RIC Call Process ID
+			E2ApProtocolIes22: &ricControlHeader,  // RIC Control Header
+			E2ApProtocolIes23: &ricControlMessage, // RIC Control Message
+			//E2ApProtocolIes21: &ricControlAckRequest, // RIC Control Ack Request
 		},
+	}
+
+	if ricCallPrID != nil {
+		controlRequest.ProtocolIes.E2ApProtocolIes20 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes20{
+			Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &e2ap_commondatatypes.RiccallProcessId{
+				Value: []byte(ricCallPrID),
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+	}
+
+	if ricCtrlAckRequest != nil {
+		controlRequest.ProtocolIes.E2ApProtocolIes21 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes21{
+			Id:          int32(v1beta2.ProtocolIeIDRiccontrolAckRequest),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value:       *ricCtrlAckRequest, //e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK,
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
 	}
 
 	return controlRequest, nil
@@ -88,7 +92,7 @@ func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 
 func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 	ricCallPrID types.RicCallProcessID, ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage,
-	ricCtrlAckRequest e2apies.RiccontrolAckRequest) (*e2appdudescriptions.E2ApPdu, error) {
+	ricCtrlAckRequest *e2apies.RiccontrolAckRequest) (*e2appdudescriptions.E2ApPdu, error) {
 
 	request, err := NewControlRequest(ricReqID, ranFuncID, ricCallPrID, ricCtrlHdr, ricCtrlMsg, ricCtrlAckRequest)
 	if err != nil {

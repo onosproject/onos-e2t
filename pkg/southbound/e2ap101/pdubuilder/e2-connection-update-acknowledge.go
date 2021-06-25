@@ -17,54 +17,8 @@ import (
 func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionUpdateItem,
 	connSetFail []*types.E2ConnectionSetupFailedItem) (*e2appdudescriptions.E2ApPdu, error) {
 
-	connectionSetup := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionSetup),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		ConnectionSetup: &e2appducontents.E2ConnectionUpdateList{
-			Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	}
-
-	for _, setupItem := range connSetup {
-		si := &e2appducontents.E2ConnectionUpdateItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.E2ConnectionUpdateItem{
-				TnlInformation: &e2ap_ies.Tnlinformation{
-					TnlPort:    &setupItem.TnlInformation.TnlPort,
-					TnlAddress: &setupItem.TnlInformation.TnlAddress,
-				},
-				TnlUsage: setupItem.TnlUsage,
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		}
-		connectionSetup.ConnectionSetup.Value = append(connectionSetup.ConnectionSetup.Value, si)
-	}
-
-	connectionSetupFailed := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes40{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailed),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		ConnectionSetupFailed: &e2appducontents.E2ConnectionSetupFailedList{
-			Value: make([]*e2appducontents.E2ConnectionSetupFailedItemIes, 0),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	}
-
-	for _, sfItem := range connSetFail {
-		sfi := &e2appducontents.E2ConnectionSetupFailedItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailedItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2appducontents.E2ConnectionSetupFailedItem{
-				TnlInformation: &e2ap_ies.Tnlinformation{
-					TnlPort:    &sfItem.TnlInformation.TnlPort,
-					TnlAddress: &sfItem.TnlInformation.TnlAddress,
-				},
-				Cause: &sfItem.Cause,
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		}
-		connectionSetupFailed.ConnectionSetupFailed.Value = append(connectionSetupFailed.ConnectionSetupFailed.Value, sfi)
+	if connSetup == nil && connSetFail == nil {
+		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
 	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
@@ -74,8 +28,8 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 					E2ConnectionUpdate: &e2appdudescriptions.E2ConnectionUpdateEp{
 						SuccessfulOutcome: &e2appducontents.E2ConnectionUpdateAcknowledge{
 							ProtocolIes: &e2appducontents.E2ConnectionUpdateAckIes{
-								E2ApProtocolIes39: &connectionSetup,       //E2 Connection Setup List
-								E2ApProtocolIes40: &connectionSetupFailed, //E2 Connection Setup Failed List
+								//E2ApProtocolIes39: &connectionSetup,       //E2 Connection Setup List
+								//E2ApProtocolIes40: &connectionSetupFailed, //E2 Connection Setup Failed List
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
@@ -89,6 +43,63 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 			},
 		},
 	}
+
+	if connSetup != nil {
+		connectionSetup := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39{
+			Id:          int32(v1beta2.ProtocolIeIDE2connectionSetup),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			ConnectionSetup: &e2appducontents.E2ConnectionUpdateList{
+				Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+
+		for _, setupItem := range connSetup {
+			si := &e2appducontents.E2ConnectionUpdateItemIes{
+				Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.E2ConnectionUpdateItem{
+					TnlInformation: &e2ap_ies.Tnlinformation{
+						TnlPort:    &setupItem.TnlInformation.TnlPort,
+						TnlAddress: &setupItem.TnlInformation.TnlAddress,
+					},
+					TnlUsage: setupItem.TnlUsage,
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			}
+			connectionSetup.ConnectionSetup.Value = append(connectionSetup.ConnectionSetup.Value, si)
+		}
+		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes39 = &connectionSetup
+	}
+
+	if connSetFail != nil {
+		connectionSetupFailed := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes40{
+			Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailed),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			ConnectionSetupFailed: &e2appducontents.E2ConnectionSetupFailedList{
+				Value: make([]*e2appducontents.E2ConnectionSetupFailedItemIes, 0),
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+
+		for _, sfItem := range connSetFail {
+			sfi := &e2appducontents.E2ConnectionSetupFailedItemIes{
+				Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailedItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.E2ConnectionSetupFailedItem{
+					TnlInformation: &e2ap_ies.Tnlinformation{
+						TnlPort:    &sfItem.TnlInformation.TnlPort,
+						TnlAddress: &sfItem.TnlInformation.TnlAddress,
+					},
+					Cause: &sfItem.Cause,
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			}
+			connectionSetupFailed.ConnectionSetupFailed.Value = append(connectionSetupFailed.ConnectionSetupFailed.Value, sfi)
+		}
+		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes40 = &connectionSetupFailed
+	}
+
 	if err := e2apPdu.Validate(); err != nil {
 		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	}

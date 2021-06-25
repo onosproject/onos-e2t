@@ -141,7 +141,8 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		log.Warn(err)
 	}
 
-	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, nil, controlHeaderBytes, controlMessageBytes, e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK)
+	rcar := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, nil, controlHeaderBytes, controlMessageBytes, &rcar)
 
 	if err != nil {
 		log.Warn(err)

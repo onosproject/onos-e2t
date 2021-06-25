@@ -19,13 +19,16 @@ import (
 
 func createE2nodeConfigurationUpdateFailureMsg() (*e2ap_pdu_contents.E2NodeConfigurationUpdateFailure, error) {
 
+	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V2S
+	procCode := v1beta2.ProcedureCodeIDRICsubscription
+	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+
 	e2nodeConfigurationUpdateFailure, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
-	}, e2apies.TimeToWait_TIME_TO_WAIT_V2S,
-		v1beta2.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
+	}, &ttw, &procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,

@@ -15,7 +15,7 @@ import (
 )
 
 func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricAction e2apies.RicactionType, ricSn types.RicIndicationSn, ricIndicationType e2apies.RicindicationType,
+	ricAction e2apies.RicactionType, ricSn *types.RicIndicationSn, ricIndicationType e2apies.RicindicationType,
 	ricIndHd types.RicIndicationHeader, ricIndMsg types.RicIndicationMessage, ricCallPrID types.RicCallProcessID) (
 	*e2appdudescriptions.E2ApPdu, error) {
 
@@ -47,15 +47,6 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	ricIndicationSn := e2appducontents.RicindicationIes_RicindicationIes27{
-		Id:          int32(v1beta2.ProtocolIeIDRicindicationSn),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2apies.RicindicationSn{
-			Value: int32(ricSn),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	}
-
 	ricIndType := e2appducontents.RicindicationIes_RicindicationIes28{
 		Id:          int32(v1beta2.ProtocolIeIDRicindicationType),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
@@ -81,15 +72,6 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	ricCallProcessID := e2appducontents.RicindicationIes_RicindicationIes20{
-		Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2ap_commondatatypes.RiccallProcessId{
-			Value: []byte(ricCallPrID),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	}
-
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
@@ -97,14 +79,14 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 					RicIndication: &e2appdudescriptions.RicIndication{
 						InitiatingMessage: &e2appducontents.Ricindication{
 							ProtocolIes: &e2appducontents.RicindicationIes{
-								E2ApProtocolIes29: &ricRequestID,     // RIC Requestor & RIC Instance ID
-								E2ApProtocolIes5:  &ranFunctionID,    // RAN function ID
-								E2ApProtocolIes15: &ricAct,           // RIC Action
-								E2ApProtocolIes27: &ricIndicationSn,  // RIC Indication Sn (Sequence Number?)
-								E2ApProtocolIes28: &ricIndType,       // RIC Indication Type
-								E2ApProtocolIes25: &ricIndHeader,     // RIC Indication Header
-								E2ApProtocolIes26: &ricIndMessage,    // RIC Indication Message
-								E2ApProtocolIes20: &ricCallProcessID, // RIC Call Process ID
+								E2ApProtocolIes29: &ricRequestID,  // RIC Requestor & RIC Instance ID
+								E2ApProtocolIes5:  &ranFunctionID, // RAN function ID
+								E2ApProtocolIes15: &ricAct,        // RIC Action
+								//E2ApProtocolIes27: &ricIndicationSn,  // RIC Indication Sn (Sequence Number?)
+								E2ApProtocolIes28: &ricIndType,    // RIC Indication Type
+								E2ApProtocolIes25: &ricIndHeader,  // RIC Indication Header
+								E2ApProtocolIes26: &ricIndMessage, // RIC Indication Message
+								//E2ApProtocolIes20: &ricCallProcessID, // RIC Call Process ID
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRicindication{
@@ -118,6 +100,29 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 			},
 		},
 	}
+
+	if ricSn != nil {
+		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicIndication().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes27 = &e2appducontents.RicindicationIes_RicindicationIes27{
+			Id:          int32(v1beta2.ProtocolIeIDRicindicationSn),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &e2apies.RicindicationSn{
+				Value: int32(*ricSn),
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+	}
+
+	if ricCallPrID != nil {
+		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicIndication().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes20 = &e2appducontents.RicindicationIes_RicindicationIes20{
+			Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &e2ap_commondatatypes.RiccallProcessId{
+				Value: []byte(ricCallPrID),
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
+	}
+
 	if err := e2apPdu.Validate(); err != nil {
 		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	}

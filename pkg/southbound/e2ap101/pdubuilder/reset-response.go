@@ -18,6 +18,10 @@ func CreateResetResponseE2apPdu(failureProcCode v1beta2.ProcedureCodeT, failureC
 	failureTrigMsg e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
 	critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
+	if reqID == nil && critDiags == nil {
+		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
+	}
+
 	criticalityDiagnostics := e2appducontents.ResetResponseIes_ResetResponseIes2{
 		Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
