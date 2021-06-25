@@ -18,10 +18,13 @@ import (
 )
 
 type invalidControlTestCase struct {
-	description   string
-	control       utils.Control
-	enabled       bool
-	expectedError func(err error) bool
+	description         string
+	control             utils.Control
+	enabled             bool
+	expectedError       func(err error) bool
+	serviceModelName    string
+	serviceModelVersion string
+	encodingType        sdkclient.Encoding
 }
 
 func runControlTestCase(t *testing.T, testCase invalidControlTestCase, testNodeID string) {
@@ -31,14 +34,13 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase, testNodeI
 		return
 	}
 
-	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client2(t, testCase.serviceModelName, testCase.serviceModelVersion, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	request, err := testCase.control.Create()
 	assert.NoError(t, err)
 	response, err := node.Control(ctx, request)
 	assert.Nil(t, response)
 	assert.Equal(t, true, testCase.expectedError(err))
-	//t.Log(err)
 
 }
 
@@ -69,7 +71,6 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	testCases := []invalidControlTestCase{
-		// TODO these test cases should be in a separate test for invalid input to SDK client
 		/*{
 			control: utils.Control{
 				NodeID:              nodeID,
@@ -80,35 +81,39 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 			description:   "Invalid encoding type",
 			enabled:       true,
 			expectedError: errors.IsInvalid,
-		},
-		{
-			control: utils.Control{
-				NodeID:              nodeID,
-				EncodingType:        e2tapi.EncodingType_PROTO,
-				ServiceModelName:    "no-such-service-model",
-				ServiceModelVersion: "v1",
-			},
-			description:   "Invalid service model",
-			enabled:       true,
-			expectedError: errors.IsNotFound,
 		},*/
+		{
+			control:             utils.Control{},
+			description:         "Invalid service model",
+			enabled:             true,
+			expectedError:       errors.IsNotFound,
+			serviceModelName:    "no-such-service-model",
+			serviceModelVersion: utils.Version2,
+			encodingType:        sdkclient.ProtoEncoding,
+		},
 		{
 			control: utils.Control{
 				Header:  []byte("invalid-control-header"),
 				Payload: controlMessageBytes,
 			},
-			description:   "Invalid control header",
-			enabled:       true,
-			expectedError: errors.IsInvalid,
+			description:         "Invalid control header",
+			enabled:             true,
+			expectedError:       errors.IsInvalid,
+			serviceModelName:    utils.RcServiceModelName,
+			serviceModelVersion: utils.Version2,
+			encodingType:        sdkclient.ProtoEncoding,
 		},
 		{
 			control: utils.Control{
 				Header:  controlHeaderBytes,
 				Payload: []byte("invalid-control-message"),
 			},
-			description:   "Invalid control message",
-			enabled:       true,
-			expectedError: errors.IsInvalid,
+			description:         "Invalid control message",
+			enabled:             true,
+			expectedError:       errors.IsInvalid,
+			serviceModelName:    utils.RcServiceModelName,
+			serviceModelVersion: utils.Version2,
+			encodingType:        sdkclient.ProtoEncoding,
 		},
 	}
 	for _, testCase := range testCases {
