@@ -153,7 +153,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
-	
+
 	err = e2tClient.Close()
 	assert.NoError(t, err)
 	err = sim.Uninstall()

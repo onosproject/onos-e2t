@@ -67,13 +67,20 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	}
 
 	//  Create the subscription
+	subName := "TestE2NodeDownSubscription"
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	_, err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subReq, ch)
+	_, err = node.Subscribe(ctx, subName, subReq, ch)
 
 	//  Subscribe should have failed because of a timeout
 	assert.Error(t, err)
 	cancel()
+
+	// Clear the subscription
+	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
+	node = sdkClient.Node(sdkclient.NodeID(nodeID))
+	_ = node.Unsubscribe(context.Background(), subName)
+	_ = sim.Uninstall()
 }
