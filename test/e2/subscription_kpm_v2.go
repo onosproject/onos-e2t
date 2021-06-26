@@ -71,10 +71,12 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	subSpec, err := subRequest.CreateWithActionDefinition2()
 	assert.NoError(t, err)
 
+	subName := "TestSubscriptionKpmV2"
+
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan v1beta1.Indication)
-	_, err = node.Subscribe(ctx, "TestSubscriptionKpmV2", subSpec, ch)
+	_, err = node.Subscribe(ctx, subName, subSpec, ch)
 	assert.NoError(t, err)
 
 	indicationReport := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
@@ -89,7 +91,11 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
+	err = node.Unsubscribe(context.Background(), subName)
+	assert.NoError(t, err)
+
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 
+	e2utils.CheckForEmptySubscriptionList(t)
 }

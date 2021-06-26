@@ -129,5 +129,5 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 	err = sim.Uninstall()
 	assert.NoError(t, err)
-
+	e2utils.CheckForEmptySubscriptionList(t)
 }

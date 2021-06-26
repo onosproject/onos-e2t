@@ -108,10 +108,12 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	subSpec, err := subRequest.Create()
 	assert.NoError(t, err)
 
+	subName := "TestSubscriptionOnChange"
+
 	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	ch := make(chan e2api.Indication)
-	_, err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subSpec, ch)
+	_, err = node.Subscribe(ctx, subName, subSpec, ch)
 	assert.NoError(t, err)
 
 	var indMessage e2api.Indication
@@ -160,6 +162,11 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	// Expect to receive indication message on neighbor list change
 	indMessage = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
 
+	err = node.Unsubscribe(context.Background(), subName)
+	assert.NoError(t, err)
+
 	err = sim.Uninstall()
 	assert.NoError(t, err)
+
+	e2utils.CheckForEmptySubscriptionList(t)
 }

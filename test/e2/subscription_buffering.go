@@ -7,6 +7,7 @@ package e2
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"math/rand"
 	"testing"
 	"time"
@@ -118,10 +119,12 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	// Sleep for ten seconds to ensure indications are sent before opening a stream
 	time.Sleep(10 * time.Second)
 
+	subName := "buffering-test-subscription"
+
 	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	responseCh := make(chan e2api.Indication)
-	_, err = node.Subscribe(ctx, "test-subscription", subSpec, responseCh)
+	_, err = node.Subscribe(ctx, subName, subSpec, responseCh)
 	assert.NoError(t, err)
 
 	// expects three indication messages since we have three cells for that node
@@ -149,10 +152,14 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	}
 	assert.False(t, gotResponse, "received an extraneous indication")
 
+	err = node.Unsubscribe(context.Background(), subName)
+	assert.NoError(t, err)
+
 	err = e2tClient.Close()
 	assert.NoError(t, err)
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 
 	cancel()
+	e2utils.CheckForEmptySubscriptionList(t)
 }

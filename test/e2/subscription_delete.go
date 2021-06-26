@@ -20,7 +20,7 @@ import (
 )
 
 const (
-	subscriptionName    = "sub1"
+	subscriptionName    = "TestSubscriptionDelete-kpm"
 	granularity         = uint32(500)
 	reportPeriod        = uint32(5000)
 	subscriptionTimeout = 10 * time.Second
@@ -29,7 +29,7 @@ const (
 // createAndVerifySubscription creates a subscription to the given node and makes sure that
 // at least one verification message can be received from it. The channel ID of the subscription
 // is returned
-func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.ID, node sdkclient.Node) subapi.ChannelID {
+func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.ID, node sdkclient.Node) (subapi.ChannelID, chan subapi.Indication) {
 
 	// Use one of the cell object IDs for action definition
 	cells, err := utils.GetCellIDsPerNode(nodeID)
@@ -76,7 +76,7 @@ func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.
 		assert.Equal(t, false, "test is failed because of timeout")
 
 	}
-	return channelID
+	return channelID, ch
 }
 
 func getSubscriptionID(t *testing.T, channelID subapi.ChannelID) subapi.SubscriptionID {
@@ -85,6 +85,19 @@ func getSubscriptionID(t *testing.T, channelID subapi.ChannelID) subapi.Subscrip
 	assert.NoError(t, err)
 	channel := channelResponse.Channel
 	return channel.GetSubscriptionID()
+}
+
+func readToEndOfChannel(ch chan subapi.Indication) bool {
+	for {
+		select {
+		case _, ok := <-ch:
+			if !ok {
+				return true
+			}
+		case <-time.After(10 * time.Second):
+			return false
+		}
+	}
 }
 
 // TestSubscriptionDelete tests subscription delete procedure
@@ -107,7 +120,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 
 	// Add a subscription
-	channelID := createAndVerifySubscription(ctx, t, nodeID, node)
+	channelID, _ := createAndVerifySubscription(ctx, t, nodeID, node)
 	subscriptionID := getSubscriptionID(t, channelID)
 
 	// Check that the subscription list is correct
@@ -125,14 +138,13 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 
 	// Create a context specifying a timeout
 	ctx, cancel = context.WithTimeout(context.Background(), subscriptionTimeout)
-	defer cancel()
 
 	// Check number of subscriptions is correct after deleting the subscription
 	subList = e2utils.GetSubscriptionList2(t)
 	assert.Equal(t, defaultNumSubs, len(subList))
 
 	//  Open the subscription again and make sure it is open
-	channelID = createAndVerifySubscription(ctx, t, nodeID, node)
+	channelID, ch := createAndVerifySubscription(ctx, t, nodeID, node)
 	subscriptionID = getSubscriptionID(t, channelID)
 
 	// Check that the number of subscriptions is correct after reopening
@@ -143,7 +155,16 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	// Check that querying the subscription is correct
 	e2utils.CheckSubscriptionGet2(t, subscriptionID)
 
+	// Close the subscription
+	err = node.Unsubscribe(ctx, subscriptionName)
+	assert.NoError(t, err)
+
+	assert.True(t, readToEndOfChannel(ch))
+	cancel()
+
 	// Clean up the ran-sim instance
 	simErr := sim.Uninstall()
 	assert.NoError(t, simErr)
+
+	e2utils.CheckForEmptySubscriptionList(t)
 }

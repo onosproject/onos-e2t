@@ -6,16 +6,13 @@ package e2
 
 import (
 	"context"
+	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
+	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
+	"github.com/onosproject/onos-e2t/test/utils"
+	"github.com/stretchr/testify/assert"
 	"math/rand"
 	"testing"
 	"time"
-
-	"github.com/onosproject/onos-e2t/test/utils"
-
-	"github.com/stretchr/testify/assert"
-
-	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
-	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
 )
 
 const (
@@ -25,7 +22,7 @@ const (
 
 var (
 	initialEnbID  = 155000
-	serviceModels = []string{"kpm", "rc"}
+	serviceModels = []string{"kpm2", "rcpre2"}
 	controllers   = []string{"e2t-1", "e2t-2"}
 )
 
@@ -39,7 +36,6 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 	defaultNumCells := utils.GetNumCells(t, cellClient)
-
 	for i := 1; i < numRequestedCells+1; i++ {
 		_, err := cellClient.CreateCell(ctx, &modelapi.CreateCellRequest{
 			Cell: &ransimtypes.Cell{
@@ -51,24 +47,25 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 						Lat: 56.0,
 						Lng: 78.9,
 					}},
-				Location: &ransimtypes.Point{Lat: 42.0, Lng: 54.23},
-				MaxUEs:   12,
+				Location:  &ransimtypes.Point{Lat: 42.0, Lng: 54.23},
+				MaxUEs:    12,
+				TxPowerdB: 10,
+				MeasurementParams: &ransimtypes.MeasurementParams{
+					EventA3Params: &ransimtypes.EventA3Params{},
+				},
 			},
 		})
 		assert.NoError(t, err)
 	}
-
 	numCells := utils.GetNumCells(t, cellClient)
 	assert.Equal(t, numRequestedCells, numCells-defaultNumCells)
 	// TODO this should be replaced with a mechanism to make sure all of the nodes are connected before asking
 	time.Sleep(20 * time.Second)
-
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
 	connections, err := utils.GetAllE2Connections(t)
 	assert.Equal(t, len(connections), defaultNumNodes)
 	assert.NoError(t, err)
 	cells := utils.GetCells(t, cellClient)
-
 	for i := 0; i < numRequestedE2Nodes; i++ {
 		cell1Index := rand.Intn(len(cells))
 		cell2Index := rand.Intn(len(cells))
@@ -89,7 +86,6 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, e2node)
 	}
-
 	// Wait for a few seconds to make sure all of the connections are established
 	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
 	// for the number of nodes
@@ -114,5 +110,4 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	assert.Equal(t, 0, len(connections))
 	err = sim.Uninstall()
 	assert.NoError(t, err)
-
 }

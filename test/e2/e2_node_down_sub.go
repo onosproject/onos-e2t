@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"testing"
 	"time"
@@ -26,6 +27,15 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
+
+	cells, err := utils.GetCellIDsPerNode(nodeID)
+	assert.NoError(t, err)
+
+	// Use one of the cell object IDs for action definition
+	cellObjectID := cells[0].CellObjectID
+	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
+	assert.NoError(t, err)
+
 	var actions []subapi.Action
 	action := subapi.Action{
 		ID:   100,
@@ -34,6 +44,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
 			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
 		},
+		Payload: actionDefinitionBytes,
 	}
 	actions = append(actions, action)
 
@@ -67,13 +78,22 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	}
 
 	//  Create the subscription
+	subName := "TestE2NodeDownSubscription"
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	_, err = node.Subscribe(ctx, "TestE2NodeDownSubscription", subReq, ch)
+	_, err = node.Subscribe(ctx, subName, subReq, ch)
 
 	//  Subscribe should have failed because of a timeout
 	assert.Error(t, err)
 	cancel()
+
+	// Clear the subscription
+	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
+	node = sdkClient.Node(sdkclient.NodeID(nodeID))
+	_ = node.Unsubscribe(context.Background(), subName)
+	_ = sim.Uninstall()
+
+	e2utils.CheckForEmptySubscriptionList(t)
 }
