@@ -164,6 +164,29 @@ func GetControlRelationObjects() ([]topoapi.Object, error) {
 	return listResponse.Objects, nil
 }
 
+// GetTestNodeIDs gets n test node IDs
+func GetTestNodeIDs(t *testing.T, n int) []topoapi.ID {
+	topoSdkClient, err := NewTopoClient()
+	assert.NoError(t, err)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	ch := make(chan topoapi.Event)
+	err = topoSdkClient.WatchE2Connections(ctx, ch)
+	assert.NoError(t, err)
+
+	var nodeIDs []topoapi.ID
+	for i := 0; i < n; i++ {
+		event := <-ch
+		t.Log(event.String())
+		object := event.GetObject()
+		assert.NotNil(t, object)
+		nodeIDs = append(nodeIDs, object.GetRelation().GetTgtEntityID())
+	}
+
+	return nodeIDs
+}
+
+// GetTestNodeID gets one test node ID
 func GetTestNodeID(t *testing.T) topoapi.ID {
 	topoSdkClient, err := NewTopoClient()
 	assert.NoError(t, err)
@@ -176,7 +199,6 @@ func GetTestNodeID(t *testing.T) topoapi.ID {
 	t.Log(event.String())
 	object := event.GetObject()
 	assert.NotNil(t, object)
-	t.Log("Relation ID", object.GetRelation().GetTgtEntityID())
 	return object.GetRelation().GetTgtEntityID()
 }
 

@@ -28,7 +28,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
 	defer cancel()
 
 	topoSdkClient, err := utils.NewTopoClient()
@@ -96,7 +96,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	assert.Error(t, err)
 	cancel()
 
-	// Clear the subscription
+	// Delete the subscription and ran simulator
 	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
 	node = sdkClient.Node(sdkclient.NodeID(nodeID))
 	_ = node.Unsubscribe(context.Background(), subName)

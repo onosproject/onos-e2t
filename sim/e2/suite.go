@@ -9,6 +9,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"math/rand"
+	"os"
+	"sync"
+	"time"
+
 	"github.com/cenkalti/backoff"
 	"github.com/onosproject/helmit/pkg/helm"
 	"github.com/onosproject/helmit/pkg/kubernetes"
@@ -24,10 +29,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
 	"k8s.io/utils/pointer"
-	"math/rand"
-	"os"
-	"sync"
-	"time"
 )
 
 const controlPort = 5000
@@ -78,6 +79,11 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 		return err
 	}
 
+	topoSdkClient, err := utils.NewTopoClient()
+	if err != nil {
+		return err
+	}
+
 	objects, err := utils.GetControlRelationObjects()
 	if err != nil {
 		log.Error(err)
@@ -89,9 +95,9 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 		relation := obj.Obj.(*topoapi.Object_Relation)
 		nodeIDs = append(nodeIDs, relation.Relation.TgtEntityID)
 	}
-	nodeID := nodeIDs[0]
+	nodeID := utils.GetTestNodeID(nil)
 
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	if err != nil {
 		return err
 	}

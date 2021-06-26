@@ -27,35 +27,29 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// TestMultiSmSubscription tests multiple subscription to different service models
+// TestMultiSmSubscription tests multiple subscription to different service models on different nodes
 func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-sm-subscription")
 	assert.NotNil(t, sim)
 
-	// Find two nodes to use
-	/*nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	KPMNodeID := nodeIDs[0]
-	RCNodeID := nodeIDs[1]*/
-
-	KPMNodeID := utils.GetTestNodeID(t)
-	RCNodeID := utils.GetTestNodeID(t)
-
+	nodeIDs := utils.GetTestNodeIDs(t, 2)
+	t.Log("Node IDs:", nodeIDs)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	// Subscribe to kpm service model
+	kpmNodeID := nodeIDs[0]
+	rcPreNodeID := nodeIDs[1]
 
-	cells, err := topoSdkClient.GetCells(ctx, KPMNodeID)
+	cells, err := topoSdkClient.GetCells(ctx, kpmNodeID)
 	assert.NoError(t, err)
 
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
 	KPMSubName := "TestSubscriptionKpmV2"
-	RCSubName := "TestSubscriptionKpmV2"
+	RCSubName := "TestSubscriptionRCPreV2"
 
 	// Kpm v2 interval is defined in ms
 	KPMEventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
@@ -80,7 +74,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	KPMActions = append(KPMActions, KPMAction)
 
 	KPMSubRequest := utils.Subscription2{
-		NodeID:              string(KPMNodeID),
+		NodeID:              string(kpmNodeID),
 		EventTrigger:        KPMEventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
 		ServiceModelVersion: utils.Version2,
@@ -91,7 +85,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	KPMSdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	KPMNode := KPMSdkClient.Node(sdkclient.NodeID(KPMNodeID))
+	KPMNode := KPMSdkClient.Node(sdkclient.NodeID(kpmNodeID))
 	KPMch := make(chan e2api.Indication)
 	KPMCtx, KPMCancel := context.WithTimeout(context.Background(), 30*time.Second)
 	_, err = KPMNode.Subscribe(KPMCtx, KPMSubName, KPMSubSpec, KPMch)
@@ -114,7 +108,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	RCActions = append(RCActions, RCAction)
 	RCSubSpec := utils.Subscription2{
-		NodeID:              string(RCNodeID),
+		NodeID:              string(rcPreNodeID),
 		Actions:             RCActions,
 		EventTrigger:        RCEventTriggerBytes,
 		ServiceModelName:    utils.RcServiceModelName,
@@ -125,7 +119,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	RCSdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	RCNode := RCSdkClient.Node(sdkclient.NodeID(RCNodeID))
+	RCNode := RCSdkClient.Node(sdkclient.NodeID(rcPreNodeID))
 	assert.NotNil(t, RCNode)
 	RCCtx, RCCancel := context.WithTimeout(context.Background(), 30*time.Second)
 	_, err = RCNode.Subscribe(RCCtx, RCSubName, RCSubReq, RCch)
