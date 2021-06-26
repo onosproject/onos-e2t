@@ -94,7 +94,7 @@ func CheckIndicationMessage2(t *testing.T, timeout time.Duration, ch chan v1beta
 	return v1beta1.Indication{}
 }
 
-func CheckForEmptySubscriptionList(t *testing.T){
+func CheckForEmptySubscriptionList(t *testing.T) {
 	subList := GetSubscriptionList2(t)
 	assert.Equal(t, 0, len(subList))
 }

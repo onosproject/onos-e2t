@@ -29,7 +29,7 @@ const (
 // createAndVerifySubscription creates a subscription to the given node and makes sure that
 // at least one verification message can be received from it. The channel ID of the subscription
 // is returned
-func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.ID, node sdkclient.Node) subapi.ChannelID {
+func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.ID, node sdkclient.Node) (subapi.ChannelID, chan subapi.Indication) {
 
 	// Use one of the cell object IDs for action definition
 	cells, err := utils.GetCellIDsPerNode(nodeID)
@@ -76,7 +76,7 @@ func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.
 		assert.Equal(t, false, "test is failed because of timeout")
 
 	}
-	return channelID
+	return channelID, ch
 }
 
 func getSubscriptionID(t *testing.T, channelID subapi.ChannelID) subapi.SubscriptionID {
@@ -107,7 +107,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 
 	// Add a subscription
-	channelID := createAndVerifySubscription(ctx, t, nodeID, node)
+	channelID, _ := createAndVerifySubscription(ctx, t, nodeID, node)
 	subscriptionID := getSubscriptionID(t, channelID)
 
 	// Check that the subscription list is correct
@@ -131,7 +131,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	assert.Equal(t, defaultNumSubs, len(subList))
 
 	//  Open the subscription again and make sure it is open
-	channelID = createAndVerifySubscription(ctx, t, nodeID, node)
+	channelID, ch := createAndVerifySubscription(ctx, t, nodeID, node)
 	subscriptionID = getSubscriptionID(t, channelID)
 
 	// Check that the number of subscriptions is correct after reopening
@@ -145,6 +145,24 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	// Close the subscription
 	err = node.Unsubscribe(ctx, subscriptionName)
 	assert.NoError(t, err)
+
+	done := false
+	for {
+		select {
+		case _, ok := <-ch:
+			if !ok {
+				done = true
+				break
+			}
+		case <-time.After(10 * time.Second):
+			assert.True(t, false, "Never saw EOF on channel")
+			done = true
+			break
+		}
+		if done {
+			break
+		}
+	}
 	cancel()
 
 	// Clean up the ran-sim instance
