@@ -6,14 +6,17 @@ package e2
 
 import (
 	"context"
+	"time"
+
 	e2sm_kpm_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 	"github.com/onosproject/onos-e2t/test/e2utils"
-	"time"
 
 	//"github.com/onosproject/onos-e2t/test/e2utils"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"testing"
+
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
+
 	//"time"
 
 	//e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
@@ -30,14 +33,23 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NotNil(t, sim)
 
 	// Find two nodes to use
-	nodeIDs, err := utils.GetNodeIDs(t)
+	/*nodeIDs, err := utils.GetNodeIDs(t)
 	assert.NoError(t, err)
 	KPMNodeID := nodeIDs[0]
-	RCNodeID := nodeIDs[1]
+	RCNodeID := nodeIDs[1]*/
+
+	KPMNodeID := utils.GetTestNodeID(t)
+	RCNodeID := utils.GetTestNodeID(t)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
 
 	// Subscribe to kpm service model
 
-	cells, err := utils.GetCellIDsPerNode(KPMNodeID)
+	cells, err := topoSdkClient.GetCells(ctx, KPMNodeID)
 	assert.NoError(t, err)
 
 	reportPeriod := uint32(5000)
@@ -68,7 +80,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	KPMActions = append(KPMActions, KPMAction)
 
 	KPMSubRequest := utils.Subscription2{
-		NodeID:              string(nodeIDs[0]),
+		NodeID:              string(KPMNodeID),
 		EventTrigger:        KPMEventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
 		ServiceModelVersion: utils.Version2,
@@ -113,7 +125,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	RCSdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	RCNode := RCSdkClient.Node(sdkclient.NodeID(nodeIDs[1]))
+	RCNode := RCSdkClient.Node(sdkclient.NodeID(RCNodeID))
 	assert.NotNil(t, RCNode)
 	RCCtx, RCCancel := context.WithTimeout(context.Background(), 30*time.Second)
 	_, err = RCNode.Subscribe(RCCtx, RCSubName, RCSubReq, RCch)

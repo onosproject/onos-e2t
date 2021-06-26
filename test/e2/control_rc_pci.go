@@ -41,9 +41,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	testNodeID := nodeIDs[0]
+	testNodeID := utils.GetTestNodeID(t)
 
 	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))

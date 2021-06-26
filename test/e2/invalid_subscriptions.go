@@ -6,11 +6,12 @@ package e2
 
 import (
 	"context"
+	"testing"
+	"time"
+
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"google.golang.org/grpc/status"
-	"testing"
-	"time"
 
 	subtaskapi "github.com/onosproject/onos-api/go/onos/e2sub/task"
 
@@ -41,7 +42,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	nodeID := utils.GetFirstNodeID(t)
+	nodeID := utils.GetTestNodeID(t)
 	var actions []subapi.Action
 	action := subapi.Action{
 		ID:   testCase.actionID,

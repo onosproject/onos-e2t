@@ -6,10 +6,10 @@ package e2
 
 import (
 	"context"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"testing"
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	"google.golang.org/protobuf/proto"
@@ -29,11 +29,12 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	nodeID := utils.GetTestNodeID(t)
+
+	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	nodeID := nodeIDs[0]
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
 
 	// Kpm v2 interval is defined in ms

@@ -28,11 +28,12 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	nodeID := utils.GetTestNodeID(t)
+
+	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	nodeID := nodeIDs[0]
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
 
 	reportPeriod := uint32(5000)
@@ -61,7 +62,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription2{
-		NodeID:              string(nodeIDs[0]),
+		NodeID:              string(nodeID),
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
 		ServiceModelVersion: utils.Version2,

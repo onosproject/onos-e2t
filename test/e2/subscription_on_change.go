@@ -6,10 +6,11 @@ package e2
 
 import (
 	"context"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"math/rand"
 	"testing"
 	"time"
+
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
 
@@ -81,7 +82,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, 1, len(connections))
 
-	testNodeID := utils.GetFirstNodeID(t)
+	testNodeID := utils.GetTestNodeID(t)
 
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()

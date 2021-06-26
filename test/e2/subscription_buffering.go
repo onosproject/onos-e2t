@@ -7,10 +7,11 @@ package e2
 import (
 	"context"
 	"fmt"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
@@ -31,7 +32,6 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-indication-buffering")
 	assert.NotNil(t, sim)
 	ctx, cancel := context.WithCancel(context.Background())
-
 	conns := connection.NewManager()
 
 	e2tConn, err := conns.Connect(fmt.Sprintf("%s:%d", utils.E2TServiceHost, utils.E2TServicePort))
@@ -87,9 +87,7 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	connections, err = utils.GetAllE2Connections(t)
 	assert.NoError(t, err)
 	assert.Equal(t, 1, len(connections))
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	testNodeID := nodeIDs[0]
+	testNodeID := utils.GetTestNodeID(t)
 
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()

@@ -6,12 +6,13 @@ package e2
 
 import (
 	"context"
+	"testing"
+	"time"
+
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
-	"testing"
-	"time"
 
 	subapi "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
@@ -31,8 +32,13 @@ const (
 // is returned
 func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.ID, node sdkclient.Node) (subapi.ChannelID, chan subapi.Indication) {
 
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
 	// Use one of the cell object IDs for action definition
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
 	cellObjectID := cells[0].CellObjectID
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
@@ -113,7 +119,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	defaultNumSubs := len(subList)
 
 	// Create a Node
-	nodeID := utils.GetFirstNodeID(t)
+	nodeID := utils.GetTestNodeID(t)
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 

@@ -35,9 +35,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	nodeID := nodeIDs[0]
+	nodeID := utils.GetTestNodeID(t)
 	node := e2Client.Node(sdkclient.NodeID(nodeID))
 
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
@@ -55,7 +53,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription2{
-		NodeID:              string(nodeIDs[0]),
+		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,

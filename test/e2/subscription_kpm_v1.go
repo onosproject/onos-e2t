@@ -6,23 +6,22 @@ package e2
 
 import (
 	"context"
+	"testing"
+	"time"
+
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	subapi "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
-	"testing"
-	"time"
 )
 
 // TestSubscriptionKpmV1 tests e2 subscription and subscription delete procedures
 func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v1")
 
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	nodeID := nodeIDs[0]
+	nodeID := utils.GetTestNodeID(t)
 
 	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
 	assert.NoError(t, err)
@@ -38,7 +37,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription2{
-		NodeID:              string(nodeIDs[0]),
+		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
