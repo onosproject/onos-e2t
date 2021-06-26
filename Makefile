@@ -13,7 +13,7 @@ build:
 
 sim-app: # @HELP build the Go binaries for the simulator
 sim-app:
-	go build -o build/_output/onos-e2t-sim-app ./cmd/onos-e2t-sim-app
+	CGO_ENABLED=0 go build -o build/_output/onos-e2t-sim-app ./cmd/onos-e2t-sim-app
 
 test: # @HELP run the unit tests and source code validation producing a golang style report
 test: build deps linters license_check
