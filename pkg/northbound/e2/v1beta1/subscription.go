@@ -280,7 +280,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		eventCh := make(chan e2api.ChannelEvent)
 		ctx, cancel := context.WithCancel(server.Context())
 		defer cancel()
-		if err := s.chans.Watch(ctx, eventCh); err != nil {
+		if err := s.chans.Watch(ctx, eventCh, channelstore.WithReplay()); err != nil {
 			completeCh <- errors.Status(err).Err()
 			return
 		}
@@ -440,7 +440,7 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 	eventCh := make(chan e2api.ChannelEvent)
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
-	if err := s.chans.Watch(ctx, eventCh); err != nil {
+	if err := s.chans.Watch(ctx, eventCh, channelstore.WithReplay()); err != nil {
 		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 		return nil, errors.Status(err).Err()
 	}
