@@ -25,7 +25,7 @@ const (
 
 var (
 	initialEnbID  = 155000
-	serviceModels = []string{"kpm", "rc"}
+	serviceModels = []string{"kpm2", "rcpre2"}
 	controllers   = []string{"e2t-1", "e2t-2"}
 )
 
@@ -51,8 +51,12 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 						Lat: 56.0,
 						Lng: 78.9,
 					}},
-				Location: &ransimtypes.Point{Lat: 42.0, Lng: 54.23},
-				MaxUEs:   12,
+				Location:  &ransimtypes.Point{Lat: 42.0, Lng: 54.23},
+				MaxUEs:    12,
+				TxPowerdB: 10,
+				MeasurementParams: &ransimtypes.MeasurementParams{
+					EventA3Params: &ransimtypes.EventA3Params{},
+				},
 			},
 		})
 		assert.NoError(t, err)
