@@ -87,6 +87,19 @@ func getSubscriptionID(t *testing.T, channelID subapi.ChannelID) subapi.Subscrip
 	return channel.GetSubscriptionID()
 }
 
+func readToEndOfChannel(ch chan subapi.Indication) bool {
+	for {
+		select {
+		case _, ok := <-ch:
+			if !ok {
+				return true
+			}
+		case <-time.After(10 * time.Second):
+			return false
+		}
+	}
+}
+
 // TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	var err error
@@ -146,23 +159,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	err = node.Unsubscribe(ctx, subscriptionName)
 	assert.NoError(t, err)
 
-	done := false
-	for {
-		select {
-		case _, ok := <-ch:
-			if !ok {
-				done = true
-				break
-			}
-		case <-time.After(10 * time.Second):
-			assert.True(t, false, "Never saw EOF on channel")
-			done = true
-			break
-		}
-		if done {
-			break
-		}
-	}
+	assert.True(t, readToEndOfChannel(ch))
 	cancel()
 
 	// Clean up the ran-sim instance
