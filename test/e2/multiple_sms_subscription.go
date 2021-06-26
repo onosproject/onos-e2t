@@ -144,4 +144,6 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	KPMCancel()
 	RCCancel()
+
+	e2utils.CheckForEmptySubscriptionList(t)
 }

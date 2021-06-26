@@ -53,7 +53,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version1, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan v1beta1.Indication)
-	ctx, cancel := context.WithTimeout(context.Background(), 15 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	_, err = node.Subscribe(ctx, subName, subReq, ch)
 	assert.NoError(t, err)
 
@@ -66,4 +66,5 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	assert.NoError(t, err)
 
 	cancel()
+	e2utils.CheckForEmptySubscriptionList(t)
 }

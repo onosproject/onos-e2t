@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"testing"
 	"time"
@@ -29,7 +30,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	cells, err := utils.GetCellIDsPerNode(nodeID)
 	assert.NoError(t, err)
-	
+
 	// Use one of the cell object IDs for action definition
 	cellObjectID := cells[0].CellObjectID
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
@@ -93,4 +94,6 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	node = sdkClient.Node(sdkclient.NodeID(nodeID))
 	_ = node.Unsubscribe(context.Background(), subName)
 	_ = sim.Uninstall()
+
+	e2utils.CheckForEmptySubscriptionList(t)
 }

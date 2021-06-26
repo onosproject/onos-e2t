@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"google.golang.org/grpc/status"
 	"testing"
@@ -159,4 +160,6 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	}
 	err = sim.Uninstall()
 	assert.NoError(t, err)
+
+	e2utils.CheckForEmptySubscriptionList(t)
 }

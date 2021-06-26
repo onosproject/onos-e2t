@@ -167,4 +167,6 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 
 	err = sim.Uninstall()
 	assert.NoError(t, err)
+
+	e2utils.CheckForEmptySubscriptionList(t)
 }

@@ -7,6 +7,7 @@ package e2
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"math/rand"
 	"testing"
 	"time"
@@ -160,4 +161,5 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	assert.NoError(t, err)
 
 	cancel()
+	e2utils.CheckForEmptySubscriptionList(t)
 }

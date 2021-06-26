@@ -97,4 +97,5 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 
+	e2utils.CheckForEmptySubscriptionList(t)
 }
