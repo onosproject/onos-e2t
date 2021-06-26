@@ -50,6 +50,10 @@ func NewController(streams subscription.Broker, subs substore.Store, channels e2
 		subs:     subs,
 		channels: channels,
 	})
+	c.Watch(&TopoWatcher{
+		subs: subs,
+		topo: topoManager,
+	})
 	c.Reconcile(&Reconciler{
 		streams:                   streams,
 		subs:                      subs,
@@ -108,26 +112,53 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (controller.Result, error) {
-	if sub.Status.State != e2api.SubscriptionState_SUBSCRIPTION_PENDING {
-		return controller.Result{}, nil
-	}
-
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	// Get the southbound channel for the E2 node
+	// Get the topo relation
 	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.SubscriptionMeta.E2NodeID))
-	if err != nil || channelID == "" {
-		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-		return controller.Result{}, err
-	}
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
 	if err != nil {
+		// If the relation is not found and the subscription is COMPLETE, revert it to PENDING to ensure
+		// the subscription request is resent when the E2 node reconnects.
 		if errors.IsNotFound(err) {
+			if sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
+				sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_PENDING
+				log.Debugf("Updating Subscription %+v", sub)
+				err = r.subs.Update(ctx, sub)
+				if err != nil {
+					log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+					return controller.Result{}, err
+				}
+			}
 			return controller.Result{}, nil
 		}
 		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 		return controller.Result{}, err
+	}
+
+	// Get the southbound channel for the E2 node
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
+	if err != nil {
+		// If the channel is not found and the subscription is COMPLETE, revert it to PENDING to ensure
+		// the subscription request is resent when the E2 node reconnects.
+		if errors.IsNotFound(err) {
+			if sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
+				sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_PENDING
+				log.Debugf("Updating Subscription %+v", sub)
+				err = r.subs.Update(ctx, sub)
+				if err != nil {
+					log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+					return controller.Result{}, err
+				}
+			}
+			return controller.Result{}, nil
+		}
+		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+		return controller.Result{}, err
+	}
+
+	if sub.Status.State != e2api.SubscriptionState_SUBSCRIPTION_PENDING {
+		return controller.Result{}, nil
 	}
 
 	serviceModelOID, err := oid.ModelIDToOid(r.oidRegistry,
@@ -284,7 +315,11 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 
 	// Get the southbound channel ID for the E2 node
 	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.SubscriptionMeta.E2NodeID))
-	if err != nil || channelID == "" {
+	if err != nil {
+		if errors.IsNotFound(err) {
+			return controller.Result{}, nil
+		}
+		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 		return controller.Result{}, err
 	}
 

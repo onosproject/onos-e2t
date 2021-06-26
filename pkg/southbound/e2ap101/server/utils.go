@@ -5,10 +5,6 @@
 package server
 
 import (
-	"time"
-
-	"github.com/cenkalti/backoff/v4"
-
 	"github.com/google/uuid"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -32,20 +28,4 @@ func getChannelID(deviceID topoapi.ID) (ChannelID, error) {
 	}
 
 	return ChannelID(id.String()), nil
-
-}
-
-const (
-	backoffInterval = 10 * time.Millisecond
-	maxBackoffTime  = 5 * time.Second
-)
-
-func newExpBackoff() *backoff.ExponentialBackOff {
-	b := backoff.NewExponentialBackOff()
-	b.InitialInterval = backoffInterval
-	// MaxInterval caps the RetryInterval
-	b.MaxInterval = maxBackoffTime
-	// Never stops retrying
-	b.MaxElapsedTime = 0
-	return b
 }
