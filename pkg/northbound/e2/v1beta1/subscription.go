@@ -335,7 +335,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			return err
 		}
 	case <-server.Context().Done():
-		return nil
+		return server.Context().Err()
 	}
 
 	// Read indications from the stream and send them to the client
