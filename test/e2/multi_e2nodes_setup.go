@@ -25,7 +25,7 @@ const (
 var (
 	initialEnbID  = 155000
 	serviceModels = []string{"kpm2", "rcpre2"}
-	controllers   = []string{"e2t-1", "e2t-2"}
+	controllers   = []string{"e2t-1"}
 )
 
 func createCellRequest(index int) *modelapi.CreateCellRequest {
@@ -76,10 +76,8 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
 	for i := 0; i < defaultNumNodes; i++ {
 		topoEvent := <-topoEventChan
-		if topoEvent.Type.String() != topoapi.EventType_NONE.String() &&
-			topoEvent.Type.String() != topoapi.EventType_ADDED.String() {
-			assert.Fail(t, "topo event type does not match", topoEvent.Type)
-		}
+		assert.True(t, topoEvent.Type == topoapi.EventType_NONE ||
+			topoEvent.Type == topoapi.EventType_ADDED)
 	}
 
 	cells := utils.GetCells(t, cellClient)

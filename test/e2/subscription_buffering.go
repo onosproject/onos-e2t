@@ -11,6 +11,8 @@ import (
 	"testing"
 	"time"
 
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
 	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
@@ -34,6 +36,9 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	conns := connection.NewManager()
 
+	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
+
 	e2tConn, err := conns.Connect(fmt.Sprintf("%s:%d", utils.E2TServiceHost, utils.E2TServicePort))
 	assert.NoError(t, err)
 	e2tClient := termination.NewClient(e2tConn)
@@ -45,6 +50,8 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 
 	// Get list of e2 nodes using RAN simulator API
 	e2nodes := utils.GetNodes(t, nodeClient)
+	numNodes := utils.GetNumNodes(t, nodeClient)
+
 	// Delete all of the available nodes
 	for _, e2node := range e2nodes {
 		_, err := nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
@@ -52,10 +59,15 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 		})
 		assert.NoError(t, err)
 	}
-	// Get list of all available e2 nodes and make sure no node is connected
-	connections, err := utils.GetAllE2Connections(t)
+
+	topoEventChan := make(chan topoapi.Event)
+	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
 	assert.NoError(t, err)
-	assert.Equal(t, 0, len(connections))
+
+	for i := 0; i < numNodes; i++ {
+		topoEvent := <-topoEventChan
+		assert.Equal(t, topoEvent.Type.String(), topoapi.EventType_REMOVED.String())
+	}
 
 	// Create an e2 node with 3 cells from list of available cells.
 	cells := utils.GetCells(t, cellClient)
@@ -80,13 +92,13 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, e2node)
 
-	// Waits until the connection gets established and make sure there is just one node connected
-	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
-	// for the number of nodes
-	time.Sleep(10 * time.Second)
-	connections, err = utils.GetAllE2Connections(t)
-	assert.NoError(t, err)
-	assert.Equal(t, 1, len(connections))
+	numNodes = utils.GetNumNodes(t, nodeClient)
+	for i := 0; i < 1; i++ {
+		topoEvent := <-topoEventChan
+		assert.True(t, topoEvent.Type == topoapi.EventType_NONE ||
+			topoEvent.Type == topoapi.EventType_ADDED)
+	}
+
 	testNodeID := utils.GetTestNodeID(t)
 
 	// Creates a subscription using RC service model

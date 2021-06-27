@@ -13,16 +13,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/onosproject/onos-lib-go/pkg/certs"
-
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-lib-go/pkg/southbound"
-
-	"google.golang.org/grpc"
-)
-
-const (
-	OnosTopoAddress = "onos-topo:5150"
 )
 
 // TopoClient R-NIB client interface
@@ -128,42 +119,6 @@ func (c *Client) WatchE2Connections(ctx context.Context, ch chan topoapi.Event) 
 
 var _ TopoClient = &Client{}
 
-// GetTopoConn gets a gRPC connection to the topology service
-func GetTopoConn(topoEndpoint string) (*grpc.ClientConn, error) {
-	opts, err := certs.HandleCertPaths("", "", "", true)
-	if err != nil {
-		return nil, err
-	}
-	opts = append(opts, grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(100*time.Millisecond)))
-	return grpc.Dial(topoEndpoint, opts...)
-}
-
-func GetControlRelationObjects() ([]topoapi.Object, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-	conn, err := GetTopoConn(OnosTopoAddress)
-	if err != nil {
-		return nil, err
-	}
-	client := topoapi.CreateTopoClient(conn)
-	listResponse, err := client.List(ctx, &topoapi.ListRequest{
-		Filters: &topoapi.Filters{
-			KindFilter: &topoapi.Filter{
-				Filter: &topoapi.Filter_Equal_{
-					Equal_: &topoapi.EqualFilter{
-						Value: topoapi.CONTROLS,
-					},
-				},
-			},
-		},
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	return listResponse.Objects, nil
-}
-
 // GetTestNodeIDs gets n test node IDs
 func GetTestNodeIDs(t *testing.T, n int) []topoapi.ID {
 	topoSdkClient, err := NewTopoClient()
@@ -200,17 +155,4 @@ func GetTestNodeID(t *testing.T) topoapi.ID {
 	object := event.GetObject()
 	assert.NotNil(t, object)
 	return object.GetRelation().GetTgtEntityID()
-}
-
-func GetAllE2Connections(t *testing.T) ([]topoapi.ID, error) {
-	objects, err := GetControlRelationObjects()
-	if err != nil {
-		return nil, err
-	}
-	var connectionIDs []topoapi.ID
-	for _, obj := range objects {
-		connectionIDs = append(connectionIDs, obj.ID)
-
-	}
-	return connectionIDs, nil
 }
