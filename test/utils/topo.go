@@ -18,7 +18,7 @@ import (
 
 // TopoClient R-NIB client interface
 type TopoClient interface {
-	WatchE2Connections(ctx context.Context, ch chan topoapi.Event) error
+	WatchE2Connections(ctx context.Context, ch chan topoapi.Event, noReplay bool) error
 	GetCells(ctx context.Context, nodeID topoapi.ID) ([]*topoapi.E2Cell, error)
 	GetE2NodeAspects(ctx context.Context, nodeID topoapi.ID) (*topoapi.E2Node, error)
 	E2NodeIDs(ctx context.Context) ([]topoapi.ID, error)
@@ -109,8 +109,9 @@ func getControlRelationFilter() *topoapi.Filters {
 }
 
 // WatchE2Connections watch e2 node connection changes
-func (c *Client) WatchE2Connections(ctx context.Context, ch chan topoapi.Event) error {
-	err := c.client.Watch(ctx, ch, toposdk.WithWatchFilters(getControlRelationFilter()))
+func (c *Client) WatchE2Connections(ctx context.Context, ch chan topoapi.Event, noReplay bool) error {
+	err := c.client.Watch(ctx, ch, toposdk.WithWatchFilters(getControlRelationFilter()),
+		toposdk.WithNoReplay(noReplay))
 	if err != nil {
 		return err
 	}
@@ -126,7 +127,7 @@ func GetTestNodeIDs(t *testing.T, n int) []topoapi.ID {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 	ch := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Connections(ctx, ch)
+	err = topoSdkClient.WatchE2Connections(ctx, ch, false)
 	assert.NoError(t, err)
 
 	var nodeIDs []topoapi.ID
@@ -148,7 +149,7 @@ func GetTestNodeID(t *testing.T) topoapi.ID {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 	ch := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Connections(ctx, ch)
+	err = topoSdkClient.WatchE2Connections(ctx, ch, false)
 	assert.NoError(t, err)
 	event := <-ch
 	t.Log(event.String())

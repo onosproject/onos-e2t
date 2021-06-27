@@ -19,7 +19,6 @@ import (
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	"github.com/onosproject/helmit/pkg/simulation"
 	"github.com/onosproject/helmit/pkg/util/async"
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"
@@ -84,17 +83,6 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 		return err
 	}
 
-	objects, err := utils.GetControlRelationObjects()
-	if err != nil {
-		log.Error(err)
-		return err
-	}
-
-	var nodeIDs []topoapi.ID
-	for _, obj := range objects {
-		relation := obj.Obj.(*topoapi.Object_Relation)
-		nodeIDs = append(nodeIDs, relation.Relation.TgtEntityID)
-	}
 	nodeID := utils.GetTestNodeID(nil)
 
 	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)

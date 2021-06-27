@@ -34,6 +34,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	nodeIDs := utils.GetTestNodeIDs(t, 2)
 	t.Log("Node IDs:", nodeIDs)
+	assert.True(t, len(nodeIDs) > 0)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 

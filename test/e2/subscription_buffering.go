@@ -31,12 +31,17 @@ import (
 
 // TestSubscriptionIndicationBuffering tests E2 indication buffering
 func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
+
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-indication-buffering")
 	assert.NotNil(t, sim)
-	ctx, cancel := context.WithCancel(context.Background())
 	conns := connection.NewManager()
 
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
+	defer cancel()
 	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
+	topoEventChan := make(chan topoapi.Event)
+	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan, false)
 	assert.NoError(t, err)
 
 	e2tConn, err := conns.Connect(fmt.Sprintf("%s:%d", utils.E2TServiceHost, utils.E2TServicePort))
@@ -52,6 +57,12 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	e2nodes := utils.GetNodes(t, nodeClient)
 	numNodes := utils.GetNumNodes(t, nodeClient)
 
+	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
+	for i := 0; i < defaultNumNodes; i++ {
+		topoEvent := <-topoEventChan
+		assert.True(t, topoEvent.Type == topoapi.EventType_ADDED || topoEvent.Type == topoapi.EventType_NONE)
+	}
+
 	// Delete all of the available nodes
 	for _, e2node := range e2nodes {
 		_, err := nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
@@ -60,13 +71,9 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 		assert.NoError(t, err)
 	}
 
-	topoEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
-	assert.NoError(t, err)
-
 	for i := 0; i < numNodes; i++ {
 		topoEvent := <-topoEventChan
-		assert.Equal(t, topoEvent.Type.String(), topoapi.EventType_REMOVED.String())
+		assert.Equal(t, topoEvent.Type, topoapi.EventType_REMOVED)
 	}
 
 	// Create an e2 node with 3 cells from list of available cells.
@@ -93,10 +100,9 @@ func (s *TestSuite) TestSubscriptionIndicationBuffering(t *testing.T) {
 	assert.NotNil(t, e2node)
 
 	numNodes = utils.GetNumNodes(t, nodeClient)
-	for i := 0; i < 1; i++ {
+	for i := 0; i < numNodes; i++ {
 		topoEvent := <-topoEventChan
-		assert.True(t, topoEvent.Type == topoapi.EventType_NONE ||
-			topoEvent.Type == topoapi.EventType_ADDED)
+		assert.True(t, topoEvent.Type == topoapi.EventType_ADDED || topoEvent.Type == topoapi.EventType_NONE)
 	}
 
 	testNodeID := utils.GetTestNodeID(t)

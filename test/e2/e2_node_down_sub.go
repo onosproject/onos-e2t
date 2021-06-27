@@ -28,7 +28,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	topoSdkClient, err := utils.NewTopoClient()
@@ -89,8 +89,8 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
-	_, err = node.Subscribe(ctx, subName, subReq, ch)
-	t.Log(err)
+	channelID, err := node.Subscribe(ctx, subName, subReq, ch)
+	t.Log(err, ":", channelID)
 
 	//  Subscribe should have failed because of a timeout
 	assert.Error(t, err)

@@ -8,6 +8,7 @@ import (
 	"context"
 	"math/rand"
 	"testing"
+	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
@@ -50,17 +51,22 @@ func createCellRequest(index int) *modelapi.CreateCellRequest {
 }
 
 func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
+
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-e2nodes")
 	assert.NotNil(t, sim)
-	ctx, cancel := context.WithCancel(context.Background())
+
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
 	defer cancel()
+	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
+	topoEventChan := make(chan topoapi.Event)
+	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan, false)
+	assert.NoError(t, err)
+
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
 	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
-
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
 
 	defaultNumCells := utils.GetNumCells(t, cellClient)
 	for i := 1; i < numRequestedCells+1; i++ {
@@ -70,14 +76,10 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	numCells := utils.GetNumCells(t, cellClient)
 	assert.Equal(t, numRequestedCells, numCells-defaultNumCells)
 
-	topoEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
-	assert.NoError(t, err)
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
 	for i := 0; i < defaultNumNodes; i++ {
 		topoEvent := <-topoEventChan
-		assert.True(t, topoEvent.Type == topoapi.EventType_NONE ||
-			topoEvent.Type == topoapi.EventType_ADDED)
+		assert.True(t, topoEvent.Type == topoapi.EventType_ADDED || topoEvent.Type == topoapi.EventType_NONE)
 	}
 
 	cells := utils.GetCells(t, cellClient)
@@ -102,10 +104,9 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 		assert.NotNil(t, e2node)
 	}
 	numNodes := utils.GetNumNodes(t, nodeClient)
-
 	for i := 0; i < numNodes-defaultNumNodes; i++ {
 		topoEvent := <-topoEventChan
-		assert.Equal(t, topoEvent.Type.String(), topoapi.EventType_ADDED.String())
+		assert.True(t, topoEvent.Type == topoapi.EventType_ADDED || topoEvent.Type == topoapi.EventType_NONE)
 	}
 
 	e2nodes := utils.GetNodes(t, nodeClient)
@@ -119,7 +120,7 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 
 	for i := 0; i < numNodes; i++ {
 		topoEvent := <-topoEventChan
-		assert.Equal(t, topoEvent.Type.String(), topoapi.EventType_REMOVED.String())
+		assert.Equal(t, topoEvent.Type, topoapi.EventType_REMOVED)
 	}
 
 	numNodes = utils.GetNumNodes(t, nodeClient)
