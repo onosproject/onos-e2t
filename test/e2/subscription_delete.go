@@ -24,7 +24,7 @@ const (
 	subscriptionName    = "TestSubscriptionDelete-kpm"
 	granularity         = uint32(500)
 	reportPeriod        = uint32(5000)
-	subscriptionTimeout = 30 * time.Second
+	subscriptionTimeout = 2 * time.Minute
 )
 
 // createAndVerifySubscription creates a subscription to the given node and makes sure that
@@ -135,10 +135,6 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	// Close the subscription
 	err := node.Unsubscribe(ctx, subscriptionName)
 	assert.NoError(t, err)
-	cancel()
-
-	// Create a context specifying a timeout
-	ctx, cancel = context.WithTimeout(context.Background(), subscriptionTimeout)
 
 	// Check number of subscriptions is correct after deleting the subscription
 	subList = e2utils.GetSubscriptionList(t)
@@ -161,7 +157,6 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	assert.NoError(t, err)
 
 	assert.True(t, readToEndOfChannel(ch))
-	cancel()
 
 	// Clean up the ran-sim instance
 	simErr := sim.Uninstall()
