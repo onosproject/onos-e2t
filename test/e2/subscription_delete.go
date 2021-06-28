@@ -24,7 +24,7 @@ const (
 	subscriptionName    = "TestSubscriptionDelete-kpm"
 	granularity         = uint32(500)
 	reportPeriod        = uint32(5000)
-	subscriptionTimeout = 10 * time.Second
+	subscriptionTimeout = 30 * time.Second
 )
 
 // createAndVerifySubscription creates a subscription to the given node and makes sure that
@@ -105,7 +105,7 @@ func readToEndOfChannel(ch chan subapi.Indication) bool {
 
 // TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	defer cancel()
 	// Start up a ran-sim instance
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-delete")
