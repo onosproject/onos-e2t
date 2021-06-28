@@ -52,7 +52,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,

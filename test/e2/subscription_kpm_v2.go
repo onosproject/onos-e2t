@@ -61,7 +61,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(nodeID),
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,

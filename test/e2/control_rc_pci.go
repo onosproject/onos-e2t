@@ -57,7 +57,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(testNodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,

@@ -33,7 +33,6 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NotNil(t, sim)
 
 	nodeIDs := utils.GetTestNodeIDs(t, 2)
-	t.Log("Node IDs:", nodeIDs)
 	assert.True(t, len(nodeIDs) > 0)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
@@ -74,7 +73,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	KPMActions = append(KPMActions, KPMAction)
 
-	KPMSubRequest := utils.Subscription2{
+	KPMSubRequest := utils.Subscription{
 		NodeID:              string(kpmNodeID),
 		EventTrigger:        KPMEventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
@@ -108,7 +107,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	}
 
 	RCActions = append(RCActions, RCAction)
-	RCSubSpec := utils.Subscription2{
+	RCSubSpec := utils.Subscription{
 		NodeID:              string(rcPreNodeID),
 		Actions:             RCActions,
 		EventTrigger:        RCEventTriggerBytes,

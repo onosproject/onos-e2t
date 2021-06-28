@@ -54,7 +54,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
@@ -79,7 +79,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 		if len(pods) > 0 {
 			time.Sleep(time.Second)
 		} else {
-			t.Log("No ransim pod")
+			t.Log("no ransim pod")
 			break
 		}
 	}

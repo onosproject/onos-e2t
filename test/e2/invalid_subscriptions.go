@@ -52,7 +52,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        testCase.eventTrigger,

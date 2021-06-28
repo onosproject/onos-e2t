@@ -78,7 +78,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	actions = append(actions, action0)
 	actions = append(actions, action1)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(nodeID),
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,

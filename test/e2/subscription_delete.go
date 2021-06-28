@@ -55,7 +55,7 @@ func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
