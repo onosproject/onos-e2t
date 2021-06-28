@@ -105,12 +105,13 @@ func readToEndOfChannel(ch chan e2api.Indication) bool {
 
 // TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
-	defer cancel()
+
 	// Start up a ran-sim instance
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-delete")
 	assert.NotNil(t, sim)
 
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
+	defer cancel()
 	//  Initially the subscription list should be empty
 	subList := e2utils.GetSubscriptionList(t)
 	defaultNumSubs := len(subList)
