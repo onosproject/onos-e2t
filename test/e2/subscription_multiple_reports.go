@@ -26,7 +26,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-multiple-reports")
 	assert.NotNil(t, sim)
 
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	defer cancel()
 
 	nodeID := utils.GetTestNodeID(t)
@@ -110,7 +110,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 		assert.True(t, cellObjectID == cellObjectIDList[0] || cellObjectID == cellObjectIDList[1])
 	}
 
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

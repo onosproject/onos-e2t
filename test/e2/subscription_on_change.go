@@ -34,7 +34,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-on-change")
 	assert.NotNil(t, sim)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	defer cancel()
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
@@ -171,7 +171,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	// Expect to receive indication message on neighbor list change
 	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

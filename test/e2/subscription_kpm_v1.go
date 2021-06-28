@@ -7,7 +7,6 @@ package e2
 import (
 	"context"
 	"testing"
-	"time"
 
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	subapi "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -52,13 +51,13 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version1, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan v1beta1.Indication)
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	_, err = node.Subscribe(ctx, subName, subReq, ch)
 	assert.NoError(t, err)
 
 	e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

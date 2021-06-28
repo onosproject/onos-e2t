@@ -25,7 +25,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
 	assert.NotNil(t, sim)
 
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	defer cancel()
 
 	nodeID := utils.GetTestNodeID(t)
@@ -92,7 +92,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()
