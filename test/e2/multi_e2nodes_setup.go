@@ -36,7 +36,7 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 	topoEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan, false)
+	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
 	assert.NoError(t, err)
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)

@@ -39,7 +39,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 	topoEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan, false)
+	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
 	assert.NoError(t, err)
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
@@ -48,10 +48,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	assert.NotNil(t, cellClient)
 
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
-	for i := 0; i < defaultNumNodes; i++ {
-		topoEvent := <-topoEventChan
-		assert.True(t, topoEvent.Type == topoapi.EventType_ADDED || topoEvent.Type == topoapi.EventType_NONE)
-	}
+	utils.CountTopoAddedOrNoneEvent(topoEventChan, defaultNumNodes)
 
 	// Get list of e2 nodes using RAN simulator API
 	e2nodes := utils.GetNodes(t, nodeClient)
@@ -65,10 +62,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		assert.NoError(t, err)
 	}
 
-	for i := 0; i < numNodes; i++ {
-		topoEvent := <-topoEventChan
-		assert.Equal(t, topoEvent.Type, topoapi.EventType_REMOVED)
-	}
+	utils.CountTopoRemovedEvent(topoEventChan, numNodes)
 
 	// Create an e2 node with 3 cells from list of available cells.
 	cells := utils.GetCells(t, cellClient)
@@ -94,12 +88,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	assert.NotNil(t, e2node)
 
 	numNodes = utils.GetNumNodes(t, nodeClient)
-
-	for i := 0; i < numNodes; i++ {
-		topoEvent := <-topoEventChan
-		assert.True(t, topoEvent.Type == topoapi.EventType_ADDED || topoEvent.Type == topoapi.EventType_NONE)
-
-	}
+	utils.CountTopoAddedOrNoneEvent(topoEventChan, numNodes)
 
 	testNodeID := utils.GetTestNodeID(t)
 
