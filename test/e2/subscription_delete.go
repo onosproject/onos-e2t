@@ -112,7 +112,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	assert.NotNil(t, sim)
 
 	//  Initially the subscription list should be empty
-	subList := e2utils.GetSubscriptionList2(t)
+	subList := e2utils.GetSubscriptionList(t)
 	defaultNumSubs := len(subList)
 
 	// Create a Node
@@ -125,12 +125,12 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	subscriptionID := getSubscriptionID(t, channelID)
 
 	// Check that the subscription list is correct
-	subList = e2utils.GetSubscriptionList2(t)
+	subList = e2utils.GetSubscriptionList(t)
 	assert.Equal(t, defaultNumSubs+1, len(subList))
-	e2utils.CheckSubscriptionIDInList2(t, subscriptionID, subList)
+	e2utils.CheckSubscriptionIDInList(t, subscriptionID, subList)
 
 	// Check that querying the subscription is correct
-	e2utils.CheckSubscriptionGet2(t, subscriptionID)
+	e2utils.CheckSubscriptionGet(t, subscriptionID)
 
 	// Close the subscription
 	err := node.Unsubscribe(ctx, subscriptionName)
@@ -141,7 +141,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	ctx, cancel = context.WithTimeout(context.Background(), subscriptionTimeout)
 
 	// Check number of subscriptions is correct after deleting the subscription
-	subList = e2utils.GetSubscriptionList2(t)
+	subList = e2utils.GetSubscriptionList(t)
 	assert.Equal(t, defaultNumSubs, len(subList))
 
 	//  Open the subscription again and make sure it is open
@@ -149,12 +149,12 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	subscriptionID = getSubscriptionID(t, channelID)
 
 	// Check that the number of subscriptions is correct after reopening
-	subList = e2utils.GetSubscriptionList2(t)
+	subList = e2utils.GetSubscriptionList(t)
 	assert.Equal(t, defaultNumSubs+1, len(subList))
-	e2utils.CheckSubscriptionIDInList2(t, subscriptionID, subList)
+	e2utils.CheckSubscriptionIDInList(t, subscriptionID, subList)
 
 	// Check that querying the subscription is correct
-	e2utils.CheckSubscriptionGet2(t, subscriptionID)
+	e2utils.CheckSubscriptionGet(t, subscriptionID)
 
 	// Close the subscription
 	err = node.Unsubscribe(ctx, subscriptionName)

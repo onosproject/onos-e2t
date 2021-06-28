@@ -128,7 +128,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	var indMessage e2api.Indication
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
-		indMessage = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+		indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	}
 
 	// Make sure that reads on the subscription channel time out. There should be no
@@ -169,7 +169,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	// Expect to receive indication message on neighbor list change
-	indMessage = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)

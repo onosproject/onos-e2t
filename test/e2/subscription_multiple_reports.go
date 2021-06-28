@@ -101,7 +101,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
 	for i := 0; i < 2; i++ {
-		indicationReport := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+		indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 		err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
 		assert.NoError(t, err)
 		err = proto.Unmarshal(indicationReport.Header, &indicationHeader)

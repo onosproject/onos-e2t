@@ -70,9 +70,9 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, sub)
 
-		e2utils.CheckIndicationMessage2(t, 60*time.Second, ch)
-		e2utils.CheckIndicationMessage2(t, 120*time.Second, ch)
-		e2utils.CheckIndicationMessage2(t, 20*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 60*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 120*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 20*time.Second, ch)
 
 		e2tPod := FindPodWithPrefix(t, "onos-e2t")
 		CrashPodOrFail(t, e2tPod)

@@ -69,7 +69,8 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 	assert.Error(t, err)
 	cancel()
 
-	t.Log("Error:", err)
+	t.Log("Error:", err, testCase.expectedError)
+	//assert.Error(t, testCase.expectedError, err.Error())
 
 	/*for _, detail := range st.Details() {
 		assert.Nil(t, detail)

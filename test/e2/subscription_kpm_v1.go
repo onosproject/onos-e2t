@@ -56,7 +56,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	_, err = node.Subscribe(ctx, subName, subReq, ch)
 	assert.NoError(t, err)
 
-	e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)

@@ -126,8 +126,8 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Check that indications can be received
-	KPMMsg := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, KPMch)
-	RCMsg := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, RCch)
+	KPMMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, KPMch)
+	RCMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, RCch)
 
 	kpmIndicationHeader := &e2sm_kpm_ies.E2SmKpmIndicationHeader{}
 	rcIndicationHeader := &e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}

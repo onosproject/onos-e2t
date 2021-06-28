@@ -75,7 +75,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Receive and process the first indication message
-	indMessage := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	indMessage := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	header := indMessage.Header
 	ricIndicationHeader := e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
 

@@ -28,7 +28,7 @@ var (
 )
 
 func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-e2connections")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-e2nodes")
 	assert.NotNil(t, sim)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)

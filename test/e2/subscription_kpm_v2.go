@@ -80,7 +80,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	_, err = node.Subscribe(ctx, subName, subSpec, ch)
 	assert.NoError(t, err)
 
-	indicationReport := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
