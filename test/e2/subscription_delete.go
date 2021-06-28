@@ -32,9 +32,6 @@ const (
 // is returned
 func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.ID, node sdkclient.Node) (subapi.ChannelID, chan subapi.Indication) {
 
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 	// Use one of the cell object IDs for action definition
@@ -108,8 +105,8 @@ func readToEndOfChannel(ch chan subapi.Indication) bool {
 
 // TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
-	var err error
-
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 	// Start up a ran-sim instance
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-delete")
 	assert.NotNil(t, sim)
@@ -122,8 +119,6 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	nodeID := utils.GetTestNodeID(t)
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
-
-	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 
 	// Add a subscription
 	channelID, _ := createAndVerifySubscription(ctx, t, nodeID, node)
@@ -138,7 +133,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	e2utils.CheckSubscriptionGet2(t, subscriptionID)
 
 	// Close the subscription
-	err = node.Unsubscribe(ctx, subscriptionName)
+	err := node.Unsubscribe(ctx, subscriptionName)
 	assert.NoError(t, err)
 	cancel()
 

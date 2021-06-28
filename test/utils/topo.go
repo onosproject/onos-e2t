@@ -157,3 +157,35 @@ func GetTestNodeID(t *testing.T) topoapi.ID {
 	assert.NotNil(t, object)
 	return object.GetRelation().GetTgtEntityID()
 }
+
+type TopoEventCounters struct {
+	Added       int
+	Removed     int
+	None        int
+	Updated     int
+	AddedOrNone int
+}
+
+func CountTopoRemovedEvent(ch chan topoapi.Event, expectedValue int) {
+	eventCounters := TopoEventCounters{}
+	for event := range ch {
+		if event.Type == topoapi.EventType_REMOVED {
+			eventCounters.Removed = eventCounters.Removed + 1
+		}
+		if eventCounters.Removed == expectedValue {
+			break
+		}
+	}
+}
+
+func CountTopoAddedOrNoneEvent(ch chan topoapi.Event, expectedValue int) {
+	eventCounters := TopoEventCounters{}
+	for event := range ch {
+		if event.Type == topoapi.EventType_NONE || event.Type == topoapi.EventType_ADDED {
+			eventCounters.AddedOrNone = eventCounters.AddedOrNone + 1
+		}
+		if eventCounters.AddedOrNone == expectedValue {
+			break
+		}
+	}
+}
