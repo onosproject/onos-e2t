@@ -40,15 +40,23 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 		e, err := res.Recv()
 		assert.NoError(t, err)
 		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_CREATED, e.Event.Type)
+		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_PENDING, e.Event.Subscription.Status.State)
 		pause.Done()
 
 		e, err = res.Recv()
 		assert.NoError(t, err)
 		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
+		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_COMPLETE, e.Event.Subscription.Status.State)
 
 		e, err = res.Recv()
 		assert.NoError(t, err)
 		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
+		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_PENDING, e.Event.Subscription.Status.State)
+
+		e, err = res.Recv()
+		assert.NoError(t, err)
+		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
+		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_COMPLETE, e.Event.Subscription.Status.State)
 
 		wg.Done()
 	}()
