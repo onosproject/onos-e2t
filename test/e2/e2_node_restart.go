@@ -24,10 +24,6 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
 
-	t.Log("Restart e2 node first time")
-	_ = sim.Uninstall()
-	_ = sim.Install(true)
-
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -120,7 +116,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Restart e2 node a second time")
+	t.Log("Restart e2 node")
 	_ = sim.Uninstall()
 	_ = sim.Install(true)
 
