@@ -20,6 +20,20 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
+func verifyIndicationMessages(t *testing.T, ch chan e2api.Indication, cellObjectID string) {
+	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
+	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
+
+	err := proto.Unmarshal(indicationReport.Payload, &indicationMessage)
+	assert.NoError(t, err)
+	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
+	assert.Equal(t, int(reportPeriod/granularity), len(indicationMessage.GetIndicationMessageFormat1().GetMeasData().GetValue()))
+
+	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
+	assert.NoError(t, err)
+}
+
 // TestIdenticalSubscriptions tests identical subscriptions are absorbed by E2T
 func (s *TestSuite) TestIdenticalSubscriptions(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
@@ -72,51 +86,41 @@ func (s *TestSuite) TestIdenticalSubscriptions(t *testing.T) {
 	subSpec, err := subRequest.CreateWithActionDefinition2()
 	assert.NoError(t, err)
 
-	subName1 := "TestSubscriptionKpmV2-1"
-	subName2 := "TestSubscriptionKpmV2-2"
+	subName1 := "identical-sub1"
+	subName2 := "identical-sub2"
 
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch1 := make(chan v1beta1.Indication)
-	_, err = node.Subscribe(ctx, subName1, subSpec, ch1)
+	channelID1, err := node.Subscribe(ctx, subName1, subSpec, ch1)
 	assert.NoError(t, err)
 
 	ch2 := make(chan v1beta1.Indication)
-	_, err = node.Subscribe(ctx, subName2, subSpec, ch2)
+	channelID2, err := node.Subscribe(ctx, subName2, subSpec, ch2)
 	assert.NoError(t, err)
 
-	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch1)
-	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
-	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
+	assert.True(t, channelID1 != channelID2)
 
-	err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
-	assert.NoError(t, err)
-	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(reportPeriod/granularity), len(indicationMessage.GetIndicationMessageFormat1().GetMeasData().GetValue()))
-
-	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
-	assert.NoError(t, err)
-
-	indicationReport = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch2)
-	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
-	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
-
-	err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
-	assert.NoError(t, err)
-	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(reportPeriod/granularity), len(indicationMessage.GetIndicationMessageFormat1().GetMeasData().GetValue()))
-
-	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
-	assert.NoError(t, err)
+	// Should be able to receive indication messages on both channels
+	verifyIndicationMessages(t, ch1, cellObjectID)
+	verifyIndicationMessages(t, ch2, cellObjectID)
 
 	subList := e2utils.GetSubscriptionList(t)
 	assert.Equal(t, 1, len(subList))
+	t.Log(subList)
 
 	err = node.Unsubscribe(ctx, subName1)
+	t.Log(err)
 	assert.NoError(t, err)
+
+	subList = e2utils.GetSubscriptionList(t)
+	t.Log("Deleting subscription:", subName1, subList)
+	t.Log(subList)
 
 	err = node.Unsubscribe(ctx, subName2)
 	assert.NoError(t, err)
+
+	t.Log("Deleting subscription:", subName2, subList)
 
 	err = sim.Uninstall()
 	assert.NoError(t, err)

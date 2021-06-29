@@ -5,10 +5,11 @@
 package v1beta1
 
 import (
-	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"io"
 	"sync"
+
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
 var log = logging.GetLogger("broker", "subscription", "v1beta1")
@@ -79,6 +80,7 @@ func (b *streamBroker) GetReader(subID e2api.SubscriptionID) (StreamReader, bool
 	b.mu.RLock()
 	defer b.mu.RUnlock()
 	stream, ok := b.streams.getSubStream(subID)
+	log.Debug("Test streams:", b.streams.streams)
 	return stream, ok
 }
 
