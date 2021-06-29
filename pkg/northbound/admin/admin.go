@@ -7,6 +7,8 @@ package admin
 import (
 	"context"
 	"errors"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
 
@@ -95,12 +97,13 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 		}
 
 		msg := &adminapi.ListE2NodeConnectionsResponse{
-			RemoteIp:   remoteAddrsStrings,
-			RemotePort: remotePort,
-			Id:         string(channel.ID),
-			PlmnId:     channel.PlmnID,
-			// TODO: This should come from the connection data
-			ConnectionType: adminapi.E2NodeConnectionType_G_NB,
+			Id:             string(channel.ID),
+			RemoteIp:       remoteAddrsStrings,
+			RemotePort:     remotePort,
+			PlmnId:         channel.PlmnID,
+			NodeId:         channel.NodeID,
+			ConnectionType: connectionType(channel.NodeType),
+			AgeMs:          int32(time.Since(channel.TimeAlive).Milliseconds()),
 			RanFunctions:   ranFunctions,
 		}
 
@@ -110,6 +113,21 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 		}
 	}
 	return err
+}
+
+func connectionType(nodeType types.E2NodeType) adminapi.E2NodeConnectionType {
+	switch nodeType {
+	case types.E2NodeTypeGNB:
+		return adminapi.E2NodeConnectionType_G_NB
+	case types.E2NodeTypeENB:
+		return adminapi.E2NodeConnectionType_E_NB
+	case types.E2NodeTypeEnGNB:
+		return adminapi.E2NodeConnectionType_ENG_MB
+	case types.E2NodeTypeNgENB:
+		return adminapi.E2NodeConnectionType_NGE_NB
+	default:
+		return adminapi.E2NodeConnectionType_G_NB
+	}
 }
 
 // DropE2NodeConnections drops the specified E2 node SCTP connections

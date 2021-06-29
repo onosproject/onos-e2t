@@ -9,6 +9,7 @@ import (
 	"encoding/hex"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"strconv"
+	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
@@ -211,7 +212,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 
-	e.e2Channel = NewE2Channel(channelID, plmnID, e.serverChannel, e.streams, e.streamsv1beta1)
+	e.e2Channel = NewE2Channel(channelID, plmnID, nodeID, e.serverChannel, e.streams, e.streamsv1beta1, time.Now())
 	e.manager.Open(channelID, e.e2Channel)
 
 	err = e.updateRNIB(ctx, e2NodeID, serviceModels, e2Cells, topoapi.ID(channelID))
