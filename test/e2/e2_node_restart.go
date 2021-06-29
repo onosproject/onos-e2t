@@ -53,11 +53,11 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 		wg.Done()
 	}()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	nodeID := nodeIDs[0]
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	nodeID := utils.GetTestNodeID(t)
+	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	assert.NoError(t, err)
 
 	reportPeriod := uint32(5000)
@@ -85,8 +85,8 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
-		NodeID:              string(nodeIDs[0]),
+	subRequest := utils.Subscription{
+		NodeID:              string(nodeID),
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
 		ServiceModelVersion: utils.Version2,
@@ -104,7 +104,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	_, err = node.Subscribe(ctx, subName, subSpec, ch)
 	assert.NoError(t, err)
 
-	indicationReport := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
@@ -121,7 +121,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	_ = sim.Install(true)
 
 	t.Log("Check indications")
-	indicationReport = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationReport = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 
