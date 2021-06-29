@@ -6,10 +6,11 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/test/e2utils"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-e2t/test/e2utils"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	"github.com/onosproject/helmit/pkg/kubernetes"
 
@@ -23,12 +24,17 @@ import (
 func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
-	nodeID := utils.GetFirstNodeID(t)
+	nodeID := utils.GetTestNodeID(t)
 
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
 	assert.NoError(t, err)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
+
+	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
@@ -48,7 +54,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
@@ -73,6 +79,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 		if len(pods) > 0 {
 			time.Sleep(time.Second)
 		} else {
+			t.Log("no ransim pod")
 			break
 		}
 	}
@@ -82,14 +89,13 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	_, err = node.Subscribe(ctx, subName, subReq, ch)
 
 	//  Subscribe should have failed because of a timeout
 	assert.Error(t, err)
 	cancel()
 
-	// Clear the subscription
+	// Delete the subscription and ran simulator
 	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
 	node = sdkClient.Node(sdkclient.NodeID(nodeID))
 	_ = node.Unsubscribe(context.Background(), subName)

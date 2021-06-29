@@ -6,10 +6,10 @@ package e2
 
 import (
 	"context"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"testing"
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	"google.golang.org/protobuf/proto"
@@ -26,14 +26,15 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-multiple-reports")
 	assert.NotNil(t, sim)
 
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	nodeID := utils.GetTestNodeID(t)
+
+	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	nodeID := nodeIDs[0]
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
 
 	// Kpm v2 interval is defined in ms
@@ -77,7 +78,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	actions = append(actions, action0)
 	actions = append(actions, action1)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(nodeID),
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
@@ -100,7 +101,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
 	for i := 0; i < 2; i++ {
-		indicationReport := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+		indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 		err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
 		assert.NoError(t, err)
 		err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
@@ -109,7 +110,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 		assert.True(t, cellObjectID == cellObjectIDList[0] || cellObjectID == cellObjectIDList[1])
 	}
 
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

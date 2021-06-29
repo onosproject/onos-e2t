@@ -9,12 +9,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"math/rand"
+	"os"
+	"sync"
+	"time"
+
 	"github.com/cenkalti/backoff"
 	"github.com/onosproject/helmit/pkg/helm"
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	"github.com/onosproject/helmit/pkg/simulation"
 	"github.com/onosproject/helmit/pkg/util/async"
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"google.golang.org/grpc"
@@ -24,10 +28,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
 	"k8s.io/utils/pointer"
-	"math/rand"
-	"os"
-	"sync"
-	"time"
 )
 
 const controlPort = 5000
@@ -78,20 +78,14 @@ func (s *SimSuite) SetupSimulator(sim *simulation.Simulator) error {
 		return err
 	}
 
-	objects, err := utils.GetControlRelationObjects()
+	topoSdkClient, err := utils.NewTopoClient()
 	if err != nil {
-		log.Error(err)
 		return err
 	}
 
-	var nodeIDs []topoapi.ID
-	for _, obj := range objects {
-		relation := obj.Obj.(*topoapi.Object_Relation)
-		nodeIDs = append(nodeIDs, relation.Relation.TgtEntityID)
-	}
-	nodeID := nodeIDs[0]
+	nodeID := utils.GetTestNodeID(nil)
 
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	if err != nil {
 		return err
 	}

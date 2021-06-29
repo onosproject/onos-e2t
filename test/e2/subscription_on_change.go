@@ -6,10 +6,13 @@ package e2
 
 import (
 	"context"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"math/rand"
 	"testing"
 	"time"
+
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
+	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
 
@@ -27,17 +30,30 @@ import (
 
 // TestSubscriptionOnChange tests E2 subscription on change using ransim, SDK
 func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
+
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-on-change")
 	assert.NotNil(t, sim)
-	ctx := context.Background()
+
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
+	defer cancel()
+	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
+	topoEventChan := make(chan topoapi.Event)
+	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
+	assert.NoError(t, err)
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
 	cellClient := utils.GetRansimCellClient(t, sim)
 	assert.NotNil(t, cellClient)
 
+	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
+	utils.CountTopoAddedOrNoneEvent(topoEventChan, defaultNumNodes)
+
 	// Get list of e2 nodes using RAN simulator API
 	e2nodes := utils.GetNodes(t, nodeClient)
+	numNodes := utils.GetNumNodes(t, nodeClient)
+
 	// Delete all of the available nodes
 	for _, e2node := range e2nodes {
 		_, err := nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
@@ -45,10 +61,8 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		})
 		assert.NoError(t, err)
 	}
-	// Get list of all available e2 nodes and make sure no node is connected
-	connections, err := utils.GetAllE2Connections(t)
-	assert.NoError(t, err)
-	assert.Equal(t, 0, len(connections))
+
+	utils.CountTopoRemovedEvent(topoEventChan, numNodes)
 
 	// Create an e2 node with 3 cells from list of available cells.
 	cells := utils.GetCells(t, cellClient)
@@ -73,15 +87,10 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, e2node)
 
-	// Waits until the connection gets established and make sure there is just one node connected
-	// TODO this should be replaced with a mechanism to make sure all of the nodes are gone before asking
-	// for the number of nodes
-	time.Sleep(10 * time.Second)
-	connections, err = utils.GetAllE2Connections(t)
-	assert.NoError(t, err)
-	assert.Equal(t, 1, len(connections))
+	numNodes = utils.GetNumNodes(t, nodeClient)
+	utils.CountTopoAddedOrNoneEvent(topoEventChan, numNodes)
 
-	testNodeID := utils.GetFirstNodeID(t)
+	testNodeID := utils.GetTestNodeID(t)
 
 	// Creates a subscription using RC service model
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()
@@ -97,7 +106,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(testNodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
@@ -119,7 +128,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	var indMessage e2api.Indication
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
-		indMessage = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+		indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	}
 
 	// Make sure that reads on the subscription channel time out. There should be no
@@ -160,9 +169,9 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	// Expect to receive indication message on neighbor list change
-	indMessage = e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

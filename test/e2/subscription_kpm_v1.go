@@ -6,23 +6,21 @@ package e2
 
 import (
 	"context"
+	"testing"
+
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	subapi "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
-	"testing"
-	"time"
 )
 
 // TestSubscriptionKpmV1 tests e2 subscription and subscription delete procedures
 func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v1")
 
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	nodeID := nodeIDs[0]
+	nodeID := utils.GetTestNodeID(t)
 
 	eventTriggerBytes, err := utils.CreateKpmV1EventTrigger(12)
 	assert.NoError(t, err)
@@ -37,8 +35,8 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
-		NodeID:              string(nodeIDs[0]),
+	subRequest := utils.Subscription{
+		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
@@ -53,13 +51,13 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version1, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan v1beta1.Indication)
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	_, err = node.Subscribe(ctx, subName, subReq, ch)
 	assert.NoError(t, err)
 
-	e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

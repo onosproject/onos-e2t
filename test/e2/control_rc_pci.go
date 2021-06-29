@@ -36,19 +36,14 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	ch := make(chan e2api.Indication)
 	ctx := context.Background()
 
-	nodeClient := utils.GetRansimNodeClient(t, sim)
-	assert.NotNil(t, nodeClient)
-	cellClient := utils.GetRansimCellClient(t, sim)
-	assert.NotNil(t, cellClient)
+	// Get a test e2 node ID
+	testNodeID := utils.GetTestNodeID(t)
 
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	testNodeID := nodeIDs[0]
-
+	// Create E2 SDK Client
 	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 
-	// Subscription
+	// Create a subscription request
 	eventTriggerBytes, err := utils.CreateRcEventTrigger()
 	assert.NoError(t, err)
 	var actions []e2api.Action
@@ -62,7 +57,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	}
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
+	subRequest := utils.Subscription{
 		NodeID:              string(testNodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
@@ -75,9 +70,12 @@ func (s *TestSuite) TestControl(t *testing.T) {
 
 	subName := "test-control-subscribe-oran-e2sm-rc-pre-v2"
 
+	// Subscribe to RC Pre service model
 	_, err = node.Subscribe(ctx, subName, subReq, ch)
 	assert.NoError(t, err)
-	indMessage := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+
+	// Receive and process the first indication message
+	indMessage := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	header := indMessage.Header
 	ricIndicationHeader := e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
 
@@ -108,6 +106,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 		Header:  controlHeaderBytes,
 	}
 
+	// Create a control request to change PCI value
 	request, err := controlRequest.Create()
 	assert.NoError(t, err)
 	response, err := node.Control(ctx, request)
@@ -125,6 +124,8 @@ func (s *TestSuite) TestControl(t *testing.T) {
 		RanParameterId.Value
 
 	assert.Equal(t, ranParameterID, outcomeRanParameterID)
+
+	// Delete subscription and ran simulator
 	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 	err = sim.Uninstall()

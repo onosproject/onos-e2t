@@ -25,14 +25,15 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
 	assert.NotNil(t, sim)
 
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
+	nodeID := utils.GetTestNodeID(t)
+
+	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	nodeID := nodeIDs[0]
-	cells, err := utils.GetCellIDsPerNode(nodeID)
+	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
 
 	reportPeriod := uint32(5000)
@@ -60,8 +61,8 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
-		NodeID:              string(nodeIDs[0]),
+	subRequest := utils.Subscription{
+		NodeID:              string(nodeID),
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
 		ServiceModelVersion: utils.Version2,
@@ -79,7 +80,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	_, err = node.Subscribe(ctx, subName, subSpec, ch)
 	assert.NoError(t, err)
 
-	indicationReport := e2utils.CheckIndicationMessage2(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
@@ -91,7 +92,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	err = sim.Uninstall()

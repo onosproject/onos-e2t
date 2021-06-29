@@ -85,7 +85,7 @@ func CreateKpmV2ActionDefinition(cellObjectID string, granularity uint32) ([]byt
 	return protoBytes, nil
 }
 
-// CreateKpmEventTrigger creates a kpm service model event trigger
+// CreateKpmV2EventTrigger creates a kpm v2 service model event trigger
 func CreateKpmV2EventTrigger(rtPeriod uint32) ([]byte, error) {
 	e2SmKpmEventTriggerDefinition, err := e2smkpmv2.CreateE2SmKpmEventTriggerDefinition(rtPeriod)
 	if err != nil {
@@ -102,7 +102,7 @@ func CreateKpmV2EventTrigger(rtPeriod uint32) ([]byte, error) {
 	return protoBytes, nil
 }
 
-// CreateKpmEventTrigger creates a kpm service model event trigger
+// CreateKpmV1EventTrigger creates a kpm v1 service model event trigger
 func CreateKpmV1EventTrigger(rtPeriod int32) ([]byte, error) {
 	e2SmKpmEventTriggerDefinition, err := pdubuilder.CreateE2SmKpmEventTriggerDefinition(rtPeriod)
 	if err != nil {
@@ -119,11 +119,8 @@ func CreateKpmV1EventTrigger(rtPeriod int32) ([]byte, error) {
 	return protoBytes, nil
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
-// New API stuff
-/////////////////////////////////////////////////////////////////////////////////////
 // Subscription subscription request for subscription SDK api
-type Subscription2 struct {
+type Subscription struct {
 	NodeID              string
 	ServiceModelName    e2api.ServiceModelName
 	ServiceModelVersion e2api.ServiceModelVersion
@@ -132,7 +129,7 @@ type Subscription2 struct {
 }
 
 // Create creates a subscription request using SDK
-func (subRequest *Subscription2) Create() (e2api.SubscriptionSpec, error) {
+func (subRequest *Subscription) Create() (e2api.SubscriptionSpec, error) {
 	spec := e2api.SubscriptionSpec{
 		EventTrigger: e2api.EventTrigger{
 			Payload: subRequest.EventTrigger,
@@ -142,7 +139,7 @@ func (subRequest *Subscription2) Create() (e2api.SubscriptionSpec, error) {
 	return spec, nil
 }
 
-func (subRequest *Subscription2) CreateWithActionDefinition2() (e2api.SubscriptionSpec, error) {
+func (subRequest *Subscription) CreateWithActionDefinition2() (e2api.SubscriptionSpec, error) {
 	spec := e2api.SubscriptionSpec{
 		EventTrigger: e2api.EventTrigger{
 			Payload: subRequest.EventTrigger,

@@ -35,9 +35,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	nodeIDs, err := utils.GetNodeIDs(t)
-	assert.NoError(t, err)
-	nodeID := nodeIDs[0]
+	nodeID := utils.GetTestNodeID(t)
 	node := e2Client.Node(sdkclient.NodeID(nodeID))
 
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
@@ -54,8 +52,8 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 
 	actions = append(actions, action)
 
-	subRequest := utils.Subscription2{
-		NodeID:              string(nodeIDs[0]),
+	subRequest := utils.Subscription{
+		NodeID:              string(nodeID),
 		Actions:             actions,
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
@@ -72,9 +70,9 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, sub)
 
-		e2utils.CheckIndicationMessage2(t, 60*time.Second, ch)
-		e2utils.CheckIndicationMessage2(t, 120*time.Second, ch)
-		e2utils.CheckIndicationMessage2(t, 20*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 60*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 120*time.Second, ch)
+		e2utils.CheckIndicationMessage(t, 20*time.Second, ch)
 
 		e2tPod := FindPodWithPrefix(t, "onos-e2t")
 		CrashPodOrFail(t, e2tPod)
