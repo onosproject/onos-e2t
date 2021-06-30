@@ -110,12 +110,10 @@ func (s *TestSuite) TestIdenticalSubscriptions(t *testing.T) {
 	t.Log(subList)
 
 	err = node.Unsubscribe(ctx, subName1)
-	t.Log(err)
 	assert.NoError(t, err)
 
 	subList = e2utils.GetSubscriptionList(t)
 	t.Log("Deleting subscription:", subName1, subList)
-	t.Log(subList)
 
 	err = node.Unsubscribe(ctx, subName2)
 	assert.NoError(t, err)
