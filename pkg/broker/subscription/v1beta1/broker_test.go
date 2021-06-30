@@ -127,6 +127,7 @@ func TestBroker(t *testing.T) {
 		err := writer4.Send(&e2appducontents.Ricindication{})
 		assert.NoError(t, err)
 	}()
+
 	ind, err = reader4.Recv(ctx)
 	assert.NoError(t, err)
 	assert.NotNil(t, ind)

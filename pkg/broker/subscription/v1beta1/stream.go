@@ -102,6 +102,7 @@ func (s *streamRegistry) openSubStream(subID e2api.SubscriptionID) *subStream {
 		s.subs[subID] = stream
 		s.streams[s.streamID] = stream
 	}
+
 	return stream
 }
 
