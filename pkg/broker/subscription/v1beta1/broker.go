@@ -30,10 +30,10 @@ type Broker interface {
 	// OpenReader opens a subscription StreamReader
 	// If a stream already exists for the subscription, the existing stream will be returned.
 	// If no stream exists, a new stream will be allocated with a unique StreamID.
-	OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) StreamReader
+	OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID, transactionID e2api.TransactionID) StreamReader
 
 	// CloseReader closes a subscription StreamReader
-	CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID)
+	CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID, transactionID e2api.TransactionID)
 
 	// GetReader gets a read stream by its StreamID
 	// If no StreamReader exists for the given StreamID, ok will be false
@@ -49,15 +49,16 @@ type streamBroker struct {
 	mu      sync.RWMutex
 }
 
-func (b *streamBroker) OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) StreamReader {
+func (b *streamBroker) OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID, transactionID e2api.TransactionID) StreamReader {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	return b.streams.openSubStream(subID).
 		openAppStream(appID).
+		openTransactionStream(transactionID).
 		openInstanceStream(instanceID)
 }
 
-func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID) {
+func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID, transactionID e2api.TransactionID) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	subStream, ok := b.streams.getSubStream(subID)
@@ -68,7 +69,11 @@ func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID
 	if !ok {
 		return
 	}
-	instanceStream, ok := appStream.getInstanceStream(instanceID)
+	transactionStream, ok := appStream.getTransactionStream(transactionID)
+	if !ok {
+		return
+	}
+	instanceStream, ok := transactionStream.getInstanceStream(instanceID)
 	if !ok {
 		return
 	}
@@ -80,7 +85,6 @@ func (b *streamBroker) GetReader(subID e2api.SubscriptionID) (StreamReader, bool
 	b.mu.RLock()
 	defer b.mu.RUnlock()
 	stream, ok := b.streams.getSubStream(subID)
-	log.Debug("Test streams:", b.streams.streams)
 	return stream, ok
 }
 
