@@ -36,7 +36,7 @@ func verifyIndicationMessages(t *testing.T, ch chan e2api.Indication, cellObject
 
 // TestIdenticalSubscriptions tests identical subscriptions are absorbed by E2T
 func (s *TestSuite) TestIdenticalSubscriptions(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "identical-subscriptions-kpm-v2")
 	assert.NotNil(t, sim)
 
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
