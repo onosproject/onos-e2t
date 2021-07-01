@@ -336,7 +336,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	// Get the subscription stream reader
 	stream, ok := r.streams.GetReader(sub.ID)
 	if !ok {
-		err = errors.NewNotFound("Test stream not found")
+		err = errors.NewNotFound("stream not found")
 		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 		return controller.Result{}, err
 	}

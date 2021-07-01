@@ -52,13 +52,11 @@ type streamBroker struct {
 func (b *streamBroker) OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID, transactionID e2api.TransactionID) StreamReader {
 	b.mu.Lock()
 	defer b.mu.Unlock()
-	stream := b.streams.openSubStream(subID).
+	return b.streams.openSubStream(subID).
 		openAppStream(appID).
 		openTransactionStream(transactionID).
 		openInstanceStream(instanceID)
 
-	log.Debug("Test broker:", stream.ID())
-	return stream
 }
 
 func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID, transactionID e2api.TransactionID) {
