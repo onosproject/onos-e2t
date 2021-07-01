@@ -6,6 +6,9 @@ package e2
 
 import (
 	"context"
+	"sync"
+	"testing"
+
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
@@ -14,15 +17,13 @@ import (
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/protobuf/proto"
-	"sync"
-	"testing"
 )
 
 // TestE2NodeRestart checks that a subscription channel read times out if
 // the e2 node is down.
 func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-restart-subscription")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
