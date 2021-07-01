@@ -6,8 +6,9 @@ package channel
 
 import (
 	"context"
-	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"time"
+
+	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
@@ -182,7 +183,7 @@ func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
-		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
+		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
 		return controller.Result{}, nil
 	}
 
@@ -219,7 +220,7 @@ func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
-		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
+		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
 		return controller.Result{}, nil
 	}
 	return controller.Result{}, nil

@@ -6,11 +6,12 @@ package v1beta1
 
 import (
 	"context"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/stretchr/testify/assert"
 	"io"
 	"testing"
 	"time"
+
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestBroker(t *testing.T) {
@@ -36,10 +37,10 @@ func TestBroker(t *testing.T) {
 	assert.Nil(t, reader4)
 	assert.False(t, ok)
 
-	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1")
-	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2")
-	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1")
-	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1")
+	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1", "transaction-1")
+	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2", "transaction-1")
+	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1", "transaction-1")
+	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1", "transaction-1")
 
 	assert.Equal(t, reader1.ID(), reader2.ID())
 	assert.Equal(t, reader2.ID(), reader3.ID())
@@ -61,10 +62,10 @@ func TestBroker(t *testing.T) {
 	assert.NotNil(t, reader4)
 	assert.True(t, ok)
 
-	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1")
-	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2")
-	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1")
-	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1")
+	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1", "transaction-1")
+	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2", "transaction-1")
+	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1", "transaction-1")
+	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1", "transaction-1")
 
 	writer1, ok := broker.GetWriter(reader1.ID())
 	assert.NotNil(t, writer1)
@@ -126,11 +127,12 @@ func TestBroker(t *testing.T) {
 		err := writer4.Send(&e2appducontents.Ricindication{})
 		assert.NoError(t, err)
 	}()
+
 	ind, err = reader4.Recv(ctx)
 	assert.NoError(t, err)
 	assert.NotNil(t, ind)
 
-	broker.CloseReader("sub-2", "app-2", "instance-1")
+	broker.CloseReader("sub-2", "app-2", "instance-1", "transaction-1")
 
 	ind, err = reader4.Recv(context.Background())
 	assert.Nil(t, ind)

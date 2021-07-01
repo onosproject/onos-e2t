@@ -271,7 +271,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	}
 
 	// Open a stream reader for the app instance
-	reader := s.streams.OpenReader(subID, request.Headers.AppID, request.Headers.AppInstanceID)
+	reader := s.streams.OpenReader(subID, request.Headers.AppID, request.Headers.AppInstanceID, request.TransactionID)
 
 	completeCh := make(chan error)
 	go func() {
@@ -450,12 +450,12 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		if event.Channel.ID == channelID && event.Channel.Status.Phase == e2api.ChannelPhase_CHANNEL_CLOSED {
 			switch event.Channel.Status.State {
 			case e2api.ChannelState_CHANNEL_COMPLETE:
-				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
+				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
 				response := &e2api.UnsubscribeResponse{}
 				log.Debugf("Sending UnsubscribeResponse %+v", response)
 				return response, nil
 			case e2api.ChannelState_CHANNEL_FAILED:
-				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID)
+				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
 				errStat := status.New(codes.Aborted, "an E2AP failure occurred")
 				errStat, err := errStat.WithDetails(event.Channel.Status.Error)
 				if err != nil {

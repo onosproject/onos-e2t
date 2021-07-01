@@ -7,11 +7,12 @@ package v1beta1
 import (
 	"container/list"
 	"context"
+	"io"
+	"sync"
+
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"io"
-	"sync"
 )
 
 const bufferMaxSize = 10000
@@ -101,6 +102,7 @@ func (s *streamRegistry) openSubStream(subID e2api.SubscriptionID) *subStream {
 		s.subs[subID] = stream
 		s.streams[s.streamID] = stream
 	}
+
 	return stream
 }
 
@@ -212,27 +214,120 @@ func (s *subStream) close() {
 
 func newAppStream(subStream *subStream, appID e2api.AppID) *appStream {
 	ch := make(chan e2appducontents.Ricindication)
-	return &appStream{
-		subStream:       subStream,
-		appID:           appID,
-		streamIO:        subStream.streamIO,
-		appStreamReader: newAppStreamReader(ch),
-		appStreamWriter: newAppStreamWriter(ch),
-		instances:       make(map[e2api.AppInstanceID]*instanceStreamReader),
+	appStream := &appStream{
+		subStream:    subStream,
+		appID:        appID,
+		streamIO:     subStream.streamIO,
+		ch:           ch,
+		transactions: make(map[e2api.TransactionID]*transactionStream),
 	}
+	appStream.open()
+	return appStream
 }
 
 type appStream struct {
 	*streamIO
-	*appStreamReader
-	*appStreamWriter
-	subStream *subStream
-	appID     e2api.AppID
-	instances map[e2api.AppInstanceID]*instanceStreamReader
-	mu        sync.RWMutex
+	subStream    *subStream
+	appID        e2api.AppID
+	ch           chan e2appducontents.Ricindication
+	transactions map[e2api.TransactionID]*transactionStream
+	mu           sync.RWMutex
+	closed       bool
 }
 
-func (s *appStream) openInstanceStream(instanceID e2api.AppInstanceID) StreamReader {
+func (s *appStream) openTransactionStream(transactionID e2api.TransactionID) *transactionStream {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	stream, ok := s.transactions[transactionID]
+	if !ok {
+
+		stream = newTransactionStream(s, s.appID, transactionID)
+		s.transactions[transactionID] = stream
+	}
+	return stream
+}
+
+func (s *appStream) getTransactionStream(transactionID e2api.TransactionID) (*transactionStream, bool) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	stream, ok := s.transactions[transactionID]
+	return stream, ok
+}
+
+func (s *appStream) closeTransactionStream(transactionID e2api.TransactionID) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	delete(s.transactions, transactionID)
+	if len(s.transactions) == 0 {
+		s.subStream.closeAppStream(s.appID)
+		close(s.ch)
+		s.closed = true
+	}
+}
+
+func (s *appStream) open() {
+	go s.drain()
+}
+
+func (s *appStream) Send(indication *e2appducontents.Ricindication) error {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	if !s.closed {
+		s.ch <- *indication
+	}
+	return nil
+}
+
+func (s *appStream) drain() {
+	for ind := range s.ch {
+		i := ind
+		s.mu.RLock()
+		for _, transactionStream := range s.transactions {
+			_ = transactionStream.Send(&i)
+		}
+		s.mu.RUnlock()
+	}
+}
+
+func (s *appStream) close() {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if !s.closed {
+		close(s.ch)
+	}
+}
+
+func (s *appStream) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
+	return nil, errors.NewNotSupported("Recv not supported")
+}
+
+var _ Stream = &appStream{}
+
+func newTransactionStream(appStream *appStream, appID e2api.AppID, transactionID e2api.TransactionID) *transactionStream {
+	ch := make(chan e2appducontents.Ricindication)
+	return &transactionStream{
+		appStream:               appStream,
+		appID:                   appID,
+		streamIO:                appStream.streamIO,
+		transactionID:           transactionID,
+		transactionStreamReader: newTransactionStreamReader(ch),
+		transactionStreamWriter: newTransactionStreamWriter(ch),
+		instances:               make(map[e2api.AppInstanceID]*instanceStreamReader),
+	}
+}
+
+type transactionStream struct {
+	*streamIO
+	*transactionStreamReader
+	*transactionStreamWriter
+	appStream     *appStream
+	appID         e2api.AppID
+	transactionID e2api.TransactionID
+	instances     map[e2api.AppInstanceID]*instanceStreamReader
+	mu            sync.RWMutex
+}
+
+func (s *transactionStream) openInstanceStream(instanceID e2api.AppInstanceID) StreamReader {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	stream, ok := s.instances[instanceID]
@@ -243,35 +338,35 @@ func (s *appStream) openInstanceStream(instanceID e2api.AppInstanceID) StreamRea
 	return stream
 }
 
-func (s *appStream) getInstanceStream(instanceID e2api.AppInstanceID) (StreamReader, bool) {
+func (s *transactionStream) getInstanceStream(instanceID e2api.AppInstanceID) (StreamReader, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	stream, ok := s.instances[instanceID]
 	return stream, ok
 }
 
-func (s *appStream) closeInstanceStream(instanceID e2api.AppInstanceID) {
+func (s *transactionStream) closeInstanceStream(instanceID e2api.AppInstanceID) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	delete(s.instances, instanceID)
 	if len(s.instances) == 0 {
-		s.subStream.closeAppStream(s.appID)
+		s.appStream.closeTransactionStream(s.transactionID)
 	}
 }
 
-var _ Stream = &appStream{}
+var _ Stream = &transactionStream{}
 
-func newAppStreamReader(ch <-chan e2appducontents.Ricindication) *appStreamReader {
-	return &appStreamReader{
+func newTransactionStreamReader(ch <-chan e2appducontents.Ricindication) *transactionStreamReader {
+	return &transactionStreamReader{
 		ch: ch,
 	}
 }
 
-type appStreamReader struct {
+type transactionStreamReader struct {
 	ch <-chan e2appducontents.Ricindication
 }
 
-func (s *appStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
+func (s *transactionStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
 	select {
 	case ind, ok := <-s.ch:
 		if !ok {
@@ -283,8 +378,8 @@ func (s *appStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindicat
 	}
 }
 
-func newAppStreamWriter(ch chan<- e2appducontents.Ricindication) *appStreamWriter {
-	writer := &appStreamWriter{
+func newTransactionStreamWriter(ch chan<- e2appducontents.Ricindication) *transactionStreamWriter {
+	writer := &transactionStreamWriter{
 		ch:     ch,
 		buffer: list.New(),
 		cond:   sync.NewCond(&sync.Mutex{}),
@@ -293,7 +388,7 @@ func newAppStreamWriter(ch chan<- e2appducontents.Ricindication) *appStreamWrite
 	return writer
 }
 
-type appStreamWriter struct {
+type transactionStreamWriter struct {
 	ch     chan<- e2appducontents.Ricindication
 	buffer *list.List
 	cond   *sync.Cond
@@ -301,12 +396,12 @@ type appStreamWriter struct {
 }
 
 // open starts the goroutine propagating indications from the writer to the reader
-func (s *appStreamWriter) open() {
+func (s *transactionStreamWriter) open() {
 	go s.drain()
 }
 
 // drain dequeues indications and writes them to the read channel
-func (s *appStreamWriter) drain() {
+func (s *transactionStreamWriter) drain() {
 	for {
 		ind, ok := s.next()
 		if !ok {
@@ -318,7 +413,7 @@ func (s *appStreamWriter) drain() {
 }
 
 // next reads the next indication from the buffer or blocks until one becomes available
-func (s *appStreamWriter) next() (*e2appducontents.Ricindication, bool) {
+func (s *transactionStreamWriter) next() (*e2appducontents.Ricindication, bool) {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	for s.buffer.Len() == 0 {
@@ -333,7 +428,7 @@ func (s *appStreamWriter) next() (*e2appducontents.Ricindication, bool) {
 }
 
 // Send appends the indication to the buffer and notifies the reader
-func (s *appStreamWriter) Send(ind *e2appducontents.Ricindication) error {
+func (s *transactionStreamWriter) Send(ind *e2appducontents.Ricindication) error {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	if s.closed {
@@ -347,34 +442,34 @@ func (s *appStreamWriter) Send(ind *e2appducontents.Ricindication) error {
 	return nil
 }
 
-func (s *appStreamWriter) close() {
+func (s *transactionStreamWriter) close() {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	s.closed = true
 	s.cond.Signal()
 }
 
-func newInstanceStreamReader(instanceID e2api.AppInstanceID, appStream *appStream) *instanceStreamReader {
+func newInstanceStreamReader(instanceID e2api.AppInstanceID, transactionStream *transactionStream) *instanceStreamReader {
 	return &instanceStreamReader{
-		instanceID: instanceID,
-		appStream:  appStream,
-		done:       make(chan error),
+		instanceID:        instanceID,
+		transactionStream: transactionStream,
+		done:              make(chan error),
 	}
 }
 
 type instanceStreamReader struct {
-	instanceID e2api.AppInstanceID
-	appStream  *appStream
-	done       chan error
+	instanceID        e2api.AppInstanceID
+	transactionStream *transactionStream
+	done              chan error
 }
 
 func (s *instanceStreamReader) ID() StreamID {
-	return s.appStream.ID()
+	return s.transactionStream.ID()
 }
 
 func (s *instanceStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
 	select {
-	case ind, ok := <-s.appStream.appStreamReader.ch:
+	case ind, ok := <-s.transactionStream.transactionStreamReader.ch:
 		if !ok {
 			return nil, io.EOF
 		}
@@ -390,7 +485,7 @@ func (s *instanceStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricin
 }
 
 func (s *instanceStreamReader) close() {
-	s.appStream.closeInstanceStream(s.instanceID)
+	s.transactionStream.closeInstanceStream(s.instanceID)
 	close(s.done)
 }
 
