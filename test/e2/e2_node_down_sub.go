@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
+
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	"github.com/onosproject/helmit/pkg/kubernetes"
@@ -98,8 +99,10 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	// Delete the subscription and ran simulator
 	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
 	node = sdkClient.Node(sdkclient.NodeID(nodeID))
-	_ = node.Unsubscribe(context.Background(), subName)
-	_ = sim.Uninstall()
+	err = node.Unsubscribe(context.Background(), subName)
+	assert.NoError(t, err)
 
+	_ = sim.Uninstall()
 	e2utils.CheckForEmptySubscriptionList(t)
+
 }

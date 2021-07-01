@@ -240,7 +240,8 @@ func (s *appStream) openTransactionStream(transactionID e2api.TransactionID) *tr
 	defer s.mu.Unlock()
 	stream, ok := s.transactions[transactionID]
 	if !ok {
-		stream = newTransactionStream(s.ch, s, s.appID, transactionID)
+		ch := make(chan e2appducontents.Ricindication)
+		stream = newTransactionStream(ch, s, s.appID, transactionID)
 		s.transactions[transactionID] = stream
 	}
 	return stream
