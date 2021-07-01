@@ -240,7 +240,7 @@ func (s *appStream) openTransactionStream(transactionID e2api.TransactionID) *tr
 	defer s.mu.Unlock()
 	stream, ok := s.transactions[transactionID]
 	if !ok {
-		stream = newTransactionStream(s.ch, s.subStream, s.appID)
+		stream = newTransactionStream(s.ch, s, s.appID, transactionID)
 		s.transactions[transactionID] = stream
 	}
 	return stream
@@ -302,11 +302,12 @@ func (s *appStream) Recv(ctx context.Context) (*e2appducontents.Ricindication, e
 
 var _ Stream = &appStream{}
 
-func newTransactionStream(ch chan e2appducontents.Ricindication, subStream *subStream, appID e2api.AppID) *transactionStream {
+func newTransactionStream(ch chan e2appducontents.Ricindication, appStream *appStream, appID e2api.AppID, transactionID e2api.TransactionID) *transactionStream {
 	return &transactionStream{
-		subStream:               subStream,
+		appStream:               appStream,
 		appID:                   appID,
-		streamIO:                subStream.streamIO,
+		streamIO:                appStream.streamIO,
+		transactionID:           transactionID,
 		transactionStreamReader: newTransactionStreamReader(ch),
 		transactionStreamWriter: newTransactionStreamWriter(ch),
 		instances:               make(map[e2api.AppInstanceID]*instanceStreamReader),
@@ -317,10 +318,11 @@ type transactionStream struct {
 	*streamIO
 	*transactionStreamReader
 	*transactionStreamWriter
-	subStream *subStream
-	appID     e2api.AppID
-	instances map[e2api.AppInstanceID]*instanceStreamReader
-	mu        sync.RWMutex
+	appStream     *appStream
+	appID         e2api.AppID
+	transactionID e2api.TransactionID
+	instances     map[e2api.AppInstanceID]*instanceStreamReader
+	mu            sync.RWMutex
 }
 
 func (s *transactionStream) openInstanceStream(instanceID e2api.AppInstanceID) StreamReader {
@@ -346,7 +348,7 @@ func (s *transactionStream) closeInstanceStream(instanceID e2api.AppInstanceID) 
 	defer s.mu.Unlock()
 	delete(s.instances, instanceID)
 	if len(s.instances) == 0 {
-		s.subStream.closeAppStream(s.appID)
+		s.appStream.closeTransactionStream(s.transactionID)
 	}
 }
 
