@@ -240,8 +240,8 @@ func (s *appStream) openTransactionStream(transactionID e2api.TransactionID) *tr
 	defer s.mu.Unlock()
 	stream, ok := s.transactions[transactionID]
 	if !ok {
-		ch := make(chan e2appducontents.Ricindication)
-		stream = newTransactionStream(ch, s, s.appID, transactionID)
+
+		stream = newTransactionStream(s, s.appID, transactionID)
 		s.transactions[transactionID] = stream
 	}
 	return stream
@@ -303,7 +303,8 @@ func (s *appStream) Recv(ctx context.Context) (*e2appducontents.Ricindication, e
 
 var _ Stream = &appStream{}
 
-func newTransactionStream(ch chan e2appducontents.Ricindication, appStream *appStream, appID e2api.AppID, transactionID e2api.TransactionID) *transactionStream {
+func newTransactionStream(appStream *appStream, appID e2api.AppID, transactionID e2api.TransactionID) *transactionStream {
+	ch := make(chan e2appducontents.Ricindication)
 	return &transactionStream{
 		appStream:               appStream,
 		appID:                   appID,
