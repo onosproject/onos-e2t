@@ -17,8 +17,8 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestIdenticalSubsMultiApps tests identical subscriptions are absorbed by E2T from different xApps
-func (s *TestSuite) TestIdenticalSubsMultiApps(t *testing.T) {
+// TestIdenticalSubscriptionMultiApps tests identical subscriptions are absorbed by E2T from different xApps
+func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "identical-subscription-multi-app")
 	assert.NotNil(t, sim)
 
