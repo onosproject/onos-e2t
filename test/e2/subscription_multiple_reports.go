@@ -86,7 +86,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	subName := "TestSubscriptionMultipleReports-kpm"

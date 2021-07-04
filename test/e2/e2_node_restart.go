@@ -102,7 +102,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	subName := "TestSubscriptionKpmV2"

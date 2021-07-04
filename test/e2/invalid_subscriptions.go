@@ -60,7 +60,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		ServiceModelVersion: testCase.serviceModelVersion,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	ch := make(chan e2api.Indication)

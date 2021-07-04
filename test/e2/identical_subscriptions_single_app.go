@@ -83,7 +83,7 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	subName1 := "identical-sub1"

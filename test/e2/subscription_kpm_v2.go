@@ -69,7 +69,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	subName := "TestSubscriptionKpmV2"

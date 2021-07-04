@@ -66,7 +66,7 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	subName1 := "identical-sub-app1"

@@ -139,7 +139,7 @@ func (subRequest *Subscription) Create() (e2api.SubscriptionSpec, error) {
 	return spec, nil
 }
 
-func (subRequest *Subscription) CreateWithActionDefinition2() (e2api.SubscriptionSpec, error) {
+func (subRequest *Subscription) CreateWithActionDefinition() (e2api.SubscriptionSpec, error) {
 	spec := e2api.SubscriptionSpec{
 		EventTrigger: e2api.EventTrigger{
 			Payload: subRequest.EventTrigger,
