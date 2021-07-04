@@ -89,7 +89,7 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 	subName1 := "identical-sub1"
 	subName2 := "identical-sub2"
 
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch1 := make(chan v1beta1.Indication)
 	channelID1, err := node.Subscribe(ctx, subName1, subSpec, ch1)

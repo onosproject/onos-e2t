@@ -118,7 +118,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 
 	// Create a Node
 	nodeID := utils.GetTestNodeID(t)
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 
 	// Add a subscription

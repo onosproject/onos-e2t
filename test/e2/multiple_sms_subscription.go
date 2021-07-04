@@ -84,7 +84,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	KPMSubSpec, err := KPMSubRequest.Create()
 	assert.NoError(t, err)
 
-	KPMSdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	KPMSdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	KPMNode := KPMSdkClient.Node(sdkclient.NodeID(kpmNodeID))
 	KPMch := make(chan e2api.Indication)
 	KPMCtx, KPMCancel := context.WithTimeout(context.Background(), 30*time.Second)
@@ -118,7 +118,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	RCSubReq, err := RCSubSpec.Create()
 	assert.NoError(t, err)
 
-	RCSdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	RCSdkClient := utils.GetE2Client(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	RCNode := RCSdkClient.Node(sdkclient.NodeID(rcPreNodeID))
 	assert.NotNil(t, RCNode)
 	RCCtx, RCCancel := context.WithTimeout(context.Background(), 30*time.Second)

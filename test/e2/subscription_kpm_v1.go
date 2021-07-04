@@ -48,7 +48,7 @@ func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
 
 	subName := "TestSubscriptionKpmV1"
 
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version1, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version1, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan v1beta1.Indication)
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
