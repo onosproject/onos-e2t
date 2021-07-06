@@ -6,6 +6,9 @@ package utils
 
 import (
 	"context"
+	"github.com/stretchr/testify/assert"
+	"testing"
+	"time"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/pdubuilder"
@@ -161,4 +164,67 @@ func ConnectE2tServiceHost() (*grpc.ClientConn, error) {
 	}
 
 	return grpc.DialContext(context.Background(), E2tServiceAddress, opts...)
+}
+
+// CreateKpmV2Sub :
+func CreateKpmV2Sub(t *testing.T) e2api.SubscriptionSpec {
+	nodeID := GetTestNodeID(t)
+
+	topoSdkClient, err := NewTopoClient()
+	assert.NoError(t, err)
+
+	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
+	assert.NoError(t, err)
+
+	reportPeriod := uint32(5000)
+	granularity := uint32(500)
+
+	// Kpm v2 interval is defined in ms
+	eventTriggerBytes, err := CreateKpmV2EventTrigger(reportPeriod)
+	assert.NoError(t, err)
+
+	// Use one of the cell object IDs for action definition
+	cellObjectID := cells[0].CellObjectID
+	actionDefinitionBytes, err := CreateKpmV2ActionDefinition(cellObjectID, granularity)
+	assert.NoError(t, err)
+
+	var actions []e2api.Action
+	action := e2api.Action{
+		ID:   100,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+		},
+		Payload: actionDefinitionBytes,
+	}
+
+	actions = append(actions, action)
+
+	subRequest := Subscription{
+		NodeID:              string(nodeID),
+		EventTrigger:        eventTriggerBytes,
+		ServiceModelName:    KpmServiceModelName,
+		ServiceModelVersion: Version2,
+		Actions:             actions,
+	}
+
+	subSpec, err := subRequest.CreateWithActionDefinition2()
+	assert.NoError(t, err)
+	return subSpec
+}
+
+// ReadToEndOfChannel reads messages from a channel until an error occurs, clearing the
+// channel of messages
+func ReadToEndOfChannel(ch chan e2api.Indication) bool {
+	for {
+		select {
+		case _, ok := <-ch:
+			if !ok {
+				return true
+			}
+		case <-time.After(10 * time.Second):
+			return false
+		}
+	}
 }

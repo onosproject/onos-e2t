@@ -90,19 +90,6 @@ func getSubscriptionID(t *testing.T, channelID e2api.ChannelID) e2api.Subscripti
 	return channel.GetSubscriptionID()
 }
 
-func readToEndOfChannel(ch chan e2api.Indication) bool {
-	for {
-		select {
-		case _, ok := <-ch:
-			if !ok {
-				return true
-			}
-		case <-time.After(10 * time.Second):
-			return false
-		}
-	}
-}
-
 // TestSubscriptionDelete tests subscription delete procedure
 func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 
@@ -157,7 +144,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	err = node.Unsubscribe(ctx, subscriptionName)
 	assert.NoError(t, err)
 
-	assert.True(t, readToEndOfChannel(ch))
+	assert.True(t, utils.ReadToEndOfChannel(ch))
 
 	// Clean up the ran-sim instance
 	simErr := sim.Uninstall()
