@@ -209,7 +209,7 @@ func CreateKpmV2Sub(t *testing.T) e2api.SubscriptionSpec {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 	return subSpec
 }
