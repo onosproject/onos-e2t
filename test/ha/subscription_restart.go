@@ -29,7 +29,7 @@ func (s *TestSuite) TestSubscriptionRestart(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "ha-subscription-kpm-v2")
 	assert.NotNil(t, sim)
 
-	e2Client := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	e2Client := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 
 	ch := make(chan e2api.Indication)
 	ctx, cancel := context.WithCancel(context.Background())

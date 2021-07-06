@@ -86,12 +86,12 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	subName := "TestSubscriptionMultipleReports-kpm"
 
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan e2api.Indication)
 	_, err = node.Subscribe(ctx, subName, subSpec, ch)

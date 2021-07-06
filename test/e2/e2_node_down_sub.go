@@ -87,7 +87,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	//  Create the subscription
 	subName := "TestE2NodeDownSubscription"
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch := make(chan subapi.Indication)
 	_, err = node.Subscribe(ctx, subName, subReq, ch)

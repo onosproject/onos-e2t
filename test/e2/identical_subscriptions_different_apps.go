@@ -10,19 +10,16 @@ import (
 
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
 	"github.com/onosproject/onos-e2t/test/e2utils"
-	"google.golang.org/protobuf/proto"
-
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestSubscriptionKpmV2 tests e2 subscription and subscription delete procedures using kpm version 2
-func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
+// TestIdenticalSubscriptionMultiApps tests identical subscriptions are absorbed by E2T from different xApps
+func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "identical-subscription-multi-app")
 	assert.NotNil(t, sim)
 
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
@@ -72,28 +69,53 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
-	subName := "TestSubscriptionKpmV2"
+	subName1 := "identical-sub-app1"
+	subName2 := "identical-sub-app2"
 
-	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	node := sdkClient.Node(sdkclient.NodeID(nodeID))
-	ch := make(chan v1beta1.Indication)
-	_, err = node.Subscribe(ctx, subName, subSpec, ch)
+	clientApp1 := sdkclient.NewClient(sdkclient.WithE2TAddress(utils.E2TServiceHost, utils.E2TServicePort),
+		sdkclient.WithServiceModel(utils.KpmServiceModelName,
+			utils.Version2),
+		sdkclient.WithEncoding(sdkclient.ProtoEncoding),
+		sdkclient.WithAppID("app1"))
+
+	nodeApp1 := clientApp1.Node(sdkclient.NodeID(nodeID))
+
+	clientApp2 := sdkclient.NewClient(sdkclient.WithE2TAddress(utils.E2TServiceHost, utils.E2TServicePort),
+		sdkclient.WithServiceModel(utils.KpmServiceModelName, utils.Version2),
+		sdkclient.WithEncoding(sdkclient.ProtoEncoding),
+		sdkclient.WithAppID("app2"))
+
+	nodeApp2 := clientApp2.Node(sdkclient.NodeID(nodeID))
+
+	ch1 := make(chan v1beta1.Indication)
+	channelIDApp1, err := nodeApp1.Subscribe(ctx, subName1, subSpec, ch1)
 	assert.NoError(t, err)
 
-	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
-	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
-	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
-
-	err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
-	assert.NoError(t, err)
-	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(reportPeriod/granularity), len(indicationMessage.GetIndicationMessageFormat1().GetMeasData().GetValue()))
-
-	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
+	ch2 := make(chan v1beta1.Indication)
+	channelIDApp2, err := nodeApp2.Subscribe(ctx, subName2, subSpec, ch2)
 	assert.NoError(t, err)
 
-	err = node.Unsubscribe(ctx, subName)
+	assert.True(t, channelIDApp1 != channelIDApp2)
+
+	indicationReportApp1 := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch1)
+	assert.NotNil(t, indicationReportApp1)
+	indicationReportApp2 := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch2)
+	assert.NotNil(t, indicationReportApp2)
+
+	subList := e2utils.GetSubscriptionList(t)
+	assert.Equal(t, 1, len(subList))
+
+	err = nodeApp1.Unsubscribe(ctx, subName1)
 	assert.NoError(t, err)
+
+	subList = e2utils.GetSubscriptionList(t)
+	t.Logf("Subscription List after deleting subscription %s is %v:", subName1, subList)
+
+	err = nodeApp2.Unsubscribe(ctx, subName2)
+	assert.NoError(t, err)
+
+	subList = e2utils.GetSubscriptionList(t)
+	t.Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)
 
 	err = sim.Uninstall()
 	assert.NoError(t, err)

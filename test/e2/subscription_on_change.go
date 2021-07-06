@@ -119,7 +119,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 
 	subName := "TestSubscriptionOnChange"
 
-	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	ch := make(chan e2api.Indication)
 	_, err = node.Subscribe(ctx, subName, subSpec, ch)

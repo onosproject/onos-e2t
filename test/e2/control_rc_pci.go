@@ -40,7 +40,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	testNodeID := utils.GetTestNodeID(t)
 
 	// Create E2 SDK Client
-	sdkClient := utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 
 	// Create a subscription request

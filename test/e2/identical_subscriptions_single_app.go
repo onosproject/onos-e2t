@@ -34,9 +34,9 @@ func verifyIndicationMessages(t *testing.T, ch chan e2api.Indication, cellObject
 	assert.NoError(t, err)
 }
 
-// TestIdenticalSubscriptions tests identical subscriptions are absorbed by E2T
-func (s *TestSuite) TestIdenticalSubscriptions(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "identical-subscriptions-kpm-v2")
+// TestIdenticalSubscriptionSingleApp tests identical subscriptions are absorbed by E2T in a single xApp
+func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "identical-subscriptions-single-app")
 	assert.NotNil(t, sim)
 
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
@@ -83,13 +83,13 @@ func (s *TestSuite) TestIdenticalSubscriptions(t *testing.T) {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	subName1 := "identical-sub1"
 	subName2 := "identical-sub2"
 
-	sdkClient := utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 	ch1 := make(chan v1beta1.Indication)
 	channelID1, err := node.Subscribe(ctx, subName1, subSpec, ch1)

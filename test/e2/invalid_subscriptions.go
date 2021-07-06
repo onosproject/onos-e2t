@@ -35,7 +35,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		t.Skip()
 		return
 	}
-	sdkClient := utils.GetE2Client2(t, string(testCase.serviceModelName), string(testCase.serviceModelVersion), testCase.encodingType)
+	sdkClient := utils.GetE2Client(t, string(testCase.serviceModelName), string(testCase.serviceModelVersion), testCase.encodingType)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -60,7 +60,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		ServiceModelVersion: testCase.serviceModelVersion,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition2()
+	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
 	ch := make(chan e2api.Indication)

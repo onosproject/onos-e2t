@@ -60,7 +60,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-restart")
 	assert.NotNil(t, sim)
 
-	utils.GetE2Client2(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	utils.GetE2Client(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	/*controlRequest := &e2.ControlRequest{
 		Header: &e2.RequestHeader{
 			EncodingType: 0,
@@ -82,7 +82,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 	time.Sleep(15 * time.Second)
 
-	utils.GetE2Client2(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 
 	//controlResponse2, err := sdkClient2.Control(context.Background(), controlRequest)
 	//assert.Nil(t, controlResponse2)
