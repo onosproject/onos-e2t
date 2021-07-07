@@ -21,7 +21,7 @@ import (
 func (s *TestSuite) TestSubscriptionCancel(t *testing.T) {
 	const (
 		simName    = "subscription-cancel"
-		subName    = "TestSubscriptionKpmV2"
+		subName    = "TestSubscriptionCancelKpmV2"
 		iterations = 10
 	)
 	var err error
