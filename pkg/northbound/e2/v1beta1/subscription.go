@@ -197,17 +197,23 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelOID)
 	if err != nil {
 		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-		return errors.Status(err).Err()
+		return errors.Status(errors.NewNotFound(err.Error())).Err()
 	}
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
+
+	if encoding != e2api.Encoding_PROTO && encoding != e2api.Encoding_ASN1_PER {
+		err = errors.NewNotSupported("encoding type %s is not supported", encoding)
+		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+		return errors.Status(errors.NewInvalid(err.Error())).Err()
+	}
 
 	subSpec := request.Subscription
 	if encoding == e2api.Encoding_PROTO {
 		eventTriggerBytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(subSpec.EventTrigger.Payload)
 		if err != nil {
 			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-			return err
+			return errors.Status(errors.NewInvalid(err.Error())).Err()
 		}
 		subSpec.EventTrigger.Payload = eventTriggerBytes
 	}
@@ -217,7 +223,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			actionBytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(action.Payload)
 			if err != nil {
 				log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-				return err
+				return errors.Status(errors.NewInvalid(err.Error())).Err()
 			}
 			action.Payload = actionBytes
 			subSpec.Actions[i] = action
