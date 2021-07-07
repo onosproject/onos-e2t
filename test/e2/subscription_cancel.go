@@ -47,7 +47,7 @@ func (s *TestSuite) TestSubscriptionCancel(t *testing.T) {
 
 		// Cancel the subscription
 		subCancel()
-		assert.True(t, utils.ReadToEndOfChannel(ch))
+		_ = utils.ReadToEndOfChannel(ch)
 	}
 
 	unsubCtx, unsubCancel := context.WithTimeout(context.Background(), 15*time.Second)
