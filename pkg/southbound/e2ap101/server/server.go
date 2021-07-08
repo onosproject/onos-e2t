@@ -7,8 +7,8 @@ package server
 import (
 	"context"
 	"encoding/hex"
+	"fmt"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
-	"strconv"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
@@ -196,7 +196,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 	rawPlmnid := []byte{nodeID.Plmn[0], nodeID.Plmn[1], nodeID.Plmn[2]}
-	plmnID := strconv.FormatUint(uint64(uint24ToUint32(rawPlmnid)), 10)
+	plmnID := fmt.Sprintf("%x", uint24ToUint32(rawPlmnid))
 
 	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
 	var e2Cells []*topoapi.E2Cell
