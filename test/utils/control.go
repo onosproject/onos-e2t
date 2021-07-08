@@ -42,7 +42,7 @@ func (ch *RcControlHeader) CreateRcControlHeader() ([]byte, error) {
 		return []byte{}, err
 	}
 
-	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlHeader(ch.Priority, cgi)
+	newE2SmRcPrePdu, err := pdubuilder.CreateE2SmRcPreControlHeader(&ch.Priority, cgi)
 	if err != nil {
 		return []byte{}, err
 	}
