@@ -203,6 +203,14 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
 	subSpec := request.Subscription
+	subBytes, err := proto.Marshal(&subSpec)
+	if err != nil {
+		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+		return err
+	}
+
+	subID := e2api.SubscriptionID(fmt.Sprintf("%x:%s", md5.Sum(subBytes), request.Headers.E2NodeID))
+
 	if encoding == e2api.Encoding_PROTO {
 		eventTriggerBytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(subSpec.EventTrigger.Payload)
 		if err != nil {
@@ -223,14 +231,6 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			subSpec.Actions[i] = action
 		}
 	}
-
-	subBytes, err := proto.Marshal(&subSpec)
-	if err != nil {
-		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-		return err
-	}
-
-	subID := e2api.SubscriptionID(fmt.Sprintf("%x:%s", md5.Sum(subBytes), request.Headers.E2NodeID))
 
 	channelID := e2api.ChannelID(fmt.Sprintf("%s:%s:%s:%s",
 		request.Headers.AppID,
