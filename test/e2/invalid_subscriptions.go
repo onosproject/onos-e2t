@@ -99,7 +99,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		},
 		{
 			description:         "Invalid action type",
-			enabled:             false,
+			enabled:             true,
 			encodingType:        sdkclient.ProtoEncoding,
 			actionType:          e2api.ActionType_ACTION_TYPE_INSERT,
 			serviceModelName:    utils.KpmServiceModelName,
@@ -110,7 +110,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		},
 		{
 			description:         "Invalid action ID",
-			enabled:             false,
+			enabled:             true,
 			encodingType:        sdkclient.ProtoEncoding,
 			actionType:          e2api.ActionType_ACTION_TYPE_REPORT,
 			serviceModelName:    utils.KpmServiceModelName,
