@@ -229,6 +229,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return err
 	}
+	log.Debugf("Subscription spec proto bytes: %x", subBytes)
 
 	subID := e2api.SubscriptionID(fmt.Sprintf("%x:%s", md5.Sum(subBytes), request.Headers.E2NodeID))
 
