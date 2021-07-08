@@ -109,17 +109,6 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			expectedError:       e2errors.IsRICActionNotSupported,
 		},
 		{
-			description:         "Not supported encoding type",
-			enabled:             false,
-			encodingType:        100,
-			actionType:          e2api.ActionType_ACTION_TYPE_REPORT,
-			serviceModelName:    utils.KpmServiceModelName,
-			serviceModelVersion: utils.Version2,
-			eventTrigger:        eventTriggerBytes,
-			actionID:            actionID,
-			expectedError:       errors.IsNotSupported,
-		},
-		{
 			description:         "Invalid action ID",
 			enabled:             false,
 			encodingType:        sdkclient.ProtoEncoding,
