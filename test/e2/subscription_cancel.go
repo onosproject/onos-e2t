@@ -25,6 +25,8 @@ func (s *TestSuite) TestSubscriptionCancel(t *testing.T) {
 		iterations = 10
 	)
 	var err error
+	
+	time.Sleep(30 * time.Second)
 
 	// make a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, simName)
