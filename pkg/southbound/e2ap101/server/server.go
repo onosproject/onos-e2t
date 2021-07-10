@@ -149,11 +149,12 @@ func (e *E2ChannelServer) processRANFunctions(ranFuncs *types.RanFunctions,
 
 func (e *E2ChannelServer) updateRNIB(ctx context.Context, e2NodeID topoapi.ID,
 	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell, relationID topoapi.ID) error {
+	log.Infof("Updating R-NIB")
 
 	// create or update E2 node entities
 	err := e.topoManager.CreateOrUpdateE2Node(ctx, e2NodeID, serviceModels)
 	if err != nil {
-		log.Infof("Updating R-NIB is failed: %v", err)
+		log.Warnf("Updating R-NIB is failed: %v", err)
 		return err
 	}
 
@@ -161,7 +162,7 @@ func (e *E2ChannelServer) updateRNIB(ctx context.Context, e2NodeID topoapi.ID,
 	if len(e2Cells) != 0 {
 		err := e.topoManager.CreateOrUpdateE2Cells(ctx, e2NodeID, e2Cells)
 		if err != nil {
-			log.Infof("Updating R-NIB is failed: %v", err)
+			log.Warnf("Updating R-NIB is failed: %v", err)
 			return err
 		}
 	}
@@ -169,7 +170,7 @@ func (e *E2ChannelServer) updateRNIB(ctx context.Context, e2NodeID topoapi.ID,
 	// create E2T to E2 node relation
 	err = e.topoManager.CreateOrUpdateE2Relation(ctx, e2NodeID, relationID)
 	if err != nil {
-		log.Infof("Updating R-NIB is failed: %v", err)
+		log.Warnf("Updating R-NIB is failed: %v", err)
 		return err
 	}
 	return nil

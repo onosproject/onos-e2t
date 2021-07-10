@@ -184,8 +184,6 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	log.Debugf("Received SubscribeRequest %+v", request)
 	encoding := request.Headers.Encoding
 
-	log.Infof("Received SubscribeRequest %+v", request)
-
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
 		string(request.Headers.ServiceModel.Name),
 		string(request.Headers.ServiceModel.Version))

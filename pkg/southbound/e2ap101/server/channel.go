@@ -48,6 +48,7 @@ type E2Channel struct {
 }
 
 func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
+	log.Debugf("Received Ricindication %+v", request)
 	streamID := subscriptionv1beta1.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	stream, ok := c.streamsv1beta1.GetWriter(streamID)
 	if !ok {
@@ -56,7 +57,9 @@ func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.
 		if err != nil {
 			return err
 		}
+		log.Debugf("Sending Ricindication on stream %d", deprecatedStream.StreamID())
 		return deprecatedStream.Send(request)
 	}
+	log.Debugf("Sending Ricindication on stream %d", stream.ID())
 	return stream.Send(request)
 }

@@ -156,6 +156,7 @@ func (s *subStream) drain() {
 		i := ind
 		s.mu.RLock()
 		for _, appStream := range s.apps {
+			log.Debugf("Sending Ricindication on app stream %s", appStream.appID)
 			_ = appStream.Send(&i)
 		}
 		s.mu.RUnlock()
@@ -167,6 +168,7 @@ func (s *subStream) openAppStream(appID e2api.AppID) *appStream {
 	defer s.mu.Unlock()
 	stream, ok := s.apps[appID]
 	if !ok {
+		log.Debugf("Opening %s stream %s", s.subID, appID)
 		stream = newAppStream(s, appID)
 		s.apps[appID] = stream
 	}
@@ -183,6 +185,7 @@ func (s *subStream) getAppStream(appID e2api.AppID) (*appStream, bool) {
 func (s *subStream) closeAppStream(appID e2api.AppID) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	log.Debugf("Closing %s stream %s", s.subID, appID)
 	delete(s.apps, appID)
 	if len(s.apps) == 0 {
 		s.streams.closeSubStream(s.subID)
@@ -240,7 +243,7 @@ func (s *appStream) openTransactionStream(transactionID e2api.TransactionID) *tr
 	defer s.mu.Unlock()
 	stream, ok := s.transactions[transactionID]
 	if !ok {
-
+		log.Debugf("Opening %s transaction stream %s", s.appID, transactionID)
 		stream = newTransactionStream(s, s.appID, transactionID)
 		s.transactions[transactionID] = stream
 	}
@@ -257,6 +260,7 @@ func (s *appStream) getTransactionStream(transactionID e2api.TransactionID) (*tr
 func (s *appStream) closeTransactionStream(transactionID e2api.TransactionID) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	log.Debugf("Closing %s transaction stream %s", s.appID, transactionID)
 	delete(s.transactions, transactionID)
 	if len(s.transactions) == 0 {
 		s.subStream.closeAppStream(s.appID)
@@ -283,6 +287,7 @@ func (s *appStream) drain() {
 		i := ind
 		s.mu.RLock()
 		for _, transactionStream := range s.transactions {
+			log.Debugf("Sending Ricindication on transaction stream %s", transactionStream.transactionID)
 			_ = transactionStream.Send(&i)
 		}
 		s.mu.RUnlock()
@@ -310,8 +315,8 @@ func newTransactionStream(appStream *appStream, appID e2api.AppID, transactionID
 		appID:                   appID,
 		streamIO:                appStream.streamIO,
 		transactionID:           transactionID,
-		transactionStreamReader: newTransactionStreamReader(ch),
-		transactionStreamWriter: newTransactionStreamWriter(ch),
+		transactionStreamReader: newTransactionStreamReader(transactionID, ch),
+		transactionStreamWriter: newTransactionStreamWriter(transactionID, ch),
 		instances:               make(map[e2api.AppInstanceID]*instanceStreamReader),
 	}
 }
@@ -332,6 +337,7 @@ func (s *transactionStream) openInstanceStream(instanceID e2api.AppInstanceID) S
 	defer s.mu.Unlock()
 	stream, ok := s.instances[instanceID]
 	if !ok {
+		log.Debugf("Opening %s instance stream %s", s.transactionID, instanceID)
 		stream = newInstanceStreamReader(instanceID, s)
 		s.instances[instanceID] = stream
 	}
@@ -348,6 +354,7 @@ func (s *transactionStream) getInstanceStream(instanceID e2api.AppInstanceID) (S
 func (s *transactionStream) closeInstanceStream(instanceID e2api.AppInstanceID) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	log.Debugf("Closing %s instance stream %s", s.transactionID, instanceID)
 	delete(s.instances, instanceID)
 	if len(s.instances) == 0 {
 		s.appStream.closeTransactionStream(s.transactionID)
@@ -356,20 +363,24 @@ func (s *transactionStream) closeInstanceStream(instanceID e2api.AppInstanceID) 
 
 var _ Stream = &transactionStream{}
 
-func newTransactionStreamReader(ch <-chan e2appducontents.Ricindication) *transactionStreamReader {
+func newTransactionStreamReader(id e2api.TransactionID, ch <-chan e2appducontents.Ricindication) *transactionStreamReader {
 	return &transactionStreamReader{
-		ch: ch,
+		transactionID: id,
+		ch:            ch,
 	}
 }
 
 type transactionStreamReader struct {
-	ch <-chan e2appducontents.Ricindication
+	transactionID e2api.TransactionID
+	ch            <-chan e2appducontents.Ricindication
 }
 
 func (s *transactionStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
+	log.Debugf("Reading transaction stream %s", s.transactionID)
 	select {
 	case ind, ok := <-s.ch:
 		if !ok {
+			log.Debugf("Transaction stream %s closed", s.transactionID)
 			return nil, io.EOF
 		}
 		return &ind, nil
@@ -378,21 +389,23 @@ func (s *transactionStreamReader) Recv(ctx context.Context) (*e2appducontents.Ri
 	}
 }
 
-func newTransactionStreamWriter(ch chan<- e2appducontents.Ricindication) *transactionStreamWriter {
+func newTransactionStreamWriter(id e2api.TransactionID, ch chan<- e2appducontents.Ricindication) *transactionStreamWriter {
 	writer := &transactionStreamWriter{
-		ch:     ch,
-		buffer: list.New(),
-		cond:   sync.NewCond(&sync.Mutex{}),
+		transactionID: id,
+		ch:            ch,
+		buffer:        list.New(),
+		cond:          sync.NewCond(&sync.Mutex{}),
 	}
 	writer.open()
 	return writer
 }
 
 type transactionStreamWriter struct {
-	ch     chan<- e2appducontents.Ricindication
-	buffer *list.List
-	cond   *sync.Cond
-	closed bool
+	transactionID e2api.TransactionID
+	ch            chan<- e2appducontents.Ricindication
+	buffer        *list.List
+	cond          *sync.Cond
+	closed        bool
 }
 
 // open starts the goroutine propagating indications from the writer to the reader
@@ -405,6 +418,7 @@ func (s *transactionStreamWriter) drain() {
 	for {
 		ind, ok := s.next()
 		if !ok {
+			log.Debugf("Transaction stream %s closed", s.transactionID)
 			close(s.ch)
 			break
 		}
@@ -418,6 +432,7 @@ func (s *transactionStreamWriter) next() (*e2appducontents.Ricindication, bool) 
 	defer s.cond.L.Unlock()
 	for s.buffer.Len() == 0 {
 		if s.closed {
+			log.Debugf("Transaction stream %s closed", s.transactionID)
 			return nil, false
 		}
 		s.cond.Wait()
@@ -432,11 +447,13 @@ func (s *transactionStreamWriter) Send(ind *e2appducontents.Ricindication) error
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	if s.closed {
+		log.Debugf("Transaction stream %s closed", s.transactionID)
 		return io.EOF
 	}
 	if s.buffer.Len() == bufferMaxSize {
 		return errors.NewUnavailable("cannot append indication to stream: maximum buffer size has been reached")
 	}
+	log.Debugf("Buffering Ricindication on transaction stream %s", s.transactionID)
 	s.buffer.PushBack(ind)
 	s.cond.Signal()
 	return nil
@@ -445,6 +462,7 @@ func (s *transactionStreamWriter) Send(ind *e2appducontents.Ricindication) error
 func (s *transactionStreamWriter) close() {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
+	log.Debugf("Closing transaction stream %s", s.transactionID)
 	s.closed = true
 	s.cond.Signal()
 }
@@ -468,16 +486,20 @@ func (s *instanceStreamReader) ID() StreamID {
 }
 
 func (s *instanceStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
+	log.Debugf("Reading instance stream %s", s.instanceID)
 	select {
 	case ind, ok := <-s.transactionStream.transactionStreamReader.ch:
 		if !ok {
+			log.Debugf("Instance stream %s closed", s.instanceID)
 			return nil, io.EOF
 		}
 		return &ind, nil
 	case <-ctx.Done():
+		log.Debugf("Instance stream read failed: %s", ctx.Err())
 		return nil, ctx.Err()
 	case err, ok := <-s.done:
 		if !ok {
+			log.Debugf("Instance stream %s closed", s.instanceID)
 			return nil, io.EOF
 		}
 		return nil, err
@@ -485,6 +507,7 @@ func (s *instanceStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricin
 }
 
 func (s *instanceStreamReader) close() {
+	log.Debugf("Closing instance stream %s", s.instanceID)
 	s.transactionStream.closeInstanceStream(s.instanceID)
 	close(s.done)
 }
