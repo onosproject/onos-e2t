@@ -108,6 +108,7 @@ func (c *threadSafeChannel) processSends() {
 			log.Warn(err)
 			c.Close()
 		} else if err != nil {
+			log.Warn(err)
 			msg.errCh <- err
 		}
 		close(msg.errCh)
@@ -116,11 +117,13 @@ func (c *threadSafeChannel) processSends() {
 
 // processSend processes a send
 func (c *threadSafeChannel) processSend(msg e2appdudescriptions.E2ApPdu) error {
+	log.Debugf("Sending E2ApPdu %v", msg)
 	bytes, err := asn1cgo.PerEncodeE2apPdu(&msg)
 	if err != nil {
 		log.Warn(err)
 		return err
 	}
+	log.Debugf("Sending %d bytes", len(bytes))
 	_, err = c.conn.Write(bytes)
 	return err
 }
@@ -146,7 +149,9 @@ func (c *threadSafeChannel) processRecvs() {
 			return
 		}
 
-		err = c.processRecv(buf[:n])
+		bytes := buf[:n]
+		log.Debugf("Received %d bytes", len(bytes))
+		err = c.processRecv(bytes)
 		if err != nil {
 			log.Error(err)
 		}
@@ -160,6 +165,7 @@ func (c *threadSafeChannel) processRecv(bytes []byte) error {
 		log.Warn(err)
 		return err
 	}
+	log.Debugf("Received E2ApPdu %+v", msg)
 	c.recvCh <- *msg
 	return nil
 }

@@ -74,7 +74,7 @@ func (m *channelManager) Open(id ChannelID, channel *E2Channel) {
 		log.Infof("Closing channel %s", id)
 		err := m.topoManager.DeleteE2Relation(context.Background(), topoapi.ID(id))
 		if err != nil {
-			return
+			log.Error(err)
 		}
 		m.channelsMu.Lock()
 		delete(m.channels, id)

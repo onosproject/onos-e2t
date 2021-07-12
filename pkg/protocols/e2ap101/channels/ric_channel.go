@@ -74,6 +74,7 @@ func (c *ricChannel) recvPDUs() {
 }
 
 func (c *ricChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
+	log.Debugf("Received E2ApPdu %+v", pdu)
 	if c.e2Setup.Matches(pdu) {
 		go c.e2Setup.Handle(pdu)
 	} else if c.ricControl.Matches(pdu) {
@@ -96,6 +97,7 @@ func (c *ricChannel) recvIndications() {
 }
 
 func (c *ricChannel) recvIndication(pdu e2appdudescriptions.E2ApPdu) {
+	log.Debugf("Received E2ApPdu %v", pdu)
 	c.ricIndication.Handle(&pdu)
 }
 
