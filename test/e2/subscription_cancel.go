@@ -33,7 +33,7 @@ func (s *TestSuite) TestSubscriptionCancel(t *testing.T) {
 
 	// make an SDK client and a subscription request
 	nodeID := utils.GetTestNodeID(t)
-	subSpec := utils.CreateKpmV2Sub(t)
+	subSpec := utils.CreateKpmV2Sub(t, nodeID)
 	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 

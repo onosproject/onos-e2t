@@ -6,9 +6,11 @@ package utils
 
 import (
 	"context"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/stretchr/testify/assert"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm/pdubuilder"
@@ -167,8 +169,7 @@ func ConnectE2tServiceHost() (*grpc.ClientConn, error) {
 }
 
 // CreateKpmV2Sub :
-func CreateKpmV2Sub(t *testing.T) e2api.SubscriptionSpec {
-	nodeID := GetTestNodeID(t)
+func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
 
 	topoSdkClient, err := NewTopoClient()
 	assert.NoError(t, err)
