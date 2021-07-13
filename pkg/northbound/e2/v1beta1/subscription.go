@@ -7,6 +7,7 @@ package v1beta1
 import (
 	"context"
 	"crypto/md5"
+	"encoding/hex"
 	"fmt"
 	"io"
 
@@ -370,18 +371,22 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		switch encoding {
 		case e2api.Encoding_PROTO:
 			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
+			log.Infof("Length of ASN.1 Indication Header  is %d bytes", len(indHeaderAsn1))
+			log.Infof("ASN.1 Indication header in hex format %v", hex.Dump(indHeaderAsn1))
 			if err != nil {
 				log.Errorf("Error transforming Header ASN Bytes to Proto %s", err.Error())
 				return errors.Status(errors.NewInvalid(err.Error())).Err()
 			}
-			log.Infof("Indication Header %d bytes", len(indHeaderProto))
+			log.Infof("Protobuf Indication Header %d bytes", len(indHeaderProto))
 
+			log.Infof("Length of ASN.1 Indication message is %d bytes", len(indMessageAsn1))
+			log.Infof("ASN.1 Indication message in hex format %v", hex.Dump(indMessageAsn1))
 			indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(indMessageAsn1)
 			if err != nil {
 				log.Errorf("Error transforming Message ASN Bytes to Proto %s", err.Error())
 				return errors.Status(errors.NewInvalid(err.Error())).Err()
 			}
-			log.Infof("Indication Message %d bytes", len(indMessageProto))
+			log.Infof("Protobuf Indication Message %d bytes", len(indMessageProto))
 			response.Message = &e2api.SubscribeResponse_Indication{
 				Indication: &e2api.Indication{
 					Header:  indHeaderProto,
