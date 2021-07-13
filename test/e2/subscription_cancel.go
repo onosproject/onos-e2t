@@ -25,15 +25,12 @@ func (s *TestSuite) TestSubscriptionCancel(t *testing.T) {
 		iterations = 10
 	)
 	var err error
-
-	time.Sleep(30 * time.Second)
-
 	// make a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, simName)
 
 	// make an SDK client and a subscription request
 	nodeID := utils.GetTestNodeID(t)
-	subSpec := utils.CreateKpmV2Sub(t)
+	subSpec := utils.CreateKpmV2Sub(t, nodeID)
 	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 
