@@ -50,6 +50,7 @@ func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 		Set("onos-topo.image.tag", "latest").
 		Set("onos-e2t.image.tag", "latest").
 		Set("ran-simulator.image.tag", "latest").
+		Set("onos-uenib.image.tag", "latest").
 		Set("global.image.registry", registry)
 
 	return sdran, nil
