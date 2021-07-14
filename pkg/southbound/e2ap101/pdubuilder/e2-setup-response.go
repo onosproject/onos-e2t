@@ -14,14 +14,12 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-const mask20bit = 0xFFFFF
-
 func NewE2SetupResponse(plmnID types.PlmnID, ricID types.RicIdentifier, rfAccepted types.RanFunctionRevisions, rfRejected types.RanFunctionCauses) (*e2appducontents.E2SetupResponse, error) {
 	if len(plmnID) != 3 {
 		return nil, fmt.Errorf("error: Plmn ID should be 3 chars")
 	}
 	// Expecting 20 bits for ric ID
-	if ricID.RicIdentifierValue|mask20bit > mask20bit {
+	if len(ricID.RicIdentifierValue) != 3 {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricID)
 	}
 
@@ -33,7 +31,7 @@ func NewE2SetupResponse(plmnID types.PlmnID, ricID types.RicIdentifier, rfAccept
 				Value: []byte{plmnID[0], plmnID[1], plmnID[2]},
 			},
 			RicId: &e2ap_commondatatypes.BitString{
-				Value: uint64(ricID.RicIdentifierValue),
+				Value: ricID.RicIdentifierValue,
 				Len:   uint32(ricID.RicIdentifierLen),
 			},
 		},

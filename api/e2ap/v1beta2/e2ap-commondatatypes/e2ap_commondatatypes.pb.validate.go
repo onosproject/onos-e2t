@@ -1387,12 +1387,7 @@ func (m *BitString) Validate() error {
 
 	// no validation rules for Value
 
-	if m.GetLen() > 64 {
-		return BitStringValidationError{
-			field:  "Len",
-			reason: "value must be less than or equal to 64",
-		}
-	}
+	// no validation rules for Len
 
 	return nil
 }

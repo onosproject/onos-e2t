@@ -21,11 +21,11 @@ func createE2connectionUpdateItemMsg() (*e2ap_pdu_contents.E2ConnectionUpdateIte
 	e2connectionUpdateItem := e2ap_pdu_contents.E2ConnectionUpdateItem{
 		TnlInformation: &e2ap_ies.Tnlinformation{
 			TnlPort: &e2ap_commondatatypes.BitString{
-				Value: 0x89bcd,
+				Value: []byte{0xcd, 0x9b},
 				Len:   16,
 			},
 			TnlAddress: &e2ap_commondatatypes.BitString{
-				Value: 0x89abcdef01234567,
+				Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 				Len:   64,
 			},
 		},
@@ -53,7 +53,9 @@ func Test_xerEncodingE2connectionUpdateItem(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateItem XER - decoded\n%v", result)
 	assert.Equal(t, e2connectionUpdateItem.GetTnlInformation().GetTnlPort().GetLen(), result.GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateItem.GetTnlInformation().GetTnlPort().GetValue(), result.GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateItem.GetTnlInformation().GetTnlAddress().GetLen(), result.GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateItem.GetTnlInformation().GetTnlAddress().GetValue(), result.GetTnlInformation().GetTnlAddress().GetValue())
 	assert.Equal(t, e2connectionUpdateItem.GetTnlUsage(), result.GetTnlUsage())
 }
 
@@ -72,6 +74,8 @@ func Test_perEncodingE2connectionUpdateItem(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateItem PER - decoded\n%v", result)
 	assert.Equal(t, e2connectionUpdateItem.GetTnlInformation().GetTnlPort().GetLen(), result.GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateItem.GetTnlInformation().GetTnlPort().GetValue(), result.GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateItem.GetTnlInformation().GetTnlAddress().GetLen(), result.GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateItem.GetTnlInformation().GetTnlAddress().GetValue(), result.GetTnlInformation().GetTnlAddress().GetValue())
 	assert.Equal(t, e2connectionUpdateItem.GetTnlUsage(), result.GetTnlUsage())
 }

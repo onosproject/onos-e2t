@@ -17,12 +17,12 @@ import (
 func createE2connectionSetupFailedItemMsg() (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
 
 	bs1 := &e2ap_commondatatypes.BitString{
-		Value: 0x89abcdef01234567,
+		Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 		Len:   64,
 	}
 
 	bs2 := &e2ap_commondatatypes.BitString{
-		Value: 0x89bcd,
+		Value: []byte{0xcd, 0x9b},
 		Len:   16,
 	}
 
@@ -61,7 +61,9 @@ func Test_xerEncodingE2connectionSetupFailedItem(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionSetupFailedItem XER - decoded\n%v", result)
 	assert.Equal(t, e2connectionSetupFailedItem.GetTnlInformation().GetTnlPort().GetLen(), result.GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionSetupFailedItem.GetTnlInformation().GetTnlPort().GetValue(), result.GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionSetupFailedItem.GetTnlInformation().GetTnlAddress().GetLen(), result.GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionSetupFailedItem.GetTnlInformation().GetTnlAddress().GetValue(), result.GetTnlInformation().GetTnlAddress().GetValue())
 	assert.Equal(t, e2connectionSetupFailedItem.GetCause().GetRicService(), result.GetCause().GetRicService())
 }
 
@@ -80,6 +82,8 @@ func Test_perEncodingE2connectionSetupFailedItem(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionSetupFailedItem PER - decoded\n%v", result)
 	assert.Equal(t, e2connectionSetupFailedItem.GetTnlInformation().GetTnlPort().GetLen(), result.GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionSetupFailedItem.GetTnlInformation().GetTnlPort().GetValue(), result.GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionSetupFailedItem.GetTnlInformation().GetTnlAddress().GetLen(), result.GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionSetupFailedItem.GetTnlInformation().GetTnlAddress().GetValue(), result.GetTnlInformation().GetTnlAddress().GetValue())
 	assert.Equal(t, e2connectionSetupFailedItem.GetCause().GetRicService(), result.GetCause().GetRicService())
 }

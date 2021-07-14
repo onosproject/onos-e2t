@@ -76,21 +76,30 @@ func newEnbIDChoice(enbIDChoice *e2ap_ies.EnbIdChoice) (*C.ENB_ID_Choice_t, erro
 	case *e2ap_ies.EnbIdChoice_EnbIdMacro:
 		pr = C.ENB_ID_Choice_PR_enb_ID_macro
 
-		bsC := newBitString(choice.EnbIdMacro)
+		bsC, err := newBitString(choice.EnbIdMacro)
+		if err != nil {
+			return nil, err
+		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(bsC.buf))))
 		binary.LittleEndian.PutUint64(choiceC[8:], uint64(bsC.size))
 		binary.LittleEndian.PutUint32(choiceC[16:], uint32(bsC.bits_unused))
 	case *e2ap_ies.EnbIdChoice_EnbIdShortmacro:
 		pr = C.ENB_ID_Choice_PR_enb_ID_shortmacro
 
-		bsC := newBitString(choice.EnbIdShortmacro)
+		bsC, err := newBitString(choice.EnbIdShortmacro)
+		if err != nil {
+			return nil, err
+		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(bsC.buf))))
 		binary.LittleEndian.PutUint64(choiceC[8:], uint64(bsC.size))
 		binary.LittleEndian.PutUint32(choiceC[16:], uint32(bsC.bits_unused))
 	case *e2ap_ies.EnbIdChoice_EnbIdLongmacro:
 		pr = C.ENB_ID_Choice_PR_enb_ID_longmacro
 
-		bsC := newBitString(choice.EnbIdLongmacro)
+		bsC, err := newBitString(choice.EnbIdLongmacro)
+		if err != nil {
+			return nil, err
+		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(bsC.buf))))
 		binary.LittleEndian.PutUint64(choiceC[8:], uint64(bsC.size))
 		binary.LittleEndian.PutUint32(choiceC[16:], uint32(bsC.bits_unused))

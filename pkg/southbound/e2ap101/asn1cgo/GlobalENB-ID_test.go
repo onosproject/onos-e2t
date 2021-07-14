@@ -20,7 +20,7 @@ func TestNewGlobaleNBID(t *testing.T) {
 		ENbId: &e2apies.EnbId{
 			EnbId: &e2apies.EnbId_HomeENbId{
 				HomeENbId: &e2ap_commondatatypes.BitString{
-					Value: 0xABBCDEF0,
+					Value: []byte{0xf0, 0xde, 0xcb, 0xb0},
 					Len:   28,
 				},
 			},
@@ -41,7 +41,7 @@ func TestNewGlobaleNBID(t *testing.T) {
 	switch choice := g1.ENbId.EnbId.(type) {
 	case *e2apies.EnbId_HomeENbId:
 		assert.Equal(t, int(choice.HomeENbId.Len), 28)
-		assert.Equal(t, choice.HomeENbId.Value, uint64(0xABBCDEF0))
+		assert.DeepEqual(t, choice.HomeENbId.Value, []byte{0xf0, 0xde, 0xcb, 0xb0})
 	default:
 		t.Fatalf("unexpected choice in EnbID %v", choice)
 	}

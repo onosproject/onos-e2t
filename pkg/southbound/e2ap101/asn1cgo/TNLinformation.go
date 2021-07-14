@@ -70,11 +70,17 @@ func newTnlinformation(tnlinformation *e2ap_ies.Tnlinformation) (*C.TNLinformati
 
 	tnlinformationC := C.TNLinformation_t{}
 
-	tnlAddressC := newBitString(tnlinformation.TnlAddress)
+	tnlAddressC, err := newBitString(tnlinformation.TnlAddress)
+	if err != nil {
+		return nil, err
+	}
 	tnlinformationC.tnlAddress = *tnlAddressC
 
 	if tnlinformation.TnlPort != nil {
-		tnlPortC := newBitString(tnlinformation.TnlPort)
+		tnlPortC, err := newBitString(tnlinformation.TnlPort)
+		if err != nil {
+			return nil, err
+		}
 		tnlinformationC.tnlPort = tnlPortC
 	}
 

@@ -27,7 +27,7 @@ func createGlobalE2nodeNgEnbIDMsg() (*e2ap_ies.GlobalE2NodeNgEnbId, error) {
 			EnbId: &e2ap_ies.EnbIdChoice{
 				EnbIdChoice: &e2ap_ies.EnbIdChoice_EnbIdMacro{
 					EnbIdMacro: &e2ap_commondatatypes.BitString{
-						Value: 0x98bcd,
+						Value: []byte{0x4d, 0xcb, 0xb0},
 						Len:   20,
 					},
 				},
@@ -56,7 +56,8 @@ func Test_xerEncodingGlobalE2nodeNgEnbID(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("GlobalE2nodeNgEnbID XER - decoded\n%v", result)
 	assert.DeepEqual(t, globalE2nodeNgEnbID.GetGlobalNgENbId().GetPlmnId().GetValue(), result.GetGlobalNgENbId().GetPlmnId().GetValue())
-	assert.DeepEqual(t, globalE2nodeNgEnbID.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetLen(), result.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetLen())
+	assert.Equal(t, globalE2nodeNgEnbID.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetLen(), result.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetLen())
+	assert.DeepEqual(t, globalE2nodeNgEnbID.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetValue(), result.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetValue())
 }
 
 func Test_perEncodingGlobalE2nodeNgEnbID(t *testing.T) {
@@ -74,5 +75,6 @@ func Test_perEncodingGlobalE2nodeNgEnbID(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("GlobalE2nodeNgEnbID PER - decoded\n%v", result)
 	assert.DeepEqual(t, globalE2nodeNgEnbID.GetGlobalNgENbId().GetPlmnId().GetValue(), result.GetGlobalNgENbId().GetPlmnId().GetValue())
-	assert.DeepEqual(t, globalE2nodeNgEnbID.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetLen(), result.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetLen())
+	assert.Equal(t, globalE2nodeNgEnbID.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetLen(), result.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetLen())
+	assert.DeepEqual(t, globalE2nodeNgEnbID.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetValue(), result.GetGlobalNgENbId().GetEnbId().GetEnbIdMacro().GetValue())
 }

@@ -76,7 +76,10 @@ func newEngnbID(engnbID *e2ap_ies.EngnbId) (*C.ENGNB_ID_t, error) {
 	case *e2ap_ies.EngnbId_GNbId:
 		pr = C.ENGNB_ID_PR_gNB_ID
 
-		bsC := newBitString(choice.GNbId)
+		bsC, err := newBitString(choice.GNbId)
+		if err != nil {
+			return nil, err
+		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(bsC.buf))))
 		binary.LittleEndian.PutUint64(choiceC[8:], uint64(bsC.size))
 		binary.LittleEndian.PutUint32(choiceC[16:], uint32(bsC.bits_unused))

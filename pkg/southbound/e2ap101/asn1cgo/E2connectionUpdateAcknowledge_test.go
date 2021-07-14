@@ -20,21 +20,21 @@ func createE2connectionUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2ConnectionUp
 
 	e2connectionUpdateAcknowledge, err := pdubuilder.CreateE2connectionUpdateAcknowledgeE2apPdu([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 		TnlPort: e2ap_commondatatypes.BitString{
-			Value: 0x89ae,
+			Value: []byte{0xae, 0x89},
 			Len:   16,
 		},
 		TnlAddress: e2ap_commondatatypes.BitString{
-			Value: 0x89abdcdf01234567,
+			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 			Len:   64,
 		}},
 		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
 		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
 			TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x89ae,
+				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
 			TnlAddress: e2ap_commondatatypes.BitString{
-				Value: 0x89abdcdf01234567,
+				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 				Len:   64,
 			}},
 			Cause: e2ap_ies.Cause{
@@ -67,9 +67,13 @@ func Test_xerEncodingE2connectionUpdateAcknowledge(t *testing.T) {
 	t.Logf("E2connectionUpdateAcknowledge XER - decoded\n%v", result)
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlUsage(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlUsage())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetCause().GetProtocol(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetCause().GetProtocol())
 }
 
@@ -89,9 +93,12 @@ func Test_perEncodingE2connectionUpdateAcknowledge(t *testing.T) {
 	t.Logf("E2connectionUpdateAcknowledge PER - decoded\n%v", result)
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlUsage(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlUsage())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetCause().GetProtocol(), result.GetProtocolIes().GetE2ApProtocolIes40().GetConnectionSetupFailed().GetValue()[0].GetValue().GetCause().GetProtocol())
-
 }

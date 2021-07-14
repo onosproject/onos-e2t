@@ -25,7 +25,7 @@ func Test_RanFunctionsList(t *testing.T) {
 		Revision:    1,
 	}
 
-	gnbID, err := pdubuilder.CreateGnbIDchoice(1, 22)
+	gnbID, err := pdubuilder.CreateGnbIDchoice([]byte{0x00, 0x00, 0x04}, 22)
 	assert.NilError(t, err)
 
 	e2apSetupRequest, err := pdubuilder.CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, gnbID, ranFunctionList)

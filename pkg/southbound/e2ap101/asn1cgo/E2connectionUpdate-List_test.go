@@ -27,11 +27,11 @@ func createE2connectionUpdateListMsg() (*e2ap_pdu_contents.E2ConnectionUpdateLis
 		Value: &e2ap_pdu_contents.E2ConnectionUpdateItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{
 				TnlPort: &e2ap_commondatatypes.BitString{
-					Value: 0x89bcd,
+					Value: []byte{0xcd, 0x9b},
 					Len:   16,
 				},
 				TnlAddress: &e2ap_commondatatypes.BitString{
-					Value: 0x89abcdef01234567,
+					Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 					Len:   64,
 				},
 			},
@@ -65,7 +65,9 @@ func Test_xerEncodingE2connectionUpdateList(t *testing.T) {
 	assert.Equal(t, 1, len(result.GetValue()))
 	assert.Equal(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlUsage(), result.GetValue()[0].GetValue().GetTnlUsage())
 	assert.Equal(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue())
 }
 
 func Test_perEncodingE2connectionUpdateList(t *testing.T) {
@@ -85,6 +87,7 @@ func Test_perEncodingE2connectionUpdateList(t *testing.T) {
 	assert.Equal(t, 1, len(result.GetValue()))
 	assert.Equal(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlUsage(), result.GetValue()[0].GetValue().GetTnlUsage())
 	assert.Equal(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
-
+	assert.DeepEqual(t, e2connectionUpdateList.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue())
 }

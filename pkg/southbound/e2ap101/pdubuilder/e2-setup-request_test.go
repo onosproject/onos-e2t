@@ -25,7 +25,7 @@ func TestE2SetupRequest(t *testing.T) {
 		OID:         []byte("oid2"),
 	}
 
-	gnbID, err := CreateGnbIDchoice(1, 22)
+	gnbID, err := CreateGnbIDchoice([]byte{0x00, 0x00, 0x04}, 22)
 	assert.NilError(t, err)
 
 	newE2apPdu, err := CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, gnbID, ranFunctionList)
@@ -50,7 +50,7 @@ func TestE2SetupRequest(t *testing.T) {
 }
 
 func TestE2SetupRequestExcludeOptionalIE(t *testing.T) {
-	gnbID, err := CreateGnbIDchoice(1, 22)
+	gnbID, err := CreateGnbIDchoice([]byte{0x00, 0x00, 0x04}, 22)
 	assert.NilError(t, err)
 
 	newE2apPdu, err := CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, gnbID, nil)

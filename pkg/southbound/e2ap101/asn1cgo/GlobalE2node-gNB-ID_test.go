@@ -22,7 +22,7 @@ func createGlobalE2nodeGnbID() *e2apies.GlobalE2NodeGnbId {
 			GnbId: &e2apies.GnbIdChoice{
 				GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
 					GnbId: &e2ap_commondatatypes.BitString{
-						Value: 0x9ABCD4,
+						Value: []byte{0x4d, 0xcb, 0xac},
 						Len:   22,
 					},
 				},
@@ -54,13 +54,14 @@ func Test_GlobalE2nodeGnbID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodegNBID decoded from XER is \n%v", ge2nReversed)
-	//assert.Equal(t, 2, len(rflReversed.GetValue()))
+	assert.Equal(t, ge2n.GetGlobalGNbId().GetGnbId().GetGnbId().GetLen(), ge2nReversed.GetGlobalGNbId().GetGnbId().GetGnbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetGlobalGNbId().GetGnbId().GetGnbId().GetValue(), ge2nReversed.GetGlobalGNbId().GetGnbId().GetGnbId().GetValue())
 
 	// Now reverse the PER
 	ge2nReversedFromPer, err := perDecodeGlobalE2nodegNBID(per)
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodegNBID decoded from PER is \n%v", ge2nReversedFromPer)
-	//assert.Equal(t, 2, len(rflReversedFromPer.GetValue()))
-
+	assert.Equal(t, ge2n.GetGlobalGNbId().GetGnbId().GetGnbId().GetLen(), ge2nReversedFromPer.GetGlobalGNbId().GetGnbId().GetGnbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetGlobalGNbId().GetGnbId().GetGnbId().GetValue(), ge2nReversedFromPer.GetGlobalGNbId().GetGnbId().GetGnbId().GetValue())
 }

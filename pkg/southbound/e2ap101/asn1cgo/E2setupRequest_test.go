@@ -25,7 +25,7 @@ func Test_E2setupRequest(t *testing.T) {
 						GnbId: &e2apies.GnbIdChoice{
 							GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
 								GnbId: &e2ap_commondatatypes.BitString{
-									Value: 0x9bcd4,
+									Value: []byte{0xd4, 0xcb, 0x8C},
 									Len:   22,
 								}},
 						},
@@ -54,7 +54,7 @@ func Test_E2setupRequest(t *testing.T) {
 	ge2nID := e2srFedback.ProtocolIes.E2ApProtocolIes3.Value.GlobalE2NodeId.(*e2apies.GlobalE2NodeId_GNb)
 	assert.Equal(t, "ONF", string(ge2nID.GNb.GlobalGNbId.PlmnId.Value))
 	gnbID := ge2nID.GNb.GlobalGNbId.GnbId.GnbIdChoice.(*e2apies.GnbIdChoice_GnbId)
-	assert.Equal(t, uint64(0x9bcd4), gnbID.GnbId.Value)
+	assert.DeepEqual(t, []byte{0xd4, 0xbc, 0x80}, gnbID.GnbId.Value)
 	assert.Equal(t, uint32(22), gnbID.GnbId.Len)
 
 	xer, err := xerEncodeE2SetupRequest(e2srFedback)

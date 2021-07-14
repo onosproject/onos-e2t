@@ -138,6 +138,6 @@ message RicactionDefinition {
 
 //{-}
 message BitString {
-    uint64 value = 1;
-    uint32 len = 2 [(validate.v1.rules).uint32.lte = 64];
+    bytes value = 1;
+    uint32 len = 2;
 }

@@ -19,11 +19,11 @@ func createE2connectionUpdateRemoveItemMsg() (*e2ap_pdu_contents.E2ConnectionUpd
 	e2connectionUpdateRemoveItem := e2ap_pdu_contents.E2ConnectionUpdateRemoveItem{
 		TnlInformation: &e2ap_ies.Tnlinformation{
 			TnlAddress: &e2ap_commondatatypes.BitString{
-				Value: 0x89abcdef01234567,
+				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 				Len:   64,
 			},
 			TnlPort: &e2ap_commondatatypes.BitString{
-				Value: 0x89bcd,
+				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
 		},
@@ -50,7 +50,9 @@ func Test_xerEncodingE2connectionUpdateRemoveItem(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateRemoveItem XER - decoded\n%v", result)
 	assert.Equal(t, e2connectionUpdateRemoveItem.GetTnlInformation().GetTnlPort().GetLen(), result.GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateRemoveItem.GetTnlInformation().GetTnlPort().GetValue(), result.GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateRemoveItem.GetTnlInformation().GetTnlAddress().GetLen(), result.GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateRemoveItem.GetTnlInformation().GetTnlAddress().GetValue(), result.GetTnlInformation().GetTnlAddress().GetValue())
 }
 
 func Test_perEncodingE2connectionUpdateRemoveItem(t *testing.T) {
@@ -68,5 +70,7 @@ func Test_perEncodingE2connectionUpdateRemoveItem(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateRemoveItem PER - decoded\n%v", result)
 	assert.Equal(t, e2connectionUpdateRemoveItem.GetTnlInformation().GetTnlPort().GetLen(), result.GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateRemoveItem.GetTnlInformation().GetTnlPort().GetValue(), result.GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionUpdateRemoveItem.GetTnlInformation().GetTnlAddress().GetLen(), result.GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionUpdateRemoveItem.GetTnlInformation().GetTnlAddress().GetValue(), result.GetTnlInformation().GetTnlAddress().GetValue())
 }

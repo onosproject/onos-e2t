@@ -5,7 +5,6 @@
 package pdudecoder
 
 import (
-	"encoding/binary"
 	"fmt"
 	"math"
 
@@ -34,8 +33,9 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		if !ok {
 			return nil, nil, fmt.Errorf("expected a gNBId")
 		}
-		nodeIdentity.NodeIdentifier = make([]byte, 8)
-		binary.BigEndian.PutUint64(nodeIdentity.NodeIdentifier, choice.GnbId.GetValue())
+		//nodeIdentity.NodeIdentifier = make([]byte, 0)
+		//ToDo - this approach should be fine
+		nodeIdentity.NodeIdentifier = choice.GnbId.GetValue()
 		// TODO: investigate GNB-CU-UP-ID and GNB-DU-ID
 
 	case *e2apies.GlobalE2NodeId_EnGNb:
@@ -60,24 +60,27 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 			return nil, nil, fmt.Errorf("error extracting node identifier")
 		}
 		nodeIdentity.NodeType = types.E2NodeTypeENB
-		identifierBytes := make([]byte, 8)
+		//identifierBytes := make([]byte, 0)
+		var identifierBytes []byte
 		var lenBytes int
 		switch enbt := e2NodeID.ENb.GetGlobalENbId().GetENbId().GetEnbId().(type) {
 		case *e2apies.EnbId_MacroENbId:
-			binary.LittleEndian.PutUint64(identifierBytes, enbt.MacroENbId.GetValue())
+			identifierBytes = enbt.MacroENbId.GetValue()
 			lenBytes = int(math.Ceil(float64(enbt.MacroENbId.Len) / 8.0))
 		case *e2apies.EnbId_HomeENbId:
-			binary.LittleEndian.PutUint64(identifierBytes, enbt.HomeENbId.GetValue())
+			identifierBytes = enbt.HomeENbId.GetValue()
 			lenBytes = int(math.Ceil(float64(enbt.HomeENbId.Len) / 8.0))
 		case *e2apies.EnbId_ShortMacroENbId:
-			binary.LittleEndian.PutUint64(identifierBytes, enbt.ShortMacroENbId.GetValue())
+			identifierBytes = enbt.ShortMacroENbId.GetValue()
 			lenBytes = int(math.Ceil(float64(enbt.ShortMacroENbId.Len) / 8.0))
 		case *e2apies.EnbId_LongMacroENbId:
-			binary.LittleEndian.PutUint64(identifierBytes, enbt.LongMacroENbId.GetValue())
+			identifierBytes = enbt.LongMacroENbId.GetValue()
 			lenBytes = int(math.Ceil(float64(enbt.LongMacroENbId.Len) / 8.0))
 		}
 		nodeIdentity.NodeIdentifier = make([]byte, lenBytes)
 		copy(nodeIdentity.NodeIdentifier, identifierBytes[:lenBytes])
+		//ToDo - couldn't it be just this?
+		//nodeIdentity.NodeIdentifier = identifierBytes
 	}
 
 	ranFunctionsList := make(types.RanFunctions)

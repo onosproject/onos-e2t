@@ -16,12 +16,12 @@ import (
 func createTnlinformationMsg() (*e2ap_ies.Tnlinformation, error) {
 
 	bs1 := &e2ap_commondatatypes.BitString{
-		Value: 0x89abcdef01234567,
+		Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 		Len:   64,
 	}
 
 	bs2 := &e2ap_commondatatypes.BitString{
-		Value: 0x89bc,
+		Value: []byte{0xcd, 0x9b},
 		Len:   16,
 	}
 
@@ -52,9 +52,9 @@ func Test_xerEncodingTnlinformation(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("TNLinformation XER - decoded\n%v", result)
 
-	assert.Equal(t, tnlinformation.GetTnlAddress().GetValue(), result.GetTnlAddress().GetValue())
+	assert.DeepEqual(t, tnlinformation.GetTnlAddress().GetValue(), result.GetTnlAddress().GetValue())
 	assert.Equal(t, tnlinformation.GetTnlAddress().GetLen(), result.GetTnlAddress().GetLen())
-	assert.Equal(t, tnlinformation.GetTnlPort().GetValue(), result.GetTnlPort().GetValue())
+	assert.DeepEqual(t, tnlinformation.GetTnlPort().GetValue(), result.GetTnlPort().GetValue())
 	assert.Equal(t, tnlinformation.GetTnlPort().GetLen(), result.GetTnlPort().GetLen())
 }
 
@@ -74,8 +74,8 @@ func Test_perEncodingTnlinformation(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("TNLinformation PER - decoded\n%v", result)
 
-	assert.Equal(t, tnlinformation.GetTnlAddress().GetValue(), result.GetTnlAddress().GetValue())
+	assert.DeepEqual(t, tnlinformation.GetTnlAddress().GetValue(), result.GetTnlAddress().GetValue())
 	assert.Equal(t, tnlinformation.GetTnlAddress().GetLen(), result.GetTnlAddress().GetLen())
-	assert.Equal(t, tnlinformation.GetTnlPort().GetValue(), result.GetTnlPort().GetValue())
+	assert.DeepEqual(t, tnlinformation.GetTnlPort().GetValue(), result.GetTnlPort().GetValue())
 	assert.Equal(t, tnlinformation.GetTnlPort().GetLen(), result.GetTnlPort().GetLen())
 }

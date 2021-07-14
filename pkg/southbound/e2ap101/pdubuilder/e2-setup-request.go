@@ -100,7 +100,7 @@ func CreateE2SetupRequestPdu(plmnID types.PlmnID, gnbID *e2apies.GnbIdChoice, ra
 	return &e2apPdu, nil
 }
 
-func CreateGnbIDchoice(value uint64, len uint32) (*e2apies.GnbIdChoice, error) {
+func CreateGnbIDchoice(value []byte, len uint32) (*e2apies.GnbIdChoice, error) {
 
 	if len < 22 || len > 32 {
 		return nil, fmt.Errorf("length should be in range 22 to 32 bits")

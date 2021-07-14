@@ -31,7 +31,7 @@ func TestE2SetupResponse(t *testing.T) {
 
 	plmnID := [3]byte{0x79, 0x78, 0x70}
 	ricID := types.RicIdentifier{
-		RicIdentifierValue: 1234,
+		RicIdentifierValue: []byte{0x4d, 0x20, 0x00},
 		RicIdentifierLen:   20,
 	}
 	newE2apPdu, err := CreateResponseE2apPdu(plmnID, ricID, rfAccepted, rfRejected)
