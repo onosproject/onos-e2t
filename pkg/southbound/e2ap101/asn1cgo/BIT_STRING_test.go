@@ -48,7 +48,7 @@ func Test_newBitString(t *testing.T) {
 	bs2, err := decodeBitString(cBitString)
 	assert.NilError(t, err)
 	assert.Equal(t, uint32(22), bs2.Len)
-	assert.DeepEqual(t, []byte{0xD4, 0xBC, 0x90}, bs2.Value)
+	assert.DeepEqual(t, []byte{0xD4, 0xBC, 0x98}, bs2.Value)
 
 	xer2, err := xerEncodeBitString(bs2)
 	assert.NilError(t, err)
