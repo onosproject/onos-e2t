@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
@@ -46,7 +47,7 @@ func Test_RicActionsToBeSetupList(t *testing.T) {
 
 	per, err := perEncodeRicActionsToBeSetupList(ricSubDetails.GetRicActionToBeSetupList())
 	assert.NilError(t, err)
-	t.Logf("RicActionToBeSetupList PER\n%v", per)
+	t.Logf("RicActionToBeSetupList PER\n%v", hex.Dump(per))
 
 	// Now reverse it
 	ratbsL, err := xerDecodeRicActionsToBeSetupList(xer)

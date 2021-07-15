@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"gotest.tools/assert"
@@ -52,5 +53,5 @@ func TestNewGlobaleNBID(t *testing.T) {
 
 	per, err := perEncodeeNBID(&g)
 	assert.NilError(t, err)
-	t.Logf("PER GlobalEnbId: \n%x", per)
+	t.Logf("PER GlobalEnbId: \n%v", hex.Dump(per))
 }

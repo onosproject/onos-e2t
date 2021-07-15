@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"gotest.tools/assert"
@@ -123,21 +124,21 @@ func Test_perEncodeEnbIDChoice(t *testing.T) {
 	per, err := perEncodeEnbIDChoice(enbIDchoice)
 	assert.NilError(t, err)
 	assert.Equal(t, 4, len(per))
-	t.Logf("EnbIDChoice (Macro) PER\n%s", string(per))
+	t.Logf("EnbIDChoice (Macro) PER\n%v", hex.Dump(per))
 
 	enbIDchoice = createEnbIDChoiceShortMacro()
 
 	per, err = perEncodeEnbIDChoice(enbIDchoice)
 	assert.NilError(t, err)
 	assert.Equal(t, 4, len(per))
-	t.Logf("EnbIDChoice (ShortMacro)PER\n%s", string(per))
+	t.Logf("EnbIDChoice (ShortMacro)PER\n%v", hex.Dump(per))
 
 	enbIDchoice = createEnbIDChoiceLongMacro()
 
 	per, err = perEncodeEnbIDChoice(enbIDchoice)
 	assert.NilError(t, err)
 	assert.Equal(t, 4, len(per))
-	t.Logf("EnbIDChoice (LongMacro) PER\n%s", string(per))
+	t.Logf("EnbIDChoice (LongMacro) PER\n%v", hex.Dump(per))
 }
 
 func Test_perDecodeEnbIDChoice(t *testing.T) {
@@ -147,7 +148,7 @@ func Test_perDecodeEnbIDChoice(t *testing.T) {
 	per, err := perEncodeEnbIDChoice(enbIDchoice)
 	assert.NilError(t, err)
 	assert.Equal(t, 4, len(per))
-	t.Logf("EnbIDChoice (Macro) PER\n%s", string(per))
+	t.Logf("EnbIDChoice (Macro) PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeEnbIDChoice(per)
 	assert.NilError(t, err)
@@ -161,7 +162,7 @@ func Test_perDecodeEnbIDChoice(t *testing.T) {
 	per, err = perEncodeEnbIDChoice(enbIDchoice)
 	assert.NilError(t, err)
 	assert.Equal(t, 4, len(per))
-	t.Logf("EnbIDChoice (ShortMacro) PER\n%s", string(per))
+	t.Logf("EnbIDChoice (ShortMacro) PER\n%v", hex.Dump(per))
 
 	result, err = perDecodeEnbIDChoice(per)
 	assert.NilError(t, err)
@@ -175,7 +176,7 @@ func Test_perDecodeEnbIDChoice(t *testing.T) {
 	per, err = perEncodeEnbIDChoice(enbIDchoice)
 	assert.NilError(t, err)
 	assert.Equal(t, 4, len(per))
-	t.Logf("EnbIDChoice (LongMacro) PER\n%s", string(per))
+	t.Logf("EnbIDChoice (LongMacro) PER\n%v", hex.Dump(per))
 
 	result, err = perDecodeEnbIDChoice(per)
 	assert.NilError(t, err)
