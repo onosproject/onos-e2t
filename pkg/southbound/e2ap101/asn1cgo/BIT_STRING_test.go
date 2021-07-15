@@ -13,7 +13,7 @@ import (
 
 func Test_newBitString(t *testing.T) {
 	bs1 := &e2ap_commondatatypes.BitString{
-		Value: []byte{0xD4, 0xBC, 0x90},
+		Value: []byte{0xD4, 0xBC, 0x98},
 		Len:   22,
 	}
 
