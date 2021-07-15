@@ -22,7 +22,7 @@ func createRanFunctionItem() (*e2appducontents.RanfunctionItem, error) {
 		OID:         []byte("oid2"),
 	}
 
-	gnbID, err := pdubuilder.CreateGnbIDchoice(1, 22)
+	gnbID, err := pdubuilder.CreateGnbIDchoice([]byte{0x00, 0x00, 0x04}, 22)
 	if err != nil {
 		return nil, err
 	}

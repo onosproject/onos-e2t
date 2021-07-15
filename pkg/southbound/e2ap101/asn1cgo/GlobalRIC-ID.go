@@ -27,9 +27,13 @@ func newGlobalRicID(gr *e2apies.GlobalRicId) (*C.GlobalRIC_ID_t, error) {
 		return nil, fmt.Errorf("ric-ID has to be 20 bits exactly - e2ap-v01.00.00.asn line 1076")
 	}
 
+	bsC, err := newBitString(gr.RicId)
+	if err != nil {
+		return nil, err
+	}
 	idC := C.GlobalRIC_ID_t{
 		pLMN_Identity: *newOctetString(string(gr.PLmnIdentity.Value)),
-		ric_ID:        *newBitString(gr.RicId),
+		ric_ID:        *bsC,
 	}
 
 	return &idC, nil

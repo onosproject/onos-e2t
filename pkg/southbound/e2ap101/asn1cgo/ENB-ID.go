@@ -28,25 +28,41 @@ func newEnbID(enbID *e2apies.EnbId) (*C.ENB_ID_t, error) {
 			return nil, fmt.Errorf("MacroENbId must be exactly 20 bits")
 		}
 		pr = C.ENB_ID_PR_macro_eNB_ID
-		bsC = *newBitString(enbt.MacroENbId)
+		bsCP, err := newBitString(enbt.MacroENbId)
+		if err != nil {
+			return nil, err
+		}
+		bsC = *bsCP
 	case *e2apies.EnbId_HomeENbId:
 		if enbt.HomeENbId.Len != 28 {
 			return nil, fmt.Errorf("MacroENbId must be exactly 20 bits")
 		}
 		pr = C.ENB_ID_PR_home_eNB_ID
-		bsC = *newBitString(enbt.HomeENbId)
+		bsCP, err := newBitString(enbt.HomeENbId)
+		if err != nil {
+			return nil, err
+		}
+		bsC = *bsCP
 	case *e2apies.EnbId_ShortMacroENbId:
 		if enbt.ShortMacroENbId.Len != 18 {
 			return nil, fmt.Errorf("MacroENbId must be exactly 20 bits")
 		}
 		pr = C.ENB_ID_PR_short_Macro_eNB_ID
-		bsC = *newBitString(enbt.ShortMacroENbId)
+		bsCP, err := newBitString(enbt.ShortMacroENbId)
+		if err != nil {
+			return nil, err
+		}
+		bsC = *bsCP
 	case *e2apies.EnbId_LongMacroENbId:
 		if enbt.LongMacroENbId.Len != 21 {
 			return nil, fmt.Errorf("MacroENbId must be exactly 20 bits")
 		}
 		pr = C.ENB_ID_PR_long_Macro_eNB_ID
-		bsC = *newBitString(enbt.LongMacroENbId)
+		bsCP, err := newBitString(enbt.LongMacroENbId)
+		if err != nil {
+			return nil, err
+		}
+		bsC = *bsCP
 	default:
 		return nil, fmt.Errorf("unexpected type for eNB ID %v", enbt)
 	}

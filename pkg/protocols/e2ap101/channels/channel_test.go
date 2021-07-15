@@ -54,7 +54,7 @@ func TestChannels(t *testing.T) {
 								GnbId: &e2apies.GnbIdChoice{
 									GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
 										GnbId: &e2ap_commondatatypes.BitString{
-											Value: 0x9bcd4,
+											Value: []byte{0x4d, 0xbc, 0x94},
 											Len:   22,
 										}},
 								},
@@ -313,7 +313,7 @@ func (p *testServerProcedures) E2Setup(ctx context.Context, request *e2appducont
 						Value: []byte{0x01, 0x02, 0x03},
 					},
 					RicId: &e2ap_commondatatypes.BitString{
-						Value: 0xABCDE,
+						Value: []byte{0xed, 0xcb, 0xf0},
 						Len:   20,
 					},
 				},

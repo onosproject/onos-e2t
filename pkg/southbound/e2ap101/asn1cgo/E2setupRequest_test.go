@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
@@ -25,7 +26,7 @@ func Test_E2setupRequest(t *testing.T) {
 						GnbId: &e2apies.GnbIdChoice{
 							GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
 								GnbId: &e2ap_commondatatypes.BitString{
-									Value: 0x9bcd4,
+									Value: []byte{0xd4, 0xcb, 0x8c},
 									Len:   22,
 								}},
 						},
@@ -54,7 +55,7 @@ func Test_E2setupRequest(t *testing.T) {
 	ge2nID := e2srFedback.ProtocolIes.E2ApProtocolIes3.Value.GlobalE2NodeId.(*e2apies.GlobalE2NodeId_GNb)
 	assert.Equal(t, "ONF", string(ge2nID.GNb.GlobalGNbId.PlmnId.Value))
 	gnbID := ge2nID.GNb.GlobalGNbId.GnbId.GnbIdChoice.(*e2apies.GnbIdChoice_GnbId)
-	assert.Equal(t, uint64(0x9bcd4), gnbID.GnbId.Value)
+	assert.DeepEqual(t, []byte{0xd4, 0xcb, 0x8c}, gnbID.GnbId.Value)
 	assert.Equal(t, uint32(22), gnbID.GnbId.Len)
 
 	xer, err := xerEncodeE2SetupRequest(e2srFedback)
@@ -63,5 +64,5 @@ func Test_E2setupRequest(t *testing.T) {
 
 	per, err := perEncodeE2SetupRequest(e2srFedback)
 	assert.NilError(t, err)
-	t.Logf("PER E2SetupRequest: \n%s", string(per))
+	t.Logf("PER E2SetupRequest: \n%v", hex.Dump(per))
 }

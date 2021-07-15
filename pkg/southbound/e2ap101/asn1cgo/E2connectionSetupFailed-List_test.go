@@ -22,12 +22,12 @@ func createE2connectionSetupFailedListMsg() (*e2ap_pdu_contents.E2ConnectionSetu
 	}
 
 	bs1 := &e2ap_commondatatypes.BitString{
-		Value: 0x89abcdef01234567,
+		Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 		Len:   64,
 	}
 
 	bs2 := &e2ap_commondatatypes.BitString{
-		Value: 0x89bcd,
+		Value: []byte{0xcd, 0x9b},
 		Len:   16,
 	}
 
@@ -75,7 +75,9 @@ func Test_xerEncodingE2connectionSetupFailedList(t *testing.T) {
 	assert.Equal(t, 1, len(result.GetValue()))
 	assert.Equal(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetCause().GetRicService(), result.GetValue()[0].GetValue().GetCause().GetRicService())
 	assert.Equal(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
+	assert.DeepEqual(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue())
 }
 
 func Test_perEncodingE2connectionSetupFailedList(t *testing.T) {
@@ -95,6 +97,7 @@ func Test_perEncodingE2connectionSetupFailedList(t *testing.T) {
 	assert.Equal(t, 1, len(result.GetValue()))
 	assert.Equal(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetCause().GetRicService(), result.GetValue()[0].GetValue().GetCause().GetRicService())
 	assert.Equal(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetLen())
+	assert.DeepEqual(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlPort().GetValue())
 	assert.Equal(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetLen())
-
+	assert.DeepEqual(t, e2connectionSetupFailedList.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue(), result.GetValue()[0].GetValue().GetTnlInformation().GetTnlAddress().GetValue())
 }

@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
@@ -43,5 +44,5 @@ func Test_xerEncodeRICsubscriptionRequest(t *testing.T) {
 	per, err := perEncodeRICsubscriptionRequest(
 		e2ApPduRsr.GetInitiatingMessage().GetProcedureCode().GetRicSubscription().GetInitiatingMessage())
 	assert.NilError(t, err)
-	t.Logf("PER RICsubscriptionRequest\n%s", per)
+	t.Logf("PER RICsubscriptionRequest\n%v", hex.Dump(per))
 }

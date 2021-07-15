@@ -15,7 +15,7 @@ import (
 func Test_newE2setupResponse(t *testing.T) {
 	plmnID := [3]byte{0x79, 0x78, 0x70}
 	ricID := types.RicIdentifier{
-		RicIdentifierValue: 0xABCDE,
+		RicIdentifierValue: []byte{0xDE, 0xBC, 0xA0},
 		RicIdentifierLen:   20,
 	}
 

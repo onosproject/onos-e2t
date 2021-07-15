@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
@@ -18,7 +19,7 @@ func Test_newE2setupResponseE2APpdu(t *testing.T) {
 
 	plmnID := [3]byte{0x79, 0x78, 0x70}
 	ricID := types.RicIdentifier{
-		RicIdentifierValue: 0xABCDE,
+		RicIdentifierValue: []byte{0xDE, 0xBC, 0xA0},
 		RicIdentifierLen:   20,
 	}
 
@@ -35,6 +36,6 @@ func Test_newE2setupResponseE2APpdu(t *testing.T) {
 
 	per, err := PerEncodeE2apPdu(e2SetupResponseE2APpdu)
 	assert.NilError(t, err)
-	t.Logf("PER of E2AP: %v\n", string(per))
+	t.Logf("PER of E2AP: %v\n", hex.Dump(per))
 
 }

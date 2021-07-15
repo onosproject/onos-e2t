@@ -16,21 +16,21 @@ import (
 func TestE2connectionUpdateAcknowledge(t *testing.T) {
 	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 		TnlPort: e2ap_commondatatypes.BitString{
-			Value: 0x89ae,
+			Value: []byte{0xae, 0x89},
 			Len:   16,
 		},
 		TnlAddress: e2ap_commondatatypes.BitString{
-			Value: 0x89abdcdf01234567,
+			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 			Len:   64,
 		}},
 		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
 		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
 			TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x89ae,
+				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
 			TnlAddress: e2ap_commondatatypes.BitString{
-				Value: 0x89abdcdf01234567,
+				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 				Len:   64,
 			}},
 			Cause: e2ap_ies.Cause{
@@ -63,11 +63,11 @@ func TestE2connectionUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
 	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu(nil,
 		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
 			TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x89ae,
+				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
 			TnlAddress: e2ap_commondatatypes.BitString{
-				Value: 0x89abdcdf01234567,
+				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 				Len:   64,
 			}},
 			Cause: e2ap_ies.Cause{

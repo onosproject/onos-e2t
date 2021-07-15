@@ -16,39 +16,39 @@ import (
 func TestE2connectionUpdate(t *testing.T) {
 	newE2apPdu, err := CreateE2connectionUpdateE2apPdu([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 		TnlPort: e2ap_commondatatypes.BitString{
-			Value: 0x89ae,
+			Value: []byte{0xae, 0x89},
 			Len:   16,
 		},
 		TnlAddress: e2ap_commondatatypes.BitString{
-			Value: 0x89abdcdf01234567,
+			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 			Len:   64,
 		}},
 		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
 		[]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 			TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x91ab,
+				Value: []byte{0xba, 0x91},
 				Len:   16,
 			},
 			TnlAddress: e2ap_commondatatypes.BitString{
-				Value: 0x65abcdef01234567,
+				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x62},
 				Len:   64,
 			}},
 			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE}},
 		[]*types.TnlInformation{
 			{TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x89ab,
+				Value: []byte{0xba, 0x98},
 				Len:   16,
 			},
 				TnlAddress: e2ap_commondatatypes.BitString{
-					Value: 0x89abcdef01234567,
+					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x76},
 					Len:   64,
 				}},
 			{TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x89cd,
+				Value: []byte{0xdc, 0x98},
 				Len:   16,
 			},
 				TnlAddress: e2ap_commondatatypes.BitString{
-					Value: 0x89abcdef12345678,
+					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x78},
 					Len:   64,
 				}},
 		})
@@ -80,29 +80,29 @@ func TestE2connectionUpdateExcludeOptionalIEs(t *testing.T) {
 	newE2apPdu, err := CreateE2connectionUpdateE2apPdu(nil,
 		[]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 			TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x91ab,
+				Value: []byte{0xba, 0x19},
 				Len:   16,
 			},
 			TnlAddress: e2ap_commondatatypes.BitString{
-				Value: 0x65abcdef01234567,
+				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 				Len:   64,
 			}},
 			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE}},
 		[]*types.TnlInformation{
 			{TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x89ab,
+				Value: []byte{0xba, 0x98},
 				Len:   16,
 			},
 				TnlAddress: e2ap_commondatatypes.BitString{
-					Value: 0x89abcdef01234567,
+					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x76},
 					Len:   64,
 				}},
 			{TnlPort: e2ap_commondatatypes.BitString{
-				Value: 0x89cd,
+				Value: []byte{0xdc, 0x98},
 				Len:   16,
 			},
 				TnlAddress: e2ap_commondatatypes.BitString{
-					Value: 0x89abcdef12345678,
+					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x62},
 					Len:   64,
 				}},
 		})

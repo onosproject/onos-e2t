@@ -24,7 +24,7 @@ func createGlobalE2nodeIDGNb() *e2apies.GlobalE2NodeId {
 					GnbId: &e2apies.GnbIdChoice{
 						GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
 							GnbId: &e2ap_commondatatypes.BitString{
-								Value: 0x9ABCD4,
+								Value: []byte{0xd4, 0xbc, 0x9c},
 								Len:   22,
 							},
 						},
@@ -53,7 +53,7 @@ func createGlobalE2nodeIDenGNb() *e2apies.GlobalE2NodeId {
 					GNbId: &e2apies.EngnbId{
 						EngnbId: &e2apies.EngnbId_GNbId{
 							GNbId: &e2ap_commondatatypes.BitString{
-								Value: 0x9ABCD4,
+								Value: []byte{0xd4, 0xbc, 0x9c},
 								Len:   22,
 							},
 						},
@@ -76,7 +76,7 @@ func createGlobalE2nodeIDENb() *e2apies.GlobalE2NodeId {
 					ENbId: &e2apies.EnbId{
 						EnbId: &e2apies.EnbId_MacroENbId{
 							MacroENbId: &e2ap_commondatatypes.BitString{
-								Value: 0x9ABCD4,
+								Value: []byte{0xd4, 0xbc, 0x90},
 								Len:   20,
 							},
 						},
@@ -99,7 +99,7 @@ func createGlobalE2nodeIDngENb() *e2apies.GlobalE2NodeId {
 					EnbId: &e2apies.EnbIdChoice{
 						EnbIdChoice: &e2apies.EnbIdChoice_EnbIdLongmacro{
 							EnbIdLongmacro: &e2ap_commondatatypes.BitString{
-								Value: 0x9ABCD4,
+								Value: []byte{0xd4, 0xbc, 0x98},
 								Len:   21,
 							},
 						},
@@ -123,7 +123,8 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (GNb) decoded from XER is \n%v", ge2nReversed)
-	//assert.Equal(t, 2, len(rflReversed.GetValue()))
+	assert.Equal(t, ge2n.GetGNb().GetGlobalGNbId().GetGnbId().GetGnbId().GetLen(), ge2nReversed.GetGNb().GetGlobalGNbId().GetGnbId().GetGnbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetGNb().GetGlobalGNbId().GetGnbId().GetGnbId().GetValue(), ge2nReversed.GetGNb().GetGlobalGNbId().GetGnbId().GetGnbId().GetValue())
 
 	ge2n = createGlobalE2nodeIDenGNb()
 
@@ -136,7 +137,8 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (en-GNb) decoded from XER is \n%v", ge2nReversed)
-	//assert.Equal(t, 2, len(rflReversed.GetValue()))
+	assert.Equal(t, ge2n.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetLen(), ge2nReversed.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetValue(), ge2nReversed.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetValue())
 
 	ge2n = createGlobalE2nodeIDENb()
 
@@ -149,7 +151,8 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (ENb) decoded from XER is \n%v", ge2nReversed)
-	//assert.Equal(t, 2, len(rflReversed.GetValue()))
+	assert.Equal(t, ge2n.GetENb().GetGlobalENbId().GetENbId().GetMacroENbId().GetLen(), ge2nReversed.GetENb().GetGlobalENbId().GetENbId().GetMacroENbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetENb().GetGlobalENbId().GetENbId().GetMacroENbId().GetValue(), ge2nReversed.GetENb().GetGlobalENbId().GetENbId().GetMacroENbId().GetValue())
 
 	ge2n = createGlobalE2nodeIDngENb()
 
@@ -162,7 +165,8 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (ng-ENb) decoded from XER is \n%v", ge2nReversed)
-	//assert.Equal(t, 2, len(rflReversed.GetValue()))
+	assert.Equal(t, ge2n.GetNgENb().GetGlobalNgENbId().GetEnbId().GetEnbIdLongmacro().GetLen(), ge2nReversed.GetNgENb().GetGlobalNgENbId().GetEnbId().GetEnbIdLongmacro().GetLen())
+	assert.DeepEqual(t, ge2n.GetNgENb().GetGlobalNgENbId().GetEnbId().GetEnbIdLongmacro().GetValue(), ge2nReversed.GetNgENb().GetGlobalNgENbId().GetEnbId().GetEnbIdLongmacro().GetValue())
 }
 
 func Test_perDecodeGlobalE2nodeID(t *testing.T) {
@@ -178,7 +182,8 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (GNb) decoded from PER is \n%v", ge2nReversedFromPer)
-	//assert.Equal(t, 2, len(rflReversedFromPer.GetValue()))
+	assert.Equal(t, ge2n.GetGNb().GetGlobalGNbId().GetGnbId().GetGnbId().GetLen(), ge2nReversedFromPer.GetGNb().GetGlobalGNbId().GetGnbId().GetGnbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetGNb().GetGlobalGNbId().GetGnbId().GetGnbId().GetValue(), ge2nReversedFromPer.GetGNb().GetGlobalGNbId().GetGnbId().GetGnbId().GetValue())
 
 	ge2n = createGlobalE2nodeIDenGNb()
 
@@ -191,7 +196,8 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (en-GNb) decoded from PER is \n%v", ge2nReversedFromPer)
-	//assert.Equal(t, 2, len(rflReversedFromPer.GetValue()))
+	assert.Equal(t, ge2n.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetLen(), ge2nReversedFromPer.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetValue(), ge2nReversedFromPer.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetValue())
 
 	ge2n = createGlobalE2nodeIDENb()
 
@@ -204,7 +210,8 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (ENb) decoded from PER is \n%v", ge2nReversedFromPer)
-	//assert.Equal(t, 2, len(rflReversedFromPer.GetValue()))
+	assert.Equal(t, ge2n.GetENb().GetGlobalENbId().GetENbId().GetMacroENbId().GetLen(), ge2nReversedFromPer.GetENb().GetGlobalENbId().GetENbId().GetMacroENbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetENb().GetGlobalENbId().GetENbId().GetMacroENbId().GetValue(), ge2nReversedFromPer.GetENb().GetGlobalENbId().GetENbId().GetMacroENbId().GetValue())
 
 	ge2n = createGlobalE2nodeIDngENb()
 
@@ -217,5 +224,6 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (ng-ENb) decoded from PER is \n%v", ge2nReversedFromPer)
-	//assert.Equal(t, 2, len(rflReversedFromPer.GetValue()))
+	assert.Equal(t, ge2n.GetNgENb().GetGlobalNgENbId().GetEnbId().GetEnbIdLongmacro().GetLen(), ge2nReversedFromPer.GetNgENb().GetGlobalNgENbId().GetEnbId().GetEnbIdLongmacro().GetLen())
+	assert.DeepEqual(t, ge2n.GetNgENb().GetGlobalNgENbId().GetEnbId().GetEnbIdLongmacro().GetValue(), ge2nReversedFromPer.GetNgENb().GetGlobalNgENbId().GetEnbId().GetEnbIdLongmacro().GetValue())
 }

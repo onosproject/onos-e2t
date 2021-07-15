@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"gotest.tools/assert"
@@ -20,7 +21,7 @@ func TestNewGlobaleNBID(t *testing.T) {
 		ENbId: &e2apies.EnbId{
 			EnbId: &e2apies.EnbId_HomeENbId{
 				HomeENbId: &e2ap_commondatatypes.BitString{
-					Value: 0xABBCDEF0,
+					Value: []byte{0xf0, 0xde, 0xcb, 0xb0},
 					Len:   28,
 				},
 			},
@@ -41,7 +42,7 @@ func TestNewGlobaleNBID(t *testing.T) {
 	switch choice := g1.ENbId.EnbId.(type) {
 	case *e2apies.EnbId_HomeENbId:
 		assert.Equal(t, int(choice.HomeENbId.Len), 28)
-		assert.Equal(t, choice.HomeENbId.Value, uint64(0xABBCDEF0))
+		assert.DeepEqual(t, choice.HomeENbId.Value, []byte{0xf0, 0xde, 0xcb, 0xb0})
 	default:
 		t.Fatalf("unexpected choice in EnbID %v", choice)
 	}
@@ -52,5 +53,5 @@ func TestNewGlobaleNBID(t *testing.T) {
 
 	per, err := perEncodeeNBID(&g)
 	assert.NilError(t, err)
-	t.Logf("PER GlobalEnbId: \n%x", per)
+	t.Logf("PER GlobalEnbId: \n%v", hex.Dump(per))
 }

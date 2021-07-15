@@ -29,7 +29,7 @@ import (
 
 // TODO: Change the RIC ID to something appropriate
 var ricID = types.RicIdentifier{
-	RicIdentifierValue: 0xABCDE,
+	RicIdentifierValue: []byte{0xDE, 0xBC, 0xA0},
 	RicIdentifierLen:   20,
 }
 

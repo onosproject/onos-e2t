@@ -5,6 +5,7 @@
 package asn1cgo
 
 import (
+	"encoding/hex"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	"gotest.tools/assert"
 	"testing"
@@ -45,7 +46,7 @@ func Test_perEncodePlmnIdentity(t *testing.T) {
 	per, err := perEncodePlmnIdentity(plmnID)
 	assert.NilError(t, err)
 	assert.Equal(t, 3, len(per))
-	t.Logf("PlmnIdentity PER\n%s", string(per))
+	t.Logf("PlmnIdentity PER\n%v", hex.Dump(per))
 }
 
 func Test_perDecodePlmnIdentity(t *testing.T) {
@@ -56,7 +57,7 @@ func Test_perDecodePlmnIdentity(t *testing.T) {
 	per, err := perEncodePlmnIdentity(plmnID)
 	assert.NilError(t, err)
 	assert.Equal(t, 3, len(per))
-	t.Logf("PlmnIdentity PER\n%s", string(per))
+	t.Logf("PlmnIdentity PER\n%v", hex.Dump(per))
 
 	result, err := perDecodePlmnIdentity(per)
 	assert.NilError(t, err)
