@@ -74,7 +74,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	cell1 := cells[cell1Index]
 	cell2 := cells[cell2Index]
 	cell3 := cells[cell3Index]
-	enbID := 21000
+	enbID := 157000
 	createNodeRequest := &modelapi.CreateNodeRequest{
 		Node: &ransimtypes.Node{
 			GnbID:         ransimtypes.GnbID(enbID),
