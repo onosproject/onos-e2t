@@ -156,6 +156,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 	}
 
 	if ack != nil {
+		log.Infof("Received Control Ack: %v", ack)
 		outcomeProtoBytes := ack.ProtocolIes.E2ApProtocolIes32.Value.Value
 		if request.Headers.Encoding == e2api.Encoding_PROTO {
 			outcomeProtoBytes, err = serviceModelPlugin.ControlOutcomeASN1toProto(outcomeProtoBytes)
@@ -173,6 +174,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 			},
 		}
 	} else if failure != nil {
+		log.Infof("Received Control Failure %v", failure)
 		st := status.New(codes.Aborted, "an E2AP failure occurred")
 		st, err := st.WithDetails(getControlError(failure))
 		if err != nil {
