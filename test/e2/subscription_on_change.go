@@ -6,7 +6,6 @@ package e2
 
 import (
 	"context"
-	"encoding/binary"
 	"math/rand"
 	"testing"
 	"time"
@@ -153,7 +152,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	err = proto.Unmarshal(header, &ricIndicationHeader)
 	assert.NoError(t, err)
 	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetPLmnIdentity().Value
-	nrcid := binary.LittleEndian.Uint64(ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.Value)
+	nrcid := utils.ByteArrayToUint64(ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.Value)
 	plmnIDValue := ransimtypes.Uint24ToUint32(plmnID)
 	ncgi := ransimtypes.ToNCGI(ransimtypes.PlmnID(plmnIDValue), ransimtypes.NCI(nrcid))
 

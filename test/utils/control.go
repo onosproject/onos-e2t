@@ -97,8 +97,18 @@ func (cr *Control) Create() (*e2api.ControlMessage, error) {
 
 }
 
-func Unit64ToByteArray(value uint64) []byte {
+// Uint64ToByteArray converts uint64 to byte array
+func Uint64ToByteArray(value uint64) []byte {
 	result := make([]byte, 8)
 	binary.LittleEndian.PutUint64(result, value)
+	return result
+}
+
+// ByteArrayToUint64 converts a byte array to uint64
+func ByteArrayToUint64(value []byte) uint64 {
+	var result uint64
+	for i, v := range value {
+		result |= uint64(v) << uint64(i*8)
+	}
 	return result
 }
