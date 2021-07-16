@@ -21,10 +21,10 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// TestE2TNodeRestart checks that a subscription recovers after an E2T node restart
-func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
+// TestTopoNodeRestart checks that a subscription recovers after a topo node restart
+func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "topo-restart-subscription")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -126,10 +126,10 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Restart e2t node")
+	t.Log("Restart topo node")
 	client, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
-	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-e2t")
+	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-topo")
 	assert.NoError(t, err)
 	pods, err := dep.Pods().List(ctx)
 	assert.NoError(t, err)
