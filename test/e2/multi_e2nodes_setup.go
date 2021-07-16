@@ -22,7 +22,7 @@ const (
 )
 
 var (
-	initialEnbID  = 155000
+	initialEnbID  = 20821
 	serviceModels = []string{"kpm2", "rcpre2"}
 	controllers   = []string{"e2t-1"}
 )
@@ -51,7 +51,7 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 				GnbID:         ransimtypes.GnbID(enbID),
 				ServiceModels: serviceModels,
 				Controllers:   controllers,
-				CellNCGIs:     []ransimtypes.NCGI{},
+				CellNCGIs:     []ransimtypes.NCGI{87893173159116801, 87893173159116802, 87893173159116803},
 			},
 		}
 		e2node, err := nodeClient.CreateNode(ctx, createNodeRequest)

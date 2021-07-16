@@ -5,6 +5,8 @@
 package utils
 
 import (
+	"encoding/binary"
+
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/pdubuilder"
 	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
@@ -21,7 +23,7 @@ type Control struct {
 type RcControlHeader struct {
 	Priority int32
 	PlmnID   []byte
-	CellID   uint64
+	CellID   []byte
 }
 
 // RcControlMessage required fields for creating RC service model control message
@@ -33,6 +35,7 @@ type RcControlMessage struct {
 
 // CreateRcControlHeader  creates rc control header
 func (ch *RcControlHeader) CreateRcControlHeader() ([]byte, error) {
+
 	cellID := &e2smrcpreies.BitString{
 		Value: ch.CellID,
 		Len:   36,
@@ -92,4 +95,10 @@ func (cr *Control) Create() (*e2api.ControlMessage, error) {
 
 	return request, nil
 
+}
+
+func Unit64ToByteArray(value uint64) []byte {
+	result := make([]byte, 8)
+	binary.LittleEndian.PutUint64(result, value)
+	return result
 }
