@@ -129,7 +129,9 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	t.Log("Restart e2t node")
 	client, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
-	pods, err := client.CoreV1().Pods().List(ctx)
+	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-e2t")
+	assert.NoError(t, err)
+	pods, err := dep.Pods().List(ctx)
 	assert.NoError(t, err)
 	assert.NotZero(t, len(pods))
 	pod := pods[0]
