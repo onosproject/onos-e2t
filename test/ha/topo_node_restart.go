@@ -106,7 +106,7 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
-	subName := "TestE2TNodeRestart"
+	subName := "TestTopoNodeRestart"
 
 	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
