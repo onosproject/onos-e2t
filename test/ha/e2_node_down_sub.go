@@ -20,6 +20,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const granularity = uint32(500)
+
 // TestE2NodeDownSubscription checks that a subscription channel read times out if
 // the e2 node is down.
 func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
