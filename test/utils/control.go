@@ -5,8 +5,6 @@
 package utils
 
 import (
-	"encoding/binary"
-
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/pdubuilder"
 	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
@@ -95,20 +93,4 @@ func (cr *Control) Create() (*e2api.ControlMessage, error) {
 
 	return request, nil
 
-}
-
-// Uint64ToByteArray converts uint64 to byte array
-func Uint64ToByteArray(value uint64, n int) []byte {
-	result := make([]byte, 8)
-	binary.LittleEndian.PutUint64(result, value)
-	return result[0:n]
-}
-
-// ByteArrayToUint64 converts a byte array to uint64
-func ByteArrayToUint64(value []byte) uint64 {
-	var result uint64
-	for i, v := range value {
-		result |= uint64(v) << uint64(i*8)
-	}
-	return result
 }
