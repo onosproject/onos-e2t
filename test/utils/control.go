@@ -21,7 +21,7 @@ type Control struct {
 type RcControlHeader struct {
 	Priority int32
 	PlmnID   []byte
-	CellID   uint64
+	CellID   []byte
 }
 
 // RcControlMessage required fields for creating RC service model control message
@@ -33,6 +33,7 @@ type RcControlMessage struct {
 
 // CreateRcControlHeader  creates rc control header
 func (ch *RcControlHeader) CreateRcControlHeader() ([]byte, error) {
+
 	cellID := &e2smrcpreies.BitString{
 		Value: ch.CellID,
 		Len:   36,

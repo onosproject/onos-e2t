@@ -52,7 +52,7 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 	// The values in the header are for testing of error checking in the NB
 	rcControlHeader := utils.RcControlHeader{
 		Priority: priority,
-		CellID:   123456,
+		CellID:   utils.Uint64ToBitString(123456, 36),
 		PlmnID:   ransimtypes.NewUint24(654321).ToBytes(),
 	}
 
