@@ -51,9 +51,10 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 		return nil, errors.New(errors.Invalid, "no opts given when creating R-NIB store")
 	}
 	opts = append(opts,
+		grpc.WithBlock(),
 		grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()),
 		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)))
-	conn, err := getTopoConn(topoEndpoint, opts...)
+	conn, err := grpc.DialContext(context.Background(), topoEndpoint, opts...)
 	if err != nil {
 		log.Warn(err)
 		return nil, err
@@ -163,11 +164,6 @@ func (s *rnibStore) Watch(ctx context.Context, ch chan<- topoapi.Event, filters 
 		}
 	}()
 	return nil
-}
-
-// getTopoConn gets a gRPC connection to the topology service
-func getTopoConn(topoEndpoint string, opts ...grpc.DialOption) (*grpc.ClientConn, error) {
-	return grpc.Dial(topoEndpoint, opts...)
 }
 
 var _ Store = &rnibStore{}
