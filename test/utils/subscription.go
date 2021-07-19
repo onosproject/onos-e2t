@@ -49,7 +49,7 @@ func CreateKpmV2ActionDefinition(cellObjectID string, granularity uint32) ([]byt
 	if err != nil {
 		return nil, err
 	}
-	rrcConnEstabAtt, err := e2smkpmv2.CreateMeasurementTypeMeasName("RRC.ConnEstabAtt.Tot")
+	rrcConnEstabAtt, err := e2smkpmv2.CreateMeasurementTypeMeasName("RRC.ConnEstabAtt.Sum")
 	if err != nil {
 		return nil, err
 	}
