@@ -100,10 +100,7 @@ func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID
 
 func (r *Rnib) CreateOrUpdateE2CellRelation(ctx context.Context, deviceID topoapi.ID, cellID topoapi.ID) error {
 	return backoff.Retry(func() error {
-		cellRelationID, err := getE2CellRelationID(deviceID, cellID)
-		if err != nil {
-			return backoff.Permanent(err)
-		}
+		cellRelationID := topoapi.RelationID(deviceID, topoapi.CONTAINS, cellID)
 		currentCellRelation, err := r.store.Get(ctx, cellRelationID)
 		if err != nil {
 			if !errors.IsNotFound(err) {
