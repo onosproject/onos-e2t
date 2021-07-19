@@ -6,6 +6,7 @@ package pdudecoder
 
 import (
 	"fmt"
+	"github.com/onosproject/onos-e2t/test/utils"
 	"math"
 
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
@@ -113,12 +114,6 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 	return DecodeE2SetupRequest(e2setup.GetInitiatingMessage())
 }
 
-func GetE2NodeID(nodeID []byte) string {
-	var id uint64 = 0
-	shift := 8 * (len(nodeID) - 1)
-	for _, b := range nodeID {
-		id = id | uint64(b)<<shift
-		shift = shift - 8
-	}
-	return fmt.Sprintf("%x", id)
+func GetE2NodeID(nodeID []byte, length int) string {
+	return fmt.Sprintf("%x", utils.BitStringToUint64(nodeID, length))
 }
