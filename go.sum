@@ -650,8 +650,8 @@ github.com/onosproject/onos-lib-go v0.7.0/go.mod h1:ttkK+fV2CULZFHiq6FBZ69i7/Nym
 github.com/onosproject/onos-lib-go v0.7.10/go.mod h1:/QjMn+Lb+vxZfnCFLtoxhwHAAuHQnRjjOj3qCbcknhQ=
 github.com/onosproject/onos-lib-go v0.7.13 h1:MhmOdpYjwHzemSvNeenvHAFKhQlLBXBkDTF75A1Etkg=
 github.com/onosproject/onos-lib-go v0.7.13/go.mod h1:yEu+qDh+z1G6b9clPAjDLQNnBll8TMl8o2sFDBzk/fI=
-github.com/onosproject/onos-ric-sdk-go v0.7.20 h1:mwJg0HlYNcAO4P9YOWvGSNgJwLvKrK6ALwBIjY2MGC0=
-github.com/onosproject/onos-ric-sdk-go v0.7.20/go.mod h1:smS7r4WRo5m74mCyUFzMS5ygOJtH2oCijb2LlkpaTCk=
+github.com/onosproject/onos-ric-sdk-go v0.7.22 h1:AdfIbeqtRgXm61za2CBlRt+hK1i2cR+9Gx/NrmGD64c=
+github.com/onosproject/onos-ric-sdk-go v0.7.22/go.mod h1:smS7r4WRo5m74mCyUFzMS5ygOJtH2oCijb2LlkpaTCk=
 github.com/onosproject/onos-test v0.6.4 h1:ocJhMv5mZ5RsojkhBUadE68Q6uSgBZpyDDjnwOPmu6g=
 github.com/onosproject/onos-test v0.6.4/go.mod h1:Ugb1OKR2bJhZjqpSMm9F5o6Ma2iwbtswhSlNyXXPgrg=
 github.com/onsi/ginkgo v0.0.0-20170829012221-11459a886d9c/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
