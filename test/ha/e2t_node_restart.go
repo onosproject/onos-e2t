@@ -7,7 +7,6 @@ package ha
 import (
 	"context"
 	"github.com/onosproject/helmit/pkg/kubernetes"
-	"sync"
 	"testing"
 	"time"
 
@@ -28,40 +27,6 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-
-	subClient := utils.GetSubAdminClient(t)
-	res, err := subClient.WatchSubscriptions(ctx, &v1beta1.WatchSubscriptionsRequest{NoReplay: true})
-	assert.NoError(t, err)
-
-	var wg sync.WaitGroup
-	wg.Add(1)
-
-	var pause sync.WaitGroup
-	pause.Add(1)
-	go func() {
-		e, err := res.Recv()
-		assert.NoError(t, err)
-		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_CREATED, e.Event.Type)
-		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_PENDING, e.Event.Subscription.Status.State)
-		pause.Done()
-
-		e, err = res.Recv()
-		assert.NoError(t, err)
-		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
-		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_COMPLETE, e.Event.Subscription.Status.State)
-
-		e, err = res.Recv()
-		assert.NoError(t, err)
-		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
-		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_PENDING, e.Event.Subscription.Status.State)
-
-		e, err = res.Recv()
-		assert.NoError(t, err)
-		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
-		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_COMPLETE, e.Event.Subscription.Status.State)
-
-		wg.Done()
-	}()
 
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
