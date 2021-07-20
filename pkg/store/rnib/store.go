@@ -6,7 +6,10 @@ package rnib
 
 import (
 	"context"
+	"github.com/cenkalti/backoff"
 	"io"
+	"net"
+	"strings"
 	"time"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
@@ -52,8 +55,26 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 	}
 	opts = append(opts,
 		grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()),
-		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)))
-	conn, err := getTopoConn(topoEndpoint, opts...)
+		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)),
+		grpc.WithContextDialer(func(ctx context.Context, address string) (net.Conn, error) {
+			var conn net.Conn
+			err := backoff.Retry(func() error {
+				var err error
+				conn, err = net.Dial("tcp", address)
+				if err != nil {
+					if strings.Contains(err.Error(), "connection refused") {
+						return err
+					}
+					return backoff.Permanent(err)
+				}
+				return nil
+			}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
+			if err != nil {
+				return nil, err
+			}
+			return conn, nil
+		}))
+	conn, err := grpc.DialContext(context.Background(), topoEndpoint, opts...)
 	if err != nil {
 		log.Warn(err)
 		return nil, err
@@ -163,11 +184,6 @@ func (s *rnibStore) Watch(ctx context.Context, ch chan<- topoapi.Event, filters 
 		}
 	}()
 	return nil
-}
-
-// getTopoConn gets a gRPC connection to the topology service
-func getTopoConn(topoEndpoint string, opts ...grpc.DialOption) (*grpc.ClientConn, error) {
-	return grpc.Dial(topoEndpoint, opts...)
 }
 
 var _ Store = &rnibStore{}
