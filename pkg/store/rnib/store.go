@@ -6,6 +6,7 @@ package rnib
 
 import (
 	"context"
+	"github.com/cenkalti/backoff"
 	"io"
 	"net"
 	"strings"
@@ -56,12 +57,22 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 		grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()),
 		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)),
 		grpc.WithContextDialer(func(ctx context.Context, address string) (net.Conn, error) {
-			log.Infof("Dial %s", address)
-			conn, err := net.Dial("tcp", address)
-			if err != nil {
-				if strings.Contains(err.Error(), "connection refused") {
-					return nil, net.UnknownNetworkError(strings.ReplaceAll(err.Error(), "connection refused", "connection temporarily refused so chill out!!!"))
+			var conn net.Conn
+			err := backoff.Retry(func() error {
+				var err error
+				log.Debugf("Dial %s", address)
+				conn, err = net.Dial("tcp", address)
+				if err != nil {
+					log.Warnf("Dial %s failed: %v", address, err)
+					if strings.Contains(err.Error(), "connection refused") {
+						return err
+					}
+					return backoff.Permanent(err)
 				}
+				return nil
+			}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
+			if err != nil {
+				log.Warn("Connecting to onos-topo failed", err)
 				return nil, err
 			}
 			return conn, nil
