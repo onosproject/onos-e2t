@@ -36,6 +36,7 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		//nodeIdentity.NodeIdentifier = make([]byte, 0)
 		//ToDo - this approach should be fine
 		nodeIdentity.NodeIdentifier = choice.GnbId.GetValue()
+		nodeIdentity.NodeIDLength = int(choice.GnbId.Len)
 		// TODO: investigate GNB-CU-UP-ID and GNB-DU-ID
 
 	case *e2apies.GlobalE2NodeId_EnGNb:
@@ -63,22 +64,28 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		//identifierBytes := make([]byte, 0)
 		var identifierBytes []byte
 		var lenBytes int
+		var idLength int
 		switch enbt := e2NodeID.ENb.GetGlobalENbId().GetENbId().GetEnbId().(type) {
 		case *e2apies.EnbId_MacroENbId:
 			identifierBytes = enbt.MacroENbId.GetValue()
 			lenBytes = int(math.Ceil(float64(enbt.MacroENbId.Len) / 8.0))
+			idLength = int(enbt.MacroENbId.Len)
 		case *e2apies.EnbId_HomeENbId:
 			identifierBytes = enbt.HomeENbId.GetValue()
 			lenBytes = int(math.Ceil(float64(enbt.HomeENbId.Len) / 8.0))
+			idLength = int(enbt.HomeENbId.Len)
 		case *e2apies.EnbId_ShortMacroENbId:
 			identifierBytes = enbt.ShortMacroENbId.GetValue()
 			lenBytes = int(math.Ceil(float64(enbt.ShortMacroENbId.Len) / 8.0))
+			idLength = int(enbt.ShortMacroENbId.Len)
 		case *e2apies.EnbId_LongMacroENbId:
 			identifierBytes = enbt.LongMacroENbId.GetValue()
 			lenBytes = int(math.Ceil(float64(enbt.LongMacroENbId.Len) / 8.0))
+			idLength = int(enbt.LongMacroENbId.Len)
 		}
 		nodeIdentity.NodeIdentifier = make([]byte, lenBytes)
 		copy(nodeIdentity.NodeIdentifier, identifierBytes[:lenBytes])
+		nodeIdentity.NodeIDLength = idLength
 		//ToDo - couldn't it be just this?
 		//nodeIdentity.NodeIdentifier = identifierBytes
 	}
@@ -113,12 +120,12 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 	return DecodeE2SetupRequest(e2setup.GetInitiatingMessage())
 }
 
-func GetE2NodeID(nodeID []byte) string {
-	var id uint64 = 0
-	shift := 8 * (len(nodeID) - 1)
-	for _, b := range nodeID {
-		id = id | uint64(b)<<shift
-		shift = shift - 8
+func GetE2NodeID(nodeID []byte, length int) string {
+	unusedBits := 8 - length%8
+	var result uint64 = 0
+	for i, b := range nodeID {
+		result += uint64(b) << ((len(nodeID) - i - 1) * 8)
 	}
-	return fmt.Sprintf("%x", id)
+	result = result >> unusedBits
+	return fmt.Sprintf("%x", result)
 }

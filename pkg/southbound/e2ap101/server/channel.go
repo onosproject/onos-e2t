@@ -19,7 +19,7 @@ import (
 
 func NewE2Channel(id ChannelID, plmnID string, nodeID *types.E2NodeIdentity, channel e2.ServerChannel,
 	streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker, now time.Time) *E2Channel {
-	nid, err := GetNodeID(nodeID.NodeIdentifier)
+	nid, err := GetNodeID(nodeID.NodeIdentifier, nodeID.NodeIDLength)
 	if err != nil {
 		log.Warn("Unable to parse node ID: %v due to %v", nodeID, err)
 		nid = topo.ID(id)

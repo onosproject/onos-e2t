@@ -190,7 +190,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 
-	e2NodeID, err := GetNodeID(nodeID.NodeIdentifier)
+	e2NodeID, err := GetNodeID(nodeID.NodeIdentifier, nodeID.NodeIDLength)
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err

@@ -35,6 +35,7 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		}
 		nodeIdentity.NodeIdentifier = make([]byte, 8)
 		binary.BigEndian.PutUint64(nodeIdentity.NodeIdentifier, choice.GnbId.GetValue())
+		nodeIdentity.NodeIDLength = int(choice.GnbId.Len)
 		// TODO: investigate GNB-CU-UP-ID and GNB-DU-ID
 
 	case *e2apies.GlobalE2NodeId_EnGNb:
@@ -65,15 +66,19 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		case *e2apies.EnbId_MacroENbId:
 			binary.LittleEndian.PutUint64(identifierBytes, enbt.MacroENbId.GetValue())
 			lenBytes = int(math.Ceil(float64(enbt.MacroENbId.Len) / 8.0))
+			nodeIdentity.NodeIDLength = int(enbt.MacroENbId.Len)
 		case *e2apies.EnbId_HomeENbId:
 			binary.LittleEndian.PutUint64(identifierBytes, enbt.HomeENbId.GetValue())
 			lenBytes = int(math.Ceil(float64(enbt.HomeENbId.Len) / 8.0))
+			nodeIdentity.NodeIDLength = int(enbt.HomeENbId.Len)
 		case *e2apies.EnbId_ShortMacroENbId:
 			binary.LittleEndian.PutUint64(identifierBytes, enbt.ShortMacroENbId.GetValue())
 			lenBytes = int(math.Ceil(float64(enbt.ShortMacroENbId.Len) / 8.0))
+			nodeIdentity.NodeIDLength = int(enbt.ShortMacroENbId.Len)
 		case *e2apies.EnbId_LongMacroENbId:
 			binary.LittleEndian.PutUint64(identifierBytes, enbt.LongMacroENbId.GetValue())
 			lenBytes = int(math.Ceil(float64(enbt.LongMacroENbId.Len) / 8.0))
+			nodeIdentity.NodeIDLength = int(enbt.LongMacroENbId.Len)
 		}
 		nodeIdentity.NodeIdentifier = make([]byte, lenBytes)
 		copy(nodeIdentity.NodeIdentifier, identifierBytes[:lenBytes])

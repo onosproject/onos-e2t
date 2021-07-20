@@ -26,7 +26,7 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 	assert.DeepEqual(t, []byte{0x00, 0xE0, 0x00}, identifier.NodeIdentifier)
 
 	//t.Logf("Node ID is %x\n", identifier.NodeIdentifier)
-	nodeID := GetE2NodeID(identifier.NodeIdentifier)
+	nodeID := GetE2NodeID(identifier.NodeIdentifier, 22)
 	t.Logf("Node ID is %s\n", nodeID)
 
 	//assert.Assert(t, ranFunctions != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on line 29
@@ -37,11 +37,11 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 }
 
 func Test_GetE2NodeID(t *testing.T) {
-	nodeID := []byte{0, 0, 0, 0, 0, 0, 0x51, 0x53}
-	id := GetE2NodeID(nodeID)
+	nodeID := []byte{0, 0, 0, 0, 0, 0x01, 0x45, 0x4c}
+	id := GetE2NodeID(nodeID, 22)
 	assert.Equal(t, id, "5153")
 
-	nodeID2 := []byte{0, 0x51, 0x53}
-	id = GetE2NodeID(nodeID2)
+	nodeID2 := []byte{0x01, 0x45, 0x4c}
+	id = GetE2NodeID(nodeID2, 22)
 	assert.Equal(t, id, "5153")
 }
