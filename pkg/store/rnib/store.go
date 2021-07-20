@@ -62,6 +62,7 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 				if strings.Contains(err.Error(), "connection refused") {
 					return nil, net.UnknownNetworkError(strings.ReplaceAll(err.Error(), "connection refused", "connection temporarily refused so chill out!!!"))
 				}
+				return nil, err
 			}
 			return conn, nil
 		}))
