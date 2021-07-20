@@ -6,6 +6,8 @@ package rnib
 
 import (
 	"context"
+	"github.com/atomix/atomix-go-framework/pkg/atomix/util/retry"
+	"google.golang.org/grpc/codes"
 	"io"
 	"time"
 
@@ -13,7 +15,6 @@ import (
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	"google.golang.org/grpc"
 )
 
@@ -51,8 +52,14 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 		return nil, errors.New(errors.Invalid, "no opts given when creating R-NIB store")
 	}
 	opts = append(opts,
-		grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()),
-		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)))
+		grpc.WithUnaryInterceptor(retry.RetryingUnaryClientInterceptor(
+			retry.WithRetryOn(codes.Unavailable, codes.Unknown),
+			retry.WithInterval(defaultRetryTimeout*time.Millisecond),
+			retry.WithMaxInterval(defaultRetryTimeout*time.Millisecond*10))),
+		grpc.WithStreamInterceptor(retry.RetryingStreamClientInterceptor(
+			retry.WithRetryOn(codes.Unavailable, codes.Unknown),
+			retry.WithInterval(defaultRetryTimeout*time.Millisecond),
+			retry.WithMaxInterval(defaultRetryTimeout*time.Millisecond*10))))
 	conn, err := getTopoConn(topoEndpoint, opts...)
 	if err != nil {
 		log.Warn(err)
