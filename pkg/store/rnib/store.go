@@ -60,8 +60,10 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 			var conn net.Conn
 			err := backoff.Retry(func() error {
 				var err error
+				log.Infof("Dial %s", address)
 				conn, err = net.Dial("tcp", address)
 				if err != nil {
+					log.Errorf("Dial %s failed: %v", address, err)
 					if strings.Contains(err.Error(), "connection refused") {
 						return err
 					}
@@ -70,6 +72,7 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 				return nil
 			}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
 			if err != nil {
+				log.Error("Connecting to onos-topo failed", err)
 				return nil, err
 			}
 			return conn, nil
