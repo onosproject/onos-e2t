@@ -20,7 +20,6 @@ import (
 var log = logging.GetLogger("store", "rnib")
 
 const (
-	defaultTimeout      = 60
 	defaultRetryTimeout = 100
 )
 
@@ -53,7 +52,7 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 	opts = append(opts,
 		grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()),
 		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)))
-	conn, err := getTopoConn(topoEndpoint, opts...)
+	conn, err := grpc.DialContext(context.Background(), topoEndpoint, opts...)
 	if err != nil {
 		log.Warn(err)
 		return nil, err
@@ -71,8 +70,6 @@ type rnibStore struct {
 // Create creates an R-NIB object in topo store
 func (s *rnibStore) Create(ctx context.Context, object *topoapi.Object) error {
 	log.Debugf("Creating R-NIB object: %v", object)
-	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
-	defer cancel()
 	_, err := s.client.Create(ctx, &topoapi.CreateRequest{
 		Object: object,
 	})
@@ -86,8 +83,6 @@ func (s *rnibStore) Create(ctx context.Context, object *topoapi.Object) error {
 // Update updates the given R-NIB object in topo store
 func (s *rnibStore) Update(ctx context.Context, object *topoapi.Object) error {
 	log.Debugf("Updating R-NIB object: %v", object)
-	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
-	defer cancel()
 	response, err := s.client.Update(ctx, &topoapi.UpdateRequest{
 		Object: object,
 	})
@@ -102,8 +97,6 @@ func (s *rnibStore) Update(ctx context.Context, object *topoapi.Object) error {
 // Get gets an R-NIB object based on a given ID
 func (s *rnibStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, error) {
 	log.Debugf("Getting R-NIB object with ID: %v", id)
-	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
-	defer cancel()
 	getResponse, err := s.client.Get(ctx, &topoapi.GetRequest{
 		ID: id,
 	})
@@ -116,8 +109,6 @@ func (s *rnibStore) Get(ctx context.Context, id topoapi.ID) (*topoapi.Object, er
 // List lists all of the R-NIB objects
 func (s *rnibStore) List(ctx context.Context, filters *topoapi.Filters) ([]topoapi.Object, error) {
 	log.Debugf("Listing R-NIB objects")
-	ctx, cancel := context.WithTimeout(ctx, defaultTimeout*time.Second)
-	defer cancel()
 	listResponse, err := s.client.List(ctx, &topoapi.ListRequest{
 		Filters: filters,
 	})
@@ -163,11 +154,6 @@ func (s *rnibStore) Watch(ctx context.Context, ch chan<- topoapi.Event, filters 
 		}
 	}()
 	return nil
-}
-
-// getTopoConn gets a gRPC connection to the topology service
-func getTopoConn(topoEndpoint string, opts ...grpc.DialOption) (*grpc.ClientConn, error) {
-	return grpc.Dial(topoEndpoint, opts...)
 }
 
 var _ Store = &rnibStore{}
