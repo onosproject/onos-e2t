@@ -111,7 +111,7 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, channels, ranFunctionRegistry, topoManager)
+	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, channels, ranFunctionRegistry)
 	if err != nil {
 		return err
 	}
@@ -139,8 +139,8 @@ func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs subs
 
 // startSubscriptionv1beta1Controller starts the subscription controllers
 func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker,
-	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry, deviceManager topo.Manager) error {
-	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, channels, m.ModelRegistry, m.OidRegistry, ranFunctionRegistry, deviceManager)
+	channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry) error {
+	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, channels, m.ModelRegistry, m.OidRegistry, ranFunctionRegistry)
 	if err := tasksv1beta1.Start(); err != nil {
 		return err
 	}

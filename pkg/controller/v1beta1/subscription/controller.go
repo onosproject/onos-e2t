@@ -7,11 +7,10 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"github.com/google/uuid"
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-
-	"github.com/onosproject/onos-e2t/pkg/topo"
 
 	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
@@ -40,8 +39,7 @@ var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
 func NewController(streams subscription.Broker, subs substore.Store, channels e2server.ChannelManager,
-	models modelregistry.ModelRegistry, oidRegistry oid.Registry, ranFunctionRegistry ranfunctions.Registry,
-	topoManager topo.Manager) *controller.Controller {
+	models modelregistry.ModelRegistry, oidRegistry oid.Registry, ranFunctionRegistry ranfunctions.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
 		subs: subs,
@@ -49,10 +47,6 @@ func NewController(streams subscription.Broker, subs substore.Store, channels e2
 	c.Watch(&ChannelWatcher{
 		subs:     subs,
 		channels: channels,
-	})
-	c.Watch(&TopoWatcher{
-		subs: subs,
-		topo: topoManager,
 	})
 	c.Reconcile(&Reconciler{
 		streams:                   streams,
@@ -62,7 +56,6 @@ func NewController(streams subscription.Broker, subs substore.Store, channels e2
 		oidRegistry:               oidRegistry,
 		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 		ranFunctionRegistry:       ranFunctionRegistry,
-		topoManager:               topoManager,
 	})
 	return c
 }
@@ -81,7 +74,6 @@ type Reconciler struct {
 	oidRegistry               oid.Registry
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
 	ranFunctionRegistry       ranfunctions.Registry
-	topoManager               topo.Manager
 }
 
 // Reconcile reconciles the state of a device change
@@ -115,29 +107,15 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	// Get the topo relation
-	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.SubscriptionMeta.E2NodeID))
+	// Compute the channel ID
+	channelID, err := getChannelID(topoapi.ID(sub.E2NodeID))
 	if err != nil {
-		// If the relation is not found and the subscription is COMPLETE, revert it to PENDING to ensure
-		// the subscription request is resent when the E2 node reconnects.
-		if errors.IsNotFound(err) {
-			if sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
-				sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_PENDING
-				log.Debugf("Updating Subscription %+v", sub)
-				err = r.subs.Update(ctx, sub)
-				if err != nil {
-					log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-					return controller.Result{}, err
-				}
-			}
-			return controller.Result{}, nil
-		}
 		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 		return controller.Result{}, err
 	}
 
 	// Get the southbound channel for the E2 node
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
+	channel, err := r.channels.Get(ctx, channelID)
 	if err != nil {
 		// If the channel is not found and the subscription is COMPLETE, revert it to PENDING to ensure
 		// the subscription request is resent when the E2 node reconnects.
@@ -314,11 +292,8 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	}
 
 	// Get the southbound channel ID for the E2 node
-	channelID, err := r.topoManager.GetE2Relation(ctx, topoapi.ID(sub.SubscriptionMeta.E2NodeID))
+	channelID, err := getChannelID(topoapi.ID(sub.SubscriptionMeta.E2NodeID))
 	if err != nil {
-		if errors.IsNotFound(err) {
-			return controller.Result{}, nil
-		}
 		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 		return controller.Result{}, err
 	}
@@ -665,4 +640,14 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 		return nil
 	}
 	return nil
+}
+
+func getChannelID(deviceID topoapi.ID) (e2server.ChannelID, error) {
+	bs := make([]byte, 16)
+	copy(bs, deviceID)
+	id, err := uuid.FromBytes(bs)
+	if err != nil {
+		return "", err
+	}
+	return e2server.ChannelID(id.String()), nil
 }

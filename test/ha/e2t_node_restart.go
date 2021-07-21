@@ -22,8 +22,6 @@ import (
 
 // TestE2TNodeRestart checks that a subscription recovers after an E2T node restart
 func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
-	t.Skip()
-
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
 
@@ -103,6 +101,10 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NotZero(t, len(pods))
 	pod := pods[0]
 	assert.NoError(t, pod.Delete(ctx))
+
+	err = sim.Uninstall()
+	assert.NoError(t, err)
+	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
 
 	t.Log("Check indications")
 	indicationReport = e2utils.CheckIndicationMessage(t, time.Minute, ch)
