@@ -8,6 +8,7 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"github.com/cenkalti/backoff"
 	"io"
 
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
@@ -244,11 +245,10 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
-	_, err = s.chans.Get(server.Context(), channelID)
-	if err != nil {
-		if !errors.IsNotFound(err) {
-			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-			return errors.Status(err).Err()
+	err = backoff.Retry(func() error {
+		_, err = s.chans.Get(server.Context(), channelID)
+		if err == nil || !errors.IsNotFound(err) {
+			return err
 		}
 
 		channel := &e2api.Channel{
@@ -270,10 +270,14 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			},
 		}
 		err = s.chans.Create(server.Context(), channel)
-		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-			return errors.Status(err).Err()
+		if err != nil && !errors.IsAlreadyExists(err) {
+			return err
 		}
+		return nil
+	}, backoff.NewExponentialBackOff())
+	if err != nil {
+		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+		return errors.Status(err).Err()
 	}
 
 	// Open a stream reader for the app instance
