@@ -2,12 +2,13 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package e2
+package ha
 
 import (
 	"context"
-	"sync"
+	"github.com/onosproject/helmit/pkg/kubernetes"
 	"testing"
+	"time"
 
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -19,48 +20,15 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// TestE2NodeRestart checks that a subscription channel read times out if
-// the e2 node is down.
-func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
+// TestE2TNodeRestart checks that a subscription recovers after an E2T node restart
+func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
+	t.Skip()
+
 	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-restart-subscription")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-
-	subClient := utils.GetSubAdminClient(t)
-	res, err := subClient.WatchSubscriptions(ctx, &v1beta1.WatchSubscriptionsRequest{NoReplay: true})
-	assert.NoError(t, err)
-
-	var wg sync.WaitGroup
-	wg.Add(1)
-
-	var pause sync.WaitGroup
-	pause.Add(1)
-	go func() {
-		e, err := res.Recv()
-		assert.NoError(t, err)
-		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_CREATED, e.Event.Type)
-		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_PENDING, e.Event.Subscription.Status.State)
-		pause.Done()
-
-		e, err = res.Recv()
-		assert.NoError(t, err)
-		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
-		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_COMPLETE, e.Event.Subscription.Status.State)
-
-		e, err = res.Recv()
-		assert.NoError(t, err)
-		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
-		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_PENDING, e.Event.Subscription.Status.State)
-
-		e, err = res.Recv()
-		assert.NoError(t, err)
-		assert.Equal(t, v1beta1.SubscriptionEventType_SUBSCRIPTION_UPDATED, e.Event.Type)
-		assert.Equal(t, v1beta1.SubscriptionState_SUBSCRIPTION_COMPLETE, e.Event.Subscription.Status.State)
-
-		wg.Done()
-	}()
 
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
@@ -105,7 +73,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
-	subName := "TestSubscriptionKpmV2"
+	subName := "TestE2TNodeRestart"
 
 	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
@@ -125,12 +93,19 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Restart e2 node")
-	_ = sim.Uninstall()
-	_ = sim.Install(true)
+	t.Log("Restart e2t node")
+	client, err := kubernetes.NewForRelease(s.release)
+	assert.NoError(t, err)
+	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-e2t")
+	assert.NoError(t, err)
+	pods, err := dep.Pods().List(ctx)
+	assert.NoError(t, err)
+	assert.NotZero(t, len(pods))
+	pod := pods[0]
+	assert.NoError(t, pod.Delete(ctx))
 
 	t.Log("Check indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationReport = e2utils.CheckIndicationMessage(t, time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 

@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package e2
+package ha
 
 import (
 	"context"
@@ -39,6 +39,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
+	granularity := uint32(500)
 	cellObjectID := cells[0].CellObjectID
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
