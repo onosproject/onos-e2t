@@ -8,8 +8,9 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"time"
+
+	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
@@ -190,7 +191,9 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 
+	log.Info("Node ID and its length:", nodeID.NodeIdentifier, nodeID.NodeIDLength)
 	e2NodeID, err := GetNodeID(nodeID.NodeIdentifier, nodeID.NodeIDLength)
+	log.Info("E2 node ID after decoding:", e2NodeID)
 	if err != nil {
 		log.Warn(err)
 		return nil, nil, err
