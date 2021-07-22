@@ -16,8 +16,6 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
-	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
-
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
@@ -42,57 +40,48 @@ var log = logging.GetLogger("northbound", "e2", "v1beta1")
 
 // NewControlService creates a new control service
 func NewControlService(modelRegistry modelregistry.ModelRegistry, channels e2server.ChannelManager,
-	oidRegistry oid.Registry, ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) northbound.Service {
+	oidRegistry oid.Registry, topoManager topo.Manager) northbound.Service {
 	return &ControlService{
-		modelRegistry:       modelRegistry,
-		channels:            channels,
-		oidRegistry:         oidRegistry,
-		ranFunctionRegistry: ranFunctionRegistry,
-		topoManager:         topoManager,
+		modelRegistry: modelRegistry,
+		channels:      channels,
+		oidRegistry:   oidRegistry,
+		topoManager:   topoManager,
 	}
 }
 
 // ControlService is a Service implementation for control requests
 type ControlService struct {
 	northbound.Service
-	modelRegistry       modelregistry.ModelRegistry
-	channels            e2server.ChannelManager
-	oidRegistry         oid.Registry
-	ranFunctionRegistry ranfunctions.Registry
-	topoManager         topo.Manager
+	modelRegistry modelregistry.ModelRegistry
+	channels      e2server.ChannelManager
+	oidRegistry   oid.Registry
+	topoManager   topo.Manager
 }
 
 // Register registers the Service with the gRPC server.
 func (s ControlService) Register(r *grpc.Server) {
 	server := &ControlServer{
-		modelRegistry:       s.modelRegistry,
-		channels:            s.channels,
-		oidRegistry:         s.oidRegistry,
-		ranFunctionRegistry: s.ranFunctionRegistry,
-		topoManager:         s.topoManager}
+		modelRegistry: s.modelRegistry,
+		channels:      s.channels,
+		oidRegistry:   s.oidRegistry,
+		topoManager:   s.topoManager}
 	e2api.RegisterControlServiceServer(r, server)
 }
 
 // ControlServer implements the gRPC service for control
 type ControlServer struct {
-	modelRegistry       modelregistry.ModelRegistry
-	channels            e2server.ChannelManager
-	oidRegistry         oid.Registry
-	ranFunctionRegistry ranfunctions.Registry
-	topoManager         topo.Manager
-	requestID           int32
-	requestMu           sync.Mutex
+	modelRegistry modelregistry.ModelRegistry
+	channels      e2server.ChannelManager
+	oidRegistry   oid.Registry
+	topoManager   topo.Manager
+	requestID     int32
+	requestMu     sync.Mutex
 }
 
 func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
-	channelID, err := s.topoManager.GetE2Relation(ctx, topoapi.ID(request.Headers.E2NodeID))
-	if err != nil || channelID == "" {
-		return nil, err
-	}
-
-	channel, err := s.channels.Get(ctx, e2server.ChannelID(channelID))
+	channel, err := s.channels.Get(ctx, topoapi.ID(request.Headers.E2NodeID))
 	if err != nil {
 		return nil, errors.Status(err).Err()
 	}
@@ -135,10 +124,9 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		}
 	}
 
-	// TODO ran function registry should be based on node ID
-	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channelID)))
-	if err != nil {
-		log.Warn(err)
+	ranFuncID, ok := channel.GetRANFunction(serviceModelOID)
+	if !ok {
+		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
 
 	rcar := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK

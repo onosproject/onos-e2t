@@ -33,7 +33,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 
 	eventCh := make(chan e2api.ChannelEvent, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.chans.Watch(ctx, eventCh)
+	err := w.chans.Watch(ctx, eventCh, chanstore.WithReplay())
 	if err != nil {
 		cancel()
 		return err
@@ -79,7 +79,7 @@ func (w *TaskWatcher) Start(ch chan<- controller.ID) error {
 
 	eventCh := make(chan e2api.SubscriptionEvent, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.subs.Watch(ctx, eventCh)
+	err := w.subs.Watch(ctx, eventCh, substore.WithReplay())
 	if err != nil {
 		cancel()
 		return err

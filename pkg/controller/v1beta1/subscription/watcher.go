@@ -9,7 +9,6 @@ import (
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
-	"github.com/onosproject/onos-e2t/pkg/topo"
 	"sync"
 
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
@@ -35,7 +34,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 
 	eventCh := make(chan e2api.SubscriptionEvent, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.subs.Watch(ctx, eventCh)
+	err := w.subs.Watch(ctx, eventCh, substore.WithReplay())
 	if err != nil {
 		cancel()
 		return err
@@ -90,65 +89,13 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		for range w.channelCh {
+		for channel := range w.channelCh {
 			subs, err := w.subs.List(ctx)
 			if err != nil {
 				log.Error(err)
 			} else {
 				for _, sub := range subs {
-					ch <- controller.NewID(sub.ID)
-				}
-			}
-		}
-		close(ch)
-	}()
-	return nil
-}
-
-// Stop stops the channel watcher
-func (w *ChannelWatcher) Stop() {
-	w.mu.Lock()
-	if w.cancel != nil {
-		w.cancel()
-		w.cancel = nil
-	}
-	w.mu.Unlock()
-}
-
-// TopoWatcher is a topo watcher
-type TopoWatcher struct {
-	subs   substore.Store
-	topo   topo.Manager
-	cancel context.CancelFunc
-	mu     sync.Mutex
-	topoCh chan topoapi.ID
-}
-
-// Start starts the topo watcher
-func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
-	w.mu.Lock()
-	defer w.mu.Unlock()
-	if w.cancel != nil {
-		return nil
-	}
-
-	w.topoCh = make(chan topoapi.ID, queueSize)
-	ctx, cancel := context.WithCancel(context.Background())
-	err := w.topo.WatchE2Relations(ctx, w.topoCh)
-	if err != nil {
-		cancel()
-		return err
-	}
-	w.cancel = cancel
-
-	go func() {
-		for topoID := range w.topoCh {
-			subs, err := w.subs.List(ctx)
-			if err != nil {
-				log.Error(err)
-			} else {
-				for _, sub := range subs {
-					if sub.E2NodeID == e2api.E2NodeID(topoID) {
+					if topoapi.ID(sub.E2NodeID) == channel.E2NodeID {
 						ch <- controller.NewID(sub.ID)
 					}
 				}
@@ -159,8 +106,8 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 	return nil
 }
 
-// Stop stops the topo watcher
-func (w *TopoWatcher) Stop() {
+// Stop stops the channel watcher
+func (w *ChannelWatcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
 		w.cancel()

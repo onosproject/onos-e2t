@@ -22,8 +22,6 @@ import (
 
 // TestE2TNodeRestart checks that a subscription recovers after an E2T node restart
 func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
-	t.Skip()
-
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
 
@@ -94,18 +92,50 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	t.Log("Restart e2t node")
-	client, err := kubernetes.NewForRelease(s.release)
+	sdranClient, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
-	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-e2t")
+	sdranDep, err := sdranClient.AppsV1().
+		Deployments().
+		Get(ctx, "onos-e2t")
 	assert.NoError(t, err)
-	pods, err := dep.Pods().List(ctx)
+	sdranPods, err := sdranDep.Pods().List(ctx)
 	assert.NoError(t, err)
-	assert.NotZero(t, len(pods))
-	pod := pods[0]
-	assert.NoError(t, pod.Delete(ctx))
+	assert.NotZero(t, len(sdranPods))
+	sdranPod := sdranPods[0]
+	sdranPodUID := sdranPod.UID
+	err = sdranPod.Delete(ctx)
+	assert.NoError(t, err)
+
+	iterations := 0
+	for {
+		sdranPods, err := sdranDep.Pods().List(ctx)
+		assert.NoError(t, err)
+		if len(sdranPods) == 1 && sdranPods[0].UID != sdranPodUID {
+			break
+		}
+		iterations++
+		if iterations == 300 {
+			t.Fail()
+			return
+		}
+		time.Sleep(1 * time.Second)
+	}
+
+	ransimClient, err := kubernetes.NewForRelease(sim)
+	assert.NoError(t, err)
+	ransimDep, err := ransimClient.AppsV1().
+		Deployments().
+		Get(ctx, "e2t-restart-subscription-ran-simulator")
+	assert.NoError(t, err)
+	ransimPods, err := ransimDep.Pods().List(ctx)
+	assert.NoError(t, err)
+	assert.NotZero(t, len(ransimPods))
+	ransimPod := ransimPods[0]
+	err = ransimPod.Delete(ctx)
+	assert.NoError(t, err)
 
 	t.Log("Check indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, time.Minute, ch)
+	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 

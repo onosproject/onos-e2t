@@ -6,7 +6,9 @@ package ha
 
 import (
 	"context"
+	"github.com/onosproject/helmit/pkg/kubernetes"
 	"testing"
+	"time"
 
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -91,11 +93,21 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	t.Log("Restart e2 node")
-	_ = sim.Uninstall()
-	_ = sim.Install(true)
+	ransimClient, err := kubernetes.NewForRelease(sim)
+	assert.NoError(t, err)
+	ransimDep, err := ransimClient.AppsV1().
+		Deployments().
+		Get(ctx, "e2node-restart-subscription-ran-simulator")
+	assert.NoError(t, err)
+	ransimPods, err := ransimDep.Pods().List(ctx)
+	assert.NoError(t, err)
+	assert.NotZero(t, len(ransimPods))
+	ransimPod := ransimPods[0]
+	err = ransimPod.Delete(ctx)
+	assert.NoError(t, err)
 
 	t.Log("Check indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 
