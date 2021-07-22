@@ -10,8 +10,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"time"
 
-	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
-
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
 	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
@@ -24,23 +22,22 @@ import (
 var log = logging.GetLogger("northbound", "admin")
 
 // NewService creates a new admin service
-func NewService(channels e2server.ChannelManager, ranFunctionRegistry ranfunctions.Registry) northbound.Service {
+func NewService(channels e2server.ChannelManager) northbound.Service {
 	return &Service{
-		channels:            channels,
-		ranFunctionRegistry: ranFunctionRegistry}
+		channels: channels,
+	}
 }
 
 // Service is a Service implementation for administration.
 type Service struct {
-	channels            e2server.ChannelManager
-	ranFunctionRegistry ranfunctions.Registry
+	channels e2server.ChannelManager
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
 	server := &Server{
-		channels:            s.channels,
-		ranFunctionRegistry: s.ranFunctionRegistry}
+		channels: s.channels,
+	}
 	adminapi.RegisterE2TAdminServiceServer(r, server)
 }
 
@@ -48,8 +45,7 @@ var _ northbound.Service = &Service{}
 
 // Server implements the gRPC service for administrative facilities.
 type Server struct {
-	channels            e2server.ChannelManager
-	ranFunctionRegistry ranfunctions.Registry
+	channels e2server.ChannelManager
 }
 
 // UploadRegisterServiceModel uploads and adds the model plugin to the list of supported models
@@ -85,7 +81,7 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
 		}
 		var ranFunctions []*adminapi.RANFunction
-		registeredRANFunctions := s.ranFunctionRegistry.GetRANFunctionsByNodeID(string(channel.ID))
+		registeredRANFunctions := channel.GetRANFunctions()
 
 		for _, ranFunctionValue := range registeredRANFunctions {
 			ranFunction := &adminapi.RANFunction{

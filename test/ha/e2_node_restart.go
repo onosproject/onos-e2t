@@ -107,7 +107,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	t.Log("Check indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, time.Minute, ch)
+	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 

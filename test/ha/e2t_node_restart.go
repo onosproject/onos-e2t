@@ -102,7 +102,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotZero(t, len(sdranPods))
 	sdranPod := sdranPods[0]
-	sdranPodUid := sdranPod.UID
+	sdranPodUID := sdranPod.UID
 	err = sdranPod.Delete(ctx)
 	assert.NoError(t, err)
 
@@ -110,7 +110,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	for {
 		sdranPods, err := sdranDep.Pods().List(ctx)
 		assert.NoError(t, err)
-		if len(sdranPods) == 1 && sdranPods[0].UID != sdranPodUid {
+		if len(sdranPods) == 1 && sdranPods[0].UID != sdranPodUID {
 			break
 		}
 		iterations++
@@ -135,7 +135,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	t.Log("Check indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, time.Minute, ch)
+	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 

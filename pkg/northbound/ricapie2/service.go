@@ -13,8 +13,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
-	"github.com/onosproject/onos-e2t/pkg/ranfunctions"
-
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
@@ -40,53 +38,48 @@ var log = logging.GetLogger("northbound", "ricapi", "e2")
 
 // NewService creates a new E2T service
 func NewService(subs subapi.E2SubscriptionServiceClient, streams subscription.Broker, modelRegistry modelregistry.ModelRegistry,
-	channels e2server.ChannelManager,
-	oidRegistry oid.Registry, ranFunctionRegistry ranfunctions.Registry, topoManager topo.Manager) northbound.Service {
+	channels e2server.ChannelManager, oidRegistry oid.Registry, topoManager topo.Manager) northbound.Service {
 	return &Service{
-		subs:                subs,
-		streams:             streams,
-		modelRegistry:       modelRegistry,
-		channels:            channels,
-		oidRegistry:         oidRegistry,
-		ranFunctionRegistry: ranFunctionRegistry,
-		topoManager:         topoManager,
+		subs:          subs,
+		streams:       streams,
+		modelRegistry: modelRegistry,
+		channels:      channels,
+		oidRegistry:   oidRegistry,
+		topoManager:   topoManager,
 	}
 }
 
 // Service is a Service implementation for E2T service.
 type Service struct {
 	northbound.Service
-	subs                subapi.E2SubscriptionServiceClient
-	streams             subscription.Broker
-	modelRegistry       modelregistry.ModelRegistry
-	channels            e2server.ChannelManager
-	oidRegistry         oid.Registry
-	ranFunctionRegistry ranfunctions.Registry
-	topoManager         topo.Manager
+	subs          subapi.E2SubscriptionServiceClient
+	streams       subscription.Broker
+	modelRegistry modelregistry.ModelRegistry
+	channels      e2server.ChannelManager
+	oidRegistry   oid.Registry
+	topoManager   topo.Manager
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
 	server := &Server{subs: s.subs,
-		streams:             s.streams,
-		modelRegistry:       s.modelRegistry,
-		channels:            s.channels,
-		oidRegistry:         s.oidRegistry,
-		ranFunctionRegistry: s.ranFunctionRegistry,
-		topoManager:         s.topoManager}
+		streams:       s.streams,
+		modelRegistry: s.modelRegistry,
+		channels:      s.channels,
+		oidRegistry:   s.oidRegistry,
+		topoManager:   s.topoManager}
 	e2api.RegisterE2TServiceServer(r, server)
 }
 
 // Server implements the gRPC service for E2 ricapi related functions.
 type Server struct {
-	subs                subapi.E2SubscriptionServiceClient
-	streams             subscription.Broker
-	modelRegistry       modelregistry.ModelRegistry
-	channels            e2server.ChannelManager
-	controlRequestID    RequestID
-	oidRegistry         oid.Registry
-	ranFunctionRegistry ranfunctions.Registry
-	topoManager         topo.Manager
+	subs             subapi.E2SubscriptionServiceClient
+	streams          subscription.Broker
+	modelRegistry    modelregistry.ModelRegistry
+	channels         e2server.ChannelManager
+	controlRequestID RequestID
+	oidRegistry      oid.Registry
+	topoManager      topo.Manager
 }
 
 func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRequest {
@@ -104,26 +97,10 @@ func getControlAckRequest(request *e2api.ControlRequest) e2apies.RiccontrolAckRe
 	return controlAckRequest
 }
 
-func (s *Server) getChannel(ctx context.Context, e2NodeID e2api.E2NodeID) (*e2server.E2Channel, error) {
-	// TODO this line of code is just added to keep admin API for a while
-	channel, err := s.channels.Get(ctx, e2server.ChannelID(e2NodeID))
-	if err != nil {
-		channelID, err := s.topoManager.GetE2Relation(ctx, topoapi.ID(e2NodeID))
-		if err != nil || channelID == "" {
-			return nil, err
-		}
-		channel, err := s.channels.Get(ctx, e2server.ChannelID(channelID))
-		return channel, err
-	}
-
-	return channel, nil
-
-}
-
 func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
-	channel, err := s.getChannel(ctx, request.GetE2NodeID())
+	channel, err := s.channels.Get(ctx, topoapi.ID(request.GetE2NodeID()))
 	if err != nil {
 		return nil, errors.Status(err).Err()
 	}
@@ -178,9 +155,9 @@ func (s *Server) Control(ctx context.Context, request *e2api.ControlRequest) (*e
 
 	// TODO to keep admin API the channel ID is used for ran function registry mapping but
 	//  should be changed to e2nodeID later one
-	ranFuncID, err := s.ranFunctionRegistry.Get(ranfunctions.NewID(serviceModelOID, string(channel.ID)))
-	if err != nil {
-		log.Warn(err)
+	ranFuncID, ok := channel.GetRANFunction(serviceModelOID)
+	if !ok {
+		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
 
 	controlAckRequest := getControlAckRequest(request)

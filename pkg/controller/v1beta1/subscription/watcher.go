@@ -7,6 +7,7 @@ package subscription
 import (
 	"context"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"sync"
 
@@ -88,13 +89,15 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		for range w.channelCh {
+		for channel := range w.channelCh {
 			subs, err := w.subs.List(ctx)
 			if err != nil {
 				log.Error(err)
 			} else {
 				for _, sub := range subs {
-					ch <- controller.NewID(sub.ID)
+					if topoapi.ID(sub.E2NodeID) == channel.E2NodeID {
+						ch <- controller.NewID(sub.ID)
+					}
 				}
 			}
 		}
