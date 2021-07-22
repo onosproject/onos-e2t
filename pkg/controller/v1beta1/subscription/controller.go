@@ -299,7 +299,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	}
 
 	// Get the southbound indications channel for the E2 node
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(channelID))
+	channel, err := r.channels.Get(ctx, channelID)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
