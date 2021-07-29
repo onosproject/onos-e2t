@@ -128,19 +128,13 @@ func (m *Manager) Start() error {
 // startChannelv1beta1Controller starts the subscription controllers
 func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams subscriptionv1beta1.Broker) error {
 	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams)
-	if err := subsv1beta1.Start(); err != nil {
-		return err
-	}
-	return nil
+	return subsv1beta1.Start()
 }
 
 // startSubscriptionv1beta1Controller starts the subscription controllers
 func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, channels e2server.ChannelManager) error {
 	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, channels, m.ModelRegistry, m.OidRegistry)
-	if err := tasksv1beta1.Start(); err != nil {
-		return err
-	}
-	return nil
+	return tasksv1beta1.Start()
 }
 
 // startSouthboundServer starts the southbound server

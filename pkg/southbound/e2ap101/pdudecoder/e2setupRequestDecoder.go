@@ -121,7 +121,7 @@ func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*types.E2Nod
 }
 
 func GetE2NodeID(nodeID []byte, length int) string {
-	var result uint64 = 0
+	var result uint64
 	for i, b := range nodeID {
 		result += uint64(b) << ((len(nodeID) - i - 1) * 8)
 	}
