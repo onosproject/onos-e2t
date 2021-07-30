@@ -32,6 +32,7 @@ func NewRICChannel(conn net.Conn, handler RICHandler, opts ...Option) RICChannel
 	}
 	procs := handler(channel)
 	channel.e2Setup = procedures.NewE2SetupProcedure(parent.send, procs)
+	channel.e2ConnectionUpdate = procedures.NewE2ConnectionUpdateInitiator(parent.send)
 	channel.ricControl = procedures.NewRICControlInitiator(parent.send)
 	channel.ricIndication = procedures.NewRICIndicationProcedure(parent.send, procs)
 	channel.ricSubscription = procedures.NewRICSubscriptionInitiator(parent.send)
@@ -44,6 +45,7 @@ func NewRICChannel(conn net.Conn, handler RICHandler, opts ...Option) RICChannel
 type ricChannel struct {
 	*threadSafeChannel
 	e2Setup               *procedures.E2SetupProcedure
+	e2ConnectionUpdate    *procedures.E2ConnectionUpdateInitiator
 	ricControl            *procedures.RICControlInitiator
 	ricIndication         *procedures.RICIndicationProcedure
 	ricSubscription       *procedures.RICSubscriptionInitiator
@@ -97,6 +99,10 @@ func (c *ricChannel) recvIndications() {
 
 func (c *ricChannel) recvIndication(pdu e2appdudescriptions.E2ApPdu) {
 	c.ricIndication.Handle(&pdu)
+}
+
+func (c *ricChannel) E2ConnectionUpdate(ctx context.Context, request *e2appducontents.E2ConnectionUpdate) (response *e2appducontents.E2ConnectionUpdateAcknowledge, failure *e2appducontents.E2ConnectionUpdateFailure, err error) {
+	return c.e2ConnectionUpdate.Initiate(ctx, request)
 }
 
 func (c *ricChannel) RICControl(ctx context.Context, request *e2appducontents.RiccontrolRequest) (response *e2appducontents.RiccontrolAcknowledge, failure *e2appducontents.RiccontrolFailure, err error) {
