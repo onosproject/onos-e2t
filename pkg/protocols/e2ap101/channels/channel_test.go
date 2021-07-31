@@ -6,6 +6,11 @@ package channels
 
 import (
 	"context"
+	"io"
+	"net"
+	"testing"
+	"time"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
@@ -13,10 +18,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap101/procedures"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"github.com/stretchr/testify/assert"
-	"io"
-	"net"
-	"testing"
-	"time"
 )
 
 func TestChannels(t *testing.T) {
@@ -199,6 +200,45 @@ func TestChannels(t *testing.T) {
 	err = e2NodeCh.RICIndication(context.TODO(), ricIndication)
 	assert.NoError(t, err)
 	time.Sleep(time.Second)
+
+	connectionAddList := &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
+		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		ConnectionAdd: &e2appducontents.E2ConnectionUpdateList{
+			Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+	}
+	cai := &e2appducontents.E2ConnectionUpdateItemIes{
+		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+		Value: &e2appducontents.E2ConnectionUpdateItem{
+			TnlInformation: &e2apies.Tnlinformation{
+				TnlPort: &e2ap_commondatatypes.BitString{
+					Value: []byte{0xae, 0x89},
+					Len:   16,
+				},
+				TnlAddress: &e2ap_commondatatypes.BitString{
+					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
+					Len:   64,
+				},
+			},
+			TnlUsage: e2apies.Tnlusage_TNLUSAGE_BOTH,
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	}
+	connectionAddList.ConnectionAdd.Value = append(connectionAddList.ConnectionAdd.Value, cai)
+	connectionUpdateRequest := &e2appducontents.E2ConnectionUpdate{
+		ProtocolIes: &e2appducontents.E2ConnectionUpdateIes{
+			E2ApProtocolIes44: connectionAddList,
+		},
+	}
+
+	ack, failure, err := ricCh.E2ConnectionUpdate(context.TODO(), connectionUpdateRequest)
+	assert.NoError(t, err)
+	assert.NotNil(t, ack)
+	assert.Nil(t, failure)
+
 }
 
 type testConn struct {
@@ -298,6 +338,34 @@ func (p *testClientProcedures) RICSubscriptionDelete(ctx context.Context, reques
 			},
 		},
 	}, nil, nil
+}
+
+func (p *testClientProcedures) E2ConnectionUpdate(ctx context.Context, request *e2appducontents.E2ConnectionUpdate) (response *e2appducontents.E2ConnectionUpdateAcknowledge, failure *e2appducontents.E2ConnectionUpdateFailure, err error) {
+	response = &e2appducontents.E2ConnectionUpdateAcknowledge{
+		ProtocolIes: &e2appducontents.E2ConnectionUpdateAckIes{
+			E2ApProtocolIes39: &e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39{
+				Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+				ConnectionSetup: &e2appducontents.E2ConnectionUpdateList{
+					Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
+				},
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+			},
+		},
+	}
+	tnlInfo := request.GetProtocolIes().GetE2ApProtocolIes44().GetConnectionAdd().GetValue()[0].GetValue()
+	si := &e2appducontents.E2ConnectionUpdateItemIes{
+		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+		Value: &e2appducontents.E2ConnectionUpdateItem{
+			TnlInformation: tnlInfo.GetTnlInformation(),
+			TnlUsage:       tnlInfo.GetTnlUsage(),
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	}
+	response.GetProtocolIes().GetE2ApProtocolIes39().ConnectionSetup.Value = append(response.GetProtocolIes().GetE2ApProtocolIes39().ConnectionSetup.Value, si)
+
+	return response, nil, nil
 }
 
 type testServerProcedures struct{}

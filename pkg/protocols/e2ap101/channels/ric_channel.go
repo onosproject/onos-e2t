@@ -78,6 +78,8 @@ func (c *ricChannel) recvPDUs() {
 func (c *ricChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	if c.e2Setup.Matches(pdu) {
 		go c.e2Setup.Handle(pdu)
+	} else if c.e2ConnectionUpdate.Matches(pdu) {
+		go c.e2ConnectionUpdate.Handle(pdu)
 	} else if c.ricControl.Matches(pdu) {
 		go c.ricControl.Handle(pdu)
 	} else if c.ricIndication.Matches(pdu) {
@@ -120,6 +122,7 @@ func (c *ricChannel) RICSubscriptionDelete(ctx context.Context, request *e2appdu
 func (c *ricChannel) Close() error {
 	procedures := []procedures.ElementaryProcedure{
 		c.e2Setup,
+		c.e2ConnectionUpdate,
 		c.ricControl,
 		c.ricIndication,
 		c.ricSubscription,

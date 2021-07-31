@@ -50,7 +50,7 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 	}
 
 	if err := p.dispatcher(requestPDU); err != nil {
-		return nil, nil, errors.NewUnavailable("E2 Setup initiation failed: %v", err)
+		return nil, nil, errors.NewUnavailable("E2 Connection Update initiation failed: %v", err)
 	}
 
 	select {
@@ -75,9 +75,9 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 func (p *E2ConnectionUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.ProcedureCode.E2Setup != nil
+		return msg.SuccessfulOutcome.ProcedureCode.E2ConnectionUpdate != nil
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.ProcedureCode.E2Setup != nil
+		return msg.UnsuccessfulOutcome.ProcedureCode.E2ConnectionUpdate != nil
 	default:
 		return false
 	}
