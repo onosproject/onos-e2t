@@ -6,6 +6,7 @@ package channels
 
 import (
 	"context"
+	"encoding/binary"
 	"io"
 	"net"
 	"testing"
@@ -21,6 +22,7 @@ import (
 )
 
 func TestChannels(t *testing.T) {
+	testIP := net.ParseIP("127.0.0.1")
 	clientCh := make(chan []byte)
 	serverCh := make(chan []byte)
 	clientConn := &testConn{
@@ -209,18 +211,22 @@ func TestChannels(t *testing.T) {
 		},
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
+
+	portBytes := make([]byte, 2)
+	port := uint16(36421)
+	binary.BigEndian.PutUint16(portBytes, port)
 	cai := &e2appducontents.E2ConnectionUpdateItemIes{
 		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2appducontents.E2ConnectionUpdateItem{
 			TnlInformation: &e2apies.Tnlinformation{
 				TnlPort: &e2ap_commondatatypes.BitString{
-					Value: []byte{0xae, 0x89},
+					Value: portBytes,
 					Len:   16,
 				},
 				TnlAddress: &e2ap_commondatatypes.BitString{
-					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
-					Len:   64,
+					Value: testIP,
+					Len:   128,
 				},
 			},
 			TnlUsage: e2apies.Tnlusage_TNLUSAGE_BOTH,
@@ -238,6 +244,9 @@ func TestChannels(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, ack)
 	assert.Nil(t, failure)
+	tnlInformation := ack.GetProtocolIes().GetE2ApProtocolIes39().GetConnectionSetup().GetValue()[0].GetValue()
+	assert.Equal(t, testIP, net.IP(tnlInformation.GetTnlInformation().GetTnlAddress().GetValue()))
+	assert.Equal(t, port, binary.BigEndian.Uint16(tnlInformation.GetTnlInformation().GetTnlPort().GetValue()))
 
 }
 
