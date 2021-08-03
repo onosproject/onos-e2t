@@ -41,6 +41,8 @@ type E2NodeIdentity struct {
 	NodeType       E2NodeType
 	NodeIdentifier []byte
 	NodeIDLength   int
+	CuID           *int64
+	DuID           *int64
 }
 
 func NewE2NodeIdentity(plmnIDSlice []byte) (*E2NodeIdentity, error) {
