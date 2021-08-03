@@ -33,11 +33,14 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		if !ok {
 			return nil, nil, fmt.Errorf("expected a gNBId")
 		}
-		//nodeIdentity.NodeIdentifier = make([]byte, 0)
-		//ToDo - this approach should be fine
 		nodeIdentity.NodeIdentifier = choice.GnbId.GetValue()
 		nodeIdentity.NodeIDLength = int(choice.GnbId.Len)
-		// TODO: investigate GNB-CU-UP-ID and GNB-DU-ID
+		if e2NodeID.GNb.GNbCuUpId != nil {
+			nodeIdentity.CuID = &e2NodeID.GNb.GNbCuUpId.Value
+		}
+		if e2NodeID.GNb.GNbDuId != nil {
+			nodeIdentity.DuID = &e2NodeID.GNb.GNbDuId.Value
+		}
 
 	case *e2apies.GlobalE2NodeId_EnGNb:
 		nodeIdentity, err = types.NewE2NodeIdentity(e2NodeID.EnGNb.GetGlobalGNbId().GetPLmnIdentity().GetValue())

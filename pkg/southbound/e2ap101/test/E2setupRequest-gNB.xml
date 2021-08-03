@@ -23,6 +23,8 @@
                                             </gnb-ID>
                                         </gnb-id>
                                     </global-gNB-ID>
+                                    <gNB-CU-UP-ID>15</gNB-CU-UP-ID>
+                                    <gNB-DU-ID>21</gNB-DU-ID>
                                 </gNB>
                             </GlobalE2node-ID>
                         </value>
