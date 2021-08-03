@@ -5,9 +5,10 @@
 package procedures
 
 import (
+	"io"
+
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"io"
 )
 
 var log = logging.GetLogger("protocols", "e2")
@@ -32,6 +33,7 @@ type RICProcedures interface {
 
 // E2NodeProcedures implements the procedures for an E2 node
 type E2NodeProcedures interface {
+	E2ConnectionUpdate
 	RICControl
 	RICSubscription
 	RICSubscriptionDelete
