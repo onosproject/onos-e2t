@@ -5,6 +5,8 @@
 package manager
 
 import (
+	"context"
+
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
@@ -100,6 +102,11 @@ func (m *Manager) Start() error {
 	}
 
 	topoManager := topo.NewManager(rnibStore)
+	err = topoManager.CreateOrUpdateE2T(context.Background())
+	if err != nil {
+		return err
+	}
+
 	streams := subscription.NewBroker()
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
 	channels := e2server.NewChannelManager(topoManager)
