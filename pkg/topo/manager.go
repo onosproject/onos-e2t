@@ -5,6 +5,8 @@
 package topo
 
 import (
+	"time"
+
 	"github.com/cenkalti/backoff/v4"
 	gogotypes "github.com/gogo/protobuf/types"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -12,7 +14,6 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"golang.org/x/net/context"
-	"time"
 )
 
 var log = logging.GetLogger("topo", "manager")
@@ -204,6 +205,45 @@ func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e
 	}, newExpBackoff())
 }
 
+func (r *Rnib) CreateOrUpdateE2T(ctx context.Context) error {
+	return backoff.Retry(func() error {
+		currentE2TObject, err := r.store.Get(ctx, topoapi.ID(getPodID()))
+		if err != nil {
+			if !errors.IsNotFound(err) {
+				return backoff.Permanent(err)
+			}
+			e2tObject := &topoapi.Object{
+				ID:   topoapi.ID(getPodID()),
+				Type: topoapi.Object_ENTITY,
+				Obj: &topoapi.Object_Entity{
+					Entity: &topoapi.Entity{
+						KindID: topoapi.ID(topoapi.E2T),
+					},
+				},
+				Aspects: make(map[string]*gogotypes.Any),
+				Labels:  map[string]string{},
+			}
+			err = r.store.Create(ctx, e2tObject)
+			if err != nil {
+				if !errors.IsAlreadyExists(err) {
+					return backoff.Permanent(err)
+				}
+				return err
+			}
+
+		} else {
+			err = r.store.Update(ctx, currentE2TObject)
+			if err != nil {
+				if !errors.IsNotFound(err) && !errors.IsConflict(err) {
+					return backoff.Permanent(err)
+				}
+				return err
+			}
+		}
+		return nil
+	}, newExpBackoff())
+}
+
 // CreateOrUpdateE2Node creates or updates E2 entities
 func (r *Rnib) CreateOrUpdateE2Node(ctx context.Context, deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error {
 	return backoff.Retry(func() error {
@@ -285,6 +325,7 @@ func (r *Rnib) WatchE2Relations(ctx context.Context, ch chan<- topoapi.ID) error
 type Manager interface {
 	CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error
 	CreateOrUpdateE2CellRelation(ctx context.Context, deviceID topoapi.ID, cellID topoapi.ID) error
+	CreateOrUpdateE2T(ctx context.Context) error
 	CreateOrUpdateE2Node(ctx context.Context, deviceID topoapi.ID, serviceModels map[string]*topoapi.ServiceModelInfo) error
 	CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID, relationID topoapi.ID) error
 	DeleteE2Relation(ctx context.Context, relationID topoapi.ID) error

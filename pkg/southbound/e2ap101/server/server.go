@@ -7,8 +7,9 @@ package server
 import (
 	"context"
 	"fmt"
-	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"time"
+
+	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	"github.com/onosproject/onos-e2t/pkg/topo"
 
@@ -83,9 +84,14 @@ type E2ChannelServer struct {
 func (e *E2ChannelServer) updateRNIB(ctx context.Context, e2NodeID topoapi.ID,
 	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell, relationID topoapi.ID) error {
 	log.Infof("Adding channel '%s' relation to R-NIB", relationID)
+	err := e.topoManager.CreateOrUpdateE2T(ctx)
+	if err != nil {
+		log.Warnf("Updating R-NIB is failed: %v", err)
+		return err
+	}
 
 	// create or update E2 node entities
-	err := e.topoManager.CreateOrUpdateE2Node(ctx, e2NodeID, serviceModels)
+	err = e.topoManager.CreateOrUpdateE2Node(ctx, e2NodeID, serviceModels)
 	if err != nil {
 		log.Warnf("Updating R-NIB is failed: %v", err)
 		return err
