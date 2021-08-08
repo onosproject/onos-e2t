@@ -4,7 +4,9 @@
 
 package types
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // PlmnID - a 3 byte representation of the Plmn ID
 //- digits 0 to 9, encoded 0000 to 1001,

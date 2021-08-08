@@ -7,14 +7,15 @@ package server
 import (
 	"context"
 	"encoding/hex"
+	"sync"
+	"time"
+
 	"github.com/google/uuid"
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
-	"sync"
-	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 
@@ -25,17 +26,12 @@ import (
 func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIdentity, channel e2.ServerChannel,
 	streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
 	modelRegistry modelregistry.ModelRegistry, now time.Time) *E2Channel {
-	nid, err := GetNodeID(nodeIdentity.NodeIdentifier, nodeIdentity.NodeIDLength)
-	if err != nil {
-		log.Warn("Unable to parse node ID: %v due to %v", nodeIdentity, err)
-		nid = nodeID
-	}
 	return &E2Channel{
 		ServerChannel:  channel,
 		ID:             ChannelID(uuid.New().String()),
 		E2NodeID:       nodeID,
 		PlmnID:         plmnID,
-		NodeID:         string(nid),
+		NodeID:         string(nodeID),
 		NodeType:       nodeIdentity.NodeType,
 		TimeAlive:      now,
 		streams:        streams,

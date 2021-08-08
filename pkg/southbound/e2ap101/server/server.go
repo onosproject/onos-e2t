@@ -139,13 +139,10 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		return nil, nil, err
 	}
 
-	e2NodeID, err := GetNodeID(nodeIdentity.NodeIdentifier, nodeIdentity.NodeIDLength)
-	if err != nil {
-		log.Warn(err)
-		return nil, nil, err
-	}
 	rawPlmnid := []byte{nodeIdentity.Plmn[0], nodeIdentity.Plmn[1], nodeIdentity.Plmn[2]}
 	plmnID := fmt.Sprintf("%x", uint24ToUint32(rawPlmnid))
+
+	e2NodeID := createE2NodeURI(nodeIdentity)
 
 	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
 	var e2Cells []*topoapi.E2Cell
