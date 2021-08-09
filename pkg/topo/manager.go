@@ -7,6 +7,8 @@ package topo
 import (
 	"time"
 
+	"github.com/onosproject/onos-lib-go/pkg/uri"
+
 	"github.com/google/uuid"
 
 	"github.com/cenkalti/backoff/v4"
@@ -103,7 +105,9 @@ func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, e2NodeID topoapi.ID
 
 func (r *Rnib) CreateOrUpdateE2CellRelation(ctx context.Context, e2NodeID topoapi.ID, cellID topoapi.ID) error {
 	return backoff.Retry(func() error {
-		cellRelationID := topoapi.ID(uuid.New().String())
+		cellRelationID := topoapi.ID(uri.NewURI(
+			uri.WithScheme("uuid"),
+			uri.WithOpaque(uuid.New().String())).String())
 		currentCellRelation, err := r.store.Get(ctx, cellRelationID)
 		if err != nil {
 			if !errors.IsNotFound(err) {

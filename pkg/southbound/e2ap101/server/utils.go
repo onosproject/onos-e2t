@@ -37,10 +37,10 @@ func createE2NodeURI(nodeIdentity *types.E2NodeIdentity) topoapi.ID {
 	}
 	uriOpaque := fmt.Sprintf("%d/%s", topoNodeType, e2NodeID)
 	if nodeIdentity.CuID != nil {
-		uriOpaque = uriOpaque + fmt.Sprintf("/%d/%d", topoapi.ComponentType_CT_CU_UP, *nodeIdentity.CuID)
+		uriOpaque = uriOpaque + fmt.Sprintf("/%d/%x", topoapi.ComponentType_CT_CU_UP, *nodeIdentity.CuID)
 	}
 	if nodeIdentity.DuID != nil {
-		uriOpaque = uriOpaque + fmt.Sprintf("/%d/%d", topoapi.ComponentType_CT_DU, *nodeIdentity.DuID)
+		uriOpaque = uriOpaque + fmt.Sprintf("/%d/%x", topoapi.ComponentType_CT_DU, *nodeIdentity.DuID)
 	}
 
 	uriString := uri.NewURI(
