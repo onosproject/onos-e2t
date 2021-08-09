@@ -7,6 +7,10 @@ package topo
 import (
 	"time"
 
+	"github.com/onosproject/onos-lib-go/pkg/uri"
+
+	"github.com/google/uuid"
+
 	"github.com/cenkalti/backoff/v4"
 	gogotypes "github.com/gogo/protobuf/types"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -26,7 +30,7 @@ func (r *Rnib) DeleteE2Relation(ctx context.Context, relationID topoapi.ID) erro
 	return r.store.Delete(ctx, relationID)
 }
 
-func (r *Rnib) GetE2Relation(ctx context.Context, deviceID topoapi.ID) (topoapi.ID, error) {
+func (r *Rnib) GetE2Relation(ctx context.Context, e2NodeID topoapi.ID) (topoapi.ID, error) {
 	objects, err := r.store.List(ctx, &topoapi.Filters{
 		KindFilter: &topoapi.Filter{
 			Filter: &topoapi.Filter_Equal_{
@@ -45,7 +49,7 @@ func (r *Rnib) GetE2Relation(ctx context.Context, deviceID topoapi.ID) (topoapi.
 		val := object.Obj.(*topoapi.Object_Relation)
 		srcEntity := val.Relation.GetSrcEntityID()
 		dstEntity := val.Relation.GetTgtEntityID()
-		if srcEntity == topoapi.ID(podID) && dstEntity == deviceID {
+		if srcEntity == topoapi.ID(podID) && dstEntity == e2NodeID {
 			return object.ID, nil
 		}
 	}
@@ -53,9 +57,9 @@ func (r *Rnib) GetE2Relation(ctx context.Context, deviceID topoapi.ID) (topoapi.
 	return "", errors.NewNotFound("E2 relation ID is not found")
 }
 
-func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID, relationID topoapi.ID) error {
+func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, e2NodeID topoapi.ID, relationID topoapi.ID) error {
 	return backoff.Retry(func() error {
-		_, err := r.store.Get(ctx, deviceID)
+		_, err := r.store.Get(ctx, e2NodeID)
 		if err != nil {
 			return backoff.Permanent(err)
 		}
@@ -71,8 +75,8 @@ func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID
 				Obj: &topoapi.Object_Relation{
 					Relation: &topoapi.Relation{
 						KindID:      topoapi.ID(topoapi.CONTROLS),
-						SrcEntityID: topoapi.ID(getPodID()),
-						TgtEntityID: deviceID,
+						SrcEntityID: GetE2TID(),
+						TgtEntityID: e2NodeID,
 					},
 				},
 			}
@@ -85,7 +89,7 @@ func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID
 			}
 		} else {
 			currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.SrcEntityID = topoapi.ID(getPodID())
-			currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.TgtEntityID = deviceID
+			currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.TgtEntityID = e2NodeID
 			currentRelationObject.Obj.(*topoapi.Object_Relation).Relation.KindID = topoapi.ID(topoapi.RANRelationKinds_CONTROLS.String())
 			err = r.store.Update(ctx, currentRelationObject)
 			if err != nil {
@@ -99,9 +103,11 @@ func (r *Rnib) CreateOrUpdateE2Relation(ctx context.Context, deviceID topoapi.ID
 	}, newExpBackoff())
 }
 
-func (r *Rnib) CreateOrUpdateE2CellRelation(ctx context.Context, deviceID topoapi.ID, cellID topoapi.ID) error {
+func (r *Rnib) CreateOrUpdateE2CellRelation(ctx context.Context, e2NodeID topoapi.ID, cellID topoapi.ID) error {
 	return backoff.Retry(func() error {
-		cellRelationID := topoapi.RelationID(deviceID, topoapi.CONTAINS, cellID)
+		cellRelationID := topoapi.ID(uri.NewURI(
+			uri.WithScheme("uuid"),
+			uri.WithOpaque(uuid.New().String())).String())
 		currentCellRelation, err := r.store.Get(ctx, cellRelationID)
 		if err != nil {
 			if !errors.IsNotFound(err) {
@@ -113,7 +119,7 @@ func (r *Rnib) CreateOrUpdateE2CellRelation(ctx context.Context, deviceID topoap
 				Obj: &topoapi.Object_Relation{
 					Relation: &topoapi.Relation{
 						KindID:      topoapi.ID(topoapi.CONTAINS),
-						SrcEntityID: deviceID,
+						SrcEntityID: e2NodeID,
 						TgtEntityID: cellID,
 					},
 				},
@@ -139,14 +145,14 @@ func (r *Rnib) CreateOrUpdateE2CellRelation(ctx context.Context, deviceID topoap
 }
 
 // CreateOrUpdateE2Cells creates or update E2 cells entities and relations
-func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e2Cells []*topoapi.E2Cell) error {
+func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, e2NodeID topoapi.ID, e2Cells []*topoapi.E2Cell) error {
 	return backoff.Retry(func() error {
-		_, err := r.store.Get(ctx, deviceID)
+		_, err := r.store.Get(ctx, e2NodeID)
 		if err != nil {
 			return backoff.Permanent(err)
 		}
 		for _, e2Cell := range e2Cells {
-			cellID := topoapi.ID(e2Cell.CellGlobalID.Value)
+			cellID := GetCellID(e2NodeID, e2Cell.GetCellGlobalID().GetValue())
 			currentCellObject, err := r.store.Get(ctx, cellID)
 			if err != nil {
 				if !errors.IsNotFound(err) {
@@ -177,7 +183,7 @@ func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e
 					return err
 				}
 
-				err = r.CreateOrUpdateE2CellRelation(ctx, deviceID, cellID)
+				err = r.CreateOrUpdateE2CellRelation(ctx, e2NodeID, cellID)
 				if err != nil {
 					return backoff.Permanent(err)
 				}
@@ -195,7 +201,7 @@ func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e
 					return err
 				}
 
-				err = r.CreateOrUpdateE2CellRelation(ctx, deviceID, cellID)
+				err = r.CreateOrUpdateE2CellRelation(ctx, e2NodeID, cellID)
 				if err != nil {
 					return backoff.Permanent(err)
 				}
@@ -207,13 +213,14 @@ func (r *Rnib) CreateOrUpdateE2Cells(ctx context.Context, deviceID topoapi.ID, e
 
 func (r *Rnib) CreateOrUpdateE2T(ctx context.Context) error {
 	return backoff.Retry(func() error {
-		currentE2TObject, err := r.store.Get(ctx, topoapi.ID(getPodID()))
+		e2tID := GetE2TID()
+		currentE2TObject, err := r.store.Get(ctx, e2tID)
 		if err != nil {
 			if !errors.IsNotFound(err) {
 				return backoff.Permanent(err)
 			}
 			e2tObject := &topoapi.Object{
-				ID:   topoapi.ID(getPodID()),
+				ID:   e2tID,
 				Type: topoapi.Object_ENTITY,
 				Obj: &topoapi.Object_Entity{
 					Entity: &topoapi.Entity{
