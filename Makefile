@@ -78,13 +78,13 @@ onos-e2t-sim-app-docker:
 	@rm -r vendor
 
 images: # @HELP build all Docker images
-images: build onos-e2t-docker #onos-e2t-sim-app-docker
+images: build onos-e2t-docker onos-e2t-sim-app-docker
 
 kind: # @HELP build Docker images and add them to the currently configured kind cluster
 kind: images
 	@if [ "`kind get clusters`" = '' ]; then echo "no kind cluster found" && exit 1; fi
 	kind load docker-image onosproject/onos-e2t:${ONOS_E2T_VERSION}
-	#kind load docker-image onosproject/onos-e2t-sim-app:${ONOS_E2T_VERSION}
+	kind load docker-image onosproject/onos-e2t-sim-app:${ONOS_E2T_VERSION}
 
 all: build images
 
