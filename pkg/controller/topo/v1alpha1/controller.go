@@ -109,14 +109,14 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2server.E2Channel) (controll
 }
 
 func (r *Reconciler) createE2T(ctx context.Context) (bool, error) {
-	object, err := r.store.Get(ctx, topoapi.ID(env.GetPodID()))
+	_, err := r.store.Get(ctx, topoapi.ID(env.GetPodID()))
 	if err == nil {
 		return false, nil
 	} else if !errors.IsNotFound(err) {
 		return false, err
 	}
 
-	object = &topoapi.Object{
+	object := &topoapi.Object{
 		ID:   topoapi.ID(env.GetPodID()),
 		Type: topoapi.Object_ENTITY,
 		Obj: &topoapi.Object_Entity{
@@ -138,14 +138,14 @@ func (r *Reconciler) createE2T(ctx context.Context) (bool, error) {
 }
 
 func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
-	object, err := r.store.Get(ctx, channel.E2NodeID)
+	_, err := r.store.Get(ctx, channel.E2NodeID)
 	if err == nil {
 		return false, nil
 	} else if !errors.IsNotFound(err) {
 		return false, err
 	}
 
-	object = &topoapi.Object{
+	object := &topoapi.Object{
 		ID:   channel.E2NodeID,
 		Type: topoapi.Object_ENTITY,
 		Obj: &topoapi.Object_Entity{
@@ -195,14 +195,14 @@ func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Chan
 
 func (r *Reconciler) createE2Cell(ctx context.Context, cell *topoapi.E2Cell) (bool, error) {
 	cellID := topoapi.ID(cell.CellGlobalID.Value)
-	object, err := r.store.Get(ctx, cellID)
+	_, err := r.store.Get(ctx, cellID)
 	if err == nil {
 		return false, nil
 	} else if !errors.IsNotFound(err) {
 		return false, err
 	}
 
-	object = &topoapi.Object{
+	object := &topoapi.Object{
 		ID:   cellID,
 		Type: topoapi.Object_ENTITY,
 		Obj: &topoapi.Object_Entity{
@@ -232,14 +232,14 @@ func (r *Reconciler) createE2Cell(ctx context.Context, cell *topoapi.E2Cell) (bo
 func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) (bool, error) {
 	cellID := topoapi.ID(cell.CellGlobalID.Value)
 	relationID := topoapi.RelationID(channel.E2NodeID, topoapi.CONTAINS, cellID)
-	object, err := r.store.Get(ctx, relationID)
+	_, err := r.store.Get(ctx, relationID)
 	if err == nil {
 		return false, nil
 	} else if !errors.IsNotFound(err) {
 		return false, err
 	}
 
-	object = &topoapi.Object{
+	object := &topoapi.Object{
 		ID:   relationID,
 		Type: topoapi.Object_RELATION,
 		Obj: &topoapi.Object_Relation{
@@ -262,14 +262,14 @@ func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server
 }
 
 func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
-	object, err := r.store.Get(ctx, topoapi.ID(channel.ID))
+	_, err := r.store.Get(ctx, topoapi.ID(channel.ID))
 	if err == nil {
 		return false, nil
 	} else if !errors.IsNotFound(err) {
 		return false, err
 	}
 
-	object = &topoapi.Object{
+	object := &topoapi.Object{
 		ID:   topoapi.ID(channel.ID),
 		Type: topoapi.Object_RELATION,
 		Obj: &topoapi.Object_Relation{
