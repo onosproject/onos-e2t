@@ -10,6 +10,7 @@ import (
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"github.com/onosproject/onos-lib-go/pkg/env"
+	"math/rand"
 	"time"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
@@ -94,6 +95,12 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2server.E2Channel) (controll
 	}
 
 	if ok, err := r.createE2NodeRelation(ctx, channel); err != nil {
+		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
+	}
+
+	if ok, err := r.updateE2NodeMaster(ctx, channel); err != nil {
 		return controller.Result{}, err
 	} else if ok {
 		return controller.Result{}, nil
@@ -280,6 +287,54 @@ func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server
 			return false, err
 		}
 		return false, nil
+	}
+	return true, nil
+}
+
+func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
+	e2NodeEntity, err := r.store.Get(ctx, channel.E2NodeID)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			return false, err
+		}
+		return false, nil
+	}
+
+	filters := &topoapi.Filters{
+		RelationFilter: &topoapi.RelationFilter{
+			SrcId:        env.GetPodID(),
+			RelationKind: topoapi.CONTROLS,
+			TargetKind:   topoapi.E2NODE,
+		},
+	}
+	e2NodeRelations, err := r.store.List(ctx, filters)
+	if err != nil {
+		return false, err
+	}
+
+	relationIDs := make(map[string]bool)
+	for _, e2NodeRelation := range e2NodeRelations {
+		relationIDs[string(e2NodeRelation.ID)] = true
+	}
+
+	mastership := &topoapi.MastershipState{}
+	mastershipValue := e2NodeEntity.GetAspect(mastership)
+	if _, ok := relationIDs[mastership.NodeId]; (!ok || mastershipValue == nil) && len(e2NodeRelations) > 0 {
+		e2NodeRelation := e2NodeRelations[rand.Intn(len(e2NodeRelations))]
+		mastership.Term++
+		mastership.NodeId = string(e2NodeRelation.GetRelation().SrcEntityID)
+		err = e2NodeEntity.SetAspect(mastership)
+		if err != nil {
+			return false, err
+		}
+		err = r.store.Update(ctx, e2NodeEntity)
+		if err != nil {
+			if !errors.IsNotFound(err) {
+				return false, err
+			}
+			return false, nil
+		}
+		return true, nil
 	}
 	return true, nil
 }
