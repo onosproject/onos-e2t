@@ -6,7 +6,6 @@ require (
 	github.com/atomix/atomix-go-client v0.5.21
 	github.com/atomix/atomix-go-framework v0.7.0
 	github.com/cenkalti/backoff v2.2.1+incompatible
-	github.com/cenkalti/backoff/v4 v4.0.0
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.5.0
@@ -20,7 +19,6 @@ require (
 	github.com/onosproject/onos-ric-sdk-go v0.7.22
 	github.com/onosproject/onos-test v0.6.4
 	github.com/stretchr/testify v1.7.0
-	golang.org/x/net v0.0.0-20210510120150-4163338589ed
 	google.golang.org/grpc v1.33.2
 	google.golang.org/protobuf v1.26.0
 	gotest.tools v2.2.0+incompatible

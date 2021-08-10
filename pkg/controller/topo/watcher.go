@@ -33,14 +33,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 
 	eventCh := make(chan topoapi.Event, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	filters := &topoapi.Filters{
-		RelationFilter: &topoapi.RelationFilter{
-			SrcId:        string(getE2TID()),
-			RelationKind: topoapi.CONTROLS,
-			TargetKind:   topoapi.E2NODE,
-		},
-	}
-	err := w.topo.Watch(ctx, eventCh, filters)
+	err := w.topo.Watch(ctx, eventCh, nil)
 	if err != nil {
 		cancel()
 		return err
@@ -49,7 +42,11 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for event := range eventCh {
-			ch <- controller.NewID(e2server.ChannelID(event.Object.ID))
+			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok &&
+				relation.Relation.SrcEntityID == getE2TID() &&
+				relation.Relation.KindID == topoapi.CONTROLS {
+				ch <- controller.NewID(e2server.ChannelID(event.Object.ID))
+			}
 		}
 		close(ch)
 	}()

@@ -80,46 +80,38 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2server.E2Channel) (controll
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	if ok, err := r.createE2T(ctx); err != nil {
+	if err := r.createE2T(ctx); err != nil {
 		return controller.Result{}, err
-	} else if ok {
-		return controller.Result{}, nil
 	}
 
-	if ok, err := r.createE2Node(ctx, channel); err != nil {
+	if err := r.createE2Node(ctx, channel); err != nil {
 		return controller.Result{}, err
-	} else if ok {
-		return controller.Result{}, nil
 	}
 
-	if ok, err := r.createE2Cells(ctx, channel); err != nil {
+	if err := r.createE2Cells(ctx, channel); err != nil {
 		return controller.Result{}, err
-	} else if ok {
-		return controller.Result{}, nil
 	}
 
-	if ok, err := r.createE2NodeRelation(ctx, channel); err != nil {
+	if err := r.createE2NodeRelation(ctx, channel); err != nil {
 		return controller.Result{}, err
-	} else if ok {
-		return controller.Result{}, nil
 	}
 
-	if ok, err := r.updateE2NodeMaster(ctx, channel); err != nil {
+	if err := r.updateE2NodeMaster(ctx, channel); err != nil {
 		return controller.Result{}, err
-	} else if ok {
-		return controller.Result{}, nil
 	}
 	return controller.Result{}, nil
 }
 
-func (r *Reconciler) createE2T(ctx context.Context) (bool, error) {
+func (r *Reconciler) createE2T(ctx context.Context) error {
 	_, err := r.store.Get(ctx, getE2TID())
 	if err == nil {
-		return false, nil
+		return nil
 	} else if !errors.IsNotFound(err) {
-		return false, err
+		log.Infof("Creating E2T entity failed: %v", err)
+		return err
 	}
 
+	log.Debugf("Creating E2T entity")
 	object := &topoapi.Object{
 		ID:   getE2TID(),
 		Type: topoapi.Object_ENTITY,
@@ -134,21 +126,24 @@ func (r *Reconciler) createE2T(ctx context.Context) (bool, error) {
 	err = r.store.Create(ctx, object)
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
-			return false, err
+			log.Infof("Creating E2T entity failed: %v", err)
+			return err
 		}
-		return false, nil
+		return nil
 	}
-	return true, nil
+	return nil
 }
 
-func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
+func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) error {
 	_, err := r.store.Get(ctx, channel.E2NodeID)
 	if err == nil {
-		return false, nil
+		return nil
 	} else if !errors.IsNotFound(err) {
-		return false, err
+		log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
+		return err
 	}
 
+	log.Debugf("Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
 	object := &topoapi.Object{
 		ID:   channel.E2NodeID,
 		Type: topoapi.Object_ENTITY,
@@ -166,46 +161,45 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 	}
 
 	err = object.SetAspect(aspects)
+	log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
 	if err != nil {
-		return false, nil
+		return err
 	}
 
 	err = r.store.Create(ctx, object)
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
-			return false, err
+			log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
+			return err
 		}
-		return false, nil
+		return nil
 	}
-	return true, nil
+	return nil
 }
 
-func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
-	updated := false
+func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Channel) error {
 	for _, e2Cell := range channel.E2Cells {
-		if ok, err := r.createE2Cell(ctx, channel, e2Cell); err != nil {
-			return false, err
-		} else if ok {
-			updated = true
+		if err := r.createE2Cell(ctx, channel, e2Cell); err != nil {
+			return err
 		}
-		if ok, err := r.createE2CellRelation(ctx, channel, e2Cell); err != nil {
-			return false, err
-		} else if ok {
-			updated = true
+		if err := r.createE2CellRelation(ctx, channel, e2Cell); err != nil {
+			return err
 		}
 	}
-	return updated, nil
+	return nil
 }
 
-func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) (bool, error) {
+func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) error {
 	cellID := getCellID(channel, cell)
 	_, err := r.store.Get(ctx, cellID)
 	if err == nil {
-		return false, nil
+		return nil
 	} else if !errors.IsNotFound(err) {
-		return false, err
+		log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID, channel.ID, err)
+		return err
 	}
 
+	log.Debugf("Creating E2Cell entity '%s' for Channel '%s'", cell.CellGlobalID, channel.ID)
 	object := &topoapi.Object{
 		ID:   cellID,
 		Type: topoapi.Object_ENTITY,
@@ -220,29 +214,33 @@ func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Chann
 
 	err = object.SetAspect(cell)
 	if err != nil {
-		return false, err
+		log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID, channel.ID, err)
+		return err
 	}
 
 	err = r.store.Create(ctx, object)
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
-			return false, err
+			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID, channel.ID, err)
+			return err
 		}
-		return false, nil
+		return nil
 	}
-	return true, nil
+	return nil
 }
 
-func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) (bool, error) {
+func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) error {
 	cellID := getCellID(channel, cell)
 	relationID := getCellRelationID(channel, cell)
 	_, err := r.store.Get(ctx, relationID)
 	if err == nil {
-		return false, nil
+		return nil
 	} else if !errors.IsNotFound(err) {
-		return false, err
+		log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
+		return err
 	}
 
+	log.Debugf("Creating E2Cell '%s' relation '%s' for Channel '%s'", cellID, relationID, channel.ID)
 	object := &topoapi.Object{
 		ID:   relationID,
 		Type: topoapi.Object_RELATION,
@@ -258,23 +256,27 @@ func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server
 	err = r.store.Create(ctx, object)
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
-			return false, err
+			log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
+			return err
 		}
-		return false, nil
+		return nil
 	}
-	return true, nil
+	return nil
 }
 
-func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
-	_, err := r.store.Get(ctx, getE2RelationID(channel.ID))
+func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server.E2Channel) error {
+	relationID := getE2RelationID(channel.ID)
+	_, err := r.store.Get(ctx, relationID)
 	if err == nil {
-		return false, nil
+		return nil
 	} else if !errors.IsNotFound(err) {
-		return false, err
+		log.Warnf("Creating E2Node relation '%s' for Channel '%s' failed: %v", relationID, channel.ID, err)
+		return err
 	}
 
+	log.Debugf("Creating E2Node relation '%s' for Channel '%s'", relationID, channel.ID)
 	object := &topoapi.Object{
-		ID:   getE2RelationID(channel.ID),
+		ID:   relationID,
 		Type: topoapi.Object_RELATION,
 		Obj: &topoapi.Object_Relation{
 			Relation: &topoapi.Relation{
@@ -288,83 +290,84 @@ func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server
 	err = r.store.Create(ctx, object)
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
-			return false, err
+			log.Warnf("Creating E2Node relation '%s' for Channel '%s' failed: %v", relationID, channel.ID, err)
+			return err
 		}
-		return false, nil
+		return nil
 	}
-	return true, nil
+	return nil
 }
 
-func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
+func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E2Channel) error {
 	e2NodeEntity, err := r.store.Get(ctx, channel.E2NodeID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
-			return false, err
+			log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
+			return err
 		}
-		return false, nil
+		return nil
 	}
 
-	filters := &topoapi.Filters{
-		RelationFilter: &topoapi.RelationFilter{
-			SrcId:        string(getE2TID()),
-			RelationKind: topoapi.CONTROLS,
-			TargetKind:   topoapi.E2NODE,
-		},
-	}
-	e2NodeRelations, err := r.store.List(ctx, filters)
+	e2NodeRelations, err := r.store.List(ctx, nil)
 	if err != nil {
-		return false, err
+		log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
+		return err
 	}
 
 	relationIDs := make(map[string]bool)
 	for _, e2NodeRelation := range e2NodeRelations {
-		relationIDs[string(e2NodeRelation.ID)] = true
+		if e2NodeRelation.GetRelation().SrcEntityID == getE2TID() &&
+			e2NodeRelation.GetRelation().KindID == topoapi.CONTROLS {
+			relationIDs[string(e2NodeRelation.ID)] = true
+		}
 	}
 
 	mastership := &topoapi.MastershipState{}
 	mastershipValue := e2NodeEntity.GetAspect(mastership)
 	if _, ok := relationIDs[mastership.NodeId]; (!ok || mastershipValue == nil) && len(e2NodeRelations) > 0 {
+		log.Debugf("Updating MastershipState for E2Node '%s'", channel.E2NodeID)
 		e2NodeRelation := e2NodeRelations[rand.Intn(len(e2NodeRelations))]
 		mastership.Term++
 		mastership.NodeId = string(e2NodeRelation.GetRelation().SrcEntityID)
 		err = e2NodeEntity.SetAspect(mastership)
 		if err != nil {
-			return false, err
+			log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
+			return err
 		}
 		err = r.store.Update(ctx, e2NodeEntity)
 		if err != nil {
 			if !errors.IsNotFound(err) {
-				return false, err
+				log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
+				return err
 			}
-			return false, nil
+			return nil
 		}
-		return true, nil
+		return nil
 	}
-	return true, nil
+	return nil
 }
 
 func (r *Reconciler) reconcileClosedChannel(channelID e2server.ChannelID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	if ok, err := r.deleteE2Relation(ctx, channelID); err != nil {
+	if err := r.deleteE2Relation(ctx, channelID); err != nil {
 		return controller.Result{}, err
-	} else if ok {
-		return controller.Result{}, nil
 	}
-
 	return controller.Result{}, nil
 }
 
-func (r *Reconciler) deleteE2Relation(ctx context.Context, channelID e2server.ChannelID) (bool, error) {
+func (r *Reconciler) deleteE2Relation(ctx context.Context, channelID e2server.ChannelID) error {
+	log.Debugf("Deleting E2Node relation for Channel '%s'", channelID)
 	err := r.store.Delete(ctx, getE2RelationID(channelID))
 	if err != nil {
 		if !errors.IsNotFound(err) {
-			return false, err
+			log.Warnf("Deleting E2Node relation for Channel '%s' failed: %v", channelID, err)
+			return err
 		}
-		return false, nil
+		return nil
 	}
-	return true, nil
+	return nil
 }
 
 func getE2TID() topoapi.ID {
@@ -384,8 +387,8 @@ func getCellID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
 }
 
 func getCellRelationID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
-	hash := fmt.Sprintf("%x", md5.Sum([]byte(fmt.Sprintf("%s/%s", channel.E2NodeID, cell.CellGlobalID))))
-	uuid, err := uuid2.FromBytes([]byte(hash))
+	bytes := md5.Sum([]byte(fmt.Sprintf("%s/%s", channel.E2NodeID, cell.CellGlobalID)))
+	uuid, err := uuid2.FromBytes(bytes[:])
 	if err != nil {
 		panic(err)
 	}
