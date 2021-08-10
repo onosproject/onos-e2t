@@ -80,23 +80,29 @@ type ControlServer struct {
 func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
+	log.Debugf("Fetching mastership state for E2Node '%s'", request.Headers.E2NodeID)
 	e2NodeEntity, err := s.topo.Get(ctx, topoapi.ID(request.Headers.E2NodeID))
 	if err != nil {
+		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
 		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
 	}
 
 	mastership := &topoapi.MastershipState{}
 	if m := e2NodeEntity.GetAspect(mastership); m == nil {
-		return nil, errors.Status(errors.NewUnavailable("not the master for %s", request.Headers.E2NodeID)).Err()
+		err := errors.NewUnavailable("not the master for %s", request.Headers.E2NodeID)
+		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
+		return nil, errors.Status(err).Err()
 	}
 
 	e2NodeRelation, err := s.topo.Get(ctx, topoapi.ID(mastership.NodeId))
 	if err != nil {
+		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
 		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
 	}
 
 	channel, err := s.channels.Get(ctx, e2server.ChannelID(e2NodeRelation.ID))
 	if err != nil {
+		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
 		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
 	}
 

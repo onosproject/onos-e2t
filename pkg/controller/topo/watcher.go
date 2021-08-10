@@ -42,6 +42,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for event := range eventCh {
+			log.Debugf("Received topo event '%s'", event.Object.ID)
 			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok &&
 				relation.Relation.SrcEntityID == getE2TID() &&
 				relation.Relation.KindID == topoapi.CONTROLS {
@@ -92,6 +93,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for channel := range w.channelCh {
+			log.Debugf("Received Channel event '%s'", channel.ID)
 			ch <- controller.NewID(channel.ID)
 		}
 		close(ch)

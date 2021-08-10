@@ -299,6 +299,7 @@ func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server
 }
 
 func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E2Channel) error {
+	log.Debugf("Verifying mastership for E2Node '%s'", channel.E2NodeID)
 	e2NodeEntity, err := r.store.Get(ctx, channel.E2NodeID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
@@ -308,32 +309,45 @@ func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E
 		return nil
 	}
 
-	e2NodeRelations, err := r.store.List(ctx, nil)
+	// List the objects in the topo store
+	objects, err := r.store.List(ctx, nil)
 	if err != nil {
 		log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
 		return err
 	}
 
-	relationIDs := make(map[string]bool)
-	for _, e2NodeRelation := range e2NodeRelations {
-		if e2NodeRelation.GetRelation().SrcEntityID == getE2TID() &&
-			e2NodeRelation.GetRelation().KindID == topoapi.CONTROLS {
-			relationIDs[string(e2NodeRelation.ID)] = true
+	// Filter the topo objects for relations
+	e2NodeRelations := make(map[string]topoapi.Object)
+	for _, object := range objects {
+		if relation, ok := object.Obj.(*topoapi.Object_Relation); ok &&
+			relation.Relation.SrcEntityID == getE2TID() &&
+			relation.Relation.KindID == topoapi.CONTROLS {
+			e2NodeRelations[string(object.ID)] = object
 		}
 	}
 
 	mastership := &topoapi.MastershipState{}
 	mastershipValue := e2NodeEntity.GetAspect(mastership)
-	if _, ok := relationIDs[mastership.NodeId]; (!ok || mastershipValue == nil) && len(e2NodeRelations) > 0 {
+	if _, ok := e2NodeRelations[mastership.NodeId]; (!ok || mastershipValue == nil) && len(e2NodeRelations) > 0 {
 		log.Debugf("Updating MastershipState for E2Node '%s'", channel.E2NodeID)
-		e2NodeRelation := e2NodeRelations[rand.Intn(len(e2NodeRelations))]
+
+		// Select a random master to assign to the E2 node
+		relations := make([]topoapi.Object, 0, len(e2NodeRelations))
+		for _, e2nodeRelation := range e2NodeRelations {
+			relations = append(relations, e2nodeRelation)
+		}
+		relation := relations[rand.Intn(len(relations))]
+
+		// Increment the mastership term and assign the selected master
 		mastership.Term++
-		mastership.NodeId = string(e2NodeRelation.GetRelation().SrcEntityID)
+		mastership.NodeId = string(relation.ID)
 		err = e2NodeEntity.SetAspect(mastership)
 		if err != nil {
 			log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
 			return err
 		}
+
+		// Update the E2 node entity
 		err = r.store.Update(ctx, e2NodeEntity)
 		if err != nil {
 			if !errors.IsNotFound(err) {
@@ -358,11 +372,12 @@ func (r *Reconciler) reconcileClosedChannel(channelID e2server.ChannelID) (contr
 }
 
 func (r *Reconciler) deleteE2Relation(ctx context.Context, channelID e2server.ChannelID) error {
-	log.Debugf("Deleting E2Node relation for Channel '%s'", channelID)
-	err := r.store.Delete(ctx, getE2RelationID(channelID))
+	relationID := getE2RelationID(channelID)
+	log.Debugf("Deleting E2Node relation '%s' for Channel '%s'", relationID, channelID)
+	err := r.store.Delete(ctx, relationID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
-			log.Warnf("Deleting E2Node relation for Channel '%s' failed: %v", channelID, err)
+			log.Warnf("Deleting E2Node relation '%s' for Channel '%s' failed: %v", relationID, channelID, err)
 			return err
 		}
 		return nil
@@ -377,9 +392,7 @@ func getE2TID() topoapi.ID {
 }
 
 func getE2RelationID(channelID e2server.ChannelID) topoapi.ID {
-	return topoapi.ID(uri.NewURI(
-		uri.WithScheme("e2"),
-		uri.WithOpaque(string(channelID))).String())
+	return topoapi.ID(channelID)
 }
 
 func getCellID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
