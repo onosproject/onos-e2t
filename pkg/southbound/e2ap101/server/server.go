@@ -6,7 +6,9 @@ package server
 
 import (
 	"context"
+	"encoding/hex"
 	"fmt"
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	"time"
 
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
@@ -142,24 +144,61 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	rawPlmnid := []byte{nodeIdentity.Plmn[0], nodeIdentity.Plmn[1], nodeIdentity.Plmn[2]}
 	plmnID := fmt.Sprintf("%x", uint24ToUint32(rawPlmnid))
 
-	e2NodeID := createE2NodeURI(nodeIdentity)
-
-	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
 	var e2Cells []*topoapi.E2Cell
-	e.e2Channel = NewE2Channel(e2NodeID, plmnID, nodeIdentity, e.serverChannel, e.streams, e.streamsv1beta1, e.modelRegistry, time.Now())
-	rfAccepted, rfRejected, err := e.e2Channel.processRANFunctions(ranFuncs, serviceModels, &e2Cells)
-	if err != nil {
-		log.Warn(err)
-		return nil, nil, err
+	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
+	ranFunctions := make(map[e2smtypes.OID]RANFunction)
+	rfAccepted := make(types.RanFunctionRevisions)
+	rfRejected := make(types.RanFunctionCauses)
+	plugins := e.modelRegistry.GetPlugins()
+	for ranFunctionID, ranFunc := range *ranFuncs {
+		for smOid, sm := range plugins {
+			oid := e2smtypes.OID(ranFunc.OID)
+			if smOid == oid {
+
+				serviceModels[string(oid)] = &topoapi.ServiceModelInfo{
+					OID: string(oid),
+				}
+
+				if setup, ok := sm.(modelregistry.E2Setup); ok {
+					onSetupRequest := &e2smtypes.OnSetupRequest{
+						ServiceModels:          serviceModels,
+						E2Cells:                &e2Cells,
+						RANFunctionDescription: ranFunc.Description,
+					}
+					err := setup.OnSetup(onSetupRequest)
+					if err != nil {
+						log.Warn(err)
+						log.Debugf("Length of RAN function Description Bytes is: %d", len(onSetupRequest.RANFunctionDescription))
+						log.Debugf("RAN Function Description Bytes in hex format: %v", hex.Dump(onSetupRequest.RANFunctionDescription))
+					}
+				}
+
+				ranFunctionDescriptionProto, err := sm.RanFuncDescriptionASN1toProto(ranFunc.Description)
+				if err != nil {
+					log.Warn(err)
+					log.Warnf("Following set of bytes of length %v were pushed to the decoder \n%v\n", len(ranFunc.Description), hex.Dump(ranFunc.Description))
+					continue
+				}
+
+				ranFunction := RANFunction{
+					OID:         oid,
+					ID:          ranFunctionID,
+					Description: ranFunctionDescriptionProto,
+				}
+
+				// TODO channel ID should be changed to e2node ID after admin API is removed
+				ranFunctions[oid] = ranFunction
+				if err != nil {
+					log.Warn(err)
+				} else {
+					rfAccepted[ranFunctionID] = ranFunc.Revision
+				}
+			}
+		}
 	}
 
-	e.manager.Open(e2NodeID, e.e2Channel)
-
-	err = e.updateRNIB(ctx, e2NodeID, serviceModels, e2Cells, topoapi.ID(e.e2Channel.ID))
-	if err != nil {
-		log.Warn(err)
-		return nil, nil, err
-	}
+	e.e2Channel = NewE2Channel(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverChannel, e.streams, e.streamsv1beta1, serviceModels, ranFunctions, time.Now())
+	defer e.manager.open(e.e2Channel)
 
 	// Create an E2 setup response
 	response, err := pdubuilder.NewE2SetupResponse(nodeIdentity.Plmn, ricID, rfAccepted, rfRejected)
