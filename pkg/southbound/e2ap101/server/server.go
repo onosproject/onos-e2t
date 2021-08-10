@@ -13,8 +13,6 @@ import (
 
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
-	"github.com/onosproject/onos-e2t/pkg/topo"
-
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
@@ -35,15 +33,13 @@ var ricID = types.RicIdentifier{
 func NewE2Server(channels ChannelManager,
 	streams subscription.Broker,
 	streamsv1beta1 subscriptionv1beta1.Broker,
-	modelRegistry modelregistry.ModelRegistry,
-	topoManager topo.Manager) *E2Server {
+	modelRegistry modelregistry.ModelRegistry) *E2Server {
 	return &E2Server{
 		server:         e2.NewServer(),
 		channels:       channels,
 		subs:           streams,
 		streamsv1beta1: streamsv1beta1,
 		modelRegistry:  modelRegistry,
-		topoManager:    topoManager,
 	}
 }
 
@@ -53,7 +49,6 @@ type E2Server struct {
 	subs           subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	modelRegistry  modelregistry.ModelRegistry
-	topoManager    topo.Manager
 }
 
 func (s *E2Server) Serve() error {
@@ -64,7 +59,6 @@ func (s *E2Server) Serve() error {
 			streams:        s.subs,
 			streamsv1beta1: s.streamsv1beta1,
 			modelRegistry:  s.modelRegistry,
-			topoManager:    s.topoManager,
 		}
 	})
 }
@@ -80,50 +74,6 @@ type E2ChannelServer struct {
 	serverChannel  e2.ServerChannel
 	e2Channel      *E2Channel
 	modelRegistry  modelregistry.ModelRegistry
-	topoManager    topo.Manager
-}
-
-func (e *E2ChannelServer) updateRNIB(ctx context.Context, e2NodeID topoapi.ID,
-	serviceModels map[string]*topoapi.ServiceModelInfo, e2Cells []*topoapi.E2Cell, relationID topoapi.ID) error {
-	log.Infof("Adding channel '%s' relation to R-NIB", relationID)
-	err := e.topoManager.CreateOrUpdateE2T(ctx)
-	if err != nil {
-		log.Warnf("Updating R-NIB is failed: %v", err)
-		return err
-	}
-
-	// create or update E2 node entities
-	err = e.topoManager.CreateOrUpdateE2Node(ctx, e2NodeID, serviceModels)
-	if err != nil {
-		log.Warnf("Updating R-NIB is failed: %v", err)
-		return err
-	}
-
-	// Add E2 cells if there are any associated cells with an E2 node
-	if len(e2Cells) != 0 {
-		err := e.topoManager.CreateOrUpdateE2Cells(ctx, e2NodeID, e2Cells)
-		if err != nil {
-			log.Warnf("Updating R-NIB is failed: %v", err)
-			return err
-		}
-	}
-
-	// create E2T to E2 node relation
-	err = e.topoManager.CreateOrUpdateE2Relation(ctx, e2NodeID, relationID)
-	if err != nil {
-		log.Warnf("Updating R-NIB is failed: %v", err)
-		return err
-	}
-
-	go func() {
-		<-e.e2Channel.Context().Done()
-		log.Infof("Removing channel '%s' relation from R-NIB", relationID)
-		err := e.topoManager.DeleteE2Relation(context.Background(), relationID)
-		if err != nil {
-			log.Warnf("Updating R-NIB is failed: %v", err)
-		}
-	}()
-	return nil
 }
 
 // uint24ToUint32 converts uint24 uint32
@@ -197,7 +147,7 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		}
 	}
 
-	e.e2Channel = NewE2Channel(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverChannel, e.streams, e.streamsv1beta1, serviceModels, ranFunctions, time.Now())
+	e.e2Channel = NewE2Channel(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverChannel, e.streams, e.streamsv1beta1, serviceModels, ranFunctions, e2Cells, time.Now())
 	defer e.manager.open(e.e2Channel)
 
 	// Create an E2 setup response

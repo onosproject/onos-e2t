@@ -5,8 +5,6 @@
 package manager
 
 import (
-	"context"
-
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
@@ -14,8 +12,6 @@ import (
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
-
-	"github.com/onosproject/onos-e2t/pkg/topo"
 
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -101,31 +97,25 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	topoManager := topo.NewManager(rnibStore)
-	err = topoManager.CreateOrUpdateE2T(context.Background())
-	if err != nil {
-		return err
-	}
-
 	streams := subscription.NewBroker()
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
-	channels := e2server.NewChannelManager(topoManager)
+	channels := e2server.NewChannelManager()
 
 	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1)
 	if err != nil {
 		return err
 	}
-	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, channels)
+	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, rnibStore, channels)
 	if err != nil {
 		return err
 	}
 
-	err = m.startSouthboundServer(channels, streams, streamsv1beta1, topoManager)
+	err = m.startSouthboundServer(channels, streams, streamsv1beta1)
 	if err != nil {
 		return err
 	}
 
-	err = m.startNorthboundServer(chanStore, subStore, streamsv1beta1, channels, topoManager)
+	err = m.startNorthboundServer(chanStore, subStore, streamsv1beta1, channels)
 	if err != nil {
 		return err
 	}
@@ -139,21 +129,21 @@ func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs subs
 }
 
 // startSubscriptionv1beta1Controller starts the subscription controllers
-func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, channels e2server.ChannelManager) error {
-	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, channels, m.ModelRegistry, m.OidRegistry)
+func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, topo rnib.Store, channels e2server.ChannelManager) error {
+	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, topo, channels, m.ModelRegistry, m.OidRegistry)
 	return tasksv1beta1.Start()
 }
 
 // startSouthboundServer starts the southbound server
 func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, streams subscription.Broker,
-	streamsv1beta1 subscriptionv1beta1.Broker, topoManager topo.Manager) error {
-	server := e2server.NewE2Server(channels, streams, streamsv1beta1, m.ModelRegistry, topoManager)
+	streamsv1beta1 subscriptionv1beta1.Broker) error {
+	server := e2server.NewE2Server(channels, streams, streamsv1beta1, m.ModelRegistry)
 	return server.Serve()
 }
 
 // startSouthboundServer starts the northbound gRPC server
 func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streamsv1beta1 subscriptionv1beta1.Broker,
-	channels e2server.ChannelManager, topoManager topo.Manager) error {
+	channels e2server.ChannelManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,
@@ -163,7 +153,7 @@ func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Sto
 		northbound.SecurityConfig{}))
 	s.AddService(admin.NewService(channels))
 	s.AddService(logging.Service{})
-	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry, channels, m.OidRegistry, topoManager))
+	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry, channels, m.OidRegistry))
 	s.AddService(e2v1beta1service.NewSubscriptionService(chans, subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry))
 
 	doneCh := make(chan error)

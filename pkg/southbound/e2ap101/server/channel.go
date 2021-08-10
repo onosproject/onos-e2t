@@ -26,7 +26,7 @@ import (
 
 func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIdentity, channel e2.ServerChannel,
 	streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
-	serviceModels map[string]*topoapi.ServiceModelInfo, ranFunctions map[e2smtypes.OID]RANFunction, now time.Time) *E2Channel {
+	serviceModels map[string]*topoapi.ServiceModelInfo, ranFunctions map[e2smtypes.OID]RANFunction, e2Cells []*topoapi.E2Cell, now time.Time) *E2Channel {
 
 	channelID := ChannelID(uri.NewURI(
 		uri.WithScheme("uuid"),
@@ -44,6 +44,7 @@ func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeId
 		streamsv1beta1: streamsv1beta1,
 		ServiceModels:  serviceModels,
 		RANFunctions:   ranFunctions,
+		E2Cells:        e2Cells,
 	}
 }
 
@@ -69,6 +70,7 @@ type E2Channel struct {
 	streamsv1beta1 subscriptionv1beta1.Broker
 	ServiceModels  map[string]*topoapi.ServiceModelInfo
 	RANFunctions   map[e2smtypes.OID]RANFunction
+	E2Cells        []*topoapi.E2Cell
 	mu             sync.RWMutex
 }
 

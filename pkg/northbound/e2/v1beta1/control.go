@@ -14,8 +14,6 @@ import (
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
-	"github.com/onosproject/onos-e2t/pkg/topo"
-
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
@@ -39,13 +37,11 @@ import (
 var log = logging.GetLogger("northbound", "e2", "v1beta1")
 
 // NewControlService creates a new control service
-func NewControlService(modelRegistry modelregistry.ModelRegistry, channels e2server.ChannelManager,
-	oidRegistry oid.Registry, topoManager topo.Manager) northbound.Service {
+func NewControlService(modelRegistry modelregistry.ModelRegistry, channels e2server.ChannelManager, oidRegistry oid.Registry) northbound.Service {
 	return &ControlService{
 		modelRegistry: modelRegistry,
 		channels:      channels,
 		oidRegistry:   oidRegistry,
-		topoManager:   topoManager,
 	}
 }
 
@@ -55,7 +51,6 @@ type ControlService struct {
 	modelRegistry modelregistry.ModelRegistry
 	channels      e2server.ChannelManager
 	oidRegistry   oid.Registry
-	topoManager   topo.Manager
 }
 
 // Register registers the Service with the gRPC server.
@@ -63,8 +58,7 @@ func (s ControlService) Register(r *grpc.Server) {
 	server := &ControlServer{
 		modelRegistry: s.modelRegistry,
 		channels:      s.channels,
-		oidRegistry:   s.oidRegistry,
-		topoManager:   s.topoManager}
+		oidRegistry:   s.oidRegistry}
 	e2api.RegisterControlServiceServer(r, server)
 }
 
@@ -73,7 +67,6 @@ type ControlServer struct {
 	modelRegistry modelregistry.ModelRegistry
 	channels      e2server.ChannelManager
 	oidRegistry   oid.Registry
-	topoManager   topo.Manager
 	requestID     int32
 	requestMu     sync.Mutex
 }
