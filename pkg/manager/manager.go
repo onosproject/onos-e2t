@@ -18,6 +18,7 @@ import (
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
+	topoctrlv1alpha1 "github.com/onosproject/onos-e2t/pkg/controller/topo/v1alpha1"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -101,6 +102,10 @@ func (m *Manager) Start() error {
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
 	channels := e2server.NewChannelManager()
 
+	err = m.startTopov1alpha1Controller(rnibStore, channels)
+	if err != nil {
+		return err
+	}
 	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1)
 	if err != nil {
 		return err
@@ -120,6 +125,12 @@ func (m *Manager) Start() error {
 		return err
 	}
 	return nil
+}
+
+// startTopov1alpha1Controller starts the topo controller
+func (m *Manager) startTopov1alpha1Controller(topo rnib.Store, channels e2server.ChannelManager) error {
+	subsv1beta1 := topoctrlv1alpha1.NewController(topo, channels)
+	return subsv1beta1.Start()
 }
 
 // startChannelv1beta1Controller starts the subscription controllers
