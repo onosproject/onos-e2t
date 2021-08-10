@@ -10,8 +10,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/onosproject/onos-lib-go/pkg/uri"
-
 	"github.com/google/uuid"
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -28,9 +26,7 @@ func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeId
 	streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
 	serviceModels map[string]*topoapi.ServiceModelInfo, ranFunctions map[e2smtypes.OID]RANFunction, e2Cells []*topoapi.E2Cell, now time.Time) *E2Channel {
 
-	channelID := ChannelID(uri.NewURI(
-		uri.WithScheme("uuid"),
-		uri.WithOpaque(uuid.New().String())).String())
+	channelID := ChannelID(uuid.New().String())
 
 	return &E2Channel{
 		ServerChannel:  channel,

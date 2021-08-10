@@ -9,7 +9,6 @@ import (
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
-	"github.com/onosproject/onos-lib-go/pkg/env"
 	"sync"
 
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -36,7 +35,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 	ctx, cancel := context.WithCancel(context.Background())
 	filters := &topoapi.Filters{
 		RelationFilter: &topoapi.RelationFilter{
-			SrcId:        env.GetPodID(),
+			SrcId:        string(getE2TID()),
 			RelationKind: topoapi.CONTROLS,
 			TargetKind:   topoapi.E2NODE,
 		},
