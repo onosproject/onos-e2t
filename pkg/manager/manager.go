@@ -18,7 +18,7 @@ import (
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
-	topoctrlv1alpha1 "github.com/onosproject/onos-e2t/pkg/controller/topo/v1alpha1"
+	topoctrl "github.com/onosproject/onos-e2t/pkg/controller/topo"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -129,7 +129,7 @@ func (m *Manager) Start() error {
 
 // startTopov1alpha1Controller starts the topo controller
 func (m *Manager) startTopov1alpha1Controller(topo rnib.Store, channels e2server.ChannelManager) error {
-	subsv1beta1 := topoctrlv1alpha1.NewController(topo, channels)
+	subsv1beta1 := topoctrl.NewController(topo, channels)
 	return subsv1beta1.Start()
 }
 

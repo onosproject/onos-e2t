@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package v1alpha1
+package topo
 
 import (
 	"context"
