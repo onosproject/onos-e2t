@@ -20,14 +20,12 @@ protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$g
 protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v1beta2/e2ap_pdu_contents.proto
 protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v1beta2/e2ap_pdu_descriptions.proto
 
-protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v2beta1/e2ap_commondatatypes.proto
-protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v2beta1/e2ap_constants.proto
-protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v2beta1/e2ap_containers.proto
-protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. --experimental_allow_proto3_optional api/e2ap/v2beta1/e2ap_ies.proto
-#protoc -I=$proto_imports --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. --experimental_allow_proto3_optional api/e2ap/v2beta1/e2ap_ies.proto
-protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v2beta1/e2ap_pdu_contents.proto
-#protoc -I=$proto_imports --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. --experimental_allow_proto3_optional api/e2ap/v2beta1/e2ap_pdu_contents.proto
-protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --gogo_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/api:. api/e2ap/v2beta1/e2ap_pdu_descriptions.proto
+protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api api/e2ap/v2beta1/e2ap_commondatatypes.proto
+protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api api/e2ap/v2beta1/e2ap_constants.proto
+protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api api/e2ap/v2beta1/e2ap_containers.proto
+protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api --experimental_allow_proto3_optional api/e2ap/v2beta1/e2ap_ies.proto
+protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api api/e2ap/v2beta1/e2ap_pdu_contents.proto
+protoc -I=$proto_imports --validate_out=lang=go:. --proto_path=api api/e2ap/v2beta1/e2ap_pdu_descriptions.proto
 
 protoc -I=$proto_imports --gogofaster_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/sim/e2,plugins=grpc:. sim/e2/*.proto
 
