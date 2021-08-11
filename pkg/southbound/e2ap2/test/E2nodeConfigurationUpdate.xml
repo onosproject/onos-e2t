@@ -1,0 +1,62 @@
+<E2AP-PDU>
+    <initiatingMessage>
+        <procedureCode>10</procedureCode>
+        <criticality><reject/></criticality>
+        <value>
+            <E2nodeConfigurationUpdate>
+                <protocolIEs>
+                    <E2nodeConfigurationUpdate-IEs>
+                        <id>33</id>
+                        <criticality><ignore/></criticality>
+                        <value>
+                            <E2nodeComponentConfigUpdate-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>34</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <E2nodeComponentConfigUpdate-Item>
+                                            <e2nodeComponentType><gNB/></e2nodeComponentType>
+                                            <e2nodeComponentID>
+                                                <e2nodeComponentTypeGNB-CU-UP>
+                                                    <gNB-CU-UP-ID>21</gNB-CU-UP-ID>
+                                                </e2nodeComponentTypeGNB-CU-UP>
+                                            </e2nodeComponentID>
+                                            <e2nodeComponentConfigUpdate>
+                                                <gNBconfigUpdate>
+                                                    <ngAPconfigUpdate>6E 67 41 70</ngAPconfigUpdate>
+                                                    <xnAPconfigUpdate>78 6E 41 70</xnAPconfigUpdate>
+                                                    <e1APconfigUpdate>65 31 41 70</e1APconfigUpdate>
+                                                    <f1APconfigUpdate>66 31 41 70</f1APconfigUpdate>
+                                                </gNBconfigUpdate>
+                                            </e2nodeComponentConfigUpdate>
+                                        </E2nodeComponentConfigUpdate-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>34</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <E2nodeComponentConfigUpdate-Item>
+                                            <e2nodeComponentType><eNB/></e2nodeComponentType>
+                                            <e2nodeComponentID>
+                                                <e2nodeComponentTypeGNB-DU>
+                                                    <gNB-DU-ID>13</gNB-DU-ID>
+                                                </e2nodeComponentTypeGNB-DU>
+                                            </e2nodeComponentID>
+                                            <e2nodeComponentConfigUpdate>
+                                                <eNBconfigUpdate>
+                                                    <s1APconfigUpdate>73 31</s1APconfigUpdate>
+                                                    <x2APconfigUpdate>78 32</x2APconfigUpdate>
+                                                </eNBconfigUpdate>
+                                            </e2nodeComponentConfigUpdate>
+                                        </E2nodeComponentConfigUpdate-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </E2nodeComponentConfigUpdate-List>
+                        </value>
+                    </E2nodeConfigurationUpdate-IEs>
+                </protocolIEs>
+            </E2nodeConfigurationUpdate>
+        </value>
+    </initiatingMessage>
+</E2AP-PDU>

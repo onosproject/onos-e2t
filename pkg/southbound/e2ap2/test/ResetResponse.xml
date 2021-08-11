@@ -1,0 +1,34 @@
+<E2AP-PDU>
+    <successfulOutcome>
+        <procedureCode>3</procedureCode>
+        <criticality><reject/></criticality>
+        <value>
+            <ResetResponse>
+                <protocolIEs>
+                    <ResetResponseIEs>
+                        <id>2</id>
+                        <criticality><ignore/></criticality>
+                        <value>
+                            <CriticalityDiagnostics>
+                                <procedureCode>8</procedureCode>
+                                <triggeringMessage><unsuccessfull-outcome/></triggeringMessage>
+                                <procedureCriticality><ignore/></procedureCriticality>
+                                <ricRequestorID>
+                                    <ricRequestorID>10</ricRequestorID>
+                                    <ricInstanceID>20</ricInstanceID>
+                                </ricRequestorID>
+                                <iEsCriticalityDiagnostics>
+                                    <CriticalityDiagnostics-IE-Item>
+                                        <iECriticality><ignore/></iECriticality>
+                                        <iE-ID>30</iE-ID>
+                                        <typeOfError><missing/></typeOfError>
+                                    </CriticalityDiagnostics-IE-Item>
+                                </iEsCriticalityDiagnostics>
+                            </CriticalityDiagnostics>
+                        </value>
+                    </ResetResponseIEs>
+                </protocolIEs>
+            </ResetResponse>
+        </value>
+    </successfulOutcome>
+</E2AP-PDU>

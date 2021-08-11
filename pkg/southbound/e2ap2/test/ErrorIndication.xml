@@ -1,0 +1,26 @@
+<E2AP-PDU>
+    <initiatingMessage>
+        <procedureCode>2</procedureCode>
+        <criticality>
+            <reject />
+        </criticality>
+        <value>
+            <ErrorIndication>
+                <protocolIEs>
+                    <ErrorIndication-IEs>
+                        <id>29</id>
+                        <criticality>
+                            <ignore />
+                        </criticality>
+                        <value>
+                            <RICrequestID>
+                                <ricRequestorID>543210</ricRequestorID>
+                                <ricInstanceID>6789</ricInstanceID>
+                            </RICrequestID>
+                        </value>
+                    </ErrorIndication-IEs>
+                </protocolIEs>
+            </ErrorIndication>
+        </value>
+    </initiatingMessage>
+</E2AP-PDU>
