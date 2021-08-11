@@ -15,7 +15,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 // ensure the imports are used
@@ -30,29 +30,64 @@ var (
 	_ = time.Duration(0)
 	_ = (*url.URL)(nil)
 	_ = (*mail.Address)(nil)
-	_ = ptypes.DynamicAny{}
+	_ = anypb.Any{}
 )
 
-// define the regex for a UUID once up-front
-var _e_2_ap_commondatatypes_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
 // Validate checks the field values on CriticalityReject with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *CriticalityReject) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CriticalityReject with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CriticalityRejectMultiError, or nil if none found.
+func (m *CriticalityReject) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CriticalityReject) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetCriticality() != 0 {
-		return CriticalityRejectValidationError{
+		err := CriticalityRejectValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return CriticalityRejectMultiError(errors)
+	}
 	return nil
 }
+
+// CriticalityRejectMultiError is an error wrapping multiple validation errors
+// returned by CriticalityReject.ValidateAll() if the designated constraints
+// aren't met.
+type CriticalityRejectMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CriticalityRejectMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CriticalityRejectMultiError) AllErrors() []error { return m }
 
 // CriticalityRejectValidationError is the validation error returned by
 // CriticalityReject.Validate if the designated constraints aren't met.
@@ -111,22 +146,60 @@ var _ interface {
 } = CriticalityRejectValidationError{}
 
 // Validate checks the field values on CriticalityIgnore with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *CriticalityIgnore) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CriticalityIgnore with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CriticalityIgnoreMultiError, or nil if none found.
+func (m *CriticalityIgnore) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CriticalityIgnore) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetCriticality() != 1 {
-		return CriticalityIgnoreValidationError{
+		err := CriticalityIgnoreValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return CriticalityIgnoreMultiError(errors)
+	}
 	return nil
 }
+
+// CriticalityIgnoreMultiError is an error wrapping multiple validation errors
+// returned by CriticalityIgnore.ValidateAll() if the designated constraints
+// aren't met.
+type CriticalityIgnoreMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CriticalityIgnoreMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CriticalityIgnoreMultiError) AllErrors() []error { return m }
 
 // CriticalityIgnoreValidationError is the validation error returned by
 // CriticalityIgnore.Validate if the designated constraints aren't met.
@@ -185,22 +258,60 @@ var _ interface {
 } = CriticalityIgnoreValidationError{}
 
 // Validate checks the field values on CriticalityNotify with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *CriticalityNotify) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CriticalityNotify with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CriticalityNotifyMultiError, or nil if none found.
+func (m *CriticalityNotify) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CriticalityNotify) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetCriticality() != 2 {
-		return CriticalityNotifyValidationError{
+		err := CriticalityNotifyValidationError{
 			field:  "Criticality",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return CriticalityNotifyMultiError(errors)
+	}
 	return nil
 }
+
+// CriticalityNotifyMultiError is an error wrapping multiple validation errors
+// returned by CriticalityNotify.ValidateAll() if the designated constraints
+// aren't met.
+type CriticalityNotifyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CriticalityNotifyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CriticalityNotifyMultiError) AllErrors() []error { return m }
 
 // CriticalityNotifyValidationError is the validation error returned by
 // CriticalityNotify.Validate if the designated constraints aren't met.
@@ -259,22 +370,60 @@ var _ interface {
 } = CriticalityNotifyValidationError{}
 
 // Validate checks the field values on PresenceOptional with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *PresenceOptional) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PresenceOptional with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PresenceOptionalMultiError, or nil if none found.
+func (m *PresenceOptional) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PresenceOptional) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetPresence() != 0 {
-		return PresenceOptionalValidationError{
+		err := PresenceOptionalValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return PresenceOptionalMultiError(errors)
+	}
 	return nil
 }
+
+// PresenceOptionalMultiError is an error wrapping multiple validation errors
+// returned by PresenceOptional.ValidateAll() if the designated constraints
+// aren't met.
+type PresenceOptionalMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PresenceOptionalMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PresenceOptionalMultiError) AllErrors() []error { return m }
 
 // PresenceOptionalValidationError is the validation error returned by
 // PresenceOptional.Validate if the designated constraints aren't met.
@@ -332,21 +481,59 @@ var _ interface {
 
 // Validate checks the field values on PresenceConditional with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *PresenceConditional) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PresenceConditional with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PresenceConditionalMultiError, or nil if none found.
+func (m *PresenceConditional) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PresenceConditional) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetPresence() != 1 {
-		return PresenceConditionalValidationError{
+		err := PresenceConditionalValidationError{
 			field:  "Presence",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return PresenceConditionalMultiError(errors)
+	}
 	return nil
 }
+
+// PresenceConditionalMultiError is an error wrapping multiple validation
+// errors returned by PresenceConditional.ValidateAll() if the designated
+// constraints aren't met.
+type PresenceConditionalMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PresenceConditionalMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PresenceConditionalMultiError) AllErrors() []error { return m }
 
 // PresenceConditionalValidationError is the validation error returned by
 // PresenceConditional.Validate if the designated constraints aren't met.
@@ -405,22 +592,60 @@ var _ interface {
 } = PresenceConditionalValidationError{}
 
 // Validate checks the field values on PresenceMandatory with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *PresenceMandatory) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PresenceMandatory with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PresenceMandatoryMultiError, or nil if none found.
+func (m *PresenceMandatory) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PresenceMandatory) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetPresence() != 2 {
-		return PresenceMandatoryValidationError{
+		err := PresenceMandatoryValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return PresenceMandatoryMultiError(errors)
+	}
 	return nil
 }
+
+// PresenceMandatoryMultiError is an error wrapping multiple validation errors
+// returned by PresenceMandatory.ValidateAll() if the designated constraints
+// aren't met.
+type PresenceMandatoryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PresenceMandatoryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PresenceMandatoryMultiError) AllErrors() []error { return m }
 
 // PresenceMandatoryValidationError is the validation error returned by
 // PresenceMandatory.Validate if the designated constraints aren't met.
@@ -479,22 +704,60 @@ var _ interface {
 } = PresenceMandatoryValidationError{}
 
 // Validate checks the field values on ProcedureCode with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *ProcedureCode) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProcedureCode with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ProcedureCodeMultiError, or
+// nil if none found.
+func (m *ProcedureCode) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProcedureCode) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if val := m.GetValue(); val < 0 || val > 255 {
-		return ProcedureCodeValidationError{
+		err := ProcedureCodeValidationError{
 			field:  "Value",
 			reason: "value must be inside range [0, 255]",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return ProcedureCodeMultiError(errors)
+	}
 	return nil
 }
+
+// ProcedureCodeMultiError is an error wrapping multiple validation errors
+// returned by ProcedureCode.ValidateAll() if the designated constraints
+// aren't met.
+type ProcedureCodeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProcedureCodeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProcedureCodeMultiError) AllErrors() []error { return m }
 
 // ProcedureCodeValidationError is the validation error returned by
 // ProcedureCode.Validate if the designated constraints aren't met.
@@ -551,22 +814,59 @@ var _ interface {
 } = ProcedureCodeValidationError{}
 
 // Validate checks the field values on ProtocolIeId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *ProtocolIeId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ProtocolIeId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ProtocolIeIdMultiError, or
+// nil if none found.
+func (m *ProtocolIeId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ProtocolIeId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if val := m.GetValue(); val < 0 || val > 65535 {
-		return ProtocolIeIdValidationError{
+		err := ProtocolIeIdValidationError{
 			field:  "Value",
 			reason: "value must be inside range [0, 65535]",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return ProtocolIeIdMultiError(errors)
+	}
 	return nil
 }
+
+// ProtocolIeIdMultiError is an error wrapping multiple validation errors
+// returned by ProtocolIeId.ValidateAll() if the designated constraints aren't met.
+type ProtocolIeIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProtocolIeIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProtocolIeIdMultiError) AllErrors() []error { return m }
 
 // ProtocolIeIdValidationError is the validation error returned by
 // ProtocolIeId.Validate if the designated constraints aren't met.
@@ -623,17 +923,51 @@ var _ interface {
 } = ProtocolIeIdValidationError{}
 
 // Validate checks the field values on RiccallProcessId with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccallProcessId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccallProcessId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccallProcessIdMultiError, or nil if none found.
+func (m *RiccallProcessId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccallProcessId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RiccallProcessIdMultiError(errors)
+	}
 	return nil
 }
+
+// RiccallProcessIdMultiError is an error wrapping multiple validation errors
+// returned by RiccallProcessId.ValidateAll() if the designated constraints
+// aren't met.
+type RiccallProcessIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccallProcessIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccallProcessIdMultiError) AllErrors() []error { return m }
 
 // RiccallProcessIdValidationError is the validation error returned by
 // RiccallProcessId.Validate if the designated constraints aren't met.
@@ -690,17 +1024,51 @@ var _ interface {
 } = RiccallProcessIdValidationError{}
 
 // Validate checks the field values on RiccontrolHeader with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolHeader) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolHeader with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolHeaderMultiError, or nil if none found.
+func (m *RiccontrolHeader) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolHeader) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RiccontrolHeaderMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolHeaderMultiError is an error wrapping multiple validation errors
+// returned by RiccontrolHeader.ValidateAll() if the designated constraints
+// aren't met.
+type RiccontrolHeaderMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolHeaderMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolHeaderMultiError) AllErrors() []error { return m }
 
 // RiccontrolHeaderValidationError is the validation error returned by
 // RiccontrolHeader.Validate if the designated constraints aren't met.
@@ -757,17 +1125,51 @@ var _ interface {
 } = RiccontrolHeaderValidationError{}
 
 // Validate checks the field values on RiccontrolMessage with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolMessage) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolMessage with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolMessageMultiError, or nil if none found.
+func (m *RiccontrolMessage) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolMessage) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RiccontrolMessageMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolMessageMultiError is an error wrapping multiple validation errors
+// returned by RiccontrolMessage.ValidateAll() if the designated constraints
+// aren't met.
+type RiccontrolMessageMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolMessageMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolMessageMultiError) AllErrors() []error { return m }
 
 // RiccontrolMessageValidationError is the validation error returned by
 // RiccontrolMessage.Validate if the designated constraints aren't met.
@@ -826,17 +1228,51 @@ var _ interface {
 } = RiccontrolMessageValidationError{}
 
 // Validate checks the field values on RiccontrolOutcome with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolOutcome with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolOutcomeMultiError, or nil if none found.
+func (m *RiccontrolOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolOutcome) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RiccontrolOutcomeMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolOutcomeMultiError is an error wrapping multiple validation errors
+// returned by RiccontrolOutcome.ValidateAll() if the designated constraints
+// aren't met.
+type RiccontrolOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolOutcomeMultiError) AllErrors() []error { return m }
 
 // RiccontrolOutcomeValidationError is the validation error returned by
 // RiccontrolOutcome.Validate if the designated constraints aren't met.
@@ -896,16 +1332,50 @@ var _ interface {
 
 // Validate checks the field values on RicindicationHeader with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicindicationHeader) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationHeader with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicindicationHeaderMultiError, or nil if none found.
+func (m *RicindicationHeader) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationHeader) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RicindicationHeaderMultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationHeaderMultiError is an error wrapping multiple validation
+// errors returned by RicindicationHeader.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationHeaderMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationHeaderMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationHeaderMultiError) AllErrors() []error { return m }
 
 // RicindicationHeaderValidationError is the validation error returned by
 // RicindicationHeader.Validate if the designated constraints aren't met.
@@ -965,16 +1435,50 @@ var _ interface {
 
 // Validate checks the field values on RicindicationMessage with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicindicationMessage) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationMessage with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicindicationMessageMultiError, or nil if none found.
+func (m *RicindicationMessage) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationMessage) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RicindicationMessageMultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationMessageMultiError is an error wrapping multiple validation
+// errors returned by RicindicationMessage.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationMessageMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationMessageMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationMessageMultiError) AllErrors() []error { return m }
 
 // RicindicationMessageValidationError is the validation error returned by
 // RicindicationMessage.Validate if the designated constraints aren't met.
@@ -1034,16 +1538,50 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionDefinition with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionDefinitionMultiError, or nil if none found.
+func (m *RanfunctionDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionDefinition) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RanfunctionDefinitionMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionDefinitionMultiError is an error wrapping multiple validation
+// errors returned by RanfunctionDefinition.ValidateAll() if the designated
+// constraints aren't met.
+type RanfunctionDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionDefinitionMultiError) AllErrors() []error { return m }
 
 // RanfunctionDefinitionValidationError is the validation error returned by
 // RanfunctionDefinition.Validate if the designated constraints aren't met.
@@ -1102,22 +1640,59 @@ var _ interface {
 } = RanfunctionDefinitionValidationError{}
 
 // Validate checks the field values on PlmnIdentity with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *PlmnIdentity) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PlmnIdentity with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PlmnIdentityMultiError, or
+// nil if none found.
+func (m *PlmnIdentity) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PlmnIdentity) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if len(m.GetValue()) != 3 {
-		return PlmnIdentityValidationError{
+		err := PlmnIdentityValidationError{
 			field:  "Value",
 			reason: "value length must be 3 bytes",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return PlmnIdentityMultiError(errors)
+	}
 	return nil
 }
+
+// PlmnIdentityMultiError is an error wrapping multiple validation errors
+// returned by PlmnIdentity.ValidateAll() if the designated constraints aren't met.
+type PlmnIdentityMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PlmnIdentityMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PlmnIdentityMultiError) AllErrors() []error { return m }
 
 // PlmnIdentityValidationError is the validation error returned by
 // PlmnIdentity.Validate if the designated constraints aren't met.
@@ -1175,16 +1750,50 @@ var _ interface {
 
 // Validate checks the field values on RiceventTriggerDefinition with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RiceventTriggerDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiceventTriggerDefinition with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiceventTriggerDefinitionMultiError, or nil if none found.
+func (m *RiceventTriggerDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiceventTriggerDefinition) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RiceventTriggerDefinitionMultiError(errors)
+	}
 	return nil
 }
+
+// RiceventTriggerDefinitionMultiError is an error wrapping multiple validation
+// errors returned by RiceventTriggerDefinition.ValidateAll() if the
+// designated constraints aren't met.
+type RiceventTriggerDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiceventTriggerDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiceventTriggerDefinitionMultiError) AllErrors() []error { return m }
 
 // RiceventTriggerDefinitionValidationError is the validation error returned by
 // RiceventTriggerDefinition.Validate if the designated constraints aren't met.
@@ -1244,16 +1853,50 @@ var _ interface {
 
 // Validate checks the field values on RicactionDefinition with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionDefinition) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionDefinition with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionDefinitionMultiError, or nil if none found.
+func (m *RicactionDefinition) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionDefinition) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
+	if len(errors) > 0 {
+		return RicactionDefinitionMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionDefinitionMultiError is an error wrapping multiple validation
+// errors returned by RicactionDefinition.ValidateAll() if the designated
+// constraints aren't met.
+type RicactionDefinitionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionDefinitionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionDefinitionMultiError) AllErrors() []error { return m }
 
 // RicactionDefinitionValidationError is the validation error returned by
 // RicactionDefinition.Validate if the designated constraints aren't met.
@@ -1312,23 +1955,61 @@ var _ interface {
 } = RicactionDefinitionValidationError{}
 
 // Validate checks the field values on BitString with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *BitString) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on BitString with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in BitStringMultiError, or nil
+// if none found.
+func (m *BitString) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *BitString) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for Value
 
 	if m.GetLen() > 64 {
-		return BitStringValidationError{
+		err := BitStringValidationError{
 			field:  "Len",
 			reason: "value must be less than or equal to 64",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return BitStringMultiError(errors)
+	}
 	return nil
 }
+
+// BitStringMultiError is an error wrapping multiple validation errors returned
+// by BitString.ValidateAll() if the designated constraints aren't met.
+type BitStringMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m BitStringMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m BitStringMultiError) AllErrors() []error { return m }
 
 // BitStringValidationError is the validation error returned by
 // BitString.Validate if the designated constraints aren't met.

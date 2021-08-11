@@ -15,7 +15,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 // ensure the imports are used
@@ -30,18 +30,29 @@ var (
 	_ = time.Duration(0)
 	_ = (*url.URL)(nil)
 	_ = (*mail.Address)(nil)
-	_ = ptypes.DynamicAny{}
+	_ = anypb.Any{}
 )
 
-// define the regex for a UUID once up-front
-var _e_2_ap_ies_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
 // Validate checks the field values on Cause with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *Cause) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Cause with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in CauseMultiError, or nil if none found.
+func (m *Cause) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Cause) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.Cause.(type) {
 
@@ -62,8 +73,27 @@ func (m *Cause) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return CauseMultiError(errors)
+	}
 	return nil
 }
+
+// CauseMultiError is an error wrapping multiple validation errors returned by
+// Cause.ValidateAll() if the designated constraints aren't met.
+type CauseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CauseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CauseMultiError) AllErrors() []error { return m }
 
 // CauseValidationError is the validation error returned by Cause.Validate if
 // the designated constraints aren't met.
@@ -121,13 +151,46 @@ var _ interface {
 
 // Validate checks the field values on CriticalityDiagnostics with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *CriticalityDiagnostics) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CriticalityDiagnostics with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CriticalityDiagnosticsMultiError, or nil if none found.
+func (m *CriticalityDiagnostics) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CriticalityDiagnostics) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CriticalityDiagnosticsValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CriticalityDiagnosticsValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CriticalityDiagnosticsValidationError{
 				field:  "ProcedureCode",
@@ -141,7 +204,26 @@ func (m *CriticalityDiagnostics) Validate() error {
 
 	// no validation rules for ProcedureCriticality
 
-	if v, ok := interface{}(m.GetRicRequestorId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicRequestorId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CriticalityDiagnosticsValidationError{
+					field:  "RicRequestorId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CriticalityDiagnosticsValidationError{
+					field:  "RicRequestorId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicRequestorId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CriticalityDiagnosticsValidationError{
 				field:  "RicRequestorId",
@@ -151,7 +233,26 @@ func (m *CriticalityDiagnostics) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetIEsCriticalityDiagnostics()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetIEsCriticalityDiagnostics()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CriticalityDiagnosticsValidationError{
+					field:  "IEsCriticalityDiagnostics",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CriticalityDiagnosticsValidationError{
+					field:  "IEsCriticalityDiagnostics",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetIEsCriticalityDiagnostics()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CriticalityDiagnosticsValidationError{
 				field:  "IEsCriticalityDiagnostics",
@@ -161,8 +262,28 @@ func (m *CriticalityDiagnostics) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return CriticalityDiagnosticsMultiError(errors)
+	}
 	return nil
 }
+
+// CriticalityDiagnosticsMultiError is an error wrapping multiple validation
+// errors returned by CriticalityDiagnostics.ValidateAll() if the designated
+// constraints aren't met.
+type CriticalityDiagnosticsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CriticalityDiagnosticsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CriticalityDiagnosticsMultiError) AllErrors() []error { return m }
 
 // CriticalityDiagnosticsValidationError is the validation error returned by
 // CriticalityDiagnostics.Validate if the designated constraints aren't met.
@@ -222,16 +343,49 @@ var _ interface {
 
 // Validate checks the field values on CriticalityDiagnosticsIeList with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *CriticalityDiagnosticsIeList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CriticalityDiagnosticsIeList with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CriticalityDiagnosticsIeListMultiError, or nil if none found.
+func (m *CriticalityDiagnosticsIeList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CriticalityDiagnosticsIeList) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CriticalityDiagnosticsIeListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CriticalityDiagnosticsIeListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return CriticalityDiagnosticsIeListValidationError{
 					field:  fmt.Sprintf("Value[%v]", idx),
@@ -243,8 +397,28 @@ func (m *CriticalityDiagnosticsIeList) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return CriticalityDiagnosticsIeListMultiError(errors)
+	}
 	return nil
 }
+
+// CriticalityDiagnosticsIeListMultiError is an error wrapping multiple
+// validation errors returned by CriticalityDiagnosticsIeList.ValidateAll() if
+// the designated constraints aren't met.
+type CriticalityDiagnosticsIeListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CriticalityDiagnosticsIeListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CriticalityDiagnosticsIeListMultiError) AllErrors() []error { return m }
 
 // CriticalityDiagnosticsIeListValidationError is the validation error returned
 // by CriticalityDiagnosticsIeList.Validate if the designated constraints
@@ -305,15 +479,48 @@ var _ interface {
 
 // Validate checks the field values on CriticalityDiagnosticsIeItem with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *CriticalityDiagnosticsIeItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CriticalityDiagnosticsIeItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CriticalityDiagnosticsIeItemMultiError, or nil if none found.
+func (m *CriticalityDiagnosticsIeItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CriticalityDiagnosticsIeItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for IEcriticality
 
-	if v, ok := interface{}(m.GetIEId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetIEId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CriticalityDiagnosticsIeItemValidationError{
+					field:  "IEId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CriticalityDiagnosticsIeItemValidationError{
+					field:  "IEId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetIEId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return CriticalityDiagnosticsIeItemValidationError{
 				field:  "IEId",
@@ -325,8 +532,28 @@ func (m *CriticalityDiagnosticsIeItem) Validate() error {
 
 	// no validation rules for TypeOfError
 
+	if len(errors) > 0 {
+		return CriticalityDiagnosticsIeItemMultiError(errors)
+	}
 	return nil
 }
+
+// CriticalityDiagnosticsIeItemMultiError is an error wrapping multiple
+// validation errors returned by CriticalityDiagnosticsIeItem.ValidateAll() if
+// the designated constraints aren't met.
+type CriticalityDiagnosticsIeItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CriticalityDiagnosticsIeItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CriticalityDiagnosticsIeItemMultiError) AllErrors() []error { return m }
 
 // CriticalityDiagnosticsIeItemValidationError is the validation error returned
 // by CriticalityDiagnosticsIeItem.Validate if the designated constraints
@@ -387,17 +614,50 @@ var _ interface {
 
 // Validate checks the field values on E2NodeComponentConfigUpdate with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2NodeComponentConfigUpdate) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentConfigUpdate with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2NodeComponentConfigUpdateMultiError, or nil if none found.
+func (m *E2NodeComponentConfigUpdate) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentConfigUpdate) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.E2NodeComponentConfigUpdate.(type) {
 
 	case *E2NodeComponentConfigUpdate_GNbconfigUpdate:
 
-		if v, ok := interface{}(m.GetGNbconfigUpdate()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetGNbconfigUpdate()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2NodeComponentConfigUpdateValidationError{
+						field:  "GNbconfigUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2NodeComponentConfigUpdateValidationError{
+						field:  "GNbconfigUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGNbconfigUpdate()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2NodeComponentConfigUpdateValidationError{
 					field:  "GNbconfigUpdate",
@@ -409,7 +669,26 @@ func (m *E2NodeComponentConfigUpdate) Validate() error {
 
 	case *E2NodeComponentConfigUpdate_EnGNbconfigUpdate:
 
-		if v, ok := interface{}(m.GetEnGNbconfigUpdate()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetEnGNbconfigUpdate()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2NodeComponentConfigUpdateValidationError{
+						field:  "EnGNbconfigUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2NodeComponentConfigUpdateValidationError{
+						field:  "EnGNbconfigUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEnGNbconfigUpdate()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2NodeComponentConfigUpdateValidationError{
 					field:  "EnGNbconfigUpdate",
@@ -421,7 +700,26 @@ func (m *E2NodeComponentConfigUpdate) Validate() error {
 
 	case *E2NodeComponentConfigUpdate_NgENbconfigUpdate:
 
-		if v, ok := interface{}(m.GetNgENbconfigUpdate()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetNgENbconfigUpdate()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2NodeComponentConfigUpdateValidationError{
+						field:  "NgENbconfigUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2NodeComponentConfigUpdateValidationError{
+						field:  "NgENbconfigUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetNgENbconfigUpdate()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2NodeComponentConfigUpdateValidationError{
 					field:  "NgENbconfigUpdate",
@@ -433,7 +731,26 @@ func (m *E2NodeComponentConfigUpdate) Validate() error {
 
 	case *E2NodeComponentConfigUpdate_ENbconfigUpdate:
 
-		if v, ok := interface{}(m.GetENbconfigUpdate()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetENbconfigUpdate()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2NodeComponentConfigUpdateValidationError{
+						field:  "ENbconfigUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2NodeComponentConfigUpdateValidationError{
+						field:  "ENbconfigUpdate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetENbconfigUpdate()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2NodeComponentConfigUpdateValidationError{
 					field:  "ENbconfigUpdate",
@@ -445,8 +762,28 @@ func (m *E2NodeComponentConfigUpdate) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return E2NodeComponentConfigUpdateMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentConfigUpdateMultiError is an error wrapping multiple
+// validation errors returned by E2NodeComponentConfigUpdate.ValidateAll() if
+// the designated constraints aren't met.
+type E2NodeComponentConfigUpdateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentConfigUpdateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentConfigUpdateMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentConfigUpdateValidationError is the validation error returned
 // by E2NodeComponentConfigUpdate.Validate if the designated constraints
@@ -507,11 +844,25 @@ var _ interface {
 
 // Validate checks the field values on E2NodeComponentConfigUpdateGnb with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2NodeComponentConfigUpdateGnb) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentConfigUpdateGnb with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// E2NodeComponentConfigUpdateGnbMultiError, or nil if none found.
+func (m *E2NodeComponentConfigUpdateGnb) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentConfigUpdateGnb) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for NgApconfigUpdate
 
@@ -521,8 +872,28 @@ func (m *E2NodeComponentConfigUpdateGnb) Validate() error {
 
 	// no validation rules for F1ApconfigUpdate
 
+	if len(errors) > 0 {
+		return E2NodeComponentConfigUpdateGnbMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentConfigUpdateGnbMultiError is an error wrapping multiple
+// validation errors returned by E2NodeComponentConfigUpdateGnb.ValidateAll()
+// if the designated constraints aren't met.
+type E2NodeComponentConfigUpdateGnbMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentConfigUpdateGnbMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentConfigUpdateGnbMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentConfigUpdateGnbValidationError is the validation error
 // returned by E2NodeComponentConfigUpdateGnb.Validate if the designated
@@ -583,16 +954,52 @@ var _ interface {
 
 // Validate checks the field values on E2NodeComponentConfigUpdateEngNb with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *E2NodeComponentConfigUpdateEngNb) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentConfigUpdateEngNb with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// E2NodeComponentConfigUpdateEngNbMultiError, or nil if none found.
+func (m *E2NodeComponentConfigUpdateEngNb) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentConfigUpdateEngNb) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for X2ApconfigUpdate
 
+	if len(errors) > 0 {
+		return E2NodeComponentConfigUpdateEngNbMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentConfigUpdateEngNbMultiError is an error wrapping multiple
+// validation errors returned by
+// E2NodeComponentConfigUpdateEngNb.ValidateAll() if the designated
+// constraints aren't met.
+type E2NodeComponentConfigUpdateEngNbMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentConfigUpdateEngNbMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentConfigUpdateEngNbMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentConfigUpdateEngNbValidationError is the validation error
 // returned by E2NodeComponentConfigUpdateEngNb.Validate if the designated
@@ -653,18 +1060,54 @@ var _ interface {
 
 // Validate checks the field values on E2NodeComponentConfigUpdateNgeNb with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *E2NodeComponentConfigUpdateNgeNb) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentConfigUpdateNgeNb with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// E2NodeComponentConfigUpdateNgeNbMultiError, or nil if none found.
+func (m *E2NodeComponentConfigUpdateNgeNb) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentConfigUpdateNgeNb) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for NgApconfigUpdate
 
 	// no validation rules for XnApconfigUpdate
 
+	if len(errors) > 0 {
+		return E2NodeComponentConfigUpdateNgeNbMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentConfigUpdateNgeNbMultiError is an error wrapping multiple
+// validation errors returned by
+// E2NodeComponentConfigUpdateNgeNb.ValidateAll() if the designated
+// constraints aren't met.
+type E2NodeComponentConfigUpdateNgeNbMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentConfigUpdateNgeNbMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentConfigUpdateNgeNbMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentConfigUpdateNgeNbValidationError is the validation error
 // returned by E2NodeComponentConfigUpdateNgeNb.Validate if the designated
@@ -725,18 +1168,52 @@ var _ interface {
 
 // Validate checks the field values on E2NodeComponentConfigUpdateEnb with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2NodeComponentConfigUpdateEnb) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentConfigUpdateEnb with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// E2NodeComponentConfigUpdateEnbMultiError, or nil if none found.
+func (m *E2NodeComponentConfigUpdateEnb) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentConfigUpdateEnb) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for S1ApconfigUpdate
 
 	// no validation rules for X2ApconfigUpdate
 
+	if len(errors) > 0 {
+		return E2NodeComponentConfigUpdateEnbMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentConfigUpdateEnbMultiError is an error wrapping multiple
+// validation errors returned by E2NodeComponentConfigUpdateEnb.ValidateAll()
+// if the designated constraints aren't met.
+type E2NodeComponentConfigUpdateEnbMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentConfigUpdateEnbMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentConfigUpdateEnbMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentConfigUpdateEnbValidationError is the validation error
 // returned by E2NodeComponentConfigUpdateEnb.Validate if the designated
@@ -797,15 +1274,48 @@ var _ interface {
 
 // Validate checks the field values on E2NodeComponentConfigUpdateAck with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2NodeComponentConfigUpdateAck) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentConfigUpdateAck with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// E2NodeComponentConfigUpdateAckMultiError, or nil if none found.
+func (m *E2NodeComponentConfigUpdateAck) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentConfigUpdateAck) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	// no validation rules for UpdateOutcome
 
-	if v, ok := interface{}(m.GetFailureCause()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetFailureCause()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2NodeComponentConfigUpdateAckValidationError{
+					field:  "FailureCause",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2NodeComponentConfigUpdateAckValidationError{
+					field:  "FailureCause",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetFailureCause()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2NodeComponentConfigUpdateAckValidationError{
 				field:  "FailureCause",
@@ -815,8 +1325,28 @@ func (m *E2NodeComponentConfigUpdateAck) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2NodeComponentConfigUpdateAckMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentConfigUpdateAckMultiError is an error wrapping multiple
+// validation errors returned by E2NodeComponentConfigUpdateAck.ValidateAll()
+// if the designated constraints aren't met.
+type E2NodeComponentConfigUpdateAckMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentConfigUpdateAckMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentConfigUpdateAckMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentConfigUpdateAckValidationError is the validation error
 // returned by E2NodeComponentConfigUpdateAck.Validate if the designated
@@ -876,18 +1406,51 @@ var _ interface {
 } = E2NodeComponentConfigUpdateAckValidationError{}
 
 // Validate checks the field values on E2NodeComponentId with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *E2NodeComponentId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2NodeComponentIdMultiError, or nil if none found.
+func (m *E2NodeComponentId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.E2NodeComponentId.(type) {
 
 	case *E2NodeComponentId_E2NodeComponentTypeGnbCuUp:
 
-		if v, ok := interface{}(m.GetE2NodeComponentTypeGnbCuUp()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetE2NodeComponentTypeGnbCuUp()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2NodeComponentIdValidationError{
+						field:  "E2NodeComponentTypeGnbCuUp",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2NodeComponentIdValidationError{
+						field:  "E2NodeComponentTypeGnbCuUp",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetE2NodeComponentTypeGnbCuUp()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2NodeComponentIdValidationError{
 					field:  "E2NodeComponentTypeGnbCuUp",
@@ -899,7 +1462,26 @@ func (m *E2NodeComponentId) Validate() error {
 
 	case *E2NodeComponentId_E2NodeComponentTypeGnbDu:
 
-		if v, ok := interface{}(m.GetE2NodeComponentTypeGnbDu()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetE2NodeComponentTypeGnbDu()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2NodeComponentIdValidationError{
+						field:  "E2NodeComponentTypeGnbDu",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2NodeComponentIdValidationError{
+						field:  "E2NodeComponentTypeGnbDu",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetE2NodeComponentTypeGnbDu()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2NodeComponentIdValidationError{
 					field:  "E2NodeComponentTypeGnbDu",
@@ -911,8 +1493,28 @@ func (m *E2NodeComponentId) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return E2NodeComponentIdMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentIdMultiError is an error wrapping multiple validation errors
+// returned by E2NodeComponentId.ValidateAll() if the designated constraints
+// aren't met.
+type E2NodeComponentIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentIdMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentIdValidationError is the validation error returned by
 // E2NodeComponentId.Validate if the designated constraints aren't met.
@@ -972,13 +1574,46 @@ var _ interface {
 
 // Validate checks the field values on E2NodeComponentGnbCuUpId with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2NodeComponentGnbCuUpId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentGnbCuUpId with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2NodeComponentGnbCuUpIdMultiError, or nil if none found.
+func (m *E2NodeComponentGnbCuUpId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentGnbCuUpId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetGNbCuUpId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetGNbCuUpId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2NodeComponentGnbCuUpIdValidationError{
+					field:  "GNbCuUpId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2NodeComponentGnbCuUpIdValidationError{
+					field:  "GNbCuUpId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGNbCuUpId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2NodeComponentGnbCuUpIdValidationError{
 				field:  "GNbCuUpId",
@@ -988,8 +1623,28 @@ func (m *E2NodeComponentGnbCuUpId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2NodeComponentGnbCuUpIdMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentGnbCuUpIdMultiError is an error wrapping multiple validation
+// errors returned by E2NodeComponentGnbCuUpId.ValidateAll() if the designated
+// constraints aren't met.
+type E2NodeComponentGnbCuUpIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentGnbCuUpIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentGnbCuUpIdMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentGnbCuUpIdValidationError is the validation error returned by
 // E2NodeComponentGnbCuUpId.Validate if the designated constraints aren't met.
@@ -1049,13 +1704,46 @@ var _ interface {
 
 // Validate checks the field values on E2NodeComponentGnbDuId with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2NodeComponentGnbDuId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeComponentGnbDuId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2NodeComponentGnbDuIdMultiError, or nil if none found.
+func (m *E2NodeComponentGnbDuId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeComponentGnbDuId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetGNbDuId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetGNbDuId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2NodeComponentGnbDuIdValidationError{
+					field:  "GNbDuId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2NodeComponentGnbDuIdValidationError{
+					field:  "GNbDuId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGNbDuId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2NodeComponentGnbDuIdValidationError{
 				field:  "GNbDuId",
@@ -1065,8 +1753,28 @@ func (m *E2NodeComponentGnbDuId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2NodeComponentGnbDuIdMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeComponentGnbDuIdMultiError is an error wrapping multiple validation
+// errors returned by E2NodeComponentGnbDuId.ValidateAll() if the designated
+// constraints aren't met.
+type E2NodeComponentGnbDuIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeComponentGnbDuIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeComponentGnbDuIdMultiError) AllErrors() []error { return m }
 
 // E2NodeComponentGnbDuIdValidationError is the validation error returned by
 // E2NodeComponentGnbDuId.Validate if the designated constraints aren't met.
@@ -1125,17 +1833,50 @@ var _ interface {
 } = E2NodeComponentGnbDuIdValidationError{}
 
 // Validate checks the field values on EnbId with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *EnbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EnbId with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in EnbIdMultiError, or nil if none found.
+func (m *EnbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EnbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.EnbId.(type) {
 
 	case *EnbId_MacroENbId:
 
-		if v, ok := interface{}(m.GetMacroENbId()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetMacroENbId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EnbIdValidationError{
+						field:  "MacroENbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EnbIdValidationError{
+						field:  "MacroENbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMacroENbId()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return EnbIdValidationError{
 					field:  "MacroENbId",
@@ -1147,7 +1888,26 @@ func (m *EnbId) Validate() error {
 
 	case *EnbId_HomeENbId:
 
-		if v, ok := interface{}(m.GetHomeENbId()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetHomeENbId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EnbIdValidationError{
+						field:  "HomeENbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EnbIdValidationError{
+						field:  "HomeENbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetHomeENbId()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return EnbIdValidationError{
 					field:  "HomeENbId",
@@ -1159,7 +1919,26 @@ func (m *EnbId) Validate() error {
 
 	case *EnbId_ShortMacroENbId:
 
-		if v, ok := interface{}(m.GetShortMacroENbId()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetShortMacroENbId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EnbIdValidationError{
+						field:  "ShortMacroENbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EnbIdValidationError{
+						field:  "ShortMacroENbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetShortMacroENbId()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return EnbIdValidationError{
 					field:  "ShortMacroENbId",
@@ -1171,7 +1950,26 @@ func (m *EnbId) Validate() error {
 
 	case *EnbId_LongMacroENbId:
 
-		if v, ok := interface{}(m.GetLongMacroENbId()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetLongMacroENbId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EnbIdValidationError{
+						field:  "LongMacroENbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EnbIdValidationError{
+						field:  "LongMacroENbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetLongMacroENbId()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return EnbIdValidationError{
 					field:  "LongMacroENbId",
@@ -1183,8 +1981,27 @@ func (m *EnbId) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return EnbIdMultiError(errors)
+	}
 	return nil
 }
+
+// EnbIdMultiError is an error wrapping multiple validation errors returned by
+// EnbId.ValidateAll() if the designated constraints aren't met.
+type EnbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EnbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EnbIdMultiError) AllErrors() []error { return m }
 
 // EnbIdValidationError is the validation error returned by EnbId.Validate if
 // the designated constraints aren't met.
@@ -1241,18 +2058,51 @@ var _ interface {
 } = EnbIdValidationError{}
 
 // Validate checks the field values on EnbIdChoice with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *EnbIdChoice) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EnbIdChoice with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in EnbIdChoiceMultiError, or
+// nil if none found.
+func (m *EnbIdChoice) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EnbIdChoice) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.EnbIdChoice.(type) {
 
 	case *EnbIdChoice_EnbIdMacro:
 
-		if v, ok := interface{}(m.GetEnbIdMacro()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetEnbIdMacro()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EnbIdChoiceValidationError{
+						field:  "EnbIdMacro",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EnbIdChoiceValidationError{
+						field:  "EnbIdMacro",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEnbIdMacro()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return EnbIdChoiceValidationError{
 					field:  "EnbIdMacro",
@@ -1264,7 +2114,26 @@ func (m *EnbIdChoice) Validate() error {
 
 	case *EnbIdChoice_EnbIdShortmacro:
 
-		if v, ok := interface{}(m.GetEnbIdShortmacro()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetEnbIdShortmacro()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EnbIdChoiceValidationError{
+						field:  "EnbIdShortmacro",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EnbIdChoiceValidationError{
+						field:  "EnbIdShortmacro",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEnbIdShortmacro()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return EnbIdChoiceValidationError{
 					field:  "EnbIdShortmacro",
@@ -1276,7 +2145,26 @@ func (m *EnbIdChoice) Validate() error {
 
 	case *EnbIdChoice_EnbIdLongmacro:
 
-		if v, ok := interface{}(m.GetEnbIdLongmacro()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetEnbIdLongmacro()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EnbIdChoiceValidationError{
+						field:  "EnbIdLongmacro",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EnbIdChoiceValidationError{
+						field:  "EnbIdLongmacro",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEnbIdLongmacro()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return EnbIdChoiceValidationError{
 					field:  "EnbIdLongmacro",
@@ -1288,8 +2176,27 @@ func (m *EnbIdChoice) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return EnbIdChoiceMultiError(errors)
+	}
 	return nil
 }
+
+// EnbIdChoiceMultiError is an error wrapping multiple validation errors
+// returned by EnbIdChoice.ValidateAll() if the designated constraints aren't met.
+type EnbIdChoiceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EnbIdChoiceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EnbIdChoiceMultiError) AllErrors() []error { return m }
 
 // EnbIdChoiceValidationError is the validation error returned by
 // EnbIdChoice.Validate if the designated constraints aren't met.
@@ -1346,17 +2253,50 @@ var _ interface {
 } = EnbIdChoiceValidationError{}
 
 // Validate checks the field values on EngnbId with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *EngnbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EngnbId with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in EngnbIdMultiError, or nil if none found.
+func (m *EngnbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EngnbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.EngnbId.(type) {
 
 	case *EngnbId_GNbId:
 
-		if v, ok := interface{}(m.GetGNbId()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetGNbId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EngnbIdValidationError{
+						field:  "GNbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EngnbIdValidationError{
+						field:  "GNbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGNbId()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return EngnbIdValidationError{
 					field:  "GNbId",
@@ -1368,8 +2308,27 @@ func (m *EngnbId) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return EngnbIdMultiError(errors)
+	}
 	return nil
 }
+
+// EngnbIdMultiError is an error wrapping multiple validation errors returned
+// by EngnbId.ValidateAll() if the designated constraints aren't met.
+type EngnbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EngnbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EngnbIdMultiError) AllErrors() []error { return m }
 
 // EngnbIdValidationError is the validation error returned by EngnbId.Validate
 // if the designated constraints aren't met.
@@ -1426,18 +2385,51 @@ var _ interface {
 } = EngnbIdValidationError{}
 
 // Validate checks the field values on GlobalE2NodeId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GlobalE2NodeId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalE2NodeId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GlobalE2NodeIdMultiError,
+// or nil if none found.
+func (m *GlobalE2NodeId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalE2NodeId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.GlobalE2NodeId.(type) {
 
 	case *GlobalE2NodeId_GNb:
 
-		if v, ok := interface{}(m.GetGNb()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetGNb()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GlobalE2NodeIdValidationError{
+						field:  "GNb",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GlobalE2NodeIdValidationError{
+						field:  "GNb",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGNb()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return GlobalE2NodeIdValidationError{
 					field:  "GNb",
@@ -1449,7 +2441,26 @@ func (m *GlobalE2NodeId) Validate() error {
 
 	case *GlobalE2NodeId_EnGNb:
 
-		if v, ok := interface{}(m.GetEnGNb()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetEnGNb()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GlobalE2NodeIdValidationError{
+						field:  "EnGNb",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GlobalE2NodeIdValidationError{
+						field:  "EnGNb",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEnGNb()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return GlobalE2NodeIdValidationError{
 					field:  "EnGNb",
@@ -1461,7 +2472,26 @@ func (m *GlobalE2NodeId) Validate() error {
 
 	case *GlobalE2NodeId_NgENb:
 
-		if v, ok := interface{}(m.GetNgENb()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetNgENb()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GlobalE2NodeIdValidationError{
+						field:  "NgENb",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GlobalE2NodeIdValidationError{
+						field:  "NgENb",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetNgENb()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return GlobalE2NodeIdValidationError{
 					field:  "NgENb",
@@ -1473,7 +2503,26 @@ func (m *GlobalE2NodeId) Validate() error {
 
 	case *GlobalE2NodeId_ENb:
 
-		if v, ok := interface{}(m.GetENb()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetENb()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GlobalE2NodeIdValidationError{
+						field:  "ENb",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GlobalE2NodeIdValidationError{
+						field:  "ENb",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetENb()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return GlobalE2NodeIdValidationError{
 					field:  "ENb",
@@ -1485,8 +2534,28 @@ func (m *GlobalE2NodeId) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return GlobalE2NodeIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalE2NodeIdMultiError is an error wrapping multiple validation errors
+// returned by GlobalE2NodeId.ValidateAll() if the designated constraints
+// aren't met.
+type GlobalE2NodeIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalE2NodeIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalE2NodeIdMultiError) AllErrors() []error { return m }
 
 // GlobalE2NodeIdValidationError is the validation error returned by
 // GlobalE2NodeId.Validate if the designated constraints aren't met.
@@ -1544,13 +2613,46 @@ var _ interface {
 
 // Validate checks the field values on GlobalE2NodeEnGnbId with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *GlobalE2NodeEnGnbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalE2NodeEnGnbId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GlobalE2NodeEnGnbIdMultiError, or nil if none found.
+func (m *GlobalE2NodeEnGnbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalE2NodeEnGnbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetGlobalGNbId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetGlobalGNbId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalE2NodeEnGnbIdValidationError{
+					field:  "GlobalGNbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalE2NodeEnGnbIdValidationError{
+					field:  "GlobalGNbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGlobalGNbId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalE2NodeEnGnbIdValidationError{
 				field:  "GlobalGNbId",
@@ -1560,8 +2662,28 @@ func (m *GlobalE2NodeEnGnbId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalE2NodeEnGnbIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalE2NodeEnGnbIdMultiError is an error wrapping multiple validation
+// errors returned by GlobalE2NodeEnGnbId.ValidateAll() if the designated
+// constraints aren't met.
+type GlobalE2NodeEnGnbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalE2NodeEnGnbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalE2NodeEnGnbIdMultiError) AllErrors() []error { return m }
 
 // GlobalE2NodeEnGnbIdValidationError is the validation error returned by
 // GlobalE2NodeEnGnbId.Validate if the designated constraints aren't met.
@@ -1620,14 +2742,47 @@ var _ interface {
 } = GlobalE2NodeEnGnbIdValidationError{}
 
 // Validate checks the field values on GlobalE2NodeEnbId with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *GlobalE2NodeEnbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalE2NodeEnbId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GlobalE2NodeEnbIdMultiError, or nil if none found.
+func (m *GlobalE2NodeEnbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalE2NodeEnbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetGlobalENbId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetGlobalENbId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalE2NodeEnbIdValidationError{
+					field:  "GlobalENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalE2NodeEnbIdValidationError{
+					field:  "GlobalENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGlobalENbId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalE2NodeEnbIdValidationError{
 				field:  "GlobalENbId",
@@ -1637,8 +2792,28 @@ func (m *GlobalE2NodeEnbId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalE2NodeEnbIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalE2NodeEnbIdMultiError is an error wrapping multiple validation errors
+// returned by GlobalE2NodeEnbId.ValidateAll() if the designated constraints
+// aren't met.
+type GlobalE2NodeEnbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalE2NodeEnbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalE2NodeEnbIdMultiError) AllErrors() []error { return m }
 
 // GlobalE2NodeEnbIdValidationError is the validation error returned by
 // GlobalE2NodeEnbId.Validate if the designated constraints aren't met.
@@ -1697,14 +2872,47 @@ var _ interface {
 } = GlobalE2NodeEnbIdValidationError{}
 
 // Validate checks the field values on GlobalE2NodeGnbId with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *GlobalE2NodeGnbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalE2NodeGnbId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GlobalE2NodeGnbIdMultiError, or nil if none found.
+func (m *GlobalE2NodeGnbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalE2NodeGnbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetGlobalGNbId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetGlobalGNbId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalE2NodeGnbIdValidationError{
+					field:  "GlobalGNbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalE2NodeGnbIdValidationError{
+					field:  "GlobalGNbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGlobalGNbId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalE2NodeGnbIdValidationError{
 				field:  "GlobalGNbId",
@@ -1714,7 +2922,26 @@ func (m *GlobalE2NodeGnbId) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetGNbCuUpId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetGNbCuUpId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalE2NodeGnbIdValidationError{
+					field:  "GNbCuUpId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalE2NodeGnbIdValidationError{
+					field:  "GNbCuUpId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGNbCuUpId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalE2NodeGnbIdValidationError{
 				field:  "GNbCuUpId",
@@ -1724,7 +2951,26 @@ func (m *GlobalE2NodeGnbId) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetGNbDuId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetGNbDuId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalE2NodeGnbIdValidationError{
+					field:  "GNbDuId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalE2NodeGnbIdValidationError{
+					field:  "GNbDuId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGNbDuId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalE2NodeGnbIdValidationError{
 				field:  "GNbDuId",
@@ -1734,8 +2980,28 @@ func (m *GlobalE2NodeGnbId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalE2NodeGnbIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalE2NodeGnbIdMultiError is an error wrapping multiple validation errors
+// returned by GlobalE2NodeGnbId.ValidateAll() if the designated constraints
+// aren't met.
+type GlobalE2NodeGnbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalE2NodeGnbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalE2NodeGnbIdMultiError) AllErrors() []error { return m }
 
 // GlobalE2NodeGnbIdValidationError is the validation error returned by
 // GlobalE2NodeGnbId.Validate if the designated constraints aren't met.
@@ -1795,13 +3061,46 @@ var _ interface {
 
 // Validate checks the field values on GlobalE2NodeNgEnbId with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *GlobalE2NodeNgEnbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalE2NodeNgEnbId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GlobalE2NodeNgEnbIdMultiError, or nil if none found.
+func (m *GlobalE2NodeNgEnbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalE2NodeNgEnbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetGlobalNgENbId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetGlobalNgENbId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalE2NodeNgEnbIdValidationError{
+					field:  "GlobalNgENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalE2NodeNgEnbIdValidationError{
+					field:  "GlobalNgENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGlobalNgENbId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalE2NodeNgEnbIdValidationError{
 				field:  "GlobalNgENbId",
@@ -1811,8 +3110,28 @@ func (m *GlobalE2NodeNgEnbId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalE2NodeNgEnbIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalE2NodeNgEnbIdMultiError is an error wrapping multiple validation
+// errors returned by GlobalE2NodeNgEnbId.ValidateAll() if the designated
+// constraints aren't met.
+type GlobalE2NodeNgEnbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalE2NodeNgEnbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalE2NodeNgEnbIdMultiError) AllErrors() []error { return m }
 
 // GlobalE2NodeNgEnbIdValidationError is the validation error returned by
 // GlobalE2NodeNgEnbId.Validate if the designated constraints aren't met.
@@ -1871,14 +3190,47 @@ var _ interface {
 } = GlobalE2NodeNgEnbIdValidationError{}
 
 // Validate checks the field values on GlobalEnbId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GlobalEnbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalEnbId with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GlobalEnbIdMultiError, or
+// nil if none found.
+func (m *GlobalEnbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalEnbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetPLmnIdentity()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPLmnIdentity()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalEnbIdValidationError{
+					field:  "PLmnIdentity",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalEnbIdValidationError{
+					field:  "PLmnIdentity",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPLmnIdentity()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalEnbIdValidationError{
 				field:  "PLmnIdentity",
@@ -1888,7 +3240,26 @@ func (m *GlobalEnbId) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetENbId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetENbId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalEnbIdValidationError{
+					field:  "ENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalEnbIdValidationError{
+					field:  "ENbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetENbId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalEnbIdValidationError{
 				field:  "ENbId",
@@ -1898,8 +3269,27 @@ func (m *GlobalEnbId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalEnbIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalEnbIdMultiError is an error wrapping multiple validation errors
+// returned by GlobalEnbId.ValidateAll() if the designated constraints aren't met.
+type GlobalEnbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalEnbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalEnbIdMultiError) AllErrors() []error { return m }
 
 // GlobalEnbIdValidationError is the validation error returned by
 // GlobalEnbId.Validate if the designated constraints aren't met.
@@ -1956,14 +3346,47 @@ var _ interface {
 } = GlobalEnbIdValidationError{}
 
 // Validate checks the field values on GlobalenGnbId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GlobalenGnbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalenGnbId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GlobalenGnbIdMultiError, or
+// nil if none found.
+func (m *GlobalenGnbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalenGnbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetPLmnIdentity()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPLmnIdentity()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalenGnbIdValidationError{
+					field:  "PLmnIdentity",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalenGnbIdValidationError{
+					field:  "PLmnIdentity",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPLmnIdentity()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalenGnbIdValidationError{
 				field:  "PLmnIdentity",
@@ -1973,7 +3396,26 @@ func (m *GlobalenGnbId) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetGNbId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetGNbId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalenGnbIdValidationError{
+					field:  "GNbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalenGnbIdValidationError{
+					field:  "GNbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGNbId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalenGnbIdValidationError{
 				field:  "GNbId",
@@ -1983,8 +3425,28 @@ func (m *GlobalenGnbId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalenGnbIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalenGnbIdMultiError is an error wrapping multiple validation errors
+// returned by GlobalenGnbId.ValidateAll() if the designated constraints
+// aren't met.
+type GlobalenGnbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalenGnbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalenGnbIdMultiError) AllErrors() []error { return m }
 
 // GlobalenGnbIdValidationError is the validation error returned by
 // GlobalenGnbId.Validate if the designated constraints aren't met.
@@ -2041,14 +3503,47 @@ var _ interface {
 } = GlobalenGnbIdValidationError{}
 
 // Validate checks the field values on GlobalgNbId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GlobalgNbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalgNbId with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GlobalgNbIdMultiError, or
+// nil if none found.
+func (m *GlobalgNbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalgNbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetPlmnId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPlmnId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalgNbIdValidationError{
+					field:  "PlmnId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalgNbIdValidationError{
+					field:  "PlmnId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPlmnId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalgNbIdValidationError{
 				field:  "PlmnId",
@@ -2058,7 +3553,26 @@ func (m *GlobalgNbId) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetGnbId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetGnbId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalgNbIdValidationError{
+					field:  "GnbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalgNbIdValidationError{
+					field:  "GnbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetGnbId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalgNbIdValidationError{
 				field:  "GnbId",
@@ -2068,8 +3582,27 @@ func (m *GlobalgNbId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalgNbIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalgNbIdMultiError is an error wrapping multiple validation errors
+// returned by GlobalgNbId.ValidateAll() if the designated constraints aren't met.
+type GlobalgNbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalgNbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalgNbIdMultiError) AllErrors() []error { return m }
 
 // GlobalgNbIdValidationError is the validation error returned by
 // GlobalgNbId.Validate if the designated constraints aren't met.
@@ -2126,14 +3659,47 @@ var _ interface {
 } = GlobalgNbIdValidationError{}
 
 // Validate checks the field values on GlobalngeNbId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GlobalngeNbId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalngeNbId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GlobalngeNbIdMultiError, or
+// nil if none found.
+func (m *GlobalngeNbId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalngeNbId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetPlmnId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPlmnId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalngeNbIdValidationError{
+					field:  "PlmnId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalngeNbIdValidationError{
+					field:  "PlmnId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPlmnId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalngeNbIdValidationError{
 				field:  "PlmnId",
@@ -2143,7 +3709,26 @@ func (m *GlobalngeNbId) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetEnbId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetEnbId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalngeNbIdValidationError{
+					field:  "EnbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalngeNbIdValidationError{
+					field:  "EnbId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetEnbId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalngeNbIdValidationError{
 				field:  "EnbId",
@@ -2153,8 +3738,28 @@ func (m *GlobalngeNbId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalngeNbIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalngeNbIdMultiError is an error wrapping multiple validation errors
+// returned by GlobalngeNbId.ValidateAll() if the designated constraints
+// aren't met.
+type GlobalngeNbIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalngeNbIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalngeNbIdMultiError) AllErrors() []error { return m }
 
 // GlobalngeNbIdValidationError is the validation error returned by
 // GlobalngeNbId.Validate if the designated constraints aren't met.
@@ -2211,14 +3816,47 @@ var _ interface {
 } = GlobalngeNbIdValidationError{}
 
 // Validate checks the field values on GlobalRicId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GlobalRicId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GlobalRicId with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GlobalRicIdMultiError, or
+// nil if none found.
+func (m *GlobalRicId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GlobalRicId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetPLmnIdentity()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPLmnIdentity()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalRicIdValidationError{
+					field:  "PLmnIdentity",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalRicIdValidationError{
+					field:  "PLmnIdentity",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPLmnIdentity()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalRicIdValidationError{
 				field:  "PLmnIdentity",
@@ -2228,7 +3866,26 @@ func (m *GlobalRicId) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicId()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GlobalRicIdValidationError{
+					field:  "RicId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GlobalRicIdValidationError{
+					field:  "RicId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return GlobalRicIdValidationError{
 				field:  "RicId",
@@ -2238,8 +3895,27 @@ func (m *GlobalRicId) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return GlobalRicIdMultiError(errors)
+	}
 	return nil
 }
+
+// GlobalRicIdMultiError is an error wrapping multiple validation errors
+// returned by GlobalRicId.ValidateAll() if the designated constraints aren't met.
+type GlobalRicIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GlobalRicIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GlobalRicIdMultiError) AllErrors() []error { return m }
 
 // GlobalRicIdValidationError is the validation error returned by
 // GlobalRicId.Validate if the designated constraints aren't met.
@@ -2296,21 +3972,59 @@ var _ interface {
 } = GlobalRicIdValidationError{}
 
 // Validate checks the field values on GnbCuUpId with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GnbCuUpId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GnbCuUpId with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GnbCuUpIdMultiError, or nil
+// if none found.
+func (m *GnbCuUpId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GnbCuUpId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if val := m.GetValue(); val < 0 || val > 68719476735 {
-		return GnbCuUpIdValidationError{
+		err := GnbCuUpIdValidationError{
 			field:  "Value",
 			reason: "value must be inside range [0, 68719476735]",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return GnbCuUpIdMultiError(errors)
+	}
 	return nil
 }
+
+// GnbCuUpIdMultiError is an error wrapping multiple validation errors returned
+// by GnbCuUpId.ValidateAll() if the designated constraints aren't met.
+type GnbCuUpIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GnbCuUpIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GnbCuUpIdMultiError) AllErrors() []error { return m }
 
 // GnbCuUpIdValidationError is the validation error returned by
 // GnbCuUpId.Validate if the designated constraints aren't met.
@@ -2367,21 +4081,58 @@ var _ interface {
 } = GnbCuUpIdValidationError{}
 
 // Validate checks the field values on GnbDuId with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GnbDuId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GnbDuId with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in GnbDuIdMultiError, or nil if none found.
+func (m *GnbDuId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GnbDuId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if val := m.GetValue(); val < 0 || val > 68719476735 {
-		return GnbDuIdValidationError{
+		err := GnbDuIdValidationError{
 			field:  "Value",
 			reason: "value must be inside range [0, 68719476735]",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return GnbDuIdMultiError(errors)
+	}
 	return nil
 }
+
+// GnbDuIdMultiError is an error wrapping multiple validation errors returned
+// by GnbDuId.ValidateAll() if the designated constraints aren't met.
+type GnbDuIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GnbDuIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GnbDuIdMultiError) AllErrors() []error { return m }
 
 // GnbDuIdValidationError is the validation error returned by GnbDuId.Validate
 // if the designated constraints aren't met.
@@ -2438,18 +4189,51 @@ var _ interface {
 } = GnbDuIdValidationError{}
 
 // Validate checks the field values on GnbIdChoice with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *GnbIdChoice) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GnbIdChoice with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GnbIdChoiceMultiError, or
+// nil if none found.
+func (m *GnbIdChoice) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GnbIdChoice) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.GnbIdChoice.(type) {
 
 	case *GnbIdChoice_GnbId:
 
-		if v, ok := interface{}(m.GetGnbId()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetGnbId()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GnbIdChoiceValidationError{
+						field:  "GnbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GnbIdChoiceValidationError{
+						field:  "GnbId",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetGnbId()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return GnbIdChoiceValidationError{
 					field:  "GnbId",
@@ -2461,8 +4245,27 @@ func (m *GnbIdChoice) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return GnbIdChoiceMultiError(errors)
+	}
 	return nil
 }
+
+// GnbIdChoiceMultiError is an error wrapping multiple validation errors
+// returned by GnbIdChoice.ValidateAll() if the designated constraints aren't met.
+type GnbIdChoiceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GnbIdChoiceMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GnbIdChoiceMultiError) AllErrors() []error { return m }
 
 // GnbIdChoiceValidationError is the validation error returned by
 // GnbIdChoice.Validate if the designated constraints aren't met.
@@ -2519,22 +4322,60 @@ var _ interface {
 } = GnbIdChoiceValidationError{}
 
 // Validate checks the field values on RanfunctionId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RanfunctionIdMultiError, or
+// nil if none found.
+func (m *RanfunctionId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if val := m.GetValue(); val < 0 || val > 4095 {
-		return RanfunctionIdValidationError{
+		err := RanfunctionIdValidationError{
 			field:  "Value",
 			reason: "value must be inside range [0, 4095]",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionIdMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionIdMultiError is an error wrapping multiple validation errors
+// returned by RanfunctionId.ValidateAll() if the designated constraints
+// aren't met.
+type RanfunctionIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionIdMultiError) AllErrors() []error { return m }
 
 // RanfunctionIdValidationError is the validation error returned by
 // RanfunctionId.Validate if the designated constraints aren't met.
@@ -2592,21 +4433,59 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionRevision with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionRevision) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionRevision with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionRevisionMultiError, or nil if none found.
+func (m *RanfunctionRevision) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionRevision) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if val := m.GetValue(); val < 0 || val > 4095 {
-		return RanfunctionRevisionValidationError{
+		err := RanfunctionRevisionValidationError{
 			field:  "Value",
 			reason: "value must be inside range [0, 4095]",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionRevisionMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionRevisionMultiError is an error wrapping multiple validation
+// errors returned by RanfunctionRevision.ValidateAll() if the designated
+// constraints aren't met.
+type RanfunctionRevisionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionRevisionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionRevisionMultiError) AllErrors() []error { return m }
 
 // RanfunctionRevisionValidationError is the validation error returned by
 // RanfunctionRevision.Validate if the designated constraints aren't met.
@@ -2665,22 +4544,59 @@ var _ interface {
 } = RanfunctionRevisionValidationError{}
 
 // Validate checks the field values on RicactionId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RicactionId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionId with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RicactionIdMultiError, or
+// nil if none found.
+func (m *RicactionId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if val := m.GetValue(); val < 0 || val > 255 {
-		return RicactionIdValidationError{
+		err := RicactionIdValidationError{
 			field:  "Value",
 			reason: "value must be inside range [0, 255]",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicactionIdMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionIdMultiError is an error wrapping multiple validation errors
+// returned by RicactionId.ValidateAll() if the designated constraints aren't met.
+type RicactionIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionIdMultiError) AllErrors() []error { return m }
 
 // RicactionIdValidationError is the validation error returned by
 // RicactionId.Validate if the designated constraints aren't met.
@@ -2737,22 +4653,60 @@ var _ interface {
 } = RicactionIdValidationError{}
 
 // Validate checks the field values on RicindicationSn with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicindicationSn) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationSn with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicindicationSnMultiError, or nil if none found.
+func (m *RicindicationSn) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationSn) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if val := m.GetValue(); val < 0 || val > 65535 {
-		return RicindicationSnValidationError{
+		err := RicindicationSnValidationError{
 			field:  "Value",
 			reason: "value must be inside range [0, 65535]",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationSnMultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationSnMultiError is an error wrapping multiple validation errors
+// returned by RicindicationSn.ValidateAll() if the designated constraints
+// aren't met.
+type RicindicationSnMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationSnMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationSnMultiError) AllErrors() []error { return m }
 
 // RicindicationSnValidationError is the validation error returned by
 // RicindicationSn.Validate if the designated constraints aren't met.
@@ -2809,19 +4763,52 @@ var _ interface {
 } = RicindicationSnValidationError{}
 
 // Validate checks the field values on RicrequestId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RicrequestId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicrequestId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RicrequestIdMultiError, or
+// nil if none found.
+func (m *RicrequestId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicrequestId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for RicRequestorId
 
 	// no validation rules for RicInstanceId
 
+	if len(errors) > 0 {
+		return RicrequestIdMultiError(errors)
+	}
 	return nil
 }
+
+// RicrequestIdMultiError is an error wrapping multiple validation errors
+// returned by RicrequestId.ValidateAll() if the designated constraints aren't met.
+type RicrequestIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicrequestIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicrequestIdMultiError) AllErrors() []error { return m }
 
 // RicrequestIdValidationError is the validation error returned by
 // RicrequestId.Validate if the designated constraints aren't met.
@@ -2879,18 +4866,52 @@ var _ interface {
 
 // Validate checks the field values on RicsubsequentAction with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubsequentAction) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubsequentAction with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubsequentActionMultiError, or nil if none found.
+func (m *RicsubsequentAction) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubsequentAction) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	// no validation rules for RicSubsequentActionType
 
 	// no validation rules for RicTimeToWait
 
+	if len(errors) > 0 {
+		return RicsubsequentActionMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubsequentActionMultiError is an error wrapping multiple validation
+// errors returned by RicsubsequentAction.ValidateAll() if the designated
+// constraints aren't met.
+type RicsubsequentActionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubsequentActionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubsequentActionMultiError) AllErrors() []error { return m }
 
 // RicsubsequentActionValidationError is the validation error returned by
 // RicsubsequentAction.Validate if the designated constraints aren't met.
@@ -2949,14 +4970,47 @@ var _ interface {
 } = RicsubsequentActionValidationError{}
 
 // Validate checks the field values on Tnlinformation with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *Tnlinformation) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Tnlinformation with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in TnlinformationMultiError,
+// or nil if none found.
+func (m *Tnlinformation) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Tnlinformation) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetTnlAddress()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetTnlAddress()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TnlinformationValidationError{
+					field:  "TnlAddress",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TnlinformationValidationError{
+					field:  "TnlAddress",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTnlAddress()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return TnlinformationValidationError{
 				field:  "TnlAddress",
@@ -2966,7 +5020,26 @@ func (m *Tnlinformation) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetTnlPort()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetTnlPort()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, TnlinformationValidationError{
+					field:  "TnlPort",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, TnlinformationValidationError{
+					field:  "TnlPort",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTnlPort()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return TnlinformationValidationError{
 				field:  "TnlPort",
@@ -2976,8 +5049,28 @@ func (m *Tnlinformation) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return TnlinformationMultiError(errors)
+	}
 	return nil
 }
+
+// TnlinformationMultiError is an error wrapping multiple validation errors
+// returned by Tnlinformation.ValidateAll() if the designated constraints
+// aren't met.
+type TnlinformationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m TnlinformationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m TnlinformationMultiError) AllErrors() []error { return m }
 
 // TnlinformationValidationError is the validation error returned by
 // Tnlinformation.Validate if the designated constraints aren't met.

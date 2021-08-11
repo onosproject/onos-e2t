@@ -15,7 +15,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 // ensure the imports are used
@@ -30,28 +30,63 @@ var (
 	_ = time.Duration(0)
 	_ = (*url.URL)(nil)
 	_ = (*mail.Address)(nil)
-	_ = ptypes.DynamicAny{}
+	_ = anypb.Any{}
 )
 
-// define the regex for a UUID once up-front
-var _e_2_ap_constants_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
 // Validate checks the field values on IdE2Setup with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *IdE2Setup) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdE2Setup with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdE2SetupMultiError, or nil
+// if none found.
+func (m *IdE2Setup) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdE2Setup) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 1 {
-		return IdE2SetupValidationError{
+		err := IdE2SetupValidationError{
 			field:  "Value",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdE2SetupMultiError(errors)
+	}
 	return nil
 }
+
+// IdE2SetupMultiError is an error wrapping multiple validation errors returned
+// by IdE2Setup.ValidateAll() if the designated constraints aren't met.
+type IdE2SetupMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdE2SetupMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdE2SetupMultiError) AllErrors() []error { return m }
 
 // IdE2SetupValidationError is the validation error returned by
 // IdE2Setup.Validate if the designated constraints aren't met.
@@ -108,22 +143,60 @@ var _ interface {
 } = IdE2SetupValidationError{}
 
 // Validate checks the field values on IdErrorIndication with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *IdErrorIndication) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdErrorIndication with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdErrorIndicationMultiError, or nil if none found.
+func (m *IdErrorIndication) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdErrorIndication) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 2 {
-		return IdErrorIndicationValidationError{
+		err := IdErrorIndicationValidationError{
 			field:  "Value",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdErrorIndicationMultiError(errors)
+	}
 	return nil
 }
+
+// IdErrorIndicationMultiError is an error wrapping multiple validation errors
+// returned by IdErrorIndication.ValidateAll() if the designated constraints
+// aren't met.
+type IdErrorIndicationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdErrorIndicationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdErrorIndicationMultiError) AllErrors() []error { return m }
 
 // IdErrorIndicationValidationError is the validation error returned by
 // IdErrorIndication.Validate if the designated constraints aren't met.
@@ -182,21 +255,58 @@ var _ interface {
 } = IdErrorIndicationValidationError{}
 
 // Validate checks the field values on IdReset with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *IdReset) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdReset with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in IdResetMultiError, or nil if none found.
+func (m *IdReset) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdReset) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 3 {
-		return IdResetValidationError{
+		err := IdResetValidationError{
 			field:  "Value",
 			reason: "value must equal 3",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdResetMultiError(errors)
+	}
 	return nil
 }
+
+// IdResetMultiError is an error wrapping multiple validation errors returned
+// by IdReset.ValidateAll() if the designated constraints aren't met.
+type IdResetMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdResetMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdResetMultiError) AllErrors() []error { return m }
 
 // IdResetValidationError is the validation error returned by IdReset.Validate
 // if the designated constraints aren't met.
@@ -253,22 +363,59 @@ var _ interface {
 } = IdResetValidationError{}
 
 // Validate checks the field values on IdRiccontrol with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *IdRiccontrol) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRiccontrol with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdRiccontrolMultiError, or
+// nil if none found.
+func (m *IdRiccontrol) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRiccontrol) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 4 {
-		return IdRiccontrolValidationError{
+		err := IdRiccontrolValidationError{
 			field:  "Value",
 			reason: "value must equal 4",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRiccontrolMultiError(errors)
+	}
 	return nil
 }
+
+// IdRiccontrolMultiError is an error wrapping multiple validation errors
+// returned by IdRiccontrol.ValidateAll() if the designated constraints aren't met.
+type IdRiccontrolMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRiccontrolMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRiccontrolMultiError) AllErrors() []error { return m }
 
 // IdRiccontrolValidationError is the validation error returned by
 // IdRiccontrol.Validate if the designated constraints aren't met.
@@ -325,22 +472,60 @@ var _ interface {
 } = IdRiccontrolValidationError{}
 
 // Validate checks the field values on IdRicindication with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *IdRicindication) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicindication with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicindicationMultiError, or nil if none found.
+func (m *IdRicindication) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicindication) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 5 {
-		return IdRicindicationValidationError{
+		err := IdRicindicationValidationError{
 			field:  "Value",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicindicationMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicindicationMultiError is an error wrapping multiple validation errors
+// returned by IdRicindication.ValidateAll() if the designated constraints
+// aren't met.
+type IdRicindicationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicindicationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicindicationMultiError) AllErrors() []error { return m }
 
 // IdRicindicationValidationError is the validation error returned by
 // IdRicindication.Validate if the designated constraints aren't met.
@@ -397,22 +582,60 @@ var _ interface {
 } = IdRicindicationValidationError{}
 
 // Validate checks the field values on IdRicserviceQuery with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *IdRicserviceQuery) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicserviceQuery with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicserviceQueryMultiError, or nil if none found.
+func (m *IdRicserviceQuery) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicserviceQuery) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 6 {
-		return IdRicserviceQueryValidationError{
+		err := IdRicserviceQueryValidationError{
 			field:  "Value",
 			reason: "value must equal 6",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicserviceQueryMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicserviceQueryMultiError is an error wrapping multiple validation errors
+// returned by IdRicserviceQuery.ValidateAll() if the designated constraints
+// aren't met.
+type IdRicserviceQueryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicserviceQueryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicserviceQueryMultiError) AllErrors() []error { return m }
 
 // IdRicserviceQueryValidationError is the validation error returned by
 // IdRicserviceQuery.Validate if the designated constraints aren't met.
@@ -472,21 +695,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicserviceUpdate with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicserviceUpdate) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicserviceUpdate with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicserviceUpdateMultiError, or nil if none found.
+func (m *IdRicserviceUpdate) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicserviceUpdate) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 7 {
-		return IdRicserviceUpdateValidationError{
+		err := IdRicserviceUpdateValidationError{
 			field:  "Value",
 			reason: "value must equal 7",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicserviceUpdateMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicserviceUpdateMultiError is an error wrapping multiple validation errors
+// returned by IdRicserviceUpdate.ValidateAll() if the designated constraints
+// aren't met.
+type IdRicserviceUpdateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicserviceUpdateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicserviceUpdateMultiError) AllErrors() []error { return m }
 
 // IdRicserviceUpdateValidationError is the validation error returned by
 // IdRicserviceUpdate.Validate if the designated constraints aren't met.
@@ -545,22 +806,60 @@ var _ interface {
 } = IdRicserviceUpdateValidationError{}
 
 // Validate checks the field values on IdRicsubscription with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *IdRicsubscription) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicsubscription with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicsubscriptionMultiError, or nil if none found.
+func (m *IdRicsubscription) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicsubscription) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 8 {
-		return IdRicsubscriptionValidationError{
+		err := IdRicsubscriptionValidationError{
 			field:  "Value",
 			reason: "value must equal 8",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicsubscriptionMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicsubscriptionMultiError is an error wrapping multiple validation errors
+// returned by IdRicsubscription.ValidateAll() if the designated constraints
+// aren't met.
+type IdRicsubscriptionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicsubscriptionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicsubscriptionMultiError) AllErrors() []error { return m }
 
 // IdRicsubscriptionValidationError is the validation error returned by
 // IdRicsubscription.Validate if the designated constraints aren't met.
@@ -620,21 +919,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicsubscriptionDelete with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicsubscriptionDelete) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicsubscriptionDelete with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicsubscriptionDeleteMultiError, or nil if none found.
+func (m *IdRicsubscriptionDelete) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicsubscriptionDelete) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 9 {
-		return IdRicsubscriptionDeleteValidationError{
+		err := IdRicsubscriptionDeleteValidationError{
 			field:  "Value",
 			reason: "value must equal 9",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicsubscriptionDeleteMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicsubscriptionDeleteMultiError is an error wrapping multiple validation
+// errors returned by IdRicsubscriptionDelete.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicsubscriptionDeleteMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicsubscriptionDeleteMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicsubscriptionDeleteMultiError) AllErrors() []error { return m }
 
 // IdRicsubscriptionDeleteValidationError is the validation error returned by
 // IdRicsubscriptionDelete.Validate if the designated constraints aren't met.
@@ -693,22 +1030,60 @@ var _ interface {
 } = IdRicsubscriptionDeleteValidationError{}
 
 // Validate checks the field values on MaxProtocolIes with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *MaxProtocolIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaxProtocolIes with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MaxProtocolIesMultiError,
+// or nil if none found.
+func (m *MaxProtocolIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaxProtocolIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 65535 {
-		return MaxProtocolIesValidationError{
+		err := MaxProtocolIesValidationError{
 			field:  "Value",
 			reason: "value must equal 65535",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return MaxProtocolIesMultiError(errors)
+	}
 	return nil
 }
+
+// MaxProtocolIesMultiError is an error wrapping multiple validation errors
+// returned by MaxProtocolIes.ValidateAll() if the designated constraints
+// aren't met.
+type MaxProtocolIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaxProtocolIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaxProtocolIesMultiError) AllErrors() []error { return m }
 
 // MaxProtocolIesValidationError is the validation error returned by
 // MaxProtocolIes.Validate if the designated constraints aren't met.
@@ -765,22 +1140,60 @@ var _ interface {
 } = MaxProtocolIesValidationError{}
 
 // Validate checks the field values on MaxnoofErrors with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *MaxnoofErrors) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaxnoofErrors with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MaxnoofErrorsMultiError, or
+// nil if none found.
+func (m *MaxnoofErrors) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaxnoofErrors) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 256 {
-		return MaxnoofErrorsValidationError{
+		err := MaxnoofErrorsValidationError{
 			field:  "Value",
 			reason: "value must equal 256",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return MaxnoofErrorsMultiError(errors)
+	}
 	return nil
 }
+
+// MaxnoofErrorsMultiError is an error wrapping multiple validation errors
+// returned by MaxnoofErrors.ValidateAll() if the designated constraints
+// aren't met.
+type MaxnoofErrorsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaxnoofErrorsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaxnoofErrorsMultiError) AllErrors() []error { return m }
 
 // MaxnoofErrorsValidationError is the validation error returned by
 // MaxnoofErrors.Validate if the designated constraints aren't met.
@@ -838,21 +1251,59 @@ var _ interface {
 
 // Validate checks the field values on MaxofRanfunctionId with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *MaxofRanfunctionId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaxofRanfunctionId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MaxofRanfunctionIdMultiError, or nil if none found.
+func (m *MaxofRanfunctionId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaxofRanfunctionId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 256 {
-		return MaxofRanfunctionIdValidationError{
+		err := MaxofRanfunctionIdValidationError{
 			field:  "Value",
 			reason: "value must equal 256",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return MaxofRanfunctionIdMultiError(errors)
+	}
 	return nil
 }
+
+// MaxofRanfunctionIdMultiError is an error wrapping multiple validation errors
+// returned by MaxofRanfunctionId.ValidateAll() if the designated constraints
+// aren't met.
+type MaxofRanfunctionIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaxofRanfunctionIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaxofRanfunctionIdMultiError) AllErrors() []error { return m }
 
 // MaxofRanfunctionIdValidationError is the validation error returned by
 // MaxofRanfunctionId.Validate if the designated constraints aren't met.
@@ -911,22 +1362,60 @@ var _ interface {
 } = MaxofRanfunctionIdValidationError{}
 
 // Validate checks the field values on MaxofRicactionId with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *MaxofRicactionId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MaxofRicactionId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MaxofRicactionIdMultiError, or nil if none found.
+func (m *MaxofRicactionId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MaxofRicactionId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 16 {
-		return MaxofRicactionIdValidationError{
+		err := MaxofRicactionIdValidationError{
 			field:  "Value",
 			reason: "value must equal 16",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return MaxofRicactionIdMultiError(errors)
+	}
 	return nil
 }
+
+// MaxofRicactionIdMultiError is an error wrapping multiple validation errors
+// returned by MaxofRicactionId.ValidateAll() if the designated constraints
+// aren't met.
+type MaxofRicactionIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaxofRicactionIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaxofRicactionIdMultiError) AllErrors() []error { return m }
 
 // MaxofRicactionIdValidationError is the validation error returned by
 // MaxofRicactionId.Validate if the designated constraints aren't met.
@@ -983,21 +1472,58 @@ var _ interface {
 } = MaxofRicactionIdValidationError{}
 
 // Validate checks the field values on IdCause with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *IdCause) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdCause with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in IdCauseMultiError, or nil if none found.
+func (m *IdCause) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdCause) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 1 {
-		return IdCauseValidationError{
+		err := IdCauseValidationError{
 			field:  "Value",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdCauseMultiError(errors)
+	}
 	return nil
 }
+
+// IdCauseMultiError is an error wrapping multiple validation errors returned
+// by IdCause.ValidateAll() if the designated constraints aren't met.
+type IdCauseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdCauseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdCauseMultiError) AllErrors() []error { return m }
 
 // IdCauseValidationError is the validation error returned by IdCause.Validate
 // if the designated constraints aren't met.
@@ -1055,21 +1581,59 @@ var _ interface {
 
 // Validate checks the field values on IdCriticalityDiagnostics with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdCriticalityDiagnostics) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdCriticalityDiagnostics with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdCriticalityDiagnosticsMultiError, or nil if none found.
+func (m *IdCriticalityDiagnostics) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdCriticalityDiagnostics) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 2 {
-		return IdCriticalityDiagnosticsValidationError{
+		err := IdCriticalityDiagnosticsValidationError{
 			field:  "Value",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdCriticalityDiagnosticsMultiError(errors)
+	}
 	return nil
 }
+
+// IdCriticalityDiagnosticsMultiError is an error wrapping multiple validation
+// errors returned by IdCriticalityDiagnostics.ValidateAll() if the designated
+// constraints aren't met.
+type IdCriticalityDiagnosticsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdCriticalityDiagnosticsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdCriticalityDiagnosticsMultiError) AllErrors() []error { return m }
 
 // IdCriticalityDiagnosticsValidationError is the validation error returned by
 // IdCriticalityDiagnostics.Validate if the designated constraints aren't met.
@@ -1128,22 +1692,60 @@ var _ interface {
 } = IdCriticalityDiagnosticsValidationError{}
 
 // Validate checks the field values on IdGlobalE2NodeId with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *IdGlobalE2NodeId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdGlobalE2NodeId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdGlobalE2NodeIdMultiError, or nil if none found.
+func (m *IdGlobalE2NodeId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdGlobalE2NodeId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 3 {
-		return IdGlobalE2NodeIdValidationError{
+		err := IdGlobalE2NodeIdValidationError{
 			field:  "Value",
 			reason: "value must equal 3",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdGlobalE2NodeIdMultiError(errors)
+	}
 	return nil
 }
+
+// IdGlobalE2NodeIdMultiError is an error wrapping multiple validation errors
+// returned by IdGlobalE2NodeId.ValidateAll() if the designated constraints
+// aren't met.
+type IdGlobalE2NodeIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdGlobalE2NodeIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdGlobalE2NodeIdMultiError) AllErrors() []error { return m }
 
 // IdGlobalE2NodeIdValidationError is the validation error returned by
 // IdGlobalE2NodeId.Validate if the designated constraints aren't met.
@@ -1200,22 +1802,60 @@ var _ interface {
 } = IdGlobalE2NodeIdValidationError{}
 
 // Validate checks the field values on IdGlobalRicId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *IdGlobalRicId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdGlobalRicId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdGlobalRicIdMultiError, or
+// nil if none found.
+func (m *IdGlobalRicId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdGlobalRicId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 4 {
-		return IdGlobalRicIdValidationError{
+		err := IdGlobalRicIdValidationError{
 			field:  "Value",
 			reason: "value must equal 4",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdGlobalRicIdMultiError(errors)
+	}
 	return nil
 }
+
+// IdGlobalRicIdMultiError is an error wrapping multiple validation errors
+// returned by IdGlobalRicId.ValidateAll() if the designated constraints
+// aren't met.
+type IdGlobalRicIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdGlobalRicIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdGlobalRicIdMultiError) AllErrors() []error { return m }
 
 // IdGlobalRicIdValidationError is the validation error returned by
 // IdGlobalRicId.Validate if the designated constraints aren't met.
@@ -1272,22 +1912,60 @@ var _ interface {
 } = IdGlobalRicIdValidationError{}
 
 // Validate checks the field values on IdRanfunctionId with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionIdMultiError, or nil if none found.
+func (m *IdRanfunctionId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 5 {
-		return IdRanfunctionIdValidationError{
+		err := IdRanfunctionIdValidationError{
 			field:  "Value",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionIdMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionIdMultiError is an error wrapping multiple validation errors
+// returned by IdRanfunctionId.ValidateAll() if the designated constraints
+// aren't met.
+type IdRanfunctionIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionIdMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionIdValidationError is the validation error returned by
 // IdRanfunctionId.Validate if the designated constraints aren't met.
@@ -1345,21 +2023,59 @@ var _ interface {
 
 // Validate checks the field values on IdRanfunctionIdItem with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionIdItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionIdItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionIdItemMultiError, or nil if none found.
+func (m *IdRanfunctionIdItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionIdItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 6 {
-		return IdRanfunctionIdItemValidationError{
+		err := IdRanfunctionIdItemValidationError{
 			field:  "Value",
 			reason: "value must equal 6",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionIdItemMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionIdItemMultiError is an error wrapping multiple validation
+// errors returned by IdRanfunctionIdItem.ValidateAll() if the designated
+// constraints aren't met.
+type IdRanfunctionIdItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionIdItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionIdItemMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionIdItemValidationError is the validation error returned by
 // IdRanfunctionIdItem.Validate if the designated constraints aren't met.
@@ -1419,21 +2135,59 @@ var _ interface {
 
 // Validate checks the field values on IdRanfunctionIecauseItem with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionIecauseItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionIecauseItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionIecauseItemMultiError, or nil if none found.
+func (m *IdRanfunctionIecauseItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionIecauseItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 7 {
-		return IdRanfunctionIecauseItemValidationError{
+		err := IdRanfunctionIecauseItemValidationError{
 			field:  "Value",
 			reason: "value must equal 7",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionIecauseItemMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionIecauseItemMultiError is an error wrapping multiple validation
+// errors returned by IdRanfunctionIecauseItem.ValidateAll() if the designated
+// constraints aren't met.
+type IdRanfunctionIecauseItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionIecauseItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionIecauseItemMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionIecauseItemValidationError is the validation error returned by
 // IdRanfunctionIecauseItem.Validate if the designated constraints aren't met.
@@ -1492,22 +2246,60 @@ var _ interface {
 } = IdRanfunctionIecauseItemValidationError{}
 
 // Validate checks the field values on IdRanfunctionItem with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionItemMultiError, or nil if none found.
+func (m *IdRanfunctionItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 8 {
-		return IdRanfunctionItemValidationError{
+		err := IdRanfunctionItemValidationError{
 			field:  "Value",
 			reason: "value must equal 8",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionItemMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionItemMultiError is an error wrapping multiple validation errors
+// returned by IdRanfunctionItem.ValidateAll() if the designated constraints
+// aren't met.
+type IdRanfunctionItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionItemMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionItemValidationError is the validation error returned by
 // IdRanfunctionItem.Validate if the designated constraints aren't met.
@@ -1567,21 +2359,59 @@ var _ interface {
 
 // Validate checks the field values on IdRanfunctionsAccepted with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionsAccepted) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionsAccepted with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionsAcceptedMultiError, or nil if none found.
+func (m *IdRanfunctionsAccepted) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionsAccepted) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 9 {
-		return IdRanfunctionsAcceptedValidationError{
+		err := IdRanfunctionsAcceptedValidationError{
 			field:  "Value",
 			reason: "value must equal 9",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionsAcceptedMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionsAcceptedMultiError is an error wrapping multiple validation
+// errors returned by IdRanfunctionsAccepted.ValidateAll() if the designated
+// constraints aren't met.
+type IdRanfunctionsAcceptedMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionsAcceptedMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionsAcceptedMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionsAcceptedValidationError is the validation error returned by
 // IdRanfunctionsAccepted.Validate if the designated constraints aren't met.
@@ -1641,21 +2471,59 @@ var _ interface {
 
 // Validate checks the field values on IdRanfunctionsAdded with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionsAdded) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionsAdded with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionsAddedMultiError, or nil if none found.
+func (m *IdRanfunctionsAdded) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionsAdded) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 10 {
-		return IdRanfunctionsAddedValidationError{
+		err := IdRanfunctionsAddedValidationError{
 			field:  "Value",
 			reason: "value must equal 10",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionsAddedMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionsAddedMultiError is an error wrapping multiple validation
+// errors returned by IdRanfunctionsAdded.ValidateAll() if the designated
+// constraints aren't met.
+type IdRanfunctionsAddedMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionsAddedMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionsAddedMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionsAddedValidationError is the validation error returned by
 // IdRanfunctionsAdded.Validate if the designated constraints aren't met.
@@ -1715,21 +2583,59 @@ var _ interface {
 
 // Validate checks the field values on IdRanfunctionsDeleted with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionsDeleted) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionsDeleted with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionsDeletedMultiError, or nil if none found.
+func (m *IdRanfunctionsDeleted) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionsDeleted) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 11 {
-		return IdRanfunctionsDeletedValidationError{
+		err := IdRanfunctionsDeletedValidationError{
 			field:  "Value",
 			reason: "value must equal 11",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionsDeletedMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionsDeletedMultiError is an error wrapping multiple validation
+// errors returned by IdRanfunctionsDeleted.ValidateAll() if the designated
+// constraints aren't met.
+type IdRanfunctionsDeletedMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionsDeletedMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionsDeletedMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionsDeletedValidationError is the validation error returned by
 // IdRanfunctionsDeleted.Validate if the designated constraints aren't met.
@@ -1789,21 +2695,59 @@ var _ interface {
 
 // Validate checks the field values on IdRanfunctionsModified with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionsModified) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionsModified with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionsModifiedMultiError, or nil if none found.
+func (m *IdRanfunctionsModified) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionsModified) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 12 {
-		return IdRanfunctionsModifiedValidationError{
+		err := IdRanfunctionsModifiedValidationError{
 			field:  "Value",
 			reason: "value must equal 12",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionsModifiedMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionsModifiedMultiError is an error wrapping multiple validation
+// errors returned by IdRanfunctionsModified.ValidateAll() if the designated
+// constraints aren't met.
+type IdRanfunctionsModifiedMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionsModifiedMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionsModifiedMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionsModifiedValidationError is the validation error returned by
 // IdRanfunctionsModified.Validate if the designated constraints aren't met.
@@ -1863,21 +2807,59 @@ var _ interface {
 
 // Validate checks the field values on IdRanfunctionsRejected with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRanfunctionsRejected) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRanfunctionsRejected with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRanfunctionsRejectedMultiError, or nil if none found.
+func (m *IdRanfunctionsRejected) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRanfunctionsRejected) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 13 {
-		return IdRanfunctionsRejectedValidationError{
+		err := IdRanfunctionsRejectedValidationError{
 			field:  "Value",
 			reason: "value must equal 13",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRanfunctionsRejectedMultiError(errors)
+	}
 	return nil
 }
+
+// IdRanfunctionsRejectedMultiError is an error wrapping multiple validation
+// errors returned by IdRanfunctionsRejected.ValidateAll() if the designated
+// constraints aren't met.
+type IdRanfunctionsRejectedMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRanfunctionsRejectedMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRanfunctionsRejectedMultiError) AllErrors() []error { return m }
 
 // IdRanfunctionsRejectedValidationError is the validation error returned by
 // IdRanfunctionsRejected.Validate if the designated constraints aren't met.
@@ -1937,21 +2919,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicactionAdmittedItem with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicactionAdmittedItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicactionAdmittedItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicactionAdmittedItemMultiError, or nil if none found.
+func (m *IdRicactionAdmittedItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicactionAdmittedItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 14 {
-		return IdRicactionAdmittedItemValidationError{
+		err := IdRicactionAdmittedItemValidationError{
 			field:  "Value",
 			reason: "value must equal 14",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicactionAdmittedItemMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicactionAdmittedItemMultiError is an error wrapping multiple validation
+// errors returned by IdRicactionAdmittedItem.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicactionAdmittedItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicactionAdmittedItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicactionAdmittedItemMultiError) AllErrors() []error { return m }
 
 // IdRicactionAdmittedItemValidationError is the validation error returned by
 // IdRicactionAdmittedItem.Validate if the designated constraints aren't met.
@@ -2010,22 +3030,60 @@ var _ interface {
 } = IdRicactionAdmittedItemValidationError{}
 
 // Validate checks the field values on IdRicactionId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *IdRicactionId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicactionId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdRicactionIdMultiError, or
+// nil if none found.
+func (m *IdRicactionId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicactionId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 15 {
-		return IdRicactionIdValidationError{
+		err := IdRicactionIdValidationError{
 			field:  "Value",
 			reason: "value must equal 15",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicactionIdMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicactionIdMultiError is an error wrapping multiple validation errors
+// returned by IdRicactionId.ValidateAll() if the designated constraints
+// aren't met.
+type IdRicactionIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicactionIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicactionIdMultiError) AllErrors() []error { return m }
 
 // IdRicactionIdValidationError is the validation error returned by
 // IdRicactionId.Validate if the designated constraints aren't met.
@@ -2083,21 +3141,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicactionNotAdmittedItem with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicactionNotAdmittedItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicactionNotAdmittedItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicactionNotAdmittedItemMultiError, or nil if none found.
+func (m *IdRicactionNotAdmittedItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicactionNotAdmittedItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 16 {
-		return IdRicactionNotAdmittedItemValidationError{
+		err := IdRicactionNotAdmittedItemValidationError{
 			field:  "Value",
 			reason: "value must equal 16",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicactionNotAdmittedItemMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicactionNotAdmittedItemMultiError is an error wrapping multiple
+// validation errors returned by IdRicactionNotAdmittedItem.ValidateAll() if
+// the designated constraints aren't met.
+type IdRicactionNotAdmittedItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicactionNotAdmittedItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicactionNotAdmittedItemMultiError) AllErrors() []error { return m }
 
 // IdRicactionNotAdmittedItemValidationError is the validation error returned
 // by IdRicactionNotAdmittedItem.Validate if the designated constraints aren't met.
@@ -2157,21 +3253,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicactionsAdmitted with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicactionsAdmitted) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicactionsAdmitted with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicactionsAdmittedMultiError, or nil if none found.
+func (m *IdRicactionsAdmitted) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicactionsAdmitted) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 17 {
-		return IdRicactionsAdmittedValidationError{
+		err := IdRicactionsAdmittedValidationError{
 			field:  "Value",
 			reason: "value must equal 17",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicactionsAdmittedMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicactionsAdmittedMultiError is an error wrapping multiple validation
+// errors returned by IdRicactionsAdmitted.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicactionsAdmittedMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicactionsAdmittedMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicactionsAdmittedMultiError) AllErrors() []error { return m }
 
 // IdRicactionsAdmittedValidationError is the validation error returned by
 // IdRicactionsAdmitted.Validate if the designated constraints aren't met.
@@ -2231,21 +3365,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicactionsNotAdmitted with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicactionsNotAdmitted) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicactionsNotAdmitted with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicactionsNotAdmittedMultiError, or nil if none found.
+func (m *IdRicactionsNotAdmitted) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicactionsNotAdmitted) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 18 {
-		return IdRicactionsNotAdmittedValidationError{
+		err := IdRicactionsNotAdmittedValidationError{
 			field:  "Value",
 			reason: "value must equal 18",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicactionsNotAdmittedMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicactionsNotAdmittedMultiError is an error wrapping multiple validation
+// errors returned by IdRicactionsNotAdmitted.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicactionsNotAdmittedMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicactionsNotAdmittedMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicactionsNotAdmittedMultiError) AllErrors() []error { return m }
 
 // IdRicactionsNotAdmittedValidationError is the validation error returned by
 // IdRicactionsNotAdmitted.Validate if the designated constraints aren't met.
@@ -2305,21 +3477,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicactionToBeSetupItem with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicactionToBeSetupItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicactionToBeSetupItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicactionToBeSetupItemMultiError, or nil if none found.
+func (m *IdRicactionToBeSetupItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicactionToBeSetupItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 19 {
-		return IdRicactionToBeSetupItemValidationError{
+		err := IdRicactionToBeSetupItemValidationError{
 			field:  "Value",
 			reason: "value must equal 19",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicactionToBeSetupItemMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicactionToBeSetupItemMultiError is an error wrapping multiple validation
+// errors returned by IdRicactionToBeSetupItem.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicactionToBeSetupItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicactionToBeSetupItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicactionToBeSetupItemMultiError) AllErrors() []error { return m }
 
 // IdRicactionToBeSetupItemValidationError is the validation error returned by
 // IdRicactionToBeSetupItem.Validate if the designated constraints aren't met.
@@ -2379,21 +3589,59 @@ var _ interface {
 
 // Validate checks the field values on IdRiccallProcessId with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRiccallProcessId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRiccallProcessId with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRiccallProcessIdMultiError, or nil if none found.
+func (m *IdRiccallProcessId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRiccallProcessId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 20 {
-		return IdRiccallProcessIdValidationError{
+		err := IdRiccallProcessIdValidationError{
 			field:  "Value",
 			reason: "value must equal 20",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRiccallProcessIdMultiError(errors)
+	}
 	return nil
 }
+
+// IdRiccallProcessIdMultiError is an error wrapping multiple validation errors
+// returned by IdRiccallProcessId.ValidateAll() if the designated constraints
+// aren't met.
+type IdRiccallProcessIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRiccallProcessIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRiccallProcessIdMultiError) AllErrors() []error { return m }
 
 // IdRiccallProcessIdValidationError is the validation error returned by
 // IdRiccallProcessId.Validate if the designated constraints aren't met.
@@ -2453,21 +3701,59 @@ var _ interface {
 
 // Validate checks the field values on IdRiccontrolAckRequest with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRiccontrolAckRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRiccontrolAckRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRiccontrolAckRequestMultiError, or nil if none found.
+func (m *IdRiccontrolAckRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRiccontrolAckRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 21 {
-		return IdRiccontrolAckRequestValidationError{
+		err := IdRiccontrolAckRequestValidationError{
 			field:  "Value",
 			reason: "value must equal 21",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRiccontrolAckRequestMultiError(errors)
+	}
 	return nil
 }
+
+// IdRiccontrolAckRequestMultiError is an error wrapping multiple validation
+// errors returned by IdRiccontrolAckRequest.ValidateAll() if the designated
+// constraints aren't met.
+type IdRiccontrolAckRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRiccontrolAckRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRiccontrolAckRequestMultiError) AllErrors() []error { return m }
 
 // IdRiccontrolAckRequestValidationError is the validation error returned by
 // IdRiccontrolAckRequest.Validate if the designated constraints aren't met.
@@ -2527,21 +3813,59 @@ var _ interface {
 
 // Validate checks the field values on IdRiccontrolHeader with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRiccontrolHeader) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRiccontrolHeader with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRiccontrolHeaderMultiError, or nil if none found.
+func (m *IdRiccontrolHeader) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRiccontrolHeader) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 22 {
-		return IdRiccontrolHeaderValidationError{
+		err := IdRiccontrolHeaderValidationError{
 			field:  "Value",
 			reason: "value must equal 22",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRiccontrolHeaderMultiError(errors)
+	}
 	return nil
 }
+
+// IdRiccontrolHeaderMultiError is an error wrapping multiple validation errors
+// returned by IdRiccontrolHeader.ValidateAll() if the designated constraints
+// aren't met.
+type IdRiccontrolHeaderMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRiccontrolHeaderMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRiccontrolHeaderMultiError) AllErrors() []error { return m }
 
 // IdRiccontrolHeaderValidationError is the validation error returned by
 // IdRiccontrolHeader.Validate if the designated constraints aren't met.
@@ -2601,21 +3925,59 @@ var _ interface {
 
 // Validate checks the field values on IdRiccontrolMessage with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRiccontrolMessage) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRiccontrolMessage with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRiccontrolMessageMultiError, or nil if none found.
+func (m *IdRiccontrolMessage) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRiccontrolMessage) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 23 {
-		return IdRiccontrolMessageValidationError{
+		err := IdRiccontrolMessageValidationError{
 			field:  "Value",
 			reason: "value must equal 23",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRiccontrolMessageMultiError(errors)
+	}
 	return nil
 }
+
+// IdRiccontrolMessageMultiError is an error wrapping multiple validation
+// errors returned by IdRiccontrolMessage.ValidateAll() if the designated
+// constraints aren't met.
+type IdRiccontrolMessageMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRiccontrolMessageMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRiccontrolMessageMultiError) AllErrors() []error { return m }
 
 // IdRiccontrolMessageValidationError is the validation error returned by
 // IdRiccontrolMessage.Validate if the designated constraints aren't met.
@@ -2675,21 +4037,59 @@ var _ interface {
 
 // Validate checks the field values on IdRiccontrolStatus with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRiccontrolStatus) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRiccontrolStatus with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRiccontrolStatusMultiError, or nil if none found.
+func (m *IdRiccontrolStatus) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRiccontrolStatus) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 24 {
-		return IdRiccontrolStatusValidationError{
+		err := IdRiccontrolStatusValidationError{
 			field:  "Value",
 			reason: "value must equal 24",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRiccontrolStatusMultiError(errors)
+	}
 	return nil
 }
+
+// IdRiccontrolStatusMultiError is an error wrapping multiple validation errors
+// returned by IdRiccontrolStatus.ValidateAll() if the designated constraints
+// aren't met.
+type IdRiccontrolStatusMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRiccontrolStatusMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRiccontrolStatusMultiError) AllErrors() []error { return m }
 
 // IdRiccontrolStatusValidationError is the validation error returned by
 // IdRiccontrolStatus.Validate if the designated constraints aren't met.
@@ -2749,21 +4149,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicindicationHeader with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicindicationHeader) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicindicationHeader with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicindicationHeaderMultiError, or nil if none found.
+func (m *IdRicindicationHeader) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicindicationHeader) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 25 {
-		return IdRicindicationHeaderValidationError{
+		err := IdRicindicationHeaderValidationError{
 			field:  "Value",
 			reason: "value must equal 25",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicindicationHeaderMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicindicationHeaderMultiError is an error wrapping multiple validation
+// errors returned by IdRicindicationHeader.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicindicationHeaderMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicindicationHeaderMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicindicationHeaderMultiError) AllErrors() []error { return m }
 
 // IdRicindicationHeaderValidationError is the validation error returned by
 // IdRicindicationHeader.Validate if the designated constraints aren't met.
@@ -2823,21 +4261,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicindicationMessage with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicindicationMessage) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicindicationMessage with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicindicationMessageMultiError, or nil if none found.
+func (m *IdRicindicationMessage) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicindicationMessage) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 26 {
-		return IdRicindicationMessageValidationError{
+		err := IdRicindicationMessageValidationError{
 			field:  "Value",
 			reason: "value must equal 26",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicindicationMessageMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicindicationMessageMultiError is an error wrapping multiple validation
+// errors returned by IdRicindicationMessage.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicindicationMessageMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicindicationMessageMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicindicationMessageMultiError) AllErrors() []error { return m }
 
 // IdRicindicationMessageValidationError is the validation error returned by
 // IdRicindicationMessage.Validate if the designated constraints aren't met.
@@ -2896,22 +4372,60 @@ var _ interface {
 } = IdRicindicationMessageValidationError{}
 
 // Validate checks the field values on IdRicindicationSn with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *IdRicindicationSn) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicindicationSn with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicindicationSnMultiError, or nil if none found.
+func (m *IdRicindicationSn) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicindicationSn) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 27 {
-		return IdRicindicationSnValidationError{
+		err := IdRicindicationSnValidationError{
 			field:  "Value",
 			reason: "value must equal 27",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicindicationSnMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicindicationSnMultiError is an error wrapping multiple validation errors
+// returned by IdRicindicationSn.ValidateAll() if the designated constraints
+// aren't met.
+type IdRicindicationSnMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicindicationSnMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicindicationSnMultiError) AllErrors() []error { return m }
 
 // IdRicindicationSnValidationError is the validation error returned by
 // IdRicindicationSn.Validate if the designated constraints aren't met.
@@ -2971,21 +4485,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicindicationType with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicindicationType) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicindicationType with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicindicationTypeMultiError, or nil if none found.
+func (m *IdRicindicationType) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicindicationType) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 28 {
-		return IdRicindicationTypeValidationError{
+		err := IdRicindicationTypeValidationError{
 			field:  "Value",
 			reason: "value must equal 28",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicindicationTypeMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicindicationTypeMultiError is an error wrapping multiple validation
+// errors returned by IdRicindicationType.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicindicationTypeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicindicationTypeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicindicationTypeMultiError) AllErrors() []error { return m }
 
 // IdRicindicationTypeValidationError is the validation error returned by
 // IdRicindicationType.Validate if the designated constraints aren't met.
@@ -3044,22 +4596,60 @@ var _ interface {
 } = IdRicindicationTypeValidationError{}
 
 // Validate checks the field values on IdRicrequestId with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *IdRicrequestId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicrequestId with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdRicrequestIdMultiError,
+// or nil if none found.
+func (m *IdRicrequestId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicrequestId) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 29 {
-		return IdRicrequestIdValidationError{
+		err := IdRicrequestIdValidationError{
 			field:  "Value",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicrequestIdMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicrequestIdMultiError is an error wrapping multiple validation errors
+// returned by IdRicrequestId.ValidateAll() if the designated constraints
+// aren't met.
+type IdRicrequestIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicrequestIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicrequestIdMultiError) AllErrors() []error { return m }
 
 // IdRicrequestIdValidationError is the validation error returned by
 // IdRicrequestId.Validate if the designated constraints aren't met.
@@ -3117,21 +4707,59 @@ var _ interface {
 
 // Validate checks the field values on IdRicsubscriptionDetails with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRicsubscriptionDetails) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRicsubscriptionDetails with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRicsubscriptionDetailsMultiError, or nil if none found.
+func (m *IdRicsubscriptionDetails) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRicsubscriptionDetails) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 30 {
-		return IdRicsubscriptionDetailsValidationError{
+		err := IdRicsubscriptionDetailsValidationError{
 			field:  "Value",
 			reason: "value must equal 30",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRicsubscriptionDetailsMultiError(errors)
+	}
 	return nil
 }
+
+// IdRicsubscriptionDetailsMultiError is an error wrapping multiple validation
+// errors returned by IdRicsubscriptionDetails.ValidateAll() if the designated
+// constraints aren't met.
+type IdRicsubscriptionDetailsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRicsubscriptionDetailsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRicsubscriptionDetailsMultiError) AllErrors() []error { return m }
 
 // IdRicsubscriptionDetailsValidationError is the validation error returned by
 // IdRicsubscriptionDetails.Validate if the designated constraints aren't met.
@@ -3190,22 +4818,59 @@ var _ interface {
 } = IdRicsubscriptionDetailsValidationError{}
 
 // Validate checks the field values on IdTimeToWait with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *IdTimeToWait) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdTimeToWait with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in IdTimeToWaitMultiError, or
+// nil if none found.
+func (m *IdTimeToWait) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdTimeToWait) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 31 {
-		return IdTimeToWaitValidationError{
+		err := IdTimeToWaitValidationError{
 			field:  "Value",
 			reason: "value must equal 31",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdTimeToWaitMultiError(errors)
+	}
 	return nil
 }
+
+// IdTimeToWaitMultiError is an error wrapping multiple validation errors
+// returned by IdTimeToWait.ValidateAll() if the designated constraints aren't met.
+type IdTimeToWaitMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdTimeToWaitMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdTimeToWaitMultiError) AllErrors() []error { return m }
 
 // IdTimeToWaitValidationError is the validation error returned by
 // IdTimeToWait.Validate if the designated constraints aren't met.
@@ -3263,21 +4928,59 @@ var _ interface {
 
 // Validate checks the field values on IdRiccontrolOutcome with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *IdRiccontrolOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdRiccontrolOutcome with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// IdRiccontrolOutcomeMultiError, or nil if none found.
+func (m *IdRiccontrolOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdRiccontrolOutcome) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetValue() != 32 {
-		return IdRiccontrolOutcomeValidationError{
+		err := IdRiccontrolOutcomeValidationError{
 			field:  "Value",
 			reason: "value must equal 32",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return IdRiccontrolOutcomeMultiError(errors)
+	}
 	return nil
 }
+
+// IdRiccontrolOutcomeMultiError is an error wrapping multiple validation
+// errors returned by IdRiccontrolOutcome.ValidateAll() if the designated
+// constraints aren't met.
+type IdRiccontrolOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdRiccontrolOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdRiccontrolOutcomeMultiError) AllErrors() []error { return m }
 
 // IdRiccontrolOutcomeValidationError is the validation error returned by
 // IdRiccontrolOutcome.Validate if the designated constraints aren't met.
