@@ -1,0 +1,1477 @@
+/*
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+////////////////////// e2ap-pdu-contents.proto //////////////////////
+// Protobuf generated from /e2ap_v2.0.1_Feb3_21.asn by asn1c-0.9.29
+// E2AP-PDU-Contents { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version2(2) e2ap(1) e2ap-PDU-Contents(1) }
+
+syntax = "proto3";
+
+package e2ap.v2beta1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents";
+
+import "e2ap/v2beta1/e2ap_ies.proto";
+import "e2ap/v2beta1/e2ap_containers.proto";
+import "e2ap/v2beta1/e2ap_constants.proto";
+import "e2ap/v2beta1/e2ap_commondatatypes.proto";
+import "validate/v1/validate.proto";
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:380
+// {RICsubscriptionRequest}
+message RicsubscriptionRequest {
+    RicsubscriptionRequestIes protocol_ies = 1 [ json_name="RICsubscriptionRequestIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:384
+// {_RICsubscriptionRequest-IEs}
+message RicsubscriptionRequestIes {
+// {RICsubscriptionRequest-IEs29}
+    message RicsubscriptionRequestIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionRequest-IEs5}
+    message RicsubscriptionRequestIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionRequest-IEs30}
+    message RicsubscriptionRequestIes30 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 30, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicsubscriptionDetails value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+    RicsubscriptionRequestIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RicsubscriptionRequestIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+    RicsubscriptionRequestIes30 e2_ap_protocol_ies30 = 3 [ json_name="E2AP-PROTOCOL-IES30"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:393
+// {RICsubscriptionDetails}
+message RicsubscriptionDetails {
+    RiceventTriggerDefinition ric_event_trigger_definition = 1 [ json_name="ricEventTriggerDefinition"];
+    RicactionsToBeSetupList ric_action_to_be_setup_list = 2 [ json_name="ricAction-ToBeSetup-List"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:398
+// {RICactions-ToBeSetup-List}
+message RicactionsToBeSetupList {
+    // @inject_tag: aper:""
+    repeated RicactionToBeSetupItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:400
+// {_RICaction-ToBeSetup-ItemIEs}
+message RicactionToBeSetupItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 19, json_name="id"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    RicactionToBeSetupItem value = 3 [json_name="ricActionToBeSetupItem"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:406
+// {RICaction-ToBeSetup-Item}
+message RicactionToBeSetupItem {
+    RicactionId ric_action_id = 1 [ json_name="ricActionID"];
+    RicactionType ric_action_type = 2 [ json_name="ricActionType"];
+    optional RicactionDefinition ric_action_definition = 3 [ json_name="ricActionDefinition"];
+    optional RicsubsequentAction ric_subsequent_action = 4 [ json_name="ricSubsequentAction"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:419
+// {RICsubscriptionResponse}
+message RicsubscriptionResponse {
+    RicsubscriptionResponseIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:423
+// {_RICsubscriptionResponse-IEs}
+message RicsubscriptionResponseIes {
+// {RICsubscriptionResponse-IEs29}
+    message RicsubscriptionResponseIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionResponse-IEs5}
+    message RicsubscriptionResponseIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionResponse-IEs17}
+    message RicsubscriptionResponseIes17 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 17, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicactionAdmittedList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionResponse-IEs18}
+    message RicsubscriptionResponseIes18 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 18, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicactionNotAdmittedList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RicsubscriptionResponseIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RicsubscriptionResponseIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+    RicsubscriptionResponseIes17 e2_ap_protocol_ies17 = 3 [ json_name="E2AP-PROTOCOL-IES17"];
+    RicsubscriptionResponseIes18 e2_ap_protocol_ies18 = 4 [ json_name="E2AP-PROTOCOL-IES18"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:433
+// {RICaction-Admitted-List}
+message RicactionAdmittedList {
+    // @inject_tag: aper:""
+    repeated RicactionAdmittedItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:435
+// {_RICaction-Admitted-ItemIEs}
+message RicactionAdmittedItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 14, json_name="id"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    RicactionAdmittedItem value = 3 [json_name="ricActionAdmittedItem"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:441
+// {RICaction-Admitted-Item}
+message RicactionAdmittedItem {
+    RicactionId ric_action_id = 1 [ json_name="ricActionID"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:445
+// {RICaction-NotAdmitted-List}
+message RicactionNotAdmittedList {
+    // @inject_tag: aper:""
+    repeated RicactionNotAdmittedItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:447
+// {_RICaction-NotAdmitted-ItemIEs}
+message RicactionNotAdmittedItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 16, json_name="id"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    RicactionNotAdmittedItem value = 3 [json_name="ricActionNotAdmittedItem"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:453
+// {RICaction-NotAdmitted-Item}
+message RicactionNotAdmittedItem {
+    RicactionId ric_action_id = 1 [ json_name="ricActionID"];
+    Cause cause = 2 [ json_name="cause"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:464
+// {RICsubscriptionFailure}
+message RicsubscriptionFailure {
+    RicsubscriptionFailureIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:468
+// {_RICsubscriptionFailure-IEs}
+message RicsubscriptionFailureIes {
+// {RICsubscriptionFailure-IEs29}
+    message RicsubscriptionFailureIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionFailure-IEs5}
+    message RicsubscriptionFailureIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionFailure-IEs1}
+    message RicsubscriptionFailureIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionFailure-IEs2}
+    message RicsubscriptionFailureIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RicsubscriptionFailureIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RicsubscriptionFailureIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+    RicsubscriptionFailureIes1 e2_ap_protocol_ies1 = 3 [ json_name="E2AP-PROTOCOL-IES1"];
+    RicsubscriptionFailureIes2 e2_ap_protocol_ies2 = 4 [ json_name="E2AP-PROTOCOL-IES2"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:487
+// {RICsubscriptionDeleteRequest}
+message RicsubscriptionDeleteRequest {
+    RicsubscriptionDeleteRequestIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:491
+// {_RICsubscriptionDeleteRequest-IEs}
+message RicsubscriptionDeleteRequestIes {
+// {RICsubscriptionDeleteRequest-IEs29}
+    message RicsubscriptionDeleteRequestIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionDeleteRequest-IEs5}
+    message RicsubscriptionDeleteRequestIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+    RicsubscriptionDeleteRequestIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RicsubscriptionDeleteRequestIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:503
+// {RICsubscriptionDeleteResponse}
+message RicsubscriptionDeleteResponse {
+    RicsubscriptionDeleteResponseIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:507
+// {_RICsubscriptionDeleteResponse-IEs}
+message RicsubscriptionDeleteResponseIes {
+// {RICsubscriptionDeleteResponse-IEs29}
+    message RicsubscriptionDeleteResponseIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionDeleteResponse-IEs5}
+    message RicsubscriptionDeleteResponseIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+    RicsubscriptionDeleteResponseIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RicsubscriptionDeleteResponseIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:518
+// {RICsubscriptionDeleteFailure}
+message RicsubscriptionDeleteFailure {
+    RicsubscriptionDeleteFailureIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:522
+// {_RICsubscriptionDeleteFailure-IEs}
+message RicsubscriptionDeleteFailureIes {
+// {RICsubscriptionDeleteFailure-IEs29}
+    message RicsubscriptionDeleteFailureIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionDeleteFailure-IEs5}
+    message RicsubscriptionDeleteFailureIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionDeleteFailure-IEs1}
+    message RicsubscriptionDeleteFailureIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICsubscriptionDeleteFailure-IEs2}
+    message RicsubscriptionDeleteFailureIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RicsubscriptionDeleteFailureIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RicsubscriptionDeleteFailureIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+    RicsubscriptionDeleteFailureIes1 e2_ap_protocol_ies1 = 3 [ json_name="E2AP-PROTOCOL-IES1"];
+    RicsubscriptionDeleteFailureIes2 e2_ap_protocol_ies2 = 4 [ json_name="E2AP-PROTOCOL-IES2"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:541
+// {RICindication}
+message Ricindication {
+    RicindicationIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:545
+// {_RICindication-IEs}
+message RicindicationIes {
+// {RICindication-IEs29}
+    message RicindicationIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICindication-IEs5}
+    message RicindicationIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICindication-IEs15}
+    message RicindicationIes15 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 15, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICindication-IEs27}
+    message RicindicationIes27 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 27, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicindicationSn value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {RICindication-IEs28}
+    message RicindicationIes28 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 28, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicindicationType value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICindication-IEs25}
+    message RicindicationIes25 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 25, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicindicationHeader value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICindication-IEs26}
+    message RicindicationIes26 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 26, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicindicationMessage value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICindication-IEs20}
+    message RicindicationIes20 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 20, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccallProcessId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RicindicationIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RicindicationIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+    RicindicationIes15 e2_ap_protocol_ies15 = 3 [ json_name="E2AP-PROTOCOL-IES15"];
+    RicindicationIes27 e2_ap_protocol_ies27 = 4 [ json_name="E2AP-PROTOCOL-IES27"];
+    RicindicationIes28 e2_ap_protocol_ies28 = 5 [ json_name="E2AP-PROTOCOL-IES28"];
+    RicindicationIes25 e2_ap_protocol_ies25 = 6 [ json_name="E2AP-PROTOCOL-IES25"];
+    RicindicationIes26 e2_ap_protocol_ies26 = 7 [ json_name="E2AP-PROTOCOL-IES26"];
+    RicindicationIes20 e2_ap_protocol_ies20 = 8 [ json_name="E2AP-PROTOCOL-IES20"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:568
+// {RICcontrolRequest}
+message RiccontrolRequest {
+    RiccontrolRequestIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:572
+// {_RICcontrolRequest-IEs}
+message RiccontrolRequestIes {
+// {RICcontrolRequest-IEs29}
+    message RiccontrolRequestIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolRequest-IEs5}
+    message RiccontrolRequestIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolRequest-IEs20}
+    message RiccontrolRequestIes20 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 20, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccallProcessId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {RICcontrolRequest-IEs22}
+    message RiccontrolRequestIes22 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 22, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccontrolHeader value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolRequest-IEs23}
+    message RiccontrolRequestIes23 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 23, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccontrolMessage value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolRequest-IEs21}
+    message RiccontrolRequestIes21 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 21, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccontrolAckRequest value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RiccontrolRequestIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RiccontrolRequestIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+    RiccontrolRequestIes20 e2_ap_protocol_ies20 = 3 [ json_name="E2AP-PROTOCOL-IES20"];
+    RiccontrolRequestIes22 e2_ap_protocol_ies22 = 4 [ json_name="E2AP-PROTOCOL-IES22"];
+    RiccontrolRequestIes23 e2_ap_protocol_ies23 = 5 [ json_name="E2AP-PROTOCOL-IES23"];
+    RiccontrolRequestIes21 e2_ap_protocol_ies21 = 6 [ json_name="E2AP-PROTOCOL-IES21"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:587
+// {RICcontrolAcknowledge}
+message RiccontrolAcknowledge {
+    RiccontrolAcknowledgeIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:591
+// {_RICcontrolAcknowledge-IEs}
+message RiccontrolAcknowledgeIes {
+// {RICcontrolAcknowledge-IEs29}
+    message RiccontrolAcknowledgeIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolAcknowledge-IEs5}
+    message RiccontrolAcknowledgeIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolAcknowledge-IEs20}
+    message RiccontrolAcknowledgeIes20 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 20, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccallProcessId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {RICcontrolAcknowledge-IEs24}
+    message RiccontrolAcknowledgeIes24 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 24, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccontrolStatus value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolAcknowledge-IEs32}
+    message RiccontrolAcknowledgeIes32 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 32, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccontrolOutcome value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RiccontrolAcknowledgeIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RiccontrolAcknowledgeIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+    RiccontrolAcknowledgeIes20 e2_ap_protocol_ies20 = 3 [ json_name="E2AP-PROTOCOL-IES20"];
+    RiccontrolAcknowledgeIes24 e2_ap_protocol_ies24 = 4 [ json_name="E2AP-PROTOCOL-IES24"];
+    RiccontrolAcknowledgeIes32 e2_ap_protocol_ies32 = 5 [ json_name="E2AP-PROTOCOL-IES32"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:605
+// {RICcontrolFailure}
+message RiccontrolFailure {
+    RiccontrolFailureIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:609
+// {_RICcontrolFailure-IEs}
+message RiccontrolFailureIes {
+// {RICcontrolFailure-IEs29}
+    message RiccontrolFailureIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolFailure-IEs5}
+    message RiccontrolFailureIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolFailure-IEs20}
+    message RiccontrolFailureIes20 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 20, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccallProcessId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {RICcontrolFailure-IEs1}
+    message RiccontrolFailureIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICcontrolFailure-IEs32}
+    message RiccontrolFailureIes32 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 32, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RiccontrolOutcome value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RiccontrolFailureIes29 e2_ap_protocol_ies29 = 1 [ json_name="E2AP-PROTOCOL-IES29"];
+    RiccontrolFailureIes5 e2_ap_protocol_ies5 = 2 [ json_name="E2AP-PROTOCOL-IES5"];
+    RiccontrolFailureIes20 e2_ap_protocol_ies20 = 3 [ json_name="E2AP-PROTOCOL-IES20"];
+    RiccontrolFailureIes1 e2_ap_protocol_ies1 = 4 [ json_name="E2AP-PROTOCOL-IES1"];
+    RiccontrolFailureIes32 e2_ap_protocol_ies32 = 5 [ json_name="E2AP-PROTOCOL-IES32"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:635
+// {ErrorIndication}
+message ErrorIndication {
+    ErrorIndicationIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:639
+// {_ErrorIndication-IEs}
+message ErrorIndicationIes {
+// {ErrorIndication-IEs49}
+    message ErrorIndicationIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {ErrorIndication-IEs29}
+    message ErrorIndicationIes29 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RicrequestId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {ErrorIndication-IEs5}
+    message ErrorIndicationIes5 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {ErrorIndication-IEs1}
+    message ErrorIndicationIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {ErrorIndication-IEs2}
+    message ErrorIndicationIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    ErrorIndicationIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    ErrorIndicationIes29 e2_ap_protocol_ies29 = 2 [ json_name="E2AP-PROTOCOL-IES29"];
+    ErrorIndicationIes5 e2_ap_protocol_ies5 = 3 [ json_name="E2AP-PROTOCOL-IES5"];
+    ErrorIndicationIes1 e2_ap_protocol_ies1 = 4 [ json_name="E2AP-PROTOCOL-IES1"];
+    ErrorIndicationIes2 e2_ap_protocol_ies2 = 5 [ json_name="E2AP-PROTOCOL-IES2"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:660
+// {E2setupRequest}
+message E2setupRequest {
+    E2setupRequestIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:664
+// {_E2setupRequestIEs}
+message E2setupRequestIes {
+// {E2setupRequestIEs49}
+    message E2setupRequestIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2setupRequestIEs3}
+    message E2setupRequestIes3 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 3, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        GlobalE2nodeId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2setupRequestIEs10}
+    message E2setupRequestIes10 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 10, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2setupRequestIEs33}
+    message E2setupRequestIes33 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 33, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2nodeComponentConfigUpdateList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+    E2setupRequestIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2setupRequestIes3 e2_ap_protocol_ies3 = 2 [ json_name="E2AP-PROTOCOL-IES3"];
+    E2setupRequestIes10 e2_ap_protocol_ies10 = 3 [ json_name="E2AP-PROTOCOL-IES10"];
+    E2setupRequestIes33 e2_ap_protocol_ies33 = 4 [ json_name="E2AP-PROTOCOL-IES33"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:679
+// {E2setupResponse}
+message E2setupResponse {
+    E2setupResponseIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:683
+// {_E2setupResponseIEs}
+message E2setupResponseIes {
+// {E2setupResponseIEs49}
+    message E2setupResponseIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2setupResponseIEs4}
+    message E2setupResponseIes4 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 4, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        GlobalRicId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2setupResponseIEs9}
+    message E2setupResponseIes9 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 9, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsIdList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2setupResponseIEs13}
+    message E2setupResponseIes13 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 13, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsIdcauseList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2setupResponseIEs35}
+    message E2setupResponseIes35 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 35, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2nodeComponentConfigUpdateAckList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    E2setupResponseIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2setupResponseIes4 e2_ap_protocol_ies4 = 2 [ json_name="E2AP-PROTOCOL-IES4"];
+    E2setupResponseIes9 e2_ap_protocol_ies9 = 3 [ json_name="E2AP-PROTOCOL-IES9"];
+    E2setupResponseIes13 e2_ap_protocol_ies13 = 4 [ json_name="E2AP-PROTOCOL-IES13"];
+    E2setupResponseIes35 e2_ap_protocol_ies35 = 5 [ json_name="E2AP-PROTOCOL-IES35"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:699
+// {E2setupFailure}
+message E2setupFailure {
+    E2setupFailureIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:703
+// {_E2setupFailureIEs}
+message E2setupFailureIes {
+// {E2setupFailureIEs49}
+    message E2setupFailureIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2setupFailureIEs1}
+    message E2setupFailureIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2setupFailureIEs31}
+    message E2setupFailureIes31 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 31, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        TimeToWait value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2setupFailureIEs2}
+    message E2setupFailureIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2setupFailureIEs48}
+    message E2setupFailureIes48 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 48, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        Tnlinformation value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    E2setupFailureIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2setupFailureIes1 e2_ap_protocol_ies1 = 2 [ json_name="E2AP-PROTOCOL-IES1"];
+    E2setupFailureIes31 e2_ap_protocol_ies31 = 3 [ json_name="E2AP-PROTOCOL-IES31"];
+    E2setupFailureIes2 e2_ap_protocol_ies2 = 4 [ json_name="E2AP-PROTOCOL-IES2"];
+    E2setupFailureIes48 e2_ap_protocol_ies48 = 5 [ json_name="E2AP-PROTOCOL-IES48"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:723
+// {E2connectionUpdate}
+message E2connectionUpdate {
+    E2connectionUpdateIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:727
+// {_E2connectionUpdate-IEs}
+message E2connectionUpdateIes {
+// {E2connectionUpdate-IEs49}
+    message E2connectionUpdateIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2connectionUpdate-IEs44}
+    message E2connectionUpdateIes44 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 44, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2connectionUpdateList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2connectionUpdate-IEs46}
+    message E2connectionUpdateIes46 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 46, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2connectionUpdateRemoveList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2connectionUpdate-IEs45}
+    message E2connectionUpdateIes45 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 45, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2connectionUpdateList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    E2connectionUpdateIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2connectionUpdateIes44 e2_ap_protocol_ies44 = 2 [ json_name="E2AP-PROTOCOL-IES44"];
+    E2connectionUpdateIes46 e2_ap_protocol_ies46 = 3 [ json_name="E2AP-PROTOCOL-IES46"];
+    E2connectionUpdateIes45 e2_ap_protocol_ies45 = 4 [ json_name="E2AP-PROTOCOL-IES45"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:735
+// {E2connectionUpdate-List}
+message E2connectionUpdateList {
+    // @inject_tag: aper:""
+    repeated E2connectionUpdateItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:737
+// {_E2connectionUpdate-ItemIEs}
+message E2connectionUpdateItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 43, json_name="id"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    E2connectionUpdateItem value = 3 [json_name="E2connectionUpdateItem"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:743
+// {E2connectionUpdate-Item}
+message E2connectionUpdateItem {
+    Tnlinformation tnl_information = 1 [ json_name="tnlInformation"];
+    Tnlusage tnl_usage = 2 [ json_name="tnlUsage"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:748
+// {E2connectionUpdateRemove-List}
+message E2connectionUpdateRemoveList {
+    // @inject_tag: aper:""
+    repeated E2connectionUpdateRemoveItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:750
+// {_E2connectionUpdateRemove-ItemIEs}
+message E2connectionUpdateRemoveItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 47, json_name="id"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    E2connectionUpdateRemoveItem value = 3 [json_name="E2connectionUpdateRemoveItem"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:756
+// {E2connectionUpdateRemove-Item}
+message E2connectionUpdateRemoveItem {
+    Tnlinformation tnl_information = 1 [ json_name="tnlInformation"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:768
+// {E2connectionUpdateAcknowledge}
+message E2connectionUpdateAcknowledge {
+    E2connectionUpdateAckIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:772
+// {_E2connectionUpdateAck-IEs}
+message E2connectionUpdateAckIes {
+// {E2connectionUpdateAck-IEs49}
+    message E2connectionUpdateAckIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2connectionUpdateAck-IEs39}
+    message E2connectionUpdateAckIes39 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 39, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2connectionUpdateList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2connectionUpdateAck-IEs40}
+    message E2connectionUpdateAckIes40 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 40, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2connectionSetupFailedList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    E2connectionUpdateAckIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2connectionUpdateAckIes39 e2_ap_protocol_ies39 = 2 [ json_name="E2AP-PROTOCOL-IES39"];
+    E2connectionUpdateAckIes40 e2_ap_protocol_ies40 = 3 [ json_name="E2AP-PROTOCOL-IES40"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:779
+// {E2connectionSetupFailed-List}
+message E2connectionSetupFailedList {
+    // @inject_tag: aper:""
+    repeated E2connectionSetupFailedItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:781
+// {_E2connectionSetupFailed-ItemIEs}
+message E2connectionSetupFailedItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 41, json_name="id"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    E2connectionSetupFailedItem value = 3 [json_name="E2connectionSetupFailedItem"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:787
+// {E2connectionSetupFailed-Item}
+message E2connectionSetupFailedItem {
+    Tnlinformation tnl_information = 1 [ json_name="tnlInformation"];
+    Cause cause = 2 [ json_name="cause"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:798
+// {E2connectionUpdateFailure}
+message E2connectionUpdateFailure {
+    E2connectionUpdateFailureIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:802
+// {_E2connectionUpdateFailure-IEs}
+message E2connectionUpdateFailureIes {
+// {E2connectionUpdateFailure-IEs49}
+    message E2connectionUpdateFailureIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2connectionUpdateFailure-IEs1}
+    message E2connectionUpdateFailureIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2connectionUpdateFailure-IEs31}
+    message E2connectionUpdateFailureIes31 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 31, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        TimeToWait value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2connectionUpdateFailure-IEs2}
+    message E2connectionUpdateFailureIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    E2connectionUpdateFailureIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2connectionUpdateFailureIes1 e2_ap_protocol_ies1 = 2 [ json_name="E2AP-PROTOCOL-IES1"];
+    E2connectionUpdateFailureIes31 e2_ap_protocol_ies31 = 3 [ json_name="E2AP-PROTOCOL-IES31"];
+    E2connectionUpdateFailureIes2 e2_ap_protocol_ies2 = 4 [ json_name="E2AP-PROTOCOL-IES2"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:821
+// {E2nodeConfigurationUpdate}
+message E2nodeConfigurationUpdate {
+    E2nodeConfigurationUpdateIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:825
+// {_E2nodeConfigurationUpdate-IEs}
+message E2nodeConfigurationUpdateIes {
+// {E2nodeConfigurationUpdate-IEs49}
+    message E2nodeConfigurationUpdateIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2nodeConfigurationUpdate-IEs3}
+    message E2nodeConfigurationUpdateIes3 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 3, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        GlobalE2nodeId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2nodeConfigurationUpdate-IEs33}
+    message E2nodeConfigurationUpdateIes33 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 33, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2nodeComponentConfigUpdateList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    E2nodeConfigurationUpdateIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2nodeConfigurationUpdateIes3 e2_ap_protocol_ies3 = 2 [ json_name="E2AP-PROTOCOL-IES3"];
+    E2nodeConfigurationUpdateIes33 e2_ap_protocol_ies33 = 3 [ json_name="E2AP-PROTOCOL-IES33"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:832
+// {E2nodeComponentConfigUpdate-List}
+message E2nodeComponentConfigUpdateList {
+    // @inject_tag: aper:""
+    repeated E2nodeComponentConfigUpdateItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:834
+// {_E2nodeComponentConfigUpdate-ItemIEs}
+message E2nodeComponentConfigUpdateItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 34, json_name="id"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
+    E2nodeComponentConfigUpdateItem value = 3 [json_name="E2nodeComponentConfigUpdateItem"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:841
+// {E2nodeComponentConfigUpdate-Item}
+message E2nodeComponentConfigUpdateItem {
+    E2nodeComponentType e2node_component_type = 1 [ json_name="e2nodeComponentType"];
+    optional E2nodeComponentId e2node_component_id = 2 [ json_name="e2nodeComponentID"];
+    E2nodeComponentConfigUpdate e2node_component_config_update = 3 [ json_name="e2nodeComponentConfigUpdate"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:854
+// {E2nodeConfigurationUpdateAcknowledge}
+message E2nodeConfigurationUpdateAcknowledge {
+    E2nodeConfigurationUpdateAcknowledgeIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:858
+// {_E2nodeConfigurationUpdateAcknowledge-IEs}
+message E2nodeConfigurationUpdateAcknowledgeIes {
+// {E2nodeConfigurationUpdateAcknowledge-IEs49}
+    message E2nodeConfigurationUpdateAcknowledgeIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2nodeConfigurationUpdateAcknowledge-IEs35}
+    message E2nodeConfigurationUpdateAcknowledgeIes35 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 35, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        E2nodeComponentConfigUpdateAckList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    E2nodeConfigurationUpdateAcknowledgeIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2nodeConfigurationUpdateAcknowledgeIes35 e2_ap_protocol_ies35 = 2 [ json_name="E2AP-PROTOCOL-IES35"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:864
+// {E2nodeComponentConfigUpdateAck-List}
+message E2nodeComponentConfigUpdateAckList {
+    // @inject_tag: aper:""
+    repeated E2nodeComponentConfigUpdateAckItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:866
+// {_E2nodeComponentConfigUpdateAck-ItemIEs}
+message E2nodeComponentConfigUpdateAckItemIes {
+    int32 id = 1 [(validate.v1.rules).int32.const = 36, json_name="id"];
+    int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
+    E2nodeComponentConfigUpdateAckItem value = 3 [json_name="E2nodeComponentConfigUpdateAckItem"];
+    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:873
+// {E2nodeComponentConfigUpdateAck-Item}
+message E2nodeComponentConfigUpdateAckItem {
+    E2nodeComponentType e2node_component_type = 1 [ json_name="e2nodeComponentType"];
+    optional E2nodeComponentId e2node_component_id = 2 [ json_name="e2nodeComponentID"];
+    E2nodeComponentConfigUpdateAck e2node_component_config_update_ack = 3 [ json_name="e2nodeComponentConfigUpdateAck"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:886
+// {E2nodeConfigurationUpdateFailure}
+message E2nodeConfigurationUpdateFailure {
+    E2nodeConfigurationUpdateFailureIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:890
+// {_E2nodeConfigurationUpdateFailure-IEs}
+message E2nodeConfigurationUpdateFailureIes {
+// {E2nodeConfigurationUpdateFailure-IEs49}
+    message E2nodeConfigurationUpdateFailureIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2nodeConfigurationUpdateFailure-IEs1}
+    message E2nodeConfigurationUpdateFailureIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {E2nodeConfigurationUpdateFailure-IEs31}
+    message E2nodeConfigurationUpdateFailureIes31 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 31, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        TimeToWait value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {E2nodeConfigurationUpdateFailure-IEs2}
+    message E2nodeConfigurationUpdateFailureIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    E2nodeConfigurationUpdateFailureIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    E2nodeConfigurationUpdateFailureIes1 e2_ap_protocol_ies1 = 2 [ json_name="E2AP-PROTOCOL-IES1"];
+    E2nodeConfigurationUpdateFailureIes31 e2_ap_protocol_ies31 = 3 [ json_name="E2AP-PROTOCOL-IES31"];
+    E2nodeConfigurationUpdateFailureIes2 e2_ap_protocol_ies2 = 4 [ json_name="E2AP-PROTOCOL-IES2"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:911
+// {ResetRequest}
+message ResetRequest {
+    ResetRequestIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:915
+// {_ResetRequestIEs}
+message ResetRequestIes {
+// {ResetRequestIEs49}
+    message ResetRequestIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {ResetRequestIEs1}
+    message ResetRequestIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+    ResetRequestIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    ResetRequestIes1 e2_ap_protocol_ies1 = 2 [ json_name="E2AP-PROTOCOL-IES1"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:928
+// {ResetResponse}
+message ResetResponse {
+    ResetResponseIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:932
+// {_ResetResponseIEs}
+message ResetResponseIes {
+// {ResetResponseIEs49}
+    message ResetResponseIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {ResetResponseIEs2}
+    message ResetResponseIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    ResetResponseIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    ResetResponseIes2 e2_ap_protocol_ies2 = 2 [ json_name="E2AP-PROTOCOL-IES2"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:949
+// {RICserviceUpdate}
+message RicserviceUpdate {
+    RicserviceUpdateIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:953
+// {_RICserviceUpdate-IEs}
+message RicserviceUpdateIes {
+// {RICserviceUpdate-IEs49}
+    message RicserviceUpdateIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICserviceUpdate-IEs10}
+    message RicserviceUpdateIes10 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 10, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {RICserviceUpdate-IEs12}
+    message RicserviceUpdateIes12 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 12, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {RICserviceUpdate-IEs11}
+    message RicserviceUpdateIes11 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 11, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsIdList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RicserviceUpdateIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    RicserviceUpdateIes10 e2_ap_protocol_ies10 = 2 [ json_name="E2AP-PROTOCOL-IES10"];
+    RicserviceUpdateIes12 e2_ap_protocol_ies12 = 3 [ json_name="E2AP-PROTOCOL-IES12"];
+    RicserviceUpdateIes11 e2_ap_protocol_ies11 = 4 [ json_name="E2AP-PROTOCOL-IES11"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:961
+// {RANfunctions-List}
+message RanfunctionsList {
+    // @inject_tag: aper:""
+    repeated RanfunctionItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:963
+// {_RANfunction-ItemIEs}
+message RanfunctionItemIes {
+    //{RANfunctionItemIEs8}
+    message RanfunctionItemIes8 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 8, json_name="id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+        RanfunctionItem value = 3 [json_name="ranFunctionItem"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+    }
+    RanfunctionItemIes8 e2_ap_protocol_ies10 = 1 [json_name="ranFunctionItemIEs8"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:970
+// {RANfunction-Item}
+message RanfunctionItem {
+    RanfunctionId ran_function_id = 1 [ json_name="ranFunctionID"];
+    RanfunctionDefinition ran_function_definition = 2 [ json_name="ranFunctionDefinition"];
+    RanfunctionRevision ran_function_revision = 3 [ json_name="ranFunctionRevision"];
+    RanfunctionOid ran_function_oid = 4 [ json_name="ranFunctionOID"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:977
+// {RANfunctionsID-List}
+message RanfunctionsIdList {
+    // @inject_tag: aper:""
+    repeated RanfunctionIdItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:979
+// {_RANfunctionID-ItemIEs}
+message RanfunctionIdItemIes {
+    //{RANfunctionIDItemIEs6}
+    message RanfunctionIdItemIes6 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 6, json_name="id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+        RanfunctionIdItem value = 3 [json_name="ranFunctionIDItem"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+    }
+
+    RanfunctionIdItemIes6 ran_function_id_item_ies6 = 1 [json_name="ranFunctionIDItemIEs6"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:985
+// {RANfunctionID-Item}
+message RanfunctionIdItem {
+    RanfunctionId ran_function_id = 1 [ json_name="ranFunctionID"];
+    RanfunctionRevision ran_function_revision = 2 [ json_name="ranFunctionRevision"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:996
+// {RICserviceUpdateAcknowledge}
+message RicserviceUpdateAcknowledge {
+    RicserviceUpdateAcknowledgeIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:1000
+// {_RICserviceUpdateAcknowledge-IEs}
+message RicserviceUpdateAcknowledgeIes {
+// {RICserviceUpdateAcknowledge-IEs49}
+    message RicserviceUpdateAcknowledgeIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICserviceUpdateAcknowledge-IEs9}
+    message RicserviceUpdateAcknowledgeIes9 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 9, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsIdList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICserviceUpdateAcknowledge-IEs13}
+    message RicserviceUpdateAcknowledgeIes13 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 13, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsIdcauseList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RicserviceUpdateAcknowledgeIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    RicserviceUpdateAcknowledgeIes9 e2_ap_protocol_ies9 = 2 [ json_name="E2AP-PROTOCOL-IES9"];
+    RicserviceUpdateAcknowledgeIes13 e2_ap_protocol_ies13 = 3 [ json_name="E2AP-PROTOCOL-IES13"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1007
+// {RANfunctionsIDcause-List}
+message RanfunctionsIdcauseList {
+    // @inject_tag: aper:""
+    repeated RanfunctionIdcauseItemIes value = 1 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:1009
+// {_RANfunctionIDcause-ItemIEs}
+message RanfunctionIdcauseItemIes {
+    //{RANfunctionIDcauseItemIEs7}
+    message RanfunctionIdcauseItemIes7 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 7, json_name="id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+        RanfunctionIdcauseItem value = 3 [json_name="ranFunctionIDcauseItem"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
+    }
+
+    RanfunctionIdcauseItemIes7 ran_function_idcause_item_ies7 = 1 [json_name="ranFunctionIDcauseItemIEs7"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1016
+// {RANfunctionIDcause-Item}
+message RanfunctionIdcauseItem {
+    RanfunctionId ran_function_id = 1 [ json_name="ranFunctionID"];
+    Cause cause = 2 [ json_name="cause"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1028
+// {RICserviceUpdateFailure}
+message RicserviceUpdateFailure {
+    RicserviceUpdateFailureIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:1032
+// {_RICserviceUpdateFailure-IEs}
+message RicserviceUpdateFailureIes {
+// {RICserviceUpdateFailure-IEs49}
+    message RicserviceUpdateFailureIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICserviceUpdateFailure-IEs1}
+    message RicserviceUpdateFailureIes1 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        Cause value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICserviceUpdateFailure-IEs31}
+    message RicserviceUpdateFailureIes31 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 31, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        TimeToWait value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+// {RICserviceUpdateFailure-IEs2}
+    message RicserviceUpdateFailureIes2 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+        CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RicserviceUpdateFailureIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    RicserviceUpdateFailureIes1 e2_ap_protocol_ies1 = 2 [ json_name="E2AP-PROTOCOL-IES1"];
+    RicserviceUpdateFailureIes31 e2_ap_protocol_ies31 = 3 [ json_name="E2AP-PROTOCOL-IES31"];
+    RicserviceUpdateFailureIes2 e2_ap_protocol_ies2 = 4 [ json_name="E2AP-PROTOCOL-IES2"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1051
+// {RICserviceQuery}
+message RicserviceQuery {
+    RicserviceQueryIes protocol_ies = 1 [ json_name="protocolIEs"];
+};
+
+// concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.0.1_Feb3_21.asn:1055
+// {_RICserviceQuery-IEs}
+message RicserviceQueryIes {
+// {RICserviceQuery-IEs49}
+    message RicserviceQueryIes49 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        TransactionId value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+    };
+
+// {RICserviceQuery-IEs9}
+    message RicserviceQueryIes9 {
+        int32 id = 1 [(validate.v1.rules).int32.const = 9, json_name="&id"];
+        int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        RanfunctionsIdList value = 3 [ json_name="&Value"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+    };
+
+    RicserviceQueryIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+    RicserviceQueryIes9 e2_ap_protocol_ies9 = 2 [ json_name="E2AP-PROTOCOL-IES9"];
+};
+
+

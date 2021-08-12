@@ -15,7 +15,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 // ensure the imports are used
@@ -30,21 +30,51 @@ var (
 	_ = time.Duration(0)
 	_ = (*url.URL)(nil)
 	_ = (*mail.Address)(nil)
-	_ = ptypes.DynamicAny{}
+	_ = anypb.Any{}
 )
-
-// define the regex for a UUID once up-front
-var _e_2_ap_pdu_contents_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
 
 // Validate checks the field values on RicsubscriptionRequest with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionRequestMultiError, or nil if none found.
+func (m *RicsubscriptionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionRequestValidationError{
 				field:  "ProtocolIes",
@@ -54,8 +84,28 @@ func (m *RicsubscriptionRequest) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionRequestMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionRequestMultiError is an error wrapping multiple validation
+// errors returned by RicsubscriptionRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RicsubscriptionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionRequestMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionRequestValidationError is the validation error returned by
 // RicsubscriptionRequest.Validate if the designated constraints aren't met.
@@ -115,13 +165,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionRequestIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionRequestIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionRequestIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionRequestIesMultiError, or nil if none found.
+func (m *RicsubscriptionRequestIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionRequestIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionRequestIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -131,7 +214,26 @@ func (m *RicsubscriptionRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionRequestIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -141,7 +243,26 @@ func (m *RicsubscriptionRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes30()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes30()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIesValidationError{
+					field:  "E2ApProtocolIes30",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIesValidationError{
+					field:  "E2ApProtocolIes30",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes30()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionRequestIesValidationError{
 				field:  "E2ApProtocolIes30",
@@ -151,8 +272,28 @@ func (m *RicsubscriptionRequestIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionRequestIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionRequestIesMultiError is an error wrapping multiple validation
+// errors returned by RicsubscriptionRequestIes.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionRequestIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionRequestIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionRequestIesMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionRequestIesValidationError is the validation error returned by
 // RicsubscriptionRequestIes.Validate if the designated constraints aren't met.
@@ -212,13 +353,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionDetails with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDetails) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionDetails with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDetailsMultiError, or nil if none found.
+func (m *RicsubscriptionDetails) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDetails) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRicEventTriggerDefinition()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicEventTriggerDefinition()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDetailsValidationError{
+					field:  "RicEventTriggerDefinition",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDetailsValidationError{
+					field:  "RicEventTriggerDefinition",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicEventTriggerDefinition()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDetailsValidationError{
 				field:  "RicEventTriggerDefinition",
@@ -228,7 +402,26 @@ func (m *RicsubscriptionDetails) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicActionToBeSetupList()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicActionToBeSetupList()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDetailsValidationError{
+					field:  "RicActionToBeSetupList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDetailsValidationError{
+					field:  "RicActionToBeSetupList",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicActionToBeSetupList()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDetailsValidationError{
 				field:  "RicActionToBeSetupList",
@@ -238,8 +431,28 @@ func (m *RicsubscriptionDetails) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDetailsMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionDetailsMultiError is an error wrapping multiple validation
+// errors returned by RicsubscriptionDetails.ValidateAll() if the designated
+// constraints aren't met.
+type RicsubscriptionDetailsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDetailsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDetailsMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionDetailsValidationError is the validation error returned by
 // RicsubscriptionDetails.Validate if the designated constraints aren't met.
@@ -299,23 +512,60 @@ var _ interface {
 
 // Validate checks the field values on RicactionsToBeSetupList with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionsToBeSetupList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionsToBeSetupList with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionsToBeSetupListMultiError, or nil if none found.
+func (m *RicactionsToBeSetupList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionsToBeSetupList) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if len(m.GetValue()) > 16 {
-		return RicactionsToBeSetupListValidationError{
+		err := RicactionsToBeSetupListValidationError{
 			field:  "Value",
 			reason: "value must contain no more than 16 item(s)",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RicactionsToBeSetupListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RicactionsToBeSetupListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RicactionsToBeSetupListValidationError{
 					field:  fmt.Sprintf("Value[%v]", idx),
@@ -327,8 +577,28 @@ func (m *RicactionsToBeSetupList) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return RicactionsToBeSetupListMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionsToBeSetupListMultiError is an error wrapping multiple validation
+// errors returned by RicactionsToBeSetupList.ValidateAll() if the designated
+// constraints aren't met.
+type RicactionsToBeSetupListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionsToBeSetupListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionsToBeSetupListMultiError) AllErrors() []error { return m }
 
 // RicactionsToBeSetupListValidationError is the validation error returned by
 // RicactionsToBeSetupList.Validate if the designated constraints aren't met.
@@ -388,27 +658,68 @@ var _ interface {
 
 // Validate checks the field values on RicactionToBeSetupItemIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionToBeSetupItemIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionToBeSetupItemIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionToBeSetupItemIesMultiError, or nil if none found.
+func (m *RicactionToBeSetupItemIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionToBeSetupItemIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 19 {
-		return RicactionToBeSetupItemIesValidationError{
+		err := RicactionToBeSetupItemIesValidationError{
 			field:  "Id",
 			reason: "value must equal 19",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicactionToBeSetupItemIesValidationError{
+		err := RicactionToBeSetupItemIesValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionToBeSetupItemIesValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionToBeSetupItemIesValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionToBeSetupItemIesValidationError{
 				field:  "Value",
@@ -419,14 +730,38 @@ func (m *RicactionToBeSetupItemIes) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RicactionToBeSetupItemIesValidationError{
+		err := RicactionToBeSetupItemIesValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicactionToBeSetupItemIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionToBeSetupItemIesMultiError is an error wrapping multiple validation
+// errors returned by RicactionToBeSetupItemIes.ValidateAll() if the
+// designated constraints aren't met.
+type RicactionToBeSetupItemIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionToBeSetupItemIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionToBeSetupItemIesMultiError) AllErrors() []error { return m }
 
 // RicactionToBeSetupItemIesValidationError is the validation error returned by
 // RicactionToBeSetupItemIes.Validate if the designated constraints aren't met.
@@ -486,13 +821,46 @@ var _ interface {
 
 // Validate checks the field values on RicactionToBeSetupItem with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionToBeSetupItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionToBeSetupItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionToBeSetupItemMultiError, or nil if none found.
+func (m *RicactionToBeSetupItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionToBeSetupItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRicActionId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicActionId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionToBeSetupItemValidationError{
+					field:  "RicActionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionToBeSetupItemValidationError{
+					field:  "RicActionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicActionId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionToBeSetupItemValidationError{
 				field:  "RicActionId",
@@ -504,7 +872,26 @@ func (m *RicactionToBeSetupItem) Validate() error {
 
 	// no validation rules for RicActionType
 
-	if v, ok := interface{}(m.GetRicActionDefinition()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicActionDefinition()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionToBeSetupItemValidationError{
+					field:  "RicActionDefinition",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionToBeSetupItemValidationError{
+					field:  "RicActionDefinition",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicActionDefinition()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionToBeSetupItemValidationError{
 				field:  "RicActionDefinition",
@@ -514,7 +901,26 @@ func (m *RicactionToBeSetupItem) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicSubsequentAction()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicSubsequentAction()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionToBeSetupItemValidationError{
+					field:  "RicSubsequentAction",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionToBeSetupItemValidationError{
+					field:  "RicSubsequentAction",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicSubsequentAction()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionToBeSetupItemValidationError{
 				field:  "RicSubsequentAction",
@@ -524,8 +930,28 @@ func (m *RicactionToBeSetupItem) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicactionToBeSetupItemMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionToBeSetupItemMultiError is an error wrapping multiple validation
+// errors returned by RicactionToBeSetupItem.ValidateAll() if the designated
+// constraints aren't met.
+type RicactionToBeSetupItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionToBeSetupItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionToBeSetupItemMultiError) AllErrors() []error { return m }
 
 // RicactionToBeSetupItemValidationError is the validation error returned by
 // RicactionToBeSetupItem.Validate if the designated constraints aren't met.
@@ -585,13 +1011,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionResponse with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionResponseMultiError, or nil if none found.
+func (m *RicsubscriptionResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseValidationError{
 				field:  "ProtocolIes",
@@ -601,8 +1060,28 @@ func (m *RicsubscriptionResponse) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionResponseMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionResponseMultiError is an error wrapping multiple validation
+// errors returned by RicsubscriptionResponse.ValidateAll() if the designated
+// constraints aren't met.
+type RicsubscriptionResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionResponseMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionResponseValidationError is the validation error returned by
 // RicsubscriptionResponse.Validate if the designated constraints aren't met.
@@ -662,13 +1141,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionResponseIes with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionResponseIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionResponseIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionResponseIesMultiError, or nil if none found.
+func (m *RicsubscriptionResponseIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionResponseIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -678,7 +1190,26 @@ func (m *RicsubscriptionResponseIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -688,7 +1219,26 @@ func (m *RicsubscriptionResponseIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes17()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes17()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIesValidationError{
+					field:  "E2ApProtocolIes17",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIesValidationError{
+					field:  "E2ApProtocolIes17",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes17()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseIesValidationError{
 				field:  "E2ApProtocolIes17",
@@ -698,7 +1248,26 @@ func (m *RicsubscriptionResponseIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes18()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes18()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIesValidationError{
+					field:  "E2ApProtocolIes18",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIesValidationError{
+					field:  "E2ApProtocolIes18",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes18()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseIesValidationError{
 				field:  "E2ApProtocolIes18",
@@ -708,8 +1277,28 @@ func (m *RicsubscriptionResponseIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionResponseIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionResponseIesMultiError is an error wrapping multiple
+// validation errors returned by RicsubscriptionResponseIes.ValidateAll() if
+// the designated constraints aren't met.
+type RicsubscriptionResponseIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionResponseIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionResponseIesMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionResponseIesValidationError is the validation error returned
 // by RicsubscriptionResponseIes.Validate if the designated constraints aren't met.
@@ -769,23 +1358,60 @@ var _ interface {
 
 // Validate checks the field values on RicactionAdmittedList with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionAdmittedList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionAdmittedList with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionAdmittedListMultiError, or nil if none found.
+func (m *RicactionAdmittedList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionAdmittedList) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if len(m.GetValue()) > 16 {
-		return RicactionAdmittedListValidationError{
+		err := RicactionAdmittedListValidationError{
 			field:  "Value",
 			reason: "value must contain no more than 16 item(s)",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RicactionAdmittedListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RicactionAdmittedListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RicactionAdmittedListValidationError{
 					field:  fmt.Sprintf("Value[%v]", idx),
@@ -797,8 +1423,28 @@ func (m *RicactionAdmittedList) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return RicactionAdmittedListMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionAdmittedListMultiError is an error wrapping multiple validation
+// errors returned by RicactionAdmittedList.ValidateAll() if the designated
+// constraints aren't met.
+type RicactionAdmittedListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionAdmittedListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionAdmittedListMultiError) AllErrors() []error { return m }
 
 // RicactionAdmittedListValidationError is the validation error returned by
 // RicactionAdmittedList.Validate if the designated constraints aren't met.
@@ -858,27 +1504,68 @@ var _ interface {
 
 // Validate checks the field values on RicactionAdmittedItemIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionAdmittedItemIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionAdmittedItemIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionAdmittedItemIesMultiError, or nil if none found.
+func (m *RicactionAdmittedItemIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionAdmittedItemIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 14 {
-		return RicactionAdmittedItemIesValidationError{
+		err := RicactionAdmittedItemIesValidationError{
 			field:  "Id",
 			reason: "value must equal 14",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicactionAdmittedItemIesValidationError{
+		err := RicactionAdmittedItemIesValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionAdmittedItemIesValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionAdmittedItemIesValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionAdmittedItemIesValidationError{
 				field:  "Value",
@@ -889,14 +1576,38 @@ func (m *RicactionAdmittedItemIes) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RicactionAdmittedItemIesValidationError{
+		err := RicactionAdmittedItemIesValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicactionAdmittedItemIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionAdmittedItemIesMultiError is an error wrapping multiple validation
+// errors returned by RicactionAdmittedItemIes.ValidateAll() if the designated
+// constraints aren't met.
+type RicactionAdmittedItemIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionAdmittedItemIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionAdmittedItemIesMultiError) AllErrors() []error { return m }
 
 // RicactionAdmittedItemIesValidationError is the validation error returned by
 // RicactionAdmittedItemIes.Validate if the designated constraints aren't met.
@@ -956,13 +1667,46 @@ var _ interface {
 
 // Validate checks the field values on RicactionAdmittedItem with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionAdmittedItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionAdmittedItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionAdmittedItemMultiError, or nil if none found.
+func (m *RicactionAdmittedItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionAdmittedItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRicActionId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicActionId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionAdmittedItemValidationError{
+					field:  "RicActionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionAdmittedItemValidationError{
+					field:  "RicActionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicActionId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionAdmittedItemValidationError{
 				field:  "RicActionId",
@@ -972,8 +1716,28 @@ func (m *RicactionAdmittedItem) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicactionAdmittedItemMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionAdmittedItemMultiError is an error wrapping multiple validation
+// errors returned by RicactionAdmittedItem.ValidateAll() if the designated
+// constraints aren't met.
+type RicactionAdmittedItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionAdmittedItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionAdmittedItemMultiError) AllErrors() []error { return m }
 
 // RicactionAdmittedItemValidationError is the validation error returned by
 // RicactionAdmittedItem.Validate if the designated constraints aren't met.
@@ -1033,23 +1797,60 @@ var _ interface {
 
 // Validate checks the field values on RicactionNotAdmittedList with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionNotAdmittedList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionNotAdmittedList with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionNotAdmittedListMultiError, or nil if none found.
+func (m *RicactionNotAdmittedList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionNotAdmittedList) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if len(m.GetValue()) > 16 {
-		return RicactionNotAdmittedListValidationError{
+		err := RicactionNotAdmittedListValidationError{
 			field:  "Value",
 			reason: "value must contain no more than 16 item(s)",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RicactionNotAdmittedListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RicactionNotAdmittedListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RicactionNotAdmittedListValidationError{
 					field:  fmt.Sprintf("Value[%v]", idx),
@@ -1061,8 +1862,28 @@ func (m *RicactionNotAdmittedList) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return RicactionNotAdmittedListMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionNotAdmittedListMultiError is an error wrapping multiple validation
+// errors returned by RicactionNotAdmittedList.ValidateAll() if the designated
+// constraints aren't met.
+type RicactionNotAdmittedListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionNotAdmittedListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionNotAdmittedListMultiError) AllErrors() []error { return m }
 
 // RicactionNotAdmittedListValidationError is the validation error returned by
 // RicactionNotAdmittedList.Validate if the designated constraints aren't met.
@@ -1122,27 +1943,68 @@ var _ interface {
 
 // Validate checks the field values on RicactionNotAdmittedItemIes with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionNotAdmittedItemIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionNotAdmittedItemIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionNotAdmittedItemIesMultiError, or nil if none found.
+func (m *RicactionNotAdmittedItemIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionNotAdmittedItemIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 16 {
-		return RicactionNotAdmittedItemIesValidationError{
+		err := RicactionNotAdmittedItemIesValidationError{
 			field:  "Id",
 			reason: "value must equal 16",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicactionNotAdmittedItemIesValidationError{
+		err := RicactionNotAdmittedItemIesValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionNotAdmittedItemIesValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionNotAdmittedItemIesValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionNotAdmittedItemIesValidationError{
 				field:  "Value",
@@ -1153,14 +2015,38 @@ func (m *RicactionNotAdmittedItemIes) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RicactionNotAdmittedItemIesValidationError{
+		err := RicactionNotAdmittedItemIesValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicactionNotAdmittedItemIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionNotAdmittedItemIesMultiError is an error wrapping multiple
+// validation errors returned by RicactionNotAdmittedItemIes.ValidateAll() if
+// the designated constraints aren't met.
+type RicactionNotAdmittedItemIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionNotAdmittedItemIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionNotAdmittedItemIesMultiError) AllErrors() []error { return m }
 
 // RicactionNotAdmittedItemIesValidationError is the validation error returned
 // by RicactionNotAdmittedItemIes.Validate if the designated constraints
@@ -1221,13 +2107,46 @@ var _ interface {
 
 // Validate checks the field values on RicactionNotAdmittedItem with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicactionNotAdmittedItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicactionNotAdmittedItem with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicactionNotAdmittedItemMultiError, or nil if none found.
+func (m *RicactionNotAdmittedItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicactionNotAdmittedItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRicActionId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicActionId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionNotAdmittedItemValidationError{
+					field:  "RicActionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionNotAdmittedItemValidationError{
+					field:  "RicActionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicActionId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionNotAdmittedItemValidationError{
 				field:  "RicActionId",
@@ -1237,7 +2156,26 @@ func (m *RicactionNotAdmittedItem) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCause()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCause()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicactionNotAdmittedItemValidationError{
+					field:  "Cause",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicactionNotAdmittedItemValidationError{
+					field:  "Cause",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCause()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicactionNotAdmittedItemValidationError{
 				field:  "Cause",
@@ -1247,8 +2185,28 @@ func (m *RicactionNotAdmittedItem) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicactionNotAdmittedItemMultiError(errors)
+	}
 	return nil
 }
+
+// RicactionNotAdmittedItemMultiError is an error wrapping multiple validation
+// errors returned by RicactionNotAdmittedItem.ValidateAll() if the designated
+// constraints aren't met.
+type RicactionNotAdmittedItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicactionNotAdmittedItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicactionNotAdmittedItemMultiError) AllErrors() []error { return m }
 
 // RicactionNotAdmittedItemValidationError is the validation error returned by
 // RicactionNotAdmittedItem.Validate if the designated constraints aren't met.
@@ -1308,13 +2266,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionFailure with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionFailure) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionFailure with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionFailureMultiError, or nil if none found.
+func (m *RicsubscriptionFailure) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionFailure) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureValidationError{
 				field:  "ProtocolIes",
@@ -1324,8 +2315,28 @@ func (m *RicsubscriptionFailure) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionFailureMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionFailureMultiError is an error wrapping multiple validation
+// errors returned by RicsubscriptionFailure.ValidateAll() if the designated
+// constraints aren't met.
+type RicsubscriptionFailureMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionFailureMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionFailureMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionFailureValidationError is the validation error returned by
 // RicsubscriptionFailure.Validate if the designated constraints aren't met.
@@ -1385,13 +2396,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionFailureIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionFailureIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionFailureIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionFailureIesMultiError, or nil if none found.
+func (m *RicsubscriptionFailureIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionFailureIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -1401,7 +2445,26 @@ func (m *RicsubscriptionFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -1411,7 +2474,26 @@ func (m *RicsubscriptionFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes18()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes18()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIesValidationError{
+					field:  "E2ApProtocolIes18",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIesValidationError{
+					field:  "E2ApProtocolIes18",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes18()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureIesValidationError{
 				field:  "E2ApProtocolIes18",
@@ -1421,7 +2503,26 @@ func (m *RicsubscriptionFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes2()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureIesValidationError{
 				field:  "E2ApProtocolIes2",
@@ -1431,8 +2532,28 @@ func (m *RicsubscriptionFailureIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionFailureIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionFailureIesMultiError is an error wrapping multiple validation
+// errors returned by RicsubscriptionFailureIes.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionFailureIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionFailureIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionFailureIesMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionFailureIesValidationError is the validation error returned by
 // RicsubscriptionFailureIes.Validate if the designated constraints aren't met.
@@ -1492,13 +2613,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionDeleteRequest with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionDeleteRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteRequestMultiError, or nil if none found.
+func (m *RicsubscriptionDeleteRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteRequestValidationError{
 				field:  "ProtocolIes",
@@ -1508,8 +2662,28 @@ func (m *RicsubscriptionDeleteRequest) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteRequestMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionDeleteRequestMultiError is an error wrapping multiple
+// validation errors returned by RicsubscriptionDeleteRequest.ValidateAll() if
+// the designated constraints aren't met.
+type RicsubscriptionDeleteRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteRequestMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionDeleteRequestValidationError is the validation error returned
 // by RicsubscriptionDeleteRequest.Validate if the designated constraints
@@ -1570,13 +2744,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionDeleteRequestIes with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteRequestIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionDeleteRequestIes with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteRequestIesMultiError, or nil if none found.
+func (m *RicsubscriptionDeleteRequestIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteRequestIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteRequestIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -1586,7 +2793,26 @@ func (m *RicsubscriptionDeleteRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteRequestIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -1596,8 +2822,28 @@ func (m *RicsubscriptionDeleteRequestIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteRequestIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionDeleteRequestIesMultiError is an error wrapping multiple
+// validation errors returned by RicsubscriptionDeleteRequestIes.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteRequestIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteRequestIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteRequestIesMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionDeleteRequestIesValidationError is the validation error
 // returned by RicsubscriptionDeleteRequestIes.Validate if the designated
@@ -1658,13 +2904,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionDeleteResponse with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionDeleteResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteResponseMultiError, or nil if none found.
+func (m *RicsubscriptionDeleteResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteResponseValidationError{
 				field:  "ProtocolIes",
@@ -1674,8 +2953,28 @@ func (m *RicsubscriptionDeleteResponse) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteResponseMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionDeleteResponseMultiError is an error wrapping multiple
+// validation errors returned by RicsubscriptionDeleteResponse.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteResponseMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionDeleteResponseValidationError is the validation error
 // returned by RicsubscriptionDeleteResponse.Validate if the designated
@@ -1736,13 +3035,47 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionDeleteResponseIes with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicsubscriptionDeleteResponseIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionDeleteResponseIes with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteResponseIesMultiError, or nil if none found.
+func (m *RicsubscriptionDeleteResponseIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteResponseIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteResponseIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -1752,7 +3085,26 @@ func (m *RicsubscriptionDeleteResponseIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteResponseIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -1762,8 +3114,29 @@ func (m *RicsubscriptionDeleteResponseIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteResponseIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionDeleteResponseIesMultiError is an error wrapping multiple
+// validation errors returned by
+// RicsubscriptionDeleteResponseIes.ValidateAll() if the designated
+// constraints aren't met.
+type RicsubscriptionDeleteResponseIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteResponseIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteResponseIesMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionDeleteResponseIesValidationError is the validation error
 // returned by RicsubscriptionDeleteResponseIes.Validate if the designated
@@ -1824,13 +3197,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionDeleteFailure with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteFailure) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionDeleteFailure with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteFailureMultiError, or nil if none found.
+func (m *RicsubscriptionDeleteFailure) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteFailure) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureValidationError{
 				field:  "ProtocolIes",
@@ -1840,8 +3246,28 @@ func (m *RicsubscriptionDeleteFailure) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteFailureMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionDeleteFailureMultiError is an error wrapping multiple
+// validation errors returned by RicsubscriptionDeleteFailure.ValidateAll() if
+// the designated constraints aren't met.
+type RicsubscriptionDeleteFailureMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteFailureMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteFailureMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionDeleteFailureValidationError is the validation error returned
 // by RicsubscriptionDeleteFailure.Validate if the designated constraints
@@ -1902,13 +3328,46 @@ var _ interface {
 
 // Validate checks the field values on RicsubscriptionDeleteFailureIes with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteFailureIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicsubscriptionDeleteFailureIes with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteFailureIesMultiError, or nil if none found.
+func (m *RicsubscriptionDeleteFailureIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteFailureIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -1918,7 +3377,26 @@ func (m *RicsubscriptionDeleteFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -1928,7 +3406,26 @@ func (m *RicsubscriptionDeleteFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes1()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes1()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIesValidationError{
+					field:  "E2ApProtocolIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIesValidationError{
+					field:  "E2ApProtocolIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes1()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureIesValidationError{
 				field:  "E2ApProtocolIes1",
@@ -1938,7 +3435,26 @@ func (m *RicsubscriptionDeleteFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes2()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureIesValidationError{
 				field:  "E2ApProtocolIes2",
@@ -1948,8 +3464,28 @@ func (m *RicsubscriptionDeleteFailureIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteFailureIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionDeleteFailureIesMultiError is an error wrapping multiple
+// validation errors returned by RicsubscriptionDeleteFailureIes.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteFailureIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteFailureIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteFailureIesMultiError) AllErrors() []error { return m }
 
 // RicsubscriptionDeleteFailureIesValidationError is the validation error
 // returned by RicsubscriptionDeleteFailureIes.Validate if the designated
@@ -2009,14 +3545,47 @@ var _ interface {
 } = RicsubscriptionDeleteFailureIesValidationError{}
 
 // Validate checks the field values on Ricindication with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *Ricindication) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Ricindication with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RicindicationMultiError, or
+// nil if none found.
+func (m *Ricindication) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Ricindication) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationValidationError{
 				field:  "ProtocolIes",
@@ -2026,8 +3595,28 @@ func (m *Ricindication) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicindicationMultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationMultiError is an error wrapping multiple validation errors
+// returned by Ricindication.ValidateAll() if the designated constraints
+// aren't met.
+type RicindicationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationMultiError) AllErrors() []error { return m }
 
 // RicindicationValidationError is the validation error returned by
 // Ricindication.Validate if the designated constraints aren't met.
@@ -2084,14 +3673,47 @@ var _ interface {
 } = RicindicationValidationError{}
 
 // Validate checks the field values on RicindicationIes with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicindicationIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicindicationIesMultiError, or nil if none found.
+func (m *RicindicationIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -2101,7 +3723,26 @@ func (m *RicindicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -2111,7 +3752,26 @@ func (m *RicindicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes15()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes15()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes15",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes15",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes15()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIesValidationError{
 				field:  "E2ApProtocolIes15",
@@ -2121,7 +3781,26 @@ func (m *RicindicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes27()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes27()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes27",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes27",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes27()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIesValidationError{
 				field:  "E2ApProtocolIes27",
@@ -2131,7 +3810,26 @@ func (m *RicindicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes28()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes28()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes28",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes28",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes28()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIesValidationError{
 				field:  "E2ApProtocolIes28",
@@ -2141,7 +3839,26 @@ func (m *RicindicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes25()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes25()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes25",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes25",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes25()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIesValidationError{
 				field:  "E2ApProtocolIes25",
@@ -2151,7 +3868,26 @@ func (m *RicindicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes26()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes26()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes26",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes26",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes26()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIesValidationError{
 				field:  "E2ApProtocolIes26",
@@ -2161,7 +3897,26 @@ func (m *RicindicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes20()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes20()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes20",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIesValidationError{
+					field:  "E2ApProtocolIes20",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes20()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIesValidationError{
 				field:  "E2ApProtocolIes20",
@@ -2171,8 +3926,28 @@ func (m *RicindicationIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIesMultiError is an error wrapping multiple validation errors
+// returned by RicindicationIes.ValidateAll() if the designated constraints
+// aren't met.
+type RicindicationIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIesMultiError) AllErrors() []error { return m }
 
 // RicindicationIesValidationError is the validation error returned by
 // RicindicationIes.Validate if the designated constraints aren't met.
@@ -2229,14 +4004,47 @@ var _ interface {
 } = RicindicationIesValidationError{}
 
 // Validate checks the field values on RiccontrolRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolRequestMultiError, or nil if none found.
+func (m *RiccontrolRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestValidationError{
 				field:  "ProtocolIes",
@@ -2246,8 +4054,28 @@ func (m *RiccontrolRequest) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolRequestMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolRequestMultiError is an error wrapping multiple validation errors
+// returned by RiccontrolRequest.ValidateAll() if the designated constraints
+// aren't met.
+type RiccontrolRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolRequestMultiError) AllErrors() []error { return m }
 
 // RiccontrolRequestValidationError is the validation error returned by
 // RiccontrolRequest.Validate if the designated constraints aren't met.
@@ -2307,13 +4135,46 @@ var _ interface {
 
 // Validate checks the field values on RiccontrolRequestIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolRequestIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolRequestIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolRequestIesMultiError, or nil if none found.
+func (m *RiccontrolRequestIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolRequestIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -2323,7 +4184,26 @@ func (m *RiccontrolRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -2333,7 +4213,26 @@ func (m *RiccontrolRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes20()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes20()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes20",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes20",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes20()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIesValidationError{
 				field:  "E2ApProtocolIes20",
@@ -2343,7 +4242,26 @@ func (m *RiccontrolRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes22()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes22()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes22",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes22",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes22()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIesValidationError{
 				field:  "E2ApProtocolIes22",
@@ -2353,7 +4271,26 @@ func (m *RiccontrolRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes23()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes23()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes23",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes23",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes23()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIesValidationError{
 				field:  "E2ApProtocolIes23",
@@ -2363,7 +4300,26 @@ func (m *RiccontrolRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes21()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes21()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes21",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIesValidationError{
+					field:  "E2ApProtocolIes21",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes21()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIesValidationError{
 				field:  "E2ApProtocolIes21",
@@ -2373,8 +4329,28 @@ func (m *RiccontrolRequestIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolRequestIesMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolRequestIesMultiError is an error wrapping multiple validation
+// errors returned by RiccontrolRequestIes.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolRequestIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolRequestIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolRequestIesMultiError) AllErrors() []error { return m }
 
 // RiccontrolRequestIesValidationError is the validation error returned by
 // RiccontrolRequestIes.Validate if the designated constraints aren't met.
@@ -2434,13 +4410,46 @@ var _ interface {
 
 // Validate checks the field values on RiccontrolAcknowledge with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolAcknowledge) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolAcknowledge with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolAcknowledgeMultiError, or nil if none found.
+func (m *RiccontrolAcknowledge) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolAcknowledge) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeValidationError{
 				field:  "ProtocolIes",
@@ -2450,8 +4459,28 @@ func (m *RiccontrolAcknowledge) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolAcknowledgeMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolAcknowledgeMultiError is an error wrapping multiple validation
+// errors returned by RiccontrolAcknowledge.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolAcknowledgeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolAcknowledgeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolAcknowledgeMultiError) AllErrors() []error { return m }
 
 // RiccontrolAcknowledgeValidationError is the validation error returned by
 // RiccontrolAcknowledge.Validate if the designated constraints aren't met.
@@ -2511,13 +4540,46 @@ var _ interface {
 
 // Validate checks the field values on RiccontrolAcknowledgeIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolAcknowledgeIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolAcknowledgeIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolAcknowledgeIesMultiError, or nil if none found.
+func (m *RiccontrolAcknowledgeIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolAcknowledgeIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -2527,7 +4589,26 @@ func (m *RiccontrolAcknowledgeIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -2537,7 +4618,26 @@ func (m *RiccontrolAcknowledgeIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes20()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes20()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes20",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes20",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes20()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIesValidationError{
 				field:  "E2ApProtocolIes20",
@@ -2547,7 +4647,26 @@ func (m *RiccontrolAcknowledgeIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes24()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes24()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes24",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes24",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes24()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIesValidationError{
 				field:  "E2ApProtocolIes24",
@@ -2557,7 +4676,26 @@ func (m *RiccontrolAcknowledgeIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes32()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes32()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes32",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes32",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes32()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIesValidationError{
 				field:  "E2ApProtocolIes32",
@@ -2567,8 +4705,28 @@ func (m *RiccontrolAcknowledgeIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolAcknowledgeIesMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolAcknowledgeIesMultiError is an error wrapping multiple validation
+// errors returned by RiccontrolAcknowledgeIes.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolAcknowledgeIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolAcknowledgeIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolAcknowledgeIesMultiError) AllErrors() []error { return m }
 
 // RiccontrolAcknowledgeIesValidationError is the validation error returned by
 // RiccontrolAcknowledgeIes.Validate if the designated constraints aren't met.
@@ -2627,14 +4785,47 @@ var _ interface {
 } = RiccontrolAcknowledgeIesValidationError{}
 
 // Validate checks the field values on RiccontrolFailure with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolFailure) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolFailure with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolFailureMultiError, or nil if none found.
+func (m *RiccontrolFailure) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolFailure) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureValidationError{
 				field:  "ProtocolIes",
@@ -2644,8 +4835,28 @@ func (m *RiccontrolFailure) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolFailureMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolFailureMultiError is an error wrapping multiple validation errors
+// returned by RiccontrolFailure.ValidateAll() if the designated constraints
+// aren't met.
+type RiccontrolFailureMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolFailureMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolFailureMultiError) AllErrors() []error { return m }
 
 // RiccontrolFailureValidationError is the validation error returned by
 // RiccontrolFailure.Validate if the designated constraints aren't met.
@@ -2705,13 +4916,46 @@ var _ interface {
 
 // Validate checks the field values on RiccontrolFailureIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolFailureIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RiccontrolFailureIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RiccontrolFailureIesMultiError, or nil if none found.
+func (m *RiccontrolFailureIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolFailureIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -2721,7 +4965,26 @@ func (m *RiccontrolFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -2731,7 +4994,26 @@ func (m *RiccontrolFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes20()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes20()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes20",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes20",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes20()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIesValidationError{
 				field:  "E2ApProtocolIes20",
@@ -2741,7 +5023,26 @@ func (m *RiccontrolFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes1()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes1()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes1()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIesValidationError{
 				field:  "E2ApProtocolIes1",
@@ -2751,7 +5052,26 @@ func (m *RiccontrolFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes32()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes32()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes32",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIesValidationError{
+					field:  "E2ApProtocolIes32",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes32()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIesValidationError{
 				field:  "E2ApProtocolIes32",
@@ -2761,8 +5081,28 @@ func (m *RiccontrolFailureIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolFailureIesMultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolFailureIesMultiError is an error wrapping multiple validation
+// errors returned by RiccontrolFailureIes.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolFailureIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolFailureIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolFailureIesMultiError) AllErrors() []error { return m }
 
 // RiccontrolFailureIesValidationError is the validation error returned by
 // RiccontrolFailureIes.Validate if the designated constraints aren't met.
@@ -2821,14 +5161,47 @@ var _ interface {
 } = RiccontrolFailureIesValidationError{}
 
 // Validate checks the field values on ErrorIndication with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *ErrorIndication) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ErrorIndication with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ErrorIndicationMultiError, or nil if none found.
+func (m *ErrorIndication) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ErrorIndication) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationValidationError{
 				field:  "ProtocolIes",
@@ -2838,8 +5211,28 @@ func (m *ErrorIndication) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return ErrorIndicationMultiError(errors)
+	}
 	return nil
 }
+
+// ErrorIndicationMultiError is an error wrapping multiple validation errors
+// returned by ErrorIndication.ValidateAll() if the designated constraints
+// aren't met.
+type ErrorIndicationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ErrorIndicationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ErrorIndicationMultiError) AllErrors() []error { return m }
 
 // ErrorIndicationValidationError is the validation error returned by
 // ErrorIndication.Validate if the designated constraints aren't met.
@@ -2897,13 +5290,46 @@ var _ interface {
 
 // Validate checks the field values on ErrorIndicationIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *ErrorIndicationIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ErrorIndicationIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ErrorIndicationIesMultiError, or nil if none found.
+func (m *ErrorIndicationIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ErrorIndicationIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes29()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationIesValidationError{
+					field:  "E2ApProtocolIes29",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes29()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationIesValidationError{
 				field:  "E2ApProtocolIes29",
@@ -2913,7 +5339,26 @@ func (m *ErrorIndicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes5()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationIesValidationError{
+					field:  "E2ApProtocolIes5",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes5()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationIesValidationError{
 				field:  "E2ApProtocolIes5",
@@ -2923,7 +5368,26 @@ func (m *ErrorIndicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes1()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes1()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationIesValidationError{
+					field:  "E2ApProtocolIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationIesValidationError{
+					field:  "E2ApProtocolIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes1()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationIesValidationError{
 				field:  "E2ApProtocolIes1",
@@ -2933,7 +5397,26 @@ func (m *ErrorIndicationIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes2()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationIesValidationError{
 				field:  "E2ApProtocolIes2",
@@ -2943,8 +5426,28 @@ func (m *ErrorIndicationIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return ErrorIndicationIesMultiError(errors)
+	}
 	return nil
 }
+
+// ErrorIndicationIesMultiError is an error wrapping multiple validation errors
+// returned by ErrorIndicationIes.ValidateAll() if the designated constraints
+// aren't met.
+type ErrorIndicationIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ErrorIndicationIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ErrorIndicationIesMultiError) AllErrors() []error { return m }
 
 // ErrorIndicationIesValidationError is the validation error returned by
 // ErrorIndicationIes.Validate if the designated constraints aren't met.
@@ -3003,14 +5506,47 @@ var _ interface {
 } = ErrorIndicationIesValidationError{}
 
 // Validate checks the field values on E2SetupRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *E2SetupRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in E2SetupRequestMultiError,
+// or nil if none found.
+func (m *E2SetupRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupRequestValidationError{
 				field:  "ProtocolIes",
@@ -3020,8 +5556,28 @@ func (m *E2SetupRequest) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2SetupRequestMultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupRequestMultiError is an error wrapping multiple validation errors
+// returned by E2SetupRequest.ValidateAll() if the designated constraints
+// aren't met.
+type E2SetupRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupRequestMultiError) AllErrors() []error { return m }
 
 // E2SetupRequestValidationError is the validation error returned by
 // E2SetupRequest.Validate if the designated constraints aren't met.
@@ -3078,14 +5634,47 @@ var _ interface {
 } = E2SetupRequestValidationError{}
 
 // Validate checks the field values on E2SetupRequestIes with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *E2SetupRequestIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupRequestIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2SetupRequestIesMultiError, or nil if none found.
+func (m *E2SetupRequestIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupRequestIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes3()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes3()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupRequestIesValidationError{
+					field:  "E2ApProtocolIes3",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupRequestIesValidationError{
+					field:  "E2ApProtocolIes3",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes3()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupRequestIesValidationError{
 				field:  "E2ApProtocolIes3",
@@ -3095,7 +5684,26 @@ func (m *E2SetupRequestIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes10()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes10()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupRequestIesValidationError{
+					field:  "E2ApProtocolIes10",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupRequestIesValidationError{
+					field:  "E2ApProtocolIes10",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes10()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupRequestIesValidationError{
 				field:  "E2ApProtocolIes10",
@@ -3105,8 +5713,28 @@ func (m *E2SetupRequestIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2SetupRequestIesMultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupRequestIesMultiError is an error wrapping multiple validation errors
+// returned by E2SetupRequestIes.ValidateAll() if the designated constraints
+// aren't met.
+type E2SetupRequestIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupRequestIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupRequestIesMultiError) AllErrors() []error { return m }
 
 // E2SetupRequestIesValidationError is the validation error returned by
 // E2SetupRequestIes.Validate if the designated constraints aren't met.
@@ -3165,14 +5793,47 @@ var _ interface {
 } = E2SetupRequestIesValidationError{}
 
 // Validate checks the field values on E2SetupResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *E2SetupResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2SetupResponseMultiError, or nil if none found.
+func (m *E2SetupResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupResponseValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupResponseValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupResponseValidationError{
 				field:  "ProtocolIes",
@@ -3182,8 +5843,28 @@ func (m *E2SetupResponse) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2SetupResponseMultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupResponseMultiError is an error wrapping multiple validation errors
+// returned by E2SetupResponse.ValidateAll() if the designated constraints
+// aren't met.
+type E2SetupResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupResponseMultiError) AllErrors() []error { return m }
 
 // E2SetupResponseValidationError is the validation error returned by
 // E2SetupResponse.Validate if the designated constraints aren't met.
@@ -3241,13 +5922,46 @@ var _ interface {
 
 // Validate checks the field values on E2SetupResponseIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2SetupResponseIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupResponseIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2SetupResponseIesMultiError, or nil if none found.
+func (m *E2SetupResponseIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupResponseIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes4()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes4()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupResponseIesValidationError{
+					field:  "E2ApProtocolIes4",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupResponseIesValidationError{
+					field:  "E2ApProtocolIes4",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes4()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupResponseIesValidationError{
 				field:  "E2ApProtocolIes4",
@@ -3257,7 +5971,26 @@ func (m *E2SetupResponseIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes9()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes9()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupResponseIesValidationError{
+					field:  "E2ApProtocolIes9",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupResponseIesValidationError{
+					field:  "E2ApProtocolIes9",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes9()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupResponseIesValidationError{
 				field:  "E2ApProtocolIes9",
@@ -3267,7 +6000,26 @@ func (m *E2SetupResponseIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes13()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes13()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupResponseIesValidationError{
+					field:  "E2ApProtocolIes13",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupResponseIesValidationError{
+					field:  "E2ApProtocolIes13",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes13()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupResponseIesValidationError{
 				field:  "E2ApProtocolIes13",
@@ -3277,8 +6029,28 @@ func (m *E2SetupResponseIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2SetupResponseIesMultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupResponseIesMultiError is an error wrapping multiple validation errors
+// returned by E2SetupResponseIes.ValidateAll() if the designated constraints
+// aren't met.
+type E2SetupResponseIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupResponseIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupResponseIesMultiError) AllErrors() []error { return m }
 
 // E2SetupResponseIesValidationError is the validation error returned by
 // E2SetupResponseIes.Validate if the designated constraints aren't met.
@@ -3337,14 +6109,47 @@ var _ interface {
 } = E2SetupResponseIesValidationError{}
 
 // Validate checks the field values on E2SetupFailure with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *E2SetupFailure) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupFailure with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in E2SetupFailureMultiError,
+// or nil if none found.
+func (m *E2SetupFailure) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupFailure) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupFailureValidationError{
 				field:  "ProtocolIes",
@@ -3354,8 +6159,28 @@ func (m *E2SetupFailure) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2SetupFailureMultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupFailureMultiError is an error wrapping multiple validation errors
+// returned by E2SetupFailure.ValidateAll() if the designated constraints
+// aren't met.
+type E2SetupFailureMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupFailureMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupFailureMultiError) AllErrors() []error { return m }
 
 // E2SetupFailureValidationError is the validation error returned by
 // E2SetupFailure.Validate if the designated constraints aren't met.
@@ -3412,14 +6237,47 @@ var _ interface {
 } = E2SetupFailureValidationError{}
 
 // Validate checks the field values on E2SetupFailureIes with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *E2SetupFailureIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupFailureIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2SetupFailureIesMultiError, or nil if none found.
+func (m *E2SetupFailureIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupFailureIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes1()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes1()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupFailureIesValidationError{
+					field:  "E2ApProtocolIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupFailureIesValidationError{
+					field:  "E2ApProtocolIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes1()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupFailureIesValidationError{
 				field:  "E2ApProtocolIes1",
@@ -3429,7 +6287,26 @@ func (m *E2SetupFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes31()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes31()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupFailureIesValidationError{
+					field:  "E2ApProtocolIes31",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupFailureIesValidationError{
+					field:  "E2ApProtocolIes31",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes31()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupFailureIesValidationError{
 				field:  "E2ApProtocolIes31",
@@ -3439,7 +6316,26 @@ func (m *E2SetupFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes2()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupFailureIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupFailureIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupFailureIesValidationError{
 				field:  "E2ApProtocolIes2",
@@ -3449,8 +6345,28 @@ func (m *E2SetupFailureIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2SetupFailureIesMultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupFailureIesMultiError is an error wrapping multiple validation errors
+// returned by E2SetupFailureIes.ValidateAll() if the designated constraints
+// aren't met.
+type E2SetupFailureIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupFailureIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupFailureIesMultiError) AllErrors() []error { return m }
 
 // E2SetupFailureIesValidationError is the validation error returned by
 // E2SetupFailureIes.Validate if the designated constraints aren't met.
@@ -3509,14 +6425,47 @@ var _ interface {
 } = E2SetupFailureIesValidationError{}
 
 // Validate checks the field values on ResetRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *ResetRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResetRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ResetRequestMultiError, or
+// nil if none found.
+func (m *ResetRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResetRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetRequestValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetRequestValidationError{
 				field:  "ProtocolIes",
@@ -3526,8 +6475,27 @@ func (m *ResetRequest) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return ResetRequestMultiError(errors)
+	}
 	return nil
 }
+
+// ResetRequestMultiError is an error wrapping multiple validation errors
+// returned by ResetRequest.ValidateAll() if the designated constraints aren't met.
+type ResetRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResetRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResetRequestMultiError) AllErrors() []error { return m }
 
 // ResetRequestValidationError is the validation error returned by
 // ResetRequest.Validate if the designated constraints aren't met.
@@ -3584,14 +6552,47 @@ var _ interface {
 } = ResetRequestValidationError{}
 
 // Validate checks the field values on ResetRequestIes with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *ResetRequestIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResetRequestIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ResetRequestIesMultiError, or nil if none found.
+func (m *ResetRequestIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResetRequestIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetResetRequestIes1()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetResetRequestIes1()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetRequestIesValidationError{
+					field:  "ResetRequestIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetRequestIesValidationError{
+					field:  "ResetRequestIes1",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetResetRequestIes1()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetRequestIesValidationError{
 				field:  "ResetRequestIes1",
@@ -3601,8 +6602,28 @@ func (m *ResetRequestIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return ResetRequestIesMultiError(errors)
+	}
 	return nil
 }
+
+// ResetRequestIesMultiError is an error wrapping multiple validation errors
+// returned by ResetRequestIes.ValidateAll() if the designated constraints
+// aren't met.
+type ResetRequestIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResetRequestIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResetRequestIesMultiError) AllErrors() []error { return m }
 
 // ResetRequestIesValidationError is the validation error returned by
 // ResetRequestIes.Validate if the designated constraints aren't met.
@@ -3659,14 +6680,47 @@ var _ interface {
 } = ResetRequestIesValidationError{}
 
 // Validate checks the field values on ResetResponse with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *ResetResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResetResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ResetResponseMultiError, or
+// nil if none found.
+func (m *ResetResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResetResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetResponseValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetResponseValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetResponseValidationError{
 				field:  "ProtocolIes",
@@ -3676,8 +6730,28 @@ func (m *ResetResponse) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return ResetResponseMultiError(errors)
+	}
 	return nil
 }
+
+// ResetResponseMultiError is an error wrapping multiple validation errors
+// returned by ResetResponse.ValidateAll() if the designated constraints
+// aren't met.
+type ResetResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResetResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResetResponseMultiError) AllErrors() []error { return m }
 
 // ResetResponseValidationError is the validation error returned by
 // ResetResponse.Validate if the designated constraints aren't met.
@@ -3734,14 +6808,47 @@ var _ interface {
 } = ResetResponseValidationError{}
 
 // Validate checks the field values on ResetResponseIes with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *ResetResponseIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResetResponseIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ResetResponseIesMultiError, or nil if none found.
+func (m *ResetResponseIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResetResponseIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetResetResponseIes2()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetResetResponseIes2()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetResponseIesValidationError{
+					field:  "ResetResponseIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetResponseIesValidationError{
+					field:  "ResetResponseIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetResetResponseIes2()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetResponseIesValidationError{
 				field:  "ResetResponseIes2",
@@ -3751,8 +6858,28 @@ func (m *ResetResponseIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return ResetResponseIesMultiError(errors)
+	}
 	return nil
 }
+
+// ResetResponseIesMultiError is an error wrapping multiple validation errors
+// returned by ResetResponseIes.ValidateAll() if the designated constraints
+// aren't met.
+type ResetResponseIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResetResponseIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResetResponseIesMultiError) AllErrors() []error { return m }
 
 // ResetResponseIesValidationError is the validation error returned by
 // ResetResponseIes.Validate if the designated constraints aren't met.
@@ -3809,14 +6936,47 @@ var _ interface {
 } = ResetResponseIesValidationError{}
 
 // Validate checks the field values on RicserviceUpdate with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdate) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicserviceUpdate with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateMultiError, or nil if none found.
+func (m *RicserviceUpdate) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdate) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateValidationError{
 				field:  "ProtocolIes",
@@ -3826,8 +6986,28 @@ func (m *RicserviceUpdate) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateMultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateMultiError is an error wrapping multiple validation errors
+// returned by RicserviceUpdate.ValidateAll() if the designated constraints
+// aren't met.
+type RicserviceUpdateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateMultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateValidationError is the validation error returned by
 // RicserviceUpdate.Validate if the designated constraints aren't met.
@@ -3885,13 +7065,46 @@ var _ interface {
 
 // Validate checks the field values on RicserviceUpdateIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicserviceUpdateIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateIesMultiError, or nil if none found.
+func (m *RicserviceUpdateIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes10()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes10()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateIesValidationError{
+					field:  "E2ApProtocolIes10",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateIesValidationError{
+					field:  "E2ApProtocolIes10",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes10()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIesValidationError{
 				field:  "E2ApProtocolIes10",
@@ -3901,7 +7114,26 @@ func (m *RicserviceUpdateIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes12()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes12()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateIesValidationError{
+					field:  "E2ApProtocolIes12",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateIesValidationError{
+					field:  "E2ApProtocolIes12",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes12()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIesValidationError{
 				field:  "E2ApProtocolIes12",
@@ -3911,7 +7143,26 @@ func (m *RicserviceUpdateIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes11()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes11()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateIesValidationError{
+					field:  "E2ApProtocolIes11",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateIesValidationError{
+					field:  "E2ApProtocolIes11",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes11()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIesValidationError{
 				field:  "E2ApProtocolIes11",
@@ -3921,8 +7172,28 @@ func (m *RicserviceUpdateIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateIesMultiError is an error wrapping multiple validation
+// errors returned by RicserviceUpdateIes.ValidateAll() if the designated
+// constraints aren't met.
+type RicserviceUpdateIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateIesMultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateIesValidationError is the validation error returned by
 // RicserviceUpdateIes.Validate if the designated constraints aren't met.
@@ -3981,24 +7252,61 @@ var _ interface {
 } = RicserviceUpdateIesValidationError{}
 
 // Validate checks the field values on RanfunctionsList with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionsList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionsList with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionsListMultiError, or nil if none found.
+func (m *RanfunctionsList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionsList) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if len(m.GetValue()) > 16 {
-		return RanfunctionsListValidationError{
+		err := RanfunctionsListValidationError{
 			field:  "Value",
 			reason: "value must contain no more than 16 item(s)",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RanfunctionsListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RanfunctionsListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RanfunctionsListValidationError{
 					field:  fmt.Sprintf("Value[%v]", idx),
@@ -4010,8 +7318,28 @@ func (m *RanfunctionsList) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionsListMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionsListMultiError is an error wrapping multiple validation errors
+// returned by RanfunctionsList.ValidateAll() if the designated constraints
+// aren't met.
+type RanfunctionsListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionsListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionsListMultiError) AllErrors() []error { return m }
 
 // RanfunctionsListValidationError is the validation error returned by
 // RanfunctionsList.Validate if the designated constraints aren't met.
@@ -4069,13 +7397,46 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionItemIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionItemIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionItemIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionItemIesMultiError, or nil if none found.
+func (m *RanfunctionItemIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionItemIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes10()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes10()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionItemIesValidationError{
+					field:  "E2ApProtocolIes10",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionItemIesValidationError{
+					field:  "E2ApProtocolIes10",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes10()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionItemIesValidationError{
 				field:  "E2ApProtocolIes10",
@@ -4085,8 +7446,28 @@ func (m *RanfunctionItemIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionItemIesMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionItemIesMultiError is an error wrapping multiple validation errors
+// returned by RanfunctionItemIes.ValidateAll() if the designated constraints
+// aren't met.
+type RanfunctionItemIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionItemIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionItemIesMultiError) AllErrors() []error { return m }
 
 // RanfunctionItemIesValidationError is the validation error returned by
 // RanfunctionItemIes.Validate if the designated constraints aren't met.
@@ -4145,14 +7526,47 @@ var _ interface {
 } = RanfunctionItemIesValidationError{}
 
 // Validate checks the field values on RanfunctionItem with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionItemMultiError, or nil if none found.
+func (m *RanfunctionItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRanFunctionId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRanFunctionId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionItemValidationError{
+					field:  "RanFunctionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionItemValidationError{
+					field:  "RanFunctionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRanFunctionId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionItemValidationError{
 				field:  "RanFunctionId",
@@ -4162,7 +7576,26 @@ func (m *RanfunctionItem) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRanFunctionDefinition()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRanFunctionDefinition()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionItemValidationError{
+					field:  "RanFunctionDefinition",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionItemValidationError{
+					field:  "RanFunctionDefinition",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRanFunctionDefinition()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionItemValidationError{
 				field:  "RanFunctionDefinition",
@@ -4172,7 +7605,26 @@ func (m *RanfunctionItem) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRanFunctionRevision()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRanFunctionRevision()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionItemValidationError{
+					field:  "RanFunctionRevision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionItemValidationError{
+					field:  "RanFunctionRevision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRanFunctionRevision()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionItemValidationError{
 				field:  "RanFunctionRevision",
@@ -4182,8 +7634,28 @@ func (m *RanfunctionItem) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionItemMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionItemMultiError is an error wrapping multiple validation errors
+// returned by RanfunctionItem.ValidateAll() if the designated constraints
+// aren't met.
+type RanfunctionItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionItemMultiError) AllErrors() []error { return m }
 
 // RanfunctionItemValidationError is the validation error returned by
 // RanfunctionItem.Validate if the designated constraints aren't met.
@@ -4241,16 +7713,49 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionsIdList with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionsIdList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionsIdList with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionsIdListMultiError, or nil if none found.
+func (m *RanfunctionsIdList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionsIdList) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RanfunctionsIdListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RanfunctionsIdListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RanfunctionsIdListValidationError{
 					field:  fmt.Sprintf("Value[%v]", idx),
@@ -4262,8 +7767,28 @@ func (m *RanfunctionsIdList) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionsIdListMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionsIdListMultiError is an error wrapping multiple validation errors
+// returned by RanfunctionsIdList.ValidateAll() if the designated constraints
+// aren't met.
+type RanfunctionsIdListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionsIdListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionsIdListMultiError) AllErrors() []error { return m }
 
 // RanfunctionsIdListValidationError is the validation error returned by
 // RanfunctionsIdList.Validate if the designated constraints aren't met.
@@ -4323,13 +7848,46 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionIdItemIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionIdItemIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionIdItemIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionIdItemIesMultiError, or nil if none found.
+func (m *RanfunctionIdItemIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionIdItemIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRanFunctionIdItemIes6()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRanFunctionIdItemIes6()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionIdItemIesValidationError{
+					field:  "RanFunctionIdItemIes6",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionIdItemIesValidationError{
+					field:  "RanFunctionIdItemIes6",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRanFunctionIdItemIes6()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionIdItemIesValidationError{
 				field:  "RanFunctionIdItemIes6",
@@ -4339,8 +7897,28 @@ func (m *RanfunctionIdItemIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionIdItemIesMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionIdItemIesMultiError is an error wrapping multiple validation
+// errors returned by RanfunctionIdItemIes.ValidateAll() if the designated
+// constraints aren't met.
+type RanfunctionIdItemIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionIdItemIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionIdItemIesMultiError) AllErrors() []error { return m }
 
 // RanfunctionIdItemIesValidationError is the validation error returned by
 // RanfunctionIdItemIes.Validate if the designated constraints aren't met.
@@ -4399,14 +7977,47 @@ var _ interface {
 } = RanfunctionIdItemIesValidationError{}
 
 // Validate checks the field values on RanfunctionIdItem with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionIdItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionIdItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionIdItemMultiError, or nil if none found.
+func (m *RanfunctionIdItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionIdItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRanFunctionId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRanFunctionId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionIdItemValidationError{
+					field:  "RanFunctionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionIdItemValidationError{
+					field:  "RanFunctionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRanFunctionId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionIdItemValidationError{
 				field:  "RanFunctionId",
@@ -4416,7 +8027,26 @@ func (m *RanfunctionIdItem) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRanFunctionRevision()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRanFunctionRevision()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionIdItemValidationError{
+					field:  "RanFunctionRevision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionIdItemValidationError{
+					field:  "RanFunctionRevision",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRanFunctionRevision()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionIdItemValidationError{
 				field:  "RanFunctionRevision",
@@ -4426,8 +8056,28 @@ func (m *RanfunctionIdItem) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionIdItemMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionIdItemMultiError is an error wrapping multiple validation errors
+// returned by RanfunctionIdItem.ValidateAll() if the designated constraints
+// aren't met.
+type RanfunctionIdItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionIdItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionIdItemMultiError) AllErrors() []error { return m }
 
 // RanfunctionIdItemValidationError is the validation error returned by
 // RanfunctionIdItem.Validate if the designated constraints aren't met.
@@ -4487,13 +8137,46 @@ var _ interface {
 
 // Validate checks the field values on RicserviceUpdateAcknowledge with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateAcknowledge) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicserviceUpdateAcknowledge with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateAcknowledgeMultiError, or nil if none found.
+func (m *RicserviceUpdateAcknowledge) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateAcknowledge) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateAcknowledgeValidationError{
 				field:  "ProtocolIes",
@@ -4503,8 +8186,28 @@ func (m *RicserviceUpdateAcknowledge) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateAcknowledgeMultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateAcknowledgeMultiError is an error wrapping multiple
+// validation errors returned by RicserviceUpdateAcknowledge.ValidateAll() if
+// the designated constraints aren't met.
+type RicserviceUpdateAcknowledgeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateAcknowledgeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateAcknowledgeMultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateAcknowledgeValidationError is the validation error returned
 // by RicserviceUpdateAcknowledge.Validate if the designated constraints
@@ -4565,13 +8268,46 @@ var _ interface {
 
 // Validate checks the field values on RicserviceUpdateAcknowledgeIes with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateAcknowledgeIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicserviceUpdateAcknowledgeIes with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateAcknowledgeIesMultiError, or nil if none found.
+func (m *RicserviceUpdateAcknowledgeIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateAcknowledgeIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes9()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes9()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes9",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes9",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes9()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateAcknowledgeIesValidationError{
 				field:  "E2ApProtocolIes9",
@@ -4581,7 +8317,26 @@ func (m *RicserviceUpdateAcknowledgeIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes13()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes13()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes13",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeIesValidationError{
+					field:  "E2ApProtocolIes13",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes13()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateAcknowledgeIesValidationError{
 				field:  "E2ApProtocolIes13",
@@ -4591,8 +8346,28 @@ func (m *RicserviceUpdateAcknowledgeIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateAcknowledgeIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateAcknowledgeIesMultiError is an error wrapping multiple
+// validation errors returned by RicserviceUpdateAcknowledgeIes.ValidateAll()
+// if the designated constraints aren't met.
+type RicserviceUpdateAcknowledgeIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateAcknowledgeIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateAcknowledgeIesMultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateAcknowledgeIesValidationError is the validation error
 // returned by RicserviceUpdateAcknowledgeIes.Validate if the designated
@@ -4653,23 +8428,60 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionsIdcauseList with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionsIdcauseList) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionsIdcauseList with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionsIdcauseListMultiError, or nil if none found.
+func (m *RanfunctionsIdcauseList) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionsIdcauseList) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if len(m.GetValue()) > 256 {
-		return RanfunctionsIdcauseListValidationError{
+		err := RanfunctionsIdcauseListValidationError{
 			field:  "Value",
 			reason: "value must contain no more than 256 item(s)",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	for idx, item := range m.GetValue() {
 		_, _ = idx, item
 
-		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, RanfunctionsIdcauseListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, RanfunctionsIdcauseListValidationError{
+						field:  fmt.Sprintf("Value[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return RanfunctionsIdcauseListValidationError{
 					field:  fmt.Sprintf("Value[%v]", idx),
@@ -4681,8 +8493,28 @@ func (m *RanfunctionsIdcauseList) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionsIdcauseListMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionsIdcauseListMultiError is an error wrapping multiple validation
+// errors returned by RanfunctionsIdcauseList.ValidateAll() if the designated
+// constraints aren't met.
+type RanfunctionsIdcauseListMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionsIdcauseListMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionsIdcauseListMultiError) AllErrors() []error { return m }
 
 // RanfunctionsIdcauseListValidationError is the validation error returned by
 // RanfunctionsIdcauseList.Validate if the designated constraints aren't met.
@@ -4742,13 +8574,46 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionIdcauseItemIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionIdcauseItemIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionIdcauseItemIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionIdcauseItemIesMultiError, or nil if none found.
+func (m *RanfunctionIdcauseItemIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionIdcauseItemIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRanFunctionIdcauseItemIes7()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRanFunctionIdcauseItemIes7()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionIdcauseItemIesValidationError{
+					field:  "RanFunctionIdcauseItemIes7",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionIdcauseItemIesValidationError{
+					field:  "RanFunctionIdcauseItemIes7",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRanFunctionIdcauseItemIes7()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionIdcauseItemIesValidationError{
 				field:  "RanFunctionIdcauseItemIes7",
@@ -4758,8 +8623,28 @@ func (m *RanfunctionIdcauseItemIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionIdcauseItemIesMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionIdcauseItemIesMultiError is an error wrapping multiple validation
+// errors returned by RanfunctionIdcauseItemIes.ValidateAll() if the
+// designated constraints aren't met.
+type RanfunctionIdcauseItemIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionIdcauseItemIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionIdcauseItemIesMultiError) AllErrors() []error { return m }
 
 // RanfunctionIdcauseItemIesValidationError is the validation error returned by
 // RanfunctionIdcauseItemIes.Validate if the designated constraints aren't met.
@@ -4819,13 +8704,46 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionIdcauseItem with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionIdcauseItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RanfunctionIdcauseItem with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RanfunctionIdcauseItemMultiError, or nil if none found.
+func (m *RanfunctionIdcauseItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionIdcauseItem) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRanFunctionId()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRanFunctionId()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionIdcauseItemValidationError{
+					field:  "RanFunctionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionIdcauseItemValidationError{
+					field:  "RanFunctionId",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRanFunctionId()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionIdcauseItemValidationError{
 				field:  "RanFunctionId",
@@ -4835,7 +8753,26 @@ func (m *RanfunctionIdcauseItem) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCause()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCause()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionIdcauseItemValidationError{
+					field:  "Cause",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionIdcauseItemValidationError{
+					field:  "Cause",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCause()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionIdcauseItemValidationError{
 				field:  "Cause",
@@ -4845,8 +8782,28 @@ func (m *RanfunctionIdcauseItem) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionIdcauseItemMultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionIdcauseItemMultiError is an error wrapping multiple validation
+// errors returned by RanfunctionIdcauseItem.ValidateAll() if the designated
+// constraints aren't met.
+type RanfunctionIdcauseItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionIdcauseItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionIdcauseItemMultiError) AllErrors() []error { return m }
 
 // RanfunctionIdcauseItemValidationError is the validation error returned by
 // RanfunctionIdcauseItem.Validate if the designated constraints aren't met.
@@ -4906,13 +8863,46 @@ var _ interface {
 
 // Validate checks the field values on RicserviceUpdateFailure with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateFailure) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicserviceUpdateFailure with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateFailureMultiError, or nil if none found.
+func (m *RicserviceUpdateFailure) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateFailure) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateFailureValidationError{
 				field:  "ProtocolIes",
@@ -4922,8 +8912,28 @@ func (m *RicserviceUpdateFailure) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateFailureMultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateFailureMultiError is an error wrapping multiple validation
+// errors returned by RicserviceUpdateFailure.ValidateAll() if the designated
+// constraints aren't met.
+type RicserviceUpdateFailureMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateFailureMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateFailureMultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateFailureValidationError is the validation error returned by
 // RicserviceUpdateFailure.Validate if the designated constraints aren't met.
@@ -4983,13 +8993,46 @@ var _ interface {
 
 // Validate checks the field values on RicserviceUpdateFailureIes with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateFailureIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicserviceUpdateFailureIes with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateFailureIesMultiError, or nil if none found.
+func (m *RicserviceUpdateFailureIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateFailureIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes13()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes13()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIesValidationError{
+					field:  "E2ApProtocolIes13",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIesValidationError{
+					field:  "E2ApProtocolIes13",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes13()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateFailureIesValidationError{
 				field:  "E2ApProtocolIes13",
@@ -4999,7 +9042,26 @@ func (m *RicserviceUpdateFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes31()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes31()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIesValidationError{
+					field:  "E2ApProtocolIes31",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIesValidationError{
+					field:  "E2ApProtocolIes31",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes31()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateFailureIesValidationError{
 				field:  "E2ApProtocolIes31",
@@ -5009,7 +9071,26 @@ func (m *RicserviceUpdateFailureIes) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ApProtocolIes2()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIesValidationError{
+					field:  "E2ApProtocolIes2",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ApProtocolIes2()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateFailureIesValidationError{
 				field:  "E2ApProtocolIes2",
@@ -5019,8 +9100,28 @@ func (m *RicserviceUpdateFailureIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateFailureIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateFailureIesMultiError is an error wrapping multiple
+// validation errors returned by RicserviceUpdateFailureIes.ValidateAll() if
+// the designated constraints aren't met.
+type RicserviceUpdateFailureIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateFailureIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateFailureIesMultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateFailureIesValidationError is the validation error returned
 // by RicserviceUpdateFailureIes.Validate if the designated constraints aren't met.
@@ -5079,14 +9180,47 @@ var _ interface {
 } = RicserviceUpdateFailureIesValidationError{}
 
 // Validate checks the field values on RicserviceQuery with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceQuery) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicserviceQuery with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceQueryMultiError, or nil if none found.
+func (m *RicserviceQuery) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceQuery) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProtocolIes()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceQueryValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceQueryValidationError{
+					field:  "ProtocolIes",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProtocolIes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceQueryValidationError{
 				field:  "ProtocolIes",
@@ -5096,8 +9230,28 @@ func (m *RicserviceQuery) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicserviceQueryMultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceQueryMultiError is an error wrapping multiple validation errors
+// returned by RicserviceQuery.ValidateAll() if the designated constraints
+// aren't met.
+type RicserviceQueryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceQueryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceQueryMultiError) AllErrors() []error { return m }
 
 // RicserviceQueryValidationError is the validation error returned by
 // RicserviceQuery.Validate if the designated constraints aren't met.
@@ -5155,13 +9309,46 @@ var _ interface {
 
 // Validate checks the field values on RicserviceQueryIes with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceQueryIes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicserviceQueryIes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceQueryIesMultiError, or nil if none found.
+func (m *RicserviceQueryIes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceQueryIes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRicserviceQueryIes9()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicserviceQueryIes9()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceQueryIesValidationError{
+					field:  "RicserviceQueryIes9",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceQueryIesValidationError{
+					field:  "RicserviceQueryIes9",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicserviceQueryIes9()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceQueryIesValidationError{
 				field:  "RicserviceQueryIes9",
@@ -5171,8 +9358,28 @@ func (m *RicserviceQueryIes) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicserviceQueryIesMultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceQueryIesMultiError is an error wrapping multiple validation errors
+// returned by RicserviceQueryIes.ValidateAll() if the designated constraints
+// aren't met.
+type RicserviceQueryIesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceQueryIesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceQueryIesMultiError) AllErrors() []error { return m }
 
 // RicserviceQueryIesValidationError is the validation error returned by
 // RicserviceQueryIes.Validate if the designated constraints aren't met.
@@ -5233,27 +9440,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionRequestIes_RicsubscriptionRequestIes29 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes29 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes29MultiError, or nil if
+// none found.
+func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
 				field:  "Value",
@@ -5264,13 +9514,40 @@ func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes29) Validate() error
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionRequestIes_RicsubscriptionRequestIes29MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes29MultiError is an error
+// wrapping multiple validation errors returned by
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes29.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionRequestIes_RicsubscriptionRequestIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionRequestIes_RicsubscriptionRequestIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionRequestIes_RicsubscriptionRequestIes29MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionRequestIes_RicsubscriptionRequestIes29ValidationError is the
@@ -5341,28 +9618,71 @@ var _ interface {
 
 // Validate checks the field values on
 // RicsubscriptionRequestIes_RicsubscriptionRequestIes5 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes5 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes5MultiError, or nil if
+// none found.
+func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
 				field:  "Value",
@@ -5373,14 +9693,39 @@ func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes5) Validate() error 
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionRequestIes_RicsubscriptionRequestIes5MultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes5MultiError is an error
+// wrapping multiple validation errors returned by
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes5.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionRequestIes_RicsubscriptionRequestIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionRequestIes_RicsubscriptionRequestIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionRequestIes_RicsubscriptionRequestIes5MultiError) AllErrors() []error { return m }
 
 // RicsubscriptionRequestIes_RicsubscriptionRequestIes5ValidationError is the
 // validation error returned by
@@ -5449,27 +9794,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionRequestIes_RicsubscriptionRequestIes30 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes30) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes30 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes30MultiError, or nil if
+// none found.
+func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes30) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes30) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 30 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
 			field:  "Id",
 			reason: "value must equal 30",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
 				field:  "Value",
@@ -5480,13 +9868,40 @@ func (m *RicsubscriptionRequestIes_RicsubscriptionRequestIes30) Validate() error
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
+		err := RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionRequestIes_RicsubscriptionRequestIes30MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes30MultiError is an error
+// wrapping multiple validation errors returned by
+// RicsubscriptionRequestIes_RicsubscriptionRequestIes30.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionRequestIes_RicsubscriptionRequestIes30MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionRequestIes_RicsubscriptionRequestIes30MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionRequestIes_RicsubscriptionRequestIes30MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionRequestIes_RicsubscriptionRequestIes30ValidationError is the
@@ -5558,27 +9973,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionResponseIes_RicsubscriptionResponseIes29 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes29 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes29MultiError, or nil
+// if none found.
+func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
 				field:  "Value",
@@ -5589,13 +10047,40 @@ func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes29) Validate() err
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionResponseIes_RicsubscriptionResponseIes29MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes29MultiError is an
+// error wrapping multiple validation errors returned by
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes29.ValidateAll() if
+// the designated constraints aren't met.
+type RicsubscriptionResponseIes_RicsubscriptionResponseIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionResponseIes_RicsubscriptionResponseIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionResponseIes_RicsubscriptionResponseIes29MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionResponseIes_RicsubscriptionResponseIes29ValidationError is
@@ -5667,27 +10152,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionResponseIes_RicsubscriptionResponseIes5 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes5 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes5MultiError, or nil if
+// none found.
+func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
 				field:  "Value",
@@ -5698,13 +10226,40 @@ func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes5) Validate() erro
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionResponseIes_RicsubscriptionResponseIes5MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes5MultiError is an error
+// wrapping multiple validation errors returned by
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes5.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionResponseIes_RicsubscriptionResponseIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionResponseIes_RicsubscriptionResponseIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionResponseIes_RicsubscriptionResponseIes5MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionResponseIes_RicsubscriptionResponseIes5ValidationError is the
@@ -5776,27 +10331,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionResponseIes_RicsubscriptionResponseIes17 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes17) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes17 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes17MultiError, or nil
+// if none found.
+func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes17) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes17) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 17 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
 			field:  "Id",
 			reason: "value must equal 17",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
 				field:  "Value",
@@ -5807,13 +10405,40 @@ func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes17) Validate() err
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionResponseIes_RicsubscriptionResponseIes17MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes17MultiError is an
+// error wrapping multiple validation errors returned by
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes17.ValidateAll() if
+// the designated constraints aren't met.
+type RicsubscriptionResponseIes_RicsubscriptionResponseIes17MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionResponseIes_RicsubscriptionResponseIes17MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionResponseIes_RicsubscriptionResponseIes17MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionResponseIes_RicsubscriptionResponseIes17ValidationError is
@@ -5885,27 +10510,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionResponseIes_RicsubscriptionResponseIes18 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes18) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes18 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes18MultiError, or nil
+// if none found.
+func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes18) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes18) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 18 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
 			field:  "Id",
 			reason: "value must equal 18",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
 				field:  "Value",
@@ -5916,13 +10584,40 @@ func (m *RicsubscriptionResponseIes_RicsubscriptionResponseIes18) Validate() err
 	}
 
 	if m.GetPresence() != 0 {
-		return RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
+		err := RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionResponseIes_RicsubscriptionResponseIes18MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes18MultiError is an
+// error wrapping multiple validation errors returned by
+// RicsubscriptionResponseIes_RicsubscriptionResponseIes18.ValidateAll() if
+// the designated constraints aren't met.
+type RicsubscriptionResponseIes_RicsubscriptionResponseIes18MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionResponseIes_RicsubscriptionResponseIes18MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionResponseIes_RicsubscriptionResponseIes18MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionResponseIes_RicsubscriptionResponseIes18ValidationError is
@@ -5994,27 +10689,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionFailureIes_RicsubscriptionFailureIes29 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes29 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes29MultiError, or nil if
+// none found.
+func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
 				field:  "Value",
@@ -6025,13 +10763,40 @@ func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes29) Validate() error
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionFailureIes_RicsubscriptionFailureIes29MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes29MultiError is an error
+// wrapping multiple validation errors returned by
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes29.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionFailureIes_RicsubscriptionFailureIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionFailureIes_RicsubscriptionFailureIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionFailureIes_RicsubscriptionFailureIes29MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionFailureIes_RicsubscriptionFailureIes29ValidationError is the
@@ -6102,28 +10867,71 @@ var _ interface {
 
 // Validate checks the field values on
 // RicsubscriptionFailureIes_RicsubscriptionFailureIes5 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes5 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes5MultiError, or nil if
+// none found.
+func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
 				field:  "Value",
@@ -6134,14 +10942,39 @@ func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes5) Validate() error 
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionFailureIes_RicsubscriptionFailureIes5MultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes5MultiError is an error
+// wrapping multiple validation errors returned by
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes5.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionFailureIes_RicsubscriptionFailureIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionFailureIes_RicsubscriptionFailureIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionFailureIes_RicsubscriptionFailureIes5MultiError) AllErrors() []error { return m }
 
 // RicsubscriptionFailureIes_RicsubscriptionFailureIes5ValidationError is the
 // validation error returned by
@@ -6210,27 +11043,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionFailureIes_RicsubscriptionFailureIes18 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes18) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes18 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes18MultiError, or nil if
+// none found.
+func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes18) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes18) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 18 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
 			field:  "Id",
 			reason: "value must equal 18",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
 				field:  "Value",
@@ -6241,13 +11117,40 @@ func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes18) Validate() error
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionFailureIes_RicsubscriptionFailureIes18MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes18MultiError is an error
+// wrapping multiple validation errors returned by
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes18.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionFailureIes_RicsubscriptionFailureIes18MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionFailureIes_RicsubscriptionFailureIes18MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionFailureIes_RicsubscriptionFailureIes18MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionFailureIes_RicsubscriptionFailureIes18ValidationError is the
@@ -6318,28 +11221,71 @@ var _ interface {
 
 // Validate checks the field values on
 // RicsubscriptionFailureIes_RicsubscriptionFailureIes2 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes2) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes2 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes2MultiError, or nil if
+// none found.
+func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes2) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes2) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 2 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
 			field:  "Id",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
 				field:  "Value",
@@ -6350,14 +11296,39 @@ func (m *RicsubscriptionFailureIes_RicsubscriptionFailureIes2) Validate() error 
 	}
 
 	if m.GetPresence() != 0 {
-		return RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
+		err := RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionFailureIes_RicsubscriptionFailureIes2MultiError(errors)
+	}
 	return nil
 }
+
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes2MultiError is an error
+// wrapping multiple validation errors returned by
+// RicsubscriptionFailureIes_RicsubscriptionFailureIes2.ValidateAll() if the
+// designated constraints aren't met.
+type RicsubscriptionFailureIes_RicsubscriptionFailureIes2MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionFailureIes_RicsubscriptionFailureIes2MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionFailureIes_RicsubscriptionFailureIes2MultiError) AllErrors() []error { return m }
 
 // RicsubscriptionFailureIes_RicsubscriptionFailureIes2ValidationError is the
 // validation error returned by
@@ -6426,27 +11397,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29MultiError,
+// or nil if none found.
+func (m *RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
+		err := RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
+		err := RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
 				field:  "Value",
@@ -6457,13 +11471,40 @@ func (m *RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29) Vali
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
+		err := RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29MultiError
+// is an error wrapping multiple validation errors returned by
+// RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29ValidationError
@@ -6535,27 +11576,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5MultiError,
+// or nil if none found.
+func (m *RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
+		err := RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
+		err := RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
 				field:  "Value",
@@ -6566,13 +11650,40 @@ func (m *RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5) Valid
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
+		err := RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5MultiError
+// is an error wrapping multiple validation errors returned by
+// RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5ValidationError
@@ -6644,27 +11755,71 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29MultiError,
+// or nil if none found.
+func (m *RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
+		err := RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
+		err := RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
 				field:  "Value",
@@ -6675,13 +11830,40 @@ func (m *RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29) Va
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
+		err := RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29MultiError
+// is an error wrapping multiple validation errors returned by
+// RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29ValidationError
@@ -6753,27 +11935,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5MultiError,
+// or nil if none found.
+func (m *RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
+		err := RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
+		err := RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
 				field:  "Value",
@@ -6784,13 +12009,40 @@ func (m *RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5) Val
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
+		err := RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5MultiError
+// is an error wrapping multiple validation errors returned by
+// RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes5ValidationError
@@ -6862,27 +12114,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29MultiError,
+// or nil if none found.
+func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
 				field:  "Value",
@@ -6893,13 +12188,40 @@ func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29) Vali
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29MultiError
+// is an error wrapping multiple validation errors returned by
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29ValidationError
@@ -6971,27 +12293,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5MultiError,
+// or nil if none found.
+func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
 				field:  "Value",
@@ -7002,13 +12367,40 @@ func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5) Valid
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5MultiError
+// is an error wrapping multiple validation errors returned by
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5ValidationError
@@ -7080,27 +12472,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1MultiError,
+// or nil if none found.
+func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 1 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
 			field:  "Id",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
 				field:  "Value",
@@ -7111,13 +12546,40 @@ func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1) Valid
 	}
 
 	if m.GetPresence() != 2 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1MultiError
+// is an error wrapping multiple validation errors returned by
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1ValidationError
@@ -7189,27 +12651,70 @@ var _ interface {
 // Validate checks the field values on
 // RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2MultiError,
+// or nil if none found.
+func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 2 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
 			field:  "Id",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
 				field:  "Value",
@@ -7220,13 +12725,40 @@ func (m *RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2) Valid
 	}
 
 	if m.GetPresence() != 0 {
-		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
+		err := RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2MultiError(errors)
+	}
 	return nil
+}
+
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2MultiError
+// is an error wrapping multiple validation errors returned by
+// RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2.ValidateAll()
+// if the designated constraints aren't met.
+type RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2MultiError) AllErrors() []error {
+	return m
 }
 
 // RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2ValidationError
@@ -7297,27 +12829,69 @@ var _ interface {
 
 // Validate checks the field values on RicindicationIes_RicindicationIes29 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicindicationIes_RicindicationIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes_RicindicationIes29
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// RicindicationIes_RicindicationIes29MultiError, or nil if none found.
+func (m *RicindicationIes_RicindicationIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes_RicindicationIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RicindicationIes_RicindicationIes29ValidationError{
+		err := RicindicationIes_RicindicationIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicindicationIes_RicindicationIes29ValidationError{
+		err := RicindicationIes_RicindicationIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIes_RicindicationIes29ValidationError{
 				field:  "Value",
@@ -7328,14 +12902,39 @@ func (m *RicindicationIes_RicindicationIes29) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RicindicationIes_RicindicationIes29ValidationError{
+		err := RicindicationIes_RicindicationIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIes_RicindicationIes29MultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIes_RicindicationIes29MultiError is an error wrapping multiple
+// validation errors returned by
+// RicindicationIes_RicindicationIes29.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationIes_RicindicationIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIes_RicindicationIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIes_RicindicationIes29MultiError) AllErrors() []error { return m }
 
 // RicindicationIes_RicindicationIes29ValidationError is the validation error
 // returned by RicindicationIes_RicindicationIes29.Validate if the designated
@@ -7396,27 +12995,69 @@ var _ interface {
 
 // Validate checks the field values on RicindicationIes_RicindicationIes5 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicindicationIes_RicindicationIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes_RicindicationIes5
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// RicindicationIes_RicindicationIes5MultiError, or nil if none found.
+func (m *RicindicationIes_RicindicationIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes_RicindicationIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RicindicationIes_RicindicationIes5ValidationError{
+		err := RicindicationIes_RicindicationIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicindicationIes_RicindicationIes5ValidationError{
+		err := RicindicationIes_RicindicationIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIes_RicindicationIes5ValidationError{
 				field:  "Value",
@@ -7427,14 +13068,39 @@ func (m *RicindicationIes_RicindicationIes5) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RicindicationIes_RicindicationIes5ValidationError{
+		err := RicindicationIes_RicindicationIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIes_RicindicationIes5MultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIes_RicindicationIes5MultiError is an error wrapping multiple
+// validation errors returned by
+// RicindicationIes_RicindicationIes5.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationIes_RicindicationIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIes_RicindicationIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIes_RicindicationIes5MultiError) AllErrors() []error { return m }
 
 // RicindicationIes_RicindicationIes5ValidationError is the validation error
 // returned by RicindicationIes_RicindicationIes5.Validate if the designated
@@ -7495,27 +13161,69 @@ var _ interface {
 
 // Validate checks the field values on RicindicationIes_RicindicationIes15 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicindicationIes_RicindicationIes15) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes_RicindicationIes15
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// RicindicationIes_RicindicationIes15MultiError, or nil if none found.
+func (m *RicindicationIes_RicindicationIes15) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes_RicindicationIes15) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 15 {
-		return RicindicationIes_RicindicationIes15ValidationError{
+		err := RicindicationIes_RicindicationIes15ValidationError{
 			field:  "Id",
 			reason: "value must equal 15",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicindicationIes_RicindicationIes15ValidationError{
+		err := RicindicationIes_RicindicationIes15ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes15ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes15ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIes_RicindicationIes15ValidationError{
 				field:  "Value",
@@ -7526,14 +13234,39 @@ func (m *RicindicationIes_RicindicationIes15) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RicindicationIes_RicindicationIes15ValidationError{
+		err := RicindicationIes_RicindicationIes15ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIes_RicindicationIes15MultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIes_RicindicationIes15MultiError is an error wrapping multiple
+// validation errors returned by
+// RicindicationIes_RicindicationIes15.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationIes_RicindicationIes15MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIes_RicindicationIes15MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIes_RicindicationIes15MultiError) AllErrors() []error { return m }
 
 // RicindicationIes_RicindicationIes15ValidationError is the validation error
 // returned by RicindicationIes_RicindicationIes15.Validate if the designated
@@ -7594,27 +13327,69 @@ var _ interface {
 
 // Validate checks the field values on RicindicationIes_RicindicationIes27 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicindicationIes_RicindicationIes27) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes_RicindicationIes27
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// RicindicationIes_RicindicationIes27MultiError, or nil if none found.
+func (m *RicindicationIes_RicindicationIes27) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes_RicindicationIes27) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 27 {
-		return RicindicationIes_RicindicationIes27ValidationError{
+		err := RicindicationIes_RicindicationIes27ValidationError{
 			field:  "Id",
 			reason: "value must equal 27",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicindicationIes_RicindicationIes27ValidationError{
+		err := RicindicationIes_RicindicationIes27ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes27ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes27ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIes_RicindicationIes27ValidationError{
 				field:  "Value",
@@ -7625,14 +13400,39 @@ func (m *RicindicationIes_RicindicationIes27) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RicindicationIes_RicindicationIes27ValidationError{
+		err := RicindicationIes_RicindicationIes27ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIes_RicindicationIes27MultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIes_RicindicationIes27MultiError is an error wrapping multiple
+// validation errors returned by
+// RicindicationIes_RicindicationIes27.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationIes_RicindicationIes27MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIes_RicindicationIes27MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIes_RicindicationIes27MultiError) AllErrors() []error { return m }
 
 // RicindicationIes_RicindicationIes27ValidationError is the validation error
 // returned by RicindicationIes_RicindicationIes27.Validate if the designated
@@ -7693,37 +13493,85 @@ var _ interface {
 
 // Validate checks the field values on RicindicationIes_RicindicationIes28 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicindicationIes_RicindicationIes28) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes_RicindicationIes28
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// RicindicationIes_RicindicationIes28MultiError, or nil if none found.
+func (m *RicindicationIes_RicindicationIes28) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes_RicindicationIes28) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 28 {
-		return RicindicationIes_RicindicationIes28ValidationError{
+		err := RicindicationIes_RicindicationIes28ValidationError{
 			field:  "Id",
 			reason: "value must equal 28",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicindicationIes_RicindicationIes28ValidationError{
+		err := RicindicationIes_RicindicationIes28ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	// no validation rules for Value
 
 	if m.GetPresence() != 2 {
-		return RicindicationIes_RicindicationIes28ValidationError{
+		err := RicindicationIes_RicindicationIes28ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIes_RicindicationIes28MultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIes_RicindicationIes28MultiError is an error wrapping multiple
+// validation errors returned by
+// RicindicationIes_RicindicationIes28.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationIes_RicindicationIes28MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIes_RicindicationIes28MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIes_RicindicationIes28MultiError) AllErrors() []error { return m }
 
 // RicindicationIes_RicindicationIes28ValidationError is the validation error
 // returned by RicindicationIes_RicindicationIes28.Validate if the designated
@@ -7784,27 +13632,69 @@ var _ interface {
 
 // Validate checks the field values on RicindicationIes_RicindicationIes25 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicindicationIes_RicindicationIes25) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes_RicindicationIes25
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// RicindicationIes_RicindicationIes25MultiError, or nil if none found.
+func (m *RicindicationIes_RicindicationIes25) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes_RicindicationIes25) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 25 {
-		return RicindicationIes_RicindicationIes25ValidationError{
+		err := RicindicationIes_RicindicationIes25ValidationError{
 			field:  "Id",
 			reason: "value must equal 25",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicindicationIes_RicindicationIes25ValidationError{
+		err := RicindicationIes_RicindicationIes25ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes25ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes25ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIes_RicindicationIes25ValidationError{
 				field:  "Value",
@@ -7815,14 +13705,39 @@ func (m *RicindicationIes_RicindicationIes25) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RicindicationIes_RicindicationIes25ValidationError{
+		err := RicindicationIes_RicindicationIes25ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIes_RicindicationIes25MultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIes_RicindicationIes25MultiError is an error wrapping multiple
+// validation errors returned by
+// RicindicationIes_RicindicationIes25.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationIes_RicindicationIes25MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIes_RicindicationIes25MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIes_RicindicationIes25MultiError) AllErrors() []error { return m }
 
 // RicindicationIes_RicindicationIes25ValidationError is the validation error
 // returned by RicindicationIes_RicindicationIes25.Validate if the designated
@@ -7883,27 +13798,69 @@ var _ interface {
 
 // Validate checks the field values on RicindicationIes_RicindicationIes26 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicindicationIes_RicindicationIes26) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes_RicindicationIes26
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// RicindicationIes_RicindicationIes26MultiError, or nil if none found.
+func (m *RicindicationIes_RicindicationIes26) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes_RicindicationIes26) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 26 {
-		return RicindicationIes_RicindicationIes26ValidationError{
+		err := RicindicationIes_RicindicationIes26ValidationError{
 			field:  "Id",
 			reason: "value must equal 26",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicindicationIes_RicindicationIes26ValidationError{
+		err := RicindicationIes_RicindicationIes26ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes26ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes26ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIes_RicindicationIes26ValidationError{
 				field:  "Value",
@@ -7914,14 +13871,39 @@ func (m *RicindicationIes_RicindicationIes26) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RicindicationIes_RicindicationIes26ValidationError{
+		err := RicindicationIes_RicindicationIes26ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIes_RicindicationIes26MultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIes_RicindicationIes26MultiError is an error wrapping multiple
+// validation errors returned by
+// RicindicationIes_RicindicationIes26.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationIes_RicindicationIes26MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIes_RicindicationIes26MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIes_RicindicationIes26MultiError) AllErrors() []error { return m }
 
 // RicindicationIes_RicindicationIes26ValidationError is the validation error
 // returned by RicindicationIes_RicindicationIes26.Validate if the designated
@@ -7982,27 +13964,69 @@ var _ interface {
 
 // Validate checks the field values on RicindicationIes_RicindicationIes20 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *RicindicationIes_RicindicationIes20) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicindicationIes_RicindicationIes20
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// RicindicationIes_RicindicationIes20MultiError, or nil if none found.
+func (m *RicindicationIes_RicindicationIes20) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicindicationIes_RicindicationIes20) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 20 {
-		return RicindicationIes_RicindicationIes20ValidationError{
+		err := RicindicationIes_RicindicationIes20ValidationError{
 			field:  "Id",
 			reason: "value must equal 20",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicindicationIes_RicindicationIes20ValidationError{
+		err := RicindicationIes_RicindicationIes20ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes20ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicindicationIes_RicindicationIes20ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicindicationIes_RicindicationIes20ValidationError{
 				field:  "Value",
@@ -8013,14 +14037,39 @@ func (m *RicindicationIes_RicindicationIes20) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RicindicationIes_RicindicationIes20ValidationError{
+		err := RicindicationIes_RicindicationIes20ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicindicationIes_RicindicationIes20MultiError(errors)
+	}
 	return nil
 }
+
+// RicindicationIes_RicindicationIes20MultiError is an error wrapping multiple
+// validation errors returned by
+// RicindicationIes_RicindicationIes20.ValidateAll() if the designated
+// constraints aren't met.
+type RicindicationIes_RicindicationIes20MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicindicationIes_RicindicationIes20MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicindicationIes_RicindicationIes20MultiError) AllErrors() []error { return m }
 
 // RicindicationIes_RicindicationIes20ValidationError is the validation error
 // returned by RicindicationIes_RicindicationIes20.Validate if the designated
@@ -8081,27 +14130,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolRequestIes_RiccontrolRequestIes29 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolRequestIes_RiccontrolRequestIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolRequestIes_RiccontrolRequestIes29 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolRequestIes_RiccontrolRequestIes29MultiError, or nil if none found.
+func (m *RiccontrolRequestIes_RiccontrolRequestIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolRequestIes_RiccontrolRequestIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
 				field:  "Value",
@@ -8112,14 +14204,39 @@ func (m *RiccontrolRequestIes_RiccontrolRequestIes29) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolRequestIes_RiccontrolRequestIes29MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolRequestIes_RiccontrolRequestIes29MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolRequestIes_RiccontrolRequestIes29.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolRequestIes_RiccontrolRequestIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolRequestIes_RiccontrolRequestIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolRequestIes_RiccontrolRequestIes29MultiError) AllErrors() []error { return m }
 
 // RiccontrolRequestIes_RiccontrolRequestIes29ValidationError is the validation
 // error returned by RiccontrolRequestIes_RiccontrolRequestIes29.Validate if
@@ -8180,27 +14297,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolRequestIes_RiccontrolRequestIes5 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolRequestIes_RiccontrolRequestIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolRequestIes_RiccontrolRequestIes5 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolRequestIes_RiccontrolRequestIes5MultiError, or nil if none found.
+func (m *RiccontrolRequestIes_RiccontrolRequestIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolRequestIes_RiccontrolRequestIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
 				field:  "Value",
@@ -8211,14 +14371,39 @@ func (m *RiccontrolRequestIes_RiccontrolRequestIes5) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolRequestIes_RiccontrolRequestIes5MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolRequestIes_RiccontrolRequestIes5MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolRequestIes_RiccontrolRequestIes5.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolRequestIes_RiccontrolRequestIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolRequestIes_RiccontrolRequestIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolRequestIes_RiccontrolRequestIes5MultiError) AllErrors() []error { return m }
 
 // RiccontrolRequestIes_RiccontrolRequestIes5ValidationError is the validation
 // error returned by RiccontrolRequestIes_RiccontrolRequestIes5.Validate if
@@ -8279,27 +14464,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolRequestIes_RiccontrolRequestIes20 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolRequestIes_RiccontrolRequestIes20) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolRequestIes_RiccontrolRequestIes20 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolRequestIes_RiccontrolRequestIes20MultiError, or nil if none found.
+func (m *RiccontrolRequestIes_RiccontrolRequestIes20) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolRequestIes_RiccontrolRequestIes20) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 20 {
-		return RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
 			field:  "Id",
 			reason: "value must equal 20",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
 				field:  "Value",
@@ -8310,14 +14538,39 @@ func (m *RiccontrolRequestIes_RiccontrolRequestIes20) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes20ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolRequestIes_RiccontrolRequestIes20MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolRequestIes_RiccontrolRequestIes20MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolRequestIes_RiccontrolRequestIes20.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolRequestIes_RiccontrolRequestIes20MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolRequestIes_RiccontrolRequestIes20MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolRequestIes_RiccontrolRequestIes20MultiError) AllErrors() []error { return m }
 
 // RiccontrolRequestIes_RiccontrolRequestIes20ValidationError is the validation
 // error returned by RiccontrolRequestIes_RiccontrolRequestIes20.Validate if
@@ -8378,27 +14631,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolRequestIes_RiccontrolRequestIes22 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolRequestIes_RiccontrolRequestIes22) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolRequestIes_RiccontrolRequestIes22 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolRequestIes_RiccontrolRequestIes22MultiError, or nil if none found.
+func (m *RiccontrolRequestIes_RiccontrolRequestIes22) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolRequestIes_RiccontrolRequestIes22) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 22 {
-		return RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
 			field:  "Id",
 			reason: "value must equal 22",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
 				field:  "Value",
@@ -8409,14 +14705,39 @@ func (m *RiccontrolRequestIes_RiccontrolRequestIes22) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes22ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolRequestIes_RiccontrolRequestIes22MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolRequestIes_RiccontrolRequestIes22MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolRequestIes_RiccontrolRequestIes22.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolRequestIes_RiccontrolRequestIes22MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolRequestIes_RiccontrolRequestIes22MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolRequestIes_RiccontrolRequestIes22MultiError) AllErrors() []error { return m }
 
 // RiccontrolRequestIes_RiccontrolRequestIes22ValidationError is the validation
 // error returned by RiccontrolRequestIes_RiccontrolRequestIes22.Validate if
@@ -8477,27 +14798,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolRequestIes_RiccontrolRequestIes23 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolRequestIes_RiccontrolRequestIes23) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolRequestIes_RiccontrolRequestIes23 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolRequestIes_RiccontrolRequestIes23MultiError, or nil if none found.
+func (m *RiccontrolRequestIes_RiccontrolRequestIes23) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolRequestIes_RiccontrolRequestIes23) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 23 {
-		return RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
 			field:  "Id",
 			reason: "value must equal 23",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
 				field:  "Value",
@@ -8508,14 +14872,39 @@ func (m *RiccontrolRequestIes_RiccontrolRequestIes23) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes23ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolRequestIes_RiccontrolRequestIes23MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolRequestIes_RiccontrolRequestIes23MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolRequestIes_RiccontrolRequestIes23.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolRequestIes_RiccontrolRequestIes23MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolRequestIes_RiccontrolRequestIes23MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolRequestIes_RiccontrolRequestIes23MultiError) AllErrors() []error { return m }
 
 // RiccontrolRequestIes_RiccontrolRequestIes23ValidationError is the validation
 // error returned by RiccontrolRequestIes_RiccontrolRequestIes23.Validate if
@@ -8576,37 +14965,86 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolRequestIes_RiccontrolRequestIes21 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolRequestIes_RiccontrolRequestIes21) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolRequestIes_RiccontrolRequestIes21 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolRequestIes_RiccontrolRequestIes21MultiError, or nil if none found.
+func (m *RiccontrolRequestIes_RiccontrolRequestIes21) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolRequestIes_RiccontrolRequestIes21) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 21 {
-		return RiccontrolRequestIes_RiccontrolRequestIes21ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes21ValidationError{
 			field:  "Id",
 			reason: "value must equal 21",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolRequestIes_RiccontrolRequestIes21ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes21ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	// no validation rules for Value
 
 	if m.GetPresence() != 0 {
-		return RiccontrolRequestIes_RiccontrolRequestIes21ValidationError{
+		err := RiccontrolRequestIes_RiccontrolRequestIes21ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolRequestIes_RiccontrolRequestIes21MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolRequestIes_RiccontrolRequestIes21MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolRequestIes_RiccontrolRequestIes21.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolRequestIes_RiccontrolRequestIes21MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolRequestIes_RiccontrolRequestIes21MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolRequestIes_RiccontrolRequestIes21MultiError) AllErrors() []error { return m }
 
 // RiccontrolRequestIes_RiccontrolRequestIes21ValidationError is the validation
 // error returned by RiccontrolRequestIes_RiccontrolRequestIes21.Validate if
@@ -8667,28 +15105,71 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29MultiError, or nil if
+// none found.
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
 				field:  "Value",
@@ -8699,14 +15180,39 @@ func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29MultiError is an error
+// wrapping multiple validation errors returned by
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29.ValidateAll() if the
+// designated constraints aren't met.
+type RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29MultiError) AllErrors() []error { return m }
 
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29ValidationError is the
 // validation error returned by
@@ -8774,28 +15280,71 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5MultiError, or nil if
+// none found.
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
 				field:  "Value",
@@ -8806,14 +15355,39 @@ func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5MultiError is an error
+// wrapping multiple validation errors returned by
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5.ValidateAll() if the
+// designated constraints aren't met.
+type RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5MultiError) AllErrors() []error { return m }
 
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5ValidationError is the
 // validation error returned by
@@ -8881,28 +15455,71 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20MultiError, or nil if
+// none found.
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 20 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
 			field:  "Id",
 			reason: "value must equal 20",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
 				field:  "Value",
@@ -8913,14 +15530,39 @@ func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20MultiError is an error
+// wrapping multiple validation errors returned by
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20.ValidateAll() if the
+// designated constraints aren't met.
+type RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20MultiError) AllErrors() []error { return m }
 
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20ValidationError is the
 // validation error returned by
@@ -8988,38 +15630,87 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24MultiError, or nil if
+// none found.
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 24 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24ValidationError{
 			field:  "Id",
 			reason: "value must equal 24",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	// no validation rules for Value
 
 	if m.GetPresence() != 2 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24MultiError is an error
+// wrapping multiple validation errors returned by
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24.ValidateAll() if the
+// designated constraints aren't met.
+type RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24MultiError) AllErrors() []error { return m }
 
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24ValidationError is the
 // validation error returned by
@@ -9087,28 +15778,71 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32MultiError, or nil if
+// none found.
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 32 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
 			field:  "Id",
 			reason: "value must equal 32",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
 				field:  "Value",
@@ -9119,14 +15853,39 @@ func (m *RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
+		err := RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32MultiError is an error
+// wrapping multiple validation errors returned by
+// RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32.ValidateAll() if the
+// designated constraints aren't met.
+type RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32MultiError) AllErrors() []error { return m }
 
 // RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32ValidationError is the
 // validation error returned by
@@ -9194,27 +15953,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolFailureIes_RiccontrolFailureIes29 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolFailureIes_RiccontrolFailureIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolFailureIes_RiccontrolFailureIes29 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolFailureIes_RiccontrolFailureIes29MultiError, or nil if none found.
+func (m *RiccontrolFailureIes_RiccontrolFailureIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolFailureIes_RiccontrolFailureIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
 				field:  "Value",
@@ -9225,14 +16027,39 @@ func (m *RiccontrolFailureIes_RiccontrolFailureIes29) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolFailureIes_RiccontrolFailureIes29MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolFailureIes_RiccontrolFailureIes29MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolFailureIes_RiccontrolFailureIes29.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolFailureIes_RiccontrolFailureIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolFailureIes_RiccontrolFailureIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolFailureIes_RiccontrolFailureIes29MultiError) AllErrors() []error { return m }
 
 // RiccontrolFailureIes_RiccontrolFailureIes29ValidationError is the validation
 // error returned by RiccontrolFailureIes_RiccontrolFailureIes29.Validate if
@@ -9293,27 +16120,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolFailureIes_RiccontrolFailureIes5 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolFailureIes_RiccontrolFailureIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolFailureIes_RiccontrolFailureIes5 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolFailureIes_RiccontrolFailureIes5MultiError, or nil if none found.
+func (m *RiccontrolFailureIes_RiccontrolFailureIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolFailureIes_RiccontrolFailureIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
 				field:  "Value",
@@ -9324,14 +16194,39 @@ func (m *RiccontrolFailureIes_RiccontrolFailureIes5) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolFailureIes_RiccontrolFailureIes5MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolFailureIes_RiccontrolFailureIes5MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolFailureIes_RiccontrolFailureIes5.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolFailureIes_RiccontrolFailureIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolFailureIes_RiccontrolFailureIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolFailureIes_RiccontrolFailureIes5MultiError) AllErrors() []error { return m }
 
 // RiccontrolFailureIes_RiccontrolFailureIes5ValidationError is the validation
 // error returned by RiccontrolFailureIes_RiccontrolFailureIes5.Validate if
@@ -9392,27 +16287,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolFailureIes_RiccontrolFailureIes20 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolFailureIes_RiccontrolFailureIes20) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolFailureIes_RiccontrolFailureIes20 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolFailureIes_RiccontrolFailureIes20MultiError, or nil if none found.
+func (m *RiccontrolFailureIes_RiccontrolFailureIes20) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolFailureIes_RiccontrolFailureIes20) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 20 {
-		return RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
 			field:  "Id",
 			reason: "value must equal 20",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
 				field:  "Value",
@@ -9423,14 +16361,39 @@ func (m *RiccontrolFailureIes_RiccontrolFailureIes20) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes20ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolFailureIes_RiccontrolFailureIes20MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolFailureIes_RiccontrolFailureIes20MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolFailureIes_RiccontrolFailureIes20.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolFailureIes_RiccontrolFailureIes20MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolFailureIes_RiccontrolFailureIes20MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolFailureIes_RiccontrolFailureIes20MultiError) AllErrors() []error { return m }
 
 // RiccontrolFailureIes_RiccontrolFailureIes20ValidationError is the validation
 // error returned by RiccontrolFailureIes_RiccontrolFailureIes20.Validate if
@@ -9491,27 +16454,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolFailureIes_RiccontrolFailureIes1 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolFailureIes_RiccontrolFailureIes1) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolFailureIes_RiccontrolFailureIes1 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolFailureIes_RiccontrolFailureIes1MultiError, or nil if none found.
+func (m *RiccontrolFailureIes_RiccontrolFailureIes1) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolFailureIes_RiccontrolFailureIes1) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 1 {
-		return RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
 			field:  "Id",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
 				field:  "Value",
@@ -9522,14 +16528,39 @@ func (m *RiccontrolFailureIes_RiccontrolFailureIes1) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes1ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolFailureIes_RiccontrolFailureIes1MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolFailureIes_RiccontrolFailureIes1MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolFailureIes_RiccontrolFailureIes1.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolFailureIes_RiccontrolFailureIes1MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolFailureIes_RiccontrolFailureIes1MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolFailureIes_RiccontrolFailureIes1MultiError) AllErrors() []error { return m }
 
 // RiccontrolFailureIes_RiccontrolFailureIes1ValidationError is the validation
 // error returned by RiccontrolFailureIes_RiccontrolFailureIes1.Validate if
@@ -9590,27 +16621,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RiccontrolFailureIes_RiccontrolFailureIes32 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RiccontrolFailureIes_RiccontrolFailureIes32) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RiccontrolFailureIes_RiccontrolFailureIes32 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RiccontrolFailureIes_RiccontrolFailureIes32MultiError, or nil if none found.
+func (m *RiccontrolFailureIes_RiccontrolFailureIes32) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RiccontrolFailureIes_RiccontrolFailureIes32) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 32 {
-		return RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
 			field:  "Id",
 			reason: "value must equal 32",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
 				field:  "Value",
@@ -9621,14 +16695,39 @@ func (m *RiccontrolFailureIes_RiccontrolFailureIes32) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
+		err := RiccontrolFailureIes_RiccontrolFailureIes32ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RiccontrolFailureIes_RiccontrolFailureIes32MultiError(errors)
+	}
 	return nil
 }
+
+// RiccontrolFailureIes_RiccontrolFailureIes32MultiError is an error wrapping
+// multiple validation errors returned by
+// RiccontrolFailureIes_RiccontrolFailureIes32.ValidateAll() if the designated
+// constraints aren't met.
+type RiccontrolFailureIes_RiccontrolFailureIes32MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RiccontrolFailureIes_RiccontrolFailureIes32MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RiccontrolFailureIes_RiccontrolFailureIes32MultiError) AllErrors() []error { return m }
 
 // RiccontrolFailureIes_RiccontrolFailureIes32ValidationError is the validation
 // error returned by RiccontrolFailureIes_RiccontrolFailureIes32.Validate if
@@ -9689,27 +16788,70 @@ var _ interface {
 
 // Validate checks the field values on ErrorIndicationIes_ErrorIndicationIes29
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *ErrorIndicationIes_ErrorIndicationIes29) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ErrorIndicationIes_ErrorIndicationIes29 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// ErrorIndicationIes_ErrorIndicationIes29MultiError, or nil if none found.
+func (m *ErrorIndicationIes_ErrorIndicationIes29) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ErrorIndicationIes_ErrorIndicationIes29) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 29 {
-		return ErrorIndicationIes_ErrorIndicationIes29ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes29ValidationError{
 			field:  "Id",
 			reason: "value must equal 29",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return ErrorIndicationIes_ErrorIndicationIes29ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes29ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationIes_ErrorIndicationIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationIes_ErrorIndicationIes29ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationIes_ErrorIndicationIes29ValidationError{
 				field:  "Value",
@@ -9720,14 +16862,39 @@ func (m *ErrorIndicationIes_ErrorIndicationIes29) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return ErrorIndicationIes_ErrorIndicationIes29ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes29ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return ErrorIndicationIes_ErrorIndicationIes29MultiError(errors)
+	}
 	return nil
 }
+
+// ErrorIndicationIes_ErrorIndicationIes29MultiError is an error wrapping
+// multiple validation errors returned by
+// ErrorIndicationIes_ErrorIndicationIes29.ValidateAll() if the designated
+// constraints aren't met.
+type ErrorIndicationIes_ErrorIndicationIes29MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ErrorIndicationIes_ErrorIndicationIes29MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ErrorIndicationIes_ErrorIndicationIes29MultiError) AllErrors() []error { return m }
 
 // ErrorIndicationIes_ErrorIndicationIes29ValidationError is the validation
 // error returned by ErrorIndicationIes_ErrorIndicationIes29.Validate if the
@@ -9788,27 +16955,70 @@ var _ interface {
 
 // Validate checks the field values on ErrorIndicationIes_ErrorIndicationIes5
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *ErrorIndicationIes_ErrorIndicationIes5) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ErrorIndicationIes_ErrorIndicationIes5 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// ErrorIndicationIes_ErrorIndicationIes5MultiError, or nil if none found.
+func (m *ErrorIndicationIes_ErrorIndicationIes5) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ErrorIndicationIes_ErrorIndicationIes5) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 5 {
-		return ErrorIndicationIes_ErrorIndicationIes5ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes5ValidationError{
 			field:  "Id",
 			reason: "value must equal 5",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return ErrorIndicationIes_ErrorIndicationIes5ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes5ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationIes_ErrorIndicationIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationIes_ErrorIndicationIes5ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationIes_ErrorIndicationIes5ValidationError{
 				field:  "Value",
@@ -9819,14 +17029,39 @@ func (m *ErrorIndicationIes_ErrorIndicationIes5) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return ErrorIndicationIes_ErrorIndicationIes5ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes5ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return ErrorIndicationIes_ErrorIndicationIes5MultiError(errors)
+	}
 	return nil
 }
+
+// ErrorIndicationIes_ErrorIndicationIes5MultiError is an error wrapping
+// multiple validation errors returned by
+// ErrorIndicationIes_ErrorIndicationIes5.ValidateAll() if the designated
+// constraints aren't met.
+type ErrorIndicationIes_ErrorIndicationIes5MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ErrorIndicationIes_ErrorIndicationIes5MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ErrorIndicationIes_ErrorIndicationIes5MultiError) AllErrors() []error { return m }
 
 // ErrorIndicationIes_ErrorIndicationIes5ValidationError is the validation
 // error returned by ErrorIndicationIes_ErrorIndicationIes5.Validate if the
@@ -9887,27 +17122,70 @@ var _ interface {
 
 // Validate checks the field values on ErrorIndicationIes_ErrorIndicationIes1
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *ErrorIndicationIes_ErrorIndicationIes1) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ErrorIndicationIes_ErrorIndicationIes1 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// ErrorIndicationIes_ErrorIndicationIes1MultiError, or nil if none found.
+func (m *ErrorIndicationIes_ErrorIndicationIes1) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ErrorIndicationIes_ErrorIndicationIes1) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 1 {
-		return ErrorIndicationIes_ErrorIndicationIes1ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes1ValidationError{
 			field:  "Id",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return ErrorIndicationIes_ErrorIndicationIes1ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes1ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationIes_ErrorIndicationIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationIes_ErrorIndicationIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationIes_ErrorIndicationIes1ValidationError{
 				field:  "Value",
@@ -9918,14 +17196,39 @@ func (m *ErrorIndicationIes_ErrorIndicationIes1) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return ErrorIndicationIes_ErrorIndicationIes1ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes1ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return ErrorIndicationIes_ErrorIndicationIes1MultiError(errors)
+	}
 	return nil
 }
+
+// ErrorIndicationIes_ErrorIndicationIes1MultiError is an error wrapping
+// multiple validation errors returned by
+// ErrorIndicationIes_ErrorIndicationIes1.ValidateAll() if the designated
+// constraints aren't met.
+type ErrorIndicationIes_ErrorIndicationIes1MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ErrorIndicationIes_ErrorIndicationIes1MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ErrorIndicationIes_ErrorIndicationIes1MultiError) AllErrors() []error { return m }
 
 // ErrorIndicationIes_ErrorIndicationIes1ValidationError is the validation
 // error returned by ErrorIndicationIes_ErrorIndicationIes1.Validate if the
@@ -9986,27 +17289,70 @@ var _ interface {
 
 // Validate checks the field values on ErrorIndicationIes_ErrorIndicationIes2
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *ErrorIndicationIes_ErrorIndicationIes2) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// ErrorIndicationIes_ErrorIndicationIes2 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// ErrorIndicationIes_ErrorIndicationIes2MultiError, or nil if none found.
+func (m *ErrorIndicationIes_ErrorIndicationIes2) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ErrorIndicationIes_ErrorIndicationIes2) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 2 {
-		return ErrorIndicationIes_ErrorIndicationIes2ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes2ValidationError{
 			field:  "Id",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return ErrorIndicationIes_ErrorIndicationIes2ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes2ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationIes_ErrorIndicationIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationIes_ErrorIndicationIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationIes_ErrorIndicationIes2ValidationError{
 				field:  "Value",
@@ -10017,14 +17363,39 @@ func (m *ErrorIndicationIes_ErrorIndicationIes2) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return ErrorIndicationIes_ErrorIndicationIes2ValidationError{
+		err := ErrorIndicationIes_ErrorIndicationIes2ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return ErrorIndicationIes_ErrorIndicationIes2MultiError(errors)
+	}
 	return nil
 }
+
+// ErrorIndicationIes_ErrorIndicationIes2MultiError is an error wrapping
+// multiple validation errors returned by
+// ErrorIndicationIes_ErrorIndicationIes2.ValidateAll() if the designated
+// constraints aren't met.
+type ErrorIndicationIes_ErrorIndicationIes2MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ErrorIndicationIes_ErrorIndicationIes2MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ErrorIndicationIes_ErrorIndicationIes2MultiError) AllErrors() []error { return m }
 
 // ErrorIndicationIes_ErrorIndicationIes2ValidationError is the validation
 // error returned by ErrorIndicationIes_ErrorIndicationIes2.Validate if the
@@ -10085,27 +17456,69 @@ var _ interface {
 
 // Validate checks the field values on E2SetupRequestIes_E2SetupRequestIes3
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *E2SetupRequestIes_E2SetupRequestIes3) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupRequestIes_E2SetupRequestIes3
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// E2SetupRequestIes_E2SetupRequestIes3MultiError, or nil if none found.
+func (m *E2SetupRequestIes_E2SetupRequestIes3) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupRequestIes_E2SetupRequestIes3) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 3 {
-		return E2SetupRequestIes_E2SetupRequestIes3ValidationError{
+		err := E2SetupRequestIes_E2SetupRequestIes3ValidationError{
 			field:  "Id",
 			reason: "value must equal 3",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return E2SetupRequestIes_E2SetupRequestIes3ValidationError{
+		err := E2SetupRequestIes_E2SetupRequestIes3ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupRequestIes_E2SetupRequestIes3ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupRequestIes_E2SetupRequestIes3ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupRequestIes_E2SetupRequestIes3ValidationError{
 				field:  "Value",
@@ -10116,14 +17529,39 @@ func (m *E2SetupRequestIes_E2SetupRequestIes3) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return E2SetupRequestIes_E2SetupRequestIes3ValidationError{
+		err := E2SetupRequestIes_E2SetupRequestIes3ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return E2SetupRequestIes_E2SetupRequestIes3MultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupRequestIes_E2SetupRequestIes3MultiError is an error wrapping multiple
+// validation errors returned by
+// E2SetupRequestIes_E2SetupRequestIes3.ValidateAll() if the designated
+// constraints aren't met.
+type E2SetupRequestIes_E2SetupRequestIes3MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupRequestIes_E2SetupRequestIes3MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupRequestIes_E2SetupRequestIes3MultiError) AllErrors() []error { return m }
 
 // E2SetupRequestIes_E2SetupRequestIes3ValidationError is the validation error
 // returned by E2SetupRequestIes_E2SetupRequestIes3.Validate if the designated
@@ -10184,27 +17622,69 @@ var _ interface {
 
 // Validate checks the field values on E2SetupRequestIes_E2SetupRequestIes10
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *E2SetupRequestIes_E2SetupRequestIes10) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupRequestIes_E2SetupRequestIes10
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// E2SetupRequestIes_E2SetupRequestIes10MultiError, or nil if none found.
+func (m *E2SetupRequestIes_E2SetupRequestIes10) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupRequestIes_E2SetupRequestIes10) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 10 {
-		return E2SetupRequestIes_E2SetupRequestIes10ValidationError{
+		err := E2SetupRequestIes_E2SetupRequestIes10ValidationError{
 			field:  "Id",
 			reason: "value must equal 10",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return E2SetupRequestIes_E2SetupRequestIes10ValidationError{
+		err := E2SetupRequestIes_E2SetupRequestIes10ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupRequestIes_E2SetupRequestIes10ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupRequestIes_E2SetupRequestIes10ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupRequestIes_E2SetupRequestIes10ValidationError{
 				field:  "Value",
@@ -10215,14 +17695,39 @@ func (m *E2SetupRequestIes_E2SetupRequestIes10) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return E2SetupRequestIes_E2SetupRequestIes10ValidationError{
+		err := E2SetupRequestIes_E2SetupRequestIes10ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return E2SetupRequestIes_E2SetupRequestIes10MultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupRequestIes_E2SetupRequestIes10MultiError is an error wrapping
+// multiple validation errors returned by
+// E2SetupRequestIes_E2SetupRequestIes10.ValidateAll() if the designated
+// constraints aren't met.
+type E2SetupRequestIes_E2SetupRequestIes10MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupRequestIes_E2SetupRequestIes10MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupRequestIes_E2SetupRequestIes10MultiError) AllErrors() []error { return m }
 
 // E2SetupRequestIes_E2SetupRequestIes10ValidationError is the validation error
 // returned by E2SetupRequestIes_E2SetupRequestIes10.Validate if the
@@ -10283,27 +17788,70 @@ var _ interface {
 
 // Validate checks the field values on E2SetupResponseIes_E2SetupResponseIes4
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *E2SetupResponseIes_E2SetupResponseIes4) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// E2SetupResponseIes_E2SetupResponseIes4 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// E2SetupResponseIes_E2SetupResponseIes4MultiError, or nil if none found.
+func (m *E2SetupResponseIes_E2SetupResponseIes4) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupResponseIes_E2SetupResponseIes4) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 4 {
-		return E2SetupResponseIes_E2SetupResponseIes4ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes4ValidationError{
 			field:  "Id",
 			reason: "value must equal 4",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return E2SetupResponseIes_E2SetupResponseIes4ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes4ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupResponseIes_E2SetupResponseIes4ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupResponseIes_E2SetupResponseIes4ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupResponseIes_E2SetupResponseIes4ValidationError{
 				field:  "Value",
@@ -10314,14 +17862,39 @@ func (m *E2SetupResponseIes_E2SetupResponseIes4) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return E2SetupResponseIes_E2SetupResponseIes4ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes4ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return E2SetupResponseIes_E2SetupResponseIes4MultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupResponseIes_E2SetupResponseIes4MultiError is an error wrapping
+// multiple validation errors returned by
+// E2SetupResponseIes_E2SetupResponseIes4.ValidateAll() if the designated
+// constraints aren't met.
+type E2SetupResponseIes_E2SetupResponseIes4MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupResponseIes_E2SetupResponseIes4MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupResponseIes_E2SetupResponseIes4MultiError) AllErrors() []error { return m }
 
 // E2SetupResponseIes_E2SetupResponseIes4ValidationError is the validation
 // error returned by E2SetupResponseIes_E2SetupResponseIes4.Validate if the
@@ -10382,27 +17955,70 @@ var _ interface {
 
 // Validate checks the field values on E2SetupResponseIes_E2SetupResponseIes9
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *E2SetupResponseIes_E2SetupResponseIes9) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// E2SetupResponseIes_E2SetupResponseIes9 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// E2SetupResponseIes_E2SetupResponseIes9MultiError, or nil if none found.
+func (m *E2SetupResponseIes_E2SetupResponseIes9) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupResponseIes_E2SetupResponseIes9) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 9 {
-		return E2SetupResponseIes_E2SetupResponseIes9ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes9ValidationError{
 			field:  "Id",
 			reason: "value must equal 9",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return E2SetupResponseIes_E2SetupResponseIes9ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes9ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupResponseIes_E2SetupResponseIes9ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupResponseIes_E2SetupResponseIes9ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupResponseIes_E2SetupResponseIes9ValidationError{
 				field:  "Value",
@@ -10413,14 +18029,39 @@ func (m *E2SetupResponseIes_E2SetupResponseIes9) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return E2SetupResponseIes_E2SetupResponseIes9ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes9ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return E2SetupResponseIes_E2SetupResponseIes9MultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupResponseIes_E2SetupResponseIes9MultiError is an error wrapping
+// multiple validation errors returned by
+// E2SetupResponseIes_E2SetupResponseIes9.ValidateAll() if the designated
+// constraints aren't met.
+type E2SetupResponseIes_E2SetupResponseIes9MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupResponseIes_E2SetupResponseIes9MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupResponseIes_E2SetupResponseIes9MultiError) AllErrors() []error { return m }
 
 // E2SetupResponseIes_E2SetupResponseIes9ValidationError is the validation
 // error returned by E2SetupResponseIes_E2SetupResponseIes9.Validate if the
@@ -10481,27 +18122,70 @@ var _ interface {
 
 // Validate checks the field values on E2SetupResponseIes_E2SetupResponseIes13
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *E2SetupResponseIes_E2SetupResponseIes13) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// E2SetupResponseIes_E2SetupResponseIes13 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// E2SetupResponseIes_E2SetupResponseIes13MultiError, or nil if none found.
+func (m *E2SetupResponseIes_E2SetupResponseIes13) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupResponseIes_E2SetupResponseIes13) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 13 {
-		return E2SetupResponseIes_E2SetupResponseIes13ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes13ValidationError{
 			field:  "Id",
 			reason: "value must equal 13",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return E2SetupResponseIes_E2SetupResponseIes13ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes13ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupResponseIes_E2SetupResponseIes13ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupResponseIes_E2SetupResponseIes13ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupResponseIes_E2SetupResponseIes13ValidationError{
 				field:  "Value",
@@ -10512,14 +18196,39 @@ func (m *E2SetupResponseIes_E2SetupResponseIes13) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return E2SetupResponseIes_E2SetupResponseIes13ValidationError{
+		err := E2SetupResponseIes_E2SetupResponseIes13ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return E2SetupResponseIes_E2SetupResponseIes13MultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupResponseIes_E2SetupResponseIes13MultiError is an error wrapping
+// multiple validation errors returned by
+// E2SetupResponseIes_E2SetupResponseIes13.ValidateAll() if the designated
+// constraints aren't met.
+type E2SetupResponseIes_E2SetupResponseIes13MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupResponseIes_E2SetupResponseIes13MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupResponseIes_E2SetupResponseIes13MultiError) AllErrors() []error { return m }
 
 // E2SetupResponseIes_E2SetupResponseIes13ValidationError is the validation
 // error returned by E2SetupResponseIes_E2SetupResponseIes13.Validate if the
@@ -10580,27 +18289,69 @@ var _ interface {
 
 // Validate checks the field values on E2SetupFailureIes_E2SetupFailureIes1
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *E2SetupFailureIes_E2SetupFailureIes1) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupFailureIes_E2SetupFailureIes1
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// E2SetupFailureIes_E2SetupFailureIes1MultiError, or nil if none found.
+func (m *E2SetupFailureIes_E2SetupFailureIes1) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupFailureIes_E2SetupFailureIes1) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 1 {
-		return E2SetupFailureIes_E2SetupFailureIes1ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes1ValidationError{
 			field:  "Id",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return E2SetupFailureIes_E2SetupFailureIes1ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes1ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupFailureIes_E2SetupFailureIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupFailureIes_E2SetupFailureIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupFailureIes_E2SetupFailureIes1ValidationError{
 				field:  "Value",
@@ -10611,14 +18362,39 @@ func (m *E2SetupFailureIes_E2SetupFailureIes1) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return E2SetupFailureIes_E2SetupFailureIes1ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes1ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return E2SetupFailureIes_E2SetupFailureIes1MultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupFailureIes_E2SetupFailureIes1MultiError is an error wrapping multiple
+// validation errors returned by
+// E2SetupFailureIes_E2SetupFailureIes1.ValidateAll() if the designated
+// constraints aren't met.
+type E2SetupFailureIes_E2SetupFailureIes1MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupFailureIes_E2SetupFailureIes1MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupFailureIes_E2SetupFailureIes1MultiError) AllErrors() []error { return m }
 
 // E2SetupFailureIes_E2SetupFailureIes1ValidationError is the validation error
 // returned by E2SetupFailureIes_E2SetupFailureIes1.Validate if the designated
@@ -10679,37 +18455,85 @@ var _ interface {
 
 // Validate checks the field values on E2SetupFailureIes_E2SetupFailureIes31
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *E2SetupFailureIes_E2SetupFailureIes31) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupFailureIes_E2SetupFailureIes31
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// E2SetupFailureIes_E2SetupFailureIes31MultiError, or nil if none found.
+func (m *E2SetupFailureIes_E2SetupFailureIes31) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupFailureIes_E2SetupFailureIes31) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 31 {
-		return E2SetupFailureIes_E2SetupFailureIes31ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes31ValidationError{
 			field:  "Id",
 			reason: "value must equal 31",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return E2SetupFailureIes_E2SetupFailureIes31ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes31ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	// no validation rules for Value
 
 	if m.GetPresence() != 0 {
-		return E2SetupFailureIes_E2SetupFailureIes31ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes31ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return E2SetupFailureIes_E2SetupFailureIes31MultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupFailureIes_E2SetupFailureIes31MultiError is an error wrapping
+// multiple validation errors returned by
+// E2SetupFailureIes_E2SetupFailureIes31.ValidateAll() if the designated
+// constraints aren't met.
+type E2SetupFailureIes_E2SetupFailureIes31MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupFailureIes_E2SetupFailureIes31MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupFailureIes_E2SetupFailureIes31MultiError) AllErrors() []error { return m }
 
 // E2SetupFailureIes_E2SetupFailureIes31ValidationError is the validation error
 // returned by E2SetupFailureIes_E2SetupFailureIes31.Validate if the
@@ -10770,27 +18594,69 @@ var _ interface {
 
 // Validate checks the field values on E2SetupFailureIes_E2SetupFailureIes2
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *E2SetupFailureIes_E2SetupFailureIes2) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2SetupFailureIes_E2SetupFailureIes2
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// E2SetupFailureIes_E2SetupFailureIes2MultiError, or nil if none found.
+func (m *E2SetupFailureIes_E2SetupFailureIes2) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2SetupFailureIes_E2SetupFailureIes2) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 2 {
-		return E2SetupFailureIes_E2SetupFailureIes2ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes2ValidationError{
 			field:  "Id",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return E2SetupFailureIes_E2SetupFailureIes2ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes2ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupFailureIes_E2SetupFailureIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupFailureIes_E2SetupFailureIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupFailureIes_E2SetupFailureIes2ValidationError{
 				field:  "Value",
@@ -10801,14 +18667,39 @@ func (m *E2SetupFailureIes_E2SetupFailureIes2) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return E2SetupFailureIes_E2SetupFailureIes2ValidationError{
+		err := E2SetupFailureIes_E2SetupFailureIes2ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return E2SetupFailureIes_E2SetupFailureIes2MultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupFailureIes_E2SetupFailureIes2MultiError is an error wrapping multiple
+// validation errors returned by
+// E2SetupFailureIes_E2SetupFailureIes2.ValidateAll() if the designated
+// constraints aren't met.
+type E2SetupFailureIes_E2SetupFailureIes2MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupFailureIes_E2SetupFailureIes2MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupFailureIes_E2SetupFailureIes2MultiError) AllErrors() []error { return m }
 
 // E2SetupFailureIes_E2SetupFailureIes2ValidationError is the validation error
 // returned by E2SetupFailureIes_E2SetupFailureIes2.Validate if the designated
@@ -10869,27 +18760,69 @@ var _ interface {
 
 // Validate checks the field values on ResetRequestIes_ResetRequestIes1 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *ResetRequestIes_ResetRequestIes1) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResetRequestIes_ResetRequestIes1 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ResetRequestIes_ResetRequestIes1MultiError, or nil if none found.
+func (m *ResetRequestIes_ResetRequestIes1) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResetRequestIes_ResetRequestIes1) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 1 {
-		return ResetRequestIes_ResetRequestIes1ValidationError{
+		err := ResetRequestIes_ResetRequestIes1ValidationError{
 			field:  "Id",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return ResetRequestIes_ResetRequestIes1ValidationError{
+		err := ResetRequestIes_ResetRequestIes1ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetRequestIes_ResetRequestIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetRequestIes_ResetRequestIes1ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetRequestIes_ResetRequestIes1ValidationError{
 				field:  "Value",
@@ -10900,14 +18833,39 @@ func (m *ResetRequestIes_ResetRequestIes1) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return ResetRequestIes_ResetRequestIes1ValidationError{
+		err := ResetRequestIes_ResetRequestIes1ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return ResetRequestIes_ResetRequestIes1MultiError(errors)
+	}
 	return nil
 }
+
+// ResetRequestIes_ResetRequestIes1MultiError is an error wrapping multiple
+// validation errors returned by
+// ResetRequestIes_ResetRequestIes1.ValidateAll() if the designated
+// constraints aren't met.
+type ResetRequestIes_ResetRequestIes1MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResetRequestIes_ResetRequestIes1MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResetRequestIes_ResetRequestIes1MultiError) AllErrors() []error { return m }
 
 // ResetRequestIes_ResetRequestIes1ValidationError is the validation error
 // returned by ResetRequestIes_ResetRequestIes1.Validate if the designated
@@ -10968,27 +18926,69 @@ var _ interface {
 
 // Validate checks the field values on ResetResponseIes_ResetResponseIes2 with
 // the rules defined in the proto definition for this message. If any rules
-// are violated, an error is returned.
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
 func (m *ResetResponseIes_ResetResponseIes2) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ResetResponseIes_ResetResponseIes2
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ResetResponseIes_ResetResponseIes2MultiError, or nil if none found.
+func (m *ResetResponseIes_ResetResponseIes2) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ResetResponseIes_ResetResponseIes2) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 2 {
-		return ResetResponseIes_ResetResponseIes2ValidationError{
+		err := ResetResponseIes_ResetResponseIes2ValidationError{
 			field:  "Id",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return ResetResponseIes_ResetResponseIes2ValidationError{
+		err := ResetResponseIes_ResetResponseIes2ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetResponseIes_ResetResponseIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetResponseIes_ResetResponseIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetResponseIes_ResetResponseIes2ValidationError{
 				field:  "Value",
@@ -10999,14 +18999,39 @@ func (m *ResetResponseIes_ResetResponseIes2) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return ResetResponseIes_ResetResponseIes2ValidationError{
+		err := ResetResponseIes_ResetResponseIes2ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return ResetResponseIes_ResetResponseIes2MultiError(errors)
+	}
 	return nil
 }
+
+// ResetResponseIes_ResetResponseIes2MultiError is an error wrapping multiple
+// validation errors returned by
+// ResetResponseIes_ResetResponseIes2.ValidateAll() if the designated
+// constraints aren't met.
+type ResetResponseIes_ResetResponseIes2MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResetResponseIes_ResetResponseIes2MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResetResponseIes_ResetResponseIes2MultiError) AllErrors() []error { return m }
 
 // ResetResponseIes_ResetResponseIes2ValidationError is the validation error
 // returned by ResetResponseIes_ResetResponseIes2.Validate if the designated
@@ -11067,27 +19092,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RicserviceUpdateIes_RicserviceUpdateIes10 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateIes_RicserviceUpdateIes10) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceUpdateIes_RicserviceUpdateIes10 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RicserviceUpdateIes_RicserviceUpdateIes10MultiError, or nil if none found.
+func (m *RicserviceUpdateIes_RicserviceUpdateIes10) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateIes_RicserviceUpdateIes10) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 10 {
-		return RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
 			field:  "Id",
 			reason: "value must equal 10",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
 				field:  "Value",
@@ -11098,14 +19166,39 @@ func (m *RicserviceUpdateIes_RicserviceUpdateIes10) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes10ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateIes_RicserviceUpdateIes10MultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateIes_RicserviceUpdateIes10MultiError is an error wrapping
+// multiple validation errors returned by
+// RicserviceUpdateIes_RicserviceUpdateIes10.ValidateAll() if the designated
+// constraints aren't met.
+type RicserviceUpdateIes_RicserviceUpdateIes10MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateIes_RicserviceUpdateIes10MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateIes_RicserviceUpdateIes10MultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateIes_RicserviceUpdateIes10ValidationError is the validation
 // error returned by RicserviceUpdateIes_RicserviceUpdateIes10.Validate if the
@@ -11166,27 +19259,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RicserviceUpdateIes_RicserviceUpdateIes12 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateIes_RicserviceUpdateIes12) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceUpdateIes_RicserviceUpdateIes12 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RicserviceUpdateIes_RicserviceUpdateIes12MultiError, or nil if none found.
+func (m *RicserviceUpdateIes_RicserviceUpdateIes12) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateIes_RicserviceUpdateIes12) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 12 {
-		return RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
 			field:  "Id",
 			reason: "value must equal 12",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
 				field:  "Value",
@@ -11197,14 +19333,39 @@ func (m *RicserviceUpdateIes_RicserviceUpdateIes12) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes12ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateIes_RicserviceUpdateIes12MultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateIes_RicserviceUpdateIes12MultiError is an error wrapping
+// multiple validation errors returned by
+// RicserviceUpdateIes_RicserviceUpdateIes12.ValidateAll() if the designated
+// constraints aren't met.
+type RicserviceUpdateIes_RicserviceUpdateIes12MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateIes_RicserviceUpdateIes12MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateIes_RicserviceUpdateIes12MultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateIes_RicserviceUpdateIes12ValidationError is the validation
 // error returned by RicserviceUpdateIes_RicserviceUpdateIes12.Validate if the
@@ -11265,27 +19426,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RicserviceUpdateIes_RicserviceUpdateIes11 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateIes_RicserviceUpdateIes11) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceUpdateIes_RicserviceUpdateIes11 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RicserviceUpdateIes_RicserviceUpdateIes11MultiError, or nil if none found.
+func (m *RicserviceUpdateIes_RicserviceUpdateIes11) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateIes_RicserviceUpdateIes11) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 11 {
-		return RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
 			field:  "Id",
 			reason: "value must equal 11",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
 				field:  "Value",
@@ -11296,14 +19500,39 @@ func (m *RicserviceUpdateIes_RicserviceUpdateIes11) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
+		err := RicserviceUpdateIes_RicserviceUpdateIes11ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateIes_RicserviceUpdateIes11MultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceUpdateIes_RicserviceUpdateIes11MultiError is an error wrapping
+// multiple validation errors returned by
+// RicserviceUpdateIes_RicserviceUpdateIes11.ValidateAll() if the designated
+// constraints aren't met.
+type RicserviceUpdateIes_RicserviceUpdateIes11MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateIes_RicserviceUpdateIes11MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateIes_RicserviceUpdateIes11MultiError) AllErrors() []error { return m }
 
 // RicserviceUpdateIes_RicserviceUpdateIes11ValidationError is the validation
 // error returned by RicserviceUpdateIes_RicserviceUpdateIes11.Validate if the
@@ -11364,27 +19593,70 @@ var _ interface {
 
 // Validate checks the field values on RanfunctionItemIes_RanfunctionItemIes8
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *RanfunctionItemIes_RanfunctionItemIes8) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RanfunctionItemIes_RanfunctionItemIes8 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// RanfunctionItemIes_RanfunctionItemIes8MultiError, or nil if none found.
+func (m *RanfunctionItemIes_RanfunctionItemIes8) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionItemIes_RanfunctionItemIes8) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 8 {
-		return RanfunctionItemIes_RanfunctionItemIes8ValidationError{
+		err := RanfunctionItemIes_RanfunctionItemIes8ValidationError{
 			field:  "Id",
 			reason: "value must equal 8",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RanfunctionItemIes_RanfunctionItemIes8ValidationError{
+		err := RanfunctionItemIes_RanfunctionItemIes8ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionItemIes_RanfunctionItemIes8ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionItemIes_RanfunctionItemIes8ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionItemIes_RanfunctionItemIes8ValidationError{
 				field:  "Value",
@@ -11395,14 +19667,39 @@ func (m *RanfunctionItemIes_RanfunctionItemIes8) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RanfunctionItemIes_RanfunctionItemIes8ValidationError{
+		err := RanfunctionItemIes_RanfunctionItemIes8ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionItemIes_RanfunctionItemIes8MultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionItemIes_RanfunctionItemIes8MultiError is an error wrapping
+// multiple validation errors returned by
+// RanfunctionItemIes_RanfunctionItemIes8.ValidateAll() if the designated
+// constraints aren't met.
+type RanfunctionItemIes_RanfunctionItemIes8MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionItemIes_RanfunctionItemIes8MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionItemIes_RanfunctionItemIes8MultiError) AllErrors() []error { return m }
 
 // RanfunctionItemIes_RanfunctionItemIes8ValidationError is the validation
 // error returned by RanfunctionItemIes_RanfunctionItemIes8.Validate if the
@@ -11463,27 +19760,70 @@ var _ interface {
 
 // Validate checks the field values on
 // RanfunctionIdItemIes_RanfunctionIdItemIes6 with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionIdItemIes_RanfunctionIdItemIes6) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RanfunctionIdItemIes_RanfunctionIdItemIes6 with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in
+// RanfunctionIdItemIes_RanfunctionIdItemIes6MultiError, or nil if none found.
+func (m *RanfunctionIdItemIes_RanfunctionIdItemIes6) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionIdItemIes_RanfunctionIdItemIes6) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 6 {
-		return RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+		err := RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
 			field:  "Id",
 			reason: "value must equal 6",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+		err := RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
 				field:  "Value",
@@ -11494,14 +19834,39 @@ func (m *RanfunctionIdItemIes_RanfunctionIdItemIes6) Validate() error {
 	}
 
 	if m.GetPresence() != 2 {
-		return RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
+		err := RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionIdItemIes_RanfunctionIdItemIes6MultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionIdItemIes_RanfunctionIdItemIes6MultiError is an error wrapping
+// multiple validation errors returned by
+// RanfunctionIdItemIes_RanfunctionIdItemIes6.ValidateAll() if the designated
+// constraints aren't met.
+type RanfunctionIdItemIes_RanfunctionIdItemIes6MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionIdItemIes_RanfunctionIdItemIes6MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionIdItemIes_RanfunctionIdItemIes6MultiError) AllErrors() []error { return m }
 
 // RanfunctionIdItemIes_RanfunctionIdItemIes6ValidationError is the validation
 // error returned by RanfunctionIdItemIes_RanfunctionIdItemIes6.Validate if
@@ -11563,27 +19928,70 @@ var _ interface {
 // Validate checks the field values on
 // RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9MultiError,
+// or nil if none found.
+func (m *RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 9 {
-		return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
+		err := RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
 			field:  "Id",
 			reason: "value must equal 9",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
+		err := RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
 				field:  "Value",
@@ -11594,13 +20002,40 @@ func (m *RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9) Validat
 	}
 
 	if m.GetPresence() != 0 {
-		return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
+		err := RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9MultiError(errors)
+	}
 	return nil
+}
+
+// RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9MultiError is
+// an error wrapping multiple validation errors returned by
+// RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9.ValidateAll()
+// if the designated constraints aren't met.
+type RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9MultiError) AllErrors() []error {
+	return m
 }
 
 // RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9ValidationError
@@ -11672,27 +20107,70 @@ var _ interface {
 // Validate checks the field values on
 // RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13 with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13MultiError,
+// or nil if none found.
+func (m *RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 13 {
-		return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
+		err := RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
 			field:  "Id",
 			reason: "value must equal 13",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
+		err := RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
 				field:  "Value",
@@ -11703,13 +20181,40 @@ func (m *RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13) Valida
 	}
 
 	if m.GetPresence() != 0 {
-		return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
+		err := RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13MultiError(errors)
+	}
 	return nil
+}
+
+// RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13MultiError is
+// an error wrapping multiple validation errors returned by
+// RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13.ValidateAll()
+// if the designated constraints aren't met.
+type RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13MultiError) AllErrors() []error {
+	return m
 }
 
 // RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13ValidationError
@@ -11780,28 +20285,71 @@ var _ interface {
 
 // Validate checks the field values on
 // RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7 with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7 with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in
+// RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7MultiError, or nil if
+// none found.
+func (m *RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 7 {
-		return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+		err := RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
 			field:  "Id",
 			reason: "value must equal 7",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+		err := RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
 				field:  "Value",
@@ -11812,14 +20360,39 @@ func (m *RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7) Validate() error 
 	}
 
 	if m.GetPresence() != 2 {
-		return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
+		err := RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError{
 			field:  "Presence",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7MultiError(errors)
+	}
 	return nil
 }
+
+// RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7MultiError is an error
+// wrapping multiple validation errors returned by
+// RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7.ValidateAll() if the
+// designated constraints aren't met.
+type RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7MultiError) AllErrors() []error { return m }
 
 // RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7ValidationError is the
 // validation error returned by
@@ -11888,27 +20461,70 @@ var _ interface {
 // Validate checks the field values on
 // RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13MultiError, or nil
+// if none found.
+func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 13 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
 			field:  "Id",
 			reason: "value must equal 13",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
 				field:  "Value",
@@ -11919,13 +20535,40 @@ func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13) Validate() err
 	}
 
 	if m.GetPresence() != 0 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13MultiError(errors)
+	}
 	return nil
+}
+
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13MultiError is an
+// error wrapping multiple validation errors returned by
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13.ValidateAll() if
+// the designated constraints aren't met.
+type RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13MultiError) AllErrors() []error {
+	return m
 }
 
 // RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13ValidationError is
@@ -11997,36 +20640,87 @@ var _ interface {
 // Validate checks the field values on
 // RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31MultiError, or nil
+// if none found.
+func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 31 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31ValidationError{
 			field:  "Id",
 			reason: "value must equal 31",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	// no validation rules for Value
 
 	if m.GetPresence() != 0 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31MultiError(errors)
+	}
 	return nil
+}
+
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31MultiError is an
+// error wrapping multiple validation errors returned by
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31.ValidateAll() if
+// the designated constraints aren't met.
+type RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31MultiError) AllErrors() []error {
+	return m
 }
 
 // RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31ValidationError is
@@ -12098,27 +20792,70 @@ var _ interface {
 // Validate checks the field values on
 // RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2 with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2 with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2MultiError, or nil if
+// none found.
+func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 2 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
 			field:  "Id",
 			reason: "value must equal 2",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 1 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 1",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
 				field:  "Value",
@@ -12129,13 +20866,40 @@ func (m *RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2) Validate() erro
 	}
 
 	if m.GetPresence() != 0 {
-		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
+		err := RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2MultiError(errors)
+	}
 	return nil
+}
+
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2MultiError is an error
+// wrapping multiple validation errors returned by
+// RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2.ValidateAll() if the
+// designated constraints aren't met.
+type RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2MultiError) AllErrors() []error {
+	return m
 }
 
 // RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2ValidationError is the
@@ -12206,27 +20970,70 @@ var _ interface {
 
 // Validate checks the field values on RicserviceQueryIes_RicserviceQueryIes9
 // with the rules defined in the proto definition for this message. If any
-// rules are violated, an error is returned.
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
 func (m *RicserviceQueryIes_RicserviceQueryIes9) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// RicserviceQueryIes_RicserviceQueryIes9 with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// RicserviceQueryIes_RicserviceQueryIes9MultiError, or nil if none found.
+func (m *RicserviceQueryIes_RicserviceQueryIes9) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicserviceQueryIes_RicserviceQueryIes9) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
+	var errors []error
+
 	if m.GetId() != 9 {
-		return RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+		err := RicserviceQueryIes_RicserviceQueryIes9ValidationError{
 			field:  "Id",
 			reason: "value must equal 9",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	if m.GetCriticality() != 0 {
-		return RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+		err := RicserviceQueryIes_RicserviceQueryIes9ValidationError{
 			field:  "Criticality",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
-	if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicserviceQueryIes_RicserviceQueryIes9ValidationError{
 				field:  "Value",
@@ -12237,14 +21044,39 @@ func (m *RicserviceQueryIes_RicserviceQueryIes9) Validate() error {
 	}
 
 	if m.GetPresence() != 0 {
-		return RicserviceQueryIes_RicserviceQueryIes9ValidationError{
+		err := RicserviceQueryIes_RicserviceQueryIes9ValidationError{
 			field:  "Presence",
 			reason: "value must equal 0",
 		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
+	if len(errors) > 0 {
+		return RicserviceQueryIes_RicserviceQueryIes9MultiError(errors)
+	}
 	return nil
 }
+
+// RicserviceQueryIes_RicserviceQueryIes9MultiError is an error wrapping
+// multiple validation errors returned by
+// RicserviceQueryIes_RicserviceQueryIes9.ValidateAll() if the designated
+// constraints aren't met.
+type RicserviceQueryIes_RicserviceQueryIes9MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicserviceQueryIes_RicserviceQueryIes9MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicserviceQueryIes_RicserviceQueryIes9MultiError) AllErrors() []error { return m }
 
 // RicserviceQueryIes_RicserviceQueryIes9ValidationError is the validation
 // error returned by RicserviceQueryIes_RicserviceQueryIes9.Validate if the

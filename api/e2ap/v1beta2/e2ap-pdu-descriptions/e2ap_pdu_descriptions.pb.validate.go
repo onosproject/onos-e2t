@@ -15,7 +15,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/anypb"
 )
 
 // ensure the imports are used
@@ -30,24 +30,54 @@ var (
 	_ = time.Duration(0)
 	_ = (*url.URL)(nil)
 	_ = (*mail.Address)(nil)
-	_ = ptypes.DynamicAny{}
+	_ = anypb.Any{}
 )
 
-// define the regex for a UUID once up-front
-var _e_2_ap_pdu_descriptions_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-
 // Validate checks the field values on E2ApPdu with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *E2ApPdu) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2ApPdu with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in E2ApPduMultiError, or nil if none found.
+func (m *E2ApPdu) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2ApPdu) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
+
+	var errors []error
 
 	switch m.E2ApPdu.(type) {
 
 	case *E2ApPdu_InitiatingMessage:
 
-		if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetInitiatingMessage()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2ApPduValidationError{
+						field:  "InitiatingMessage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2ApPduValidationError{
+						field:  "InitiatingMessage",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2ApPduValidationError{
 					field:  "InitiatingMessage",
@@ -59,7 +89,26 @@ func (m *E2ApPdu) Validate() error {
 
 	case *E2ApPdu_SuccessfulOutcome:
 
-		if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2ApPduValidationError{
+						field:  "SuccessfulOutcome",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2ApPduValidationError{
+						field:  "SuccessfulOutcome",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2ApPduValidationError{
 					field:  "SuccessfulOutcome",
@@ -71,7 +120,26 @@ func (m *E2ApPdu) Validate() error {
 
 	case *E2ApPdu_UnsuccessfulOutcome:
 
-		if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
+		if all {
+			switch v := interface{}(m.GetUnsuccessfulOutcome()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, E2ApPduValidationError{
+						field:  "UnsuccessfulOutcome",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, E2ApPduValidationError{
+						field:  "UnsuccessfulOutcome",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return E2ApPduValidationError{
 					field:  "UnsuccessfulOutcome",
@@ -83,8 +151,27 @@ func (m *E2ApPdu) Validate() error {
 
 	}
 
+	if len(errors) > 0 {
+		return E2ApPduMultiError(errors)
+	}
 	return nil
 }
+
+// E2ApPduMultiError is an error wrapping multiple validation errors returned
+// by E2ApPdu.ValidateAll() if the designated constraints aren't met.
+type E2ApPduMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2ApPduMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2ApPduMultiError) AllErrors() []error { return m }
 
 // E2ApPduValidationError is the validation error returned by E2ApPdu.Validate
 // if the designated constraints aren't met.
@@ -141,14 +228,47 @@ var _ interface {
 } = E2ApPduValidationError{}
 
 // Validate checks the field values on InitiatingMessage with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *InitiatingMessage) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InitiatingMessage with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// InitiatingMessageMultiError, or nil if none found.
+func (m *InitiatingMessage) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InitiatingMessage) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, InitiatingMessageValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, InitiatingMessageValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return InitiatingMessageValidationError{
 				field:  "ProcedureCode",
@@ -158,8 +278,28 @@ func (m *InitiatingMessage) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return InitiatingMessageMultiError(errors)
+	}
 	return nil
 }
+
+// InitiatingMessageMultiError is an error wrapping multiple validation errors
+// returned by InitiatingMessage.ValidateAll() if the designated constraints
+// aren't met.
+type InitiatingMessageMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InitiatingMessageMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InitiatingMessageMultiError) AllErrors() []error { return m }
 
 // InitiatingMessageValidationError is the validation error returned by
 // InitiatingMessage.Validate if the designated constraints aren't met.
@@ -218,14 +358,47 @@ var _ interface {
 } = InitiatingMessageValidationError{}
 
 // Validate checks the field values on SuccessfulOutcome with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *SuccessfulOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SuccessfulOutcome with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SuccessfulOutcomeMultiError, or nil if none found.
+func (m *SuccessfulOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SuccessfulOutcome) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SuccessfulOutcomeValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SuccessfulOutcomeValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SuccessfulOutcomeValidationError{
 				field:  "ProcedureCode",
@@ -235,8 +408,28 @@ func (m *SuccessfulOutcome) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return SuccessfulOutcomeMultiError(errors)
+	}
 	return nil
 }
+
+// SuccessfulOutcomeMultiError is an error wrapping multiple validation errors
+// returned by SuccessfulOutcome.ValidateAll() if the designated constraints
+// aren't met.
+type SuccessfulOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SuccessfulOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SuccessfulOutcomeMultiError) AllErrors() []error { return m }
 
 // SuccessfulOutcomeValidationError is the validation error returned by
 // SuccessfulOutcome.Validate if the designated constraints aren't met.
@@ -296,13 +489,46 @@ var _ interface {
 
 // Validate checks the field values on UnsuccessfulOutcome with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *UnsuccessfulOutcome) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UnsuccessfulOutcome with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UnsuccessfulOutcomeMultiError, or nil if none found.
+func (m *UnsuccessfulOutcome) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UnsuccessfulOutcome) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UnsuccessfulOutcomeValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UnsuccessfulOutcomeValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return UnsuccessfulOutcomeValidationError{
 				field:  "ProcedureCode",
@@ -312,8 +538,28 @@ func (m *UnsuccessfulOutcome) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return UnsuccessfulOutcomeMultiError(errors)
+	}
 	return nil
 }
+
+// UnsuccessfulOutcomeMultiError is an error wrapping multiple validation
+// errors returned by UnsuccessfulOutcome.ValidateAll() if the designated
+// constraints aren't met.
+type UnsuccessfulOutcomeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UnsuccessfulOutcomeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UnsuccessfulOutcomeMultiError) AllErrors() []error { return m }
 
 // UnsuccessfulOutcomeValidationError is the validation error returned by
 // UnsuccessfulOutcome.Validate if the designated constraints aren't met.
@@ -373,13 +619,46 @@ var _ interface {
 
 // Validate checks the field values on E2ApElementaryProcedures with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2ApElementaryProcedures) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2ApElementaryProcedures with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2ApElementaryProceduresMultiError, or nil if none found.
+func (m *E2ApElementaryProcedures) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2ApElementaryProcedures) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRicSubscription()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicSubscription()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicSubscription",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicSubscription",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicSubscription()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "RicSubscription",
@@ -389,7 +668,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicSubscriptionDelete()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicSubscriptionDelete()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicSubscriptionDelete",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicSubscriptionDelete",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicSubscriptionDelete()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "RicSubscriptionDelete",
@@ -399,7 +697,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicServiceUpdate()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicServiceUpdate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicServiceUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicServiceUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicServiceUpdate()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "RicServiceUpdate",
@@ -409,7 +726,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicControl()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicControl()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicControl",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicControl",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicControl()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "RicControl",
@@ -419,7 +755,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2Setup()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2Setup()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "E2Setup",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "E2Setup",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2Setup()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "E2Setup",
@@ -429,7 +784,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2NodeConfigurationUpdate()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2NodeConfigurationUpdate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "E2NodeConfigurationUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "E2NodeConfigurationUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2NodeConfigurationUpdate()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "E2NodeConfigurationUpdate",
@@ -439,7 +813,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ConnectionUpdate()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ConnectionUpdate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "E2ConnectionUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "E2ConnectionUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ConnectionUpdate()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "E2ConnectionUpdate",
@@ -449,7 +842,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetReset_()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetReset_()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "Reset_",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "Reset_",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetReset_()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "Reset_",
@@ -459,7 +871,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicIndication()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicIndication()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicIndication",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicIndication",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicIndication()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "RicIndication",
@@ -469,7 +900,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicServiceQuery()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicServiceQuery()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicServiceQuery",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "RicServiceQuery",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicServiceQuery()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "RicServiceQuery",
@@ -479,7 +929,26 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetErrorIndication()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetErrorIndication()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "ErrorIndication",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresValidationError{
+					field:  "ErrorIndication",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetErrorIndication()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresValidationError{
 				field:  "ErrorIndication",
@@ -489,8 +958,28 @@ func (m *E2ApElementaryProcedures) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2ApElementaryProceduresMultiError(errors)
+	}
 	return nil
 }
+
+// E2ApElementaryProceduresMultiError is an error wrapping multiple validation
+// errors returned by E2ApElementaryProcedures.ValidateAll() if the designated
+// constraints aren't met.
+type E2ApElementaryProceduresMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2ApElementaryProceduresMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2ApElementaryProceduresMultiError) AllErrors() []error { return m }
 
 // E2ApElementaryProceduresValidationError is the validation error returned by
 // E2ApElementaryProcedures.Validate if the designated constraints aren't met.
@@ -550,13 +1039,46 @@ var _ interface {
 
 // Validate checks the field values on E2ApElementaryProceduresClass1 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2ApElementaryProceduresClass1) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2ApElementaryProceduresClass1 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// E2ApElementaryProceduresClass1MultiError, or nil if none found.
+func (m *E2ApElementaryProceduresClass1) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2ApElementaryProceduresClass1) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRicSubscription()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicSubscription()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "RicSubscription",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "RicSubscription",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicSubscription()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass1ValidationError{
 				field:  "RicSubscription",
@@ -566,7 +1088,26 @@ func (m *E2ApElementaryProceduresClass1) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicSubscriptionDelete()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicSubscriptionDelete()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "RicSubscriptionDelete",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "RicSubscriptionDelete",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicSubscriptionDelete()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass1ValidationError{
 				field:  "RicSubscriptionDelete",
@@ -576,7 +1117,26 @@ func (m *E2ApElementaryProceduresClass1) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicServiceUpdate()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicServiceUpdate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "RicServiceUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "RicServiceUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicServiceUpdate()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass1ValidationError{
 				field:  "RicServiceUpdate",
@@ -586,7 +1146,26 @@ func (m *E2ApElementaryProceduresClass1) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicControl()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicControl()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "RicControl",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "RicControl",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicControl()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass1ValidationError{
 				field:  "RicControl",
@@ -596,7 +1175,26 @@ func (m *E2ApElementaryProceduresClass1) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2Setup()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2Setup()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "E2Setup",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "E2Setup",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2Setup()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass1ValidationError{
 				field:  "E2Setup",
@@ -606,7 +1204,26 @@ func (m *E2ApElementaryProceduresClass1) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2NodeConfigurationUpdate()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2NodeConfigurationUpdate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "E2NodeConfigurationUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "E2NodeConfigurationUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2NodeConfigurationUpdate()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass1ValidationError{
 				field:  "E2NodeConfigurationUpdate",
@@ -616,7 +1233,26 @@ func (m *E2ApElementaryProceduresClass1) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetE2ConnectionUpdate()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetE2ConnectionUpdate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "E2ConnectionUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "E2ConnectionUpdate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetE2ConnectionUpdate()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass1ValidationError{
 				field:  "E2ConnectionUpdate",
@@ -626,7 +1262,26 @@ func (m *E2ApElementaryProceduresClass1) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetReset_()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetReset_()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "Reset_",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass1ValidationError{
+					field:  "Reset_",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetReset_()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass1ValidationError{
 				field:  "Reset_",
@@ -636,8 +1291,28 @@ func (m *E2ApElementaryProceduresClass1) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2ApElementaryProceduresClass1MultiError(errors)
+	}
 	return nil
 }
+
+// E2ApElementaryProceduresClass1MultiError is an error wrapping multiple
+// validation errors returned by E2ApElementaryProceduresClass1.ValidateAll()
+// if the designated constraints aren't met.
+type E2ApElementaryProceduresClass1MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2ApElementaryProceduresClass1MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2ApElementaryProceduresClass1MultiError) AllErrors() []error { return m }
 
 // E2ApElementaryProceduresClass1ValidationError is the validation error
 // returned by E2ApElementaryProceduresClass1.Validate if the designated
@@ -698,13 +1373,46 @@ var _ interface {
 
 // Validate checks the field values on E2ApElementaryProceduresClass2 with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2ApElementaryProceduresClass2) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2ApElementaryProceduresClass2 with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// E2ApElementaryProceduresClass2MultiError, or nil if none found.
+func (m *E2ApElementaryProceduresClass2) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2ApElementaryProceduresClass2) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetRicIndication()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetRicIndication()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass2ValidationError{
+					field:  "RicIndication",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass2ValidationError{
+					field:  "RicIndication",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicIndication()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass2ValidationError{
 				field:  "RicIndication",
@@ -714,7 +1422,26 @@ func (m *E2ApElementaryProceduresClass2) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetRicServiceQuery()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetRicServiceQuery()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass2ValidationError{
+					field:  "RicServiceQuery",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass2ValidationError{
+					field:  "RicServiceQuery",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRicServiceQuery()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass2ValidationError{
 				field:  "RicServiceQuery",
@@ -724,7 +1451,26 @@ func (m *E2ApElementaryProceduresClass2) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetErrorIndication()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetErrorIndication()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass2ValidationError{
+					field:  "ErrorIndication",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ApElementaryProceduresClass2ValidationError{
+					field:  "ErrorIndication",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetErrorIndication()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ApElementaryProceduresClass2ValidationError{
 				field:  "ErrorIndication",
@@ -734,8 +1480,28 @@ func (m *E2ApElementaryProceduresClass2) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2ApElementaryProceduresClass2MultiError(errors)
+	}
 	return nil
 }
+
+// E2ApElementaryProceduresClass2MultiError is an error wrapping multiple
+// validation errors returned by E2ApElementaryProceduresClass2.ValidateAll()
+// if the designated constraints aren't met.
+type E2ApElementaryProceduresClass2MultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2ApElementaryProceduresClass2MultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2ApElementaryProceduresClass2MultiError) AllErrors() []error { return m }
 
 // E2ApElementaryProceduresClass2ValidationError is the validation error
 // returned by E2ApElementaryProceduresClass2.Validate if the designated
@@ -796,13 +1562,46 @@ var _ interface {
 
 // Validate checks the field values on E2ConnectionUpdateEp with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2ConnectionUpdateEp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2ConnectionUpdateEp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2ConnectionUpdateEpMultiError, or nil if none found.
+func (m *E2ConnectionUpdateEp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2ConnectionUpdateEp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateEpValidationError{
 				field:  "InitiatingMessage",
@@ -812,7 +1611,26 @@ func (m *E2ConnectionUpdateEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateEpValidationError{
 				field:  "SuccessfulOutcome",
@@ -822,7 +1640,26 @@ func (m *E2ConnectionUpdateEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetUnsuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateEpValidationError{
 				field:  "UnsuccessfulOutcome",
@@ -832,7 +1669,26 @@ func (m *E2ConnectionUpdateEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateEpValidationError{
 				field:  "ProcedureCode",
@@ -842,7 +1698,26 @@ func (m *E2ConnectionUpdateEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2ConnectionUpdateEpValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2ConnectionUpdateEpValidationError{
 				field:  "Criticality",
@@ -852,8 +1727,28 @@ func (m *E2ConnectionUpdateEp) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2ConnectionUpdateEpMultiError(errors)
+	}
 	return nil
 }
+
+// E2ConnectionUpdateEpMultiError is an error wrapping multiple validation
+// errors returned by E2ConnectionUpdateEp.ValidateAll() if the designated
+// constraints aren't met.
+type E2ConnectionUpdateEpMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2ConnectionUpdateEpMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2ConnectionUpdateEpMultiError) AllErrors() []error { return m }
 
 // E2ConnectionUpdateEpValidationError is the validation error returned by
 // E2ConnectionUpdateEp.Validate if the designated constraints aren't met.
@@ -913,13 +1808,46 @@ var _ interface {
 
 // Validate checks the field values on E2NodeConfigurationUpdateEp with the
 // rules defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *E2NodeConfigurationUpdateEp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2NodeConfigurationUpdateEp with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// E2NodeConfigurationUpdateEpMultiError, or nil if none found.
+func (m *E2NodeConfigurationUpdateEp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2NodeConfigurationUpdateEp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2NodeConfigurationUpdateEpValidationError{
 				field:  "InitiatingMessage",
@@ -929,7 +1857,26 @@ func (m *E2NodeConfigurationUpdateEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2NodeConfigurationUpdateEpValidationError{
 				field:  "SuccessfulOutcome",
@@ -939,7 +1886,26 @@ func (m *E2NodeConfigurationUpdateEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetUnsuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2NodeConfigurationUpdateEpValidationError{
 				field:  "UnsuccessfulOutcome",
@@ -949,7 +1915,26 @@ func (m *E2NodeConfigurationUpdateEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2NodeConfigurationUpdateEpValidationError{
 				field:  "ProcedureCode",
@@ -959,7 +1944,26 @@ func (m *E2NodeConfigurationUpdateEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2NodeConfigurationUpdateEpValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2NodeConfigurationUpdateEpValidationError{
 				field:  "Criticality",
@@ -969,8 +1973,28 @@ func (m *E2NodeConfigurationUpdateEp) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2NodeConfigurationUpdateEpMultiError(errors)
+	}
 	return nil
 }
+
+// E2NodeConfigurationUpdateEpMultiError is an error wrapping multiple
+// validation errors returned by E2NodeConfigurationUpdateEp.ValidateAll() if
+// the designated constraints aren't met.
+type E2NodeConfigurationUpdateEpMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2NodeConfigurationUpdateEpMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2NodeConfigurationUpdateEpMultiError) AllErrors() []error { return m }
 
 // E2NodeConfigurationUpdateEpValidationError is the validation error returned
 // by E2NodeConfigurationUpdateEp.Validate if the designated constraints
@@ -1030,13 +2054,46 @@ var _ interface {
 } = E2NodeConfigurationUpdateEpValidationError{}
 
 // Validate checks the field values on E2Setup with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *E2Setup) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on E2Setup with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in E2SetupMultiError, or nil if none found.
+func (m *E2Setup) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *E2Setup) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupValidationError{
 				field:  "InitiatingMessage",
@@ -1046,7 +2103,26 @@ func (m *E2Setup) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupValidationError{
 				field:  "SuccessfulOutcome",
@@ -1056,7 +2132,26 @@ func (m *E2Setup) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetUnsuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupValidationError{
 				field:  "UnsuccessfulOutcome",
@@ -1066,7 +2161,26 @@ func (m *E2Setup) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupValidationError{
 				field:  "ProcedureCode",
@@ -1076,7 +2190,26 @@ func (m *E2Setup) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, E2SetupValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return E2SetupValidationError{
 				field:  "Criticality",
@@ -1086,8 +2219,27 @@ func (m *E2Setup) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return E2SetupMultiError(errors)
+	}
 	return nil
 }
+
+// E2SetupMultiError is an error wrapping multiple validation errors returned
+// by E2Setup.ValidateAll() if the designated constraints aren't met.
+type E2SetupMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m E2SetupMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m E2SetupMultiError) AllErrors() []error { return m }
 
 // E2SetupValidationError is the validation error returned by E2Setup.Validate
 // if the designated constraints aren't met.
@@ -1144,14 +2296,47 @@ var _ interface {
 } = E2SetupValidationError{}
 
 // Validate checks the field values on ErrorIndicationEp with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *ErrorIndicationEp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ErrorIndicationEp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ErrorIndicationEpMultiError, or nil if none found.
+func (m *ErrorIndicationEp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ErrorIndicationEp) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationEpValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationEpValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationEpValidationError{
 				field:  "InitiatingMessage",
@@ -1161,7 +2346,26 @@ func (m *ErrorIndicationEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationEpValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationEpValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationEpValidationError{
 				field:  "ProcedureCode",
@@ -1171,7 +2375,26 @@ func (m *ErrorIndicationEp) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ErrorIndicationEpValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ErrorIndicationEpValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ErrorIndicationEpValidationError{
 				field:  "Criticality",
@@ -1181,8 +2404,28 @@ func (m *ErrorIndicationEp) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return ErrorIndicationEpMultiError(errors)
+	}
 	return nil
 }
+
+// ErrorIndicationEpMultiError is an error wrapping multiple validation errors
+// returned by ErrorIndicationEp.ValidateAll() if the designated constraints
+// aren't met.
+type ErrorIndicationEpMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ErrorIndicationEpMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ErrorIndicationEpMultiError) AllErrors() []error { return m }
 
 // ErrorIndicationEpValidationError is the validation error returned by
 // ErrorIndicationEp.Validate if the designated constraints aren't met.
@@ -1241,13 +2484,46 @@ var _ interface {
 } = ErrorIndicationEpValidationError{}
 
 // Validate checks the field values on Reset with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *Reset) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Reset with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in ResetMultiError, or nil if none found.
+func (m *Reset) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Reset) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetValidationError{
 				field:  "InitiatingMessage",
@@ -1257,7 +2533,26 @@ func (m *Reset) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetValidationError{
 				field:  "SuccessfulOutcome",
@@ -1267,7 +2562,26 @@ func (m *Reset) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetValidationError{
 				field:  "ProcedureCode",
@@ -1277,7 +2591,26 @@ func (m *Reset) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ResetValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ResetValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return ResetValidationError{
 				field:  "Criticality",
@@ -1287,8 +2620,27 @@ func (m *Reset) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return ResetMultiError(errors)
+	}
 	return nil
 }
+
+// ResetMultiError is an error wrapping multiple validation errors returned by
+// Reset.ValidateAll() if the designated constraints aren't met.
+type ResetMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ResetMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ResetMultiError) AllErrors() []error { return m }
 
 // ResetValidationError is the validation error returned by Reset.Validate if
 // the designated constraints aren't met.
@@ -1345,13 +2697,47 @@ var _ interface {
 } = ResetValidationError{}
 
 // Validate checks the field values on RicControl with the rules defined in the
-// proto definition for this message. If any rules are violated, an error is returned.
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RicControl) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicControl with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RicControlMultiError, or
+// nil if none found.
+func (m *RicControl) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicControl) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicControlValidationError{
 				field:  "InitiatingMessage",
@@ -1361,7 +2747,26 @@ func (m *RicControl) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicControlValidationError{
 				field:  "SuccessfulOutcome",
@@ -1371,7 +2776,26 @@ func (m *RicControl) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetUnsuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicControlValidationError{
 				field:  "UnsuccessfulOutcome",
@@ -1381,7 +2805,26 @@ func (m *RicControl) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicControlValidationError{
 				field:  "ProcedureCode",
@@ -1391,7 +2834,26 @@ func (m *RicControl) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicControlValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicControlValidationError{
 				field:  "Criticality",
@@ -1401,8 +2863,27 @@ func (m *RicControl) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicControlMultiError(errors)
+	}
 	return nil
 }
+
+// RicControlMultiError is an error wrapping multiple validation errors
+// returned by RicControl.ValidateAll() if the designated constraints aren't met.
+type RicControlMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicControlMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicControlMultiError) AllErrors() []error { return m }
 
 // RicControlValidationError is the validation error returned by
 // RicControl.Validate if the designated constraints aren't met.
@@ -1459,14 +2940,47 @@ var _ interface {
 } = RicControlValidationError{}
 
 // Validate checks the field values on RicIndication with the rules defined in
-// the proto definition for this message. If any rules are violated, an error
-// is returned.
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
 func (m *RicIndication) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicIndication with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in RicIndicationMultiError, or
+// nil if none found.
+func (m *RicIndication) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicIndication) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicIndicationValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicIndicationValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicIndicationValidationError{
 				field:  "InitiatingMessage",
@@ -1476,7 +2990,26 @@ func (m *RicIndication) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicIndicationValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicIndicationValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicIndicationValidationError{
 				field:  "ProcedureCode",
@@ -1486,7 +3019,26 @@ func (m *RicIndication) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicIndicationValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicIndicationValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicIndicationValidationError{
 				field:  "Criticality",
@@ -1496,8 +3048,28 @@ func (m *RicIndication) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicIndicationMultiError(errors)
+	}
 	return nil
 }
+
+// RicIndicationMultiError is an error wrapping multiple validation errors
+// returned by RicIndication.ValidateAll() if the designated constraints
+// aren't met.
+type RicIndicationMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicIndicationMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicIndicationMultiError) AllErrors() []error { return m }
 
 // RicIndicationValidationError is the validation error returned by
 // RicIndication.Validate if the designated constraints aren't met.
@@ -1554,14 +3126,47 @@ var _ interface {
 } = RicIndicationValidationError{}
 
 // Validate checks the field values on RicServiceQuery with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicServiceQuery) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicServiceQuery with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicServiceQueryMultiError, or nil if none found.
+func (m *RicServiceQuery) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicServiceQuery) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicServiceQueryValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicServiceQueryValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicServiceQueryValidationError{
 				field:  "InitiatingMessage",
@@ -1571,7 +3176,26 @@ func (m *RicServiceQuery) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicServiceQueryValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicServiceQueryValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicServiceQueryValidationError{
 				field:  "ProcedureCode",
@@ -1581,7 +3205,26 @@ func (m *RicServiceQuery) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicServiceQueryValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicServiceQueryValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicServiceQueryValidationError{
 				field:  "Criticality",
@@ -1591,8 +3234,28 @@ func (m *RicServiceQuery) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicServiceQueryMultiError(errors)
+	}
 	return nil
 }
+
+// RicServiceQueryMultiError is an error wrapping multiple validation errors
+// returned by RicServiceQuery.ValidateAll() if the designated constraints
+// aren't met.
+type RicServiceQueryMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicServiceQueryMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicServiceQueryMultiError) AllErrors() []error { return m }
 
 // RicServiceQueryValidationError is the validation error returned by
 // RicServiceQuery.Validate if the designated constraints aren't met.
@@ -1649,14 +3312,47 @@ var _ interface {
 } = RicServiceQueryValidationError{}
 
 // Validate checks the field values on RicServiceUpdate with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicServiceUpdate) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicServiceUpdate with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicServiceUpdateMultiError, or nil if none found.
+func (m *RicServiceUpdate) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicServiceUpdate) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicServiceUpdateValidationError{
 				field:  "InitiatingMessage",
@@ -1666,7 +3362,26 @@ func (m *RicServiceUpdate) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicServiceUpdateValidationError{
 				field:  "SuccessfulOutcome",
@@ -1676,7 +3391,26 @@ func (m *RicServiceUpdate) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetUnsuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicServiceUpdateValidationError{
 				field:  "UnsuccessfulOutcome",
@@ -1686,7 +3420,26 @@ func (m *RicServiceUpdate) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicServiceUpdateValidationError{
 				field:  "ProcedureCode",
@@ -1696,7 +3449,26 @@ func (m *RicServiceUpdate) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicServiceUpdateValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicServiceUpdateValidationError{
 				field:  "Criticality",
@@ -1706,8 +3478,28 @@ func (m *RicServiceUpdate) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicServiceUpdateMultiError(errors)
+	}
 	return nil
 }
+
+// RicServiceUpdateMultiError is an error wrapping multiple validation errors
+// returned by RicServiceUpdate.ValidateAll() if the designated constraints
+// aren't met.
+type RicServiceUpdateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicServiceUpdateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicServiceUpdateMultiError) AllErrors() []error { return m }
 
 // RicServiceUpdateValidationError is the validation error returned by
 // RicServiceUpdate.Validate if the designated constraints aren't met.
@@ -1764,14 +3556,47 @@ var _ interface {
 } = RicServiceUpdateValidationError{}
 
 // Validate checks the field values on RicSubscription with the rules defined
-// in the proto definition for this message. If any rules are violated, an
-// error is returned.
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
 func (m *RicSubscription) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicSubscription with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicSubscriptionMultiError, or nil if none found.
+func (m *RicSubscription) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicSubscription) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionValidationError{
 				field:  "InitiatingMessage",
@@ -1781,7 +3606,26 @@ func (m *RicSubscription) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionValidationError{
 				field:  "SuccessfulOutcome",
@@ -1791,7 +3635,26 @@ func (m *RicSubscription) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetUnsuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionValidationError{
 				field:  "UnsuccessfulOutcome",
@@ -1801,7 +3664,26 @@ func (m *RicSubscription) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionValidationError{
 				field:  "ProcedureCode",
@@ -1811,7 +3693,26 @@ func (m *RicSubscription) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionValidationError{
 				field:  "Criticality",
@@ -1821,8 +3722,28 @@ func (m *RicSubscription) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicSubscriptionMultiError(errors)
+	}
 	return nil
 }
+
+// RicSubscriptionMultiError is an error wrapping multiple validation errors
+// returned by RicSubscription.ValidateAll() if the designated constraints
+// aren't met.
+type RicSubscriptionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicSubscriptionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicSubscriptionMultiError) AllErrors() []error { return m }
 
 // RicSubscriptionValidationError is the validation error returned by
 // RicSubscription.Validate if the designated constraints aren't met.
@@ -1880,13 +3801,46 @@ var _ interface {
 
 // Validate checks the field values on RicSubscriptionDelete with the rules
 // defined in the proto definition for this message. If any rules are
-// violated, an error is returned.
+// violated, the first error encountered is returned, or nil if there are no violations.
 func (m *RicSubscriptionDelete) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RicSubscriptionDelete with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RicSubscriptionDeleteMultiError, or nil if none found.
+func (m *RicSubscriptionDelete) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RicSubscriptionDelete) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
-	if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInitiatingMessage()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "InitiatingMessage",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInitiatingMessage()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionDeleteValidationError{
 				field:  "InitiatingMessage",
@@ -1896,7 +3850,26 @@ func (m *RicSubscriptionDelete) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetSuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "SuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetSuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionDeleteValidationError{
 				field:  "SuccessfulOutcome",
@@ -1906,7 +3879,26 @@ func (m *RicSubscriptionDelete) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetUnsuccessfulOutcome()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "UnsuccessfulOutcome",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUnsuccessfulOutcome()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionDeleteValidationError{
 				field:  "UnsuccessfulOutcome",
@@ -1916,7 +3908,26 @@ func (m *RicSubscriptionDelete) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetProcedureCode()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "ProcedureCode",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetProcedureCode()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionDeleteValidationError{
 				field:  "ProcedureCode",
@@ -1926,7 +3937,26 @@ func (m *RicSubscriptionDelete) Validate() error {
 		}
 	}
 
-	if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
+	if all {
+		switch v := interface{}(m.GetCriticality()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RicSubscriptionDeleteValidationError{
+					field:  "Criticality",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriticality()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RicSubscriptionDeleteValidationError{
 				field:  "Criticality",
@@ -1936,8 +3966,28 @@ func (m *RicSubscriptionDelete) Validate() error {
 		}
 	}
 
+	if len(errors) > 0 {
+		return RicSubscriptionDeleteMultiError(errors)
+	}
 	return nil
 }
+
+// RicSubscriptionDeleteMultiError is an error wrapping multiple validation
+// errors returned by RicSubscriptionDelete.ValidateAll() if the designated
+// constraints aren't met.
+type RicSubscriptionDeleteMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RicSubscriptionDeleteMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RicSubscriptionDeleteMultiError) AllErrors() []error { return m }
 
 // RicSubscriptionDeleteValidationError is the validation error returned by
 // RicSubscriptionDelete.Validate if the designated constraints aren't met.

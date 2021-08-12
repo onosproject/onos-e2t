@@ -3,9 +3,9 @@ export GO111MODULE=on
 
 .PHONY: build
 
-ONOS_E2T_VERSION := latest
-ONOS_PROTOC_VERSION := v0.6.7
-BUF_VERSION := 0.36.0
+ONOS_E2T_VERSION := v0.6.9
+ONOS_PROTOC_VERSION := v0.6.9
+BUF_VERSION := 0.49.0
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:
@@ -53,12 +53,14 @@ gofmt: # @HELP run the Go format validation
 
 buflint: #@HELP run the "buf check lint" command on the proto files in 'api'
 	docker run -it -v `pwd`:/go/src/github.com/onosproject/onos-e2t \
+		-v `pwd`/../onos-lib-go/api/asn1:/go/src/github.com/onosproject/onos-e2t/api/asn1 \
 		-w /go/src/github.com/onosproject/onos-e2t/api \
 		bufbuild/buf:${BUF_VERSION} lint --path e2ap
 
 protos: # @HELP compile the protobuf files (using protoc-go Docker)
 protos: buflint
 	docker run -it -v `pwd`:/go/src/github.com/onosproject/onos-e2t \
+		-v `pwd`/../onos-lib-go:/go/src/github.com/onosproject/onos-lib-go \
 		-w /go/src/github.com/onosproject/onos-e2t \
 		--entrypoint build/bin/compile-protos.sh \
 		onosproject/protoc-go:${ONOS_PROTOC_VERSION}
