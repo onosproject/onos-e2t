@@ -270,11 +270,11 @@ func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server
 	if err == nil {
 		return nil
 	} else if !errors.IsNotFound(err) {
-		log.Warnf("Creating E2Node relation '%s' for Channel '%s' failed: %v", relationID, channel.ID, err)
+		log.Warnf("Creating E2Node '%s' relation '%s' failed: %v", channel.E2NodeID, relationID, err)
 		return err
 	}
 
-	log.Debugf("Creating E2Node relation '%s' for Channel '%s'", relationID, channel.ID)
+	log.Debugf("Creating E2Node '%s' relation '%s'", channel.E2NodeID, relationID)
 	object := &topoapi.Object{
 		ID:   relationID,
 		Type: topoapi.Object_RELATION,
@@ -290,7 +290,7 @@ func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server
 	err = r.store.Create(ctx, object)
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
-			log.Warnf("Creating E2Node relation '%s' for Channel '%s' failed: %v", relationID, channel.ID, err)
+			log.Warnf("Creating E2Node '%s' relation '%s' failed: %v", channel.E2NodeID, relationID, err)
 			return err
 		}
 		return nil
@@ -306,6 +306,7 @@ func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E
 			log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
 			return err
 		}
+		log.Warnf("E2Node entity '%s' not found", channel.E2NodeID)
 		return nil
 	}
 
@@ -328,8 +329,12 @@ func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E
 
 	mastership := &topoapi.MastershipState{}
 	mastershipValue := e2NodeEntity.GetAspect(mastership)
-	if _, ok := e2NodeRelations[mastership.NodeId]; (!ok || mastershipValue == nil) && len(e2NodeRelations) > 0 {
+	if _, ok := e2NodeRelations[mastership.NodeId]; !ok || mastershipValue == nil {
 		log.Debugf("Updating MastershipState for E2Node '%s'", channel.E2NodeID)
+		if len(e2NodeRelations) == 0 {
+			log.Warnf("No controls relations found for E2Node entity '%s'", channel.E2NodeID)
+			return nil
+		}
 
 		// Select a random master to assign to the E2 node
 		relations := make([]topoapi.Object, 0, len(e2NodeRelations))

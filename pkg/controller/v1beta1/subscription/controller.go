@@ -48,6 +48,10 @@ func NewController(streams subscription.Broker, subs substore.Store, topo rnib.S
 		subs:     subs,
 		channels: channels,
 	})
+	c.Watch(&TopoWatcher{
+		subs: subs,
+		topo: topo,
+	})
 	c.Reconcile(&Reconciler{
 		streams:                   streams,
 		subs:                      subs,
@@ -116,11 +120,13 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
 			return controller.Result{}, err
 		}
+		log.Warnf("Mastership state not found for E2Node '%s'", sub.E2NodeID)
 		return controller.Result{}, nil
 	}
 
 	mastership := &topoapi.MastershipState{}
 	if m := e2NodeEntity.GetAspect(mastership); m == nil {
+		log.Warnf("Mastership state not found for E2Node '%s'", sub.E2NodeID)
 		return controller.Result{}, nil
 	}
 
@@ -130,10 +136,12 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
 			return controller.Result{}, err
 		}
+		log.Warnf("Master relation not found for E2Node '%s'", sub.E2NodeID)
 		return controller.Result{}, nil
 	}
 
 	if e2NodeRelation.GetRelation().SrcEntityID != getE2TID() {
+		log.Warnf("Not the master for E2Node '%s'", sub.E2NodeID)
 		return controller.Result{}, nil
 	}
 
@@ -143,6 +151,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
 			return controller.Result{}, err
 		}
+		log.Warnf("Channel not found for E2Node '%s'", sub.E2NodeID)
 		return controller.Result{}, nil
 	}
 
