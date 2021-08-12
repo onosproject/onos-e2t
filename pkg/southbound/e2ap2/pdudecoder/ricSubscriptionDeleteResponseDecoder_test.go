@@ -5,7 +5,7 @@
 package pdudecoder
 
 import (
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"gotest.tools/assert"
 	"io/ioutil"
 	"testing"

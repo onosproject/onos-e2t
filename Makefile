@@ -5,7 +5,7 @@ export GO111MODULE=on
 
 ONOS_E2T_VERSION := v0.6.9
 ONOS_PROTOC_VERSION := v0.6.9
-BUF_VERSION := 0.49.0
+BUF_VERSION := 0.42.1
 
 build: # @HELP build the Go binaries and run all validations (default)
 build:

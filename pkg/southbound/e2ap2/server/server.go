@@ -18,10 +18,10 @@ import (
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdudecoder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap2"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdudecoder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
 // TODO: Change the RIC ID to something appropriate

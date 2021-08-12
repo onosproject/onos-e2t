@@ -5,7 +5,7 @@
 package pdudecoder
 
 import (
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"gotest.tools/assert"
 	"io/ioutil"
 	"testing"
@@ -17,7 +17,7 @@ func Test_DecodeRicServiceUpdatePdu(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(rsuXer)
 	assert.NilError(t, err)
 
-	rfal, rfdl, rfml, err := DecodeRicServiceUpdatePdu(e2apPdu)
+	transactionID, rfal, rfdl, rfml, err := DecodeRicServiceUpdatePdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 23, 24 & 25
 
@@ -39,4 +39,7 @@ func Test_DecodeRicServiceUpdatePdu(t *testing.T) {
 	assert.DeepEqual(t, []byte(rfml[200].Description), []byte("Type 4"))
 	assert.DeepEqual(t, []byte(rfml[200].OID), []byte("oid4"))
 	assert.Equal(t, int(rfml[200].Revision), 4)
+
+	//ToDo - change TransactionID to correct one
+	assert.Equal(t, int32(0), transactionID)
 }

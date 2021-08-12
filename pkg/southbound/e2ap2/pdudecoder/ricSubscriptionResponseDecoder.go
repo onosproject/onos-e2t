@@ -6,16 +6,17 @@ package pdudecoder
 
 import (
 	"fmt"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
 func DecodeRicSubscriptionResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
-	*types.RanFunctionID, *types.RicRequest, []types.RicActionID, *string, error) {
+	*types.RanFunctionID, *types.RicRequest, []types.RicActionID, map[types.RicActionID]*e2apies.Cause, error) {
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	//}
 
 	ricSubscription := e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicSubscription()
 	if ricSubscription == nil {
@@ -46,5 +47,14 @@ func DecodeRicSubscriptionResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 		ricActionsAdmitted = append(ricActionsAdmitted, types.RicActionID(actionAdmitted.GetValue().GetRicActionId().GetValue()))
 	}
 
-	return &ranFunctionID, ricRequestID, ricActionsAdmitted, nil, nil
+	ricActionsNotAdmittedList := ricSubscription.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes18()
+	if ricActionsNotAdmittedList == nil {
+		return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICactions-NotAdmitted (mandatory)")
+	}
+	causes := make(map[types.RicActionID]*e2apies.Cause)
+	for _, ranai := range ricActionsNotAdmittedList.GetValue().GetValue() {
+		causes[types.RicActionID(ranai.GetValue().GetRicActionId().GetValue())] = ranai.GetValue().GetCause()
+	}
+
+	return &ranFunctionID, ricRequestID, ricActionsAdmitted, causes, nil
 }

@@ -7,15 +7,15 @@ package pdudecoder
 import (
 	"fmt"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
 func DecodeRicSubscriptionDeleteResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 	*types.RanFunctionID, *types.RicRequest, error) {
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	//}
 
 	ricSubscriptionDelete := e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete()
 	if ricSubscriptionDelete == nil {

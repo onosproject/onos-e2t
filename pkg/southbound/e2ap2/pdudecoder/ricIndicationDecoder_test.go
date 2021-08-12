@@ -6,7 +6,7 @@ package pdudecoder
 
 import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"gotest.tools/assert"
 	is "gotest.tools/assert/cmp"
 	"io/ioutil"

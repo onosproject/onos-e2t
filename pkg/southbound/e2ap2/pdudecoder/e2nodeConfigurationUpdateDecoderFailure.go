@@ -10,19 +10,19 @@ import (
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func DecodeE2nodeConfigurationUpdateFailurePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*e2ap_ies.Cause, *e2ap_ies.TimeToWait,
+func DecodeE2nodeConfigurationUpdateFailurePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, *e2ap_ies.Cause, *e2ap_ies.TimeToWait,
 	*v2beta1.ProcedureCodeT, *e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage, *types.RicRequest,
 	[]*types.CritDiag, error) {
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	//}
 
 	e2ncuf := e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate()
 	if e2ncuf == nil {
-		return nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have E2nodeConfigurationUpdateFailure")
+		return nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have E2nodeConfigurationUpdateFailure")
 	}
 
 	cause := e2ncuf.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes1().GetValue()
@@ -52,5 +52,7 @@ func DecodeE2nodeConfigurationUpdateFailurePdu(e2apPdu *e2ap_pdu_descriptions.E2
 		}
 	}
 
-	return cause, &ttw, &pc, &crit, &tm, &critDiagRequestID, diags, nil
+	transactionID := e2ncuf.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
+
+	return &transactionID, cause, &ttw, &pc, &crit, &tm, &critDiagRequestID, diags, nil
 }

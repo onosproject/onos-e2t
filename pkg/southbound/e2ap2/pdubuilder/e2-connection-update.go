@@ -11,7 +11,7 @@ import (
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
 func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, modifyItems []*types.E2ConnectionUpdateItem,
@@ -48,7 +48,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 		connectionAddList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
 			Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateAdd),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			ConnectionAdd: &e2appducontents.E2ConnectionUpdateList{
+			Value: &e2appducontents.E2ConnectionUpdateList{
 				Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -67,7 +67,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 				},
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			}
-			connectionAddList.ConnectionAdd.Value = append(connectionAddList.ConnectionAdd.Value, cai)
+			connectionAddList.Value.Value = append(connectionAddList.Value.Value, cai)
 		}
 		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2ConnectionUpdate().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes44 = &connectionAddList
 	}
@@ -76,7 +76,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 		connectionModifyList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes45{
 			Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateModify),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			ConnectionModify: &e2appducontents.E2ConnectionUpdateList{
+			Value: &e2appducontents.E2ConnectionUpdateList{
 				Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -95,7 +95,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 				},
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			}
-			connectionModifyList.ConnectionModify.Value = append(connectionModifyList.ConnectionModify.Value, cmi)
+			connectionModifyList.Value.Value = append(connectionModifyList.Value.Value, cmi)
 		}
 		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2ConnectionUpdate().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes45 = &connectionModifyList
 	}
@@ -104,7 +104,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 		connectionRemoveList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46{
 			Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateRemove),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			ConnectionRemove: &e2appducontents.E2ConnectionUpdateRemoveList{
+			Value: &e2appducontents.E2ConnectionUpdateRemoveList{
 				Value: make([]*e2appducontents.E2ConnectionUpdateRemoveItemIes, 0),
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -122,13 +122,13 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 				},
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			}
-			connectionRemoveList.ConnectionRemove.Value = append(connectionRemoveList.ConnectionRemove.Value, cri)
+			connectionRemoveList.Value.Value = append(connectionRemoveList.Value.Value, cri)
 		}
 		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2ConnectionUpdate().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes46 = &connectionRemoveList
 	}
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

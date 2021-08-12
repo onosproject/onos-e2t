@@ -5,10 +5,10 @@
 package types
 
 import (
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
 type TnlInformation struct {
-	TnlPort    e2ap_commondatatypes.BitString
-	TnlAddress e2ap_commondatatypes.BitString
+	TnlPort    asn1.BitString
+	TnlAddress asn1.BitString
 }

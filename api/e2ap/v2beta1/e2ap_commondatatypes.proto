@@ -132,9 +132,3 @@ message RiceventTriggerDefinition {
 message RicactionDefinition {
     bytes value = 1;
 }
-
-//{-}
-message BitString {
-    bytes value = 1;
-    uint32 len = 2;
-}

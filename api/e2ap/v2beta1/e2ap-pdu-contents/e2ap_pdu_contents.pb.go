@@ -743,10 +743,11 @@ type RicactionNotAdmittedItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          int32                     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Criticality int32                     `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
-	Value       *RicactionNotAdmittedItem `protobuf:"bytes,3,opt,name=value,json=ricActionNotAdmittedItem,proto3" json:"value,omitempty"`
-	Presence    int32                     `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
+	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
+	// @inject_tag: aper:"valueExt"
+	Value    *RicactionNotAdmittedItem `protobuf:"bytes,3,opt,name=value,json=ricActionNotAdmittedItem,proto3" json:"value,omitempty"`
+	Presence int32                     `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
 func (x *RicactionNotAdmittedItemIes) Reset() {

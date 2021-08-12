@@ -5,8 +5,8 @@ package pdubuilder
 
 import (
 	"encoding/hex"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"gotest.tools/assert"
 	"testing"
 )

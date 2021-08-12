@@ -11,7 +11,7 @@ import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
 func CreateE2SetupRequestPdu(plmnID types.PlmnID, gnbID *e2apies.GnbIdChoice, ranFunctionIds types.RanFunctions) (*e2appdudescriptions.E2ApPdu, error) {

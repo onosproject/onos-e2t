@@ -6,8 +6,8 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"gotest.tools/assert"
 	"testing"
 )

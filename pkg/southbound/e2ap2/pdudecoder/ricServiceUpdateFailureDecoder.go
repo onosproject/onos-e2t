@@ -10,25 +10,19 @@ import (
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func DecodeRicServiceUpdateFailurePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*types.RanFunctionCauses, *e2ap_ies.TimeToWait,
+func DecodeRicServiceUpdateFailurePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, *e2ap_ies.Cause, *e2ap_ies.TimeToWait,
 	*v2beta1.ProcedureCodeT, *e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage, *types.RicRequest,
 	[]*types.CritDiag, error) {
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	//}
 
 	rsuf := e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate()
 	if rsuf == nil {
-		return nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have RICserviceUpdateFailure")
-	}
-
-	rfrl := rsuf.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes13().GetValue().GetValue()
-	causes := make(types.RanFunctionCauses)
-	for _, rfri := range rfrl {
-		causes[types.RanFunctionID(rfri.GetRanFunctionIdcauseItemIes7().GetValue().GetRanFunctionId().GetValue())] = rfri.GetRanFunctionIdcauseItemIes7().GetValue().GetCause()
+		return nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have RICserviceUpdateFailure")
 	}
 
 	ttw := rsuf.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes31().GetValue()
@@ -57,5 +51,8 @@ func DecodeRicServiceUpdateFailurePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*
 		}
 	}
 
-	return &causes, &ttw, &pc, &crit, &tm, &critDiagRequestID, diags, nil
+	transactionID := rsuf.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
+	cause := rsuf.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes1().GetValue()
+
+	return &transactionID, cause, &ttw, &pc, &crit, &tm, &critDiagRequestID, diags, nil
 }

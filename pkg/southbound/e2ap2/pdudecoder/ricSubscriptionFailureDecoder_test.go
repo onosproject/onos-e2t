@@ -8,7 +8,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"gotest.tools/assert"
 	"io/ioutil"
 	"testing"
@@ -20,7 +20,7 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(ricSubscriptionFailureXer)
 	assert.NilError(t, err)
 
-	rrID, rfID, pc, crit, tm, critReq, causes, diags, err := DecodeRicSubscriptionFailurePdu(e2apPdu)
+	rrID, rfID, pc, crit, tm, critReq, cause, diags, err := DecodeRicSubscriptionFailurePdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, rfID != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on line 26
 	assert.Equal(t, 9, int(*rfID))
@@ -38,17 +38,8 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 	// TODO: Should be 20
 	assert.Equal(t, 20, int(critReq.InstanceID))
 
-	assert.Assert(t, causes != nil)
-	for id, cause := range causes {
-		switch id {
-		case 100:
-			assert.Equal(t, e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE, cause.GetTransport())
-		case 200:
-			assert.Equal(t, e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE, cause.GetMisc())
-		default:
-			assert.Assert(t, false, "unexpected cause %d", id)
-		}
-	}
+	//ToDo - adjust Cause verification
+	assert.Equal(t, e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE, cause.GetTransport())
 	assert.Assert(t, diags == nil)
 
 }

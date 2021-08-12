@@ -8,7 +8,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"gotest.tools/assert"
 	"io/ioutil"
 	"testing"
@@ -20,7 +20,7 @@ func Test_DecodeE2connectionUpdateFailurePdu(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(e2cufXer)
 	assert.NilError(t, err)
 
-	cause, ttw, pr, crit, tm, cdrID, diags, err := DecodeE2connectionUpdateFailurePdu(e2apPdu)
+	transactionID, cause, ttw, pr, crit, tm, cdrID, diags, err := DecodeE2connectionUpdateFailurePdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 23, 24 & 25
 
@@ -34,4 +34,6 @@ func Test_DecodeE2connectionUpdateFailurePdu(t *testing.T) {
 	assert.Equal(t, int32(diags[0].IEId), int32(30))
 	assert.Equal(t, int32(diags[0].IECriticality), int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE))
 	assert.Equal(t, int32(diags[0].TypeOfError), int32(e2apies.TypeOfError_TYPE_OF_ERROR_MISSING))
+	//ToDo - change Transaction ID to real one
+	assert.Equal(t, int32(0), transactionID)
 }

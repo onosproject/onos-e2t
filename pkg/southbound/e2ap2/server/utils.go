@@ -8,8 +8,8 @@ import (
 	"fmt"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdudecoder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdudecoder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"github.com/onosproject/onos-lib-go/pkg/uri"
 )
 

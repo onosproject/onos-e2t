@@ -5,7 +5,8 @@
 package pdudecoder
 
 import (
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"gotest.tools/assert"
 	"io/ioutil"
 	"testing"
@@ -17,7 +18,7 @@ func Test_DecodeE2SetupResponsePdu(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(e2setupResponseXer)
 	assert.NilError(t, err)
 
-	ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, err := DecodeE2SetupResponsePdu(e2apPdu)
+	transactionID, ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, e2nccual, err := DecodeE2SetupResponsePdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 23, 24 & 25
 	assert.Equal(t, "ONF", string([]byte{ricIdentity.PlmnID[0], ricIdentity.PlmnID[1], ricIdentity.PlmnID[2]}))
@@ -40,6 +41,17 @@ func Test_DecodeE2SetupResponsePdu(t *testing.T) {
 	assert.Assert(t, ok, "expected a key '102'")
 	assert.Equal(t, "CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR", rfr102.GetProtocol().String())
 
+	//ToDo - change Transaction ID to real one
+	assert.Equal(t, int32(0), transactionID)
+
+	assert.Equal(t, int32(e2nccual[0].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB))
+	assert.Equal(t, int32(e2nccual[0].E2NodeComponentID.GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue()), int32(21))
+	assert.Equal(t, e2nccual[0].E2NodeComponentConfigUpdateAck.UpdateOutcome, int32(1))
+	assert.Equal(t, int32(e2nccual[0].E2NodeComponentConfigUpdateAck.FailureCause.GetProtocol()), int32(e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR))
+	assert.Equal(t, int32(e2nccual[1].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB))
+	assert.Equal(t, int32(e2nccual[1].E2NodeComponentID.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue()), int32(13))
+	assert.Equal(t, e2nccual[1].E2NodeComponentConfigUpdateAck.UpdateOutcome, int32(1))
+	assert.Equal(t, int32(e2nccual[1].E2NodeComponentConfigUpdateAck.FailureCause.GetProtocol()), int32(e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE))
 }
 
 func Test_DecodeE2SetupResponsePduCuCp(t *testing.T) {
@@ -48,7 +60,7 @@ func Test_DecodeE2SetupResponsePduCuCp(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(e2setupResponseXer)
 	assert.NilError(t, err)
 
-	ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, err := DecodeE2SetupResponsePdu(e2apPdu)
+	transactionID, ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, e2nccual, err := DecodeE2SetupResponsePdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 54, 55 & 56
 	assert.DeepEqual(t, []byte{0x00, 0x02, 0x10}, []byte{ricIdentity.PlmnID[0], ricIdentity.PlmnID[1], ricIdentity.PlmnID[2]})
@@ -57,4 +69,15 @@ func Test_DecodeE2SetupResponsePduCuCp(t *testing.T) {
 
 	assert.Equal(t, 0, len(ranFunctionsAccepted))
 	assert.Equal(t, 0, len(ranFunctionsRejected))
+	//ToDo - change Transaction ID to real one
+	assert.Equal(t, int32(0), transactionID)
+
+	assert.Equal(t, int32(e2nccual[0].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB))
+	assert.Equal(t, int32(e2nccual[0].E2NodeComponentID.GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue()), int32(21))
+	assert.Equal(t, e2nccual[0].E2NodeComponentConfigUpdateAck.UpdateOutcome, int32(1))
+	assert.Equal(t, int32(e2nccual[0].E2NodeComponentConfigUpdateAck.FailureCause.GetProtocol()), int32(e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR))
+	assert.Equal(t, int32(e2nccual[1].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB))
+	assert.Equal(t, int32(e2nccual[1].E2NodeComponentID.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue()), int32(13))
+	assert.Equal(t, e2nccual[1].E2NodeComponentConfigUpdateAck.UpdateOutcome, int32(1))
+	assert.Equal(t, int32(e2nccual[1].E2NodeComponentConfigUpdateAck.FailureCause.GetProtocol()), int32(e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE))
 }

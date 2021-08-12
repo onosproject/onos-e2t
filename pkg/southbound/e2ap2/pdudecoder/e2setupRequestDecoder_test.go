@@ -5,8 +5,9 @@
 package pdudecoder
 
 import (
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"gotest.tools/assert"
 	"io/ioutil"
 	"testing"
@@ -18,7 +19,7 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(e2setupRequestXer)
 	assert.NilError(t, err)
 
-	identifier, ranFunctions, err := DecodeE2SetupRequestPdu(e2apPdu)
+	transactionID, identifier, ranFunctions, e2nccul, err := DecodeE2SetupRequestPdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, identifier != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 24, 25 & 26
 	assert.DeepEqual(t, []byte{0x00, 0x02, 0x10}, []byte{identifier.Plmn[0], identifier.Plmn[1], identifier.Plmn[2]})
@@ -34,6 +35,20 @@ func Test_DecodeE2SetupRequestPdu(t *testing.T) {
 	rf0 := (*ranFunctions)[20]
 	assert.Equal(t, 10, int(rf0.Revision))
 	assert.DeepEqual(t, []byte("abc"), []byte(rf0.OID))
+
+	assert.Equal(t, int32(e2nccul[0].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB))
+	assert.Equal(t, int32(e2nccul[0].E2NodeComponentID.GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue()), int32(21))
+	assert.Equal(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetNgApconfigUpdate(), "ngAp")
+	assert.Equal(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetXnApconfigUpdate(), "xnAp")
+	assert.Equal(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetF1ApconfigUpdate(), "f1Ap")
+	assert.Equal(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetE1ApconfigUpdate(), "e1Ap")
+	assert.Equal(t, int32(e2nccul[1].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB))
+	assert.Equal(t, int32(e2nccul[1].E2NodeComponentID.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue()), int32(13))
+	assert.Equal(t, e2nccul[1].E2NodeComponentConfigUpdate.GetENbconfigUpdate().GetX2ApconfigUpdate(), "x2")
+	assert.Equal(t, e2nccul[1].E2NodeComponentConfigUpdate.GetENbconfigUpdate().GetS1ApconfigUpdate(), "s1")
+
+	//ToDo - change Transaction ID to real one
+	assert.Equal(t, int32(0), transactionID)
 }
 
 func Test_GetE2NodeID(t *testing.T) {
@@ -52,7 +67,7 @@ func Test_DecodeE2SetupRequestPduCuDuIDs(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(e2setupRequestXer)
 	assert.NilError(t, err)
 
-	identifier, ranFunctions, err := DecodeE2SetupRequestPdu(e2apPdu)
+	transactionID, identifier, ranFunctions, e2nccul, err := DecodeE2SetupRequestPdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, identifier != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 24, 25 & 26
 	assert.DeepEqual(t, []byte{0x4f, 0x4e, 0x46}, []byte{identifier.Plmn[0], identifier.Plmn[1], identifier.Plmn[2]})
@@ -71,4 +86,18 @@ func Test_DecodeE2SetupRequestPduCuDuIDs(t *testing.T) {
 	assert.Equal(t, 2, int(rf0.Revision))
 	rf1 := (*ranFunctions)[200]
 	assert.Equal(t, 3, int(rf1.Revision))
+
+	assert.Equal(t, int32(e2nccul[0].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB))
+	assert.Equal(t, int32(e2nccul[0].E2NodeComponentID.GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue()), int32(21))
+	assert.Equal(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetNgApconfigUpdate(), "ngAp")
+	assert.Equal(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetXnApconfigUpdate(), "xnAp")
+	assert.Equal(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetF1ApconfigUpdate(), "f1Ap")
+	assert.Equal(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetE1ApconfigUpdate(), "e1Ap")
+	assert.Equal(t, int32(e2nccul[1].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB))
+	assert.Equal(t, int32(e2nccul[1].E2NodeComponentID.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue()), int32(13))
+	assert.Equal(t, e2nccul[1].E2NodeComponentConfigUpdate.GetENbconfigUpdate().GetX2ApconfigUpdate(), "x2")
+	assert.Equal(t, e2nccul[1].E2NodeComponentConfigUpdate.GetENbconfigUpdate().GetS1ApconfigUpdate(), "s1")
+
+	//ToDo - change Transaction ID to real one
+	assert.Equal(t, int32(0), transactionID)
 }
