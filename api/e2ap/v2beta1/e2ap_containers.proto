@@ -1,3 +1,9 @@
+/*
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
 ////////////////////// e2ap-containers.proto //////////////////////
 // Protobuf generated from /e2ap_v2.0.1_Feb3_21.asn by asn1c-0.9.29
 // E2AP-Containers { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version2(2) e2ap(1) e2ap-Containers(5) }
