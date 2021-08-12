@@ -15,7 +15,7 @@ import (
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"

@@ -6,13 +6,13 @@ package pdudecoder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*v1beta2.ProcedureCodeT,
+func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*v2beta1.ProcedureCodeT,
 	*e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage,
 	*types.RicRequest, []*types.CritDiag, error) {
 	if err := e2apPdu.Validate(); err != nil {
@@ -25,13 +25,13 @@ func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*v1beta2.Proc
 	}
 
 	critDiagnostics := rr.GetSuccessfulOutcome().GetProtocolIes().GetResetResponseIes2()
-	var pc v1beta2.ProcedureCodeT
+	var pc v2beta1.ProcedureCodeT
 	var crit e2ap_commondatatypes.Criticality
 	var tm e2ap_commondatatypes.TriggeringMessage
 	var critDiagRequestID *types.RicRequest
 	var diags []*types.CritDiag
 	if critDiagnostics != nil { //It's optional
-		pc = v1beta2.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
+		pc = v2beta1.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
 		crit = critDiagnostics.GetValue().GetProcedureCriticality()
 		tm = critDiagnostics.GetValue().GetTriggeringMessage()
 		critDiagRequestID = &types.RicRequest{
@@ -41,7 +41,7 @@ func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*v1beta2.Proc
 		for _, ie := range critDiagnostics.GetValue().GetIEsCriticalityDiagnostics().GetValue() {
 			diag := types.CritDiag{
 				IECriticality: ie.IEcriticality,
-				IEId:          v1beta2.ProtocolIeID(ie.GetIEId().GetValue()),
+				IEId:          v2beta1.ProtocolIeID(ie.GetIEId().GetValue()),
 				TypeOfError:   ie.TypeOfError,
 			}
 			diags = append(diags, &diag)

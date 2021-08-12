@@ -5,19 +5,19 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
 func CreateE2SetupRequestPdu(plmnID types.PlmnID, gnbID *e2apies.GnbIdChoice, ranFunctionIds types.RanFunctions) (*e2appdudescriptions.E2ApPdu, error) {
 
 	gnbIDIe := e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
-		Id:          int32(v1beta2.ProtocolIeIDGlobalE2nodeID),
+		Id:          int32(v2beta1.ProtocolIeIDGlobalE2nodeID),
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.GlobalE2NodeId{
@@ -46,7 +46,7 @@ func CreateE2SetupRequestPdu(plmnID types.PlmnID, gnbID *e2apies.GnbIdChoice, ra
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2Setup{
-							Value: int32(v1beta2.ProcedureCodeIDE2setup),
+							Value: int32(v2beta1.ProcedureCodeIDE2setup),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -59,7 +59,7 @@ func CreateE2SetupRequestPdu(plmnID types.PlmnID, gnbID *e2apies.GnbIdChoice, ra
 
 	if ranFunctionIds != nil {
 		ranFunctions := e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAdded),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2appducontents.RanfunctionsList{
@@ -70,7 +70,7 @@ func CreateE2SetupRequestPdu(plmnID types.PlmnID, gnbID *e2apies.GnbIdChoice, ra
 		for id, ranFunctionID := range ranFunctionIds {
 			ranFunction := e2appducontents.RanfunctionItemIes{
 				E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-					Id:          int32(v1beta2.ProtocolIeIDRanfunctionItem),
+					Id:          int32(v2beta1.ProtocolIeIDRanfunctionItem),
 					Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 					Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 					Value: &e2appducontents.RanfunctionItem{

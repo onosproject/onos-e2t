@@ -7,10 +7,10 @@ package asn1cgo
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"gotest.tools/assert"
 	"testing"
 )
@@ -37,7 +37,7 @@ func createE2connectionSetupFailedListMsg() (*e2ap_pdu_contents.E2ConnectionSetu
 	}
 
 	item := &e2ap_pdu_contents.E2ConnectionSetupFailedItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailedItem),
+		Id:          int32(v2beta1.ProtocolIeIDE2connectionSetupFailedItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2ap_pdu_contents.E2ConnectionSetupFailedItem{
 			TnlInformation: &tnlinformation,

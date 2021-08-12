@@ -15,10 +15,10 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"unsafe"
 )
 
@@ -175,7 +175,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicSubscription: &e2appdudescriptions.RicSubscription{
 				UnsuccessfulOutcome: rsf,
 				ProcedureCode: &e2ap_constants.IdRicsubscription{
-					Value: int32(v1beta2.ProcedureCodeIDRICsubscription),
+					Value: int32(v2beta1.ProcedureCodeIDRICsubscription),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -200,7 +200,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicControl: &e2appdudescriptions.RicControl{
 				UnsuccessfulOutcome: rcf,
 				ProcedureCode: &e2ap_constants.IdRiccontrol{
-					Value: int32(v1beta2.ProcedureCodeIDRICcontrol),
+					Value: int32(v2beta1.ProcedureCodeIDRICcontrol),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -225,7 +225,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
 				UnsuccessfulOutcome: rsdf,
 				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
-					Value: int32(v1beta2.ProcedureCodeIDRICsubscriptionDelete),
+					Value: int32(v2beta1.ProcedureCodeIDRICsubscriptionDelete),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -250,7 +250,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			E2Setup: &e2appdudescriptions.E2Setup{
 				UnsuccessfulOutcome: e2sf,
 				ProcedureCode: &e2ap_constants.IdE2Setup{
-					Value: int32(v1beta2.ProcedureCodeIDE2setup),
+					Value: int32(v2beta1.ProcedureCodeIDE2setup),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -275,7 +275,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicServiceUpdate: &e2appdudescriptions.RicServiceUpdate{
 				UnsuccessfulOutcome: rsuf,
 				ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
-					Value: int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
+					Value: int32(v2beta1.ProcedureCodeIDRICserviceUpdate),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -300,7 +300,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
 				UnsuccessfulOutcome: e2ncuf,
 				ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
-					Value: int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate),
+					Value: int32(v2beta1.ProcedureCodeIDE2nodeConfigurationUpdate),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -325,7 +325,7 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			E2ConnectionUpdate: &e2appdudescriptions.E2ConnectionUpdateEp{
 				UnsuccessfulOutcome: e2cuf,
 				ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
-					Value: int32(v1beta2.ProcedureCodeIDE2connectionUpdate),
+					Value: int32(v2beta1.ProcedureCodeIDE2connectionUpdate),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},

@@ -5,12 +5,12 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
@@ -33,7 +33,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
-							Value: int32(v1beta2.ProcedureCodeIDE2connectionUpdate),
+							Value: int32(v2beta1.ProcedureCodeIDE2connectionUpdate),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -46,7 +46,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 
 	if connSetup != nil {
 		connectionSetup := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionSetup),
+			Id:          int32(v2beta1.ProtocolIeIDE2connectionSetup),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionSetup: &e2appducontents.E2ConnectionUpdateList{
 				Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
@@ -56,7 +56,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 
 		for _, setupItem := range connSetup {
 			si := &e2appducontents.E2ConnectionUpdateItemIes{
-				Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+				Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.E2ConnectionUpdateItem{
 					TnlInformation: &e2ap_ies.Tnlinformation{
@@ -74,7 +74,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 
 	if connSetFail != nil {
 		connectionSetupFailed := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes40{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailed),
+			Id:          int32(v2beta1.ProtocolIeIDE2connectionSetupFailed),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionSetupFailed: &e2appducontents.E2ConnectionSetupFailedList{
 				Value: make([]*e2appducontents.E2ConnectionSetupFailedItemIes, 0),
@@ -84,7 +84,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 
 		for _, sfItem := range connSetFail {
 			sfi := &e2appducontents.E2ConnectionSetupFailedItemIes{
-				Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailedItem),
+				Id:          int32(v2beta1.ProtocolIeIDE2connectionSetupFailedItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.E2ConnectionSetupFailedItem{
 					TnlInformation: &e2ap_ies.Tnlinformation{

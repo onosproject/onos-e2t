@@ -14,9 +14,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"unsafe"
 )
 
@@ -25,7 +25,7 @@ func newRicSubscriptionDeleteFailureIe1Cause(rsdfCauseIe *e2appducontents.Ricsub
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCause)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCause)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func newRicControlFailureIe1Cause(rcfCauseIe *e2appducontents.RiccontrolFailureI
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCause)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCause)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func newErrorIndicationIe1Cause(eiCauseIe *e2appducontents.ErrorIndicationIes_Er
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCause)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCause)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func newE2setupFailureIe1Cause(e2sfCauseIe *e2appducontents.E2SetupFailureIes_E2
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCause)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCause)
 	if err != nil {
 		return nil, err
 	}
@@ -155,7 +155,7 @@ func newResetRequestIe1Cause(rrCauseIe *e2appducontents.ResetRequestIes_ResetReq
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCause)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCause)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +188,7 @@ func newE2nodeConfigurationUpdateFailureIes1Cause(e2cuaIe *e2appducontents.E2Nod
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCause)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCause)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ func newE2connectionUpdateFailureIes1Cause(e2cuaIe *e2appducontents.E2Connection
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCause)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCause)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +254,7 @@ func newResetResponseIe2CriticalityDiagnostics(rrCritDiagsIe *e2appducontents.Re
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCriticalityDiagnostics)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCriticalityDiagnostics)
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +288,7 @@ func newRicServiceUpdateFailureIe2CriticalityDiagnostics(rsufCritDiagsIe *e2appd
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCriticalityDiagnostics)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCriticalityDiagnostics)
 	if err != nil {
 		return nil, err
 	}
@@ -322,7 +322,7 @@ func newRicSubscriptionDeleteFailureIe2CriticalityDiagnostics(rsdfCritDiagsIe *e
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCriticalityDiagnostics)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCriticalityDiagnostics)
 	if err != nil {
 		return nil, err
 	}
@@ -356,7 +356,7 @@ func newErrorIndicationIe2CriticalityDiagnostics(eiCritDiagsIe *e2appducontents.
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCriticalityDiagnostics)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCriticalityDiagnostics)
 	if err != nil {
 		return nil, err
 	}
@@ -391,7 +391,7 @@ func newE2setupIe2CriticalityDiagnostics(e2sfCritDiagsIe *e2appducontents.E2Setu
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCriticalityDiagnostics)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCriticalityDiagnostics)
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +426,7 @@ func newRicSubscriptionFailureIe2CriticalityDiagnostics(rsfCritDiagsIe *e2appduc
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCriticalityDiagnostics)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCriticalityDiagnostics)
 	if err != nil {
 		return nil, err
 	}
@@ -461,7 +461,7 @@ func newE2connectionUpdateFailureIes2CriticalityDiagnostics(e2cufIe *e2appducont
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCriticalityDiagnostics)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCriticalityDiagnostics)
 	if err != nil {
 		return nil, err
 	}
@@ -495,7 +495,7 @@ func newE2nodeConfigurationUpdateFailureIes2CriticalityDiagnostics(e2ncufIe *e2a
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDCriticalityDiagnostics)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDCriticalityDiagnostics)
 	if err != nil {
 		return nil, err
 	}
@@ -529,7 +529,7 @@ func newE2setupRequestIe3GlobalE2NodeID(esIe *e2appducontents.E2SetupRequestIes_
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDGlobalE2nodeID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDGlobalE2nodeID)
 	if err != nil {
 		return nil, err
 	}
@@ -565,7 +565,7 @@ func newE2setupResponseIe4GlobalRicID(esIe *e2appducontents.E2SetupResponseIes_E
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDGlobalRicID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDGlobalRicID)
 	if err != nil {
 		return nil, err
 	}
@@ -601,7 +601,7 @@ func newRicSubscriptionRequestIe5RanFunctionID(rsrRfIe *e2appducontents.Ricsubsc
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -630,7 +630,7 @@ func newRicControlRequestIe5RanFunctionID(rcrRfIe *e2appducontents.RiccontrolReq
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -659,7 +659,7 @@ func newRicControlFailureIe5RanFunctionID(rcfRfIe *e2appducontents.RiccontrolFai
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -688,7 +688,7 @@ func newRicControlAcknowledgeIe5RanFunctionID(rcaRfIe *e2appducontents.Riccontro
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -717,7 +717,7 @@ func newRicSubscriptionResponseIe5RanFunctionID(rsrRfIe *e2appducontents.Ricsubs
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -746,7 +746,7 @@ func newRicIndicationIe5RanFunctionID(rsrRfIe *e2appducontents.RicindicationIes_
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -775,7 +775,7 @@ func newRicSubscriptionDeleteRequestIe5RanFunctionID(rsdrRfIe *e2appducontents.R
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -804,7 +804,7 @@ func newRicSubscriptionDeleteResponseIe5RanFunctionID(rsdrRfIe *e2appducontents.
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -833,7 +833,7 @@ func newRicSubscriptionDeleteFailureIe5RanFunctionID(rsdfRfIe *e2appducontents.R
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -862,7 +862,7 @@ func newRicSubscriptionFailureIe5RanFunctionID(rsfRfIe *e2appducontents.Ricsubsc
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -891,7 +891,7 @@ func newErrorIndicationIe5RanFunctionID(eiRfIe *e2appducontents.ErrorIndicationI
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionID)
 	if err != nil {
 		return nil, err
 	}
@@ -921,7 +921,7 @@ func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResp
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsAccepted)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsAccepted)
 	if err != nil {
 		return nil, err
 	}
@@ -953,7 +953,7 @@ func newRicServiceQueryIe9RanFunctionsAccepted(esIe *e2appducontents.RicserviceQ
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsAccepted)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsAccepted)
 	if err != nil {
 		return nil, err
 	}
@@ -985,7 +985,7 @@ func newRicServiceUpdateAcknowledgeIe9RanFunctionsAccepted(esIe *e2appducontents
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsAccepted)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsAccepted)
 	if err != nil {
 		return nil, err
 	}
@@ -1017,7 +1017,7 @@ func newE2setupRequestIe10RanFunctionList(esIe *e2appducontents.E2SetupRequestIe
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsAdded)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsAdded)
 	if err != nil {
 		return nil, err
 	}
@@ -1049,7 +1049,7 @@ func newRicServiceUpdateIe10RanFunctionAddedList(esIe *e2appducontents.Ricservic
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsAdded)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsAdded)
 	if err != nil {
 		return nil, err
 	}
@@ -1081,7 +1081,7 @@ func newRicServiceUpdateIe11RanFunctionDeletedList(esIe *e2appducontents.Ricserv
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsDeleted)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsDeleted)
 	if err != nil {
 		return nil, err
 	}
@@ -1113,7 +1113,7 @@ func newRicServiceUpdateIe12RanFunctionModifiedList(esIe *e2appducontents.Ricser
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsModified)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsModified)
 	if err != nil {
 		return nil, err
 	}
@@ -1145,7 +1145,7 @@ func newRicServiceUpdateAcknowledgeIe13RanFunctionsRejected(rsuaIe *e2appduconte
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsRejected)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsRejected)
 	if err != nil {
 		return nil, err
 	}
@@ -1177,7 +1177,7 @@ func newRicServiceUpdateFailureIe13RanFunctionsRejected(rsuaIe *e2appducontents.
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsRejected)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsRejected)
 	if err != nil {
 		return nil, err
 	}
@@ -1209,7 +1209,7 @@ func newE2setupResponseIe13RanFunctionsRejected(esIe *e2appducontents.E2SetupRes
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionsRejected)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionsRejected)
 	if err != nil {
 		return nil, err
 	}
@@ -1241,7 +1241,7 @@ func newRicIndicationIe15RicActionID(riIe *e2appducontents.RicindicationIes_Rici
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicactionID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicactionID)
 	if err != nil {
 		return nil, err
 	}
@@ -1269,7 +1269,7 @@ func newRicSubscriptionResponseIe17RactionAdmittedList(rsrRrIe *e2appducontents.
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicactionsAdmitted)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicactionsAdmitted)
 	if err != nil {
 		return nil, err
 	}
@@ -1301,7 +1301,7 @@ func newRicSubscriptionResponseIe18RicActionNotAdmittedList(rsrRanaIe *e2appduco
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicactionsNotAdmitted)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicactionsNotAdmitted)
 	if err != nil {
 		return nil, err
 	}
@@ -1333,7 +1333,7 @@ func newRicSubscriptionFailureIe18RicActionNotAdmittedList(rsfRanaIe *e2appducon
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicactionsNotAdmitted)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicactionsNotAdmitted)
 	if err != nil {
 		return nil, err
 	}
@@ -1365,7 +1365,7 @@ func newRicIndicationIe20RiccallProcessID(riIe20 *e2appducontents.RicindicationI
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccallProcessID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccallProcessID)
 	if err != nil {
 		return nil, err
 	}
@@ -1393,7 +1393,7 @@ func newRicControlRequestIe20RiccallProcessID(rcrIe20 *e2appducontents.Riccontro
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccallProcessID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccallProcessID)
 	if err != nil {
 		return nil, err
 	}
@@ -1421,7 +1421,7 @@ func newRicControlFailureIe20RiccallProcessID(rcfIe20 *e2appducontents.Riccontro
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccallProcessID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccallProcessID)
 	if err != nil {
 		return nil, err
 	}
@@ -1449,7 +1449,7 @@ func newRicControlAcknowledgeIe20RiccallProcessID(rcrIe20 *e2appducontents.Ricco
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccallProcessID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccallProcessID)
 	if err != nil {
 		return nil, err
 	}
@@ -1477,7 +1477,7 @@ func newRicControlRequestIe21RiccontrolAckRequest(rcrIe21 *e2appducontents.Ricco
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccontrolAckRequest)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccontrolAckRequest)
 	if err != nil {
 		return nil, err
 	}
@@ -1507,7 +1507,7 @@ func newRicControlRequestIe22RiccontrolHeader(rcrIe22 *e2appducontents.Riccontro
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccontrolHeader)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccontrolHeader)
 	if err != nil {
 		return nil, err
 	}
@@ -1536,7 +1536,7 @@ func newRicControlRequestIe23RiccontrolMessage(rcrIe23 *e2appducontents.Riccontr
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccontrolMessage)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccontrolMessage)
 	if err != nil {
 		return nil, err
 	}
@@ -1565,7 +1565,7 @@ func newRicControlAcknowledgeIe24RiccontrolStatus(rcrIe24 *e2appducontents.Ricco
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccontrolStatus)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccontrolStatus)
 	if err != nil {
 		return nil, err
 	}
@@ -1596,7 +1596,7 @@ func newRicIndicationIe25RicIndicationHeader(rihIe *e2appducontents.Ricindicatio
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicindicationHeader)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicindicationHeader)
 	if err != nil {
 		return nil, err
 	}
@@ -1624,7 +1624,7 @@ func newRicIndicationIe26RicIndicationMessage(rimIe *e2appducontents.Ricindicati
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicindicationMessage)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicindicationMessage)
 	if err != nil {
 		return nil, err
 	}
@@ -1652,7 +1652,7 @@ func newRicIndicationIe27RicIndicationSn(risnIe *e2appducontents.RicindicationIe
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicindicationSn)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicindicationSn)
 	if err != nil {
 		return nil, err
 	}
@@ -1679,7 +1679,7 @@ func newRicIndicationIe28RicIndicationType(ritIe *e2appducontents.RicindicationI
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicindicationType)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicindicationType)
 	if err != nil {
 		return nil, err
 	}
@@ -1709,7 +1709,7 @@ func newRicIndicationIe29RicRequestID(rsrRrIDIe *e2appducontents.RicindicationIe
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1739,7 +1739,7 @@ func newRicControlFailureIe29RicRequestID(rcfRrIDIe *e2appducontents.RiccontrolF
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1769,7 +1769,7 @@ func newRicControlRequestIe29RicRequestID(rcrRrIDIe *e2appducontents.RiccontrolR
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1799,7 +1799,7 @@ func newRicSubscriptionRequestIe29RicRequestID(rsrRrIDIe *e2appducontents.Ricsub
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1829,7 +1829,7 @@ func newRicSubscriptionResponseIe29RicRequestID(rsrRrIDIe *e2appducontents.Ricsu
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1859,7 +1859,7 @@ func newRicSubscriptionDeleteRequestIe29RicRequestID(rsrdRrIDIe *e2appducontents
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1889,7 +1889,7 @@ func newRicSubscriptionDeleteResponseIe29RicRequestID(rsrRrIDIe *e2appducontents
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1919,7 +1919,7 @@ func newRicSubscriptionDeleteFailureIe29RicRequestID(rsrRrIDIe *e2appducontents.
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1949,7 +1949,7 @@ func newErrorIndicationIe29RicRequestID(eiRrIDIe *e2appducontents.ErrorIndicatio
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -1980,7 +1980,7 @@ func newRicSubscriptionFailureIe29RicRequestID(rsrRrIDIe *e2appducontents.Ricsub
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -2010,7 +2010,7 @@ func newRicControlAcknowledgeIe29RicRequestID(rsrRrIDIe *e2appducontents.Riccont
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicrequestID)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicrequestID)
 	if err != nil {
 		return nil, err
 	}
@@ -2040,7 +2040,7 @@ func newRicSubscriptionRequestIe30RicSubscriptionDetails(rsrDetIe *e2appduconten
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicsubscriptionDetails)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicsubscriptionDetails)
 	if err != nil {
 		return nil, err
 	}
@@ -2076,7 +2076,7 @@ func newE2setupFailureIe31TimeToWait(e2sfIe *e2appducontents.E2SetupFailureIes_E
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDTimeToWait)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDTimeToWait)
 	if err != nil {
 		return nil, err
 	}
@@ -2109,7 +2109,7 @@ func newRicServiceUpdateFailureIe31TimeToWait(e2sfIe *e2appducontents.Ricservice
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDTimeToWait)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDTimeToWait)
 	if err != nil {
 		return nil, err
 	}
@@ -2142,7 +2142,7 @@ func newE2connectionUpdateFailureIes31TimeToWait(e2cuafIe *e2appducontents.E2Con
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDTimeToWait)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDTimeToWait)
 	if err != nil {
 		return nil, err
 	}
@@ -2175,7 +2175,7 @@ func newE2nodeConfigurationUpdateFailureIes31TimeToWait(e2cuaIe *e2appducontents
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDTimeToWait)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDTimeToWait)
 	if err != nil {
 		return nil, err
 	}
@@ -2208,7 +2208,7 @@ func newRicControlFailureIe32RiccontrolOutcome(rcfIe32 *e2appducontents.Riccontr
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccontrolOutcome)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccontrolOutcome)
 	if err != nil {
 		return nil, err
 	}
@@ -2237,7 +2237,7 @@ func newRicControlAcknowledgeIe32RiccontrolOutcome(rcrIe32 *e2appducontents.Ricc
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRiccontrolOutcome)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRiccontrolOutcome)
 	if err != nil {
 		return nil, err
 	}
@@ -2266,7 +2266,7 @@ func newE2setupRequestIe33E2nodeComponentConfigUpdateList(e2sfIe *e2appducontent
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate)
 	if err != nil {
 		return nil, err
 	}
@@ -2298,7 +2298,7 @@ func newE2nodeConfigurationUpdateIe33E2nodeComponentConfigUpdateList(e2ncuIe *e2
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate)
 	if err != nil {
 		return nil, err
 	}
@@ -2330,7 +2330,7 @@ func newE2setupResponseIe35E2nodeComponentConfigUpdateAckList(e2srIe *e2appducon
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAck)
 	if err != nil {
 		return nil, err
 	}
@@ -2362,7 +2362,7 @@ func newE2nodeConfigurationUpdateAcknowledgeIe35E2nodeComponentConfigUpdateAckLi
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAck)
 	if err != nil {
 		return nil, err
 	}
@@ -2394,7 +2394,7 @@ func newE2connectionUpdateAck39E2connectionUpdateList(e2cuaIe *e2appducontents.E
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionSetup)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2connectionSetup)
 	if err != nil {
 		return nil, err
 	}
@@ -2426,7 +2426,7 @@ func newE2connectionUpdateAck40E2connectionSetupFailedList(e2cuaIe *e2appduconte
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionSetupFailed)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2connectionSetupFailed)
 	if err != nil {
 		return nil, err
 	}
@@ -2458,7 +2458,7 @@ func newE2connectionUpdateIe44E2connectionUpdateList(e2cuIe *e2appducontents.E2C
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionUpdateAdd)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2connectionUpdateAdd)
 	if err != nil {
 		return nil, err
 	}
@@ -2490,7 +2490,7 @@ func newE2connectionUpdateIe45E2connectionUpdateList(e2cuIe *e2appducontents.E2C
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionUpdateModify)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2connectionUpdateModify)
 	if err != nil {
 		return nil, err
 	}
@@ -2525,7 +2525,7 @@ func newE2connectionUpdateIe46E2connectionUpdateRemoveList(e2cuIe *e2appduconten
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionUpdateRemove)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2connectionUpdateRemove)
 	if err != nil {
 		return nil, err
 	}
@@ -2562,7 +2562,7 @@ func newE2setupFailureIe48Tnlinformation(e2sfIe *e2appducontents.E2SetupFailureI
 //	if err != nil {
 //		return nil, err
 //	}
-//	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
+//	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate)
 //	if err != nil {
 //		return nil, err
 //	}
@@ -2594,7 +2594,7 @@ func newE2setupFailureIe48Tnlinformation(e2sfIe *e2appducontents.E2SetupFailureI
 //	if err != nil {
 //		return nil, err
 //	}
-//	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
+//	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAck)
 //	if err != nil {
 //		return nil, err
 //	}
@@ -2626,7 +2626,7 @@ func newRANfunctionItemIEs(rfItemIes *e2appducontents.RanfunctionItemIes) (*C.RA
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2657,7 +2657,7 @@ func newRANfunctionIDItemIEs(rfIDItemIes *e2appducontents.RanfunctionIdItemIes) 
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionIDItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionIDItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2684,7 +2684,7 @@ func newE2nodeComponentConfigUpdateItemIEs(e2nccuItemIes *e2appducontents.E2Node
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2718,7 +2718,7 @@ func newE2nodeComponentConfigUpdateAckItemIEs(e2nccuaItemIes *e2appducontents.E2
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAckItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2751,7 +2751,7 @@ func newE2connectionUpdateItemIEs(e2cuItemIes *e2appducontents.E2ConnectionUpdat
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionUpdateItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2connectionUpdateItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2790,7 +2790,7 @@ func newE2connectionUpdateRemoveItemIEs(e2curItemIes *e2appducontents.E2Connecti
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionUpdateRemoveItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2connectionUpdateRemoveItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2824,7 +2824,7 @@ func newE2connectionSetupFailedItemIEs(e2csfItemIes *e2appducontents.E2Connectio
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDE2connectionSetupFailedItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDE2connectionSetupFailedItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2861,7 +2861,7 @@ func newRANfunctionIDCauseItemIEs(rfIDItemIes *e2appducontents.RanfunctionIdcaus
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRanfunctionIeCauseItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRanfunctionIeCauseItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2892,7 +2892,7 @@ func newRicActionAdmittedItemIEs(raaItemIes *e2appducontents.RicactionAdmittedIt
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicactionAdmittedItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicactionAdmittedItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2918,7 +2918,7 @@ func newRicActionNotAdmittedItemIEs(ranaItemIes *e2appducontents.RicactionNotAdm
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicactionNotAdmittedItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicactionNotAdmittedItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2949,7 +2949,7 @@ func newRicActionToBeSetupItemIEs(ratbsItemIes *e2appducontents.RicactionToBeSet
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v1beta2.ProtocolIeIDRicactionToBeSetupItem)
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDRicactionToBeSetupItem)
 	if err != nil {
 		return nil, err
 	}
@@ -2987,7 +2987,7 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 			return nil, err
 		}
 		ret.E2ApProtocolIes3 = &e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
-			Id:          int32(v1beta2.ProtocolIeIDGlobalE2nodeID),
+			Id:          int32(v2beta1.ProtocolIeIDGlobalE2nodeID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       gE2nID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -2999,7 +2999,7 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 			return nil, err
 		}
 		ret.E2ApProtocolIes10 = &e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAdded),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfl,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3011,7 +3011,7 @@ func decodeE2setupRequestIE(e2srIeC *C.E2setupRequestIEs_t) (*e2appducontents.E2
 			return nil, err
 		}
 		ret.E2ApProtocolIes33 = &e2appducontents.E2SetupRequestIes_E2SetupRequestIes33{
-			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate),
+			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfl,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3037,7 +3037,7 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 			return nil, err
 		}
 		ret.E2ApProtocolIes4 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
-			Id:          int32(v1beta2.ProtocolIeIDGlobalRicID),
+			Id:          int32(v2beta1.ProtocolIeIDGlobalRicID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       gE2nID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3048,7 +3048,7 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 			return nil, err
 		}
 		ret.E2ApProtocolIes9 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes9{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAccepted),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfAccepted,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3059,7 +3059,7 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 			return nil, err
 		}
 		ret.E2ApProtocolIes13 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes13{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsRejected),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsRejected),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfRejected,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3070,7 +3070,7 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 			return nil, err
 		}
 		ret.E2ApProtocolIes35 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes35{
-			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck),
+			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAck),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       e2nccual,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3092,14 +3092,14 @@ func decodeRicSubscriptionRequestIE(rsrIeC *C.RICsubscriptionRequest_IEs_t) (*e2
 	switch rsrIeC.value.present {
 	case C.RICsubscriptionRequest_IEs__value_PR_RICrequestID:
 		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Value:       decodeRicRequestIDBytes(rsrIeC.value.choice[:16]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
 	case C.RICsubscriptionRequest_IEs__value_PR_RANfunctionID:
 		ret.E2ApProtocolIes5 = &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       decodeRanFunctionIDBytes(rsrIeC.value.choice[0:8]),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3110,7 +3110,7 @@ func decodeRicSubscriptionRequestIE(rsrIeC *C.RICsubscriptionRequest_IEs_t) (*e2
 			return nil, fmt.Errorf("decodeRicSubscriptionDetailsBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes30 = &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
-			Id:          int32(v1beta2.ProtocolIeIDRicsubscriptionDetails),
+			Id:          int32(v2beta1.ProtocolIeIDRicsubscriptionDetails),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rsDet,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3135,12 +3135,12 @@ func decodeRicSubscriptionResponseIE(rsrIeC *C.RICsubscriptionResponse_IEs_t) (*
 			Value:       decodeRanFunctionIDBytes(rsrIeC.value.choice[:8]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		}
 
 	case C.RICsubscriptionResponse_IEs__value_PR_RICrequestID:
 		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Value:       decodeRicRequestIDBytes(rsrIeC.value.choice[:16]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3152,7 +3152,7 @@ func decodeRicSubscriptionResponseIE(rsrIeC *C.RICsubscriptionResponse_IEs_t) (*
 			return nil, err
 		}
 		ret.E2ApProtocolIes17 = &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17{
-			Id:          int32(v1beta2.ProtocolIeIDRicactionsAdmitted),
+			Id:          int32(v2beta1.ProtocolIeIDRicactionsAdmitted),
 			Value:       raal,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3164,7 +3164,7 @@ func decodeRicSubscriptionResponseIE(rsrIeC *C.RICsubscriptionResponse_IEs_t) (*
 			return nil, err
 		}
 		ret.E2ApProtocolIes18 = &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes18{
-			Id:          int32(v1beta2.ProtocolIeIDRicactionsNotAdmitted),
+			Id:          int32(v2beta1.ProtocolIeIDRicactionsNotAdmitted),
 			Value:       ranal,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3188,7 +3188,7 @@ func decodeRANfunctionItemIes(rfiIesValC *C.struct_RANfunction_ItemIEs__value) (
 
 		rfiIes := e2appducontents.RanfunctionItemIes{
 			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-				Id:          int32(v1beta2.ProtocolIeIDRanfunctionItem),
+				Id:          int32(v2beta1.ProtocolIeIDRanfunctionItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
@@ -3212,7 +3212,7 @@ func decodeRANfunctionIDItemIes(rfIDiIesValC *C.struct_RANfunctionID_ItemIEs__va
 
 		rfIDiIes := e2appducontents.RanfunctionIdItemIes{
 			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-				Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
+				Id:          int32(v2beta1.ProtocolIeIDRanfunctionIDItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
@@ -3235,7 +3235,7 @@ func decodeE2nodeComponentConfigUpdateItemIes(e2nccuiIesValC *C.struct_E2nodeCom
 	case C.E2nodeComponentConfigUpdate_ItemIEs__value_PR_E2nodeComponentConfigUpdate_Item:
 
 		e2nccuiIes := e2appducontents.E2NodeComponentConfigUpdateItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateItem),
+			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
@@ -3258,7 +3258,7 @@ func decodeE2nodeComponentConfigUpdateAckItemIes(e2nccuaiIesValC *C.struct_E2nod
 	case C.E2nodeComponentConfigUpdateAck_ItemIEs__value_PR_E2nodeComponentConfigUpdateAck_Item:
 
 		e2nccuaiIes := e2appducontents.E2NodeComponentConfigUpdateAckItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
+			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
@@ -3281,7 +3281,7 @@ func decodeE2connectionUpdateItemIes(e2cuiIesValC *C.struct_E2connectionUpdate_I
 	case C.E2nodeComponentConfigUpdate_ItemIEs__value_PR_E2nodeComponentConfigUpdate_Item:
 
 		e2cuiIes := e2appducontents.E2ConnectionUpdateItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+			Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
@@ -3304,7 +3304,7 @@ func decodeE2connectionUpdateRemoveItemIes(e2cuiIesValC *C.struct_E2connectionUp
 	case C.E2connectionUpdateRemove_ItemIEs__value_PR_E2connectionUpdateRemove_Item:
 
 		e2curiIes := e2appducontents.E2ConnectionUpdateRemoveItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateRemoveItem),
+			Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateRemoveItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
@@ -3327,7 +3327,7 @@ func decodeE2connectionSetupFailedItemIes(e2cuiIesValC *C.struct_E2connectionSet
 	case C.E2connectionSetupFailed_ItemIEs__value_PR_E2connectionSetupFailed_Item:
 
 		e2csfiIes := e2appducontents.E2ConnectionSetupFailedItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailedItem),
+			Id:          int32(v2beta1.ProtocolIeIDE2connectionSetupFailedItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
@@ -3351,7 +3351,7 @@ func decodeRANfunctionIDCauseItemIes(rfIDciIesValC *C.struct_RANfunctionIDcause_
 
 		rfIDiIes := e2appducontents.RanfunctionIdcauseItemIes{
 			RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
-				Id:          int32(v1beta2.ProtocolIeIDRanfunctionIeCauseItem),
+				Id:          int32(v2beta1.ProtocolIeIDRanfunctionIeCauseItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
@@ -3374,7 +3374,7 @@ func decodeRicActionAdmittedIDItemIes(raaiIesValC *C.struct_RICaction_Admitted_I
 	case C.RICaction_Admitted_ItemIEs__value_PR_RICaction_Admitted_Item:
 
 		raaiIes := e2appducontents.RicactionAdmittedItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDRicactionAdmittedItem),
+			Id:          int32(v2beta1.ProtocolIeIDRicactionAdmittedItem),
 			Value:       decodeRicActionAdmittedItemBytes(raaiIesValC.choice),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3395,7 +3395,7 @@ func decodeRicActionNotAdmittedIDItemIes(ranaiIesValC *C.struct_RICaction_NotAdm
 			return nil, fmt.Errorf("decodeRicActionNotAdmittedItemBytes() %s", err.Error())
 		}
 		ranaiIes := e2appducontents.RicactionNotAdmittedItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDRicactionNotAdmittedItem),
+			Id:          int32(v2beta1.ProtocolIeIDRicactionNotAdmittedItem),
 			Value:       rana,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3414,7 +3414,7 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	case C.RICindication_IEs__value_PR_RANfunctionID:
 		rfID := decodeRanFunctionIDBytes(riIeC.value.choice[0:8])
 		ret.E2ApProtocolIes5 = &e2appducontents.RicindicationIes_RicindicationIes5{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3423,7 +3423,7 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	case C.RICindication_IEs__value_PR_RICactionID:
 		raID := decodeRicActionIDBytes(riIeC.value.choice[0:8])
 		ret.E2ApProtocolIes15 = &e2appducontents.RicindicationIes_RicindicationIes15{
-			Id:          int32(v1beta2.ProtocolIeIDRicactionID),
+			Id:          int32(v2beta1.ProtocolIeIDRicactionID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       raID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3432,7 +3432,7 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	case C.RICindication_IEs__value_PR_RICcallProcessID:
 		rcpID := decodeRicCallProcessIDBytes(riIeC.value.choice[0:16])
 		ret.E2ApProtocolIes20 = &e2appducontents.RicindicationIes_RicindicationIes20{
-			Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
+			Id:          int32(v2beta1.ProtocolIeIDRiccallProcessID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rcpID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3441,7 +3441,7 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	case C.RICindication_IEs__value_PR_RICindicationHeader:
 		rih := decodeRicIndicationHeaderBytes(riIeC.value.choice[0:16])
 		ret.E2ApProtocolIes25 = &e2appducontents.RicindicationIes_RicindicationIes25{
-			Id:          int32(v1beta2.ProtocolIeIDRicindicationHeader),
+			Id:          int32(v2beta1.ProtocolIeIDRicindicationHeader),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rih,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3450,7 +3450,7 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	case C.RICindication_IEs__value_PR_RICindicationMessage:
 		rim := decodeRicIndicationMessageBytes(riIeC.value.choice[0:16])
 		ret.E2ApProtocolIes26 = &e2appducontents.RicindicationIes_RicindicationIes26{
-			Id:          int32(v1beta2.ProtocolIeIDRicindicationMessage),
+			Id:          int32(v2beta1.ProtocolIeIDRicindicationMessage),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rim,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3459,7 +3459,7 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	case C.RICindication_IEs__value_PR_RICindicationSN:
 		risn := decodeRicIndicationSnBytes(riIeC.value.choice[0:8])
 		ret.E2ApProtocolIes27 = &e2appducontents.RicindicationIes_RicindicationIes27{
-			Id:          int32(v1beta2.ProtocolIeIDRicindicationSn),
+			Id:          int32(v2beta1.ProtocolIeIDRicindicationSn),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       risn,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3468,7 +3468,7 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	case C.RICindication_IEs__value_PR_RICindicationType:
 		rit := decodeRicIndicationTypeBytes(riIeC.value.choice[0:8])
 		ret.E2ApProtocolIes28 = &e2appducontents.RicindicationIes_RicindicationIes28{
-			Id:          int32(v1beta2.ProtocolIeIDRicindicationType),
+			Id:          int32(v2beta1.ProtocolIeIDRicindicationType),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rit,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3477,7 +3477,7 @@ func decodeRicIndicationIE(riIeC *C.RICindication_IEs_t) (*e2appducontents.Ricin
 	case C.RICindication_IEs__value_PR_RICrequestID:
 		rrID := decodeRicRequestIDBytes(riIeC.value.choice[0:16])
 		ret.E2ApProtocolIes29 = &e2appducontents.RicindicationIes_RicindicationIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rrID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3501,7 +3501,7 @@ func decodeRicControlRequestIE(rcRIeC *C.RICcontrolRequest_IEs_t) (*e2appduconte
 	case C.RICcontrolRequest_IEs__value_PR_RANfunctionID:
 		rfID := decodeRanFunctionIDBytes(rcRIeC.value.choice[0:8])
 		ret.E2ApProtocolIes5 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes5{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3510,7 +3510,7 @@ func decodeRicControlRequestIE(rcRIeC *C.RICcontrolRequest_IEs_t) (*e2appduconte
 	case C.RICcontrolRequest_IEs__value_PR_RICcallProcessID:
 		rcpID := decodeRicCallProcessIDBytes(rcRIeC.value.choice[0:16])
 		ret.E2ApProtocolIes20 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes20{
-			Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
+			Id:          int32(v2beta1.ProtocolIeIDRiccallProcessID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rcpID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3519,7 +3519,7 @@ func decodeRicControlRequestIE(rcRIeC *C.RICcontrolRequest_IEs_t) (*e2appduconte
 	case C.RICcontrolRequest_IEs__value_PR_RICrequestID:
 		rrID := decodeRicRequestIDBytes(rcRIeC.value.choice[0:16])
 		ret.E2ApProtocolIes29 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rrID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3528,7 +3528,7 @@ func decodeRicControlRequestIE(rcRIeC *C.RICcontrolRequest_IEs_t) (*e2appduconte
 	case C.RICcontrolRequest_IEs__value_PR_RICcontrolHeader:
 		rch := decodeRicControlHeaderBytes(rcRIeC.value.choice[0:16])
 		ret.E2ApProtocolIes22 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes22{
-			Id:          int32(v1beta2.ProtocolIeIDRiccontrolHeader),
+			Id:          int32(v2beta1.ProtocolIeIDRiccontrolHeader),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rch,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3537,7 +3537,7 @@ func decodeRicControlRequestIE(rcRIeC *C.RICcontrolRequest_IEs_t) (*e2appduconte
 	case C.RICcontrolRequest_IEs__value_PR_RICcontrolMessage:
 		rcm := decodeRicControlMessageBytes(rcRIeC.value.choice[0:16])
 		ret.E2ApProtocolIes23 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes23{
-			Id:          int32(v1beta2.ProtocolIeIDRiccontrolMessage),
+			Id:          int32(v2beta1.ProtocolIeIDRiccontrolMessage),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rcm,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3546,7 +3546,7 @@ func decodeRicControlRequestIE(rcRIeC *C.RICcontrolRequest_IEs_t) (*e2appduconte
 	case C.RICcontrolRequest_IEs__value_PR_RICcontrolAckRequest:
 		rcar := decodeRicControlAckRequestBytes(rcRIeC.value.choice[0:16])
 		ret.E2ApProtocolIes21 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes21{
-			Id:          int32(v1beta2.ProtocolIeIDRiccontrolAckRequest),
+			Id:          int32(v2beta1.ProtocolIeIDRiccontrolAckRequest),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rcar,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3570,7 +3570,7 @@ func decodeRicControlFailureIE(rcfIeC *C.RICcontrolFailure_IEs_t) (*e2appduconte
 	case C.RICcontrolFailure_IEs__value_PR_RANfunctionID:
 		rfID := decodeRanFunctionIDBytes(rcfIeC.value.choice[0:8])
 		ret.E2ApProtocolIes5 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes5{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3579,7 +3579,7 @@ func decodeRicControlFailureIE(rcfIeC *C.RICcontrolFailure_IEs_t) (*e2appduconte
 	case C.RICcontrolFailure_IEs__value_PR_RICcallProcessID:
 		rcpID := decodeRicCallProcessIDBytes(rcfIeC.value.choice[0:16])
 		ret.E2ApProtocolIes20 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes20{
-			Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
+			Id:          int32(v2beta1.ProtocolIeIDRiccallProcessID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rcpID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3588,7 +3588,7 @@ func decodeRicControlFailureIE(rcfIeC *C.RICcontrolFailure_IEs_t) (*e2appduconte
 	case C.RICcontrolFailure_IEs__value_PR_RICrequestID:
 		rrID := decodeRicRequestIDBytes(rcfIeC.value.choice[0:16])
 		ret.E2ApProtocolIes29 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rrID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3600,7 +3600,7 @@ func decodeRicControlFailureIE(rcfIeC *C.RICcontrolFailure_IEs_t) (*e2appduconte
 			return nil, err
 		}
 		ret.E2ApProtocolIes1 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes1{
-			Id:          int32(v1beta2.ProtocolIeIDCause),
+			Id:          int32(v2beta1.ProtocolIeIDCause),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       cause,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3609,7 +3609,7 @@ func decodeRicControlFailureIE(rcfIeC *C.RICcontrolFailure_IEs_t) (*e2appduconte
 	case C.RICcontrolFailure_IEs__value_PR_RICcontrolOutcome:
 		rco := decodeRicControlOutcomeBytes(rcfIeC.value.choice[0:16])
 		ret.E2ApProtocolIes32 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes32{
-			Id:          int32(v1beta2.ProtocolIeIDRiccontrolOutcome),
+			Id:          int32(v2beta1.ProtocolIeIDRiccontrolOutcome),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rco,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3633,7 +3633,7 @@ func decodeRicControlAcknowledgeIE(rcaIeC *C.RICcontrolAcknowledge_IEs_t) (*e2ap
 	case C.RICcontrolAcknowledge_IEs__value_PR_RANfunctionID:
 		rfID := decodeRanFunctionIDBytes(rcaIeC.value.choice[0:8])
 		ret.E2ApProtocolIes5 = &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3642,7 +3642,7 @@ func decodeRicControlAcknowledgeIE(rcaIeC *C.RICcontrolAcknowledge_IEs_t) (*e2ap
 	case C.RICcontrolAcknowledge_IEs__value_PR_RICcallProcessID:
 		rcpID := decodeRicCallProcessIDBytes(rcaIeC.value.choice[0:16])
 		ret.E2ApProtocolIes20 = &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20{
-			Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
+			Id:          int32(v2beta1.ProtocolIeIDRiccallProcessID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rcpID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3651,7 +3651,7 @@ func decodeRicControlAcknowledgeIE(rcaIeC *C.RICcontrolAcknowledge_IEs_t) (*e2ap
 	case C.RICcontrolAcknowledge_IEs__value_PR_RICcontrolStatus:
 		rcs := decodeRicControlStatusBytes(rcaIeC.value.choice[0:16])
 		ret.E2ApProtocolIes24 = &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24{
-			Id:          int32(v1beta2.ProtocolIeIDRiccontrolStatus),
+			Id:          int32(v2beta1.ProtocolIeIDRiccontrolStatus),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rcs,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3660,7 +3660,7 @@ func decodeRicControlAcknowledgeIE(rcaIeC *C.RICcontrolAcknowledge_IEs_t) (*e2ap
 	case C.RICcontrolAcknowledge_IEs__value_PR_RICrequestID:
 		rrID := decodeRicRequestIDBytes(rcaIeC.value.choice[0:16])
 		ret.E2ApProtocolIes29 = &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rrID,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3669,7 +3669,7 @@ func decodeRicControlAcknowledgeIE(rcaIeC *C.RICcontrolAcknowledge_IEs_t) (*e2ap
 	case C.RICcontrolAcknowledge_IEs__value_PR_RICcontrolOutcome:
 		rco := decodeRicControlOutcomeBytes(rcaIeC.value.choice[0:16])
 		ret.E2ApProtocolIes32 = &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32{
-			Id:          int32(v1beta2.ProtocolIeIDRiccontrolOutcome),
+			Id:          int32(v2beta1.ProtocolIeIDRiccontrolOutcome),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rco,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3691,7 +3691,7 @@ func decodeRicActionToBeSetupItemIes(ratbsIesValC *C.struct_RICaction_ToBeSetup_
 	switch present := ratbsIesValC.present; present {
 	case C.RICaction_ToBeSetup_ItemIEs__value_PR_RICaction_ToBeSetup_Item:
 		ratbsIIes := e2appducontents.RicactionToBeSetupItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDRicactionToBeSetupItem),
+			Id:          int32(v2beta1.ProtocolIeIDRicactionToBeSetupItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
@@ -3713,14 +3713,14 @@ func decodeRicSubscriptionDeleteRequestIE(rsrdIeC *C.RICsubscriptionDeleteReques
 	switch rsrdIeC.value.present {
 	case C.RICsubscriptionDeleteRequest_IEs__value_PR_RICrequestID:
 		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Value:       decodeRicRequestIDBytes(rsrdIeC.value.choice[:16]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
 	case C.RICsubscriptionDeleteRequest_IEs__value_PR_RANfunctionID:
 		ret.E2ApProtocolIes5 = &e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       decodeRanFunctionIDBytes(rsrdIeC.value.choice[0:8]),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3745,12 +3745,12 @@ func decodeRicSubscriptionDeleteResponseIE(rsdrIeC *C.RICsubscriptionDeleteRespo
 			Value:       decodeRanFunctionIDBytes(rsdrIeC.value.choice[:8]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		}
 
 	case C.RICsubscriptionDeleteResponse_IEs__value_PR_RICrequestID:
 		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Value:       decodeRicRequestIDBytes(rsdrIeC.value.choice[:16]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3776,12 +3776,12 @@ func decodeRicSubscriptionDeleteFailureIE(rsdfIeC *C.RICsubscriptionDeleteFailur
 			Value:       decodeRanFunctionIDBytes(rsdfIeC.value.choice[:8]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		}
 
 	case C.RICsubscriptionDeleteFailure_IEs__value_PR_RICrequestID:
 		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Value:       decodeRicRequestIDBytes(rsdfIeC.value.choice[:16]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3793,7 +3793,7 @@ func decodeRicSubscriptionDeleteFailureIE(rsdfIeC *C.RICsubscriptionDeleteFailur
 			return nil, fmt.Errorf("decodeCauseBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes1 = &e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1{
-			Id:          int32(v1beta2.ProtocolIeIDCause),
+			Id:          int32(v2beta1.ProtocolIeIDCause),
 			Value:       cause,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3805,7 +3805,7 @@ func decodeRicSubscriptionDeleteFailureIE(rsdfIeC *C.RICsubscriptionDeleteFailur
 			return nil, fmt.Errorf("decodeCriticalityDiagnosticsBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes2 = &e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Value:       cd,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3831,12 +3831,12 @@ func decodeRicSubscriptionFailureIE(rsfIeC *C.RICsubscriptionFailure_IEs_t) (*e2
 			Value:       decodeRanFunctionIDBytes(rsfIeC.value.choice[:8]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		}
 
 	case C.RICsubscriptionFailure_IEs__value_PR_RICrequestID:
 		ret.E2ApProtocolIes29 = &e2appducontents.RicsubscriptionFailureIes_RicsubscriptionFailureIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Value:       decodeRicRequestIDBytes(rsfIeC.value.choice[:16]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3848,7 +3848,7 @@ func decodeRicSubscriptionFailureIE(rsfIeC *C.RICsubscriptionFailure_IEs_t) (*e2
 			return nil, fmt.Errorf("decodeCriticalityDiagnosticsBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes2 = &e2appducontents.RicsubscriptionFailureIes_RicsubscriptionFailureIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Value:       cd,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3860,7 +3860,7 @@ func decodeRicSubscriptionFailureIE(rsfIeC *C.RICsubscriptionFailure_IEs_t) (*e2
 			return nil, fmt.Errorf("decodeRicActionNotAdmittedListBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes18 = &e2appducontents.RicsubscriptionFailureIes_RicsubscriptionFailureIes18{
-			Id:          int32(v1beta2.ProtocolIeIDRicactionsNotAdmitted),
+			Id:          int32(v2beta1.ProtocolIeIDRicactionsNotAdmitted),
 			Value:       ranaL,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -3886,12 +3886,12 @@ func decodeErrorIndicationIE(eiIeC *C.ErrorIndication_IEs_t) (*e2appducontents.E
 			Value:       decodeRanFunctionIDBytes(eiIeC.value.choice[:8]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		}
 
 	case C.ErrorIndication_IEs__value_PR_RICrequestID:
 		ret.E2ApProtocolIes29 = &e2appducontents.ErrorIndicationIes_ErrorIndicationIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Value:       decodeRicRequestIDBytes(eiIeC.value.choice[:16]),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3903,7 +3903,7 @@ func decodeErrorIndicationIE(eiIeC *C.ErrorIndication_IEs_t) (*e2appducontents.E
 			return nil, fmt.Errorf("decodeCriticalityDiagnosticsBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes2 = &e2appducontents.ErrorIndicationIes_ErrorIndicationIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Value:       cd,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3915,7 +3915,7 @@ func decodeErrorIndicationIE(eiIeC *C.ErrorIndication_IEs_t) (*e2appducontents.E
 			return nil, fmt.Errorf("decodeCauseBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes1 = &e2appducontents.ErrorIndicationIes_ErrorIndicationIes1{
-			Id:          int32(v1beta2.ProtocolIeIDCause),
+			Id:          int32(v2beta1.ProtocolIeIDCause),
 			Value:       cause,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3944,7 +3944,7 @@ func decodeRicServiceQueryIE(rsqIeC *C.RICserviceQuery_IEs_t) (*e2appducontents.
 			return nil, err
 		}
 		ret.RicserviceQueryIes9 = &e2appducontents.RicserviceQueryIes_RicserviceQueryIes9{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAccepted),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfAccepted,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -3973,7 +3973,7 @@ func decodeResetRequestIE(rrIeC *C.ResetRequestIEs_t) (*e2appducontents.ResetReq
 			return nil, err
 		}
 		ret.ResetRequestIes1 = &e2appducontents.ResetRequestIes_ResetRequestIes1{
-			Id:          int32(v1beta2.ProtocolIeIDCause),
+			Id:          int32(v2beta1.ProtocolIeIDCause),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       cause,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -4002,7 +4002,7 @@ func decodeResetResponseIE(rrIeC *C.ResetResponseIEs_t) (*e2appducontents.ResetR
 			return nil, err
 		}
 		ret.ResetResponseIes2 = &e2appducontents.ResetResponseIes_ResetResponseIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       cd,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4032,18 +4032,18 @@ func decodeRicServiceUpdateIE(rrIeC *C.RICserviceUpdate_IEs_t) (*e2appducontents
 		}
 
 		id := decodeProtocolIeID(rrIeC.id)
-		if id.GetValue() == int32(v1beta2.ProtocolIeIDRanfunctionsAdded) {
+		if id.GetValue() == int32(v2beta1.ProtocolIeIDRanfunctionsAdded) {
 			ret.E2ApProtocolIes10 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes10{
-				Id:                    int32(v1beta2.ProtocolIeIDRanfunctionsAdded),
+				Id:                    int32(v2beta1.ProtocolIeIDRanfunctionsAdded),
 				Criticality:           int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				RanFunctionsAddedList: rfl,
 				Presence:              int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 			}
 		}
 
-		if id.GetValue() == int32(v1beta2.ProtocolIeIDRanfunctionsModified) {
+		if id.GetValue() == int32(v2beta1.ProtocolIeIDRanfunctionsModified) {
 			ret.E2ApProtocolIes12 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes12{
-				Id:                       int32(v1beta2.ProtocolIeIDRanfunctionsModified),
+				Id:                       int32(v2beta1.ProtocolIeIDRanfunctionsModified),
 				Criticality:              int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				RanFunctionsModifiedList: rfl,
 				Presence:                 int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4058,7 +4058,7 @@ func decodeRicServiceUpdateIE(rrIeC *C.RICserviceUpdate_IEs_t) (*e2appducontents
 			return nil, err
 		}
 		ret.E2ApProtocolIes11 = &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes11{
-			Id:                      int32(v1beta2.ProtocolIeIDRanfunctionsDeleted),
+			Id:                      int32(v2beta1.ProtocolIeIDRanfunctionsDeleted),
 			Criticality:             int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			RanFunctionsDeletedList: rfdl,
 			Presence:                int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4087,7 +4087,7 @@ func decodeRicServiceUpdateAcknowledgeIE(rrIeC *C.RICserviceUpdateAcknowledge_IE
 			return nil, err
 		}
 		ret.E2ApProtocolIes9 = &e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAccepted),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfIDl,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4101,7 +4101,7 @@ func decodeRicServiceUpdateAcknowledgeIE(rrIeC *C.RICserviceUpdateAcknowledge_IE
 			return nil, err
 		}
 		ret.E2ApProtocolIes13 = &e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsRejected),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsRejected),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       rfIDcl,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4130,7 +4130,7 @@ func decodeRicServiceUpdateFailureIE(rsufIeC *C.RICserviceUpdateFailure_IEs_t) (
 			return nil, err
 		}
 		ret.E2ApProtocolIes2 = &e2appducontents.RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       cd,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4142,7 +4142,7 @@ func decodeRicServiceUpdateFailureIE(rsufIeC *C.RICserviceUpdateFailure_IEs_t) (
 		ttw := decodeTimeToWaitBytes(rsufIeC.value.choice[:8])
 
 		ret.E2ApProtocolIes31 = &e2appducontents.RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31{
-			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
+			Id:          int32(v2beta1.ProtocolIeIDTimeToWait),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       ttw,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4156,7 +4156,7 @@ func decodeRicServiceUpdateFailureIE(rsufIeC *C.RICserviceUpdateFailure_IEs_t) (
 			return nil, err
 		}
 		ret.E2ApProtocolIes13 = &e2appducontents.RicserviceUpdateFailureIes_RicserviceUpdateFailureIes13{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsRejected),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsRejected),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       rfIDcl,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4183,7 +4183,7 @@ func decodeE2nodeConfigurationUpdateIE(e2ncuIeC *C.E2nodeConfigurationUpdate_IEs
 			return nil, err
 		}
 
-		ret.Id = int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate)
+		ret.Id = int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate)
 		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT)
 		ret.Value = e2ncul
 		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL)
@@ -4211,7 +4211,7 @@ func decodeE2nodeConfigurationUpdateAcknowledgeIE(e2ncuaIeC *C.E2nodeConfigurati
 			return nil, err
 		}
 
-		ret.Id = int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck)
+		ret.Id = int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAck)
 		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT)
 		ret.Value = e2ncual
 		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL)
@@ -4239,7 +4239,7 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 			return nil, err
 		}
 		ret.E2ApProtocolIes1 = &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
-			Id:          int32(v1beta2.ProtocolIeIDCause),
+			Id:          int32(v2beta1.ProtocolIeIDCause),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       cause,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -4253,7 +4253,7 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 			return nil, err
 		}
 		ret.E2ApProtocolIes2 = &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       cd,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4265,7 +4265,7 @@ func decodeE2nodeConfigurationUpdateFailureIE(e2ncufIeC *C.E2nodeConfigurationUp
 		ttw := decodeTimeToWaitBytes(e2ncufIeC.value.choice[:8])
 
 		ret.E2ApProtocolIes31 = &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes31{
-			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
+			Id:          int32(v2beta1.ProtocolIeIDTimeToWait),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       ttw,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4294,7 +4294,7 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 			return nil, err
 		}
 		ret.E2ApProtocolIes1 = &e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes1{
-			Id:          int32(v1beta2.ProtocolIeIDCause),
+			Id:          int32(v2beta1.ProtocolIeIDCause),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       cause,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4308,7 +4308,7 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 			return nil, err
 		}
 		ret.E2ApProtocolIes2 = &e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       cd,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4320,7 +4320,7 @@ func decodeE2connectionUpdateFailureIE(e2cufIeC *C.E2connectionUpdateFailure_IEs
 		ttw := decodeTimeToWaitBytes(e2cufIeC.value.choice[:8])
 
 		ret.E2ApProtocolIes31 = &e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes31{
-			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
+			Id:          int32(v2beta1.ProtocolIeIDTimeToWait),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       ttw,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4350,18 +4350,18 @@ func decodeE2connectionUpdateIE(e2cuIeC *C.E2connectionUpdate_IEs_t) (*e2appduco
 		}
 
 		id := decodeProtocolIeID(e2cuIeC.id)
-		if id.GetValue() == int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd) {
+		if id.GetValue() == int32(v2beta1.ProtocolIeIDE2connectionUpdateAdd) {
 			ret.E2ApProtocolIes44 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
-				Id:            int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
+				Id:            int32(v2beta1.ProtocolIeIDE2connectionUpdateAdd),
 				Criticality:   int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				ConnectionAdd: cul,
 				Presence:      int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 			}
 		}
 
-		if id.GetValue() == int32(v1beta2.ProtocolIeIDE2connectionUpdateModify) {
+		if id.GetValue() == int32(v2beta1.ProtocolIeIDE2connectionUpdateModify) {
 			ret.E2ApProtocolIes45 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes45{
-				Id:               int32(v1beta2.ProtocolIeIDE2connectionUpdateModify),
+				Id:               int32(v2beta1.ProtocolIeIDE2connectionUpdateModify),
 				Criticality:      int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				ConnectionModify: cul,
 				Presence:         int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4376,7 +4376,7 @@ func decodeE2connectionUpdateIE(e2cuIeC *C.E2connectionUpdate_IEs_t) (*e2appduco
 			return nil, err
 		}
 		ret.E2ApProtocolIes46 = &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46{
-			Id:               int32(v1beta2.ProtocolIeIDE2connectionUpdateRemove),
+			Id:               int32(v2beta1.ProtocolIeIDE2connectionUpdateRemove),
 			Criticality:      int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionRemove: crl,
 			Presence:         int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4405,7 +4405,7 @@ func decodeE2connectionUpdateAckIE(e2cuaIeC *C.E2connectionUpdateAck_IEs_t) (*e2
 			return nil, err
 		}
 		ret.E2ApProtocolIes39 = &e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39{
-			Id:              int32(v1beta2.ProtocolIeIDE2connectionSetup),
+			Id:              int32(v2beta1.ProtocolIeIDE2connectionSetup),
 			Criticality:     int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionSetup: csl,
 			Presence:        int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4419,7 +4419,7 @@ func decodeE2connectionUpdateAckIE(e2cuaIeC *C.E2connectionUpdateAck_IEs_t) (*e2
 			return nil, err
 		}
 		ret.E2ApProtocolIes40 = &e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes40{
-			Id:                    int32(v1beta2.ProtocolIeIDE2connectionSetupFailed),
+			Id:                    int32(v2beta1.ProtocolIeIDE2connectionSetupFailed),
 			Criticality:           int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionSetupFailed: csfl,
 			Presence:              int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4445,7 +4445,7 @@ func decodeE2setupFailureIE(eiIeC *C.E2setupFailureIEs_t) (*e2appducontents.E2Se
 			Value:       decodeTimeToWaitBytes(eiIeC.value.choice[:8]), //TODO: See RICtimeToWait
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
+			Id:          int32(v2beta1.ProtocolIeIDTimeToWait),
 		}
 
 	case C.E2setupFailureIEs__value_PR_CriticalityDiagnostics:
@@ -4454,7 +4454,7 @@ func decodeE2setupFailureIE(eiIeC *C.E2setupFailureIEs_t) (*e2appducontents.E2Se
 			return nil, fmt.Errorf("decodeCriticalityDiagnosticsBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes2 = &e2appducontents.E2SetupFailureIes_E2SetupFailureIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Value:       cd,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -4466,7 +4466,7 @@ func decodeE2setupFailureIE(eiIeC *C.E2setupFailureIEs_t) (*e2appducontents.E2Se
 			return nil, fmt.Errorf("decodeCauseBytes() %s", err.Error())
 		}
 		ret.E2ApProtocolIes1 = &e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
-			Id:          int32(v1beta2.ProtocolIeIDCause),
+			Id:          int32(v2beta1.ProtocolIeIDCause),
 			Value:       cause,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),

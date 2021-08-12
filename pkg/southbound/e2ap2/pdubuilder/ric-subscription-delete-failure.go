@@ -5,23 +5,23 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
 func CreateRicSubscriptionDeleteFailureE2apPdu(
 	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, cause *e2apies.Cause,
-	failureProcCode *v1beta2.ProcedureCodeT, failureCrit *e2ap_commondatatypes.Criticality,
+	failureProcCode *v2beta1.ProcedureCodeT, failureCrit *e2ap_commondatatypes.Criticality,
 	failureTrigMsg *e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
 	critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29{
-		Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReq.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -31,7 +31,7 @@ func CreateRicSubscriptionDeleteFailureE2apPdu(
 	}
 
 	ranFunctionID := e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes5{
-		Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+		Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -40,7 +40,7 @@ func CreateRicSubscriptionDeleteFailureE2apPdu(
 	}
 
 	causeOfFailure := e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1{
-		Id:          int32(v1beta2.ProtocolIeIDCause),
+		Id:          int32(v2beta1.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value:       cause,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -60,7 +60,7 @@ func CreateRicSubscriptionDeleteFailureE2apPdu(
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
-							Value: int32(v1beta2.ProcedureCodeIDRICsubscriptionDelete),
+							Value: int32(v2beta1.ProcedureCodeIDRICsubscriptionDelete),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -73,7 +73,7 @@ func CreateRicSubscriptionDeleteFailureE2apPdu(
 
 	if failureProcCode != nil && failureTrigMsg != nil && failureCrit != nil && reqID != nil {
 		criticalityDiagnostics := &e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2apies.CriticalityDiagnostics{
 				ProcedureCode: &e2ap_commondatatypes.ProcedureCode{

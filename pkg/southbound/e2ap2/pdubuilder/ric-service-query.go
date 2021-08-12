@@ -5,12 +5,12 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
@@ -21,7 +21,7 @@ func CreateRicServiceQueryE2apPdu(rfAccepted types.RanFunctionRevisions) (*e2app
 	}
 
 	ranFunctionsAccepted := e2appducontents.RicserviceQueryIes_RicserviceQueryIes9{
-		Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
+		Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
@@ -32,7 +32,7 @@ func CreateRicServiceQueryE2apPdu(rfAccepted types.RanFunctionRevisions) (*e2app
 	for rfID, rfRevision := range rfAccepted {
 		rfIDiIe := e2appducontents.RanfunctionIdItemIes{
 			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-				Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
+				Id:          int32(v2beta1.ProtocolIeIDRanfunctionIDItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.RanfunctionIdItem{
 					RanFunctionId: &e2apies.RanfunctionId{
@@ -59,7 +59,7 @@ func CreateRicServiceQueryE2apPdu(rfAccepted types.RanFunctionRevisions) (*e2app
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRicserviceQuery{
-							Value: int32(v1beta2.ProcedureCodeIDRICserviceQuery),
+							Value: int32(v2beta1.ProcedureCodeIDRICserviceQuery),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,

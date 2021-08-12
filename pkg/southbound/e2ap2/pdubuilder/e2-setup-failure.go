@@ -5,21 +5,21 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
-func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failureProcCode *v1beta2.ProcedureCodeT,
+func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failureProcCode *v2beta1.ProcedureCodeT,
 	failureCrit *e2ap_commondatatypes.Criticality, failureTrigMsg *e2ap_commondatatypes.TriggeringMessage,
 	reqID *types.RicRequest, critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
 	errorCause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
-		Id:          int32(v1beta2.ProtocolIeIDCause),
+		Id:          int32(v2beta1.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value:       &cause, // Probably, could be any other reason
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -38,7 +38,7 @@ func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failu
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2Setup{
-							Value: int32(v1beta2.ProcedureCodeIDE2setup),
+							Value: int32(v2beta1.ProcedureCodeIDE2setup),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -51,7 +51,7 @@ func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failu
 
 	if failureProcCode != nil && failureTrigMsg != nil && failureCrit != nil && reqID != nil {
 		criticalityDiagnostics := e2appducontents.E2SetupFailureIes_E2SetupFailureIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2apies.CriticalityDiagnostics{
 				ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
@@ -89,7 +89,7 @@ func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failu
 
 	if ttw != nil {
 		e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2Setup().GetUnsuccessfulOutcome().GetProtocolIes().E2ApProtocolIes31 = &e2appducontents.E2SetupFailureIes_E2SetupFailureIes31{
-			Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
+			Id:          int32(v2beta1.ProtocolIeIDTimeToWait),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       *ttw, // Could be any other value
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),

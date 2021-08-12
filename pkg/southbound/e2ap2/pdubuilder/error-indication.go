@@ -5,17 +5,17 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
 func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.RanFunctionID,
-	cause *e2apies.Cause, failureProcCode *v1beta2.ProcedureCodeT,
+	cause *e2apies.Cause, failureProcCode *v2beta1.ProcedureCodeT,
 	failureCrit *e2ap_commondatatypes.Criticality, failureTrigMsg *e2ap_commondatatypes.TriggeringMessage,
 	reqID *types.RicRequest, critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
@@ -38,7 +38,7 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.R
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdErrorIndication{
-							Value: int32(v1beta2.ProcedureCodeIDErrorIndication),
+							Value: int32(v2beta1.ProcedureCodeIDErrorIndication),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
@@ -51,7 +51,7 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.R
 
 	if ricReqID != nil {
 		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetErrorIndication().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes29 = &e2appducontents.ErrorIndicationIes_ErrorIndicationIes29{
-			Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+			Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2apies.RicrequestId{
 				RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -63,7 +63,7 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.R
 
 	if ranFuncID != nil {
 		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetErrorIndication().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes5 = &e2appducontents.ErrorIndicationIes_ErrorIndicationIes5{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2apies.RanfunctionId{
 				Value: int32(*ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -74,7 +74,7 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.R
 
 	if cause != nil {
 		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetErrorIndication().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes1 = &e2appducontents.ErrorIndicationIes_ErrorIndicationIes1{
-			Id:          int32(v1beta2.ProtocolIeIDCause),
+			Id:          int32(v2beta1.ProtocolIeIDCause),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value:       cause,
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -83,7 +83,7 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.R
 
 	if failureProcCode != nil && failureTrigMsg != nil && failureCrit != nil && reqID != nil {
 		criticalityDiagnostics := &e2appducontents.ErrorIndicationIes_ErrorIndicationIes2{
-			Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2apies.CriticalityDiagnostics{
 				ProcedureCode: &e2ap_commondatatypes.ProcedureCode{

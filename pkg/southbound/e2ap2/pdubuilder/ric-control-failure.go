@@ -5,12 +5,12 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
@@ -19,7 +19,7 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	ricCtrlOut types.RicControlOutcome) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes29{
-		Id:          int32(v1beta2.ProtocolIeIDRicrequestID),
+		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -29,7 +29,7 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	}
 
 	ranFunctionID := e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes5{
-		Id:          int32(v1beta2.ProtocolIeIDRanfunctionID),
+		Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -38,7 +38,7 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	}
 
 	ricCause := e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes1{
-		Id:          int32(v1beta2.ProtocolIeIDCause),
+		Id:          int32(v2beta1.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value:       &cause,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -59,7 +59,7 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRiccontrol{
-							Value: int32(v1beta2.ProcedureCodeIDRICcontrol),
+							Value: int32(v2beta1.ProcedureCodeIDRICcontrol),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -72,7 +72,7 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 
 	if ricCallPrID != nil {
 		e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().GetProtocolIes().E2ApProtocolIes20 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes20{
-			Id:          int32(v1beta2.ProtocolIeIDRiccallProcessID),
+			Id:          int32(v2beta1.ProtocolIeIDRiccallProcessID),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2ap_commondatatypes.RiccallProcessId{
 				Value: []byte(ricCallPrID),
@@ -83,7 +83,7 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 
 	if ricCtrlOut != nil {
 		e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().GetProtocolIes().E2ApProtocolIes32 = &e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes32{
-			Id:          int32(v1beta2.ProtocolIeIDRiccontrolOutcome),
+			Id:          int32(v2beta1.ProtocolIeIDRiccontrolOutcome),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2ap_commondatatypes.RiccontrolOutcome{
 				Value: []byte(ricCtrlOut),

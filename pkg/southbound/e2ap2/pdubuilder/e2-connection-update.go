@@ -5,12 +5,12 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
@@ -34,7 +34,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
-							Value: int32(v1beta2.ProcedureCodeIDE2connectionUpdate),
+							Value: int32(v2beta1.ProcedureCodeIDE2connectionUpdate),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -46,7 +46,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 	}
 	if addItems != nil {
 		connectionAddList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateAdd),
+			Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateAdd),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionAdd: &e2appducontents.E2ConnectionUpdateList{
 				Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
@@ -56,7 +56,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 
 		for _, addItem := range addItems {
 			cai := &e2appducontents.E2ConnectionUpdateItemIes{
-				Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+				Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.E2ConnectionUpdateItem{
 					TnlInformation: &e2ap_ies.Tnlinformation{
@@ -74,7 +74,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 
 	if modifyItems != nil {
 		connectionModifyList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes45{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateModify),
+			Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateModify),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionModify: &e2appducontents.E2ConnectionUpdateList{
 				Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
@@ -84,7 +84,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 
 		for _, modifyItem := range modifyItems {
 			cmi := &e2appducontents.E2ConnectionUpdateItemIes{
-				Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateItem),
+				Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.E2ConnectionUpdateItem{
 					TnlInformation: &e2ap_ies.Tnlinformation{
@@ -102,7 +102,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 
 	if removeItems != nil {
 		connectionRemoveList := e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46{
-			Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateRemove),
+			Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateRemove),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			ConnectionRemove: &e2appducontents.E2ConnectionUpdateRemoveList{
 				Value: make([]*e2appducontents.E2ConnectionUpdateRemoveItemIes, 0),
@@ -112,7 +112,7 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 
 		for _, removeItem := range removeItems {
 			cri := &e2appducontents.E2ConnectionUpdateRemoveItemIes{
-				Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateRemoveItem),
+				Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateRemoveItem),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.E2ConnectionUpdateRemoveItem{
 					TnlInformation: &e2ap_ies.Tnlinformation{

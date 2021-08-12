@@ -5,12 +5,12 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
@@ -32,7 +32,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisi
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
-							Value: int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
+							Value: int32(v2beta1.ProcedureCodeIDRICserviceUpdate),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -45,7 +45,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisi
 
 	if rfAccepted != nil {
 		ranFunctionsAccepted := e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsAccepted),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAccepted),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2appducontents.RanfunctionsIdList{
 				Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
@@ -56,7 +56,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisi
 		for rfID, rfRevision := range rfAccepted {
 			rfIDiIe := e2appducontents.RanfunctionIdItemIes{
 				RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-					Id:          int32(v1beta2.ProtocolIeIDRanfunctionIDItem),
+					Id:          int32(v2beta1.ProtocolIeIDRanfunctionIDItem),
 					Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 					Value: &e2appducontents.RanfunctionIdItem{
 						RanFunctionId: &e2apies.RanfunctionId{
@@ -76,7 +76,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisi
 
 	if rfRejected != nil {
 		ranFunctionsRejected := e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13{
-			Id:          int32(v1beta2.ProtocolIeIDRanfunctionsRejected),
+			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsRejected),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2appducontents.RanfunctionsIdcauseList{
 				Value: make([]*e2appducontents.RanfunctionIdcauseItemIes, 0),
@@ -87,7 +87,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisi
 		for id, cause := range rfRejected {
 			rfIDcIIe := e2appducontents.RanfunctionIdcauseItemIes{
 				RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
-					Id:          int32(v1beta2.ProtocolIeIDRanfunctionIeCauseItem),
+					Id:          int32(v2beta1.ProtocolIeIDRanfunctionIeCauseItem),
 					Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 					Value: &e2appducontents.RanfunctionIdcauseItem{
 						RanFunctionId: &e2apies.RanfunctionId{

@@ -5,12 +5,12 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
@@ -26,7 +26,7 @@ func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConf
 
 	for _, e2nccui := range e2nccul {
 		cui := &e2appducontents.E2NodeComponentConfigUpdateItemIes{
-			Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateItem),
+			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &e2appducontents.E2NodeComponentConfigUpdateItem{
 				E2NodeComponentType:         e2nccui.E2NodeComponentType,
@@ -45,14 +45,14 @@ func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConf
 					E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
 						InitiatingMessage: &e2appducontents.E2NodeConfigurationUpdate{
 							ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateIes{
-								Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdate),
+								Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate),
 								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 								Value:       &configUpdateList,
 								Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
-							Value: int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate),
+							Value: int32(v2beta1.ProcedureCodeIDE2nodeConfigurationUpdate),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

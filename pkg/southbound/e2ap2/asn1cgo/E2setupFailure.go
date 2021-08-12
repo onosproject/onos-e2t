@@ -12,7 +12,7 @@ package asn1cgo
 //#include "E2setupFailure.h"
 //#include "ProtocolIE-Field.h"
 import "C"
-import e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+import e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 
 func newE2setupFailure(ei *e2appducontents.E2SetupFailure) (*C.E2setupFailure_t, error) {
 	pIeC1710P13, err := newE2setupFailureIe(ei.ProtocolIes)

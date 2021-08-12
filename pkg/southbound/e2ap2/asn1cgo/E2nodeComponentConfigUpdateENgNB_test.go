@@ -10,7 +10,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 
 	//pdubuilder "github.com/onosproject/onos-e2-sm/servicemodels/e2ap_ies/pdubuilder"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"gotest.tools/assert"
 	"testing"
 )

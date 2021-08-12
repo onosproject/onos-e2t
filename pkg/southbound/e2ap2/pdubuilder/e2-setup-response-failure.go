@@ -5,11 +5,11 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 )
 
 const mask20bitricid = 0xFFFFF
@@ -21,7 +21,7 @@ func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, crit
 	}
 
 	causeOfFailure := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
-		Id:          int32(v1beta2.ProtocolIeIDCause),
+		Id:          int32(v2beta1.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2apies.Cause{
 			Cause: &e2apies.Cause_RicService{
@@ -32,14 +32,14 @@ func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, crit
 	}
 
 	timeToWait := e2appducontents.E2SetupFailureIes_E2SetupFailureIes31{
-		Id:          int32(v1beta2.ProtocolIeIDTimeToWait),
+		Id:          int32(v2beta1.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value:       e2apies.TimeToWait_TIME_TO_WAIT_V1S,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
 	criticality := e2appducontents.E2SetupFailureIes_E2SetupFailureIes2{
-		Id:          int32(v1beta2.ProtocolIeIDCriticalityDiagnostics),
+		Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2apies.CriticalityDiagnostics{
 			ProcedureCode: &e2ap_commondatatypes.ProcedureCode{

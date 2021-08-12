@@ -6,7 +6,7 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	"gotest.tools/assert"
 	"testing"
 )

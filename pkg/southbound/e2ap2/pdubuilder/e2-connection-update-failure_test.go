@@ -5,9 +5,9 @@ package pdubuilder
 
 import (
 	"encoding/hex"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
@@ -16,7 +16,7 @@ import (
 
 func TestE2connectionUpdateFailure(t *testing.T) {
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V5S
-	procCode := v1beta2.ProcedureCodeIDRICsubscription
+	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
@@ -32,7 +32,7 @@ func TestE2connectionUpdateFailure(t *testing.T) {
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v1beta2.ProtocolIeIDRicsubscriptionDetails,
+				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
 		},
 	)
