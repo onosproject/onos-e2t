@@ -34,7 +34,7 @@ type E2ApPdu struct {
 	//	*E2ApPdu_InitiatingMessage
 	//	*E2ApPdu_SuccessfulOutcome
 	//	*E2ApPdu_UnsuccessfulOutcome
-	E2ApPdu              isE2ApPdu_E2ApPdu `protobuf_oneof:"e2_ap_pdu"`
+	E2ApPdu              isE2ApPdu_E2ApPdu `protobuf_oneof:"e2_ap_pdu" aper:"valueLB:1,valueUB:3,"`
 	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`

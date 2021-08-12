@@ -9,7 +9,7 @@ option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies";
 
 import "e2ap/v2beta1/e2ap_commondatatypes.proto";
 import "e2ap/v2beta1/e2ap_constants.proto";
-//import "onos-lib-go/api/asn1/v1/asn1.proto";
+import "asn1/v1/asn1.proto";
 import "validate/v1/validate.proto";
 
 // enumerated from e2ap_v2.0.1_Feb3_21.asn:1102
@@ -263,10 +263,10 @@ message EnbId {
     // choice from e2ap_v2.0.1_Feb3_21.asn:1231
     // @inject_tag: aper:"valueLB:1,valueUB:4,"
     oneof enb_id {
-        BitString macro_e_nb_id = 1 [ json_name="macro-eNB-ID"];
-        BitString home_e_nb_id = 2 [ json_name="home-eNB-ID"];
-        BitString short_macro_e_nb_id = 3 [ json_name="short-Macro-eNB-ID"];
-        BitString long_macro_e_nb_id = 4 [ json_name="long-Macro-eNB-ID"];
+        asn1.v1.BitString macro_e_nb_id = 1 [ json_name="macro-eNB-ID"];
+        asn1.v1.BitString home_e_nb_id = 2 [ json_name="home-eNB-ID"];
+        asn1.v1.BitString short_macro_e_nb_id = 3 [ json_name="short-Macro-eNB-ID"];
+        asn1.v1.BitString long_macro_e_nb_id = 4 [ json_name="long-Macro-eNB-ID"];
     }
 };
 
@@ -276,9 +276,9 @@ message EnbIdChoice {
     // choice from e2ap_v2.0.1_Feb3_21.asn:1241
     // @inject_tag: aper:"valueLB:1,valueUB:3,"
     oneof enb_id_choice {
-        BitString enb_id_macro = 1 [ json_name="enb-ID-macro"];
-        BitString enb_id_shortmacro = 2 [ json_name="enb-ID-shortmacro"];
-        BitString enb_id_longmacro = 3 [ json_name="enb-ID-longmacro"];
+        asn1.v1.BitString enb_id_macro = 1 [ json_name="enb-ID-macro"];
+        asn1.v1.BitString enb_id_shortmacro = 2 [ json_name="enb-ID-shortmacro"];
+        asn1.v1.BitString enb_id_longmacro = 3 [ json_name="enb-ID-longmacro"];
     }
 };
 
@@ -288,7 +288,7 @@ message EngnbId {
     // choice from e2ap_v2.0.1_Feb3_21.asn:1253
     // @inject_tag: aper:"valueLB:1,valueUB:1,"
     oneof engnb_id {
-        BitString g_nb_id = 1 [ json_name="gNB-ID"];
+        asn1.v1.BitString g_nb_id = 1 [ json_name="gNB-ID"];
     }
 };
 
@@ -368,7 +368,7 @@ message GlobalngeNbId {
 // {GlobalRIC-ID}
 message GlobalRicId {
     PlmnIdentity p_lmn_identity = 1 [ json_name="pLMN-Identity"];
-    BitString ric_id = 2 [ json_name="ric-ID"];
+    asn1.v1.BitString ric_id = 2 [ json_name="ric-ID"];
 };
 
 // range of Integer from e2ap_v2.0.1_Feb3_21.asn:1337
@@ -389,7 +389,7 @@ message GnbIdChoice {
     // choice from e2ap_v2.0.1_Feb3_21.asn:1344
     // @inject_tag: aper:"valueLB:1,valueUB:1,"
     oneof gnb_id_choice {
-        BitString gnb_id = 1 [ json_name="gnb-ID"];
+        asn1.v1.BitString gnb_id = 1 [ json_name="gnb-ID"];
     }
 };
 
@@ -440,8 +440,8 @@ message RicsubsequentAction {
 // sequence from e2ap_v2.0.1_Feb3_21.asn:1500
 // {TNLinformation}
 message Tnlinformation {
-    BitString tnl_address = 1 [ json_name="tnlAddress"];
-    optional BitString tnl_port = 2 [ json_name="tnlPort"];
+    asn1.v1.BitString tnl_address = 1 [ json_name="tnlAddress"];
+    optional asn1.v1.BitString tnl_port = 2 [ json_name="tnlPort"];
 };
 
 // range of Integer from e2ap_v2.0.1_Feb3_21.asn:1507
