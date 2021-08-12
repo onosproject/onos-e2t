@@ -91,6 +91,7 @@ func (c *E2Channel) GetRANFunction(oid e2smtypes.OID) (RANFunction, bool) {
 }
 
 func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
+	log.Debugf("Received RICIndication %+v", request)
 	streamID := subscriptionv1beta1.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	stream, ok := c.streamsv1beta1.GetWriter(streamID)
 	if !ok {

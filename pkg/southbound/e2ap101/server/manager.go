@@ -66,6 +66,7 @@ func (m *channelManager) open(channel *E2Channel) {
 		m.channelsMu.Lock()
 		delete(m.channels, channel.ID)
 		m.channelsMu.Unlock()
+		m.eventCh <- channel
 	}()
 }
 
