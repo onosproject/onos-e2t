@@ -6,9 +6,8 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
 	//pdubuilder "github.com/onosproject/onos-e2-sm/servicemodels/e2ap_ies/pdubuilder"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"gotest.tools/assert"
 	"testing"
 )
@@ -25,9 +24,9 @@ func createE2nodeComponentIDGNbCUUP() (*e2ap_ies.E2NodeComponentId, error) {
 		},
 	}
 
-	if err := e2nodeComponentID.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2nodeComponentID %s", err.Error())
-	}
+	//if err := e2nodeComponentID.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentID %s", err.Error())
+	//}
 	return &e2nodeComponentID, nil
 }
 
@@ -43,9 +42,27 @@ func createE2nodeComponentIDGNbDU() (*e2ap_ies.E2NodeComponentId, error) {
 		},
 	}
 
-	if err := e2nodeComponentID.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2nodeComponentID %s", err.Error())
+	//if err := e2nodeComponentID.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentID %s", err.Error())
+	//}
+	return &e2nodeComponentID, nil
+}
+
+func createE2nodeComponentIDNgEnbDU() (*e2ap_ies.E2NodeComponentId, error) {
+
+	e2nodeComponentID := e2ap_ies.E2NodeComponentId{
+		E2NodeComponentId: &e2ap_ies.E2NodeComponentId_E2NodeComponentTypeNgeNbDu{
+			E2NodeComponentTypeNgeNbDu: &e2ap_ies.E2NodeComponentNgeNbDuId{
+				NgEnbDuId: &e2ap_ies.NgenbDuId{
+					Value: 65535,
+				},
+			},
+		},
 	}
+
+	//if err := e2nodeComponentID.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentID %s", err.Error())
+	//}
 	return &e2nodeComponentID, nil
 }
 
@@ -56,7 +73,6 @@ func Test_xerEncodingE2nodeComponentID(t *testing.T) {
 
 	xer, err := xerEncodeE2nodeComponentID(e2nodeComponentID)
 	assert.NilError(t, err)
-	assert.Equal(t, 152, len(xer))
 	t.Logf("E2nodeComponentID (GNb-CU-UP) XER\n%s", string(xer))
 
 	result, err := xerDecodeE2nodeComponentID(xer)
@@ -70,7 +86,6 @@ func Test_xerEncodingE2nodeComponentID(t *testing.T) {
 
 	xer, err = xerEncodeE2nodeComponentID(e2nodeComponentID)
 	assert.NilError(t, err)
-	assert.Equal(t, 142, len(xer))
 	t.Logf("E2nodeComponentID (GNb-DU) XER\n%s", string(xer))
 
 	result, err = xerDecodeE2nodeComponentID(xer)
@@ -78,6 +93,19 @@ func Test_xerEncodingE2nodeComponentID(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeComponentID (GNb-DU) XER - decoded\n%v", result)
 	assert.DeepEqual(t, e2nodeComponentID.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue(), result.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue())
+
+	e2nodeComponentID, err = createE2nodeComponentIDNgEnbDU()
+	assert.NilError(t, err, "Error creating E2nodeComponentID PDU")
+
+	xer, err = xerEncodeE2nodeComponentID(e2nodeComponentID)
+	assert.NilError(t, err)
+	t.Logf("E2nodeComponentID (NgEnb-DU) XER\n%s", string(xer))
+
+	result, err = xerDecodeE2nodeComponentID(xer)
+	assert.NilError(t, err)
+	assert.Assert(t, result != nil)
+	t.Logf("E2nodeComponentID (NgEnb-DU) XER - decoded\n%v", result)
+	assert.DeepEqual(t, e2nodeComponentID.GetE2NodeComponentTypeNgeNbDu().GetNgEnbDuId().GetValue(), result.GetE2NodeComponentTypeNgeNbDu().GetNgEnbDuId().GetValue())
 }
 
 func Test_perEncodingE2nodeComponentID(t *testing.T) {
@@ -87,7 +115,6 @@ func Test_perEncodingE2nodeComponentID(t *testing.T) {
 
 	per, err := perEncodeE2nodeComponentID(e2nodeComponentID)
 	assert.NilError(t, err)
-	assert.Equal(t, 2, len(per))
 	t.Logf("E2nodeComponentID (GNb-CU-UP) PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2nodeComponentID(per)
@@ -101,7 +128,6 @@ func Test_perEncodingE2nodeComponentID(t *testing.T) {
 
 	per, err = perEncodeE2nodeComponentID(e2nodeComponentID)
 	assert.NilError(t, err)
-	assert.Equal(t, 3, len(per))
 	t.Logf("E2nodeComponentID (GNb-DU) PER\n%s", hex.Dump(per))
 
 	result, err = perDecodeE2nodeComponentID(per)
@@ -109,4 +135,17 @@ func Test_perEncodingE2nodeComponentID(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeComponentID (GNb-DU) PER - decoded\n%v", result)
 	assert.DeepEqual(t, e2nodeComponentID.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue(), result.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue())
+
+	e2nodeComponentID, err = createE2nodeComponentIDNgEnbDU()
+	assert.NilError(t, err, "Error creating E2nodeComponentID PDU")
+
+	per, err = xerEncodeE2nodeComponentID(e2nodeComponentID)
+	assert.NilError(t, err)
+	t.Logf("E2nodeComponentID (NgEnb-DU) PER\n%s", string(per))
+
+	result, err = xerDecodeE2nodeComponentID(per)
+	assert.NilError(t, err)
+	assert.Assert(t, result != nil)
+	t.Logf("E2nodeComponentID (NgEnb-DU) PER - decoded\n%v", result)
+	assert.DeepEqual(t, e2nodeComponentID.GetE2NodeComponentTypeNgeNbDu().GetNgEnbDuId().GetValue(), result.GetE2NodeComponentTypeNgeNbDu().GetNgEnbDuId().GetValue())
 }

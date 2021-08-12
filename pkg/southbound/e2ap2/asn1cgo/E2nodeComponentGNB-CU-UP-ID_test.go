@@ -6,16 +6,13 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
 	//pdubuilder "github.com/onosproject/onos-e2-sm/servicemodels/e2ap_ies/pdubuilder"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func createE2nodeComponentGnbCuUpIDMsg() (*e2ap_ies.E2NodeComponentGnbCuUpId, error) {
-
-	// e2nodeComponentGnbCuUpID := pdubuilder.CreateE2nodeComponentGnbCuUpID() //ToDo - fill in arguments here(if this function exists
 
 	e2nodeComponentGnbCuUpID := e2ap_ies.E2NodeComponentGnbCuUpId{
 		GNbCuUpId: &e2ap_ies.GnbCuUpId{
@@ -23,9 +20,9 @@ func createE2nodeComponentGnbCuUpIDMsg() (*e2ap_ies.E2NodeComponentGnbCuUpId, er
 		},
 	}
 
-	if err := e2nodeComponentGnbCuUpID.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2nodeComponentGnbCuUpId %s", err.Error())
-	}
+	//if err := e2nodeComponentGnbCuUpID.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentGnbCuUpId %s", err.Error())
+	//}
 	return &e2nodeComponentGnbCuUpID, nil
 }
 
