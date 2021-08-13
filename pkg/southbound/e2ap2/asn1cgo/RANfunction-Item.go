@@ -67,12 +67,12 @@ func newRanFunctionItem(rfItem *e2appducontents.RanfunctionItem) *C.RANfunction_
 		ranFunctionID:         newRanFunctionID(rfItem.GetRanFunctionId()),
 		ranFunctionRevision:   *newRanFunctionRevision(rfItem.GetRanFunctionRevision()),
 		ranFunctionDefinition: *newOctetString(string(rfItem.GetRanFunctionDefinition().GetValue())),
-		//ranFunctionOID:        newRanFunctionOID(rfItem.GetRanFunctionOid()),
+		ranFunctionOID:        newRanFunctionOID(rfItem.GetRanFunctionOid()),
 	}
 
-	if rfItem.GetRanFunctionOid() != nil {
-		rfItemC.ranFunctionOID = newRanFunctionOID(rfItem.GetRanFunctionOid())
-	}
+	//if rfItem.GetRanFunctionOid() != nil {
+	//	rfItemC.ranFunctionOID = newRanFunctionOID(rfItem.GetRanFunctionOid())
+	//}
 
 	return &rfItemC
 }
@@ -105,15 +105,15 @@ func decodeRanFunctionItem(rfiC *C.RANfunction_Item_t) (*e2appducontents.Ranfunc
 		RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
 			Value: []byte(decodeOctetString(&rfiC.ranFunctionDefinition)),
 		},
-		//RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-		//	Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,
-		//},
+		RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
+			Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,
+		},
 	}
 
-	if rfiC.ranFunctionOID != nil {
-		rfi.RanFunctionOid = &e2ap_commondatatypes.RanfunctionOid{
-			Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,
-		}
-	}
+	//if rfiC.ranFunctionOID != nil {
+	//	rfi.RanFunctionOid = &e2ap_commondatatypes.RanfunctionOid{
+	//		Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,
+	//	}
+	//}
 	return &rfi, nil
 }

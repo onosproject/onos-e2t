@@ -9,7 +9,7 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2nodeComponentConfigUpdateENB.h" //ToDo - if there is an anonymous C-struct option, it would require linking additional C-struct file definition (the one above or before)
+//#include "E2nodeComponentConfigUpdateENB.h"
 import "C"
 
 import (
@@ -71,10 +71,10 @@ func newE2nodeComponentConfigUpdateEnb(e2nodeComponentConfigUpdateEnb *e2ap_ies.
 
 	e2nodeComponentConfigUpdateEnbC := C.E2nodeComponentConfigUpdateENB_t{}
 
-	if e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate != "" {
+	if e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate != nil {
 		e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate)
 	}
-	if e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate != "" {
+	if e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate != nil {
 		e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate)
 	}
 

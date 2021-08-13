@@ -73,4 +73,5 @@ const (
 	ProtocolIeIDE2connectionUpdateRemove           ProtocolIeID = 46
 	ProtocolIeIDE2connectionUpdateRemoveItem       ProtocolIeID = 47
 	ProtocolIeIDTNLinformation                     ProtocolIeID = 48
+	ProtocolIeIDTransactionID                      ProtocolIeID = 49
 )
