@@ -191,40 +191,51 @@ func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Chan
 
 func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) error {
 	cellID := getCellID(channel, cell)
-	_, err := r.store.Get(ctx, cellID)
-	if err == nil {
-		return nil
-	} else if !errors.IsNotFound(err) {
-		log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID, channel.ID, err)
-		return err
-	}
+	object, err := r.store.Get(ctx, cellID)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
+			return err
+		}
 
-	log.Debugf("Creating E2Cell entity '%s' for Channel '%s'", cell.CellGlobalID, channel.ID)
-	object := &topoapi.Object{
-		ID:   cellID,
-		Type: topoapi.Object_ENTITY,
-		Obj: &topoapi.Object_Entity{
-			Entity: &topoapi.Entity{
-				KindID: topoapi.E2CELL,
+		log.Debugf("Creating E2Cell entity '%s' for Channel '%s'", cell.CellGlobalID.Value, channel.ID)
+		object := &topoapi.Object{
+			ID:   cellID,
+			Type: topoapi.Object_ENTITY,
+			Obj: &topoapi.Object_Entity{
+				Entity: &topoapi.Entity{
+					KindID: topoapi.E2CELL,
+				},
 			},
-		},
-		Aspects: make(map[string]*gogotypes.Any),
-		Labels:  map[string]string{},
-	}
+			Aspects: make(map[string]*gogotypes.Any),
+			Labels:  map[string]string{},
+		}
 
-	err = object.SetAspect(cell)
-	if err != nil {
-		log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID, channel.ID, err)
-		return err
-	}
+		err = object.SetAspect(cell)
+		if err != nil {
+			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
+			return err
+		}
 
-	err = r.store.Create(ctx, object)
-	if err != nil {
-		if !errors.IsAlreadyExists(err) {
-			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID, channel.ID, err)
+		err = r.store.Create(ctx, object)
+		if err != nil {
+			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
 			return err
 		}
 		return nil
+	}
+
+	log.Debugf("Updating E2Cell entity '%s' for Channel '%s'", cell.CellGlobalID.Value, channel.ID)
+	err = object.SetAspect(cell)
+	if err != nil {
+		log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
+		return err
+	}
+
+	err = r.store.Update(ctx, object)
+	if err != nil {
+		log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
+		return err
 	}
 	return nil
 }
@@ -321,8 +332,8 @@ func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E
 	e2NodeRelations := make(map[string]topoapi.Object)
 	for _, object := range objects {
 		if relation, ok := object.Obj.(*topoapi.Object_Relation); ok &&
-			relation.Relation.SrcEntityID == getE2TID() &&
-			relation.Relation.KindID == topoapi.CONTROLS {
+			relation.Relation.KindID == topoapi.CONTROLS &&
+			relation.Relation.TgtEntityID == channel.E2NodeID {
 			e2NodeRelations[string(object.ID)] = object
 		}
 	}
@@ -405,7 +416,7 @@ func getCellID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
 }
 
 func getCellRelationID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
-	bytes := md5.Sum([]byte(fmt.Sprintf("%s/%s", channel.E2NodeID, cell.CellGlobalID)))
+	bytes := md5.Sum([]byte(fmt.Sprintf("%s/%s", channel.E2NodeID, cell.CellGlobalID.Value)))
 	uuid, err := uuid2.FromBytes(bytes[:])
 	if err != nil {
 		panic(err)
