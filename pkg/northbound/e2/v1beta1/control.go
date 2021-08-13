@@ -6,6 +6,7 @@ package v1beta1
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"sync"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
@@ -13,8 +14,6 @@ import (
 	"google.golang.org/grpc/status"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-
-	"github.com/onosproject/onos-e2t/pkg/topo"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
@@ -40,12 +39,12 @@ var log = logging.GetLogger("northbound", "e2", "v1beta1")
 
 // NewControlService creates a new control service
 func NewControlService(modelRegistry modelregistry.ModelRegistry, channels e2server.ChannelManager,
-	oidRegistry oid.Registry, topoManager topo.Manager) northbound.Service {
+	oidRegistry oid.Registry, topo rnib.Store) northbound.Service {
 	return &ControlService{
 		modelRegistry: modelRegistry,
 		channels:      channels,
 		oidRegistry:   oidRegistry,
-		topoManager:   topoManager,
+		topo:          topo,
 	}
 }
 
@@ -55,7 +54,7 @@ type ControlService struct {
 	modelRegistry modelregistry.ModelRegistry
 	channels      e2server.ChannelManager
 	oidRegistry   oid.Registry
-	topoManager   topo.Manager
+	topo          rnib.Store
 }
 
 // Register registers the Service with the gRPC server.
@@ -64,7 +63,7 @@ func (s ControlService) Register(r *grpc.Server) {
 		modelRegistry: s.modelRegistry,
 		channels:      s.channels,
 		oidRegistry:   s.oidRegistry,
-		topoManager:   s.topoManager}
+		topo:          s.topo}
 	e2api.RegisterControlServiceServer(r, server)
 }
 
@@ -73,7 +72,7 @@ type ControlServer struct {
 	modelRegistry modelregistry.ModelRegistry
 	channels      e2server.ChannelManager
 	oidRegistry   oid.Registry
-	topoManager   topo.Manager
+	topo          rnib.Store
 	requestID     int32
 	requestMu     sync.Mutex
 }
@@ -81,10 +80,32 @@ type ControlServer struct {
 func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
 	log.Infof("Received E2 Control Request %v", request)
 
-	channel, err := s.channels.Get(ctx, topoapi.ID(request.Headers.E2NodeID))
+	log.Debugf("Fetching mastership state for E2Node '%s'", request.Headers.E2NodeID)
+	e2NodeEntity, err := s.topo.Get(ctx, topoapi.ID(request.Headers.E2NodeID))
 	if err != nil {
+		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
+		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
+	}
+
+	mastership := &topoapi.MastershipState{}
+	if m := e2NodeEntity.GetAspect(mastership); m == nil {
+		err := errors.NewUnavailable("not the master for %s", request.Headers.E2NodeID)
+		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
 		return nil, errors.Status(err).Err()
 	}
+
+	e2NodeRelation, err := s.topo.Get(ctx, topoapi.ID(mastership.NodeId))
+	if err != nil {
+		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
+		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
+	}
+
+	channel, err := s.channels.Get(ctx, e2server.ChannelID(e2NodeRelation.ID))
+	if err != nil {
+		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
+		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
+	}
+
 	response := &e2api.ControlResponse{}
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
 		string(request.Headers.ServiceModel.Name),

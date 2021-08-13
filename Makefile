@@ -80,7 +80,7 @@ onos-e2t-sim-app-docker:
 	@rm -r vendor
 
 images: # @HELP build all Docker images
-images: build onos-e2t-docker onos-e2t-sim-app-docker
+images: build onos-e2t-docker
 
 kind: # @HELP build Docker images and add them to the currently configured kind cluster
 kind: images

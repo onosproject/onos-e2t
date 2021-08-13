@@ -8,10 +8,6 @@ import (
 	"context"
 	"sync"
 
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-
-	"github.com/onosproject/onos-e2t/pkg/topo"
-
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
@@ -19,32 +15,28 @@ import (
 var log = logging.GetLogger("southbound", "e2ap", "server")
 
 type ChannelManager interface {
-	Get(ctx context.Context, nodeID topoapi.ID) (*E2Channel, error)
+	Get(ctx context.Context, id ChannelID) (*E2Channel, error)
 	List(ctx context.Context) ([]*E2Channel, error)
 	Watch(ctx context.Context, ch chan<- *E2Channel) error
-	Open(nodeID topoapi.ID, channel *E2Channel)
+	open(channel *E2Channel)
 }
 
 // NewChannelManager creates a new channel manager
-func NewChannelManager(topoManager topo.Manager) ChannelManager {
+func NewChannelManager() ChannelManager {
 	mgr := channelManager{
-		channels:    make(map[topoapi.ID]*E2Channel),
-		eventCh:     make(chan *E2Channel),
-		topoManager: topoManager,
+		channels: make(map[ChannelID]*E2Channel),
+		eventCh:  make(chan *E2Channel),
 	}
 	go mgr.processEvents()
 	return &mgr
 }
 
-type ChannelID string
-
 type channelManager struct {
-	channels    map[topoapi.ID]*E2Channel
-	channelsMu  sync.RWMutex
-	watchers    []chan<- *E2Channel
-	watchersMu  sync.RWMutex
-	eventCh     chan *E2Channel
-	topoManager topo.Manager
+	channels   map[ChannelID]*E2Channel
+	channelsMu sync.RWMutex
+	watchers   []chan<- *E2Channel
+	watchersMu sync.RWMutex
+	eventCh    chan *E2Channel
 }
 
 func (m *channelManager) processEvents() {
@@ -62,31 +54,29 @@ func (m *channelManager) processEvent(channel *E2Channel) {
 	m.watchersMu.RUnlock()
 }
 
-func (m *channelManager) Open(nodeID topoapi.ID, channel *E2Channel) {
-	log.Infof("Opened %s channel %s", nodeID, channel.ID)
+func (m *channelManager) open(channel *E2Channel) {
+	log.Infof("Opened channel %s", channel.ID)
 	m.channelsMu.Lock()
 	defer m.channelsMu.Unlock()
-	m.channels[nodeID] = channel
+	m.channels[channel.ID] = channel
 	m.eventCh <- channel
 	go func() {
 		<-channel.Context().Done()
-		log.Infof("Closing %s channel %s", nodeID, channel.ID)
+		log.Infof("Closing channel %s", channel.ID)
 		m.channelsMu.Lock()
-		c, ok := m.channels[nodeID]
-		if ok && c.ID == channel.ID {
-			delete(m.channels, nodeID)
-		}
+		delete(m.channels, channel.ID)
 		m.channelsMu.Unlock()
+		m.eventCh <- channel
 	}()
 }
 
 // Get gets a channel by ID
-func (m *channelManager) Get(ctx context.Context, nodeID topoapi.ID) (*E2Channel, error) {
+func (m *channelManager) Get(ctx context.Context, channelID ChannelID) (*E2Channel, error) {
 	m.channelsMu.RLock()
 	defer m.channelsMu.RUnlock()
-	channel, ok := m.channels[nodeID]
+	channel, ok := m.channels[channelID]
 	if !ok {
-		return nil, errors.NewNotFound("channel not found for node '%s'", nodeID)
+		return nil, errors.NewNotFound("channel '%s' not found", channelID)
 	}
 	return channel, nil
 }

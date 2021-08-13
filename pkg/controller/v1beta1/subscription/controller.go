@@ -7,6 +7,9 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
+	"github.com/onosproject/onos-lib-go/pkg/env"
+	"github.com/onosproject/onos-lib-go/pkg/uri"
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -35,7 +38,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams subscription.Broker, subs substore.Store, channels e2server.ChannelManager,
+func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, channels e2server.ChannelManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
@@ -45,9 +48,14 @@ func NewController(streams subscription.Broker, subs substore.Store, channels e2
 		subs:     subs,
 		channels: channels,
 	})
+	c.Watch(&TopoWatcher{
+		subs: subs,
+		topo: topo,
+	})
 	c.Reconcile(&Reconciler{
 		streams:                   streams,
 		subs:                      subs,
+		topo:                      topo,
 		channels:                  channels,
 		models:                    models,
 		oidRegistry:               oidRegistry,
@@ -66,6 +74,7 @@ type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
 type Reconciler struct {
 	streams                   subscription.Broker
 	subs                      substore.Store
+	topo                      rnib.Store
 	channels                  e2server.ChannelManager
 	models                    modelregistry.ModelRegistry
 	oidRegistry               oid.Registry
@@ -104,25 +113,46 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	// Get the southbound channel for the E2 node
-	channel, err := r.channels.Get(ctx, topoapi.ID(sub.E2NodeID))
+	log.Debugf("Fetching mastership state for E2Node '%s'", sub.E2NodeID)
+	e2NodeEntity, err := r.topo.Get(ctx, topoapi.ID(sub.E2NodeID))
 	if err != nil {
-		// If the channel is not found and the subscription is COMPLETE, revert it to PENDING to ensure
-		// the subscription request is resent when the E2 node reconnects.
-		if errors.IsNotFound(err) {
-			if sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
-				sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_PENDING
-				log.Debugf("Updating Subscription %+v", sub)
-				err = r.subs.Update(ctx, sub)
-				if err != nil {
-					log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-					return controller.Result{}, err
-				}
-			}
-			return controller.Result{}, nil
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
+			return controller.Result{}, err
 		}
-		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-		return controller.Result{}, err
+		log.Warnf("Mastership state not found for E2Node '%s'", sub.E2NodeID)
+		return controller.Result{}, nil
+	}
+
+	mastership := &topoapi.MastershipState{}
+	if m := e2NodeEntity.GetAspect(mastership); m == nil {
+		log.Warnf("Mastership state not found for E2Node '%s'", sub.E2NodeID)
+		return controller.Result{}, nil
+	}
+
+	e2NodeRelation, err := r.topo.Get(ctx, topoapi.ID(mastership.NodeId))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
+			return controller.Result{}, err
+		}
+		log.Warnf("Master relation not found for E2Node '%s'", sub.E2NodeID)
+		return controller.Result{}, nil
+	}
+
+	if e2NodeRelation.GetRelation().SrcEntityID != getE2TID() {
+		log.Warnf("Not the master for E2Node '%s'", sub.E2NodeID)
+		return controller.Result{}, nil
+	}
+
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(e2NodeRelation.ID))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
+			return controller.Result{}, err
+		}
+		log.Warnf("Channel not found for E2Node '%s'", sub.E2NodeID)
+		return controller.Result{}, nil
 	}
 
 	if sub.Status.State != e2api.SubscriptionState_SUBSCRIPTION_PENDING {
@@ -293,14 +323,41 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, nil
 	}
 
-	// Get the southbound indications channel for the E2 node
-	channel, err := r.channels.Get(ctx, topoapi.ID(sub.SubscriptionMeta.E2NodeID))
+	log.Debugf("Fetching mastership state for E2Node '%s'", sub.E2NodeID)
+	e2NodeEntity, err := r.topo.Get(ctx, topoapi.ID(sub.E2NodeID))
 	if err != nil {
-		if errors.IsNotFound(err) {
-			return controller.Result{}, nil
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
+			return controller.Result{}, err
 		}
-		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-		return controller.Result{}, err
+		return controller.Result{}, nil
+	}
+
+	mastership := &topoapi.MastershipState{}
+	if m := e2NodeEntity.GetAspect(mastership); m == nil {
+		return controller.Result{}, nil
+	}
+
+	e2NodeRelation, err := r.topo.Get(ctx, topoapi.ID(mastership.NodeId))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
+			return controller.Result{}, err
+		}
+		return controller.Result{}, nil
+	}
+
+	if e2NodeRelation.GetRelation().SrcEntityID != getE2TID() {
+		return controller.Result{}, nil
+	}
+
+	channel, err := r.channels.Get(ctx, e2server.ChannelID(e2NodeRelation.ID))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
+			return controller.Result{}, err
+		}
+		return controller.Result{}, nil
 	}
 
 	// Get the subscription stream reader
@@ -635,4 +692,10 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 		return nil
 	}
 	return nil
+}
+
+func getE2TID() topoapi.ID {
+	return topoapi.ID(uri.NewURI(
+		uri.WithScheme("e2"),
+		uri.WithOpaque(env.GetPodID())).String())
 }
