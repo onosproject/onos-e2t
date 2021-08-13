@@ -16,12 +16,12 @@ import (
 )
 
 func newRicActionDefinition(rad *e2ap_commondatatypes.RicactionDefinition) *C.RICactionDefinition_t {
-	return newOctetString(string(rad.Value))
+	return newOctetString(rad.Value)
 }
 
 func decodeRicActionDefinition(radC *C.RICactionDefinition_t) *e2ap_commondatatypes.RicactionDefinition {
 	result := e2ap_commondatatypes.RicactionDefinition{
-		Value: []byte(decodeOctetString(radC)),
+		Value: decodeOctetString(radC),
 	}
 
 	return &result

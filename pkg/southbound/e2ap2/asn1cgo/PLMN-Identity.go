@@ -68,7 +68,7 @@ func perDecodePlmnIdentity(bytes []byte) (*e2ap_commondatatypes.PlmnIdentity, er
 
 func newPlmnIdentity(plmnIdentity *e2ap_commondatatypes.PlmnIdentity) (*C.PLMN_Identity_t, error) {
 
-	plmnIdentityC := newOctetString(string(plmnIdentity.Value))
+	plmnIdentityC := newOctetString(plmnIdentity.Value)
 
 	return plmnIdentityC, nil
 }
@@ -78,7 +78,7 @@ func decodePlmnIdentity(plmnIdentityC *C.PLMN_Identity_t) (*e2ap_commondatatypes
 	plmnID := decodeOctetString(plmnIdentityC)
 
 	plmnIdentity := e2ap_commondatatypes.PlmnIdentity{
-		Value: []byte(plmnID),
+		Value: plmnID,
 	}
 
 	return &plmnIdentity, nil

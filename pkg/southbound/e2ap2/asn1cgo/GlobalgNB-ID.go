@@ -56,7 +56,7 @@ func newGlobalgNBID(id *e2apies.GlobalgNbId) (*C.GlobalgNB_ID_t, error) {
 	}
 
 	idC := C.GlobalgNB_ID_t{
-		plmn_id: *newOctetString(string(id.PlmnId.Value)),
+		plmn_id: *newOctetString(id.PlmnId.Value),
 		gnb_id:  *gnbChoiceC,
 	}
 
@@ -67,7 +67,7 @@ func decodeGlobalGnbID(globalGnbID *C.GlobalgNB_ID_t) (*e2apies.GlobalgNbId, err
 	result := new(e2apies.GlobalgNbId)
 	result.PlmnId = new(e2ap_commondatatypes.PlmnIdentity)
 	var err error
-	result.PlmnId.Value = []byte(decodeOctetString(&globalGnbID.plmn_id))
+	result.PlmnId.Value = decodeOctetString(&globalGnbID.plmn_id)
 	result.GnbId, err = decodeGnbIDChoice(&globalGnbID.gnb_id)
 	if err != nil {
 		return nil, err

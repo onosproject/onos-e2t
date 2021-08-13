@@ -16,12 +16,12 @@ import (
 )
 
 func newRicEventTriggerDefinition(retd *e2ap_commondatatypes.RiceventTriggerDefinition) *C.RICeventTriggerDefinition_t {
-	return newOctetString(string(retd.GetValue()))
+	return newOctetString(retd.GetValue())
 }
 
 func decodeRicEventTriggerDefinition(retdC *C.RICeventTriggerDefinition_t) *e2ap_commondatatypes.RiceventTriggerDefinition {
 	result := e2ap_commondatatypes.RiceventTriggerDefinition{
-		Value: []byte(decodeOctetString(retdC)),
+		Value: decodeOctetString(retdC),
 	}
 
 	return &result

@@ -18,7 +18,7 @@ import (
 )
 
 func newRicControlHeader(rch *e2ap_commondatatypes.RiccontrolHeader) *C.RICcontrolHeader_t {
-	return newOctetString(string(rch.GetValue()))
+	return newOctetString(rch.GetValue())
 }
 
 func decodeRicControlHeaderBytes(rchBytes []byte) *e2ap_commondatatypes.RiccontrolHeader {
@@ -31,7 +31,7 @@ func decodeRicControlHeaderBytes(rchBytes []byte) *e2ap_commondatatypes.Riccontr
 
 func decodeRicControlHeader(rchC *C.RICcontrolHeader_t) *e2ap_commondatatypes.RiccontrolHeader {
 	result := e2ap_commondatatypes.RiccontrolHeader{
-		Value: []byte(decodeOctetString(rchC)),
+		Value: decodeOctetString(rchC),
 	}
 
 	return &result

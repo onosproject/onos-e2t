@@ -18,7 +18,7 @@ import (
 )
 
 func newRicIndicationHeader(rih *e2ap_commondatatypes.RicindicationHeader) *C.RICindicationHeader_t {
-	return newOctetString(string(rih.GetValue()))
+	return newOctetString(rih.GetValue())
 }
 
 func decodeRicIndicationHeaderBytes(rihBytes []byte) *e2ap_commondatatypes.RicindicationHeader {
@@ -31,7 +31,7 @@ func decodeRicIndicationHeaderBytes(rihBytes []byte) *e2ap_commondatatypes.Ricin
 
 func decodeRicIndicationHeader(rihC *C.RICindicationHeader_t) *e2ap_commondatatypes.RicindicationHeader {
 	result := e2ap_commondatatypes.RicindicationHeader{
-		Value: []byte(decodeOctetString(rihC)),
+		Value: decodeOctetString(rihC),
 	}
 
 	return &result

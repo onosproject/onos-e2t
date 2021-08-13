@@ -17,7 +17,7 @@ import "C"
 // TODO: Change the argument to a []byte
 func newPrintableString(msg string) *C.PrintableString_t {
 	// PrintableString is defined via OctetString --> see PrintableString.h
-	prntStrC := newOctetString(msg)
+	prntStrC := newOctetString([]byte(msg))
 
 	return prntStrC
 }
@@ -25,5 +25,5 @@ func newPrintableString(msg string) *C.PrintableString_t {
 func decodePrintableString(octC *C.PrintableString_t) string {
 
 	bytes := decodeOctetString(octC)
-	return bytes
+	return string(bytes)
 }

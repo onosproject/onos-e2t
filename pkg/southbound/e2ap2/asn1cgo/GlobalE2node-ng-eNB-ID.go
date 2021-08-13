@@ -76,9 +76,21 @@ func newGlobalE2nodeNgEnbID(globalE2nodeNgEnbID *e2ap_ies.GlobalE2NodeNgEnbId) (
 	if err != nil {
 		return nil, fmt.Errorf("newGlobalngeNbID() %s", err.Error())
 	}
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
 	globalE2nodeNgEnbIDC.global_ng_eNB_ID = *globalNgENbIDC
+
+	if globalE2nodeNgEnbID.GlobalENbId != nil {
+		globalE2nodeNgEnbIDC.global_eNB_ID, err = newGlobaleNBID(globalE2nodeNgEnbID.GetGlobalENbId())
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if globalE2nodeNgEnbID.NgEnbDuId != nil {
+		globalE2nodeNgEnbIDC.ngENB_DU_ID, err = newNgEnbDuID(globalE2nodeNgEnbID.GetNgEnbDuId())
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	return &globalE2nodeNgEnbIDC, nil
 }
@@ -86,14 +98,25 @@ func newGlobalE2nodeNgEnbID(globalE2nodeNgEnbID *e2ap_ies.GlobalE2NodeNgEnbId) (
 func decodeGlobalE2nodeNgEnbID(globalE2nodeNgEnbIDC *C.GlobalE2node_ng_eNB_ID_t) (*e2ap_ies.GlobalE2NodeNgEnbId, error) {
 
 	var err error
-	globalE2nodeNgEnbID := e2ap_ies.GlobalE2NodeNgEnbId{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//GlobalNgENbId: globalNgENbId,
-	}
+	globalE2nodeNgEnbID := e2ap_ies.GlobalE2NodeNgEnbId{}
 
 	globalE2nodeNgEnbID.GlobalNgENbId, err = decodeGlobalngeNbID(&globalE2nodeNgEnbIDC.global_ng_eNB_ID)
 	if err != nil {
 		return nil, fmt.Errorf("decodeGlobalngeNbID() %s", err.Error())
+	}
+
+	if globalE2nodeNgEnbIDC.global_eNB_ID != nil {
+		globalE2nodeNgEnbID.GlobalENbId, err = decodeGlobalEnbID(globalE2nodeNgEnbIDC.globalE2nodeNgEnbIDC.global_eNB_ID)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if globalE2nodeNgEnbIDC.ngENB_DU_ID != nil {
+		globalE2nodeNgEnbID.NgEnbDuId, err = decodeNgEnbDuID(globalE2nodeNgEnbIDC.ngENB_DU_ID)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &globalE2nodeNgEnbID, nil

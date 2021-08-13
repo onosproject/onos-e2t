@@ -56,7 +56,7 @@ func newGlobaleNBID(id *e2apies.GlobalEnbId) (*C.GlobalENB_ID_t, error) {
 	}
 
 	idC := C.GlobalENB_ID_t{
-		pLMN_Identity: *newOctetString(string(id.PLmnIdentity.Value)),
+		pLMN_Identity: *newOctetString(id.PLmnIdentity.Value),
 		eNB_ID:        *enbC,
 	}
 
@@ -67,7 +67,7 @@ func decodeGlobalEnbID(globalEnbID *C.GlobalENB_ID_t) (*e2apies.GlobalEnbId, err
 	result := new(e2apies.GlobalEnbId)
 	result.PLmnIdentity = new(e2ap_commondatatypes.PlmnIdentity)
 	var err error
-	result.PLmnIdentity.Value = []byte(decodeOctetString(&globalEnbID.pLMN_Identity))
+	result.PLmnIdentity.Value = decodeOctetString(&globalEnbID.pLMN_Identity)
 	result.ENbId, err = decodeEnbID(&globalEnbID.eNB_ID)
 	if err != nil {
 		return nil, err

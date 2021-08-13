@@ -17,13 +17,13 @@ import (
 
 func newRanFunctionOID(oid *e2ap_commondatatypes.RanfunctionOid) *C.RANfunctionOID_t {
 
-	return newPrintableString(string(oid.Value))
+	return newPrintableString(oid.Value)
 }
 
 func decodeRanFunctionOID(ranFunctionOidC *C.RANfunctionOID_t) *e2ap_commondatatypes.RanfunctionOid {
 	rfoPs := decodePrintableString(ranFunctionOidC)
 	result := e2ap_commondatatypes.RanfunctionOid{
-		Value: []byte(rfoPs),
+		Value: rfoPs,
 	}
 
 	return &result

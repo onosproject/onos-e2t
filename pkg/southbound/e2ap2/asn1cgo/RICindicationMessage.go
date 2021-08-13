@@ -18,7 +18,7 @@ import (
 )
 
 func newRicIndicationMessage(rih *e2ap_commondatatypes.RicindicationMessage) *C.RICindicationMessage_t {
-	return newOctetString(string(rih.GetValue()))
+	return newOctetString(rih.GetValue())
 }
 
 func decodeRicIndicationMessageBytes(rimBytes []byte) *e2ap_commondatatypes.RicindicationMessage {
@@ -31,7 +31,7 @@ func decodeRicIndicationMessageBytes(rimBytes []byte) *e2ap_commondatatypes.Rici
 
 func decodeRicIndicationMessage(rihC *C.RICindicationMessage_t) *e2ap_commondatatypes.RicindicationMessage {
 	result := e2ap_commondatatypes.RicindicationMessage{
-		Value: []byte(decodeOctetString(rihC)),
+		Value: decodeOctetString(rihC),
 	}
 
 	return &result

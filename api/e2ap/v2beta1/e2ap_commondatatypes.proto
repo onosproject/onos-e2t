@@ -115,7 +115,7 @@ message RanfunctionDefinition {
 
 //{-}
 message RanfunctionOid {
-    bytes value = 1;
+    string value = 1;
 }
 
 //{-}

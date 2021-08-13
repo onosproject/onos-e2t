@@ -81,22 +81,6 @@ func newE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdate *e2ap_ies.E2Node
 			return nil, fmt.Errorf("newE2nodeComponentConfigUpdateGnb() %s", err.Error())
 		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
-	case *e2ap_ies.E2NodeComponentConfigUpdate_EnGNbconfigUpdate:
-		pr = C.E2nodeComponentConfigUpdate_PR_en_gNBconfigUpdate
-
-		im, err := newE2nodeComponentConfigUpdateEngNb(choice.EnGNbconfigUpdate)
-		if err != nil {
-			return nil, fmt.Errorf("newE2nodeComponentConfigUpdateEngNb() %s", err.Error())
-		}
-		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
-	case *e2ap_ies.E2NodeComponentConfigUpdate_NgENbconfigUpdate:
-		pr = C.E2nodeComponentConfigUpdate_PR_ng_eNBconfigUpdate
-
-		im, err := newE2nodeComponentConfigUpdateNgeNb(choice.NgENbconfigUpdate)
-		if err != nil {
-			return nil, fmt.Errorf("newE2nodeComponentConfigUpdateNgeNb() %s", err.Error())
-		}
-		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
 	case *e2ap_ies.E2NodeComponentConfigUpdate_ENbconfigUpdate:
 		pr = C.E2nodeComponentConfigUpdate_PR_eNBconfigUpdate
 
@@ -129,22 +113,6 @@ func decodeE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdateC *C.E2nodeCom
 		}
 		e2nodeComponentConfigUpdate.E2NodeComponentConfigUpdate = &e2ap_ies.E2NodeComponentConfigUpdate_GNbconfigUpdate{
 			GNbconfigUpdate: e2nodeComponentConfigUpdatestructC,
-		}
-	case C.E2nodeComponentConfigUpdate_PR_en_gNBconfigUpdate:
-		e2nodeComponentConfigUpdatestructC, err := decodeE2nodeComponentConfigUpdateEngNbBytes(e2nodeComponentConfigUpdateC.choice)
-		if err != nil {
-			return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdateEngNbBytes() %s", err.Error())
-		}
-		e2nodeComponentConfigUpdate.E2NodeComponentConfigUpdate = &e2ap_ies.E2NodeComponentConfigUpdate_EnGNbconfigUpdate{
-			EnGNbconfigUpdate: e2nodeComponentConfigUpdatestructC,
-		}
-	case C.E2nodeComponentConfigUpdate_PR_ng_eNBconfigUpdate:
-		e2nodeComponentConfigUpdatestructC, err := decodeE2nodeComponentConfigUpdateNgeNbBytes(e2nodeComponentConfigUpdateC.choice)
-		if err != nil {
-			return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdateNgeNbBytes() %s", err.Error())
-		}
-		e2nodeComponentConfigUpdate.E2NodeComponentConfigUpdate = &e2ap_ies.E2NodeComponentConfigUpdate_NgENbconfigUpdate{
-			NgENbconfigUpdate: e2nodeComponentConfigUpdatestructC,
 		}
 	case C.E2nodeComponentConfigUpdate_PR_eNBconfigUpdate:
 		e2nodeComponentConfigUpdatestructC, err := decodeE2nodeComponentConfigUpdateEnbBytes(e2nodeComponentConfigUpdateC.choice)

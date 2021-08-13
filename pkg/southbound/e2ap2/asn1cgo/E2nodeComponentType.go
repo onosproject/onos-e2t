@@ -70,16 +70,22 @@ func newE2nodeComponentType(e2nodeComponentType *e2ap_ies.E2NodeComponentType) (
 	switch *e2nodeComponentType {
 	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB:
 		ret = C.E2nodeComponentType_gNB
+	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_EN_G_NB:
+		ret = C.E2nodeComponentType_en_gNB
+	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB_CU_CP:
+		ret = C.E2nodeComponentType_gNB_CU_CP
 	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB_CU_UP:
 		ret = C.E2nodeComponentType_gNB_CU_UP
 	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB_DU:
 		ret = C.E2nodeComponentType_gNB_DU
-	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_EN_G_NB:
-		ret = C.E2nodeComponentType_en_gNB
-	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB:
-		ret = C.E2nodeComponentType_eNB
 	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_NG_E_NB:
 		ret = C.E2nodeComponentType_ng_eNB
+	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB:
+		ret = C.E2nodeComponentType_eNB
+	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_NG_E_NB_CU:
+		ret = C.E2nodeComponentType_ng_eNB_CU
+	case e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_NG_E_NB_DU:
+		ret = C.E2nodeComponentType_ng_eNB_DU
 	default:
 		return nil, fmt.Errorf("unexpected E2nodeComponentType %v", e2nodeComponentType)
 	}

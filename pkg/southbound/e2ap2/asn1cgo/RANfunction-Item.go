@@ -66,7 +66,7 @@ func newRanFunctionItem(rfItem *e2appducontents.RanfunctionItem) *C.RANfunction_
 	rfItemC := C.RANfunction_Item_t{
 		ranFunctionID:         newRanFunctionID(rfItem.GetRanFunctionId()),
 		ranFunctionRevision:   *newRanFunctionRevision(rfItem.GetRanFunctionRevision()),
-		ranFunctionDefinition: *newOctetString(string(rfItem.GetRanFunctionDefinition().GetValue())),
+		ranFunctionDefinition: *newOctetString(rfItem.GetRanFunctionDefinition().GetValue()),
 		ranFunctionOID:        newRanFunctionOID(rfItem.GetRanFunctionOid()),
 	}
 
@@ -103,7 +103,7 @@ func decodeRanFunctionItem(rfiC *C.RANfunction_Item_t) (*e2appducontents.Ranfunc
 			Value: decodeRanFunctionRevision(&rfiC.ranFunctionRevision).Value,
 		},
 		RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
-			Value: []byte(decodeOctetString(&rfiC.ranFunctionDefinition)),
+			Value: decodeOctetString(&rfiC.ranFunctionDefinition),
 		},
 		RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
 			Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,

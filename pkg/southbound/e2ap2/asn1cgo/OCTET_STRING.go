@@ -14,8 +14,8 @@ import "C"
 import "unsafe"
 
 // TODO: Change the argument to a []byte
-func newOctetString(msg string) *C.OCTET_STRING_t {
-	msgBytes := C.CBytes([]byte(msg))
+func newOctetString(msg []byte) *C.OCTET_STRING_t {
+	msgBytes := C.CBytes(msg)
 	octStrC := C.OCTET_STRING_t{
 		buf:  (*C.uchar)(msgBytes),
 		size: C.ulong(len(msg)),
@@ -23,8 +23,8 @@ func newOctetString(msg string) *C.OCTET_STRING_t {
 	return &octStrC
 }
 
-func decodeOctetString(octC *C.OCTET_STRING_t) string {
+func decodeOctetString(octC *C.OCTET_STRING_t) []byte {
 
 	bytes := C.GoBytes(unsafe.Pointer(octC.buf), C.int(octC.size))
-	return string(bytes)
+	return bytes
 }

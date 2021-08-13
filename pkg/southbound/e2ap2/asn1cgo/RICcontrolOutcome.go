@@ -18,7 +18,7 @@ import (
 )
 
 func newRicControlOutcome(rco *e2ap_commondatatypes.RiccontrolOutcome) *C.RICcontrolOutcome_t {
-	return newOctetString(string(rco.GetValue()))
+	return newOctetString(rco.GetValue())
 }
 
 func decodeRicControlOutcomeBytes(rcoBytes []byte) *e2ap_commondatatypes.RiccontrolOutcome {
@@ -31,7 +31,7 @@ func decodeRicControlOutcomeBytes(rcoBytes []byte) *e2ap_commondatatypes.Riccont
 
 func decodeRicControlOutcome(rcoC *C.RICcontrolOutcome_t) *e2ap_commondatatypes.RiccontrolOutcome {
 	result := e2ap_commondatatypes.RiccontrolOutcome{
-		Value: []byte(decodeOctetString(rcoC)),
+		Value: decodeOctetString(rcoC),
 	}
 
 	return &result
