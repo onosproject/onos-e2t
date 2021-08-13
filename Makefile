@@ -3,7 +3,7 @@ export GO111MODULE=on
 
 .PHONY: build
 
-ONOS_E2T_VERSION := v0.6.9
+ONOS_E2T_VERSION := latest
 ONOS_PROTOC_VERSION := v0.6.9
 BUF_VERSION := 0.49.0
 
@@ -86,7 +86,6 @@ kind: # @HELP build Docker images and add them to the currently configured kind 
 kind: images
 	@if [ "`kind get clusters`" = '' ]; then echo "no kind cluster found" && exit 1; fi
 	kind load docker-image onosproject/onos-e2t:${ONOS_E2T_VERSION}
-	kind load docker-image onosproject/onos-e2t-sim-app:${ONOS_E2T_VERSION}
 
 all: build images
 
