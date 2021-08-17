@@ -8,14 +8,15 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"math/rand"
+	"time"
+
 	gogotypes "github.com/gogo/protobuf/types"
 	uuid2 "github.com/google/uuid"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/uri"
-	"math/rand"
-	"time"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 
@@ -123,6 +124,18 @@ func (r *Reconciler) createE2T(ctx context.Context) error {
 		Aspects: make(map[string]*gogotypes.Any),
 		Labels:  map[string]string{},
 	}
+	var addresses []*topoapi.Address
+	addresses = append(addresses, &topoapi.Address{
+		IP: env.GetPodIP(),
+	})
+	e2tAspect := &topoapi.E2Termination{
+		Addresses: addresses,
+	}
+	err = object.SetAspect(e2tAspect)
+	if err != nil {
+		return err
+	}
+
 	err = r.store.Create(ctx, object)
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
