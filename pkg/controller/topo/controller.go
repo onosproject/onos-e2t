@@ -124,12 +124,14 @@ func (r *Reconciler) createE2T(ctx context.Context) error {
 		Aspects: make(map[string]*gogotypes.Any),
 		Labels:  map[string]string{},
 	}
-	var addresses []*topoapi.Address
-	addresses = append(addresses, &topoapi.Address{
-		IP: env.GetPodIP(),
+	var interfaces []*topoapi.Interface
+	interfaces = append(interfaces, &topoapi.Interface{
+		IP:   env.GetPodIP(),
+		Port: 36421,
+		Type: topoapi.Interface_INTERFACE_E2AP101,
 	})
 	e2tAspect := &topoapi.E2Termination{
-		Addresses: addresses,
+		Interfaces: interfaces,
 	}
 	err = object.SetAspect(e2tAspect)
 	if err != nil {
