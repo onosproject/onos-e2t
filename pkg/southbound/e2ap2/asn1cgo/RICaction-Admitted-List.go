@@ -41,7 +41,7 @@ func decodeRicActionAdmittedListBytes(raalBytes []byte) (*e2appducontents.Ricact
 	size := C.int(binary.LittleEndian.Uint32(raalBytes[12:16]))
 
 	raalC := C.RICaction_Admitted_List_t{
-		list: C.struct___141{
+		list: C.struct___139{
 			array: array,
 			size:  size,
 			count: count,
@@ -61,7 +61,7 @@ func decodeRicActionAdmittedList(raalC *C.RICaction_Admitted_List_t) (*e2appduco
 	//fmt.Printf("RicactionAdmittedList %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*raalC.list.array)) * uintptr(i)
-		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1713P1_t)(unsafe.Pointer(uintptr(unsafe.Pointer(raalC.list.array)) + offset))
+		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1754P1_t)(unsafe.Pointer(uintptr(unsafe.Pointer(raalC.list.array)) + offset))
 		//fmt.Printf("Value %T %p %v\n", rfIDiIeC, rfIDiIeC, rfIDiIeC)
 		rfIDiIe, err := decodeRicActionAdmittedItemIesSingleContainer(rfIDiIeC)
 		if err != nil {

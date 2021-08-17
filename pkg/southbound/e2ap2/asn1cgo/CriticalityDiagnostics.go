@@ -10,8 +10,7 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "CriticalityDiagnostics.h"
-//#include "CriticalityDiagnostics-IE-List.h"
-// #include "RICrequestID.h"
+//#include "RICrequestID.h"
 import "C"
 import (
 	"encoding/binary"
@@ -143,11 +142,13 @@ func decodeCriticalityDiagnostics(cdC *C.CriticalityDiagnostics_t) (*e2apies.Cri
 	}
 
 	if cdC.triggeringMessage != nil {
-		ret.TriggeringMessage = decodeTriggeringMessage(*cdC.triggeringMessage)
+		trMsg := decodeTriggeringMessage(*cdC.triggeringMessage)
+		ret.TriggeringMessage = &trMsg
 	}
 
 	if cdC.procedureCriticality != nil {
-		ret.ProcedureCriticality = decodeCriticality(*cdC.procedureCriticality)
+		c := decodeCriticality(*cdC.procedureCriticality)
+		ret.ProcedureCriticality = &c
 	}
 
 	if cdC.ricRequestorID != nil {

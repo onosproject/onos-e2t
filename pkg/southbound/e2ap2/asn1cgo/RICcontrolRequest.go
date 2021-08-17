@@ -67,12 +67,12 @@ func perDecodeRICcontrolRequest(bytes []byte) (*e2appducontents.RiccontrolReques
 }
 
 func newRicControlRequest(rcr *e2appducontents.RiccontrolRequest) (*C.RICcontrolRequest_t, error) {
-	pIeC1710P7, err := newRicControlRequestIEs(rcr.ProtocolIes)
+	pIeC1751P7, err := newRicControlRequestIEs(rcr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rcrC := C.RICcontrolRequest_t{
-		protocolIEs: *pIeC1710P7,
+		protocolIEs: *pIeC1751P7,
 	}
 
 	return &rcrC, nil

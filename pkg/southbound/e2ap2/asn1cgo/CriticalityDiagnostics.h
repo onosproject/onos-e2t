@@ -16,6 +16,7 @@
 #include "TriggeringMessage.h"
 #include "Criticality.h"
 #include "constr_SEQUENCE.h"
+#include "CriticalityDiagnostics-IE-List.h"
 
 #ifdef __cplusplus
 extern "C" {

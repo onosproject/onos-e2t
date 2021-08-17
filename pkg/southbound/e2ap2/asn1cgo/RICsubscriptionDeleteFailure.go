@@ -17,12 +17,12 @@ import (
 )
 
 func newRicSubscriptionDeleteFailure(rsdf *e2appducontents.RicsubscriptionDeleteFailure) (*C.RICsubscriptionDeleteFailure_t, error) {
-	pIeC1710P5, err := newRicSubscriptionDeleteFailureIe(rsdf.ProtocolIes)
+	pIeC1751P5, err := newRicSubscriptionDeleteFailureIe(rsdf.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsdfC := C.RICsubscriptionDeleteFailure_t{
-		protocolIEs: *pIeC1710P5,
+		protocolIEs: *pIeC1751P5,
 	}
 
 	return &rsdfC, nil

@@ -10,7 +10,6 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "CriticalityDiagnostics-IE-List.h"
-//#include "CriticalityDiagnostics-IE-Item.h"
 import "C"
 import (
 	"fmt"

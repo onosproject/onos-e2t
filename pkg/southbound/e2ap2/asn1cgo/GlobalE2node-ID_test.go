@@ -23,7 +23,7 @@ func createGlobalE2nodeIDGNb() *e2apies.GlobalE2NodeId {
 					},
 					GnbId: &e2apies.GnbIdChoice{
 						GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
-							GnbId: &e2ap_commondatatypes.BitString{
+							GnbId: &asn1.BitString{
 								Value: []byte{0xd4, 0xbc, 0x9c},
 								Len:   22,
 							},
@@ -52,7 +52,7 @@ func createGlobalE2nodeIDenGNb() *e2apies.GlobalE2NodeId {
 					},
 					GNbId: &e2apies.EngnbId{
 						EngnbId: &e2apies.EngnbId_GNbId{
-							GNbId: &e2ap_commondatatypes.BitString{
+							GNbId: &asn1.BitString{
 								Value: []byte{0xd4, 0xbc, 0x9c},
 								Len:   22,
 							},
@@ -75,7 +75,7 @@ func createGlobalE2nodeIDENb() *e2apies.GlobalE2NodeId {
 					},
 					ENbId: &e2apies.EnbId{
 						EnbId: &e2apies.EnbId_MacroENbId{
-							MacroENbId: &e2ap_commondatatypes.BitString{
+							MacroENbId: &asn1.BitString{
 								Value: []byte{0xd4, 0xbc, 0x90},
 								Len:   20,
 							},
@@ -98,7 +98,7 @@ func createGlobalE2nodeIDngENb() *e2apies.GlobalE2NodeId {
 					},
 					EnbId: &e2apies.EnbIdChoice{
 						EnbIdChoice: &e2apies.EnbIdChoice_EnbIdLongmacro{
-							EnbIdLongmacro: &e2ap_commondatatypes.BitString{
+							EnbIdLongmacro: &asn1.BitString{
 								Value: []byte{0xd4, 0xbc, 0x98},
 								Len:   21,
 							},

@@ -23,7 +23,7 @@ func createGlobalngeNbIDMsg() (*e2ap_ies.GlobalngeNbId, error) {
 		},
 		EnbId: &e2ap_ies.EnbIdChoice{
 			EnbIdChoice: &e2ap_ies.EnbIdChoice_EnbIdMacro{
-				EnbIdMacro: &e2ap_commondatatypes.BitString{
+				EnbIdMacro: &asn1.BitString{
 					Value: []byte{0xdc, 0xb8, 0x90},
 					Len:   20,
 				},

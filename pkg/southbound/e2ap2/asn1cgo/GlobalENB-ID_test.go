@@ -20,7 +20,7 @@ func TestNewGlobaleNBID(t *testing.T) {
 		},
 		ENbId: &e2apies.EnbId{
 			EnbId: &e2apies.EnbId_HomeENbId{
-				HomeENbId: &e2ap_commondatatypes.BitString{
+				HomeENbId: &asn1.BitString{
 					Value: []byte{0xf0, 0xde, 0xcb, 0xb0},
 					Len:   28,
 				},

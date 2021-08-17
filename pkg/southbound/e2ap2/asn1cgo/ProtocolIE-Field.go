@@ -10,6 +10,7 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "ProtocolIE-Field.h"
+//#include "ResetRequest.h"
 import "C"
 import (
 	"encoding/binary"
@@ -616,8 +617,8 @@ func newE2nodeConfigurationUpdateIes3GlobalE2nodeID(esIe *e2appducontents.E2Node
 	ie := C.E2nodeConfigurationUpdate_IEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2nodeConfigurationUpdateIEs__value{
-			present: C.E2nodeConfigurationUpdateIEs__value_PR_GlobalE2node_ID,
+		value: C.struct_E2nodeConfigurationUpdate_IEs__value{
+			present: C.E2nodeConfigurationUpdate_IEs__value_PR_GlobalE2node_ID,
 			choice:  choiceC,
 		},
 	}
@@ -2633,7 +2634,7 @@ func newE2setupRequestIe49TransactionID(e2srIe *e2appducontents.E2SetupRequestIe
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2srIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -2661,7 +2662,7 @@ func newE2setupResponseIe49TransactionID(e2srIe *e2appducontents.E2SetupResponse
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [112]byte{}
 
 	transactionID := newTransactionID(e2srIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -2689,7 +2690,7 @@ func newE2setupFailureIe49TransactionID(e2sfIe *e2appducontents.E2SetupFailureIe
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [80]byte{}
 
 	transactionID := newTransactionID(e2sfIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -2706,7 +2707,7 @@ func newE2setupFailureIe49TransactionID(e2sfIe *e2appducontents.E2SetupFailureIe
 	return &ie, nil
 }
 
-func newE2connectionUpdateIe49TransactionID(e2cuIe *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes49) (*C.E2connectionUpdateIEs_t, error) {
+func newE2connectionUpdateIe49TransactionID(e2cuIe *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes49) (*C.E2connectionUpdate_IEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2cuIe.GetCriticality()))
 	if err != nil {
 		return nil, err
@@ -2717,16 +2718,16 @@ func newE2connectionUpdateIe49TransactionID(e2cuIe *e2appducontents.E2Connection
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2cuIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
 
-	ie := C.E2connectionUpdateIEs_t{
+	ie := C.E2connectionUpdate_IEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2connectionUpdateIEs__value{
-			present: C.E2connectionUpdateIEs__value_PR_TransactionID,
+		value: C.struct_E2connectionUpdate_IEs__value{
+			present: C.E2connectionUpdate_IEs__value_PR_TransactionID,
 			choice:  choiceC,
 		},
 	}
@@ -2734,7 +2735,7 @@ func newE2connectionUpdateIe49TransactionID(e2cuIe *e2appducontents.E2Connection
 	return &ie, nil
 }
 
-func newE2connectionUpdateAck49TransactionID(e2cuaIe *e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes49) (*C.E2connectionUpdateAckIEs_t, error) {
+func newE2connectionUpdateAck49TransactionID(e2cuaIe *e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes49) (*C.E2connectionUpdateAck_IEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2cuaIe.GetCriticality()))
 	if err != nil {
 		return nil, err
@@ -2745,16 +2746,16 @@ func newE2connectionUpdateAck49TransactionID(e2cuaIe *e2appducontents.E2Connecti
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2cuaIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
 
-	ie := C.E2connectionUpdateAckIEs_t{
+	ie := C.E2connectionUpdateAck_IEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2connectionUpdateAckIEs__value{
-			present: C.E2connectionUpdateAckIEs__value_PR_TransactionID,
+		value: C.struct_E2connectionUpdateAck_IEs__value{
+			present: C.E2connectionUpdateAck_IEs__value_PR_TransactionID,
 			choice:  choiceC,
 		},
 	}
@@ -2762,7 +2763,7 @@ func newE2connectionUpdateAck49TransactionID(e2cuaIe *e2appducontents.E2Connecti
 	return &ie, nil
 }
 
-func newE2connectionUpdateFailureIes49TransactionID(e2cufIe *e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes49) (*C.E2connectionUpdateAckIEs_t, error) {
+func newE2connectionUpdateFailureIes49TransactionID(e2cufIe *e2appducontents.E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes49) (*C.E2connectionUpdateFailure_IEs_t, error) {
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2cufIe.GetCriticality()))
 	if err != nil {
 		return nil, err
@@ -2778,11 +2779,11 @@ func newE2connectionUpdateFailureIes49TransactionID(e2cufIe *e2appducontents.E2C
 	transactionID := newTransactionID(e2cufIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
 
-	ie := C.E2connectionUpdateFailureIEs_t{
+	ie := C.E2connectionUpdateFailure_IEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2connectionUpdateFailureIEs__value{
-			present: C.E2connectionUpdateFailureIEs__value_PR_TransactionID,
+		value: C.struct_E2connectionUpdateFailure_IEs__value{
+			present: C.E2connectionUpdateFailure_IEs__value_PR_TransactionID,
 			choice:  choiceC,
 		},
 	}
@@ -2801,7 +2802,7 @@ func newE2nodeConfigurationUpdateIes49TransactionID(e2ncuIe *e2appducontents.E2N
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2ncuIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -2809,8 +2810,8 @@ func newE2nodeConfigurationUpdateIes49TransactionID(e2ncuIe *e2appducontents.E2N
 	ie := C.E2nodeConfigurationUpdate_IEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2nodeConfigurationUpdateIEs__value{
-			present: C.E2nodeConfigurationUpdateIEs__value_PR_TransactionID,
+		value: C.struct_E2nodeConfigurationUpdate_IEs__value{
+			present: C.E2nodeConfigurationUpdate_IEs__value_PR_TransactionID,
 			choice:  choiceC,
 		},
 	}
@@ -2829,7 +2830,7 @@ func newE2nodeConfigurationUpdateAcknowledgeIes49TransactionID(e2ncuIe *e2appduc
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2ncuIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -2837,8 +2838,8 @@ func newE2nodeConfigurationUpdateAcknowledgeIes49TransactionID(e2ncuIe *e2appduc
 	ie := C.E2nodeConfigurationUpdateAcknowledge_IEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2nodeConfigurationUpdateAcknowledgeIEs__value{
-			present: C.E2nodeConfigurationUpdateAcknowledgeIEs__value_PR_TransactionID,
+		value: C.struct_E2nodeConfigurationUpdateAcknowledge_IEs__value{
+			present: C.E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_TransactionID,
 			choice:  choiceC,
 		},
 	}
@@ -2865,8 +2866,8 @@ func newE2nodeConfigurationUpdateFailureIes49TransactionID(e2ncuIe *e2appduconte
 	ie := C.E2nodeConfigurationUpdateFailure_IEs_t{
 		id:          idC,
 		criticality: critC,
-		value: C.struct_E2nodeConfigurationUpdateFailureIEs__value{
-			present: C.E2nodeConfigurationUpdateFailureIEs__value_PR_TransactionID,
+		value: C.struct_E2nodeConfigurationUpdateFailure_IEs__value{
+			present: C.E2nodeConfigurationUpdateFailure_IEs__value_PR_TransactionID,
 			choice:  choiceC,
 		},
 	}
@@ -2885,7 +2886,7 @@ func newResetRequestIes49TransactionID(rrIe *e2appducontents.ResetRequestIes_Res
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [40]byte{}
 
 	transactionID := newTransactionID(rrIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -2941,7 +2942,7 @@ func newRicServiceUpdateIes49TransactionID(rsuIe *e2appducontents.RicserviceUpda
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(rsuIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -2969,7 +2970,7 @@ func newRicServiceUpdateAcknowledgeIes49TransactionID(rsuIe *e2appducontents.Ric
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(rsuIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -3025,7 +3026,7 @@ func newRicServiceQueryIes49TransactionID(esIe *e2appducontents.RicserviceQueryI
 	}
 
 	//TODO: Size should be double-checked
-	choiceC := [64]byte{}
+	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(esIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
@@ -3116,14 +3117,16 @@ func newRANfunctionItemIEs(rfItemIes *e2appducontents.RanfunctionItemIes) (*C.RA
 		return nil, err
 	}
 
-	choiceC := [88]byte{} // The size of the RANfunction_ItemIEs__value_u
+	choiceC := [120]byte{} // The size of the RANfunction_ItemIEs__value_u
 	rfItemC := newRanFunctionItem(rfItemIes.GetE2ApProtocolIes10().GetValue())
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(rfItemC.ranFunctionID))
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(uintptr(unsafe.Pointer(rfItemC.ranFunctionDefinition.buf))))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(rfItemC.ranFunctionDefinition.size))
 	// Gap of 24 for the asn_struct_ctx_t belonging to OCTET STRING
 	binary.LittleEndian.PutUint64(choiceC[48:], uint64(rfItemC.ranFunctionRevision))
-	binary.LittleEndian.PutUint64(choiceC[56:], uint64(uintptr(unsafe.Pointer(rfItemC.ranFunctionOID))))
+	binary.LittleEndian.PutUint64(choiceC[56:], uint64(uintptr(unsafe.Pointer(rfItemC.ranFunctionOID.buf))))
+	binary.LittleEndian.PutUint64(choiceC[64:], uint64(rfItemC.ranFunctionOID.size))
+	// Gap of 24 for the asn_struct_ctx_t belonging to PrintableString
 
 	rfItemIesC := C.RANfunction_ItemIEs_t{
 		id:          idC,
@@ -4725,7 +4728,7 @@ func decodeE2nodeConfigurationUpdateIE(e2ncuIeC *C.E2nodeConfigurationUpdate_IEs
 	ret := new(e2appducontents.E2NodeConfigurationUpdateIes)
 
 	switch e2ncuIeC.value.present {
-	case C.E2nodeConfigurationUpdateIEs__value_PR_GlobalE2node_ID:
+	case C.E2nodeConfigurationUpdate_IEs__value_PR_GlobalE2node_ID:
 		gE2nID, err := decodeGlobalE2NodeIDBytes(e2ncuIeC.value.choice)
 		if err != nil {
 			return nil, err

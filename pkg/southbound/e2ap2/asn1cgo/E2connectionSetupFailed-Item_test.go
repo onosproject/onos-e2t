@@ -16,12 +16,12 @@ import (
 
 func createE2connectionSetupFailedItemMsg() (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
 
-	bs1 := &e2ap_commondatatypes.BitString{
+	bs1 := &asn1.BitString{
 		Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 		Len:   64,
 	}
 
-	bs2 := &e2ap_commondatatypes.BitString{
+	bs2 := &asn1.BitString{
 		Value: []byte{0xcd, 0x9b},
 		Len:   16,
 	}

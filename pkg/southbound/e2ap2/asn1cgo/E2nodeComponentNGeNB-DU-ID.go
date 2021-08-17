@@ -9,7 +9,7 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2nodeComponentNGeNB-CU-UP-ID.h"
+//#include "E2nodeComponentNGeNB-DU-ID.h"
 import "C"
 
 import (

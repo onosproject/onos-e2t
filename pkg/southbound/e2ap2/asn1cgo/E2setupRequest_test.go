@@ -25,7 +25,7 @@ func Test_E2setupRequest(t *testing.T) {
 						},
 						GnbId: &e2apies.GnbIdChoice{
 							GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
-								GnbId: &e2ap_commondatatypes.BitString{
+								GnbId: &asn1.BitString{
 									Value: []byte{0xd4, 0xcb, 0x8c},
 									Len:   22,
 								}},

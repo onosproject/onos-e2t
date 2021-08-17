@@ -32,11 +32,12 @@ func xerDecodeTransactionID(bytes []byte) (*e2apies.TransactionId, error) {
 }
 
 func newTransactionID(transactionID *e2apies.TransactionId) *C.TransactionID_t {
-	return C.long(transactionID.GetValue())
+	res := C.long(transactionID.GetValue())
+	return &res
 }
 
 func decodeTransactionIDBytes(transactionIDCchoice []byte) *e2apies.TransactionId {
-	transactionID := binary.LittleEndian.Uint64(transactionIDCchoice[0:8])
+	transactionID := C.long(binary.LittleEndian.Uint64(transactionIDCchoice[0:8]))
 
 	return decodeTransactionID(&transactionID)
 }
@@ -44,6 +45,6 @@ func decodeTransactionIDBytes(transactionIDCchoice []byte) *e2apies.TransactionI
 func decodeTransactionID(transactionIDC *C.TransactionID_t) *e2apies.TransactionId {
 
 	return &e2apies.TransactionId{
-		Value: int32(transactionIDC),
+		Value: int32(*transactionIDC),
 	}
 }

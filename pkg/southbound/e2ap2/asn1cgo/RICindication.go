@@ -17,12 +17,12 @@ import (
 )
 
 func newRicIndication(ri *e2appducontents.Ricindication) (*C.RICindication_t, error) {
-	pIeC1710P6, err := newRicIndicationIEs(ri.ProtocolIes)
+	pIeC1751P6, err := newRicIndicationIEs(ri.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	riC := C.RICindication_t{
-		protocolIEs: *pIeC1710P6,
+		protocolIEs: *pIeC1751P6,
 	}
 
 	return &riC, nil

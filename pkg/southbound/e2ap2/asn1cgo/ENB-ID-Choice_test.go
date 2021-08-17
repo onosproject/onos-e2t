@@ -16,7 +16,7 @@ func createEnbIDChoiceMacro() *e2ap_ies.EnbIdChoice {
 
 	return &e2ap_ies.EnbIdChoice{
 		EnbIdChoice: &e2ap_ies.EnbIdChoice_EnbIdMacro{
-			EnbIdMacro: &e2ap_commondatatypes.BitString{
+			EnbIdMacro: &asn1.BitString{
 				Value: []byte{0xd4, 0xcb, 0x90},
 				Len:   20,
 			},
@@ -28,7 +28,7 @@ func createEnbIDChoiceShortMacro() *e2ap_ies.EnbIdChoice {
 
 	return &e2ap_ies.EnbIdChoice{
 		EnbIdChoice: &e2ap_ies.EnbIdChoice_EnbIdShortmacro{
-			EnbIdShortmacro: &e2ap_commondatatypes.BitString{
+			EnbIdShortmacro: &asn1.BitString{
 				Value: []byte{0xd4, 0xcb, 0xc0},
 				Len:   18,
 			},
@@ -40,7 +40,7 @@ func createEnbIDChoiceLongMacro() *e2ap_ies.EnbIdChoice {
 
 	return &e2ap_ies.EnbIdChoice{
 		EnbIdChoice: &e2ap_ies.EnbIdChoice_EnbIdLongmacro{
-			EnbIdLongmacro: &e2ap_commondatatypes.BitString{
+			EnbIdLongmacro: &asn1.BitString{
 				Value: []byte{0xd4, 0xcb, 0xf8},
 				Len:   21,
 			},

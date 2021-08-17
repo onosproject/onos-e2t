@@ -68,12 +68,12 @@ func perDecodeResetResponse(bytes []byte) (*e2ap_pdu_contents.ResetResponse, err
 
 func newResetResponse(rr *e2ap_pdu_contents.ResetResponse) (*C.ResetResponse_t, error) {
 
-	pIeC1710P21, err := newResetResponseIe(rr.ProtocolIes)
+	pIeC1751P21, err := newResetResponseIe(rr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rrC := C.ResetResponse_t{
-		protocolIEs: *pIeC1710P21,
+		protocolIEs: *pIeC1751P21,
 	}
 
 	return &rrC, nil

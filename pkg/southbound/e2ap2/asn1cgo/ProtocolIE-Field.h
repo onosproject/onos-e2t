@@ -26,6 +26,7 @@
 #include "E2connectionUpdate-Item.h"
 #include "E2connectionUpdateRemove-Item.h"
 #include "E2connectionSetupFailed-Item.h"
+#include "E2nodeComponentID.h"
 #include "E2nodeComponentConfigUpdate-Item.h"
 #include "E2nodeComponentConfigUpdateAck-Item.h"
 #include "RANfunction-Item.h"
@@ -62,6 +63,7 @@
 #include "E2connectionUpdate-List.h"
 #include "E2connectionUpdateRemove-List.h"
 #include "E2connectionSetupFailed-List.h"
+#include "TransactionID.h"
 
 #ifdef __cplusplus
 extern "C" {

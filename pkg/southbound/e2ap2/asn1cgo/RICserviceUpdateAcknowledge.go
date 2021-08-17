@@ -68,12 +68,12 @@ func perDecodeRicServiceUpdateAcknowledge(bytes []byte) (*e2ap_pdu_contents.Rics
 
 func newRicServiceUpdateAcknowledge(rsua *e2ap_pdu_contents.RicserviceUpdateAcknowledge) (*C.RICserviceUpdateAcknowledge_t, error) {
 
-	pIeC1710P23, err := newRicServiceUpdateAcknowledgeIe(rsua.ProtocolIes)
+	pIeC1751P23, err := newRicServiceUpdateAcknowledgeIe(rsua.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsuaC := C.RICserviceUpdateAcknowledge_t{
-		protocolIEs: *pIeC1710P23,
+		protocolIEs: *pIeC1751P23,
 	}
 
 	return &rsuaC, nil

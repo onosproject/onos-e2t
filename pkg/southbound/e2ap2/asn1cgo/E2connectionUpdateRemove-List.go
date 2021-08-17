@@ -92,7 +92,7 @@ func decodeE2connectionUpdateRemoveList(e2curlC *C.E2connectionUpdateRemove_List
 	ieCount := int(e2curlC.list.count)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(e2curlC.list.array)) * uintptr(i)
-		ieC := *(**C.ProtocolIE_SingleContainer_1713P4_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2curlC.list.array)) + offset))
+		ieC := *(**C.ProtocolIE_SingleContainer_1754P4_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2curlC.list.array)) + offset))
 		ie, err := decodeE2connectionUpdateRemoveItemIesSingleContainer(ieC)
 		if err != nil {
 			return nil, fmt.Errorf("decodeE2connectionUpdateRemoveItemIesSingleContainer() %s", err.Error())

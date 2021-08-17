@@ -68,12 +68,12 @@ func perDecodeRicServiceQuery(bytes []byte) (*e2ap_pdu_contents.RicserviceQuery,
 
 func newRicServiceQuery(rsq *e2ap_pdu_contents.RicserviceQuery) (*C.RICserviceQuery_t, error) {
 
-	pIeC1710P25, err := newRicServiceQueryIe(rsq.ProtocolIes)
+	pIeC1751P25, err := newRicServiceQueryIe(rsq.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsqC := C.RICserviceQuery_t{
-		protocolIEs: *pIeC1710P25,
+		protocolIEs: *pIeC1751P25,
 	}
 
 	return &rsqC, nil

@@ -240,7 +240,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_E2setupRequest:
 		e2srC := *(**C.E2setupRequestIEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		esC := C.E2setupRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P11_t{
+			protocolIEs: C.ProtocolIE_Container_1751P11_t{
 				list: C.struct___70{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupRequestIEs_t)(unsafe.Pointer(e2srC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -265,8 +265,8 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICsubscriptionRequest:
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P0_t{
-				list: C.struct___125{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1751P0_t{
+				list: C.struct___123{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -294,8 +294,8 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICsubscriptionDeleteRequest:
 		ricsdrC := *(**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		sdrC := C.RICsubscriptionDeleteRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P3_t{
-				list: C.struct___119{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1751P3_t{
+				list: C.struct___118{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(ricsdrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -323,7 +323,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICindication:
 		riIesC := *(**C.RICindication_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		riC := C.RICindication_t{
-			protocolIEs: C.ProtocolIE_Container_1710P6_t{
+			protocolIEs: C.ProtocolIE_Container_1751P6_t{
 				list: C.struct___107{ // TODO: tie this down with a predictable name
 					array: (**C.RICindication_IEs_t)(unsafe.Pointer(riIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -352,7 +352,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICcontrolRequest:
 		rcrIesC := *(**C.RICcontrolRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		rcrC := C.RICcontrolRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P7_t{
+			protocolIEs: C.ProtocolIE_Container_1751P7_t{
 				list: C.struct___106{ // TODO: tie this down with a predictable name
 					array: (**C.RICcontrolRequest_IEs_t)(unsafe.Pointer(rcrIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -381,7 +381,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_ErrorIndication:
 		eiIesC := *(**C.ErrorIndication_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		eiC := C.ErrorIndication_t{
-			protocolIEs: C.ProtocolIE_Container_1710P10_t{
+			protocolIEs: C.ProtocolIE_Container_1751P10_t{
 				list: C.struct___69{ // TODO: tie this down with a predictable name
 					array: (**C.ErrorIndication_IEs_t)(unsafe.Pointer(eiIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -410,7 +410,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICserviceQuery:
 		rsqIesC := *(**C.RICserviceQuery_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		rsqC := C.RICserviceQuery_t{
-			protocolIEs: C.ProtocolIE_Container_1710P25_t{
+			protocolIEs: C.ProtocolIE_Container_1751P25_t{
 				list: C.struct___108{ // TODO: tie this down with a predictable name
 					array: (**C.RICserviceQuery_IEs_t)(unsafe.Pointer(rsqIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -439,8 +439,8 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_ResetRequest:
 		rrIesC := *(**C.ResetRequest_t)(unsafe.Pointer(&listArrayAddr[0]))
 		rrC := C.ResetRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P20_t{
-				list: C.struct___129{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1751P20_t{
+				list: C.struct___127{ // TODO: tie this down with a predictable name
 					array: (**C.ResetRequestIEs_t)(unsafe.Pointer(rrIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -468,7 +468,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICserviceUpdate:
 		riIesC := *(**C.RICserviceUpdate_t)(unsafe.Pointer(&listArrayAddr[0]))
 		rsuC := C.RICserviceUpdate_t{
-			protocolIEs: C.ProtocolIE_Container_1710P22_t{
+			protocolIEs: C.ProtocolIE_Container_1751P22_t{
 				list: C.struct___110{ // TODO: tie this down with a predictable name
 					array: (**C.RICserviceUpdate_IEs_t)(unsafe.Pointer(riIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -497,7 +497,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_E2nodeConfigurationUpdate:
 		e2ncuIesC := *(**C.E2nodeConfigurationUpdate_t)(unsafe.Pointer(&listArrayAddr[0]))
 		e2ncuC := C.E2nodeConfigurationUpdate_t{
-			protocolIEs: C.ProtocolIE_Container_1710P17_t{
+			protocolIEs: C.ProtocolIE_Container_1751P17_t{
 				list: C.struct___76{ // TODO: tie this down with a predictable name
 					array: (**C.E2nodeConfigurationUpdate_IEs_t)(unsafe.Pointer(e2ncuIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -526,7 +526,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_E2connectionUpdate:
 		e2cuIesC := *(**C.E2connectionUpdate_t)(unsafe.Pointer(&listArrayAddr[0]))
 		e2cuC := C.E2connectionUpdate_t{
-			protocolIEs: C.ProtocolIE_Container_1710P14_t{
+			protocolIEs: C.ProtocolIE_Container_1751P14_t{
 				list: C.struct___73{ // TODO: tie this down with a predictable name
 					array: (**C.E2connectionUpdate_IEs_t)(unsafe.Pointer(e2cuIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),

@@ -44,12 +44,12 @@ func perEncodeE2setupResponse(e2sr *e2appducontents.E2SetupResponse) ([]byte, er
 }
 
 func newE2setupResponse(e2sr *e2appducontents.E2SetupResponse) (*C.E2setupResponse_t, error) {
-	pIeC1710P12, err := newE2SetupResponseIes(e2sr.ProtocolIes)
+	pIeC1751P12, err := newE2SetupResponseIes(e2sr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsrC := C.E2setupResponse_t{
-		protocolIEs: *pIeC1710P12,
+		protocolIEs: *pIeC1751P12,
 	}
 
 	return &rsrC, nil

@@ -44,12 +44,12 @@ func perEncodeRICsubscriptionRequest(rsr *e2appducontents.RicsubscriptionRequest
 }
 
 func newRICsubscriptionRequest(rsr *e2appducontents.RicsubscriptionRequest) (*C.RICsubscriptionRequest_t, error) {
-	pIeC1710P0, err := newRicSubscriptionRequestIes(rsr.GetProtocolIes())
+	pIeC1751P0, err := newRicSubscriptionRequestIes(rsr.GetProtocolIes())
 	if err != nil {
 		return nil, err
 	}
 	rsrC := C.RICsubscriptionRequest_t{
-		protocolIEs: *pIeC1710P0,
+		protocolIEs: *pIeC1751P0,
 	}
 
 	return &rsrC, nil

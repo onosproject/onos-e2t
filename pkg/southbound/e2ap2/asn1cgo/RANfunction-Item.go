@@ -67,7 +67,7 @@ func newRanFunctionItem(rfItem *e2appducontents.RanfunctionItem) *C.RANfunction_
 		ranFunctionID:         newRanFunctionID(rfItem.GetRanFunctionId()),
 		ranFunctionRevision:   *newRanFunctionRevision(rfItem.GetRanFunctionRevision()),
 		ranFunctionDefinition: *newOctetString(rfItem.GetRanFunctionDefinition().GetValue()),
-		ranFunctionOID:        newRanFunctionOID(rfItem.GetRanFunctionOid()),
+		ranFunctionOID:        *newRanFunctionOID(rfItem.GetRanFunctionOid()),
 	}
 
 	//if rfItem.GetRanFunctionOid() != nil {
@@ -77,7 +77,7 @@ func newRanFunctionItem(rfItem *e2appducontents.RanfunctionItem) *C.RANfunction_
 	return &rfItemC
 }
 
-func decodeRanFunctionItemBytes(bytes [88]byte) (*e2appducontents.RanfunctionItem, error) {
+func decodeRanFunctionItemBytes(bytes [120]byte) (*e2appducontents.RanfunctionItem, error) {
 	size := binary.LittleEndian.Uint64(bytes[16:24])
 	gobytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16]))), C.int(size))
 
@@ -88,7 +88,7 @@ func decodeRanFunctionItemBytes(bytes [88]byte) (*e2appducontents.RanfunctionIte
 			size: C.ulong(size),
 		},
 		ranFunctionRevision: C.long(binary.LittleEndian.Uint64(bytes[48:56])),
-		ranFunctionOID:      (*C.PrintableString_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64])))),
+		ranFunctionOID:      *(*C.PrintableString_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64])))),
 	}
 
 	return decodeRanFunctionItem(&rfiC)
@@ -106,7 +106,7 @@ func decodeRanFunctionItem(rfiC *C.RANfunction_Item_t) (*e2appducontents.Ranfunc
 			Value: decodeOctetString(&rfiC.ranFunctionDefinition),
 		},
 		RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-			Value: decodeRanFunctionOID(rfiC.ranFunctionOID).Value,
+			Value: decodeRanFunctionOID(&rfiC.ranFunctionOID).Value,
 		},
 	}
 

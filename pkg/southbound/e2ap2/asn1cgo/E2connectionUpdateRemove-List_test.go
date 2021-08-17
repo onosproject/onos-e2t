@@ -26,11 +26,11 @@ func createE2connectionUpdateRemoveListMsg() (*e2ap_pdu_contents.E2ConnectionUpd
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2ap_pdu_contents.E2ConnectionUpdateRemoveItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{
-				TnlAddress: &e2ap_commondatatypes.BitString{
+				TnlAddress: &asn1.BitString{
 					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 					Len:   64,
 				},
-				TnlPort: &e2ap_commondatatypes.BitString{
+				TnlPort: &asn1.BitString{
 					Value: []byte{0xae, 0x89},
 					Len:   16,
 				},

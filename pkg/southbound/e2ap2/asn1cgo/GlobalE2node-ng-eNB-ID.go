@@ -106,7 +106,7 @@ func decodeGlobalE2nodeNgEnbID(globalE2nodeNgEnbIDC *C.GlobalE2node_ng_eNB_ID_t)
 	}
 
 	if globalE2nodeNgEnbIDC.global_eNB_ID != nil {
-		globalE2nodeNgEnbID.GlobalENbId, err = decodeGlobalEnbID(globalE2nodeNgEnbIDC.globalE2nodeNgEnbIDC.global_eNB_ID)
+		globalE2nodeNgEnbID.GlobalENbId, err = decodeGlobalEnbID(globalE2nodeNgEnbIDC.global_eNB_ID)
 		if err != nil {
 			return nil, err
 		}

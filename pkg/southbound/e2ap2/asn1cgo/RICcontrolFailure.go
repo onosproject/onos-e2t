@@ -67,12 +67,12 @@ func perDecodeRICcontrolFailure(bytes []byte) (*e2appducontents.RiccontrolFailur
 }
 
 func newRicControlFailure(rcf *e2appducontents.RiccontrolFailure) (*C.RICcontrolFailure_t, error) {
-	pIeC1710P9, err := newRicControlFailureIEs(rcf.ProtocolIes)
+	pIeC1751P9, err := newRicControlFailureIEs(rcf.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rcfC := C.RICcontrolFailure_t{
-		protocolIEs: *pIeC1710P9,
+		protocolIEs: *pIeC1751P9,
 	}
 
 	return &rcfC, nil

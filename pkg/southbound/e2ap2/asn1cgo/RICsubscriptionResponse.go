@@ -17,12 +17,12 @@ import (
 )
 
 func newRicSubscriptionResponse(rsr *e2appducontents.RicsubscriptionResponse) (*C.RICsubscriptionResponse_t, error) {
-	pIeC1710P1, err := newRicSubscriptionResponseIe(rsr.ProtocolIes)
+	pIeC1751P1, err := newRicSubscriptionResponseIe(rsr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsrC := C.RICsubscriptionResponse_t{
-		protocolIEs: *pIeC1710P1,
+		protocolIEs: *pIeC1751P1,
 	}
 
 	return &rsrC, nil

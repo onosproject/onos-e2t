@@ -68,12 +68,12 @@ func perDecodeRicServiceUpdate(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdat
 
 func newRicServiceUpdate(rsu *e2ap_pdu_contents.RicserviceUpdate) (*C.RICserviceUpdate_t, error) {
 
-	pIeC1710P22, err := newRicServiceUpdateIe(rsu.ProtocolIes)
+	pIeC1751P22, err := newRicServiceUpdateIe(rsu.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsuC := C.RICserviceUpdate_t{
-		protocolIEs: *pIeC1710P22,
+		protocolIEs: *pIeC1751P22,
 	}
 
 	return &rsuC, nil

@@ -112,7 +112,7 @@ func decodeRanFunctionsList(rflC *C.RANfunctions_List_t) (*e2appducontents.Ranfu
 	//fmt.Printf("RanFunctionListC %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*rflC.list.array)) * uintptr(i)
-		rfiIeC := *(**C.ProtocolIE_SingleContainer_1713P8_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rflC.list.array)) + offset))
+		rfiIeC := *(**C.ProtocolIE_SingleContainer_1754P8_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rflC.list.array)) + offset))
 		//fmt.Printf("Value %T %p %v\n", rfiIeC, rfiIeC, rfiIeC)
 		rfiIe, err := decodeRanFunctionItemIesSingleContainer(rfiIeC)
 		if err != nil {

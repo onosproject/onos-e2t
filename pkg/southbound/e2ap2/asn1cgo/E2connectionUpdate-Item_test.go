@@ -20,11 +20,11 @@ func createE2connectionUpdateItemMsg() (*e2ap_pdu_contents.E2ConnectionUpdateIte
 
 	e2connectionUpdateItem := e2ap_pdu_contents.E2ConnectionUpdateItem{
 		TnlInformation: &e2ap_ies.Tnlinformation{
-			TnlPort: &e2ap_commondatatypes.BitString{
+			TnlPort: &asn1.BitString{
 				Value: []byte{0xcd, 0x9b},
 				Len:   16,
 			},
-			TnlAddress: &e2ap_commondatatypes.BitString{
+			TnlAddress: &asn1.BitString{
 				Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 				Len:   64,
 			},

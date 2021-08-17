@@ -15,12 +15,12 @@ import "C"
 import e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 
 func newRICsubscriptionDeleteRequest(rsr *e2appducontents.RicsubscriptionDeleteRequest) (*C.RICsubscriptionDeleteRequest_t, error) {
-	pIeC1710P3, err := newRicSubscriptionDeleteRequestIes(rsr.GetProtocolIes())
+	pIeC1751P3, err := newRicSubscriptionDeleteRequestIes(rsr.GetProtocolIes())
 	if err != nil {
 		return nil, err
 	}
 	rsrC := C.RICsubscriptionDeleteRequest_t{
-		protocolIEs: *pIeC1710P3,
+		protocolIEs: *pIeC1751P3,
 	}
 
 	return &rsrC, nil

@@ -21,7 +21,7 @@ func createGlobalE2nodeGnbID() *e2apies.GlobalE2NodeGnbId {
 			},
 			GnbId: &e2apies.GnbIdChoice{
 				GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
-					GnbId: &e2ap_commondatatypes.BitString{
+					GnbId: &asn1.BitString{
 						Value: []byte{0x4d, 0xcb, 0xac},
 						Len:   22,
 					},

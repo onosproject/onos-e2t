@@ -19,39 +19,39 @@ import (
 func createE2connectionUpdateMsg() (*e2ap_pdu_contents.E2ConnectionUpdate, error) {
 
 	e2connectionUpdate, err := pdubuilder.CreateE2connectionUpdateE2apPdu([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
-		TnlPort: e2ap_commondatatypes.BitString{
+		TnlPort: asn1.BitString{
 			Value: []byte{0xae, 0x89},
 			Len:   16,
 		},
-		TnlAddress: e2ap_commondatatypes.BitString{
+		TnlAddress: asn1.BitString{
 			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 			Len:   64,
 		}},
 		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
 		[]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
-			TnlPort: e2ap_commondatatypes.BitString{
+			TnlPort: asn1.BitString{
 				Value: []byte{0xae, 0x87},
 				Len:   16,
 			},
-			TnlAddress: e2ap_commondatatypes.BitString{
+			TnlAddress: asn1.BitString{
 				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x65},
 				Len:   64,
 			}},
 			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE}},
 		[]*types.TnlInformation{
-			{TnlPort: e2ap_commondatatypes.BitString{
+			{TnlPort: asn1.BitString{
 				Value: []byte{0xab, 0x89},
 				Len:   16,
 			},
-				TnlAddress: e2ap_commondatatypes.BitString{
+				TnlAddress: asn1.BitString{
 					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x61},
 					Len:   64,
 				}},
-			{TnlPort: e2ap_commondatatypes.BitString{
+			{TnlPort: asn1.BitString{
 				Value: []byte{0xcd, 0x89},
 				Len:   16,
 			},
-				TnlAddress: e2ap_commondatatypes.BitString{
+				TnlAddress: asn1.BitString{
 					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x76},
 					Len:   64,
 				}},

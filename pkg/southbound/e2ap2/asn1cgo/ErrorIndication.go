@@ -17,12 +17,12 @@ import (
 )
 
 func newErrorIndication(ei *e2appducontents.ErrorIndication) (*C.ErrorIndication_t, error) {
-	pIeC1710P10, err := newErrorIndicationIe(ei.ProtocolIes)
+	pIeC1751P10, err := newErrorIndicationIe(ei.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	eiC := C.ErrorIndication_t{
-		protocolIEs: *pIeC1710P10,
+		protocolIEs: *pIeC1751P10,
 	}
 
 	return &eiC, nil

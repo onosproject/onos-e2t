@@ -68,12 +68,12 @@ func perDecodeRicServiceUpdateFailure(bytes []byte) (*e2ap_pdu_contents.Ricservi
 
 func newRicServiceUpdateFailure(rsuf *e2ap_pdu_contents.RicserviceUpdateFailure) (*C.RICserviceUpdateFailure_t, error) {
 
-	pIeC1710P24, err := newRicServiceUpdateFailureIe(rsuf.ProtocolIes)
+	pIeC1751P24, err := newRicServiceUpdateFailureIe(rsuf.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsufC := C.RICserviceUpdateFailure_t{
-		protocolIEs: *pIeC1710P24,
+		protocolIEs: *pIeC1751P24,
 	}
 
 	return &rsufC, nil

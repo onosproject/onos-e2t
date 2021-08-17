@@ -17,12 +17,12 @@ import (
 )
 
 func newRicSubscriptionDeleteResponse(rsr *e2appducontents.RicsubscriptionDeleteResponse) (*C.RICsubscriptionDeleteResponse_t, error) {
-	pIeC1710P4, err := newRicSubscriptionDeleteResponseIe(rsr.ProtocolIes)
+	pIeC1751P4, err := newRicSubscriptionDeleteResponseIe(rsr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsrC := C.RICsubscriptionDeleteResponse_t{
-		protocolIEs: *pIeC1710P4,
+		protocolIEs: *pIeC1751P4,
 	}
 
 	return &rsrC, nil

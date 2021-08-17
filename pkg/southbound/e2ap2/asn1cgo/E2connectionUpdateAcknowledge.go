@@ -68,12 +68,12 @@ func perDecodeE2connectionUpdateAcknowledge(bytes []byte) (*e2ap_pdu_contents.E2
 
 func newE2connectionUpdateAcknowledge(e2cua *e2ap_pdu_contents.E2ConnectionUpdateAcknowledge) (*C.E2connectionUpdateAcknowledge_t, error) {
 
-	pIeC1710P15, err := newE2connectionUpdateAcknowledgeIe(e2cua.ProtocolIes)
+	pIeC1751P15, err := newE2connectionUpdateAcknowledgeIe(e2cua.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	e2cuaC := C.E2connectionUpdateAcknowledge_t{
-		protocolIEs: *pIeC1710P15,
+		protocolIEs: *pIeC1751P15,
 	}
 
 	return &e2cuaC, nil
