@@ -7,6 +7,7 @@ package manager
 import (
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
+	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
@@ -102,6 +103,11 @@ func (m *Manager) Start() error {
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
 	channels := e2server.NewChannelManager()
 
+	err = m.startE2TController(rnibStore)
+	if err != nil {
+		return err
+	}
+
 	err = m.startTopov1alpha1Controller(rnibStore, channels)
 	if err != nil {
 		return err
@@ -125,6 +131,11 @@ func (m *Manager) Start() error {
 		return err
 	}
 	return nil
+}
+
+func (m *Manager) startE2TController(rnib rnib.Store) error {
+	e2tController := e2t.NewController(rnib)
+	return e2tController.Start()
 }
 
 // startTopov1alpha1Controller starts the topo controller

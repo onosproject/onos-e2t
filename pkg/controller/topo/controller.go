@@ -8,14 +8,15 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"math/rand"
+	"time"
+
 	gogotypes "github.com/gogo/protobuf/types"
 	uuid2 "github.com/google/uuid"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/uri"
-	"math/rand"
-	"time"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 
@@ -80,10 +81,6 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2server.E2Channel) (controll
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	if err := r.createE2T(ctx); err != nil {
-		return controller.Result{}, err
-	}
-
 	if err := r.createE2Node(ctx, channel); err != nil {
 		return controller.Result{}, err
 	}
@@ -100,38 +97,6 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2server.E2Channel) (controll
 		return controller.Result{}, err
 	}
 	return controller.Result{}, nil
-}
-
-func (r *Reconciler) createE2T(ctx context.Context) error {
-	_, err := r.store.Get(ctx, getE2TID())
-	if err == nil {
-		return nil
-	} else if !errors.IsNotFound(err) {
-		log.Infof("Creating E2T entity failed: %v", err)
-		return err
-	}
-
-	log.Debugf("Creating E2T entity")
-	object := &topoapi.Object{
-		ID:   getE2TID(),
-		Type: topoapi.Object_ENTITY,
-		Obj: &topoapi.Object_Entity{
-			Entity: &topoapi.Entity{
-				KindID: topoapi.E2T,
-			},
-		},
-		Aspects: make(map[string]*gogotypes.Any),
-		Labels:  map[string]string{},
-	}
-	err = r.store.Create(ctx, object)
-	if err != nil {
-		if !errors.IsAlreadyExists(err) {
-			log.Infof("Creating E2T entity failed: %v", err)
-			return err
-		}
-		return nil
-	}
-	return nil
 }
 
 func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) error {
