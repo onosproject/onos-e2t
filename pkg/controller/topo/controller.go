@@ -28,7 +28,12 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-const defaultTimeout = 30 * time.Second
+const (
+	defaultTimeout                 = 30 * time.Second
+	defaultGRPCPort                = 5150
+	defaultE2APPort                = 36421
+	defaultLeaseExpirationDuration = 30 * time.Second
+)
 
 var log = logging.GetLogger("controller", "subscription")
 
@@ -124,12 +129,19 @@ func (r *Reconciler) createE2T(ctx context.Context) error {
 		Aspects: make(map[string]*gogotypes.Any),
 		Labels:  map[string]string{},
 	}
-	var interfaces []*topoapi.Interface
-	interfaces = append(interfaces, &topoapi.Interface{
+	interfaces := make([]*topoapi.Interface, 2)
+	interfaces[0] = &topoapi.Interface{
 		IP:   env.GetPodIP(),
-		Port: 36421, // TODO should be configured
+		Port: defaultE2APPort,
 		Type: topoapi.Interface_INTERFACE_E2AP101,
-	})
+	}
+
+	interfaces[1] = &topoapi.Interface{
+		IP:   env.GetPodIP(),
+		Port: defaultGRPCPort,
+		Type: topoapi.Interface_INTERFACE_E2T,
+	}
+
 	e2tAspect := &topoapi.E2TInfo{
 		Interfaces: interfaces,
 	}
