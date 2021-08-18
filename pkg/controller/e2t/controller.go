@@ -23,7 +23,7 @@ const (
 	defaultTimeout            = 30 * time.Second
 	defaultGRPCPort           = 5150
 	defaultE2APPort           = 36421
-	defaultExpirationDuration = 10
+	defaultExpirationDuration = 30
 )
 
 var log = logging.GetLogger("controller", "e2t")
@@ -48,7 +48,7 @@ type Reconciler struct {
 }
 
 func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
-	_, err := r.rnib.Get(ctx, e2tID)
+	object, err := r.rnib.Get(ctx, e2tID)
 	if err == nil {
 		return nil
 	} else if !errors.IsNotFound(err) {
@@ -57,7 +57,7 @@ func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
 	}
 
 	log.Debugf("Creating E2T entity")
-	object := &topoapi.Object{
+	object = &topoapi.Object{
 		ID:   utils.GetE2TID(),
 		Type: topoapi.Object_ENTITY,
 		Obj: &topoapi.Object_Entity{
@@ -119,7 +119,8 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	defer cancel()
 
 	e2tID := id.Value.(topoapi.ID)
-	log.Infof("Reconciling E2T entity with ID: %s", e2tID)
+
+	log.Infof("Test Reconciling E2T entity with ID: %s", e2tID)
 	if err := r.createE2T(ctx, e2tID); err != nil {
 		return controller.Result{}, err
 	}
