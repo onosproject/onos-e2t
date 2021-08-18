@@ -20,10 +20,6 @@ import (
 
 var log = logging.GetLogger("store", "rnib")
 
-const (
-	defaultRetryTimeout = 100
-)
-
 // Store topo store client interface
 type Store interface {
 	// Create creates an R-NIB object
