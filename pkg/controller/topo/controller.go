@@ -29,10 +29,9 @@ import (
 )
 
 const (
-	defaultTimeout                 = 30 * time.Second
-	defaultGRPCPort                = 5150
-	defaultE2APPort                = 36421
-	defaultLeaseExpirationDuration = 30 * time.Second
+	defaultTimeout  = 30 * time.Second
+	defaultGRPCPort = 5150
+	defaultE2APPort = 36421
 )
 
 var log = logging.GetLogger("controller", "subscription")
