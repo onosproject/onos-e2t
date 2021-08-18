@@ -20,7 +20,7 @@ import (
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
-	e2node "github.com/onosproject/onos-e2t/pkg/controller/e2node"
+	"github.com/onosproject/onos-e2t/pkg/controller/mastership"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -109,7 +109,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startE2NodeController(rnibStore, channels)
+	err = m.startMastershipController(rnibStore, channels)
 	if err != nil {
 		return err
 	}
@@ -151,9 +151,9 @@ func (m *Manager) startE2TController(rnib rnib.Store) error {
 }
 
 // startTopov1alpha1Controller starts the topo controller
-func (m *Manager) startE2NodeController(topo rnib.Store, channels e2server.ChannelManager) error {
-	e2NodeController := e2node.NewController(topo, channels)
-	return e2NodeController.Start()
+func (m *Manager) startMastershipController(topo rnib.Store, channels e2server.ChannelManager) error {
+	mastershipController := mastership.NewController(topo, channels)
+	return mastershipController.Start()
 }
 
 // startChannelv1beta1Controller starts the subscription controllers

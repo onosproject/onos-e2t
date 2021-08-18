@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package e2node
+package mastership
 
 import (
 	"context"
@@ -28,7 +28,7 @@ const defaultTimeout = 30 * time.Second
 
 var log = logging.GetLogger("controller", "mastership")
 
-// NewController returns a new network controller
+// NewController returns a new mastership controller
 func NewController(store rnib.Store, channels e2server.ChannelManager) *controller.Controller {
 	c := controller.NewController("mastership")
 	c.Watch(&Watcher{

@@ -25,7 +25,7 @@ var log = logging.GetLogger("controller", "e2relation")
 
 // NewController returns a new E2 control relation controller
 func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controller.Controller {
-	c := controller.NewController("E2Relation")
+	c := controller.NewController("E2ControlRelation")
 	c.Watch(&ChannelWatcher{
 		channels: channels,
 	})
