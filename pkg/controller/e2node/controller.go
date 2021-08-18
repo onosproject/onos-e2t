@@ -35,6 +35,10 @@ func NewController(store rnib.Store, channels e2server.ChannelManager) *controll
 		topo: store,
 	})
 
+	c.Watch(&ChannelWatcher{
+		channels: channels,
+	})
+
 	c.Reconcile(&Reconciler{
 		store:    store,
 		channels: channels,

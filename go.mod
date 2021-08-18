@@ -8,7 +8,6 @@ require (
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
-	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/google/uuid v1.1.2
 	github.com/onosproject/helmit v0.6.15
 	github.com/onosproject/onos-api/go v0.7.86
