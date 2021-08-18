@@ -127,10 +127,10 @@ func (r *Reconciler) createE2T(ctx context.Context) error {
 	var interfaces []*topoapi.Interface
 	interfaces = append(interfaces, &topoapi.Interface{
 		IP:   env.GetPodIP(),
-		Port: 36421,
+		Port: 36421, // TODO should be configured
 		Type: topoapi.Interface_INTERFACE_E2AP101,
 	})
-	e2tAspect := &topoapi.E2Termination{
+	e2tAspect := &topoapi.E2TInfo{
 		Interfaces: interfaces,
 	}
 	err = object.SetAspect(e2tAspect)
