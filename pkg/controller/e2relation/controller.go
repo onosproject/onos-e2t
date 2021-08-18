@@ -50,11 +50,11 @@ func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2ser
 	if err == nil {
 		return nil
 	} else if !errors.IsNotFound(err) {
-		log.Warnf("Creating E2Node '%s' relation '%s' failed: %v", channel.E2NodeID, relationID, err)
+		log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
 		return err
 	}
 
-	log.Debugf("Creating E2Node '%s' relation '%s'", channel.E2NodeID, relationID)
+	log.Debugf("Creating E2Node '%s' control relation '%s'", channel.E2NodeID, relationID)
 	object := &topoapi.Object{
 		ID:   relationID,
 		Type: topoapi.Object_RELATION,
@@ -70,7 +70,7 @@ func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2ser
 	err = r.rnib.Create(ctx, object)
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
-			log.Warnf("Creating E2Node '%s' relation '%s' failed: %v", channel.E2NodeID, relationID, err)
+			log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
 			return err
 		}
 		return nil
@@ -79,18 +79,17 @@ func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2ser
 }
 
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
-	log.Infof("Reconciling E2 node Control Relation")
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	channelID := id.Value.(e2server.ChannelID)
-	log.Infof("Reconciling Channel %s", channelID)
+	log.Infof("Reconciling E2 node Control relation for channel: %s", channelID)
 	channel, err := r.channels.Get(ctx, channelID)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return r.reconcileDeleteE2Control(channelID)
 		}
-		log.Warnf("Failed to reconcile Channel %s: %s", channelID, err)
+		log.Warnf("Failed to reconcile E2 node control relation for channel %s: %s", channelID, err)
 		return controller.Result{}, err
 	}
 	return r.reconcileE2ControlRelation(channel)

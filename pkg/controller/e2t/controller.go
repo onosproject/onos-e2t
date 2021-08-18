@@ -115,12 +115,11 @@ func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
 }
 
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
-	log.Infof("Reconciling E2T")
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
 	e2tID := id.Value.(topoapi.ID)
-
+	log.Infof("Reconciling E2T entity with ID: %s", e2tID)
 	if err := r.createE2T(ctx, e2tID); err != nil {
 		return controller.Result{}, err
 	}
