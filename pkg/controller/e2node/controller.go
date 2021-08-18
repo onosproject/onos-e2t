@@ -26,17 +26,15 @@ import (
 
 const defaultTimeout = 30 * time.Second
 
-var log = logging.GetLogger("controller", "subscription")
+var log = logging.GetLogger("controller", "mastership")
 
 // NewController returns a new network controller
 func NewController(store rnib.Store, channels e2server.ChannelManager) *controller.Controller {
-	c := controller.NewController("Subscription")
+	c := controller.NewController("mastership")
 	c.Watch(&Watcher{
 		topo: store,
 	})
-	c.Watch(&ChannelWatcher{
-		channels: channels,
-	})
+
 	c.Reconcile(&Reconciler{
 		store:    store,
 		channels: channels,
@@ -61,19 +59,19 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	defer cancel()
 
 	channelID := id.Value.(e2server.ChannelID)
-	log.Infof("Reconciling Channel %s", channelID)
+	log.Infof("Reconciling mastership election for channel %s", channelID)
 	channel, err := r.channels.Get(ctx, channelID)
 	if err != nil {
 		if errors.IsNotFound(err) {
-			return r.reconcileClosedChannel(channelID)
+			return controller.Result{}, nil
 		}
-		log.Warnf("Failed to reconcile Channel %s: %s", channelID, err)
+		log.Warnf("Failed to reconcile mastership election for channel %s: %s", channelID, err)
 		return controller.Result{}, err
 	}
-	return r.reconcileOpenChannel(channel)
+	return r.reconcileMastershipElection(channel)
 }
 
-func (r *Reconciler) reconcileOpenChannel(channel *e2server.E2Channel) (controller.Result, error) {
+func (r *Reconciler) reconcileMastershipElection(channel *e2server.E2Channel) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
@@ -298,9 +296,4 @@ func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E
 		return nil
 	}
 	return nil
-}
-
-func (r *Reconciler) reconcileClosedChannel(channelID e2server.ChannelID) (controller.Result, error) {
-
-	return controller.Result{}, nil
 }

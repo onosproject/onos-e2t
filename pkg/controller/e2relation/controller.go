@@ -87,7 +87,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	channel, err := r.channels.Get(ctx, channelID)
 	if err != nil {
 		if errors.IsNotFound(err) {
-			return r.reconcileDeleteE2Control(channelID)
+			return r.reconcileDeleteE2ControlRelation(channelID)
 		}
 		log.Warnf("Failed to reconcile E2 node control relation for channel %s: %s", channelID, err)
 		return controller.Result{}, err
@@ -119,7 +119,7 @@ func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, channelID e2se
 	return nil
 }
 
-func (r *Reconciler) reconcileDeleteE2Control(channelID e2server.ChannelID) (controller.Result, error) {
+func (r *Reconciler) reconcileDeleteE2ControlRelation(channelID e2server.ChannelID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
