@@ -2,23 +2,19 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package topo
+package e2node
 
 import (
 	"context"
-	"crypto/md5"
-	"fmt"
 	"math/rand"
 	"time"
 
-	gogotypes "github.com/gogo/protobuf/types"
-	uuid2 "github.com/google/uuid"
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-e2t/pkg/store/rnib"
-	"github.com/onosproject/onos-lib-go/pkg/env"
-	"github.com/onosproject/onos-lib-go/pkg/uri"
+	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 
+	gogotypes "github.com/gogo/protobuf/types"
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
@@ -59,7 +55,7 @@ type Reconciler struct {
 	channels e2server.ChannelManager
 }
 
-// Reconcile reconciles the state of a device change
+// Reconcile reconciles E2 nodes, E2 cells, and mastership election
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
@@ -86,10 +82,6 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2server.E2Channel) (controll
 	}
 
 	if err := r.createE2Cells(ctx, channel); err != nil {
-		return controller.Result{}, err
-	}
-
-	if err := r.createE2NodeRelation(ctx, channel); err != nil {
 		return controller.Result{}, err
 	}
 
@@ -155,7 +147,7 @@ func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Chan
 }
 
 func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) error {
-	cellID := getCellID(channel, cell)
+	cellID := utils.GetCellID(channel, cell)
 	object, err := r.store.Get(ctx, cellID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
@@ -206,8 +198,8 @@ func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Chann
 }
 
 func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) error {
-	cellID := getCellID(channel, cell)
-	relationID := getCellRelationID(channel, cell)
+	cellID := utils.GetCellID(channel, cell)
+	relationID := utils.GetCellRelationID(channel, cell)
 	_, err := r.store.Get(ctx, relationID)
 	if err == nil {
 		return nil
@@ -233,40 +225,6 @@ func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
 			log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
-			return err
-		}
-		return nil
-	}
-	return nil
-}
-
-func (r *Reconciler) createE2NodeRelation(ctx context.Context, channel *e2server.E2Channel) error {
-	relationID := getE2RelationID(channel.ID)
-	_, err := r.store.Get(ctx, relationID)
-	if err == nil {
-		return nil
-	} else if !errors.IsNotFound(err) {
-		log.Warnf("Creating E2Node '%s' relation '%s' failed: %v", channel.E2NodeID, relationID, err)
-		return err
-	}
-
-	log.Debugf("Creating E2Node '%s' relation '%s'", channel.E2NodeID, relationID)
-	object := &topoapi.Object{
-		ID:   relationID,
-		Type: topoapi.Object_RELATION,
-		Obj: &topoapi.Object_Relation{
-			Relation: &topoapi.Relation{
-				KindID:      topoapi.CONTROLS,
-				SrcEntityID: getE2TID(),
-				TgtEntityID: channel.E2NodeID,
-			},
-		},
-	}
-
-	err = r.store.Create(ctx, object)
-	if err != nil {
-		if !errors.IsAlreadyExists(err) {
-			log.Warnf("Creating E2Node '%s' relation '%s' failed: %v", channel.E2NodeID, relationID, err)
 			return err
 		}
 		return nil
@@ -343,50 +301,6 @@ func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E
 }
 
 func (r *Reconciler) reconcileClosedChannel(channelID e2server.ChannelID) (controller.Result, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
-	defer cancel()
 
-	if err := r.deleteE2Relation(ctx, channelID); err != nil {
-		return controller.Result{}, err
-	}
 	return controller.Result{}, nil
-}
-
-func (r *Reconciler) deleteE2Relation(ctx context.Context, channelID e2server.ChannelID) error {
-	relationID := getE2RelationID(channelID)
-	log.Debugf("Deleting E2Node relation '%s' for Channel '%s'", relationID, channelID)
-	err := r.store.Delete(ctx, relationID)
-	if err != nil {
-		if !errors.IsNotFound(err) {
-			log.Warnf("Deleting E2Node relation '%s' for Channel '%s' failed: %v", relationID, channelID, err)
-			return err
-		}
-		return nil
-	}
-	return nil
-}
-
-func getE2TID() topoapi.ID {
-	return topoapi.ID(uri.NewURI(
-		uri.WithScheme("e2"),
-		uri.WithOpaque(env.GetPodID())).String())
-}
-
-func getE2RelationID(channelID e2server.ChannelID) topoapi.ID {
-	return topoapi.ID(channelID)
-}
-
-func getCellID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
-	return topoapi.ID(uri.NewURI(uri.WithOpaque(fmt.Sprintf("%s/%s", channel.E2NodeID, cell.CellGlobalID.Value))).String())
-}
-
-func getCellRelationID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
-	bytes := md5.Sum([]byte(fmt.Sprintf("%s/%s", channel.E2NodeID, cell.CellGlobalID.Value)))
-	uuid, err := uuid2.FromBytes(bytes[:])
-	if err != nil {
-		panic(err)
-	}
-	return topoapi.ID(uri.NewURI(
-		uri.WithScheme("uuid"),
-		uri.WithOpaque(uuid.String())).String())
 }

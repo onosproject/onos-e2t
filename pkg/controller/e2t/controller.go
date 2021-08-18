@@ -28,7 +28,7 @@ const (
 
 var log = logging.GetLogger("controller", "e2t")
 
-// NewController returns a new network controller
+// NewController returns a new E2T controller
 func NewController(rnib rnib.Store) *controller.Controller {
 	c := controller.NewController("E2T")
 	c.Watch(&Watcher{
@@ -47,8 +47,8 @@ type Reconciler struct {
 	rnib rnib.Store
 }
 
-func (r *Reconciler) createE2T(ctx context.Context) error {
-	_, err := r.rnib.Get(ctx, utils.GetE2TID())
+func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
+	_, err := r.rnib.Get(ctx, e2tID)
 	if err == nil {
 		return nil
 	} else if !errors.IsNotFound(err) {
@@ -119,7 +119,9 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	if err := r.createE2T(ctx); err != nil {
+	e2tID := id.Value.(topoapi.ID)
+
+	if err := r.createE2T(ctx, e2tID); err != nil {
 		return controller.Result{}, err
 	}
 
