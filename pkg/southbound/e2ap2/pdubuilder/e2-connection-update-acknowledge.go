@@ -14,7 +14,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionUpdateItem,
+func CreateE2connectionUpdateAcknowledgeE2apPdu(trID int32, connSetup []*types.E2ConnectionUpdateItem,
 	connSetFail []*types.E2ConnectionSetupFailedItem) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if connSetup == nil && connSetFail == nil {
@@ -30,6 +30,14 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 							ProtocolIes: &e2appducontents.E2ConnectionUpdateAckIes{
 								//E2ApProtocolIes39: &connectionSetup,       //E2 Connection Setup List
 								//E2ApProtocolIes40: &connectionSetupFailed, //E2 Connection Setup Failed List
+								E2ApProtocolIes49: &e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes49{
+									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value: &e2ap_ies.TransactionId{
+										Value: trID,
+									},
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+								},
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
@@ -48,7 +56,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 		connectionSetup := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39{
 			Id:          int32(v2beta1.ProtocolIeIDE2connectionSetup),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			ConnectionSetup: &e2appducontents.E2ConnectionUpdateList{
+			Value: &e2appducontents.E2ConnectionUpdateList{
 				Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -67,7 +75,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 				},
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			}
-			connectionSetup.ConnectionSetup.Value = append(connectionSetup.ConnectionSetup.Value, si)
+			connectionSetup.Value.Value = append(connectionSetup.Value.Value, si)
 		}
 		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes39 = &connectionSetup
 	}
@@ -76,7 +84,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 		connectionSetupFailed := e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes40{
 			Id:          int32(v2beta1.ProtocolIeIDE2connectionSetupFailed),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			ConnectionSetupFailed: &e2appducontents.E2ConnectionSetupFailedList{
+			Value: &e2appducontents.E2ConnectionSetupFailedList{
 				Value: make([]*e2appducontents.E2ConnectionSetupFailedItemIes, 0),
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
@@ -95,13 +103,13 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(connSetup []*types.E2ConnectionU
 				},
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			}
-			connectionSetupFailed.ConnectionSetupFailed.Value = append(connectionSetupFailed.ConnectionSetupFailed.Value, sfi)
+			connectionSetupFailed.Value.Value = append(connectionSetupFailed.Value.Value, sfi)
 		}
 		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes40 = &connectionSetupFailed
 	}
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

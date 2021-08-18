@@ -19,10 +19,10 @@ func createE2nodeConfigurationUpdateMsg() (*e2ap_pdu_contents.E2NodeConfiguratio
 
 	e2ncID1 := pdubuilder.CreateE2NodeComponentIDGnbCuUp(21)
 	e2ncID2 := pdubuilder.CreateE2NodeComponentIDGnbDu(13)
-	e2nccu1 := pdubuilder.CreateE2NodeComponentConfigUpdateGnb("ngAp", "xnAp", "e1Ap", "f1Ap")
-	e2nccu2 := pdubuilder.CreateE2NodeComponentConfigUpdateEnb("s1", "x2")
+	e2nccu1 := pdubuilder.CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), []byte("xnAp"), []byte("e1Ap"), []byte("f1Ap"), nil)
+	e2nccu2 := pdubuilder.CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), []byte("x2"))
 
-	e2nodeConfigurationUpdate, err := pdubuilder.CreateE2NodeConfigurationUpdateE2apPdu([]*types.E2NodeComponentConfigUpdateItem{
+	e2nodeConfigurationUpdate, err := pdubuilder.CreateE2NodeConfigurationUpdateE2apPdu(1, []*types.E2NodeComponentConfigUpdateItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 			E2NodeComponentID:           &e2ncID1,
 			E2NodeComponentConfigUpdate: e2nccu1},

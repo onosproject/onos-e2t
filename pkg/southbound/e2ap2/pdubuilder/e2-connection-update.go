@@ -14,7 +14,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, modifyItems []*types.E2ConnectionUpdateItem,
+func CreateE2connectionUpdateE2apPdu(trID int32, addItems []*types.E2ConnectionUpdateItem, modifyItems []*types.E2ConnectionUpdateItem,
 	removeItems []*types.TnlInformation) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if addItems == nil && modifyItems == nil && removeItems == nil {
@@ -31,6 +31,14 @@ func CreateE2connectionUpdateE2apPdu(addItems []*types.E2ConnectionUpdateItem, m
 								//E2ApProtocolIes44: &connectionAddList,    //E2 Connection Add List
 								//E2ApProtocolIes45: &connectionModifyList, //E2 Connection Modify List
 								//E2ApProtocolIes46: &connectionRemoveList, //E2 Connection Remove List
+								E2ApProtocolIes49: &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes49{
+									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value: &e2ap_ies.TransactionId{
+										Value: trID,
+									},
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+								},
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{

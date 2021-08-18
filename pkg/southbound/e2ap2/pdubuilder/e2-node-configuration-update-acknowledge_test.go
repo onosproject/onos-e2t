@@ -17,7 +17,7 @@ func TestE2NodeConfigurationUpdateAck(t *testing.T) {
 	//e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
 	//e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
 
-	newE2apPdu, err := CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu([]*types.E2NodeComponentConfigUpdateAckItem{
+	newE2apPdu, err := CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(1, []*types.E2NodeComponentConfigUpdateAckItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 			//E2NodeComponentID: e2ncID1,
 			E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{

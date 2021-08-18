@@ -20,7 +20,7 @@ func TestE2connectionUpdateFailure(t *testing.T) {
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	newE2apPdu, err := CreateE2connectionUpdateFailureE2apPdu(&e2apies.Cause{
+	newE2apPdu, err := CreateE2connectionUpdateFailureE2apPdu(1, &e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
@@ -62,7 +62,7 @@ func TestE2connectionUpdateFailure(t *testing.T) {
 
 func TestE2connectionUpdateFailureExcludeOptionalIE(t *testing.T) {
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V5S
-	newE2apPdu, err := CreateE2connectionUpdateFailureE2apPdu(&e2apies.Cause{
+	newE2apPdu, err := CreateE2connectionUpdateFailureE2apPdu(1, &e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},

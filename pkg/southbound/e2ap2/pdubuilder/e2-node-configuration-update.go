@@ -14,7 +14,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConfigUpdateItem) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateE2NodeConfigurationUpdateE2apPdu(trID int32, e2NodeID *e2ap_ies.GlobalE2NodeId, e2nccul []*types.E2NodeComponentConfigUpdateItem) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if e2nccul == nil {
 		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
@@ -45,10 +45,26 @@ func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConf
 					E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
 						InitiatingMessage: &e2appducontents.E2NodeConfigurationUpdate{
 							ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateIes{
-								Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate),
-								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-								Value:       &configUpdateList,
-								Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+								E2ApProtocolIes3: &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes3{
+									Id:          int32(v2beta1.ProtocolIeIDGlobalE2nodeID),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value:       e2NodeID,
+									Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+								},
+								E2ApProtocolIes33: &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes33{
+									Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value:       &configUpdateList,
+									Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+								},
+								E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes49{
+									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value: &e2ap_ies.TransactionId{
+										Value: trID,
+									},
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+								},
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
@@ -62,9 +78,9 @@ func CreateE2NodeConfigurationUpdateE2apPdu(e2nccul []*types.E2NodeComponentConf
 			},
 		},
 	}
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }
 
@@ -92,46 +108,41 @@ func CreateE2NodeComponentIDGnbDu(value int64) e2ap_ies.E2NodeComponentId {
 	}
 }
 
-func CreateE2NodeComponentConfigUpdateGnb(ngAp string, xnAp string, e1Ap string, f1Ap string) e2ap_ies.E2NodeComponentConfigUpdate {
+func CreateE2NodeComponentIDNgEnbDu(value int64) e2ap_ies.E2NodeComponentId {
+	return e2ap_ies.E2NodeComponentId{
+		E2NodeComponentId: &e2ap_ies.E2NodeComponentId_E2NodeComponentTypeNgeNbDu{
+			E2NodeComponentTypeNgeNbDu: &e2ap_ies.E2NodeComponentNgeNbDuId{
+				NgEnbDuId: &e2ap_ies.NgenbDuId{
+					Value: value,
+				},
+			},
+		},
+	}
+}
+
+func CreateE2NodeComponentConfigUpdateGnb(ng []byte, xn []byte, e1 []byte, f1 []byte, x2 []byte) e2ap_ies.E2NodeComponentConfigUpdate {
 	return e2ap_ies.E2NodeComponentConfigUpdate{
 		E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate_GNbconfigUpdate{
 			GNbconfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdateGnb{
-				NgApconfigUpdate: ngAp,
-				XnApconfigUpdate: xnAp,
-				E1ApconfigUpdate: e1Ap,
-				F1ApconfigUpdate: f1Ap,
+				NgApconfigUpdate: ng,
+				XnApconfigUpdate: xn,
+				E1ApconfigUpdate: e1,
+				F1ApconfigUpdate: f1,
+				X2ApconfigUpdate: x2,
 			},
 		},
 	}
 }
 
-func CreateE2NodeComponentConfigUpdateEnb(s1 string, x2 string) e2ap_ies.E2NodeComponentConfigUpdate {
+func CreateE2NodeComponentConfigUpdateEnb(ng []byte, xn []byte, w1 []byte, s1 []byte, x2 []byte) e2ap_ies.E2NodeComponentConfigUpdate {
 	return e2ap_ies.E2NodeComponentConfigUpdate{
 		E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate_ENbconfigUpdate{
 			ENbconfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdateEnb{
+				NgApconfigUpdate: ng,
+				XnApconfigUpdate: xn,
+				W1ApconfigUpdate: w1,
 				S1ApconfigUpdate: s1,
 				X2ApconfigUpdate: x2,
-			},
-		},
-	}
-}
-
-func CreateE2NodeComponentConfigUpdateEnGnb(x2 string) e2ap_ies.E2NodeComponentConfigUpdate {
-	return e2ap_ies.E2NodeComponentConfigUpdate{
-		E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate_EnGNbconfigUpdate{
-			EnGNbconfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdateEngNb{
-				X2ApconfigUpdate: x2,
-			},
-		},
-	}
-}
-
-func CreateE2NodeComponentConfigUpdateNgEnb(ngAp string, xnAp string) e2ap_ies.E2NodeComponentConfigUpdate {
-	return e2ap_ies.E2NodeComponentConfigUpdate{
-		E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate_NgENbconfigUpdate{
-			NgENbconfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdateNgeNb{
-				NgApconfigUpdate: ngAp,
-				XnApconfigUpdate: xnAp,
 			},
 		},
 	}

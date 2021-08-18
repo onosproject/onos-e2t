@@ -8,6 +8,7 @@ import (
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
 	"testing"
 )
@@ -16,10 +17,16 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 
 	//e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
 	//e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
-	e2nccu1 := CreateE2NodeComponentConfigUpdateGnb("ngAp", "", "e1Ap", "f1Ap")
-	e2nccu2 := CreateE2NodeComponentConfigUpdateEnb("s1", "")
+	e2nccu1 := CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)
+	e2nccu2 := CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)
 
-	newE2apPdu, err := CreateE2NodeConfigurationUpdateE2apPdu([]*types.E2NodeComponentConfigUpdateItem{
+	e2nodeID, err := CreateGlobalE2nodeIDGnb([3]byte{0x01, 0x02, 0x03}, &asn1.BitString{
+		Value: []byte{0xAF, 0x3D, 0xFC},
+		Len:   22,
+	})
+	assert.NilError(t, err)
+
+	newE2apPdu, err := CreateE2NodeConfigurationUpdateE2apPdu(1, e2nodeID, []*types.E2NodeComponentConfigUpdateItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 			//E2NodeComponentID:           &e2ncID1,
 			E2NodeComponentConfigUpdate: e2nccu1},

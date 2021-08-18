@@ -14,7 +14,8 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeComponentConfigUpdateAckItem) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(trID int32,
+	e2nccual []*types.E2NodeComponentConfigUpdateAckItem) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if e2nccual == nil {
 		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
@@ -55,10 +56,20 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeC
 					E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
 						SuccessfulOutcome: &e2appducontents.E2NodeConfigurationUpdateAcknowledge{
 							ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes{
-								Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAck),
-								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-								Value:       &configUpdateAckList,
-								Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+								E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes49{
+									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value: &e2ap_ies.TransactionId{
+										Value: trID,
+									},
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+								},
+								E2ApProtocolIes35: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes35{
+									Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAck),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value:       &configUpdateAckList,
+									Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+								},
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
@@ -75,8 +86,8 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeC
 
 	fmt.Printf("Composed message is \n%v", configUpdateAckList)
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

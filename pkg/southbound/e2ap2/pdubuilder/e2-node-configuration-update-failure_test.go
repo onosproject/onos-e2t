@@ -20,7 +20,7 @@ func TestE2NodeConfigurationUpdateFailure(t *testing.T) {
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(e2apies.Cause{
+	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(1, e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
@@ -66,7 +66,7 @@ func TestE2NodeConfigurationUpdateFailureExcludeOptionalIE(t *testing.T) {
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(e2apies.Cause{
+	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(1, e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},

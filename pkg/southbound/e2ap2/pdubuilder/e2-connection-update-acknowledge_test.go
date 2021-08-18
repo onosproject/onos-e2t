@@ -5,31 +5,32 @@ package pdubuilder
 
 import (
 	"encoding/hex"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
 	"testing"
 )
 
 func TestE2connectionUpdateAcknowledge(t *testing.T) {
-	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
-		TnlPort: e2ap_commondatatypes.BitString{
+	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu(1,
+		[]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
+		TnlPort: asn1.BitString{
 			Value: []byte{0xae, 0x89},
 			Len:   16,
 		},
-		TnlAddress: e2ap_commondatatypes.BitString{
+		TnlAddress: asn1.BitString{
 			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 			Len:   64,
 		}},
 		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
 		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
-			TnlPort: e2ap_commondatatypes.BitString{
+			TnlPort: asn1.BitString{
 				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
-			TnlAddress: e2ap_commondatatypes.BitString{
+			TnlAddress: asn1.BitString{
 				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 				Len:   64,
 			}},
@@ -60,13 +61,13 @@ func TestE2connectionUpdateAcknowledge(t *testing.T) {
 }
 
 func TestE2connectionUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
-	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu(nil,
+	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu(1, nil,
 		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
-			TnlPort: e2ap_commondatatypes.BitString{
+			TnlPort: asn1.BitString{
 				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
-			TnlAddress: e2ap_commondatatypes.BitString{
+			TnlAddress: asn1.BitString{
 				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 				Len:   64,
 			}},

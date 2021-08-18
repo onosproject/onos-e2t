@@ -4,7 +4,6 @@
 package pdubuilder
 
 import (
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
@@ -12,16 +11,17 @@ import (
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
-func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failureProcCode *v2beta1.ProcedureCodeT,
+func CreateE2SetupFailurePdu(trID int32, cause *e2apies.Cause, ttw *e2apies.TimeToWait, failureProcCode *v2beta1.ProcedureCodeT,
 	failureCrit *e2ap_commondatatypes.Criticality, failureTrigMsg *e2ap_commondatatypes.TriggeringMessage,
 	reqID *types.RicRequest, critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
 	errorCause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
 		Id:          int32(v2beta1.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value:       &cause, // Probably, could be any other reason
+		Value:       cause, // Probably, could be any other reason
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
@@ -34,7 +34,16 @@ func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failu
 							ProtocolIes: &e2appducontents.E2SetupFailureIes{
 								E2ApProtocolIes1: &errorCause, // RIC Requestor & RIC Instance ID
 								//E2ApProtocolIes31: &timeToWait,             // RAN function ID
+								//ToDo - move to builder file, which should set it..
 								//E2ApProtocolIes2:  &criticalityDiagnostics, // CriticalityDiagnostics
+								E2ApProtocolIes49: &e2appducontents.E2SetupFailureIes_E2SetupFailureIes49{
+									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value: &e2apies.TransactionId{
+										Value: trID,
+									},
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+								},
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2Setup{
@@ -57,8 +66,8 @@ func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failu
 				ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 					Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 				},
-				TriggeringMessage:    *failureTrigMsg,
-				ProcedureCriticality: *failureCrit, // from e2ap-v01.00.asn1:153
+				TriggeringMessage:    failureTrigMsg,
+				ProcedureCriticality: failureCrit, // from e2ap-v01.00.asn1:153
 				RicRequestorId: &e2apies.RicrequestId{
 					RicRequestorId: int32(reqID.RequestorID),
 					RicInstanceId:  int32(reqID.InstanceID),
@@ -96,8 +105,15 @@ func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failu
 		}
 	}
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
+}
+
+func CreateTnlInformation(tnlAddress *asn1.BitString) (*e2apies.Tnlinformation, error) {
+
+	return &e2apies.Tnlinformation{
+		TnlAddress: tnlAddress,
+	}, nil
 }
