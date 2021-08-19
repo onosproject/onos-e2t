@@ -120,7 +120,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 	e2tID := id.Value.(topoapi.ID)
 
-	log.Infof("Test Reconciling E2T entity with ID: %s", e2tID)
+	log.Infof("Reconciling E2T entity with ID: %s", e2tID)
 	if err := r.createE2T(ctx, e2tID); err != nil {
 		return controller.Result{}, err
 	}

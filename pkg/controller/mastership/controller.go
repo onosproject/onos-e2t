@@ -26,14 +26,14 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "mastership")
 
 // NewController returns a new mastership controller
-func NewController(store rnib.Store, channels e2server.ChannelManager) *controller.Controller {
+func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controller.Controller {
 	c := controller.NewController("mastership")
 	c.Watch(&Watcher{
-		topo: store,
+		topo: rnib,
 	})
 
 	c.Reconcile(&Reconciler{
-		store:    store,
+		rnib:     rnib,
 		channels: channels,
 	})
 	return c
@@ -46,54 +46,54 @@ type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	store    rnib.Store
+	rnib     rnib.Store
 	channels e2server.ChannelManager
 }
 
-// Reconcile reconciles E2 nodes, E2 cells, and mastership election
+// Reconcile reconciles and mastership election
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	channelID := id.Value.(e2server.ChannelID)
-	log.Infof("Reconciling mastership election for channel %s", channelID)
-	channel, err := r.channels.Get(ctx, channelID)
+	e2NodeID := id.Value.(topoapi.ID)
+	log.Infof("Reconciling mastership election for e2 Node  %s", e2NodeID)
+	e2Node, err := r.rnib.Get(ctx, e2NodeID)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			return controller.Result{}, nil
 		}
-		log.Warnf("Failed to reconcile mastership election for channel %s: %s", channelID, err)
+		log.Warnf("Failed to reconcile mastership election for e2 node  with ID %s: %s", e2Node, err)
 		return controller.Result{}, err
 	}
-	return r.reconcileMastershipElection(channel)
+	return r.reconcileMastershipElection(e2Node)
 }
 
-func (r *Reconciler) reconcileMastershipElection(channel *e2server.E2Channel) (controller.Result, error) {
+func (r *Reconciler) reconcileMastershipElection(e2Node *topoapi.Object) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	if err := r.updateE2NodeMaster(ctx, channel); err != nil {
+	if err := r.updateE2NodeMaster(ctx, e2Node); err != nil {
 		return controller.Result{}, err
 	}
 	return controller.Result{}, nil
 }
 
-func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E2Channel) error {
-	log.Debugf("Verifying mastership for E2Node '%s'", channel.E2NodeID)
-	e2NodeEntity, err := r.store.Get(ctx, channel.E2NodeID)
+func (r *Reconciler) updateE2NodeMaster(ctx context.Context, e2Node *topoapi.Object) error {
+	log.Debugf("Verifying mastership for E2Node '%s'", e2Node.GetID())
+	e2NodeEntity, err := r.rnib.Get(ctx, e2Node.GetID())
 	if err != nil {
 		if !errors.IsNotFound(err) {
-			log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
+			log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", e2Node.GetID(), err)
 			return err
 		}
-		log.Warnf("E2Node entity '%s' not found", channel.E2NodeID)
+		log.Warnf("E2Node entity '%s' not found", e2Node.GetID())
 		return nil
 	}
 
 	// List the objects in the topo store
-	objects, err := r.store.List(ctx, nil)
+	objects, err := r.rnib.List(ctx, nil)
 	if err != nil {
-		log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
+		log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", e2Node.GetID(), err)
 		return err
 	}
 
@@ -102,17 +102,17 @@ func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E
 	for _, object := range objects {
 		if relation, ok := object.Obj.(*topoapi.Object_Relation); ok &&
 			relation.Relation.KindID == topoapi.CONTROLS &&
-			relation.Relation.TgtEntityID == channel.E2NodeID {
+			relation.Relation.TgtEntityID == e2Node.GetID() {
 			e2NodeRelations[string(object.ID)] = object
 		}
 	}
 
 	mastership := &topoapi.MastershipState{}
-	mastershipValue := e2NodeEntity.GetAspect(mastership)
-	if _, ok := e2NodeRelations[mastership.NodeId]; !ok || mastershipValue == nil {
-		log.Debugf("Updating MastershipState for E2Node '%s'", channel.E2NodeID)
+	_ = e2NodeEntity.GetAspect(mastership)
+	if _, ok := e2NodeRelations[mastership.NodeId]; !ok {
+		log.Debugf("Updating MastershipState for E2Node '%s'", e2Node.GetID())
 		if len(e2NodeRelations) == 0 {
-			log.Warnf("No controls relations found for E2Node entity '%s'", channel.E2NodeID)
+			log.Warnf("No controls relations found for E2Node entity '%s'", e2Node.GetID())
 			return nil
 		}
 
@@ -128,15 +128,15 @@ func (r *Reconciler) updateE2NodeMaster(ctx context.Context, channel *e2server.E
 		mastership.NodeId = string(relation.ID)
 		err = e2NodeEntity.SetAspect(mastership)
 		if err != nil {
-			log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
+			log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", e2Node.GetID(), err)
 			return err
 		}
 
 		// Update the E2 node entity
-		err = r.store.Update(ctx, e2NodeEntity)
+		err = r.rnib.Update(ctx, e2NodeEntity)
 		if err != nil {
 			if !errors.IsNotFound(err) {
-				log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", channel.E2NodeID, err)
+				log.Warnf("Updating MastershipState for E2Node '%s' failed: %v", e2Node.GetID(), err)
 				return err
 			}
 			return nil

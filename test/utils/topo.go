@@ -65,7 +65,10 @@ func (c *Client) GetE2NodeAspects(ctx context.Context, nodeID topoapi.ID) (*topo
 		return nil, err
 	}
 	e2Node := &topoapi.E2Node{}
-	object.GetAspect(e2Node)
+	err = object.GetAspect(e2Node)
+	if err != nil {
+		return nil, err
+	}
 
 	return e2Node, nil
 

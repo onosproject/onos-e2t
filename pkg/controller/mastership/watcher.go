@@ -8,10 +8,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/onosproject/onos-e2t/pkg/controller/utils"
-
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -47,9 +44,12 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 		for event := range eventCh {
 			log.Debugf("Received topo event '%s'", event.Object.ID)
 			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok &&
-				relation.Relation.SrcEntityID == utils.GetE2TID() &&
 				relation.Relation.KindID == topoapi.CONTROLS {
-				ch <- controller.NewID(e2server.ChannelID(event.Object.ID))
+				ch <- controller.NewID(relation.Relation.TgtEntityID)
+			}
+			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok &&
+				entity.Entity.KindID == topoapi.E2NODE {
+				ch <- controller.NewID(event.Object.ID)
 			}
 		}
 		close(ch)
