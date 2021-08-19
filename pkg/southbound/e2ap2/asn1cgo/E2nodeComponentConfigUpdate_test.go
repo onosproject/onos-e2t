@@ -58,7 +58,6 @@ func Test_xerEncodingE2nodeComponentConfigUpdate(t *testing.T) {
 
 	xer, err := xerEncodeE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdate)
 	assert.NilError(t, err)
-	assert.Equal(t, 346, len(xer))
 	t.Logf("E2nodeComponentConfigUpdate (GNb) XER\n%s", string(xer))
 
 	result, err := xerDecodeE2nodeComponentConfigUpdate(xer)
@@ -75,7 +74,6 @@ func Test_xerEncodingE2nodeComponentConfigUpdate(t *testing.T) {
 
 	xer, err = xerEncodeE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdate)
 	assert.NilError(t, err)
-	assert.Equal(t, 226, len(xer))
 	t.Logf("E2nodeComponentConfigUpdate (ENb) XER\n%s", string(xer))
 
 	result, err = xerDecodeE2nodeComponentConfigUpdate(xer)
@@ -93,7 +91,6 @@ func Test_perEncodingE2nodeComponentConfigUpdate(t *testing.T) {
 
 	per, err := perEncodeE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdate)
 	assert.NilError(t, err)
-	assert.Equal(t, 25, len(per))
 	t.Logf("E2nodeComponentConfigUpdate (GNb) PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2nodeComponentConfigUpdate(per)
@@ -110,7 +107,6 @@ func Test_perEncodingE2nodeComponentConfigUpdate(t *testing.T) {
 
 	per, err = perEncodeE2nodeComponentConfigUpdate(e2nodeComponentConfigUpdate)
 	assert.NilError(t, err)
-	assert.Equal(t, 13, len(per))
 	t.Logf("E2nodeComponentConfigUpdate (ENb) PER\n%v", hex.Dump(per))
 
 	result, err = perDecodeE2nodeComponentConfigUpdate(per)

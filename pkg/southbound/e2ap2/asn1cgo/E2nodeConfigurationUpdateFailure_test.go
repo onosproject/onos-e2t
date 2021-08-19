@@ -58,7 +58,6 @@ func Test_xerEncodingE2nodeConfigurationUpdateFailure(t *testing.T) {
 
 	xer, err := xerEncodeE2nodeConfigurationUpdateFailure(e2nodeConfigurationUpdateFailure)
 	assert.NilError(t, err)
-	assert.Equal(t, 1777, len(xer))
 	t.Logf("E2nodeConfigurationUpdateFailure XER\n%s", string(xer))
 
 	result, err := xerDecodeE2nodeConfigurationUpdateFailure(xer)
@@ -79,7 +78,6 @@ func Test_perEncodingE2nodeConfigurationUpdateFailure(t *testing.T) {
 
 	per, err := perEncodeE2nodeConfigurationUpdateFailure(e2nodeConfigurationUpdateFailure)
 	assert.NilError(t, err)
-	assert.Equal(t, 29, len(per))
 	t.Logf("E2nodeConfigurationUpdateFailure PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2nodeConfigurationUpdateFailure(per)

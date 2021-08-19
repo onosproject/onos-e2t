@@ -37,7 +37,6 @@ func Test_xerEncodingRicServiceQuery(t *testing.T) {
 
 	xer, err := xerEncodeRicServiceQuery(rsq)
 	assert.NilError(t, err)
-	assert.Equal(t, 1331, len(xer))
 	t.Logf("RicServiceQuery XER\n%s", string(xer))
 
 	result, err := xerDecodeRicServiceQuery(xer)
@@ -58,7 +57,6 @@ func Test_perEncodingRicServiceQuery(t *testing.T) {
 
 	per, err := perEncodeRicServiceQuery(rsq)
 	assert.NilError(t, err)
-	assert.Equal(t, 27, len(per))
 	t.Logf("RicServiceQuery PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeRicServiceQuery(per)

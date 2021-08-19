@@ -24,7 +24,6 @@ func Test_xerEncodeNgEnbDuID(t *testing.T) {
 
 	xer, err := xerEncodeNgEnbDuID(ngEnbDuID)
 	assert.NilError(t, err)
-	assert.Equal(t, 28, len(xer))
 	t.Logf("NgEnbDuID XER\n%s", string(xer))
 }
 
@@ -34,7 +33,6 @@ func Test_xerDecodeNgEnbDuID(t *testing.T) {
 
 	xer, err := xerEncodeNgEnbDuID(ngEnbDuID)
 	assert.NilError(t, err)
-	assert.Equal(t, 28, len(xer))
 	t.Logf("NgEnbDuID XER\n%s", string(xer))
 
 	result, err := xerDecodeNgEnbDuID(xer)
@@ -49,7 +47,6 @@ func Test_perEncodeNgEnbDuID(t *testing.T) {
 
 	per, err := perEncodeNgEnbDuID(ngEnbDuID)
 	assert.NilError(t, err)
-	assert.Equal(t, 3, len(per))
 	t.Logf("NgEnbDuID PER\n%v", hex.Dump(per))
 }
 
@@ -59,7 +56,6 @@ func Test_perDecodeNgEnbDuID(t *testing.T) {
 
 	per, err := perEncodeNgEnbDuID(ngEnbDuID)
 	assert.NilError(t, err)
-	assert.Equal(t, 3, len(per))
 	t.Logf("NgEnbDuID PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeNgEnbDuID(per)

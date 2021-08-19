@@ -50,7 +50,6 @@ func Test_xerEncodingRanFunctionIDList(t *testing.T) {
 
 	xer, err := xerEncodeRanFunctionsIDList(rfIDl)
 	assert.NilError(t, err)
-	assert.Equal(t, 388, len(xer))
 	t.Logf("RANfunctionsIDList XER\n%s", string(xer))
 
 	result, err := xerDecodeRanFunctionsIDList(xer)
@@ -68,7 +67,6 @@ func Test_perEncodingRanFunctionIDList(t *testing.T) {
 
 	per, err := perEncodeRanFunctionsIDList(rfIDl)
 	assert.NilError(t, err)
-	assert.Equal(t, 11, len(per))
 	t.Logf("RANfunctionsIDList PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeRanFunctionsIDList(per)

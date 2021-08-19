@@ -65,7 +65,11 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 	assert.Assert(t, cdReversed != nil)
 	t.Logf("CriticalityDiagnostics decoded from XER is \n%v", cdReversed)
 	//assert.Equal(t, 2, len(rflReversed.GetValue()))
-	assert.DeepEqual(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue(), cdReversed)
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), cdReversed.GetRicRequestorId().GetRicInstanceId())
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), cdReversed.GetRicRequestorId().GetRicRequestorId())
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue(), cdReversed.GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue())
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality().Number(), cdReversed.GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality().Number())
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError().Number(), cdReversed.GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError().Number())
 
 	// Now reverse the PER
 	cdReversedFromPer, err := perDecodeCriticalityDiagnostics(per)
@@ -73,5 +77,9 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 	assert.Assert(t, cdReversedFromPer != nil)
 	t.Logf("CriticalityDiagnostics decoded from PER is \n%v", cdReversedFromPer)
 	//assert.Equal(t, 2, len(rflReversedFromPer.GetValue()))
-	assert.DeepEqual(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue(), cdReversedFromPer)
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicInstanceId(), cdReversed.GetRicRequestorId().GetRicInstanceId())
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetRicRequestorId().GetRicRequestorId(), cdReversed.GetRicRequestorId().GetRicRequestorId())
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue(), cdReversed.GetIEsCriticalityDiagnostics().GetValue()[0].GetIEId().GetValue())
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality().Number(), cdReversed.GetIEsCriticalityDiagnostics().GetValue()[0].GetIEcriticality().Number())
+	assert.Equal(t, newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue().GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError().Number(), cdReversed.GetIEsCriticalityDiagnostics().GetValue()[0].GetTypeOfError().Number())
 }

@@ -69,7 +69,6 @@ func Test_xerEncodingRicserviceUpdateFailure(t *testing.T) {
 
 	xer, err := xerEncodeRicServiceUpdateFailure(rsuf)
 	assert.NilError(t, err)
-	assert.Equal(t, 2856, len(xer))
 	t.Logf("RicServiceUpdateFailure XER\n%s", string(xer))
 
 	result, err := xerDecodeRicServiceUpdateFailure(xer)
@@ -94,7 +93,6 @@ func Test_perEncodingRicserviceUpdateFailure(t *testing.T) {
 
 	per, err := perEncodeRicServiceUpdateFailure(rsuf)
 	assert.NilError(t, err)
-	assert.Equal(t, 46, len(per))
 	t.Logf("RicServiceUpdateFailure PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeRicServiceUpdateFailure(per)

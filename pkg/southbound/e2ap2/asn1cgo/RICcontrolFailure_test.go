@@ -10,6 +10,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"gotest.tools/assert"
+	"reflect"
 	"testing"
 )
 
@@ -32,7 +33,7 @@ func Test_RICcontrolFailure(t *testing.T) {
 	assert.Assert(t, e2ApPduRcf != nil)
 	e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().
 		SetRicControlOutcome(ricCtrlOut).SetRicCallProcessID(ricCallPrID)
-	//fmt.Printf("Message we're going to encode is following: \n %v \n", e2ApPduRcf)
+	t.Logf("Message we're going to encode is following: \n %v \n", e2ApPduRcf)
 
 	xer, err := xerEncodeRICcontrolFailure(
 		e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome())
@@ -41,7 +42,10 @@ func Test_RICcontrolFailure(t *testing.T) {
 
 	e2apPdu, err := xerDecodeRICcontrolFailure(xer)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
+	t.Logf("RICcontrolFailureMessage decoded from XER is \n%v", e2apPdu)
+	//assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
+	out := reflect.DeepEqual(e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
+	assert.Assert(t, out != false)
 
 	per, err := perEncodeRICcontrolFailure(
 		e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome())
@@ -50,5 +54,8 @@ func Test_RICcontrolFailure(t *testing.T) {
 
 	e2apPdu, err = perDecodeRICcontrolFailure(per)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
+	t.Logf("RICcontrolFailureMessage is \n%v", e2apPdu)
+	//assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
+	out1 := reflect.DeepEqual(e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
+	assert.Assert(t, out1 != false)
 }

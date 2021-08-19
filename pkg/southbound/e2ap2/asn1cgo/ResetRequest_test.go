@@ -37,7 +37,6 @@ func Test_xerEncodingResetRequest(t *testing.T) {
 
 	xer, err := xerEncodeResetRequest(resetRequest)
 	assert.NilError(t, err)
-	assert.Equal(t, 349, len(xer))
 	t.Logf("ResetRequest XER\n%s", string(xer))
 
 	result, err := xerDecodeResetRequest(xer)
@@ -55,7 +54,6 @@ func Test_perEncodingResetRequest(t *testing.T) {
 
 	per, err := perEncodeResetRequest(resetRequest)
 	assert.NilError(t, err)
-	assert.Equal(t, 8, len(per))
 	t.Logf("ResetRequest PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeResetRequest(per)

@@ -48,7 +48,6 @@ func Test_xerEncodingGlobalE2nodeNgEnbID(t *testing.T) {
 
 	xer, err := xerEncodeGlobalE2nodeNgEnbID(globalE2nodeNgEnbID)
 	assert.NilError(t, err)
-	assert.Equal(t, 261, len(xer))
 	t.Logf("GlobalE2nodeNgEnbID XER\n%s", string(xer))
 
 	result, err := xerDecodeGlobalE2nodeNgEnbID(xer)
@@ -68,7 +67,6 @@ func Test_perEncodingGlobalE2nodeNgEnbID(t *testing.T) {
 
 	per, err := perEncodeGlobalE2nodeNgEnbID(globalE2nodeNgEnbID)
 	assert.NilError(t, err)
-	assert.Equal(t, 8, len(per))
 	t.Logf("GlobalE2nodeNgEnbID PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeGlobalE2nodeNgEnbID(per)
