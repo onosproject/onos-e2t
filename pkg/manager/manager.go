@@ -7,7 +7,7 @@ package manager
 import (
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
-	"github.com/onosproject/onos-e2t/pkg/controller/e2node"
+	"github.com/onosproject/onos-e2t/pkg/controller/channel"
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
@@ -141,7 +141,7 @@ func (m *Manager) Start() error {
 }
 
 func (m *Manager) startE2RelationController(rnib rnib.Store, channels e2server.ChannelManager) error {
-	e2RelationController := e2node.NewController(rnib, channels)
+	e2RelationController := channel.NewController(rnib, channels)
 	return e2RelationController.Start()
 }
 

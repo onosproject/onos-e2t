@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package e2node
+package channel
 
 import (
 	"context"
@@ -107,8 +107,19 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) error {
-	_, err := r.rnib.Get(ctx, channel.E2NodeID)
+	object, err := r.rnib.Get(ctx, channel.E2NodeID)
 	if err == nil {
+		aspects := &topoapi.E2Node{
+			ServiceModels: channel.ServiceModels,
+		}
+		err := object.SetAspect(aspects)
+		if err != nil {
+			return err
+		}
+		err = r.rnib.Update(ctx, object)
+		if (err != nil) && !errors.IsNotFound(err) {
+			return err
+		}
 		return nil
 	} else if !errors.IsNotFound(err) {
 		log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
@@ -116,7 +127,7 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 	}
 
 	log.Debugf("Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
-	object := &topoapi.Object{
+	object = &topoapi.Object{
 		ID:   channel.E2NodeID,
 		Type: topoapi.Object_ENTITY,
 		Obj: &topoapi.Object_Entity{

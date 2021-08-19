@@ -126,6 +126,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 			// Check if the the lease is expired
 			if lease.Expiration.Before(time.Now()) {
+				log.Debugf("Deleting the expired lease for E2T with ID: %s", e2tID)
 				err := r.rnib.Delete(ctx, e2tID)
 				if !errors.IsNotFound(err) {
 					return controller.Result{}, err
@@ -151,7 +152,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			// If the remaining time of lease is more than  half the lease duration, no need to renew the lease
 			// schedule the next renewal
 			if remainingTime > defaultExpirationDuration.Seconds()/2 {
-				log.Debugf("No need to renew the lease, the remaining lease time is %v seconds", remainingTime)
+				log.Debugf("No need to renew the lease for %s, the remaining lease time is %v seconds", e2tID, remainingTime)
 				return controller.Result{
 					RequeueAfter: defaultExpirationDuration / 2,
 				}, nil
@@ -177,13 +178,13 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		}
 
 	} else if !errors.IsNotFound(err) {
-		log.Infof("Renewing E2T entity lease failed: %v", err)
+		log.Infof("Renewing E2T entity lease failed for E2T with ID %s: %v", e2tID, err)
 		return controller.Result{}, err
 	}
 
 	// Create the E2T entity
 	if err := r.createE2T(ctx, e2tID); err != nil {
-		log.Infof("Creating E2T entity failed: %v", err)
+		log.Infof("Creating E2T entity with ID %s failed: %v", e2tID, err)
 		return controller.Result{}, err
 	}
 
