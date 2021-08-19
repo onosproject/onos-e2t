@@ -23,12 +23,17 @@ const (
 	defaultTimeout = 30 * time.Second
 )
 
-var log = logging.GetLogger("controller", "e2node")
+var log = logging.GetLogger("controller", "channel")
 
 // NewController returns a new E2 control relation controller
 func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controller.Controller {
-	c := controller.NewController("e2node")
-	c.Watch(&ChannelWatcher{
+	c := controller.NewController("channel")
+	c.Watch(&Watcher{
+		channels: channels,
+	})
+
+	c.Watch(&TopoWatcher{
+		topo:     rnib,
 		channels: channels,
 	})
 
@@ -40,7 +45,7 @@ func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controlle
 	return c
 }
 
-// Reconciler is an E2T/E2 node relations reconciler
+// Reconciler is for reconciling RAN entities such as E2 node , E2 cell and their relations
 type Reconciler struct {
 	channels e2server.ChannelManager
 	rnib     rnib.Store
@@ -107,6 +112,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) error {
+	log.Debug("Test create E2 node")
 	object, err := r.rnib.Get(ctx, channel.E2NodeID)
 	if err == nil {
 		aspects := &topoapi.E2Node{
@@ -126,7 +132,7 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 		return err
 	}
 
-	log.Debugf("Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
+	log.Debugf("Test Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
 	object = &topoapi.Object{
 		ID:   channel.E2NodeID,
 		Type: topoapi.Object_ENTITY,
@@ -144,8 +150,8 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 	}
 
 	err = object.SetAspect(aspects)
-	log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
 	if err != nil {
+		log.Warnf("Creating E2Node entity '%s' for Channel failed '%s': %v", channel.E2NodeID, channel.ID, err)
 		return err
 	}
 

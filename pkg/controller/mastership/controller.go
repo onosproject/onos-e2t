@@ -28,7 +28,7 @@ var log = logging.GetLogger("controller", "mastership")
 // NewController returns a new mastership controller
 func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controller.Controller {
 	c := controller.NewController("mastership")
-	c.Watch(&Watcher{
+	c.Watch(&TopoWatcher{
 		topo: rnib,
 	})
 

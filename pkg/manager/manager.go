@@ -114,7 +114,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startE2RelationController(rnibStore, channels)
+	err = m.startChannelController(rnibStore, channels)
 	if err != nil {
 		return err
 	}
@@ -140,9 +140,9 @@ func (m *Manager) Start() error {
 	return nil
 }
 
-func (m *Manager) startE2RelationController(rnib rnib.Store, channels e2server.ChannelManager) error {
-	e2RelationController := channel.NewController(rnib, channels)
-	return e2RelationController.Start()
+func (m *Manager) startChannelController(rnib rnib.Store, channels e2server.ChannelManager) error {
+	channelController := channel.NewController(rnib, channels)
+	return channelController.Start()
 }
 
 func (m *Manager) startE2TController(rnib rnib.Store) error {

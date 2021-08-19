@@ -16,15 +16,15 @@ import (
 
 const queueSize = 100
 
-// Watcher is a subscription watcher
-type Watcher struct {
+// Watcher is a topology watcher
+type TopoWatcher struct {
 	topo   rnib.Store
 	cancel context.CancelFunc
 	mu     sync.Mutex
 }
 
-// Start starts the subscription watcher
-func (w *Watcher) Start(ch chan<- controller.ID) error {
+// Start starts the topology watcher
+func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.cancel != nil {
@@ -57,8 +57,8 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 	return nil
 }
 
-// Stop stops the subscription watcher
-func (w *Watcher) Stop() {
+// Stop stops the topology watcher
+func (w *TopoWatcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
 		w.cancel()
@@ -67,4 +67,4 @@ func (w *Watcher) Stop() {
 	w.mu.Unlock()
 }
 
-var _ controller.Watcher = &Watcher{}
+var _ controller.Watcher = &TopoWatcher{}

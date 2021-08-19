@@ -8,6 +8,9 @@ import (
 	"context"
 	"sync"
 
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
+
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 )
@@ -15,7 +18,7 @@ import (
 const queueSize = 100
 
 // ChannelWatcher is a channel watcher
-type ChannelWatcher struct {
+type Watcher struct {
 	channels  e2server.ChannelManager
 	cancel    context.CancelFunc
 	mu        sync.Mutex
@@ -23,7 +26,7 @@ type ChannelWatcher struct {
 }
 
 // Start starts the channel watcher
-func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
+func (w *Watcher) Start(ch chan<- controller.ID) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.cancel != nil {
@@ -50,7 +53,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 }
 
 // Stop stops the channel watcher
-func (w *ChannelWatcher) Stop() {
+func (w *Watcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
 		w.cancel()
@@ -58,3 +61,62 @@ func (w *ChannelWatcher) Stop() {
 	}
 	w.mu.Unlock()
 }
+
+//  TopoWatcher is a topology watcher
+type TopoWatcher struct {
+	topo     rnib.Store
+	channels e2server.ChannelManager
+	cancel   context.CancelFunc
+	mu       sync.Mutex
+}
+
+// Start starts the topology watcher
+func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	if w.cancel != nil {
+		return nil
+	}
+
+	eventCh := make(chan topoapi.Event, queueSize)
+	ctx, cancel := context.WithCancel(context.Background())
+	err := w.topo.Watch(ctx, eventCh, nil)
+	if err != nil {
+		cancel()
+		return err
+	}
+	w.cancel = cancel
+
+	go func() {
+		for event := range eventCh {
+			log.Debugf("Received topo event '%s'", event.Object.ID)
+			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok &&
+				entity.Entity.KindID == topoapi.E2NODE {
+				channels, err := w.channels.List(ctx)
+				if err != nil {
+					log.Warnf("cannot retrieve the list channels %v:%v", channels, err)
+					continue
+				}
+				for _, channel := range channels {
+					if channel.E2NodeID == event.Object.GetID() {
+						ch <- controller.NewID(channel.ID)
+					}
+				}
+			}
+		}
+		close(ch)
+	}()
+	return nil
+}
+
+// Stop stops the topology watcher
+func (w *TopoWatcher) Stop() {
+	w.mu.Lock()
+	if w.cancel != nil {
+		w.cancel()
+		w.cancel = nil
+	}
+	w.mu.Unlock()
+}
+
+var _ controller.Watcher = &TopoWatcher{}
