@@ -1,0 +1,21 @@
+<E2AP-PDU>
+    <initiatingMessage>
+        <procedureCode>3</procedureCode>
+        <criticality><reject/></criticality>
+        <value>
+            <ResetRequest>
+                <protocolIEs>
+                    <ResetRequestIEs>
+                        <id>1</id>
+                        <criticality><ignore/></criticality>
+                        <value>
+                            <Cause>
+                                <protocol><transfer-syntax-error/></protocol>
+                            </Cause>
+                        </value>
+                    </ResetRequestIEs>
+                </protocolIEs>
+            </ResetRequest>
+        </value>
+    </initiatingMessage>
+</E2AP-PDU>
