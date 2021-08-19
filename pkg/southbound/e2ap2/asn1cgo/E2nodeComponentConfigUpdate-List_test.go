@@ -6,7 +6,6 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
@@ -31,10 +30,10 @@ func createE2nodeComponentConfigUpdateListMsg() (*e2ap_pdu_contents.E2NodeCompon
 		E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate{
 			E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate_GNbconfigUpdate{
 				GNbconfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdateGnb{
-					NgApconfigUpdate: "ng_AP",
-					XnApconfigUpdate: "xn_AP",
-					E1ApconfigUpdate: "e1_AP",
-					F1ApconfigUpdate: "f1_AP",
+					NgApconfigUpdate: []byte("ng_AP"),
+					XnApconfigUpdate: []byte("xn_AP"),
+					E1ApconfigUpdate: []byte("e1_AP"),
+					F1ApconfigUpdate: []byte("f1_AP"),
 				},
 			},
 		},
@@ -52,9 +51,9 @@ func createE2nodeComponentConfigUpdateListMsg() (*e2ap_pdu_contents.E2NodeCompon
 	}
 	e2nodeComponentConfigUpdateList.Value = append(e2nodeComponentConfigUpdateList.Value, &item)
 
-	if err := e2nodeComponentConfigUpdateList.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateList %s", err.Error())
-	}
+	//if err := e2nodeComponentConfigUpdateList.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateList %s", err.Error())
+	//}
 	return &e2nodeComponentConfigUpdateList, nil
 }
 

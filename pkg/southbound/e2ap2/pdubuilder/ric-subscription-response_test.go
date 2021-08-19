@@ -30,9 +30,10 @@ func TestRicSubscriptionResponse(t *testing.T) {
 	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}, ricActionsNotAdmittedList)
+	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicSubscription().GetSuccessfulOutcome().SetRicActionNotAdmitted(ricActionsNotAdmittedList)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -59,7 +60,7 @@ func TestRicSubscriptionResponseExceptOptional(t *testing.T) {
 	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}, nil)
+	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 

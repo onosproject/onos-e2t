@@ -6,7 +6,6 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
@@ -38,9 +37,9 @@ func createRanFunctionsIDListMsg() (*e2ap_pdu_contents.RanfunctionsIdList, error
 	}
 	rfIDl.Value = append(rfIDl.Value, rfIDi)
 
-	if err := rfIDl.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating RANfunctionsIDList %s", err.Error())
-	}
+	//if err := rfIDl.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating RANfunctionsIDList %s", err.Error())
+	//}
 	return &rfIDl, nil
 }
 

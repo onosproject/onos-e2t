@@ -26,7 +26,11 @@ func TestRicSubscriptionDeleteFailure(t *testing.T) {
 			Cause: &e2apies.Cause_Transport{
 				Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE,
 			},
-		}, &procCode, &criticality, &ftg,
+		})
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+
+	newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
@@ -36,10 +40,7 @@ func TestRicSubscriptionDeleteFailure(t *testing.T) {
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
-		},
-	)
-	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+		})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -67,7 +68,7 @@ func TestRicSubscriptionDeleteFailureExcludeOptionalIE(t *testing.T) {
 			Cause: &e2apies.Cause_Transport{
 				Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE,
 			},
-		}, nil, nil, nil, nil, nil)
+		})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 

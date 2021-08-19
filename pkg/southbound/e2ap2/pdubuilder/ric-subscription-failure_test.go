@@ -34,22 +34,24 @@ func TestRicSubscriptionFailure(t *testing.T) {
 	newE2apPdu, err := CreateRicSubscriptionFailureE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9,
-		&procCode, &criticality, &ftg,
+	}, 9, &e2apies.Cause{
+		Cause: &e2apies.Cause_Misc{
+			Misc: e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD,
+		},
+	})
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscription().GetUnsuccessfulOutcome().SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
-		}, ricActionsNotAdmittedList,
-		[]*types.CritDiag{
+		}, []*types.CritDiag{
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
-		},
-	)
-	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+		})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -91,7 +93,11 @@ func TestRicSubscriptionFailureExcludeOptionalIE(t *testing.T) {
 		RequestorID: 22,
 		InstanceID:  6,
 	}, 9,
-		nil, nil, nil, nil, ricActionsNotAdmittedList, nil)
+		&e2apies.Cause{
+			Cause: &e2apies.Cause_Misc{
+				Misc: e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD,
+			},
+		})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 

@@ -14,8 +14,12 @@ import (
 )
 
 func TestE2connectionUpdateAcknowledge(t *testing.T) {
-	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu(1,
-		[]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
+	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu(1)
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+
+	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetSuccessfulOutcome().
+		SetE2ConnectionSetup([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 		TnlPort: asn1.BitString{
 			Value: []byte{0xae, 0x89},
 			Len:   16,
@@ -24,22 +28,19 @@ func TestE2connectionUpdateAcknowledge(t *testing.T) {
 			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 			Len:   64,
 		}},
-		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
-		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
-			TnlPort: asn1.BitString{
-				Value: []byte{0xae, 0x89},
-				Len:   16,
-			},
-			TnlAddress: asn1.BitString{
-				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
-				Len:   64,
-			}},
-			Cause: e2ap_ies.Cause{
-				Cause: &e2ap_ies.Cause_Protocol{
-					Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-				}}}})
-	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}}).SetE2ConnectionSetupFailed([]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
+		TnlPort: asn1.BitString{
+			Value: []byte{0xae, 0x89},
+			Len:   16,
+		},
+		TnlAddress: asn1.BitString{
+			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
+			Len:   64,
+		}},
+		Cause: e2ap_ies.Cause{
+			Cause: &e2ap_ies.Cause_Protocol{
+				Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+			}}}})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -61,22 +62,23 @@ func TestE2connectionUpdateAcknowledge(t *testing.T) {
 }
 
 func TestE2connectionUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
-	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu(1, nil,
-		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
-			TnlPort: asn1.BitString{
-				Value: []byte{0xae, 0x89},
-				Len:   16,
-			},
-			TnlAddress: asn1.BitString{
-				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
-				Len:   64,
-			}},
-			Cause: e2ap_ies.Cause{
-				Cause: &e2ap_ies.Cause_Protocol{
-					Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-				}}}})
+	newE2apPdu, err := CreateE2connectionUpdateAcknowledgeE2apPdu(1)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetSuccessfulOutcome().
+		SetE2ConnectionSetupFailed([]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
+		TnlPort: asn1.BitString{
+			Value: []byte{0xae, 0x89},
+			Len:   16,
+		},
+		TnlAddress: asn1.BitString{
+			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
+			Len:   64,
+		}},
+		Cause: e2ap_ies.Cause{
+			Cause: &e2ap_ies.Cause_Protocol{
+				Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+			}}}})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

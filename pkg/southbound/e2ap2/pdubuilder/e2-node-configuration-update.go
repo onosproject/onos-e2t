@@ -4,39 +4,15 @@
 package pdubuilder
 
 import (
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateE2NodeConfigurationUpdateE2apPdu(trID int32, e2NodeID *e2ap_ies.GlobalE2NodeId, e2nccul []*types.E2NodeComponentConfigUpdateItem) (*e2appdudescriptions.E2ApPdu, error) {
-
-	if e2nccul == nil {
-		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
-	}
-
-	configUpdateList := e2appducontents.E2NodeComponentConfigUpdateList{
-		Value: make([]*e2appducontents.E2NodeComponentConfigUpdateItemIes, 0),
-	}
-
-	for _, e2nccui := range e2nccul {
-		cui := &e2appducontents.E2NodeComponentConfigUpdateItemIes{
-			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.E2NodeComponentConfigUpdateItem{
-				E2NodeComponentType:         e2nccui.E2NodeComponentType,
-				E2NodeComponentId:           e2nccui.E2NodeComponentID,
-				E2NodeComponentConfigUpdate: &e2nccui.E2NodeComponentConfigUpdate,
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		}
-		configUpdateList.Value = append(configUpdateList.Value, cui)
-	}
+func CreateE2NodeConfigurationUpdateE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, error) {
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
@@ -45,18 +21,6 @@ func CreateE2NodeConfigurationUpdateE2apPdu(trID int32, e2NodeID *e2ap_ies.Globa
 					E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
 						InitiatingMessage: &e2appducontents.E2NodeConfigurationUpdate{
 							ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateIes{
-								E2ApProtocolIes3: &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes3{
-									Id:          int32(v2beta1.ProtocolIeIDGlobalE2nodeID),
-									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-									Value:       e2NodeID,
-									Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-								},
-								E2ApProtocolIes33: &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes33{
-									Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate),
-									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-									Value:       &configUpdateList,
-									Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-								},
 								E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes49{
 									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
 									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
@@ -78,6 +42,7 @@ func CreateE2NodeConfigurationUpdateE2apPdu(trID int32, e2NodeID *e2ap_ies.Globa
 			},
 		},
 	}
+
 	//if err := e2apPdu.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	//}

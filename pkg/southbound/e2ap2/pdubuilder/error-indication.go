@@ -14,7 +14,36 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.RanFunctionID,
+func CreateErrorIndicationE2apPduEmpty() *e2appdudescriptions.E2ApPdu {
+
+	e2apPdu := e2appdudescriptions.E2ApPdu{
+		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
+			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
+				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
+					ErrorIndication: &e2appdudescriptions.ErrorIndicationEp{
+						InitiatingMessage: &e2appducontents.ErrorIndication{
+							ProtocolIes: &e2appducontents.ErrorIndicationIes{
+								//E2ApProtocolIes29: &ricRequestID,           // RIC Requestor & RIC Instance ID
+								//E2ApProtocolIes5:  &ranFunctionID,          // RAN function ID
+								//E2ApProtocolIes1:  &errorCause,             // Cause
+								//E2ApProtocolIes2:  &criticalityDiagnostics, // CriticalityDiagnostics
+							},
+						},
+						ProcedureCode: &e2ap_constants.IdErrorIndication{
+							Value: int32(v2beta1.ProcedureCodeIDErrorIndication),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityIgnore{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+						},
+					},
+				},
+			},
+		},
+	}
+	return &e2apPdu
+}
+
+func CreateErrorIndicationE2apPdu(trID *int32, ricReqID *types.RicRequest, ranFuncID *types.RanFunctionID,
 	cause *e2apies.Cause, failureProcCode *v2beta1.ProcedureCodeT,
 	failureCrit *e2ap_commondatatypes.Criticality, failureTrigMsg *e2ap_commondatatypes.TriggeringMessage,
 	reqID *types.RicRequest, critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
@@ -47,6 +76,17 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.R
 				},
 			},
 		},
+	}
+
+	if trID != nil {
+		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetErrorIndication().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes49 = &e2appducontents.ErrorIndicationIes_ErrorIndicationIes49{
+			Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &e2apies.TransactionId{
+				Value: *trID,
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		}
 	}
 
 	if ricReqID != nil {
@@ -89,8 +129,8 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.R
 				ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 					Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 				},
-				TriggeringMessage:    *failureTrigMsg,
-				ProcedureCriticality: *failureCrit, // from e2ap-v01.00.asn1:153
+				TriggeringMessage:    failureTrigMsg,
+				ProcedureCriticality: failureCrit, // from e2ap-v01.00.asn1:153
 				RicRequestorId: &e2apies.RicrequestId{
 					RicRequestorId: int32(reqID.RequestorID),
 					RicInstanceId:  int32(reqID.InstanceID),
@@ -119,8 +159,8 @@ func CreateErrorIndicationE2apPdu(ricReqID *types.RicRequest, ranFuncID *types.R
 		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetErrorIndication().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes2 = criticalityDiagnostics
 	}
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

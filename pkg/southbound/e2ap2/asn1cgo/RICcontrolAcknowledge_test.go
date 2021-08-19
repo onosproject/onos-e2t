@@ -19,15 +19,16 @@ func Test_RICcontrolAcknowledge(t *testing.T) {
 		InstanceID:  22,
 	}
 	var ranFuncID types.RanFunctionID = 9
-	//var ricCallPrID types.RicCallProcessID = []byte("123")
+	var ricCallPrID types.RicCallProcessID = []byte("123")
 	ricControlStatus := e2apies.RiccontrolStatus_RICCONTROL_STATUS_SUCCESS
-	//var ricCtrlOut types.RicControlOutcome = []byte("456")
+	var ricCtrlOut types.RicControlOutcome = []byte("456")
 	e2ApPduRca, err := pdubuilder.CreateRicControlAcknowledgeE2apPdu(ricRequestID,
-		ranFuncID, nil, ricControlStatus, nil)
+		ranFuncID, ricControlStatus)
 	assert.NilError(t, err)
 	assert.Assert(t, e2ApPduRca != nil)
-
-	t.Logf("That's what we're going to encode: \n %v \n", e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome())
+	e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome().
+		SetRicControlOutcome(ricCtrlOut).SetRicCallProcessID(ricCallPrID)
+	//t.Logf("That's what we're going to encode: \n %v \n", e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome())
 
 	xer, err := xerEncodeRICcontrolAcknowledge(
 		e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome())

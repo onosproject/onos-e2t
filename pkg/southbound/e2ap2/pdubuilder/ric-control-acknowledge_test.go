@@ -18,13 +18,15 @@ func TestRicControlAcknowledge(t *testing.T) {
 		InstanceID:  22,
 	}
 	var ranFuncID types.RanFunctionID = 9
-	//var ricCallPrID types.RicCallProcessID = []byte("123")
+	var ricCallPrID types.RicCallProcessID = []byte("123")
 	ricControlStatus := e2apies.RiccontrolStatus_RICCONTROL_STATUS_SUCCESS
-	//var ricCtrlOut types.RicControlOutcome = []byte("456")
+	var ricCtrlOut types.RicControlOutcome = []byte("456")
 	newE2apPdu, err := CreateRicControlAcknowledgeE2apPdu(ricRequestID,
-		ranFuncID, nil, ricControlStatus, nil)
+		ranFuncID, ricControlStatus)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome().
+		SetRicControlOutcome(ricCtrlOut).SetRicCallProcessID(ricCallPrID)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

@@ -17,24 +17,27 @@ import (
 )
 
 func createResetResponseMsg() (*e2ap_pdu_contents.ResetResponse, error) {
+	procCode := v2beta1.ProcedureCodeIDRICsubscription
+	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	resetResponse, err := pdubuilder.CreateResetResponseE2apPdu(
-		v2beta1.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
-		&types.RicRequest{
-			RequestorID: 10,
-			InstanceID:  20,
-		}, []*types.CritDiag{
-			{
-				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
-				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
-			},
-		},
-	)
+	resetResponse, err := pdubuilder.CreateResetResponseE2apPdu(1)
 	if err != nil {
 		return nil, err
 	}
+
+	resetResponse.GetSuccessfulOutcome().GetProcedureCode().GetReset_().GetSuccessfulOutcome().
+		SetCriticalityDiagnostics(procCode, &criticality, &ftg,
+			&types.RicRequest{
+				RequestorID: 10,
+				InstanceID:  20,
+			}, []*types.CritDiag{
+				{
+					TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
+					IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+					IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
+				},
+			})
 
 	//if err := resetResponse.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating ResetResponse %s", err.Error())

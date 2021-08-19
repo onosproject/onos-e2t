@@ -5,7 +5,6 @@ package pdubuilder
 
 import (
 	"encoding/hex"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"gotest.tools/assert"
@@ -17,21 +16,39 @@ func TestRicServiceUpdateAcknowledge(t *testing.T) {
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
 
-	rfRejected := make(types.RanFunctionCauses)
-	rfRejected[101] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Misc{
-			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
-		},
+	ranFunctionAddedList := make(types.RanFunctions)
+	ranFunctionAddedList[100] = types.RanFunctionItem{
+		Description: []byte("Type 1"),
+		Revision:    1,
+		OID:         "oid1",
 	}
-	rfRejected[102] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Protocol{
-			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
+	ranFunctionAddedList[200] = types.RanFunctionItem{
+		Description: []byte("Type 2"),
+		Revision:    2,
+		OID:         "oid2",
 	}
 
-	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted, rfRejected)
+	ranFunctionModifiedList := make(types.RanFunctions)
+	ranFunctionModifiedList[100] = types.RanFunctionItem{
+		Description: []byte("Type 3"),
+		Revision:    3,
+		OID:         "oid3",
+	}
+	ranFunctionModifiedList[200] = types.RanFunctionItem{
+		Description: []byte("Type 4"),
+		Revision:    4,
+		OID:         "oid4",
+	}
+
+	rfDeleted := make(types.RanFunctionRevisions)
+	rfDeleted[100] = 2
+	rfDeleted[200] = 2
+
+	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(1, rfAccepted)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceUpdate().GetInitiatingMessage().
+		SetRanFunctionsAdded(ranFunctionAddedList).SetRanFunctionsModified(ranFunctionModifiedList).SetRanFunctionsDeleted(rfDeleted)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -59,7 +76,7 @@ func TestRicServiceUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
 
-	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted, nil)
+	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(3, rfAccepted)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 

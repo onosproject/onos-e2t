@@ -10,6 +10,7 @@ import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
 	"testing"
 )
@@ -19,13 +20,28 @@ func TestE2SetupFailure(t *testing.T) {
 	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
-	newE2apPdu, err := CreateE2SetupFailurePdu(
-		e2apies.Cause{
+
+	tnlInfo, err := CreateTnlInformation(&asn1.BitString{
+		Value: []byte{0x00, 0x00, 0x01},
+		Len:   24,
+	})
+	assert.NilError(t, err)
+	tnlInfo.SetTnlPort(&asn1.BitString{
+		Value: []byte{0x00, 0x01},
+		Len:   16,
+	})
+
+	newE2apPdu, err := CreateE2SetupFailurePdu(1,
+		&e2apies.Cause{
 			Cause: &e2apies.Cause_Misc{ // Probably, could be any other reason
 				Misc: e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED,
 			},
-		},
-		&ttw, &procCode, &criticality, &ftg,
+		})
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+
+	newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2Setup().GetUnsuccessfulOutcome().
+		SetTimeToWait(ttw).SetTnlInformation(tnlInfo).SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
@@ -35,10 +51,7 @@ func TestE2SetupFailure(t *testing.T) {
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
-		},
-	)
-	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+		})
 	//fmt.Printf("TimeToWait is \n%v\n", newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2Setup().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes31())
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)

@@ -17,21 +17,27 @@ import (
 func createE2nodeConfigurationUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge, error) {
 
 	//e2ncID1 := pdubuilder.CreateE2NodeComponentIDGnbCuUp(21)
-	//e2ncID2 := pdubuilder.CreateE2NodeComponentIDGnbDu(13)
+	e2ncID2 := pdubuilder.CreateE2NodeComponentIDGnbDu(13)
 
-	e2nodeConfigurationUpdateAcknowledge, err := pdubuilder.CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(1, []*types.E2NodeComponentConfigUpdateAckItem{
+	e2nodeConfigurationUpdateAcknowledge, err := pdubuilder.CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(1)
+	if err != nil {
+		return nil, err
+	}
+
+	e2nodeConfigurationUpdateAcknowledge.GetSuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetSuccessfulOutcome().
+		SetE2nodeComponentConfigUpdate([]*types.E2NodeComponentConfigUpdateAckItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 			//E2NodeComponentID: e2ncID1,
 			E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
 				UpdateOutcome: 1,
-				//FailureCause: e2ap_ies.Cause{
-				//	Cause: &e2ap_ies.Cause_Protocol{
-				//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
-				//	},
-				//},
+				FailureCause: &e2ap_ies.Cause{
+					Cause: &e2ap_ies.Cause_Protocol{
+						Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+					},
+				},
 			}},
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-			//E2NodeComponentID: e2ncID2,
+			E2NodeComponentID: &e2ncID2,
 			E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
 				UpdateOutcome: 1,
 				//FailureCause: e2ap_ies.Cause{
@@ -40,9 +46,6 @@ func createE2nodeConfigurationUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2NodeC
 				//	},
 				//},
 			}}})
-	if err != nil {
-		return nil, err
-	}
 
 	//if err := e2nodeConfigurationUpdateAcknowledge.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2nodeConfigurationUpdateAcknowledge %s", err.Error())

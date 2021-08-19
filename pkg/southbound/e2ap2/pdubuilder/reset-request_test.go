@@ -12,7 +12,7 @@ import (
 )
 
 func TestResetRequest(t *testing.T) {
-	newE2apPdu, err := CreateResetRequestE2apPdu(e2ap_ies.Cause{
+	newE2apPdu, err := CreateResetRequestE2apPdu(1, &e2ap_ies.Cause{
 		Cause: &e2ap_ies.Cause_Protocol{
 			Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},

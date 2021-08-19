@@ -27,7 +27,11 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 			Cause: &e2apies.Cause_Transport{
 				Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE,
 			},
-		}, &procCode, &criticality, &ftg,
+		})
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+
+	newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
@@ -37,10 +41,7 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
-		},
-	)
-	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+		})
 
 	critDiagsTestC, err := newCriticalityDiagnostics(newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2().GetValue())
 	assert.NilError(t, err)

@@ -38,6 +38,9 @@ func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, crit
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
+	trig := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_INITIATING_MESSAGE
+	crit := e2ap_commondatatypes.Criticality_CRITICALITY_REJECT
+
 	criticality := e2appducontents.E2SetupFailureIes_E2SetupFailureIes2{
 		Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
@@ -45,8 +48,8 @@ func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, crit
 			ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 				Value: e2FailureCode, // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 			},
-			TriggeringMessage:    e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_INITIATING_MESSAGE,
-			ProcedureCriticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT, // from e2ap-v01.00.asn1:153
+			TriggeringMessage:    &trig,
+			ProcedureCriticality: &crit, // from e2ap-v01.00.asn1:153
 			RicRequestorId: &e2apies.RicrequestId{
 				RicRequestorId: ricReqID,
 			},
@@ -84,8 +87,8 @@ func CreateSetupResponseFailureE2apPdu(ricReqID int32, e2FailureCode int32, crit
 			},
 		},
 	}
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

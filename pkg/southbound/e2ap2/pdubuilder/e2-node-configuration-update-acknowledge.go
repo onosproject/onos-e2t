@@ -4,50 +4,15 @@
 package pdubuilder
 
 import (
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(trID int32,
-	e2nccual []*types.E2NodeComponentConfigUpdateAckItem) (*e2appdudescriptions.E2ApPdu, error) {
-
-	if e2nccual == nil {
-		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
-	}
-
-	configUpdateAckList := e2appducontents.E2NodeComponentConfigUpdateAckList{
-		Value: make([]*e2appducontents.E2NodeComponentConfigUpdateAckItemIes, 0),
-	}
-
-	for _, e2nccuai := range e2nccual {
-		cuai := &e2appducontents.E2NodeComponentConfigUpdateAckItemIes{
-			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.E2NodeComponentConfigUpdateAckItem{
-				E2NodeComponentType: e2nccuai.E2NodeComponentType,
-				//E2NodeComponentId:   e2nccuai.E2NodeComponentID,
-				E2NodeComponentConfigUpdateAck: &e2ap_ies.E2NodeComponentConfigUpdateAck{
-					UpdateOutcome: e2nccuai.E2NodeComponentConfigUpdateAck.UpdateOutcome,
-					//FailureCause:  e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
-				},
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		}
-		if e2nccuai.E2NodeComponentID != nil {
-			cuai.Value.E2NodeComponentId = e2nccuai.E2NodeComponentID
-		}
-		if e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause != nil {
-			cuai.Value.E2NodeComponentConfigUpdateAck.FailureCause = e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause
-		}
-
-		configUpdateAckList.Value = append(configUpdateAckList.Value, cuai)
-	}
+func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, error) {
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
@@ -64,12 +29,6 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(trID int32,
 									},
 									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 								},
-								E2ApProtocolIes35: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes35{
-									Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAck),
-									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-									Value:       &configUpdateAckList,
-									Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-								},
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
@@ -84,7 +43,7 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(trID int32,
 		},
 	}
 
-	fmt.Printf("Composed message is \n%v", configUpdateAckList)
+	//fmt.Printf("Composed message is \n%v", configUpdateAckList)
 
 	//if err := e2apPdu.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())

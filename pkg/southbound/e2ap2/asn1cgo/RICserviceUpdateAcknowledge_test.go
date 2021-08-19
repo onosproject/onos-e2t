@@ -6,8 +6,6 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
@@ -20,26 +18,48 @@ func createRicServiceUpdateAcknowledgeMsg() (*e2ap_pdu_contents.RicserviceUpdate
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
 
-	rfRejected := make(types.RanFunctionCauses)
-	rfRejected[101] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Misc{
-			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
-		},
+	ranFunctionAddedList := make(types.RanFunctions)
+	ranFunctionAddedList[100] = types.RanFunctionItem{
+		Description: []byte("Type 1"),
+		Revision:    1,
+		OID:         "oid1",
 	}
-	rfRejected[102] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Protocol{
-			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
+	ranFunctionAddedList[200] = types.RanFunctionItem{
+		Description: []byte("Type 2"),
+		Revision:    2,
+		OID:         "oid2",
 	}
 
-	ricserviceUpdateAcknowledge, err := pdubuilder.CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted, rfRejected)
+	ranFunctionModifiedList := make(types.RanFunctions)
+	ranFunctionModifiedList[100] = types.RanFunctionItem{
+		Description: []byte("Type 3"),
+		Revision:    3,
+		OID:         "oid3",
+	}
+	ranFunctionModifiedList[200] = types.RanFunctionItem{
+		Description: []byte("Type 4"),
+		Revision:    4,
+		OID:         "oid4",
+	}
+
+	rfDeleted := make(types.RanFunctionRevisions)
+	rfDeleted[100] = 2
+	rfDeleted[200] = 2
+
+	ricserviceUpdateAcknowledge, err := pdubuilder.CreateRicServiceUpdateAcknowledgeE2apPdu(1, rfAccepted)
+	if err != nil {
+		return nil, err
+	}
+	ricserviceUpdateAcknowledge.GetInitiatingMessage().GetProcedureCode().GetRicServiceUpdate().GetInitiatingMessage().
+		SetRanFunctionsAdded(ranFunctionAddedList).SetRanFunctionsModified(ranFunctionModifiedList).SetRanFunctionsDeleted(rfDeleted)
+
 	if err != nil {
 		return nil, err
 	}
 
-	if err := ricserviceUpdateAcknowledge.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating RicserviceUpdateAcknowledge %s", err.Error())
-	}
+	//if err := ricserviceUpdateAcknowledge.Validate(); err != nil {
+		//return nil, fmt.Errorf("error validating RicserviceUpdateAcknowledge %s", err.Error())
+	//}
 	return ricserviceUpdateAcknowledge.GetSuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetSuccessfulOutcome(), nil
 }
 

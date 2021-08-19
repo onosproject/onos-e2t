@@ -110,6 +110,8 @@ func protocolIeIDToC(pcIeID v2beta1.ProtocolIeID) (C.ProtocolIE_ID_t, error) {
 		return C.ProtocolIE_ID_id_E2connectionUpdateRemove_Item, nil
 	case v2beta1.ProtocolIeIDTNLinformation:
 		return C.ProtocolIE_ID_id_TNLinformation, nil
+	case v2beta1.ProtocolIeIDTransactionID:
+		return C.ProtocolIE_ID_id_TNLinformation, nil
 	default:
 		return C.ProtocolIE_ID_t(-1), fmt.Errorf("unexpected value for ProtocolIE_IDT %v", pcIeID)
 	}

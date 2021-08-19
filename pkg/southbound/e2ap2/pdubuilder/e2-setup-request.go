@@ -84,42 +84,40 @@ func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunc
 		},
 	}
 
-	if ranFunctionIds != nil {
-		ranFunctions := e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
-			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAdded),
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.RanfunctionsList{
-				Value: make([]*e2appducontents.RanfunctionItemIes, 0),
-			},
-		}
+	ranFunctions := e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
+		Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAdded),
+		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Value: &e2appducontents.RanfunctionsList{
+			Value: make([]*e2appducontents.RanfunctionItemIes, 0),
+		},
+	}
 
-		for id, ranFunctionID := range ranFunctionIds {
-			ranFunction := e2appducontents.RanfunctionItemIes{
-				E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-					Id:          int32(v2beta1.ProtocolIeIDRanfunctionItem),
-					Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-					Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-					Value: &e2appducontents.RanfunctionItem{
-						RanFunctionId: &e2apies.RanfunctionId{
-							Value: int32(id),
-						},
-						RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
-							Value: []byte(ranFunctionID.Description),
-						},
-						RanFunctionRevision: &e2apies.RanfunctionRevision{
-							Value: int32(ranFunctionID.Revision),
-						},
-						RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-							Value: string(ranFunctionID.OID),
-						},
+	for id, ranFunctionID := range ranFunctionIds {
+		ranFunction := e2appducontents.RanfunctionItemIes{
+			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
+				Id:          int32(v2beta1.ProtocolIeIDRanfunctionItem),
+				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(id),
+					},
+					RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
+						Value: []byte(ranFunctionID.Description),
+					},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(ranFunctionID.Revision),
+					},
+					RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
+						Value: string(ranFunctionID.OID),
 					},
 				},
-			}
-			ranFunctions.Value.Value = append(ranFunctions.Value.Value, &ranFunction)
+			},
 		}
-		e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2Setup().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes10 = &ranFunctions
+		ranFunctions.Value.Value = append(ranFunctions.Value.Value, &ranFunction)
 	}
+	e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2Setup().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes10 = &ranFunctions
 
 	//if err := e2apPdu.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())

@@ -31,18 +31,17 @@ func Test_xerEncodeRICsubscriptionRequest(t *testing.T) {
 		RicActionDefinition: []byte{0x33, 0x44},
 	}
 
-	e2ApPduRsr, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(
+	rsr, err := pdubuilder.NewRicSubscriptionRequest(
 		types.RicRequest{RequestorID: 1, InstanceID: 2},
 		3, []byte{0x55, 0x66}, ricActionsToBeSetup)
-
 	assert.NilError(t, err)
-	xer, err := xerEncodeRICsubscriptionRequest(
-		e2ApPduRsr.GetInitiatingMessage().GetProcedureCode().GetRicSubscription().GetInitiatingMessage())
+	assert.Assert(t, rsr != nil)
+
+	xer, err := xerEncodeRICsubscriptionRequest(rsr)
 	assert.NilError(t, err)
 	t.Logf("XER RICsubscriptionRequest\n%s", xer)
 
-	per, err := perEncodeRICsubscriptionRequest(
-		e2ApPduRsr.GetInitiatingMessage().GetProcedureCode().GetRicSubscription().GetInitiatingMessage())
+	per, err := perEncodeRICsubscriptionRequest(rsr)
 	assert.NilError(t, err)
 	t.Logf("PER RICsubscriptionRequest\n%v", hex.Dump(per))
 }

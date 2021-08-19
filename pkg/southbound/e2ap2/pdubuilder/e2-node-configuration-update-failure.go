@@ -10,17 +10,14 @@ import (
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateE2NodeConfigurationUpdateFailureE2apPdu(trID int32, c e2ap_ies.Cause, ttw *e2ap_ies.TimeToWait, failureProcCode *v2beta1.ProcedureCodeT,
-	failureCrit *e2ap_commondatatypes.Criticality, failureTrigMsg *e2ap_commondatatypes.TriggeringMessage, reqID *types.RicRequest,
-	critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateE2NodeConfigurationUpdateFailureE2apPdu(trID int32, c *e2ap_ies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
 
 	cause := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
 		Id:          int32(v2beta1.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value:       &c,
+		Value:       c,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
@@ -54,53 +51,6 @@ func CreateE2NodeConfigurationUpdateFailureE2apPdu(trID int32, c e2ap_ies.Cause,
 				},
 			},
 		},
-	}
-
-	if ttw != nil {
-		timeToWait := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes31{
-			Id:          int32(v2beta1.ProtocolIeIDTimeToWait),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value:       *ttw,
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
-		e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetUnsuccessfulOutcome().GetProtocolIes().E2ApProtocolIes31 = &timeToWait
-	}
-
-	if failureProcCode != nil && failureTrigMsg != nil && failureCrit != nil && reqID != nil {
-		criticalityDiagnostics := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes2{
-			Id:          int32(v2beta1.ProtocolIeIDCriticalityDiagnostics),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Value: &e2ap_ies.CriticalityDiagnostics{
-				ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
-					Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
-				},
-				TriggeringMessage:    failureTrigMsg,
-				ProcedureCriticality: failureCrit, // from e2ap-v01.00.asn1:153
-				RicRequestorId: &e2ap_ies.RicrequestId{
-					RicRequestorId: int32(reqID.RequestorID),
-					RicInstanceId:  int32(reqID.InstanceID),
-				},
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
-
-		if critDiags != nil {
-			criticalityDiagnostics.Value.IEsCriticalityDiagnostics = &e2ap_ies.CriticalityDiagnosticsIeList{
-				Value: make([]*e2ap_ies.CriticalityDiagnosticsIeItem, 0),
-			}
-
-			for _, critDiag := range critDiags {
-				criticDiagnostics := e2ap_ies.CriticalityDiagnosticsIeItem{
-					IEcriticality: critDiag.IECriticality,
-					IEId: &e2ap_commondatatypes.ProtocolIeId{
-						Value: int32(critDiag.IEId), // value were taken from e2ap-v01.00.asn1:1278
-					},
-					TypeOfError: critDiag.TypeOfError,
-				}
-				criticalityDiagnostics.Value.IEsCriticalityDiagnostics.Value = append(criticalityDiagnostics.Value.IEsCriticalityDiagnostics.Value, &criticDiagnostics)
-			}
-		}
-		e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetUnsuccessfulOutcome().GetProtocolIes().E2ApProtocolIes2 = &criticalityDiagnostics
 	}
 
 	//if err := e2apPdu.Validate(); err != nil {

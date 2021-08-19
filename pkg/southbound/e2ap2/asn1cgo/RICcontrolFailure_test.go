@@ -21,15 +21,17 @@ func Test_RICcontrolFailure(t *testing.T) {
 	var ranFuncID types.RanFunctionID = 9
 	var ricCallPrID types.RicCallProcessID = []byte("123")
 	var ricCtrlOut types.RicControlOutcome = []byte("456")
-	cause := e2apies.Cause{
+	cause := &e2apies.Cause{
 		Cause: &e2apies.Cause_RicRequest{
 			RicRequest: e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID,
 		},
 	}
 	e2ApPduRcf, err := pdubuilder.CreateRicControlFailureE2apPdu(ricRequestID,
-		ranFuncID, ricCallPrID, cause, ricCtrlOut)
+		ranFuncID, cause)
 	assert.NilError(t, err)
 	assert.Assert(t, e2ApPduRcf != nil)
+	e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().
+		SetRicControlOutcome(ricCtrlOut).SetRicCallProcessID(ricCallPrID)
 	//fmt.Printf("Message we're going to encode is following: \n %v \n", e2ApPduRcf)
 
 	xer, err := xerEncodeRICcontrolFailure(

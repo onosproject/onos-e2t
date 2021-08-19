@@ -6,8 +6,8 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 
 	//pdubuilder "github.com/onosproject/onos-e2-sm/servicemodels/e2ap_ies/pdubuilder"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
@@ -31,9 +31,9 @@ func createGlobalngeNbIDMsg() (*e2ap_ies.GlobalngeNbId, error) {
 		},
 	}
 
-	if err := globalngeNbID.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating GlobalngeNbId %s", err.Error())
-	}
+	//if err := globalngeNbID.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating GlobalngeNbId %s", err.Error())
+	//}
 	return &globalngeNbID, nil
 }
 

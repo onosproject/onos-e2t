@@ -15,22 +15,25 @@ import (
 )
 
 func TestResetResponse(t *testing.T) {
-	newE2apPdu, err := CreateResetResponseE2apPdu(
-		v2beta1.ProcedureCodeIDRICsubscription, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-		e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME,
-		&types.RicRequest{
-			RequestorID: 10,
-			InstanceID:  20,
-		}, []*types.CritDiag{
-			{
-				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
-				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
-			},
-		},
-	)
+	procCode := v2beta1.ProcedureCodeIDReset
+	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+
+	newE2apPdu, err := CreateResetResponseE2apPdu(1)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetReset_().GetSuccessfulOutcome().
+		SetCriticalityDiagnostics(procCode, &criticality, &ftg,
+			&types.RicRequest{
+				RequestorID: 10,
+				InstanceID:  20,
+			}, []*types.CritDiag{
+				{
+					TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
+					IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+					IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
+				},
+			})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

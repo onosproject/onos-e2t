@@ -5,6 +5,7 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
@@ -34,9 +35,33 @@ func TestE2SetupResponse(t *testing.T) {
 		RicIdentifierValue: []byte{0x4d, 0x20, 0x00},
 		RicIdentifierLen:   20,
 	}
-	newE2apPdu, err := CreateResponseE2apPdu(plmnID, ricID, rfAccepted, rfRejected)
+	response, err := NewE2SetupResponse(1, plmnID, ricID)
 	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+	assert.Assert(t, response != nil)
+	response.SetRanFunctionAccepted(rfAccepted).SetRanFunctionRejected(rfRejected).
+		SetE2nodeComponentConfigUpdateAck([]*types.E2NodeComponentConfigUpdateAckItem{
+			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
+				//E2NodeComponentID: e2ncID1,
+				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
+					UpdateOutcome: 1,
+					//FailureCause: e2ap_ies.Cause{
+					//	Cause: &e2ap_ies.Cause_Protocol{
+					//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+					//	},
+					//},
+				}},
+			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
+				//E2NodeComponentID: e2ncID2,
+				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
+					UpdateOutcome: 1,
+					//FailureCause: e2ap_ies.Cause{
+					//	Cause: &e2ap_ies.Cause_Protocol{
+					//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+					//	},
+					//},
+				}}})
+
+	newE2apPdu, err := CreateResponseE2apPdu(response)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

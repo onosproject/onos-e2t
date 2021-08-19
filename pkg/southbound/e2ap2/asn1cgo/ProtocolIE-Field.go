@@ -2720,7 +2720,7 @@ func newE2connectionUpdateIe49TransactionID(e2cuIe *e2appducontents.E2Connection
 	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
-	transactionID := newTransactionID(e2cuIe.Value)
+	transactionID := newTransactionID(e2cuIe.GetValue())
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
 
 	ie := C.E2connectionUpdate_IEs_t{

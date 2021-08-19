@@ -6,11 +6,11 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
 	"testing"
 )
@@ -41,9 +41,9 @@ func createE2connectionUpdateRemoveListMsg() (*e2ap_pdu_contents.E2ConnectionUpd
 
 	e2connectionUpdateRemoveList.Value = append(e2connectionUpdateRemoveList.Value, e2connectionUpdateRemoveItem)
 
-	if err := e2connectionUpdateRemoveList.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating e2connectionUpdateRemoveList %s", err.Error())
-	}
+	//if err := e2connectionUpdateRemoveList.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating e2connectionUpdateRemoveList %s", err.Error())
+	//}
 	return &e2connectionUpdateRemoveList, nil
 }
 

@@ -4,8 +4,6 @@
 package pdubuilder
 
 import (
-	"fmt"
-
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
@@ -16,8 +14,7 @@ import (
 )
 
 func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricCallPrID types.RicCallProcessID, ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage,
-	ricCtrlAckRequest *e2apies.RiccontrolAckRequest) (*e2appducontents.RiccontrolRequest, error) {
+	ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage) (*e2appducontents.RiccontrolRequest, error) {
 	ricRequestID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes29{
 		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
@@ -66,38 +63,11 @@ func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 		},
 	}
 
-	if ricCallPrID != nil {
-		controlRequest.ProtocolIes.E2ApProtocolIes20 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes20{
-			Id:          int32(v2beta1.ProtocolIeIDRiccallProcessID),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2ap_commondatatypes.RiccallProcessId{
-				Value: []byte(ricCallPrID),
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
-	}
-
-	if ricCtrlAckRequest != nil {
-		controlRequest.ProtocolIes.E2ApProtocolIes21 = &e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes21{
-			Id:          int32(v2beta1.ProtocolIeIDRiccontrolAckRequest),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value:       *ricCtrlAckRequest, //e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK,
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
-	}
-
 	return controlRequest, nil
 
 }
 
-func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricCallPrID types.RicCallProcessID, ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage,
-	ricCtrlAckRequest *e2apies.RiccontrolAckRequest) (*e2appdudescriptions.E2ApPdu, error) {
-
-	request, err := NewControlRequest(ricReqID, ranFuncID, ricCallPrID, ricCtrlHdr, ricCtrlMsg, ricCtrlAckRequest)
-	if err != nil {
-		return nil, err
-	}
+func CreateRicControlRequestE2apPdu(request *e2appducontents.RiccontrolRequest) (*e2appdudescriptions.E2ApPdu, error) {
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
@@ -116,8 +86,8 @@ func CreateRicControlRequestE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 			},
 		},
 	}
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

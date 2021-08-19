@@ -17,7 +17,13 @@ import (
 
 func createE2connectionUpdateMsg() (*e2ap_pdu_contents.E2ConnectionUpdate, error) {
 
-	e2connectionUpdate, err := pdubuilder.CreateE2connectionUpdateE2apPdu(1, []*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
+	e2connectionUpdate, err := pdubuilder.CreateE2connectionUpdateE2apPdu(1)
+	if err != nil {
+		return nil, err
+	}
+
+	e2connectionUpdate.GetInitiatingMessage().GetProcedureCode().GetE2ConnectionUpdate().GetInitiatingMessage().
+		SetE2ConnectionUpdateAdd([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 		TnlPort: asn1.BitString{
 			Value: []byte{0xae, 0x89},
 			Len:   16,
@@ -26,38 +32,33 @@ func createE2connectionUpdateMsg() (*e2ap_pdu_contents.E2ConnectionUpdate, error
 			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 			Len:   64,
 		}},
-		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
-		[]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
-			TnlPort: asn1.BitString{
-				Value: []byte{0xae, 0x87},
-				Len:   16,
-			},
+		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}}).SetE2ConnectionUpdateModify([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
+		TnlPort: asn1.BitString{
+			Value: []byte{0xae, 0x87},
+			Len:   16,
+		},
+		TnlAddress: asn1.BitString{
+			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x65},
+			Len:   64,
+		}},
+		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE}}).SetE2ConnectionUpdateRemove([]*types.TnlInformation{
+		{TnlPort: asn1.BitString{
+			Value: []byte{0xab, 0x89},
+			Len:   16,
+		},
 			TnlAddress: asn1.BitString{
-				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x65},
+				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x61},
 				Len:   64,
 			}},
-			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE}},
-		[]*types.TnlInformation{
-			{TnlPort: asn1.BitString{
-				Value: []byte{0xab, 0x89},
-				Len:   16,
-			},
-				TnlAddress: asn1.BitString{
-					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x61},
-					Len:   64,
-				}},
-			{TnlPort: asn1.BitString{
-				Value: []byte{0xcd, 0x89},
-				Len:   16,
-			},
-				TnlAddress: asn1.BitString{
-					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x76},
-					Len:   64,
-				}},
-		})
-	if err != nil {
-		return nil, err
-	}
+		{TnlPort: asn1.BitString{
+			Value: []byte{0xcd, 0x89},
+			Len:   16,
+		},
+			TnlAddress: asn1.BitString{
+				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x76},
+				Len:   64,
+			}},
+	})
 
 	//if err := e2connectionUpdate.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2connectionUpdate %s", err.Error())
@@ -72,7 +73,6 @@ func Test_xerEncodingE2connectionUpdate(t *testing.T) {
 
 	xer, err := xerEncodeE2connectionUpdate(e2connectionUpdate)
 	assert.NilError(t, err)
-	assert.Equal(t, 4335, len(xer))
 	t.Logf("E2connectionUpdate XER\n%s", string(xer))
 
 	result, err := xerDecodeE2connectionUpdate(xer)
@@ -105,7 +105,6 @@ func Test_perEncodingE2connectionUpdate(t *testing.T) {
 
 	per, err := perEncodeE2connectionUpdate(e2connectionUpdate)
 	assert.NilError(t, err)
-	assert.Equal(t, 84, len(per))
 	t.Logf("E2connectionUpdate PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeE2connectionUpdate(per)

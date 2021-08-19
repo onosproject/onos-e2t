@@ -20,14 +20,16 @@ func TestRicIndication(t *testing.T) {
 	var ranFuncID types.RanFunctionID = 9
 	var ricAction = e2apies.RicactionType_RICACTION_TYPE_POLICY
 	var ricIndicationType = e2apies.RicindicationType_RICINDICATION_TYPE_INSERT
-	//var ricSn types.RicIndicationSn = 1
+	var ricSn types.RicIndicationSn = 1
 	var ricIndHd types.RicIndicationHeader = []byte("123")
 	var ricIndMsg types.RicIndicationMessage = []byte("456")
-	//var ricCallPrID types.RicCallProcessID = []byte("789")
+	var ricCallPrID types.RicCallProcessID = []byte("789")
 	newE2apPdu, err := RicIndicationE2apPdu(ricRequestID,
-		ranFuncID, ricAction, nil, ricIndicationType, ricIndHd, ricIndMsg, nil)
+		ranFuncID, ricAction, ricIndicationType, ricIndHd, ricIndMsg)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicIndication().GetInitiatingMessage().
+		SetRicCallProcessID(ricCallPrID).SetRicIndicationSN(ricSn)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

@@ -17,8 +17,13 @@ import (
 
 func createE2connectionUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2ConnectionUpdateAcknowledge, error) {
 
-	e2connectionUpdateAcknowledge, err := pdubuilder.CreateE2connectionUpdateAcknowledgeE2apPdu(1,
-		[]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
+	e2connectionUpdateAcknowledge, err := pdubuilder.CreateE2connectionUpdateAcknowledgeE2apPdu(1)
+	if err != nil {
+		return nil, err
+	}
+
+	e2connectionUpdateAcknowledge.GetSuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetSuccessfulOutcome().
+		SetE2ConnectionSetup([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 		TnlPort: asn1.BitString{
 			Value: []byte{0xae, 0x89},
 			Len:   16,
@@ -27,23 +32,19 @@ func createE2connectionUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2ConnectionUp
 			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 			Len:   64,
 		}},
-		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}},
-		[]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
-			TnlPort: asn1.BitString{
-				Value: []byte{0xae, 0x89},
-				Len:   16,
-			},
-			TnlAddress: asn1.BitString{
-				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
-				Len:   64,
-			}},
-			Cause: e2ap_ies.Cause{
-				Cause: &e2ap_ies.Cause_Protocol{
-					Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-				}}}})
-	if err != nil {
-		return nil, err
-	}
+		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}}).SetE2ConnectionSetupFailed([]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
+		TnlPort: asn1.BitString{
+			Value: []byte{0xae, 0x89},
+			Len:   16,
+		},
+		TnlAddress: asn1.BitString{
+			Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
+			Len:   64,
+		}},
+		Cause: e2ap_ies.Cause{
+			Cause: &e2ap_ies.Cause_Protocol{
+				Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+			}}}})
 
 	//if err := e2connectionUpdateAcknowledge.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2connectionUpdateAcknowledge %s", err.Error())

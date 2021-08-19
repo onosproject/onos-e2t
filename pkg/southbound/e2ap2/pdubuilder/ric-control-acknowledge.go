@@ -4,7 +4,6 @@
 package pdubuilder
 
 import (
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
@@ -15,8 +14,7 @@ import (
 )
 
 func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricCallPrID types.RicCallProcessID, ricCtrlStatus e2apies.RiccontrolStatus,
-	ricCtrlOut types.RicControlOutcome) (*e2appdudescriptions.E2ApPdu, error) {
+	ricCtrlStatus e2apies.RiccontrolStatus) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29{
 		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
@@ -70,30 +68,8 @@ func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID typ
 		},
 	}
 
-	if ricCallPrID != nil {
-		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes20 = &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20{
-			Id:          int32(v2beta1.ProtocolIeIDRiccallProcessID),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2ap_commondatatypes.RiccallProcessId{
-				Value: []byte(ricCallPrID),
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
-	}
-
-	if ricCtrlOut != nil {
-		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes32 = &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32{
-			Id:          int32(v2beta1.ProtocolIeIDRiccontrolOutcome),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2ap_commondatatypes.RiccontrolOutcome{
-				Value: []byte(ricCtrlOut),
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
-	}
-
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

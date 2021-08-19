@@ -23,11 +23,17 @@ func createE2connectionUpdateFailureMsg() (*e2ap_pdu_contents.E2ConnectionUpdate
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	e2connectionUpdateFailure, err := pdubuilder.CreateE2connectionUpdateFailureE2apPdu(1, &e2apies.Cause{
-		Cause: &e2apies.Cause_Protocol{
-			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
-		},
-	}, &ttw, &procCode, &criticality, &ftg,
+	e2connectionUpdateFailure, err := pdubuilder.CreateE2connectionUpdateFailureE2apPdu(1)
+	if err != nil {
+		return nil, err
+	}
+
+	e2connectionUpdateFailure.GetUnsuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetUnsuccessfulOutcome().
+		SetCause(&e2apies.Cause{
+			Cause: &e2apies.Cause_Protocol{
+				Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+			},
+		}).SetTimeToWait(ttw).SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
@@ -37,11 +43,7 @@ func createE2connectionUpdateFailureMsg() (*e2ap_pdu_contents.E2ConnectionUpdate
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
+		})
 
 	//if err := e2connectionUpdateFailure.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2connectionUpdateFailure %s", err.Error())

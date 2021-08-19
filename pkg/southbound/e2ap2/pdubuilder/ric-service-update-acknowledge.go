@@ -14,10 +14,10 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisions, rfRejected types.RanFunctionCauses) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateRicServiceUpdateAcknowledgeE2apPdu(trID int32, rfAccepted types.RanFunctionRevisions) (*e2appdudescriptions.E2ApPdu, error) {
 
-	if rfAccepted == nil && rfRejected == nil {
-		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
+	if rfAccepted == nil {
+		return nil, fmt.Errorf("RanFunctionsAccepetd was not passed - it is mandatory parameter")
 	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
@@ -29,6 +29,14 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisi
 							ProtocolIes: &e2appducontents.RicserviceUpdateAcknowledgeIes{
 								//E2ApProtocolIes9:  &ranFunctionsAccepted, //RAN functions Accepted
 								//E2ApProtocolIes13: &ranFunctionsRejected, //RAN functions Rejected
+								E2ApProtocolIes49: &e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes49{
+									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+									Value: &e2apies.TransactionId{
+										Value: trID,
+									},
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+								},
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
@@ -43,94 +51,37 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted types.RanFunctionRevisi
 		},
 	}
 
-	if rfAccepted != nil {
-		ranFunctionsAccepted := e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9{
-			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAccepted),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.RanfunctionsIdList{
-				Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
+	ranFunctionsAccepted := e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes9{
+		Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAccepted),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Value: &e2appducontents.RanfunctionsIdList{
+			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
+		},
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+	}
 
-		for rfID, rfRevision := range rfAccepted {
-			rfIDiIe := e2appducontents.RanfunctionIdItemIes{
-				RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
-					Id:          int32(v2beta1.ProtocolIeIDRanfunctionIDItem),
-					Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-					Value: &e2appducontents.RanfunctionIdItem{
-						RanFunctionId: &e2apies.RanfunctionId{
-							Value: int32(rfID),
-						},
-						RanFunctionRevision: &e2apies.RanfunctionRevision{
-							Value: int32(rfRevision),
-						},
+	for rfID, rfRevision := range rfAccepted {
+		rfIDiIe := e2appducontents.RanfunctionIdItemIes{
+			RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+				Id:          int32(v2beta1.ProtocolIeIDRanfunctionIDItem),
+				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2appducontents.RanfunctionIdItem{
+					RanFunctionId: &e2apies.RanfunctionId{
+						Value: int32(rfID),
 					},
-					Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-				},
-			}
-			ranFunctionsAccepted.Value.Value = append(ranFunctionsAccepted.Value.Value, &rfIDiIe)
-		}
-		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes9 = &ranFunctionsAccepted
-	}
-
-	if rfRejected != nil {
-		ranFunctionsRejected := e2appducontents.RicserviceUpdateAcknowledgeIes_RicserviceUpdateAcknowledgeIes13{
-			Id:          int32(v2beta1.ProtocolIeIDRanfunctionsRejected),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.RanfunctionsIdcauseList{
-				Value: make([]*e2appducontents.RanfunctionIdcauseItemIes, 0),
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
-
-		for id, cause := range rfRejected {
-			rfIDcIIe := e2appducontents.RanfunctionIdcauseItemIes{
-				RanFunctionIdcauseItemIes7: &e2appducontents.RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7{
-					Id:          int32(v2beta1.ProtocolIeIDRanfunctionIeCauseItem),
-					Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-					Value: &e2appducontents.RanfunctionIdcauseItem{
-						RanFunctionId: &e2apies.RanfunctionId{
-							Value: int32(id),
-						},
-						Cause: &e2apies.Cause{},
+					RanFunctionRevision: &e2apies.RanfunctionRevision{
+						Value: int32(rfRevision),
 					},
-					Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 				},
-			}
-
-			switch causeType := cause.GetCause().(type) {
-			case *e2apies.Cause_Misc:
-				rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Misc{
-					Misc: cause.GetMisc(),
-				}
-			case *e2apies.Cause_Protocol:
-				rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Protocol{
-					Protocol: cause.GetProtocol(),
-				}
-			case *e2apies.Cause_RicService:
-				rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_RicService{
-					RicService: cause.GetRicService(),
-				}
-			case *e2apies.Cause_RicRequest:
-				rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_RicRequest{
-					RicRequest: cause.GetRicRequest(),
-				}
-			case *e2apies.Cause_Transport:
-				rfIDcIIe.GetRanFunctionIdcauseItemIes7().GetValue().GetCause().Cause = &e2apies.Cause_Transport{
-					Transport: cause.GetTransport(),
-				}
-
-			default:
-				return nil, fmt.Errorf("unexpected cause type %v", causeType)
-			}
-			ranFunctionsRejected.Value.Value = append(ranFunctionsRejected.Value.Value, &rfIDcIIe)
+				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+			},
 		}
-		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes13 = &ranFunctionsRejected
+		ranFunctionsAccepted.Value.Value = append(ranFunctionsAccepted.Value.Value, &rfIDiIe)
 	}
+	e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes9 = &ranFunctionsAccepted
 
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

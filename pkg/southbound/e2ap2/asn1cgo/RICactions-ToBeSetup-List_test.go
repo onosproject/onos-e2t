@@ -8,7 +8,6 @@ import (
 	"encoding/hex"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"gotest.tools/assert"
@@ -33,13 +32,13 @@ func Test_RicActionsToBeSetupList(t *testing.T) {
 		RicActionDefinition: []byte{0x33, 0x44},
 	}
 
-	ricSubscriptionRequest, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(types.RicRequest{RequestorID: 1, InstanceID: 2},
+	rsr, err := pdubuilder.NewRicSubscriptionRequest(
+		types.RicRequest{RequestorID: 1, InstanceID: 2},
 		3, []byte{0x55, 0x66}, ricActionsToBeSetup)
 	assert.NilError(t, err)
-	assert.Assert(t, ricSubscriptionRequest != nil)
+	assert.Assert(t, rsr != nil)
 
-	im := ricSubscriptionRequest.GetE2ApPdu().(*e2appdudescriptions.E2ApPdu_InitiatingMessage)
-	ricSubDetails := im.InitiatingMessage.GetProcedureCode().GetRicSubscription().GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes30().GetValue()
+	ricSubDetails := rsr.GetProtocolIes().GetE2ApProtocolIes30().GetValue()
 
 	xer, err := xerEncodeRicActionsToBeSetupList(ricSubDetails.GetRicActionToBeSetupList())
 	assert.NilError(t, err)

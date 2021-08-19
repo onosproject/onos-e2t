@@ -23,11 +23,17 @@ func createE2nodeConfigurationUpdateFailureMsg() (*e2ap_pdu_contents.E2NodeConfi
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	e2nodeConfigurationUpdateFailure, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(1, e2apies.Cause{
+	e2nodeConfigurationUpdateFailure, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(1, &e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
-	}, &ttw, &procCode, &criticality, &ftg,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	e2nodeConfigurationUpdateFailure.GetUnsuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetUnsuccessfulOutcome().
+		SetTimeToWait(ttw).SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
@@ -37,12 +43,7 @@ func createE2nodeConfigurationUpdateFailureMsg() (*e2ap_pdu_contents.E2NodeConfi
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
-		},
-	)
-
-	if err != nil {
-		return nil, err
-	}
+		})
 
 	//if err := e2nodeConfigurationUpdateFailure.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2nodeConfigurationUpdateFailure %s", err.Error())

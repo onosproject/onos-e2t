@@ -17,8 +17,7 @@ import (
 const mask20bitricResponse = 0xFFFFF
 
 func CreateRicSubscriptionResponseE2apPdu(
-	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, ricActionsAccepted []*types.RicActionID,
-	ricActionsNotAccepted map[types.RicActionID]*e2apies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
+	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, ricActionsAccepted []*types.RicActionID) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if ricReq.RequestorID|mask20bitricResponse > mask20bitricResponse {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReq.RequestorID)
@@ -94,35 +93,8 @@ func CreateRicSubscriptionResponseE2apPdu(
 		},
 	}
 
-	if ricActionsNotAccepted != nil {
-		ricActionNotAdmit := &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes18{
-			Id:          int32(v2beta1.ProtocolIeIDRicactionsNotAdmitted),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.RicactionNotAdmittedList{
-				Value: make([]*e2appducontents.RicactionNotAdmittedItemIes, 0),
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-		}
-
-		for ricActionID, cause := range ricActionsNotAccepted {
-			ranaIe := &e2appducontents.RicactionNotAdmittedItemIes{
-				Id:          int32(v2beta1.ProtocolIeIDRicactionNotAdmittedItem),
-				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-				Value: &e2appducontents.RicactionNotAdmittedItem{
-					RicActionId: &e2apies.RicactionId{
-						Value: int32(ricActionID),
-					},
-					Cause: cause,
-				},
-				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-			}
-			ricActionNotAdmit.GetValue().Value = append(ricActionNotAdmit.GetValue().Value, ranaIe)
-		}
-		e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicSubscription().GetSuccessfulOutcome().GetProtocolIes().E2ApProtocolIes18 = ricActionNotAdmit
-	}
-
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

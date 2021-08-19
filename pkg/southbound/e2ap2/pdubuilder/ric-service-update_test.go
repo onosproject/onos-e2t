@@ -16,13 +16,13 @@ func TestRicServiceUpdate(t *testing.T) {
 	ranFunctionAddedList[100] = types.RanFunctionItem{
 		Description: []byte("Type 1"),
 		Revision:    1,
-		OID:         []byte("oid1"),
+		OID:         "oid1",
 	}
 
 	ranFunctionAddedList[200] = types.RanFunctionItem{
 		Description: []byte("Type 2"),
 		Revision:    2,
-		OID:         []byte("oid2"),
+		OID:         "oid2",
 	}
 
 	rfDeleted := make(types.RanFunctionRevisions)
@@ -33,18 +33,20 @@ func TestRicServiceUpdate(t *testing.T) {
 	ranFunctionModifiedList[100] = types.RanFunctionItem{
 		Description: []byte("Type 3"),
 		Revision:    3,
-		OID:         []byte("oid3"),
+		OID:         "oid3",
 	}
 
 	ranFunctionModifiedList[200] = types.RanFunctionItem{
 		Description: []byte("Type 4"),
 		Revision:    4,
-		OID:         []byte("oid4"),
+		OID:         "oid4",
 	}
 
-	newE2apPdu, err := CreateRicServiceUpdateE2apPdu(ranFunctionAddedList, rfDeleted, ranFunctionModifiedList)
+	newE2apPdu, err := CreateRicServiceUpdateE2apPdu(1)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceUpdate().GetInitiatingMessage().
+		SetRanFunctionsAdded(ranFunctionAddedList).SetRanFunctionsModified(ranFunctionModifiedList).SetRanFunctionsDeleted(rfDeleted)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -72,18 +74,19 @@ func TestRicServiceUpdateExcludeOptionalIEs(t *testing.T) {
 	ranFunctionAddedList[100] = types.RanFunctionItem{
 		Description: []byte("Type 1"),
 		Revision:    1,
-		OID:         []byte("oid1"),
+		OID:         "oid1",
 	}
 
 	ranFunctionAddedList[200] = types.RanFunctionItem{
 		Description: []byte("Type 2"),
 		Revision:    2,
-		OID:         []byte("oid2"),
+		OID:         "oid2",
 	}
 
-	newE2apPdu, err := CreateRicServiceUpdateE2apPdu(ranFunctionAddedList, nil, nil)
+	newE2apPdu, err := CreateRicServiceUpdateE2apPdu(1)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceUpdate().GetInitiatingMessage().SetRanFunctionsAdded(ranFunctionAddedList)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

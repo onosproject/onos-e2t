@@ -20,16 +20,16 @@ func TestErrorIndicationE2apPdu(t *testing.T) {
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	newE2apPdu, err := CreateErrorIndicationE2apPdu(&types.RicRequest{
-		RequestorID: 22,
-		InstanceID:  6,
-	}, &ranFuncID,
-		&e2apies.Cause{
-			Cause: &e2apies.Cause_Misc{ // Probably, could be any other reason
+	newE2apPdu := CreateErrorIndicationE2apPduEmpty()
+	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetErrorIndication().GetInitiatingMessage().
+		SetTransactionID(21).SetCause(&e2apies.Cause{
+			Cause: &e2apies.Cause_Misc{
 				Misc: e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED,
 			},
-		},
-		&procCode, &criticality, &ftg,
+	}).SetRanFunctionID(&ranFuncID).SetRicRequestID(&types.RicRequest{
+		RequestorID: 10,
+		InstanceID:  20,
+	}).SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
@@ -39,9 +39,7 @@ func TestErrorIndicationE2apPdu(t *testing.T) {
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
-		},
-	)
-	assert.NilError(t, err)
+		})
 	assert.Assert(t, newE2apPdu != nil)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
@@ -66,8 +64,8 @@ func TestErrorIndicationE2apPduExcludeSomeOptionalIEs(t *testing.T) {
 	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
-
-	newE2apPdu, err := CreateErrorIndicationE2apPdu(nil, &ranFuncID,
+	var trID int32 = 21
+	newE2apPdu, err := CreateErrorIndicationE2apPdu(&trID, nil, &ranFuncID,
 		&e2apies.Cause{
 			Cause: &e2apies.Cause_Misc{ // Probably, could be any other reason
 				Misc: e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED,

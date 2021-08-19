@@ -24,14 +24,14 @@ func createRicActionToBeSetupItem() (*e2appducontents.RicactionToBeSetupItem, er
 		//Ricttw:              e2apies.RictimeToWait_RICTIME_TO_WAIT_W10MS,
 		//RicActionDefinition: []byte{0x33, 0x44},
 	}
-	newE2apPdu, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(
+	rsr, err := pdubuilder.NewRicSubscriptionRequest(
 		types.RicRequest{RequestorID: 1, InstanceID: 2},
 		3, []byte{0x55, 0x66}, ricActionsToBeSetup)
 	if err != nil {
 		return nil, err
 	}
-	res := newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicSubscription().GetInitiatingMessage().
-		GetProtocolIes().GetE2ApProtocolIes30().GetValue().GetRicActionToBeSetupList().GetValue()[0].GetValue()
+
+	res := rsr.GetProtocolIes().GetE2ApProtocolIes30().GetValue().GetRicActionToBeSetupList().GetValue()[0].GetValue()
 	//fmt.Printf("Returning following structure: \n %v \n", res)
 
 	return res, nil

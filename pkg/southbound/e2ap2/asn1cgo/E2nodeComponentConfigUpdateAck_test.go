@@ -6,7 +6,6 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"gotest.tools/assert"
 	"testing"
@@ -23,9 +22,9 @@ func createE2nodeComponentConfigUpdateAckMsg() (*e2ap_ies.E2NodeComponentConfigU
 		//},
 	}
 
-	if err := e2nodeComponentConfigUpdateAck.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateAck %s", err.Error())
-	}
+	//if err := e2nodeComponentConfigUpdateAck.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateAck %s", err.Error())
+	//}
 	return &e2nodeComponentConfigUpdateAck, nil
 }
 

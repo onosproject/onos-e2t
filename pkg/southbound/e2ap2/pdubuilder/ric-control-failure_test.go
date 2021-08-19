@@ -26,9 +26,11 @@ func TestRicControlFailure(t *testing.T) {
 		},
 	}
 	newE2apPdu, err := CreateRicControlFailureE2apPdu(ricRequestID,
-		ranFuncID, nil, cause, nil)
+		ranFuncID, &cause)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().
+		SetRicControlOutcome([]byte{0xFF, 0xFF, 0xDD, 0x4A}).SetRicCallProcessID([]byte{0xCC, 0x3D, 0x1F})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

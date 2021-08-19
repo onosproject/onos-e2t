@@ -15,7 +15,28 @@ import (
 	"encoding/binary"
 	"fmt"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"unsafe"
 )
+
+func xerEncodeTransactionID(transactionID *e2apies.TransactionId) ([]byte, error) {
+	transactionIDCP := newTransactionID(transactionID)
+
+	bytes, err := encodeXer(&C.asn_DEF_TransactionID, unsafe.Pointer(transactionIDCP))
+	if err != nil {
+		return nil, fmt.Errorf("xerEncodeTnlusage() %s", err.Error())
+	}
+	return bytes, nil
+}
+
+func perEncodeTransactionID(transactionID *e2apies.TransactionId) ([]byte, error) {
+	transactionIDCP := newTransactionID(transactionID)
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_TransactionID, unsafe.Pointer(transactionIDCP))
+	if err != nil {
+		return nil, fmt.Errorf("perEncodeTnlusage() %s", err.Error())
+	}
+	return bytes, nil
+}
 
 func xerDecodeTransactionID(bytes []byte) (*e2apies.TransactionId, error) {
 	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_TransactionID)
@@ -25,10 +46,18 @@ func xerDecodeTransactionID(bytes []byte) (*e2apies.TransactionId, error) {
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
-	ricIndicationC := (*C.TransactionID_t)(unsafePtr)
-	ricIndication := decodeTransactionID(ricIndicationC)
+	return decodeTransactionID((*C.TransactionID_t)(unsafePtr)), nil
+}
 
-	return ricIndication, nil
+func perDecodeTransactionID(bytes []byte) (*e2apies.TransactionId, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_TransactionID)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeTransactionID((*C.TransactionID_t)(unsafePtr)), nil
 }
 
 func newTransactionID(transactionID *e2apies.TransactionId) *C.TransactionID_t {
@@ -36,8 +65,8 @@ func newTransactionID(transactionID *e2apies.TransactionId) *C.TransactionID_t {
 	return &res
 }
 
-func decodeTransactionIDBytes(transactionIDCchoice []byte) *e2apies.TransactionId {
-	transactionID := C.long(binary.LittleEndian.Uint64(transactionIDCchoice[0:8]))
+func decodeTransactionIDBytes(bytes []byte) *e2apies.TransactionId {
+	transactionID := C.long(binary.LittleEndian.Uint64(bytes[:8]))
 
 	return decodeTransactionID(&transactionID)
 }

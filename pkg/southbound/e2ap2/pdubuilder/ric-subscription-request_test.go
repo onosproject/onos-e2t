@@ -29,12 +29,15 @@ func TestRicSubscriptionRequest(t *testing.T) {
 		RicActionDefinition: []byte{0x33, 0x44},
 	}
 
-	newE2apPdu, err := CreateRicSubscriptionRequestE2apPdu(
+	rsr, err := NewRicSubscriptionRequest(
 		types.RicRequest{RequestorID: 1, InstanceID: 2},
 		3, []byte{0x55, 0x66}, ricActionsToBeSetup)
-
 	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+	assert.Assert(t, rsr != nil)
+
+	newE2apPdu, err := CreateRicSubscriptionRequestE2apPdu(rsr)
+	assert.NilError(t, err)
+	assert.Assert(t, rsr != nil)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

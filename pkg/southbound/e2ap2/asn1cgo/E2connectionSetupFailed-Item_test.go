@@ -6,10 +6,9 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
 	"testing"
 )
@@ -40,9 +39,9 @@ func createE2connectionSetupFailedItemMsg() (*e2ap_pdu_contents.E2ConnectionSetu
 		},
 	}
 
-	if err := e2connectionSetupFailedItem.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2connectionSetupFailedItem %s", err.Error())
-	}
+	//if err := e2connectionSetupFailedItem.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2connectionSetupFailedItem %s", err.Error())
+	//}
 	return &e2connectionSetupFailedItem, nil
 }
 

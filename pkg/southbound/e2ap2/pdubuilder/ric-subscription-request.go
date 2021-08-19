@@ -4,23 +4,17 @@
 package pdubuilder
 
 import (
-	"fmt"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 )
 
-func CreateRicSubscriptionRequestE2apPdu(ricReq types.RicRequest,
-	ranFuncID types.RanFunctionID, ricEventDef types.RicEventDefintion,
-	ricActionsToBeSetup map[types.RicActionID]types.RicActionDef) (
+func CreateRicSubscriptionRequestE2apPdu(request *e2appducontents.RicsubscriptionRequest) (
 	*e2appdudescriptions.E2ApPdu, error) {
-	request, err := NewRicSubscriptionRequest(ricReq, ranFuncID, ricEventDef, ricActionsToBeSetup)
-	if err != nil {
-		return nil, err
-	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
@@ -28,14 +22,20 @@ func CreateRicSubscriptionRequestE2apPdu(ricReq types.RicRequest,
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
 					RicSubscription: &e2appdudescriptions.RicSubscription{
 						InitiatingMessage: request,
+						ProcedureCode: &e2ap_constants.IdRicsubscription{
+							Value: int32(v2beta1.ProcedureCodeIDRICsubscription),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+						},
 					},
 				},
 			},
 		},
 	}
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }
 
