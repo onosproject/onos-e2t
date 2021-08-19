@@ -131,9 +131,10 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 					return controller.Result{}, err
 				}
 			}
+
 			// Requeue the object to be reconciled at the expiration time
 			return controller.Result{
-				RequeueAfter: lease.Expiration.Sub(time.Now()),
+				RequeueAfter: time.Until(*lease.Expiration),
 			}, nil
 		}
 
@@ -146,7 +147,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 				return controller.Result{}, err
 			}
 
-			remainingTime := leaseAspect.GetExpiration().Sub(time.Now()).Seconds()
+			remainingTime := time.Until(*leaseAspect.GetExpiration()).Seconds()
 			// If the remaining time of lease is more than  half the lease duration, no need to renew the lease
 			// schedule the next renewal
 			if remainingTime > defaultExpirationDuration.Seconds()/2 {
