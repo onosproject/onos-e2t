@@ -1,6 +1,6 @@
 module github.com/onosproject/onos-e2t
 
-go 1.15
+go 1.16
 
 require (
 	github.com/atomix/atomix-go-client v0.5.21
