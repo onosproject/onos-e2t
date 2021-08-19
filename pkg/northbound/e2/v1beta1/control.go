@@ -89,7 +89,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 	}
 
 	mastership := &topoapi.MastershipState{}
-	err = e2NodeEntity.GetAspect(mastership)
+	_ = e2NodeEntity.GetAspect(mastership)
 	if mastership.Term == 0 {
 		err := errors.NewUnavailable("not the master for %s", request.Headers.E2NodeID)
 		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)

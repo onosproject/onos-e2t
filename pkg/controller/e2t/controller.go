@@ -23,7 +23,7 @@ const (
 	defaultTimeout            = 30 * time.Second
 	defaultGRPCPort           = 5150
 	defaultE2APPort           = 36421
-	defaultExpirationDuration = 30
+	defaultExpirationDuration = 30 * time.Second
 )
 
 var log = logging.GetLogger("controller", "e2t")
@@ -48,16 +48,8 @@ type Reconciler struct {
 }
 
 func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
-	object, err := r.rnib.Get(ctx, e2tID)
-	if err == nil {
-		return nil
-	} else if !errors.IsNotFound(err) {
-		log.Infof("Creating E2T entity failed: %v", err)
-		return err
-	}
-
 	log.Debugf("Creating E2T entity")
-	object = &topoapi.Object{
+	object := &topoapi.Object{
 		ID:   utils.GetE2TID(),
 		Type: topoapi.Object_ENTITY,
 		Obj: &topoapi.Object_Entity{
@@ -93,7 +85,7 @@ func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
 		Expiration: expiration,
 	}
 
-	err = object.SetAspect(e2tAspect)
+	err := object.SetAspect(e2tAspect)
 	if err != nil {
 		return err
 	}
@@ -119,9 +111,78 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	defer cancel()
 
 	e2tID := id.Value.(topoapi.ID)
-
 	log.Infof("Reconciling E2T entity with ID: %s", e2tID)
+
+	object, err := r.rnib.Get(ctx, e2tID)
+	if err == nil {
+		//  Reconciles an E2T entity that’s not local so the controller should requeue
+		//  it for the lease expiration time and delete the entity if the lease has not been renewed
+		if e2tID != utils.GetE2TID() {
+			lease := &topoapi.Lease{}
+			err = object.GetAspect(lease)
+			if err != nil {
+				return controller.Result{}, err
+			}
+
+			// Check if the the lease is expired
+			if lease.Expiration.Before(time.Now()) {
+				err := r.rnib.Delete(ctx, e2tID)
+				if !errors.IsNotFound(err) {
+					return controller.Result{}, err
+				}
+			}
+			// Requeue the object to be reconciled at the expiration time
+			return controller.Result{
+				RequeueAfter: lease.Expiration.Sub(time.Now()),
+			}, nil
+		}
+
+		// Renew the lease If this is the E2T entity for the local node
+		if e2tID == utils.GetE2TID() {
+			leaseAspect := &topoapi.Lease{}
+
+			err := object.GetAspect(leaseAspect)
+			if err != nil {
+				return controller.Result{}, err
+			}
+
+			remainingTime := leaseAspect.GetExpiration().Sub(time.Now()).Seconds()
+			// If the remaining time of lease is more than  half the lease duration, no need to renew the lease
+			// schedule the next renewal
+			if remainingTime > defaultExpirationDuration.Seconds()/2 {
+				log.Debugf("No need to renew the lease, the remaining lease time is %v seconds", remainingTime)
+				return controller.Result{
+					RequeueAfter: defaultExpirationDuration / 2,
+				}, nil
+			}
+
+			// Renew the release to trigger the reconciler
+			log.Debugf("Renew the lease for E2T with ID: %s", e2tID)
+			var expiration *time.Time
+			t := time.Now().Add(defaultExpirationDuration)
+			expiration = &t
+
+			leaseAspect.Expiration = expiration
+
+			err = object.SetAspect(leaseAspect)
+			if err != nil {
+				return controller.Result{}, err
+			}
+			err = r.rnib.Update(ctx, object)
+			if !errors.IsNotFound(err) {
+				return controller.Result{}, err
+			}
+			return controller.Result{}, err
+		}
+
+	} else if !errors.IsNotFound(err) {
+		log.Infof("Renewing E2T entity lease failed: %v", err)
+		return controller.Result{}, err
+	}
+
+	// Create the E2T entity
 	if err := r.createE2T(ctx, e2tID); err != nil {
+		log.Infof("Creating E2T entity failed: %v", err)
 		return controller.Result{}, err
 	}
 
