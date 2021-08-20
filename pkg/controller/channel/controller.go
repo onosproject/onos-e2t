@@ -112,7 +112,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) error {
-	log.Debug("Test create E2 node")
+	log.Debug("Creating E2 node")
 	object, err := r.rnib.Get(ctx, channel.E2NodeID)
 	if err == nil {
 		aspect := &topoapi.E2Node{
@@ -132,7 +132,7 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 		return err
 	}
 
-	log.Debugf("Test Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
+	log.Debugf("Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
 	object = &topoapi.Object{
 		ID:   channel.E2NodeID,
 		Type: topoapi.Object_ENTITY,
