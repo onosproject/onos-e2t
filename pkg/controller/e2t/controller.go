@@ -134,31 +134,31 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 		// Renew the lease If this is the E2T entity for the local node
 		if e2tID == utils.GetE2TID() {
-			leaseAspect := &topoapi.Lease{}
+			lease := &topoapi.Lease{}
 
-			err := object.GetAspect(leaseAspect)
+			err := object.GetAspect(lease)
 			if err != nil {
 				return controller.Result{}, err
 			}
 
-			remainingTime := time.Until(*leaseAspect.GetExpiration()).Seconds()
+			remainingTime := time.Until(*lease.GetExpiration())
 			// If the remaining time of lease is more than  half the lease duration, no need to renew the lease
 			// schedule the next renewal
-			if remainingTime > defaultExpirationDuration.Seconds()/2 {
+			if remainingTime > defaultExpirationDuration/2 {
 				log.Debugf("No need to renew the lease for %s, the remaining lease time is %v seconds", e2tID, remainingTime)
 				return controller.Result{
-					RequeueAfter: time.Until(*leaseAspect.GetExpiration()) / 2,
+					RequeueAfter: time.Until(lease.Expiration.Add(defaultExpirationDuration / 2 * -1)),
 				}, nil
 			}
 
 			// Renew the release to trigger the reconciler
 			log.Debugf("Renew the lease for E2T with ID: %s", e2tID)
 			expiration := time.Now().Add(defaultExpirationDuration)
-			leaseAspect = &topoapi.Lease{
+			lease = &topoapi.Lease{
 				Expiration: &expiration,
 			}
 
-			err = object.SetAspect(leaseAspect)
+			err = object.SetAspect(lease)
 			if err != nil {
 				return controller.Result{}, err
 			}

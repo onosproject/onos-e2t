@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package channel
+package e2node
 
 import (
 	"context"
@@ -51,14 +51,14 @@ type Reconciler struct {
 	rnib     rnib.Store
 }
 
-func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2server.E2Channel) error {
+func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
 	relationID := utils.GetE2ControlRelationID(channel.ID)
 	_, err := r.rnib.Get(ctx, relationID)
 	if err == nil {
-		return nil
+		return true, nil
 	} else if !errors.IsNotFound(err) {
 		log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
-		return err
+		return false, err
 	}
 
 	log.Debugf("Creating E2Node '%s' control relation '%s'", channel.E2NodeID, relationID)
@@ -78,11 +78,11 @@ func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2ser
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
 			log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
-			return err
+			return false, err
 		}
-		return nil
+		return true, nil
 	}
-	return nil
+	return true, nil
 }
 
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
@@ -100,24 +100,32 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		return controller.Result{}, err
 	}
 
-	if err := r.createE2Node(ctx, channel); err != nil {
+	if ok, err := r.createE2Node(ctx, channel); err != nil {
 		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
 	}
 
-	if err := r.createE2Cells(ctx, channel); err != nil {
+	if ok, err := r.createE2Cells(ctx, channel); err != nil {
 		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
 	}
-
-	return r.reconcileE2ControlRelation(channel)
+	if ok, err := r.createE2ControlRelation(ctx, channel); err != nil {
+		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
+	}
+	return controller.Result{}, nil
 }
 
-func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) error {
+func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
 	log.Debug("Creating E2 node %s for channel %v", channel.E2NodeID, channel.ID)
 	object, err := r.rnib.Get(ctx, channel.E2NodeID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
-			return err
+			return false, err
 		}
 		log.Debugf("Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
 		object = &topoapi.Object{
@@ -139,23 +147,23 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 		err = object.SetAspect(aspect)
 		if err != nil {
 			log.Warnf("Creating E2Node entity '%s' for Channel failed '%s': %v", channel.E2NodeID, channel.ID, err)
-			return err
+			return false, err
 		}
 
 		err = r.rnib.Create(ctx, object)
 		if err != nil && !errors.IsAlreadyExists(err) {
 			log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
-			return err
+			return false, err
 
 		}
-		return nil
+		return true, nil
 	}
 
 	e2NodeAspect := &topoapi.E2Node{}
 	err = object.GetAspect(e2NodeAspect)
 	if err == nil {
 		log.Debug("E2 node %s aspect is already set ", channel.E2NodeID)
-		return nil
+		return true, nil
 	}
 
 	e2NodeAspect = &topoapi.E2Node{
@@ -163,26 +171,26 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 	}
 	err = object.SetAspect(e2NodeAspect)
 	if err != nil {
-		return err
+		return false, err
 	}
 	err = r.rnib.Update(ctx, object)
 	if err != nil && !errors.IsNotFound(err) {
-		return err
+		return false, err
 	}
-	return nil
+	return true, nil
 
 }
 
-func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Channel) error {
+func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
 	for _, e2Cell := range channel.E2Cells {
 		if err := r.createE2Cell(ctx, channel, e2Cell); err != nil {
-			return err
+			return false, err
 		}
 		if err := r.createE2CellRelation(ctx, channel, e2Cell); err != nil {
-			return err
+			return false, err
 		}
 	}
-	return nil
+	return true, nil
 }
 
 func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) error {
@@ -276,16 +284,6 @@ func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server
 		return nil
 	}
 	return nil
-}
-
-func (r *Reconciler) reconcileE2ControlRelation(channel *e2server.E2Channel) (controller.Result, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
-	defer cancel()
-
-	if err := r.createE2ControlRelation(ctx, channel); err != nil {
-		return controller.Result{}, err
-	}
-	return controller.Result{}, nil
 }
 
 func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, channelID e2server.ChannelID) error {

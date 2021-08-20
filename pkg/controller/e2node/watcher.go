@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package channel
+package e2node
 
 import (
 	"context"
@@ -129,6 +129,14 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 							if cellID == relation.Relation.TgtEntityID {
 								ch <- controller.NewID(channel.ID)
 							}
+						}
+					}
+				}
+				if relation.Relation.KindID == topoapi.CONTROLS {
+					for _, channel := range channels {
+						relationID := utils.GetE2ControlRelationID(channel.ID)
+						if relationID == event.Object.GetID() {
+							ch <- controller.NewID(channel.ID)
 						}
 					}
 				}

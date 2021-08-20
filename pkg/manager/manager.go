@@ -7,7 +7,7 @@ package manager
 import (
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
-	"github.com/onosproject/onos-e2t/pkg/controller/channel"
+	"github.com/onosproject/onos-e2t/pkg/controller/e2node"
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
@@ -114,7 +114,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startChannelController(rnibStore, channels)
+	err = m.startE2NodeController(rnibStore, channels)
 	if err != nil {
 		return err
 	}
@@ -140,9 +140,9 @@ func (m *Manager) Start() error {
 	return nil
 }
 
-func (m *Manager) startChannelController(rnib rnib.Store, channels e2server.ChannelManager) error {
-	channelController := channel.NewController(rnib, channels)
-	return channelController.Start()
+func (m *Manager) startE2NodeController(rnib rnib.Store, channels e2server.ChannelManager) error {
+	e2NodeController := e2node.NewController(rnib, channels)
+	return e2NodeController.Start()
 }
 
 func (m *Manager) startE2TController(rnib rnib.Store) error {
