@@ -48,7 +48,7 @@ type Reconciler struct {
 }
 
 func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
-	log.Debugf("Creating E2T entity")
+	log.Debugf("Creating E2T entity %s", e2tID)
 	object := &topoapi.Object{
 		ID:   utils.GetE2TID(),
 		Type: topoapi.Object_ENTITY,
@@ -93,13 +93,11 @@ func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
 	}
 
 	err = r.rnib.Create(ctx, object)
-	if err != nil {
-		if !errors.IsAlreadyExists(err) {
-			log.Infof("Creating E2T entity failed: %v", err)
-			return err
-		}
-		return nil
+	if err != nil && !errors.IsAlreadyExists(err) {
+		log.Infof("Creating E2T entity %s failed: %v", e2tID, err)
+		return err
 	}
+
 	return nil
 }
 

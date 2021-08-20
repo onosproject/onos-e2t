@@ -112,58 +112,65 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) error {
-	log.Debug("Creating E2 node")
+	log.Debug("Creating E2 node %s for channel %v", channel.E2NodeID, channel.ID)
 	object, err := r.rnib.Get(ctx, channel.E2NodeID)
-	if err == nil {
-		aspect := &topoapi.E2Node{
-			ServiceModels: channel.ServiceModels,
-		}
-		err := object.SetAspect(aspect)
-		if err != nil {
-			return err
-		}
-		err = r.rnib.Update(ctx, object)
-		if err != nil && !errors.IsNotFound(err) {
-			return err
-		}
-		return nil
-	} else if !errors.IsNotFound(err) {
-		log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
-		return err
-	}
-
-	log.Debugf("Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
-	object = &topoapi.Object{
-		ID:   channel.E2NodeID,
-		Type: topoapi.Object_ENTITY,
-		Obj: &topoapi.Object_Entity{
-			Entity: &topoapi.Entity{
-				KindID: topoapi.E2NODE,
-			},
-		},
-		Aspects: make(map[string]*gogotypes.Any),
-		Labels:  map[string]string{},
-	}
-
-	aspect := &topoapi.E2Node{
-		ServiceModels: channel.ServiceModels,
-	}
-
-	err = object.SetAspect(aspect)
 	if err != nil {
-		log.Warnf("Creating E2Node entity '%s' for Channel failed '%s': %v", channel.E2NodeID, channel.ID, err)
-		return err
-	}
-
-	err = r.rnib.Create(ctx, object)
-	if err != nil {
-		if !errors.IsAlreadyExists(err) {
+		if !errors.IsNotFound(err) {
 			log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
 			return err
 		}
+		log.Debugf("Creating E2Node entity '%s' for Channel '%s'", channel.E2NodeID, channel.ID)
+		object = &topoapi.Object{
+			ID:   channel.E2NodeID,
+			Type: topoapi.Object_ENTITY,
+			Obj: &topoapi.Object_Entity{
+				Entity: &topoapi.Entity{
+					KindID: topoapi.E2NODE,
+				},
+			},
+			Aspects: make(map[string]*gogotypes.Any),
+			Labels:  map[string]string{},
+		}
+
+		aspect := &topoapi.E2Node{
+			ServiceModels: channel.ServiceModels,
+		}
+
+		err = object.SetAspect(aspect)
+		if err != nil {
+			log.Warnf("Creating E2Node entity '%s' for Channel failed '%s': %v", channel.E2NodeID, channel.ID, err)
+			return err
+		}
+
+		err = r.rnib.Create(ctx, object)
+		if err != nil && !errors.IsAlreadyExists(err) {
+			log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
+			return err
+
+		}
 		return nil
 	}
+
+	e2NodeAspect := &topoapi.E2Node{}
+	err = object.GetAspect(e2NodeAspect)
+	if err == nil {
+		log.Debug("E2 node %s aspect is already set ", channel.E2NodeID)
+		return nil
+	}
+
+	e2NodeAspect = &topoapi.E2Node{
+		ServiceModels: channel.ServiceModels,
+	}
+	err = object.SetAspect(e2NodeAspect)
+	if err != nil {
+		return err
+	}
+	err = r.rnib.Update(ctx, object)
+	if err != nil && !errors.IsNotFound(err) {
+		return err
+	}
 	return nil
+
 }
 
 func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Channel) error {
@@ -211,6 +218,13 @@ func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Chann
 			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
 			return err
 		}
+		return nil
+	}
+
+	e2CellAspect := &topoapi.E2Cell{}
+	err = object.GetAspect(e2CellAspect)
+	if err == nil {
+		log.Debug("E2 cell %s aspect is already set", cellID)
 		return nil
 	}
 
