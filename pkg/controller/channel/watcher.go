@@ -8,6 +8,8 @@ import (
 	"context"
 	"sync"
 
+	"github.com/onosproject/onos-e2t/pkg/controller/utils"
+
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
@@ -90,16 +92,44 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 	go func() {
 		for event := range eventCh {
 			log.Debugf("Received topo event '%s'", event.Object.ID)
-			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok &&
-				entity.Entity.KindID == topoapi.E2NODE {
-				channels, err := w.channels.List(ctx)
-				if err != nil {
-					log.Warnf("cannot retrieve the list channels %v:%v", channels, err)
-					continue
+			channels, err := w.channels.List(ctx)
+			if err != nil {
+				log.Warnf("cannot retrieve the list channels %v:%v", channels, err)
+				continue
+			}
+			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok {
+
+				// Enqueue the channel with matching e2node
+				if entity.Entity.KindID == topoapi.E2NODE {
+					for _, channel := range channels {
+						if channel.E2NodeID == event.Object.GetID() {
+							ch <- controller.NewID(channel.ID)
+						}
+					}
 				}
-				for _, channel := range channels {
-					if channel.E2NodeID == event.Object.GetID() {
-						ch <- controller.NewID(channel.ID)
+				// Enqueue the channels with matching cells
+				if entity.Entity.KindID == topoapi.E2CELL {
+					for _, channel := range channels {
+						e2Cells := channel.E2Cells
+						for _, e2Cell := range e2Cells {
+							cellID := utils.GetCellID(channel, e2Cell)
+							if cellID == event.Object.GetID() {
+								ch <- controller.NewID(channel.ID)
+							}
+						}
+					}
+				}
+			}
+			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok {
+				if relation.Relation.KindID == topoapi.CONTAINS {
+					for _, channel := range channels {
+						e2Cells := channel.E2Cells
+						for _, e2Cell := range e2Cells {
+							cellID := utils.GetCellID(channel, e2Cell)
+							if cellID == relation.Relation.TgtEntityID {
+								ch <- controller.NewID(channel.ID)
+							}
+						}
 					}
 				}
 			}
