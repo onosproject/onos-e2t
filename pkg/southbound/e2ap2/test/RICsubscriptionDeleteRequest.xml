@@ -6,6 +6,13 @@
             <RICsubscriptionDeleteRequest>
                 <protocolIEs>
                     <RICsubscriptionDeleteRequest-IEs>
+                        <id>5</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RANfunctionID>3</RANfunctionID>
+                        </value>
+                    </RICsubscriptionDeleteRequest-IEs>
+                    <RICsubscriptionDeleteRequest-IEs>
                         <id>29</id>
                         <criticality><reject/></criticality>
                         <value>
@@ -13,13 +20,6 @@
                                 <ricRequestorID>1</ricRequestorID>
                                 <ricInstanceID>2</ricInstanceID>
                             </RICrequestID>
-                        </value>
-                    </RICsubscriptionDeleteRequest-IEs>
-                    <RICsubscriptionDeleteRequest-IEs>
-                        <id>5</id>
-                        <criticality><reject/></criticality>
-                        <value>
-                            <RANfunctionID>1</RANfunctionID>
                         </value>
                     </RICsubscriptionDeleteRequest-IEs>
                 </protocolIEs>

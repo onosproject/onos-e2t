@@ -40,7 +40,7 @@ func CreateRicServiceUpdateFailureE2apPdu(trID int32, cause *e2apies.Cause) (*e2
 									Value: &e2apies.TransactionId{
 										Value: trID,
 									},
-									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 								},
 							},
 						},

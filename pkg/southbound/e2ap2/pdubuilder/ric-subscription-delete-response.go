@@ -6,6 +6,7 @@ package pdubuilder
 import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
@@ -45,6 +46,12 @@ func CreateRicSubscriptionDeleteResponseE2apPdu(
 								E2ApProtocolIes29: &ricRequestID,  //RIC request ID
 								E2ApProtocolIes5:  &ranFunctionID, //RAN function ID
 							},
+						},
+						ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
+							Value: int32(v2beta1.ProcedureCodeIDRICsubscriptionDelete),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 						},
 					},
 				},

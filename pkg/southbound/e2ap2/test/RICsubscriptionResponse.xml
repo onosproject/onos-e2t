@@ -9,7 +9,65 @@
                         <id>5</id>
                         <criticality><reject/></criticality>
                         <value>
-                            <RANfunctionID>20</RANfunctionID>
+                            <RANfunctionID>9</RANfunctionID>
+                        </value>
+                    </RICsubscriptionResponse-IEs>
+                    <RICsubscriptionResponse-IEs>
+                        <id>17</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RICaction-Admitted-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>14</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RICaction-Admitted-Item>
+                                            <ricActionID>10</ricActionID>
+                                        </RICaction-Admitted-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>14</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RICaction-Admitted-Item>
+                                            <ricActionID>20</ricActionID>
+                                        </RICaction-Admitted-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </RICaction-Admitted-List>
+                        </value>
+                    </RICsubscriptionResponse-IEs>
+                    <RICsubscriptionResponse-IEs>
+                        <id>18</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RICaction-NotAdmitted-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>16</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RICaction-NotAdmitted-Item>
+                                            <ricActionID>100</ricActionID>
+                                            <cause>
+                                                <transport><transport-resource-unavailable/></transport>
+                                            </cause>
+                                        </RICaction-NotAdmitted-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>16</id>
+                                    <criticality><ignore/></criticality>
+                                    <value>
+                                        <RICaction-NotAdmitted-Item>
+                                            <ricActionID>200</ricActionID>
+                                            <cause>
+                                                <misc><hardware-failure/></misc>
+                                            </cause>
+                                        </RICaction-NotAdmitted-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </RICaction-NotAdmitted-List>
                         </value>
                     </RICsubscriptionResponse-IEs>
                     <RICsubscriptionResponse-IEs>
@@ -20,23 +78,6 @@
                                 <ricRequestorID>22</ricRequestorID>
                                 <ricInstanceID>6</ricInstanceID>
                             </RICrequestID>
-                        </value>
-                    </RICsubscriptionResponse-IEs>
-                    <RICsubscriptionResponse-IEs>
-                        <id>17</id>
-                        <criticality><reject/></criticality>
-                        <value>
-                            <RICaction-Admitted-List>
-                                <ProtocolIE-SingleContainer>
-                                    <id>14</id>
-                                    <criticality><reject/></criticality>
-                                    <value>
-                                        <RICaction-Admitted-Item>
-                                            <ricActionID>5</ricActionID>
-                                        </RICaction-Admitted-Item>
-                                    </value>
-                                </ProtocolIE-SingleContainer>
-                            </RICaction-Admitted-List>
                         </value>
                     </RICsubscriptionResponse-IEs>
                 </protocolIEs>

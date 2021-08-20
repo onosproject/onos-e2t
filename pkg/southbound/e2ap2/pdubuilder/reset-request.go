@@ -35,7 +35,7 @@ func CreateResetRequestE2apPdu(trID int32, c *e2ap_ies.Cause) (*e2appdudescripti
 									Value: &e2ap_ies.TransactionId{
 										Value: trID,
 									},
-									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 								},
 							},
 						},

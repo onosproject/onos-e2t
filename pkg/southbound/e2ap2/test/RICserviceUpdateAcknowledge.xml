@@ -43,9 +43,9 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionIDcause-Item>
-                                            <ranFunctionID>101</ranFunctionID>
+                                            <ranFunctionID>102</ranFunctionID>
                                             <cause>
-                                                <misc><hardware-failure/></misc>
+                                                <protocol><semantic-error/></protocol>
                                             </cause>
                                         </RANfunctionIDcause-Item>
                                     </value>
@@ -55,14 +55,21 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionIDcause-Item>
-                                            <ranFunctionID>102</ranFunctionID>
+                                            <ranFunctionID>101</ranFunctionID>
                                             <cause>
-                                                <protocol><semantic-error/></protocol>
+                                                <misc><hardware-failure/></misc>
                                             </cause>
                                         </RANfunctionIDcause-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
                             </RANfunctionsIDcause-List>
+                        </value>
+                    </RICserviceUpdateAcknowledge-IEs>
+                    <RICserviceUpdateAcknowledge-IEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
                         </value>
                     </RICserviceUpdateAcknowledge-IEs>
                 </protocolIEs>

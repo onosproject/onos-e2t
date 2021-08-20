@@ -14,6 +14,13 @@
                             </Cause>
                         </value>
                     </ResetRequestIEs>
+                    <ResetRequestIEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
+                        </value>
+                    </ResetRequestIEs>
                 </protocolIEs>
             </ResetRequest>
         </value>

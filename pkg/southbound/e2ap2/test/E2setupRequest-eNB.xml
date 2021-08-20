@@ -53,6 +53,13 @@
                             </RANfunctions-List>
                         </value>
                     </E2setupRequestIEs>
+                    <E2setupRequestIEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
+                        </value>
+                    </E2setupRequestIEs>
                 </protocolIEs>
             </E2setupRequest>
         </value>

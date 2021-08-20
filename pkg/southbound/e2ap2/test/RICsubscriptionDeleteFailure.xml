@@ -43,6 +43,13 @@
                                     <ricRequestorID>10</ricRequestorID>
                                     <ricInstanceID>20</ricInstanceID>
                                 </ricRequestorID>
+                                <iEsCriticalityDiagnostics>
+                                    <CriticalityDiagnostics-IE-Item>
+                                        <iECriticality><ignore/></iECriticality>
+                                        <iE-ID>30</iE-ID>
+                                        <typeOfError><missing/></typeOfError>
+                                    </CriticalityDiagnostics-IE-Item>
+                                </iEsCriticalityDiagnostics>
                             </CriticalityDiagnostics>
                         </value>
                     </RICsubscriptionDeleteFailure-IEs>

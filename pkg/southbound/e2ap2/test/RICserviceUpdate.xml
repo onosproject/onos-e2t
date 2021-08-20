@@ -47,7 +47,7 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionID-Item>
-                                            <ranFunctionID>200</ranFunctionID>
+                                            <ranFunctionID>100</ranFunctionID>
                                             <ranFunctionRevision>2</ranFunctionRevision>
                                         </RANfunctionID-Item>
                                     </value>
@@ -57,7 +57,7 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionID-Item>
-                                            <ranFunctionID>100</ranFunctionID>
+                                            <ranFunctionID>200</ranFunctionID>
                                             <ranFunctionRevision>2</ranFunctionRevision>
                                         </RANfunctionID-Item>
                                     </value>
@@ -95,6 +95,13 @@
                                     </value>
                                 </ProtocolIE-SingleContainer>
                             </RANfunctions-List>
+                        </value>
+                    </RICserviceUpdate-IEs>
+                    <RICserviceUpdate-IEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
                         </value>
                     </RICserviceUpdate-IEs>
                 </protocolIEs>

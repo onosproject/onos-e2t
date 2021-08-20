@@ -4,6 +4,7 @@
 package pdubuilder
 
 import (
+	"encoding/hex"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
@@ -43,4 +44,17 @@ func TestRicSubscriptionRequest(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionRequest E2AP PDU\n%s", xer)
 
+	result, err := asn1cgo.XerDecodeE2apPdu(xer)
+	assert.NilError(t, err)
+	t.Logf("RicSubscriptionRequest E2AP PDU XER - decoded\n%v\n", result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+
+	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	assert.NilError(t, err)
+	t.Logf("RicSubscriptionRequest E2AP PDU PER\n%v", hex.Dump(per))
+
+	result1, err := asn1cgo.PerDecodeE2apPdu(per)
+	assert.NilError(t, err)
+	t.Logf("RicSubscriptionRequest E2AP PDU PER - decoded\n%v\n", result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }

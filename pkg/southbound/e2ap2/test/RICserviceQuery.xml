@@ -33,6 +33,13 @@
                             </RANfunctionsID-List>
                         </value>
                     </RICserviceQuery-IEs>
+                    <RICserviceQuery-IEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>54</TransactionID>
+                        </value>
+                    </RICserviceQuery-IEs>
                 </protocolIEs>
             </RICserviceQuery>
         </value>

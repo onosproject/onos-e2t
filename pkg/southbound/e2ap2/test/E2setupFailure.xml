@@ -1,20 +1,20 @@
 <E2AP-PDU>
     <unsuccessfulOutcome>
-        <procedureCode>7</procedureCode>
+        <procedureCode>1</procedureCode>
         <criticality><reject/></criticality>
         <value>
-            <RICserviceUpdateFailure>
+            <E2setupFailure>
                 <protocolIEs>
-                    <RICserviceUpdateFailure-IEs>
+                    <E2setupFailureIEs>
                         <id>1</id>
-                        <criticality><reject/></criticality>
+                        <criticality><ignore/></criticality>
                         <value>
                             <Cause>
-                                <ricService><ric-resource-limit/></ricService>
+                                <misc><unspecified/></misc>
                             </Cause>
                         </value>
-                    </RICserviceUpdateFailure-IEs>
-                    <RICserviceUpdateFailure-IEs>
+                    </E2setupFailureIEs>
+                    <E2setupFailureIEs>
                         <id>2</id>
                         <criticality><ignore/></criticality>
                         <value>
@@ -35,23 +35,37 @@
                                 </iEsCriticalityDiagnostics>
                             </CriticalityDiagnostics>
                         </value>
-                    </RICserviceUpdateFailure-IEs>
-                    <RICserviceUpdateFailure-IEs>
+                    </E2setupFailureIEs>
+                    <E2setupFailureIEs>
                         <id>31</id>
                         <criticality><ignore/></criticality>
                         <value>
-                            <TimeToWait><v2s/></TimeToWait>
+                            <TimeToWait><v10s/></TimeToWait>
                         </value>
-                    </RICserviceUpdateFailure-IEs>
-                    <RICserviceUpdateFailure-IEs>
+                    </E2setupFailureIEs>
+                    <E2setupFailureIEs>
+                        <id>48</id>
+                        <criticality><ignore/></criticality>
+                        <value>
+                            <TNLinformation>
+                                <tnlAddress>
+                                    000000000000000000000001
+                                </tnlAddress>
+                                <tnlPort>
+                                    0000000000000001
+                                </tnlPort>
+                            </TNLinformation>
+                        </value>
+                    </E2setupFailureIEs>
+                    <E2setupFailureIEs>
                         <id>49</id>
                         <criticality><reject/></criticality>
                         <value>
                             <TransactionID>1</TransactionID>
                         </value>
-                    </RICserviceUpdateFailure-IEs>
+                    </E2setupFailureIEs>
                 </protocolIEs>
-            </RICserviceUpdateFailure>
+            </E2setupFailure>
         </value>
     </unsuccessfulOutcome>
 </E2AP-PDU>

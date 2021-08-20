@@ -28,7 +28,7 @@ func CreateRicServiceQueryE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, err
 									Value: &e2apies.TransactionId{
 										Value: trID,
 									},
-									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 								},
 							},
 						},

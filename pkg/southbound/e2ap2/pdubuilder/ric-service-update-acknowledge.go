@@ -35,7 +35,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(trID int32, rfAccepted types.RanFu
 									Value: &e2apies.TransactionId{
 										Value: trID,
 									},
-									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 								},
 							},
 						},
@@ -57,7 +57,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(trID int32, rfAccepted types.RanFu
 		Value: &e2appducontents.RanfunctionsIdList{
 			Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
 		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	for rfID, rfRevision := range rfAccepted {

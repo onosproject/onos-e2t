@@ -2553,9 +2553,6 @@ func newE2connectionUpdateIe45E2connectionUpdateList(e2cuIe *e2appducontents.E2C
 	}
 
 	return &ie, nil
-
-	//TODO new for E2AP 1.0.1 -- should be fixed somehow
-	//return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1 - needs a fix")
 }
 
 func newE2connectionUpdateIe46E2connectionUpdateRemoveList(e2cuIe *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46) (*C.E2connectionUpdate_IEs_t, error) {
@@ -2590,9 +2587,39 @@ func newE2connectionUpdateIe46E2connectionUpdateRemoveList(e2cuIe *e2appduconten
 	return &ie, nil
 }
 
-func newE2setupFailureIe48Tnlinformation(e2sfIe *e2appducontents.E2SetupFailureIes_E2SetupFailureIes48) (*C.E2setupResponseIEs_t, error) {
-	// TODO new for E2AP 1.0.1
-	return nil, fmt.Errorf("not yet implemented - new for E2AP 1.0.1")
+func newE2setupFailureIe48Tnlinformation(e2sfIe *e2appducontents.E2SetupFailureIes_E2SetupFailureIes48) (*C.E2setupFailureIEs_t, error) {
+	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(e2sfIe.GetCriticality()))
+	if err != nil {
+		return nil, err
+	}
+	idC, err := protocolIeIDToC(v2beta1.ProtocolIeIDTNLinformation)
+	if err != nil {
+		return nil, err
+	}
+
+	choiceC := [80]byte{} // The size of the E2setupFailureIEs__value_u
+
+	tnlInfoC, err := newTnlinformation(e2sfIe.Value)
+	if err != nil {
+		return nil, err
+	}
+	//fmt.Printf("Assigning to choice of E2setupFailureIE %v \n", globalRicIDC)
+
+	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(tnlInfoC.tnlAddress.buf))))
+	binary.LittleEndian.PutUint64(choiceC[8:], uint64(tnlInfoC.tnlAddress.size))
+	binary.LittleEndian.PutUint32(choiceC[16:], uint32(tnlInfoC.tnlAddress.bits_unused))
+	binary.LittleEndian.PutUint64(choiceC[48:], uint64(uintptr(unsafe.Pointer(tnlInfoC.tnlPort))))
+
+	ie := C.E2setupFailureIEs_t{
+		id:          idC,
+		criticality: critC,
+		value: C.struct_E2setupFailureIEs__value{
+			present: C.E2setupFailureIEs__value_PR_TNLinformation,
+			choice:  choiceC,
+		},
+	}
+
+	return &ie, nil
 }
 
 func newErrorIndicationIe49TransactionID(eiRrIDIe *e2appducontents.ErrorIndicationIes_ErrorIndicationIes49) (*C.ErrorIndication_IEs_t, error) {
@@ -5069,6 +5096,18 @@ func decodeE2setupFailureIE(eiIeC *C.E2setupFailureIEs_t) (*e2appducontents.E2Se
 			Value:       cause,
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+
+	case C.E2setupFailureIEs__value_PR_TNLinformation:
+		tnl, err := decodeTnlinformationBytes(eiIeC.value.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeTnlinformationBytes() %s", err.Error())
+		}
+		ret.E2ApProtocolIes48 = &e2appducontents.E2SetupFailureIes_E2SetupFailureIes48{
+			Id:          int32(v2beta1.ProtocolIeIDTNLinformation),
+			Value:       tnl,
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		}
 
 	case C.E2setupFailureIEs__value_PR_TransactionID:

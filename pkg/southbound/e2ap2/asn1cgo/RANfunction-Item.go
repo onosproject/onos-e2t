@@ -80,6 +80,8 @@ func newRanFunctionItem(rfItem *e2appducontents.RanfunctionItem) *C.RANfunction_
 func decodeRanFunctionItemBytes(bytes [120]byte) (*e2appducontents.RanfunctionItem, error) {
 	size := binary.LittleEndian.Uint64(bytes[16:24])
 	gobytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16]))), C.int(size))
+	sizeOID := binary.LittleEndian.Uint64(bytes[64:72])
+	gobytesOID := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64]))), C.int(sizeOID))
 
 	rfiC := C.RANfunction_Item_t{
 		ranFunctionID: C.long(binary.LittleEndian.Uint64(bytes[:8])),
@@ -88,7 +90,11 @@ func decodeRanFunctionItemBytes(bytes [120]byte) (*e2appducontents.RanfunctionIt
 			size: C.ulong(size),
 		},
 		ranFunctionRevision: C.long(binary.LittleEndian.Uint64(bytes[48:56])),
-		ranFunctionOID:      *(*C.PrintableString_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64])))),
+		//ranFunctionOID:      *(*C.PrintableString_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64])))),
+		ranFunctionOID: C.PrintableString_t{
+			buf:  (*C.uchar)(C.CBytes(gobytesOID)),
+			size: C.ulong(sizeOID),
+		},
 	}
 
 	return decodeRanFunctionItem(&rfiC)

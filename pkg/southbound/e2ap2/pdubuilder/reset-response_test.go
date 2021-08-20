@@ -39,7 +39,15 @@ func TestResetResponse(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("ResetResponse E2AP PDU XER\n%s", string(xer))
 
+	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(xer)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
 	t.Logf("ResetResponse E2AP PDU PER\n%v", hex.Dump(per))
+
+	e2apPdu, err = asn1cgo.PerDecodeE2apPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 }

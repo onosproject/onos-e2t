@@ -48,7 +48,7 @@ func TestRicSubscriptionDeleteFailure(t *testing.T) {
 
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu, e2apPdu)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -56,7 +56,7 @@ func TestRicSubscriptionDeleteFailure(t *testing.T) {
 
 	e2apPdu, err = asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu, e2apPdu)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 }
 
 func TestRicSubscriptionDeleteFailureExcludeOptionalIE(t *testing.T) {
@@ -78,7 +78,7 @@ func TestRicSubscriptionDeleteFailureExcludeOptionalIE(t *testing.T) {
 
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu, e2apPdu)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -86,5 +86,5 @@ func TestRicSubscriptionDeleteFailureExcludeOptionalIE(t *testing.T) {
 
 	e2apPdu, err = asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu, e2apPdu)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 }

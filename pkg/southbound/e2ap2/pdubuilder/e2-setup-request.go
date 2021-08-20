@@ -86,7 +86,7 @@ func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunc
 
 	ranFunctions := e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
 		Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAdded),
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsList{
 			Value: make([]*e2appducontents.RanfunctionItemIes, 0),

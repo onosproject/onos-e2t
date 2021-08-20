@@ -28,7 +28,7 @@ func CreateResetResponseE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, error
 									Value: &e2ap_ies.TransactionId{
 										Value: trID,
 									},
-									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 								},
 							},
 						},
