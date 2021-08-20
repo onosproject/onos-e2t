@@ -119,10 +119,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		//  it for the lease expiration time and delete the entity if the lease has not been renewed
 		if e2tID != utils.GetE2TID() {
 			lease := &topoapi.Lease{}
-			err = object.GetAspect(lease)
-			if err != nil {
-				return controller.Result{}, err
-			}
+			_ = object.GetAspect(lease)
 
 			// Check if the the lease is expired
 			if lease.Expiration.Before(time.Now()) {
@@ -131,6 +128,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 				if !errors.IsNotFound(err) {
 					return controller.Result{}, err
 				}
+				return controller.Result{}, nil
 			}
 
 			// Requeue the object to be reconciled at the expiration time
@@ -154,7 +152,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			if remainingTime > defaultExpirationDuration.Seconds()/2 {
 				log.Debugf("No need to renew the lease for %s, the remaining lease time is %v seconds", e2tID, remainingTime)
 				return controller.Result{
-					RequeueAfter: defaultExpirationDuration / 2,
+					RequeueAfter: time.Until(*leaseAspect.GetExpiration()) / 2,
 				}, nil
 			}
 
@@ -174,7 +172,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			if !errors.IsNotFound(err) {
 				return controller.Result{}, err
 			}
-			return controller.Result{}, err
+			return controller.Result{}, nil
 		}
 
 	} else if !errors.IsNotFound(err) {
