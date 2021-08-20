@@ -21,9 +21,9 @@ func Test_DecodeE2SetupResponsePdu(t *testing.T) {
 	transactionID, ricIdentity, ranFunctionsAccepted, ranFunctionsRejected, e2nccual, err := DecodeE2SetupResponsePdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 23, 24 & 25
-	assert.Equal(t, "ONF", string([]byte{ricIdentity.PlmnID[0], ricIdentity.PlmnID[1], ricIdentity.PlmnID[2]}))
+	assert.DeepEqual(t, []byte{0x79, 0x78, 0x70}, []byte{ricIdentity.PlmnID[0], ricIdentity.PlmnID[1], ricIdentity.PlmnID[2]})
 	assert.Equal(t, 20, int(ricIdentity.RicIdentifier.RicIdentifierLen))
-	assert.DeepEqual(t, []byte{0xde, 0xbc, 0x00}, []byte(ricIdentity.RicIdentifier.RicIdentifierValue))
+	assert.DeepEqual(t, []byte{0x4d, 0x20, 0x00}, []byte(ricIdentity.RicIdentifier.RicIdentifierValue))
 
 	assert.Equal(t, 2, len(ranFunctionsAccepted))
 	rfa100, ok := ranFunctionsAccepted[100]
@@ -41,9 +41,9 @@ func Test_DecodeE2SetupResponsePdu(t *testing.T) {
 	assert.Assert(t, ok, "expected a key '102'")
 	assert.Equal(t, "CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR", rfr102.GetProtocol().String())
 
-	//ToDo - change Transaction ID to real one
-	assert.Equal(t, int32(0), transactionID)
-
+	if transactionID != nil {
+		assert.Equal(t, int32(1), *transactionID)
+	}
 	assert.Equal(t, int32(e2nccual[0].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB))
 	assert.Equal(t, int32(e2nccual[0].E2NodeComponentID.GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue()), int32(21))
 	assert.Equal(t, e2nccual[0].E2NodeComponentConfigUpdateAck.UpdateOutcome, int32(1))
@@ -54,7 +54,7 @@ func Test_DecodeE2SetupResponsePdu(t *testing.T) {
 	assert.Equal(t, int32(e2nccual[1].E2NodeComponentConfigUpdateAck.FailureCause.GetProtocol()), int32(e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE))
 }
 
-func Test_DecodeE2SetupResponsePduCuCp(t *testing.T) {
+func Test_DecodeE2SetupResponsePduNoOptional(t *testing.T) {
 	e2setupResponseXer, err := ioutil.ReadFile("../test/E2setupResponse2.xml")
 	assert.NilError(t, err, "Unexpected error when loading file")
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(e2setupResponseXer)
@@ -69,15 +69,8 @@ func Test_DecodeE2SetupResponsePduCuCp(t *testing.T) {
 
 	assert.Equal(t, 0, len(ranFunctionsAccepted))
 	assert.Equal(t, 0, len(ranFunctionsRejected))
-	//ToDo - change Transaction ID to real one
-	assert.Equal(t, int32(0), transactionID)
-
-	assert.Equal(t, int32(e2nccual[0].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB))
-	assert.Equal(t, int32(e2nccual[0].E2NodeComponentID.GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue()), int32(21))
-	assert.Equal(t, e2nccual[0].E2NodeComponentConfigUpdateAck.UpdateOutcome, int32(1))
-	assert.Equal(t, int32(e2nccual[0].E2NodeComponentConfigUpdateAck.FailureCause.GetProtocol()), int32(e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR))
-	assert.Equal(t, int32(e2nccual[1].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB))
-	assert.Equal(t, int32(e2nccual[1].E2NodeComponentID.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue()), int32(13))
-	assert.Equal(t, e2nccual[1].E2NodeComponentConfigUpdateAck.UpdateOutcome, int32(1))
-	assert.Equal(t, int32(e2nccual[1].E2NodeComponentConfigUpdateAck.FailureCause.GetProtocol()), int32(e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE))
+	assert.Equal(t, 0, len(e2nccual))
+	if transactionID != nil {
+		assert.Equal(t, int32(11), *transactionID)
+	}
 }

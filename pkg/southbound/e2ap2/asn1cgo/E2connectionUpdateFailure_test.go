@@ -21,7 +21,7 @@ func createE2connectionUpdateFailureMsg() (*e2ap_pdu_contents.E2ConnectionUpdate
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V5S
 	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
 	e2connectionUpdateFailure, err := pdubuilder.CreateE2connectionUpdateFailureE2apPdu(1)
 	if err != nil {

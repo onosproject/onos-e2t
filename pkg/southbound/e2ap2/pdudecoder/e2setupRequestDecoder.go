@@ -6,8 +6,6 @@ package pdudecoder
 
 import (
 	"fmt"
-	"math"
-
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
@@ -34,9 +32,9 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 	for _, rfIe := range ranFunctionsIe.GetValue().GetValue() {
 		rfItem := rfIe.GetE2ApProtocolIes10().GetValue()
 		ranFunctionsList[types.RanFunctionID(rfItem.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
-			Description: types.RanFunctionDescription(string(rfItem.GetRanFunctionDefinition().GetValue())),
+			Description: types.RanFunctionDescription(rfItem.GetRanFunctionDefinition().GetValue()),
 			Revision:    types.RanFunctionRevision(rfItem.GetRanFunctionRevision().GetValue()),
-			OID:         types.RanFunctionOID(string(rfItem.GetRanFunctionOid().GetValue())),
+			OID:         types.RanFunctionOID(rfItem.GetRanFunctionOid().GetValue()),
 		}
 	}
 
@@ -105,9 +103,9 @@ func ExtractE2NodeIdentity(ge2nID *e2apies.GlobalE2NodeId) (*types.E2NodeIdentit
 		}
 
 		// ToDo - how to deal with EnbID??
-		if e2NodeID.GNb.GlobalEnGNbId != nil {
-			//copy(nodeIdentity.Plmn[:], e2NodeID.GNb.GlobalEnGNbId.PLmnIdentity.Value[:])
-		}
+		//if e2NodeID.GNb.GlobalEnGNbId != nil {
+		//copy(nodeIdentity.Plmn[:], e2NodeID.GNb.GlobalEnGNbId.PLmnIdentity.Value[:])
+		//}
 
 	case *e2apies.GlobalE2NodeId_EnGNb:
 		nodeIdentity, err = types.NewE2NodeIdentity(e2NodeID.EnGNb.GetGlobalGNbId().GetPLmnIdentity().GetValue())
@@ -115,13 +113,15 @@ func ExtractE2NodeIdentity(ge2nID *e2apies.GlobalE2NodeId) (*types.E2NodeIdentit
 			return nil, fmt.Errorf("error extracting node identifier")
 		}
 		nodeIdentity.NodeType = types.E2NodeTypeEnGNB
+		nodeIdentity.NodeIDLength = int(e2NodeID.EnGNb.GetGlobalGNbId().GetGNbId().GetGNbId().GetLen())
+		nodeIdentity.NodeIdentifier = e2NodeID.EnGNb.GetGlobalGNbId().GetGNbId().GetGNbId().GetValue()
 		if e2NodeID.EnGNb.EnGNbCuUpId != nil {
 			nodeIdentity.CuID = &e2NodeID.EnGNb.EnGNbCuUpId.Value
 		}
 		if e2NodeID.EnGNb.EnGNbDuId != nil {
 			nodeIdentity.DuID = &e2NodeID.EnGNb.EnGNbDuId.Value
 		}
-		return nil, fmt.Errorf("getting identifier of EnGnb not yet implemented")
+		//return nil, fmt.Errorf("getting identifier of EnGnb not yet implemented")
 
 	case *e2apies.GlobalE2NodeId_NgENb:
 		nodeIdentity, err = types.NewE2NodeIdentity(e2NodeID.NgENb.GetGlobalNgENbId().GetPlmnId().GetValue())
@@ -129,6 +129,10 @@ func ExtractE2NodeIdentity(ge2nID *e2apies.GlobalE2NodeId) (*types.E2NodeIdentit
 			return nil, fmt.Errorf("error extracting node identifier")
 		}
 		nodeIdentity.NodeType = types.E2NodeTypeNgENB
+		nodeIdentity.NodeIdentifier, nodeIdentity.NodeIDLength, err = ExtractEnbIDchoice(e2NodeID.NgENb.GetGlobalNgENbId().GetEnbId())
+		if err != nil {
+			return nil, err
+		}
 		if e2NodeID.NgENb.NgEnbDuId != nil {
 			nodeIdentity.DuID = &e2NodeID.NgENb.NgEnbDuId.Value
 		}
@@ -140,34 +144,50 @@ func ExtractE2NodeIdentity(ge2nID *e2apies.GlobalE2NodeId) (*types.E2NodeIdentit
 			return nil, fmt.Errorf("error extracting node identifier")
 		}
 		nodeIdentity.NodeType = types.E2NodeTypeENB
-		//identifierBytes := make([]byte, 0)
-		var identifierBytes []byte
-		var lenBytes int
-		var idLength int
-		switch enbt := e2NodeID.ENb.GetGlobalENbId().GetENbId().GetEnbId().(type) {
-		case *e2apies.EnbId_MacroENbId:
-			identifierBytes = enbt.MacroENbId.GetValue()
-			lenBytes = int(math.Ceil(float64(enbt.MacroENbId.Len) / 8.0))
-			idLength = int(enbt.MacroENbId.Len)
-		case *e2apies.EnbId_HomeENbId:
-			identifierBytes = enbt.HomeENbId.GetValue()
-			lenBytes = int(math.Ceil(float64(enbt.HomeENbId.Len) / 8.0))
-			idLength = int(enbt.HomeENbId.Len)
-		case *e2apies.EnbId_ShortMacroENbId:
-			identifierBytes = enbt.ShortMacroENbId.GetValue()
-			lenBytes = int(math.Ceil(float64(enbt.ShortMacroENbId.Len) / 8.0))
-			idLength = int(enbt.ShortMacroENbId.Len)
-		case *e2apies.EnbId_LongMacroENbId:
-			identifierBytes = enbt.LongMacroENbId.GetValue()
-			lenBytes = int(math.Ceil(float64(enbt.LongMacroENbId.Len) / 8.0))
-			idLength = int(enbt.LongMacroENbId.Len)
+		nodeIdentity.NodeIdentifier, nodeIdentity.NodeIDLength, err = ExtractEnbID(e2NodeID.ENb.GetGlobalENbId().GetENbId())
+		if err != nil {
+			return nil, err
 		}
-		nodeIdentity.NodeIdentifier = make([]byte, lenBytes)
-		copy(nodeIdentity.NodeIdentifier, identifierBytes[:lenBytes])
-		nodeIdentity.NodeIDLength = idLength
-		//ToDo - couldn't it be just this?
-		//nodeIdentity.NodeIdentifier = identifierBytes
 	}
 
 	return nodeIdentity, nil
+}
+
+func ExtractEnbID(e2NodeID *e2apies.EnbId) ([]byte, int, error) {
+	var identifierBytes []byte
+	var idLength int
+	switch enbt := e2NodeID.EnbId.(type) {
+	case *e2apies.EnbId_MacroENbId:
+		identifierBytes = enbt.MacroENbId.GetValue()
+		idLength = int(enbt.MacroENbId.Len)
+	case *e2apies.EnbId_HomeENbId:
+		identifierBytes = enbt.HomeENbId.GetValue()
+		idLength = int(enbt.HomeENbId.Len)
+	case *e2apies.EnbId_ShortMacroENbId:
+		identifierBytes = enbt.ShortMacroENbId.GetValue()
+		idLength = int(enbt.ShortMacroENbId.Len)
+	case *e2apies.EnbId_LongMacroENbId:
+		identifierBytes = enbt.LongMacroENbId.GetValue()
+		idLength = int(enbt.LongMacroENbId.Len)
+	}
+
+	return identifierBytes, idLength, nil
+}
+
+func ExtractEnbIDchoice(e2NodeID *e2apies.EnbIdChoice) ([]byte, int, error) {
+	var identifierBytes []byte
+	var idLength int
+	switch enbt := e2NodeID.EnbIdChoice.(type) {
+	case *e2apies.EnbIdChoice_EnbIdMacro:
+		identifierBytes = enbt.EnbIdMacro.GetValue()
+		idLength = int(enbt.EnbIdMacro.Len)
+	case *e2apies.EnbIdChoice_EnbIdShortmacro:
+		identifierBytes = enbt.EnbIdShortmacro.GetValue()
+		idLength = int(enbt.EnbIdShortmacro.Len)
+	case *e2apies.EnbIdChoice_EnbIdLongmacro:
+		identifierBytes = enbt.EnbIdLongmacro.GetValue()
+		idLength = int(enbt.EnbIdLongmacro.Len)
+	}
+
+	return identifierBytes, idLength, nil
 }

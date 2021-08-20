@@ -23,6 +23,7 @@ func Test_DecodeResetRequestPdu(t *testing.T) {
 	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 23, 24 & 25
 
 	assert.Equal(t, e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR, cause.GetProtocol())
-	// Todo - change to correct Transaction ID
-	assert.Equal(t, int32(0), transactionID)
+	if transactionID != nil {
+		assert.Equal(t, int32(1), *transactionID)
+	}
 }

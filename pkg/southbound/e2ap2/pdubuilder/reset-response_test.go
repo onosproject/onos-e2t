@@ -17,7 +17,7 @@ import (
 func TestResetResponse(t *testing.T) {
 	procCode := v2beta1.ProcedureCodeIDReset
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
 	newE2apPdu, err := CreateResetResponseE2apPdu(1)
 	assert.NilError(t, err)

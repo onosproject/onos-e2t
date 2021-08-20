@@ -21,5 +21,5 @@ func Test_DecodeRicSubscriptionDeleteRequestPdu(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Equal(t, 1, int(ricReq.RequestorID))
 	assert.Equal(t, 2, int(ricReq.InstanceID))
-	assert.Equal(t, 1, int(ranFuncID))
+	assert.Equal(t, 3, int(ranFuncID))
 }

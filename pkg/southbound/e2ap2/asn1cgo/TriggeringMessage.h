@@ -22,7 +22,7 @@ extern "C" {
 typedef enum TriggeringMessage {
 	TriggeringMessage_initiating_message	= 0,
 	TriggeringMessage_successful_outcome	= 1,
-	TriggeringMessage_unsuccessfull_outcome	= 2
+	TriggeringMessage_UNSUCCESSFUL_outcome	= 2
 } e_TriggeringMessage;
 
 /* TriggeringMessage */

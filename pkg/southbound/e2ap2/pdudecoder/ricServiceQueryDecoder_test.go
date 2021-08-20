@@ -28,6 +28,8 @@ func Test_DecodeRicServiceQueryPdu(t *testing.T) {
 	rfa200, ok := ranFunctionsAccepted[200]
 	assert.Assert(t, ok, "expected a key '200'")
 	assert.Equal(t, 2, int(rfa200))
-	//ToDo - change TransactionID to correct one
-	assert.Equal(t, int32(0), transactionID)
+
+	if transactionID != nil {
+		assert.Equal(t, int32(54), *transactionID)
+	}
 }

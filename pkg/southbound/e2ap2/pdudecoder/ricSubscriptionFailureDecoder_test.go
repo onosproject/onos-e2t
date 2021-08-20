@@ -31,15 +31,12 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 
 	assert.Equal(t, v2beta1.ProcedureCodeIDRICsubscription, pc)
 	assert.Equal(t, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE, crit)
-	assert.Equal(t, e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME, tm)
+	assert.Equal(t, e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME, tm)
 
-	// TODO: Should be 10
 	assert.Equal(t, 10, int(critReq.RequestorID))
-	// TODO: Should be 20
 	assert.Equal(t, 20, int(critReq.InstanceID))
 
 	//ToDo - adjust Cause verification
-	assert.Equal(t, e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE, cause.GetTransport())
-	assert.Assert(t, diags == nil)
-
+	assert.Equal(t, e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD, cause.GetMisc())
+	assert.Assert(t, diags != nil)
 }

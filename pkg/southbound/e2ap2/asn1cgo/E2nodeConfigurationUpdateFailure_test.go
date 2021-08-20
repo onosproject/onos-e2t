@@ -21,7 +21,7 @@ func createE2nodeConfigurationUpdateFailureMsg() (*e2ap_pdu_contents.E2NodeConfi
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V2S
 	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
 	e2nodeConfigurationUpdateFailure, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(1, &e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{

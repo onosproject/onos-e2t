@@ -48,8 +48,8 @@
                         <criticality><reject/></criticality>
                         <value>
                             <RICrequestID>
-                                <ricRequestorID>10</ricRequestorID>
-                                <ricInstanceID>20</ricInstanceID>
+                                <ricRequestorID>22</ricRequestorID>
+                                <ricInstanceID>6</ricInstanceID>
                             </RICrequestID>
                         </value>
                     </ErrorIndication-IEs>

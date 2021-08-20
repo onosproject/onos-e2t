@@ -28,12 +28,13 @@ func Test_DecodeE2connectionUpdateFailurePdu(t *testing.T) {
 	assert.Equal(t, int32(*ttw), int32(e2ap_ies.TimeToWait_TIME_TO_WAIT_V5S))
 	assert.Equal(t, int32(*pr), int32(8))
 	assert.Equal(t, int32(*crit), int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE))
-	assert.Equal(t, int32(*tm), int32(e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME))
+	assert.Equal(t, int32(*tm), int32(e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME))
 	assert.Equal(t, int32(cdrID.InstanceID), int32(20))
 	assert.Equal(t, int32(cdrID.RequestorID), int32(10))
 	assert.Equal(t, int32(diags[0].IEId), int32(30))
 	assert.Equal(t, int32(diags[0].IECriticality), int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE))
 	assert.Equal(t, int32(diags[0].TypeOfError), int32(e2apies.TypeOfError_TYPE_OF_ERROR_MISSING))
-	//ToDo - change Transaction ID to real one
-	assert.Equal(t, int32(0), transactionID)
+	if transactionID != nil {
+		assert.Equal(t, int32(1), *transactionID)
+	}
 }

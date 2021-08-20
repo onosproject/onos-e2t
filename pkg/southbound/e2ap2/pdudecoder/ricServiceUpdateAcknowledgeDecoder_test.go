@@ -42,6 +42,7 @@ func Test_DecodeRicServiceUpdateAcknowledgePdu(t *testing.T) {
 		}
 	}
 
-	//ToDo - change TransactionID to correct one
-	assert.Equal(t, int32(0), transactionID)
+	if transactionID != nil {
+		assert.Equal(t, int32(1), *transactionID)
+	}
 }

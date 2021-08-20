@@ -30,7 +30,6 @@ func Test_DecodeRicIndicationPdu(t *testing.T) {
 	assert.Equal(t, 1, int(ricIndicationSn), "unexpected ricIndicationSn")
 	assert.Equal(t, e2apies.RicindicationType_RICINDICATION_TYPE_INSERT, ricIndicationType, "unexpected ricIndicationType")
 	assert.Assert(t, ricRequest != nil)
-
 }
 
 func Test_DecodeRicIndicationPdu2(t *testing.T) {
@@ -58,5 +57,4 @@ func Test_DecodeRicIndicationPdu2(t *testing.T) {
 	assert.Equal(t, 0, int(ricIndicationSn), "unexpected ricIndicationSn")
 	assert.Equal(t, e2apies.RicindicationType_RICINDICATION_TYPE_REPORT, ricIndicationType, "unexpected ricIndicationType")
 	assert.Assert(t, ricRequest != nil)
-
 }

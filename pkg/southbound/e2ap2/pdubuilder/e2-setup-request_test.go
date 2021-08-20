@@ -16,8 +16,6 @@ import (
 func TestE2SetupRequest(t *testing.T) {
 	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
 	e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
-	e2nccu1 := CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)
-	e2nccu2 := CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)
 	ranFunctionList := make(types.RanFunctions)
 	ranFunctionList[100] = types.RanFunctionItem{
 		Description: []byte("Type 1"),
@@ -40,10 +38,10 @@ func TestE2SetupRequest(t *testing.T) {
 	newE2apPdu, err := CreateE2SetupRequestPdu(1, ge2nID, ranFunctionList, []*types.E2NodeComponentConfigUpdateItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 			E2NodeComponentID:           &e2ncID1,
-			E2NodeComponentConfigUpdate: e2nccu1},
+			E2NodeComponentConfigUpdate: CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)},
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
 			E2NodeComponentID:           &e2ncID2,
-			E2NodeComponentConfigUpdate: e2nccu2},
+			E2NodeComponentConfigUpdate: CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)},
 	})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
@@ -68,8 +66,6 @@ func TestE2SetupRequest(t *testing.T) {
 func TestE2SetupRequestCuDuIDs(t *testing.T) {
 	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
 	e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
-	e2nccu1 := CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)
-	e2nccu2 := CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)
 	ranFunctionList := make(types.RanFunctions)
 	ranFunctionList[100] = types.RanFunctionItem{
 		Description: []byte("Type 1"),
@@ -92,10 +88,10 @@ func TestE2SetupRequestCuDuIDs(t *testing.T) {
 	newE2apPdu, err := CreateE2SetupRequestPdu(1, ge2nID, ranFunctionList, []*types.E2NodeComponentConfigUpdateItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 			E2NodeComponentID:           &e2ncID1,
-			E2NodeComponentConfigUpdate: e2nccu1},
+			E2NodeComponentConfigUpdate: CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)},
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
 			E2NodeComponentID:           &e2ncID2,
-			E2NodeComponentConfigUpdate: e2nccu2},
+			E2NodeComponentConfigUpdate: CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)},
 	})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)

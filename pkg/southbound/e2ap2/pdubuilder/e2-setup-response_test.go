@@ -14,6 +14,8 @@ import (
 )
 
 func TestE2SetupResponse(t *testing.T) {
+	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
+	e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
@@ -41,27 +43,28 @@ func TestE2SetupResponse(t *testing.T) {
 	response.SetRanFunctionAccepted(rfAccepted).SetRanFunctionRejected(rfRejected).
 		SetE2nodeComponentConfigUpdateAck([]*types.E2NodeComponentConfigUpdateAckItem{
 			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-				//E2NodeComponentID: e2ncID1,
+				E2NodeComponentID: &e2ncID1,
 				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
 					UpdateOutcome: 1,
-					//FailureCause: e2ap_ies.Cause{
-					//	Cause: &e2ap_ies.Cause_Protocol{
-					//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
-					//	},
-					//},
+					FailureCause: &e2ap_ies.Cause{
+						Cause: &e2ap_ies.Cause_Protocol{
+							Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+						},
+					},
 				}},
 			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-				//E2NodeComponentID: e2ncID2,
+				E2NodeComponentID: &e2ncID2,
 				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
 					UpdateOutcome: 1,
-					//FailureCause: e2ap_ies.Cause{
-					//	Cause: &e2ap_ies.Cause_Protocol{
-					//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
-					//	},
-					//},
+					FailureCause: &e2ap_ies.Cause{
+						Cause: &e2ap_ies.Cause_Protocol{
+							Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+						},
+					},
 				}}})
 
 	newE2apPdu, err := CreateResponseE2apPdu(response)
+	assert.NilError(t, err)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

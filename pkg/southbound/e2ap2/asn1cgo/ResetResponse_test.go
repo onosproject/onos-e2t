@@ -19,7 +19,7 @@ import (
 func createResetResponseMsg() (*e2ap_pdu_contents.ResetResponse, error) {
 	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
 	resetResponse, err := pdubuilder.CreateResetResponseE2apPdu(1)
 	if err != nil {

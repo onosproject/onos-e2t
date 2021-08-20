@@ -77,7 +77,6 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *ty
 		e2nccual = append(e2nccual, &e2nccuai)
 	}
 
-
 	transactionID := e2setup.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
 
 	return &transactionID, &ricIdentity, rfAccepted, rfRejected, e2nccual, nil

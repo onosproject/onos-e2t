@@ -21,6 +21,11 @@ func DecodeE2connectionUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApP
 		return nil, nil, nil, fmt.Errorf("error E2APpdu does not have E2connectionUpdateAcknowledge")
 	}
 
+	if e2cua.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes49().GetValue() == nil {
+		return nil, nil, nil, fmt.Errorf("E2connectionUpdateAcknowledge doesn't have TransactionID which is a mandatory field")
+	}
+	transactionID := e2cua.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
+
 	connSetup := make([]*types.E2ConnectionUpdateItem, 0)
 	list := e2cua.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes39().GetValue().GetValue()
 	for _, ie := range list {
@@ -40,8 +45,6 @@ func DecodeE2connectionUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApP
 		item.Cause = *ie.GetValue().GetCause()
 		connSetupFail = append(connSetupFail, &item)
 	}
-
-	transactionID := e2cua.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
 
 	return &transactionID, connSetup, connSetupFail, nil
 }

@@ -19,7 +19,7 @@ func TestE2SetupFailure(t *testing.T) {
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V10S
 	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
 	tnlInfo, err := CreateTnlInformation(&asn1.BitString{
 		Value: []byte{0x00, 0x00, 0x01},

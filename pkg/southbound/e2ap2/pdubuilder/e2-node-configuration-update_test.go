@@ -24,22 +24,19 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 
 	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
 	e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
-	e2nccu1 := CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), []byte("xnAp"), []byte("e1Ap"), []byte("f1Ap"), nil)
-	e2nccu2 := CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), []byte("x2"))
 
 	e2nodeConfigurationUpdate, err := CreateE2NodeConfigurationUpdateE2apPdu(1)
 	assert.NilError(t, err)
 	assert.Assert(t, e2nodeConfigurationUpdate != nil)
 
-
 	e2nodeConfigurationUpdate.GetInitiatingMessage().GetProcedureCode().GetE2NodeConfigurationUpdate().GetInitiatingMessage().
 		SetE2nodeComponentConfigUpdate([]*types.E2NodeComponentConfigUpdateItem{
 			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 				E2NodeComponentID:           &e2ncID1,
-				E2NodeComponentConfigUpdate: e2nccu1},
+				E2NodeComponentConfigUpdate: CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), []byte("xnAp"), []byte("e1Ap"), []byte("f1Ap"), nil)},
 			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
 				E2NodeComponentID:           &e2ncID2,
-				E2NodeComponentConfigUpdate: e2nccu2},
+				E2NodeComponentConfigUpdate: CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), []byte("x2"))},
 		}).SetGlobalE2nodeID(ge2nID)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(e2nodeConfigurationUpdate)

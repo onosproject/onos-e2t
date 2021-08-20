@@ -28,7 +28,7 @@ func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, 
 		ranFunctionsAddedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 			Description: val.GetRanFunctionDefinition().GetValue(),
 			Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
-			OID:         val.GetRanFunctionOid().GetValue(),
+			OID:         types.RanFunctionOID(val.GetRanFunctionOid().GetValue()),
 		}
 	}
 
@@ -48,7 +48,7 @@ func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, 
 		ranFunctionsModifiedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 			Description: val.GetRanFunctionDefinition().GetValue(),
 			Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
-			OID:         val.GetRanFunctionOid().GetValue(),
+			OID:         types.RanFunctionOID(val.GetRanFunctionOid().GetValue()),
 		}
 	}
 

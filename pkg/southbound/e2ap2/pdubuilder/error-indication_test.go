@@ -18,14 +18,14 @@ func TestErrorIndicationE2apPdu(t *testing.T) {
 	var ranFuncID types.RanFunctionID = 9
 	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
 	newE2apPdu := CreateErrorIndicationE2apPduEmpty()
 	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetErrorIndication().GetInitiatingMessage().
 		SetTransactionID(21).SetCause(&e2apies.Cause{
-			Cause: &e2apies.Cause_Misc{
-				Misc: e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED,
-			},
+		Cause: &e2apies.Cause_Misc{
+			Misc: e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED,
+		},
 	}).SetRanFunctionID(&ranFuncID).SetRicRequestID(&types.RicRequest{
 		RequestorID: 10,
 		InstanceID:  20,
@@ -63,7 +63,7 @@ func TestErrorIndicationE2apPduExcludeSomeOptionalIEs(t *testing.T) {
 	var ranFuncID types.RanFunctionID = 9
 	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 	var trID int32 = 21
 	newE2apPdu, err := CreateErrorIndicationE2apPdu(&trID, nil, &ranFuncID,
 		&e2apies.Cause{

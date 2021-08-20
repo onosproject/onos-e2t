@@ -40,6 +40,7 @@ func Test_DecodeRicServiceUpdatePdu(t *testing.T) {
 	assert.DeepEqual(t, []byte(rfml[200].OID), []byte("oid4"))
 	assert.Equal(t, int(rfml[200].Revision), 4)
 
-	//ToDo - change TransactionID to correct one
-	assert.Equal(t, int32(0), transactionID)
+	if transactionID != nil {
+		assert.Equal(t, int32(1), *transactionID)
+	}
 }
