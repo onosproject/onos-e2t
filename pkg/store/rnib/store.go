@@ -35,7 +35,7 @@ type Store interface {
 	List(ctx context.Context, filters *topoapi.Filters) ([]topoapi.Object, error)
 
 	// Delete deletes an R-NIB object using the given ID
-	Delete(ctx context.Context, id topoapi.ID) error
+	Delete(ctx context.Context, object *topoapi.Object) error
 
 	// Watch watches topology events
 	Watch(ctx context.Context, ch chan<- topoapi.Event, filters *topoapi.Filters) error
@@ -117,9 +117,10 @@ func (s *rnibStore) List(ctx context.Context, filters *topoapi.Filters) ([]topoa
 }
 
 // Delete deletes an R-NIB object using the given ID
-func (s *rnibStore) Delete(ctx context.Context, id topoapi.ID) error {
+func (s *rnibStore) Delete(ctx context.Context, object *topoapi.Object) error {
 	_, err := s.client.Delete(ctx, &topoapi.DeleteRequest{
-		ID: id,
+		ID:       object.GetID(),
+		Revision: object.GetRevision(),
 	})
 	if err != nil {
 		return errors.FromGRPC(err)

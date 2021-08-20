@@ -10,12 +10,9 @@ import (
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
-
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -38,11 +35,6 @@ func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controlle
 	})
 	return c
 }
-
-type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
-	ranFuncID types.RanFunctionID, ricEventDef types.RicEventDefintion,
-	ricActionsToBeSetup map[types.RicActionID]types.RicActionDef) (
-	*e2appducontents.RicsubscriptionRequest, error)
 
 // Reconciler is a device change reconciler
 type Reconciler struct {

@@ -77,12 +77,9 @@ func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
 		Interfaces: interfaces,
 	}
 
-	var expiration *time.Time
-	t := time.Now().Add(defaultExpirationDuration)
-	expiration = &t
-
+	expiration := time.Now().Add(defaultExpirationDuration)
 	leaseAspect := &topoapi.Lease{
-		Expiration: expiration,
+		Expiration: &expiration,
 	}
 
 	err := object.SetAspect(e2tAspect)
@@ -124,7 +121,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			// Check if the the lease is expired
 			if lease.Expiration.Before(time.Now()) {
 				log.Debugf("Deleting the expired lease for E2T with ID: %s", e2tID)
-				err := r.rnib.Delete(ctx, e2tID)
+				err := r.rnib.Delete(ctx, object)
 				if !errors.IsNotFound(err) {
 					return controller.Result{}, err
 				}
@@ -158,11 +155,10 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 			// Renew the release to trigger the reconciler
 			log.Debugf("Renew the lease for E2T with ID: %s", e2tID)
-			var expiration *time.Time
-			t := time.Now().Add(defaultExpirationDuration)
-			expiration = &t
-
-			leaseAspect.Expiration = expiration
+			expiration := time.Now().Add(defaultExpirationDuration)
+			leaseAspect = &topoapi.Lease{
+				Expiration: &expiration,
+			}
 
 			err = object.SetAspect(leaseAspect)
 			if err != nil {

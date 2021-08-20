@@ -115,15 +115,15 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 	log.Debug("Test create E2 node")
 	object, err := r.rnib.Get(ctx, channel.E2NodeID)
 	if err == nil {
-		aspects := &topoapi.E2Node{
+		aspect := &topoapi.E2Node{
 			ServiceModels: channel.ServiceModels,
 		}
-		err := object.SetAspect(aspects)
+		err := object.SetAspect(aspect)
 		if err != nil {
 			return err
 		}
 		err = r.rnib.Update(ctx, object)
-		if (err != nil) && !errors.IsNotFound(err) {
+		if err != nil && !errors.IsNotFound(err) {
 			return err
 		}
 		return nil
@@ -145,11 +145,11 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 		Labels:  map[string]string{},
 	}
 
-	aspects := &topoapi.E2Node{
+	aspect := &topoapi.E2Node{
 		ServiceModels: channel.ServiceModels,
 	}
 
-	err = object.SetAspect(aspects)
+	err = object.SetAspect(aspect)
 	if err != nil {
 		log.Warnf("Creating E2Node entity '%s' for Channel failed '%s': %v", channel.E2NodeID, channel.ID, err)
 		return err
@@ -277,14 +277,18 @@ func (r *Reconciler) reconcileE2ControlRelation(channel *e2server.E2Channel) (co
 func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, channelID e2server.ChannelID) error {
 	relationID := utils.GetE2ControlRelationID(channelID)
 	log.Debugf("Deleting E2Node relation '%s' for Channel '%s'", relationID, channelID)
-	err := r.rnib.Delete(ctx, relationID)
-	if err != nil {
-		if !errors.IsNotFound(err) {
-			log.Warnf("Deleting E2Node relation '%s' for Channel '%s' failed: %v", relationID, channelID, err)
-			return err
+	object, err := r.rnib.Get(ctx, relationID)
+	if err == nil {
+		err := r.rnib.Delete(ctx, object)
+		if err != nil {
+			if !errors.IsNotFound(err) {
+				log.Warnf("Deleting E2Node relation '%s' for Channel '%s' failed: %v", relationID, channelID, err)
+				return err
+			}
+			return nil
 		}
-		return nil
 	}
+
 	return nil
 }
 
