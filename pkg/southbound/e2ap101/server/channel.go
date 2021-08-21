@@ -6,7 +6,9 @@ package server
 
 import (
 	"context"
+
 	"github.com/google/uuid"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/uri"
 
 	"sync"
@@ -17,14 +19,11 @@ import (
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
-
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
 )
 
-func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIdentity, channel e2.ServerChannel,
-	streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
+func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIdentity, channel e2.ServerChannel, streamsv1beta1 subscriptionv1beta1.Broker,
 	serviceModels map[string]*topoapi.ServiceModelInfo, ranFunctions map[e2smtypes.OID]RANFunction, e2Cells []*topoapi.E2Cell, now time.Time) *E2Channel {
 
 	channelID := ChannelID(uri.NewURI(
@@ -39,7 +38,6 @@ func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeId
 		NodeID:         string(nodeID),
 		NodeType:       nodeIdentity.NodeType,
 		TimeAlive:      now,
-		streams:        streams,
 		streamsv1beta1: streamsv1beta1,
 		ServiceModels:  serviceModels,
 		RANFunctions:   ranFunctions,
@@ -65,7 +63,6 @@ type E2Channel struct {
 	NodeType       types.E2NodeType
 	PlmnID         string
 	TimeAlive      time.Time
-	streams        subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	ServiceModels  map[string]*topoapi.ServiceModelInfo
 	RANFunctions   map[e2smtypes.OID]RANFunction
@@ -95,12 +92,7 @@ func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.
 	streamID := subscriptionv1beta1.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	stream, ok := c.streamsv1beta1.GetWriter(streamID)
 	if !ok {
-		deprecatedStreamID := subscription.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
-		deprecatedStream, err := c.streams.GetStream(deprecatedStreamID)
-		if err != nil {
-			return err
-		}
-		return deprecatedStream.Send(request)
+		return errors.NewNotFound("cannot find the stream with ID %s", streamID)
 	}
 	return stream.Send(request)
 }
