@@ -43,7 +43,7 @@ func createRicServiceUpdateAcknowledgeMsg() (*e2ap_pdu_contents.RicserviceUpdate
 	}
 
 	//if err := ricserviceUpdateAcknowledge.Validate(); err != nil {
-		//return nil, fmt.Errorf("error validating RicserviceUpdateAcknowledge %s", err.Error())
+	//return nil, fmt.Errorf("error validating RicserviceUpdateAcknowledge %s", err.Error())
 	//}
 	return ricserviceUpdateAcknowledge.GetSuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetSuccessfulOutcome(), nil
 }

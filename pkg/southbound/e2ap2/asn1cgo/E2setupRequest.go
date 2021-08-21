@@ -12,6 +12,7 @@ package asn1cgo
 //#include "E2setupRequest.h"
 import "C"
 import (
+	"fmt"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"unsafe"
 )
@@ -41,6 +42,28 @@ func perEncodeE2SetupRequest(e2SetupRequest *e2appducontents.E2SetupRequest) ([]
 	}
 
 	return bytes, nil
+}
+
+func xerDecodeE2SetupRequest(bytes []byte) (*e2appducontents.E2SetupRequest, error) {
+	unsafePtr, err := decodeXer(bytes, &C.asn_DEF_E2setupRequest)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	return decodeE2setupRequest((*C.E2setupRequest_t)(unsafePtr))
+}
+
+func perDecodeE2SetupRequest(bytes []byte) (*e2appducontents.E2SetupRequest, error) {
+	unsafePtr, err := decodePer(bytes, len(bytes), &C.asn_DEF_E2setupRequest)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
+	}
+	return decodeE2setupRequest((*C.E2setupRequest_t)(unsafePtr))
 }
 
 func newE2SetupRequest(esr *e2appducontents.E2SetupRequest) (*C.E2setupRequest_t, error) {

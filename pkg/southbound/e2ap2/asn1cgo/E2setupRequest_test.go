@@ -18,8 +18,6 @@ func Test_E2setupRequest(t *testing.T) {
 
 	//e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
 	//e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
-	e2nccu1 := pdubuilder.CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)
-	e2nccu2 := pdubuilder.CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)
 	ranFunctionList := make(types.RanFunctions)
 	ranFunctionList[100] = types.RanFunctionItem{
 		Description: []byte("Type 1"),
@@ -42,36 +40,33 @@ func Test_E2setupRequest(t *testing.T) {
 	e2srPdu, err := pdubuilder.CreateE2SetupRequestPdu(1, globale2nID, ranFunctionList, []*types.E2NodeComponentConfigUpdateItem{
 		{E2NodeComponentType: e2apies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 			//E2NodeComponentID:           &e2ncID1,
-			E2NodeComponentConfigUpdate: e2nccu1},
+			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)},
 		{E2NodeComponentType: e2apies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
 			//E2NodeComponentID:           &e2ncID2,
-			E2NodeComponentConfigUpdate: e2nccu2},
+			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)},
 	})
 	assert.NilError(t, err)
 	assert.Assert(t, e2srPdu != nil)
 
 	e2sr := e2srPdu.GetInitiatingMessage().GetProcedureCode().GetE2Setup().GetInitiatingMessage()
 
-	// Convert this Go struct in to a C struct
-	e2srC, err := newE2SetupRequest(e2sr)
-	assert.NilError(t, err)
-	assert.Assert(t, e2srC != nil)
-
-	// Now reverse it and decode the other way round to a Go struct
-	e2srFedback, err := decodeE2setupRequest(e2srC)
-	assert.NilError(t, err)
-	//assert.Assert(t, e2srFedback != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on line 54
-	ge2nID := e2srFedback.ProtocolIes.E2ApProtocolIes3.Value.GlobalE2NodeId.(*e2apies.GlobalE2NodeId_GNb)
-	assert.Equal(t, "ONF", string(ge2nID.GNb.GlobalGNbId.PlmnId.Value))
-	gnbID := ge2nID.GNb.GlobalGNbId.GnbId.GnbIdChoice.(*e2apies.GnbIdChoice_GnbId)
-	assert.DeepEqual(t, []byte{0xd4, 0xcb, 0x8c}, gnbID.GnbId.Value)
-	assert.Equal(t, uint32(22), gnbID.GnbId.Len)
-
-	xer, err := xerEncodeE2SetupRequest(e2srFedback)
+	xer, err := xerEncodeE2SetupRequest(e2sr)
 	assert.NilError(t, err)
 	t.Logf("XER E2SetupRequest: \n%s", string(xer))
 
-	per, err := perEncodeE2SetupRequest(e2srFedback)
+	e2srReversed, err := xerDecodeE2SetupRequest(xer)
+	assert.NilError(t, err)
+	assert.Assert(t, e2srReversed != nil)
+	t.Logf("E2SetupRequest decoded from XER is \n%v", e2srReversed)
+	assert.Equal(t, e2sr.String(), e2srReversed.String())
+
+	per, err := perEncodeE2SetupRequest(e2sr)
 	assert.NilError(t, err)
 	t.Logf("PER E2SetupRequest: \n%v", hex.Dump(per))
+
+	e2srReversedPer, err := perDecodeE2SetupRequest(per)
+	assert.NilError(t, err)
+	assert.Assert(t, e2srReversedPer != nil)
+	t.Logf("E2SetupRequest decoded from PER is \n%v", e2srReversedPer)
+	assert.Equal(t, e2sr.String(), e2srReversedPer.String())
 }

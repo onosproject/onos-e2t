@@ -31,7 +31,7 @@ func createGlobalE2nodeNgEnbIDMsg() (*e2ap_ies.GlobalE2NodeNgEnbId, error) {
 			},
 		},
 		NgEnbDuId: &e2ap_ies.NgenbDuId{
-			Value: 1,
+			Value: 2,
 		},
 	}
 
@@ -45,6 +45,7 @@ func Test_xerEncodingGlobalE2nodeNgEnbID(t *testing.T) {
 
 	globalE2nodeNgEnbID, err := createGlobalE2nodeNgEnbIDMsg()
 	assert.NilError(t, err, "Error creating GlobalE2nodeNgEnbId PDU")
+	t.Logf("GlobalE2nodeNgEnbID to be encoded\n%v", globalE2nodeNgEnbID)
 
 	xer, err := xerEncodeGlobalE2nodeNgEnbID(globalE2nodeNgEnbID)
 	assert.NilError(t, err)

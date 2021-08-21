@@ -33,7 +33,7 @@ func createGlobalE2nodeEnGnbIDMsg() (*e2ap_ies.GlobalE2NodeEnGnbId, error) {
 			Value: 123,
 		},
 		EnGNbDuId: &e2ap_ies.GnbDuId{
-			Value: 1,
+			Value: 2,
 		},
 	}
 

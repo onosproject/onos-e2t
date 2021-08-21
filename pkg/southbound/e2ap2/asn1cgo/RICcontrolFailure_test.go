@@ -10,7 +10,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"gotest.tools/assert"
-	"reflect"
 	"testing"
 )
 
@@ -44,8 +43,7 @@ func Test_RICcontrolFailure(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("RICcontrolFailureMessage decoded from XER is \n%v", e2apPdu)
 	//assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
-	out := reflect.DeepEqual(e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
-	assert.Assert(t, out != false)
+	assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().String(), e2apPdu.String())
 
 	per, err := perEncodeRICcontrolFailure(
 		e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome())
@@ -56,6 +54,5 @@ func Test_RICcontrolFailure(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("RICcontrolFailureMessage is \n%v", e2apPdu)
 	//assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
-	out1 := reflect.DeepEqual(e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
-	assert.Assert(t, out1 != false)
+	assert.Equal(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().String(), e2apPdu.String())
 }

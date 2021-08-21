@@ -10,7 +10,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
 	"gotest.tools/assert"
-	"reflect"
 	"testing"
 )
 
@@ -40,8 +39,7 @@ func Test_RICcontrolRequest(t *testing.T) {
 	assert.NilError(t, err)
 	//assert.DeepEqual(t, e2ApPduRcr, e2apPdu)
 	t.Logf("XER RICcontrolRequest - decoded\n%v", e2apPdu)
-	res := reflect.DeepEqual(e2ApPduRcr, e2apPdu)
-	assert.Assert(t, res != false)
+	assert.Equal(t, e2ApPduRcr.String(), e2apPdu.String())
 
 	per, err := perEncodeRICcontrolRequest(e2ApPduRcr)
 	assert.NilError(t, err)
@@ -51,6 +49,5 @@ func Test_RICcontrolRequest(t *testing.T) {
 	assert.NilError(t, err)
 	//assert.DeepEqual(t, e2ApPduRcr, e2apPdu)
 	t.Logf("PER RICcontrolRequest - decoded\n%v", e2apPdu)
-	res1 := reflect.DeepEqual(e2ApPduRcr, e2apPdu)
-	assert.Assert(t, res1 != false)
+	assert.Equal(t, e2ApPduRcr.String(), e2apPdu.String())
 }
