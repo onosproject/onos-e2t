@@ -54,11 +54,12 @@ type Reconciler struct {
 func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
 	relationID := utils.GetE2ControlRelationID(channel.ID)
 	_, err := r.rnib.Get(ctx, relationID)
-	if err == nil {
-		return true, nil
-	} else if !errors.IsNotFound(err) {
-		log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
-		return false, err
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
+			return false, err
+		}
+		return false, nil
 	}
 
 	log.Debugf("Creating E2Node '%s' control relation '%s'", channel.E2NodeID, relationID)
@@ -80,7 +81,7 @@ func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2ser
 			log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
 			return false, err
 		}
-		return true, nil
+		return false, nil
 	}
 	return true, nil
 }
@@ -111,6 +112,13 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	} else if ok {
 		return controller.Result{}, nil
 	}
+
+	if ok, err := r.createE2CellRelations(ctx, channel); err != nil {
+		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
+	}
+
 	if ok, err := r.createE2ControlRelation(ctx, channel); err != nil {
 		return controller.Result{}, err
 	} else if ok {
@@ -151,10 +159,12 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 		}
 
 		err = r.rnib.Create(ctx, object)
-		if err != nil && !errors.IsAlreadyExists(err) {
-			log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
-			return false, err
-
+		if err != nil {
+			if !errors.IsAlreadyExists(err) {
+				log.Warnf("Creating E2Node entity '%s' for Channel '%s': %v", channel.E2NodeID, channel.ID, err)
+				return false, err
+			}
+			return false, nil
 		}
 		return true, nil
 	}
@@ -163,7 +173,7 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 	err = object.GetAspect(e2NodeAspect)
 	if err == nil {
 		log.Debug("E2 node %s aspect is already set ", channel.E2NodeID)
-		return true, nil
+		return false, nil
 	}
 
 	e2NodeAspect = &topoapi.E2Node{
@@ -174,32 +184,44 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 		return false, err
 	}
 	err = r.rnib.Update(ctx, object)
-	if err != nil && !errors.IsNotFound(err) {
-		return false, err
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			return false, err
+		}
+		return false, nil
 	}
 	return true, nil
+}
 
+func (r *Reconciler) createE2CellRelations(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
+	for _, e2Cell := range channel.E2Cells {
+		if ok, err := r.createE2CellRelation(ctx, channel, e2Cell); err != nil {
+			return false, err
+		} else if ok {
+			return true, nil
+		}
+	}
+	return false, nil
 }
 
 func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
 	for _, e2Cell := range channel.E2Cells {
-		if err := r.createE2Cell(ctx, channel, e2Cell); err != nil {
+		if ok, err := r.createE2Cell(ctx, channel, e2Cell); err != nil {
 			return false, err
-		}
-		if err := r.createE2CellRelation(ctx, channel, e2Cell); err != nil {
-			return false, err
+		} else if ok {
+			return true, nil
 		}
 	}
-	return true, nil
+	return false, nil
 }
 
-func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) error {
+func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) (bool, error) {
 	cellID := utils.GetCellID(channel, cell)
 	object, err := r.rnib.Get(ctx, cellID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
-			return err
+			return false, err
 		}
 
 		log.Debugf("Creating E2Cell entity '%s' for Channel '%s'", cell.CellGlobalID.Value, channel.ID)
@@ -218,48 +240,55 @@ func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Chann
 		err = object.SetAspect(cell)
 		if err != nil {
 			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
-			return err
+			return false, err
 		}
 
 		err = r.rnib.Create(ctx, object)
 		if err != nil {
-			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
-			return err
+			if !errors.IsAlreadyExists(err) {
+				log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
+				return false, err
+			}
+			return false, nil
 		}
-		return nil
+		return true, nil
 	}
 
 	e2CellAspect := &topoapi.E2Cell{}
 	err = object.GetAspect(e2CellAspect)
 	if err == nil {
 		log.Debug("E2 cell %s aspect is already set", cellID)
-		return nil
+		return false, nil
 	}
 
 	log.Debugf("Updating E2Cell entity '%s' for Channel '%s'", cell.CellGlobalID.Value, channel.ID)
 	err = object.SetAspect(cell)
 	if err != nil {
 		log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
-		return err
+		return false, err
 	}
 
 	err = r.rnib.Update(ctx, object)
 	if err != nil {
-		log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
-		return err
+		if !errors.IsNotFound(err) {
+			log.Warnf("Creating E2Cell entity '%s' for Channel '%s': %v", cell.CellGlobalID.Value, channel.ID, err)
+			return false, err
+		}
+		return false, nil
 	}
-	return nil
+	return true, nil
 }
 
-func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) error {
+func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) (bool, error) {
 	cellID := utils.GetCellID(channel, cell)
 	relationID := utils.GetCellRelationID(channel, cell)
 	_, err := r.rnib.Get(ctx, relationID)
-	if err == nil {
-		return nil
-	} else if !errors.IsNotFound(err) {
-		log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
-		return err
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
+			return false, err
+		}
+		return false, nil
 	}
 
 	log.Debugf("Creating E2Cell '%s' relation '%s' for Channel '%s'", cellID, relationID, channel.ID)
@@ -279,11 +308,11 @@ func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server
 	if err != nil {
 		if !errors.IsAlreadyExists(err) {
 			log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
-			return err
+			return false, err
 		}
-		return nil
+		return false, nil
 	}
-	return nil
+	return true, nil
 }
 
 func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, channelID e2server.ChannelID) error {
