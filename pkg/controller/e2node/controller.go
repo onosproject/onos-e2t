@@ -59,31 +59,29 @@ func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2ser
 			log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
 			return false, err
 		}
-		return false, nil
-	}
-
-	log.Debugf("Creating E2Node '%s' control relation '%s'", channel.E2NodeID, relationID)
-	object := &topoapi.Object{
-		ID:   relationID,
-		Type: topoapi.Object_RELATION,
-		Obj: &topoapi.Object_Relation{
-			Relation: &topoapi.Relation{
-				KindID:      topoapi.CONTROLS,
-				SrcEntityID: utils.GetE2TID(),
-				TgtEntityID: channel.E2NodeID,
+		log.Debugf("Creating E2Node '%s' control relation '%s'", channel.E2NodeID, relationID)
+		object := &topoapi.Object{
+			ID:   relationID,
+			Type: topoapi.Object_RELATION,
+			Obj: &topoapi.Object_Relation{
+				Relation: &topoapi.Relation{
+					KindID:      topoapi.CONTROLS,
+					SrcEntityID: utils.GetE2TID(),
+					TgtEntityID: channel.E2NodeID,
+				},
 			},
-		},
-	}
-
-	err = r.rnib.Create(ctx, object)
-	if err != nil {
-		if !errors.IsAlreadyExists(err) {
-			log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
-			return false, err
 		}
-		return false, nil
+		err = r.rnib.Create(ctx, object)
+		if err != nil {
+			if !errors.IsAlreadyExists(err) {
+				log.Warnf("Creating E2Node '%s' control relation '%s' failed: %v", channel.E2NodeID, relationID, err)
+				return false, err
+			}
+			return false, nil
+		}
+		return true, nil
 	}
-	return true, nil
+	return false, nil
 }
 
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
@@ -288,31 +286,30 @@ func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server
 			log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
 			return false, err
 		}
-		return false, nil
-	}
-
-	log.Debugf("Creating E2Cell '%s' relation '%s' for Channel '%s'", cellID, relationID, channel.ID)
-	object := &topoapi.Object{
-		ID:   relationID,
-		Type: topoapi.Object_RELATION,
-		Obj: &topoapi.Object_Relation{
-			Relation: &topoapi.Relation{
-				KindID:      topoapi.CONTAINS,
-				SrcEntityID: channel.E2NodeID,
-				TgtEntityID: cellID,
+		log.Debugf("Creating E2Cell '%s' relation '%s' for Channel '%s'", cellID, relationID, channel.ID)
+		object := &topoapi.Object{
+			ID:   relationID,
+			Type: topoapi.Object_RELATION,
+			Obj: &topoapi.Object_Relation{
+				Relation: &topoapi.Relation{
+					KindID:      topoapi.CONTAINS,
+					SrcEntityID: channel.E2NodeID,
+					TgtEntityID: cellID,
+				},
 			},
-		},
-	}
-
-	err = r.rnib.Create(ctx, object)
-	if err != nil {
-		if !errors.IsAlreadyExists(err) {
-			log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
-			return false, err
 		}
-		return false, nil
+
+		err = r.rnib.Create(ctx, object)
+		if err != nil {
+			if !errors.IsAlreadyExists(err) {
+				log.Warnf("Creating E2Cell '%s' relation '%s' for Channel '%s': %v", cellID, relationID, channel.ID, err)
+				return false, err
+			}
+			return false, nil
+		}
+		return true, nil
 	}
-	return true, nil
+	return false, nil
 }
 
 func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, channelID e2server.ChannelID) error {
