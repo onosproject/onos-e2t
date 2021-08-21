@@ -1,0 +1,13 @@
+<ErrorIndication>
+    <protocolIEs>
+        <ErrorIndication-IEs>
+            <id>5</id>
+            <criticality>
+                <ignore />
+            </criticality>
+            <value>
+                <RANfunctionID>12345</RANfunctionID>
+            </value>
+        </ErrorIndication-IEs>
+    </protocolIEs>
+</ErrorIndication>

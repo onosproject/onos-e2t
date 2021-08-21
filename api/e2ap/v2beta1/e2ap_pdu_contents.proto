@@ -170,6 +170,7 @@ message RicactionNotAdmittedList {
 message RicactionNotAdmittedItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 16, json_name="id"];
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    // @inject_tag: aper:"valueExt"
     RicactionNotAdmittedItem value = 3 [json_name="ricActionNotAdmittedItem"];
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };

@@ -4,7 +4,7 @@
 // 	protoc        v3.17.1
 // source: api/e2ap/v2beta1/e2ap_ies.proto
 
-package e2ap_ies
+package e2apies
 
 import (
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
