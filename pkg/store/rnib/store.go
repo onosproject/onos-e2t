@@ -7,21 +7,18 @@ package rnib
 import (
 	"context"
 	"io"
-	"time"
+
+	"github.com/onosproject/onos-lib-go/pkg/grpc/retry"
+	"google.golang.org/grpc/codes"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	"google.golang.org/grpc"
 )
 
 var log = logging.GetLogger("store", "rnib")
-
-const (
-	defaultRetryTimeout = 100
-)
 
 // Store topo store client interface
 type Store interface {
@@ -38,7 +35,7 @@ type Store interface {
 	List(ctx context.Context, filters *topoapi.Filters) ([]topoapi.Object, error)
 
 	// Delete deletes an R-NIB object using the given ID
-	Delete(ctx context.Context, id topoapi.ID) error
+	Delete(ctx context.Context, object *topoapi.Object) error
 
 	// Watch watches topology events
 	Watch(ctx context.Context, ch chan<- topoapi.Event, filters *topoapi.Filters) error
@@ -50,8 +47,8 @@ func NewStore(topoEndpoint string, opts ...grpc.DialOption) (Store, error) {
 		return nil, errors.New(errors.Invalid, "no opts given when creating R-NIB store")
 	}
 	opts = append(opts,
-		grpc.WithUnaryInterceptor(southbound.RetryingUnaryClientInterceptor()),
-		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(defaultRetryTimeout*time.Millisecond)))
+		grpc.WithStreamInterceptor(retry.RetryingStreamClientInterceptor(retry.WithRetryOn(codes.Unavailable, codes.Unknown))),
+		grpc.WithUnaryInterceptor(retry.RetryingUnaryClientInterceptor(retry.WithRetryOn(codes.Unavailable, codes.Unknown))))
 	conn, err := grpc.DialContext(context.Background(), topoEndpoint, opts...)
 	if err != nil {
 		log.Warn(err)
@@ -120,9 +117,10 @@ func (s *rnibStore) List(ctx context.Context, filters *topoapi.Filters) ([]topoa
 }
 
 // Delete deletes an R-NIB object using the given ID
-func (s *rnibStore) Delete(ctx context.Context, id topoapi.ID) error {
+func (s *rnibStore) Delete(ctx context.Context, object *topoapi.Object) error {
 	_, err := s.client.Delete(ctx, &topoapi.DeleteRequest{
-		ID: id,
+		ID:       object.GetID(),
+		Revision: object.GetRevision(),
 	})
 	if err != nil {
 		return errors.FromGRPC(err)

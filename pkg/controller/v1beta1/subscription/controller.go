@@ -7,10 +7,11 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/uri"
-	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
@@ -120,12 +121,14 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
 			return controller.Result{}, err
 		}
-		log.Warnf("Mastership state not found for E2Node '%s'", sub.E2NodeID)
+		log.Warnf("Mastership state not found for E2Node '%s' %v", sub.E2NodeID, err)
 		return controller.Result{}, nil
 	}
 
-	mastership := &topoapi.MastershipState{}
-	if m := e2NodeEntity.GetAspect(mastership); m == nil {
+	mastership := topoapi.MastershipState{}
+	_ = e2NodeEntity.GetAspect(&mastership)
+
+	if mastership.Term == 0 {
 		log.Warnf("Mastership state not found for E2Node '%s'", sub.E2NodeID)
 		return controller.Result{}, nil
 	}
@@ -333,8 +336,9 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, nil
 	}
 
-	mastership := &topoapi.MastershipState{}
-	if m := e2NodeEntity.GetAspect(mastership); m == nil {
+	mastership := topoapi.MastershipState{}
+	_ = e2NodeEntity.GetAspect(&mastership)
+	if mastership.Term == 0 {
 		return controller.Result{}, nil
 	}
 

@@ -6,12 +6,12 @@ package utils
 
 import (
 	"context"
-	"github.com/onosproject/onos-lib-go/pkg/southbound"
 	"io"
 	"testing"
-	"time"
 
 	"github.com/onosproject/helmit/pkg/kubernetes"
+	"github.com/onosproject/onos-lib-go/pkg/grpc/retry"
+	"google.golang.org/grpc/codes"
 
 	"github.com/onosproject/helmit/pkg/helm"
 	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
@@ -36,7 +36,8 @@ func ConnectRansimServiceHost(release *helm.HelmRelease) (*grpc.ClientConn, erro
 	}
 	opts := []grpc.DialOption{
 		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
-		grpc.WithStreamInterceptor(southbound.RetryingStreamClientInterceptor(time.Second)),
+		grpc.WithUnaryInterceptor(retry.RetryingUnaryClientInterceptor(retry.WithRetryOn(codes.Unavailable, codes.Unknown))),
+		grpc.WithStreamInterceptor(retry.RetryingStreamClientInterceptor(retry.WithRetryOn(codes.Unavailable, codes.Unknown))),
 	}
 
 	ransimServiceAddress := getRansimServiceAddress(services[0].Name)

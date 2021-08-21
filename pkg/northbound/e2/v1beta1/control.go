@@ -6,8 +6,9 @@ package v1beta1
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"sync"
+
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"google.golang.org/grpc/codes"
@@ -88,7 +89,8 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 	}
 
 	mastership := &topoapi.MastershipState{}
-	if m := e2NodeEntity.GetAspect(mastership); m == nil {
+	_ = e2NodeEntity.GetAspect(mastership)
+	if mastership.Term == 0 {
 		err := errors.NewUnavailable("not the master for %s", request.Headers.E2NodeID)
 		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
 		return nil, errors.Status(err).Err()

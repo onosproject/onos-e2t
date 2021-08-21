@@ -65,7 +65,10 @@ func (c *Client) GetE2NodeAspects(ctx context.Context, nodeID topoapi.ID) (*topo
 		return nil, err
 	}
 	e2Node := &topoapi.E2Node{}
-	object.GetAspect(e2Node)
+	err = object.GetAspect(e2Node)
+	if err != nil {
+		return nil, err
+	}
 
 	return e2Node, nil
 
@@ -87,7 +90,10 @@ func (c *Client) GetCells(ctx context.Context, nodeID topoapi.ID) ([]*topoapi.E2
 		targetEntity := obj.GetEntity()
 		if targetEntity.GetKindID() == topoapi.E2CELL {
 			cellObject := &topoapi.E2Cell{}
-			obj.GetAspect(cellObject)
+			err := obj.GetAspect(cellObject)
+			if err != nil {
+				return nil, err
+			}
 			cells = append(cells, cellObject)
 		}
 	}

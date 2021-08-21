@@ -7,6 +7,8 @@ package manager
 import (
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
+	"github.com/onosproject/onos-e2t/pkg/controller/e2node"
+	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
@@ -18,7 +20,7 @@ import (
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
-	topoctrl "github.com/onosproject/onos-e2t/pkg/controller/topo"
+	"github.com/onosproject/onos-e2t/pkg/controller/mastership"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
@@ -102,10 +104,21 @@ func (m *Manager) Start() error {
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
 	channels := e2server.NewChannelManager()
 
-	err = m.startTopov1alpha1Controller(rnibStore, channels)
+	err = m.startE2TController(rnibStore)
 	if err != nil {
 		return err
 	}
+
+	err = m.startMastershipController(rnibStore, channels)
+	if err != nil {
+		return err
+	}
+
+	err = m.startE2NodeController(rnibStore, channels)
+	if err != nil {
+		return err
+	}
+
 	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1)
 	if err != nil {
 		return err
@@ -127,10 +140,20 @@ func (m *Manager) Start() error {
 	return nil
 }
 
+func (m *Manager) startE2NodeController(rnib rnib.Store, channels e2server.ChannelManager) error {
+	e2NodeController := e2node.NewController(rnib, channels)
+	return e2NodeController.Start()
+}
+
+func (m *Manager) startE2TController(rnib rnib.Store) error {
+	e2tController := e2t.NewController(rnib)
+	return e2tController.Start()
+}
+
 // startTopov1alpha1Controller starts the topo controller
-func (m *Manager) startTopov1alpha1Controller(topo rnib.Store, channels e2server.ChannelManager) error {
-	subsv1beta1 := topoctrl.NewController(topo, channels)
-	return subsv1beta1.Start()
+func (m *Manager) startMastershipController(topo rnib.Store, channels e2server.ChannelManager) error {
+	mastershipController := mastership.NewController(topo, channels)
+	return mastershipController.Start()
 }
 
 // startChannelv1beta1Controller starts the subscription controllers

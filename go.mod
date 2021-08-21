@@ -8,15 +8,14 @@ require (
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
-	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/google/uuid v1.1.2
-	github.com/onosproject/helmit v0.6.13
-	github.com/onosproject/onos-api/go v0.7.85
+	github.com/onosproject/helmit v0.6.15
+	github.com/onosproject/onos-api/go v0.7.88
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.47
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.47
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.47
-	github.com/onosproject/onos-lib-go v0.7.15
-	github.com/onosproject/onos-ric-sdk-go v0.7.22
+	github.com/onosproject/onos-lib-go v0.7.18
+	github.com/onosproject/onos-ric-sdk-go v0.7.24
 	github.com/onosproject/onos-test v0.6.4
 	github.com/stretchr/testify v1.7.0
 	google.golang.org/grpc v1.33.2
