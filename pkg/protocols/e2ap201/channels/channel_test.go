@@ -51,6 +51,7 @@ func TestChannels(t *testing.T) {
 		Value: []byte{0x00, 0x00, 0x04},
 		Len:   22,
 	})
+	assert.NoError(t, err)
 	gnbIDIe := &e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
 		Id:          int32(v2beta1.ProtocolIeIDGlobalE2nodeID),
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
