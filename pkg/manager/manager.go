@@ -102,19 +102,19 @@ func (m *Manager) Start() error {
 
 	streams := subscription.NewBroker()
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
-	channels := e2server.NewChannelManager()
+	connections := e2server.NewConnManager()
 
 	err = m.startE2TController(rnibStore)
 	if err != nil {
 		return err
 	}
 
-	err = m.startMastershipController(rnibStore, channels)
+	err = m.startMastershipController(rnibStore, connections)
 	if err != nil {
 		return err
 	}
 
-	err = m.startE2NodeController(rnibStore, channels)
+	err = m.startE2NodeController(rnibStore, connections)
 	if err != nil {
 		return err
 	}
@@ -123,25 +123,25 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, rnibStore, channels)
+	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, rnibStore, connections)
 	if err != nil {
 		return err
 	}
 
-	err = m.startSouthboundServer(channels, streams, streamsv1beta1)
+	err = m.startSouthboundServer(connections, streams, streamsv1beta1)
 	if err != nil {
 		return err
 	}
 
-	err = m.startNorthboundServer(chanStore, subStore, streamsv1beta1, rnibStore, channels)
+	err = m.startNorthboundServer(chanStore, subStore, streamsv1beta1, rnibStore, connections)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *Manager) startE2NodeController(rnib rnib.Store, channels e2server.ChannelManager) error {
-	e2NodeController := e2node.NewController(rnib, channels)
+func (m *Manager) startE2NodeController(rnib rnib.Store, connections e2server.ConnManager) error {
+	e2NodeController := e2node.NewController(rnib, connections)
 	return e2NodeController.Start()
 }
 
@@ -151,8 +151,8 @@ func (m *Manager) startE2TController(rnib rnib.Store) error {
 }
 
 // startTopov1alpha1Controller starts the topo controller
-func (m *Manager) startMastershipController(topo rnib.Store, channels e2server.ChannelManager) error {
-	mastershipController := mastership.NewController(topo, channels)
+func (m *Manager) startMastershipController(topo rnib.Store, connections e2server.ConnManager) error {
+	mastershipController := mastership.NewController(topo, connections)
 	return mastershipController.Start()
 }
 
@@ -163,21 +163,21 @@ func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs subs
 }
 
 // startSubscriptionv1beta1Controller starts the subscription controllers
-func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, topo rnib.Store, channels e2server.ChannelManager) error {
-	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, topo, channels, m.ModelRegistry, m.OidRegistry)
+func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, topo rnib.Store, connections e2server.ConnManager) error {
+	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, topo, connections, m.ModelRegistry, m.OidRegistry)
 	return tasksv1beta1.Start()
 }
 
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, streams subscription.Broker,
+func (m *Manager) startSouthboundServer(connections e2server.ConnManager, streams subscription.Broker,
 	streamsv1beta1 subscriptionv1beta1.Broker) error {
-	server := e2server.NewE2Server(channels, streams, streamsv1beta1, m.ModelRegistry)
+	server := e2server.NewE2Server(connections, streams, streamsv1beta1, m.ModelRegistry)
 	return server.Serve()
 }
 
 // startSouthboundServer starts the northbound gRPC server
 func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streamsv1beta1 subscriptionv1beta1.Broker,
-	topo rnib.Store, channels e2server.ChannelManager) error {
+	topo rnib.Store, connections e2server.ConnManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,
@@ -185,9 +185,9 @@ func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Sto
 		int16(m.Config.GRPCPort),
 		true,
 		northbound.SecurityConfig{}))
-	s.AddService(admin.NewService(channels))
+	s.AddService(admin.NewService(connections))
 	s.AddService(logging.Service{})
-	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry, channels, m.OidRegistry, topo))
+	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry, connections, m.OidRegistry, topo))
 	s.AddService(e2v1beta1service.NewSubscriptionService(chans, subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry))
 
 	doneCh := make(chan error)

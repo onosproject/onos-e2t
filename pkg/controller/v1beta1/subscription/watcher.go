@@ -6,11 +6,12 @@ package subscription
 
 import (
 	"context"
+	"sync"
+
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
-	"sync"
 
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -63,26 +64,26 @@ func (w *Watcher) Stop() {
 
 var _ controller.Watcher = &Watcher{}
 
-// ChannelWatcher is a channel watcher
-type ChannelWatcher struct {
-	subs      substore.Store
-	channels  e2server.ChannelManager
-	cancel    context.CancelFunc
-	mu        sync.Mutex
-	channelCh chan *e2server.E2Channel
+// ConnectionWatcher is a connection watcher
+type ConnectionWatcher struct {
+	subs        substore.Store
+	connections e2server.ConnManager
+	cancel      context.CancelFunc
+	mu          sync.Mutex
+	connCh      chan *e2server.E2Conn
 }
 
-// Start starts the channel watcher
-func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
+// Start starts the connection watcher
+func (w *ConnectionWatcher) Start(ch chan<- controller.ID) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.cancel != nil {
 		return nil
 	}
 
-	w.channelCh = make(chan *e2server.E2Channel, queueSize)
+	w.connCh = make(chan *e2server.E2Conn, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.channels.Watch(ctx, w.channelCh)
+	err := w.connections.Watch(ctx, w.connCh)
 	if err != nil {
 		cancel()
 		return err
@@ -90,13 +91,13 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		for channel := range w.channelCh {
+		for conn := range w.connCh {
 			subs, err := w.subs.List(ctx)
 			if err != nil {
 				log.Error(err)
 			} else {
 				for _, sub := range subs {
-					if topoapi.ID(sub.E2NodeID) == channel.E2NodeID {
+					if topoapi.ID(sub.E2NodeID) == conn.E2NodeID {
 						ch <- controller.NewID(sub.ID)
 					}
 				}
@@ -107,8 +108,8 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 	return nil
 }
 
-// Stop stops the channel watcher
-func (w *ChannelWatcher) Stop() {
+// Stop stops the connnection watcher
+func (w *ConnectionWatcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
 		w.cancel()

@@ -7,8 +7,9 @@ package admin
 import (
 	"context"
 	"errors"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"time"
+
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
@@ -22,21 +23,21 @@ import (
 var log = logging.GetLogger("northbound", "admin")
 
 // NewService creates a new admin service
-func NewService(channels e2server.ChannelManager) northbound.Service {
+func NewService(connections e2server.ConnManager) northbound.Service {
 	return &Service{
-		channels: channels,
+		connections: connections,
 	}
 }
 
 // Service is a Service implementation for administration.
 type Service struct {
-	channels e2server.ChannelManager
+	connections e2server.ConnManager
 }
 
 // Register registers the Service with the gRPC server.
 func (s Service) Register(r *grpc.Server) {
 	server := &Server{
-		channels: s.channels,
+		connections: s.connections,
 	}
 	adminapi.RegisterE2TAdminServiceServer(r, server)
 }
@@ -45,7 +46,7 @@ var _ northbound.Service = &Service{}
 
 // Server implements the gRPC service for administrative facilities.
 type Server struct {
-	channels e2server.ChannelManager
+	connections e2server.ConnManager
 }
 
 // UploadRegisterServiceModel uploads and adds the model plugin to the list of supported models
@@ -63,25 +64,25 @@ func (s *Server) ListRegisteredServiceModels(req *adminapi.ListRegisteredService
 
 // ListE2NodeConnections returns a stream of existing SCTP connections.
 func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsRequest, stream adminapi.E2TAdminService_ListE2NodeConnectionsServer) error {
-	channels, err := s.channels.List(stream.Context())
+	connections, err := s.connections.List(stream.Context())
 	if err != nil {
 		return err
 	}
 
-	for _, channel := range channels {
-		sctpAddr := channel.RemoteAddr()
+	for _, conn := range connections {
+		sctpAddr := conn.RemoteAddr()
 		if sctpAddr == nil {
-			log.Errorf("Found non-SCTP connection in CreateConnection: %v", channel)
+			log.Errorf("Found non-SCTP connection in CreateConnection: %v", conn)
 			return errors.New("found non-SCTP connection")
 		}
-		remoteAddrs := channel.RemoteAddr().(*addressing.Address).IPAddrs
-		remotePort := uint32(channel.RemoteAddr().(*addressing.Address).Port)
+		remoteAddrs := conn.RemoteAddr().(*addressing.Address).IPAddrs
+		remotePort := uint32(conn.RemoteAddr().(*addressing.Address).Port)
 		var remoteAddrsStrings []string
 		for _, remoteAddr := range remoteAddrs {
 			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
 		}
 		var ranFunctions []*adminapi.RANFunction
-		registeredRANFunctions := channel.GetRANFunctions()
+		registeredRANFunctions := conn.GetRANFunctions()
 
 		for _, ranFunctionValue := range registeredRANFunctions {
 			ranFunction := &adminapi.RANFunction{
@@ -93,13 +94,13 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 		}
 
 		msg := &adminapi.ListE2NodeConnectionsResponse{
-			Id:             string(channel.ID),
+			Id:             string(conn.ID),
 			RemoteIp:       remoteAddrsStrings,
 			RemotePort:     remotePort,
-			PlmnId:         channel.PlmnID,
-			NodeId:         channel.NodeID,
-			ConnectionType: connectionType(channel.NodeType),
-			AgeMs:          int32(time.Since(channel.TimeAlive).Milliseconds()),
+			PlmnId:         conn.PlmnID,
+			NodeId:         conn.NodeID,
+			ConnectionType: connectionType(conn.NodeType),
+			AgeMs:          int32(time.Since(conn.TimeAlive).Milliseconds()),
 			RanFunctions:   ranFunctions,
 		}
 

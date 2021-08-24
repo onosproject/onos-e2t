@@ -8,8 +8,9 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	"time"
+
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
@@ -18,7 +19,7 @@ import (
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
+	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap/v101"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdudecoder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
@@ -30,13 +31,13 @@ var ricID = types.RicIdentifier{
 	RicIdentifierLen:   20,
 }
 
-func NewE2Server(channels ChannelManager,
+func NewE2Server(connections ConnManager,
 	streams subscription.Broker,
 	streamsv1beta1 subscriptionv1beta1.Broker,
 	modelRegistry modelregistry.ModelRegistry) *E2Server {
 	return &E2Server{
 		server:         e2.NewServer(),
-		channels:       channels,
+		connections:    connections,
 		subs:           streams,
 		streamsv1beta1: streamsv1beta1,
 		modelRegistry:  modelRegistry,
@@ -45,17 +46,17 @@ func NewE2Server(channels ChannelManager,
 
 type E2Server struct {
 	server         *e2.Server
-	channels       ChannelManager
+	connections    ConnManager
 	subs           subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	modelRegistry  modelregistry.ModelRegistry
 }
 
 func (s *E2Server) Serve() error {
-	return s.server.Serve(func(channel e2.ServerChannel) e2.ServerInterface {
+	return s.server.Serve(func(conn e2.ServerConn) e2.ServerInterface {
 		return &E2ChannelServer{
-			serverChannel:  channel,
-			manager:        s.channels,
+			serverConn:     conn,
+			manager:        s.connections,
 			streams:        s.subs,
 			streamsv1beta1: s.streamsv1beta1,
 			modelRegistry:  s.modelRegistry,
@@ -68,11 +69,11 @@ func (s *E2Server) Stop() error {
 }
 
 type E2ChannelServer struct {
-	manager        ChannelManager
+	manager        ConnManager
 	streams        subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
-	serverChannel  e2.ServerChannel
-	e2Channel      *E2Channel
+	serverConn     e2.ServerConn
+	e2Conn         *E2Conn
 	modelRegistry  modelregistry.ModelRegistry
 }
 
@@ -147,8 +148,8 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 		}
 	}
 
-	e.e2Channel = NewE2Channel(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverChannel, e.streams, e.streamsv1beta1, serviceModels, ranFunctions, e2Cells, time.Now())
-	defer e.manager.open(e.e2Channel)
+	e.e2Conn = NewE2Conn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, e.streams, e.streamsv1beta1, serviceModels, ranFunctions, e2Cells, time.Now())
+	defer e.manager.open(e.e2Conn)
 
 	// Create an E2 setup response
 	response, err := pdubuilder.NewE2SetupResponse(nodeIdentity.Plmn, ricID, rfAccepted, rfRejected)
@@ -159,5 +160,5 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 }
 
 func (e *E2ChannelServer) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
-	return e.e2Channel.ricIndication(ctx, request)
+	return e.e2Conn.ricIndication(ctx, request)
 }

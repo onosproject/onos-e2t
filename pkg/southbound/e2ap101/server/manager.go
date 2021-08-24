@@ -14,100 +14,100 @@ import (
 
 var log = logging.GetLogger("southbound", "e2ap", "server")
 
-type ChannelManager interface {
-	Get(ctx context.Context, id ChannelID) (*E2Channel, error)
-	List(ctx context.Context) ([]*E2Channel, error)
-	Watch(ctx context.Context, ch chan<- *E2Channel) error
-	open(channel *E2Channel)
+type ConnManager interface {
+	Get(ctx context.Context, id ConnID) (*E2Conn, error)
+	List(ctx context.Context) ([]*E2Conn, error)
+	Watch(ctx context.Context, ch chan<- *E2Conn) error
+	open(channel *E2Conn)
 }
 
-// NewChannelManager creates a new channel manager
-func NewChannelManager() ChannelManager {
-	mgr := channelManager{
-		channels: make(map[ChannelID]*E2Channel),
-		eventCh:  make(chan *E2Channel),
+// NewConnManager creates a new connection manager
+func NewConnManager() ConnManager {
+	mgr := connManager{
+		connections: make(map[ConnID]*E2Conn),
+		eventCh:     make(chan *E2Conn),
 	}
 	go mgr.processEvents()
 	return &mgr
 }
 
-type channelManager struct {
-	channels   map[ChannelID]*E2Channel
-	channelsMu sync.RWMutex
-	watchers   []chan<- *E2Channel
-	watchersMu sync.RWMutex
-	eventCh    chan *E2Channel
+type connManager struct {
+	connections map[ConnID]*E2Conn
+	channelsMu  sync.RWMutex
+	watchers    []chan<- *E2Conn
+	watchersMu  sync.RWMutex
+	eventCh     chan *E2Conn
 }
 
-func (m *channelManager) processEvents() {
+func (m *connManager) processEvents() {
 	for channel := range m.eventCh {
 		m.processEvent(channel)
 	}
 }
 
-func (m *channelManager) processEvent(channel *E2Channel) {
-	log.Info("Notifying channel")
+func (m *connManager) processEvent(conn *E2Conn) {
+	log.Info("Notifying connection")
 	m.watchersMu.RLock()
 	for _, watcher := range m.watchers {
-		watcher <- channel
+		watcher <- conn
 	}
 	m.watchersMu.RUnlock()
 }
 
-func (m *channelManager) open(channel *E2Channel) {
-	log.Infof("Opened channel %s", channel.ID)
+func (m *connManager) open(conn *E2Conn) {
+	log.Infof("Opened connection %s", conn.ID)
 	m.channelsMu.Lock()
 	defer m.channelsMu.Unlock()
-	m.channels[channel.ID] = channel
-	m.eventCh <- channel
+	m.connections[conn.ID] = conn
+	m.eventCh <- conn
 	go func() {
-		<-channel.Context().Done()
-		log.Infof("Closing channel %s", channel.ID)
+		<-conn.Context().Done()
+		log.Infof("Closing connection %s", conn.ID)
 		m.channelsMu.Lock()
-		delete(m.channels, channel.ID)
+		delete(m.connections, conn.ID)
 		m.channelsMu.Unlock()
-		m.eventCh <- channel
+		m.eventCh <- conn
 	}()
 }
 
-// Get gets a channel by ID
-func (m *channelManager) Get(ctx context.Context, channelID ChannelID) (*E2Channel, error) {
+// Get gets a connection by ID
+func (m *connManager) Get(ctx context.Context, connID ConnID) (*E2Conn, error) {
 	m.channelsMu.RLock()
 	defer m.channelsMu.RUnlock()
-	channel, ok := m.channels[channelID]
+	conn, ok := m.connections[connID]
 	if !ok {
-		return nil, errors.NewNotFound("channel '%s' not found", channelID)
+		return nil, errors.NewNotFound("connection '%s' not found", connID)
 	}
-	return channel, nil
+	return conn, nil
 }
 
 // List lists channels
-func (m *channelManager) List(ctx context.Context) ([]*E2Channel, error) {
+func (m *connManager) List(ctx context.Context) ([]*E2Conn, error) {
 	m.channelsMu.RLock()
 	defer m.channelsMu.RUnlock()
-	channels := make([]*E2Channel, 0, len(m.channels))
-	for _, channel := range m.channels {
-		channels = append(channels, channel)
+	connections := make([]*E2Conn, 0, len(m.connections))
+	for _, conn := range m.connections {
+		connections = append(connections, conn)
 	}
-	return channels, nil
+	return connections, nil
 }
 
 // Watch watches for new channels
-func (m *channelManager) Watch(ctx context.Context, ch chan<- *E2Channel) error {
+func (m *connManager) Watch(ctx context.Context, ch chan<- *E2Conn) error {
 	m.watchersMu.Lock()
 	m.channelsMu.Lock()
 	m.watchers = append(m.watchers, ch)
 	m.watchersMu.Unlock()
 
 	go func() {
-		for _, stream := range m.channels {
+		for _, stream := range m.connections {
 			ch <- stream
 		}
 		m.channelsMu.Unlock()
 
 		<-ctx.Done()
 		m.watchersMu.Lock()
-		watchers := make([]chan<- *E2Channel, 0, len(m.watchers)-1)
+		watchers := make([]chan<- *E2Conn, 0, len(m.watchers)-1)
 		for _, watcher := range watchers {
 			if watcher != ch {
 				watchers = append(watchers, watcher)
@@ -120,9 +120,9 @@ func (m *channelManager) Watch(ctx context.Context, ch chan<- *E2Channel) error 
 }
 
 // Close closes the manager
-func (m *channelManager) Close() error {
+func (m *connManager) Close() error {
 	close(m.eventCh)
 	return nil
 }
 
-var _ ChannelManager = &channelManager{}
+var _ ConnManager = &connManager{}

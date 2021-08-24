@@ -2,49 +2,51 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package channels
+package connections
 
 import (
 	"context"
 	"io"
 	"net"
 
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/connection"
+
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap201/procedures"
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/v201/procedures"
 	"github.com/onosproject/onos-e2t/pkg/utils/async"
 )
 
 // E2NodeHandler is a function for wrapping an E2NodeChannel
-type E2NodeHandler func(channel E2NodeChannel) procedures.E2NodeProcedures
+type E2NodeHandler func(channel E2NodeConn) procedures.E2NodeProcedures
 
-// E2NodeChannel is a channel for an E2 node
-type E2NodeChannel interface {
-	Channel
+// E2NodeConn is a connection for an E2 node
+type E2NodeConn interface {
+	connection.Conn
 	procedures.RICProcedures
 }
 
-// NewE2NodeChannel creates a new E2 node channel
-func NewE2NodeChannel(conn net.Conn, handler E2NodeHandler, opts ...Option) E2NodeChannel {
-	parent := newThreadSafeChannel(conn, opts...)
-	channel := &e2NodeChannel{
-		threadSafeChannel: parent,
+// NewE2NodeConn creates a new E2 node connection
+func NewE2NodeConn(conn net.Conn, handler E2NodeHandler, opts ...connection.Option) E2NodeConn {
+	parent := newThreadSafeConn(conn, opts...)
+	e2NodConn := &e2NodeConn{
+		threadSafeConn: parent,
 	}
-	procs := handler(channel)
-	channel.e2Setup = procedures.NewE2SetupInitiator(parent.send)
-	channel.e2ConfigurationUpdate = procedures.NewE2ConfigurationUpdateInitiator(parent.send)
-	channel.e2ConnectionUpdate = procedures.NewE2ConnectionUpdateProcedure(parent.send, procs)
-	channel.ricControl = procedures.NewRICControlProcedure(parent.send, procs)
-	channel.ricIndication = procedures.NewRICIndicationInitiator(parent.send)
-	channel.ricSubscription = procedures.NewRICSubscriptionProcedure(parent.send, procs)
-	channel.ricSubscriptionDelete = procedures.NewRICSubscriptionDeleteProcedure(parent.send, procs)
-	channel.open()
-	return channel
+	procs := handler(e2NodConn)
+	e2NodConn.e2Setup = procedures.NewE2SetupInitiator(parent.send)
+	e2NodConn.e2ConfigurationUpdate = procedures.NewE2ConfigurationUpdateInitiator(parent.send)
+	e2NodConn.e2ConnectionUpdate = procedures.NewE2ConnectionUpdateProcedure(parent.send, procs)
+	e2NodConn.ricControl = procedures.NewRICControlProcedure(parent.send, procs)
+	e2NodConn.ricIndication = procedures.NewRICIndicationInitiator(parent.send)
+	e2NodConn.ricSubscription = procedures.NewRICSubscriptionProcedure(parent.send, procs)
+	e2NodConn.ricSubscriptionDelete = procedures.NewRICSubscriptionDeleteProcedure(parent.send, procs)
+	e2NodConn.open()
+	return e2NodConn
 }
 
-// e2NodeChannel is an E2 node channel
-type e2NodeChannel struct {
-	*threadSafeChannel
+// e2NodeConn is an E2 node connection
+type e2NodeConn struct {
+	*threadSafeConn
 	e2Setup               *procedures.E2SetupInitiator
 	e2ConfigurationUpdate *procedures.E2ConfigurationUpdateInitiator
 	e2ConnectionUpdate    *procedures.E2ConnectionUpdateProcedure
@@ -54,11 +56,11 @@ type e2NodeChannel struct {
 	ricSubscriptionDelete *procedures.RICSubscriptionDeleteProcedure
 }
 
-func (c *e2NodeChannel) open() {
+func (c *e2NodeConn) open() {
 	go c.recvPDUs()
 }
 
-func (c *e2NodeChannel) recvPDUs() {
+func (c *e2NodeConn) recvPDUs() {
 	for {
 		pdu, err := c.recv()
 		if err == io.EOF {
@@ -73,7 +75,7 @@ func (c *e2NodeChannel) recvPDUs() {
 	}
 }
 
-func (c *e2NodeChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
+func (c *e2NodeConn) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	if c.e2Setup.Matches(pdu) {
 		go c.e2Setup.Handle(pdu)
 	} else if c.e2ConfigurationUpdate.Matches(pdu) {
@@ -93,19 +95,19 @@ func (c *e2NodeChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	}
 }
 
-func (c *e2NodeChannel) E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
+func (c *e2NodeConn) E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
 	return c.e2ConfigurationUpdate.Initiate(ctx, request)
 }
 
-func (c *e2NodeChannel) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (response *e2appducontents.E2SetupResponse, failure *e2appducontents.E2SetupFailure, err error) {
+func (c *e2NodeConn) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (response *e2appducontents.E2SetupResponse, failure *e2appducontents.E2SetupFailure, err error) {
 	return c.e2Setup.Initiate(ctx, request)
 }
 
-func (c *e2NodeChannel) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) (err error) {
+func (c *e2NodeConn) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) (err error) {
 	return c.ricIndication.Initiate(ctx, request)
 }
 
-func (c *e2NodeChannel) Close() error {
+func (c *e2NodeConn) Close() error {
 	procedures := []procedures.ElementaryProcedure{
 		c.e2Setup,
 		c.e2ConnectionUpdate,
@@ -121,7 +123,7 @@ func (c *e2NodeChannel) Close() error {
 	if err != nil {
 		return err
 	}
-	return c.threadSafeChannel.Close()
+	return c.threadSafeConn.Close()
 }
 
-var _ E2NodeChannel = &e2NodeChannel{}
+var _ E2NodeConn = &e2NodeConn{}

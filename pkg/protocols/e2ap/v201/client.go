@@ -10,10 +10,10 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/sctp/addressing"
 	"github.com/onosproject/onos-lib-go/pkg/sctp/types"
 
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap101/channels"
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap101/procedures"
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/v201/connections"
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/v201/procedures"
 
-	sctp "github.com/onosproject/onos-lib-go/pkg/sctp"
+	"github.com/onosproject/onos-lib-go/pkg/sctp"
 )
 
 // ClientHandler is a client handler function
@@ -23,7 +23,7 @@ type ClientHandler func(channel ClientChannel) ClientInterface
 type ClientInterface procedures.E2NodeProcedures
 
 // ClientChannel is an interface for initiating client procedures
-type ClientChannel channels.E2NodeChannel
+type ClientChannel connections.E2NodeConn
 
 // Connect connects to the given address
 func Connect(ctx context.Context, address string, handler ClientHandler) (ClientChannel, error) {
@@ -39,8 +39,8 @@ func Connect(ctx context.Context, address string, handler ClientHandler) (Client
 	if err != nil {
 		return nil, err
 	}
-	channel := channels.NewE2NodeChannel(conn, func(channel channels.E2NodeChannel) procedures.E2NodeProcedures {
+	connection := connections.NewE2NodeConn(conn, func(channel connections.E2NodeConn) procedures.E2NodeProcedures {
 		return handler(channel)
 	})
-	return channel, nil
+	return connection, nil
 }

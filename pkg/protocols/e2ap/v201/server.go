@@ -7,19 +7,19 @@ package e2
 import (
 	"net"
 
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap201/channels"
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap201/procedures"
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/v201/connections"
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/v201/procedures"
 	"github.com/onosproject/onos-e2t/pkg/protocols/sctp"
 )
 
 // ServerHandler is a server channel handler
-type ServerHandler func(channel ServerChannel) ServerInterface
+type ServerHandler func(channel ServerConn) ServerInterface
 
 // ServerInterface is an E2 server interface
 type ServerInterface procedures.RICProcedures
 
-// ServerChannel is an interface for initiating E2 server procedures
-type ServerChannel channels.RICChannel
+// ServerConn is an interface for initiating E2 server procedures
+type ServerConn connections.RICConn
 
 // NewServer creates a new E2 server
 func NewServer(opts ...sctp.ServerOption) *Server {
@@ -36,7 +36,7 @@ type Server struct {
 // Serve starts the server
 func (s *Server) Serve(handler ServerHandler) error {
 	return s.server.Serve(func(conn net.Conn) {
-		channels.NewRICChannel(conn, func(channel channels.RICChannel) procedures.RICProcedures {
+		connections.NewRICConn(conn, func(channel connections.RICConn) procedures.RICProcedures {
 			return handler(channel)
 		})
 	})

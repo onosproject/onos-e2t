@@ -2,49 +2,51 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package channels
+package connections
 
 import (
 	"context"
 	"io"
 	"net"
 
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/connection"
+
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap201/procedures"
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/v201/procedures"
 	"github.com/onosproject/onos-e2t/pkg/utils/async"
 )
 
-// RICHandler is a function for wrapping an RICChannel
-type RICHandler func(channel RICChannel) procedures.RICProcedures
+// RICHandler is a function for wrapping an RICConn
+type RICHandler func(channel RICConn) procedures.RICProcedures
 
-// RICChannel is a channel for an E2 node
-type RICChannel interface {
-	Channel
+// RICConn is a connection for an E2 node
+type RICConn interface {
+	connection.Conn
 	procedures.E2NodeProcedures
 }
 
-// NewRICChannel creates a new E2 node channel
-func NewRICChannel(conn net.Conn, handler RICHandler, opts ...Option) RICChannel {
-	parent := newThreadSafeChannel(conn, opts...)
-	channel := &ricChannel{
-		threadSafeChannel: parent,
+// NewRICConn creates a new E2 node connection
+func NewRICConn(conn net.Conn, handler RICHandler, opts ...connection.Option) RICConn {
+	parent := newThreadSafeConn(conn, opts...)
+	ricConn := &ricConn{
+		threadSafeConn: parent,
 	}
-	procs := handler(channel)
-	channel.e2Setup = procedures.NewE2SetupProcedure(parent.send, procs)
-	channel.e2ConfigurationUpdate = procedures.NewE2ConfigurationUpdateProcedure(parent.send, procs)
-	channel.e2ConnectionUpdate = procedures.NewE2ConnectionUpdateInitiator(parent.send)
-	channel.ricControl = procedures.NewRICControlInitiator(parent.send)
-	channel.ricIndication = procedures.NewRICIndicationProcedure(parent.send, procs)
-	channel.ricSubscription = procedures.NewRICSubscriptionInitiator(parent.send)
-	channel.ricSubscriptionDelete = procedures.NewRICSubscriptionDeleteInitiator(parent.send)
-	channel.open()
-	return channel
+	procs := handler(ricConn)
+	ricConn.e2Setup = procedures.NewE2SetupProcedure(parent.send, procs)
+	ricConn.e2ConfigurationUpdate = procedures.NewE2ConfigurationUpdateProcedure(parent.send, procs)
+	ricConn.e2ConnectionUpdate = procedures.NewE2ConnectionUpdateInitiator(parent.send)
+	ricConn.ricControl = procedures.NewRICControlInitiator(parent.send)
+	ricConn.ricIndication = procedures.NewRICIndicationProcedure(parent.send, procs)
+	ricConn.ricSubscription = procedures.NewRICSubscriptionInitiator(parent.send)
+	ricConn.ricSubscriptionDelete = procedures.NewRICSubscriptionDeleteInitiator(parent.send)
+	ricConn.open()
+	return ricConn
 }
 
-// ricChannel is an E2 node channel
-type ricChannel struct {
-	*threadSafeChannel
+// ricConn is an E2 node connection
+type ricConn struct {
+	*threadSafeConn
 	e2Setup               *procedures.E2SetupProcedure
 	e2ConfigurationUpdate *procedures.E2ConfigurationUpdateProcedure
 	e2ConnectionUpdate    *procedures.E2ConnectionUpdateInitiator
@@ -55,13 +57,13 @@ type ricChannel struct {
 	ricIndicationCh       chan *e2appdudescriptions.E2ApPdu
 }
 
-func (c *ricChannel) open() {
+func (c *ricConn) open() {
 	c.ricIndicationCh = make(chan *e2appdudescriptions.E2ApPdu)
 	go c.recvPDUs()
 	go c.recvIndications()
 }
 
-func (c *ricChannel) recvPDUs() {
+func (c *ricConn) recvPDUs() {
 	for {
 		pdu, err := c.recv()
 		if err == io.EOF {
@@ -77,7 +79,7 @@ func (c *ricChannel) recvPDUs() {
 	}
 }
 
-func (c *ricChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
+func (c *ricConn) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	if c.e2Setup.Matches(pdu) {
 		go c.e2Setup.Handle(pdu)
 	} else if c.e2ConfigurationUpdate.Matches(pdu) {
@@ -97,33 +99,33 @@ func (c *ricChannel) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	}
 }
 
-func (c *ricChannel) recvIndications() {
+func (c *ricConn) recvIndications() {
 	for pdu := range c.ricIndicationCh {
 		c.recvIndication(pdu)
 	}
 }
 
-func (c *ricChannel) recvIndication(pdu *e2appdudescriptions.E2ApPdu) {
+func (c *ricConn) recvIndication(pdu *e2appdudescriptions.E2ApPdu) {
 	c.ricIndication.Handle(pdu)
 }
 
-func (c *ricChannel) E2ConnectionUpdate(ctx context.Context, request *e2appducontents.E2ConnectionUpdate) (response *e2appducontents.E2ConnectionUpdateAcknowledge, failure *e2appducontents.E2ConnectionUpdateFailure, err error) {
+func (c *ricConn) E2ConnectionUpdate(ctx context.Context, request *e2appducontents.E2ConnectionUpdate) (response *e2appducontents.E2ConnectionUpdateAcknowledge, failure *e2appducontents.E2ConnectionUpdateFailure, err error) {
 	return c.e2ConnectionUpdate.Initiate(ctx, request)
 }
 
-func (c *ricChannel) RICControl(ctx context.Context, request *e2appducontents.RiccontrolRequest) (response *e2appducontents.RiccontrolAcknowledge, failure *e2appducontents.RiccontrolFailure, err error) {
+func (c *ricConn) RICControl(ctx context.Context, request *e2appducontents.RiccontrolRequest) (response *e2appducontents.RiccontrolAcknowledge, failure *e2appducontents.RiccontrolFailure, err error) {
 	return c.ricControl.Initiate(ctx, request)
 }
 
-func (c *ricChannel) RICSubscription(ctx context.Context, request *e2appducontents.RicsubscriptionRequest) (response *e2appducontents.RicsubscriptionResponse, failure *e2appducontents.RicsubscriptionFailure, err error) {
+func (c *ricConn) RICSubscription(ctx context.Context, request *e2appducontents.RicsubscriptionRequest) (response *e2appducontents.RicsubscriptionResponse, failure *e2appducontents.RicsubscriptionFailure, err error) {
 	return c.ricSubscription.Initiate(ctx, request)
 }
 
-func (c *ricChannel) RICSubscriptionDelete(ctx context.Context, request *e2appducontents.RicsubscriptionDeleteRequest) (response *e2appducontents.RicsubscriptionDeleteResponse, failure *e2appducontents.RicsubscriptionDeleteFailure, err error) {
+func (c *ricConn) RICSubscriptionDelete(ctx context.Context, request *e2appducontents.RicsubscriptionDeleteRequest) (response *e2appducontents.RicsubscriptionDeleteResponse, failure *e2appducontents.RicsubscriptionDeleteFailure, err error) {
 	return c.ricSubscriptionDelete.Initiate(ctx, request)
 }
 
-func (c *ricChannel) Close() error {
+func (c *ricConn) Close() error {
 	procedures := []procedures.ElementaryProcedure{
 		c.e2Setup,
 		c.e2ConfigurationUpdate,
@@ -142,4 +144,4 @@ func (c *ricChannel) Close() error {
 	return nil
 }
 
-var _ RICChannel = &ricChannel{}
+var _ RICConn = &ricConn{}
