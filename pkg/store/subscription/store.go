@@ -96,7 +96,7 @@ func (s *atomixStore) Create(ctx context.Context, sub *api.Subscription) error {
 	// Put the subscription in the map using an optimistic lock if this is an update
 	entry, err := s.subs.Put(ctx, string(sub.ID), bytes, _map.IfNotSet())
 	if err != nil {
-		log.Errorf("Failed to create subscription %+v: %s", sub, err)
+		log.Warnf("Failed to create subscription %+v: %s", sub, err)
 		return errors.FromAtomix(err)
 	}
 
@@ -119,7 +119,7 @@ func (s *atomixStore) Update(ctx context.Context, sub *api.Subscription) error {
 	// Update the subscription in the map
 	entry, err := s.subs.Put(ctx, string(sub.ID), bytes, _map.IfMatch(meta.NewRevision(meta.Revision(sub.Revision))))
 	if err != nil {
-		log.Errorf("Failed to update subscription %+v: %s", sub, err)
+		log.Warnf("Failed to update subscription %+v: %s", sub, err)
 		return errors.FromAtomix(err)
 	}
 	sub.Revision = api.Revision(entry.Revision)
@@ -134,7 +134,7 @@ func (s *atomixStore) Delete(ctx context.Context, sub *api.Subscription) error {
 	log.Infof("Deleting subscription %s", sub.ID)
 	_, err := s.subs.Remove(ctx, string(sub.ID), _map.IfMatch(meta.NewRevision(meta.Revision(sub.Revision))))
 	if err != nil {
-		log.Errorf("Failed to delete subscription %s: %s", sub.ID, err)
+		log.Warnf("Failed to delete subscription %s: %s", sub.ID, err)
 		return errors.FromAtomix(err)
 	}
 	return nil

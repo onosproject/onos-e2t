@@ -96,7 +96,7 @@ func (s *atomixStore) Create(ctx context.Context, channel *api.Channel) error {
 	// Put the channel in the map using an optimistic lock if this is an update
 	entry, err := s.channels.Put(ctx, string(channel.ID), bytes, _map.IfNotSet())
 	if err != nil {
-		log.Errorf("Failed to create channel %+v: %s", channel, err)
+		log.Warnf("Failed to create channel %+v: %s", channel, err)
 		return errors.FromAtomix(err)
 	}
 
@@ -119,7 +119,7 @@ func (s *atomixStore) Update(ctx context.Context, channel *api.Channel) error {
 	// Update the channel in the map
 	entry, err := s.channels.Put(ctx, string(channel.ID), bytes, _map.IfMatch(meta.NewRevision(meta.Revision(channel.Revision))))
 	if err != nil {
-		log.Errorf("Failed to update channel %+v: %s", channel, err)
+		log.Warnf("Failed to update channel %+v: %s", channel, err)
 		return errors.FromAtomix(err)
 	}
 	channel.Revision = api.Revision(entry.Revision)
@@ -134,7 +134,7 @@ func (s *atomixStore) Delete(ctx context.Context, channel *api.Channel) error {
 	log.Infof("Deleting channel %s", channel.ID)
 	_, err := s.channels.Remove(ctx, string(channel.ID), _map.IfMatch(meta.NewRevision(meta.Revision(channel.Revision))))
 	if err != nil {
-		log.Errorf("Failed to delete channel %s: %s", channel.ID, err)
+		log.Warnf("Failed to delete channel %s: %s", channel.ID, err)
 		return errors.FromAtomix(err)
 	}
 	return nil
