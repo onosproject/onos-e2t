@@ -11,10 +11,15 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
+// ConnManager connection manager interface
 type ConnManager interface {
+	// Get gets an E2 base connection based on a given connection ID
 	Get(ctx context.Context, id ID) (E2BaseConn, error)
+	// List list all of the E2 connections
 	List(ctx context.Context) ([]E2BaseConn, error)
+	// Watch watch connection changes
 	Watch(ctx context.Context, ch chan<- E2BaseConn) error
+	// Open a new connection
 	Open(conn E2BaseConn)
 }
 

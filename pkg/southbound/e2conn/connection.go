@@ -19,6 +19,7 @@ import (
 
 var log = logging.GetLogger("southbound", "e2", "connection")
 
+// E2BaseConn E2 base connection
 type E2BaseConn interface {
 	connection.Conn
 	GetID() ID
@@ -29,8 +30,10 @@ type E2BaseConn interface {
 	GetTimeAlive() time.Time
 }
 
+// ID connection ID
 type ID string
 
+// NewE2BaseConn create a new E2 base connection
 func NewE2BaseConn(nodeID topoapi.ID, plmnID string,
 	serviceModels map[string]*topoapi.ServiceModelInfo,
 	e2Cells []*topoapi.E2Cell, now time.Time) *E2BaseConnection {
@@ -46,10 +49,12 @@ func NewE2BaseConn(nodeID topoapi.ID, plmnID string,
 		TimeAlive:     now,
 		ServiceModels: serviceModels,
 		E2Cells:       e2Cells,
+		PlmnID:        plmnID,
 	}
 
 }
 
+// E2BaseConnection E2 base connection information
 type E2BaseConnection struct {
 	ID            ID
 	E2NodeID      topoapi.ID
