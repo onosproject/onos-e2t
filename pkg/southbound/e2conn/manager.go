@@ -58,7 +58,7 @@ func (m *connManager) Open(conn E2BaseConn) {
 	m.connections[conn.GetID()] = conn
 	m.eventCh <- conn
 	go func() {
-		<-conn.GetContext().Done()
+		<-conn.Context().Done()
 		log.Infof("Closing connection %s", conn.GetID())
 		m.channelsMu.Lock()
 		delete(m.connections, conn.GetID())

@@ -5,8 +5,6 @@
 package e2conn
 
 import (
-	"context"
-	"net"
 	"time"
 
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -22,12 +20,11 @@ import (
 var log = logging.GetLogger("southbound", "e2", "connection")
 
 type E2BaseConn interface {
-	GetContext() context.Context
+	connection.Conn
 	GetID() ID
 	GetE2NodeID() topoapi.ID
 	GetServiceModels() map[string]*topoapi.ServiceModelInfo
 	GetE2Cells() []*topoapi.E2Cell
-	RemoteAddr() net.Addr
 	GetPlmnID() string
 	GetTimeAlive() time.Time
 }
@@ -54,7 +51,6 @@ func NewE2BaseConn(nodeID topoapi.ID, plmnID string,
 }
 
 type E2BaseConnection struct {
-	*connection.Connection
 	ID            ID
 	E2NodeID      topoapi.ID
 	NodeID        string
@@ -68,10 +64,6 @@ func (c *E2BaseConnection) GetTimeAlive() time.Time {
 	return c.TimeAlive
 }
 
-func (c *E2BaseConnection) RemoteAddr() net.Addr {
-	return c.Connection.RemoteAddr()
-}
-
 func (c *E2BaseConnection) GetPlmnID() string {
 	return c.PlmnID
 }
@@ -82,10 +74,6 @@ func (c *E2BaseConnection) GetE2Cells() []*topoapi.E2Cell {
 
 func (c *E2BaseConnection) GetServiceModels() map[string]*topoapi.ServiceModelInfo {
 	return c.ServiceModels
-}
-
-func (c *E2BaseConnection) GetContext() context.Context {
-	return c.Connection.Context()
 }
 
 func (c *E2BaseConnection) GetID() ID {

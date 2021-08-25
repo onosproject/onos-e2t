@@ -73,6 +73,7 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 			log.Errorf("Found non-SCTP connection in CreateConnection: %v", conn)
 			return errors.New("found non-SCTP connection")
 		}
+
 		remoteAddrs := conn.RemoteAddr().(*addressing.Address).IPAddrs
 		remotePort := uint32(conn.RemoteAddr().(*addressing.Address).Port)
 		var remoteAddrsStrings []string

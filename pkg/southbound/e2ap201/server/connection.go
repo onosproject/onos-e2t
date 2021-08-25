@@ -6,7 +6,6 @@ package server
 
 import (
 	"context"
-	"net"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
@@ -30,7 +29,6 @@ func NewE2Conn(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIdent
 	e2Cells []*topoapi.E2Cell, now time.Time) *E2Conn {
 
 	baseConn := e2conn.NewE2BaseConn(nodeID, plmnID, serviceModels, e2Cells, now)
-	baseConn.Connection = conn.BaseConn()
 	return &E2Conn{
 		ServerConn:       conn,
 		E2BaseConnection: baseConn,
@@ -69,20 +67,12 @@ func (c *E2Conn) GetE2Cells() []*topoapi.E2Cell {
 	return c.E2BaseConnection.GetE2Cells()
 }
 
-func (c *E2Conn) RemoteAddr() net.Addr {
-	return c.E2BaseConnection.RemoteAddr()
-}
-
 func (c *E2Conn) GetE2NodeID() topoapi.ID {
 	return c.E2BaseConnection.GetE2NodeID()
 }
 
 func (c *E2Conn) GetID() e2conn.ID {
 	return c.E2BaseConnection.GetID()
-}
-
-func (c *E2Conn) GetContext() context.Context {
-	return c.E2BaseConnection.GetContext()
 }
 
 func (c *E2Conn) GetRANFunctions() []RANFunction {
