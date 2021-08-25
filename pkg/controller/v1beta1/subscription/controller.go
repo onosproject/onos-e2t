@@ -20,15 +20,15 @@ import (
 	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	e2ap101pducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
+	e2ap101pdubuilder "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 	e2ap101server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	e2ap101types "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	e2ap101ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/config"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -56,33 +56,33 @@ func NewController(streams subscription.Broker, subs substore.Store, topo rnib.S
 		topo: topo,
 	})
 	c.Reconcile(&Reconciler{
-		streams:                   streams,
-		subs:                      subs,
-		topo:                      topo,
-		connections:               connections,
-		models:                    models,
-		oidRegistry:               oidRegistry,
-		connIDs:                   make(map[e2api.SubscriptionID]e2conn.ID),
-		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
+		streams:                          streams,
+		subs:                             subs,
+		topo:                             topo,
+		connections:                      connections,
+		models:                           models,
+		oidRegistry:                      oidRegistry,
+		connIDs:                          make(map[e2api.SubscriptionID]e2conn.ID),
+		newE2ap101RicSubscriptionRequest: e2ap101pdubuilder.NewRicSubscriptionRequest,
 	})
 	return c
 }
 
-type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
-	ranFuncID types.RanFunctionID, ricEventDef types.RicEventDefintion,
-	ricActionsToBeSetup map[types.RicActionID]types.RicActionDef) (
-	*e2appducontents.RicsubscriptionRequest, error)
+type RicE2ap101SubscriptionRequestBuilder func(ricReq e2ap101types.RicRequest,
+	ranFuncID e2ap101types.RanFunctionID, ricEventDef e2ap101types.RicEventDefintion,
+	ricActionsToBeSetup map[e2ap101types.RicActionID]e2ap101types.RicActionDef) (
+	*e2ap101pducontents.RicsubscriptionRequest, error)
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	streams                   subscription.Broker
-	subs                      substore.Store
-	topo                      rnib.Store
-	connections               e2conn.ConnManager
-	models                    modelregistry.ModelRegistry
-	oidRegistry               oid.Registry
-	connIDs                   map[e2api.SubscriptionID]e2conn.ID
-	newRicSubscriptionRequest RicSubscriptionRequestBuilder
+	streams                          subscription.Broker
+	subs                             substore.Store
+	topo                             rnib.Store
+	connections                      e2conn.ConnManager
+	models                           modelregistry.ModelRegistry
+	oidRegistry                      oid.Registry
+	connIDs                          map[e2api.SubscriptionID]e2conn.ID
+	newE2ap101RicSubscriptionRequest RicE2ap101SubscriptionRequestBuilder
 }
 
 // Reconcile reconciles the state of a device change
@@ -230,90 +230,86 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		return controller.Result{}, err
 	}
 
-	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(stream.ID()),
-		InstanceID:  config.InstanceID,
-	}
-
-	e2ap101Conn := &e2ap101server.E2Conn{}
-	switch v := conn.(type) {
+	switch conn := conn.(type) {
 	case *e2ap101server.E2Conn:
-		e2ap101Conn = v
-
-	}
-	ranFunction, ok := e2ap101Conn.GetRANFunction(serviceModelOID)
-	if !ok {
-		log.Warn("RAN function not found for SM %s", serviceModelOID)
-	}
-
-	ricEventDef := types.RicEventDefintion(sub.Spec.EventTrigger.Payload)
-
-	ricActionsToBeSetup := make(map[types.RicActionID]types.RicActionDef)
-	for _, action := range sub.Spec.Actions {
-		ricActionsToBeSetup[types.RicActionID(action.ID)] = types.RicActionDef{
-			RicActionID:         types.RicActionID(action.ID),
-			RicActionType:       e2apies.RicactionType(action.Type),
-			RicSubsequentAction: e2apies.RicsubsequentActionType(action.SubsequentAction.Type),
-			Ricttw:              e2apies.RictimeToWait(action.SubsequentAction.TimeToWait),
-			RicActionDefinition: action.Payload,
+		ricRequest := e2ap101types.RicRequest{
+			RequestorID: e2ap101types.RicRequestorID(stream.ID()),
+			InstanceID:  config.InstanceID,
 		}
-	}
+		ranFunction, ok := conn.GetRANFunction(serviceModelOID)
+		if !ok {
+			log.Warn("RAN function not found for SM %s", serviceModelOID)
+		}
 
-	request, err := r.newRicSubscriptionRequest(ricRequest, ranFunction.ID, ricEventDef, ricActionsToBeSetup)
-	if err != nil {
-		log.Warnf("Failed to create E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
-		return controller.Result{}, err
-	}
+		ricEventDef := e2ap101types.RicEventDefintion(sub.Spec.EventTrigger.Payload)
 
-	// Validate the subscribe request
-	if err := request.Validate(); err != nil {
-		log.Warnf("Failed to validate E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
-		sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_FAILED
-		sub.Status.Error = &e2api.Error{
-			Cause: &e2api.Error_Cause{
-				Cause: &e2api.Error_Cause_Protocol_{
-					Protocol: &e2api.Error_Cause_Protocol{
-						Type: e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+		ricActionsToBeSetup := make(map[e2ap101types.RicActionID]e2ap101types.RicActionDef)
+		for _, action := range sub.Spec.Actions {
+			ricActionsToBeSetup[e2ap101types.RicActionID(action.ID)] = e2ap101types.RicActionDef{
+				RicActionID:         e2ap101types.RicActionID(action.ID),
+				RicActionType:       e2ap101ies.RicactionType(action.Type),
+				RicSubsequentAction: e2ap101ies.RicsubsequentActionType(action.SubsequentAction.Type),
+				Ricttw:              e2ap101ies.RictimeToWait(action.SubsequentAction.TimeToWait),
+				RicActionDefinition: action.Payload,
+			}
+		}
+
+		request, err := r.newE2ap101RicSubscriptionRequest(ricRequest, ranFunction.ID, ricEventDef, ricActionsToBeSetup)
+		if err != nil {
+			log.Warnf("Failed to create E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
+			return controller.Result{}, err
+		}
+
+		// Validate the subscribe request
+		if err := request.Validate(); err != nil {
+			log.Warnf("Failed to validate E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
+			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_FAILED
+			sub.Status.Error = &e2api.Error{
+				Cause: &e2api.Error_Cause{
+					Cause: &e2api.Error_Cause_Protocol_{
+						Protocol: &e2api.Error_Cause_Protocol{
+							Type: e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+						},
 					},
 				},
-			},
+			}
+			log.Debugf("Updating failed Subscription %+v", sub)
+			err := r.subs.Update(ctx, sub)
+			if err != nil {
+				log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+				return controller.Result{}, err
+			}
+			return controller.Result{}, nil
 		}
-		log.Debugf("Updating failed Subscription %+v", sub)
-		err := r.subs.Update(ctx, sub)
-		if err != nil {
-			log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-			return controller.Result{}, err
-		}
-		return controller.Result{}, nil
-	}
 
-	// Send the subscription request and await a response
-	log.Debugf("Sending RicsubscriptionRequest %+v", request)
-	response, failure, err := e2ap101Conn.RICSubscription(ctx, request)
-	if err != nil {
-		log.Warnf("Failed to send E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
-		return controller.Result{}, err
-	} else if response != nil {
-		log.Debugf("Received RicsubscriptionResponse %+v", response)
-		sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
-		log.Debugf("Updating complete Subscription %+v", sub)
-		err := r.subs.Update(ctx, sub)
+		// Send the subscription request and await a response
+		log.Debugf("Sending RicsubscriptionRequest %+v", request)
+		response, failure, err := conn.RICSubscription(ctx, request)
 		if err != nil {
-			log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+			log.Warnf("Failed to send E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
 			return controller.Result{}, err
+		} else if response != nil {
+			log.Debugf("Received RicsubscriptionResponse %+v", response)
+			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
+			log.Debugf("Updating complete Subscription %+v", sub)
+			err := r.subs.Update(ctx, sub)
+			if err != nil {
+				log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+				return controller.Result{}, err
+			}
+			return controller.Result{}, nil
+		} else if failure != nil {
+			log.Warnf("RicsubscriptionRequest %+v failed: %+v", request, failure)
+			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_FAILED
+			sub.Status.Error = getE2ap101SubscriptionError(failure)
+			log.Debugf("Updating failed Subscription %+v", sub)
+			err := r.subs.Update(ctx, sub)
+			if err != nil {
+				log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+				return controller.Result{}, err
+			}
+			return controller.Result{}, nil
 		}
-		return controller.Result{}, nil
-	} else if failure != nil {
-		log.Warnf("RicsubscriptionRequest %+v failed: %+v", request, failure)
-		sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_FAILED
-		sub.Status.Error = getSubscriptionError(failure)
-		log.Debugf("Updating failed Subscription %+v", sub)
-		err := r.subs.Update(ctx, sub)
-		if err != nil {
-			log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-			return controller.Result{}, err
-		}
-		return controller.Result{}, nil
 	}
 	return controller.Result{}, nil
 }
@@ -380,108 +376,104 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, err
 	}
 
-	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(stream.ID()),
-		InstanceID:  config.InstanceID,
-	}
-
 	serviceModelOID, err := oid.ModelIDToOid(r.oidRegistry, string(sub.ServiceModel.Name), string(sub.ServiceModel.Version))
 	if err != nil {
 		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 		return controller.Result{}, err
 	}
 
-	e2ap101Conn := &e2ap101server.E2Conn{}
-	switch v := conn.(type) {
+	switch conn := conn.(type) {
 	case *e2ap101server.E2Conn:
-		e2ap101Conn = v
+		ricRequest := e2ap101types.RicRequest{
+			RequestorID: e2ap101types.RicRequestorID(stream.ID()),
+			InstanceID:  config.InstanceID,
+		}
 
-	}
+		ranFunction, ok := conn.GetRANFunction(serviceModelOID)
+		if !ok {
+			log.Warn("RAN function not found for SM %s", serviceModelOID)
+		}
 
-	ranFunction, ok := e2ap101Conn.GetRANFunction(serviceModelOID)
-	if !ok {
-		log.Warn("RAN function not found for SM %s", serviceModelOID)
-	}
-
-	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFunction.ID)
-	if err != nil {
-		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-		return controller.Result{}, err
-	}
-
-	// Send the subscription request and await a response
-	log.Debugf("Sending RicsubscriptionDeleteRequest %+v", request)
-	response, failure, err := e2ap101Conn.RICSubscriptionDelete(ctx, request)
-	if err != nil {
-		log.Warnf("Failed to send E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
-		return controller.Result{}, err
-	} else if response != nil {
-		log.Debugf("Received RicsubscriptionDeleteResponse %+v", response)
-		sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
-		log.Debugf("Updating complete Subscription %+v", sub)
-		err := r.subs.Update(ctx, sub)
+		request, err := e2ap101pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFunction.ID)
 		if err != nil {
 			log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 			return controller.Result{}, err
 		}
-		return controller.Result{}, nil
-	} else if failure != nil {
-		switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
-		case *e2apies.Cause_RicRequest:
-			e2apErr := getSubscriptionDeleteError(failure)
-			switch c := e2apErr.GetCause().GetCause().(type) {
-			case *e2api.Error_Cause_Ric_:
-				switch c.Ric.GetType() {
-				case e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN:
-					sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
-					err := r.subs.Update(ctx, sub)
-					if err != nil {
-						log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+
+		// Send the subscription request and await a response
+		log.Debugf("Sending RicsubscriptionDeleteRequest %+v", request)
+		response, failure, err := conn.RICSubscriptionDelete(ctx, request)
+		if err != nil {
+			log.Warnf("Failed to send E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
+			return controller.Result{}, err
+		} else if response != nil {
+			log.Debugf("Received RicsubscriptionDeleteResponse %+v", response)
+			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
+			log.Debugf("Updating complete Subscription %+v", sub)
+			err := r.subs.Update(ctx, sub)
+			if err != nil {
+				log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+				return controller.Result{}, err
+			}
+			return controller.Result{}, nil
+		} else if failure != nil {
+			switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
+			case *e2ap101ies.Cause_RicRequest:
+				e2apErr := getE2ap101SubscriptionDeleteError(failure)
+				switch c := e2apErr.GetCause().GetCause().(type) {
+				case *e2api.Error_Cause_Ric_:
+					switch c.Ric.GetType() {
+					case e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN:
+						sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
+						err := r.subs.Update(ctx, sub)
+						if err != nil {
+							log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
+							return controller.Result{}, err
+						}
+					default:
 						return controller.Result{}, err
 					}
-				default:
-					return controller.Result{}, err
 				}
+			default:
+				return controller.Result{}, nil
 			}
-		default:
-			return controller.Result{}, nil
+			log.Warnf("RicsubscriptionDeleteRequest %+v failed: %+v", request, failure)
+			return controller.Result{}, fmt.Errorf("failed to delete sub %+v", sub)
 		}
-		log.Warnf("RicsubscriptionDeleteRequest %+v failed: %+v", request, failure)
-		return controller.Result{}, fmt.Errorf("failed to delete sub %+v", sub)
 	}
 	return controller.Result{}, nil
 }
 
-func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFailure) *e2api.Error {
+func getE2ap101SubscriptionDeleteError(failure *e2ap101pducontents.RicsubscriptionDeleteFailure) *e2api.Error {
 	if failure == nil {
 		return nil
 	}
 
 	switch c := failure.GetProtocolIes().GetE2ApProtocolIes1().Value.Cause.(type) {
-	case *e2apies.Cause_RicRequest:
+	case *e2ap101ies.Cause_RicRequest:
 		var errType e2api.Error_Cause_Ric_Type
 		switch c.RicRequest {
-		case e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
+		case e2ap101ies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
 			errType = e2api.Error_Cause_Ric_RAN_FUNCTION_ID_INVALID
-		case e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
+		case e2ap101ies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
 			errType = e2api.Error_Cause_Ric_ACTION_NOT_SUPPORTED
-		case e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
+		case e2ap101ies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
 			errType = e2api.Error_Cause_Ric_EXCESSIVE_ACTIONS
-		case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
+		case e2ap101ies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
 			errType = e2api.Error_Cause_Ric_DUPLICATE_ACTION
-		case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
+		case e2ap101ies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
 			errType = e2api.Error_Cause_Ric_DUPLICATE_EVENT
-		case e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
+		case e2ap101ies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
 			errType = e2api.Error_Cause_Ric_FUNCTION_RESOURCE_LIMIT
-		case e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
+		case e2ap101ies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
 			errType = e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN
-		case e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
+		case e2ap101ies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
 			errType = e2api.Error_Cause_Ric_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE
-		case e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
+		case e2ap101ies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
 			errType = e2api.Error_Cause_Ric_CONTROL_MESSAGE_INVALID
-		case e2apies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
+		case e2ap101ies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
 			errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
-		case e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED:
+		case e2ap101ies.CauseRic_CAUSE_RIC_UNSPECIFIED:
 			errType = e2api.Error_Cause_Ric_UNSPECIFIED
 		}
 		return &e2api.Error{
@@ -493,14 +485,14 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 				},
 			},
 		}
-	case *e2apies.Cause_RicService:
+	case *e2ap101ies.Cause_RicService:
 		var errType e2api.Error_Cause_RicService_Type
 		switch c.RicService {
-		case e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
+		case e2ap101ies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
 			errType = e2api.Error_Cause_RicService_FUNCTION_NOT_REQUIRED
-		case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
+		case e2ap101ies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
 			errType = e2api.Error_Cause_RicService_EXCESSIVE_FUNCTIONS
-		case e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
+		case e2ap101ies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
 			errType = e2api.Error_Cause_RicService_RIC_RESOURCE_LIMIT
 		}
 		return &e2api.Error{
@@ -512,22 +504,22 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 				},
 			},
 		}
-	case *e2apies.Cause_Protocol:
+	case *e2ap101ies.Cause_Protocol:
 		var errType e2api.Error_Cause_Protocol_Type
 		switch c.Protocol {
-		case e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR:
+		case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR:
 			errType = e2api.Error_Cause_Protocol_TRANSFER_SYNTAX_ERROR
-		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT:
+		case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT:
 			errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_REJECT
-		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY:
+		case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY:
 			errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY
-		case e2apies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE:
+		case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE:
 			errType = e2api.Error_Cause_Protocol_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE
-		case e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR:
+		case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR:
 			errType = e2api.Error_Cause_Protocol_SEMANTIC_ERROR
-		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE:
+		case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE:
 			errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
-		case e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED:
+		case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED:
 			errType = e2api.Error_Cause_Protocol_UNSPECIFIED
 		}
 		return &e2api.Error{
@@ -539,12 +531,12 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 				},
 			},
 		}
-	case *e2apies.Cause_Transport:
+	case *e2ap101ies.Cause_Transport:
 		var errType e2api.Error_Cause_Transport_Type
 		switch c.Transport {
-		case e2apies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED:
+		case e2ap101ies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED:
 			errType = e2api.Error_Cause_Transport_UNSPECIFIED
-		case e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE:
+		case e2ap101ies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE:
 			errType = e2api.Error_Cause_Transport_TRANSPORT_RESOURCE_UNAVAILABLE
 		}
 		return &e2api.Error{
@@ -556,16 +548,16 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 				},
 			},
 		}
-	case *e2apies.Cause_Misc:
+	case *e2ap101ies.Cause_Misc:
 		var errType e2api.Error_Cause_Misc_Type
 		switch c.Misc {
-		case e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD:
+		case e2ap101ies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD:
 			errType = e2api.Error_Cause_Misc_CONTROL_PROCESSING_OVERLOAD
-		case e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE:
+		case e2ap101ies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE:
 			errType = e2api.Error_Cause_Misc_HARDWARE_FAILURE
-		case e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION:
+		case e2ap101ies.CauseMisc_CAUSE_MISC_OM_INTERVENTION:
 			errType = e2api.Error_Cause_Misc_OM_INTERVENTION
-		case e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED:
+		case e2ap101ies.CauseMisc_CAUSE_MISC_UNSPECIFIED:
 			errType = e2api.Error_Cause_Misc_UNSPECIFIED
 		}
 		return &e2api.Error{
@@ -581,37 +573,37 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 	return nil
 }
 
-func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2api.Error {
+func getE2ap101SubscriptionError(failure *e2ap101pducontents.RicsubscriptionFailure) *e2api.Error {
 	if failure == nil {
 		return nil
 	}
 
 	for _, item := range failure.ProtocolIes.E2ApProtocolIes18.Value.Value {
 		switch c := item.Value.Cause.Cause.(type) {
-		case *e2apies.Cause_RicRequest:
+		case *e2ap101ies.Cause_RicRequest:
 			var errType e2api.Error_Cause_Ric_Type
 			switch c.RicRequest {
-			case e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
+			case e2ap101ies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
 				errType = e2api.Error_Cause_Ric_RAN_FUNCTION_ID_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
+			case e2ap101ies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
 				errType = e2api.Error_Cause_Ric_ACTION_NOT_SUPPORTED
-			case e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
+			case e2ap101ies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
 				errType = e2api.Error_Cause_Ric_EXCESSIVE_ACTIONS
-			case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
+			case e2ap101ies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
 				errType = e2api.Error_Cause_Ric_DUPLICATE_ACTION
-			case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
+			case e2ap101ies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
 				errType = e2api.Error_Cause_Ric_DUPLICATE_EVENT
-			case e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
+			case e2ap101ies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
 				errType = e2api.Error_Cause_Ric_FUNCTION_RESOURCE_LIMIT
-			case e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
+			case e2ap101ies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
 				errType = e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN
-			case e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
+			case e2ap101ies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
 				errType = e2api.Error_Cause_Ric_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE
-			case e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
+			case e2ap101ies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
 				errType = e2api.Error_Cause_Ric_CONTROL_MESSAGE_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
+			case e2ap101ies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
 				errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED:
+			case e2ap101ies.CauseRic_CAUSE_RIC_UNSPECIFIED:
 				errType = e2api.Error_Cause_Ric_UNSPECIFIED
 			}
 			return &e2api.Error{
@@ -623,14 +615,14 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 					},
 				},
 			}
-		case *e2apies.Cause_RicService:
+		case *e2ap101ies.Cause_RicService:
 			var errType e2api.Error_Cause_RicService_Type
 			switch c.RicService {
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
+			case e2ap101ies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
 				errType = e2api.Error_Cause_RicService_FUNCTION_NOT_REQUIRED
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
+			case e2ap101ies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
 				errType = e2api.Error_Cause_RicService_EXCESSIVE_FUNCTIONS
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
+			case e2ap101ies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
 				errType = e2api.Error_Cause_RicService_RIC_RESOURCE_LIMIT
 			}
 			return &e2api.Error{
@@ -642,22 +634,22 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 					},
 				},
 			}
-		case *e2apies.Cause_Protocol:
+		case *e2ap101ies.Cause_Protocol:
 			var errType e2api.Error_Cause_Protocol_Type
 			switch c.Protocol {
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR:
+			case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR:
 				errType = e2api.Error_Cause_Protocol_TRANSFER_SYNTAX_ERROR
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT:
+			case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT:
 				errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_REJECT
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY:
+			case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY:
 				errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE:
+			case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE:
 				errType = e2api.Error_Cause_Protocol_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR:
+			case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR:
 				errType = e2api.Error_Cause_Protocol_SEMANTIC_ERROR
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE:
+			case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE:
 				errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED:
+			case e2ap101ies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED:
 				errType = e2api.Error_Cause_Protocol_UNSPECIFIED
 			}
 			return &e2api.Error{
@@ -669,12 +661,12 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 					},
 				},
 			}
-		case *e2apies.Cause_Transport:
+		case *e2ap101ies.Cause_Transport:
 			var errType e2api.Error_Cause_Transport_Type
 			switch c.Transport {
-			case e2apies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED:
+			case e2ap101ies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED:
 				errType = e2api.Error_Cause_Transport_UNSPECIFIED
-			case e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE:
+			case e2ap101ies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE:
 				errType = e2api.Error_Cause_Transport_TRANSPORT_RESOURCE_UNAVAILABLE
 			}
 			return &e2api.Error{
@@ -686,16 +678,16 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 					},
 				},
 			}
-		case *e2apies.Cause_Misc:
+		case *e2ap101ies.Cause_Misc:
 			var errType e2api.Error_Cause_Misc_Type
 			switch c.Misc {
-			case e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD:
+			case e2ap101ies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD:
 				errType = e2api.Error_Cause_Misc_CONTROL_PROCESSING_OVERLOAD
-			case e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE:
+			case e2ap101ies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE:
 				errType = e2api.Error_Cause_Misc_HARDWARE_FAILURE
-			case e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION:
+			case e2ap101ies.CauseMisc_CAUSE_MISC_OM_INTERVENTION:
 				errType = e2api.Error_Cause_Misc_OM_INTERVENTION
-			case e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED:
+			case e2ap101ies.CauseMisc_CAUSE_MISC_UNSPECIFIED:
 				errType = e2api.Error_Cause_Misc_UNSPECIFIED
 			}
 			return &e2api.Error{
