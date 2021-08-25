@@ -8,7 +8,7 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv201/types"
 )
 
 func (m *E2SetupResponse) SetE2nodeComponentConfigUpdateAck(e2nccual []*types.E2NodeComponentConfigUpdateAckItem) *E2SetupResponse {

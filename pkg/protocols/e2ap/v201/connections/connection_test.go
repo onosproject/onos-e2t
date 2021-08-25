@@ -14,7 +14,7 @@ import (
 
 	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv201/pdubuilder"
 
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 
@@ -23,7 +23,7 @@ import (
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/v201/procedures"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv201/types"
 	"github.com/stretchr/testify/assert"
 )
 

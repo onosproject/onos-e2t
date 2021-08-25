@@ -24,6 +24,7 @@ type RICHandler func(channel RICConn) procedures.RICProcedures
 type RICConn interface {
 	connection.Conn
 	procedures.E2NodeProcedures
+	BaseConn() *connection.Connection
 }
 
 // NewRICConn creates a new E2 node channel
@@ -53,6 +54,10 @@ type ricConn struct {
 	ricSubscription       *procedures.RICSubscriptionInitiator
 	ricSubscriptionDelete *procedures.RICSubscriptionDeleteInitiator
 	ricIndicationCh       chan e2appdudescriptions.E2ApPdu
+}
+
+func (c *ricConn) BaseConn() *connection.Connection {
+	return c.baseConn
 }
 
 func (c *ricConn) open() {

@@ -5,11 +5,12 @@
 package asn1cgo
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
-	"gotest.tools/assert"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/types"
+	"gotest.tools/assert"
 )
 
 func Test_xerEncodeRICsubscriptionRequest(t *testing.T) {

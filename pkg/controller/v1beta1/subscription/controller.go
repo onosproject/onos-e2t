@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2conn"
+
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/uri"
@@ -22,7 +24,7 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	e2ap101server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -39,7 +41,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, connections e2server.ConnManager,
+func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, connections e2conn.ConnManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
@@ -60,7 +62,7 @@ func NewController(streams subscription.Broker, subs substore.Store, topo rnib.S
 		connections:               connections,
 		models:                    models,
 		oidRegistry:               oidRegistry,
-		connIDs:                   make(map[e2api.SubscriptionID]e2server.ConnID),
+		connIDs:                   make(map[e2api.SubscriptionID]e2conn.ID),
 		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 	})
 	return c
@@ -76,10 +78,10 @@ type Reconciler struct {
 	streams                   subscription.Broker
 	subs                      substore.Store
 	topo                      rnib.Store
-	connections               e2server.ConnManager
+	connections               e2conn.ConnManager
 	models                    modelregistry.ModelRegistry
 	oidRegistry               oid.Registry
-	connIDs                   map[e2api.SubscriptionID]e2server.ConnID
+	connIDs                   map[e2api.SubscriptionID]e2conn.ID
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
 }
 
@@ -148,7 +150,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		return controller.Result{}, nil
 	}
 
-	conn, err := r.connections.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
+	conn, err := r.connections.Get(ctx, e2conn.ID(e2NodeRelation.ID))
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
@@ -159,7 +161,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	}
 
 	if sub.Status.State != e2api.SubscriptionState_SUBSCRIPTION_PENDING {
-		if r.connIDs[sub.ID] != conn.ID {
+		if r.connIDs[sub.ID] != conn.GetID() {
 			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_PENDING
 			log.Debugf("Updating Subscription %+v", sub)
 			err = r.subs.Update(ctx, sub)
@@ -171,7 +173,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		return controller.Result{}, nil
 	}
 
-	r.connIDs[sub.ID] = conn.ID
+	r.connIDs[sub.ID] = conn.GetID()
 
 	serviceModelOID, err := oid.ModelIDToOid(r.oidRegistry,
 		string(sub.ServiceModel.Name),
@@ -233,7 +235,13 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFunction, ok := conn.GetRANFunction(serviceModelOID)
+	e2ap101Conn := &e2ap101server.E2Conn{}
+	switch v := conn.(type) {
+	case *e2ap101server.E2Conn:
+		e2ap101Conn = v
+
+	}
+	ranFunction, ok := e2ap101Conn.GetRANFunction(serviceModelOID)
 	if !ok {
 		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
@@ -281,7 +289,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 
 	// Send the subscription request and await a response
 	log.Debugf("Sending RicsubscriptionRequest %+v", request)
-	response, failure, err := conn.RICSubscription(ctx, request)
+	response, failure, err := e2ap101Conn.RICSubscription(ctx, request)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
 		return controller.Result{}, err
@@ -355,7 +363,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, nil
 	}
 
-	conn, err := r.connections.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
+	conn, err := r.connections.Get(ctx, e2conn.ID(e2NodeRelation.ID))
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
@@ -383,7 +391,14 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, err
 	}
 
-	ranFunction, ok := conn.GetRANFunction(serviceModelOID)
+	e2ap101Conn := &e2ap101server.E2Conn{}
+	switch v := conn.(type) {
+	case *e2ap101server.E2Conn:
+		e2ap101Conn = v
+
+	}
+
+	ranFunction, ok := e2ap101Conn.GetRANFunction(serviceModelOID)
 	if !ok {
 		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
@@ -396,7 +411,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 
 	// Send the subscription request and await a response
 	log.Debugf("Sending RicsubscriptionDeleteRequest %+v", request)
-	response, failure, err := conn.RICSubscriptionDelete(ctx, request)
+	response, failure, err := e2ap101Conn.RICSubscriptionDelete(ctx, request)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
 		return controller.Result{}, err

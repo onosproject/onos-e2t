@@ -4,11 +4,12 @@
 package pdubuilder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
-	"gotest.tools/assert"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/types"
+	"gotest.tools/assert"
 )
 
 func TestRicIndication(t *testing.T) {

@@ -9,9 +9,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
-
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2conn"
 
 	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -23,7 +21,7 @@ import (
 var log = logging.GetLogger("northbound", "admin")
 
 // NewService creates a new admin service
-func NewService(connections e2server.ConnManager) northbound.Service {
+func NewService(connections e2conn.ConnManager) northbound.Service {
 	return &Service{
 		connections: connections,
 	}
@@ -31,7 +29,7 @@ func NewService(connections e2server.ConnManager) northbound.Service {
 
 // Service is a Service implementation for administration.
 type Service struct {
-	connections e2server.ConnManager
+	connections e2conn.ConnManager
 }
 
 // Register registers the Service with the gRPC server.
@@ -46,7 +44,7 @@ var _ northbound.Service = &Service{}
 
 // Server implements the gRPC service for administrative facilities.
 type Server struct {
-	connections e2server.ConnManager
+	connections e2conn.ConnManager
 }
 
 // UploadRegisterServiceModel uploads and adds the model plugin to the list of supported models
@@ -81,27 +79,15 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 		for _, remoteAddr := range remoteAddrs {
 			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
 		}
-		var ranFunctions []*adminapi.RANFunction
-		registeredRANFunctions := conn.GetRANFunctions()
-
-		for _, ranFunctionValue := range registeredRANFunctions {
-			ranFunction := &adminapi.RANFunction{
-				Oid:           string(ranFunctionValue.OID),
-				RanFunctionId: string(ranFunctionValue.ID),
-				Description:   ranFunctionValue.Description,
-			}
-			ranFunctions = append(ranFunctions, ranFunction)
-		}
 
 		msg := &adminapi.ListE2NodeConnectionsResponse{
-			Id:             string(conn.ID),
-			RemoteIp:       remoteAddrsStrings,
-			RemotePort:     remotePort,
-			PlmnId:         conn.PlmnID,
-			NodeId:         conn.NodeID,
-			ConnectionType: connectionType(conn.NodeType),
-			AgeMs:          int32(time.Since(conn.TimeAlive).Milliseconds()),
-			RanFunctions:   ranFunctions,
+			Id:         string(conn.GetID()),
+			RemoteIp:   remoteAddrsStrings,
+			RemotePort: remotePort,
+			PlmnId:     conn.GetPlmnID(),
+			NodeId:     string(conn.GetE2NodeID()),
+			//ConnectionType: connectionType(conn.NodeType),
+			AgeMs: int32(time.Since(conn.GetTimeAlive()).Milliseconds()),
 		}
 
 		err = stream.Send(msg)
@@ -112,7 +98,7 @@ func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsReques
 	return err
 }
 
-func connectionType(nodeType types.E2NodeType) adminapi.E2NodeConnectionType {
+/*func connectionType(nodeType types.E2NodeType) adminapi.E2NodeConnectionType {
 	switch nodeType {
 	case types.E2NodeTypeGNB:
 		return adminapi.E2NodeConnectionType_G_NB
@@ -125,7 +111,7 @@ func connectionType(nodeType types.E2NodeType) adminapi.E2NodeConnectionType {
 	default:
 		return adminapi.E2NodeConnectionType_G_NB
 	}
-}
+}*/
 
 // DropE2NodeConnections drops the specified E2 node SCTP connections
 func (s *Server) DropE2NodeConnections(ctx context.Context, req *adminapi.DropE2NodeConnectionsRequest) (*adminapi.DropE2NodeConnectionsResponse, error) {

@@ -6,11 +6,12 @@ package asn1cgo
 
 import (
 	"encoding/hex"
+	"testing"
+
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func createRanFunctionItem() (*e2appducontents.RanfunctionItem, error) {

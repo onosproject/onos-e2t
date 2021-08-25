@@ -8,12 +8,13 @@ import (
 	"context"
 	"sync"
 
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2conn"
+
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 )
 
@@ -21,10 +22,10 @@ const queueSize = 100
 
 // Watcher is a connection watcher
 type Watcher struct {
-	connections e2server.ConnManager
+	connections e2conn.ConnManager
 	cancel      context.CancelFunc
 	mu          sync.Mutex
-	connCh      chan *e2server.E2Conn
+	connCh      chan e2conn.E2BaseConn
 }
 
 // Start starts the connection watcher
@@ -35,7 +36,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	w.connCh = make(chan *e2server.E2Conn, queueSize)
+	w.connCh = make(chan e2conn.E2BaseConn, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
 	err := w.connections.Watch(ctx, w.connCh)
 	if err != nil {
@@ -46,8 +47,8 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for conn := range w.connCh {
-			log.Debugf("Received connection event '%s'", conn.ID)
-			ch <- controller.NewID(conn.ID)
+			log.Debugf("Received connection event '%s'", conn.GetID())
+			ch <- controller.NewID(conn.GetID())
 		}
 		close(ch)
 	}()
@@ -67,7 +68,7 @@ func (w *Watcher) Stop() {
 //  TopoWatcher is a topology watcher
 type TopoWatcher struct {
 	topo        rnib.Store
-	connections e2server.ConnManager
+	connections e2conn.ConnManager
 	cancel      context.CancelFunc
 	mu          sync.Mutex
 }
@@ -102,19 +103,19 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 				// Enqueue the connection with matching e2node
 				if entity.Entity.KindID == topoapi.E2NODE {
 					for _, conn := range connections {
-						if conn.E2NodeID == event.Object.GetID() {
-							ch <- controller.NewID(conn.ID)
+						if conn.GetE2NodeID() == event.Object.GetID() {
+							ch <- controller.NewID(conn.GetID())
 						}
 					}
 				}
 				// Enqueue the connections with matching cells
 				if entity.Entity.KindID == topoapi.E2CELL {
 					for _, conn := range connections {
-						e2Cells := conn.E2Cells
+						e2Cells := conn.GetE2Cells()
 						for _, e2Cell := range e2Cells {
 							cellID := utils.GetCellID(conn, e2Cell)
 							if cellID == event.Object.GetID() {
-								ch <- controller.NewID(conn.ID)
+								ch <- controller.NewID(conn.GetID())
 							}
 						}
 					}
@@ -123,20 +124,20 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok {
 				if relation.Relation.KindID == topoapi.CONTAINS {
 					for _, conn := range connections {
-						e2Cells := conn.E2Cells
+						e2Cells := conn.GetE2Cells()
 						for _, e2Cell := range e2Cells {
 							cellID := utils.GetCellID(conn, e2Cell)
 							if cellID == relation.Relation.TgtEntityID {
-								ch <- controller.NewID(conn.ID)
+								ch <- controller.NewID(conn.GetID())
 							}
 						}
 					}
 				}
 				if relation.Relation.KindID == topoapi.CONTROLS {
 					for _, conn := range connections {
-						relationID := utils.GetE2ControlRelationID(conn.ID)
+						relationID := utils.GetE2ControlRelationID(conn.GetID())
 						if relationID == event.Object.GetID() {
-							ch <- controller.NewID(conn.ID)
+							ch <- controller.NewID(conn.GetID())
 						}
 					}
 				}

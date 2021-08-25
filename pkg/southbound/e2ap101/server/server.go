@@ -10,6 +10,10 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/onosproject/onos-lib-go/pkg/logging"
+
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2conn"
+
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
@@ -25,13 +29,15 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 )
 
+var log = logging.GetLogger("southbound", "e2apv101", "server")
+
 // TODO: Change the RIC ID to something appropriate
 var ricID = types.RicIdentifier{
 	RicIdentifierValue: []byte{0xDE, 0xBC, 0xA0},
 	RicIdentifierLen:   20,
 }
 
-func NewE2Server(connections ConnManager,
+func NewE2Server(connections e2conn.ConnManager,
 	streams subscription.Broker,
 	streamsv1beta1 subscriptionv1beta1.Broker,
 	modelRegistry modelregistry.ModelRegistry) *E2Server {
@@ -46,7 +52,7 @@ func NewE2Server(connections ConnManager,
 
 type E2Server struct {
 	server         *e2.Server
-	connections    ConnManager
+	connections    e2conn.ConnManager
 	subs           subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	modelRegistry  modelregistry.ModelRegistry
@@ -69,7 +75,7 @@ func (s *E2Server) Stop() error {
 }
 
 type E2ChannelServer struct {
-	manager        ConnManager
+	manager        e2conn.ConnManager
 	streams        subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	serverConn     e2.ServerConn
@@ -149,7 +155,8 @@ func (e *E2ChannelServer) E2Setup(ctx context.Context, request *e2appducontents.
 	}
 
 	e.e2Conn = NewE2Conn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, e.streams, e.streamsv1beta1, serviceModels, ranFunctions, e2Cells, time.Now())
-	defer e.manager.open(e.e2Conn)
+	var e2BaseConn e2conn.E2BaseConn = e.e2Conn
+	defer e.manager.Open(e2BaseConn)
 
 	// Create an E2 setup response
 	response, err := pdubuilder.NewE2SetupResponse(nodeIdentity.Plmn, ricID, rfAccepted, rfRejected)

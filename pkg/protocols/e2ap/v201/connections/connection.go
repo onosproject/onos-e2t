@@ -12,7 +12,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/connection"
 
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv201/asn1cgo"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 

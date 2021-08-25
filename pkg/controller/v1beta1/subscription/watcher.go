@@ -8,6 +8,8 @@ import (
 	"context"
 	"sync"
 
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2conn"
+
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
@@ -67,10 +69,10 @@ var _ controller.Watcher = &Watcher{}
 // ConnectionWatcher is a connection watcher
 type ConnectionWatcher struct {
 	subs        substore.Store
-	connections e2server.ConnManager
+	connections e2conn.ConnManager
 	cancel      context.CancelFunc
 	mu          sync.Mutex
-	connCh      chan *e2server.E2Conn
+	connCh      chan e2conn.E2BaseConn
 }
 
 // Start starts the connection watcher
@@ -81,7 +83,7 @@ func (w *ConnectionWatcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	w.connCh = make(chan *e2server.E2Conn, queueSize)
+	w.connCh = make(chan e2conn.E2BaseConn, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
 	err := w.connections.Watch(ctx, w.connCh)
 	if err != nil {
@@ -92,12 +94,18 @@ func (w *ConnectionWatcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for conn := range w.connCh {
+			e2Conn101 := &e2server.E2Conn{}
+			switch v := conn.(type) {
+			case *e2server.E2Conn:
+				e2Conn101 = v
+
+			}
 			subs, err := w.subs.List(ctx)
 			if err != nil {
 				log.Error(err)
 			} else {
 				for _, sub := range subs {
-					if topoapi.ID(sub.E2NodeID) == conn.E2NodeID {
+					if topoapi.ID(sub.E2NodeID) == e2Conn101.E2NodeID {
 						ch <- controller.NewID(sub.ID)
 					}
 				}

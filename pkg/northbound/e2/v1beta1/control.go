@@ -8,6 +8,8 @@ import (
 	"context"
 	"sync"
 
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2conn"
+
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
@@ -26,7 +28,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	e2ap101server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
@@ -39,7 +41,7 @@ import (
 var log = logging.GetLogger("northbound", "e2", "v1beta1")
 
 // NewControlService creates a new control service
-func NewControlService(modelRegistry modelregistry.ModelRegistry, connections e2server.ConnManager,
+func NewControlService(modelRegistry modelregistry.ModelRegistry, connections e2conn.ConnManager,
 	oidRegistry oid.Registry, topo rnib.Store) northbound.Service {
 	return &ControlService{
 		modelRegistry: modelRegistry,
@@ -53,7 +55,7 @@ func NewControlService(modelRegistry modelregistry.ModelRegistry, connections e2
 type ControlService struct {
 	northbound.Service
 	modelRegistry modelregistry.ModelRegistry
-	connections   e2server.ConnManager
+	connections   e2conn.ConnManager
 	oidRegistry   oid.Registry
 	topo          rnib.Store
 }
@@ -71,7 +73,7 @@ func (s ControlService) Register(r *grpc.Server) {
 // ControlServer implements the gRPC service for control
 type ControlServer struct {
 	modelRegistry modelregistry.ModelRegistry
-	connections   e2server.ConnManager
+	connections   e2conn.ConnManager
 	oidRegistry   oid.Registry
 	topo          rnib.Store
 	requestID     int32
@@ -102,7 +104,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
 	}
 
-	conn, err := s.connections.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
+	conn, err := s.connections.Get(ctx, e2conn.ID(e2NodeRelation.ID))
 	if err != nil {
 		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
 		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
@@ -122,16 +124,6 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		return nil, errors.Status(err).Err()
 	}
 
-	s.requestMu.Lock()
-	s.requestID++
-	requestID := s.requestID
-	s.requestMu.Unlock()
-
-	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(requestID),
-		InstanceID:  config.InstanceID,
-	}
-
 	controlHeaderBytes := request.Message.Header
 	controlMessageBytes := request.Message.Payload
 	if request.Headers.Encoding == e2api.Encoding_PROTO {
@@ -147,51 +139,65 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		}
 	}
 
-	ranFuncID, ok := conn.GetRANFunction(serviceModelOID)
-	if !ok {
-		log.Warn("RAN function not found for SM %s", serviceModelOID)
-	}
+	s.requestMu.Lock()
+	s.requestID++
+	requestID := s.requestID
+	s.requestMu.Unlock()
 
-	rcar := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
-	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, nil, controlHeaderBytes, controlMessageBytes, &rcar)
-
-	if err != nil {
-		log.Warn(err)
-		return nil, errors.Status(err).Err()
-	}
-
-	ack, failure, err := conn.RICControl(ctx, controlRequest)
-	if err != nil {
-		log.Warn(err)
-		return nil, errors.Status(err).Err()
-	}
-
-	if ack != nil {
-		outcomeProtoBytes := ack.ProtocolIes.E2ApProtocolIes32.Value.Value
-		if request.Headers.Encoding == e2api.Encoding_PROTO {
-			outcomeProtoBytes, err = serviceModelPlugin.ControlOutcomeASN1toProto(outcomeProtoBytes)
-			if err != nil {
-				log.Warnf("Error transforming Control Outcome ASN1 to Proto bytes: %s", err.Error())
-				return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
-			}
+	switch conn := conn.(type) {
+	case *e2ap101server.E2Conn:
+		ricRequest := types.RicRequest{
+			RequestorID: types.RicRequestorID(requestID),
+			InstanceID:  config.InstanceID,
 		}
-		response = &e2api.ControlResponse{
-			Headers: e2api.ResponseHeaders{
-				Encoding: e2api.Encoding_PROTO,
-			},
-			Outcome: e2api.ControlOutcome{
-				Payload: outcomeProtoBytes,
-			},
+		ranFuncID, ok := conn.GetRANFunction(serviceModelOID)
+		if !ok {
+			log.Warn("RAN function not found for SM %s", serviceModelOID)
 		}
-	} else if failure != nil {
-		st := status.New(codes.Aborted, "an E2AP failure occurred")
-		st, err := st.WithDetails(getControlError(failure))
+
+		rcar := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
+		controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, nil, controlHeaderBytes, controlMessageBytes, &rcar)
+
 		if err != nil {
-			return nil, err
+			log.Warn(err)
+			return nil, errors.Status(err).Err()
 		}
-		return nil, st.Err()
+
+		ack, failure, err := conn.RICControl(ctx, controlRequest)
+		if err != nil {
+			log.Warn(err)
+			return nil, errors.Status(err).Err()
+		}
+
+		if ack != nil {
+			outcomeProtoBytes := ack.ProtocolIes.E2ApProtocolIes32.Value.Value
+			if request.Headers.Encoding == e2api.Encoding_PROTO {
+				outcomeProtoBytes, err = serviceModelPlugin.ControlOutcomeASN1toProto(outcomeProtoBytes)
+				if err != nil {
+					log.Warnf("Error transforming Control Outcome ASN1 to Proto bytes: %s", err.Error())
+					return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
+				}
+			}
+			response = &e2api.ControlResponse{
+				Headers: e2api.ResponseHeaders{
+					Encoding: e2api.Encoding_PROTO,
+				},
+				Outcome: e2api.ControlOutcome{
+					Payload: outcomeProtoBytes,
+				},
+			}
+		} else if failure != nil {
+			st := status.New(codes.Aborted, "an E2AP failure occurred")
+			st, err := st.WithDetails(getControlError(failure))
+			if err != nil {
+				return nil, err
+			}
+			return nil, st.Err()
+		}
+		return response, nil
+	default:
+		return nil, errors.Status(errors.NewNotSupported("not supported")).Err()
 	}
-	return response, nil
 }
 
 func getControlError(failure *e2appducontents.RiccontrolFailure) *e2api.Error {

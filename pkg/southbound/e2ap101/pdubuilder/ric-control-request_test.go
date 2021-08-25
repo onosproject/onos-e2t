@@ -5,10 +5,11 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	"testing"
+
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestRicControlRequest(t *testing.T) {

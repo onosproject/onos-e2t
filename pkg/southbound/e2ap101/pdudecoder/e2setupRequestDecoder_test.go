@@ -5,11 +5,12 @@
 package pdudecoder
 
 import (
+	"io/ioutil"
+	"testing"
+
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"gotest.tools/assert"
-	"io/ioutil"
-	"testing"
 )
 
 func Test_DecodeE2SetupRequestPdu(t *testing.T) {
