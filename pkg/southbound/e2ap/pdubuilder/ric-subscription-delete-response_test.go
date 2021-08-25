@@ -4,11 +4,10 @@
 package pdubuilder
 
 import (
-	"testing"
-
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/asn1cgo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
+	"testing"
 )
 
 func TestRicSubscriptionDeleteResponse(t *testing.T) {

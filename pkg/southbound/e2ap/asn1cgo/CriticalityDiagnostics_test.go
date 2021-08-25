@@ -5,14 +5,13 @@
 package asn1cgo
 
 import (
-	"testing"
-
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
+	"testing"
 )
 
 func Test_CriticalityDiagnostics(t *testing.T) {

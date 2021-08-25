@@ -5,11 +5,10 @@
 package pdudecoder
 
 import (
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"gotest.tools/assert"
 	"io/ioutil"
 	"testing"
-
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2apv100/asn1cgo"
-	"gotest.tools/assert"
 )
 
 func Test_DecodeRicSubscriptionDeleteRequestPdu(t *testing.T) {
