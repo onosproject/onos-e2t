@@ -19,6 +19,7 @@ import (
 // TopoClient R-NIB client interface
 type TopoClient interface {
 	WatchE2Connections(ctx context.Context, ch chan topoapi.Event) error
+	WatchE2TNodes(ctx context.Context, ch chan topoapi.Event) error
 	GetCells(ctx context.Context, nodeID topoapi.ID) ([]*topoapi.E2Cell, error)
 	GetE2NodeAspects(ctx context.Context, nodeID topoapi.ID) (*topoapi.E2Node, error)
 	E2NodeRelationIDs(ctx context.Context) ([]topoapi.ID, error)
@@ -135,6 +136,15 @@ func getE2TFilter() *topoapi.Filters {
 // WatchE2Connections watch e2 node connection changes
 func (c *Client) WatchE2Connections(ctx context.Context, ch chan topoapi.Event) error {
 	err := c.client.Watch(ctx, ch, toposdk.WithWatchFilters(getControlRelationFilter()))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// WatchE2TNodes watch e2 node connection changes
+func (c *Client) WatchE2TNodes(ctx context.Context, ch chan topoapi.Event) error {
+	err := c.client.Watch(ctx, ch, toposdk.WithWatchFilters(getE2TFilter()))
 	if err != nil {
 		return err
 	}

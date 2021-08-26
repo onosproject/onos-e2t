@@ -69,7 +69,7 @@ func getExpiration(t *testing.T, node topo.Object) time.Time {
 }
 
 // checkNodes checks that the IDs of the E2T pods match the topo object IDs
-func checkNodes(t *testing.T, e2tPods map[string]*v1.Pod) []topo.Object {
+func checkNodes(t *testing.T, e2tPods map[string]*v1.Pod, events map[string]topo.Event) []topo.Object {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
@@ -78,8 +78,16 @@ func checkNodes(t *testing.T, e2tPods map[string]*v1.Pod) []topo.Object {
 	assert.NoError(t, err)
 
 	for _, node := range nodes {
+		// check that the node found in topo is also in k8s
 		idAsPod := podID(node)
 		assert.Equal(t, idAsPod, e2tPods[idAsPod].Name)
+
+		// If an event map was provided, check that the ID in the event map
+		// matches the k8s pod ID
+		if events != nil {
+			_, ok := events[idAsPod]
+			assert.True(t, ok)
+		}
 	}
 	cancel()
 	return nodes
@@ -93,26 +101,40 @@ func deletePod(t *testing.T, pod *v1.Pod) {
 	cancel()
 }
 
-func waitForE2Nodes(t *testing.T) {
+func readTopoAddedEvents(ch chan topo.Event, expectedValue int) map[string]topo.Event {
+	eventsMap := make(map[string]topo.Event)
+	count := 0
+	for event := range ch {
+		count++
+		eventsMap[podID(event.Object)] = event
+		if count == expectedValue {
+			break
+		}
+	}
+	return eventsMap
+}
+
+// waitForE2Nodes waits until 2 E2T nodes have registered with topo
+func waitForE2Nodes(t *testing.T) map[string]topo.Event {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
 	topoEventChan := make(chan topo.Event)
-	ctx, cancel := getCtx()
-	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
+	ctx := context.Background()
+	err = topoSdkClient.WatchE2TNodes(ctx, topoEventChan)
 	assert.NoError(t, err)
-	utils.CountTopoAddedOrNoneEvent(topoEventChan, 2)
-
-	cancel()
+	events := readTopoAddedEvents(topoEventChan, 2)
+	close(topoEventChan)
+	return events
 }
 
 // TestE2TLeaseExpiration checks that when an E2T pod is deleted, topo is updated properly
 func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
-	waitForE2Nodes(t)
+	eventNodes := waitForE2Nodes(t)
 
-	// first check that the E2T pods are all registered properly with topo
+	// check that the E2T pods are all registered properly with topo
 	e2tPods := getE2Pods(t, s)
-	nodes := checkNodes(t, e2tPods)
+	nodes := checkNodes(t, e2tPods, eventNodes)
 
 	// delete the first e2t node in the list - k8s will make a new pod
 	firstNode := nodes[0]
@@ -127,7 +149,7 @@ func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
 
 		// Check that the new pod was properly registered
 		e2tPods = getE2Pods(t, s)
-		nodesAfterDelete := checkNodes(t, e2tPods)
+		nodesAfterDelete := checkNodes(t, e2tPods, nil)
 
 		// check that the expired node was removed
 		for _, node := range nodesAfterDelete {
