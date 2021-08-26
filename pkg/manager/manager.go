@@ -19,13 +19,12 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2ap101server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
-
 	"github.com/onosproject/onos-e2t/pkg/controller/mastership"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
+	e2ap101server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -103,6 +102,7 @@ func (m *Manager) Start() error {
 
 	streams := subscription.NewBroker()
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
+	//streamsv2beta1 := subscriptionv2beta1.NewBroker()
 	connections := e2conn.NewConnManager()
 
 	err = m.startE2TController(rnibStore)
@@ -172,8 +172,18 @@ func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, stream
 // startSouthboundServer starts the southbound server
 func (m *Manager) startSouthboundServer(connections e2conn.ConnManager, streams subscription.Broker,
 	streamsv1beta1 subscriptionv1beta1.Broker) error {
-	server := e2ap101server.NewE2Server(connections, streams, streamsv1beta1, m.ModelRegistry)
-	return server.Serve()
+	server101 := e2ap101server.NewE2Server(connections, streams, streamsv1beta1, m.ModelRegistry)
+	//server102 := e2ap2server.NewE2Server(connections, streams, streamsv2beta1, m.ModelRegistry)
+	err := server101.Serve()
+	if err != nil {
+		return err
+	}
+
+	/*err = server102.Serve()
+	if err != nil {
+		return err
+	}*/
+	return nil
 }
 
 // startSouthboundServer starts the northbound gRPC server

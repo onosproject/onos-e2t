@@ -10,6 +10,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/onosproject/onos-e2t/pkg/protocols/sctp"
+
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2conn"
@@ -42,7 +44,7 @@ func NewE2Server(connections e2conn.ConnManager,
 	streamsv2beta1 subscriptionv2beta1.Broker,
 	modelRegistry modelregistry.ModelRegistry) *E2Server {
 	return &E2Server{
-		server:         e2.NewServer(),
+		server:         e2.NewServer(sctp.WithPort(36422)),
 		connections:    connections,
 		subs:           streams,
 		streamsv2beta1: streamsv2beta1,

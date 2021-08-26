@@ -37,6 +37,13 @@ func WriteBuffer(size int) ServerOption {
 	}
 }
 
+// WithPort sets the SCTP server port
+func WithPort(port int) ServerOption {
+	return func(options *ServerOptions) {
+		options.Port = port
+	}
+}
+
 // ReadBuffer sets the read buffer size
 func ReadBuffer(size int) ServerOption {
 	return func(options *ServerOptions) {
