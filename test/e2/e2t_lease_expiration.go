@@ -7,9 +7,8 @@ package e2
 import (
 	"context"
 	"github.com/onosproject/helmit/pkg/kubernetes"
-	v1 "github.com/onosproject/helmit/pkg/kubernetes/core/v1"
+	"github.com/onosproject/helmit/pkg/kubernetes/core/v1"
 	"github.com/onosproject/onos-api/go/onos/topo"
-	"sync"
 	"testing"
 	"time"
 
@@ -18,18 +17,22 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// podID converts an E2T node name ID into a pod name
 func podID(node topo.Object) string {
 	return string(node.ID[3:])
 }
 
+// nodeID converts a pod into an E2t node ID
 func nodeID(pod *v1.Pod) string {
 	return "e2:" + pod.Name
 }
 
+// getCtx returns a context to use in gRPC calls
 func getCtx() (context.Context, context.CancelFunc) {
 	return context.WithTimeout(context.Background(), 1*time.Minute)
 }
 
+// getE2Pods returns a map of E2T pod names to pods
 func getE2Pods(t *testing.T, s *TestSuite) map[string]*v1.Pod {
 	sdranClient, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
@@ -49,6 +52,7 @@ func getE2Pods(t *testing.T, s *TestSuite) map[string]*v1.Pod {
 	return e2tPods
 }
 
+// getExpiration extracts the expiration time for an object from its aspects
 func getExpiration(t *testing.T, node topo.Object) time.Time {
 	var expiration time.Time
 	for _, aspect := range node.Aspects {
@@ -64,6 +68,7 @@ func getExpiration(t *testing.T, node topo.Object) time.Time {
 	return expiration
 }
 
+// checkNodes checks that the IDs of the E2T pods match the topo object IDs
 func checkNodes(t *testing.T, e2tPods map[string]*v1.Pod) []topo.Object {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
@@ -80,6 +85,7 @@ func checkNodes(t *testing.T, e2tPods map[string]*v1.Pod) []topo.Object {
 	return nodes
 }
 
+// deletePods deletes a pod
 func deletePod(t *testing.T, pod *v1.Pod) {
 	ctx, cancel := getCtx()
 	err := pod.Delete(ctx)
@@ -87,33 +93,42 @@ func deletePod(t *testing.T, pod *v1.Pod) {
 	cancel()
 }
 
-func (s *TestSuite) TestE2TClustering(t *testing.T) {
+// TestE2TLeaseExpiration checks that when an E2T pod is deleted, topo is updated properly
+func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
+	// create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2-clustering")
 	assert.NotNil(t, sim)
 
+	// first check that the E2T pods are all registered properly with topo
 	e2tPods := getE2Pods(t, s)
-
 	nodes := checkNodes(t, e2tPods)
+
+	// delete the first e2t node in the list - k8s will make a new pod
 	firstNode := nodes[0]
 	firstPod := e2tPods[podID(firstNode)]
-	expiration := getExpiration(t, firstNode)
-
 	deletePod(t, firstPod)
 
+	// wait for the topo object to expire
+	expiration := getExpiration(t, firstNode)
 	untilExpiration := time.Until(expiration)
 
-	wg := sync.WaitGroup{}
-	wg.Add(1)
-	time.AfterFunc(untilExpiration, func() { wg.Done() })
-	wg.Wait()
+	time.AfterFunc(untilExpiration, func() {
 
-	e2tPods = getE2Pods(t, s)
-	nodes = checkNodes(t, e2tPods)
-	for _, node := range nodes {
-		if string(node.ID) == nodeID(firstPod) {
-			assert.Fail(t, "Crashed e2 pod not removed from topo")
+		// Check that the new pod was properly registered
+		e2tPods = getE2Pods(t, s)
+		nodesAfterDelete := checkNodes(t, e2tPods)
+
+		// check that the expired node was removed
+		for _, node := range nodesAfterDelete {
+			if string(node.ID) == nodeID(firstPod) {
+				assert.Fail(t, "Crashed e2 pod not removed from topo")
+			}
 		}
-	}
 
-	assert.NoError(t, sim.Uninstall())
+		// check that there are the correct number of registrations
+		assert.Equal(t, len(nodes), len(nodesAfterDelete))
+
+		// clean up the simulator
+		assert.NoError(t, sim.Uninstall())
+	})
 }
