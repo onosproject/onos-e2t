@@ -21,7 +21,7 @@ type TopoClient interface {
 	WatchE2Connections(ctx context.Context, ch chan topoapi.Event) error
 	GetCells(ctx context.Context, nodeID topoapi.ID) ([]*topoapi.E2Cell, error)
 	GetE2NodeAspects(ctx context.Context, nodeID topoapi.ID) (*topoapi.E2Node, error)
-	E2NodeIDs(ctx context.Context) ([]topoapi.ID, error)
+	E2NodeRelationIDs(ctx context.Context) ([]topoapi.ID, error)
 }
 
 // NewTopoClient creates a new topo SDK client
@@ -41,8 +41,8 @@ type Client struct {
 	client toposdk.Client
 }
 
-// E2NodeIDs lists all of connected E2 nodes
-func (c *Client) E2NodeIDs(ctx context.Context) ([]topoapi.ID, error) {
+// E2NodeRelationIDs lists the relation entity IDs of all of connected E2 nodes
+func (c *Client) E2NodeRelationIDs(ctx context.Context) ([]topoapi.ID, error) {
 	objects, err := c.client.List(ctx, toposdk.WithListFilters(getControlRelationFilter()))
 	if err != nil {
 		return nil, err
@@ -56,6 +56,16 @@ func (c *Client) E2NodeIDs(ctx context.Context) ([]topoapi.ID, error) {
 	}
 
 	return e2NodeIDs, nil
+}
+
+// E2TNodes lists E2T nodes
+func (c *Client) E2TNodes(ctx context.Context) ([]topoapi.Object, error) {
+	objects, err := c.client.List(ctx, toposdk.WithListFilters(getE2TFilter()))
+	if err != nil {
+		return nil, err
+	}
+
+	return append(make([]topoapi.Object, 0), objects...), nil
 }
 
 // GetE2NodeAspects gets E2 node aspects
@@ -101,17 +111,25 @@ func (c *Client) GetCells(ctx context.Context, nodeID topoapi.ID) ([]*topoapi.E2
 	return cells, nil
 }
 
-func getControlRelationFilter() *topoapi.Filters {
+func getFilter(kind string) *topoapi.Filters {
 	controlRelationFilter := &topoapi.Filters{
 		KindFilter: &topoapi.Filter{
 			Filter: &topoapi.Filter_Equal_{
 				Equal_: &topoapi.EqualFilter{
-					Value: topoapi.CONTROLS,
+					Value: kind,
 				},
 			},
 		},
 	}
 	return controlRelationFilter
+
+}
+func getControlRelationFilter() *topoapi.Filters {
+	return getFilter(topoapi.CONTROLS)
+}
+
+func getE2TFilter() *topoapi.Filters {
+	return getFilter(topoapi.E2T)
 }
 
 // WatchE2Connections watch e2 node connection changes
