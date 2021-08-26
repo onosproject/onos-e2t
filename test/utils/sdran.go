@@ -17,6 +17,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const E2TReplicaCount = 2
+
 func getCredentials() (string, string, error) {
 	kubClient, err := kubernetes.New()
 	if err != nil {
@@ -50,7 +52,7 @@ func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 		Set("onos-topo.image.tag", "latest").
 		Set("onos-e2t.image.tag", "latest").
 		Set("ran-simulator.image.tag", "latest").
-		Set("onos-e2t.replicaCount", 2).
+		Set("onos-e2t.replicaCount", E2TReplicaCount).
 		Set("onos-uenib.image.tag", "latest").
 		Set("global.image.registry", registry)
 

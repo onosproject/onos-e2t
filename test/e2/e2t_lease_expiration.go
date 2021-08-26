@@ -114,8 +114,8 @@ func readTopoAddedEvents(ch chan topo.Event, expectedValue int) map[string]topo.
 	return eventsMap
 }
 
-// waitForE2Nodes waits until 2 E2T nodes have registered with topo
-func waitForE2Nodes(t *testing.T) map[string]topo.Event {
+// waitForE2TNodes waits until 2 E2T nodes have registered with topo
+func waitForE2TNodes(t *testing.T) map[string]topo.Event {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
@@ -123,14 +123,14 @@ func waitForE2Nodes(t *testing.T) map[string]topo.Event {
 	ctx := context.Background()
 	err = topoSdkClient.WatchE2TNodes(ctx, topoEventChan)
 	assert.NoError(t, err)
-	events := readTopoAddedEvents(topoEventChan, 2)
+	events := readTopoAddedEvents(topoEventChan, utils.E2TReplicaCount)
 	close(topoEventChan)
 	return events
 }
 
 // TestE2TLeaseExpiration checks that when an E2T pod is deleted, topo is updated properly
 func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
-	eventNodes := waitForE2Nodes(t)
+	eventNodes := waitForE2TNodes(t)
 
 	// check that the E2T pods are all registered properly with topo
 	e2tPods := getE2Pods(t, s)
