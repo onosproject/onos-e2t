@@ -29,7 +29,7 @@ func nodeID(pod *v1.Pod) string {
 
 // getCtx returns a context to use in gRPC calls
 func getCtx() (context.Context, context.CancelFunc) {
-	return context.WithTimeout(context.Background(), 1*time.Minute)
+	return context.WithTimeout(context.Background(), 30*time.Second)
 }
 
 // getE2Pods returns a map of E2T pod names to pods
@@ -93,11 +93,22 @@ func deletePod(t *testing.T, pod *v1.Pod) {
 	cancel()
 }
 
+func waitForE2Nodes(t *testing.T) {
+	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
+
+	topoEventChan := make(chan topo.Event)
+	ctx, cancel := getCtx()
+	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
+	assert.NoError(t, err)
+	utils.CountTopoAddedOrNoneEvent(topoEventChan, 2)
+
+	cancel()
+}
+
 // TestE2TLeaseExpiration checks that when an E2T pod is deleted, topo is updated properly
 func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
-	// create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2-clustering")
-	assert.NotNil(t, sim)
+	waitForE2Nodes(t)
 
 	// first check that the E2T pods are all registered properly with topo
 	e2tPods := getE2Pods(t, s)
@@ -127,8 +138,5 @@ func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
 
 		// check that there are the correct number of registrations
 		assert.Equal(t, len(nodes), len(nodesAfterDelete))
-
-		// clean up the simulator
-		assert.NoError(t, sim.Uninstall())
 	})
 }
