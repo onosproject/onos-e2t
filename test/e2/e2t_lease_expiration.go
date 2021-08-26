@@ -124,7 +124,6 @@ func waitForE2TNodes(t *testing.T) map[string]topo.Event {
 	err = topoSdkClient.WatchE2TNodes(ctx, topoEventChan)
 	assert.NoError(t, err)
 	events := readTopoAddedEvents(topoEventChan, utils.E2TReplicaCount)
-	close(topoEventChan)
 	return events
 }
 
