@@ -157,14 +157,14 @@ func (m *Manager) startMastershipController(topo rnib.Store, channels e2server.C
 }
 
 // startChannelv1beta1Controller starts the subscription controllers
-func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams subscriptionv1beta1.Broker, topo rnib.Store) error {
-	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams, topo)
+func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams subscriptionv1beta1.Broker, rnib rnib.Store) error {
+	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams, rnib)
 	return subsv1beta1.Start()
 }
 
 // startSubscriptionv1beta1Controller starts the subscription controllers
-func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, topo rnib.Store, channels e2server.ChannelManager) error {
-	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, topo, channels, m.ModelRegistry, m.OidRegistry)
+func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, rnib rnib.Store, channels e2server.ChannelManager) error {
+	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, rnib, channels, m.ModelRegistry, m.OidRegistry)
 	return tasksv1beta1.Start()
 }
 
