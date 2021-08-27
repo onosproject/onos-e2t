@@ -119,7 +119,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1)
+	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1, rnibStore)
 	if err != nil {
 		return err
 	}
@@ -157,8 +157,8 @@ func (m *Manager) startMastershipController(topo rnib.Store, channels e2server.C
 }
 
 // startChannelv1beta1Controller starts the subscription controllers
-func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams subscriptionv1beta1.Broker) error {
-	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams)
+func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams subscriptionv1beta1.Broker, topo rnib.Store) error {
+	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams, topo)
 	return subsv1beta1.Start()
 }
 

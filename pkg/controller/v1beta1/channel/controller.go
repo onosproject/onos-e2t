@@ -8,6 +8,12 @@ import (
 	"context"
 	"time"
 
+	"github.com/onosproject/onos-e2t/pkg/controller/utils"
+
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
+
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
 	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -23,7 +29,7 @@ var log = logging.GetLogger("controller", "channel")
 const defaultTimeout = 30 * time.Second
 
 // NewController returns a new channel controller
-func NewController(chans chanstore.Store, subs substore.Store, streams subscription.Broker) *controller.Controller {
+func NewController(chans chanstore.Store, subs substore.Store, streams subscription.Broker, rnib rnib.Store) *controller.Controller {
 	c := controller.NewController("Channel")
 	c.Watch(&Watcher{
 		chans: chans,
@@ -36,6 +42,7 @@ func NewController(chans chanstore.Store, subs substore.Store, streams subscript
 		chans:   chans,
 		subs:    subs,
 		streams: streams,
+		rnib:    rnib,
 	})
 	return c
 }
@@ -45,6 +52,7 @@ type Reconciler struct {
 	chans   chanstore.Store
 	subs    substore.Store
 	streams subscription.Broker
+	rnib    rnib.Store
 }
 
 // Reconcile reconciles the state of a channel
@@ -79,6 +87,40 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
+
+	log.Debugf("Fetching mastership state for Channel %+v", channel)
+	e2NodeEntity, err := r.rnib.Get(ctx, topoapi.ID(channel.E2NodeID))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for Channel %+v failed %v", channel, err)
+			return controller.Result{}, err
+		}
+		log.Warnf("Mastership state not found for Channel %v: %s", channel, err)
+		return controller.Result{}, nil
+	}
+
+	mastership := topoapi.MastershipState{}
+	_ = e2NodeEntity.GetAspect(&mastership)
+
+	if mastership.Term == 0 {
+		log.Warnf("Mastership state not found for channel %+v", channel)
+		return controller.Result{}, nil
+	}
+
+	e2NodeRelation, err := r.rnib.Get(ctx, topoapi.ID(mastership.NodeId))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for Channel %+v failed: %s", channel, err)
+			return controller.Result{}, err
+		}
+		log.Warnf("Master relation not found for Channel %+v", channel)
+		return controller.Result{}, nil
+	}
+
+	if e2NodeRelation.GetRelation().SrcEntityID != utils.GetE2TID() {
+		log.Warnf("Not the master for Channel %v", channel)
+		return controller.Result{}, nil
+	}
 
 	sub, err := r.subs.Get(ctx, channel.SubscriptionID)
 	if err != nil {
@@ -157,6 +199,40 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
+
+	log.Debugf("Fetching mastership state for Channel %+v", channel)
+	e2NodeEntity, err := r.rnib.Get(ctx, topoapi.ID(channel.E2NodeID))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for Channel %+v failed: %v", channel)
+			return controller.Result{}, err
+		}
+		log.Warnf("Mastership state not found for Channel %+v: %s", channel, err)
+		return controller.Result{}, nil
+	}
+
+	mastership := topoapi.MastershipState{}
+	_ = e2NodeEntity.GetAspect(&mastership)
+
+	if mastership.Term == 0 {
+		log.Warnf("Mastership state not found for Channel %+v", channel)
+		return controller.Result{}, nil
+	}
+
+	e2NodeRelation, err := r.rnib.Get(ctx, topoapi.ID(mastership.NodeId))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for Channel %+v failed: %s", channel, err)
+			return controller.Result{}, err
+		}
+		log.Warnf("Master relation not found for Channel %+v", channel)
+		return controller.Result{}, nil
+	}
+
+	if e2NodeRelation.GetRelation().SrcEntityID != utils.GetE2TID() {
+		log.Warnf("Not the master for Channel %+v", channel)
+		return controller.Result{}, nil
+	}
 
 	// If the close has completed, delete the channel
 	if channel.Status.State == e2api.ChannelState_CHANNEL_COMPLETE {

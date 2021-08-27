@@ -314,18 +314,6 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	// If the close has completed, delete the subscription
-	if sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
-		log.Debugf("Deleting closed Subscription %+v", sub)
-		delete(r.channelIDs, sub.ID)
-		err := r.subs.Delete(ctx, sub)
-		if err != nil && !errors.IsNotFound(err) {
-			log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-			return controller.Result{}, err
-		}
-		return controller.Result{}, nil
-	}
-
 	log.Debugf("Fetching mastership state for E2Node '%s'", sub.E2NodeID)
 	e2NodeEntity, err := r.topo.Get(ctx, topoapi.ID(sub.E2NodeID))
 	if err != nil {
@@ -359,6 +347,18 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
+			return controller.Result{}, err
+		}
+		return controller.Result{}, nil
+	}
+
+	// If the close has completed, delete the subscription
+	if sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
+		log.Debugf("Deleting closed Subscription %+v", sub)
+		delete(r.channelIDs, sub.ID)
+		err := r.subs.Delete(ctx, sub)
+		if err != nil && !errors.IsNotFound(err) {
+			log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 			return controller.Result{}, err
 		}
 		return controller.Result{}, nil
