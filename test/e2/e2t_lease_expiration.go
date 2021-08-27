@@ -12,7 +12,6 @@ import (
 	"testing"
 	"time"
 
-	"encoding/json"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/stretchr/testify/assert"
 )
@@ -54,18 +53,10 @@ func getE2Pods(t *testing.T, s *TestSuite) map[string]*v1.Pod {
 
 // getExpiration extracts the expiration time for an object from its aspects
 func getExpiration(t *testing.T, node topo.Object) time.Time {
-	var expiration time.Time
-	for _, aspect := range node.Aspects {
-		if aspect.TypeUrl == "onos.topo.Lease" {
-			var jsonData map[string]interface{}
-			err := json.Unmarshal(aspect.Value, &jsonData)
-			assert.NoError(t, err)
-			expirationString := (jsonData["expiration"]).(string)
-			expiration, err = time.Parse(time.RFC3339, expirationString)
-			assert.NoError(t, err)
-		}
-	}
-	return expiration
+	lease := topo.Lease{}
+	err := node.GetAspect(&lease)
+	assert.NoError(t, err)
+	return *lease.Expiration
 }
 
 // checkNodes checks that the IDs of the E2T pods match the topo object IDs
