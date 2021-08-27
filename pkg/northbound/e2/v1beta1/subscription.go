@@ -8,8 +8,9 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
-	"github.com/cenkalti/backoff"
 	"io"
+
+	"github.com/cenkalti/backoff"
 
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"google.golang.org/grpc/codes"
@@ -435,6 +436,15 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		return nil, errors.Status(err).Err()
 	}
 
+	// Watch the channel store for changes
+	eventCh := make(chan e2api.ChannelEvent)
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	if err := s.chans.Watch(ctx, eventCh, channelstore.WithReplay()); err != nil {
+		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
+		return nil, errors.Status(err).Err()
+	}
+
 	// Ensure the channel phase is CLOSED
 	if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
 		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
@@ -444,15 +454,6 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 			log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 			return nil, errors.Status(err).Err()
 		}
-	}
-
-	// Watch the channel store for changes
-	eventCh := make(chan e2api.ChannelEvent)
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-	if err := s.chans.Watch(ctx, eventCh, channelstore.WithReplay()); err != nil {
-		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
-		return nil, errors.Status(err).Err()
 	}
 
 	// Wait for the channel state to indicate the subscription has been established
