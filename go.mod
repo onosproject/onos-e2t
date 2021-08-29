@@ -10,12 +10,12 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/uuid v1.1.2
 	github.com/onosproject/helmit v0.6.15
-	github.com/onosproject/onos-api/go v0.7.88
+	github.com/onosproject/onos-api/go v0.7.89
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.47
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.47
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.47
 	github.com/onosproject/onos-lib-go v0.7.18
-	github.com/onosproject/onos-ric-sdk-go v0.7.24
+	github.com/onosproject/onos-ric-sdk-go v0.7.25
 	github.com/onosproject/onos-test v0.6.4
 	github.com/stretchr/testify v1.7.0
 	google.golang.org/grpc v1.33.2
