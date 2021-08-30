@@ -6,10 +6,11 @@ package procedures
 
 import (
 	"context"
+	"sync"
+
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"sync"
 )
 
 // RICSubscriptionDelete is a RIC subscription delete procedure
@@ -108,7 +109,7 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 		responseCh <- *pdu
 		close(responseCh)
 	} else {
-		log.Errorf("Received RIC Subscription Delete response for unknown request %d", requestID)
+		log.Warnf("Received RIC Subscription Delete response for unknown request %d", requestID)
 	}
 }
 
