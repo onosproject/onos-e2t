@@ -110,7 +110,7 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 		responseCh <- *pdu
 		close(responseCh)
 	} else {
-		log.Errorf("Received RIC Subscription Delete response for unknown request %d", requestID)
+		log.Warnf("Received RIC Subscription Delete response for unknown request %d", requestID)
 	}
 }
 
