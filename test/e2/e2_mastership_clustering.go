@@ -43,6 +43,7 @@ func getE2Node(t *testing.T) *topoapi.Object {
 	assert.NoError(t, err)
 	ctx, cancel := getCtx()
 	nodes, err := topoSdkClient.E2Nodes(ctx)
+	assert.NoError(t, err)
 	cancel()
 
 	for i, node := range nodes {
@@ -83,7 +84,7 @@ func checkE2tNodeRelation(t *testing.T, e2Node topoapi.Object) *topoapi.Relation
 func getMastershipAspect(e2Node topoapi.Object) (topoapi.MastershipState, error) {
 	mastership := topoapi.MastershipState{}
 	err := e2Node.GetAspect(&mastership)
-	return mastership,err
+	return mastership, err
 }
 
 func waitForMastershipTerm(t *testing.T, topoNodeEventChan chan topoapi.Event, term uint64) (topoapi.MastershipState, error) {
@@ -111,8 +112,6 @@ func waitForMastershipTerm(t *testing.T, topoNodeEventChan chan topoapi.Event, t
 
 // TestE2TMastershipClustering checks mastership in a clustered environment
 func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
-	mastership := topoapi.MastershipState{}
-
 	ctx := context.Background()
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
@@ -135,7 +134,7 @@ func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
 	assert.NoError(t, err)
 
 	// wait for the first mastership update event
-	mastership, err = waitForMastershipTerm(t, topoNodeEventChan, 1)
+	mastership, err := waitForMastershipTerm(t, topoNodeEventChan, 1)
 	assert.NoError(t, err)
 	assert.Equal(t, uint64(1), mastership.GetTerm())
 
@@ -148,6 +147,7 @@ func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
 	_, err = nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
 		GnbID: gnbID,
 	})
+	assert.NoError(t, err)
 
 	// Make a new e2Node with the same gnbID
 	createE2Node(t, sim)
