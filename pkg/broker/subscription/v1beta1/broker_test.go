@@ -38,10 +38,10 @@ func TestBroker(t *testing.T) {
 	assert.Nil(t, reader4)
 	assert.False(t, ok)
 
-	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1", "transaction-1")
-	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2", "transaction-1")
-	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1", "transaction-1")
-	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1", "transaction-1")
+	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1", "transaction-1", e2api.Encoding_PROTO)
+	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2", "transaction-1", e2api.Encoding_PROTO)
+	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1", "transaction-1", e2api.Encoding_PROTO)
+	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1", "transaction-1", e2api.Encoding_PROTO)
 
 	assert.Equal(t, reader1.ID(), reader2.ID())
 	assert.Equal(t, reader2.ID(), reader3.ID())
@@ -63,10 +63,10 @@ func TestBroker(t *testing.T) {
 	assert.NotNil(t, reader4)
 	assert.True(t, ok)
 
-	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1", "transaction-1")
-	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2", "transaction-1")
-	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1", "transaction-1")
-	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1", "transaction-1")
+	reader1 = broker.OpenReader("sub-1", "app-1", "instance-1", "transaction-1", e2api.Encoding_PROTO)
+	reader2 = broker.OpenReader("sub-1", "app-1", "instance-2", "transaction-1", e2api.Encoding_PROTO)
+	reader3 = broker.OpenReader("sub-1", "app-2", "instance-1", "transaction-1", e2api.Encoding_PROTO)
+	reader4 = broker.OpenReader("sub-2", "app-2", "instance-1", "transaction-1", e2api.Encoding_PROTO)
 
 	writer1, ok := broker.GetWriter(reader1.ID())
 	assert.NotNil(t, writer1)
