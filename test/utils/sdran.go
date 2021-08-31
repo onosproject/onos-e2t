@@ -17,7 +17,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const E2TReplicaCount = 2
+const E2TReplicaCount = 1
 
 func getCredentials() (string, string, error) {
 	kubClient, err := kubernetes.New()
