@@ -10,7 +10,8 @@ import (
 	"testing"
 	"time"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -71,18 +72,18 @@ func TestBroker(t *testing.T) {
 	assert.NotNil(t, writer1)
 	assert.True(t, ok)
 
-	err := writer1.Send(&e2appducontents.Ricindication{})
+	err := writer1.Send(&e2api.Indication{})
 	assert.NoError(t, err)
-	err = writer1.Send(&e2appducontents.Ricindication{})
+	err = writer1.Send(&e2api.Indication{})
 	assert.NoError(t, err)
 
 	writer4, ok := broker.GetWriter(reader4.ID())
 	assert.NotNil(t, writer4)
 	assert.True(t, ok)
 
-	err = writer4.Send(&e2appducontents.Ricindication{})
+	err = writer4.Send(&e2api.Indication{})
 	assert.NoError(t, err)
-	err = writer4.Send(&e2appducontents.Ricindication{})
+	err = writer4.Send(&e2api.Indication{})
 	assert.NoError(t, err)
 
 	ind, err := reader1.Recv(context.TODO())
@@ -124,7 +125,7 @@ func TestBroker(t *testing.T) {
 
 	go func() {
 		time.Sleep(time.Second)
-		err := writer4.Send(&e2appducontents.Ricindication{})
+		err := writer4.Send(&e2api.Indication{})
 		assert.NoError(t, err)
 	}()
 

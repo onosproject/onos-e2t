@@ -11,7 +11,6 @@ import (
 	"sync"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
@@ -26,7 +25,7 @@ type StreamReader interface {
 	// distributed randomly between them. If no indications are available, the goroutine will be blocked until
 	// an indication is received or the Context is canceled. If the context is canceled, a context.Canceled error
 	// will be returned. If the stream has been closed, an io.EOF error will be returned.
-	Recv(context.Context) (*e2appducontents.Ricindication, error)
+	Recv(context.Context) (*e2api.Indication, error)
 }
 
 // StreamWriter is a write stream
@@ -37,7 +36,7 @@ type StreamWriter interface {
 	// The Send method is non-blocking. If no StreamReader is immediately available to consume the indication
 	// it will be placed in a bounded memory buffer. If the buffer is full, an Unavailable error will be returned.
 	// This method is thread-safe.
-	Send(indication *e2appducontents.Ricindication) error
+	Send(indication *e2api.Indication) error
 }
 
 // StreamID is a stream identifier
@@ -130,7 +129,7 @@ func newSubStream(registry *streamRegistry, subID e2api.SubscriptionID, streamID
 		},
 		streams: registry,
 		subID:   subID,
-		ch:      make(chan e2appducontents.Ricindication),
+		ch:      make(chan e2api.Indication),
 		apps:    make(map[e2api.AppID]*appStream),
 	}
 	stream.open()
@@ -141,7 +140,7 @@ type subStream struct {
 	*streamIO
 	streams *streamRegistry
 	subID   e2api.SubscriptionID
-	ch      chan e2appducontents.Ricindication
+	ch      chan e2api.Indication
 	apps    map[e2api.AppID]*appStream
 	mu      sync.RWMutex
 	closed  bool
@@ -191,7 +190,7 @@ func (s *subStream) closeAppStream(appID e2api.AppID) {
 	}
 }
 
-func (s *subStream) Send(indication *e2appducontents.Ricindication) error {
+func (s *subStream) Send(indication *e2api.Indication) error {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if !s.closed {
@@ -200,7 +199,7 @@ func (s *subStream) Send(indication *e2appducontents.Ricindication) error {
 	return nil
 }
 
-func (s *subStream) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
+func (s *subStream) Recv(ctx context.Context) (*e2api.Indication, error) {
 	return nil, errors.NewNotSupported("Recv not supported")
 }
 
@@ -213,7 +212,7 @@ func (s *subStream) close() {
 }
 
 func newAppStream(subStream *subStream, appID e2api.AppID) *appStream {
-	ch := make(chan e2appducontents.Ricindication)
+	ch := make(chan e2api.Indication)
 	appStream := &appStream{
 		subStream:    subStream,
 		appID:        appID,
@@ -229,7 +228,7 @@ type appStream struct {
 	*streamIO
 	subStream    *subStream
 	appID        e2api.AppID
-	ch           chan e2appducontents.Ricindication
+	ch           chan e2api.Indication
 	transactions map[e2api.TransactionID]*transactionStream
 	mu           sync.RWMutex
 	closed       bool
@@ -269,7 +268,7 @@ func (s *appStream) open() {
 	go s.drain()
 }
 
-func (s *appStream) Send(indication *e2appducontents.Ricindication) error {
+func (s *appStream) Send(indication *e2api.Indication) error {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if !s.closed {
@@ -297,14 +296,14 @@ func (s *appStream) close() {
 	}
 }
 
-func (s *appStream) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
+func (s *appStream) Recv(ctx context.Context) (*e2api.Indication, error) {
 	return nil, errors.NewNotSupported("Recv not supported")
 }
 
 var _ Stream = &appStream{}
 
 func newTransactionStream(appStream *appStream, appID e2api.AppID, transactionID e2api.TransactionID) *transactionStream {
-	ch := make(chan e2appducontents.Ricindication)
+	ch := make(chan e2api.Indication)
 	return &transactionStream{
 		appStream:               appStream,
 		appID:                   appID,
@@ -356,17 +355,17 @@ func (s *transactionStream) closeInstanceStream(instanceID e2api.AppInstanceID) 
 
 var _ Stream = &transactionStream{}
 
-func newTransactionStreamReader(ch <-chan e2appducontents.Ricindication) *transactionStreamReader {
+func newTransactionStreamReader(ch <-chan e2api.Indication) *transactionStreamReader {
 	return &transactionStreamReader{
 		ch: ch,
 	}
 }
 
 type transactionStreamReader struct {
-	ch <-chan e2appducontents.Ricindication
+	ch <-chan e2api.Indication
 }
 
-func (s *transactionStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
+func (s *transactionStreamReader) Recv(ctx context.Context) (*e2api.Indication, error) {
 	select {
 	case ind, ok := <-s.ch:
 		if !ok {
@@ -378,7 +377,7 @@ func (s *transactionStreamReader) Recv(ctx context.Context) (*e2appducontents.Ri
 	}
 }
 
-func newTransactionStreamWriter(ch chan<- e2appducontents.Ricindication) *transactionStreamWriter {
+func newTransactionStreamWriter(ch chan<- e2api.Indication) *transactionStreamWriter {
 	writer := &transactionStreamWriter{
 		ch:     ch,
 		buffer: list.New(),
@@ -389,7 +388,7 @@ func newTransactionStreamWriter(ch chan<- e2appducontents.Ricindication) *transa
 }
 
 type transactionStreamWriter struct {
-	ch     chan<- e2appducontents.Ricindication
+	ch     chan<- e2api.Indication
 	buffer *list.List
 	cond   *sync.Cond
 	closed bool
@@ -413,7 +412,7 @@ func (s *transactionStreamWriter) drain() {
 }
 
 // next reads the next indication from the buffer or blocks until one becomes available
-func (s *transactionStreamWriter) next() (*e2appducontents.Ricindication, bool) {
+func (s *transactionStreamWriter) next() (*e2api.Indication, bool) {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	for s.buffer.Len() == 0 {
@@ -422,13 +421,13 @@ func (s *transactionStreamWriter) next() (*e2appducontents.Ricindication, bool) 
 		}
 		s.cond.Wait()
 	}
-	result := s.buffer.Front().Value.(*e2appducontents.Ricindication)
+	result := s.buffer.Front().Value.(*e2api.Indication)
 	s.buffer.Remove(s.buffer.Front())
 	return result, true
 }
 
 // Send appends the indication to the buffer and notifies the reader
-func (s *transactionStreamWriter) Send(ind *e2appducontents.Ricindication) error {
+func (s *transactionStreamWriter) Send(ind *e2api.Indication) error {
 	s.cond.L.Lock()
 	defer s.cond.L.Unlock()
 	if s.closed {
@@ -467,7 +466,7 @@ func (s *instanceStreamReader) ID() StreamID {
 	return s.transactionStream.ID()
 }
 
-func (s *instanceStreamReader) Recv(ctx context.Context) (*e2appducontents.Ricindication, error) {
+func (s *instanceStreamReader) Recv(ctx context.Context) (*e2api.Indication, error) {
 	select {
 	case ind, ok := <-s.transactionStream.transactionStreamReader.ch:
 		if !ok {

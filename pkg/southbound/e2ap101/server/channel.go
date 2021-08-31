@@ -6,7 +6,13 @@ package server
 
 import (
 	"context"
+
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+
+	"github.com/onosproject/onos-e2t/pkg/modelregistry"
+
 	"github.com/google/uuid"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/uri"
 
 	"sync"
@@ -17,15 +23,13 @@ import (
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
-
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
 )
 
 func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIdentity, channel e2.ServerChannel,
-	streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
-	serviceModels map[string]*topoapi.ServiceModelInfo, ranFunctions map[e2smtypes.OID]RANFunction, e2Cells []*topoapi.E2Cell, now time.Time) *E2Channel {
+	streamsv1beta1 subscriptionv1beta1.Broker,
+	serviceModels map[string]*topoapi.ServiceModelInfo, ranFunctions map[e2smtypes.OID]RANFunction, e2Cells []*topoapi.E2Cell, now time.Time, modelRegistry modelregistry.ModelRegistry) *E2Channel {
 
 	channelID := ChannelID(uri.NewURI(
 		uri.WithScheme("uuid"),
@@ -39,11 +43,11 @@ func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeId
 		NodeID:         string(nodeID),
 		NodeType:       nodeIdentity.NodeType,
 		TimeAlive:      now,
-		streams:        streams,
 		streamsv1beta1: streamsv1beta1,
 		ServiceModels:  serviceModels,
 		RANFunctions:   ranFunctions,
 		E2Cells:        e2Cells,
+		modelRegistry:  modelRegistry,
 	}
 }
 
@@ -65,11 +69,11 @@ type E2Channel struct {
 	NodeType       types.E2NodeType
 	PlmnID         string
 	TimeAlive      time.Time
-	streams        subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	ServiceModels  map[string]*topoapi.ServiceModelInfo
 	RANFunctions   map[e2smtypes.OID]RANFunction
 	E2Cells        []*topoapi.E2Cell
+	modelRegistry  modelregistry.ModelRegistry
 	mu             sync.RWMutex
 }
 
@@ -90,17 +94,44 @@ func (c *E2Channel) GetRANFunction(oid e2smtypes.OID) (RANFunction, bool) {
 	return ranFunction, ok
 }
 
-func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
-	log.Debugf("Received RICIndication %+v", request)
-	streamID := subscriptionv1beta1.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
+func (c *E2Channel) ricIndication(ctx context.Context, ricIndication *e2appducontents.Ricindication) error {
+	streamID := subscriptionv1beta1.StreamID(ricIndication.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	stream, ok := c.streamsv1beta1.GetWriter(streamID)
 	if !ok {
-		deprecatedStreamID := subscription.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
-		deprecatedStream, err := c.streams.GetStream(deprecatedStreamID)
-		if err != nil {
-			return err
-		}
-		return deprecatedStream.Send(request)
+		return errors.NewNotFound("stream %s not found", streamID)
 	}
-	return stream.Send(request)
+
+	ranFuncID := ricIndication.ProtocolIes.E2ApProtocolIes5.Value.Value
+	ricActionID := ricIndication.ProtocolIes.E2ApProtocolIes15.Value.Value
+	indHeaderAsn1 := ricIndication.ProtocolIes.E2ApProtocolIes25.Value.Value
+	indMessageAsn1 := ricIndication.ProtocolIes.E2ApProtocolIes26.Value.Value
+	log.Debugf("Received RIC Indication; RAN FundID: %d, RIC Action ID: %d", ranFuncID, ricActionID)
+
+	indication := &e2api.Indication{}
+
+	for oid, ranFunction := range c.RANFunctions {
+		if ranFunction.ID == types.RanFunctionID(ranFuncID) {
+			serviceModelPlugin, err := c.modelRegistry.GetPlugin(oid)
+			if err != nil {
+				return err
+			}
+			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
+			if err != nil {
+				log.Errorf("Error transforming Header ASN.1 Bytes to Proto %s", err.Error())
+				return errors.NewInvalid(err.Error())
+			}
+			log.Infof("Indication Header %d bytes", len(indHeaderProto))
+			indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(indMessageAsn1)
+			if err != nil {
+				log.Errorf("Error transforming Message ASN.1 Bytes to Proto %s", err.Error())
+				return errors.NewInvalid(err.Error())
+			}
+			indication.Header = indHeaderProto
+			indication.Payload = indMessageProto
+			log.Infof("RICIndication successfully decoded from ASN.1 to Proto #Bytes - Header: %d, Message: %d", len(indHeaderProto), len(indMessageProto))
+			break
+		}
+	}
+
+	return stream.Send(indication)
 }

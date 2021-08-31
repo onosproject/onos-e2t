@@ -8,8 +8,9 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
-	"github.com/cenkalti/backoff"
 	"io"
+
+	"github.com/cenkalti/backoff"
 
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"google.golang.org/grpc/codes"
@@ -359,51 +360,13 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			return err
 		}
 
-		ranFuncID := indication.ProtocolIes.E2ApProtocolIes5.Value.Value
-		ricActionID := indication.ProtocolIes.E2ApProtocolIes15.Value.Value
-		indHeaderAsn1 := indication.ProtocolIes.E2ApProtocolIes25.Value.Value
-		indMessageAsn1 := indication.ProtocolIes.E2ApProtocolIes26.Value.Value
-		log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)
-
 		response := &e2api.SubscribeResponse{
 			Headers: e2api.ResponseHeaders{
 				Encoding: encoding,
 			},
-		}
-
-		switch encoding {
-		case e2api.Encoding_PROTO:
-			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
-			if err != nil {
-				log.Errorf("Error transforming Header ASN Bytes to Proto %s", err.Error())
-				return errors.Status(errors.NewInvalid(err.Error())).Err()
-			}
-			log.Infof("Indication Header %d bytes", len(indHeaderProto))
-
-			indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(indMessageAsn1)
-			if err != nil {
-				log.Errorf("Error transforming Message ASN Bytes to Proto %s", err.Error())
-				return errors.Status(errors.NewInvalid(err.Error())).Err()
-			}
-			log.Infof("Indication Message %d bytes", len(indMessageProto))
-			response.Message = &e2api.SubscribeResponse_Indication{
-				Indication: &e2api.Indication{
-					Header:  indHeaderProto,
-					Payload: indMessageProto,
-				},
-			}
-			log.Infof("RICIndication successfully decoded from ASN1 to Proto #Bytes - Header: %d, Message: %d",
-				len(indHeaderProto), len(indMessageProto))
-		case e2api.Encoding_ASN1_PER:
-			response.Message = &e2api.SubscribeResponse_Indication{
-				Indication: &e2api.Indication{
-					Header:  indHeaderAsn1,
-					Payload: indMessageAsn1,
-				},
-			}
-		default:
-			log.Errorf("encoding type %v not supported", encoding)
-			return errors.Status(errors.NewInvalid("encoding type %v not supported", encoding)).Err()
+			Message: &e2api.SubscribeResponse_Indication{
+				Indication: indication,
+			},
 		}
 
 		log.Debugf("Sending SubscribeResponse %+v", response)
