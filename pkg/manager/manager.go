@@ -11,9 +11,8 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
-	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
-
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
+	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 

@@ -282,7 +282,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	}
 
 	// Open a stream reader for the app instance
-	reader := s.streams.OpenReader(subID, request.Headers.AppID, request.Headers.AppInstanceID, request.TransactionID)
+	reader := s.streams.OpenReader(subID, request.Headers.AppID, request.Headers.AppInstanceID, request.TransactionID, request.Headers.Encoding)
 
 	completeCh := make(chan error)
 	go func() {

@@ -105,32 +105,39 @@ func (c *E2Channel) ricIndication(ctx context.Context, ricIndication *e2appducon
 	ricActionID := ricIndication.ProtocolIes.E2ApProtocolIes15.Value.Value
 	indHeaderAsn1 := ricIndication.ProtocolIes.E2ApProtocolIes25.Value.Value
 	indMessageAsn1 := ricIndication.ProtocolIes.E2ApProtocolIes26.Value.Value
-	log.Debugf("Received RIC Indication; RAN FundID: %d, RIC Action ID: %d", ranFuncID, ricActionID)
-
 	indication := &e2api.Indication{}
-
-	for oid, ranFunction := range c.RANFunctions {
-		if ranFunction.ID == types.RanFunctionID(ranFuncID) {
-			serviceModelPlugin, err := c.modelRegistry.GetPlugin(oid)
-			if err != nil {
-				return err
+	encoding := stream.GetEncoding()
+	log.Debugf("Received RIC Indication; RAN FundID: %d, RIC Action ID: %d", ranFuncID, ricActionID)
+	switch encoding {
+	case e2api.Encoding_PROTO:
+		for oid, ranFunction := range c.RANFunctions {
+			if ranFunction.ID == types.RanFunctionID(ranFuncID) {
+				serviceModelPlugin, err := c.modelRegistry.GetPlugin(oid)
+				if err != nil {
+					return err
+				}
+				indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
+				if err != nil {
+					log.Errorf("Error transforming Header ASN.1 Bytes to Proto %s", err.Error())
+					return errors.NewInvalid(err.Error())
+				}
+				indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(indMessageAsn1)
+				if err != nil {
+					log.Errorf("Error transforming Message ASN.1 Bytes to Proto %s", err.Error())
+					return errors.NewInvalid(err.Error())
+				}
+				indication.Header = indHeaderProto
+				indication.Payload = indMessageProto
+				log.Infof("RICIndication successfully decoded from ASN.1 to Proto #Bytes - Header: %d, Message: %d", len(indHeaderProto), len(indMessageProto))
+				break
 			}
-			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
-			if err != nil {
-				log.Errorf("Error transforming Header ASN.1 Bytes to Proto %s", err.Error())
-				return errors.NewInvalid(err.Error())
-			}
-			log.Infof("Indication Header %d bytes", len(indHeaderProto))
-			indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(indMessageAsn1)
-			if err != nil {
-				log.Errorf("Error transforming Message ASN.1 Bytes to Proto %s", err.Error())
-				return errors.NewInvalid(err.Error())
-			}
-			indication.Header = indHeaderProto
-			indication.Payload = indMessageProto
-			log.Infof("RICIndication successfully decoded from ASN.1 to Proto #Bytes - Header: %d, Message: %d", len(indHeaderProto), len(indMessageProto))
-			break
 		}
+	case e2api.Encoding_ASN1_PER:
+		indication.Header = indHeaderAsn1
+		indication.Payload = indMessageAsn1
+	default:
+		log.Errorf("encoding type %v not supported", stream.GetEncoding())
+		return errors.NewInvalid("encoding type %v not supported", encoding)
 	}
 
 	return stream.Send(indication)

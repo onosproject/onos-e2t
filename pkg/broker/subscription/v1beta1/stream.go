@@ -37,6 +37,8 @@ type StreamWriter interface {
 	// it will be placed in a bounded memory buffer. If the buffer is full, an Unavailable error will be returned.
 	// This method is thread-safe.
 	Send(indication *e2api.Indication) error
+
+	GetEncoding() e2api.Encoding
 }
 
 // StreamID is a stream identifier
@@ -91,13 +93,13 @@ func (s *streamRegistry) getSubStream(subID e2api.SubscriptionID) (*subStream, b
 	return stream, ok
 }
 
-func (s *streamRegistry) openSubStream(subID e2api.SubscriptionID) *subStream {
+func (s *streamRegistry) openSubStream(subID e2api.SubscriptionID, encoding e2api.Encoding) *subStream {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	stream, ok := s.subs[subID]
 	if !ok {
 		s.streamID++
-		stream = newSubStream(s, subID, s.streamID)
+		stream = newSubStream(s, subID, s.streamID, encoding)
 		s.subs[subID] = stream
 		s.streams[s.streamID] = stream
 	}
@@ -122,15 +124,16 @@ func (s *streamRegistry) Close() error {
 	return nil
 }
 
-func newSubStream(registry *streamRegistry, subID e2api.SubscriptionID, streamID StreamID) *subStream {
+func newSubStream(registry *streamRegistry, subID e2api.SubscriptionID, streamID StreamID, encoding e2api.Encoding) *subStream {
 	stream := &subStream{
 		streamIO: &streamIO{
 			streamID: streamID,
 		},
-		streams: registry,
-		subID:   subID,
-		ch:      make(chan e2api.Indication),
-		apps:    make(map[e2api.AppID]*appStream),
+		streams:  registry,
+		subID:    subID,
+		ch:       make(chan e2api.Indication),
+		apps:     make(map[e2api.AppID]*appStream),
+		encoding: encoding,
 	}
 	stream.open()
 	return stream
@@ -138,12 +141,13 @@ func newSubStream(registry *streamRegistry, subID e2api.SubscriptionID, streamID
 
 type subStream struct {
 	*streamIO
-	streams *streamRegistry
-	subID   e2api.SubscriptionID
-	ch      chan e2api.Indication
-	apps    map[e2api.AppID]*appStream
-	mu      sync.RWMutex
-	closed  bool
+	streams  *streamRegistry
+	subID    e2api.SubscriptionID
+	encoding e2api.Encoding
+	ch       chan e2api.Indication
+	apps     map[e2api.AppID]*appStream
+	mu       sync.RWMutex
+	closed   bool
 }
 
 func (s *subStream) open() {
@@ -190,6 +194,10 @@ func (s *subStream) closeAppStream(appID e2api.AppID) {
 	}
 }
 
+func (s *subStream) GetEncoding() e2api.Encoding {
+	return s.encoding
+}
+
 func (s *subStream) Send(indication *e2api.Indication) error {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
@@ -232,6 +240,10 @@ type appStream struct {
 	transactions map[e2api.TransactionID]*transactionStream
 	mu           sync.RWMutex
 	closed       bool
+}
+
+func (s *appStream) GetEncoding() e2api.Encoding {
+	return s.subStream.GetEncoding()
 }
 
 func (s *appStream) openTransactionStream(transactionID e2api.TransactionID) *transactionStream {
@@ -324,6 +336,10 @@ type transactionStream struct {
 	transactionID e2api.TransactionID
 	instances     map[e2api.AppInstanceID]*instanceStreamReader
 	mu            sync.RWMutex
+}
+
+func (s *transactionStream) GetEncoding() e2api.Encoding {
+	return s.appStream.GetEncoding()
 }
 
 func (s *transactionStream) openInstanceStream(instanceID e2api.AppInstanceID) StreamReader {
