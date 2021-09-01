@@ -70,6 +70,7 @@ func checkE2tNodeRelation(t *testing.T, e2Node topoapi.Object) *topoapi.Relation
 	relations, err := topoSdkClient.GetControlRelationsForTarget()
 	assert.NoError(t, err)
 
+	// TODO - replace this with a filter when one is available
 	var result *topoapi.Relation
 	for _, relationObject := range relations {
 		relation := relationObject.GetRelation()
@@ -112,6 +113,10 @@ func waitForMastershipTerm(t *testing.T, topoNodeEventChan chan topoapi.Event, t
 
 // TestE2TMastershipClustering checks mastership in a clustered environment
 func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
+	const (
+		firstTerm  = uint64(1)
+		secondTerm = uint64(2)
+	)
 	ctx := context.Background()
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
@@ -128,17 +133,12 @@ func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
 	assert.NotNil(t, nodeClient)
 	createE2Node(t, sim)
 
-	// wait for e2t to connect to the simulator
-	topoConnectionEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Connections(ctx, topoConnectionEventChan)
-	assert.NoError(t, err)
-
 	// wait for the first mastership update event
-	mastership, err := waitForMastershipTerm(t, topoNodeEventChan, 1)
+	mastership, err := waitForMastershipTerm(t, topoNodeEventChan, firstTerm)
 	assert.NoError(t, err)
-	assert.Equal(t, uint64(1), mastership.GetTerm())
+	assert.Equal(t, firstTerm, mastership.GetTerm())
 
-	// Get the API objects for the e2T node and the E2 node
+	// Check that the e2t control relation is correct
 	e2Node := getE2Node(t)
 	assert.NotNil(t, e2Node)
 	checkE2tNodeRelation(t, *e2Node)
@@ -152,10 +152,10 @@ func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
 	// Make a new e2Node with the same gnbID
 	createE2Node(t, sim)
 
-	// wait for the second mastership update event
-	mastership, err = waitForMastershipTerm(t, topoNodeEventChan, 2)
+	// wait for the second mastership update event - term should be 2
+	mastership, err = waitForMastershipTerm(t, topoNodeEventChan, secondTerm)
 	assert.NoError(t, err)
-	assert.Equal(t, uint64(2), mastership.GetTerm())
+	assert.Equal(t, secondTerm, mastership.GetTerm())
 
 	// tear down the simulator
 	assert.NoError(t, sim.Uninstall())
