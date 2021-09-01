@@ -28,7 +28,7 @@ func nodeID(pod *v1.Pod) string {
 
 // getCtx returns a context to use in gRPC calls
 func getCtx() (context.Context, context.CancelFunc) {
-	return context.WithTimeout(context.Background(), 30*time.Second)
+	return context.WithTimeout(context.Background(), 2*time.Minute)
 }
 
 // getE2Pods returns a map of E2T pod names to pods

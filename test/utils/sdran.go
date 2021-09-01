@@ -42,6 +42,8 @@ func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 		return nil, err
 	}
 
+	replicaCount := c.GetArg("e2tReplicaCount").Int(E2TReplicaCount)
+
 	sdran := helm.Chart("sd-ran", onostest.SdranChartRepo).
 		Release("sd-ran").
 		SetUsername(username).
@@ -52,7 +54,7 @@ func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 		Set("onos-topo.image.tag", "latest").
 		Set("onos-e2t.image.tag", "latest").
 		Set("ran-simulator.image.tag", "latest").
-		Set("onos-e2t.replicaCount", E2TReplicaCount).
+		Set("onos-e2t.replicaCount", replicaCount).
 		Set("onos-uenib.image.tag", "latest").
 		Set("global.image.registry", registry)
 

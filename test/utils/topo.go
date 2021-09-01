@@ -6,6 +6,7 @@ package utils
 
 import (
 	"context"
+	"errors"
 	"testing"
 	"time"
 
@@ -23,6 +24,7 @@ type TopoClient interface {
 	GetCells(ctx context.Context, nodeID topoapi.ID) ([]*topoapi.E2Cell, error)
 	GetE2NodeAspects(ctx context.Context, nodeID topoapi.ID) (*topoapi.E2Node, error)
 	E2NodeRelationIDs(ctx context.Context) ([]topoapi.ID, error)
+	GetControlRelationsForTarget() ([]topoapi.Object, error)
 }
 
 // NewTopoClient creates a new topo SDK client
@@ -62,6 +64,16 @@ func (c *Client) E2NodeRelationIDs(ctx context.Context) ([]topoapi.ID, error) {
 // E2TNodes lists E2T nodes
 func (c *Client) E2TNodes(ctx context.Context) ([]topoapi.Object, error) {
 	objects, err := c.client.List(ctx, toposdk.WithListFilters(getE2TFilter()))
+	if err != nil {
+		return nil, err
+	}
+
+	return append(make([]topoapi.Object, 0), objects...), nil
+}
+
+// E2Nodes lists E2 nodes
+func (c *Client) E2Nodes(ctx context.Context) ([]topoapi.Object, error) {
+	objects, err := c.client.List(ctx, toposdk.WithListFilters(getE2Filter()))
 	if err != nil {
 		return nil, err
 	}
@@ -125,12 +137,17 @@ func getFilter(kind string) *topoapi.Filters {
 	return controlRelationFilter
 
 }
+
 func getControlRelationFilter() *topoapi.Filters {
 	return getFilter(topoapi.CONTROLS)
 }
 
 func getE2TFilter() *topoapi.Filters {
 	return getFilter(topoapi.E2T)
+}
+
+func getE2Filter() *topoapi.Filters {
+	return getFilter(topoapi.E2NODE)
 }
 
 // WatchE2Connections watch e2 node connection changes
@@ -145,6 +162,15 @@ func (c *Client) WatchE2Connections(ctx context.Context, ch chan topoapi.Event) 
 // WatchE2TNodes watch e2 node connection changes
 func (c *Client) WatchE2TNodes(ctx context.Context, ch chan topoapi.Event) error {
 	err := c.client.Watch(ctx, ch, toposdk.WithWatchFilters(getE2TFilter()))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// WatchE2Nodes watch e2 node connection changes
+func (c *Client) WatchE2Nodes(ctx context.Context, ch chan topoapi.Event) error {
+	err := c.client.Watch(ctx, ch, toposdk.WithWatchFilters(getE2Filter()))
 	if err != nil {
 		return err
 	}
@@ -210,6 +236,15 @@ func CountTopoRemovedEvent(ch chan topoapi.Event, expectedValue int) {
 	}
 }
 
+func GetUpdatedEvent(ch chan topoapi.Event) (topoapi.Event, error) {
+	for event := range ch {
+		if event.Type == topoapi.EventType_UPDATED {
+			return event, nil
+		}
+	}
+	return topoapi.Event{}, errors.New("no updated event seen")
+}
+
 func CountTopoAddedOrNoneEvent(ch chan topoapi.Event, expectedValue int) {
 	eventCounters := TopoEventCounters{}
 	for event := range ch {
@@ -220,4 +255,12 @@ func CountTopoAddedOrNoneEvent(ch chan topoapi.Event, expectedValue int) {
 			break
 		}
 	}
+}
+
+func (c *Client) GetControlRelationsForTarget() ([]topoapi.Object, error) {
+	filter := getControlRelationFilter()
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
+	relationsList, err := c.client.List(ctx, toposdk.WithListFilters(filter))
+	cancel()
+	return relationsList, err
 }
