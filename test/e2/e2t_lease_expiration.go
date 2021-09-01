@@ -9,6 +9,7 @@ import (
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	"github.com/onosproject/helmit/pkg/kubernetes/core/v1"
 	"github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 	"time"
 
@@ -26,17 +27,12 @@ func nodeID(pod *v1.Pod) string {
 	return "e2:" + pod.Name
 }
 
-// getCtx returns a context to use in gRPC calls
-func getCtx() (context.Context, context.CancelFunc) {
-	return context.WithTimeout(context.Background(), 2*time.Minute)
-}
-
 // getE2Pods returns a map of E2T pod names to pods
 func getE2Pods(t *testing.T, s *TestSuite) map[string]*v1.Pod {
 	sdranClient, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
 
-	ctx, cancel := getCtx()
+	ctx, cancel := e2utils.GetCtx()
 	e2tDeployments, err := sdranClient.AppsV1().
 		Deployments().
 		Get(ctx, "onos-e2t")
@@ -64,7 +60,7 @@ func checkNodes(t *testing.T, e2tPods map[string]*v1.Pod, events map[string]topo
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	ctx, cancel := getCtx()
+	ctx, cancel := e2utils.GetCtx()
 	nodes, err := topoSdkClient.E2TNodes(ctx)
 	assert.NoError(t, err)
 
@@ -86,7 +82,7 @@ func checkNodes(t *testing.T, e2tPods map[string]*v1.Pod, events map[string]topo
 
 // deletePods deletes a pod
 func deletePod(t *testing.T, pod *v1.Pod) {
-	ctx, cancel := getCtx()
+	ctx, cancel := e2utils.GetCtx()
 	err := pod.Delete(ctx)
 	assert.NoError(t, err)
 	cancel()
