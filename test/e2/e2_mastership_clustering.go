@@ -10,6 +10,7 @@ import (
 	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/stretchr/testify/assert"
 	"strings"
@@ -31,7 +32,7 @@ func createE2Node(t *testing.T, sim *helm.HelmRelease) {
 			CellNCGIs:     []ransimtypes.NCGI{},
 		},
 	}
-	ctx, cancel := getCtx()
+	ctx, cancel := e2utils.GetCtx()
 	createNodeResponse, err := nodeClient.CreateNode(ctx, createNodeRequest)
 	assert.NoError(t, err)
 	assert.NotNil(t, createNodeResponse)
@@ -41,7 +42,7 @@ func createE2Node(t *testing.T, sim *helm.HelmRelease) {
 func getE2Node(t *testing.T) *topoapi.Object {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
-	ctx, cancel := getCtx()
+	ctx, cancel := e2utils.GetCtx()
 	nodes, err := topoSdkClient.E2Nodes(ctx)
 	assert.NoError(t, err)
 	cancel()
@@ -103,7 +104,7 @@ func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
 		firstTerm  = uint64(1)
 		secondTerm = uint64(2)
 	)
-	ctx, cancel := getCtx()
+	ctx, cancel := e2utils.GetCtx()
 	defer cancel()
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
