@@ -7,8 +7,6 @@ package utils
 import (
 	"context"
 	"errors"
-	"fmt"
-	"os"
 	"testing"
 	"time"
 
@@ -238,30 +236,9 @@ func CountTopoRemovedEvent(ch chan topoapi.Event, expectedValue int) {
 	}
 }
 
-func CountTopoUpdatedEvent(ch chan topoapi.Event, expectedValue int) {
-	eventCounters := TopoEventCounters{}
-	for event := range ch {
-		if event.Type == topoapi.EventType_UPDATED {
-			eventCounters.Updated = eventCounters.Updated + 1
-		}
-		if eventCounters.Updated == expectedValue {
-			break
-		}
-	}
-}
 func GetUpdatedEvent(ch chan topoapi.Event) (topoapi.Event, error) {
 	for event := range ch {
 		if event.Type == topoapi.EventType_UPDATED {
-			fmt.Fprintf(os.Stderr, "updated event %v\n", event)
-			return event, nil
-		}
-	}
-	return topoapi.Event{}, errors.New("no updated event seen")
-}
-
-func GetAddedEvent(ch chan topoapi.Event) (topoapi.Event, error) {
-	for event := range ch {
-		if event.Type == topoapi.EventType_ADDED {
 			return event, nil
 		}
 	}
@@ -272,18 +249,6 @@ func CountTopoAddedOrNoneEvent(ch chan topoapi.Event, expectedValue int) {
 	eventCounters := TopoEventCounters{}
 	for event := range ch {
 		if event.Type == topoapi.EventType_NONE || event.Type == topoapi.EventType_ADDED {
-			eventCounters.AddedOrNone = eventCounters.AddedOrNone + 1
-		}
-		if eventCounters.AddedOrNone == expectedValue {
-			break
-		}
-	}
-}
-
-func CountTopoAddedEvent(ch chan topoapi.Event, expectedValue int) {
-	eventCounters := TopoEventCounters{}
-	for event := range ch {
-		if event.Type == topoapi.EventType_ADDED {
 			eventCounters.AddedOrNone = eventCounters.AddedOrNone + 1
 		}
 		if eventCounters.AddedOrNone == expectedValue {
