@@ -50,10 +50,6 @@ func NewSubscriptionService(chans channelstore.Store, subs substore.Store, strea
 	}
 }
 
-const (
-	channelTimeOut = 1 * time.Minute
-)
-
 // SubscriptionService is a Service implementation for E2 Subscription service.
 type SubscriptionService struct {
 	northbound.Service
@@ -201,7 +197,16 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	log.Debugf("Received SubscribeRequest %+v", request)
 	encoding := request.Headers.Encoding
 
-	log.Infof("Received SubscribeRequest %+v", request)
+	mastership := &topoapi.MastershipState{}
+	e2nodeEntity, err := s.rnib.Get(server.Context(), topoapi.ID(request.Headers.E2NodeID))
+	if err != nil {
+		return err
+	}
+	err = e2nodeEntity.GetAspect(mastership)
+	if err != nil {
+		log.Warnf("Failed to fetch mastership state for e2node: %s", request.Headers.E2NodeID)
+		return errors.NewUnavailable("mastership state is not available for e2 node: %s", request.Headers.E2NodeID)
+	}
 
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
 		string(request.Headers.ServiceModel.Name),
@@ -262,43 +267,39 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		request.TransactionID))
 
 	err = backoff.Retry(func() error {
-		_, err = s.chans.Get(server.Context(), channelID)
-		if err == nil || !errors.IsNotFound(err) {
-			return err
+		channel, err := s.chans.Get(server.Context(), channelID)
+		if err != nil && errors.IsNotFound(err) {
+			channel = &e2api.Channel{
+				ID: channelID,
+				ChannelMeta: e2api.ChannelMeta{
+					AppID:          request.Headers.AppID,
+					AppInstanceID:  request.Headers.AppInstanceID,
+					E2NodeID:       request.Headers.E2NodeID,
+					TransactionID:  request.TransactionID,
+					SubscriptionID: subID,
+					ServiceModel:   request.Headers.ServiceModel,
+					Encoding:       e2api.Encoding_ASN1_PER,
+				},
+				Spec: e2api.ChannelSpec{
+					SubscriptionSpec:   subSpec,
+					TransactionTimeout: request.TransactionTimeout,
+				},
+				Status: e2api.ChannelStatus{
+					Phase:     e2api.ChannelPhase_CHANNEL_OPEN,
+					Timestamp: nil,
+					Term:      mastership.Term,
+				},
+			}
+			err = s.chans.Create(server.Context(), channel)
+			if err != nil && !errors.IsAlreadyExists(err) {
+				return err
+			}
+			return nil
 		}
-
-		mastership := &topoapi.MastershipState{}
-		e2nodeEntity, err := s.rnib.Get(server.Context(), topoapi.ID(request.Headers.E2NodeID))
-		if err != nil {
-			return err
-		}
-		err = e2nodeEntity.GetAspect(mastership)
-		if err != nil {
-			log.Warnf("Test Failed to fetch mastership state for e2node: %s", request.Headers.E2NodeID)
-			return err
-		}
-		channel := &e2api.Channel{
-			ID: channelID,
-			ChannelMeta: e2api.ChannelMeta{
-				AppID:          request.Headers.AppID,
-				AppInstanceID:  request.Headers.AppInstanceID,
-				E2NodeID:       request.Headers.E2NodeID,
-				TransactionID:  request.TransactionID,
-				SubscriptionID: subID,
-				ServiceModel:   request.Headers.ServiceModel,
-				Encoding:       e2api.Encoding_ASN1_PER,
-			},
-			Spec: e2api.ChannelSpec{
-				SubscriptionSpec: subSpec,
-			},
-			Status: e2api.ChannelStatus{
-				Phase:     e2api.ChannelPhase_CHANNEL_OPEN,
-				Timestamp: nil,
-				Term:      mastership.Term,
-			},
-		}
-		err = s.chans.Create(server.Context(), channel)
-		if err != nil && !errors.IsAlreadyExists(err) {
+		channel.Status.Timestamp = nil
+		channel.Status.Term = mastership.Term
+		err = s.chans.Update(server.Context(), channel)
+		if err != nil && !errors.IsNotFound(err) {
 			return err
 		}
 		return nil
@@ -392,17 +393,6 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			}
 			log.Debugf("Context is canceled, updating channel status for channel:%s", channelID)
 
-			mastership := &topoapi.MastershipState{}
-			e2nodeEntity, err := s.rnib.Get(ctx, topoapi.ID(channel.E2NodeID))
-			if err != nil {
-				return err
-			}
-			err = e2nodeEntity.GetAspect(mastership)
-			if err != nil {
-				log.Warnf("Failed to fetch mastership state for e2node: %s", channel.E2NodeID)
-				return err
-			}
-
 			if channel.Status.Term <= mastership.Term {
 				currentTime := time.Now()
 				channel.Status.Timestamp = &currentTime
@@ -413,17 +403,6 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 					log.Warnf("Failed to update channel status timestamp and mastership term for channel: %s, %v", channel.ID, err)
 					return err
 				}
-
-				time.AfterFunc(channelTimeOut, func() {
-					log.Infof("Channel timeout, Closing channel  %s", channel.ID)
-					channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
-					channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
-					channel.Status.Error = nil
-					if err := s.chans.Update(ctx, channel); err != nil {
-						log.Warnf("Failed to update channel %s: %s", channel.ID, err)
-						return
-					}
-				})
 
 			}
 		}
