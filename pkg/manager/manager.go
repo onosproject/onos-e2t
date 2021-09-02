@@ -19,6 +19,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	e2server2 "github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/server"
 
 	"github.com/onosproject/onos-e2t/pkg/controller/mastership"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
@@ -172,6 +173,7 @@ func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, stream
 func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, streams subscription.Broker,
 	streamsv1beta1 subscriptionv1beta1.Broker) error {
 	server := e2server.NewE2Server(channels, streams, streamsv1beta1, m.ModelRegistry)
+	e2server2.NewE2Server(e2server2.NewChannelManager(), streams, streamsv1beta1, m.ModelRegistry)
 	return server.Serve()
 }
 
