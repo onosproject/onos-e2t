@@ -53,7 +53,6 @@ type ServiceModel interface {
 	EventTriggerDefinitionProtoToASN1(protoBytes []byte) ([]byte, error)
 	ActionDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error)
 	ActionDefinitionProtoToASN1(protoBytes []byte) ([]byte, error)
-	DecodeRanFunctionDescription(asn1bytes []byte) (*types.RanfunctionNameDef, *types.RicEventTriggerList, *types.RicReportList, error)
 	ControlHeaderASN1toProto(asn1Bytes []byte) ([]byte, error)
 	ControlHeaderProtoToASN1(protoBytes []byte) ([]byte, error)
 	ControlMessageASN1toProto(asn1Bytes []byte) ([]byte, error)
@@ -100,6 +99,7 @@ func (r *modelRegistry) RegisterModelPlugin(moduleName string) (types.ShortName,
 		log.Warn("Unable to find ServiceModel in module ", moduleName, err)
 		return "", "", err
 	}
+	log.Infof("Woojoong symbol MP: %v (%T)", symbolMP, symbolMP)
 	serviceModelPlugin, ok := symbolMP.(ServiceModel)
 	if !ok {
 		log.Warnf("Unable to use ServiceModelPlugin in %s", moduleName)
