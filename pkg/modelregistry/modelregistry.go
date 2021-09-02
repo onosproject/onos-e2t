@@ -99,7 +99,6 @@ func (r *modelRegistry) RegisterModelPlugin(moduleName string) (types.ShortName,
 		log.Warn("Unable to find ServiceModel in module ", moduleName, err)
 		return "", "", err
 	}
-	log.Infof("Woojoong symbol MP: %v (%T)", symbolMP, symbolMP)
 	serviceModelPlugin, ok := symbolMP.(ServiceModel)
 	if !ok {
 		log.Warnf("Unable to use ServiceModelPlugin in %s", moduleName)
