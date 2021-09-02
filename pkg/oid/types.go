@@ -26,6 +26,7 @@ const (
 	e2smKpm                = "oran-e2sm-kpm"
 	e2smRcPre              = "oran-e2sm-rc-pre"
 	e2smMho                = "oran-e2sm-mho"
+	e2smRsm                = "oran-e2sm-rsm"
 	e2smNi                 = "oran-e2sm-ni"
 	e2                     = "e2"
 	e2sm                   = "e2sm"
@@ -47,6 +48,7 @@ const (
 	e2smKpmOid                Oid = 2
 	e2smRcPreOid              Oid = 100
 	e2smMhoOid                Oid = 101
+	e2smRsmOid                Oid = 102
 )
 
 // defaultNodes a map of default oid names to their values
@@ -63,6 +65,7 @@ var defaultNodes = map[string]Oid{
 	e2smKpm:                e2smKpmOid,
 	e2smRcPre:              e2smRcPreOid,
 	e2smMho:                e2smMhoOid,
+	e2smRsm:                e2smRsmOid,
 	e2smNi:                 e2smNiOid,
 	e2:                     e2Oid,
 	e2sm:                   e2smOid,
