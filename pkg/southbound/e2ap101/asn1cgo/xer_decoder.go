@@ -9,7 +9,7 @@ package asn1cgo
 // #include <stdio.h>
 // #include <stdlib.h>
 // #include <assert.h>
-// #include "E2AP-PDU.h"
+// #include "E2AP-PDU-VONE.h"
 import "C"
 import (
 	"fmt"

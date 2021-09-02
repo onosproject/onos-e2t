@@ -64,7 +64,7 @@ func decodeE2SetupRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P11_t) (*e
 	//fmt.Printf("1544P11 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i) // Forget the rest - this works - 7Nov20
-		e2srIeC := *(**C.E2setupRequestIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		e2srIeC := *(**C.E2setupRequestIEsVone_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2setupRequestIE(e2srIeC)
 		if err != nil {
@@ -141,7 +141,7 @@ func decodeE2SetupResponseIes(protocolIEsC *C.ProtocolIE_Container_1710P12_t) (*
 	//fmt.Printf("1544P11 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		e2srIeC := *(**C.E2setupResponseIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		e2srIeC := *(**C.E2setupResponseIEsVone_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2setupResponseIE(e2srIeC)
 		if err != nil {
@@ -222,7 +222,7 @@ func decodeRicSubscriptionResponseIes(protocolIEsC *C.ProtocolIE_Container_1710P
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsrIeC := *(**C.RICsubscriptionResponse_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsrIeC := *(**C.RICsubscriptionResponseVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicSubscriptionResponseIE(rsrIeC)
 		if err != nil {
@@ -294,7 +294,7 @@ func decodeRicSubscriptionRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P0
 	//	fmt.Printf("1544P0 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsrIeC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsrIeC := *(**C.RICsubscriptionRequestVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicSubscriptionRequestIE(rsrIeC)
 		if err != nil {
@@ -419,7 +419,7 @@ func decodeRicIndicationIes(protocolIEsC *C.ProtocolIE_Container_1710P6_t) (*e2a
 	//fmt.Printf("1544P6 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i) // Forget the rest - this works - 7Nov20
-		riIeC := *(**C.RICindication_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		riIeC := *(**C.RICindicationVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicIndicationIE(riIeC)
 		if err != nil {
@@ -547,7 +547,7 @@ func decodeRicControlRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P7_t) (
 	//fmt.Printf("1544P6 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i) // Forget the rest - this works - 7Nov20
-		riIeC := *(**C.RICcontrolRequest_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		riIeC := *(**C.RICcontrolRequestVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicControlRequestIE(riIeC)
 		if err != nil {
@@ -653,7 +653,7 @@ func decodeRicControlFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P9_t) (
 	//fmt.Printf("1544P9 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i) // Forget the rest - this works - 7Nov20
-		rcfIeC := *(**C.RICcontrolFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rcfIeC := *(**C.RICcontrolFailureVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicControlFailureIE(rcfIeC)
 		if err != nil {
@@ -748,7 +748,7 @@ func decodeRicControlAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container_1710P8_
 	//fmt.Printf("1544P6 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i) // Forget the rest - this works - 7Nov20
-		riIeC := *(**C.RICcontrolAcknowledge_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		riIeC := *(**C.RICcontrolAcknowledgeVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicControlAcknowledgeIE(riIeC)
 		if err != nil {
@@ -813,7 +813,7 @@ func decodeRicSubscriptionDeleteRequestIes(protocolIEsC *C.ProtocolIE_Container_
 	//	fmt.Printf("1544P0 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsrIeC := *(**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsrIeC := *(**C.RICsubscriptionDeleteRequestVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicSubscriptionDeleteRequestIE(rsrIeC)
 		if err != nil {
@@ -862,7 +862,7 @@ func decodeRicSubscriptionDeleteResponseIes(protocolIEsC *C.ProtocolIE_Container
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsrIeC := *(**C.RICsubscriptionDeleteResponse_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsrIeC := *(**C.RICsubscriptionDeleteResponseVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicSubscriptionDeleteResponseIE(rsrIeC)
 		if err != nil {
@@ -938,7 +938,7 @@ func decodeRicSubscriptionFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P2
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsfIeC := *(**C.RICsubscriptionFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsfIeC := *(**C.RICsubscriptionFailureVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicSubscriptionFailureIE(rsfIeC)
 		if err != nil {
@@ -1025,7 +1025,7 @@ func decodeRicSubscriptionDeleteFailureIes(protocolIEsC *C.ProtocolIE_Container_
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsdfIeC := *(**C.RICsubscriptionDeleteFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsdfIeC := *(**C.RICsubscriptionDeleteFailureVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicSubscriptionDeleteFailureIE(rsdfIeC)
 		if err != nil {
@@ -1107,7 +1107,7 @@ func decodeErrorIndicationIes(protocolIEsC *C.ProtocolIE_Container_1710P10_t) (*
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		eiIeC := *(**C.ErrorIndication_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		eiIeC := *(**C.ErrorIndicationVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeErrorIndicationIE(eiIeC)
 		if err != nil {
@@ -1153,7 +1153,7 @@ func decodeRicServiceQueryIes(protocolIEsC *C.ProtocolIE_Container_1710P25_t) (*
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		eiIeC := *(**C.RICserviceQuery_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		eiIeC := *(**C.RICserviceQueryVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicServiceQueryIE(eiIeC)
 		if err != nil {
@@ -1192,7 +1192,7 @@ func decodeResetRequestIes(protocolIEsC *C.ProtocolIE_Container_1710P20_t) (*e2a
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		eiIeC := *(**C.ResetRequestIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		eiIeC := *(**C.ResetRequestIEsVone_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeResetRequestIE(eiIeC)
 		if err != nil {
@@ -1229,7 +1229,7 @@ func decodeResetResponseIes(protocolIEsC *C.ProtocolIE_Container_1710P21_t) (*e2
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		eiIeC := *(**C.ResetResponseIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		eiIeC := *(**C.ResetResponseIEsVone_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeResetResponseIE(eiIeC)
 		if err != nil {
@@ -1286,7 +1286,7 @@ func decodeRicServiceUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P22_t) (
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsuIeC := *(**C.RICserviceUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsuIeC := *(**C.RICserviceUpdateVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicServiceUpdateIE(rsuIeC)
 		if err != nil {
@@ -1341,7 +1341,7 @@ func decodeRicServiceUpdateAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container_1
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsuIeC := *(**C.RICserviceUpdateAcknowledge_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsuIeC := *(**C.RICserviceUpdateAcknowledgeVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicServiceUpdateAcknowledgeIE(rsuIeC)
 		if err != nil {
@@ -1402,7 +1402,7 @@ func decodeRicServiceUpdateFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsuIeC := *(**C.RICserviceUpdateFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsuIeC := *(**C.RICserviceUpdateFailureVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeRicServiceUpdateFailureIE(rsuIeC)
 		if err != nil {
@@ -1447,7 +1447,7 @@ func decodeE2nodeConfigurationUpdateIes(protocolIEsC *C.ProtocolIE_Container_171
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		e2ncuIeC := *(**C.E2nodeConfigurationUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		e2ncuIeC := *(**C.E2nodeConfigurationUpdateVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2nodeConfigurationUpdateIE(e2ncuIeC)
 		if err != nil {
@@ -1504,7 +1504,7 @@ func decodeE2connectionUpdateIes(protocolIEsC *C.ProtocolIE_Container_1710P14_t)
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		e2cuIeC := *(**C.E2connectionUpdate_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		e2cuIeC := *(**C.E2connectionUpdateVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2connectionUpdateIE(e2cuIeC)
 		if err != nil {
@@ -1550,7 +1550,7 @@ func decodeE2nodeConfigurationUpdateAcknowledgeIes(protocolIEsC *C.ProtocolIE_Co
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsuIeC := *(**C.E2nodeConfigurationUpdateAcknowledge_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsuIeC := *(**C.E2nodeConfigurationUpdateAcknowledgeVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2nodeConfigurationUpdateAcknowledgeIE(rsuIeC)
 		if err != nil {
@@ -1597,7 +1597,7 @@ func decodeE2connectionUpdateAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		e2cuaIeC := *(**C.E2connectionUpdateAck_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		e2cuaIeC := *(**C.E2connectionUpdateAck_IEs_Vone_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2connectionUpdateAckIE(e2cuaIeC)
 		if err != nil {
@@ -1659,7 +1659,7 @@ func decodeE2nodeConfigurationUpdateFailureIes(protocolIEsC *C.ProtocolIE_Contai
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsuIeC := *(**C.E2nodeConfigurationUpdateFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsuIeC := *(**C.E2nodeConfigurationUpdateFailureVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2nodeConfigurationUpdateFailureIE(rsuIeC)
 		if err != nil {
@@ -1724,7 +1724,7 @@ func decodeE2connectionUpdateFailureIes(protocolIEsC *C.ProtocolIE_Container_171
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		rsuIeC := *(**C.E2connectionUpdateFailure_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		rsuIeC := *(**C.E2connectionUpdateFailureVone_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2connectionUpdateFailureIE(rsuIeC)
 		if err != nil {
@@ -1801,7 +1801,7 @@ func decodeE2setupFailureIes(protocolIEsC *C.ProtocolIE_Container_1710P13_t) (*e
 	//fmt.Printf("1544P1 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
-		eiIeC := *(**C.E2setupFailureIEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+		eiIeC := *(**C.E2setupFailureIEsVone_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
 
 		ie, err := decodeE2setupFailureIE(eiIeC)
 		if err != nil {

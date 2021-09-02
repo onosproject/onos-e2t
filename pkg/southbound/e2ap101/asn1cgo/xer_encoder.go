@@ -9,7 +9,7 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2AP-PDU.h"
+//#include "E2AP-PDU-VONE.h"
 //extern int consumeBytesCb(void* p0, uint32_t p1, void* p2);
 import "C"
 import (

@@ -4,12 +4,12 @@
 
 struct asn_TYPE_descriptor_s;	/* Forward declaration */
 
-extern struct asn_TYPE_descriptor_s asn_DEF_E2AP_PDU;
+extern struct asn_TYPE_descriptor_s asn_DEF_E2AP_PDU_VONE;
 
 
 struct asn_TYPE_descriptor_s *asn_pdu_collection[] = {
-	/* From module E2AP-PDU-Descriptions in ../../../../api/e2ap/v1beta2/e2ap-v01.01.00.asn1 */
-	&asn_DEF_E2AP_PDU,	
+	/* From module E2AP-PDU-VONE-Descriptions in ../../../../api/e2ap/v1beta2/e2ap-v01.01.00.asn1 */
+	&asn_DEF_E2AP_PDU_VONE,	
 	0
 };
 

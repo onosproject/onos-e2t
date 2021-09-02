@@ -12,275 +12,275 @@
 #include "asn_application.h"
 
 /* Including external dependencies */
-#include "ProtocolIE-ID.h"
-#include "CriticalityDiagnostics-IE-List.h"
-#include "CriticalityDiagnostics-IE-Item.h"
-#include "Criticality.h"
+#include "ProtocolIE-ID-Vone.h"
+#include "CriticalityDiagnosticsVone-IE-List.h"
+#include "CriticalityDiagnosticsVone-IE-Item.h"
+#include "CriticalityVone.h"
 #include "ANY.h"
 #include "asn_ioc.h"
-#include "RICaction-ToBeSetup-Item.h"
-#include "Presence.h"
+#include "RICaction-ToBeSetup-Item-Vone.h"
+#include "PresenceVone.h"
 #include "OPEN_TYPE.h"
 #include "constr_CHOICE.h"
 #include "constr_SEQUENCE.h"
-#include "RICaction-Admitted-Item.h"
-#include "RICaction-NotAdmitted-Item.h"
-#include "E2connectionUpdate-Item.h"
-#include "E2connectionUpdateRemove-Item.h"
-#include "E2connectionSetupFailed-Item.h"
-#include "E2nodeComponentConfigUpdate-Item.h"
-#include "E2nodeComponentConfigUpdateAck-Item.h"
-#include "RANfunction-Item.h"
-#include "RANfunctionID-Item.h"
-#include "RANfunctionIDcause-Item.h"
-#include "RICrequestID.h"
-#include "RANfunctionID.h"
-#include "RICsubscriptionDetails.h"
-#include "RICaction-Admitted-List.h"
-#include "RICaction-NotAdmitted-List.h"
-#include "CriticalityDiagnostics.h"
-#include "Cause.h"
-#include "RICactionID.h"
-#include "RICindicationSN.h"
-#include "RICindicationType.h"
-#include "RICindicationHeader.h"
-#include "RICindicationMessage.h"
-#include "RICcallProcessID.h"
-#include "RICcontrolHeader.h"
-#include "RICcontrolMessage.h"
-#include "RICcontrolAckRequest.h"
-#include "RICcontrolStatus.h"
-#include "RICcontrolOutcome.h"
-#include "GlobalE2node-ID.h"
-#include "RANfunctions-List.h"
-#include "E2nodeComponentConfigUpdate-List.h"
-#include "GlobalRIC-ID.h"
-#include "RANfunctionsID-List.h"
-#include "RANfunctionsIDcause-List.h"
-#include "E2nodeComponentConfigUpdateAck-List.h"
-#include "TimeToWait.h"
-#include "TNLinformation.h"
-#include "E2connectionUpdate-List.h"
-#include "E2connectionUpdateRemove-List.h"
-#include "E2connectionSetupFailed-List.h"
-#include "E2nodeComponentID.h"
+#include "RICaction-Admitted-Item-Vone.h"
+#include "RICaction-NotAdmitted-Item-Vone.h"
+#include "E2connectionUpdateVone-Item.h"
+#include "E2connectionUpdateRemove-Item-Vone.h"
+#include "E2connectionSetupFailed-Item-Vone.h"
+#include "E2nodeComponentConfigUpdateVone-Item.h"
+#include "E2nodeComponentConfigUpdateAckVone-Item.h"
+#include "RANfunction-Item-Vone.h"
+#include "RANfunctionIDVone-Item.h"
+#include "RANfunctionIDcause-Item-Vone.h"
+#include "RICrequestIDVone.h"
+#include "RANfunctionIDVone.h"
+#include "RICsubscriptionDetailsVone.h"
+#include "RICaction-Admitted-List-Vone.h"
+#include "RICaction-NotAdmitted-List-Vone.h"
+#include "CriticalityDiagnosticsVone.h"
+#include "CauseVone.h"
+#include "RICactionIDVone.h"
+#include "RICindicationSNVone.h"
+#include "RICindicationTypeVone.h"
+#include "RICindicationHeaderVone.h"
+#include "RICindicationMessageVone.h"
+#include "RICcallProcessIDVone.h"
+#include "RICcontrolHeaderVone.h"
+#include "RICcontrolMessageVone.h"
+#include "RICcontrolAckRequestVone.h"
+#include "RICcontrolStatusVone.h"
+#include "RICcontrolOutcomeVone.h"
+#include "GlobalE2node-IDVone.h"
+#include "RANfunctions-List-Vone.h"
+#include "E2nodeComponentConfigUpdateVone-List.h"
+#include "GlobalRIC-IDVone.h"
+#include "RANfunctionsID-List-Vone.h"
+#include "RANfunctionsIDcause-List-Vone.h"
+#include "E2nodeComponentConfigUpdateAckVone-List.h"
+#include "TimeToWaitVone.h"
+#include "TNLinformationVone.h"
+#include "E2connectionUpdateVone-List.h"
+#include "E2connectionUpdateRemoveVone-List.h"
+#include "E2connectionSetupFailedVone-List.h"
+#include "E2nodeComponentIDVone.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Dependencies */
-typedef enum RICaction_ToBeSetup_ItemIEs__value_PR {
-	RICaction_ToBeSetup_ItemIEs__value_PR_NOTHING,	/* No components present */
-	RICaction_ToBeSetup_ItemIEs__value_PR_RICaction_ToBeSetup_Item
-} RICaction_ToBeSetup_ItemIEs__value_PR;
-typedef enum RICaction_Admitted_ItemIEs__value_PR {
-	RICaction_Admitted_ItemIEs__value_PR_NOTHING,	/* No components present */
-	RICaction_Admitted_ItemIEs__value_PR_RICaction_Admitted_Item
-} RICaction_Admitted_ItemIEs__value_PR;
-typedef enum RICaction_NotAdmitted_ItemIEs__value_PR {
-	RICaction_NotAdmitted_ItemIEs__value_PR_NOTHING,	/* No components present */
-	RICaction_NotAdmitted_ItemIEs__value_PR_RICaction_NotAdmitted_Item
-} RICaction_NotAdmitted_ItemIEs__value_PR;
-typedef enum E2connectionUpdate_ItemIEs__value_PR {
-	E2connectionUpdate_ItemIEs__value_PR_NOTHING,	/* No components present */
-	E2connectionUpdate_ItemIEs__value_PR_E2connectionUpdate_Item
-} E2connectionUpdate_ItemIEs__value_PR;
-typedef enum E2connectionUpdateRemove_ItemIEs__value_PR {
-	E2connectionUpdateRemove_ItemIEs__value_PR_NOTHING,	/* No components present */
-	E2connectionUpdateRemove_ItemIEs__value_PR_E2connectionUpdateRemove_Item
-} E2connectionUpdateRemove_ItemIEs__value_PR;
-typedef enum E2connectionSetupFailed_ItemIEs__value_PR {
-	E2connectionSetupFailed_ItemIEs__value_PR_NOTHING,	/* No components present */
-	E2connectionSetupFailed_ItemIEs__value_PR_E2connectionSetupFailed_Item
-} E2connectionSetupFailed_ItemIEs__value_PR;
-typedef enum E2nodeComponentConfigUpdate_ItemIEs__value_PR {
-	E2nodeComponentConfigUpdate_ItemIEs__value_PR_NOTHING,	/* No components present */
-	E2nodeComponentConfigUpdate_ItemIEs__value_PR_E2nodeComponentConfigUpdate_Item
-} E2nodeComponentConfigUpdate_ItemIEs__value_PR;
-typedef enum E2nodeComponentConfigUpdateAck_ItemIEs__value_PR {
-	E2nodeComponentConfigUpdateAck_ItemIEs__value_PR_NOTHING,	/* No components present */
-	E2nodeComponentConfigUpdateAck_ItemIEs__value_PR_E2nodeComponentConfigUpdateAck_Item
-} E2nodeComponentConfigUpdateAck_ItemIEs__value_PR;
-typedef enum RANfunction_ItemIEs__value_PR {
-	RANfunction_ItemIEs__value_PR_NOTHING,	/* No components present */
-	RANfunction_ItemIEs__value_PR_RANfunction_Item
-} RANfunction_ItemIEs__value_PR;
-typedef enum RANfunctionID_ItemIEs__value_PR {
-	RANfunctionID_ItemIEs__value_PR_NOTHING,	/* No components present */
-	RANfunctionID_ItemIEs__value_PR_RANfunctionID_Item
-} RANfunctionID_ItemIEs__value_PR;
-typedef enum RANfunctionIDcause_ItemIEs__value_PR {
-	RANfunctionIDcause_ItemIEs__value_PR_NOTHING,	/* No components present */
-	RANfunctionIDcause_ItemIEs__value_PR_RANfunctionIDcause_Item
-} RANfunctionIDcause_ItemIEs__value_PR;
-typedef enum RICsubscriptionRequest_IEs__value_PR {
-	RICsubscriptionRequest_IEs__value_PR_NOTHING,	/* No components present */
-	RICsubscriptionRequest_IEs__value_PR_RICrequestID,
-	RICsubscriptionRequest_IEs__value_PR_RANfunctionID,
-	RICsubscriptionRequest_IEs__value_PR_RICsubscriptionDetails
-} RICsubscriptionRequest_IEs__value_PR;
-typedef enum RICsubscriptionResponse_IEs__value_PR {
-	RICsubscriptionResponse_IEs__value_PR_NOTHING,	/* No components present */
-	RICsubscriptionResponse_IEs__value_PR_RICrequestID,
-	RICsubscriptionResponse_IEs__value_PR_RANfunctionID,
-	RICsubscriptionResponse_IEs__value_PR_RICaction_Admitted_List,
-	RICsubscriptionResponse_IEs__value_PR_RICaction_NotAdmitted_List
-} RICsubscriptionResponse_IEs__value_PR;
-typedef enum RICsubscriptionFailure_IEs__value_PR {
-	RICsubscriptionFailure_IEs__value_PR_NOTHING,	/* No components present */
-	RICsubscriptionFailure_IEs__value_PR_RICrequestID,
-	RICsubscriptionFailure_IEs__value_PR_RANfunctionID,
-	RICsubscriptionFailure_IEs__value_PR_RICaction_NotAdmitted_List,
-	RICsubscriptionFailure_IEs__value_PR_CriticalityDiagnostics
-} RICsubscriptionFailure_IEs__value_PR;
-typedef enum RICsubscriptionDeleteRequest_IEs__value_PR {
-	RICsubscriptionDeleteRequest_IEs__value_PR_NOTHING,	/* No components present */
-	RICsubscriptionDeleteRequest_IEs__value_PR_RICrequestID,
-	RICsubscriptionDeleteRequest_IEs__value_PR_RANfunctionID
-} RICsubscriptionDeleteRequest_IEs__value_PR;
-typedef enum RICsubscriptionDeleteResponse_IEs__value_PR {
-	RICsubscriptionDeleteResponse_IEs__value_PR_NOTHING,	/* No components present */
-	RICsubscriptionDeleteResponse_IEs__value_PR_RICrequestID,
-	RICsubscriptionDeleteResponse_IEs__value_PR_RANfunctionID
-} RICsubscriptionDeleteResponse_IEs__value_PR;
-typedef enum RICsubscriptionDeleteFailure_IEs__value_PR {
-	RICsubscriptionDeleteFailure_IEs__value_PR_NOTHING,	/* No components present */
-	RICsubscriptionDeleteFailure_IEs__value_PR_RICrequestID,
-	RICsubscriptionDeleteFailure_IEs__value_PR_RANfunctionID,
-	RICsubscriptionDeleteFailure_IEs__value_PR_Cause,
-	RICsubscriptionDeleteFailure_IEs__value_PR_CriticalityDiagnostics
-} RICsubscriptionDeleteFailure_IEs__value_PR;
-typedef enum RICindication_IEs__value_PR {
-	RICindication_IEs__value_PR_NOTHING,	/* No components present */
-	RICindication_IEs__value_PR_RICrequestID,
-	RICindication_IEs__value_PR_RANfunctionID,
-	RICindication_IEs__value_PR_RICactionID,
-	RICindication_IEs__value_PR_RICindicationSN,
-	RICindication_IEs__value_PR_RICindicationType,
-	RICindication_IEs__value_PR_RICindicationHeader,
-	RICindication_IEs__value_PR_RICindicationMessage,
-	RICindication_IEs__value_PR_RICcallProcessID
-} RICindication_IEs__value_PR;
-typedef enum RICcontrolRequest_IEs__value_PR {
-	RICcontrolRequest_IEs__value_PR_NOTHING,	/* No components present */
-	RICcontrolRequest_IEs__value_PR_RICrequestID,
-	RICcontrolRequest_IEs__value_PR_RANfunctionID,
-	RICcontrolRequest_IEs__value_PR_RICcallProcessID,
-	RICcontrolRequest_IEs__value_PR_RICcontrolHeader,
-	RICcontrolRequest_IEs__value_PR_RICcontrolMessage,
-	RICcontrolRequest_IEs__value_PR_RICcontrolAckRequest
-} RICcontrolRequest_IEs__value_PR;
-typedef enum RICcontrolAcknowledge_IEs__value_PR {
-	RICcontrolAcknowledge_IEs__value_PR_NOTHING,	/* No components present */
-	RICcontrolAcknowledge_IEs__value_PR_RICrequestID,
-	RICcontrolAcknowledge_IEs__value_PR_RANfunctionID,
-	RICcontrolAcknowledge_IEs__value_PR_RICcallProcessID,
-	RICcontrolAcknowledge_IEs__value_PR_RICcontrolStatus,
-	RICcontrolAcknowledge_IEs__value_PR_RICcontrolOutcome
-} RICcontrolAcknowledge_IEs__value_PR;
-typedef enum RICcontrolFailure_IEs__value_PR {
-	RICcontrolFailure_IEs__value_PR_NOTHING,	/* No components present */
-	RICcontrolFailure_IEs__value_PR_RICrequestID,
-	RICcontrolFailure_IEs__value_PR_RANfunctionID,
-	RICcontrolFailure_IEs__value_PR_RICcallProcessID,
-	RICcontrolFailure_IEs__value_PR_Cause,
-	RICcontrolFailure_IEs__value_PR_RICcontrolOutcome
-} RICcontrolFailure_IEs__value_PR;
-typedef enum ErrorIndication_IEs__value_PR {
-	ErrorIndication_IEs__value_PR_NOTHING,	/* No components present */
-	ErrorIndication_IEs__value_PR_RICrequestID,
-	ErrorIndication_IEs__value_PR_RANfunctionID,
-	ErrorIndication_IEs__value_PR_Cause,
-	ErrorIndication_IEs__value_PR_CriticalityDiagnostics
-} ErrorIndication_IEs__value_PR;
-typedef enum E2setupRequestIEs__value_PR {
-	E2setupRequestIEs__value_PR_NOTHING,	/* No components present */
-	E2setupRequestIEs__value_PR_GlobalE2node_ID,
-	E2setupRequestIEs__value_PR_RANfunctions_List,
-	E2setupRequestIEs__value_PR_E2nodeComponentConfigUpdate_List
-} E2setupRequestIEs__value_PR;
-typedef enum E2setupResponseIEs__value_PR {
-	E2setupResponseIEs__value_PR_NOTHING,	/* No components present */
-	E2setupResponseIEs__value_PR_GlobalRIC_ID,
-	E2setupResponseIEs__value_PR_RANfunctionsID_List,
-	E2setupResponseIEs__value_PR_RANfunctionsIDcause_List,
-	E2setupResponseIEs__value_PR_E2nodeComponentConfigUpdateAck_List
-} E2setupResponseIEs__value_PR;
-typedef enum E2setupFailureIEs__value_PR {
-	E2setupFailureIEs__value_PR_NOTHING,	/* No components present */
-	E2setupFailureIEs__value_PR_Cause,
-	E2setupFailureIEs__value_PR_TimeToWait,
-	E2setupFailureIEs__value_PR_CriticalityDiagnostics,
-	E2setupFailureIEs__value_PR_TNLinformation
-} E2setupFailureIEs__value_PR;
-typedef enum E2connectionUpdate_IEs__value_PR {
-	E2connectionUpdate_IEs__value_PR_NOTHING,	/* No components present */
-	E2connectionUpdate_IEs__value_PR_E2connectionUpdate_List,
-	E2connectionUpdate_IEs__value_PR_E2connectionUpdateRemove_List
-} E2connectionUpdate_IEs__value_PR;
-typedef enum E2connectionUpdateAck_IEs__value_PR {
-	E2connectionUpdateAck_IEs__value_PR_NOTHING,	/* No components present */
-	E2connectionUpdateAck_IEs__value_PR_E2connectionUpdate_List,
-	E2connectionUpdateAck_IEs__value_PR_E2connectionSetupFailed_List
-} E2connectionUpdateAck_IEs__value_PR;
-typedef enum E2connectionUpdateFailure_IEs__value_PR {
-	E2connectionUpdateFailure_IEs__value_PR_NOTHING,	/* No components present */
-	E2connectionUpdateFailure_IEs__value_PR_Cause,
-	E2connectionUpdateFailure_IEs__value_PR_TimeToWait,
-	E2connectionUpdateFailure_IEs__value_PR_CriticalityDiagnostics
-} E2connectionUpdateFailure_IEs__value_PR;
-typedef enum E2nodeConfigurationUpdate_IEs__value_PR {
-	E2nodeConfigurationUpdate_IEs__value_PR_NOTHING,	/* No components present */
-	E2nodeConfigurationUpdate_IEs__value_PR_E2nodeComponentConfigUpdate_List
-} E2nodeConfigurationUpdate_IEs__value_PR;
-typedef enum E2nodeConfigurationUpdateAcknowledge_IEs__value_PR {
-	E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_NOTHING,	/* No components present */
-	E2nodeConfigurationUpdateAcknowledge_IEs__value_PR_E2nodeComponentConfigUpdateAck_List
-} E2nodeConfigurationUpdateAcknowledge_IEs__value_PR;
-typedef enum E2nodeConfigurationUpdateFailure_IEs__value_PR {
-	E2nodeConfigurationUpdateFailure_IEs__value_PR_NOTHING,	/* No components present */
-	E2nodeConfigurationUpdateFailure_IEs__value_PR_Cause,
-	E2nodeConfigurationUpdateFailure_IEs__value_PR_TimeToWait,
-	E2nodeConfigurationUpdateFailure_IEs__value_PR_CriticalityDiagnostics
-} E2nodeConfigurationUpdateFailure_IEs__value_PR;
-typedef enum ResetRequestIEs__value_PR {
-	ResetRequestIEs__value_PR_NOTHING,	/* No components present */
-	ResetRequestIEs__value_PR_Cause
-} ResetRequestIEs__value_PR;
-typedef enum ResetResponseIEs__value_PR {
-	ResetResponseIEs__value_PR_NOTHING,	/* No components present */
-	ResetResponseIEs__value_PR_CriticalityDiagnostics
-} ResetResponseIEs__value_PR;
-typedef enum RICserviceUpdate_IEs__value_PR {
-	RICserviceUpdate_IEs__value_PR_NOTHING,	/* No components present */
-	RICserviceUpdate_IEs__value_PR_RANfunctions_List,
-	RICserviceUpdate_IEs__value_PR_RANfunctionsID_List
-} RICserviceUpdate_IEs__value_PR;
-typedef enum RICserviceUpdateAcknowledge_IEs__value_PR {
-	RICserviceUpdateAcknowledge_IEs__value_PR_NOTHING,	/* No components present */
-	RICserviceUpdateAcknowledge_IEs__value_PR_RANfunctionsID_List,
-	RICserviceUpdateAcknowledge_IEs__value_PR_RANfunctionsIDcause_List
-} RICserviceUpdateAcknowledge_IEs__value_PR;
-typedef enum RICserviceUpdateFailure_IEs__value_PR {
-	RICserviceUpdateFailure_IEs__value_PR_NOTHING,	/* No components present */
-	RICserviceUpdateFailure_IEs__value_PR_RANfunctionsIDcause_List,
-	RICserviceUpdateFailure_IEs__value_PR_TimeToWait,
-	RICserviceUpdateFailure_IEs__value_PR_CriticalityDiagnostics
-} RICserviceUpdateFailure_IEs__value_PR;
-typedef enum RICserviceQuery_IEs__value_PR {
-	RICserviceQuery_IEs__value_PR_NOTHING,	/* No components present */
-	RICserviceQuery_IEs__value_PR_RANfunctionsID_List
-} RICserviceQuery_IEs__value_PR;
+typedef enum RICaction_ToBeSetup_ItemIEs_Vone__value_PR {
+	RICaction_ToBeSetup_ItemIEs_Vone__value_PR_NOTHING,	/* No components present */
+	RICaction_ToBeSetup_ItemIEs_Vone__value_PR_RICaction_ToBeSetup_Item_Vone
+} RICaction_ToBeSetup_ItemIEs_Vone__value_PR;
+typedef enum RICaction_Admitted_ItemIEs_Vone__value_PR {
+	RICaction_Admitted_ItemIEs_Vone__value_PR_NOTHING,	/* No components present */
+	RICaction_Admitted_ItemIEs_Vone__value_PR_RICaction_Admitted_Item_Vone
+} RICaction_Admitted_ItemIEs_Vone__value_PR;
+typedef enum RICaction_NotAdmitted_ItemIEs_Vone__value_PR {
+	RICaction_NotAdmitted_ItemIEs_Vone__value_PR_NOTHING,	/* No components present */
+	RICaction_NotAdmitted_ItemIEs_Vone__value_PR_RICaction_NotAdmitted_Item_Vone
+} RICaction_NotAdmitted_ItemIEs_Vone__value_PR;
+typedef enum E2connectionUpdateVone_ItemIEs__value_PR {
+	E2connectionUpdateVone_ItemIEs__value_PR_NOTHING,	/* No components present */
+	E2connectionUpdateVone_ItemIEs__value_PR_E2connectionUpdateVone_Item
+} E2connectionUpdateVone_ItemIEs__value_PR;
+typedef enum E2connectionUpdateRemove_ItemIEs_Vone__value_PR {
+	E2connectionUpdateRemove_ItemIEs_Vone__value_PR_NOTHING,	/* No components present */
+	E2connectionUpdateRemove_ItemIEs_Vone__value_PR_E2connectionUpdateRemove_Item_Vone
+} E2connectionUpdateRemove_ItemIEs_Vone__value_PR;
+typedef enum E2connectionSetupFailed_ItemIEs_Vone__value_PR {
+	E2connectionSetupFailed_ItemIEs_Vone__value_PR_NOTHING,	/* No components present */
+	E2connectionSetupFailed_ItemIEs_Vone__value_PR_E2connectionSetupFailed_Item_Vone
+} E2connectionSetupFailed_ItemIEs_Vone__value_PR;
+typedef enum E2nodeComponentConfigUpdateVone_ItemIEs__value_PR {
+	E2nodeComponentConfigUpdateVone_ItemIEs__value_PR_NOTHING,	/* No components present */
+	E2nodeComponentConfigUpdateVone_ItemIEs__value_PR_E2nodeComponentConfigUpdateVone_Item
+} E2nodeComponentConfigUpdateVone_ItemIEs__value_PR;
+typedef enum E2nodeComponentConfigUpdateAckVone_ItemIEs__value_PR {
+	E2nodeComponentConfigUpdateAckVone_ItemIEs__value_PR_NOTHING,	/* No components present */
+	E2nodeComponentConfigUpdateAckVone_ItemIEs__value_PR_E2nodeComponentConfigUpdateAckVone_Item
+} E2nodeComponentConfigUpdateAckVone_ItemIEs__value_PR;
+typedef enum RANfunction_ItemIEs_Vone__value_PR {
+	RANfunction_ItemIEs_Vone__value_PR_NOTHING,	/* No components present */
+	RANfunction_ItemIEs_Vone__value_PR_RANfunction_Item_Vone
+} RANfunction_ItemIEs_Vone__value_PR;
+typedef enum RANfunctionIDVone_ItemIEs__value_PR {
+	RANfunctionIDVone_ItemIEs__value_PR_NOTHING,	/* No components present */
+	RANfunctionIDVone_ItemIEs__value_PR_RANfunctionIDVone_Item
+} RANfunctionIDVone_ItemIEs__value_PR;
+typedef enum RANfunctionIDcause_ItemIEs_Vone__value_PR {
+	RANfunctionIDcause_ItemIEs_Vone__value_PR_NOTHING,	/* No components present */
+	RANfunctionIDcause_ItemIEs_Vone__value_PR_RANfunctionIDcause_Item_Vone
+} RANfunctionIDcause_ItemIEs_Vone__value_PR;
+typedef enum RICsubscriptionRequestVone_IEs__value_PR {
+	RICsubscriptionRequestVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICsubscriptionRequestVone_IEs__value_PR_RICrequestIDVone,
+	RICsubscriptionRequestVone_IEs__value_PR_RANfunctionIDVone,
+	RICsubscriptionRequestVone_IEs__value_PR_RICsubscriptionDetailsVone
+} RICsubscriptionRequestVone_IEs__value_PR;
+typedef enum RICsubscriptionResponseVone_IEs__value_PR {
+	RICsubscriptionResponseVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICsubscriptionResponseVone_IEs__value_PR_RICrequestIDVone,
+	RICsubscriptionResponseVone_IEs__value_PR_RANfunctionIDVone,
+	RICsubscriptionResponseVone_IEs__value_PR_RICaction_Admitted_List_Vone,
+	RICsubscriptionResponseVone_IEs__value_PR_RICaction_NotAdmitted_List_Vone
+} RICsubscriptionResponseVone_IEs__value_PR;
+typedef enum RICsubscriptionFailureVone_IEs__value_PR {
+	RICsubscriptionFailureVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICsubscriptionFailureVone_IEs__value_PR_RICrequestIDVone,
+	RICsubscriptionFailureVone_IEs__value_PR_RANfunctionIDVone,
+	RICsubscriptionFailureVone_IEs__value_PR_RICaction_NotAdmitted_List_Vone,
+	RICsubscriptionFailureVone_IEs__value_PR_CriticalityDiagnosticsVone
+} RICsubscriptionFailureVone_IEs__value_PR;
+typedef enum RICsubscriptionDeleteRequestVone_IEs__value_PR {
+	RICsubscriptionDeleteRequestVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICsubscriptionDeleteRequestVone_IEs__value_PR_RICrequestIDVone,
+	RICsubscriptionDeleteRequestVone_IEs__value_PR_RANfunctionIDVone
+} RICsubscriptionDeleteRequestVone_IEs__value_PR;
+typedef enum RICsubscriptionDeleteResponseVone_IEs__value_PR {
+	RICsubscriptionDeleteResponseVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICsubscriptionDeleteResponseVone_IEs__value_PR_RICrequestIDVone,
+	RICsubscriptionDeleteResponseVone_IEs__value_PR_RANfunctionIDVone
+} RICsubscriptionDeleteResponseVone_IEs__value_PR;
+typedef enum RICsubscriptionDeleteFailureVone_IEs__value_PR {
+	RICsubscriptionDeleteFailureVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICsubscriptionDeleteFailureVone_IEs__value_PR_RICrequestIDVone,
+	RICsubscriptionDeleteFailureVone_IEs__value_PR_RANfunctionIDVone,
+	RICsubscriptionDeleteFailureVone_IEs__value_PR_CauseVone,
+	RICsubscriptionDeleteFailureVone_IEs__value_PR_CriticalityDiagnosticsVone
+} RICsubscriptionDeleteFailureVone_IEs__value_PR;
+typedef enum RICindicationVone_IEs__value_PR {
+	RICindicationVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICindicationVone_IEs__value_PR_RICrequestIDVone,
+	RICindicationVone_IEs__value_PR_RANfunctionIDVone,
+	RICindicationVone_IEs__value_PR_RICactionIDVone,
+	RICindicationVone_IEs__value_PR_RICindicationSNVone,
+	RICindicationVone_IEs__value_PR_RICindicationTypeVone,
+	RICindicationVone_IEs__value_PR_RICindicationHeaderVone,
+	RICindicationVone_IEs__value_PR_RICindicationMessageVone,
+	RICindicationVone_IEs__value_PR_RICcallProcessIDVone
+} RICindicationVone_IEs__value_PR;
+typedef enum RICcontrolRequestVone_IEs__value_PR {
+	RICcontrolRequestVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICcontrolRequestVone_IEs__value_PR_RICrequestIDVone,
+	RICcontrolRequestVone_IEs__value_PR_RANfunctionIDVone,
+	RICcontrolRequestVone_IEs__value_PR_RICcallProcessIDVone,
+	RICcontrolRequestVone_IEs__value_PR_RICcontrolHeaderVone,
+	RICcontrolRequestVone_IEs__value_PR_RICcontrolMessageVone,
+	RICcontrolRequestVone_IEs__value_PR_RICcontrolAckRequestVone
+} RICcontrolRequestVone_IEs__value_PR;
+typedef enum RICcontrolAcknowledgeVone_IEs__value_PR {
+	RICcontrolAcknowledgeVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICcontrolAcknowledgeVone_IEs__value_PR_RICrequestIDVone,
+	RICcontrolAcknowledgeVone_IEs__value_PR_RANfunctionIDVone,
+	RICcontrolAcknowledgeVone_IEs__value_PR_RICcallProcessIDVone,
+	RICcontrolAcknowledgeVone_IEs__value_PR_RICcontrolStatusVone,
+	RICcontrolAcknowledgeVone_IEs__value_PR_RICcontrolOutcomeVone
+} RICcontrolAcknowledgeVone_IEs__value_PR;
+typedef enum RICcontrolFailureVone_IEs__value_PR {
+	RICcontrolFailureVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICcontrolFailureVone_IEs__value_PR_RICrequestIDVone,
+	RICcontrolFailureVone_IEs__value_PR_RANfunctionIDVone,
+	RICcontrolFailureVone_IEs__value_PR_RICcallProcessIDVone,
+	RICcontrolFailureVone_IEs__value_PR_CauseVone,
+	RICcontrolFailureVone_IEs__value_PR_RICcontrolOutcomeVone
+} RICcontrolFailureVone_IEs__value_PR;
+typedef enum ErrorIndicationVone_IEs__value_PR {
+	ErrorIndicationVone_IEs__value_PR_NOTHING,	/* No components present */
+	ErrorIndicationVone_IEs__value_PR_RICrequestIDVone,
+	ErrorIndicationVone_IEs__value_PR_RANfunctionIDVone,
+	ErrorIndicationVone_IEs__value_PR_CauseVone,
+	ErrorIndicationVone_IEs__value_PR_CriticalityDiagnosticsVone
+} ErrorIndicationVone_IEs__value_PR;
+typedef enum E2setupRequestIEsVone__value_PR {
+	E2setupRequestIEsVone__value_PR_NOTHING,	/* No components present */
+	E2setupRequestIEsVone__value_PR_GlobalE2node_IDVone,
+	E2setupRequestIEsVone__value_PR_RANfunctions_List_Vone,
+	E2setupRequestIEsVone__value_PR_E2nodeComponentConfigUpdateVone_List
+} E2setupRequestIEsVone__value_PR;
+typedef enum E2setupResponseIEsVone__value_PR {
+	E2setupResponseIEsVone__value_PR_NOTHING,	/* No components present */
+	E2setupResponseIEsVone__value_PR_GlobalRIC_IDVone,
+	E2setupResponseIEsVone__value_PR_RANfunctionsID_List_Vone,
+	E2setupResponseIEsVone__value_PR_RANfunctionsIDcause_List_Vone,
+	E2setupResponseIEsVone__value_PR_E2nodeComponentConfigUpdateAckVone_List
+} E2setupResponseIEsVone__value_PR;
+typedef enum E2setupFailureIEsVone__value_PR {
+	E2setupFailureIEsVone__value_PR_NOTHING,	/* No components present */
+	E2setupFailureIEsVone__value_PR_CauseVone,
+	E2setupFailureIEsVone__value_PR_TimeToWaitVone,
+	E2setupFailureIEsVone__value_PR_CriticalityDiagnosticsVone,
+	E2setupFailureIEsVone__value_PR_TNLinformationVone
+} E2setupFailureIEsVone__value_PR;
+typedef enum E2connectionUpdateVone_IEs__value_PR {
+	E2connectionUpdateVone_IEs__value_PR_NOTHING,	/* No components present */
+	E2connectionUpdateVone_IEs__value_PR_E2connectionUpdateVone_List,
+	E2connectionUpdateVone_IEs__value_PR_E2connectionUpdateRemoveVone_List
+} E2connectionUpdateVone_IEs__value_PR;
+typedef enum E2connectionUpdateAck_IEs_Vone__value_PR {
+	E2connectionUpdateAck_IEs_Vone__value_PR_NOTHING,	/* No components present */
+	E2connectionUpdateAck_IEs_Vone__value_PR_E2connectionUpdateVone_List,
+	E2connectionUpdateAck_IEs_Vone__value_PR_E2connectionSetupFailedVone_List
+} E2connectionUpdateAck_IEs_Vone__value_PR;
+typedef enum E2connectionUpdateFailureVone_IEs__value_PR {
+	E2connectionUpdateFailureVone_IEs__value_PR_NOTHING,	/* No components present */
+	E2connectionUpdateFailureVone_IEs__value_PR_CauseVone,
+	E2connectionUpdateFailureVone_IEs__value_PR_TimeToWaitVone,
+	E2connectionUpdateFailureVone_IEs__value_PR_CriticalityDiagnosticsVone
+} E2connectionUpdateFailureVone_IEs__value_PR;
+typedef enum E2nodeConfigurationUpdateVone_IEs__value_PR {
+	E2nodeConfigurationUpdateVone_IEs__value_PR_NOTHING,	/* No components present */
+	E2nodeConfigurationUpdateVone_IEs__value_PR_E2nodeComponentConfigUpdateVone_List
+} E2nodeConfigurationUpdateVone_IEs__value_PR;
+typedef enum E2nodeConfigurationUpdateAcknowledgeVone_IEs__value_PR {
+	E2nodeConfigurationUpdateAcknowledgeVone_IEs__value_PR_NOTHING,	/* No components present */
+	E2nodeConfigurationUpdateAcknowledgeVone_IEs__value_PR_E2nodeComponentConfigUpdateAckVone_List
+} E2nodeConfigurationUpdateAcknowledgeVone_IEs__value_PR;
+typedef enum E2nodeConfigurationUpdateFailureVone_IEs__value_PR {
+	E2nodeConfigurationUpdateFailureVone_IEs__value_PR_NOTHING,	/* No components present */
+	E2nodeConfigurationUpdateFailureVone_IEs__value_PR_CauseVone,
+	E2nodeConfigurationUpdateFailureVone_IEs__value_PR_TimeToWaitVone,
+	E2nodeConfigurationUpdateFailureVone_IEs__value_PR_CriticalityDiagnosticsVone
+} E2nodeConfigurationUpdateFailureVone_IEs__value_PR;
+typedef enum ResetRequestIEsVone__value_PR {
+	ResetRequestIEsVone__value_PR_NOTHING,	/* No components present */
+	ResetRequestIEsVone__value_PR_CauseVone
+} ResetRequestIEsVone__value_PR;
+typedef enum ResetResponseIEsVone__value_PR {
+	ResetResponseIEsVone__value_PR_NOTHING,	/* No components present */
+	ResetResponseIEsVone__value_PR_CriticalityDiagnosticsVone
+} ResetResponseIEsVone__value_PR;
+typedef enum RICserviceUpdateVone_IEs__value_PR {
+	RICserviceUpdateVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICserviceUpdateVone_IEs__value_PR_RANfunctions_List_Vone,
+	RICserviceUpdateVone_IEs__value_PR_RANfunctionsID_List_Vone
+} RICserviceUpdateVone_IEs__value_PR;
+typedef enum RICserviceUpdateAcknowledgeVone_IEs__value_PR {
+	RICserviceUpdateAcknowledgeVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICserviceUpdateAcknowledgeVone_IEs__value_PR_RANfunctionsID_List_Vone,
+	RICserviceUpdateAcknowledgeVone_IEs__value_PR_RANfunctionsIDcause_List_Vone
+} RICserviceUpdateAcknowledgeVone_IEs__value_PR;
+typedef enum RICserviceUpdateFailureVone_IEs__value_PR {
+	RICserviceUpdateFailureVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICserviceUpdateFailureVone_IEs__value_PR_RANfunctionsIDcause_List_Vone,
+	RICserviceUpdateFailureVone_IEs__value_PR_TimeToWaitVone,
+	RICserviceUpdateFailureVone_IEs__value_PR_CriticalityDiagnosticsVone
+} RICserviceUpdateFailureVone_IEs__value_PR;
+typedef enum RICserviceQueryVone_IEs__value_PR {
+	RICserviceQueryVone_IEs__value_PR_NOTHING,	/* No components present */
+	RICserviceQueryVone_IEs__value_PR_RANfunctionsID_List_Vone
+} RICserviceQueryVone_IEs__value_PR;
 
 /* ProtocolIE-Field */
-typedef struct RICaction_ToBeSetup_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICaction_ToBeSetup_ItemIEs__value {
-		RICaction_ToBeSetup_ItemIEs__value_PR present;
-		union RICaction_ToBeSetup_ItemIEs__value_u {
-			RICaction_ToBeSetup_Item_t	 RICaction_ToBeSetup_Item;
+typedef struct RICaction_ToBeSetup_ItemIEs_Vone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICaction_ToBeSetup_ItemIEs_Vone__value {
+		RICaction_ToBeSetup_ItemIEs_Vone__value_PR present;
+		union RICaction_ToBeSetup_ItemIEs_Vone__value_u {
+			RICaction_ToBeSetup_Item_Vone_t	 RICaction_ToBeSetup_Item_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -289,14 +289,14 @@ typedef struct RICaction_ToBeSetup_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICaction_ToBeSetup_ItemIEs_t;
-typedef struct RICaction_Admitted_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICaction_Admitted_ItemIEs__value {
-		RICaction_Admitted_ItemIEs__value_PR present;
-		union RICaction_Admitted_ItemIEs__value_u {
-			RICaction_Admitted_Item_t	 RICaction_Admitted_Item;
+} RICaction_ToBeSetup_ItemIEs_Vone_t;
+typedef struct RICaction_Admitted_ItemIEs_Vone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICaction_Admitted_ItemIEs_Vone__value {
+		RICaction_Admitted_ItemIEs_Vone__value_PR present;
+		union RICaction_Admitted_ItemIEs_Vone__value_u {
+			RICaction_Admitted_Item_Vone_t	 RICaction_Admitted_Item_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -305,14 +305,14 @@ typedef struct RICaction_Admitted_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICaction_Admitted_ItemIEs_t;
-typedef struct RICaction_NotAdmitted_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICaction_NotAdmitted_ItemIEs__value {
-		RICaction_NotAdmitted_ItemIEs__value_PR present;
-		union RICaction_NotAdmitted_ItemIEs__value_u {
-			RICaction_NotAdmitted_Item_t	 RICaction_NotAdmitted_Item;
+} RICaction_Admitted_ItemIEs_Vone_t;
+typedef struct RICaction_NotAdmitted_ItemIEs_Vone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICaction_NotAdmitted_ItemIEs_Vone__value {
+		RICaction_NotAdmitted_ItemIEs_Vone__value_PR present;
+		union RICaction_NotAdmitted_ItemIEs_Vone__value_u {
+			RICaction_NotAdmitted_Item_Vone_t	 RICaction_NotAdmitted_Item_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -321,14 +321,14 @@ typedef struct RICaction_NotAdmitted_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICaction_NotAdmitted_ItemIEs_t;
-typedef struct E2connectionUpdate_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2connectionUpdate_ItemIEs__value {
-		E2connectionUpdate_ItemIEs__value_PR present;
-		union E2connectionUpdate_ItemIEs__value_u {
-			E2connectionUpdate_Item_t	 E2connectionUpdate_Item;
+} RICaction_NotAdmitted_ItemIEs_Vone_t;
+typedef struct E2connectionUpdateVone_ItemIEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2connectionUpdateVone_ItemIEs__value {
+		E2connectionUpdateVone_ItemIEs__value_PR present;
+		union E2connectionUpdateVone_ItemIEs__value_u {
+			E2connectionUpdateVone_Item_t	 E2connectionUpdateVone_Item;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -337,14 +337,14 @@ typedef struct E2connectionUpdate_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2connectionUpdate_ItemIEs_t;
-typedef struct E2connectionUpdateRemove_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2connectionUpdateRemove_ItemIEs__value {
-		E2connectionUpdateRemove_ItemIEs__value_PR present;
-		union E2connectionUpdateRemove_ItemIEs__value_u {
-			E2connectionUpdateRemove_Item_t	 E2connectionUpdateRemove_Item;
+} E2connectionUpdateVone_ItemIEs_t;
+typedef struct E2connectionUpdateRemove_ItemIEs_Vone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2connectionUpdateRemove_ItemIEs_Vone__value {
+		E2connectionUpdateRemove_ItemIEs_Vone__value_PR present;
+		union E2connectionUpdateRemove_ItemIEs_Vone__value_u {
+			E2connectionUpdateRemove_Item_Vone_t	 E2connectionUpdateRemove_Item_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -353,14 +353,14 @@ typedef struct E2connectionUpdateRemove_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2connectionUpdateRemove_ItemIEs_t;
-typedef struct E2connectionSetupFailed_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2connectionSetupFailed_ItemIEs__value {
-		E2connectionSetupFailed_ItemIEs__value_PR present;
-		union E2connectionSetupFailed_ItemIEs__value_u {
-			E2connectionSetupFailed_Item_t	 E2connectionSetupFailed_Item;
+} E2connectionUpdateRemove_ItemIEs_Vone_t;
+typedef struct E2connectionSetupFailed_ItemIEs_Vone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2connectionSetupFailed_ItemIEs_Vone__value {
+		E2connectionSetupFailed_ItemIEs_Vone__value_PR present;
+		union E2connectionSetupFailed_ItemIEs_Vone__value_u {
+			E2connectionSetupFailed_Item_Vone_t	 E2connectionSetupFailed_Item_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -369,14 +369,14 @@ typedef struct E2connectionSetupFailed_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2connectionSetupFailed_ItemIEs_t;
-typedef struct E2nodeComponentConfigUpdate_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2nodeComponentConfigUpdate_ItemIEs__value {
-		E2nodeComponentConfigUpdate_ItemIEs__value_PR present;
-		union E2nodeComponentConfigUpdate_ItemIEs__value_u {
-			E2nodeComponentConfigUpdate_Item_t	 E2nodeComponentConfigUpdate_Item;
+} E2connectionSetupFailed_ItemIEs_Vone_t;
+typedef struct E2nodeComponentConfigUpdateVone_ItemIEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2nodeComponentConfigUpdateVone_ItemIEs__value {
+		E2nodeComponentConfigUpdateVone_ItemIEs__value_PR present;
+		union E2nodeComponentConfigUpdateVone_ItemIEs__value_u {
+			E2nodeComponentConfigUpdateVone_Item_t	 E2nodeComponentConfigUpdateVone_Item;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -385,14 +385,14 @@ typedef struct E2nodeComponentConfigUpdate_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2nodeComponentConfigUpdate_ItemIEs_t;
-typedef struct E2nodeComponentConfigUpdateAck_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2nodeComponentConfigUpdateAck_ItemIEs__value {
-		E2nodeComponentConfigUpdateAck_ItemIEs__value_PR present;
-		union E2nodeComponentConfigUpdateAck_ItemIEs__value_u {
-			E2nodeComponentConfigUpdateAck_Item_t	 E2nodeComponentConfigUpdateAck_Item;
+} E2nodeComponentConfigUpdateVone_ItemIEs_t;
+typedef struct E2nodeComponentConfigUpdateAckVone_ItemIEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2nodeComponentConfigUpdateAckVone_ItemIEs__value {
+		E2nodeComponentConfigUpdateAckVone_ItemIEs__value_PR present;
+		union E2nodeComponentConfigUpdateAckVone_ItemIEs__value_u {
+			E2nodeComponentConfigUpdateAckVone_Item_t	 E2nodeComponentConfigUpdateAckVone_Item;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -401,14 +401,14 @@ typedef struct E2nodeComponentConfigUpdateAck_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2nodeComponentConfigUpdateAck_ItemIEs_t;
-typedef struct RANfunction_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RANfunction_ItemIEs__value {
-		RANfunction_ItemIEs__value_PR present;
-		union RANfunction_ItemIEs__value_u {
-			RANfunction_Item_t	 RANfunction_Item;
+} E2nodeComponentConfigUpdateAckVone_ItemIEs_t;
+typedef struct RANfunction_ItemIEs_Vone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RANfunction_ItemIEs_Vone__value {
+		RANfunction_ItemIEs_Vone__value_PR present;
+		union RANfunction_ItemIEs_Vone__value_u {
+			RANfunction_Item_Vone_t	 RANfunction_Item_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -417,14 +417,14 @@ typedef struct RANfunction_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RANfunction_ItemIEs_t;
-typedef struct RANfunctionID_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RANfunctionID_ItemIEs__value {
-		RANfunctionID_ItemIEs__value_PR present;
-		union RANfunctionID_ItemIEs__value_u {
-			RANfunctionID_Item_t	 RANfunctionID_Item;
+} RANfunction_ItemIEs_Vone_t;
+typedef struct RANfunctionIDVone_ItemIEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RANfunctionIDVone_ItemIEs__value {
+		RANfunctionIDVone_ItemIEs__value_PR present;
+		union RANfunctionIDVone_ItemIEs__value_u {
+			RANfunctionIDVone_Item_t	 RANfunctionIDVone_Item;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -433,14 +433,14 @@ typedef struct RANfunctionID_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RANfunctionID_ItemIEs_t;
-typedef struct RANfunctionIDcause_ItemIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RANfunctionIDcause_ItemIEs__value {
-		RANfunctionIDcause_ItemIEs__value_PR present;
-		union RANfunctionIDcause_ItemIEs__value_u {
-			RANfunctionIDcause_Item_t	 RANfunctionIDcause_Item;
+} RANfunctionIDVone_ItemIEs_t;
+typedef struct RANfunctionIDcause_ItemIEs_Vone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RANfunctionIDcause_ItemIEs_Vone__value {
+		RANfunctionIDcause_ItemIEs_Vone__value_PR present;
+		union RANfunctionIDcause_ItemIEs_Vone__value_u {
+			RANfunctionIDcause_Item_Vone_t	 RANfunctionIDcause_Item_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -449,16 +449,16 @@ typedef struct RANfunctionIDcause_ItemIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RANfunctionIDcause_ItemIEs_t;
-typedef struct RICsubscriptionRequest_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICsubscriptionRequest_IEs__value {
-		RICsubscriptionRequest_IEs__value_PR present;
-		union RICsubscriptionRequest_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			RICsubscriptionDetails_t	 RICsubscriptionDetails;
+} RANfunctionIDcause_ItemIEs_Vone_t;
+typedef struct RICsubscriptionRequestVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICsubscriptionRequestVone_IEs__value {
+		RICsubscriptionRequestVone_IEs__value_PR present;
+		union RICsubscriptionRequestVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			RICsubscriptionDetailsVone_t	 RICsubscriptionDetailsVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -467,17 +467,17 @@ typedef struct RICsubscriptionRequest_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICsubscriptionRequest_IEs_t;
-typedef struct RICsubscriptionResponse_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICsubscriptionResponse_IEs__value {
-		RICsubscriptionResponse_IEs__value_PR present;
-		union RICsubscriptionResponse_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			RICaction_Admitted_List_t	 RICaction_Admitted_List;
-			RICaction_NotAdmitted_List_t	 RICaction_NotAdmitted_List;
+} RICsubscriptionRequestVone_IEs_t;
+typedef struct RICsubscriptionResponseVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICsubscriptionResponseVone_IEs__value {
+		RICsubscriptionResponseVone_IEs__value_PR present;
+		union RICsubscriptionResponseVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			RICaction_Admitted_List_Vone_t	 RICaction_Admitted_List_Vone;
+			RICaction_NotAdmitted_List_Vone_t	 RICaction_NotAdmitted_List_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -486,17 +486,17 @@ typedef struct RICsubscriptionResponse_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICsubscriptionResponse_IEs_t;
-typedef struct RICsubscriptionFailure_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICsubscriptionFailure_IEs__value {
-		RICsubscriptionFailure_IEs__value_PR present;
-		union RICsubscriptionFailure_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			RICaction_NotAdmitted_List_t	 RICaction_NotAdmitted_List;
-			CriticalityDiagnostics_t	 CriticalityDiagnostics;
+} RICsubscriptionResponseVone_IEs_t;
+typedef struct RICsubscriptionFailureVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICsubscriptionFailureVone_IEs__value {
+		RICsubscriptionFailureVone_IEs__value_PR present;
+		union RICsubscriptionFailureVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			RICaction_NotAdmitted_List_Vone_t	 RICaction_NotAdmitted_List_Vone;
+			CriticalityDiagnosticsVone_t	 CriticalityDiagnosticsVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -505,15 +505,15 @@ typedef struct RICsubscriptionFailure_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICsubscriptionFailure_IEs_t;
-typedef struct RICsubscriptionDeleteRequest_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICsubscriptionDeleteRequest_IEs__value {
-		RICsubscriptionDeleteRequest_IEs__value_PR present;
-		union RICsubscriptionDeleteRequest_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
+} RICsubscriptionFailureVone_IEs_t;
+typedef struct RICsubscriptionDeleteRequestVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICsubscriptionDeleteRequestVone_IEs__value {
+		RICsubscriptionDeleteRequestVone_IEs__value_PR present;
+		union RICsubscriptionDeleteRequestVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -522,15 +522,15 @@ typedef struct RICsubscriptionDeleteRequest_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICsubscriptionDeleteRequest_IEs_t;
-typedef struct RICsubscriptionDeleteResponse_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICsubscriptionDeleteResponse_IEs__value {
-		RICsubscriptionDeleteResponse_IEs__value_PR present;
-		union RICsubscriptionDeleteResponse_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
+} RICsubscriptionDeleteRequestVone_IEs_t;
+typedef struct RICsubscriptionDeleteResponseVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICsubscriptionDeleteResponseVone_IEs__value {
+		RICsubscriptionDeleteResponseVone_IEs__value_PR present;
+		union RICsubscriptionDeleteResponseVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -539,17 +539,17 @@ typedef struct RICsubscriptionDeleteResponse_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICsubscriptionDeleteResponse_IEs_t;
-typedef struct RICsubscriptionDeleteFailure_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICsubscriptionDeleteFailure_IEs__value {
-		RICsubscriptionDeleteFailure_IEs__value_PR present;
-		union RICsubscriptionDeleteFailure_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			Cause_t	 Cause;
-			CriticalityDiagnostics_t	 CriticalityDiagnostics;
+} RICsubscriptionDeleteResponseVone_IEs_t;
+typedef struct RICsubscriptionDeleteFailureVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICsubscriptionDeleteFailureVone_IEs__value {
+		RICsubscriptionDeleteFailureVone_IEs__value_PR present;
+		union RICsubscriptionDeleteFailureVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			CauseVone_t	 CauseVone;
+			CriticalityDiagnosticsVone_t	 CriticalityDiagnosticsVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -558,21 +558,21 @@ typedef struct RICsubscriptionDeleteFailure_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICsubscriptionDeleteFailure_IEs_t;
-typedef struct RICindication_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICindication_IEs__value {
-		RICindication_IEs__value_PR present;
-		union RICindication_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			RICactionID_t	 RICactionID;
-			RICindicationSN_t	 RICindicationSN;
-			RICindicationType_t	 RICindicationType;
-			RICindicationHeader_t	 RICindicationHeader;
-			RICindicationMessage_t	 RICindicationMessage;
-			RICcallProcessID_t	 RICcallProcessID;
+} RICsubscriptionDeleteFailureVone_IEs_t;
+typedef struct RICindicationVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICindicationVone_IEs__value {
+		RICindicationVone_IEs__value_PR present;
+		union RICindicationVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			RICactionIDVone_t	 RICactionIDVone;
+			RICindicationSNVone_t	 RICindicationSNVone;
+			RICindicationTypeVone_t	 RICindicationTypeVone;
+			RICindicationHeaderVone_t	 RICindicationHeaderVone;
+			RICindicationMessageVone_t	 RICindicationMessageVone;
+			RICcallProcessIDVone_t	 RICcallProcessIDVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -581,19 +581,19 @@ typedef struct RICindication_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICindication_IEs_t;
-typedef struct RICcontrolRequest_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICcontrolRequest_IEs__value {
-		RICcontrolRequest_IEs__value_PR present;
-		union RICcontrolRequest_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			RICcallProcessID_t	 RICcallProcessID;
-			RICcontrolHeader_t	 RICcontrolHeader;
-			RICcontrolMessage_t	 RICcontrolMessage;
-			RICcontrolAckRequest_t	 RICcontrolAckRequest;
+} RICindicationVone_IEs_t;
+typedef struct RICcontrolRequestVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICcontrolRequestVone_IEs__value {
+		RICcontrolRequestVone_IEs__value_PR present;
+		union RICcontrolRequestVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			RICcallProcessIDVone_t	 RICcallProcessIDVone;
+			RICcontrolHeaderVone_t	 RICcontrolHeaderVone;
+			RICcontrolMessageVone_t	 RICcontrolMessageVone;
+			RICcontrolAckRequestVone_t	 RICcontrolAckRequestVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -602,18 +602,18 @@ typedef struct RICcontrolRequest_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICcontrolRequest_IEs_t;
-typedef struct RICcontrolAcknowledge_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICcontrolAcknowledge_IEs__value {
-		RICcontrolAcknowledge_IEs__value_PR present;
-		union RICcontrolAcknowledge_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			RICcallProcessID_t	 RICcallProcessID;
-			RICcontrolStatus_t	 RICcontrolStatus;
-			RICcontrolOutcome_t	 RICcontrolOutcome;
+} RICcontrolRequestVone_IEs_t;
+typedef struct RICcontrolAcknowledgeVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICcontrolAcknowledgeVone_IEs__value {
+		RICcontrolAcknowledgeVone_IEs__value_PR present;
+		union RICcontrolAcknowledgeVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			RICcallProcessIDVone_t	 RICcallProcessIDVone;
+			RICcontrolStatusVone_t	 RICcontrolStatusVone;
+			RICcontrolOutcomeVone_t	 RICcontrolOutcomeVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -622,18 +622,18 @@ typedef struct RICcontrolAcknowledge_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICcontrolAcknowledge_IEs_t;
-typedef struct RICcontrolFailure_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICcontrolFailure_IEs__value {
-		RICcontrolFailure_IEs__value_PR present;
-		union RICcontrolFailure_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			RICcallProcessID_t	 RICcallProcessID;
-			Cause_t	 Cause;
-			RICcontrolOutcome_t	 RICcontrolOutcome;
+} RICcontrolAcknowledgeVone_IEs_t;
+typedef struct RICcontrolFailureVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICcontrolFailureVone_IEs__value {
+		RICcontrolFailureVone_IEs__value_PR present;
+		union RICcontrolFailureVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			RICcallProcessIDVone_t	 RICcallProcessIDVone;
+			CauseVone_t	 CauseVone;
+			RICcontrolOutcomeVone_t	 RICcontrolOutcomeVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -642,17 +642,17 @@ typedef struct RICcontrolFailure_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICcontrolFailure_IEs_t;
-typedef struct ErrorIndication_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct ErrorIndication_IEs__value {
-		ErrorIndication_IEs__value_PR present;
-		union ErrorIndication_IEs__value_u {
-			RICrequestID_t	 RICrequestID;
-			RANfunctionID_t	 RANfunctionID;
-			Cause_t	 Cause;
-			CriticalityDiagnostics_t	 CriticalityDiagnostics;
+} RICcontrolFailureVone_IEs_t;
+typedef struct ErrorIndicationVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct ErrorIndicationVone_IEs__value {
+		ErrorIndicationVone_IEs__value_PR present;
+		union ErrorIndicationVone_IEs__value_u {
+			RICrequestIDVone_t	 RICrequestIDVone;
+			RANfunctionIDVone_t	 RANfunctionIDVone;
+			CauseVone_t	 CauseVone;
+			CriticalityDiagnosticsVone_t	 CriticalityDiagnosticsVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -661,16 +661,16 @@ typedef struct ErrorIndication_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} ErrorIndication_IEs_t;
-typedef struct E2setupRequestIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2setupRequestIEs__value {
-		E2setupRequestIEs__value_PR present;
-		union E2setupRequestIEs__value_u {
-			GlobalE2node_ID_t	 GlobalE2node_ID;
-			RANfunctions_List_t	 RANfunctions_List;
-			E2nodeComponentConfigUpdate_List_t	 E2nodeComponentConfigUpdate_List;
+} ErrorIndicationVone_IEs_t;
+typedef struct E2setupRequestIEsVone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2setupRequestIEsVone__value {
+		E2setupRequestIEsVone__value_PR present;
+		union E2setupRequestIEsVone__value_u {
+			GlobalE2node_IDVone_t	 GlobalE2node_IDVone;
+			RANfunctions_List_Vone_t	 RANfunctions_List_Vone;
+			E2nodeComponentConfigUpdateVone_List_t	 E2nodeComponentConfigUpdateVone_List;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -679,17 +679,17 @@ typedef struct E2setupRequestIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2setupRequestIEs_t;
-typedef struct E2setupResponseIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2setupResponseIEs__value {
-		E2setupResponseIEs__value_PR present;
-		union E2setupResponseIEs__value_u {
-			GlobalRIC_ID_t	 GlobalRIC_ID;
-			RANfunctionsID_List_t	 RANfunctionsID_List;
-			RANfunctionsIDcause_List_t	 RANfunctionsIDcause_List;
-			E2nodeComponentConfigUpdateAck_List_t	 E2nodeComponentConfigUpdateAck_List;
+} E2setupRequestIEsVone_t;
+typedef struct E2setupResponseIEsVone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2setupResponseIEsVone__value {
+		E2setupResponseIEsVone__value_PR present;
+		union E2setupResponseIEsVone__value_u {
+			GlobalRIC_IDVone_t	 GlobalRIC_IDVone;
+			RANfunctionsID_List_Vone_t	 RANfunctionsID_List_Vone;
+			RANfunctionsIDcause_List_Vone_t	 RANfunctionsIDcause_List_Vone;
+			E2nodeComponentConfigUpdateAckVone_List_t	 E2nodeComponentConfigUpdateAckVone_List;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -698,17 +698,17 @@ typedef struct E2setupResponseIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2setupResponseIEs_t;
-typedef struct E2setupFailureIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2setupFailureIEs__value {
-		E2setupFailureIEs__value_PR present;
-		union E2setupFailureIEs__value_u {
-			Cause_t	 Cause;
-			TimeToWait_t	 TimeToWait;
-			CriticalityDiagnostics_t	 CriticalityDiagnostics;
-			TNLinformation_t	 TNLinformation;
+} E2setupResponseIEsVone_t;
+typedef struct E2setupFailureIEsVone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2setupFailureIEsVone__value {
+		E2setupFailureIEsVone__value_PR present;
+		union E2setupFailureIEsVone__value_u {
+			CauseVone_t	 CauseVone;
+			TimeToWaitVone_t	 TimeToWaitVone;
+			CriticalityDiagnosticsVone_t	 CriticalityDiagnosticsVone;
+			TNLinformationVone_t	 TNLinformationVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -717,15 +717,15 @@ typedef struct E2setupFailureIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2setupFailureIEs_t;
-typedef struct E2connectionUpdate_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2connectionUpdate_IEs__value {
-		E2connectionUpdate_IEs__value_PR present;
-		union E2connectionUpdate_IEs__value_u {
-			E2connectionUpdate_List_t	 E2connectionUpdate_List;
-			E2connectionUpdateRemove_List_t	 E2connectionUpdateRemove_List;
+} E2setupFailureIEsVone_t;
+typedef struct E2connectionUpdateVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2connectionUpdateVone_IEs__value {
+		E2connectionUpdateVone_IEs__value_PR present;
+		union E2connectionUpdateVone_IEs__value_u {
+			E2connectionUpdateVone_List_t	 E2connectionUpdateVone_List;
+			E2connectionUpdateRemoveVone_List_t	 E2connectionUpdateRemoveVone_List;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -734,15 +734,15 @@ typedef struct E2connectionUpdate_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2connectionUpdate_IEs_t;
-typedef struct E2connectionUpdateAck_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2connectionUpdateAck_IEs__value {
-		E2connectionUpdateAck_IEs__value_PR present;
-		union E2connectionUpdateAck_IEs__value_u {
-			E2connectionUpdate_List_t	 E2connectionUpdate_List;
-			E2connectionSetupFailed_List_t	 E2connectionSetupFailed_List;
+} E2connectionUpdateVone_IEs_t;
+typedef struct E2connectionUpdateAck_IEs_Vone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2connectionUpdateAck_IEs_Vone__value {
+		E2connectionUpdateAck_IEs_Vone__value_PR present;
+		union E2connectionUpdateAck_IEs_Vone__value_u {
+			E2connectionUpdateVone_List_t	 E2connectionUpdateVone_List;
+			E2connectionSetupFailedVone_List_t	 E2connectionSetupFailedVone_List;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -751,16 +751,16 @@ typedef struct E2connectionUpdateAck_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2connectionUpdateAck_IEs_t;
-typedef struct E2connectionUpdateFailure_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2connectionUpdateFailure_IEs__value {
-		E2connectionUpdateFailure_IEs__value_PR present;
-		union E2connectionUpdateFailure_IEs__value_u {
-			Cause_t	 Cause;
-			TimeToWait_t	 TimeToWait;
-			CriticalityDiagnostics_t	 CriticalityDiagnostics;
+} E2connectionUpdateAck_IEs_Vone_t;
+typedef struct E2connectionUpdateFailureVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2connectionUpdateFailureVone_IEs__value {
+		E2connectionUpdateFailureVone_IEs__value_PR present;
+		union E2connectionUpdateFailureVone_IEs__value_u {
+			CauseVone_t	 CauseVone;
+			TimeToWaitVone_t	 TimeToWaitVone;
+			CriticalityDiagnosticsVone_t	 CriticalityDiagnosticsVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -769,14 +769,14 @@ typedef struct E2connectionUpdateFailure_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2connectionUpdateFailure_IEs_t;
-typedef struct E2nodeConfigurationUpdate_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2nodeConfigurationUpdate_IEs__value {
-		E2nodeConfigurationUpdate_IEs__value_PR present;
-		union E2nodeConfigurationUpdate_IEs__value_u {
-			E2nodeComponentConfigUpdate_List_t	 E2nodeComponentConfigUpdate_List;
+} E2connectionUpdateFailureVone_IEs_t;
+typedef struct E2nodeConfigurationUpdateVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2nodeConfigurationUpdateVone_IEs__value {
+		E2nodeConfigurationUpdateVone_IEs__value_PR present;
+		union E2nodeConfigurationUpdateVone_IEs__value_u {
+			E2nodeComponentConfigUpdateVone_List_t	 E2nodeComponentConfigUpdateVone_List;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -785,14 +785,14 @@ typedef struct E2nodeConfigurationUpdate_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2nodeConfigurationUpdate_IEs_t;
-typedef struct E2nodeConfigurationUpdateAcknowledge_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2nodeConfigurationUpdateAcknowledge_IEs__value {
-		E2nodeConfigurationUpdateAcknowledge_IEs__value_PR present;
-		union E2nodeConfigurationUpdateAcknowledge_IEs__value_u {
-			E2nodeComponentConfigUpdateAck_List_t	 E2nodeComponentConfigUpdateAck_List;
+} E2nodeConfigurationUpdateVone_IEs_t;
+typedef struct E2nodeConfigurationUpdateAcknowledgeVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2nodeConfigurationUpdateAcknowledgeVone_IEs__value {
+		E2nodeConfigurationUpdateAcknowledgeVone_IEs__value_PR present;
+		union E2nodeConfigurationUpdateAcknowledgeVone_IEs__value_u {
+			E2nodeComponentConfigUpdateAckVone_List_t	 E2nodeComponentConfigUpdateAckVone_List;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -801,16 +801,16 @@ typedef struct E2nodeConfigurationUpdateAcknowledge_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2nodeConfigurationUpdateAcknowledge_IEs_t;
-typedef struct E2nodeConfigurationUpdateFailure_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct E2nodeConfigurationUpdateFailure_IEs__value {
-		E2nodeConfigurationUpdateFailure_IEs__value_PR present;
-		union E2nodeConfigurationUpdateFailure_IEs__value_u {
-			Cause_t	 Cause;
-			TimeToWait_t	 TimeToWait;
-			CriticalityDiagnostics_t	 CriticalityDiagnostics;
+} E2nodeConfigurationUpdateAcknowledgeVone_IEs_t;
+typedef struct E2nodeConfigurationUpdateFailureVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct E2nodeConfigurationUpdateFailureVone_IEs__value {
+		E2nodeConfigurationUpdateFailureVone_IEs__value_PR present;
+		union E2nodeConfigurationUpdateFailureVone_IEs__value_u {
+			CauseVone_t	 CauseVone;
+			TimeToWaitVone_t	 TimeToWaitVone;
+			CriticalityDiagnosticsVone_t	 CriticalityDiagnosticsVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -819,14 +819,14 @@ typedef struct E2nodeConfigurationUpdateFailure_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} E2nodeConfigurationUpdateFailure_IEs_t;
-typedef struct ResetRequestIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct ResetRequestIEs__value {
-		ResetRequestIEs__value_PR present;
-		union ResetRequestIEs__value_u {
-			Cause_t	 Cause;
+} E2nodeConfigurationUpdateFailureVone_IEs_t;
+typedef struct ResetRequestIEsVone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct ResetRequestIEsVone__value {
+		ResetRequestIEsVone__value_PR present;
+		union ResetRequestIEsVone__value_u {
+			CauseVone_t	 CauseVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -835,14 +835,14 @@ typedef struct ResetRequestIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} ResetRequestIEs_t;
-typedef struct ResetResponseIEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct ResetResponseIEs__value {
-		ResetResponseIEs__value_PR present;
-		union ResetResponseIEs__value_u {
-			CriticalityDiagnostics_t	 CriticalityDiagnostics;
+} ResetRequestIEsVone_t;
+typedef struct ResetResponseIEsVone {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct ResetResponseIEsVone__value {
+		ResetResponseIEsVone__value_PR present;
+		union ResetResponseIEsVone__value_u {
+			CriticalityDiagnosticsVone_t	 CriticalityDiagnosticsVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -851,15 +851,15 @@ typedef struct ResetResponseIEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} ResetResponseIEs_t;
-typedef struct RICserviceUpdate_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICserviceUpdate_IEs__value {
-		RICserviceUpdate_IEs__value_PR present;
-		union RICserviceUpdate_IEs__value_u {
-			RANfunctions_List_t	 RANfunctions_List;
-			RANfunctionsID_List_t	 RANfunctionsID_List;
+} ResetResponseIEsVone_t;
+typedef struct RICserviceUpdateVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICserviceUpdateVone_IEs__value {
+		RICserviceUpdateVone_IEs__value_PR present;
+		union RICserviceUpdateVone_IEs__value_u {
+			RANfunctions_List_Vone_t	 RANfunctions_List_Vone;
+			RANfunctionsID_List_Vone_t	 RANfunctionsID_List_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -868,15 +868,15 @@ typedef struct RICserviceUpdate_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICserviceUpdate_IEs_t;
-typedef struct RICserviceUpdateAcknowledge_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICserviceUpdateAcknowledge_IEs__value {
-		RICserviceUpdateAcknowledge_IEs__value_PR present;
-		union RICserviceUpdateAcknowledge_IEs__value_u {
-			RANfunctionsID_List_t	 RANfunctionsID_List;
-			RANfunctionsIDcause_List_t	 RANfunctionsIDcause_List;
+} RICserviceUpdateVone_IEs_t;
+typedef struct RICserviceUpdateAcknowledgeVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICserviceUpdateAcknowledgeVone_IEs__value {
+		RICserviceUpdateAcknowledgeVone_IEs__value_PR present;
+		union RICserviceUpdateAcknowledgeVone_IEs__value_u {
+			RANfunctionsID_List_Vone_t	 RANfunctionsID_List_Vone;
+			RANfunctionsIDcause_List_Vone_t	 RANfunctionsIDcause_List_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -885,16 +885,16 @@ typedef struct RICserviceUpdateAcknowledge_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICserviceUpdateAcknowledge_IEs_t;
-typedef struct RICserviceUpdateFailure_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICserviceUpdateFailure_IEs__value {
-		RICserviceUpdateFailure_IEs__value_PR present;
-		union RICserviceUpdateFailure_IEs__value_u {
-			RANfunctionsIDcause_List_t	 RANfunctionsIDcause_List;
-			TimeToWait_t	 TimeToWait;
-			CriticalityDiagnostics_t	 CriticalityDiagnostics;
+} RICserviceUpdateAcknowledgeVone_IEs_t;
+typedef struct RICserviceUpdateFailureVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICserviceUpdateFailureVone_IEs__value {
+		RICserviceUpdateFailureVone_IEs__value_PR present;
+		union RICserviceUpdateFailureVone_IEs__value_u {
+			RANfunctionsIDcause_List_Vone_t	 RANfunctionsIDcause_List_Vone;
+			TimeToWaitVone_t	 TimeToWaitVone;
+			CriticalityDiagnosticsVone_t	 CriticalityDiagnosticsVone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -903,14 +903,14 @@ typedef struct RICserviceUpdateFailure_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICserviceUpdateFailure_IEs_t;
-typedef struct RICserviceQuery_IEs {
-	ProtocolIE_ID_t	 id;
-	Criticality_t	 criticality;
-	struct RICserviceQuery_IEs__value {
-		RICserviceQuery_IEs__value_PR present;
-		union RICserviceQuery_IEs__value_u {
-			RANfunctionsID_List_t	 RANfunctionsID_List;
+} RICserviceUpdateFailureVone_IEs_t;
+typedef struct RICserviceQueryVone_IEs {
+	ProtocolIE_ID_Vone_t	 id;
+	CriticalityVone_t	 criticality;
+	struct RICserviceQueryVone_IEs__value {
+		RICserviceQueryVone_IEs__value_PR present;
+		union RICserviceQueryVone_IEs__value_u {
+			RANfunctionsID_List_Vone_t	 RANfunctionsID_List_Vone;
 		} choice;
 		
 		/* Context for parsing across buffer boundaries */
@@ -919,120 +919,120 @@ typedef struct RICserviceQuery_IEs {
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
-} RICserviceQuery_IEs_t;
+} RICserviceQueryVone_IEs_t;
 
 /* Implementation */
-extern asn_TYPE_descriptor_t asn_DEF_RICaction_ToBeSetup_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICaction_ToBeSetup_ItemIEs_specs_1;
-extern asn_TYPE_member_t asn_MBR_RICaction_ToBeSetup_ItemIEs_1[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICaction_Admitted_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICaction_Admitted_ItemIEs_specs_5;
-extern asn_TYPE_member_t asn_MBR_RICaction_Admitted_ItemIEs_5[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICaction_NotAdmitted_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICaction_NotAdmitted_ItemIEs_specs_9;
-extern asn_TYPE_member_t asn_MBR_RICaction_NotAdmitted_ItemIEs_9[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdate_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdate_ItemIEs_specs_13;
-extern asn_TYPE_member_t asn_MBR_E2connectionUpdate_ItemIEs_13[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateRemove_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateRemove_ItemIEs_specs_17;
-extern asn_TYPE_member_t asn_MBR_E2connectionUpdateRemove_ItemIEs_17[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2connectionSetupFailed_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionSetupFailed_ItemIEs_specs_21;
-extern asn_TYPE_member_t asn_MBR_E2connectionSetupFailed_ItemIEs_21[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2nodeComponentConfigUpdate_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeComponentConfigUpdate_ItemIEs_specs_25;
-extern asn_TYPE_member_t asn_MBR_E2nodeComponentConfigUpdate_ItemIEs_25[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeComponentConfigUpdateAck_ItemIEs_specs_29;
-extern asn_TYPE_member_t asn_MBR_E2nodeComponentConfigUpdateAck_ItemIEs_29[3];
-extern asn_TYPE_descriptor_t asn_DEF_RANfunction_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RANfunction_ItemIEs_specs_33;
-extern asn_TYPE_member_t asn_MBR_RANfunction_ItemIEs_33[3];
-extern asn_TYPE_descriptor_t asn_DEF_RANfunctionID_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RANfunctionID_ItemIEs_specs_37;
-extern asn_TYPE_member_t asn_MBR_RANfunctionID_ItemIEs_37[3];
-extern asn_TYPE_descriptor_t asn_DEF_RANfunctionIDcause_ItemIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RANfunctionIDcause_ItemIEs_specs_41;
-extern asn_TYPE_member_t asn_MBR_RANfunctionIDcause_ItemIEs_41[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionRequest_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionRequest_IEs_specs_45;
-extern asn_TYPE_member_t asn_MBR_RICsubscriptionRequest_IEs_45[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionResponse_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionResponse_IEs_specs_49;
-extern asn_TYPE_member_t asn_MBR_RICsubscriptionResponse_IEs_49[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionFailure_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionFailure_IEs_specs_53;
-extern asn_TYPE_member_t asn_MBR_RICsubscriptionFailure_IEs_53[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteRequest_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteRequest_IEs_specs_57;
-extern asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteRequest_IEs_57[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteResponse_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteResponse_IEs_specs_61;
-extern asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteResponse_IEs_61[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteFailure_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteFailure_IEs_specs_65;
-extern asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteFailure_IEs_65[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICindication_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICindication_IEs_specs_69;
-extern asn_TYPE_member_t asn_MBR_RICindication_IEs_69[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICcontrolRequest_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICcontrolRequest_IEs_specs_73;
-extern asn_TYPE_member_t asn_MBR_RICcontrolRequest_IEs_73[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICcontrolAcknowledge_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICcontrolAcknowledge_IEs_specs_77;
-extern asn_TYPE_member_t asn_MBR_RICcontrolAcknowledge_IEs_77[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICcontrolFailure_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICcontrolFailure_IEs_specs_81;
-extern asn_TYPE_member_t asn_MBR_RICcontrolFailure_IEs_81[3];
-extern asn_TYPE_descriptor_t asn_DEF_ErrorIndication_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_ErrorIndication_IEs_specs_85;
-extern asn_TYPE_member_t asn_MBR_ErrorIndication_IEs_85[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2setupRequestIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2setupRequestIEs_specs_89;
-extern asn_TYPE_member_t asn_MBR_E2setupRequestIEs_89[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2setupResponseIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2setupResponseIEs_specs_93;
-extern asn_TYPE_member_t asn_MBR_E2setupResponseIEs_93[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2setupFailureIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2setupFailureIEs_specs_97;
-extern asn_TYPE_member_t asn_MBR_E2setupFailureIEs_97[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdate_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdate_IEs_specs_101;
-extern asn_TYPE_member_t asn_MBR_E2connectionUpdate_IEs_101[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateAck_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateAck_IEs_specs_105;
-extern asn_TYPE_member_t asn_MBR_E2connectionUpdateAck_IEs_105[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateFailure_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateFailure_IEs_specs_109;
-extern asn_TYPE_member_t asn_MBR_E2connectionUpdateFailure_IEs_109[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdate_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdate_IEs_specs_113;
-extern asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdate_IEs_113[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateAcknowledge_IEs_specs_117;
-extern asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateAcknowledge_IEs_117[3];
-extern asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateFailure_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateFailure_IEs_specs_121;
-extern asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateFailure_IEs_121[3];
-extern asn_TYPE_descriptor_t asn_DEF_ResetRequestIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_ResetRequestIEs_specs_125;
-extern asn_TYPE_member_t asn_MBR_ResetRequestIEs_125[3];
-extern asn_TYPE_descriptor_t asn_DEF_ResetResponseIEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_ResetResponseIEs_specs_129;
-extern asn_TYPE_member_t asn_MBR_ResetResponseIEs_129[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICserviceUpdate_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdate_IEs_specs_133;
-extern asn_TYPE_member_t asn_MBR_RICserviceUpdate_IEs_133[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateAcknowledge_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateAcknowledge_IEs_specs_137;
-extern asn_TYPE_member_t asn_MBR_RICserviceUpdateAcknowledge_IEs_137[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateFailure_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateFailure_IEs_specs_141;
-extern asn_TYPE_member_t asn_MBR_RICserviceUpdateFailure_IEs_141[3];
-extern asn_TYPE_descriptor_t asn_DEF_RICserviceQuery_IEs;
-extern asn_SEQUENCE_specifics_t asn_SPC_RICserviceQuery_IEs_specs_145;
-extern asn_TYPE_member_t asn_MBR_RICserviceQuery_IEs_145[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICaction_ToBeSetup_ItemIEs_Vone_specs_1;
+extern asn_TYPE_member_t asn_MBR_RICaction_ToBeSetup_ItemIEs_Vone_1[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICaction_Admitted_ItemIEs_Vone;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICaction_Admitted_ItemIEs_Vone_specs_5;
+extern asn_TYPE_member_t asn_MBR_RICaction_Admitted_ItemIEs_Vone_5[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICaction_NotAdmitted_ItemIEs_Vone_specs_9;
+extern asn_TYPE_member_t asn_MBR_RICaction_NotAdmitted_ItemIEs_Vone_9[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateVone_ItemIEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateVone_ItemIEs_specs_13;
+extern asn_TYPE_member_t asn_MBR_E2connectionUpdateVone_ItemIEs_13[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateRemove_ItemIEs_Vone_specs_17;
+extern asn_TYPE_member_t asn_MBR_E2connectionUpdateRemove_ItemIEs_Vone_17[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2connectionSetupFailed_ItemIEs_Vone;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionSetupFailed_ItemIEs_Vone_specs_21;
+extern asn_TYPE_member_t asn_MBR_E2connectionSetupFailed_ItemIEs_Vone_21[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeComponentConfigUpdateVone_ItemIEs_specs_25;
+extern asn_TYPE_member_t asn_MBR_E2nodeComponentConfigUpdateVone_ItemIEs_25[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeComponentConfigUpdateAckVone_ItemIEs_specs_29;
+extern asn_TYPE_member_t asn_MBR_E2nodeComponentConfigUpdateAckVone_ItemIEs_29[3];
+extern asn_TYPE_descriptor_t asn_DEF_RANfunction_ItemIEs_Vone;
+extern asn_SEQUENCE_specifics_t asn_SPC_RANfunction_ItemIEs_Vone_specs_33;
+extern asn_TYPE_member_t asn_MBR_RANfunction_ItemIEs_Vone_33[3];
+extern asn_TYPE_descriptor_t asn_DEF_RANfunctionIDVone_ItemIEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RANfunctionIDVone_ItemIEs_specs_37;
+extern asn_TYPE_member_t asn_MBR_RANfunctionIDVone_ItemIEs_37[3];
+extern asn_TYPE_descriptor_t asn_DEF_RANfunctionIDcause_ItemIEs_Vone;
+extern asn_SEQUENCE_specifics_t asn_SPC_RANfunctionIDcause_ItemIEs_Vone_specs_41;
+extern asn_TYPE_member_t asn_MBR_RANfunctionIDcause_ItemIEs_Vone_41[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionRequestVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionRequestVone_IEs_specs_45;
+extern asn_TYPE_member_t asn_MBR_RICsubscriptionRequestVone_IEs_45[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionResponseVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionResponseVone_IEs_specs_49;
+extern asn_TYPE_member_t asn_MBR_RICsubscriptionResponseVone_IEs_49[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionFailureVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionFailureVone_IEs_specs_53;
+extern asn_TYPE_member_t asn_MBR_RICsubscriptionFailureVone_IEs_53[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteRequestVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteRequestVone_IEs_specs_57;
+extern asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteRequestVone_IEs_57[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteResponseVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteResponseVone_IEs_specs_61;
+extern asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteResponseVone_IEs_61[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteFailureVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteFailureVone_IEs_specs_65;
+extern asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteFailureVone_IEs_65[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICindicationVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICindicationVone_IEs_specs_69;
+extern asn_TYPE_member_t asn_MBR_RICindicationVone_IEs_69[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICcontrolRequestVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICcontrolRequestVone_IEs_specs_73;
+extern asn_TYPE_member_t asn_MBR_RICcontrolRequestVone_IEs_73[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICcontrolAcknowledgeVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICcontrolAcknowledgeVone_IEs_specs_77;
+extern asn_TYPE_member_t asn_MBR_RICcontrolAcknowledgeVone_IEs_77[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICcontrolFailureVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICcontrolFailureVone_IEs_specs_81;
+extern asn_TYPE_member_t asn_MBR_RICcontrolFailureVone_IEs_81[3];
+extern asn_TYPE_descriptor_t asn_DEF_ErrorIndicationVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_ErrorIndicationVone_IEs_specs_85;
+extern asn_TYPE_member_t asn_MBR_ErrorIndicationVone_IEs_85[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2setupRequestIEsVone;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2setupRequestIEsVone_specs_89;
+extern asn_TYPE_member_t asn_MBR_E2setupRequestIEsVone_89[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2setupResponseIEsVone;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2setupResponseIEsVone_specs_93;
+extern asn_TYPE_member_t asn_MBR_E2setupResponseIEsVone_93[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2setupFailureIEsVone;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2setupFailureIEsVone_specs_97;
+extern asn_TYPE_member_t asn_MBR_E2setupFailureIEsVone_97[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateVone_IEs_specs_101;
+extern asn_TYPE_member_t asn_MBR_E2connectionUpdateVone_IEs_101[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateAck_IEs_Vone;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateAck_IEs_Vone_specs_105;
+extern asn_TYPE_member_t asn_MBR_E2connectionUpdateAck_IEs_Vone_105[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateFailureVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateFailureVone_IEs_specs_109;
+extern asn_TYPE_member_t asn_MBR_E2connectionUpdateFailureVone_IEs_109[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateVone_IEs_specs_113;
+extern asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateVone_IEs_113[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateAcknowledgeVone_IEs_specs_117;
+extern asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateAcknowledgeVone_IEs_117[3];
+extern asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateFailureVone_IEs_specs_121;
+extern asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateFailureVone_IEs_121[3];
+extern asn_TYPE_descriptor_t asn_DEF_ResetRequestIEsVone;
+extern asn_SEQUENCE_specifics_t asn_SPC_ResetRequestIEsVone_specs_125;
+extern asn_TYPE_member_t asn_MBR_ResetRequestIEsVone_125[3];
+extern asn_TYPE_descriptor_t asn_DEF_ResetResponseIEsVone;
+extern asn_SEQUENCE_specifics_t asn_SPC_ResetResponseIEsVone_specs_129;
+extern asn_TYPE_member_t asn_MBR_ResetResponseIEsVone_129[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateVone_IEs_specs_133;
+extern asn_TYPE_member_t asn_MBR_RICserviceUpdateVone_IEs_133[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateAcknowledgeVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateAcknowledgeVone_IEs_specs_137;
+extern asn_TYPE_member_t asn_MBR_RICserviceUpdateAcknowledgeVone_IEs_137[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateFailureVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateFailureVone_IEs_specs_141;
+extern asn_TYPE_member_t asn_MBR_RICserviceUpdateFailureVone_IEs_141[3];
+extern asn_TYPE_descriptor_t asn_DEF_RICserviceQueryVone_IEs;
+extern asn_SEQUENCE_specifics_t asn_SPC_RICserviceQueryVone_IEs_specs_145;
+extern asn_TYPE_member_t asn_MBR_RICserviceQueryVone_IEs_145[3];
 
 #ifdef __cplusplus
 }

@@ -142,7 +142,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P0_1[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICsubscriptionRequest_IEs,
+		&asn_DEF_RICsubscriptionRequestVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -177,7 +177,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P1_3[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICsubscriptionResponse_IEs,
+		&asn_DEF_RICsubscriptionResponseVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -212,7 +212,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P2_5[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICsubscriptionFailure_IEs,
+		&asn_DEF_RICsubscriptionFailureVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -247,7 +247,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P3_7[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICsubscriptionDeleteRequest_IEs,
+		&asn_DEF_RICsubscriptionDeleteRequestVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -282,7 +282,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P4_9[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICsubscriptionDeleteResponse_IEs,
+		&asn_DEF_RICsubscriptionDeleteResponseVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -317,7 +317,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P5_11[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICsubscriptionDeleteFailure_IEs,
+		&asn_DEF_RICsubscriptionDeleteFailureVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -352,7 +352,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P6_13[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICindication_IEs,
+		&asn_DEF_RICindicationVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -387,7 +387,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P7_15[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICcontrolRequest_IEs,
+		&asn_DEF_RICcontrolRequestVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -422,7 +422,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P8_17[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICcontrolAcknowledge_IEs,
+		&asn_DEF_RICcontrolAcknowledgeVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -457,7 +457,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P9_19[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICcontrolFailure_IEs,
+		&asn_DEF_RICcontrolFailureVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -492,7 +492,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P10_21[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_ErrorIndication_IEs,
+		&asn_DEF_ErrorIndicationVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -527,7 +527,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P11_23[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2setupRequestIEs,
+		&asn_DEF_E2setupRequestIEsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -562,7 +562,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P12_25[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2setupResponseIEs,
+		&asn_DEF_E2setupResponseIEsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -597,7 +597,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P13_27[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2setupFailureIEs,
+		&asn_DEF_E2setupFailureIEsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -632,7 +632,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P14_29[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionUpdate_IEs,
+		&asn_DEF_E2connectionUpdateVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -667,7 +667,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P15_31[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionUpdateAck_IEs,
+		&asn_DEF_E2connectionUpdateAck_IEs_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -702,7 +702,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P16_33[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionUpdateFailure_IEs,
+		&asn_DEF_E2connectionUpdateFailureVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -737,7 +737,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P17_35[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeConfigurationUpdate_IEs,
+		&asn_DEF_E2nodeConfigurationUpdateVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -772,7 +772,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P18_37[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs,
+		&asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -807,7 +807,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P19_39[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeConfigurationUpdateFailure_IEs,
+		&asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -842,7 +842,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P20_41[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_ResetRequestIEs,
+		&asn_DEF_ResetRequestIEsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -877,7 +877,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P21_43[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_ResetResponseIEs,
+		&asn_DEF_ResetResponseIEsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -912,7 +912,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P22_45[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICserviceUpdate_IEs,
+		&asn_DEF_RICserviceUpdateVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -947,7 +947,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P23_47[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICserviceUpdateAcknowledge_IEs,
+		&asn_DEF_RICserviceUpdateAcknowledgeVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -982,7 +982,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P24_49[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICserviceUpdateFailure_IEs,
+		&asn_DEF_RICserviceUpdateFailureVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
@@ -1017,7 +1017,7 @@ asn_TYPE_member_t asn_MBR_ProtocolIE_Container_1710P25_51[] = {
 	{ ATF_POINTER, 0, 0,
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICserviceQuery_IEs,
+		&asn_DEF_RICserviceQueryVone_IEs,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */

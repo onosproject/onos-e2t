@@ -8,47 +8,47 @@
 #include "ProtocolIE-SingleContainer.h"
 
 /*
- * This type is implemented using RICaction_ToBeSetup_ItemIEs,
+ * This type is implemented using RICaction_ToBeSetup_ItemIEs_Vone,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using RICaction_Admitted_ItemIEs,
+ * This type is implemented using RICaction_Admitted_ItemIEs_Vone,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using RICaction_NotAdmitted_ItemIEs,
+ * This type is implemented using RICaction_NotAdmitted_ItemIEs_Vone,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using E2connectionUpdate_ItemIEs,
+ * This type is implemented using E2connectionUpdateVone_ItemIEs,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using E2connectionUpdateRemove_ItemIEs,
+ * This type is implemented using E2connectionUpdateRemove_ItemIEs_Vone,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using E2connectionSetupFailed_ItemIEs,
+ * This type is implemented using E2connectionSetupFailed_ItemIEs_Vone,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using E2nodeComponentConfigUpdate_ItemIEs,
+ * This type is implemented using E2nodeComponentConfigUpdateVone_ItemIEs,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using E2nodeComponentConfigUpdateAck_ItemIEs,
+ * This type is implemented using E2nodeComponentConfigUpdateAckVone_ItemIEs,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using RANfunction_ItemIEs,
+ * This type is implemented using RANfunction_ItemIEs_Vone,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using RANfunctionID_ItemIEs,
+ * This type is implemented using RANfunctionIDVone_ItemIEs,
  * so here we adjust the DEF accordingly.
  */
 /*
- * This type is implemented using RANfunctionIDcause_ItemIEs,
+ * This type is implemented using RANfunctionIDcause_ItemIEs_Vone,
  * so here we adjust the DEF accordingly.
  */
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P0_tags_1[] = {
@@ -65,9 +65,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P0 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P0_tags_1)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P0_tags_1[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICaction_ToBeSetup_ItemIEs_1,
+	asn_MBR_RICaction_ToBeSetup_ItemIEs_Vone_1,
 	3,	/* Elements count */
-	&asn_SPC_RICaction_ToBeSetup_ItemIEs_specs_1	/* Additional specs */
+	&asn_SPC_RICaction_ToBeSetup_ItemIEs_Vone_specs_1	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P1_tags_2[] = {
@@ -84,9 +84,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P1 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P1_tags_2)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P1_tags_2[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICaction_Admitted_ItemIEs_5,
+	asn_MBR_RICaction_Admitted_ItemIEs_Vone_5,
 	3,	/* Elements count */
-	&asn_SPC_RICaction_Admitted_ItemIEs_specs_5	/* Additional specs */
+	&asn_SPC_RICaction_Admitted_ItemIEs_Vone_specs_5	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P2_tags_3[] = {
@@ -103,9 +103,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P2 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P2_tags_3)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P2_tags_3[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICaction_NotAdmitted_ItemIEs_9,
+	asn_MBR_RICaction_NotAdmitted_ItemIEs_Vone_9,
 	3,	/* Elements count */
-	&asn_SPC_RICaction_NotAdmitted_ItemIEs_specs_9	/* Additional specs */
+	&asn_SPC_RICaction_NotAdmitted_ItemIEs_Vone_specs_9	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P3_tags_4[] = {
@@ -122,9 +122,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P3 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P3_tags_4)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P3_tags_4[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionUpdate_ItemIEs_13,
+	asn_MBR_E2connectionUpdateVone_ItemIEs_13,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionUpdate_ItemIEs_specs_13	/* Additional specs */
+	&asn_SPC_E2connectionUpdateVone_ItemIEs_specs_13	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P4_tags_5[] = {
@@ -141,9 +141,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P4 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P4_tags_5)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P4_tags_5[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionUpdateRemove_ItemIEs_17,
+	asn_MBR_E2connectionUpdateRemove_ItemIEs_Vone_17,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionUpdateRemove_ItemIEs_specs_17	/* Additional specs */
+	&asn_SPC_E2connectionUpdateRemove_ItemIEs_Vone_specs_17	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P5_tags_6[] = {
@@ -160,9 +160,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P5 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P5_tags_6)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P5_tags_6[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionSetupFailed_ItemIEs_21,
+	asn_MBR_E2connectionSetupFailed_ItemIEs_Vone_21,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionSetupFailed_ItemIEs_specs_21	/* Additional specs */
+	&asn_SPC_E2connectionSetupFailed_ItemIEs_Vone_specs_21	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P6_tags_7[] = {
@@ -179,9 +179,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P6 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P6_tags_7)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P6_tags_7[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2nodeComponentConfigUpdate_ItemIEs_25,
+	asn_MBR_E2nodeComponentConfigUpdateVone_ItemIEs_25,
 	3,	/* Elements count */
-	&asn_SPC_E2nodeComponentConfigUpdate_ItemIEs_specs_25	/* Additional specs */
+	&asn_SPC_E2nodeComponentConfigUpdateVone_ItemIEs_specs_25	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P7_tags_8[] = {
@@ -198,9 +198,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P7 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P7_tags_8)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P7_tags_8[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2nodeComponentConfigUpdateAck_ItemIEs_29,
+	asn_MBR_E2nodeComponentConfigUpdateAckVone_ItemIEs_29,
 	3,	/* Elements count */
-	&asn_SPC_E2nodeComponentConfigUpdateAck_ItemIEs_specs_29	/* Additional specs */
+	&asn_SPC_E2nodeComponentConfigUpdateAckVone_ItemIEs_specs_29	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P8_tags_9[] = {
@@ -217,9 +217,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P8 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P8_tags_9)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P8_tags_9[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RANfunction_ItemIEs_33,
+	asn_MBR_RANfunction_ItemIEs_Vone_33,
 	3,	/* Elements count */
-	&asn_SPC_RANfunction_ItemIEs_specs_33	/* Additional specs */
+	&asn_SPC_RANfunction_ItemIEs_Vone_specs_33	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P9_tags_10[] = {
@@ -236,9 +236,9 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P9 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P9_tags_10)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P9_tags_10[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RANfunctionID_ItemIEs_37,
+	asn_MBR_RANfunctionIDVone_ItemIEs_37,
 	3,	/* Elements count */
-	&asn_SPC_RANfunctionID_ItemIEs_specs_37	/* Additional specs */
+	&asn_SPC_RANfunctionIDVone_ItemIEs_specs_37	/* Additional specs */
 };
 
 static const ber_tlv_tag_t asn_DEF_ProtocolIE_SingleContainer_1713P10_tags_11[] = {
@@ -255,8 +255,8 @@ asn_TYPE_descriptor_t asn_DEF_ProtocolIE_SingleContainer_1713P10 = {
 	sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P10_tags_11)
 		/sizeof(asn_DEF_ProtocolIE_SingleContainer_1713P10_tags_11[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RANfunctionIDcause_ItemIEs_41,
+	asn_MBR_RANfunctionIDcause_ItemIEs_Vone_41,
 	3,	/* Elements count */
-	&asn_SPC_RANfunctionIDcause_ItemIEs_specs_41	/* Additional specs */
+	&asn_SPC_RANfunctionIDcause_ItemIEs_Vone_specs_41	/* Additional specs */
 };
 

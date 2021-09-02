@@ -7,168 +7,168 @@
 
 #include "ProtocolIE-Field.h"
 
-static const long asn_VAL_4_id_RICaction_ToBeSetup_Item = 19;
+static const long asn_VAL_4_id_RICaction_ToBeSetup_Item_Vone = 19;
 static const long asn_VAL_4_ignore = 1;
 static const long asn_VAL_4_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RICaction_ToBeSetup_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_4_id_RICaction_ToBeSetup_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_4_ignore },
-	{ "&Value", aioc__type, &asn_DEF_RICaction_ToBeSetup_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_4_mandatory }
+static const asn_ioc_cell_t asn_IOS_RICaction_ToBeSetup_ItemIEs_Vone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_4_id_RICaction_ToBeSetup_Item_Vone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_4_ignore },
+	{ "&Value", aioc__type, &asn_DEF_RICaction_ToBeSetup_Item_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_4_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RICaction_ToBeSetup_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_RICaction_ToBeSetup_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICaction_ToBeSetup_ItemIEs_Vone_1[] = {
+	{ 1, 4, asn_IOS_RICaction_ToBeSetup_ItemIEs_Vone_1_rows }
 };
-static const long asn_VAL_9_id_RICaction_Admitted_Item = 14;
+static const long asn_VAL_9_id_RICaction_Admitted_Item_Vone = 14;
 static const long asn_VAL_9_ignore = 1;
 static const long asn_VAL_9_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RICaction_Admitted_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_9_id_RICaction_Admitted_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_9_ignore },
-	{ "&Value", aioc__type, &asn_DEF_RICaction_Admitted_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_9_mandatory }
+static const asn_ioc_cell_t asn_IOS_RICaction_Admitted_ItemIEs_Vone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_9_id_RICaction_Admitted_Item_Vone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_9_ignore },
+	{ "&Value", aioc__type, &asn_DEF_RICaction_Admitted_Item_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_9_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RICaction_Admitted_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_RICaction_Admitted_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICaction_Admitted_ItemIEs_Vone_1[] = {
+	{ 1, 4, asn_IOS_RICaction_Admitted_ItemIEs_Vone_1_rows }
 };
-static const long asn_VAL_10_id_RICaction_NotAdmitted_Item = 16;
+static const long asn_VAL_10_id_RICaction_NotAdmitted_Item_Vone = 16;
 static const long asn_VAL_10_ignore = 1;
 static const long asn_VAL_10_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RICaction_NotAdmitted_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_10_id_RICaction_NotAdmitted_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_10_ignore },
-	{ "&Value", aioc__type, &asn_DEF_RICaction_NotAdmitted_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_10_mandatory }
+static const asn_ioc_cell_t asn_IOS_RICaction_NotAdmitted_ItemIEs_Vone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_10_id_RICaction_NotAdmitted_Item_Vone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_10_ignore },
+	{ "&Value", aioc__type, &asn_DEF_RICaction_NotAdmitted_Item_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_10_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RICaction_NotAdmitted_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_RICaction_NotAdmitted_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICaction_NotAdmitted_ItemIEs_Vone_1[] = {
+	{ 1, 4, asn_IOS_RICaction_NotAdmitted_ItemIEs_Vone_1_rows }
 };
-static const long asn_VAL_65_id_E2connectionUpdate_Item = 43;
+static const long asn_VAL_65_id_E2connectionUpdateVone_Item = 43;
 static const long asn_VAL_65_ignore = 1;
 static const long asn_VAL_65_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_E2connectionUpdate_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_65_id_E2connectionUpdate_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_65_ignore },
-	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdate_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_65_mandatory }
+static const asn_ioc_cell_t asn_IOS_E2connectionUpdateVone_ItemIEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_65_id_E2connectionUpdateVone_Item },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_65_ignore },
+	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdateVone_Item },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_65_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_E2connectionUpdate_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_E2connectionUpdate_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2connectionUpdateVone_ItemIEs_1[] = {
+	{ 1, 4, asn_IOS_E2connectionUpdateVone_ItemIEs_1_rows }
 };
-static const long asn_VAL_66_id_E2connectionUpdateRemove_Item = 47;
+static const long asn_VAL_66_id_E2connectionUpdateRemove_Item_Vone = 47;
 static const long asn_VAL_66_ignore = 1;
 static const long asn_VAL_66_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_E2connectionUpdateRemove_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_66_id_E2connectionUpdateRemove_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_66_ignore },
-	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdateRemove_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_66_mandatory }
+static const asn_ioc_cell_t asn_IOS_E2connectionUpdateRemove_ItemIEs_Vone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_66_id_E2connectionUpdateRemove_Item_Vone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_66_ignore },
+	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdateRemove_Item_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_66_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_E2connectionUpdateRemove_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_E2connectionUpdateRemove_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2connectionUpdateRemove_ItemIEs_Vone_1[] = {
+	{ 1, 4, asn_IOS_E2connectionUpdateRemove_ItemIEs_Vone_1_rows }
 };
-static const long asn_VAL_69_id_E2connectionSetupFailed_Item = 41;
+static const long asn_VAL_69_id_E2connectionSetupFailed_Item_Vone = 41;
 static const long asn_VAL_69_ignore = 1;
 static const long asn_VAL_69_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_E2connectionSetupFailed_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_69_id_E2connectionSetupFailed_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_69_ignore },
-	{ "&Value", aioc__type, &asn_DEF_E2connectionSetupFailed_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_69_mandatory }
+static const asn_ioc_cell_t asn_IOS_E2connectionSetupFailed_ItemIEs_Vone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_69_id_E2connectionSetupFailed_Item_Vone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_69_ignore },
+	{ "&Value", aioc__type, &asn_DEF_E2connectionSetupFailed_Item_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_69_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_E2connectionSetupFailed_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_E2connectionSetupFailed_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2connectionSetupFailed_ItemIEs_Vone_1[] = {
+	{ 1, 4, asn_IOS_E2connectionSetupFailed_ItemIEs_Vone_1_rows }
 };
-static const long asn_VAL_74_id_E2nodeComponentConfigUpdate_Item = 34;
+static const long asn_VAL_74_id_E2nodeComponentConfigUpdateVone_Item = 34;
 static const long asn_VAL_74_reject = 0;
 static const long asn_VAL_74_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_E2nodeComponentConfigUpdate_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_74_id_E2nodeComponentConfigUpdate_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_74_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdate_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_74_mandatory }
+static const asn_ioc_cell_t asn_IOS_E2nodeComponentConfigUpdateVone_ItemIEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_74_id_E2nodeComponentConfigUpdateVone_Item },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_74_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateVone_Item },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_74_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_E2nodeComponentConfigUpdate_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_E2nodeComponentConfigUpdate_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2nodeComponentConfigUpdateVone_ItemIEs_1[] = {
+	{ 1, 4, asn_IOS_E2nodeComponentConfigUpdateVone_ItemIEs_1_rows }
 };
-static const long asn_VAL_76_id_E2nodeComponentConfigUpdateAck_Item = 36;
+static const long asn_VAL_76_id_E2nodeComponentConfigUpdateAckVone_Item = 36;
 static const long asn_VAL_76_reject = 0;
 static const long asn_VAL_76_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_E2nodeComponentConfigUpdateAck_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_76_id_E2nodeComponentConfigUpdateAck_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_76_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateAck_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_76_mandatory }
+static const asn_ioc_cell_t asn_IOS_E2nodeComponentConfigUpdateAckVone_ItemIEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_76_id_E2nodeComponentConfigUpdateAckVone_Item },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_76_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateAckVone_Item },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_76_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_E2nodeComponentConfigUpdateAck_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_E2nodeComponentConfigUpdateAck_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2nodeComponentConfigUpdateAckVone_ItemIEs_1[] = {
+	{ 1, 4, asn_IOS_E2nodeComponentConfigUpdateAckVone_ItemIEs_1_rows }
 };
-static const long asn_VAL_85_id_RANfunction_Item = 8;
+static const long asn_VAL_85_id_RANfunction_Item_Vone = 8;
 static const long asn_VAL_85_ignore = 1;
 static const long asn_VAL_85_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RANfunction_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_85_id_RANfunction_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_85_ignore },
-	{ "&Value", aioc__type, &asn_DEF_RANfunction_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_85_mandatory }
+static const asn_ioc_cell_t asn_IOS_RANfunction_ItemIEs_Vone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_85_id_RANfunction_Item_Vone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_85_ignore },
+	{ "&Value", aioc__type, &asn_DEF_RANfunction_Item_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_85_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RANfunction_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_RANfunction_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RANfunction_ItemIEs_Vone_1[] = {
+	{ 1, 4, asn_IOS_RANfunction_ItemIEs_Vone_1_rows }
 };
-static const long asn_VAL_86_id_RANfunctionID_Item = 6;
+static const long asn_VAL_86_id_RANfunctionIDVone_Item = 6;
 static const long asn_VAL_86_ignore = 1;
 static const long asn_VAL_86_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RANfunctionID_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_86_id_RANfunctionID_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_86_ignore },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_86_mandatory }
+static const asn_ioc_cell_t asn_IOS_RANfunctionIDVone_ItemIEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_86_id_RANfunctionIDVone_Item },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_86_ignore },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone_Item },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_86_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RANfunctionID_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_RANfunctionID_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RANfunctionIDVone_ItemIEs_1[] = {
+	{ 1, 4, asn_IOS_RANfunctionIDVone_ItemIEs_1_rows }
 };
 static const long asn_VAL_89_id_RANfunctionIEcause_Item = 7;
 static const long asn_VAL_89_ignore = 1;
 static const long asn_VAL_89_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RANfunctionIDcause_ItemIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_89_id_RANfunctionIEcause_Item },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_89_ignore },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDcause_Item },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_89_mandatory }
+static const asn_ioc_cell_t asn_IOS_RANfunctionIDcause_ItemIEs_Vone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_89_id_RANfunctionIEcause_Item },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_89_ignore },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDcause_Item_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_89_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RANfunctionIDcause_ItemIEs_1[] = {
-	{ 1, 4, asn_IOS_RANfunctionIDcause_ItemIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RANfunctionIDcause_ItemIEs_Vone_1[] = {
+	{ 1, 4, asn_IOS_RANfunctionIDcause_ItemIEs_Vone_1_rows }
 };
-static const long asn_VAL_1_id_RICrequestID = 29;
+static const long asn_VAL_1_id_RICrequestIDVone = 29;
 static const long asn_VAL_1_reject = 0;
 static const long asn_VAL_1_mandatory = 2;
-static const long asn_VAL_2_id_RANfunctionID = 5;
+static const long asn_VAL_2_id_RANfunctionIDVone = 5;
 static const long asn_VAL_2_reject = 0;
 static const long asn_VAL_2_mandatory = 2;
-static const long asn_VAL_3_id_RICsubscriptionDetails = 30;
+static const long asn_VAL_3_id_RICsubscriptionDetailsVone = 30;
 static const long asn_VAL_3_reject = 0;
 static const long asn_VAL_3_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RICsubscriptionRequest_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_1_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_1_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_1_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_2_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_2_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_2_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_3_id_RICsubscriptionDetails },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_3_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICsubscriptionDetails },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_3_mandatory }
+static const asn_ioc_cell_t asn_IOS_RICsubscriptionRequestVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_1_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_1_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_1_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_2_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_2_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_2_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_3_id_RICsubscriptionDetailsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_3_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICsubscriptionDetailsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_3_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RICsubscriptionRequest_IEs_1[] = {
-	{ 3, 4, asn_IOS_RICsubscriptionRequest_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICsubscriptionRequestVone_IEs_1[] = {
+	{ 3, 4, asn_IOS_RICsubscriptionRequestVone_IEs_1_rows }
 };
-static const long asn_VAL_5_id_RICrequestID = 29;
+static const long asn_VAL_5_id_RICrequestIDVone = 29;
 static const long asn_VAL_5_reject = 0;
 static const long asn_VAL_5_mandatory = 2;
-static const long asn_VAL_6_id_RANfunctionID = 5;
+static const long asn_VAL_6_id_RANfunctionIDVone = 5;
 static const long asn_VAL_6_reject = 0;
 static const long asn_VAL_6_mandatory = 2;
 static const long asn_VAL_7_id_RICactions_Admitted = 17;
@@ -177,379 +177,379 @@ static const long asn_VAL_7_mandatory = 2;
 static const long asn_VAL_8_id_RICactions_NotAdmitted = 18;
 static const long asn_VAL_8_reject = 0;
 static const long asn_VAL_8_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICsubscriptionResponse_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_5_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_5_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_5_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_6_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_6_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_6_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_7_id_RICactions_Admitted },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_7_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICaction_Admitted_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_7_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_8_id_RICactions_NotAdmitted },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_8_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICaction_NotAdmitted_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_8_optional }
+static const asn_ioc_cell_t asn_IOS_RICsubscriptionResponseVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_5_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_5_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_5_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_6_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_6_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_6_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_7_id_RICactions_Admitted },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_7_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICaction_Admitted_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_7_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_8_id_RICactions_NotAdmitted },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_8_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICaction_NotAdmitted_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_8_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICsubscriptionResponse_IEs_1[] = {
-	{ 4, 4, asn_IOS_RICsubscriptionResponse_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICsubscriptionResponseVone_IEs_1[] = {
+	{ 4, 4, asn_IOS_RICsubscriptionResponseVone_IEs_1_rows }
 };
-static const long asn_VAL_11_id_RICrequestID = 29;
+static const long asn_VAL_11_id_RICrequestIDVone = 29;
 static const long asn_VAL_11_reject = 0;
 static const long asn_VAL_11_mandatory = 2;
-static const long asn_VAL_12_id_RANfunctionID = 5;
+static const long asn_VAL_12_id_RANfunctionIDVone = 5;
 static const long asn_VAL_12_reject = 0;
 static const long asn_VAL_12_mandatory = 2;
 static const long asn_VAL_13_id_RICactions_NotAdmitted = 18;
 static const long asn_VAL_13_reject = 0;
 static const long asn_VAL_13_mandatory = 2;
-static const long asn_VAL_14_id_CriticalityDiagnostics = 2;
+static const long asn_VAL_14_id_CriticalityDiagnosticsVone = 2;
 static const long asn_VAL_14_ignore = 1;
 static const long asn_VAL_14_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICsubscriptionFailure_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_11_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_11_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_11_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_12_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_12_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_12_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_13_id_RICactions_NotAdmitted },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_13_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICaction_NotAdmitted_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_13_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_14_id_CriticalityDiagnostics },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_14_ignore },
-	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnostics },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_14_optional }
+static const asn_ioc_cell_t asn_IOS_RICsubscriptionFailureVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_11_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_11_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_11_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_12_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_12_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_12_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_13_id_RICactions_NotAdmitted },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_13_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICaction_NotAdmitted_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_13_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_14_id_CriticalityDiagnosticsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_14_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnosticsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_14_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICsubscriptionFailure_IEs_1[] = {
-	{ 4, 4, asn_IOS_RICsubscriptionFailure_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICsubscriptionFailureVone_IEs_1[] = {
+	{ 4, 4, asn_IOS_RICsubscriptionFailureVone_IEs_1_rows }
 };
-static const long asn_VAL_15_id_RICrequestID = 29;
+static const long asn_VAL_15_id_RICrequestIDVone = 29;
 static const long asn_VAL_15_reject = 0;
 static const long asn_VAL_15_mandatory = 2;
-static const long asn_VAL_16_id_RANfunctionID = 5;
+static const long asn_VAL_16_id_RANfunctionIDVone = 5;
 static const long asn_VAL_16_reject = 0;
 static const long asn_VAL_16_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RICsubscriptionDeleteRequest_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_15_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_15_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_15_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_16_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_16_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_16_mandatory }
+static const asn_ioc_cell_t asn_IOS_RICsubscriptionDeleteRequestVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_15_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_15_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_15_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_16_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_16_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_16_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RICsubscriptionDeleteRequest_IEs_1[] = {
-	{ 2, 4, asn_IOS_RICsubscriptionDeleteRequest_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICsubscriptionDeleteRequestVone_IEs_1[] = {
+	{ 2, 4, asn_IOS_RICsubscriptionDeleteRequestVone_IEs_1_rows }
 };
-static const long asn_VAL_17_id_RICrequestID = 29;
+static const long asn_VAL_17_id_RICrequestIDVone = 29;
 static const long asn_VAL_17_reject = 0;
 static const long asn_VAL_17_mandatory = 2;
-static const long asn_VAL_18_id_RANfunctionID = 5;
+static const long asn_VAL_18_id_RANfunctionIDVone = 5;
 static const long asn_VAL_18_reject = 0;
 static const long asn_VAL_18_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_RICsubscriptionDeleteResponse_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_17_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_17_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_17_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_18_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_18_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_18_mandatory }
+static const asn_ioc_cell_t asn_IOS_RICsubscriptionDeleteResponseVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_17_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_17_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_17_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_18_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_18_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_18_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_RICsubscriptionDeleteResponse_IEs_1[] = {
-	{ 2, 4, asn_IOS_RICsubscriptionDeleteResponse_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICsubscriptionDeleteResponseVone_IEs_1[] = {
+	{ 2, 4, asn_IOS_RICsubscriptionDeleteResponseVone_IEs_1_rows }
 };
-static const long asn_VAL_19_id_RICrequestID = 29;
+static const long asn_VAL_19_id_RICrequestIDVone = 29;
 static const long asn_VAL_19_reject = 0;
 static const long asn_VAL_19_mandatory = 2;
-static const long asn_VAL_20_id_RANfunctionID = 5;
+static const long asn_VAL_20_id_RANfunctionIDVone = 5;
 static const long asn_VAL_20_reject = 0;
 static const long asn_VAL_20_mandatory = 2;
-static const long asn_VAL_21_id_Cause = 1;
+static const long asn_VAL_21_id_CauseVone = 1;
 static const long asn_VAL_21_ignore = 1;
 static const long asn_VAL_21_mandatory = 2;
-static const long asn_VAL_22_id_CriticalityDiagnostics = 2;
+static const long asn_VAL_22_id_CriticalityDiagnosticsVone = 2;
 static const long asn_VAL_22_ignore = 1;
 static const long asn_VAL_22_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICsubscriptionDeleteFailure_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_19_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_19_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_19_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_20_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_20_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_20_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_21_id_Cause },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_21_ignore },
-	{ "&Value", aioc__type, &asn_DEF_Cause },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_21_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_22_id_CriticalityDiagnostics },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_22_ignore },
-	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnostics },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_22_optional }
+static const asn_ioc_cell_t asn_IOS_RICsubscriptionDeleteFailureVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_19_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_19_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_19_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_20_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_20_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_20_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_21_id_CauseVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_21_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CauseVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_21_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_22_id_CriticalityDiagnosticsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_22_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnosticsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_22_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICsubscriptionDeleteFailure_IEs_1[] = {
-	{ 4, 4, asn_IOS_RICsubscriptionDeleteFailure_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICsubscriptionDeleteFailureVone_IEs_1[] = {
+	{ 4, 4, asn_IOS_RICsubscriptionDeleteFailureVone_IEs_1_rows }
 };
-static const long asn_VAL_23_id_RICrequestID = 29;
+static const long asn_VAL_23_id_RICrequestIDVone = 29;
 static const long asn_VAL_23_reject = 0;
 static const long asn_VAL_23_mandatory = 2;
-static const long asn_VAL_24_id_RANfunctionID = 5;
+static const long asn_VAL_24_id_RANfunctionIDVone = 5;
 static const long asn_VAL_24_reject = 0;
 static const long asn_VAL_24_mandatory = 2;
-static const long asn_VAL_25_id_RICactionID = 15;
+static const long asn_VAL_25_id_RICactionIDVone = 15;
 static const long asn_VAL_25_reject = 0;
 static const long asn_VAL_25_mandatory = 2;
-static const long asn_VAL_26_id_RICindicationSN = 27;
+static const long asn_VAL_26_id_RICindicationSNVone = 27;
 static const long asn_VAL_26_reject = 0;
 static const long asn_VAL_26_optional = 0;
-static const long asn_VAL_27_id_RICindicationType = 28;
+static const long asn_VAL_27_id_RICindicationTypeVone = 28;
 static const long asn_VAL_27_reject = 0;
 static const long asn_VAL_27_mandatory = 2;
-static const long asn_VAL_28_id_RICindicationHeader = 25;
+static const long asn_VAL_28_id_RICindicationHeaderVone = 25;
 static const long asn_VAL_28_reject = 0;
 static const long asn_VAL_28_mandatory = 2;
-static const long asn_VAL_29_id_RICindicationMessage = 26;
+static const long asn_VAL_29_id_RICindicationMessageVone = 26;
 static const long asn_VAL_29_reject = 0;
 static const long asn_VAL_29_mandatory = 2;
-static const long asn_VAL_30_id_RICcallProcessID = 20;
+static const long asn_VAL_30_id_RICcallProcessIDVone = 20;
 static const long asn_VAL_30_reject = 0;
 static const long asn_VAL_30_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICindication_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_23_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_23_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_23_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_24_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_24_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_24_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_25_id_RICactionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_25_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICactionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_25_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_26_id_RICindicationSN },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_26_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICindicationSN },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_26_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_27_id_RICindicationType },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_27_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICindicationType },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_27_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_28_id_RICindicationHeader },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_28_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICindicationHeader },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_28_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_29_id_RICindicationMessage },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_29_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICindicationMessage },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_29_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_30_id_RICcallProcessID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_30_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcallProcessID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_30_optional }
+static const asn_ioc_cell_t asn_IOS_RICindicationVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_23_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_23_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_23_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_24_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_24_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_24_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_25_id_RICactionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_25_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICactionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_25_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_26_id_RICindicationSNVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_26_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICindicationSNVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_26_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_27_id_RICindicationTypeVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_27_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICindicationTypeVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_27_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_28_id_RICindicationHeaderVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_28_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICindicationHeaderVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_28_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_29_id_RICindicationMessageVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_29_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICindicationMessageVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_29_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_30_id_RICcallProcessIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_30_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcallProcessIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_30_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICindication_IEs_1[] = {
-	{ 8, 4, asn_IOS_RICindication_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICindicationVone_IEs_1[] = {
+	{ 8, 4, asn_IOS_RICindicationVone_IEs_1_rows }
 };
-static const long asn_VAL_31_id_RICrequestID = 29;
+static const long asn_VAL_31_id_RICrequestIDVone = 29;
 static const long asn_VAL_31_reject = 0;
 static const long asn_VAL_31_mandatory = 2;
-static const long asn_VAL_32_id_RANfunctionID = 5;
+static const long asn_VAL_32_id_RANfunctionIDVone = 5;
 static const long asn_VAL_32_reject = 0;
 static const long asn_VAL_32_mandatory = 2;
-static const long asn_VAL_33_id_RICcallProcessID = 20;
+static const long asn_VAL_33_id_RICcallProcessIDVone = 20;
 static const long asn_VAL_33_reject = 0;
 static const long asn_VAL_33_optional = 0;
-static const long asn_VAL_34_id_RICcontrolHeader = 22;
+static const long asn_VAL_34_id_RICcontrolHeaderVone = 22;
 static const long asn_VAL_34_reject = 0;
 static const long asn_VAL_34_mandatory = 2;
-static const long asn_VAL_35_id_RICcontrolMessage = 23;
+static const long asn_VAL_35_id_RICcontrolMessageVone = 23;
 static const long asn_VAL_35_reject = 0;
 static const long asn_VAL_35_mandatory = 2;
-static const long asn_VAL_36_id_RICcontrolAckRequest = 21;
+static const long asn_VAL_36_id_RICcontrolAckRequestVone = 21;
 static const long asn_VAL_36_reject = 0;
 static const long asn_VAL_36_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICcontrolRequest_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_31_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_31_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_31_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_32_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_32_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_32_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_33_id_RICcallProcessID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_33_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcallProcessID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_33_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_34_id_RICcontrolHeader },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_34_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcontrolHeader },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_34_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_35_id_RICcontrolMessage },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_35_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcontrolMessage },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_35_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_36_id_RICcontrolAckRequest },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_36_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcontrolAckRequest },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_36_optional }
+static const asn_ioc_cell_t asn_IOS_RICcontrolRequestVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_31_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_31_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_31_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_32_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_32_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_32_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_33_id_RICcallProcessIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_33_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcallProcessIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_33_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_34_id_RICcontrolHeaderVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_34_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcontrolHeaderVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_34_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_35_id_RICcontrolMessageVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_35_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcontrolMessageVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_35_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_36_id_RICcontrolAckRequestVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_36_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcontrolAckRequestVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_36_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICcontrolRequest_IEs_1[] = {
-	{ 6, 4, asn_IOS_RICcontrolRequest_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICcontrolRequestVone_IEs_1[] = {
+	{ 6, 4, asn_IOS_RICcontrolRequestVone_IEs_1_rows }
 };
-static const long asn_VAL_37_id_RICrequestID = 29;
+static const long asn_VAL_37_id_RICrequestIDVone = 29;
 static const long asn_VAL_37_reject = 0;
 static const long asn_VAL_37_mandatory = 2;
-static const long asn_VAL_38_id_RANfunctionID = 5;
+static const long asn_VAL_38_id_RANfunctionIDVone = 5;
 static const long asn_VAL_38_reject = 0;
 static const long asn_VAL_38_mandatory = 2;
-static const long asn_VAL_39_id_RICcallProcessID = 20;
+static const long asn_VAL_39_id_RICcallProcessIDVone = 20;
 static const long asn_VAL_39_reject = 0;
 static const long asn_VAL_39_optional = 0;
-static const long asn_VAL_40_id_RICcontrolStatus = 24;
+static const long asn_VAL_40_id_RICcontrolStatusVone = 24;
 static const long asn_VAL_40_reject = 0;
 static const long asn_VAL_40_mandatory = 2;
-static const long asn_VAL_41_id_RICcontrolOutcome = 32;
+static const long asn_VAL_41_id_RICcontrolOutcomeVone = 32;
 static const long asn_VAL_41_reject = 0;
 static const long asn_VAL_41_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICcontrolAcknowledge_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_37_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_37_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_37_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_38_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_38_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_38_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_39_id_RICcallProcessID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_39_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcallProcessID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_39_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_40_id_RICcontrolStatus },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_40_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcontrolStatus },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_40_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_41_id_RICcontrolOutcome },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_41_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcontrolOutcome },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_41_optional }
+static const asn_ioc_cell_t asn_IOS_RICcontrolAcknowledgeVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_37_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_37_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_37_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_38_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_38_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_38_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_39_id_RICcallProcessIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_39_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcallProcessIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_39_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_40_id_RICcontrolStatusVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_40_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcontrolStatusVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_40_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_41_id_RICcontrolOutcomeVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_41_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcontrolOutcomeVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_41_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICcontrolAcknowledge_IEs_1[] = {
-	{ 5, 4, asn_IOS_RICcontrolAcknowledge_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICcontrolAcknowledgeVone_IEs_1[] = {
+	{ 5, 4, asn_IOS_RICcontrolAcknowledgeVone_IEs_1_rows }
 };
-static const long asn_VAL_42_id_RICrequestID = 29;
+static const long asn_VAL_42_id_RICrequestIDVone = 29;
 static const long asn_VAL_42_reject = 0;
 static const long asn_VAL_42_mandatory = 2;
-static const long asn_VAL_43_id_RANfunctionID = 5;
+static const long asn_VAL_43_id_RANfunctionIDVone = 5;
 static const long asn_VAL_43_reject = 0;
 static const long asn_VAL_43_mandatory = 2;
-static const long asn_VAL_44_id_RICcallProcessID = 20;
+static const long asn_VAL_44_id_RICcallProcessIDVone = 20;
 static const long asn_VAL_44_reject = 0;
 static const long asn_VAL_44_optional = 0;
-static const long asn_VAL_45_id_Cause = 1;
+static const long asn_VAL_45_id_CauseVone = 1;
 static const long asn_VAL_45_ignore = 1;
 static const long asn_VAL_45_mandatory = 2;
-static const long asn_VAL_46_id_RICcontrolOutcome = 32;
+static const long asn_VAL_46_id_RICcontrolOutcomeVone = 32;
 static const long asn_VAL_46_reject = 0;
 static const long asn_VAL_46_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICcontrolFailure_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_42_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_42_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_42_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_43_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_43_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_43_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_44_id_RICcallProcessID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_44_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcallProcessID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_44_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_45_id_Cause },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_45_ignore },
-	{ "&Value", aioc__type, &asn_DEF_Cause },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_45_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_46_id_RICcontrolOutcome },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_46_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICcontrolOutcome },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_46_optional }
+static const asn_ioc_cell_t asn_IOS_RICcontrolFailureVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_42_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_42_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_42_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_43_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_43_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_43_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_44_id_RICcallProcessIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_44_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcallProcessIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_44_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_45_id_CauseVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_45_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CauseVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_45_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_46_id_RICcontrolOutcomeVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_46_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICcontrolOutcomeVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_46_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICcontrolFailure_IEs_1[] = {
-	{ 5, 4, asn_IOS_RICcontrolFailure_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICcontrolFailureVone_IEs_1[] = {
+	{ 5, 4, asn_IOS_RICcontrolFailureVone_IEs_1_rows }
 };
-static const long asn_VAL_47_id_RICrequestID = 29;
+static const long asn_VAL_47_id_RICrequestIDVone = 29;
 static const long asn_VAL_47_reject = 0;
 static const long asn_VAL_47_optional = 0;
-static const long asn_VAL_48_id_RANfunctionID = 5;
+static const long asn_VAL_48_id_RANfunctionIDVone = 5;
 static const long asn_VAL_48_reject = 0;
 static const long asn_VAL_48_optional = 0;
-static const long asn_VAL_49_id_Cause = 1;
+static const long asn_VAL_49_id_CauseVone = 1;
 static const long asn_VAL_49_ignore = 1;
 static const long asn_VAL_49_optional = 0;
-static const long asn_VAL_50_id_CriticalityDiagnostics = 2;
+static const long asn_VAL_50_id_CriticalityDiagnosticsVone = 2;
 static const long asn_VAL_50_ignore = 1;
 static const long asn_VAL_50_optional = 0;
-static const asn_ioc_cell_t asn_IOS_ErrorIndication_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_47_id_RICrequestID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_47_reject },
-	{ "&Value", aioc__type, &asn_DEF_RICrequestID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_47_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_48_id_RANfunctionID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_48_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_48_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_49_id_Cause },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_49_ignore },
-	{ "&Value", aioc__type, &asn_DEF_Cause },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_49_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_50_id_CriticalityDiagnostics },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_50_ignore },
-	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnostics },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_50_optional }
+static const asn_ioc_cell_t asn_IOS_ErrorIndicationVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_47_id_RICrequestIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_47_reject },
+	{ "&Value", aioc__type, &asn_DEF_RICrequestIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_47_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_48_id_RANfunctionIDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_48_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionIDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_48_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_49_id_CauseVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_49_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CauseVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_49_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_50_id_CriticalityDiagnosticsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_50_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnosticsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_50_optional }
 };
-static const asn_ioc_set_t asn_IOS_ErrorIndication_IEs_1[] = {
-	{ 4, 4, asn_IOS_ErrorIndication_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_ErrorIndicationVone_IEs_1[] = {
+	{ 4, 4, asn_IOS_ErrorIndicationVone_IEs_1_rows }
 };
-static const long asn_VAL_51_id_GlobalE2node_ID = 3;
+static const long asn_VAL_51_id_GlobalE2node_IDVone = 3;
 static const long asn_VAL_51_reject = 0;
 static const long asn_VAL_51_mandatory = 2;
 static const long asn_VAL_52_id_RANfunctionsAdded = 10;
 static const long asn_VAL_52_reject = 0;
 static const long asn_VAL_52_optional = 0;
-static const long asn_VAL_53_id_E2nodeComponentConfigUpdate = 33;
+static const long asn_VAL_53_id_E2nodeComponentConfigUpdateVone = 33;
 static const long asn_VAL_53_reject = 0;
 static const long asn_VAL_53_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2setupRequestIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_51_id_GlobalE2node_ID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_51_reject },
-	{ "&Value", aioc__type, &asn_DEF_GlobalE2node_ID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_51_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_52_id_RANfunctionsAdded },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_52_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctions_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_52_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_53_id_E2nodeComponentConfigUpdate },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_53_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdate_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_53_optional }
+static const asn_ioc_cell_t asn_IOS_E2setupRequestIEsVone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_51_id_GlobalE2node_IDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_51_reject },
+	{ "&Value", aioc__type, &asn_DEF_GlobalE2node_IDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_51_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_52_id_RANfunctionsAdded },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_52_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctions_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_52_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_53_id_E2nodeComponentConfigUpdateVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_53_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_53_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2setupRequestIEs_1[] = {
-	{ 3, 4, asn_IOS_E2setupRequestIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2setupRequestIEsVone_1[] = {
+	{ 3, 4, asn_IOS_E2setupRequestIEsVone_1_rows }
 };
-static const long asn_VAL_54_id_GlobalRIC_ID = 4;
+static const long asn_VAL_54_id_GlobalRIC_IDVone = 4;
 static const long asn_VAL_54_reject = 0;
 static const long asn_VAL_54_mandatory = 2;
 static const long asn_VAL_55_id_RANfunctionsAccepted = 9;
@@ -558,62 +558,62 @@ static const long asn_VAL_55_optional = 0;
 static const long asn_VAL_56_id_RANfunctionsRejected = 13;
 static const long asn_VAL_56_reject = 0;
 static const long asn_VAL_56_optional = 0;
-static const long asn_VAL_57_id_E2nodeComponentConfigUpdateAck = 35;
+static const long asn_VAL_57_id_E2nodeComponentConfigUpdateAckVone = 35;
 static const long asn_VAL_57_reject = 0;
 static const long asn_VAL_57_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2setupResponseIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_54_id_GlobalRIC_ID },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_54_reject },
-	{ "&Value", aioc__type, &asn_DEF_GlobalRIC_ID },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_54_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_55_id_RANfunctionsAccepted },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_55_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionsID_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_55_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_56_id_RANfunctionsRejected },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_56_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionsIDcause_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_56_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_57_id_E2nodeComponentConfigUpdateAck },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_57_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateAck_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_57_optional }
+static const asn_ioc_cell_t asn_IOS_E2setupResponseIEsVone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_54_id_GlobalRIC_IDVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_54_reject },
+	{ "&Value", aioc__type, &asn_DEF_GlobalRIC_IDVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_54_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_55_id_RANfunctionsAccepted },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_55_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionsID_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_55_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_56_id_RANfunctionsRejected },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_56_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionsIDcause_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_56_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_57_id_E2nodeComponentConfigUpdateAckVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_57_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateAckVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_57_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2setupResponseIEs_1[] = {
-	{ 4, 4, asn_IOS_E2setupResponseIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2setupResponseIEsVone_1[] = {
+	{ 4, 4, asn_IOS_E2setupResponseIEsVone_1_rows }
 };
-static const long asn_VAL_58_id_Cause = 1;
+static const long asn_VAL_58_id_CauseVone = 1;
 static const long asn_VAL_58_ignore = 1;
 static const long asn_VAL_58_mandatory = 2;
-static const long asn_VAL_59_id_TimeToWait = 31;
+static const long asn_VAL_59_id_TimeToWaitVone = 31;
 static const long asn_VAL_59_ignore = 1;
 static const long asn_VAL_59_optional = 0;
-static const long asn_VAL_60_id_CriticalityDiagnostics = 2;
+static const long asn_VAL_60_id_CriticalityDiagnosticsVone = 2;
 static const long asn_VAL_60_ignore = 1;
 static const long asn_VAL_60_optional = 0;
-static const long asn_VAL_61_id_TNLinformation = 48;
+static const long asn_VAL_61_id_TNLinformationVone = 48;
 static const long asn_VAL_61_ignore = 1;
 static const long asn_VAL_61_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2setupFailureIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_58_id_Cause },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_58_ignore },
-	{ "&Value", aioc__type, &asn_DEF_Cause },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_58_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_59_id_TimeToWait },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_59_ignore },
-	{ "&Value", aioc__type, &asn_DEF_TimeToWait },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_59_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_60_id_CriticalityDiagnostics },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_60_ignore },
-	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnostics },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_60_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_61_id_TNLinformation },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_61_ignore },
-	{ "&Value", aioc__type, &asn_DEF_TNLinformation },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_61_optional }
+static const asn_ioc_cell_t asn_IOS_E2setupFailureIEsVone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_58_id_CauseVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_58_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CauseVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_58_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_59_id_TimeToWaitVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_59_ignore },
+	{ "&Value", aioc__type, &asn_DEF_TimeToWaitVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_59_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_60_id_CriticalityDiagnosticsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_60_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnosticsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_60_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_61_id_TNLinformationVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_61_ignore },
+	{ "&Value", aioc__type, &asn_DEF_TNLinformationVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_61_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2setupFailureIEs_1[] = {
-	{ 4, 4, asn_IOS_E2setupFailureIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2setupFailureIEsVone_1[] = {
+	{ 4, 4, asn_IOS_E2setupFailureIEsVone_1_rows }
 };
 static const long asn_VAL_62_id_E2connectionUpdateAdd = 44;
 static const long asn_VAL_62_reject = 0;
@@ -624,22 +624,22 @@ static const long asn_VAL_63_optional = 0;
 static const long asn_VAL_64_id_E2connectionUpdateModify = 45;
 static const long asn_VAL_64_reject = 0;
 static const long asn_VAL_64_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2connectionUpdate_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_62_id_E2connectionUpdateAdd },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_62_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdate_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_62_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_63_id_E2connectionUpdateRemove },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_63_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdateRemove_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_63_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_64_id_E2connectionUpdateModify },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_64_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdate_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_64_optional }
+static const asn_ioc_cell_t asn_IOS_E2connectionUpdateVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_62_id_E2connectionUpdateAdd },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_62_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdateVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_62_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_63_id_E2connectionUpdateRemove },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_63_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdateRemoveVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_63_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_64_id_E2connectionUpdateModify },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_64_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdateVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_64_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2connectionUpdate_IEs_1[] = {
-	{ 3, 4, asn_IOS_E2connectionUpdate_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2connectionUpdateVone_IEs_1[] = {
+	{ 3, 4, asn_IOS_E2connectionUpdateVone_IEs_1_rows }
 };
 static const long asn_VAL_67_id_E2connectionSetup = 39;
 static const long asn_VAL_67_reject = 0;
@@ -647,118 +647,118 @@ static const long asn_VAL_67_optional = 0;
 static const long asn_VAL_68_id_E2connectionSetupFailed = 40;
 static const long asn_VAL_68_reject = 0;
 static const long asn_VAL_68_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2connectionUpdateAck_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_67_id_E2connectionSetup },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_67_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdate_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_67_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_68_id_E2connectionSetupFailed },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_68_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2connectionSetupFailed_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_68_optional }
+static const asn_ioc_cell_t asn_IOS_E2connectionUpdateAck_IEs_Vone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_67_id_E2connectionSetup },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_67_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2connectionUpdateVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_67_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_68_id_E2connectionSetupFailed },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_68_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2connectionSetupFailedVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_68_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2connectionUpdateAck_IEs_1[] = {
-	{ 2, 4, asn_IOS_E2connectionUpdateAck_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2connectionUpdateAck_IEs_Vone_1[] = {
+	{ 2, 4, asn_IOS_E2connectionUpdateAck_IEs_Vone_1_rows }
 };
-static const long asn_VAL_70_id_Cause = 1;
+static const long asn_VAL_70_id_CauseVone = 1;
 static const long asn_VAL_70_reject = 0;
 static const long asn_VAL_70_optional = 0;
-static const long asn_VAL_71_id_TimeToWait = 31;
+static const long asn_VAL_71_id_TimeToWaitVone = 31;
 static const long asn_VAL_71_ignore = 1;
 static const long asn_VAL_71_optional = 0;
-static const long asn_VAL_72_id_CriticalityDiagnostics = 2;
+static const long asn_VAL_72_id_CriticalityDiagnosticsVone = 2;
 static const long asn_VAL_72_ignore = 1;
 static const long asn_VAL_72_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2connectionUpdateFailure_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_70_id_Cause },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_70_reject },
-	{ "&Value", aioc__type, &asn_DEF_Cause },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_70_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_71_id_TimeToWait },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_71_ignore },
-	{ "&Value", aioc__type, &asn_DEF_TimeToWait },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_71_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_72_id_CriticalityDiagnostics },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_72_ignore },
-	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnostics },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_72_optional }
+static const asn_ioc_cell_t asn_IOS_E2connectionUpdateFailureVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_70_id_CauseVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_70_reject },
+	{ "&Value", aioc__type, &asn_DEF_CauseVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_70_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_71_id_TimeToWaitVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_71_ignore },
+	{ "&Value", aioc__type, &asn_DEF_TimeToWaitVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_71_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_72_id_CriticalityDiagnosticsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_72_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnosticsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_72_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2connectionUpdateFailure_IEs_1[] = {
-	{ 3, 4, asn_IOS_E2connectionUpdateFailure_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2connectionUpdateFailureVone_IEs_1[] = {
+	{ 3, 4, asn_IOS_E2connectionUpdateFailureVone_IEs_1_rows }
 };
-static const long asn_VAL_73_id_E2nodeComponentConfigUpdate = 33;
+static const long asn_VAL_73_id_E2nodeComponentConfigUpdateVone = 33;
 static const long asn_VAL_73_reject = 0;
 static const long asn_VAL_73_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2nodeConfigurationUpdate_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_73_id_E2nodeComponentConfigUpdate },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_73_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdate_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_73_optional }
+static const asn_ioc_cell_t asn_IOS_E2nodeConfigurationUpdateVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_73_id_E2nodeComponentConfigUpdateVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_73_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_73_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2nodeConfigurationUpdate_IEs_1[] = {
-	{ 1, 4, asn_IOS_E2nodeConfigurationUpdate_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2nodeConfigurationUpdateVone_IEs_1[] = {
+	{ 1, 4, asn_IOS_E2nodeConfigurationUpdateVone_IEs_1_rows }
 };
-static const long asn_VAL_75_id_E2nodeComponentConfigUpdateAck = 35;
+static const long asn_VAL_75_id_E2nodeComponentConfigUpdateAckVone = 35;
 static const long asn_VAL_75_reject = 0;
 static const long asn_VAL_75_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2nodeConfigurationUpdateAcknowledge_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_75_id_E2nodeComponentConfigUpdateAck },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_75_reject },
-	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateAck_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_75_optional }
+static const asn_ioc_cell_t asn_IOS_E2nodeConfigurationUpdateAcknowledgeVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_75_id_E2nodeComponentConfigUpdateAckVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_75_reject },
+	{ "&Value", aioc__type, &asn_DEF_E2nodeComponentConfigUpdateAckVone_List },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_75_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2nodeConfigurationUpdateAcknowledge_IEs_1[] = {
-	{ 1, 4, asn_IOS_E2nodeConfigurationUpdateAcknowledge_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2nodeConfigurationUpdateAcknowledgeVone_IEs_1[] = {
+	{ 1, 4, asn_IOS_E2nodeConfigurationUpdateAcknowledgeVone_IEs_1_rows }
 };
-static const long asn_VAL_77_id_Cause = 1;
+static const long asn_VAL_77_id_CauseVone = 1;
 static const long asn_VAL_77_ignore = 1;
 static const long asn_VAL_77_mandatory = 2;
-static const long asn_VAL_78_id_TimeToWait = 31;
+static const long asn_VAL_78_id_TimeToWaitVone = 31;
 static const long asn_VAL_78_ignore = 1;
 static const long asn_VAL_78_optional = 0;
-static const long asn_VAL_79_id_CriticalityDiagnostics = 2;
+static const long asn_VAL_79_id_CriticalityDiagnosticsVone = 2;
 static const long asn_VAL_79_ignore = 1;
 static const long asn_VAL_79_optional = 0;
-static const asn_ioc_cell_t asn_IOS_E2nodeConfigurationUpdateFailure_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_77_id_Cause },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_77_ignore },
-	{ "&Value", aioc__type, &asn_DEF_Cause },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_77_mandatory },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_78_id_TimeToWait },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_78_ignore },
-	{ "&Value", aioc__type, &asn_DEF_TimeToWait },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_78_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_79_id_CriticalityDiagnostics },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_79_ignore },
-	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnostics },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_79_optional }
+static const asn_ioc_cell_t asn_IOS_E2nodeConfigurationUpdateFailureVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_77_id_CauseVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_77_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CauseVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_77_mandatory },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_78_id_TimeToWaitVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_78_ignore },
+	{ "&Value", aioc__type, &asn_DEF_TimeToWaitVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_78_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_79_id_CriticalityDiagnosticsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_79_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnosticsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_79_optional }
 };
-static const asn_ioc_set_t asn_IOS_E2nodeConfigurationUpdateFailure_IEs_1[] = {
-	{ 3, 4, asn_IOS_E2nodeConfigurationUpdateFailure_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_E2nodeConfigurationUpdateFailureVone_IEs_1[] = {
+	{ 3, 4, asn_IOS_E2nodeConfigurationUpdateFailureVone_IEs_1_rows }
 };
-static const long asn_VAL_80_id_Cause = 1;
+static const long asn_VAL_80_id_CauseVone = 1;
 static const long asn_VAL_80_ignore = 1;
 static const long asn_VAL_80_mandatory = 2;
-static const asn_ioc_cell_t asn_IOS_ResetRequestIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_80_id_Cause },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_80_ignore },
-	{ "&Value", aioc__type, &asn_DEF_Cause },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_80_mandatory }
+static const asn_ioc_cell_t asn_IOS_ResetRequestIEsVone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_80_id_CauseVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_80_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CauseVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_80_mandatory }
 };
-static const asn_ioc_set_t asn_IOS_ResetRequestIEs_1[] = {
-	{ 1, 4, asn_IOS_ResetRequestIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_ResetRequestIEsVone_1[] = {
+	{ 1, 4, asn_IOS_ResetRequestIEsVone_1_rows }
 };
-static const long asn_VAL_81_id_CriticalityDiagnostics = 2;
+static const long asn_VAL_81_id_CriticalityDiagnosticsVone = 2;
 static const long asn_VAL_81_ignore = 1;
 static const long asn_VAL_81_optional = 0;
-static const asn_ioc_cell_t asn_IOS_ResetResponseIEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_81_id_CriticalityDiagnostics },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_81_ignore },
-	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnostics },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_81_optional }
+static const asn_ioc_cell_t asn_IOS_ResetResponseIEsVone_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_81_id_CriticalityDiagnosticsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_81_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnosticsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_81_optional }
 };
-static const asn_ioc_set_t asn_IOS_ResetResponseIEs_1[] = {
-	{ 1, 4, asn_IOS_ResetResponseIEs_1_rows }
+static const asn_ioc_set_t asn_IOS_ResetResponseIEsVone_1[] = {
+	{ 1, 4, asn_IOS_ResetResponseIEsVone_1_rows }
 };
 static const long asn_VAL_82_id_RANfunctionsAdded = 10;
 static const long asn_VAL_82_reject = 0;
@@ -769,22 +769,22 @@ static const long asn_VAL_83_optional = 0;
 static const long asn_VAL_84_id_RANfunctionsDeleted = 11;
 static const long asn_VAL_84_reject = 0;
 static const long asn_VAL_84_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICserviceUpdate_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_82_id_RANfunctionsAdded },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_82_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctions_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_82_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_83_id_RANfunctionsModified },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_83_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctions_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_83_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_84_id_RANfunctionsDeleted },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_84_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionsID_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_84_optional }
+static const asn_ioc_cell_t asn_IOS_RICserviceUpdateVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_82_id_RANfunctionsAdded },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_82_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctions_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_82_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_83_id_RANfunctionsModified },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_83_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctions_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_83_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_84_id_RANfunctionsDeleted },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_84_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionsID_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_84_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICserviceUpdate_IEs_1[] = {
-	{ 3, 4, asn_IOS_RICserviceUpdate_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICserviceUpdateVone_IEs_1[] = {
+	{ 3, 4, asn_IOS_RICserviceUpdateVone_IEs_1_rows }
 };
 static const long asn_VAL_87_id_RANfunctionsAccepted = 9;
 static const long asn_VAL_87_reject = 0;
@@ -792,56 +792,56 @@ static const long asn_VAL_87_optional = 0;
 static const long asn_VAL_88_id_RANfunctionsRejected = 13;
 static const long asn_VAL_88_reject = 0;
 static const long asn_VAL_88_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICserviceUpdateAcknowledge_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_87_id_RANfunctionsAccepted },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_87_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionsID_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_87_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_88_id_RANfunctionsRejected },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_88_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionsIDcause_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_88_optional }
+static const asn_ioc_cell_t asn_IOS_RICserviceUpdateAcknowledgeVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_87_id_RANfunctionsAccepted },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_87_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionsID_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_87_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_88_id_RANfunctionsRejected },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_88_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionsIDcause_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_88_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICserviceUpdateAcknowledge_IEs_1[] = {
-	{ 2, 4, asn_IOS_RICserviceUpdateAcknowledge_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICserviceUpdateAcknowledgeVone_IEs_1[] = {
+	{ 2, 4, asn_IOS_RICserviceUpdateAcknowledgeVone_IEs_1_rows }
 };
 static const long asn_VAL_90_id_RANfunctionsRejected = 13;
 static const long asn_VAL_90_ignore = 1;
 static const long asn_VAL_90_optional = 0;
-static const long asn_VAL_91_id_TimeToWait = 31;
+static const long asn_VAL_91_id_TimeToWaitVone = 31;
 static const long asn_VAL_91_ignore = 1;
 static const long asn_VAL_91_optional = 0;
-static const long asn_VAL_92_id_CriticalityDiagnostics = 2;
+static const long asn_VAL_92_id_CriticalityDiagnosticsVone = 2;
 static const long asn_VAL_92_ignore = 1;
 static const long asn_VAL_92_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICserviceUpdateFailure_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_90_id_RANfunctionsRejected },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_90_ignore },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionsIDcause_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_90_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_91_id_TimeToWait },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_91_ignore },
-	{ "&Value", aioc__type, &asn_DEF_TimeToWait },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_91_optional },
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_92_id_CriticalityDiagnostics },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_92_ignore },
-	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnostics },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_92_optional }
+static const asn_ioc_cell_t asn_IOS_RICserviceUpdateFailureVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_90_id_RANfunctionsRejected },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_90_ignore },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionsIDcause_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_90_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_91_id_TimeToWaitVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_91_ignore },
+	{ "&Value", aioc__type, &asn_DEF_TimeToWaitVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_91_optional },
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_92_id_CriticalityDiagnosticsVone },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_92_ignore },
+	{ "&Value", aioc__type, &asn_DEF_CriticalityDiagnosticsVone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_92_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICserviceUpdateFailure_IEs_1[] = {
-	{ 3, 4, asn_IOS_RICserviceUpdateFailure_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICserviceUpdateFailureVone_IEs_1[] = {
+	{ 3, 4, asn_IOS_RICserviceUpdateFailureVone_IEs_1_rows }
 };
 static const long asn_VAL_93_id_RANfunctionsAccepted = 9;
 static const long asn_VAL_93_reject = 0;
 static const long asn_VAL_93_optional = 0;
-static const asn_ioc_cell_t asn_IOS_RICserviceQuery_IEs_1_rows[] = {
-	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID, &asn_VAL_93_id_RANfunctionsAccepted },
-	{ "&criticality", aioc__value, &asn_DEF_Criticality, &asn_VAL_93_reject },
-	{ "&Value", aioc__type, &asn_DEF_RANfunctionsID_List },
-	{ "&presence", aioc__value, &asn_DEF_Presence, &asn_VAL_93_optional }
+static const asn_ioc_cell_t asn_IOS_RICserviceQueryVone_IEs_1_rows[] = {
+	{ "&id", aioc__value, &asn_DEF_ProtocolIE_ID_Vone, &asn_VAL_93_id_RANfunctionsAccepted },
+	{ "&criticality", aioc__value, &asn_DEF_CriticalityVone, &asn_VAL_93_reject },
+	{ "&Value", aioc__type, &asn_DEF_RANfunctionsID_List_Vone },
+	{ "&presence", aioc__value, &asn_DEF_PresenceVone, &asn_VAL_93_optional }
 };
-static const asn_ioc_set_t asn_IOS_RICserviceQuery_IEs_1[] = {
-	{ 1, 4, asn_IOS_RICserviceQuery_IEs_1_rows }
+static const asn_ioc_set_t asn_IOS_RICserviceQueryVone_IEs_1[] = {
+	{ 1, 4, asn_IOS_RICserviceQueryVone_IEs_1_rows }
 };
 static int
 memb_id_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
@@ -869,13 +869,13 @@ memb_id_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICaction_ToBeSetup_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICaction_ToBeSetup_ItemIEs_Vone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICaction_ToBeSetup_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICaction_ToBeSetup_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_ToBeSetup_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -915,13 +915,13 @@ memb_criticality_constraint_1(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICaction_ToBeSetup_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICaction_ToBeSetup_ItemIEs_Vone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICaction_ToBeSetup_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICaction_ToBeSetup_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_ToBeSetup_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -986,13 +986,13 @@ memb_id_constraint_5(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICaction_Admitted_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICaction_Admitted_ItemIEs_Vone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICaction_Admitted_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICaction_Admitted_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_Admitted_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_Admitted_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1032,13 +1032,13 @@ memb_criticality_constraint_5(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICaction_Admitted_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICaction_Admitted_ItemIEs_Vone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICaction_Admitted_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICaction_Admitted_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_Admitted_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_Admitted_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1103,13 +1103,13 @@ memb_id_constraint_9(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICaction_NotAdmitted_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICaction_NotAdmitted_ItemIEs_Vone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICaction_NotAdmitted_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICaction_NotAdmitted_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_NotAdmitted_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1149,13 +1149,13 @@ memb_criticality_constraint_9(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICaction_NotAdmitted_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICaction_NotAdmitted_ItemIEs_Vone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICaction_NotAdmitted_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICaction_NotAdmitted_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_NotAdmitted_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1220,13 +1220,13 @@ memb_id_constraint_13(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdate_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateVone_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdate_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateVone_ItemIEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdate_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateVone_ItemIEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1266,13 +1266,13 @@ memb_criticality_constraint_13(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdate_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateVone_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdate_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateVone_ItemIEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdate_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateVone_ItemIEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1337,13 +1337,13 @@ memb_id_constraint_17(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdateRemove_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateRemove_ItemIEs_Vone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateRemove_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateRemove_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateRemove_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1383,13 +1383,13 @@ memb_criticality_constraint_17(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdateRemove_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateRemove_ItemIEs_Vone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateRemove_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateRemove_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateRemove_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1454,13 +1454,13 @@ memb_id_constraint_21(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2connectionSetupFailed_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionSetupFailed_ItemIEs_Vone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionSetupFailed_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionSetupFailed_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionSetupFailed_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionSetupFailed_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1500,13 +1500,13 @@ memb_criticality_constraint_21(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_E2connectionSetupFailed_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionSetupFailed_ItemIEs_Vone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionSetupFailed_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionSetupFailed_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionSetupFailed_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionSetupFailed_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1571,13 +1571,13 @@ memb_id_constraint_25(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2nodeComponentConfigUpdate_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeComponentConfigUpdateVone_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeComponentConfigUpdate_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeComponentConfigUpdateVone_ItemIEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeComponentConfigUpdate_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1617,13 +1617,13 @@ memb_criticality_constraint_25(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_E2nodeComponentConfigUpdate_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeComponentConfigUpdateVone_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeComponentConfigUpdate_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeComponentConfigUpdateVone_ItemIEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeComponentConfigUpdate_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1688,13 +1688,13 @@ memb_id_constraint_29(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2nodeComponentConfigUpdateAck_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeComponentConfigUpdateAckVone_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeComponentConfigUpdateAck_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeComponentConfigUpdateAckVone_ItemIEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1734,13 +1734,13 @@ memb_criticality_constraint_29(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_E2nodeComponentConfigUpdateAck_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeComponentConfigUpdateAckVone_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeComponentConfigUpdateAck_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeComponentConfigUpdateAckVone_ItemIEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1805,13 +1805,13 @@ memb_id_constraint_33(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RANfunction_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RANfunction_ItemIEs_Vone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RANfunction_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RANfunction_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunction_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunction_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1851,13 +1851,13 @@ memb_criticality_constraint_33(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RANfunction_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RANfunction_ItemIEs_Vone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RANfunction_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RANfunction_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunction_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunction_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1922,13 +1922,13 @@ memb_id_constraint_37(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RANfunctionID_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RANfunctionIDVone_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RANfunctionID_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RANfunctionIDVone_ItemIEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunctionID_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunctionIDVone_ItemIEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -1968,13 +1968,13 @@ memb_criticality_constraint_37(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RANfunctionID_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RANfunctionIDVone_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RANfunctionID_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RANfunctionIDVone_ItemIEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunctionID_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunctionIDVone_ItemIEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2039,13 +2039,13 @@ memb_id_constraint_41(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RANfunctionIDcause_ItemIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RANfunctionIDcause_ItemIEs_Vone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RANfunctionIDcause_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RANfunctionIDcause_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunctionIDcause_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunctionIDcause_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2085,13 +2085,13 @@ memb_criticality_constraint_41(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RANfunctionIDcause_ItemIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RANfunctionIDcause_ItemIEs_Vone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RANfunctionIDcause_ItemIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RANfunctionIDcause_ItemIEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunctionIDcause_ItemIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RANfunctionIDcause_ItemIEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2156,13 +2156,13 @@ memb_id_constraint_45(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionRequest_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionRequestVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionRequest_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionRequestVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionRequest_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionRequestVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2202,13 +2202,13 @@ memb_criticality_constraint_45(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionRequest_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionRequestVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionRequest_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionRequestVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionRequest_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionRequestVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2273,13 +2273,13 @@ memb_id_constraint_49(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionResponse_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionResponseVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionResponse_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionResponseVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionResponse_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionResponseVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2319,13 +2319,13 @@ memb_criticality_constraint_49(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionResponse_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionResponseVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionResponse_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionResponseVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionResponse_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionResponseVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2390,13 +2390,13 @@ memb_id_constraint_53(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionFailure_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionFailureVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2436,13 +2436,13 @@ memb_criticality_constraint_53(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionFailure_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionFailureVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2507,13 +2507,13 @@ memb_id_constraint_57(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionDeleteRequest_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionDeleteRequestVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteRequest_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteRequestVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteRequest_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteRequestVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2553,13 +2553,13 @@ memb_criticality_constraint_57(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionDeleteRequest_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionDeleteRequestVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteRequest_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteRequestVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteRequest_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteRequestVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2624,13 +2624,13 @@ memb_id_constraint_61(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionDeleteResponse_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionDeleteResponseVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteResponse_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteResponseVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteResponse_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteResponseVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2670,13 +2670,13 @@ memb_criticality_constraint_61(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionDeleteResponse_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionDeleteResponseVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteResponse_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteResponseVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteResponse_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteResponseVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2741,13 +2741,13 @@ memb_id_constraint_65(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionDeleteFailure_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionDeleteFailureVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2787,13 +2787,13 @@ memb_criticality_constraint_65(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICsubscriptionDeleteFailure_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICsubscriptionDeleteFailureVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICsubscriptionDeleteFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICsubscriptionDeleteFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2858,13 +2858,13 @@ memb_id_constraint_69(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICindication_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICindicationVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICindication_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICindicationVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICindication_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICindicationVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2904,13 +2904,13 @@ memb_criticality_constraint_69(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICindication_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICindicationVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICindication_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICindicationVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICindication_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICindicationVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -2975,13 +2975,13 @@ memb_id_constraint_73(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICcontrolRequest_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICcontrolRequestVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICcontrolRequest_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICcontrolRequestVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolRequest_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolRequestVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3021,13 +3021,13 @@ memb_criticality_constraint_73(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICcontrolRequest_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICcontrolRequestVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICcontrolRequest_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICcontrolRequestVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolRequest_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolRequestVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3092,13 +3092,13 @@ memb_id_constraint_77(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICcontrolAcknowledge_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICcontrolAcknowledgeVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICcontrolAcknowledge_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICcontrolAcknowledgeVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolAcknowledge_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolAcknowledgeVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3138,13 +3138,13 @@ memb_criticality_constraint_77(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICcontrolAcknowledge_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICcontrolAcknowledgeVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICcontrolAcknowledge_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICcontrolAcknowledgeVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolAcknowledge_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolAcknowledgeVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3209,13 +3209,13 @@ memb_id_constraint_81(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICcontrolFailure_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICcontrolFailureVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICcontrolFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICcontrolFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3255,13 +3255,13 @@ memb_criticality_constraint_81(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_RICcontrolFailure_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICcontrolFailureVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICcontrolFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICcontrolFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICcontrolFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3326,13 +3326,13 @@ memb_id_constraint_85(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_ErrorIndication_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_ErrorIndicationVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_ErrorIndication_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_ErrorIndicationVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ErrorIndication_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ErrorIndicationVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3372,13 +3372,13 @@ memb_criticality_constraint_85(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_ErrorIndication_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_ErrorIndicationVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_ErrorIndication_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_ErrorIndicationVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ErrorIndication_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ErrorIndicationVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3443,13 +3443,13 @@ memb_id_constraint_89(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2setupRequestIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2setupRequestIEsVone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2setupRequestIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2setupRequestIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupRequestIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupRequestIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3489,13 +3489,13 @@ memb_criticality_constraint_89(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_E2setupRequestIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2setupRequestIEsVone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2setupRequestIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2setupRequestIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupRequestIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupRequestIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3560,13 +3560,13 @@ memb_id_constraint_93(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2setupResponseIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2setupResponseIEsVone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2setupResponseIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2setupResponseIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupResponseIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupResponseIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3606,13 +3606,13 @@ memb_criticality_constraint_93(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_E2setupResponseIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2setupResponseIEsVone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2setupResponseIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2setupResponseIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupResponseIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupResponseIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3677,13 +3677,13 @@ memb_id_constraint_97(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2setupFailureIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2setupFailureIEsVone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2setupFailureIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2setupFailureIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupFailureIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupFailureIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3723,13 +3723,13 @@ memb_criticality_constraint_97(const asn_TYPE_descriptor_t *td, const void *sptr
 }
 
 static asn_type_selector_result_t
-select_E2setupFailureIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2setupFailureIEsVone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2setupFailureIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2setupFailureIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupFailureIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2setupFailureIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3794,13 +3794,13 @@ memb_id_constraint_101(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdate_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdate_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdate_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3840,18 +3840,18 @@ memb_criticality_constraint_101(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdate_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdate_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdate_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateVone_IEs, id));
 	const int indexToPresence[4] = {
-		E2connectionUpdate_IEs__value_PR_NOTHING,
-		E2connectionUpdate_IEs__value_PR_E2connectionUpdate_List,
-		E2connectionUpdate_IEs__value_PR_E2connectionUpdateRemove_List,
-		E2connectionUpdate_IEs__value_PR_E2connectionUpdate_List
+		E2connectionUpdateVone_IEs__value_PR_NOTHING,
+		E2connectionUpdateVone_IEs__value_PR_E2connectionUpdateVone_List,
+		E2connectionUpdateVone_IEs__value_PR_E2connectionUpdateRemoveVone_List,
+		E2connectionUpdateVone_IEs__value_PR_E2connectionUpdateVone_List
 	};
 	
 	for(row=0; row < itable->rows_count; row++) {
@@ -3917,13 +3917,13 @@ memb_id_constraint_105(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdateAck_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateAck_IEs_Vone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateAck_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateAck_IEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateAck_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateAck_IEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -3963,13 +3963,13 @@ memb_criticality_constraint_105(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdateAck_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateAck_IEs_Vone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateAck_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateAck_IEs_Vone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateAck_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateAck_IEs_Vone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4034,13 +4034,13 @@ memb_id_constraint_109(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdateFailure_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateFailureVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4080,13 +4080,13 @@ memb_criticality_constraint_109(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_E2connectionUpdateFailure_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2connectionUpdateFailureVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2connectionUpdateFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2connectionUpdateFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4151,13 +4151,13 @@ memb_id_constraint_113(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2nodeConfigurationUpdate_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeConfigurationUpdateVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdate_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdate_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4197,13 +4197,13 @@ memb_criticality_constraint_113(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_E2nodeConfigurationUpdate_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeConfigurationUpdateVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdate_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdate_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4268,13 +4268,13 @@ memb_id_constraint_117(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2nodeConfigurationUpdateAcknowledge_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeConfigurationUpdateAcknowledgeVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateAcknowledge_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateAcknowledgeVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4314,13 +4314,13 @@ memb_criticality_constraint_117(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_E2nodeConfigurationUpdateAcknowledge_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeConfigurationUpdateAcknowledgeVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateAcknowledge_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateAcknowledgeVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4385,13 +4385,13 @@ memb_id_constraint_121(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_E2nodeConfigurationUpdateFailure_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeConfigurationUpdateFailureVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4431,13 +4431,13 @@ memb_criticality_constraint_121(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_E2nodeConfigurationUpdateFailure_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_E2nodeConfigurationUpdateFailureVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_E2nodeConfigurationUpdateFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4502,13 +4502,13 @@ memb_id_constraint_125(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_ResetRequestIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_ResetRequestIEsVone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_ResetRequestIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_ResetRequestIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ResetRequestIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ResetRequestIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4548,13 +4548,13 @@ memb_criticality_constraint_125(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_ResetRequestIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_ResetRequestIEsVone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_ResetRequestIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_ResetRequestIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ResetRequestIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ResetRequestIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4619,13 +4619,13 @@ memb_id_constraint_129(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_ResetResponseIEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_ResetResponseIEsVone_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_ResetResponseIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_ResetResponseIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ResetResponseIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ResetResponseIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4665,13 +4665,13 @@ memb_criticality_constraint_129(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_ResetResponseIEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_ResetResponseIEsVone_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_ResetResponseIEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_ResetResponseIEsVone_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ResetResponseIEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct ResetResponseIEsVone, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4736,13 +4736,13 @@ memb_id_constraint_133(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICserviceUpdate_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICserviceUpdateVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdate_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdate_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4782,18 +4782,18 @@ memb_criticality_constraint_133(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_RICserviceUpdate_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICserviceUpdateVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdate_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdate_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateVone_IEs, id));
 	const int indexToPresence[4] = {
-		RICserviceUpdate_IEs__value_PR_NOTHING,
-		RICserviceUpdate_IEs__value_PR_RANfunctions_List,
-		RICserviceUpdate_IEs__value_PR_RANfunctions_List,
-		RICserviceUpdate_IEs__value_PR_RANfunctionsID_List
+		RICserviceUpdateVone_IEs__value_PR_NOTHING,
+		RICserviceUpdateVone_IEs__value_PR_RANfunctions_List_Vone,
+		RICserviceUpdateVone_IEs__value_PR_RANfunctions_List_Vone,
+		RICserviceUpdateVone_IEs__value_PR_RANfunctionsID_List_Vone
 	};
 	
 	for(row=0; row < itable->rows_count; row++) {
@@ -4859,13 +4859,13 @@ memb_id_constraint_137(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICserviceUpdateAcknowledge_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICserviceUpdateAcknowledgeVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateAcknowledge_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateAcknowledgeVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateAcknowledge_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateAcknowledgeVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4905,13 +4905,13 @@ memb_criticality_constraint_137(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_RICserviceUpdateAcknowledge_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICserviceUpdateAcknowledgeVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateAcknowledge_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateAcknowledgeVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateAcknowledge_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateAcknowledgeVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -4976,13 +4976,13 @@ memb_id_constraint_141(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICserviceUpdateFailure_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICserviceUpdateFailureVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -5022,13 +5022,13 @@ memb_criticality_constraint_141(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_RICserviceUpdateFailure_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICserviceUpdateFailureVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateFailure_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICserviceUpdateFailureVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateFailure_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceUpdateFailureVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -5093,13 +5093,13 @@ memb_id_constraint_145(const asn_TYPE_descriptor_t *td, const void *sptr,
 }
 
 static asn_type_selector_result_t
-select_RICserviceQuery_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICserviceQueryVone_IEs_criticality_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICserviceQuery_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICserviceQueryVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 1; /* &criticality */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceQuery_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceQueryVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -5139,13 +5139,13 @@ memb_criticality_constraint_145(const asn_TYPE_descriptor_t *td, const void *spt
 }
 
 static asn_type_selector_result_t
-select_RICserviceQuery_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
+select_RICserviceQueryVone_IEs_value_type(const asn_TYPE_descriptor_t *parent_type, const void *parent_sptr) {
 	asn_type_selector_result_t result = {0, 0};
-	const asn_ioc_set_t *itable = asn_IOS_RICserviceQuery_IEs_1;
+	const asn_ioc_set_t *itable = asn_IOS_RICserviceQueryVone_IEs_1;
 	size_t constraining_column = 0; /* &id */
 	size_t for_column = 2; /* &Value */
 	size_t row, presence_index = 0;
-	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceQuery_IEs, id));
+	const long *constraining_value = (const long *)((const char *)parent_sptr + offsetof(struct RICserviceQueryVone_IEs, id));
 	
 	for(row=0; row < itable->rows_count; row++) {
 	    const asn_ioc_cell_t *constraining_cell = &itable->rows[row * itable->columns_count + constraining_column];
@@ -5740,24 +5740,24 @@ static asn_per_constraints_t asn_PER_memb_value_constr_148 CC_NOTUSED = {
 	0, 0	/* No PER value map */
 };
 static asn_TYPE_member_t asn_MBR_value_4[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_ToBeSetup_ItemIEs__value, choice.RICaction_ToBeSetup_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone__value, choice.RICaction_ToBeSetup_Item_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICaction_ToBeSetup_Item,
+		&asn_DEF_RICaction_ToBeSetup_Item_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICaction-ToBeSetup-Item"
+		"RICaction-ToBeSetup-Item-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_4[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICaction-ToBeSetup-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICaction-ToBeSetup-Item-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_4 = {
-	sizeof(struct RICaction_ToBeSetup_ItemIEs__value),
-	offsetof(struct RICaction_ToBeSetup_ItemIEs__value, _asn_ctx),
-	offsetof(struct RICaction_ToBeSetup_ItemIEs__value, present),
-	sizeof(((struct RICaction_ToBeSetup_ItemIEs__value *)0)->present),
+	sizeof(struct RICaction_ToBeSetup_ItemIEs_Vone__value),
+	offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone__value, _asn_ctx),
+	offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone__value, present),
+	sizeof(((struct RICaction_ToBeSetup_ItemIEs_Vone__value *)0)->present),
 	asn_MAP_value_tag2el_4,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -5778,86 +5778,86 @@ asn_TYPE_descriptor_t asn_DEF_value_4 = {
 	&asn_SPC_value_specs_4	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICaction_ToBeSetup_ItemIEs_1[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_ToBeSetup_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_RICaction_ToBeSetup_ItemIEs_Vone_1[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_2,  memb_id_constraint_1 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_ToBeSetup_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICaction_ToBeSetup_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICaction_ToBeSetup_ItemIEs_Vone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_3,  memb_criticality_constraint_1 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICaction_ToBeSetup_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_4,
-		select_RICaction_ToBeSetup_ItemIEs_value_type,
+		select_RICaction_ToBeSetup_ItemIEs_Vone_value_type,
 		{ 0, &asn_PER_memb_value_constr_4,  memb_value_constraint_1 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICaction_ToBeSetup_ItemIEs_tags_1[] = {
+static const ber_tlv_tag_t asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone_tags_1[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICaction_ToBeSetup_ItemIEs_tag2el_1[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICaction_ToBeSetup_ItemIEs_Vone_tag2el_1[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICaction_ToBeSetup_ItemIEs_specs_1 = {
-	sizeof(struct RICaction_ToBeSetup_ItemIEs),
-	offsetof(struct RICaction_ToBeSetup_ItemIEs, _asn_ctx),
-	asn_MAP_RICaction_ToBeSetup_ItemIEs_tag2el_1,
+asn_SEQUENCE_specifics_t asn_SPC_RICaction_ToBeSetup_ItemIEs_Vone_specs_1 = {
+	sizeof(struct RICaction_ToBeSetup_ItemIEs_Vone),
+	offsetof(struct RICaction_ToBeSetup_ItemIEs_Vone, _asn_ctx),
+	asn_MAP_RICaction_ToBeSetup_ItemIEs_Vone_tag2el_1,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICaction_ToBeSetup_ItemIEs = {
-	"RICaction-ToBeSetup-ItemIEs",
-	"RICaction-ToBeSetup-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone = {
+	"RICaction-ToBeSetup-ItemIEs-Vone",
+	"RICaction-ToBeSetup-ItemIEs-Vone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICaction_ToBeSetup_ItemIEs_tags_1,
-	sizeof(asn_DEF_RICaction_ToBeSetup_ItemIEs_tags_1)
-		/sizeof(asn_DEF_RICaction_ToBeSetup_ItemIEs_tags_1[0]), /* 1 */
-	asn_DEF_RICaction_ToBeSetup_ItemIEs_tags_1,	/* Same as above */
-	sizeof(asn_DEF_RICaction_ToBeSetup_ItemIEs_tags_1)
-		/sizeof(asn_DEF_RICaction_ToBeSetup_ItemIEs_tags_1[0]), /* 1 */
+	asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone_tags_1,
+	sizeof(asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone_tags_1)
+		/sizeof(asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone_tags_1[0]), /* 1 */
+	asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone_tags_1,	/* Same as above */
+	sizeof(asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone_tags_1)
+		/sizeof(asn_DEF_RICaction_ToBeSetup_ItemIEs_Vone_tags_1[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICaction_ToBeSetup_ItemIEs_1,
+	asn_MBR_RICaction_ToBeSetup_ItemIEs_Vone_1,
 	3,	/* Elements count */
-	&asn_SPC_RICaction_ToBeSetup_ItemIEs_specs_1	/* Additional specs */
+	&asn_SPC_RICaction_ToBeSetup_ItemIEs_Vone_specs_1	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_8[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_Admitted_ItemIEs__value, choice.RICaction_Admitted_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_Admitted_ItemIEs_Vone__value, choice.RICaction_Admitted_Item_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICaction_Admitted_Item,
+		&asn_DEF_RICaction_Admitted_Item_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICaction-Admitted-Item"
+		"RICaction-Admitted-Item-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_8[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICaction-Admitted-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICaction-Admitted-Item-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_8 = {
-	sizeof(struct RICaction_Admitted_ItemIEs__value),
-	offsetof(struct RICaction_Admitted_ItemIEs__value, _asn_ctx),
-	offsetof(struct RICaction_Admitted_ItemIEs__value, present),
-	sizeof(((struct RICaction_Admitted_ItemIEs__value *)0)->present),
+	sizeof(struct RICaction_Admitted_ItemIEs_Vone__value),
+	offsetof(struct RICaction_Admitted_ItemIEs_Vone__value, _asn_ctx),
+	offsetof(struct RICaction_Admitted_ItemIEs_Vone__value, present),
+	sizeof(((struct RICaction_Admitted_ItemIEs_Vone__value *)0)->present),
 	asn_MAP_value_tag2el_8,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -5878,86 +5878,86 @@ asn_TYPE_descriptor_t asn_DEF_value_8 = {
 	&asn_SPC_value_specs_8	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICaction_Admitted_ItemIEs_5[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_Admitted_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_RICaction_Admitted_ItemIEs_Vone_5[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_Admitted_ItemIEs_Vone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_6,  memb_id_constraint_5 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_Admitted_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_Admitted_ItemIEs_Vone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICaction_Admitted_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICaction_Admitted_ItemIEs_Vone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_7,  memb_criticality_constraint_5 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICaction_Admitted_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICaction_Admitted_ItemIEs_Vone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_8,
-		select_RICaction_Admitted_ItemIEs_value_type,
+		select_RICaction_Admitted_ItemIEs_Vone_value_type,
 		{ 0, &asn_PER_memb_value_constr_8,  memb_value_constraint_5 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICaction_Admitted_ItemIEs_tags_5[] = {
+static const ber_tlv_tag_t asn_DEF_RICaction_Admitted_ItemIEs_Vone_tags_5[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICaction_Admitted_ItemIEs_tag2el_5[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICaction_Admitted_ItemIEs_Vone_tag2el_5[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICaction_Admitted_ItemIEs_specs_5 = {
-	sizeof(struct RICaction_Admitted_ItemIEs),
-	offsetof(struct RICaction_Admitted_ItemIEs, _asn_ctx),
-	asn_MAP_RICaction_Admitted_ItemIEs_tag2el_5,
+asn_SEQUENCE_specifics_t asn_SPC_RICaction_Admitted_ItemIEs_Vone_specs_5 = {
+	sizeof(struct RICaction_Admitted_ItemIEs_Vone),
+	offsetof(struct RICaction_Admitted_ItemIEs_Vone, _asn_ctx),
+	asn_MAP_RICaction_Admitted_ItemIEs_Vone_tag2el_5,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICaction_Admitted_ItemIEs = {
-	"RICaction-Admitted-ItemIEs",
-	"RICaction-Admitted-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_RICaction_Admitted_ItemIEs_Vone = {
+	"RICaction-Admitted-ItemIEs-Vone",
+	"RICaction-Admitted-ItemIEs-Vone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICaction_Admitted_ItemIEs_tags_5,
-	sizeof(asn_DEF_RICaction_Admitted_ItemIEs_tags_5)
-		/sizeof(asn_DEF_RICaction_Admitted_ItemIEs_tags_5[0]), /* 1 */
-	asn_DEF_RICaction_Admitted_ItemIEs_tags_5,	/* Same as above */
-	sizeof(asn_DEF_RICaction_Admitted_ItemIEs_tags_5)
-		/sizeof(asn_DEF_RICaction_Admitted_ItemIEs_tags_5[0]), /* 1 */
+	asn_DEF_RICaction_Admitted_ItemIEs_Vone_tags_5,
+	sizeof(asn_DEF_RICaction_Admitted_ItemIEs_Vone_tags_5)
+		/sizeof(asn_DEF_RICaction_Admitted_ItemIEs_Vone_tags_5[0]), /* 1 */
+	asn_DEF_RICaction_Admitted_ItemIEs_Vone_tags_5,	/* Same as above */
+	sizeof(asn_DEF_RICaction_Admitted_ItemIEs_Vone_tags_5)
+		/sizeof(asn_DEF_RICaction_Admitted_ItemIEs_Vone_tags_5[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICaction_Admitted_ItemIEs_5,
+	asn_MBR_RICaction_Admitted_ItemIEs_Vone_5,
 	3,	/* Elements count */
-	&asn_SPC_RICaction_Admitted_ItemIEs_specs_5	/* Additional specs */
+	&asn_SPC_RICaction_Admitted_ItemIEs_Vone_specs_5	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_12[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_NotAdmitted_ItemIEs__value, choice.RICaction_NotAdmitted_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone__value, choice.RICaction_NotAdmitted_Item_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICaction_NotAdmitted_Item,
+		&asn_DEF_RICaction_NotAdmitted_Item_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICaction-NotAdmitted-Item"
+		"RICaction-NotAdmitted-Item-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_12[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICaction-NotAdmitted-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICaction-NotAdmitted-Item-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_12 = {
-	sizeof(struct RICaction_NotAdmitted_ItemIEs__value),
-	offsetof(struct RICaction_NotAdmitted_ItemIEs__value, _asn_ctx),
-	offsetof(struct RICaction_NotAdmitted_ItemIEs__value, present),
-	sizeof(((struct RICaction_NotAdmitted_ItemIEs__value *)0)->present),
+	sizeof(struct RICaction_NotAdmitted_ItemIEs_Vone__value),
+	offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone__value, _asn_ctx),
+	offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone__value, present),
+	sizeof(((struct RICaction_NotAdmitted_ItemIEs_Vone__value *)0)->present),
 	asn_MAP_value_tag2el_12,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -5978,86 +5978,86 @@ asn_TYPE_descriptor_t asn_DEF_value_12 = {
 	&asn_SPC_value_specs_12	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICaction_NotAdmitted_ItemIEs_9[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_NotAdmitted_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_RICaction_NotAdmitted_ItemIEs_Vone_9[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_10,  memb_id_constraint_9 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_NotAdmitted_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICaction_NotAdmitted_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICaction_NotAdmitted_ItemIEs_Vone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_11,  memb_criticality_constraint_9 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICaction_NotAdmitted_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_12,
-		select_RICaction_NotAdmitted_ItemIEs_value_type,
+		select_RICaction_NotAdmitted_ItemIEs_Vone_value_type,
 		{ 0, &asn_PER_memb_value_constr_12,  memb_value_constraint_9 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICaction_NotAdmitted_ItemIEs_tags_9[] = {
+static const ber_tlv_tag_t asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone_tags_9[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICaction_NotAdmitted_ItemIEs_tag2el_9[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICaction_NotAdmitted_ItemIEs_Vone_tag2el_9[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICaction_NotAdmitted_ItemIEs_specs_9 = {
-	sizeof(struct RICaction_NotAdmitted_ItemIEs),
-	offsetof(struct RICaction_NotAdmitted_ItemIEs, _asn_ctx),
-	asn_MAP_RICaction_NotAdmitted_ItemIEs_tag2el_9,
+asn_SEQUENCE_specifics_t asn_SPC_RICaction_NotAdmitted_ItemIEs_Vone_specs_9 = {
+	sizeof(struct RICaction_NotAdmitted_ItemIEs_Vone),
+	offsetof(struct RICaction_NotAdmitted_ItemIEs_Vone, _asn_ctx),
+	asn_MAP_RICaction_NotAdmitted_ItemIEs_Vone_tag2el_9,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICaction_NotAdmitted_ItemIEs = {
-	"RICaction-NotAdmitted-ItemIEs",
-	"RICaction-NotAdmitted-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone = {
+	"RICaction-NotAdmitted-ItemIEs-Vone",
+	"RICaction-NotAdmitted-ItemIEs-Vone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICaction_NotAdmitted_ItemIEs_tags_9,
-	sizeof(asn_DEF_RICaction_NotAdmitted_ItemIEs_tags_9)
-		/sizeof(asn_DEF_RICaction_NotAdmitted_ItemIEs_tags_9[0]), /* 1 */
-	asn_DEF_RICaction_NotAdmitted_ItemIEs_tags_9,	/* Same as above */
-	sizeof(asn_DEF_RICaction_NotAdmitted_ItemIEs_tags_9)
-		/sizeof(asn_DEF_RICaction_NotAdmitted_ItemIEs_tags_9[0]), /* 1 */
+	asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone_tags_9,
+	sizeof(asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone_tags_9)
+		/sizeof(asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone_tags_9[0]), /* 1 */
+	asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone_tags_9,	/* Same as above */
+	sizeof(asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone_tags_9)
+		/sizeof(asn_DEF_RICaction_NotAdmitted_ItemIEs_Vone_tags_9[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICaction_NotAdmitted_ItemIEs_9,
+	asn_MBR_RICaction_NotAdmitted_ItemIEs_Vone_9,
 	3,	/* Elements count */
-	&asn_SPC_RICaction_NotAdmitted_ItemIEs_specs_9	/* Additional specs */
+	&asn_SPC_RICaction_NotAdmitted_ItemIEs_Vone_specs_9	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_16[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_ItemIEs__value, choice.E2connectionUpdate_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_ItemIEs__value, choice.E2connectionUpdateVone_Item),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionUpdate_Item,
+		&asn_DEF_E2connectionUpdateVone_Item,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2connectionUpdate-Item"
+		"E2connectionUpdateVone-Item"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_16[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2connectionUpdate-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2connectionUpdateVone-Item */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_16 = {
-	sizeof(struct E2connectionUpdate_ItemIEs__value),
-	offsetof(struct E2connectionUpdate_ItemIEs__value, _asn_ctx),
-	offsetof(struct E2connectionUpdate_ItemIEs__value, present),
-	sizeof(((struct E2connectionUpdate_ItemIEs__value *)0)->present),
+	sizeof(struct E2connectionUpdateVone_ItemIEs__value),
+	offsetof(struct E2connectionUpdateVone_ItemIEs__value, _asn_ctx),
+	offsetof(struct E2connectionUpdateVone_ItemIEs__value, present),
+	sizeof(((struct E2connectionUpdateVone_ItemIEs__value *)0)->present),
 	asn_MAP_value_tag2el_16,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -6078,86 +6078,86 @@ asn_TYPE_descriptor_t asn_DEF_value_16 = {
 	&asn_SPC_value_specs_16	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2connectionUpdate_ItemIEs_13[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_E2connectionUpdateVone_ItemIEs_13[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_ItemIEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_14,  memb_id_constraint_13 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_ItemIEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2connectionUpdate_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2connectionUpdateVone_ItemIEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_15,  memb_criticality_constraint_13 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_ItemIEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_16,
-		select_E2connectionUpdate_ItemIEs_value_type,
+		select_E2connectionUpdateVone_ItemIEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_16,  memb_value_constraint_13 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2connectionUpdate_ItemIEs_tags_13[] = {
+static const ber_tlv_tag_t asn_DEF_E2connectionUpdateVone_ItemIEs_tags_13[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdate_ItemIEs_tag2el_13[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdateVone_ItemIEs_tag2el_13[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdate_ItemIEs_specs_13 = {
-	sizeof(struct E2connectionUpdate_ItemIEs),
-	offsetof(struct E2connectionUpdate_ItemIEs, _asn_ctx),
-	asn_MAP_E2connectionUpdate_ItemIEs_tag2el_13,
+asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateVone_ItemIEs_specs_13 = {
+	sizeof(struct E2connectionUpdateVone_ItemIEs),
+	offsetof(struct E2connectionUpdateVone_ItemIEs, _asn_ctx),
+	asn_MAP_E2connectionUpdateVone_ItemIEs_tag2el_13,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2connectionUpdate_ItemIEs = {
-	"E2connectionUpdate-ItemIEs",
-	"E2connectionUpdate-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateVone_ItemIEs = {
+	"E2connectionUpdateVone-ItemIEs",
+	"E2connectionUpdateVone-ItemIEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2connectionUpdate_ItemIEs_tags_13,
-	sizeof(asn_DEF_E2connectionUpdate_ItemIEs_tags_13)
-		/sizeof(asn_DEF_E2connectionUpdate_ItemIEs_tags_13[0]), /* 1 */
-	asn_DEF_E2connectionUpdate_ItemIEs_tags_13,	/* Same as above */
-	sizeof(asn_DEF_E2connectionUpdate_ItemIEs_tags_13)
-		/sizeof(asn_DEF_E2connectionUpdate_ItemIEs_tags_13[0]), /* 1 */
+	asn_DEF_E2connectionUpdateVone_ItemIEs_tags_13,
+	sizeof(asn_DEF_E2connectionUpdateVone_ItemIEs_tags_13)
+		/sizeof(asn_DEF_E2connectionUpdateVone_ItemIEs_tags_13[0]), /* 1 */
+	asn_DEF_E2connectionUpdateVone_ItemIEs_tags_13,	/* Same as above */
+	sizeof(asn_DEF_E2connectionUpdateVone_ItemIEs_tags_13)
+		/sizeof(asn_DEF_E2connectionUpdateVone_ItemIEs_tags_13[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionUpdate_ItemIEs_13,
+	asn_MBR_E2connectionUpdateVone_ItemIEs_13,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionUpdate_ItemIEs_specs_13	/* Additional specs */
+	&asn_SPC_E2connectionUpdateVone_ItemIEs_specs_13	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_20[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateRemove_ItemIEs__value, choice.E2connectionUpdateRemove_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone__value, choice.E2connectionUpdateRemove_Item_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionUpdateRemove_Item,
+		&asn_DEF_E2connectionUpdateRemove_Item_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2connectionUpdateRemove-Item"
+		"E2connectionUpdateRemove-Item-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_20[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2connectionUpdateRemove-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2connectionUpdateRemove-Item-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_20 = {
-	sizeof(struct E2connectionUpdateRemove_ItemIEs__value),
-	offsetof(struct E2connectionUpdateRemove_ItemIEs__value, _asn_ctx),
-	offsetof(struct E2connectionUpdateRemove_ItemIEs__value, present),
-	sizeof(((struct E2connectionUpdateRemove_ItemIEs__value *)0)->present),
+	sizeof(struct E2connectionUpdateRemove_ItemIEs_Vone__value),
+	offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone__value, _asn_ctx),
+	offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone__value, present),
+	sizeof(((struct E2connectionUpdateRemove_ItemIEs_Vone__value *)0)->present),
 	asn_MAP_value_tag2el_20,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -6178,86 +6178,86 @@ asn_TYPE_descriptor_t asn_DEF_value_20 = {
 	&asn_SPC_value_specs_20	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2connectionUpdateRemove_ItemIEs_17[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateRemove_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_E2connectionUpdateRemove_ItemIEs_Vone_17[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_18,  memb_id_constraint_17 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateRemove_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2connectionUpdateRemove_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2connectionUpdateRemove_ItemIEs_Vone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_19,  memb_criticality_constraint_17 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateRemove_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_20,
-		select_E2connectionUpdateRemove_ItemIEs_value_type,
+		select_E2connectionUpdateRemove_ItemIEs_Vone_value_type,
 		{ 0, &asn_PER_memb_value_constr_20,  memb_value_constraint_17 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2connectionUpdateRemove_ItemIEs_tags_17[] = {
+static const ber_tlv_tag_t asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone_tags_17[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdateRemove_ItemIEs_tag2el_17[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdateRemove_ItemIEs_Vone_tag2el_17[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateRemove_ItemIEs_specs_17 = {
-	sizeof(struct E2connectionUpdateRemove_ItemIEs),
-	offsetof(struct E2connectionUpdateRemove_ItemIEs, _asn_ctx),
-	asn_MAP_E2connectionUpdateRemove_ItemIEs_tag2el_17,
+asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateRemove_ItemIEs_Vone_specs_17 = {
+	sizeof(struct E2connectionUpdateRemove_ItemIEs_Vone),
+	offsetof(struct E2connectionUpdateRemove_ItemIEs_Vone, _asn_ctx),
+	asn_MAP_E2connectionUpdateRemove_ItemIEs_Vone_tag2el_17,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateRemove_ItemIEs = {
-	"E2connectionUpdateRemove-ItemIEs",
-	"E2connectionUpdateRemove-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone = {
+	"E2connectionUpdateRemove-ItemIEs-Vone",
+	"E2connectionUpdateRemove-ItemIEs-Vone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2connectionUpdateRemove_ItemIEs_tags_17,
-	sizeof(asn_DEF_E2connectionUpdateRemove_ItemIEs_tags_17)
-		/sizeof(asn_DEF_E2connectionUpdateRemove_ItemIEs_tags_17[0]), /* 1 */
-	asn_DEF_E2connectionUpdateRemove_ItemIEs_tags_17,	/* Same as above */
-	sizeof(asn_DEF_E2connectionUpdateRemove_ItemIEs_tags_17)
-		/sizeof(asn_DEF_E2connectionUpdateRemove_ItemIEs_tags_17[0]), /* 1 */
+	asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone_tags_17,
+	sizeof(asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone_tags_17)
+		/sizeof(asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone_tags_17[0]), /* 1 */
+	asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone_tags_17,	/* Same as above */
+	sizeof(asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone_tags_17)
+		/sizeof(asn_DEF_E2connectionUpdateRemove_ItemIEs_Vone_tags_17[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionUpdateRemove_ItemIEs_17,
+	asn_MBR_E2connectionUpdateRemove_ItemIEs_Vone_17,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionUpdateRemove_ItemIEs_specs_17	/* Additional specs */
+	&asn_SPC_E2connectionUpdateRemove_ItemIEs_Vone_specs_17	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_24[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionSetupFailed_ItemIEs__value, choice.E2connectionSetupFailed_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionSetupFailed_ItemIEs_Vone__value, choice.E2connectionSetupFailed_Item_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionSetupFailed_Item,
+		&asn_DEF_E2connectionSetupFailed_Item_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2connectionSetupFailed-Item"
+		"E2connectionSetupFailed-Item-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_24[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2connectionSetupFailed-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2connectionSetupFailed-Item-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_24 = {
-	sizeof(struct E2connectionSetupFailed_ItemIEs__value),
-	offsetof(struct E2connectionSetupFailed_ItemIEs__value, _asn_ctx),
-	offsetof(struct E2connectionSetupFailed_ItemIEs__value, present),
-	sizeof(((struct E2connectionSetupFailed_ItemIEs__value *)0)->present),
+	sizeof(struct E2connectionSetupFailed_ItemIEs_Vone__value),
+	offsetof(struct E2connectionSetupFailed_ItemIEs_Vone__value, _asn_ctx),
+	offsetof(struct E2connectionSetupFailed_ItemIEs_Vone__value, present),
+	sizeof(((struct E2connectionSetupFailed_ItemIEs_Vone__value *)0)->present),
 	asn_MAP_value_tag2el_24,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -6278,86 +6278,86 @@ asn_TYPE_descriptor_t asn_DEF_value_24 = {
 	&asn_SPC_value_specs_24	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2connectionSetupFailed_ItemIEs_21[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionSetupFailed_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_E2connectionSetupFailed_ItemIEs_Vone_21[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionSetupFailed_ItemIEs_Vone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_22,  memb_id_constraint_21 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionSetupFailed_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionSetupFailed_ItemIEs_Vone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2connectionSetupFailed_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2connectionSetupFailed_ItemIEs_Vone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_23,  memb_criticality_constraint_21 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionSetupFailed_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionSetupFailed_ItemIEs_Vone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_24,
-		select_E2connectionSetupFailed_ItemIEs_value_type,
+		select_E2connectionSetupFailed_ItemIEs_Vone_value_type,
 		{ 0, &asn_PER_memb_value_constr_24,  memb_value_constraint_21 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2connectionSetupFailed_ItemIEs_tags_21[] = {
+static const ber_tlv_tag_t asn_DEF_E2connectionSetupFailed_ItemIEs_Vone_tags_21[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2connectionSetupFailed_ItemIEs_tag2el_21[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2connectionSetupFailed_ItemIEs_Vone_tag2el_21[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2connectionSetupFailed_ItemIEs_specs_21 = {
-	sizeof(struct E2connectionSetupFailed_ItemIEs),
-	offsetof(struct E2connectionSetupFailed_ItemIEs, _asn_ctx),
-	asn_MAP_E2connectionSetupFailed_ItemIEs_tag2el_21,
+asn_SEQUENCE_specifics_t asn_SPC_E2connectionSetupFailed_ItemIEs_Vone_specs_21 = {
+	sizeof(struct E2connectionSetupFailed_ItemIEs_Vone),
+	offsetof(struct E2connectionSetupFailed_ItemIEs_Vone, _asn_ctx),
+	asn_MAP_E2connectionSetupFailed_ItemIEs_Vone_tag2el_21,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2connectionSetupFailed_ItemIEs = {
-	"E2connectionSetupFailed-ItemIEs",
-	"E2connectionSetupFailed-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_E2connectionSetupFailed_ItemIEs_Vone = {
+	"E2connectionSetupFailed-ItemIEs-Vone",
+	"E2connectionSetupFailed-ItemIEs-Vone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2connectionSetupFailed_ItemIEs_tags_21,
-	sizeof(asn_DEF_E2connectionSetupFailed_ItemIEs_tags_21)
-		/sizeof(asn_DEF_E2connectionSetupFailed_ItemIEs_tags_21[0]), /* 1 */
-	asn_DEF_E2connectionSetupFailed_ItemIEs_tags_21,	/* Same as above */
-	sizeof(asn_DEF_E2connectionSetupFailed_ItemIEs_tags_21)
-		/sizeof(asn_DEF_E2connectionSetupFailed_ItemIEs_tags_21[0]), /* 1 */
+	asn_DEF_E2connectionSetupFailed_ItemIEs_Vone_tags_21,
+	sizeof(asn_DEF_E2connectionSetupFailed_ItemIEs_Vone_tags_21)
+		/sizeof(asn_DEF_E2connectionSetupFailed_ItemIEs_Vone_tags_21[0]), /* 1 */
+	asn_DEF_E2connectionSetupFailed_ItemIEs_Vone_tags_21,	/* Same as above */
+	sizeof(asn_DEF_E2connectionSetupFailed_ItemIEs_Vone_tags_21)
+		/sizeof(asn_DEF_E2connectionSetupFailed_ItemIEs_Vone_tags_21[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionSetupFailed_ItemIEs_21,
+	asn_MBR_E2connectionSetupFailed_ItemIEs_Vone_21,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionSetupFailed_ItemIEs_specs_21	/* Additional specs */
+	&asn_SPC_E2connectionSetupFailed_ItemIEs_Vone_specs_21	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_28[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdate_ItemIEs__value, choice.E2nodeComponentConfigUpdate_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs__value, choice.E2nodeComponentConfigUpdateVone_Item),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeComponentConfigUpdate_Item,
+		&asn_DEF_E2nodeComponentConfigUpdateVone_Item,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2nodeComponentConfigUpdate-Item"
+		"E2nodeComponentConfigUpdateVone-Item"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_28[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2nodeComponentConfigUpdate-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2nodeComponentConfigUpdateVone-Item */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_28 = {
-	sizeof(struct E2nodeComponentConfigUpdate_ItemIEs__value),
-	offsetof(struct E2nodeComponentConfigUpdate_ItemIEs__value, _asn_ctx),
-	offsetof(struct E2nodeComponentConfigUpdate_ItemIEs__value, present),
-	sizeof(((struct E2nodeComponentConfigUpdate_ItemIEs__value *)0)->present),
+	sizeof(struct E2nodeComponentConfigUpdateVone_ItemIEs__value),
+	offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs__value, _asn_ctx),
+	offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs__value, present),
+	sizeof(((struct E2nodeComponentConfigUpdateVone_ItemIEs__value *)0)->present),
 	asn_MAP_value_tag2el_28,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -6378,86 +6378,86 @@ asn_TYPE_descriptor_t asn_DEF_value_28 = {
 	&asn_SPC_value_specs_28	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2nodeComponentConfigUpdate_ItemIEs_25[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdate_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_E2nodeComponentConfigUpdateVone_ItemIEs_25[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_26,  memb_id_constraint_25 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdate_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2nodeComponentConfigUpdate_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2nodeComponentConfigUpdateVone_ItemIEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_27,  memb_criticality_constraint_25 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdate_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_28,
-		select_E2nodeComponentConfigUpdate_ItemIEs_value_type,
+		select_E2nodeComponentConfigUpdateVone_ItemIEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_28,  memb_value_constraint_25 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2nodeComponentConfigUpdate_ItemIEs_tags_25[] = {
+static const ber_tlv_tag_t asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs_tags_25[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2nodeComponentConfigUpdate_ItemIEs_tag2el_25[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2nodeComponentConfigUpdateVone_ItemIEs_tag2el_25[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2nodeComponentConfigUpdate_ItemIEs_specs_25 = {
-	sizeof(struct E2nodeComponentConfigUpdate_ItemIEs),
-	offsetof(struct E2nodeComponentConfigUpdate_ItemIEs, _asn_ctx),
-	asn_MAP_E2nodeComponentConfigUpdate_ItemIEs_tag2el_25,
+asn_SEQUENCE_specifics_t asn_SPC_E2nodeComponentConfigUpdateVone_ItemIEs_specs_25 = {
+	sizeof(struct E2nodeComponentConfigUpdateVone_ItemIEs),
+	offsetof(struct E2nodeComponentConfigUpdateVone_ItemIEs, _asn_ctx),
+	asn_MAP_E2nodeComponentConfigUpdateVone_ItemIEs_tag2el_25,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2nodeComponentConfigUpdate_ItemIEs = {
-	"E2nodeComponentConfigUpdate-ItemIEs",
-	"E2nodeComponentConfigUpdate-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs = {
+	"E2nodeComponentConfigUpdateVone-ItemIEs",
+	"E2nodeComponentConfigUpdateVone-ItemIEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2nodeComponentConfigUpdate_ItemIEs_tags_25,
-	sizeof(asn_DEF_E2nodeComponentConfigUpdate_ItemIEs_tags_25)
-		/sizeof(asn_DEF_E2nodeComponentConfigUpdate_ItemIEs_tags_25[0]), /* 1 */
-	asn_DEF_E2nodeComponentConfigUpdate_ItemIEs_tags_25,	/* Same as above */
-	sizeof(asn_DEF_E2nodeComponentConfigUpdate_ItemIEs_tags_25)
-		/sizeof(asn_DEF_E2nodeComponentConfigUpdate_ItemIEs_tags_25[0]), /* 1 */
+	asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs_tags_25,
+	sizeof(asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs_tags_25)
+		/sizeof(asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs_tags_25[0]), /* 1 */
+	asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs_tags_25,	/* Same as above */
+	sizeof(asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs_tags_25)
+		/sizeof(asn_DEF_E2nodeComponentConfigUpdateVone_ItemIEs_tags_25[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2nodeComponentConfigUpdate_ItemIEs_25,
+	asn_MBR_E2nodeComponentConfigUpdateVone_ItemIEs_25,
 	3,	/* Elements count */
-	&asn_SPC_E2nodeComponentConfigUpdate_ItemIEs_specs_25	/* Additional specs */
+	&asn_SPC_E2nodeComponentConfigUpdateVone_ItemIEs_specs_25	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_32[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs__value, choice.E2nodeComponentConfigUpdateAck_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs__value, choice.E2nodeComponentConfigUpdateAckVone_Item),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeComponentConfigUpdateAck_Item,
+		&asn_DEF_E2nodeComponentConfigUpdateAckVone_Item,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2nodeComponentConfigUpdateAck-Item"
+		"E2nodeComponentConfigUpdateAckVone-Item"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_32[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2nodeComponentConfigUpdateAck-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2nodeComponentConfigUpdateAckVone-Item */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_32 = {
-	sizeof(struct E2nodeComponentConfigUpdateAck_ItemIEs__value),
-	offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs__value, _asn_ctx),
-	offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs__value, present),
-	sizeof(((struct E2nodeComponentConfigUpdateAck_ItemIEs__value *)0)->present),
+	sizeof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs__value),
+	offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs__value, _asn_ctx),
+	offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs__value, present),
+	sizeof(((struct E2nodeComponentConfigUpdateAckVone_ItemIEs__value *)0)->present),
 	asn_MAP_value_tag2el_32,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -6478,86 +6478,86 @@ asn_TYPE_descriptor_t asn_DEF_value_32 = {
 	&asn_SPC_value_specs_32	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2nodeComponentConfigUpdateAck_ItemIEs_29[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_E2nodeComponentConfigUpdateAckVone_ItemIEs_29[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_30,  memb_id_constraint_29 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2nodeComponentConfigUpdateAck_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2nodeComponentConfigUpdateAckVone_ItemIEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_31,  memb_criticality_constraint_29 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_32,
-		select_E2nodeComponentConfigUpdateAck_ItemIEs_value_type,
+		select_E2nodeComponentConfigUpdateAckVone_ItemIEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_32,  memb_value_constraint_29 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs_tags_29[] = {
+static const ber_tlv_tag_t asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs_tags_29[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2nodeComponentConfigUpdateAck_ItemIEs_tag2el_29[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2nodeComponentConfigUpdateAckVone_ItemIEs_tag2el_29[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2nodeComponentConfigUpdateAck_ItemIEs_specs_29 = {
-	sizeof(struct E2nodeComponentConfigUpdateAck_ItemIEs),
-	offsetof(struct E2nodeComponentConfigUpdateAck_ItemIEs, _asn_ctx),
-	asn_MAP_E2nodeComponentConfigUpdateAck_ItemIEs_tag2el_29,
+asn_SEQUENCE_specifics_t asn_SPC_E2nodeComponentConfigUpdateAckVone_ItemIEs_specs_29 = {
+	sizeof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs),
+	offsetof(struct E2nodeComponentConfigUpdateAckVone_ItemIEs, _asn_ctx),
+	asn_MAP_E2nodeComponentConfigUpdateAckVone_ItemIEs_tag2el_29,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs = {
-	"E2nodeComponentConfigUpdateAck-ItemIEs",
-	"E2nodeComponentConfigUpdateAck-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs = {
+	"E2nodeComponentConfigUpdateAckVone-ItemIEs",
+	"E2nodeComponentConfigUpdateAckVone-ItemIEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs_tags_29,
-	sizeof(asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs_tags_29)
-		/sizeof(asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs_tags_29[0]), /* 1 */
-	asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs_tags_29,	/* Same as above */
-	sizeof(asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs_tags_29)
-		/sizeof(asn_DEF_E2nodeComponentConfigUpdateAck_ItemIEs_tags_29[0]), /* 1 */
+	asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs_tags_29,
+	sizeof(asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs_tags_29)
+		/sizeof(asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs_tags_29[0]), /* 1 */
+	asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs_tags_29,	/* Same as above */
+	sizeof(asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs_tags_29)
+		/sizeof(asn_DEF_E2nodeComponentConfigUpdateAckVone_ItemIEs_tags_29[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2nodeComponentConfigUpdateAck_ItemIEs_29,
+	asn_MBR_E2nodeComponentConfigUpdateAckVone_ItemIEs_29,
 	3,	/* Elements count */
-	&asn_SPC_E2nodeComponentConfigUpdateAck_ItemIEs_specs_29	/* Additional specs */
+	&asn_SPC_E2nodeComponentConfigUpdateAckVone_ItemIEs_specs_29	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_36[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunction_ItemIEs__value, choice.RANfunction_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunction_ItemIEs_Vone__value, choice.RANfunction_Item_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunction_Item,
+		&asn_DEF_RANfunction_Item_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunction-Item"
+		"RANfunction-Item-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_36[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RANfunction-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RANfunction-Item-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_36 = {
-	sizeof(struct RANfunction_ItemIEs__value),
-	offsetof(struct RANfunction_ItemIEs__value, _asn_ctx),
-	offsetof(struct RANfunction_ItemIEs__value, present),
-	sizeof(((struct RANfunction_ItemIEs__value *)0)->present),
+	sizeof(struct RANfunction_ItemIEs_Vone__value),
+	offsetof(struct RANfunction_ItemIEs_Vone__value, _asn_ctx),
+	offsetof(struct RANfunction_ItemIEs_Vone__value, present),
+	sizeof(((struct RANfunction_ItemIEs_Vone__value *)0)->present),
 	asn_MAP_value_tag2el_36,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -6578,86 +6578,86 @@ asn_TYPE_descriptor_t asn_DEF_value_36 = {
 	&asn_SPC_value_specs_36	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RANfunction_ItemIEs_33[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunction_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_RANfunction_ItemIEs_Vone_33[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunction_ItemIEs_Vone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_34,  memb_id_constraint_33 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunction_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunction_ItemIEs_Vone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RANfunction_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RANfunction_ItemIEs_Vone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_35,  memb_criticality_constraint_33 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RANfunction_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RANfunction_ItemIEs_Vone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_36,
-		select_RANfunction_ItemIEs_value_type,
+		select_RANfunction_ItemIEs_Vone_value_type,
 		{ 0, &asn_PER_memb_value_constr_36,  memb_value_constraint_33 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RANfunction_ItemIEs_tags_33[] = {
+static const ber_tlv_tag_t asn_DEF_RANfunction_ItemIEs_Vone_tags_33[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RANfunction_ItemIEs_tag2el_33[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RANfunction_ItemIEs_Vone_tag2el_33[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RANfunction_ItemIEs_specs_33 = {
-	sizeof(struct RANfunction_ItemIEs),
-	offsetof(struct RANfunction_ItemIEs, _asn_ctx),
-	asn_MAP_RANfunction_ItemIEs_tag2el_33,
+asn_SEQUENCE_specifics_t asn_SPC_RANfunction_ItemIEs_Vone_specs_33 = {
+	sizeof(struct RANfunction_ItemIEs_Vone),
+	offsetof(struct RANfunction_ItemIEs_Vone, _asn_ctx),
+	asn_MAP_RANfunction_ItemIEs_Vone_tag2el_33,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RANfunction_ItemIEs = {
-	"RANfunction-ItemIEs",
-	"RANfunction-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_RANfunction_ItemIEs_Vone = {
+	"RANfunction-ItemIEs-Vone",
+	"RANfunction-ItemIEs-Vone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RANfunction_ItemIEs_tags_33,
-	sizeof(asn_DEF_RANfunction_ItemIEs_tags_33)
-		/sizeof(asn_DEF_RANfunction_ItemIEs_tags_33[0]), /* 1 */
-	asn_DEF_RANfunction_ItemIEs_tags_33,	/* Same as above */
-	sizeof(asn_DEF_RANfunction_ItemIEs_tags_33)
-		/sizeof(asn_DEF_RANfunction_ItemIEs_tags_33[0]), /* 1 */
+	asn_DEF_RANfunction_ItemIEs_Vone_tags_33,
+	sizeof(asn_DEF_RANfunction_ItemIEs_Vone_tags_33)
+		/sizeof(asn_DEF_RANfunction_ItemIEs_Vone_tags_33[0]), /* 1 */
+	asn_DEF_RANfunction_ItemIEs_Vone_tags_33,	/* Same as above */
+	sizeof(asn_DEF_RANfunction_ItemIEs_Vone_tags_33)
+		/sizeof(asn_DEF_RANfunction_ItemIEs_Vone_tags_33[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RANfunction_ItemIEs_33,
+	asn_MBR_RANfunction_ItemIEs_Vone_33,
 	3,	/* Elements count */
-	&asn_SPC_RANfunction_ItemIEs_specs_33	/* Additional specs */
+	&asn_SPC_RANfunction_ItemIEs_Vone_specs_33	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_40[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionID_ItemIEs__value, choice.RANfunctionID_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDVone_ItemIEs__value, choice.RANfunctionIDVone_Item),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionID_Item,
+		&asn_DEF_RANfunctionIDVone_Item,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID-Item"
+		"RANfunctionIDVone-Item"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_40[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RANfunctionID-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RANfunctionIDVone-Item */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_40 = {
-	sizeof(struct RANfunctionID_ItemIEs__value),
-	offsetof(struct RANfunctionID_ItemIEs__value, _asn_ctx),
-	offsetof(struct RANfunctionID_ItemIEs__value, present),
-	sizeof(((struct RANfunctionID_ItemIEs__value *)0)->present),
+	sizeof(struct RANfunctionIDVone_ItemIEs__value),
+	offsetof(struct RANfunctionIDVone_ItemIEs__value, _asn_ctx),
+	offsetof(struct RANfunctionIDVone_ItemIEs__value, present),
+	sizeof(((struct RANfunctionIDVone_ItemIEs__value *)0)->present),
 	asn_MAP_value_tag2el_40,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -6678,86 +6678,86 @@ asn_TYPE_descriptor_t asn_DEF_value_40 = {
 	&asn_SPC_value_specs_40	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RANfunctionID_ItemIEs_37[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionID_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_RANfunctionIDVone_ItemIEs_37[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDVone_ItemIEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_38,  memb_id_constraint_37 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionID_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDVone_ItemIEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RANfunctionID_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RANfunctionIDVone_ItemIEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_39,  memb_criticality_constraint_37 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RANfunctionID_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDVone_ItemIEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_40,
-		select_RANfunctionID_ItemIEs_value_type,
+		select_RANfunctionIDVone_ItemIEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_40,  memb_value_constraint_37 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RANfunctionID_ItemIEs_tags_37[] = {
+static const ber_tlv_tag_t asn_DEF_RANfunctionIDVone_ItemIEs_tags_37[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RANfunctionID_ItemIEs_tag2el_37[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RANfunctionIDVone_ItemIEs_tag2el_37[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RANfunctionID_ItemIEs_specs_37 = {
-	sizeof(struct RANfunctionID_ItemIEs),
-	offsetof(struct RANfunctionID_ItemIEs, _asn_ctx),
-	asn_MAP_RANfunctionID_ItemIEs_tag2el_37,
+asn_SEQUENCE_specifics_t asn_SPC_RANfunctionIDVone_ItemIEs_specs_37 = {
+	sizeof(struct RANfunctionIDVone_ItemIEs),
+	offsetof(struct RANfunctionIDVone_ItemIEs, _asn_ctx),
+	asn_MAP_RANfunctionIDVone_ItemIEs_tag2el_37,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RANfunctionID_ItemIEs = {
-	"RANfunctionID-ItemIEs",
-	"RANfunctionID-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_RANfunctionIDVone_ItemIEs = {
+	"RANfunctionIDVone-ItemIEs",
+	"RANfunctionIDVone-ItemIEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RANfunctionID_ItemIEs_tags_37,
-	sizeof(asn_DEF_RANfunctionID_ItemIEs_tags_37)
-		/sizeof(asn_DEF_RANfunctionID_ItemIEs_tags_37[0]), /* 1 */
-	asn_DEF_RANfunctionID_ItemIEs_tags_37,	/* Same as above */
-	sizeof(asn_DEF_RANfunctionID_ItemIEs_tags_37)
-		/sizeof(asn_DEF_RANfunctionID_ItemIEs_tags_37[0]), /* 1 */
+	asn_DEF_RANfunctionIDVone_ItemIEs_tags_37,
+	sizeof(asn_DEF_RANfunctionIDVone_ItemIEs_tags_37)
+		/sizeof(asn_DEF_RANfunctionIDVone_ItemIEs_tags_37[0]), /* 1 */
+	asn_DEF_RANfunctionIDVone_ItemIEs_tags_37,	/* Same as above */
+	sizeof(asn_DEF_RANfunctionIDVone_ItemIEs_tags_37)
+		/sizeof(asn_DEF_RANfunctionIDVone_ItemIEs_tags_37[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RANfunctionID_ItemIEs_37,
+	asn_MBR_RANfunctionIDVone_ItemIEs_37,
 	3,	/* Elements count */
-	&asn_SPC_RANfunctionID_ItemIEs_specs_37	/* Additional specs */
+	&asn_SPC_RANfunctionIDVone_ItemIEs_specs_37	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_44[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDcause_ItemIEs__value, choice.RANfunctionIDcause_Item),
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDcause_ItemIEs_Vone__value, choice.RANfunctionIDcause_Item_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionIDcause_Item,
+		&asn_DEF_RANfunctionIDcause_Item_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionIDcause-Item"
+		"RANfunctionIDcause-Item-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_44[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RANfunctionIDcause-Item */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RANfunctionIDcause-Item-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_44 = {
-	sizeof(struct RANfunctionIDcause_ItemIEs__value),
-	offsetof(struct RANfunctionIDcause_ItemIEs__value, _asn_ctx),
-	offsetof(struct RANfunctionIDcause_ItemIEs__value, present),
-	sizeof(((struct RANfunctionIDcause_ItemIEs__value *)0)->present),
+	sizeof(struct RANfunctionIDcause_ItemIEs_Vone__value),
+	offsetof(struct RANfunctionIDcause_ItemIEs_Vone__value, _asn_ctx),
+	offsetof(struct RANfunctionIDcause_ItemIEs_Vone__value, present),
+	sizeof(((struct RANfunctionIDcause_ItemIEs_Vone__value *)0)->present),
 	asn_MAP_value_tag2el_44,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -6778,108 +6778,108 @@ asn_TYPE_descriptor_t asn_DEF_value_44 = {
 	&asn_SPC_value_specs_44	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RANfunctionIDcause_ItemIEs_41[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDcause_ItemIEs, id),
+asn_TYPE_member_t asn_MBR_RANfunctionIDcause_ItemIEs_Vone_41[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDcause_ItemIEs_Vone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_42,  memb_id_constraint_41 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDcause_ItemIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDcause_ItemIEs_Vone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RANfunctionIDcause_ItemIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RANfunctionIDcause_ItemIEs_Vone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_43,  memb_criticality_constraint_41 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDcause_ItemIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RANfunctionIDcause_ItemIEs_Vone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_44,
-		select_RANfunctionIDcause_ItemIEs_value_type,
+		select_RANfunctionIDcause_ItemIEs_Vone_value_type,
 		{ 0, &asn_PER_memb_value_constr_44,  memb_value_constraint_41 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RANfunctionIDcause_ItemIEs_tags_41[] = {
+static const ber_tlv_tag_t asn_DEF_RANfunctionIDcause_ItemIEs_Vone_tags_41[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RANfunctionIDcause_ItemIEs_tag2el_41[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RANfunctionIDcause_ItemIEs_Vone_tag2el_41[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RANfunctionIDcause_ItemIEs_specs_41 = {
-	sizeof(struct RANfunctionIDcause_ItemIEs),
-	offsetof(struct RANfunctionIDcause_ItemIEs, _asn_ctx),
-	asn_MAP_RANfunctionIDcause_ItemIEs_tag2el_41,
+asn_SEQUENCE_specifics_t asn_SPC_RANfunctionIDcause_ItemIEs_Vone_specs_41 = {
+	sizeof(struct RANfunctionIDcause_ItemIEs_Vone),
+	offsetof(struct RANfunctionIDcause_ItemIEs_Vone, _asn_ctx),
+	asn_MAP_RANfunctionIDcause_ItemIEs_Vone_tag2el_41,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RANfunctionIDcause_ItemIEs = {
-	"RANfunctionIDcause-ItemIEs",
-	"RANfunctionIDcause-ItemIEs",
+asn_TYPE_descriptor_t asn_DEF_RANfunctionIDcause_ItemIEs_Vone = {
+	"RANfunctionIDcause-ItemIEs-Vone",
+	"RANfunctionIDcause-ItemIEs-Vone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RANfunctionIDcause_ItemIEs_tags_41,
-	sizeof(asn_DEF_RANfunctionIDcause_ItemIEs_tags_41)
-		/sizeof(asn_DEF_RANfunctionIDcause_ItemIEs_tags_41[0]), /* 1 */
-	asn_DEF_RANfunctionIDcause_ItemIEs_tags_41,	/* Same as above */
-	sizeof(asn_DEF_RANfunctionIDcause_ItemIEs_tags_41)
-		/sizeof(asn_DEF_RANfunctionIDcause_ItemIEs_tags_41[0]), /* 1 */
+	asn_DEF_RANfunctionIDcause_ItemIEs_Vone_tags_41,
+	sizeof(asn_DEF_RANfunctionIDcause_ItemIEs_Vone_tags_41)
+		/sizeof(asn_DEF_RANfunctionIDcause_ItemIEs_Vone_tags_41[0]), /* 1 */
+	asn_DEF_RANfunctionIDcause_ItemIEs_Vone_tags_41,	/* Same as above */
+	sizeof(asn_DEF_RANfunctionIDcause_ItemIEs_Vone_tags_41)
+		/sizeof(asn_DEF_RANfunctionIDcause_ItemIEs_Vone_tags_41[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RANfunctionIDcause_ItemIEs_41,
+	asn_MBR_RANfunctionIDcause_ItemIEs_Vone_41,
 	3,	/* Elements count */
-	&asn_SPC_RANfunctionIDcause_ItemIEs_specs_41	/* Additional specs */
+	&asn_SPC_RANfunctionIDcause_ItemIEs_Vone_specs_41	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_48[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequest_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequestVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequest_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequestVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequest_IEs__value, choice.RICsubscriptionDetails),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequestVone_IEs__value, choice.RICsubscriptionDetailsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICsubscriptionDetails,
+		&asn_DEF_RICsubscriptionDetailsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICsubscriptionDetails"
+		"RICsubscriptionDetailsVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_48[] = { 1, 0, 2 };
 static const unsigned asn_MAP_value_from_canonical_48[] = { 1, 0, 2 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_48[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RICrequestID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 0 } /* RICsubscriptionDetails */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RICrequestIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 0 } /* RICsubscriptionDetailsVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_48 = {
-	sizeof(struct RICsubscriptionRequest_IEs__value),
-	offsetof(struct RICsubscriptionRequest_IEs__value, _asn_ctx),
-	offsetof(struct RICsubscriptionRequest_IEs__value, present),
-	sizeof(((struct RICsubscriptionRequest_IEs__value *)0)->present),
+	sizeof(struct RICsubscriptionRequestVone_IEs__value),
+	offsetof(struct RICsubscriptionRequestVone_IEs__value, _asn_ctx),
+	offsetof(struct RICsubscriptionRequestVone_IEs__value, present),
+	sizeof(((struct RICsubscriptionRequestVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_48,
 	3,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_48,
@@ -6901,118 +6901,118 @@ asn_TYPE_descriptor_t asn_DEF_value_48 = {
 	&asn_SPC_value_specs_48	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICsubscriptionRequest_IEs_45[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequest_IEs, id),
+asn_TYPE_member_t asn_MBR_RICsubscriptionRequestVone_IEs_45[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequestVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_46,  memb_id_constraint_45 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequest_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequestVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICsubscriptionRequest_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICsubscriptionRequestVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_47,  memb_criticality_constraint_45 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequest_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionRequestVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_48,
-		select_RICsubscriptionRequest_IEs_value_type,
+		select_RICsubscriptionRequestVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_48,  memb_value_constraint_45 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICsubscriptionRequest_IEs_tags_45[] = {
+static const ber_tlv_tag_t asn_DEF_RICsubscriptionRequestVone_IEs_tags_45[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionRequest_IEs_tag2el_45[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionRequestVone_IEs_tag2el_45[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionRequest_IEs_specs_45 = {
-	sizeof(struct RICsubscriptionRequest_IEs),
-	offsetof(struct RICsubscriptionRequest_IEs, _asn_ctx),
-	asn_MAP_RICsubscriptionRequest_IEs_tag2el_45,
+asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionRequestVone_IEs_specs_45 = {
+	sizeof(struct RICsubscriptionRequestVone_IEs),
+	offsetof(struct RICsubscriptionRequestVone_IEs, _asn_ctx),
+	asn_MAP_RICsubscriptionRequestVone_IEs_tag2el_45,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICsubscriptionRequest_IEs = {
-	"RICsubscriptionRequest-IEs",
-	"RICsubscriptionRequest-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICsubscriptionRequestVone_IEs = {
+	"RICsubscriptionRequestVone-IEs",
+	"RICsubscriptionRequestVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICsubscriptionRequest_IEs_tags_45,
-	sizeof(asn_DEF_RICsubscriptionRequest_IEs_tags_45)
-		/sizeof(asn_DEF_RICsubscriptionRequest_IEs_tags_45[0]), /* 1 */
-	asn_DEF_RICsubscriptionRequest_IEs_tags_45,	/* Same as above */
-	sizeof(asn_DEF_RICsubscriptionRequest_IEs_tags_45)
-		/sizeof(asn_DEF_RICsubscriptionRequest_IEs_tags_45[0]), /* 1 */
+	asn_DEF_RICsubscriptionRequestVone_IEs_tags_45,
+	sizeof(asn_DEF_RICsubscriptionRequestVone_IEs_tags_45)
+		/sizeof(asn_DEF_RICsubscriptionRequestVone_IEs_tags_45[0]), /* 1 */
+	asn_DEF_RICsubscriptionRequestVone_IEs_tags_45,	/* Same as above */
+	sizeof(asn_DEF_RICsubscriptionRequestVone_IEs_tags_45)
+		/sizeof(asn_DEF_RICsubscriptionRequestVone_IEs_tags_45[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICsubscriptionRequest_IEs_45,
+	asn_MBR_RICsubscriptionRequestVone_IEs_45,
 	3,	/* Elements count */
-	&asn_SPC_RICsubscriptionRequest_IEs_specs_45	/* Additional specs */
+	&asn_SPC_RICsubscriptionRequestVone_IEs_specs_45	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_52[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponse_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponseVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponse_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponseVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponse_IEs__value, choice.RICaction_Admitted_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponseVone_IEs__value, choice.RICaction_Admitted_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICaction_Admitted_List,
+		&asn_DEF_RICaction_Admitted_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICaction-Admitted-List"
+		"RICaction-Admitted-List-Vone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponse_IEs__value, choice.RICaction_NotAdmitted_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponseVone_IEs__value, choice.RICaction_NotAdmitted_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICaction_NotAdmitted_List,
+		&asn_DEF_RICaction_NotAdmitted_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICaction-NotAdmitted-List"
+		"RICaction-NotAdmitted-List-Vone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_52[] = { 1, 0, 2, 3 };
 static const unsigned asn_MAP_value_from_canonical_52[] = { 1, 0, 2, 3 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_52[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 2 }, /* RICrequestID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 1 }, /* RICaction-Admitted-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -2, 0 } /* RICaction-NotAdmitted-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 2 }, /* RICrequestIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 1 }, /* RICaction-Admitted-List-Vone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -2, 0 } /* RICaction-NotAdmitted-List-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_52 = {
-	sizeof(struct RICsubscriptionResponse_IEs__value),
-	offsetof(struct RICsubscriptionResponse_IEs__value, _asn_ctx),
-	offsetof(struct RICsubscriptionResponse_IEs__value, present),
-	sizeof(((struct RICsubscriptionResponse_IEs__value *)0)->present),
+	sizeof(struct RICsubscriptionResponseVone_IEs__value),
+	offsetof(struct RICsubscriptionResponseVone_IEs__value, _asn_ctx),
+	offsetof(struct RICsubscriptionResponseVone_IEs__value, present),
+	sizeof(((struct RICsubscriptionResponseVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_52,
 	4,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_52,
@@ -7034,118 +7034,118 @@ asn_TYPE_descriptor_t asn_DEF_value_52 = {
 	&asn_SPC_value_specs_52	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICsubscriptionResponse_IEs_49[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponse_IEs, id),
+asn_TYPE_member_t asn_MBR_RICsubscriptionResponseVone_IEs_49[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponseVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_50,  memb_id_constraint_49 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponse_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponseVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICsubscriptionResponse_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICsubscriptionResponseVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_51,  memb_criticality_constraint_49 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponse_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionResponseVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_52,
-		select_RICsubscriptionResponse_IEs_value_type,
+		select_RICsubscriptionResponseVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_52,  memb_value_constraint_49 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICsubscriptionResponse_IEs_tags_49[] = {
+static const ber_tlv_tag_t asn_DEF_RICsubscriptionResponseVone_IEs_tags_49[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionResponse_IEs_tag2el_49[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionResponseVone_IEs_tag2el_49[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionResponse_IEs_specs_49 = {
-	sizeof(struct RICsubscriptionResponse_IEs),
-	offsetof(struct RICsubscriptionResponse_IEs, _asn_ctx),
-	asn_MAP_RICsubscriptionResponse_IEs_tag2el_49,
+asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionResponseVone_IEs_specs_49 = {
+	sizeof(struct RICsubscriptionResponseVone_IEs),
+	offsetof(struct RICsubscriptionResponseVone_IEs, _asn_ctx),
+	asn_MAP_RICsubscriptionResponseVone_IEs_tag2el_49,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICsubscriptionResponse_IEs = {
-	"RICsubscriptionResponse-IEs",
-	"RICsubscriptionResponse-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICsubscriptionResponseVone_IEs = {
+	"RICsubscriptionResponseVone-IEs",
+	"RICsubscriptionResponseVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICsubscriptionResponse_IEs_tags_49,
-	sizeof(asn_DEF_RICsubscriptionResponse_IEs_tags_49)
-		/sizeof(asn_DEF_RICsubscriptionResponse_IEs_tags_49[0]), /* 1 */
-	asn_DEF_RICsubscriptionResponse_IEs_tags_49,	/* Same as above */
-	sizeof(asn_DEF_RICsubscriptionResponse_IEs_tags_49)
-		/sizeof(asn_DEF_RICsubscriptionResponse_IEs_tags_49[0]), /* 1 */
+	asn_DEF_RICsubscriptionResponseVone_IEs_tags_49,
+	sizeof(asn_DEF_RICsubscriptionResponseVone_IEs_tags_49)
+		/sizeof(asn_DEF_RICsubscriptionResponseVone_IEs_tags_49[0]), /* 1 */
+	asn_DEF_RICsubscriptionResponseVone_IEs_tags_49,	/* Same as above */
+	sizeof(asn_DEF_RICsubscriptionResponseVone_IEs_tags_49)
+		/sizeof(asn_DEF_RICsubscriptionResponseVone_IEs_tags_49[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICsubscriptionResponse_IEs_49,
+	asn_MBR_RICsubscriptionResponseVone_IEs_49,
 	3,	/* Elements count */
-	&asn_SPC_RICsubscriptionResponse_IEs_specs_49	/* Additional specs */
+	&asn_SPC_RICsubscriptionResponseVone_IEs_specs_49	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_56[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailure_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailureVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailure_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailureVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailure_IEs__value, choice.RICaction_NotAdmitted_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailureVone_IEs__value, choice.RICaction_NotAdmitted_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICaction_NotAdmitted_List,
+		&asn_DEF_RICaction_NotAdmitted_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICaction-NotAdmitted-List"
+		"RICaction-NotAdmitted-List-Vone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailure_IEs__value, choice.CriticalityDiagnostics),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailureVone_IEs__value, choice.CriticalityDiagnosticsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_CriticalityDiagnostics,
+		&asn_DEF_CriticalityDiagnosticsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"CriticalityDiagnostics"
+		"CriticalityDiagnosticsVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_56[] = { 1, 0, 2, 3 };
 static const unsigned asn_MAP_value_from_canonical_56[] = { 1, 0, 2, 3 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_56[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 2 }, /* RICrequestID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 1 }, /* RICaction-NotAdmitted-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -2, 0 } /* CriticalityDiagnostics */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 2 }, /* RICrequestIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 1 }, /* RICaction-NotAdmitted-List-Vone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -2, 0 } /* CriticalityDiagnosticsVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_56 = {
-	sizeof(struct RICsubscriptionFailure_IEs__value),
-	offsetof(struct RICsubscriptionFailure_IEs__value, _asn_ctx),
-	offsetof(struct RICsubscriptionFailure_IEs__value, present),
-	sizeof(((struct RICsubscriptionFailure_IEs__value *)0)->present),
+	sizeof(struct RICsubscriptionFailureVone_IEs__value),
+	offsetof(struct RICsubscriptionFailureVone_IEs__value, _asn_ctx),
+	offsetof(struct RICsubscriptionFailureVone_IEs__value, present),
+	sizeof(((struct RICsubscriptionFailureVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_56,
 	4,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_56,
@@ -7167,98 +7167,98 @@ asn_TYPE_descriptor_t asn_DEF_value_56 = {
 	&asn_SPC_value_specs_56	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICsubscriptionFailure_IEs_53[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailure_IEs, id),
+asn_TYPE_member_t asn_MBR_RICsubscriptionFailureVone_IEs_53[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailureVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_54,  memb_id_constraint_53 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailure_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailureVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICsubscriptionFailure_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICsubscriptionFailureVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_55,  memb_criticality_constraint_53 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailure_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionFailureVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_56,
-		select_RICsubscriptionFailure_IEs_value_type,
+		select_RICsubscriptionFailureVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_56,  memb_value_constraint_53 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICsubscriptionFailure_IEs_tags_53[] = {
+static const ber_tlv_tag_t asn_DEF_RICsubscriptionFailureVone_IEs_tags_53[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionFailure_IEs_tag2el_53[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionFailureVone_IEs_tag2el_53[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionFailure_IEs_specs_53 = {
-	sizeof(struct RICsubscriptionFailure_IEs),
-	offsetof(struct RICsubscriptionFailure_IEs, _asn_ctx),
-	asn_MAP_RICsubscriptionFailure_IEs_tag2el_53,
+asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionFailureVone_IEs_specs_53 = {
+	sizeof(struct RICsubscriptionFailureVone_IEs),
+	offsetof(struct RICsubscriptionFailureVone_IEs, _asn_ctx),
+	asn_MAP_RICsubscriptionFailureVone_IEs_tag2el_53,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICsubscriptionFailure_IEs = {
-	"RICsubscriptionFailure-IEs",
-	"RICsubscriptionFailure-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICsubscriptionFailureVone_IEs = {
+	"RICsubscriptionFailureVone-IEs",
+	"RICsubscriptionFailureVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICsubscriptionFailure_IEs_tags_53,
-	sizeof(asn_DEF_RICsubscriptionFailure_IEs_tags_53)
-		/sizeof(asn_DEF_RICsubscriptionFailure_IEs_tags_53[0]), /* 1 */
-	asn_DEF_RICsubscriptionFailure_IEs_tags_53,	/* Same as above */
-	sizeof(asn_DEF_RICsubscriptionFailure_IEs_tags_53)
-		/sizeof(asn_DEF_RICsubscriptionFailure_IEs_tags_53[0]), /* 1 */
+	asn_DEF_RICsubscriptionFailureVone_IEs_tags_53,
+	sizeof(asn_DEF_RICsubscriptionFailureVone_IEs_tags_53)
+		/sizeof(asn_DEF_RICsubscriptionFailureVone_IEs_tags_53[0]), /* 1 */
+	asn_DEF_RICsubscriptionFailureVone_IEs_tags_53,	/* Same as above */
+	sizeof(asn_DEF_RICsubscriptionFailureVone_IEs_tags_53)
+		/sizeof(asn_DEF_RICsubscriptionFailureVone_IEs_tags_53[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICsubscriptionFailure_IEs_53,
+	asn_MBR_RICsubscriptionFailureVone_IEs_53,
 	3,	/* Elements count */
-	&asn_SPC_RICsubscriptionFailure_IEs_specs_53	/* Additional specs */
+	&asn_SPC_RICsubscriptionFailureVone_IEs_specs_53	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_60[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequest_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequestVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequest_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequestVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_60[] = { 1, 0 };
 static const unsigned asn_MAP_value_from_canonical_60[] = { 1, 0 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_60[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestID */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestIDVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_60 = {
-	sizeof(struct RICsubscriptionDeleteRequest_IEs__value),
-	offsetof(struct RICsubscriptionDeleteRequest_IEs__value, _asn_ctx),
-	offsetof(struct RICsubscriptionDeleteRequest_IEs__value, present),
-	sizeof(((struct RICsubscriptionDeleteRequest_IEs__value *)0)->present),
+	sizeof(struct RICsubscriptionDeleteRequestVone_IEs__value),
+	offsetof(struct RICsubscriptionDeleteRequestVone_IEs__value, _asn_ctx),
+	offsetof(struct RICsubscriptionDeleteRequestVone_IEs__value, present),
+	sizeof(((struct RICsubscriptionDeleteRequestVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_60,
 	2,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_60,
@@ -7280,98 +7280,98 @@ asn_TYPE_descriptor_t asn_DEF_value_60 = {
 	&asn_SPC_value_specs_60	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteRequest_IEs_57[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequest_IEs, id),
+asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteRequestVone_IEs_57[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequestVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_58,  memb_id_constraint_57 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequest_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequestVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICsubscriptionDeleteRequest_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICsubscriptionDeleteRequestVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_59,  memb_criticality_constraint_57 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequest_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteRequestVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_60,
-		select_RICsubscriptionDeleteRequest_IEs_value_type,
+		select_RICsubscriptionDeleteRequestVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_60,  memb_value_constraint_57 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICsubscriptionDeleteRequest_IEs_tags_57[] = {
+static const ber_tlv_tag_t asn_DEF_RICsubscriptionDeleteRequestVone_IEs_tags_57[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionDeleteRequest_IEs_tag2el_57[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionDeleteRequestVone_IEs_tag2el_57[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteRequest_IEs_specs_57 = {
-	sizeof(struct RICsubscriptionDeleteRequest_IEs),
-	offsetof(struct RICsubscriptionDeleteRequest_IEs, _asn_ctx),
-	asn_MAP_RICsubscriptionDeleteRequest_IEs_tag2el_57,
+asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteRequestVone_IEs_specs_57 = {
+	sizeof(struct RICsubscriptionDeleteRequestVone_IEs),
+	offsetof(struct RICsubscriptionDeleteRequestVone_IEs, _asn_ctx),
+	asn_MAP_RICsubscriptionDeleteRequestVone_IEs_tag2el_57,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteRequest_IEs = {
-	"RICsubscriptionDeleteRequest-IEs",
-	"RICsubscriptionDeleteRequest-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteRequestVone_IEs = {
+	"RICsubscriptionDeleteRequestVone-IEs",
+	"RICsubscriptionDeleteRequestVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICsubscriptionDeleteRequest_IEs_tags_57,
-	sizeof(asn_DEF_RICsubscriptionDeleteRequest_IEs_tags_57)
-		/sizeof(asn_DEF_RICsubscriptionDeleteRequest_IEs_tags_57[0]), /* 1 */
-	asn_DEF_RICsubscriptionDeleteRequest_IEs_tags_57,	/* Same as above */
-	sizeof(asn_DEF_RICsubscriptionDeleteRequest_IEs_tags_57)
-		/sizeof(asn_DEF_RICsubscriptionDeleteRequest_IEs_tags_57[0]), /* 1 */
+	asn_DEF_RICsubscriptionDeleteRequestVone_IEs_tags_57,
+	sizeof(asn_DEF_RICsubscriptionDeleteRequestVone_IEs_tags_57)
+		/sizeof(asn_DEF_RICsubscriptionDeleteRequestVone_IEs_tags_57[0]), /* 1 */
+	asn_DEF_RICsubscriptionDeleteRequestVone_IEs_tags_57,	/* Same as above */
+	sizeof(asn_DEF_RICsubscriptionDeleteRequestVone_IEs_tags_57)
+		/sizeof(asn_DEF_RICsubscriptionDeleteRequestVone_IEs_tags_57[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICsubscriptionDeleteRequest_IEs_57,
+	asn_MBR_RICsubscriptionDeleteRequestVone_IEs_57,
 	3,	/* Elements count */
-	&asn_SPC_RICsubscriptionDeleteRequest_IEs_specs_57	/* Additional specs */
+	&asn_SPC_RICsubscriptionDeleteRequestVone_IEs_specs_57	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_64[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponse_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponseVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponse_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponseVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_64[] = { 1, 0 };
 static const unsigned asn_MAP_value_from_canonical_64[] = { 1, 0 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_64[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestID */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestIDVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_64 = {
-	sizeof(struct RICsubscriptionDeleteResponse_IEs__value),
-	offsetof(struct RICsubscriptionDeleteResponse_IEs__value, _asn_ctx),
-	offsetof(struct RICsubscriptionDeleteResponse_IEs__value, present),
-	sizeof(((struct RICsubscriptionDeleteResponse_IEs__value *)0)->present),
+	sizeof(struct RICsubscriptionDeleteResponseVone_IEs__value),
+	offsetof(struct RICsubscriptionDeleteResponseVone_IEs__value, _asn_ctx),
+	offsetof(struct RICsubscriptionDeleteResponseVone_IEs__value, present),
+	sizeof(((struct RICsubscriptionDeleteResponseVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_64,
 	2,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_64,
@@ -7393,111 +7393,111 @@ asn_TYPE_descriptor_t asn_DEF_value_64 = {
 	&asn_SPC_value_specs_64	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteResponse_IEs_61[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponse_IEs, id),
+asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteResponseVone_IEs_61[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponseVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_62,  memb_id_constraint_61 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponse_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponseVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICsubscriptionDeleteResponse_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICsubscriptionDeleteResponseVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_63,  memb_criticality_constraint_61 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponse_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteResponseVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_64,
-		select_RICsubscriptionDeleteResponse_IEs_value_type,
+		select_RICsubscriptionDeleteResponseVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_64,  memb_value_constraint_61 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICsubscriptionDeleteResponse_IEs_tags_61[] = {
+static const ber_tlv_tag_t asn_DEF_RICsubscriptionDeleteResponseVone_IEs_tags_61[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionDeleteResponse_IEs_tag2el_61[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionDeleteResponseVone_IEs_tag2el_61[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteResponse_IEs_specs_61 = {
-	sizeof(struct RICsubscriptionDeleteResponse_IEs),
-	offsetof(struct RICsubscriptionDeleteResponse_IEs, _asn_ctx),
-	asn_MAP_RICsubscriptionDeleteResponse_IEs_tag2el_61,
+asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteResponseVone_IEs_specs_61 = {
+	sizeof(struct RICsubscriptionDeleteResponseVone_IEs),
+	offsetof(struct RICsubscriptionDeleteResponseVone_IEs, _asn_ctx),
+	asn_MAP_RICsubscriptionDeleteResponseVone_IEs_tag2el_61,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteResponse_IEs = {
-	"RICsubscriptionDeleteResponse-IEs",
-	"RICsubscriptionDeleteResponse-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteResponseVone_IEs = {
+	"RICsubscriptionDeleteResponseVone-IEs",
+	"RICsubscriptionDeleteResponseVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICsubscriptionDeleteResponse_IEs_tags_61,
-	sizeof(asn_DEF_RICsubscriptionDeleteResponse_IEs_tags_61)
-		/sizeof(asn_DEF_RICsubscriptionDeleteResponse_IEs_tags_61[0]), /* 1 */
-	asn_DEF_RICsubscriptionDeleteResponse_IEs_tags_61,	/* Same as above */
-	sizeof(asn_DEF_RICsubscriptionDeleteResponse_IEs_tags_61)
-		/sizeof(asn_DEF_RICsubscriptionDeleteResponse_IEs_tags_61[0]), /* 1 */
+	asn_DEF_RICsubscriptionDeleteResponseVone_IEs_tags_61,
+	sizeof(asn_DEF_RICsubscriptionDeleteResponseVone_IEs_tags_61)
+		/sizeof(asn_DEF_RICsubscriptionDeleteResponseVone_IEs_tags_61[0]), /* 1 */
+	asn_DEF_RICsubscriptionDeleteResponseVone_IEs_tags_61,	/* Same as above */
+	sizeof(asn_DEF_RICsubscriptionDeleteResponseVone_IEs_tags_61)
+		/sizeof(asn_DEF_RICsubscriptionDeleteResponseVone_IEs_tags_61[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICsubscriptionDeleteResponse_IEs_61,
+	asn_MBR_RICsubscriptionDeleteResponseVone_IEs_61,
 	3,	/* Elements count */
-	&asn_SPC_RICsubscriptionDeleteResponse_IEs_specs_61	/* Additional specs */
+	&asn_SPC_RICsubscriptionDeleteResponseVone_IEs_specs_61	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_68[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailure_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailureVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailure_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailureVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailure_IEs__value, choice.Cause),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailureVone_IEs__value, choice.CauseVone),
 		-1 /* Ambiguous tag (CHOICE?) */,
 		0,
-		&asn_DEF_Cause,
+		&asn_DEF_CauseVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"Cause"
+		"CauseVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailure_IEs__value, choice.CriticalityDiagnostics),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailureVone_IEs__value, choice.CriticalityDiagnosticsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_CriticalityDiagnostics,
+		&asn_DEF_CriticalityDiagnosticsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"CriticalityDiagnostics"
+		"CriticalityDiagnosticsVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_68[] = { 1, 0, 3, 2 };
 static const unsigned asn_MAP_value_from_canonical_68[] = { 1, 0, 3, 2 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_68[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RICrequestID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -1, 0 }, /* CriticalityDiagnostics */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RICrequestIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -1, 0 }, /* CriticalityDiagnosticsVone */
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 2, 0, 0 }, /* ricRequest */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 2, 0, 0 }, /* ricService */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* transport */
@@ -7505,10 +7505,10 @@ static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_68[] = {
     { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 2, 0, 0 } /* misc */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_68 = {
-	sizeof(struct RICsubscriptionDeleteFailure_IEs__value),
-	offsetof(struct RICsubscriptionDeleteFailure_IEs__value, _asn_ctx),
-	offsetof(struct RICsubscriptionDeleteFailure_IEs__value, present),
-	sizeof(((struct RICsubscriptionDeleteFailure_IEs__value *)0)->present),
+	sizeof(struct RICsubscriptionDeleteFailureVone_IEs__value),
+	offsetof(struct RICsubscriptionDeleteFailureVone_IEs__value, _asn_ctx),
+	offsetof(struct RICsubscriptionDeleteFailureVone_IEs__value, present),
+	sizeof(((struct RICsubscriptionDeleteFailureVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_68,
 	8,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_68,
@@ -7530,158 +7530,158 @@ asn_TYPE_descriptor_t asn_DEF_value_68 = {
 	&asn_SPC_value_specs_68	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteFailure_IEs_65[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailure_IEs, id),
+asn_TYPE_member_t asn_MBR_RICsubscriptionDeleteFailureVone_IEs_65[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailureVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_66,  memb_id_constraint_65 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailure_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailureVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICsubscriptionDeleteFailure_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICsubscriptionDeleteFailureVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_67,  memb_criticality_constraint_65 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailure_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICsubscriptionDeleteFailureVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_68,
-		select_RICsubscriptionDeleteFailure_IEs_value_type,
+		select_RICsubscriptionDeleteFailureVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_68,  memb_value_constraint_65 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICsubscriptionDeleteFailure_IEs_tags_65[] = {
+static const ber_tlv_tag_t asn_DEF_RICsubscriptionDeleteFailureVone_IEs_tags_65[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionDeleteFailure_IEs_tag2el_65[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICsubscriptionDeleteFailureVone_IEs_tag2el_65[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteFailure_IEs_specs_65 = {
-	sizeof(struct RICsubscriptionDeleteFailure_IEs),
-	offsetof(struct RICsubscriptionDeleteFailure_IEs, _asn_ctx),
-	asn_MAP_RICsubscriptionDeleteFailure_IEs_tag2el_65,
+asn_SEQUENCE_specifics_t asn_SPC_RICsubscriptionDeleteFailureVone_IEs_specs_65 = {
+	sizeof(struct RICsubscriptionDeleteFailureVone_IEs),
+	offsetof(struct RICsubscriptionDeleteFailureVone_IEs, _asn_ctx),
+	asn_MAP_RICsubscriptionDeleteFailureVone_IEs_tag2el_65,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteFailure_IEs = {
-	"RICsubscriptionDeleteFailure-IEs",
-	"RICsubscriptionDeleteFailure-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICsubscriptionDeleteFailureVone_IEs = {
+	"RICsubscriptionDeleteFailureVone-IEs",
+	"RICsubscriptionDeleteFailureVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICsubscriptionDeleteFailure_IEs_tags_65,
-	sizeof(asn_DEF_RICsubscriptionDeleteFailure_IEs_tags_65)
-		/sizeof(asn_DEF_RICsubscriptionDeleteFailure_IEs_tags_65[0]), /* 1 */
-	asn_DEF_RICsubscriptionDeleteFailure_IEs_tags_65,	/* Same as above */
-	sizeof(asn_DEF_RICsubscriptionDeleteFailure_IEs_tags_65)
-		/sizeof(asn_DEF_RICsubscriptionDeleteFailure_IEs_tags_65[0]), /* 1 */
+	asn_DEF_RICsubscriptionDeleteFailureVone_IEs_tags_65,
+	sizeof(asn_DEF_RICsubscriptionDeleteFailureVone_IEs_tags_65)
+		/sizeof(asn_DEF_RICsubscriptionDeleteFailureVone_IEs_tags_65[0]), /* 1 */
+	asn_DEF_RICsubscriptionDeleteFailureVone_IEs_tags_65,	/* Same as above */
+	sizeof(asn_DEF_RICsubscriptionDeleteFailureVone_IEs_tags_65)
+		/sizeof(asn_DEF_RICsubscriptionDeleteFailureVone_IEs_tags_65[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICsubscriptionDeleteFailure_IEs_65,
+	asn_MBR_RICsubscriptionDeleteFailureVone_IEs_65,
 	3,	/* Elements count */
-	&asn_SPC_RICsubscriptionDeleteFailure_IEs_specs_65	/* Additional specs */
+	&asn_SPC_RICsubscriptionDeleteFailureVone_IEs_specs_65	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_72[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs__value, choice.RICactionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs__value, choice.RICactionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RICactionID,
+		&asn_DEF_RICactionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICactionID"
+		"RICactionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs__value, choice.RICindicationSN),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs__value, choice.RICindicationSNVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RICindicationSN,
+		&asn_DEF_RICindicationSNVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICindicationSN"
+		"RICindicationSNVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs__value, choice.RICindicationType),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs__value, choice.RICindicationTypeVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (10 << 2)),
 		0,
-		&asn_DEF_RICindicationType,
+		&asn_DEF_RICindicationTypeVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICindicationType"
+		"RICindicationTypeVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs__value, choice.RICindicationHeader),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs__value, choice.RICindicationHeaderVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICindicationHeader,
+		&asn_DEF_RICindicationHeaderVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICindicationHeader"
+		"RICindicationHeaderVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs__value, choice.RICindicationMessage),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs__value, choice.RICindicationMessageVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICindicationMessage,
+		&asn_DEF_RICindicationMessageVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICindicationMessage"
+		"RICindicationMessageVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs__value, choice.RICcallProcessID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs__value, choice.RICcallProcessIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICcallProcessID,
+		&asn_DEF_RICcallProcessIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcallProcessID"
+		"RICcallProcessIDVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_72[] = { 1, 2, 3, 5, 6, 7, 4, 0 };
 static const unsigned asn_MAP_value_from_canonical_72[] = { 7, 0, 1, 2, 6, 3, 4, 5 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_72[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 2 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 2, -1, 1 }, /* RICactionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 3, -2, 0 }, /* RICindicationSN */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 5, 0, 2 }, /* RICindicationHeader */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 6, -1, 1 }, /* RICindicationMessage */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 7, -2, 0 }, /* RICcallProcessID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 4, 0, 0 }, /* RICindicationType */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestID */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 2 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 2, -1, 1 }, /* RICactionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 3, -2, 0 }, /* RICindicationSNVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 5, 0, 2 }, /* RICindicationHeaderVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 6, -1, 1 }, /* RICindicationMessageVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 7, -2, 0 }, /* RICcallProcessIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 4, 0, 0 }, /* RICindicationTypeVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestIDVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_72 = {
-	sizeof(struct RICindication_IEs__value),
-	offsetof(struct RICindication_IEs__value, _asn_ctx),
-	offsetof(struct RICindication_IEs__value, present),
-	sizeof(((struct RICindication_IEs__value *)0)->present),
+	sizeof(struct RICindicationVone_IEs__value),
+	offsetof(struct RICindicationVone_IEs__value, _asn_ctx),
+	offsetof(struct RICindicationVone_IEs__value, present),
+	sizeof(((struct RICindicationVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_72,
 	8,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_72,
@@ -7703,138 +7703,138 @@ asn_TYPE_descriptor_t asn_DEF_value_72 = {
 	&asn_SPC_value_specs_72	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICindication_IEs_69[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs, id),
+asn_TYPE_member_t asn_MBR_RICindicationVone_IEs_69[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_70,  memb_id_constraint_69 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICindication_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICindicationVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_71,  memb_criticality_constraint_69 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICindication_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICindicationVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_72,
-		select_RICindication_IEs_value_type,
+		select_RICindicationVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_72,  memb_value_constraint_69 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICindication_IEs_tags_69[] = {
+static const ber_tlv_tag_t asn_DEF_RICindicationVone_IEs_tags_69[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICindication_IEs_tag2el_69[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICindicationVone_IEs_tag2el_69[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICindication_IEs_specs_69 = {
-	sizeof(struct RICindication_IEs),
-	offsetof(struct RICindication_IEs, _asn_ctx),
-	asn_MAP_RICindication_IEs_tag2el_69,
+asn_SEQUENCE_specifics_t asn_SPC_RICindicationVone_IEs_specs_69 = {
+	sizeof(struct RICindicationVone_IEs),
+	offsetof(struct RICindicationVone_IEs, _asn_ctx),
+	asn_MAP_RICindicationVone_IEs_tag2el_69,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICindication_IEs = {
-	"RICindication-IEs",
-	"RICindication-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICindicationVone_IEs = {
+	"RICindicationVone-IEs",
+	"RICindicationVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICindication_IEs_tags_69,
-	sizeof(asn_DEF_RICindication_IEs_tags_69)
-		/sizeof(asn_DEF_RICindication_IEs_tags_69[0]), /* 1 */
-	asn_DEF_RICindication_IEs_tags_69,	/* Same as above */
-	sizeof(asn_DEF_RICindication_IEs_tags_69)
-		/sizeof(asn_DEF_RICindication_IEs_tags_69[0]), /* 1 */
+	asn_DEF_RICindicationVone_IEs_tags_69,
+	sizeof(asn_DEF_RICindicationVone_IEs_tags_69)
+		/sizeof(asn_DEF_RICindicationVone_IEs_tags_69[0]), /* 1 */
+	asn_DEF_RICindicationVone_IEs_tags_69,	/* Same as above */
+	sizeof(asn_DEF_RICindicationVone_IEs_tags_69)
+		/sizeof(asn_DEF_RICindicationVone_IEs_tags_69[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICindication_IEs_69,
+	asn_MBR_RICindicationVone_IEs_69,
 	3,	/* Elements count */
-	&asn_SPC_RICindication_IEs_specs_69	/* Additional specs */
+	&asn_SPC_RICindicationVone_IEs_specs_69	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_76[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs__value, choice.RICcallProcessID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs__value, choice.RICcallProcessIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICcallProcessID,
+		&asn_DEF_RICcallProcessIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcallProcessID"
+		"RICcallProcessIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs__value, choice.RICcontrolHeader),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs__value, choice.RICcontrolHeaderVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICcontrolHeader,
+		&asn_DEF_RICcontrolHeaderVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcontrolHeader"
+		"RICcontrolHeaderVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs__value, choice.RICcontrolMessage),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs__value, choice.RICcontrolMessageVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICcontrolMessage,
+		&asn_DEF_RICcontrolMessageVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcontrolMessage"
+		"RICcontrolMessageVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs__value, choice.RICcontrolAckRequest),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs__value, choice.RICcontrolAckRequestVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (10 << 2)),
 		0,
-		&asn_DEF_RICcontrolAckRequest,
+		&asn_DEF_RICcontrolAckRequestVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcontrolAckRequest"
+		"RICcontrolAckRequestVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_76[] = { 1, 2, 3, 4, 5, 0 };
 static const unsigned asn_MAP_value_from_canonical_76[] = { 5, 0, 1, 2, 3, 4 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_76[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 2, 0, 2 }, /* RICcallProcessID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 3, -1, 1 }, /* RICcontrolHeader */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 4, -2, 0 }, /* RICcontrolMessage */
-    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 5, 0, 0 }, /* RICcontrolAckRequest */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestID */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 2, 0, 2 }, /* RICcallProcessIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 3, -1, 1 }, /* RICcontrolHeaderVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 4, -2, 0 }, /* RICcontrolMessageVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 5, 0, 0 }, /* RICcontrolAckRequestVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestIDVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_76 = {
-	sizeof(struct RICcontrolRequest_IEs__value),
-	offsetof(struct RICcontrolRequest_IEs__value, _asn_ctx),
-	offsetof(struct RICcontrolRequest_IEs__value, present),
-	sizeof(((struct RICcontrolRequest_IEs__value *)0)->present),
+	sizeof(struct RICcontrolRequestVone_IEs__value),
+	offsetof(struct RICcontrolRequestVone_IEs__value, _asn_ctx),
+	offsetof(struct RICcontrolRequestVone_IEs__value, present),
+	sizeof(((struct RICcontrolRequestVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_76,
 	6,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_76,
@@ -7856,128 +7856,128 @@ asn_TYPE_descriptor_t asn_DEF_value_76 = {
 	&asn_SPC_value_specs_76	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICcontrolRequest_IEs_73[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs, id),
+asn_TYPE_member_t asn_MBR_RICcontrolRequestVone_IEs_73[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_74,  memb_id_constraint_73 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICcontrolRequest_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICcontrolRequestVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_75,  memb_criticality_constraint_73 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequest_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICcontrolRequestVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_76,
-		select_RICcontrolRequest_IEs_value_type,
+		select_RICcontrolRequestVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_76,  memb_value_constraint_73 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICcontrolRequest_IEs_tags_73[] = {
+static const ber_tlv_tag_t asn_DEF_RICcontrolRequestVone_IEs_tags_73[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICcontrolRequest_IEs_tag2el_73[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICcontrolRequestVone_IEs_tag2el_73[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICcontrolRequest_IEs_specs_73 = {
-	sizeof(struct RICcontrolRequest_IEs),
-	offsetof(struct RICcontrolRequest_IEs, _asn_ctx),
-	asn_MAP_RICcontrolRequest_IEs_tag2el_73,
+asn_SEQUENCE_specifics_t asn_SPC_RICcontrolRequestVone_IEs_specs_73 = {
+	sizeof(struct RICcontrolRequestVone_IEs),
+	offsetof(struct RICcontrolRequestVone_IEs, _asn_ctx),
+	asn_MAP_RICcontrolRequestVone_IEs_tag2el_73,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICcontrolRequest_IEs = {
-	"RICcontrolRequest-IEs",
-	"RICcontrolRequest-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICcontrolRequestVone_IEs = {
+	"RICcontrolRequestVone-IEs",
+	"RICcontrolRequestVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICcontrolRequest_IEs_tags_73,
-	sizeof(asn_DEF_RICcontrolRequest_IEs_tags_73)
-		/sizeof(asn_DEF_RICcontrolRequest_IEs_tags_73[0]), /* 1 */
-	asn_DEF_RICcontrolRequest_IEs_tags_73,	/* Same as above */
-	sizeof(asn_DEF_RICcontrolRequest_IEs_tags_73)
-		/sizeof(asn_DEF_RICcontrolRequest_IEs_tags_73[0]), /* 1 */
+	asn_DEF_RICcontrolRequestVone_IEs_tags_73,
+	sizeof(asn_DEF_RICcontrolRequestVone_IEs_tags_73)
+		/sizeof(asn_DEF_RICcontrolRequestVone_IEs_tags_73[0]), /* 1 */
+	asn_DEF_RICcontrolRequestVone_IEs_tags_73,	/* Same as above */
+	sizeof(asn_DEF_RICcontrolRequestVone_IEs_tags_73)
+		/sizeof(asn_DEF_RICcontrolRequestVone_IEs_tags_73[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICcontrolRequest_IEs_73,
+	asn_MBR_RICcontrolRequestVone_IEs_73,
 	3,	/* Elements count */
-	&asn_SPC_RICcontrolRequest_IEs_specs_73	/* Additional specs */
+	&asn_SPC_RICcontrolRequestVone_IEs_specs_73	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_80[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledge_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledgeVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledge_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledgeVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledge_IEs__value, choice.RICcallProcessID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledgeVone_IEs__value, choice.RICcallProcessIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICcallProcessID,
+		&asn_DEF_RICcallProcessIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcallProcessID"
+		"RICcallProcessIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledge_IEs__value, choice.RICcontrolStatus),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledgeVone_IEs__value, choice.RICcontrolStatusVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (10 << 2)),
 		0,
-		&asn_DEF_RICcontrolStatus,
+		&asn_DEF_RICcontrolStatusVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcontrolStatus"
+		"RICcontrolStatusVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledge_IEs__value, choice.RICcontrolOutcome),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledgeVone_IEs__value, choice.RICcontrolOutcomeVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICcontrolOutcome,
+		&asn_DEF_RICcontrolOutcomeVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcontrolOutcome"
+		"RICcontrolOutcomeVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_80[] = { 1, 2, 4, 3, 0 };
 static const unsigned asn_MAP_value_from_canonical_80[] = { 4, 0, 1, 3, 2 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_80[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 2, 0, 1 }, /* RICcallProcessID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 4, -1, 0 }, /* RICcontrolOutcome */
-    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 3, 0, 0 }, /* RICcontrolStatus */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestID */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 2, 0, 1 }, /* RICcallProcessIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 4, -1, 0 }, /* RICcontrolOutcomeVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 3, 0, 0 }, /* RICcontrolStatusVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RICrequestIDVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_80 = {
-	sizeof(struct RICcontrolAcknowledge_IEs__value),
-	offsetof(struct RICcontrolAcknowledge_IEs__value, _asn_ctx),
-	offsetof(struct RICcontrolAcknowledge_IEs__value, present),
-	sizeof(((struct RICcontrolAcknowledge_IEs__value *)0)->present),
+	sizeof(struct RICcontrolAcknowledgeVone_IEs__value),
+	offsetof(struct RICcontrolAcknowledgeVone_IEs__value, _asn_ctx),
+	offsetof(struct RICcontrolAcknowledgeVone_IEs__value, present),
+	sizeof(((struct RICcontrolAcknowledgeVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_80,
 	5,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_80,
@@ -7999,121 +7999,121 @@ asn_TYPE_descriptor_t asn_DEF_value_80 = {
 	&asn_SPC_value_specs_80	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICcontrolAcknowledge_IEs_77[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledge_IEs, id),
+asn_TYPE_member_t asn_MBR_RICcontrolAcknowledgeVone_IEs_77[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledgeVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_78,  memb_id_constraint_77 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledge_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledgeVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICcontrolAcknowledge_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICcontrolAcknowledgeVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_79,  memb_criticality_constraint_77 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledge_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICcontrolAcknowledgeVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_80,
-		select_RICcontrolAcknowledge_IEs_value_type,
+		select_RICcontrolAcknowledgeVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_80,  memb_value_constraint_77 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICcontrolAcknowledge_IEs_tags_77[] = {
+static const ber_tlv_tag_t asn_DEF_RICcontrolAcknowledgeVone_IEs_tags_77[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICcontrolAcknowledge_IEs_tag2el_77[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICcontrolAcknowledgeVone_IEs_tag2el_77[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICcontrolAcknowledge_IEs_specs_77 = {
-	sizeof(struct RICcontrolAcknowledge_IEs),
-	offsetof(struct RICcontrolAcknowledge_IEs, _asn_ctx),
-	asn_MAP_RICcontrolAcknowledge_IEs_tag2el_77,
+asn_SEQUENCE_specifics_t asn_SPC_RICcontrolAcknowledgeVone_IEs_specs_77 = {
+	sizeof(struct RICcontrolAcknowledgeVone_IEs),
+	offsetof(struct RICcontrolAcknowledgeVone_IEs, _asn_ctx),
+	asn_MAP_RICcontrolAcknowledgeVone_IEs_tag2el_77,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICcontrolAcknowledge_IEs = {
-	"RICcontrolAcknowledge-IEs",
-	"RICcontrolAcknowledge-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICcontrolAcknowledgeVone_IEs = {
+	"RICcontrolAcknowledgeVone-IEs",
+	"RICcontrolAcknowledgeVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICcontrolAcknowledge_IEs_tags_77,
-	sizeof(asn_DEF_RICcontrolAcknowledge_IEs_tags_77)
-		/sizeof(asn_DEF_RICcontrolAcknowledge_IEs_tags_77[0]), /* 1 */
-	asn_DEF_RICcontrolAcknowledge_IEs_tags_77,	/* Same as above */
-	sizeof(asn_DEF_RICcontrolAcknowledge_IEs_tags_77)
-		/sizeof(asn_DEF_RICcontrolAcknowledge_IEs_tags_77[0]), /* 1 */
+	asn_DEF_RICcontrolAcknowledgeVone_IEs_tags_77,
+	sizeof(asn_DEF_RICcontrolAcknowledgeVone_IEs_tags_77)
+		/sizeof(asn_DEF_RICcontrolAcknowledgeVone_IEs_tags_77[0]), /* 1 */
+	asn_DEF_RICcontrolAcknowledgeVone_IEs_tags_77,	/* Same as above */
+	sizeof(asn_DEF_RICcontrolAcknowledgeVone_IEs_tags_77)
+		/sizeof(asn_DEF_RICcontrolAcknowledgeVone_IEs_tags_77[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICcontrolAcknowledge_IEs_77,
+	asn_MBR_RICcontrolAcknowledgeVone_IEs_77,
 	3,	/* Elements count */
-	&asn_SPC_RICcontrolAcknowledge_IEs_specs_77	/* Additional specs */
+	&asn_SPC_RICcontrolAcknowledgeVone_IEs_specs_77	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_84[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailure_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailureVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailure_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailureVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailure_IEs__value, choice.RICcallProcessID),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailureVone_IEs__value, choice.RICcallProcessIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICcallProcessID,
+		&asn_DEF_RICcallProcessIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcallProcessID"
+		"RICcallProcessIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailure_IEs__value, choice.Cause),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailureVone_IEs__value, choice.CauseVone),
 		-1 /* Ambiguous tag (CHOICE?) */,
 		0,
-		&asn_DEF_Cause,
+		&asn_DEF_CauseVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"Cause"
+		"CauseVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailure_IEs__value, choice.RICcontrolOutcome),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailureVone_IEs__value, choice.RICcontrolOutcomeVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (4 << 2)),
 		0,
-		&asn_DEF_RICcontrolOutcome,
+		&asn_DEF_RICcontrolOutcomeVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICcontrolOutcome"
+		"RICcontrolOutcomeVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_84[] = { 1, 2, 4, 0, 3 };
 static const unsigned asn_MAP_value_from_canonical_84[] = { 3, 0, 1, 4, 2 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_84[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 2, 0, 1 }, /* RICcallProcessID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 4, -1, 0 }, /* RICcontrolOutcome */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 }, /* RICrequestID */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 2, 0, 1 }, /* RICcallProcessIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (4 << 2)), 4, -1, 0 }, /* RICcontrolOutcomeVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 }, /* RICrequestIDVone */
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 3, 0, 0 }, /* ricRequest */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 3, 0, 0 }, /* ricService */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 3, 0, 0 }, /* transport */
@@ -8121,10 +8121,10 @@ static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_84[] = {
     { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 3, 0, 0 } /* misc */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_84 = {
-	sizeof(struct RICcontrolFailure_IEs__value),
-	offsetof(struct RICcontrolFailure_IEs__value, _asn_ctx),
-	offsetof(struct RICcontrolFailure_IEs__value, present),
-	sizeof(((struct RICcontrolFailure_IEs__value *)0)->present),
+	sizeof(struct RICcontrolFailureVone_IEs__value),
+	offsetof(struct RICcontrolFailureVone_IEs__value, _asn_ctx),
+	offsetof(struct RICcontrolFailureVone_IEs__value, present),
+	sizeof(((struct RICcontrolFailureVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_84,
 	9,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_84,
@@ -8146,111 +8146,111 @@ asn_TYPE_descriptor_t asn_DEF_value_84 = {
 	&asn_SPC_value_specs_84	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICcontrolFailure_IEs_81[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailure_IEs, id),
+asn_TYPE_member_t asn_MBR_RICcontrolFailureVone_IEs_81[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailureVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_82,  memb_id_constraint_81 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailure_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailureVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICcontrolFailure_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICcontrolFailureVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_83,  memb_criticality_constraint_81 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailure_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICcontrolFailureVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_84,
-		select_RICcontrolFailure_IEs_value_type,
+		select_RICcontrolFailureVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_84,  memb_value_constraint_81 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICcontrolFailure_IEs_tags_81[] = {
+static const ber_tlv_tag_t asn_DEF_RICcontrolFailureVone_IEs_tags_81[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICcontrolFailure_IEs_tag2el_81[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICcontrolFailureVone_IEs_tag2el_81[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICcontrolFailure_IEs_specs_81 = {
-	sizeof(struct RICcontrolFailure_IEs),
-	offsetof(struct RICcontrolFailure_IEs, _asn_ctx),
-	asn_MAP_RICcontrolFailure_IEs_tag2el_81,
+asn_SEQUENCE_specifics_t asn_SPC_RICcontrolFailureVone_IEs_specs_81 = {
+	sizeof(struct RICcontrolFailureVone_IEs),
+	offsetof(struct RICcontrolFailureVone_IEs, _asn_ctx),
+	asn_MAP_RICcontrolFailureVone_IEs_tag2el_81,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICcontrolFailure_IEs = {
-	"RICcontrolFailure-IEs",
-	"RICcontrolFailure-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICcontrolFailureVone_IEs = {
+	"RICcontrolFailureVone-IEs",
+	"RICcontrolFailureVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICcontrolFailure_IEs_tags_81,
-	sizeof(asn_DEF_RICcontrolFailure_IEs_tags_81)
-		/sizeof(asn_DEF_RICcontrolFailure_IEs_tags_81[0]), /* 1 */
-	asn_DEF_RICcontrolFailure_IEs_tags_81,	/* Same as above */
-	sizeof(asn_DEF_RICcontrolFailure_IEs_tags_81)
-		/sizeof(asn_DEF_RICcontrolFailure_IEs_tags_81[0]), /* 1 */
+	asn_DEF_RICcontrolFailureVone_IEs_tags_81,
+	sizeof(asn_DEF_RICcontrolFailureVone_IEs_tags_81)
+		/sizeof(asn_DEF_RICcontrolFailureVone_IEs_tags_81[0]), /* 1 */
+	asn_DEF_RICcontrolFailureVone_IEs_tags_81,	/* Same as above */
+	sizeof(asn_DEF_RICcontrolFailureVone_IEs_tags_81)
+		/sizeof(asn_DEF_RICcontrolFailureVone_IEs_tags_81[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICcontrolFailure_IEs_81,
+	asn_MBR_RICcontrolFailureVone_IEs_81,
 	3,	/* Elements count */
-	&asn_SPC_RICcontrolFailure_IEs_specs_81	/* Additional specs */
+	&asn_SPC_RICcontrolFailureVone_IEs_specs_81	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_88[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndication_IEs__value, choice.RICrequestID),
+	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndicationVone_IEs__value, choice.RICrequestIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RICrequestID,
+		&asn_DEF_RICrequestIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RICrequestID"
+		"RICrequestIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndication_IEs__value, choice.RANfunctionID),
+	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndicationVone_IEs__value, choice.RANfunctionIDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (2 << 2)),
 		0,
-		&asn_DEF_RANfunctionID,
+		&asn_DEF_RANfunctionIDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionID"
+		"RANfunctionIDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndication_IEs__value, choice.Cause),
+	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndicationVone_IEs__value, choice.CauseVone),
 		-1 /* Ambiguous tag (CHOICE?) */,
 		0,
-		&asn_DEF_Cause,
+		&asn_DEF_CauseVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"Cause"
+		"CauseVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndication_IEs__value, choice.CriticalityDiagnostics),
+	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndicationVone_IEs__value, choice.CriticalityDiagnosticsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_CriticalityDiagnostics,
+		&asn_DEF_CriticalityDiagnosticsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"CriticalityDiagnostics"
+		"CriticalityDiagnosticsVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_88[] = { 1, 0, 3, 2 };
 static const unsigned asn_MAP_value_from_canonical_88[] = { 1, 0, 3, 2 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_88[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RICrequestID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -1, 0 }, /* CriticalityDiagnostics */
+    { (ASN_TAG_CLASS_UNIVERSAL | (2 << 2)), 1, 0, 0 }, /* RANfunctionIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RICrequestIDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -1, 0 }, /* CriticalityDiagnosticsVone */
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 2, 0, 0 }, /* ricRequest */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 2, 0, 0 }, /* ricService */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 }, /* transport */
@@ -8258,10 +8258,10 @@ static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_88[] = {
     { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 2, 0, 0 } /* misc */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_88 = {
-	sizeof(struct ErrorIndication_IEs__value),
-	offsetof(struct ErrorIndication_IEs__value, _asn_ctx),
-	offsetof(struct ErrorIndication_IEs__value, present),
-	sizeof(((struct ErrorIndication_IEs__value *)0)->present),
+	sizeof(struct ErrorIndicationVone_IEs__value),
+	offsetof(struct ErrorIndicationVone_IEs__value, _asn_ctx),
+	offsetof(struct ErrorIndicationVone_IEs__value, present),
+	sizeof(((struct ErrorIndicationVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_88,
 	8,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_88,
@@ -8283,111 +8283,111 @@ asn_TYPE_descriptor_t asn_DEF_value_88 = {
 	&asn_SPC_value_specs_88	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_ErrorIndication_IEs_85[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndication_IEs, id),
+asn_TYPE_member_t asn_MBR_ErrorIndicationVone_IEs_85[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndicationVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_86,  memb_id_constraint_85 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndication_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct ErrorIndicationVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_ErrorIndication_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_ErrorIndicationVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_87,  memb_criticality_constraint_85 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct ErrorIndication_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct ErrorIndicationVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_88,
-		select_ErrorIndication_IEs_value_type,
+		select_ErrorIndicationVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_88,  memb_value_constraint_85 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_ErrorIndication_IEs_tags_85[] = {
+static const ber_tlv_tag_t asn_DEF_ErrorIndicationVone_IEs_tags_85[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_ErrorIndication_IEs_tag2el_85[] = {
+static const asn_TYPE_tag2member_t asn_MAP_ErrorIndicationVone_IEs_tag2el_85[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_ErrorIndication_IEs_specs_85 = {
-	sizeof(struct ErrorIndication_IEs),
-	offsetof(struct ErrorIndication_IEs, _asn_ctx),
-	asn_MAP_ErrorIndication_IEs_tag2el_85,
+asn_SEQUENCE_specifics_t asn_SPC_ErrorIndicationVone_IEs_specs_85 = {
+	sizeof(struct ErrorIndicationVone_IEs),
+	offsetof(struct ErrorIndicationVone_IEs, _asn_ctx),
+	asn_MAP_ErrorIndicationVone_IEs_tag2el_85,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_ErrorIndication_IEs = {
-	"ErrorIndication-IEs",
-	"ErrorIndication-IEs",
+asn_TYPE_descriptor_t asn_DEF_ErrorIndicationVone_IEs = {
+	"ErrorIndicationVone-IEs",
+	"ErrorIndicationVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_ErrorIndication_IEs_tags_85,
-	sizeof(asn_DEF_ErrorIndication_IEs_tags_85)
-		/sizeof(asn_DEF_ErrorIndication_IEs_tags_85[0]), /* 1 */
-	asn_DEF_ErrorIndication_IEs_tags_85,	/* Same as above */
-	sizeof(asn_DEF_ErrorIndication_IEs_tags_85)
-		/sizeof(asn_DEF_ErrorIndication_IEs_tags_85[0]), /* 1 */
+	asn_DEF_ErrorIndicationVone_IEs_tags_85,
+	sizeof(asn_DEF_ErrorIndicationVone_IEs_tags_85)
+		/sizeof(asn_DEF_ErrorIndicationVone_IEs_tags_85[0]), /* 1 */
+	asn_DEF_ErrorIndicationVone_IEs_tags_85,	/* Same as above */
+	sizeof(asn_DEF_ErrorIndicationVone_IEs_tags_85)
+		/sizeof(asn_DEF_ErrorIndicationVone_IEs_tags_85[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_ErrorIndication_IEs_85,
+	asn_MBR_ErrorIndicationVone_IEs_85,
 	3,	/* Elements count */
-	&asn_SPC_ErrorIndication_IEs_specs_85	/* Additional specs */
+	&asn_SPC_ErrorIndicationVone_IEs_specs_85	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_92[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEs__value, choice.GlobalE2node_ID),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEsVone__value, choice.GlobalE2node_IDVone),
 		-1 /* Ambiguous tag (CHOICE?) */,
 		0,
-		&asn_DEF_GlobalE2node_ID,
+		&asn_DEF_GlobalE2node_IDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"GlobalE2node-ID"
+		"GlobalE2node-IDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEs__value, choice.RANfunctions_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEsVone__value, choice.RANfunctions_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctions_List,
+		&asn_DEF_RANfunctions_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctions-List"
+		"RANfunctions-List-Vone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEs__value, choice.E2nodeComponentConfigUpdate_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEsVone__value, choice.E2nodeComponentConfigUpdateVone_List),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeComponentConfigUpdate_List,
+		&asn_DEF_E2nodeComponentConfigUpdateVone_List,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2nodeComponentConfigUpdate-List"
+		"E2nodeComponentConfigUpdateVone-List"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_92[] = { 1, 2, 0 };
 static const unsigned asn_MAP_value_from_canonical_92[] = { 2, 0, 1 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_92[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, 0, 1 }, /* RANfunctions-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 0 }, /* E2nodeComponentConfigUpdate-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, 0, 1 }, /* RANfunctions-List-Vone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 0 }, /* E2nodeComponentConfigUpdateVone-List */
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* gNB */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 0, 0, 0 }, /* en-gNB */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 0, 0, 0 }, /* ng-eNB */
     { (ASN_TAG_CLASS_CONTEXT | (3 << 2)), 0, 0, 0 } /* eNB */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_92 = {
-	sizeof(struct E2setupRequestIEs__value),
-	offsetof(struct E2setupRequestIEs__value, _asn_ctx),
-	offsetof(struct E2setupRequestIEs__value, present),
-	sizeof(((struct E2setupRequestIEs__value *)0)->present),
+	sizeof(struct E2setupRequestIEsVone__value),
+	offsetof(struct E2setupRequestIEsVone__value, _asn_ctx),
+	offsetof(struct E2setupRequestIEsVone__value, present),
+	sizeof(((struct E2setupRequestIEsVone__value *)0)->present),
 	asn_MAP_value_tag2el_92,
 	6,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_92,
@@ -8409,116 +8409,116 @@ asn_TYPE_descriptor_t asn_DEF_value_92 = {
 	&asn_SPC_value_specs_92	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2setupRequestIEs_89[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEs, id),
+asn_TYPE_member_t asn_MBR_E2setupRequestIEsVone_89[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEsVone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_90,  memb_id_constraint_89 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEsVone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2setupRequestIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2setupRequestIEsVone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_91,  memb_criticality_constraint_89 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2setupRequestIEsVone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_92,
-		select_E2setupRequestIEs_value_type,
+		select_E2setupRequestIEsVone_value_type,
 		{ 0, &asn_PER_memb_value_constr_92,  memb_value_constraint_89 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2setupRequestIEs_tags_89[] = {
+static const ber_tlv_tag_t asn_DEF_E2setupRequestIEsVone_tags_89[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2setupRequestIEs_tag2el_89[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2setupRequestIEsVone_tag2el_89[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2setupRequestIEs_specs_89 = {
-	sizeof(struct E2setupRequestIEs),
-	offsetof(struct E2setupRequestIEs, _asn_ctx),
-	asn_MAP_E2setupRequestIEs_tag2el_89,
+asn_SEQUENCE_specifics_t asn_SPC_E2setupRequestIEsVone_specs_89 = {
+	sizeof(struct E2setupRequestIEsVone),
+	offsetof(struct E2setupRequestIEsVone, _asn_ctx),
+	asn_MAP_E2setupRequestIEsVone_tag2el_89,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2setupRequestIEs = {
-	"E2setupRequestIEs",
-	"E2setupRequestIEs",
+asn_TYPE_descriptor_t asn_DEF_E2setupRequestIEsVone = {
+	"E2setupRequestIEsVone",
+	"E2setupRequestIEsVone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2setupRequestIEs_tags_89,
-	sizeof(asn_DEF_E2setupRequestIEs_tags_89)
-		/sizeof(asn_DEF_E2setupRequestIEs_tags_89[0]), /* 1 */
-	asn_DEF_E2setupRequestIEs_tags_89,	/* Same as above */
-	sizeof(asn_DEF_E2setupRequestIEs_tags_89)
-		/sizeof(asn_DEF_E2setupRequestIEs_tags_89[0]), /* 1 */
+	asn_DEF_E2setupRequestIEsVone_tags_89,
+	sizeof(asn_DEF_E2setupRequestIEsVone_tags_89)
+		/sizeof(asn_DEF_E2setupRequestIEsVone_tags_89[0]), /* 1 */
+	asn_DEF_E2setupRequestIEsVone_tags_89,	/* Same as above */
+	sizeof(asn_DEF_E2setupRequestIEsVone_tags_89)
+		/sizeof(asn_DEF_E2setupRequestIEsVone_tags_89[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2setupRequestIEs_89,
+	asn_MBR_E2setupRequestIEsVone_89,
 	3,	/* Elements count */
-	&asn_SPC_E2setupRequestIEs_specs_89	/* Additional specs */
+	&asn_SPC_E2setupRequestIEsVone_specs_89	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_96[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEs__value, choice.GlobalRIC_ID),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEsVone__value, choice.GlobalRIC_IDVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_GlobalRIC_ID,
+		&asn_DEF_GlobalRIC_IDVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"GlobalRIC-ID"
+		"GlobalRIC-IDVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEs__value, choice.RANfunctionsID_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEsVone__value, choice.RANfunctionsID_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionsID_List,
+		&asn_DEF_RANfunctionsID_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionsID-List"
+		"RANfunctionsID-List-Vone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEs__value, choice.RANfunctionsIDcause_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEsVone__value, choice.RANfunctionsIDcause_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionsIDcause_List,
+		&asn_DEF_RANfunctionsIDcause_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionsIDcause-List"
+		"RANfunctionsIDcause-List-Vone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEs__value, choice.E2nodeComponentConfigUpdateAck_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEsVone__value, choice.E2nodeComponentConfigUpdateAckVone_List),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeComponentConfigUpdateAck_List,
+		&asn_DEF_E2nodeComponentConfigUpdateAckVone_List,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2nodeComponentConfigUpdateAck-List"
+		"E2nodeComponentConfigUpdateAckVone-List"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_96[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 3 }, /* GlobalRIC-ID */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 2 }, /* RANfunctionsID-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -2, 1 }, /* RANfunctionsIDcause-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -3, 0 } /* E2nodeComponentConfigUpdateAck-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 3 }, /* GlobalRIC-IDVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 2 }, /* RANfunctionsID-List-Vone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -2, 1 }, /* RANfunctionsIDcause-List-Vone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -3, 0 } /* E2nodeComponentConfigUpdateAckVone-List */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_96 = {
-	sizeof(struct E2setupResponseIEs__value),
-	offsetof(struct E2setupResponseIEs__value, _asn_ctx),
-	offsetof(struct E2setupResponseIEs__value, present),
-	sizeof(((struct E2setupResponseIEs__value *)0)->present),
+	sizeof(struct E2setupResponseIEsVone__value),
+	offsetof(struct E2setupResponseIEsVone__value, _asn_ctx),
+	offsetof(struct E2setupResponseIEsVone__value, present),
+	sizeof(((struct E2setupResponseIEsVone__value *)0)->present),
 	asn_MAP_value_tag2el_96,
 	4,	/* Count of tags in the map */
 	0, 0,
@@ -8539,111 +8539,111 @@ asn_TYPE_descriptor_t asn_DEF_value_96 = {
 	&asn_SPC_value_specs_96	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2setupResponseIEs_93[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEs, id),
+asn_TYPE_member_t asn_MBR_E2setupResponseIEsVone_93[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEsVone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_94,  memb_id_constraint_93 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEsVone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2setupResponseIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2setupResponseIEsVone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_95,  memb_criticality_constraint_93 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2setupResponseIEsVone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_96,
-		select_E2setupResponseIEs_value_type,
+		select_E2setupResponseIEsVone_value_type,
 		{ 0, &asn_PER_memb_value_constr_96,  memb_value_constraint_93 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2setupResponseIEs_tags_93[] = {
+static const ber_tlv_tag_t asn_DEF_E2setupResponseIEsVone_tags_93[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2setupResponseIEs_tag2el_93[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2setupResponseIEsVone_tag2el_93[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2setupResponseIEs_specs_93 = {
-	sizeof(struct E2setupResponseIEs),
-	offsetof(struct E2setupResponseIEs, _asn_ctx),
-	asn_MAP_E2setupResponseIEs_tag2el_93,
+asn_SEQUENCE_specifics_t asn_SPC_E2setupResponseIEsVone_specs_93 = {
+	sizeof(struct E2setupResponseIEsVone),
+	offsetof(struct E2setupResponseIEsVone, _asn_ctx),
+	asn_MAP_E2setupResponseIEsVone_tag2el_93,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2setupResponseIEs = {
-	"E2setupResponseIEs",
-	"E2setupResponseIEs",
+asn_TYPE_descriptor_t asn_DEF_E2setupResponseIEsVone = {
+	"E2setupResponseIEsVone",
+	"E2setupResponseIEsVone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2setupResponseIEs_tags_93,
-	sizeof(asn_DEF_E2setupResponseIEs_tags_93)
-		/sizeof(asn_DEF_E2setupResponseIEs_tags_93[0]), /* 1 */
-	asn_DEF_E2setupResponseIEs_tags_93,	/* Same as above */
-	sizeof(asn_DEF_E2setupResponseIEs_tags_93)
-		/sizeof(asn_DEF_E2setupResponseIEs_tags_93[0]), /* 1 */
+	asn_DEF_E2setupResponseIEsVone_tags_93,
+	sizeof(asn_DEF_E2setupResponseIEsVone_tags_93)
+		/sizeof(asn_DEF_E2setupResponseIEsVone_tags_93[0]), /* 1 */
+	asn_DEF_E2setupResponseIEsVone_tags_93,	/* Same as above */
+	sizeof(asn_DEF_E2setupResponseIEsVone_tags_93)
+		/sizeof(asn_DEF_E2setupResponseIEsVone_tags_93[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2setupResponseIEs_93,
+	asn_MBR_E2setupResponseIEsVone_93,
 	3,	/* Elements count */
-	&asn_SPC_E2setupResponseIEs_specs_93	/* Additional specs */
+	&asn_SPC_E2setupResponseIEsVone_specs_93	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_100[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEs__value, choice.Cause),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEsVone__value, choice.CauseVone),
 		-1 /* Ambiguous tag (CHOICE?) */,
 		0,
-		&asn_DEF_Cause,
+		&asn_DEF_CauseVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"Cause"
+		"CauseVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEs__value, choice.TimeToWait),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEsVone__value, choice.TimeToWaitVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (10 << 2)),
 		0,
-		&asn_DEF_TimeToWait,
+		&asn_DEF_TimeToWaitVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"TimeToWait"
+		"TimeToWaitVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEs__value, choice.CriticalityDiagnostics),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEsVone__value, choice.CriticalityDiagnosticsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_CriticalityDiagnostics,
+		&asn_DEF_CriticalityDiagnosticsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"CriticalityDiagnostics"
+		"CriticalityDiagnosticsVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEs__value, choice.TNLinformation),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEsVone__value, choice.TNLinformationVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_TNLinformation,
+		&asn_DEF_TNLinformationVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"TNLinformation"
+		"TNLinformationVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_100[] = { 1, 2, 3, 0 };
 static const unsigned asn_MAP_value_from_canonical_100[] = { 3, 0, 1, 2 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_100[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 1, 0, 0 }, /* TimeToWait */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, 0, 1 }, /* CriticalityDiagnostics */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -1, 0 }, /* TNLinformation */
+    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 1, 0, 0 }, /* TimeToWaitVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, 0, 1 }, /* CriticalityDiagnosticsVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 3, -1, 0 }, /* TNLinformationVone */
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* ricRequest */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 0, 0, 0 }, /* ricService */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 0, 0, 0 }, /* transport */
@@ -8651,10 +8651,10 @@ static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_100[] = {
     { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 0, 0, 0 } /* misc */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_100 = {
-	sizeof(struct E2setupFailureIEs__value),
-	offsetof(struct E2setupFailureIEs__value, _asn_ctx),
-	offsetof(struct E2setupFailureIEs__value, present),
-	sizeof(((struct E2setupFailureIEs__value *)0)->present),
+	sizeof(struct E2setupFailureIEsVone__value),
+	offsetof(struct E2setupFailureIEsVone__value, _asn_ctx),
+	offsetof(struct E2setupFailureIEsVone__value, present),
+	sizeof(((struct E2setupFailureIEsVone__value *)0)->present),
 	asn_MAP_value_tag2el_100,
 	8,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_100,
@@ -8676,96 +8676,96 @@ asn_TYPE_descriptor_t asn_DEF_value_100 = {
 	&asn_SPC_value_specs_100	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2setupFailureIEs_97[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEs, id),
+asn_TYPE_member_t asn_MBR_E2setupFailureIEsVone_97[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEsVone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_98,  memb_id_constraint_97 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEsVone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2setupFailureIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2setupFailureIEsVone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_99,  memb_criticality_constraint_97 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2setupFailureIEsVone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_100,
-		select_E2setupFailureIEs_value_type,
+		select_E2setupFailureIEsVone_value_type,
 		{ 0, &asn_PER_memb_value_constr_100,  memb_value_constraint_97 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2setupFailureIEs_tags_97[] = {
+static const ber_tlv_tag_t asn_DEF_E2setupFailureIEsVone_tags_97[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2setupFailureIEs_tag2el_97[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2setupFailureIEsVone_tag2el_97[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2setupFailureIEs_specs_97 = {
-	sizeof(struct E2setupFailureIEs),
-	offsetof(struct E2setupFailureIEs, _asn_ctx),
-	asn_MAP_E2setupFailureIEs_tag2el_97,
+asn_SEQUENCE_specifics_t asn_SPC_E2setupFailureIEsVone_specs_97 = {
+	sizeof(struct E2setupFailureIEsVone),
+	offsetof(struct E2setupFailureIEsVone, _asn_ctx),
+	asn_MAP_E2setupFailureIEsVone_tag2el_97,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2setupFailureIEs = {
-	"E2setupFailureIEs",
-	"E2setupFailureIEs",
+asn_TYPE_descriptor_t asn_DEF_E2setupFailureIEsVone = {
+	"E2setupFailureIEsVone",
+	"E2setupFailureIEsVone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2setupFailureIEs_tags_97,
-	sizeof(asn_DEF_E2setupFailureIEs_tags_97)
-		/sizeof(asn_DEF_E2setupFailureIEs_tags_97[0]), /* 1 */
-	asn_DEF_E2setupFailureIEs_tags_97,	/* Same as above */
-	sizeof(asn_DEF_E2setupFailureIEs_tags_97)
-		/sizeof(asn_DEF_E2setupFailureIEs_tags_97[0]), /* 1 */
+	asn_DEF_E2setupFailureIEsVone_tags_97,
+	sizeof(asn_DEF_E2setupFailureIEsVone_tags_97)
+		/sizeof(asn_DEF_E2setupFailureIEsVone_tags_97[0]), /* 1 */
+	asn_DEF_E2setupFailureIEsVone_tags_97,	/* Same as above */
+	sizeof(asn_DEF_E2setupFailureIEsVone_tags_97)
+		/sizeof(asn_DEF_E2setupFailureIEsVone_tags_97[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2setupFailureIEs_97,
+	asn_MBR_E2setupFailureIEsVone_97,
 	3,	/* Elements count */
-	&asn_SPC_E2setupFailureIEs_specs_97	/* Additional specs */
+	&asn_SPC_E2setupFailureIEsVone_specs_97	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_104[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_IEs__value, choice.E2connectionUpdate_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_IEs__value, choice.E2connectionUpdateVone_List),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionUpdate_List,
+		&asn_DEF_E2connectionUpdateVone_List,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2connectionUpdate-List"
+		"E2connectionUpdateVone-List"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_IEs__value, choice.E2connectionUpdateRemove_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_IEs__value, choice.E2connectionUpdateRemoveVone_List),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionUpdateRemove_List,
+		&asn_DEF_E2connectionUpdateRemoveVone_List,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2connectionUpdateRemove-List"
+		"E2connectionUpdateRemoveVone-List"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_104[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* E2connectionUpdate-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 0 } /* E2connectionUpdateRemove-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* E2connectionUpdateVone-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 0 } /* E2connectionUpdateRemoveVone-List */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_104 = {
-	sizeof(struct E2connectionUpdate_IEs__value),
-	offsetof(struct E2connectionUpdate_IEs__value, _asn_ctx),
-	offsetof(struct E2connectionUpdate_IEs__value, present),
-	sizeof(((struct E2connectionUpdate_IEs__value *)0)->present),
+	sizeof(struct E2connectionUpdateVone_IEs__value),
+	offsetof(struct E2connectionUpdateVone_IEs__value, _asn_ctx),
+	offsetof(struct E2connectionUpdateVone_IEs__value, present),
+	sizeof(((struct E2connectionUpdateVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_104,
 	2,	/* Count of tags in the map */
 	0, 0,
@@ -8786,96 +8786,96 @@ asn_TYPE_descriptor_t asn_DEF_value_104 = {
 	&asn_SPC_value_specs_104	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2connectionUpdate_IEs_101[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_IEs, id),
+asn_TYPE_member_t asn_MBR_E2connectionUpdateVone_IEs_101[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_102,  memb_id_constraint_101 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2connectionUpdate_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2connectionUpdateVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_103,  memb_criticality_constraint_101 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdate_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_104,
-		select_E2connectionUpdate_IEs_value_type,
+		select_E2connectionUpdateVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_104,  memb_value_constraint_101 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2connectionUpdate_IEs_tags_101[] = {
+static const ber_tlv_tag_t asn_DEF_E2connectionUpdateVone_IEs_tags_101[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdate_IEs_tag2el_101[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdateVone_IEs_tag2el_101[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdate_IEs_specs_101 = {
-	sizeof(struct E2connectionUpdate_IEs),
-	offsetof(struct E2connectionUpdate_IEs, _asn_ctx),
-	asn_MAP_E2connectionUpdate_IEs_tag2el_101,
+asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateVone_IEs_specs_101 = {
+	sizeof(struct E2connectionUpdateVone_IEs),
+	offsetof(struct E2connectionUpdateVone_IEs, _asn_ctx),
+	asn_MAP_E2connectionUpdateVone_IEs_tag2el_101,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2connectionUpdate_IEs = {
-	"E2connectionUpdate-IEs",
-	"E2connectionUpdate-IEs",
+asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateVone_IEs = {
+	"E2connectionUpdateVone-IEs",
+	"E2connectionUpdateVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2connectionUpdate_IEs_tags_101,
-	sizeof(asn_DEF_E2connectionUpdate_IEs_tags_101)
-		/sizeof(asn_DEF_E2connectionUpdate_IEs_tags_101[0]), /* 1 */
-	asn_DEF_E2connectionUpdate_IEs_tags_101,	/* Same as above */
-	sizeof(asn_DEF_E2connectionUpdate_IEs_tags_101)
-		/sizeof(asn_DEF_E2connectionUpdate_IEs_tags_101[0]), /* 1 */
+	asn_DEF_E2connectionUpdateVone_IEs_tags_101,
+	sizeof(asn_DEF_E2connectionUpdateVone_IEs_tags_101)
+		/sizeof(asn_DEF_E2connectionUpdateVone_IEs_tags_101[0]), /* 1 */
+	asn_DEF_E2connectionUpdateVone_IEs_tags_101,	/* Same as above */
+	sizeof(asn_DEF_E2connectionUpdateVone_IEs_tags_101)
+		/sizeof(asn_DEF_E2connectionUpdateVone_IEs_tags_101[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionUpdate_IEs_101,
+	asn_MBR_E2connectionUpdateVone_IEs_101,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionUpdate_IEs_specs_101	/* Additional specs */
+	&asn_SPC_E2connectionUpdateVone_IEs_specs_101	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_108[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs__value, choice.E2connectionUpdate_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs_Vone__value, choice.E2connectionUpdateVone_List),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionUpdate_List,
+		&asn_DEF_E2connectionUpdateVone_List,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2connectionUpdate-List"
+		"E2connectionUpdateVone-List"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs__value, choice.E2connectionSetupFailed_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs_Vone__value, choice.E2connectionSetupFailedVone_List),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2connectionSetupFailed_List,
+		&asn_DEF_E2connectionSetupFailedVone_List,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2connectionSetupFailed-List"
+		"E2connectionSetupFailedVone-List"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_108[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* E2connectionUpdate-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 0 } /* E2connectionSetupFailed-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* E2connectionUpdateVone-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 0 } /* E2connectionSetupFailedVone-List */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_108 = {
-	sizeof(struct E2connectionUpdateAck_IEs__value),
-	offsetof(struct E2connectionUpdateAck_IEs__value, _asn_ctx),
-	offsetof(struct E2connectionUpdateAck_IEs__value, present),
-	sizeof(((struct E2connectionUpdateAck_IEs__value *)0)->present),
+	sizeof(struct E2connectionUpdateAck_IEs_Vone__value),
+	offsetof(struct E2connectionUpdateAck_IEs_Vone__value, _asn_ctx),
+	offsetof(struct E2connectionUpdateAck_IEs_Vone__value, present),
+	sizeof(((struct E2connectionUpdateAck_IEs_Vone__value *)0)->present),
 	asn_MAP_value_tag2el_108,
 	2,	/* Count of tags in the map */
 	0, 0,
@@ -8896,101 +8896,101 @@ asn_TYPE_descriptor_t asn_DEF_value_108 = {
 	&asn_SPC_value_specs_108	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2connectionUpdateAck_IEs_105[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs, id),
+asn_TYPE_member_t asn_MBR_E2connectionUpdateAck_IEs_Vone_105[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs_Vone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_106,  memb_id_constraint_105 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs_Vone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2connectionUpdateAck_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2connectionUpdateAck_IEs_Vone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_107,  memb_criticality_constraint_105 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateAck_IEs_Vone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_108,
-		select_E2connectionUpdateAck_IEs_value_type,
+		select_E2connectionUpdateAck_IEs_Vone_value_type,
 		{ 0, &asn_PER_memb_value_constr_108,  memb_value_constraint_105 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2connectionUpdateAck_IEs_tags_105[] = {
+static const ber_tlv_tag_t asn_DEF_E2connectionUpdateAck_IEs_Vone_tags_105[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdateAck_IEs_tag2el_105[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdateAck_IEs_Vone_tag2el_105[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateAck_IEs_specs_105 = {
-	sizeof(struct E2connectionUpdateAck_IEs),
-	offsetof(struct E2connectionUpdateAck_IEs, _asn_ctx),
-	asn_MAP_E2connectionUpdateAck_IEs_tag2el_105,
+asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateAck_IEs_Vone_specs_105 = {
+	sizeof(struct E2connectionUpdateAck_IEs_Vone),
+	offsetof(struct E2connectionUpdateAck_IEs_Vone, _asn_ctx),
+	asn_MAP_E2connectionUpdateAck_IEs_Vone_tag2el_105,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateAck_IEs = {
-	"E2connectionUpdateAck-IEs",
-	"E2connectionUpdateAck-IEs",
+asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateAck_IEs_Vone = {
+	"E2connectionUpdateAck-IEs-Vone",
+	"E2connectionUpdateAck-IEs-Vone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2connectionUpdateAck_IEs_tags_105,
-	sizeof(asn_DEF_E2connectionUpdateAck_IEs_tags_105)
-		/sizeof(asn_DEF_E2connectionUpdateAck_IEs_tags_105[0]), /* 1 */
-	asn_DEF_E2connectionUpdateAck_IEs_tags_105,	/* Same as above */
-	sizeof(asn_DEF_E2connectionUpdateAck_IEs_tags_105)
-		/sizeof(asn_DEF_E2connectionUpdateAck_IEs_tags_105[0]), /* 1 */
+	asn_DEF_E2connectionUpdateAck_IEs_Vone_tags_105,
+	sizeof(asn_DEF_E2connectionUpdateAck_IEs_Vone_tags_105)
+		/sizeof(asn_DEF_E2connectionUpdateAck_IEs_Vone_tags_105[0]), /* 1 */
+	asn_DEF_E2connectionUpdateAck_IEs_Vone_tags_105,	/* Same as above */
+	sizeof(asn_DEF_E2connectionUpdateAck_IEs_Vone_tags_105)
+		/sizeof(asn_DEF_E2connectionUpdateAck_IEs_Vone_tags_105[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionUpdateAck_IEs_105,
+	asn_MBR_E2connectionUpdateAck_IEs_Vone_105,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionUpdateAck_IEs_specs_105	/* Additional specs */
+	&asn_SPC_E2connectionUpdateAck_IEs_Vone_specs_105	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_112[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailure_IEs__value, choice.Cause),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailureVone_IEs__value, choice.CauseVone),
 		-1 /* Ambiguous tag (CHOICE?) */,
 		0,
-		&asn_DEF_Cause,
+		&asn_DEF_CauseVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"Cause"
+		"CauseVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailure_IEs__value, choice.TimeToWait),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailureVone_IEs__value, choice.TimeToWaitVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (10 << 2)),
 		0,
-		&asn_DEF_TimeToWait,
+		&asn_DEF_TimeToWaitVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"TimeToWait"
+		"TimeToWaitVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailure_IEs__value, choice.CriticalityDiagnostics),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailureVone_IEs__value, choice.CriticalityDiagnosticsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_CriticalityDiagnostics,
+		&asn_DEF_CriticalityDiagnosticsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"CriticalityDiagnostics"
+		"CriticalityDiagnosticsVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_112[] = { 1, 2, 0 };
 static const unsigned asn_MAP_value_from_canonical_112[] = { 2, 0, 1 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_112[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 1, 0, 0 }, /* TimeToWait */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, 0, 0 }, /* CriticalityDiagnostics */
+    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 1, 0, 0 }, /* TimeToWaitVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, 0, 0 }, /* CriticalityDiagnosticsVone */
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* ricRequest */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 0, 0, 0 }, /* ricService */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 0, 0, 0 }, /* transport */
@@ -8998,10 +8998,10 @@ static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_112[] = {
     { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 0, 0, 0 } /* misc */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_112 = {
-	sizeof(struct E2connectionUpdateFailure_IEs__value),
-	offsetof(struct E2connectionUpdateFailure_IEs__value, _asn_ctx),
-	offsetof(struct E2connectionUpdateFailure_IEs__value, present),
-	sizeof(((struct E2connectionUpdateFailure_IEs__value *)0)->present),
+	sizeof(struct E2connectionUpdateFailureVone_IEs__value),
+	offsetof(struct E2connectionUpdateFailureVone_IEs__value, _asn_ctx),
+	offsetof(struct E2connectionUpdateFailureVone_IEs__value, present),
+	sizeof(((struct E2connectionUpdateFailureVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_112,
 	7,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_112,
@@ -9023,86 +9023,86 @@ asn_TYPE_descriptor_t asn_DEF_value_112 = {
 	&asn_SPC_value_specs_112	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2connectionUpdateFailure_IEs_109[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailure_IEs, id),
+asn_TYPE_member_t asn_MBR_E2connectionUpdateFailureVone_IEs_109[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailureVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_110,  memb_id_constraint_109 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailure_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailureVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2connectionUpdateFailure_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2connectionUpdateFailureVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_111,  memb_criticality_constraint_109 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailure_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2connectionUpdateFailureVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_112,
-		select_E2connectionUpdateFailure_IEs_value_type,
+		select_E2connectionUpdateFailureVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_112,  memb_value_constraint_109 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2connectionUpdateFailure_IEs_tags_109[] = {
+static const ber_tlv_tag_t asn_DEF_E2connectionUpdateFailureVone_IEs_tags_109[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdateFailure_IEs_tag2el_109[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2connectionUpdateFailureVone_IEs_tag2el_109[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateFailure_IEs_specs_109 = {
-	sizeof(struct E2connectionUpdateFailure_IEs),
-	offsetof(struct E2connectionUpdateFailure_IEs, _asn_ctx),
-	asn_MAP_E2connectionUpdateFailure_IEs_tag2el_109,
+asn_SEQUENCE_specifics_t asn_SPC_E2connectionUpdateFailureVone_IEs_specs_109 = {
+	sizeof(struct E2connectionUpdateFailureVone_IEs),
+	offsetof(struct E2connectionUpdateFailureVone_IEs, _asn_ctx),
+	asn_MAP_E2connectionUpdateFailureVone_IEs_tag2el_109,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateFailure_IEs = {
-	"E2connectionUpdateFailure-IEs",
-	"E2connectionUpdateFailure-IEs",
+asn_TYPE_descriptor_t asn_DEF_E2connectionUpdateFailureVone_IEs = {
+	"E2connectionUpdateFailureVone-IEs",
+	"E2connectionUpdateFailureVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2connectionUpdateFailure_IEs_tags_109,
-	sizeof(asn_DEF_E2connectionUpdateFailure_IEs_tags_109)
-		/sizeof(asn_DEF_E2connectionUpdateFailure_IEs_tags_109[0]), /* 1 */
-	asn_DEF_E2connectionUpdateFailure_IEs_tags_109,	/* Same as above */
-	sizeof(asn_DEF_E2connectionUpdateFailure_IEs_tags_109)
-		/sizeof(asn_DEF_E2connectionUpdateFailure_IEs_tags_109[0]), /* 1 */
+	asn_DEF_E2connectionUpdateFailureVone_IEs_tags_109,
+	sizeof(asn_DEF_E2connectionUpdateFailureVone_IEs_tags_109)
+		/sizeof(asn_DEF_E2connectionUpdateFailureVone_IEs_tags_109[0]), /* 1 */
+	asn_DEF_E2connectionUpdateFailureVone_IEs_tags_109,	/* Same as above */
+	sizeof(asn_DEF_E2connectionUpdateFailureVone_IEs_tags_109)
+		/sizeof(asn_DEF_E2connectionUpdateFailureVone_IEs_tags_109[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2connectionUpdateFailure_IEs_109,
+	asn_MBR_E2connectionUpdateFailureVone_IEs_109,
 	3,	/* Elements count */
-	&asn_SPC_E2connectionUpdateFailure_IEs_specs_109	/* Additional specs */
+	&asn_SPC_E2connectionUpdateFailureVone_IEs_specs_109	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_116[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdate_IEs__value, choice.E2nodeComponentConfigUpdate_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateVone_IEs__value, choice.E2nodeComponentConfigUpdateVone_List),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeComponentConfigUpdate_List,
+		&asn_DEF_E2nodeComponentConfigUpdateVone_List,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2nodeComponentConfigUpdate-List"
+		"E2nodeComponentConfigUpdateVone-List"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_116[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2nodeComponentConfigUpdate-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2nodeComponentConfigUpdateVone-List */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_116 = {
-	sizeof(struct E2nodeConfigurationUpdate_IEs__value),
-	offsetof(struct E2nodeConfigurationUpdate_IEs__value, _asn_ctx),
-	offsetof(struct E2nodeConfigurationUpdate_IEs__value, present),
-	sizeof(((struct E2nodeConfigurationUpdate_IEs__value *)0)->present),
+	sizeof(struct E2nodeConfigurationUpdateVone_IEs__value),
+	offsetof(struct E2nodeConfigurationUpdateVone_IEs__value, _asn_ctx),
+	offsetof(struct E2nodeConfigurationUpdateVone_IEs__value, present),
+	sizeof(((struct E2nodeConfigurationUpdateVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_116,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -9123,86 +9123,86 @@ asn_TYPE_descriptor_t asn_DEF_value_116 = {
 	&asn_SPC_value_specs_116	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdate_IEs_113[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdate_IEs, id),
+asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateVone_IEs_113[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_114,  memb_id_constraint_113 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdate_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2nodeConfigurationUpdate_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2nodeConfigurationUpdateVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_115,  memb_criticality_constraint_113 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdate_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_116,
-		select_E2nodeConfigurationUpdate_IEs_value_type,
+		select_E2nodeConfigurationUpdateVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_116,  memb_value_constraint_113 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2nodeConfigurationUpdate_IEs_tags_113[] = {
+static const ber_tlv_tag_t asn_DEF_E2nodeConfigurationUpdateVone_IEs_tags_113[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2nodeConfigurationUpdate_IEs_tag2el_113[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2nodeConfigurationUpdateVone_IEs_tag2el_113[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdate_IEs_specs_113 = {
-	sizeof(struct E2nodeConfigurationUpdate_IEs),
-	offsetof(struct E2nodeConfigurationUpdate_IEs, _asn_ctx),
-	asn_MAP_E2nodeConfigurationUpdate_IEs_tag2el_113,
+asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateVone_IEs_specs_113 = {
+	sizeof(struct E2nodeConfigurationUpdateVone_IEs),
+	offsetof(struct E2nodeConfigurationUpdateVone_IEs, _asn_ctx),
+	asn_MAP_E2nodeConfigurationUpdateVone_IEs_tag2el_113,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdate_IEs = {
-	"E2nodeConfigurationUpdate-IEs",
-	"E2nodeConfigurationUpdate-IEs",
+asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateVone_IEs = {
+	"E2nodeConfigurationUpdateVone-IEs",
+	"E2nodeConfigurationUpdateVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2nodeConfigurationUpdate_IEs_tags_113,
-	sizeof(asn_DEF_E2nodeConfigurationUpdate_IEs_tags_113)
-		/sizeof(asn_DEF_E2nodeConfigurationUpdate_IEs_tags_113[0]), /* 1 */
-	asn_DEF_E2nodeConfigurationUpdate_IEs_tags_113,	/* Same as above */
-	sizeof(asn_DEF_E2nodeConfigurationUpdate_IEs_tags_113)
-		/sizeof(asn_DEF_E2nodeConfigurationUpdate_IEs_tags_113[0]), /* 1 */
+	asn_DEF_E2nodeConfigurationUpdateVone_IEs_tags_113,
+	sizeof(asn_DEF_E2nodeConfigurationUpdateVone_IEs_tags_113)
+		/sizeof(asn_DEF_E2nodeConfigurationUpdateVone_IEs_tags_113[0]), /* 1 */
+	asn_DEF_E2nodeConfigurationUpdateVone_IEs_tags_113,	/* Same as above */
+	sizeof(asn_DEF_E2nodeConfigurationUpdateVone_IEs_tags_113)
+		/sizeof(asn_DEF_E2nodeConfigurationUpdateVone_IEs_tags_113[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2nodeConfigurationUpdate_IEs_113,
+	asn_MBR_E2nodeConfigurationUpdateVone_IEs_113,
 	3,	/* Elements count */
-	&asn_SPC_E2nodeConfigurationUpdate_IEs_specs_113	/* Additional specs */
+	&asn_SPC_E2nodeConfigurationUpdateVone_IEs_specs_113	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_120[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs__value, choice.E2nodeComponentConfigUpdateAck_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs__value, choice.E2nodeComponentConfigUpdateAckVone_List),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_E2nodeComponentConfigUpdateAck_List,
+		&asn_DEF_E2nodeComponentConfigUpdateAckVone_List,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"E2nodeComponentConfigUpdateAck-List"
+		"E2nodeComponentConfigUpdateAckVone-List"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_120[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2nodeComponentConfigUpdateAck-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* E2nodeComponentConfigUpdateAckVone-List */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_120 = {
-	sizeof(struct E2nodeConfigurationUpdateAcknowledge_IEs__value),
-	offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs__value, _asn_ctx),
-	offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs__value, present),
-	sizeof(((struct E2nodeConfigurationUpdateAcknowledge_IEs__value *)0)->present),
+	sizeof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs__value),
+	offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs__value, _asn_ctx),
+	offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs__value, present),
+	sizeof(((struct E2nodeConfigurationUpdateAcknowledgeVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_120,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -9223,101 +9223,101 @@ asn_TYPE_descriptor_t asn_DEF_value_120 = {
 	&asn_SPC_value_specs_120	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateAcknowledge_IEs_117[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs, id),
+asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateAcknowledgeVone_IEs_117[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_118,  memb_id_constraint_117 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2nodeConfigurationUpdateAcknowledge_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2nodeConfigurationUpdateAcknowledgeVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_119,  memb_criticality_constraint_117 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_120,
-		select_E2nodeConfigurationUpdateAcknowledge_IEs_value_type,
+		select_E2nodeConfigurationUpdateAcknowledgeVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_120,  memb_value_constraint_117 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs_tags_117[] = {
+static const ber_tlv_tag_t asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tags_117[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2nodeConfigurationUpdateAcknowledge_IEs_tag2el_117[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tag2el_117[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateAcknowledge_IEs_specs_117 = {
-	sizeof(struct E2nodeConfigurationUpdateAcknowledge_IEs),
-	offsetof(struct E2nodeConfigurationUpdateAcknowledge_IEs, _asn_ctx),
-	asn_MAP_E2nodeConfigurationUpdateAcknowledge_IEs_tag2el_117,
+asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateAcknowledgeVone_IEs_specs_117 = {
+	sizeof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs),
+	offsetof(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs, _asn_ctx),
+	asn_MAP_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tag2el_117,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs = {
-	"E2nodeConfigurationUpdateAcknowledge-IEs",
-	"E2nodeConfigurationUpdateAcknowledge-IEs",
+asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs = {
+	"E2nodeConfigurationUpdateAcknowledgeVone-IEs",
+	"E2nodeConfigurationUpdateAcknowledgeVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs_tags_117,
-	sizeof(asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs_tags_117)
-		/sizeof(asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs_tags_117[0]), /* 1 */
-	asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs_tags_117,	/* Same as above */
-	sizeof(asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs_tags_117)
-		/sizeof(asn_DEF_E2nodeConfigurationUpdateAcknowledge_IEs_tags_117[0]), /* 1 */
+	asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tags_117,
+	sizeof(asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tags_117)
+		/sizeof(asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tags_117[0]), /* 1 */
+	asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tags_117,	/* Same as above */
+	sizeof(asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tags_117)
+		/sizeof(asn_DEF_E2nodeConfigurationUpdateAcknowledgeVone_IEs_tags_117[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2nodeConfigurationUpdateAcknowledge_IEs_117,
+	asn_MBR_E2nodeConfigurationUpdateAcknowledgeVone_IEs_117,
 	3,	/* Elements count */
-	&asn_SPC_E2nodeConfigurationUpdateAcknowledge_IEs_specs_117	/* Additional specs */
+	&asn_SPC_E2nodeConfigurationUpdateAcknowledgeVone_IEs_specs_117	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_124[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailure_IEs__value, choice.Cause),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs__value, choice.CauseVone),
 		-1 /* Ambiguous tag (CHOICE?) */,
 		0,
-		&asn_DEF_Cause,
+		&asn_DEF_CauseVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"Cause"
+		"CauseVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailure_IEs__value, choice.TimeToWait),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs__value, choice.TimeToWaitVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (10 << 2)),
 		0,
-		&asn_DEF_TimeToWait,
+		&asn_DEF_TimeToWaitVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"TimeToWait"
+		"TimeToWaitVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailure_IEs__value, choice.CriticalityDiagnostics),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs__value, choice.CriticalityDiagnosticsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_CriticalityDiagnostics,
+		&asn_DEF_CriticalityDiagnosticsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"CriticalityDiagnostics"
+		"CriticalityDiagnosticsVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_124[] = { 1, 2, 0 };
 static const unsigned asn_MAP_value_from_canonical_124[] = { 2, 0, 1 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_124[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 1, 0, 0 }, /* TimeToWait */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, 0, 0 }, /* CriticalityDiagnostics */
+    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 1, 0, 0 }, /* TimeToWaitVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, 0, 0 }, /* CriticalityDiagnosticsVone */
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* ricRequest */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 0, 0, 0 }, /* ricService */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 0, 0, 0 }, /* transport */
@@ -9325,10 +9325,10 @@ static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_124[] = {
     { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 0, 0, 0 } /* misc */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_124 = {
-	sizeof(struct E2nodeConfigurationUpdateFailure_IEs__value),
-	offsetof(struct E2nodeConfigurationUpdateFailure_IEs__value, _asn_ctx),
-	offsetof(struct E2nodeConfigurationUpdateFailure_IEs__value, present),
-	sizeof(((struct E2nodeConfigurationUpdateFailure_IEs__value *)0)->present),
+	sizeof(struct E2nodeConfigurationUpdateFailureVone_IEs__value),
+	offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs__value, _asn_ctx),
+	offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs__value, present),
+	sizeof(((struct E2nodeConfigurationUpdateFailureVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_124,
 	7,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_124,
@@ -9350,76 +9350,76 @@ asn_TYPE_descriptor_t asn_DEF_value_124 = {
 	&asn_SPC_value_specs_124	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateFailure_IEs_121[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailure_IEs, id),
+asn_TYPE_member_t asn_MBR_E2nodeConfigurationUpdateFailureVone_IEs_121[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_122,  memb_id_constraint_121 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailure_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_E2nodeConfigurationUpdateFailure_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_E2nodeConfigurationUpdateFailureVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_123,  memb_criticality_constraint_121 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailure_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_124,
-		select_E2nodeConfigurationUpdateFailure_IEs_value_type,
+		select_E2nodeConfigurationUpdateFailureVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_124,  memb_value_constraint_121 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_E2nodeConfigurationUpdateFailure_IEs_tags_121[] = {
+static const ber_tlv_tag_t asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs_tags_121[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_E2nodeConfigurationUpdateFailure_IEs_tag2el_121[] = {
+static const asn_TYPE_tag2member_t asn_MAP_E2nodeConfigurationUpdateFailureVone_IEs_tag2el_121[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateFailure_IEs_specs_121 = {
-	sizeof(struct E2nodeConfigurationUpdateFailure_IEs),
-	offsetof(struct E2nodeConfigurationUpdateFailure_IEs, _asn_ctx),
-	asn_MAP_E2nodeConfigurationUpdateFailure_IEs_tag2el_121,
+asn_SEQUENCE_specifics_t asn_SPC_E2nodeConfigurationUpdateFailureVone_IEs_specs_121 = {
+	sizeof(struct E2nodeConfigurationUpdateFailureVone_IEs),
+	offsetof(struct E2nodeConfigurationUpdateFailureVone_IEs, _asn_ctx),
+	asn_MAP_E2nodeConfigurationUpdateFailureVone_IEs_tag2el_121,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateFailure_IEs = {
-	"E2nodeConfigurationUpdateFailure-IEs",
-	"E2nodeConfigurationUpdateFailure-IEs",
+asn_TYPE_descriptor_t asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs = {
+	"E2nodeConfigurationUpdateFailureVone-IEs",
+	"E2nodeConfigurationUpdateFailureVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_E2nodeConfigurationUpdateFailure_IEs_tags_121,
-	sizeof(asn_DEF_E2nodeConfigurationUpdateFailure_IEs_tags_121)
-		/sizeof(asn_DEF_E2nodeConfigurationUpdateFailure_IEs_tags_121[0]), /* 1 */
-	asn_DEF_E2nodeConfigurationUpdateFailure_IEs_tags_121,	/* Same as above */
-	sizeof(asn_DEF_E2nodeConfigurationUpdateFailure_IEs_tags_121)
-		/sizeof(asn_DEF_E2nodeConfigurationUpdateFailure_IEs_tags_121[0]), /* 1 */
+	asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs_tags_121,
+	sizeof(asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs_tags_121)
+		/sizeof(asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs_tags_121[0]), /* 1 */
+	asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs_tags_121,	/* Same as above */
+	sizeof(asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs_tags_121)
+		/sizeof(asn_DEF_E2nodeConfigurationUpdateFailureVone_IEs_tags_121[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_E2nodeConfigurationUpdateFailure_IEs_121,
+	asn_MBR_E2nodeConfigurationUpdateFailureVone_IEs_121,
 	3,	/* Elements count */
-	&asn_SPC_E2nodeConfigurationUpdateFailure_IEs_specs_121	/* Additional specs */
+	&asn_SPC_E2nodeConfigurationUpdateFailureVone_IEs_specs_121	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_128[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct ResetRequestIEs__value, choice.Cause),
+	{ ATF_NOFLAGS, 0, offsetof(struct ResetRequestIEsVone__value, choice.CauseVone),
 		-1 /* Ambiguous tag (CHOICE?) */,
 		0,
-		&asn_DEF_Cause,
+		&asn_DEF_CauseVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"Cause"
+		"CauseVone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_128[] = {
@@ -9430,10 +9430,10 @@ static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_128[] = {
     { (ASN_TAG_CLASS_CONTEXT | (4 << 2)), 0, 0, 0 } /* misc */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_128 = {
-	sizeof(struct ResetRequestIEs__value),
-	offsetof(struct ResetRequestIEs__value, _asn_ctx),
-	offsetof(struct ResetRequestIEs__value, present),
-	sizeof(((struct ResetRequestIEs__value *)0)->present),
+	sizeof(struct ResetRequestIEsVone__value),
+	offsetof(struct ResetRequestIEsVone__value, _asn_ctx),
+	offsetof(struct ResetRequestIEsVone__value, present),
+	sizeof(((struct ResetRequestIEsVone__value *)0)->present),
 	asn_MAP_value_tag2el_128,
 	5,	/* Count of tags in the map */
 	0, 0,
@@ -9454,86 +9454,86 @@ asn_TYPE_descriptor_t asn_DEF_value_128 = {
 	&asn_SPC_value_specs_128	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_ResetRequestIEs_125[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct ResetRequestIEs, id),
+asn_TYPE_member_t asn_MBR_ResetRequestIEsVone_125[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct ResetRequestIEsVone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_126,  memb_id_constraint_125 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct ResetRequestIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct ResetRequestIEsVone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_ResetRequestIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_ResetRequestIEsVone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_127,  memb_criticality_constraint_125 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct ResetRequestIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct ResetRequestIEsVone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_128,
-		select_ResetRequestIEs_value_type,
+		select_ResetRequestIEsVone_value_type,
 		{ 0, &asn_PER_memb_value_constr_128,  memb_value_constraint_125 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_ResetRequestIEs_tags_125[] = {
+static const ber_tlv_tag_t asn_DEF_ResetRequestIEsVone_tags_125[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_ResetRequestIEs_tag2el_125[] = {
+static const asn_TYPE_tag2member_t asn_MAP_ResetRequestIEsVone_tag2el_125[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_ResetRequestIEs_specs_125 = {
-	sizeof(struct ResetRequestIEs),
-	offsetof(struct ResetRequestIEs, _asn_ctx),
-	asn_MAP_ResetRequestIEs_tag2el_125,
+asn_SEQUENCE_specifics_t asn_SPC_ResetRequestIEsVone_specs_125 = {
+	sizeof(struct ResetRequestIEsVone),
+	offsetof(struct ResetRequestIEsVone, _asn_ctx),
+	asn_MAP_ResetRequestIEsVone_tag2el_125,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_ResetRequestIEs = {
-	"ResetRequestIEs",
-	"ResetRequestIEs",
+asn_TYPE_descriptor_t asn_DEF_ResetRequestIEsVone = {
+	"ResetRequestIEsVone",
+	"ResetRequestIEsVone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_ResetRequestIEs_tags_125,
-	sizeof(asn_DEF_ResetRequestIEs_tags_125)
-		/sizeof(asn_DEF_ResetRequestIEs_tags_125[0]), /* 1 */
-	asn_DEF_ResetRequestIEs_tags_125,	/* Same as above */
-	sizeof(asn_DEF_ResetRequestIEs_tags_125)
-		/sizeof(asn_DEF_ResetRequestIEs_tags_125[0]), /* 1 */
+	asn_DEF_ResetRequestIEsVone_tags_125,
+	sizeof(asn_DEF_ResetRequestIEsVone_tags_125)
+		/sizeof(asn_DEF_ResetRequestIEsVone_tags_125[0]), /* 1 */
+	asn_DEF_ResetRequestIEsVone_tags_125,	/* Same as above */
+	sizeof(asn_DEF_ResetRequestIEsVone_tags_125)
+		/sizeof(asn_DEF_ResetRequestIEsVone_tags_125[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_ResetRequestIEs_125,
+	asn_MBR_ResetRequestIEsVone_125,
 	3,	/* Elements count */
-	&asn_SPC_ResetRequestIEs_specs_125	/* Additional specs */
+	&asn_SPC_ResetRequestIEsVone_specs_125	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_132[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct ResetResponseIEs__value, choice.CriticalityDiagnostics),
+	{ ATF_NOFLAGS, 0, offsetof(struct ResetResponseIEsVone__value, choice.CriticalityDiagnosticsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_CriticalityDiagnostics,
+		&asn_DEF_CriticalityDiagnosticsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"CriticalityDiagnostics"
+		"CriticalityDiagnosticsVone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_132[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* CriticalityDiagnostics */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* CriticalityDiagnosticsVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_132 = {
-	sizeof(struct ResetResponseIEs__value),
-	offsetof(struct ResetResponseIEs__value, _asn_ctx),
-	offsetof(struct ResetResponseIEs__value, present),
-	sizeof(((struct ResetResponseIEs__value *)0)->present),
+	sizeof(struct ResetResponseIEsVone__value),
+	offsetof(struct ResetResponseIEsVone__value, _asn_ctx),
+	offsetof(struct ResetResponseIEsVone__value, present),
+	sizeof(((struct ResetResponseIEsVone__value *)0)->present),
 	asn_MAP_value_tag2el_132,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -9554,96 +9554,96 @@ asn_TYPE_descriptor_t asn_DEF_value_132 = {
 	&asn_SPC_value_specs_132	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_ResetResponseIEs_129[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct ResetResponseIEs, id),
+asn_TYPE_member_t asn_MBR_ResetResponseIEsVone_129[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct ResetResponseIEsVone, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_130,  memb_id_constraint_129 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct ResetResponseIEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct ResetResponseIEsVone, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_ResetResponseIEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_ResetResponseIEsVone_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_131,  memb_criticality_constraint_129 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct ResetResponseIEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct ResetResponseIEsVone, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_132,
-		select_ResetResponseIEs_value_type,
+		select_ResetResponseIEsVone_value_type,
 		{ 0, &asn_PER_memb_value_constr_132,  memb_value_constraint_129 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_ResetResponseIEs_tags_129[] = {
+static const ber_tlv_tag_t asn_DEF_ResetResponseIEsVone_tags_129[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_ResetResponseIEs_tag2el_129[] = {
+static const asn_TYPE_tag2member_t asn_MAP_ResetResponseIEsVone_tag2el_129[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_ResetResponseIEs_specs_129 = {
-	sizeof(struct ResetResponseIEs),
-	offsetof(struct ResetResponseIEs, _asn_ctx),
-	asn_MAP_ResetResponseIEs_tag2el_129,
+asn_SEQUENCE_specifics_t asn_SPC_ResetResponseIEsVone_specs_129 = {
+	sizeof(struct ResetResponseIEsVone),
+	offsetof(struct ResetResponseIEsVone, _asn_ctx),
+	asn_MAP_ResetResponseIEsVone_tag2el_129,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_ResetResponseIEs = {
-	"ResetResponseIEs",
-	"ResetResponseIEs",
+asn_TYPE_descriptor_t asn_DEF_ResetResponseIEsVone = {
+	"ResetResponseIEsVone",
+	"ResetResponseIEsVone",
 	&asn_OP_SEQUENCE,
-	asn_DEF_ResetResponseIEs_tags_129,
-	sizeof(asn_DEF_ResetResponseIEs_tags_129)
-		/sizeof(asn_DEF_ResetResponseIEs_tags_129[0]), /* 1 */
-	asn_DEF_ResetResponseIEs_tags_129,	/* Same as above */
-	sizeof(asn_DEF_ResetResponseIEs_tags_129)
-		/sizeof(asn_DEF_ResetResponseIEs_tags_129[0]), /* 1 */
+	asn_DEF_ResetResponseIEsVone_tags_129,
+	sizeof(asn_DEF_ResetResponseIEsVone_tags_129)
+		/sizeof(asn_DEF_ResetResponseIEsVone_tags_129[0]), /* 1 */
+	asn_DEF_ResetResponseIEsVone_tags_129,	/* Same as above */
+	sizeof(asn_DEF_ResetResponseIEsVone_tags_129)
+		/sizeof(asn_DEF_ResetResponseIEsVone_tags_129[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_ResetResponseIEs_129,
+	asn_MBR_ResetResponseIEsVone_129,
 	3,	/* Elements count */
-	&asn_SPC_ResetResponseIEs_specs_129	/* Additional specs */
+	&asn_SPC_ResetResponseIEsVone_specs_129	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_136[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdate_IEs__value, choice.RANfunctions_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateVone_IEs__value, choice.RANfunctions_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctions_List,
+		&asn_DEF_RANfunctions_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctions-List"
+		"RANfunctions-List-Vone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdate_IEs__value, choice.RANfunctionsID_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateVone_IEs__value, choice.RANfunctionsID_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionsID_List,
+		&asn_DEF_RANfunctionsID_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionsID-List"
+		"RANfunctionsID-List-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_136[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RANfunctions-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 0 } /* RANfunctionsID-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RANfunctions-List-Vone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 0 } /* RANfunctionsID-List-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_136 = {
-	sizeof(struct RICserviceUpdate_IEs__value),
-	offsetof(struct RICserviceUpdate_IEs__value, _asn_ctx),
-	offsetof(struct RICserviceUpdate_IEs__value, present),
-	sizeof(((struct RICserviceUpdate_IEs__value *)0)->present),
+	sizeof(struct RICserviceUpdateVone_IEs__value),
+	offsetof(struct RICserviceUpdateVone_IEs__value, _asn_ctx),
+	offsetof(struct RICserviceUpdateVone_IEs__value, present),
+	sizeof(((struct RICserviceUpdateVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_136,
 	2,	/* Count of tags in the map */
 	0, 0,
@@ -9664,96 +9664,96 @@ asn_TYPE_descriptor_t asn_DEF_value_136 = {
 	&asn_SPC_value_specs_136	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICserviceUpdate_IEs_133[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdate_IEs, id),
+asn_TYPE_member_t asn_MBR_RICserviceUpdateVone_IEs_133[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_134,  memb_id_constraint_133 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdate_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICserviceUpdate_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICserviceUpdateVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_135,  memb_criticality_constraint_133 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdate_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_136,
-		select_RICserviceUpdate_IEs_value_type,
+		select_RICserviceUpdateVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_136,  memb_value_constraint_133 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICserviceUpdate_IEs_tags_133[] = {
+static const ber_tlv_tag_t asn_DEF_RICserviceUpdateVone_IEs_tags_133[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICserviceUpdate_IEs_tag2el_133[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICserviceUpdateVone_IEs_tag2el_133[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdate_IEs_specs_133 = {
-	sizeof(struct RICserviceUpdate_IEs),
-	offsetof(struct RICserviceUpdate_IEs, _asn_ctx),
-	asn_MAP_RICserviceUpdate_IEs_tag2el_133,
+asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateVone_IEs_specs_133 = {
+	sizeof(struct RICserviceUpdateVone_IEs),
+	offsetof(struct RICserviceUpdateVone_IEs, _asn_ctx),
+	asn_MAP_RICserviceUpdateVone_IEs_tag2el_133,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICserviceUpdate_IEs = {
-	"RICserviceUpdate-IEs",
-	"RICserviceUpdate-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateVone_IEs = {
+	"RICserviceUpdateVone-IEs",
+	"RICserviceUpdateVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICserviceUpdate_IEs_tags_133,
-	sizeof(asn_DEF_RICserviceUpdate_IEs_tags_133)
-		/sizeof(asn_DEF_RICserviceUpdate_IEs_tags_133[0]), /* 1 */
-	asn_DEF_RICserviceUpdate_IEs_tags_133,	/* Same as above */
-	sizeof(asn_DEF_RICserviceUpdate_IEs_tags_133)
-		/sizeof(asn_DEF_RICserviceUpdate_IEs_tags_133[0]), /* 1 */
+	asn_DEF_RICserviceUpdateVone_IEs_tags_133,
+	sizeof(asn_DEF_RICserviceUpdateVone_IEs_tags_133)
+		/sizeof(asn_DEF_RICserviceUpdateVone_IEs_tags_133[0]), /* 1 */
+	asn_DEF_RICserviceUpdateVone_IEs_tags_133,	/* Same as above */
+	sizeof(asn_DEF_RICserviceUpdateVone_IEs_tags_133)
+		/sizeof(asn_DEF_RICserviceUpdateVone_IEs_tags_133[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICserviceUpdate_IEs_133,
+	asn_MBR_RICserviceUpdateVone_IEs_133,
 	3,	/* Elements count */
-	&asn_SPC_RICserviceUpdate_IEs_specs_133	/* Additional specs */
+	&asn_SPC_RICserviceUpdateVone_IEs_specs_133	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_140[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledge_IEs__value, choice.RANfunctionsID_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledgeVone_IEs__value, choice.RANfunctionsID_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionsID_List,
+		&asn_DEF_RANfunctionsID_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionsID-List"
+		"RANfunctionsID-List-Vone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledge_IEs__value, choice.RANfunctionsIDcause_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledgeVone_IEs__value, choice.RANfunctionsIDcause_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionsIDcause_List,
+		&asn_DEF_RANfunctionsIDcause_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionsIDcause-List"
+		"RANfunctionsIDcause-List-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_140[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RANfunctionsID-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 0 } /* RANfunctionsIDcause-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RANfunctionsID-List-Vone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 1, -1, 0 } /* RANfunctionsIDcause-List-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_140 = {
-	sizeof(struct RICserviceUpdateAcknowledge_IEs__value),
-	offsetof(struct RICserviceUpdateAcknowledge_IEs__value, _asn_ctx),
-	offsetof(struct RICserviceUpdateAcknowledge_IEs__value, present),
-	sizeof(((struct RICserviceUpdateAcknowledge_IEs__value *)0)->present),
+	sizeof(struct RICserviceUpdateAcknowledgeVone_IEs__value),
+	offsetof(struct RICserviceUpdateAcknowledgeVone_IEs__value, _asn_ctx),
+	offsetof(struct RICserviceUpdateAcknowledgeVone_IEs__value, present),
+	sizeof(((struct RICserviceUpdateAcknowledgeVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_140,
 	2,	/* Count of tags in the map */
 	0, 0,
@@ -9774,108 +9774,108 @@ asn_TYPE_descriptor_t asn_DEF_value_140 = {
 	&asn_SPC_value_specs_140	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICserviceUpdateAcknowledge_IEs_137[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledge_IEs, id),
+asn_TYPE_member_t asn_MBR_RICserviceUpdateAcknowledgeVone_IEs_137[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledgeVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_138,  memb_id_constraint_137 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledge_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledgeVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICserviceUpdateAcknowledge_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICserviceUpdateAcknowledgeVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_139,  memb_criticality_constraint_137 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledge_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateAcknowledgeVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_140,
-		select_RICserviceUpdateAcknowledge_IEs_value_type,
+		select_RICserviceUpdateAcknowledgeVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_140,  memb_value_constraint_137 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICserviceUpdateAcknowledge_IEs_tags_137[] = {
+static const ber_tlv_tag_t asn_DEF_RICserviceUpdateAcknowledgeVone_IEs_tags_137[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICserviceUpdateAcknowledge_IEs_tag2el_137[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICserviceUpdateAcknowledgeVone_IEs_tag2el_137[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateAcknowledge_IEs_specs_137 = {
-	sizeof(struct RICserviceUpdateAcknowledge_IEs),
-	offsetof(struct RICserviceUpdateAcknowledge_IEs, _asn_ctx),
-	asn_MAP_RICserviceUpdateAcknowledge_IEs_tag2el_137,
+asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateAcknowledgeVone_IEs_specs_137 = {
+	sizeof(struct RICserviceUpdateAcknowledgeVone_IEs),
+	offsetof(struct RICserviceUpdateAcknowledgeVone_IEs, _asn_ctx),
+	asn_MAP_RICserviceUpdateAcknowledgeVone_IEs_tag2el_137,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateAcknowledge_IEs = {
-	"RICserviceUpdateAcknowledge-IEs",
-	"RICserviceUpdateAcknowledge-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateAcknowledgeVone_IEs = {
+	"RICserviceUpdateAcknowledgeVone-IEs",
+	"RICserviceUpdateAcknowledgeVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICserviceUpdateAcknowledge_IEs_tags_137,
-	sizeof(asn_DEF_RICserviceUpdateAcknowledge_IEs_tags_137)
-		/sizeof(asn_DEF_RICserviceUpdateAcknowledge_IEs_tags_137[0]), /* 1 */
-	asn_DEF_RICserviceUpdateAcknowledge_IEs_tags_137,	/* Same as above */
-	sizeof(asn_DEF_RICserviceUpdateAcknowledge_IEs_tags_137)
-		/sizeof(asn_DEF_RICserviceUpdateAcknowledge_IEs_tags_137[0]), /* 1 */
+	asn_DEF_RICserviceUpdateAcknowledgeVone_IEs_tags_137,
+	sizeof(asn_DEF_RICserviceUpdateAcknowledgeVone_IEs_tags_137)
+		/sizeof(asn_DEF_RICserviceUpdateAcknowledgeVone_IEs_tags_137[0]), /* 1 */
+	asn_DEF_RICserviceUpdateAcknowledgeVone_IEs_tags_137,	/* Same as above */
+	sizeof(asn_DEF_RICserviceUpdateAcknowledgeVone_IEs_tags_137)
+		/sizeof(asn_DEF_RICserviceUpdateAcknowledgeVone_IEs_tags_137[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICserviceUpdateAcknowledge_IEs_137,
+	asn_MBR_RICserviceUpdateAcknowledgeVone_IEs_137,
 	3,	/* Elements count */
-	&asn_SPC_RICserviceUpdateAcknowledge_IEs_specs_137	/* Additional specs */
+	&asn_SPC_RICserviceUpdateAcknowledgeVone_IEs_specs_137	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_144[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailure_IEs__value, choice.RANfunctionsIDcause_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailureVone_IEs__value, choice.RANfunctionsIDcause_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionsIDcause_List,
+		&asn_DEF_RANfunctionsIDcause_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionsIDcause-List"
+		"RANfunctionsIDcause-List-Vone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailure_IEs__value, choice.TimeToWait),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailureVone_IEs__value, choice.TimeToWaitVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (10 << 2)),
 		0,
-		&asn_DEF_TimeToWait,
+		&asn_DEF_TimeToWaitVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"TimeToWait"
+		"TimeToWaitVone"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailure_IEs__value, choice.CriticalityDiagnostics),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailureVone_IEs__value, choice.CriticalityDiagnosticsVone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_CriticalityDiagnostics,
+		&asn_DEF_CriticalityDiagnosticsVone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"CriticalityDiagnostics"
+		"CriticalityDiagnosticsVone"
 		},
 };
 static const unsigned asn_MAP_value_to_canonical_144[] = { 1, 0, 2 };
 static const unsigned asn_MAP_value_from_canonical_144[] = { 1, 0, 2 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_144[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 1, 0, 0 }, /* TimeToWait */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RANfunctionsIDcause-List */
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 0 } /* CriticalityDiagnostics */
+    { (ASN_TAG_CLASS_UNIVERSAL | (10 << 2)), 1, 0, 0 }, /* TimeToWaitVone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 1 }, /* RANfunctionsIDcause-List-Vone */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 2, -1, 0 } /* CriticalityDiagnosticsVone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_144 = {
-	sizeof(struct RICserviceUpdateFailure_IEs__value),
-	offsetof(struct RICserviceUpdateFailure_IEs__value, _asn_ctx),
-	offsetof(struct RICserviceUpdateFailure_IEs__value, present),
-	sizeof(((struct RICserviceUpdateFailure_IEs__value *)0)->present),
+	sizeof(struct RICserviceUpdateFailureVone_IEs__value),
+	offsetof(struct RICserviceUpdateFailureVone_IEs__value, _asn_ctx),
+	offsetof(struct RICserviceUpdateFailureVone_IEs__value, present),
+	sizeof(((struct RICserviceUpdateFailureVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_144,
 	3,	/* Count of tags in the map */
 	asn_MAP_value_to_canonical_144,
@@ -9897,86 +9897,86 @@ asn_TYPE_descriptor_t asn_DEF_value_144 = {
 	&asn_SPC_value_specs_144	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICserviceUpdateFailure_IEs_141[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailure_IEs, id),
+asn_TYPE_member_t asn_MBR_RICserviceUpdateFailureVone_IEs_141[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailureVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_142,  memb_id_constraint_141 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailure_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailureVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICserviceUpdateFailure_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICserviceUpdateFailureVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_143,  memb_criticality_constraint_141 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailure_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICserviceUpdateFailureVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_144,
-		select_RICserviceUpdateFailure_IEs_value_type,
+		select_RICserviceUpdateFailureVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_144,  memb_value_constraint_141 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICserviceUpdateFailure_IEs_tags_141[] = {
+static const ber_tlv_tag_t asn_DEF_RICserviceUpdateFailureVone_IEs_tags_141[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICserviceUpdateFailure_IEs_tag2el_141[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICserviceUpdateFailureVone_IEs_tag2el_141[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateFailure_IEs_specs_141 = {
-	sizeof(struct RICserviceUpdateFailure_IEs),
-	offsetof(struct RICserviceUpdateFailure_IEs, _asn_ctx),
-	asn_MAP_RICserviceUpdateFailure_IEs_tag2el_141,
+asn_SEQUENCE_specifics_t asn_SPC_RICserviceUpdateFailureVone_IEs_specs_141 = {
+	sizeof(struct RICserviceUpdateFailureVone_IEs),
+	offsetof(struct RICserviceUpdateFailureVone_IEs, _asn_ctx),
+	asn_MAP_RICserviceUpdateFailureVone_IEs_tag2el_141,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateFailure_IEs = {
-	"RICserviceUpdateFailure-IEs",
-	"RICserviceUpdateFailure-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICserviceUpdateFailureVone_IEs = {
+	"RICserviceUpdateFailureVone-IEs",
+	"RICserviceUpdateFailureVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICserviceUpdateFailure_IEs_tags_141,
-	sizeof(asn_DEF_RICserviceUpdateFailure_IEs_tags_141)
-		/sizeof(asn_DEF_RICserviceUpdateFailure_IEs_tags_141[0]), /* 1 */
-	asn_DEF_RICserviceUpdateFailure_IEs_tags_141,	/* Same as above */
-	sizeof(asn_DEF_RICserviceUpdateFailure_IEs_tags_141)
-		/sizeof(asn_DEF_RICserviceUpdateFailure_IEs_tags_141[0]), /* 1 */
+	asn_DEF_RICserviceUpdateFailureVone_IEs_tags_141,
+	sizeof(asn_DEF_RICserviceUpdateFailureVone_IEs_tags_141)
+		/sizeof(asn_DEF_RICserviceUpdateFailureVone_IEs_tags_141[0]), /* 1 */
+	asn_DEF_RICserviceUpdateFailureVone_IEs_tags_141,	/* Same as above */
+	sizeof(asn_DEF_RICserviceUpdateFailureVone_IEs_tags_141)
+		/sizeof(asn_DEF_RICserviceUpdateFailureVone_IEs_tags_141[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICserviceUpdateFailure_IEs_141,
+	asn_MBR_RICserviceUpdateFailureVone_IEs_141,
 	3,	/* Elements count */
-	&asn_SPC_RICserviceUpdateFailure_IEs_specs_141	/* Additional specs */
+	&asn_SPC_RICserviceUpdateFailureVone_IEs_specs_141	/* Additional specs */
 };
 
 static asn_TYPE_member_t asn_MBR_value_148[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceQuery_IEs__value, choice.RANfunctionsID_List),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceQueryVone_IEs__value, choice.RANfunctionsID_List_Vone),
 		(ASN_TAG_CLASS_UNIVERSAL | (16 << 2)),
 		0,
-		&asn_DEF_RANfunctionsID_List,
+		&asn_DEF_RANfunctionsID_List_Vone,
 		0,
 		{ 0, 0, 0 },
 		0, 0, /* No default value */
-		"RANfunctionsID-List"
+		"RANfunctionsID-List-Vone"
 		},
 };
 static const asn_TYPE_tag2member_t asn_MAP_value_tag2el_148[] = {
-    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RANfunctionsID-List */
+    { (ASN_TAG_CLASS_UNIVERSAL | (16 << 2)), 0, 0, 0 } /* RANfunctionsID-List-Vone */
 };
 static asn_CHOICE_specifics_t asn_SPC_value_specs_148 = {
-	sizeof(struct RICserviceQuery_IEs__value),
-	offsetof(struct RICserviceQuery_IEs__value, _asn_ctx),
-	offsetof(struct RICserviceQuery_IEs__value, present),
-	sizeof(((struct RICserviceQuery_IEs__value *)0)->present),
+	sizeof(struct RICserviceQueryVone_IEs__value),
+	offsetof(struct RICserviceQueryVone_IEs__value, _asn_ctx),
+	offsetof(struct RICserviceQueryVone_IEs__value, present),
+	sizeof(((struct RICserviceQueryVone_IEs__value *)0)->present),
 	asn_MAP_value_tag2el_148,
 	1,	/* Count of tags in the map */
 	0, 0,
@@ -9997,64 +9997,64 @@ asn_TYPE_descriptor_t asn_DEF_value_148 = {
 	&asn_SPC_value_specs_148	/* Additional specs */
 };
 
-asn_TYPE_member_t asn_MBR_RICserviceQuery_IEs_145[] = {
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceQuery_IEs, id),
+asn_TYPE_member_t asn_MBR_RICserviceQueryVone_IEs_145[] = {
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceQueryVone_IEs, id),
 		(ASN_TAG_CLASS_CONTEXT | (0 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_ProtocolIE_ID,
+		&asn_DEF_ProtocolIE_ID_Vone,
 		0,
 		{ 0, &asn_PER_memb_id_constr_146,  memb_id_constraint_145 },
 		0, 0, /* No default value */
 		"id"
 		},
-	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceQuery_IEs, criticality),
+	{ ATF_NOFLAGS, 0, offsetof(struct RICserviceQueryVone_IEs, criticality),
 		(ASN_TAG_CLASS_CONTEXT | (1 << 2)),
 		-1,	/* IMPLICIT tag at current level */
-		&asn_DEF_Criticality,
-		select_RICserviceQuery_IEs_criticality_type,
+		&asn_DEF_CriticalityVone,
+		select_RICserviceQueryVone_IEs_criticality_type,
 		{ 0, &asn_PER_memb_criticality_constr_147,  memb_criticality_constraint_145 },
 		0, 0, /* No default value */
 		"criticality"
 		},
-	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICserviceQuery_IEs, value),
+	{ ATF_OPEN_TYPE | ATF_NOFLAGS, 0, offsetof(struct RICserviceQueryVone_IEs, value),
 		(ASN_TAG_CLASS_CONTEXT | (2 << 2)),
 		+1,	/* EXPLICIT tag at current level */
 		&asn_DEF_value_148,
-		select_RICserviceQuery_IEs_value_type,
+		select_RICserviceQueryVone_IEs_value_type,
 		{ 0, &asn_PER_memb_value_constr_148,  memb_value_constraint_145 },
 		0, 0, /* No default value */
 		"value"
 		},
 };
-static const ber_tlv_tag_t asn_DEF_RICserviceQuery_IEs_tags_145[] = {
+static const ber_tlv_tag_t asn_DEF_RICserviceQueryVone_IEs_tags_145[] = {
 	(ASN_TAG_CLASS_UNIVERSAL | (16 << 2))
 };
-static const asn_TYPE_tag2member_t asn_MAP_RICserviceQuery_IEs_tag2el_145[] = {
+static const asn_TYPE_tag2member_t asn_MAP_RICserviceQueryVone_IEs_tag2el_145[] = {
     { (ASN_TAG_CLASS_CONTEXT | (0 << 2)), 0, 0, 0 }, /* id */
     { (ASN_TAG_CLASS_CONTEXT | (1 << 2)), 1, 0, 0 }, /* criticality */
     { (ASN_TAG_CLASS_CONTEXT | (2 << 2)), 2, 0, 0 } /* value */
 };
-asn_SEQUENCE_specifics_t asn_SPC_RICserviceQuery_IEs_specs_145 = {
-	sizeof(struct RICserviceQuery_IEs),
-	offsetof(struct RICserviceQuery_IEs, _asn_ctx),
-	asn_MAP_RICserviceQuery_IEs_tag2el_145,
+asn_SEQUENCE_specifics_t asn_SPC_RICserviceQueryVone_IEs_specs_145 = {
+	sizeof(struct RICserviceQueryVone_IEs),
+	offsetof(struct RICserviceQueryVone_IEs, _asn_ctx),
+	asn_MAP_RICserviceQueryVone_IEs_tag2el_145,
 	3,	/* Count of tags in the map */
 	0, 0, 0,	/* Optional elements (not needed) */
 	-1,	/* First extension addition */
 };
-asn_TYPE_descriptor_t asn_DEF_RICserviceQuery_IEs = {
-	"RICserviceQuery-IEs",
-	"RICserviceQuery-IEs",
+asn_TYPE_descriptor_t asn_DEF_RICserviceQueryVone_IEs = {
+	"RICserviceQueryVone-IEs",
+	"RICserviceQueryVone-IEs",
 	&asn_OP_SEQUENCE,
-	asn_DEF_RICserviceQuery_IEs_tags_145,
-	sizeof(asn_DEF_RICserviceQuery_IEs_tags_145)
-		/sizeof(asn_DEF_RICserviceQuery_IEs_tags_145[0]), /* 1 */
-	asn_DEF_RICserviceQuery_IEs_tags_145,	/* Same as above */
-	sizeof(asn_DEF_RICserviceQuery_IEs_tags_145)
-		/sizeof(asn_DEF_RICserviceQuery_IEs_tags_145[0]), /* 1 */
+	asn_DEF_RICserviceQueryVone_IEs_tags_145,
+	sizeof(asn_DEF_RICserviceQueryVone_IEs_tags_145)
+		/sizeof(asn_DEF_RICserviceQueryVone_IEs_tags_145[0]), /* 1 */
+	asn_DEF_RICserviceQueryVone_IEs_tags_145,	/* Same as above */
+	sizeof(asn_DEF_RICserviceQueryVone_IEs_tags_145)
+		/sizeof(asn_DEF_RICserviceQueryVone_IEs_tags_145[0]), /* 1 */
 	{ 0, 0, SEQUENCE_constraint },
-	asn_MBR_RICserviceQuery_IEs_145,
+	asn_MBR_RICserviceQueryVone_IEs_145,
 	3,	/* Elements count */
-	&asn_SPC_RICserviceQuery_IEs_specs_145	/* Additional specs */
+	&asn_SPC_RICserviceQueryVone_IEs_specs_145	/* Additional specs */
 };
 

@@ -22,186 +22,186 @@ extern "C" {
 #endif
 
 /* Forward declarations */
-struct RICsubscriptionRequest_IEs;
-struct RICsubscriptionResponse_IEs;
-struct RICsubscriptionFailure_IEs;
-struct RICsubscriptionDeleteRequest_IEs;
-struct RICsubscriptionDeleteResponse_IEs;
-struct RICsubscriptionDeleteFailure_IEs;
-struct RICindication_IEs;
-struct RICcontrolRequest_IEs;
-struct RICcontrolAcknowledge_IEs;
-struct RICcontrolFailure_IEs;
-struct ErrorIndication_IEs;
-struct E2setupRequestIEs;
-struct E2setupResponseIEs;
-struct E2setupFailureIEs;
-struct E2connectionUpdate_IEs;
-struct E2connectionUpdateAck_IEs;
-struct E2connectionUpdateFailure_IEs;
-struct E2nodeConfigurationUpdate_IEs;
-struct E2nodeConfigurationUpdateAcknowledge_IEs;
-struct E2nodeConfigurationUpdateFailure_IEs;
-struct ResetRequestIEs;
-struct ResetResponseIEs;
-struct RICserviceUpdate_IEs;
-struct RICserviceUpdateAcknowledge_IEs;
-struct RICserviceUpdateFailure_IEs;
-struct RICserviceQuery_IEs;
+struct RICsubscriptionRequestVone_IEs;
+struct RICsubscriptionResponseVone_IEs;
+struct RICsubscriptionFailureVone_IEs;
+struct RICsubscriptionDeleteRequestVone_IEs;
+struct RICsubscriptionDeleteResponseVone_IEs;
+struct RICsubscriptionDeleteFailureVone_IEs;
+struct RICindicationVone_IEs;
+struct RICcontrolRequestVone_IEs;
+struct RICcontrolAcknowledgeVone_IEs;
+struct RICcontrolFailureVone_IEs;
+struct ErrorIndicationVone_IEs;
+struct E2setupRequestIEsVone;
+struct E2setupResponseIEsVone;
+struct E2setupFailureIEsVone;
+struct E2connectionUpdateVone_IEs;
+struct E2connectionUpdateAck_IEs_Vone;
+struct E2connectionUpdateFailureVone_IEs;
+struct E2nodeConfigurationUpdateVone_IEs;
+struct E2nodeConfigurationUpdateAcknowledgeVone_IEs;
+struct E2nodeConfigurationUpdateFailureVone_IEs;
+struct ResetRequestIEsVone;
+struct ResetResponseIEsVone;
+struct RICserviceUpdateVone_IEs;
+struct RICserviceUpdateAcknowledgeVone_IEs;
+struct RICserviceUpdateFailureVone_IEs;
+struct RICserviceQueryVone_IEs;
 
 /* ProtocolIE-Container */
 typedef struct ProtocolIE_Container_1710P0 {
-	A_SEQUENCE_OF(struct RICsubscriptionRequest_IEs) list;
+	A_SEQUENCE_OF(struct RICsubscriptionRequestVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P0_t;
 typedef struct ProtocolIE_Container_1710P1 {
-	A_SEQUENCE_OF(struct RICsubscriptionResponse_IEs) list;
+	A_SEQUENCE_OF(struct RICsubscriptionResponseVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P1_t;
 typedef struct ProtocolIE_Container_1710P2 {
-	A_SEQUENCE_OF(struct RICsubscriptionFailure_IEs) list;
+	A_SEQUENCE_OF(struct RICsubscriptionFailureVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P2_t;
 typedef struct ProtocolIE_Container_1710P3 {
-	A_SEQUENCE_OF(struct RICsubscriptionDeleteRequest_IEs) list;
+	A_SEQUENCE_OF(struct RICsubscriptionDeleteRequestVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P3_t;
 typedef struct ProtocolIE_Container_1710P4 {
-	A_SEQUENCE_OF(struct RICsubscriptionDeleteResponse_IEs) list;
+	A_SEQUENCE_OF(struct RICsubscriptionDeleteResponseVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P4_t;
 typedef struct ProtocolIE_Container_1710P5 {
-	A_SEQUENCE_OF(struct RICsubscriptionDeleteFailure_IEs) list;
+	A_SEQUENCE_OF(struct RICsubscriptionDeleteFailureVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P5_t;
 typedef struct ProtocolIE_Container_1710P6 {
-	A_SEQUENCE_OF(struct RICindication_IEs) list;
+	A_SEQUENCE_OF(struct RICindicationVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P6_t;
 typedef struct ProtocolIE_Container_1710P7 {
-	A_SEQUENCE_OF(struct RICcontrolRequest_IEs) list;
+	A_SEQUENCE_OF(struct RICcontrolRequestVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P7_t;
 typedef struct ProtocolIE_Container_1710P8 {
-	A_SEQUENCE_OF(struct RICcontrolAcknowledge_IEs) list;
+	A_SEQUENCE_OF(struct RICcontrolAcknowledgeVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P8_t;
 typedef struct ProtocolIE_Container_1710P9 {
-	A_SEQUENCE_OF(struct RICcontrolFailure_IEs) list;
+	A_SEQUENCE_OF(struct RICcontrolFailureVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P9_t;
 typedef struct ProtocolIE_Container_1710P10 {
-	A_SEQUENCE_OF(struct ErrorIndication_IEs) list;
+	A_SEQUENCE_OF(struct ErrorIndicationVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P10_t;
 typedef struct ProtocolIE_Container_1710P11 {
-	A_SEQUENCE_OF(struct E2setupRequestIEs) list;
+	A_SEQUENCE_OF(struct E2setupRequestIEsVone) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P11_t;
 typedef struct ProtocolIE_Container_1710P12 {
-	A_SEQUENCE_OF(struct E2setupResponseIEs) list;
+	A_SEQUENCE_OF(struct E2setupResponseIEsVone) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P12_t;
 typedef struct ProtocolIE_Container_1710P13 {
-	A_SEQUENCE_OF(struct E2setupFailureIEs) list;
+	A_SEQUENCE_OF(struct E2setupFailureIEsVone) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P13_t;
 typedef struct ProtocolIE_Container_1710P14 {
-	A_SEQUENCE_OF(struct E2connectionUpdate_IEs) list;
+	A_SEQUENCE_OF(struct E2connectionUpdateVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P14_t;
 typedef struct ProtocolIE_Container_1710P15 {
-	A_SEQUENCE_OF(struct E2connectionUpdateAck_IEs) list;
+	A_SEQUENCE_OF(struct E2connectionUpdateAck_IEs_Vone) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P15_t;
 typedef struct ProtocolIE_Container_1710P16 {
-	A_SEQUENCE_OF(struct E2connectionUpdateFailure_IEs) list;
+	A_SEQUENCE_OF(struct E2connectionUpdateFailureVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P16_t;
 typedef struct ProtocolIE_Container_1710P17 {
-	A_SEQUENCE_OF(struct E2nodeConfigurationUpdate_IEs) list;
+	A_SEQUENCE_OF(struct E2nodeConfigurationUpdateVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P17_t;
 typedef struct ProtocolIE_Container_1710P18 {
-	A_SEQUENCE_OF(struct E2nodeConfigurationUpdateAcknowledge_IEs) list;
+	A_SEQUENCE_OF(struct E2nodeConfigurationUpdateAcknowledgeVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P18_t;
 typedef struct ProtocolIE_Container_1710P19 {
-	A_SEQUENCE_OF(struct E2nodeConfigurationUpdateFailure_IEs) list;
+	A_SEQUENCE_OF(struct E2nodeConfigurationUpdateFailureVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P19_t;
 typedef struct ProtocolIE_Container_1710P20 {
-	A_SEQUENCE_OF(struct ResetRequestIEs) list;
+	A_SEQUENCE_OF(struct ResetRequestIEsVone) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P20_t;
 typedef struct ProtocolIE_Container_1710P21 {
-	A_SEQUENCE_OF(struct ResetResponseIEs) list;
+	A_SEQUENCE_OF(struct ResetResponseIEsVone) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P21_t;
 typedef struct ProtocolIE_Container_1710P22 {
-	A_SEQUENCE_OF(struct RICserviceUpdate_IEs) list;
+	A_SEQUENCE_OF(struct RICserviceUpdateVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P22_t;
 typedef struct ProtocolIE_Container_1710P23 {
-	A_SEQUENCE_OF(struct RICserviceUpdateAcknowledge_IEs) list;
+	A_SEQUENCE_OF(struct RICserviceUpdateAcknowledgeVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P23_t;
 typedef struct ProtocolIE_Container_1710P24 {
-	A_SEQUENCE_OF(struct RICserviceUpdateFailure_IEs) list;
+	A_SEQUENCE_OF(struct RICserviceUpdateFailureVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;
 } ProtocolIE_Container_1710P24_t;
 typedef struct ProtocolIE_Container_1710P25 {
-	A_SEQUENCE_OF(struct RICserviceQuery_IEs) list;
+	A_SEQUENCE_OF(struct RICserviceQueryVone_IEs) list;
 	
 	/* Context for parsing across buffer boundaries */
 	asn_struct_ctx_t _asn_ctx;

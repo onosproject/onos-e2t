@@ -10,7 +10,7 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "ProtocolIE-SingleContainer.h"
-//#include "RICaction-ToBeSetup-Item.h"
+//#include "RICaction-ToBeSetup-Item-Vone.h"
 //#include "ProtocolIE-Field.h"
 import "C"
 import (

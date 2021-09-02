@@ -9,12 +9,12 @@
 extern "C" {
 #endif
 
-#define maxProtocolIEs (65535)
-#define maxnoofErrors (256)
-#define maxofE2nodeComponents (1024)
-#define maxofRANfunctionID (256)
-#define maxofRICactionID (16)
-#define maxofTNLA (32)
+#define maxProtocolIEsVone (65535)
+#define maxnoofErrorsVone (256)
+#define maxofE2nodeComponentsVone (1024)
+#define maxofRANfunctionIDVone (256)
+#define maxofRICactionIDVone (16)
+#define maxofTNLAVone (32)
 
 
 #ifdef __cplusplus
