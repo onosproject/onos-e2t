@@ -5,7 +5,6 @@
 package e2
 
 import (
-	"context"
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	"github.com/onosproject/helmit/pkg/kubernetes/core/v1"
 	"github.com/onosproject/onos-api/go/onos/topo"
@@ -92,10 +91,12 @@ func readTopoAddedEvents(ch chan topo.Event, expectedValue int) map[string]topo.
 	eventsMap := make(map[string]topo.Event)
 	count := 0
 	for event := range ch {
-		count++
-		eventsMap[podID(event.Object)] = event
-		if count == expectedValue {
-			break
+		if event.Type == topo.EventType_ADDED {
+			count++
+			eventsMap[podID(event.Object)] = event
+			if count == expectedValue {
+				break
+			}
 		}
 	}
 	return eventsMap
@@ -107,11 +108,24 @@ func waitForE2TNodes(t *testing.T) map[string]topo.Event {
 	assert.NoError(t, err)
 
 	topoEventChan := make(chan topo.Event)
-	ctx := context.Background()
+	ctx, cancel := e2utils.GetCtx()
 	err = topoSdkClient.WatchE2TNodes(ctx, topoEventChan)
 	assert.NoError(t, err)
 	events := readTopoAddedEvents(topoEventChan, utils.E2TReplicaCount)
+	cancel()
 	return events
+}
+
+func waitForE2TDeleted(t *testing.T, ch chan topo.Event) {
+	time.Sleep(5 * time.Second)
+	// TODO figure out why these events are not always delivered properly
+	//for event := range ch {
+	//	fmt.Fprintf(os.Stderr, "waiting for delete, saw %v\n", event.Type)
+	//	if event.Type == topo.EventType_REMOVED {
+	//		return
+	//	}
+	//}
+	//assert.Fail(t, "REMOVED event not seen")
 }
 
 // TestE2TLeaseExpiration checks that when an E2T pod is deleted, topo is updated properly
@@ -121,6 +135,16 @@ func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
 	// check that the E2T pods are all registered properly with topo
 	e2tPods := getE2Pods(t, s)
 	nodes := checkNodes(t, e2tPods, eventNodes)
+	assert.Equal(t, 2, len(nodes))
+
+	topoSdkClient, err := utils.NewTopoClient()
+	assert.NoError(t, err)
+
+	deleteEventChan := make(chan topo.Event)
+	ctx, cancel := e2utils.GetCtx()
+	defer cancel()
+	err = topoSdkClient.WatchE2TNodes(ctx, deleteEventChan)
+	assert.NoError(t, err)
 
 	// delete the first e2t node in the list - k8s will make a new pod
 	firstNode := nodes[0]
@@ -130,21 +154,21 @@ func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
 	// wait for the topo object to expire
 	expiration := getExpiration(t, firstNode)
 	untilExpiration := time.Until(expiration)
+	<-time.After(untilExpiration)
 
-	time.AfterFunc(untilExpiration, func() {
+	waitForE2TDeleted(t, deleteEventChan)
 
-		// Check that the new pod was properly registered
-		e2tPods = getE2Pods(t, s)
-		nodesAfterDelete := checkNodes(t, e2tPods, nil)
+	// Check that the new pod was properly registered
+	e2tPods = getE2Pods(t, s)
+	nodesAfterDelete := checkNodes(t, e2tPods, nil)
 
-		// check that the expired node was removed
-		for _, node := range nodesAfterDelete {
-			if string(node.ID) == nodeID(firstPod) {
-				assert.Fail(t, "Crashed e2 pod not removed from topo")
-			}
+	// check that the expired node was removed
+	for _, node := range nodesAfterDelete {
+		if string(node.ID) == nodeID(firstPod) {
+			assert.Fail(t, "Crashed e2 pod not removed from topo")
 		}
+	}
 
-		// check that there are the correct number of registrations
-		assert.Equal(t, len(nodes), len(nodesAfterDelete))
-	})
+	// check that there are the correct number of registrations
+	assert.Equal(t, len(nodes), len(nodesAfterDelete))
 }
