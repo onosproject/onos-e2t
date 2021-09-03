@@ -54,29 +54,25 @@ func getExpiration(t *testing.T, node topo.Object) time.Time {
 	return *lease.Expiration
 }
 
-// checkNodes checks that the IDs of the E2T pods match the topo object IDs
-func checkNodes(t *testing.T, e2tPods map[string]*v1.Pod, events map[string]topo.Event) []topo.Object {
+// getE2TNodes waits for the specified number of e2t nodes to appear in the topo
+func getE2TNodes(t *testing.T, count int64) []topo.Object {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	ctx, cancel := e2utils.GetCtx()
-	nodes, err := topoSdkClient.E2TNodes(ctx)
-	assert.NoError(t, err)
+	iterations := 10
 
-	for _, node := range nodes {
-		// check that the node found in topo is also in k8s
-		idAsPod := podID(node)
-		assert.Equal(t, idAsPod, e2tPods[idAsPod].Name)
-
-		// If an event map was provided, check that the ID in the event map
-		// matches the k8s pod ID
-		if events != nil {
-			_, ok := events[idAsPod]
-			assert.True(t, ok)
+	for i := 1; i <= iterations; i++ {
+		ctx, cancel := e2utils.GetCtx()
+		nodes, err := topoSdkClient.E2TNodes(ctx)
+		assert.NoError(t, err)
+		cancel()
+		if len(nodes) == int(count) {
+			return nodes
 		}
+		time.Sleep(2 * time.Second)
 	}
-	cancel()
-	return nodes
+	assert.Fail(t, "Nodes never became active")
+	return nil
 }
 
 // deletePods deletes a pod
@@ -87,55 +83,21 @@ func deletePod(t *testing.T, pod *v1.Pod) {
 	cancel()
 }
 
-func readTopoAddedEvents(ch chan topo.Event, expectedValue int) map[string]topo.Event {
-	eventsMap := make(map[string]topo.Event)
-	count := 0
+func waitForE2TDeleted(t *testing.T, ch chan topo.Event) {
 	for event := range ch {
-		if event.Type == topo.EventType_ADDED {
-			count++
-			eventsMap[podID(event.Object)] = event
-			if count == expectedValue {
-				break
-			}
+		if event.Type == topo.EventType_REMOVED {
+			return
 		}
 	}
-	return eventsMap
-}
-
-// waitForE2TNodes waits until 2 E2T nodes have registered with topo
-func waitForE2TNodes(t *testing.T) map[string]topo.Event {
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
-	topoEventChan := make(chan topo.Event)
-	ctx, cancel := e2utils.GetCtx()
-	err = topoSdkClient.WatchE2TNodes(ctx, topoEventChan)
-	assert.NoError(t, err)
-	events := readTopoAddedEvents(topoEventChan, utils.E2TReplicaCount)
-	cancel()
-	return events
-}
-
-func waitForE2TDeleted(t *testing.T, ch chan topo.Event) {
-	time.Sleep(5 * time.Second)
-	// TODO figure out why these events are not always delivered properly
-	//for event := range ch {
-	//	fmt.Fprintf(os.Stderr, "waiting for delete, saw %v\n", event.Type)
-	//	if event.Type == topo.EventType_REMOVED {
-	//		return
-	//	}
-	//}
-	//assert.Fail(t, "REMOVED event not seen")
+	assert.Fail(t, "REMOVED event not seen")
 }
 
 // TestE2TLeaseExpiration checks that when an E2T pod is deleted, topo is updated properly
 func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
-	eventNodes := waitForE2TNodes(t)
-
 	// check that the E2T pods are all registered properly with topo
 	e2tPods := getE2Pods(t, s)
-	nodes := checkNodes(t, e2tPods, eventNodes)
-	assert.Equal(t, 2, len(nodes))
+	assert.Equal(t, int(s.E2TReplicaCount), len(e2tPods))
+	nodes := getE2TNodes(t, s.E2TReplicaCount)
 
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
@@ -160,7 +122,8 @@ func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
 
 	// Check that the new pod was properly registered
 	e2tPods = getE2Pods(t, s)
-	nodesAfterDelete := checkNodes(t, e2tPods, nil)
+	assert.Equal(t, int(s.E2TReplicaCount), len(e2tPods))
+	nodesAfterDelete := getE2TNodes(t, s.E2TReplicaCount)
 
 	// check that the expired node was removed
 	for _, node := range nodesAfterDelete {
@@ -168,7 +131,4 @@ func (s *TestSuite) TestE2TLeaseExpiration(t *testing.T) {
 			assert.Fail(t, "Crashed e2 pod not removed from topo")
 		}
 	}
-
-	// check that there are the correct number of registrations
-	assert.Equal(t, len(nodes), len(nodesAfterDelete))
 }

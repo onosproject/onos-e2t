@@ -9,7 +9,7 @@ require (
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/uuid v1.1.2
-	github.com/onosproject/helmit v0.6.15
+	github.com/onosproject/helmit v0.6.18
 	github.com/onosproject/onos-api/go v0.7.93
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.58
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.58
