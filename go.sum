@@ -631,26 +631,15 @@ github.com/olekukonko/tablewriter v0.0.4/go.mod h1:zq6QwlOf5SlnkVbMSr5EoBv3636FW
 github.com/onosproject/helmit v0.6.18 h1:CT6ZjI4juPHtk3uPe4UBnOEnOEm+BzCAM0nrD31/Qrs=
 github.com/onosproject/helmit v0.6.18/go.mod h1:wdfAbTUnL2lBvr8PObslX5Hf3ZZnm1d5kBVy1hMJzYo=
 github.com/onosproject/onos-api/go v0.7.89/go.mod h1:dUChRuNCBGrF6sVdaAZl5T2ZeyEC6ybsAdEBu0YwlMw=
-<<<<<<< HEAD
-github.com/onosproject/onos-api/go v0.7.93 h1:iG9x1eSLHnvVO+bIKAjV6MMDdxXvy4f7AM/8T5qM9H8=
 github.com/onosproject/onos-api/go v0.7.93/go.mod h1:dUChRuNCBGrF6sVdaAZl5T2ZeyEC6ybsAdEBu0YwlMw=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.58 h1:LKBq1uBGQ+7i2RG1NlCX5cyysSsB7mWr6vlt+mSCX/I=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.58/go.mod h1:QeOnMjtqqDfsimRG8KicW2P1oBVBQuetVuWVJZC6qt4=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.58 h1:vZHm6DuqIMmGqpxoyryapt5LYitCcrMeAZsrw2dT90U=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.58/go.mod h1:Oa7cJW+UeCB7vaqia4Zc3eBlYc1FPN9ZUfLOOm1nx1E=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.58 h1:LxHpOi8fqBgo2rF7lmrB4oRLtp9h7j5lO/0YDn+dGKM=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.58/go.mod h1:hD5G5eZGtriaOmPvIPsavTnKVcaJdevPzU+riyK42cI=
-=======
 github.com/onosproject/onos-api/go v0.7.94 h1:PHpsVQ1xVOlQ34GW4g+JHlzgfQALXKptUbsqOXauzJY=
 github.com/onosproject/onos-api/go v0.7.94/go.mod h1:dUChRuNCBGrF6sVdaAZl5T2ZeyEC6ybsAdEBu0YwlMw=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.47 h1:OAmsXjeC9JyX2Zw/yypDOegcxCv/T5IeCq5LtJUC1nA=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.47/go.mod h1:vhYUpOK9A/VNdCGeu4tVuOyX2BS7oaA9KO3w8bO4+mg=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.47 h1:ORKlio31ptm9OLT9NwxgKglM9qoaeDz34OBtMIS4CCY=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.47/go.mod h1:+TsHgchW4BrE78+N548jEq+AqBrBWODUTpN19iA4p7o=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.47 h1:kabZpsxGoo1FTejkCYkjGtmz4d/FBGgdFi0PA8q05Lk=
-github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.47/go.mod h1:UuYNj/ONhVQkmwdyBv3+K3yUHJTl/fel2Yg3LTpDvng=
->>>>>>> move expiring of the channel to controller
-github.com/onosproject/onos-lib-go v0.7.18 h1:b6TOW5ZivCPHD2i9S8iY5SDuX+oOUeXwwmq1XelnS2k=
+github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.59 h1:VsXaIdok56F15R1y/+x00TFJwvNLnzME2Uv8ADXpK3M=
+github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.59/go.mod h1:HCK/eGpdXbeAAkYRF2667jl6jgbOL++7gCJ3PV0HTwo=
+github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.59 h1:s4Wh0f971VZLAcave+RMDHNeBbgezWAobkH5xyNa1Xg=
+github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.59/go.mod h1:JkEi/sC5w3k66OxCKFnZFJ9mbQll7XPj4aevhu78plQ=
+github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.59 h1:tHhVH/eNZs27MhCuO1uRRg2SjD1INFZQUtQQj0u+ZKs=
+github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.59/go.mod h1:KEdBwwDGpEVEAQtGdCDIoqYANbfRaLdHFsVPO3o8yso=
 github.com/onosproject/onos-lib-go v0.7.18/go.mod h1:yEu+qDh+z1G6b9clPAjDLQNnBll8TMl8o2sFDBzk/fI=
 github.com/onosproject/onos-lib-go v0.7.19 h1:FkkA86lQxLQmQjK8d/zvIUmr58jKBNXEPafVZ4sVe40=
 github.com/onosproject/onos-lib-go v0.7.19/go.mod h1:6Cm9H/aqJqJef2za3K3Lx6UrCrtOD7tN+DCThFOHcA8=

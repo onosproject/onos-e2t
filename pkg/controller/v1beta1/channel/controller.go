@@ -96,9 +96,10 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 			return controller.Result{}, nil
 		}
 
-		log.Debug("Reconcile the closing channel at %s")
+		requeueTime := channel.Status.Timestamp.Add(transactionTimeout)
+		log.Debugf("Reconcile the closing channel at: %v", requeueTime)
 		return controller.Result{
-			RequeueAt: ,
+			RequeueAt: requeueTime,
 		}, nil
 	}
 

@@ -17,8 +17,6 @@ import (
 
 	"github.com/cenkalti/backoff"
 
-	"github.com/cenkalti/backoff"
-
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -205,7 +203,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	err = e2nodeEntity.GetAspect(mastership)
 	if err != nil {
 		log.Warnf("Failed to fetch mastership state for e2node: %s", request.Headers.E2NodeID)
-		return errors.NewUnavailable("mastership state is not available for e2 node: %s", request.Headers.E2NodeID)
+		return errors.Status(errors.NewUnavailable("mastership state is not available for e2 node: %s:%s", request.Headers.E2NodeID, err)).Err()
 	}
 
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
@@ -268,7 +266,10 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 
 	err = backoff.Retry(func() error {
 		channel, err := s.chans.Get(server.Context(), channelID)
-		if err != nil && errors.IsNotFound(err) {
+		if err != nil {
+			if !errors.IsNotFound(err) {
+				return err
+			}
 			channel = &e2api.Channel{
 				ID: channelID,
 				ChannelMeta: e2api.ChannelMeta{
