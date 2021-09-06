@@ -203,7 +203,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	err = e2nodeEntity.GetAspect(mastership)
 	if err != nil {
 		log.Warnf("Failed to fetch mastership state for e2node: %s", request.Headers.E2NodeID)
-		return errors.Status(errors.NewUnavailable("mastership state is not available for e2 node: %s:%s", request.Headers.E2NodeID, err)).Err()
+		return errors.Status(errors.NewUnavailable("not the master for e2 node: %s", request.Headers.E2NodeID)).Err()
 	}
 
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
@@ -286,24 +286,21 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 					TransactionTimeout: request.TransactionTimeout,
 				},
 				Status: e2api.ChannelStatus{
-					Phase:     e2api.ChannelPhase_CHANNEL_OPEN,
-					Timestamp: nil,
-					Term:      mastership.Term,
+					Phase: e2api.ChannelPhase_CHANNEL_OPEN,
+					Term:  mastership.Term,
 				},
 			}
 			err = s.chans.Create(server.Context(), channel)
-			if err != nil && !errors.IsAlreadyExists(err) {
-				return err
-			}
+			return err
+		}
+		if channel.Status.Timestamp == nil && channel.Status.Term == mastership.Term {
 			return nil
 		}
+
 		channel.Status.Timestamp = nil
 		channel.Status.Term = mastership.Term
 		err = s.chans.Update(server.Context(), channel)
-		if err != nil && !errors.IsNotFound(err) {
-			return err
-		}
-		return nil
+		return err
 	}, backoff.NewExponentialBackOff())
 	if err != nil {
 		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
