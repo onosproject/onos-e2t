@@ -20,7 +20,10 @@ import (
 
 var log = logging.GetLogger("controller", "channel")
 
-const defaultTimeout = 30 * time.Second
+const (
+	defaultTimeout            = 30 * time.Second
+	defaultTransactionTimeout = 60 * time.Second
+)
 
 // NewController returns a new channel controller
 func NewController(chans chanstore.Store, subs substore.Store, streams subscription.Broker) *controller.Controller {
@@ -73,12 +76,36 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Result, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
+	defer cancel()
+	if channel.Status.Timestamp != nil {
+		transactionTimeout := defaultTransactionTimeout
+		if channel.Spec.TransactionTimeout != nil {
+			transactionTimeout = *channel.Spec.TransactionTimeout
+		}
+
+		expireTime := channel.Status.Timestamp.Add(transactionTimeout)
+		if time.Now().After(expireTime) {
+			log.Infof("Channel timeout, Closing channel  %s", channel.ID)
+			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
+			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
+			channel.Status.Error = nil
+			if err := r.chans.Update(ctx, channel); err != nil {
+				log.Warnf("Failed to update channel %s: %s", channel.ID, err)
+				return controller.Result{}, err
+			}
+			return controller.Result{}, nil
+		}
+
+		log.Debugf("Reconcile the closing channel at: %v", expireTime)
+		return controller.Result{
+			RequeueAt: expireTime,
+		}, nil
+	}
+
 	if channel.Status.State != e2api.ChannelState_CHANNEL_PENDING {
 		return controller.Result{}, nil
 	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
-	defer cancel()
 
 	sub, err := r.subs.Get(ctx, channel.SubscriptionID)
 	if err != nil {
