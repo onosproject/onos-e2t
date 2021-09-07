@@ -78,13 +78,14 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
-	transactionTimeout := defaultTransactionTimeout
 	if channel.Status.Timestamp != nil {
+		transactionTimeout := defaultTransactionTimeout
 		if channel.Spec.TransactionTimeout != nil {
 			transactionTimeout = *channel.Spec.TransactionTimeout
 		}
-		timeElapsed := time.Since(*channel.Status.Timestamp)
-		if timeElapsed >= transactionTimeout {
+
+		expireTime := channel.Status.Timestamp.Add(transactionTimeout)
+		if time.Now().After(expireTime) {
 			log.Infof("Channel timeout, Closing channel  %s", channel.ID)
 			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
 			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
@@ -96,10 +97,9 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 			return controller.Result{}, nil
 		}
 
-		requeueTime := channel.Status.Timestamp.Add(transactionTimeout)
-		log.Debugf("Reconcile the closing channel at: %v", requeueTime)
+		log.Debugf("Reconcile the closing channel at: %v", expireTime)
 		return controller.Result{
-			RequeueAt: requeueTime,
+			RequeueAt: expireTime,
 		}, nil
 	}
 
