@@ -224,7 +224,7 @@ func ReadToEndOfChannel(ch chan e2api.Indication) bool {
 			if !ok {
 				return true
 			}
-		case <-time.After(10 * time.Second):
+		case <-time.After(30 * time.Second):
 			return false
 		}
 	}
