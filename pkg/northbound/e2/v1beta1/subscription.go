@@ -389,26 +389,33 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		}
 
 		if err == context.Canceled {
-			ctx := context.Background()
-			channel, err := s.chans.Get(ctx, channelID)
-			if err != nil {
-				log.Warnf("cannot find channel %s:%v", channelID, err)
-				return err
-			}
-			log.Debugf("Context is canceled, updating channel status for channel:%s", channelID)
-
-			if channel.Status.Term <= mastership.Term {
-				currentTime := time.Now()
-				channel.Status.Timestamp = &currentTime
-				channel.Status.Term = mastership.Term
-				log.Debugf("Updating channel status; timestamp: %v and mastership term: %d", currentTime, mastership.Term)
-				err := s.chans.Update(ctx, channel)
+			err = backoff.Retry(func() error {
+				ctx := context.Background()
+				channel, err := s.chans.Get(ctx, channelID)
 				if err != nil {
-					log.Warnf("Failed to update channel status timestamp and mastership term for channel: %s, %v", channel.ID, err)
+					log.Warnf("cannot find channel %s:%v", channelID, err)
+					return backoff.Permanent(err)
+
+				}
+				log.Debugf("Context is canceled, updating channel status for channel:%s", channelID)
+				if channel.Status.Term <= mastership.Term {
+					currentTime := time.Now()
+					channel.Status.Timestamp = &currentTime
+					channel.Status.Term = mastership.Term
+					log.Debugf("Updating channel status; timestamp: %v and mastership term: %d", currentTime, mastership.Term)
+					err := s.chans.Update(ctx, channel)
+					if err != nil && !errors.IsConflict(err) {
+						return backoff.Permanent(err)
+					}
 					return err
 				}
-
+				return nil
+			}, backoff.NewExponentialBackOff())
+			if err != nil {
+				log.Warnf("SubscribeRequest %+v failed: %v", request, err)
+				return err
 			}
+			return nil
 		}
 
 		if err != nil {
