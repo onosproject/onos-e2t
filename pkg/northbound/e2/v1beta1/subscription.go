@@ -296,7 +296,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			}
 			return err
 		}
-		if channel.Status.Timestamp == nil && channel.Status.Term == mastership.Term {
+		if channel.Status.Term > mastership.Term || (channel.Status.Timestamp == nil && channel.Status.Term == mastership.Term) {
 			return nil
 		}
 
