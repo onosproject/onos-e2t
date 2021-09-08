@@ -6,16 +6,13 @@ package admin
 
 import (
 	"context"
-	"errors"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
-	"time"
-
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 
 	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
-	"github.com/onosproject/onos-lib-go/pkg/sctp/addressing"
 	"google.golang.org/grpc"
 )
 
@@ -63,52 +60,7 @@ func (s *Server) ListRegisteredServiceModels(req *adminapi.ListRegisteredService
 
 // ListE2NodeConnections returns a stream of existing SCTP connections.
 func (s *Server) ListE2NodeConnections(req *adminapi.ListE2NodeConnectionsRequest, stream adminapi.E2TAdminService_ListE2NodeConnectionsServer) error {
-	channels, err := s.channels.List(stream.Context())
-	if err != nil {
-		return err
-	}
-
-	for _, channel := range channels {
-		sctpAddr := channel.RemoteAddr()
-		if sctpAddr == nil {
-			log.Errorf("Found non-SCTP connection in CreateConnection: %v", channel)
-			return errors.New("found non-SCTP connection")
-		}
-		remoteAddrs := channel.RemoteAddr().(*addressing.Address).IPAddrs
-		remotePort := uint32(channel.RemoteAddr().(*addressing.Address).Port)
-		var remoteAddrsStrings []string
-		for _, remoteAddr := range remoteAddrs {
-			remoteAddrsStrings = append(remoteAddrsStrings, remoteAddr.String())
-		}
-		var ranFunctions []*adminapi.RANFunction
-		registeredRANFunctions := channel.GetRANFunctions()
-
-		for _, ranFunctionValue := range registeredRANFunctions {
-			ranFunction := &adminapi.RANFunction{
-				Oid:           string(ranFunctionValue.OID),
-				RanFunctionId: string(ranFunctionValue.ID),
-				Description:   ranFunctionValue.Description,
-			}
-			ranFunctions = append(ranFunctions, ranFunction)
-		}
-
-		msg := &adminapi.ListE2NodeConnectionsResponse{
-			Id:             string(channel.ID),
-			RemoteIp:       remoteAddrsStrings,
-			RemotePort:     remotePort,
-			PlmnId:         channel.PlmnID,
-			NodeId:         channel.NodeID,
-			ConnectionType: connectionType(channel.NodeType),
-			AgeMs:          int32(time.Since(channel.TimeAlive).Milliseconds()),
-			RanFunctions:   ranFunctions,
-		}
-
-		err = stream.Send(msg)
-		if err != nil {
-			return err
-		}
-	}
-	return err
+	return errors.Status(errors.NewNotSupported("ListE2NodeConnections not supported: use onos-topo instead")).Err()
 }
 
 func connectionType(nodeType types.E2NodeType) adminapi.E2NodeConnectionType {
