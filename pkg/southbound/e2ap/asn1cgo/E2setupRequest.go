@@ -12,7 +12,7 @@ package asn1cgo
 //#include "E2setupRequest.h"
 import "C"
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
 )
 
@@ -44,12 +44,12 @@ func perEncodeE2SetupRequest(e2SetupRequest *e2appducontents.E2SetupRequest) ([]
 }
 
 func newE2SetupRequest(esr *e2appducontents.E2SetupRequest) (*C.E2setupRequest_t, error) {
-	pIeC1544P11, err := newE2SetupRequestIes(esr.ProtocolIes)
+	pIeC1710P11, err := newE2SetupRequestIes(esr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	esC := C.E2setupRequest_t{
-		protocolIEs: *pIeC1544P11,
+		protocolIEs: *pIeC1710P11,
 	}
 
 	return &esC, nil

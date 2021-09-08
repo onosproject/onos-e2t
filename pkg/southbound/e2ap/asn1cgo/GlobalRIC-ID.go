@@ -14,8 +14,8 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
 )
 
@@ -27,9 +27,13 @@ func newGlobalRicID(gr *e2apies.GlobalRicId) (*C.GlobalRIC_ID_t, error) {
 		return nil, fmt.Errorf("ric-ID has to be 20 bits exactly - e2ap-v01.00.00.asn line 1076")
 	}
 
+	bsC, err := newBitString(gr.RicId)
+	if err != nil {
+		return nil, err
+	}
 	idC := C.GlobalRIC_ID_t{
 		pLMN_Identity: *newOctetString(string(gr.PLmnIdentity.Value)),
-		ric_ID:        *newBitString(gr.RicId),
+		ric_ID:        *bsC,
 	}
 
 	return &idC, nil

@@ -8,7 +8,7 @@ package asn1cgo
 import "C"
 import (
 	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 )
 
 func criticalityToC(criticality e2ap_commondatatypes.Criticality) (C.Criticality_t, error) {

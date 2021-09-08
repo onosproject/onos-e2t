@@ -5,7 +5,8 @@
 package asn1cgo
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"encoding/hex"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
@@ -24,7 +25,10 @@ func Test_RanFunctionsList(t *testing.T) {
 		Revision:    1,
 	}
 
-	e2apSetupRequest, err := pdubuilder.CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, ranFunctionList)
+	gnbID, err := pdubuilder.CreateGnbIDchoice([]byte{0x00, 0x00, 0x04}, 22)
+	assert.NilError(t, err)
+
+	e2apSetupRequest, err := pdubuilder.CreateE2SetupRequestPdu([3]byte{0x4F, 0x4E, 0x46}, gnbID, ranFunctionList)
 	assert.NilError(t, err)
 
 	im := e2apSetupRequest.GetE2ApPdu().(*e2appdudescriptions.E2ApPdu_InitiatingMessage)
@@ -35,7 +39,7 @@ func Test_RanFunctionsList(t *testing.T) {
 
 	per, err := perEncodeRanFunctionsList(rflist)
 	assert.NilError(t, err)
-	t.Logf("RanFunctionList PER\n%s", per)
+	t.Logf("RanFunctionList PER\n%v", hex.Dump(per))
 
 	// Now reverse the XER
 	rflReversed, err := xerDecodeRanFunctionList(xer)

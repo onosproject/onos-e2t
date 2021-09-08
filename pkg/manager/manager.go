@@ -18,7 +18,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 
 	"github.com/onosproject/onos-e2t/pkg/controller/mastership"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"

@@ -7,10 +7,10 @@ package admin
 import (
 	"context"
 	"errors"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"time"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 
 	adminapi "github.com/onosproject/onos-api/go/onos/e2t/admin"
 	"github.com/onosproject/onos-lib-go/pkg/logging"

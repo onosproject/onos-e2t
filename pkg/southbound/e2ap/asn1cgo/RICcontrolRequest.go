@@ -14,7 +14,7 @@ package asn1cgo
 import "C"
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
 )
 
@@ -67,12 +67,12 @@ func perDecodeRICcontrolRequest(bytes []byte) (*e2appducontents.RiccontrolReques
 }
 
 func newRicControlRequest(rcr *e2appducontents.RiccontrolRequest) (*C.RICcontrolRequest_t, error) {
-	pIeC1544P7, err := newRicControlRequestIEs(rcr.ProtocolIes)
+	pIeC1710P7, err := newRicControlRequestIEs(rcr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rcrC := C.RICcontrolRequest_t{
-		protocolIEs: *pIeC1544P7,
+		protocolIEs: *pIeC1710P7,
 	}
 
 	return &rcrC, nil

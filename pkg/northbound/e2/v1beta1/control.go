@@ -20,13 +20,13 @@ import (
 
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 
 	"github.com/onosproject/onos-e2t/pkg/config"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 

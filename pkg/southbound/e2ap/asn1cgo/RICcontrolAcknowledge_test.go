@@ -5,7 +5,8 @@
 package asn1cgo
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"encoding/hex"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
@@ -18,13 +19,15 @@ func Test_RICcontrolAcknowledge(t *testing.T) {
 		InstanceID:  22,
 	}
 	var ranFuncID types.RanFunctionID = 9
-	var ricCallPrID types.RicCallProcessID = []byte("123")
+	//var ricCallPrID types.RicCallProcessID = []byte("123")
 	ricControlStatus := e2apies.RiccontrolStatus_RICCONTROL_STATUS_SUCCESS
-	var ricCtrlOut types.RicControlOutcome = []byte("456")
+	//var ricCtrlOut types.RicControlOutcome = []byte("456")
 	e2ApPduRca, err := pdubuilder.CreateRicControlAcknowledgeE2apPdu(ricRequestID,
-		ranFuncID, ricCallPrID, ricControlStatus, ricCtrlOut)
+		ranFuncID, nil, ricControlStatus, nil)
 	assert.NilError(t, err)
 	assert.Assert(t, e2ApPduRca != nil)
+
+	t.Logf("That's what we're going to encode: \n %v \n", e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome())
 
 	xer, err := xerEncodeRICcontrolAcknowledge(
 		e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome())
@@ -38,7 +41,7 @@ func Test_RICcontrolAcknowledge(t *testing.T) {
 	per, err := perEncodeRICcontrolAcknowledge(
 		e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome())
 	assert.NilError(t, err)
-	t.Logf("PER RICcontrolAcknowledge\n%s", per)
+	t.Logf("PER RICcontrolAcknowledge\n%v", hex.Dump(per))
 
 	e2apPdu, err = perDecodeRICcontrolAcknowledge(per)
 	assert.NilError(t, err)
