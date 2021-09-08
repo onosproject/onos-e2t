@@ -35,7 +35,7 @@ func Connect(ctx context.Context, address string, handler ClientHandler) (Client
 	if err != nil {
 		return nil, err
 	}
-	conn := NewE2NodeConn(c, func(conn ClientConn) ClientInterface {
+	conn := NewClientConn(c, func(conn ClientConn) ClientInterface {
 		return handler(conn)
 	})
 	return conn, nil

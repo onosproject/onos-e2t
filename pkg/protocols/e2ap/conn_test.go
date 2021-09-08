@@ -33,7 +33,7 @@ func TestConns(t *testing.T) {
 		writeCh: serverCh,
 	}
 
-	e2NodeCh := NewE2NodeConn(clientConn, func(conn ClientConn) ClientInterface {
+	e2NodeCh := NewClientConn(clientConn, func(conn ClientConn) ClientInterface {
 		return &testClientProcedures{}
 	})
 	ricCh := NewServerConn(serverConn, func(conn ServerConn) ServerInterface {

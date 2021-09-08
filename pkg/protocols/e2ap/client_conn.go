@@ -15,14 +15,14 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/utils/async"
 )
 
-// ClientConn is a connection for an E2 node
+// ClientConn is a connection for an E2AP client
 type ClientConn interface {
 	Conn
 	procedures.RICProcedures
 }
 
-// NewE2NodeConn creates a new E2 node connection
-func NewE2NodeConn(c net.Conn, handler ClientHandler, opts ...Option) ClientConn {
+// NewClientConn creates a new client connection
+func NewClientConn(c net.Conn, handler ClientHandler, opts ...Option) ClientConn {
 	parent := newThreadSafeConn(c, opts...)
 	cc := &clientConn{
 		threadSafeConn: parent,
@@ -38,7 +38,7 @@ func NewE2NodeConn(c net.Conn, handler ClientHandler, opts ...Option) ClientConn
 	return cc
 }
 
-// clientConn is an E2 node connection
+// clientConn is an E2 node client connection
 type clientConn struct {
 	*threadSafeConn
 	e2Setup               *procedures.E2SetupInitiator
