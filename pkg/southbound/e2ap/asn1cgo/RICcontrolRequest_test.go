@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 )
 

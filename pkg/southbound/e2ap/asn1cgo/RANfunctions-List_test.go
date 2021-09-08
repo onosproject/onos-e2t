@@ -10,8 +10,8 @@ import (
 
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
 )
