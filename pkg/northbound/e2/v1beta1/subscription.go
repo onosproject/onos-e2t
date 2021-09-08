@@ -496,18 +496,27 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		// Get the channel for the subscription/app/instance
 		channel, err := s.chans.Get(ctx, channelID)
 		if err != nil {
+			if errors.IsNotFound(err) {
+				return nil
+			}
 			return backoff.Permanent(err)
 		}
+
 		// Ensure the channel phase is CLOSED
 		if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
 			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
 			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 			channel.Status.Error = nil
 			err := s.chans.Update(ctx, channel)
-			if err != nil && !errors.IsConflict(err) {
+			if err != nil {
+				if errors.IsConflict(err) {
+					return err
+				}
+				if errors.IsNotFound(err) {
+					return nil
+				}
 				return backoff.Permanent(err)
 			}
-			return err
 		}
 		return nil
 
