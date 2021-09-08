@@ -39,11 +39,11 @@ import (
 var log = logging.GetLogger("northbound", "e2", "v1beta1")
 
 // NewControlService creates a new control service
-func NewControlService(modelRegistry modelregistry.ModelRegistry, channels e2server.ConnManager,
+func NewControlService(modelRegistry modelregistry.ModelRegistry, conns e2server.ConnManager,
 	oidRegistry oid.Registry, topo rnib.Store) northbound.Service {
 	return &ControlService{
 		modelRegistry: modelRegistry,
-		channels:      channels,
+		conns:         conns,
 		oidRegistry:   oidRegistry,
 		topo:          topo,
 	}
@@ -53,7 +53,7 @@ func NewControlService(modelRegistry modelregistry.ModelRegistry, channels e2ser
 type ControlService struct {
 	northbound.Service
 	modelRegistry modelregistry.ModelRegistry
-	channels      e2server.ConnManager
+	conns         e2server.ConnManager
 	oidRegistry   oid.Registry
 	topo          rnib.Store
 }
@@ -62,7 +62,7 @@ type ControlService struct {
 func (s ControlService) Register(r *grpc.Server) {
 	server := &ControlServer{
 		modelRegistry: s.modelRegistry,
-		channels:      s.channels,
+		conns:         s.conns,
 		oidRegistry:   s.oidRegistry,
 		topo:          s.topo}
 	e2api.RegisterControlServiceServer(r, server)
@@ -71,7 +71,7 @@ func (s ControlService) Register(r *grpc.Server) {
 // ControlServer implements the gRPC service for control
 type ControlServer struct {
 	modelRegistry modelregistry.ModelRegistry
-	channels      e2server.ConnManager
+	conns         e2server.ConnManager
 	oidRegistry   oid.Registry
 	topo          rnib.Store
 	requestID     int32
@@ -102,7 +102,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
 	}
 
-	channel, err := s.channels.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
+	conn, err := s.conns.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
 	if err != nil {
 		log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
 		return nil, errors.Status(errors.NewUnavailable(err.Error())).Err()
@@ -147,7 +147,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		}
 	}
 
-	ranFuncID, ok := channel.GetRANFunction(serviceModelOID)
+	ranFuncID, ok := conn.GetRANFunction(serviceModelOID)
 	if !ok {
 		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
@@ -160,7 +160,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		return nil, errors.Status(err).Err()
 	}
 
-	ack, failure, err := channel.RICControl(ctx, controlRequest)
+	ack, failure, err := conn.RICControl(ctx, controlRequest)
 	if err != nil {
 		log.Warn(err)
 		return nil, errors.Status(err).Err()

@@ -12,7 +12,6 @@ import (
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -23,23 +22,21 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "mastership")
 
 // NewController returns a new mastership controller
-func NewController(rnib rnib.Store, channels e2server.ConnManager) *controller.Controller {
+func NewController(rnib rnib.Store) *controller.Controller {
 	c := controller.NewController("mastership")
 	c.Watch(&TopoWatcher{
 		topo: rnib,
 	})
 
 	c.Reconcile(&Reconciler{
-		rnib:     rnib,
-		channels: channels,
+		rnib: rnib,
 	})
 	return c
 }
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	rnib     rnib.Store
-	channels e2server.ConnManager
+	rnib rnib.Store
 }
 
 // Reconcile reconciles and mastership election
