@@ -69,7 +69,7 @@ type TopoWatcher struct {
 	topo   rnib.Store
 	conns  e2server.ConnManager
 	cancel context.CancelFunc
-	mu       sync.Mutex
+	mu     sync.Mutex
 }
 
 // Start starts the topology watcher
