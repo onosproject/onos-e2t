@@ -185,7 +185,6 @@ func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Sto
 		int16(m.Config.GRPCPort),
 		true,
 		northbound.SecurityConfig{}))
-	s.AddService(admin.NewService(conns))
 	s.AddService(logging.Service{})
 	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry, conns, m.OidRegistry, rnib))
 	s.AddService(e2v1beta1service.NewSubscriptionService(chans, subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry, rnib))
