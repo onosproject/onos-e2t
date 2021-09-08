@@ -21,9 +21,9 @@ import (
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/pdubuilder"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
@@ -39,15 +39,15 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, channels e2server.ChannelManager,
+func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, conns e2server.ConnManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
 		subs: subs,
 	})
-	c.Watch(&ChannelWatcher{
-		subs:     subs,
-		channels: channels,
+	c.Watch(&ConnWatcher{
+		subs:  subs,
+		conns: conns,
 	})
 	c.Watch(&TopoWatcher{
 		subs: subs,
@@ -57,10 +57,10 @@ func NewController(streams subscription.Broker, subs substore.Store, topo rnib.S
 		streams:                   streams,
 		subs:                      subs,
 		topo:                      topo,
-		channels:                  channels,
+		conns:                     conns,
 		models:                    models,
 		oidRegistry:               oidRegistry,
-		channelIDs:                make(map[e2api.SubscriptionID]e2server.ChannelID),
+		connIDs:                   make(map[e2api.SubscriptionID]e2server.ConnID),
 		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 	})
 	return c
@@ -76,10 +76,10 @@ type Reconciler struct {
 	streams                   subscription.Broker
 	subs                      substore.Store
 	topo                      rnib.Store
-	channels                  e2server.ChannelManager
+	conns                     e2server.ConnManager
 	models                    modelregistry.ModelRegistry
 	oidRegistry               oid.Registry
-	channelIDs                map[e2api.SubscriptionID]e2server.ChannelID
+	connIDs                   map[e2api.SubscriptionID]e2server.ConnID
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
 }
 
@@ -148,18 +148,18 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		return controller.Result{}, nil
 	}
 
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(e2NodeRelation.ID))
+	conn, err := r.conns.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
 			return controller.Result{}, err
 		}
-		log.Warnf("Channel not found for E2Node '%s'", sub.E2NodeID)
+		log.Warnf("Connection not found for E2Node '%s'", sub.E2NodeID)
 		return controller.Result{}, nil
 	}
 
 	if sub.Status.State != e2api.SubscriptionState_SUBSCRIPTION_PENDING {
-		if r.channelIDs[sub.ID] != channel.ID {
+		if r.connIDs[sub.ID] != conn.ID {
 			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_PENDING
 			log.Debugf("Updating Subscription %+v", sub)
 			err = r.subs.Update(ctx, sub)
@@ -171,7 +171,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		return controller.Result{}, nil
 	}
 
-	r.channelIDs[sub.ID] = channel.ID
+	r.connIDs[sub.ID] = conn.ID
 
 	serviceModelOID, err := oid.ModelIDToOid(r.oidRegistry,
 		string(sub.ServiceModel.Name),
@@ -233,7 +233,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFunction, ok := channel.GetRANFunction(serviceModelOID)
+	ranFunction, ok := conn.GetRANFunction(serviceModelOID)
 	if !ok {
 		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
@@ -281,7 +281,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 
 	// Send the subscription request and await a response
 	log.Debugf("Sending RicsubscriptionRequest %+v", request)
-	response, failure, err := channel.RICSubscription(ctx, request)
+	response, failure, err := conn.RICSubscription(ctx, request)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
 		return controller.Result{}, err
@@ -317,7 +317,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	// If the close has completed, delete the subscription
 	if sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
 		log.Debugf("Deleting closed Subscription %+v", sub)
-		delete(r.channelIDs, sub.ID)
+		delete(r.connIDs, sub.ID)
 		err := r.subs.Delete(ctx, sub)
 		if err != nil && !errors.IsNotFound(err) {
 			log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
@@ -355,7 +355,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, nil
 	}
 
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(e2NodeRelation.ID))
+	conn, err := r.conns.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
@@ -383,7 +383,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, err
 	}
 
-	ranFunction, ok := channel.GetRANFunction(serviceModelOID)
+	ranFunction, ok := conn.GetRANFunction(serviceModelOID)
 	if !ok {
 		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
@@ -396,7 +396,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 
 	// Send the subscription request and await a response
 	log.Debugf("Sending RicsubscriptionDeleteRequest %+v", request)
-	response, failure, err := channel.RICSubscriptionDelete(ctx, request)
+	response, failure, err := conn.RICSubscriptionDelete(ctx, request)
 	if err != nil {
 		log.Warnf("Failed to send E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
 		return controller.Result{}, err

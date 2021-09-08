@@ -5,9 +5,10 @@
 package asn1cgo
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"encoding/hex"
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
@@ -46,7 +47,7 @@ func Test_RicActionsToBeSetupList(t *testing.T) {
 
 	per, err := perEncodeRicActionsToBeSetupList(ricSubDetails.GetRicActionToBeSetupList())
 	assert.NilError(t, err)
-	t.Logf("RicActionToBeSetupList PER\n%v", per)
+	t.Logf("RicActionToBeSetupList PER\n%v", hex.Dump(per))
 
 	// Now reverse it
 	ratbsL, err := xerDecodeRicActionsToBeSetupList(xer)
@@ -54,7 +55,7 @@ func Test_RicActionsToBeSetupList(t *testing.T) {
 	assert.Equal(t, 2, len(ratbsL.GetValue()))
 
 	for _, raTbsItem := range ratbsL.GetValue() {
-		assert.Equal(t, int32(v1beta1.ProtocolIeIDRicactionToBeSetupItem), raTbsItem.GetId())
+		assert.Equal(t, int32(v1beta2.ProtocolIeIDRicactionToBeSetupItem), raTbsItem.GetId())
 		assert.Equal(t, e2apies.RicactionType_RICACTION_TYPE_INSERT, raTbsItem.GetValue().GetRicActionType())
 		assert.Equal(t, e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE, raTbsItem.GetValue().GetRicSubsequentAction().GetRicSubsequentActionType())
 		switch raID := raTbsItem.GetValue().GetRicActionId().GetValue(); raID {

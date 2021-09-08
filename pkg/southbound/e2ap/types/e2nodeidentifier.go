@@ -4,7 +4,9 @@
 
 package types
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // PlmnID - a 3 byte representation of the Plmn ID
 //- digits 0 to 9, encoded 0000 to 1001,
@@ -41,6 +43,8 @@ type E2NodeIdentity struct {
 	NodeType       E2NodeType
 	NodeIdentifier []byte
 	NodeIDLength   int
+	CuID           *int64
+	DuID           *int64
 }
 
 func NewE2NodeIdentity(plmnIDSlice []byte) (*E2NodeIdentity, error) {

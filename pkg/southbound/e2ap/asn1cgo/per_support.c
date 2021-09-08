@@ -2,9 +2,9 @@
  * Copyright (c) 2005-2017 Lev Walkin <vlm@lionet.info>. All rights reserved.
  * Redistribution and modifications are permitted subject to BSD license.
  */
-#include "asn_system.h"
-#include "asn_internal.h"
-#include "per_support.h"
+#include <asn_system.h>
+#include <asn_internal.h>
+#include <per_support.h>
 
 /*
  * X.691-201508 #10.9 General rules for encoding a length determinant.
@@ -310,9 +310,12 @@ aper_get_length(asn_per_data_t *pd, int range, int ebits, int *repeat) {
 
 	*repeat = 0;
 
-	if (range <= 65536 && range >= 0)
-		return aper_get_nsnnwn(pd, range);
-
+	// First check effective_bits parameter.
+	if (ebits >= 0) {
+	  if (range <= 65536 && range >= 0)
+	    return aper_get_nsnnwn(pd, range);
+	}
+	
 	if (aper_get_align(pd) < 0)
 		return -1;
 

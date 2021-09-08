@@ -14,7 +14,7 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
 )
 
@@ -44,7 +44,7 @@ func decodeRicSubscriptionDetailsBytes(bytes []byte) (*e2appducontents.Ricsubscr
 			size: C.ulong(binary.LittleEndian.Uint64(bytes[8:])),
 		},
 		ricAction_ToBeSetup_List: C.RICactions_ToBeSetup_List_t{
-			list: C.struct___77{ // TODO: tie this down with a predictable name
+			list: C.struct___126{ // TODO: tie this down with a predictable name
 				array: array,
 				size:  size,
 				count: count,

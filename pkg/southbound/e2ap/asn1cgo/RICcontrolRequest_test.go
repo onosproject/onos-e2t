@@ -5,7 +5,7 @@
 package asn1cgo
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	"encoding/hex"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
@@ -18,14 +18,16 @@ func Test_RICcontrolRequest(t *testing.T) {
 		InstanceID:  22,
 	}
 	var ranFuncID types.RanFunctionID = 9
-	var ricCallPrID types.RicCallProcessID = []byte("123")
+	//var ricCallPrID types.RicCallProcessID = []byte("123")
 	var ricCtrlHdr types.RicControlHeader = []byte("456")
 	var ricCtrlMsg types.RicControlMessage = []byte("789")
-	ricCtrlAckRequest := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_N_ACK
+	//ricCtrlAckRequest := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_N_ACK
 	e2ApPduRcr, err := pdubuilder.CreateRicControlRequestE2apPdu(ricRequestID,
-		ranFuncID, ricCallPrID, ricCtrlHdr, ricCtrlMsg, ricCtrlAckRequest)
+		ranFuncID, nil, ricCtrlHdr, ricCtrlMsg, nil)
 	assert.NilError(t, err)
 	assert.Assert(t, e2ApPduRcr != nil)
+
+	t.Logf("That's what we're going to encode: \n %v \n", e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage())
 
 	xer, err := xerEncodeRICcontrolRequest(
 		e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage())
@@ -39,7 +41,7 @@ func Test_RICcontrolRequest(t *testing.T) {
 	per, err := perEncodeRICcontrolRequest(
 		e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage())
 	assert.NilError(t, err)
-	t.Logf("PER RICcontrolRequest\n%s", per)
+	t.Logf("PER RICcontrolRequest\n%v", hex.Dump(per))
 
 	e2apPdu, err = perDecodeRICcontrolRequest(per)
 	assert.NilError(t, err)

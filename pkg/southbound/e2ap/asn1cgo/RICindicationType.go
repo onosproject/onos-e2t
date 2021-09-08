@@ -14,7 +14,7 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 )
 
 func newRicIndicationType(rit *e2apies.RicindicationType) (*C.RICindicationType_t, error) {

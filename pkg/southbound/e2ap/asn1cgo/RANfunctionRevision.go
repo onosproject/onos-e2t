@@ -12,11 +12,12 @@ package asn1cgo
 //#include "RANfunctionRevision.h"
 import "C"
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 )
 
-func newRanFunctionRevision(revision *e2apies.RanfunctionRevision) C.long {
-	return C.long(revision.Value)
+func newRanFunctionRevision(revision *e2apies.RanfunctionRevision) *C.long {
+	asLong := C.long(revision.Value)
+	return &asLong
 }
 
 func decodeRanFunctionRevision(ranFunctionRevisionC *C.RANfunctionRevision_t) *e2apies.RanfunctionRevision {
