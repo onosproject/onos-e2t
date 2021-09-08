@@ -21,10 +21,10 @@ const queueSize = 100
 
 // ChannelWatcher is a channel watcher
 type Watcher struct {
-	channels  e2server.ChannelManager
+	channels  e2server.ConnManager
 	cancel    context.CancelFunc
 	mu        sync.Mutex
-	channelCh chan *e2server.E2Channel
+	channelCh chan *e2server.E2APConn
 }
 
 // Start starts the channel watcher
@@ -35,7 +35,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	w.channelCh = make(chan *e2server.E2Channel, queueSize)
+	w.channelCh = make(chan *e2server.E2APConn, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
 	err := w.channels.Watch(ctx, w.channelCh)
 	if err != nil {
@@ -67,7 +67,7 @@ func (w *Watcher) Stop() {
 //  TopoWatcher is a topology watcher
 type TopoWatcher struct {
 	topo     rnib.Store
-	channels e2server.ChannelManager
+	channels e2server.ConnManager
 	cancel   context.CancelFunc
 	mu       sync.Mutex
 }

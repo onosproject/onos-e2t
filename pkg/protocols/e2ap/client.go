@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package e2
+package e2ap
 
 import (
 	"context"
@@ -10,28 +10,24 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/sctp/addressing"
 	"github.com/onosproject/onos-lib-go/pkg/sctp/types"
 
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap201/channels"
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap201/procedures"
+	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/procedures"
 
 	sctp "github.com/onosproject/onos-lib-go/pkg/sctp"
 )
 
 // ClientHandler is a client handler function
-type ClientHandler func(channel ClientChannel) ClientInterface
+type ClientHandler func(conn ClientConn) ClientInterface
 
 // ClientInterface is an interface for E2 client procedures
 type ClientInterface procedures.E2NodeProcedures
 
-// ClientChannel is an interface for initiating client procedures
-type ClientChannel channels.E2NodeChannel
-
 // Connect connects to the given address
-func Connect(ctx context.Context, address string, handler ClientHandler) (ClientChannel, error) {
+func Connect(ctx context.Context, address string, handler ClientHandler) (ClientConn, error) {
 	addr, err := addressing.ResolveAddress(types.Sctp4, address)
 	if err != nil {
 		return nil, err
 	}
-	conn, err := sctp.DialSCTP(addr,
+	c, err := sctp.DialSCTP(addr,
 		sctp.WithAddressFamily(addr.AddressFamily),
 		sctp.WithNonBlocking(false),
 		sctp.WithMode(types.OneToOne),
@@ -39,8 +35,8 @@ func Connect(ctx context.Context, address string, handler ClientHandler) (Client
 	if err != nil {
 		return nil, err
 	}
-	channel := channels.NewE2NodeChannel(conn, func(channel channels.E2NodeChannel) procedures.E2NodeProcedures {
-		return handler(channel)
+	conn := NewE2NodeConn(c, func(conn ClientConn) ClientInterface {
+		return handler(conn)
 	})
-	return channel, nil
+	return conn, nil
 }

@@ -23,15 +23,15 @@ func GetE2TID() topoapi.ID {
 }
 
 // GetE2ControlRelationID gets E2 relation ID
-func GetE2ControlRelationID(channelID e2server.ChannelID) topoapi.ID {
+func GetE2ControlRelationID(channelID e2server.ConnID) topoapi.ID {
 	return topoapi.ID(channelID)
 }
 
-func GetCellID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
+func GetCellID(channel *e2server.E2APConn, cell *topoapi.E2Cell) topoapi.ID {
 	return topoapi.ID(uri.NewURI(uri.WithOpaque(fmt.Sprintf("%s/%s", channel.E2NodeID, cell.CellGlobalID.Value))).String())
 }
 
-func GetCellRelationID(channel *e2server.E2Channel, cell *topoapi.E2Cell) topoapi.ID {
+func GetCellRelationID(channel *e2server.E2APConn, cell *topoapi.E2Cell) topoapi.ID {
 	bytes := md5.Sum([]byte(fmt.Sprintf("%s/%s", channel.E2NodeID, cell.CellGlobalID.Value)))
 	uuid, err := uuid2.FromBytes(bytes[:])
 	if err != nil {

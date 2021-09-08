@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package channels
+package e2ap
 
 import (
 	"context"
@@ -16,12 +16,11 @@ import (
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap101/procedures"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/types"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestChannels(t *testing.T) {
+func TestConns(t *testing.T) {
 	testIP := net.ParseIP("127.0.0.1")
 	clientCh := make(chan []byte)
 	serverCh := make(chan []byte)
@@ -34,10 +33,10 @@ func TestChannels(t *testing.T) {
 		writeCh: serverCh,
 	}
 
-	e2NodeCh := NewE2NodeChannel(clientConn, func(channel E2NodeChannel) procedures.E2NodeProcedures {
+	e2NodeCh := NewE2NodeConn(clientConn, func(conn ClientConn) ClientInterface {
 		return &testClientProcedures{}
 	})
-	ricCh := NewRICChannel(serverConn, func(channel RICChannel) procedures.RICProcedures {
+	ricCh := NewServerConn(serverConn, func(conn ServerConn) ServerInterface {
 		return &testServerProcedures{}
 	})
 

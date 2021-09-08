@@ -22,7 +22,7 @@ import (
 var log = logging.GetLogger("northbound", "admin")
 
 // NewService creates a new admin service
-func NewService(channels e2server.ChannelManager) northbound.Service {
+func NewService(channels e2server.ConnManager) northbound.Service {
 	return &Service{
 		channels: channels,
 	}
@@ -30,7 +30,7 @@ func NewService(channels e2server.ChannelManager) northbound.Service {
 
 // Service is a Service implementation for administration.
 type Service struct {
-	channels e2server.ChannelManager
+	channels e2server.ConnManager
 }
 
 // Register registers the Service with the gRPC server.
@@ -45,7 +45,7 @@ var _ northbound.Service = &Service{}
 
 // Server implements the gRPC service for administrative facilities.
 type Server struct {
-	channels e2server.ChannelManager
+	channels e2server.ConnManager
 }
 
 // UploadRegisterServiceModel uploads and adds the model plugin to the list of supported models

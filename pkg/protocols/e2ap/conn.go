@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
-package channels
+package e2ap
 
 import (
 	"context"
@@ -33,17 +33,17 @@ func WithRecvBuffer(size int) Option {
 	}
 }
 
-// Channel is the base interface for E2 channels
-type Channel interface {
+// Conn is the base interface for E2 connections
+type Conn interface {
 	io.Closer
-	// Context returns the channel context
+	// Context returns the connection context
 	Context() context.Context
 	LocalAddr() net.Addr
 	RemoteAddr() net.Addr
 }
 
-// newThreadSafeChannel creates a new thread safe channel
-func newThreadSafeChannel(conn net.Conn, opts ...Option) *threadSafeChannel {
+// newThreadSafeConn creates a new thread safe connection
+func newThreadSafeConn(c net.Conn, opts ...Option) *threadSafeConn {
 	options := Options{
 		RecvBufferSize: defaultRecvBufSize,
 	}
@@ -51,20 +51,20 @@ func newThreadSafeChannel(conn net.Conn, opts ...Option) *threadSafeChannel {
 		opt(&options)
 	}
 	ctx, cancel := context.WithCancel(context.Background())
-	channel := &threadSafeChannel{
-		conn:    conn,
+	conn := &threadSafeConn{
+		conn:    c,
 		sendCh:  make(chan asyncMessage),
 		recvCh:  make(chan e2appdudescriptions.E2ApPdu),
 		options: options,
 		ctx:     ctx,
 		cancel:  cancel,
 	}
-	channel.open()
-	return channel
+	conn.open()
+	return conn
 }
 
-// threadSafeChannel is a thread-safe Channel implementation
-type threadSafeChannel struct {
+// threadSafeConn is a thread-safe Conn implementation
+type threadSafeConn struct {
 	conn    net.Conn
 	sendCh  chan asyncMessage
 	recvCh  chan e2appdudescriptions.E2ApPdu
@@ -73,25 +73,25 @@ type threadSafeChannel struct {
 	cancel  context.CancelFunc
 }
 
-func (c *threadSafeChannel) Context() context.Context {
+func (c *threadSafeConn) Context() context.Context {
 	return c.ctx
 }
 
-func (c *threadSafeChannel) LocalAddr() net.Addr {
+func (c *threadSafeConn) LocalAddr() net.Addr {
 	return c.conn.LocalAddr()
 }
 
-func (c *threadSafeChannel) RemoteAddr() net.Addr {
+func (c *threadSafeConn) RemoteAddr() net.Addr {
 	return c.conn.RemoteAddr()
 }
 
-func (c *threadSafeChannel) open() {
+func (c *threadSafeConn) open() {
 	go c.processSends()
 	go c.processRecvs()
 }
 
 // send sends a message on the connection
-func (c *threadSafeChannel) send(msg *e2appdudescriptions.E2ApPdu) error {
+func (c *threadSafeConn) send(msg *e2appdudescriptions.E2ApPdu) error {
 	errCh := make(chan error, 1)
 	c.sendCh <- asyncMessage{
 		msg:   *msg,
@@ -101,7 +101,7 @@ func (c *threadSafeChannel) send(msg *e2appdudescriptions.E2ApPdu) error {
 }
 
 // processSends processes the send channel
-func (c *threadSafeChannel) processSends() {
+func (c *threadSafeConn) processSends() {
 	for msg := range c.sendCh {
 		err := c.processSend(msg.msg)
 		if err == io.EOF {
@@ -115,7 +115,7 @@ func (c *threadSafeChannel) processSends() {
 }
 
 // processSend processes a send
-func (c *threadSafeChannel) processSend(msg e2appdudescriptions.E2ApPdu) error {
+func (c *threadSafeConn) processSend(msg e2appdudescriptions.E2ApPdu) error {
 	bytes, err := asn1cgo.PerEncodeE2apPdu(&msg)
 	if err != nil {
 		log.Warn(err)
@@ -126,7 +126,7 @@ func (c *threadSafeChannel) processSend(msg e2appdudescriptions.E2ApPdu) error {
 }
 
 // recv receives a message on the connection
-func (c *threadSafeChannel) recv() (*e2appdudescriptions.E2ApPdu, error) {
+func (c *threadSafeConn) recv() (*e2appdudescriptions.E2ApPdu, error) {
 	msg, ok := <-c.recvCh
 	if !ok {
 		log.Warn("no more messages to receive")
@@ -136,7 +136,7 @@ func (c *threadSafeChannel) recv() (*e2appdudescriptions.E2ApPdu, error) {
 }
 
 // processRecvs processes the receive channel
-func (c *threadSafeChannel) processRecvs() {
+func (c *threadSafeConn) processRecvs() {
 	buf := make([]byte, c.options.RecvBufferSize)
 	for {
 		n, err := c.conn.Read(buf)
@@ -154,7 +154,7 @@ func (c *threadSafeChannel) processRecvs() {
 }
 
 // processRecvs processes the receive channel
-func (c *threadSafeChannel) processRecv(bytes []byte) error {
+func (c *threadSafeConn) processRecv(bytes []byte) error {
 	msg, err := asn1cgo.PerDecodeE2apPdu(bytes)
 	if err != nil {
 		log.Warn(err)
@@ -164,7 +164,7 @@ func (c *threadSafeChannel) processRecv(bytes []byte) error {
 	return nil
 }
 
-func (c *threadSafeChannel) Close() error {
+func (c *threadSafeConn) Close() error {
 	defer func() {
 		if err := recover(); err != nil {
 			log.Debug("recovering from panic:", err)

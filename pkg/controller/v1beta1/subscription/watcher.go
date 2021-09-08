@@ -66,10 +66,10 @@ var _ controller.Watcher = &Watcher{}
 // ChannelWatcher is a channel watcher
 type ChannelWatcher struct {
 	subs      substore.Store
-	channels  e2server.ChannelManager
+	channels  e2server.ConnManager
 	cancel    context.CancelFunc
 	mu        sync.Mutex
-	channelCh chan *e2server.E2Channel
+	channelCh chan *e2server.E2APConn
 }
 
 // Start starts the channel watcher
@@ -80,7 +80,7 @@ func (w *ChannelWatcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	w.channelCh = make(chan *e2server.E2Channel, queueSize)
+	w.channelCh = make(chan *e2server.E2APConn, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
 	err := w.channels.Watch(ctx, w.channelCh)
 	if err != nil {

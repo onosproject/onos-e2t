@@ -26,7 +26,7 @@ const (
 var log = logging.GetLogger("controller", "channel")
 
 // NewController returns a new E2 control relation controller
-func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controller.Controller {
+func NewController(rnib rnib.Store, channels e2server.ConnManager) *controller.Controller {
 	c := controller.NewController("channel")
 	c.Watch(&Watcher{
 		channels: channels,
@@ -47,11 +47,11 @@ func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controlle
 
 // Reconciler is for reconciling RAN entities such as E2 node , E2 cell and their relations
 type Reconciler struct {
-	channels e2server.ChannelManager
+	channels e2server.ConnManager
 	rnib     rnib.Store
 }
 
-func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
+func (r *Reconciler) createE2ControlRelation(ctx context.Context, channel *e2server.E2APConn) (bool, error) {
 	relationID := utils.GetE2ControlRelationID(channel.ID)
 	_, err := r.rnib.Get(ctx, relationID)
 	if err != nil {
@@ -88,7 +88,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	channelID := id.Value.(e2server.ChannelID)
+	channelID := id.Value.(e2server.ConnID)
 	log.Infof("Reconciling E2 node Control relation for channel: %s", channelID)
 	channel, err := r.channels.Get(ctx, channelID)
 	if err != nil {
@@ -125,7 +125,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	return controller.Result{}, nil
 }
 
-func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
+func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2APConn) (bool, error) {
 	log.Debug("Creating E2 node %s for channel %v", channel.E2NodeID, channel.ID)
 	object, err := r.rnib.Get(ctx, channel.E2NodeID)
 	if err != nil {
@@ -191,7 +191,7 @@ func (r *Reconciler) createE2Node(ctx context.Context, channel *e2server.E2Chann
 	return true, nil
 }
 
-func (r *Reconciler) createE2CellRelations(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
+func (r *Reconciler) createE2CellRelations(ctx context.Context, channel *e2server.E2APConn) (bool, error) {
 	for _, e2Cell := range channel.E2Cells {
 		if ok, err := r.createE2CellRelation(ctx, channel, e2Cell); err != nil {
 			return false, err
@@ -202,7 +202,7 @@ func (r *Reconciler) createE2CellRelations(ctx context.Context, channel *e2serve
 	return false, nil
 }
 
-func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Channel) (bool, error) {
+func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2APConn) (bool, error) {
 	for _, e2Cell := range channel.E2Cells {
 		if ok, err := r.createE2Cell(ctx, channel, e2Cell); err != nil {
 			return false, err
@@ -213,7 +213,7 @@ func (r *Reconciler) createE2Cells(ctx context.Context, channel *e2server.E2Chan
 	return false, nil
 }
 
-func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) (bool, error) {
+func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2APConn, cell *topoapi.E2Cell) (bool, error) {
 	cellID := utils.GetCellID(channel, cell)
 	object, err := r.rnib.Get(ctx, cellID)
 	if err != nil {
@@ -277,7 +277,7 @@ func (r *Reconciler) createE2Cell(ctx context.Context, channel *e2server.E2Chann
 	return true, nil
 }
 
-func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server.E2Channel, cell *topoapi.E2Cell) (bool, error) {
+func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server.E2APConn, cell *topoapi.E2Cell) (bool, error) {
 	cellID := utils.GetCellID(channel, cell)
 	relationID := utils.GetCellRelationID(channel, cell)
 	_, err := r.rnib.Get(ctx, relationID)
@@ -312,7 +312,7 @@ func (r *Reconciler) createE2CellRelation(ctx context.Context, channel *e2server
 	return false, nil
 }
 
-func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, channelID e2server.ChannelID) error {
+func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, channelID e2server.ConnID) error {
 	relationID := utils.GetE2ControlRelationID(channelID)
 	log.Debugf("Deleting E2Node relation '%s' for Channel '%s'", relationID, channelID)
 	object, err := r.rnib.Get(ctx, relationID)
@@ -330,7 +330,7 @@ func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, channelID e2se
 	return nil
 }
 
-func (r *Reconciler) reconcileDeleteE2ControlRelation(channelID e2server.ChannelID) (controller.Result, error) {
+func (r *Reconciler) reconcileDeleteE2ControlRelation(channelID e2server.ConnID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 

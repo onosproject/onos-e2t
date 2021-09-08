@@ -39,7 +39,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, channels e2server.ChannelManager,
+func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, channels e2server.ConnManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
@@ -60,7 +60,7 @@ func NewController(streams subscription.Broker, subs substore.Store, topo rnib.S
 		channels:                  channels,
 		models:                    models,
 		oidRegistry:               oidRegistry,
-		channelIDs:                make(map[e2api.SubscriptionID]e2server.ChannelID),
+		channelIDs:                make(map[e2api.SubscriptionID]e2server.ConnID),
 		newRicSubscriptionRequest: pdubuilder.NewRicSubscriptionRequest,
 	})
 	return c
@@ -76,10 +76,10 @@ type Reconciler struct {
 	streams                   subscription.Broker
 	subs                      substore.Store
 	topo                      rnib.Store
-	channels                  e2server.ChannelManager
+	channels                  e2server.ConnManager
 	models                    modelregistry.ModelRegistry
 	oidRegistry               oid.Registry
-	channelIDs                map[e2api.SubscriptionID]e2server.ChannelID
+	channelIDs                map[e2api.SubscriptionID]e2server.ConnID
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
 }
 
@@ -148,7 +148,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		return controller.Result{}, nil
 	}
 
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(e2NodeRelation.ID))
+	channel, err := r.channels.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)
@@ -355,7 +355,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, nil
 	}
 
-	channel, err := r.channels.Get(ctx, e2server.ChannelID(e2NodeRelation.ID))
+	channel, err := r.channels.Get(ctx, e2server.ConnID(e2NodeRelation.ID))
 	if err != nil {
 		if !errors.IsNotFound(err) {
 			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", sub.E2NodeID, err)

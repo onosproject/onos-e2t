@@ -23,7 +23,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "mastership")
 
 // NewController returns a new mastership controller
-func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controller.Controller {
+func NewController(rnib rnib.Store, channels e2server.ConnManager) *controller.Controller {
 	c := controller.NewController("mastership")
 	c.Watch(&TopoWatcher{
 		topo: rnib,
@@ -39,7 +39,7 @@ func NewController(rnib rnib.Store, channels e2server.ChannelManager) *controlle
 // Reconciler is a device change reconciler
 type Reconciler struct {
 	rnib     rnib.Store
-	channels e2server.ChannelManager
+	channels e2server.ConnManager
 }
 
 // Reconcile reconciles and mastership election

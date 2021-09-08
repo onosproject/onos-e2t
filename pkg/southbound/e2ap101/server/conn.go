@@ -20,20 +20,20 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap101"
+	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap"
 )
 
-func NewE2Channel(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIdentity, channel e2.ServerChannel,
+func NewE2NodeConn(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIdentity, conn e2.ServerConn,
 	streams subscription.Broker, streamsv1beta1 subscriptionv1beta1.Broker,
-	serviceModels map[string]*topoapi.ServiceModelInfo, ranFunctions map[e2smtypes.OID]RANFunction, e2Cells []*topoapi.E2Cell, now time.Time) *E2Channel {
+	serviceModels map[string]*topoapi.ServiceModelInfo, ranFunctions map[e2smtypes.OID]RANFunction, e2Cells []*topoapi.E2Cell, now time.Time) *E2APConn {
 
-	channelID := ChannelID(uri.NewURI(
+	connID := ConnID(uri.NewURI(
 		uri.WithScheme("uuid"),
 		uri.WithOpaque(uuid.New().String())).String())
 
-	return &E2Channel{
-		ServerChannel:  channel,
-		ID:             channelID,
+	return &E2APConn{
+		ServerConn:     conn,
+		ID:             connID,
 		E2NodeID:       nodeID,
 		PlmnID:         plmnID,
 		NodeID:         string(nodeID),
@@ -55,12 +55,12 @@ type RANFunction struct {
 	Description []byte
 }
 
-type ChannelID string
+type ConnID string
 
-type E2Channel struct {
-	e2.ServerChannel
-	ID             ChannelID
-	E2NodeID       topoapi.ID
+type E2APConn struct {
+	e2.ServerConn
+	ID       ConnID
+	E2NodeID topoapi.ID
 	NodeID         string
 	NodeType       types.E2NodeType
 	PlmnID         string
@@ -73,7 +73,7 @@ type E2Channel struct {
 	mu             sync.RWMutex
 }
 
-func (c *E2Channel) GetRANFunctions() []RANFunction {
+func (c *E2APConn) GetRANFunctions() []RANFunction {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	ranFunctions := make([]RANFunction, 0, len(c.RANFunctions))
@@ -83,14 +83,14 @@ func (c *E2Channel) GetRANFunctions() []RANFunction {
 	return ranFunctions
 }
 
-func (c *E2Channel) GetRANFunction(oid e2smtypes.OID) (RANFunction, bool) {
+func (c *E2APConn) GetRANFunction(oid e2smtypes.OID) (RANFunction, bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 	ranFunction, ok := c.RANFunctions[oid]
 	return ranFunction, ok
 }
 
-func (c *E2Channel) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
+func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
 	log.Debugf("Received RICIndication %+v", request)
 	streamID := subscriptionv1beta1.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	stream, ok := c.streamsv1beta1.GetWriter(streamID)
