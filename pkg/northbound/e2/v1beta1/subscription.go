@@ -492,23 +492,32 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
-	// Get the channel for the subscription/app/instance
-	channel, err := s.chans.Get(ctx, channelID)
+	err := backoff.Retry(func() error {
+		// Get the channel for the subscription/app/instance
+		channel, err := s.chans.Get(ctx, channelID)
+		if err != nil {
+			return backoff.Permanent(err)
+		}
+		// Ensure the channel phase is CLOSED
+		if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
+			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
+			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
+			channel.Status.Error = nil
+			err := s.chans.Update(ctx, channel)
+			if err != nil && !errors.IsConflict(err) {
+				return backoff.Permanent(err)
+			}
+			return err
+		}
+		return nil
+
+	}, backoff.NewExponentialBackOff())
+
 	if err != nil {
 		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 		return nil, errors.Status(err).Err()
 	}
 
-	// Ensure the channel phase is CLOSED
-	if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
-		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
-		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
-		channel.Status.Error = nil
-		if err := s.chans.Update(ctx, channel); err != nil {
-			log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
-			return nil, errors.Status(err).Err()
-		}
-	}
 	response := &e2api.UnsubscribeResponse{}
 	log.Debugf("Sending UnsubscribeResponse %+v", response)
 	return response, nil
