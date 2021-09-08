@@ -32,9 +32,9 @@ func NewConnManager() ConnManager {
 }
 
 type connManager struct {
-	conns    map[ConnID]*E2APConn
-	connsMu  sync.RWMutex
-	watchers []chan<- *E2APConn
+	conns      map[ConnID]*E2APConn
+	connsMu    sync.RWMutex
+	watchers   []chan<- *E2APConn
 	watchersMu sync.RWMutex
 	eventCh    chan *E2APConn
 }

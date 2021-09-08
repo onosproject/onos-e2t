@@ -59,8 +59,8 @@ type ConnID string
 
 type E2APConn struct {
 	e2.ServerConn
-	ID       ConnID
-	E2NodeID topoapi.ID
+	ID             ConnID
+	E2NodeID       topoapi.ID
 	NodeID         string
 	NodeType       types.E2NodeType
 	PlmnID         string

@@ -44,9 +44,9 @@ func NewE2Server(conns ConnManager,
 }
 
 type E2Server struct {
-	server *e2.Server
-	conns  ConnManager
-	subs   subscription.Broker
+	server         *e2.Server
+	conns          ConnManager
+	subs           subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	modelRegistry  modelregistry.ModelRegistry
 }
@@ -68,12 +68,12 @@ func (s *E2Server) Stop() error {
 }
 
 type E2APServer struct {
-	manager ConnManager
-	streams subscription.Broker
+	manager        ConnManager
+	streams        subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
-	serverConn    e2.ServerConn
-	e2apConn      *E2APConn
-	modelRegistry modelregistry.ModelRegistry
+	serverConn     e2.ServerConn
+	e2apConn       *E2APConn
+	modelRegistry  modelregistry.ModelRegistry
 }
 
 // uint24ToUint32 converts uint24 uint32
