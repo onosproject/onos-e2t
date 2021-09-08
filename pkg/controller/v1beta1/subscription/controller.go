@@ -75,9 +75,9 @@ type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
 type Reconciler struct {
 	streams                   subscription.Broker
 	subs                      substore.Store
-	topo   rnib.Store
-	conns  e2server.ConnManager
-	models modelregistry.ModelRegistry
+	topo                      rnib.Store
+	conns                     e2server.ConnManager
+	models                    modelregistry.ModelRegistry
 	oidRegistry               oid.Registry
 	connIDs                   map[e2api.SubscriptionID]e2server.ConnID
 	newRicSubscriptionRequest RicSubscriptionRequestBuilder
