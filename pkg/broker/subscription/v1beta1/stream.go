@@ -130,7 +130,7 @@ func newSubStream(registry *streamRegistry, subID e2api.SubscriptionID, streamID
 		},
 		streams: registry,
 		subID:   subID,
-		ch:      make(chan e2appducontents.Ricindication),
+		ch:      make(chan *e2appducontents.Ricindication),
 		apps:    make(map[e2api.AppID]*appStream),
 	}
 	stream.open()
@@ -141,7 +141,7 @@ type subStream struct {
 	*streamIO
 	streams *streamRegistry
 	subID   e2api.SubscriptionID
-	ch      chan e2appducontents.Ricindication
+	ch      chan *e2appducontents.Ricindication
 	apps    map[e2api.AppID]*appStream
 	mu      sync.RWMutex
 	closed  bool
@@ -153,10 +153,9 @@ func (s *subStream) open() {
 
 func (s *subStream) drain() {
 	for ind := range s.ch {
-		i := ind
 		s.mu.RLock()
 		for _, appStream := range s.apps {
-			_ = appStream.Send(&i)
+			_ = appStream.Send(ind)
 		}
 		s.mu.RUnlock()
 	}
@@ -195,7 +194,7 @@ func (s *subStream) Send(indication *e2appducontents.Ricindication) error {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if !s.closed {
-		s.ch <- *indication
+		s.ch <- indication
 	}
 	return nil
 }
@@ -213,7 +212,7 @@ func (s *subStream) close() {
 }
 
 func newAppStream(subStream *subStream, appID e2api.AppID) *appStream {
-	ch := make(chan e2appducontents.Ricindication)
+	ch := make(chan *e2appducontents.Ricindication)
 	appStream := &appStream{
 		subStream:    subStream,
 		appID:        appID,
@@ -229,7 +228,7 @@ type appStream struct {
 	*streamIO
 	subStream    *subStream
 	appID        e2api.AppID
-	ch           chan e2appducontents.Ricindication
+	ch           chan *e2appducontents.Ricindication
 	transactions map[e2api.TransactionID]*transactionStream
 	mu           sync.RWMutex
 	closed       bool
@@ -273,17 +272,16 @@ func (s *appStream) Send(indication *e2appducontents.Ricindication) error {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if !s.closed {
-		s.ch <- *indication
+		s.ch <- indication
 	}
 	return nil
 }
 
 func (s *appStream) drain() {
 	for ind := range s.ch {
-		i := ind
 		s.mu.RLock()
 		for _, transactionStream := range s.transactions {
-			_ = transactionStream.Send(&i)
+			_ = transactionStream.Send(ind)
 		}
 		s.mu.RUnlock()
 	}
