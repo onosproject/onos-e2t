@@ -4,7 +4,7 @@
 
 package manager
 
-XYZ
+// XYZ
 
 import (
 	"github.com/atomix/atomix-go-client/pkg/atomix"
