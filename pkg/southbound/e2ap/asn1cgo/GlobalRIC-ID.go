@@ -14,9 +14,10 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func newGlobalRicID(gr *e2apies.GlobalRicId) (*C.GlobalRIC_ID_t, error) {
@@ -32,7 +33,7 @@ func newGlobalRicID(gr *e2apies.GlobalRicId) (*C.GlobalRIC_ID_t, error) {
 		return nil, err
 	}
 	idC := C.GlobalRIC_ID_t{
-		pLMN_Identity: *newOctetString(string(gr.PLmnIdentity.Value)),
+		pLMN_Identity: *newOctetString(gr.PLmnIdentity.Value),
 		ric_ID:        *bsC,
 	}
 
@@ -58,7 +59,7 @@ func decodeGlobalRicID(grID *C.GlobalRIC_ID_t) (*e2apies.GlobalRicId, error) {
 	result := new(e2apies.GlobalRicId)
 	result.PLmnIdentity = new(e2ap_commondatatypes.PlmnIdentity)
 	var err error
-	result.PLmnIdentity.Value = []byte(decodeOctetString(&grID.pLMN_Identity))
+	result.PLmnIdentity.Value = decodeOctetString(&grID.pLMN_Identity)
 	result.RicId, err = decodeBitString(&grID.ric_ID)
 	if err != nil {
 		return nil, err

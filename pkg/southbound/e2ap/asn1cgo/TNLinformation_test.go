@@ -6,21 +6,21 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	"gotest.tools/assert"
 	"testing"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func createTnlinformationMsg() (*e2ap_ies.Tnlinformation, error) {
 
-	bs1 := &e2ap_commondatatypes.BitString{
+	bs1 := &asn1.BitString{
 		Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 		Len:   64,
 	}
 
-	bs2 := &e2ap_commondatatypes.BitString{
+	bs2 := &asn1.BitString{
 		Value: []byte{0xcd, 0x9b},
 		Len:   16,
 	}
@@ -30,9 +30,9 @@ func createTnlinformationMsg() (*e2ap_ies.Tnlinformation, error) {
 		TnlPort:    bs2,
 	}
 
-	if err := tnlinformation.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating Tnlinformation %s", err.Error())
-	}
+	//if err := tnlinformation.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating Tnlinformation %s", err.Error())
+	//}
 	return &tnlinformation, nil
 }
 

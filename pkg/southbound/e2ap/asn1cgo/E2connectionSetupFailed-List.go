@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeE2connectionSetupFailedList(e2connectionSetupFailedList *e2ap_pdu_contents.E2ConnectionSetupFailedList) ([]byte, error) {
@@ -92,7 +93,7 @@ func decodeE2connectionSetupFailedList(e2connectionSetupFailedListC *C.E2connect
 	ieCount := int(e2connectionSetupFailedListC.list.count)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(e2connectionSetupFailedListC.list.array)) * uintptr(i)
-		ieC := *(**C.ProtocolIE_SingleContainer_1713P5_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2connectionSetupFailedListC.list.array)) + offset))
+		ieC := *(**C.ProtocolIE_SingleContainer_1754P5_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2connectionSetupFailedListC.list.array)) + offset))
 		ie, err := decodeE2connectionSetupFailedItemIesSingleContainer(ieC)
 		if err != nil {
 			return nil, fmt.Errorf("decodeE2connectionSetupFailedItemIesSingleContainer() %s", err.Error())
@@ -109,7 +110,7 @@ func decodeE2connectionSetupFailedListBytes(e2cuflC [48]byte) (*e2ap_pdu_content
 	size := C.int(binary.LittleEndian.Uint32(e2cuflC[12:16]))
 
 	e2csflC := C.E2connectionSetupFailed_List_t{
-		list: C.struct___141{
+		list: C.struct___139{
 			array: array,
 			size:  size,
 			count: count,

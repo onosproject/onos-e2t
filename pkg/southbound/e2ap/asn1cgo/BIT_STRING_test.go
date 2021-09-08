@@ -6,13 +6,14 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	"gotest.tools/assert"
 	"testing"
+
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func Test_newBitString(t *testing.T) {
-	bs1 := &e2ap_commondatatypes.BitString{
+	bs1 := &asn1.BitString{
 		Value: []byte{0xD4, 0xBC, 0x98},
 		Len:   22,
 	}
@@ -79,7 +80,7 @@ func Test_newBitString(t *testing.T) {
 
 func Test_decodeBitString(t *testing.T) {
 	//value := []byte{0x9A, 0xBC, 0xDE, 0xF0} // 28 bits
-	bs := &e2ap_commondatatypes.BitString{
+	bs := &asn1.BitString{
 		Value: []byte{0x9A, 0xBC, 0xDE, 0xF0},
 		Len:   28,
 	}
@@ -116,7 +117,7 @@ func Test_decodeBitString(t *testing.T) {
 
 func Test_decodeBitString2(t *testing.T) {
 	//value := []byte{0x9A, 0xBC, 0xD4} // 22 bits
-	bs3 := &e2ap_commondatatypes.BitString{
+	bs3 := &asn1.BitString{
 		Value: []byte{0x9A, 0xBC, 0xDC},
 		Len:   22,
 	}
@@ -153,7 +154,7 @@ func Test_decodeBitString2(t *testing.T) {
 // A unit test to illustrate importance of Octet alignment and bit shifting
 func Test_invalidBitStrings(t *testing.T) {
 
-	bs1 := &e2ap_commondatatypes.BitString{
+	bs1 := &asn1.BitString{
 		Value: []byte{0xab, 0xbc},
 		//Value: []byte{0xab, 0xbc, 0x00}, // - correct set of bytes to satisfy byte length constraint
 		Len: 22,
@@ -162,7 +163,7 @@ func Test_invalidBitStrings(t *testing.T) {
 	//assert.NilError(t, err)
 	assert.ErrorContains(t, err, "bytes are required for length")
 
-	bs2 := &e2ap_commondatatypes.BitString{
+	bs2 := &asn1.BitString{
 		Value: []byte{0xab, 0xbc, 0xcf},
 		//Value: []byte{0xab, 0xbc, 0xcc}, // - a correct set of bytes to satisfy octet-alignment constraint
 		Len: 22,
@@ -175,7 +176,7 @@ func Test_invalidBitStrings(t *testing.T) {
 	// 25 bits need 4 bytes to be encoded successfully
 	// 4 bytes is 32 bits, 32-25 = 7 (unused bits)
 	// BitString.Value byte array should be shifted on 7 (unused) bits to the left to be Octet-aligned and satisfy APER encoding rules
-	bs3 := &e2ap_commondatatypes.BitString{
+	bs3 := &asn1.BitString{
 		Value: []byte{0x09, 0xAB, 0xCD, 0x80},
 		Len:   25,
 	}
@@ -192,7 +193,7 @@ func Test_invalidBitStrings(t *testing.T) {
 // A unit test to illustrate Octet alignment and bit shifting on the example of encoding 1
 func Test_validBitStringsOne(t *testing.T) {
 	// Here is a set of valid representations of 1 with different BitString length (see logs)
-	bs4 := &e2ap_commondatatypes.BitString{
+	bs4 := &asn1.BitString{
 		Value: []byte{0x00, 0x00, 0x40},
 		Len:   18, // 6 bits unused
 	}
@@ -201,7 +202,7 @@ func Test_validBitStringsOne(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("XER Bit String is \n%s", xer1)
 
-	bs5 := &e2ap_commondatatypes.BitString{
+	bs5 := &asn1.BitString{
 		Value: []byte{0x00, 0x00, 0x04},
 		Len:   22, // 2 bits unused
 	}
@@ -210,7 +211,7 @@ func Test_validBitStringsOne(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("XER Bit String is \n%s", xer2)
 
-	bs6 := &e2ap_commondatatypes.BitString{
+	bs6 := &asn1.BitString{
 		Value: []byte{0x00, 0x00, 0x00, 0x10},
 		Len:   28,
 	}
@@ -219,7 +220,7 @@ func Test_validBitStringsOne(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("XER Bit String is \n%s", xer3)
 
-	bs7 := &e2ap_commondatatypes.BitString{
+	bs7 := &asn1.BitString{
 		Value: []byte{0x00, 0x00, 0x00, 0x01},
 		Len:   32,
 	}
@@ -228,7 +229,7 @@ func Test_validBitStringsOne(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("XER Bit String is \n%s", xer4)
 
-	bs8 := &e2ap_commondatatypes.BitString{
+	bs8 := &asn1.BitString{
 		Value: []byte{0x00, 0x00, 0x00, 0x00, 0x10},
 		Len:   36,
 	}

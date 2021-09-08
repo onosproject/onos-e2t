@@ -14,8 +14,9 @@ import "C"
 
 import (
 	"fmt"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeE2connectionUpdate(e2connectionUpdate *e2ap_pdu_contents.E2ConnectionUpdate) ([]byte, error) {
@@ -68,12 +69,12 @@ func perDecodeE2connectionUpdate(bytes []byte) (*e2ap_pdu_contents.E2ConnectionU
 
 func newE2connectionUpdate(e2cu *e2ap_pdu_contents.E2ConnectionUpdate) (*C.E2connectionUpdate_t, error) {
 
-	pIeC1710P14, err := newE2connectionUpdateIe(e2cu.ProtocolIes)
+	pIeC1751P14, err := newE2connectionUpdateIe(e2cu.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	e2cuC := C.E2connectionUpdate_t{
-		protocolIEs: *pIeC1710P14,
+		protocolIEs: *pIeC1751P14,
 	}
 
 	return &e2cuC, nil

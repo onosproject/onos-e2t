@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItem *e2ap_pdu_contents.E2NodeComponentConfigUpdateItem) ([]byte, error) {
@@ -106,11 +107,11 @@ func decodeE2nodeComponentConfigUpdateItem(e2nodeComponentConfigUpdateItemC *C.E
 	}
 	e2nodeComponentConfigUpdateItem.E2NodeComponentType = *componentType
 
-	if e2nodeComponentConfigUpdateItemC.e2nodeComponentID != nil{
+	if e2nodeComponentConfigUpdateItemC.e2nodeComponentID != nil {
 		e2nodeComponentConfigUpdateItem.E2NodeComponentId, err = decodeE2nodeComponentID(e2nodeComponentConfigUpdateItemC.e2nodeComponentID)
-		if err != nil{
-		return nil, fmt.Errorf("decodeE2nodeComponentID() %s", err.Error())
-	}
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2nodeComponentID() %s", err.Error())
+		}
 	}
 	e2nodeComponentConfigUpdateItem.E2NodeComponentConfigUpdate, err = decodeE2nodeComponentConfigUpdate(&e2nodeComponentConfigUpdateItemC.e2nodeComponentConfigUpdate)
 	if err != nil {

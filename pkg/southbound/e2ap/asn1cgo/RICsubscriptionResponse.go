@@ -13,16 +13,16 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func newRicSubscriptionResponse(rsr *e2appducontents.RicsubscriptionResponse) (*C.RICsubscriptionResponse_t, error) {
-	pIeC1710P1, err := newRicSubscriptionResponseIe(rsr.ProtocolIes)
+	pIeC1751P1, err := newRicSubscriptionResponseIe(rsr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsrC := C.RICsubscriptionResponse_t{
-		protocolIEs: *pIeC1710P1,
+		protocolIEs: *pIeC1751P1,
 	}
 
 	return &rsrC, nil

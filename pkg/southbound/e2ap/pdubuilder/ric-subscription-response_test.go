@@ -5,11 +5,12 @@ package pdubuilder
 
 import (
 	"encoding/hex"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	"testing"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestRicSubscriptionResponse(t *testing.T) {
@@ -30,9 +31,10 @@ func TestRicSubscriptionResponse(t *testing.T) {
 	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}, ricActionsNotAdmittedList)
+	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicSubscription().GetSuccessfulOutcome().SetRicActionNotAdmitted(ricActionsNotAdmittedList)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -41,7 +43,7 @@ func TestRicSubscriptionResponse(t *testing.T) {
 	result, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionResponse E2AP PDU XER - decoded\n%v\n", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -50,7 +52,7 @@ func TestRicSubscriptionResponse(t *testing.T) {
 	result1, err := asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionResponse E2AP PDU PER - decoded\n%v\n", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
 
 func TestRicSubscriptionResponseExceptOptional(t *testing.T) {
@@ -59,7 +61,7 @@ func TestRicSubscriptionResponseExceptOptional(t *testing.T) {
 	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20}, nil)
+	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
@@ -70,7 +72,7 @@ func TestRicSubscriptionResponseExceptOptional(t *testing.T) {
 	result, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionResponse E2AP PDU XER - decoded\n%v\n", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -79,5 +81,5 @@ func TestRicSubscriptionResponseExceptOptional(t *testing.T) {
 	result1, err := asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionResponse E2AP PDU PER - decoded\n%v\n", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }

@@ -6,6 +6,15 @@
             <RICserviceUpdateFailure>
                 <protocolIEs>
                     <RICserviceUpdateFailure-IEs>
+                        <id>1</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <Cause>
+                                <ricService><ric-resource-limit/></ricService>
+                            </Cause>
+                        </value>
+                    </RICserviceUpdateFailure-IEs>
+                    <RICserviceUpdateFailure-IEs>
                         <id>2</id>
                         <criticality><ignore/></criticality>
                         <value>
@@ -28,42 +37,17 @@
                         </value>
                     </RICserviceUpdateFailure-IEs>
                     <RICserviceUpdateFailure-IEs>
-                        <id>13</id>
-                        <criticality><ignore/></criticality>
-                        <value>
-                            <RANfunctionsIDcause-List>
-                                <ProtocolIE-SingleContainer>
-                                    <id>7</id>
-                                    <criticality><ignore/></criticality>
-                                    <value>
-                                        <RANfunctionIDcause-Item>
-                                            <ranFunctionID>101</ranFunctionID>
-                                            <cause>
-                                                <misc><hardware-failure/></misc>
-                                            </cause>
-                                        </RANfunctionIDcause-Item>
-                                    </value>
-                                </ProtocolIE-SingleContainer>
-                                <ProtocolIE-SingleContainer>
-                                    <id>7</id>
-                                    <criticality><ignore/></criticality>
-                                    <value>
-                                        <RANfunctionIDcause-Item>
-                                            <ranFunctionID>102</ranFunctionID>
-                                            <cause>
-                                                <protocol><semantic-error/></protocol>
-                                            </cause>
-                                        </RANfunctionIDcause-Item>
-                                    </value>
-                                </ProtocolIE-SingleContainer>
-                            </RANfunctionsIDcause-List>
-                        </value>
-                    </RICserviceUpdateFailure-IEs>
-                    <RICserviceUpdateFailure-IEs>
                         <id>31</id>
                         <criticality><ignore/></criticality>
                         <value>
                             <TimeToWait><v2s/></TimeToWait>
+                        </value>
+                    </RICserviceUpdateFailure-IEs>
+                    <RICserviceUpdateFailure-IEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
                         </value>
                     </RICserviceUpdateFailure-IEs>
                 </protocolIEs>

@@ -7,7 +7,7 @@ package procedures
 import (
 	"io"
 
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
@@ -28,6 +28,7 @@ type Dispatcher func(pdu *e2appdudescriptions.E2ApPdu) error
 // RICProcedures implements the procedures for a RIC
 type RICProcedures interface {
 	E2Setup
+	E2ConfigurationUpdate
 	RICIndication
 }
 

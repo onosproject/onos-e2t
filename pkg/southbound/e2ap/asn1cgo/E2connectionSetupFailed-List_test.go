@@ -6,13 +6,14 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"gotest.tools/assert"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func createE2connectionSetupFailedListMsg() (*e2ap_pdu_contents.E2ConnectionSetupFailedList, error) {
@@ -21,12 +22,12 @@ func createE2connectionSetupFailedListMsg() (*e2ap_pdu_contents.E2ConnectionSetu
 		Value: make([]*e2ap_pdu_contents.E2ConnectionSetupFailedItemIes, 0),
 	}
 
-	bs1 := &e2ap_commondatatypes.BitString{
+	bs1 := &asn1.BitString{
 		Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 		Len:   64,
 	}
 
-	bs2 := &e2ap_commondatatypes.BitString{
+	bs2 := &asn1.BitString{
 		Value: []byte{0xcd, 0x9b},
 		Len:   16,
 	}
@@ -37,7 +38,7 @@ func createE2connectionSetupFailedListMsg() (*e2ap_pdu_contents.E2ConnectionSetu
 	}
 
 	item := &e2ap_pdu_contents.E2ConnectionSetupFailedItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionSetupFailedItem),
+		Id:          int32(v2beta1.ProtocolIeIDE2connectionSetupFailedItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2ap_pdu_contents.E2ConnectionSetupFailedItem{
 			TnlInformation: &tnlinformation,
@@ -52,9 +53,9 @@ func createE2connectionSetupFailedListMsg() (*e2ap_pdu_contents.E2ConnectionSetu
 
 	e2connectionSetupFailedList.Value = append(e2connectionSetupFailedList.Value, item)
 
-	if err := e2connectionSetupFailedList.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2connectionSetupFailedList %s", err.Error())
-	}
+	//if err := e2connectionSetupFailedList.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2connectionSetupFailedList %s", err.Error())
+	//}
 	return &e2connectionSetupFailedList, nil
 }
 

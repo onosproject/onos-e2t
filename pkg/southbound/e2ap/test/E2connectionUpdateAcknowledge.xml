@@ -17,7 +17,7 @@
                                         <E2connectionUpdate-Item>
                                             <tnlInformation>
                                                 <tnlAddress>
-                                                    0110011101000101001000110000000111011111110111001010101110001001
+                                                    1000100110101011110111001101111100000001001000110100010101100111
                                                 </tnlAddress>
                                                 <tnlPort>
                                                     1010111010001001
@@ -42,7 +42,7 @@
                                         <E2connectionSetupFailed-Item>
                                             <tnlInformation>
                                                 <tnlAddress>
-                                                    0110011101000101001000110000000111011111110111001010101110001001
+                                                    1000100110101011110111001101111100000001001000110100010101100111
                                                 </tnlAddress>
                                                 <tnlPort>
                                                     1010111010001001
@@ -55,6 +55,13 @@
                                     </value>
                                 </ProtocolIE-SingleContainer>
                             </E2connectionSetupFailed-List>
+                        </value>
+                    </E2connectionUpdateAck-IEs>
+                    <E2connectionUpdateAck-IEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
                         </value>
                     </E2connectionUpdateAck-IEs>
                 </protocolIEs>

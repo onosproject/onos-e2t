@@ -5,11 +5,12 @@ package pdubuilder
 
 import (
 	"encoding/hex"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
-	"gotest.tools/assert"
 	"testing"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"gotest.tools/assert"
 )
 
 func TestRicControlFailure(t *testing.T) {
@@ -26,9 +27,11 @@ func TestRicControlFailure(t *testing.T) {
 		},
 	}
 	newE2apPdu, err := CreateRicControlFailureE2apPdu(ricRequestID,
-		ranFuncID, nil, cause, nil)
+		ranFuncID, &cause)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().
+		SetRicControlOutcome([]byte{0xFF, 0xFF, 0xDD, 0x4A}).SetRicCallProcessID([]byte{0xCC, 0x3D, 0x1F})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -36,7 +39,7 @@ func TestRicControlFailure(t *testing.T) {
 
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu, e2apPdu)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -44,5 +47,5 @@ func TestRicControlFailure(t *testing.T) {
 
 	e2apPdu, err = asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu, e2apPdu)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 }

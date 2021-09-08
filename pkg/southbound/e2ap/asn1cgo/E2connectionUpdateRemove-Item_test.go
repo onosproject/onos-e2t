@@ -6,32 +6,32 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"gotest.tools/assert"
 	"testing"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func createE2connectionUpdateRemoveItemMsg() (*e2ap_pdu_contents.E2ConnectionUpdateRemoveItem, error) {
 
 	e2connectionUpdateRemoveItem := e2ap_pdu_contents.E2ConnectionUpdateRemoveItem{
 		TnlInformation: &e2ap_ies.Tnlinformation{
-			TnlAddress: &e2ap_commondatatypes.BitString{
+			TnlAddress: &asn1.BitString{
 				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 				Len:   64,
 			},
-			TnlPort: &e2ap_commondatatypes.BitString{
+			TnlPort: &asn1.BitString{
 				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
 		},
 	}
 
-	if err := e2connectionUpdateRemoveItem.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2connectionUpdateRemoveItem %s", err.Error())
-	}
+	//if err := e2connectionUpdateRemoveItem.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2connectionUpdateRemoveItem %s", err.Error())
+	//}
 	return &e2connectionUpdateRemoveItem, nil
 }
 

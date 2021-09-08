@@ -1,0 +1,197 @@
+/*
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+////////////////////// e2ap-pdu-descriptions.proto //////////////////////
+// Protobuf generated from /e2ap_v2.0.1_Feb3_21.asn by asn1c-0.9.29
+// E2AP-PDU-Descriptions { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version2(2) e2ap(1) e2ap-PDU-Descriptions(0) }
+
+syntax = "proto3";
+
+package e2ap.v2beta1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions";
+
+import "e2ap/v2beta1/e2ap_commondatatypes.proto";
+import "e2ap/v2beta1/e2ap_pdu_contents.proto";
+import "e2ap/v2beta1/e2ap_constants.proto";
+import "validate/v1/validate.proto";
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:98
+// {E2AP-PDU}
+message E2ApPdu {
+    // choice from e2ap_v2.0.1_Feb3_21.asn:98
+    // @inject_tag: aper:"valueLB:1,valueUB:3,"
+    oneof e2_ap_pdu {
+        InitiatingMessage initiating_message = 1 [ json_name="initiatingMessage"];
+        SuccessfulOutcome successful_outcome = 2 [ json_name="successfulOutcome"];
+        UnsuccessfulOutcome unsuccessful_outcome = 3 [ json_name="unsuccessfulOutcome"];
+    }
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:105
+// {InitiatingMessage}
+message InitiatingMessage {
+    E2ApElementaryProcedures procedure_code = 1 [ json_name="procedureCode"];
+//    @procedureCode criticality = 2 [ json_name="criticality"];
+//    @procedureCode value = 3 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:111
+// {SuccessfulOutcome}
+message SuccessfulOutcome {
+    E2ApElementaryProcedures procedure_code = 1 [ json_name="procedureCode"];
+//    @procedureCode criticality = 2 [ json_name="criticality"];
+//    @procedureCode value = 3 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:117
+// {UnsuccessfulOutcome}
+message UnsuccessfulOutcome {
+    E2ApElementaryProcedures procedure_code = 1 [ json_name="procedureCode"];
+//    @procedureCode criticality = 2 [ json_name="criticality"];
+//    @procedureCode value = 3 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:128
+// {_E2AP-ELEMENTARY-PROCEDURES}
+message E2ApElementaryProcedures {
+    RicSubscription ric_subscription = 1 [ json_name="ric_subscription"];
+    RicSubscriptionDelete ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
+    RicServiceUpdate ric_service_update = 3 [ json_name="ric_service_update"];
+    RicControl ric_control = 4 [ json_name="ric_control"];
+    E2setup e2setup = 5 [ json_name="e2setup"];
+    E2nodeConfigurationUpdateEp e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
+    E2connectionUpdateEp e2connection_update = 7 [ json_name="e2connection_update"];
+    Reset reset = 8 [ json_name="reset"];
+    RicIndication ric_indication = 9 [ json_name="ric_indication"];
+    RicServiceQuery ric_service_query = 10 [ json_name="ric_service_query"];
+    ErrorIndicationEp error_indication = 11 [ json_name="error_indication"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:134
+// {_E2AP-ELEMENTARY-PROCEDURES-CLASS-1}
+message E2ApElementaryProceduresClass1 {
+    RicSubscription ric_subscription = 1 [ json_name="ric_subscription"];
+    RicSubscriptionDelete ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
+    RicServiceUpdate ric_service_update = 3 [ json_name="ric_service_update"];
+    RicControl ric_control = 4 [ json_name="ric_control"];
+    E2setup e2setup = 5 [ json_name="e2setup"];
+    E2nodeConfigurationUpdateEp e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
+    E2connectionUpdateEp e2connection_update = 7 [ json_name="e2connection_update"];
+    Reset reset = 8 [ json_name="reset"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:146
+// {_E2AP-ELEMENTARY-PROCEDURES-CLASS-2}
+message E2ApElementaryProceduresClass2 {
+    RicIndication ric_indication = 1 [ json_name="ric_indication"];
+    RicServiceQuery ric_service_query = 2 [ json_name="ric_service_query"];
+    ErrorIndication error_indication = 3 [ json_name="error_indication"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:160
+// {_e2connectionUpdate}
+message E2connectionUpdateEp {
+    E2connectionUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
+    E2connectionUpdateAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    E2connectionUpdateFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdE2connectionUpdate procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:168
+// {_e2nodeConfigurationUpdate}
+message E2nodeConfigurationUpdateEp {
+    E2nodeConfigurationUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
+    E2nodeConfigurationUpdateAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    E2nodeConfigurationUpdateFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdE2nodeConfigurationUpdate procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:176
+// {_e2setup}
+message E2setup {
+    E2setupRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    E2setupResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    E2setupFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdE2setup procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:184
+// {_errorIndication}
+message ErrorIndicationEp {
+    ErrorIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
+    IdErrorIndication procedure_code = 2 [ json_name="&procedureCode"];
+    CriticalityIgnore criticality = 3 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:190
+// {_reset}
+message Reset {
+    ResetRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    ResetResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    IdReset procedure_code = 3 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 4 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:197
+// {_ricControl}
+message RicControl {
+    RiccontrolRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    RiccontrolAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    RiccontrolFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdRiccontrol procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:205
+// {_ricIndication}
+message RicIndication {
+    Ricindication initiating_message = 1 [ json_name="&InitiatingMessage"];
+    IdRicindication procedure_code = 2 [ json_name="&procedureCode"];
+    CriticalityIgnore criticality = 3 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:211
+// {_ricServiceQuery}
+message RicServiceQuery {
+    RicserviceQuery initiating_message = 1 [ json_name="&InitiatingMessage"];
+    IdRicserviceQuery procedure_code = 2 [ json_name="&procedureCode"];
+    CriticalityIgnore criticality = 3 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:217
+// {_ricServiceUpdate}
+message RicServiceUpdate {
+    RicserviceUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
+    RicserviceUpdateAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    RicserviceUpdateFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdRicserviceUpdate procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:225
+// {_ricSubscription}
+message RicSubscription {
+    RicsubscriptionRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    RicsubscriptionResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    RicsubscriptionFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdRicsubscription procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.0.1_Feb3_21.asn:233
+// {_ricSubscriptionDelete}
+message RicSubscriptionDelete {
+    RicsubscriptionDeleteRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    RicsubscriptionDeleteResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    RicsubscriptionDeleteFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdRicsubscriptionDelete procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+

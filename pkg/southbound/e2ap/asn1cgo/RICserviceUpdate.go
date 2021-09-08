@@ -14,8 +14,9 @@ import "C"
 
 import (
 	"fmt"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeRicServiceUpdate(rsu *e2ap_pdu_contents.RicserviceUpdate) ([]byte, error) {
@@ -68,12 +69,12 @@ func perDecodeRicServiceUpdate(bytes []byte) (*e2ap_pdu_contents.RicserviceUpdat
 
 func newRicServiceUpdate(rsu *e2ap_pdu_contents.RicserviceUpdate) (*C.RICserviceUpdate_t, error) {
 
-	pIeC1710P22, err := newRicServiceUpdateIe(rsu.ProtocolIes)
+	pIeC1751P22, err := newRicServiceUpdateIe(rsu.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsuC := C.RICserviceUpdate_t{
-		protocolIEs: *pIeC1710P22,
+		protocolIEs: *pIeC1751P22,
 	}
 
 	return &rsuC, nil

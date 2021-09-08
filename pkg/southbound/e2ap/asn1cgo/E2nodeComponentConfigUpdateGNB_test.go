@@ -6,24 +6,24 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	"gotest.tools/assert"
 	"testing"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"gotest.tools/assert"
 )
 
 func createE2nodeComponentConfigUpdateGnbMsg() (*e2ap_ies.E2NodeComponentConfigUpdateGnb, error) {
 
 	e2nodeComponentConfigUpdateGnb := e2ap_ies.E2NodeComponentConfigUpdateGnb{
-		NgApconfigUpdate: "ng_AP",
-		XnApconfigUpdate: "xn_AP",
-		E1ApconfigUpdate: "e1_AP",
-		F1ApconfigUpdate: "f1_AP",
+		NgApconfigUpdate: []byte("ng_AP"),
+		XnApconfigUpdate: []byte("xn_AP"),
+		E1ApconfigUpdate: []byte("e1_AP"),
+		F1ApconfigUpdate: []byte("f1_AP"),
 	}
 
-	if err := e2nodeComponentConfigUpdateGnb.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateGnb %s", err.Error())
-	}
+	//if err := e2nodeComponentConfigUpdateGnb.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateGnb %s", err.Error())
+	//}
 	return &e2nodeComponentConfigUpdateGnb, nil
 }
 
@@ -41,10 +41,10 @@ func Test_xerEncodingE2nodeComponentConfigUpdateGnb(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeComponentConfigUpdateGnb XER - decoded\n%v", result)
-	assert.Equal(t, e2nodeComponentConfigUpdateGnb.GetNgApconfigUpdate(), result.GetNgApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateGnb.GetXnApconfigUpdate(), result.GetXnApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateGnb.GetE1ApconfigUpdate(), result.GetE1ApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateGnb.GetF1ApconfigUpdate(), result.GetF1ApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateGnb.GetNgApconfigUpdate(), result.GetNgApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateGnb.GetXnApconfigUpdate(), result.GetXnApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateGnb.GetE1ApconfigUpdate(), result.GetE1ApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateGnb.GetF1ApconfigUpdate(), result.GetF1ApconfigUpdate())
 }
 
 func Test_perEncodingE2nodeComponentConfigUpdateGnb(t *testing.T) {
@@ -61,8 +61,8 @@ func Test_perEncodingE2nodeComponentConfigUpdateGnb(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeComponentConfigUpdateGnb PER - decoded\n%v", result)
-	assert.Equal(t, e2nodeComponentConfigUpdateGnb.GetNgApconfigUpdate(), result.GetNgApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateGnb.GetXnApconfigUpdate(), result.GetXnApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateGnb.GetE1ApconfigUpdate(), result.GetE1ApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateGnb.GetF1ApconfigUpdate(), result.GetF1ApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateGnb.GetNgApconfigUpdate(), result.GetNgApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateGnb.GetXnApconfigUpdate(), result.GetXnApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateGnb.GetE1ApconfigUpdate(), result.GetE1ApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateGnb.GetF1ApconfigUpdate(), result.GetF1ApconfigUpdate())
 }

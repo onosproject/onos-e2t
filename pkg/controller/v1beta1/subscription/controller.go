@@ -18,7 +18,7 @@ import (
 	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
@@ -26,7 +26,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/config"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -258,7 +258,8 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	}
 
 	// Validate the subscribe request
-	if err := request.Validate(); err != nil {
+	// TODO enable this when validation function is available
+	/*if err := request.Validate(); err != nil {
 		log.Warnf("Failed to validate E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
 		sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_FAILED
 		sub.Status.Error = &e2api.Error{
@@ -277,7 +278,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			return controller.Result{}, err
 		}
 		return controller.Result{}, nil
-	}
+	}*/
 
 	// Send the subscription request and await a response
 	log.Debugf("Sending RicsubscriptionRequest %+v", request)
@@ -571,129 +572,126 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 		return nil
 	}
 
-	for _, item := range failure.ProtocolIes.E2ApProtocolIes18.Value.Value {
-		switch c := item.Value.Cause.Cause.(type) {
-		case *e2apies.Cause_RicRequest:
-			var errType e2api.Error_Cause_Ric_Type
-			switch c.RicRequest {
-			case e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
-				errType = e2api.Error_Cause_Ric_RAN_FUNCTION_ID_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
-				errType = e2api.Error_Cause_Ric_ACTION_NOT_SUPPORTED
-			case e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
-				errType = e2api.Error_Cause_Ric_EXCESSIVE_ACTIONS
-			case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
-				errType = e2api.Error_Cause_Ric_DUPLICATE_ACTION
-			case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
-				errType = e2api.Error_Cause_Ric_DUPLICATE_EVENT
-			case e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
-				errType = e2api.Error_Cause_Ric_FUNCTION_RESOURCE_LIMIT
-			case e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
-				errType = e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN
-			case e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
-				errType = e2api.Error_Cause_Ric_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE
-			case e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
-				errType = e2api.Error_Cause_Ric_CONTROL_MESSAGE_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
-				errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
-			case e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED:
-				errType = e2api.Error_Cause_Ric_UNSPECIFIED
-			}
-			return &e2api.Error{
-				Cause: &e2api.Error_Cause{
-					Cause: &e2api.Error_Cause_Ric_{
-						Ric: &e2api.Error_Cause_Ric{
-							Type: errType,
-						},
-					},
-				},
-			}
-		case *e2apies.Cause_RicService:
-			var errType e2api.Error_Cause_RicService_Type
-			switch c.RicService {
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
-				errType = e2api.Error_Cause_RicService_FUNCTION_NOT_REQUIRED
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
-				errType = e2api.Error_Cause_RicService_EXCESSIVE_FUNCTIONS
-			case e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
-				errType = e2api.Error_Cause_RicService_RIC_RESOURCE_LIMIT
-			}
-			return &e2api.Error{
-				Cause: &e2api.Error_Cause{
-					Cause: &e2api.Error_Cause_RicService_{
-						RicService: &e2api.Error_Cause_RicService{
-							Type: errType,
-						},
-					},
-				},
-			}
-		case *e2apies.Cause_Protocol:
-			var errType e2api.Error_Cause_Protocol_Type
-			switch c.Protocol {
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR:
-				errType = e2api.Error_Cause_Protocol_TRANSFER_SYNTAX_ERROR
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT:
-				errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_REJECT
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY:
-				errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE:
-				errType = e2api.Error_Cause_Protocol_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR:
-				errType = e2api.Error_Cause_Protocol_SEMANTIC_ERROR
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE:
-				errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
-			case e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED:
-				errType = e2api.Error_Cause_Protocol_UNSPECIFIED
-			}
-			return &e2api.Error{
-				Cause: &e2api.Error_Cause{
-					Cause: &e2api.Error_Cause_Protocol_{
-						Protocol: &e2api.Error_Cause_Protocol{
-							Type: errType,
-						},
-					},
-				},
-			}
-		case *e2apies.Cause_Transport:
-			var errType e2api.Error_Cause_Transport_Type
-			switch c.Transport {
-			case e2apies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED:
-				errType = e2api.Error_Cause_Transport_UNSPECIFIED
-			case e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE:
-				errType = e2api.Error_Cause_Transport_TRANSPORT_RESOURCE_UNAVAILABLE
-			}
-			return &e2api.Error{
-				Cause: &e2api.Error_Cause{
-					Cause: &e2api.Error_Cause_Transport_{
-						Transport: &e2api.Error_Cause_Transport{
-							Type: errType,
-						},
-					},
-				},
-			}
-		case *e2apies.Cause_Misc:
-			var errType e2api.Error_Cause_Misc_Type
-			switch c.Misc {
-			case e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD:
-				errType = e2api.Error_Cause_Misc_CONTROL_PROCESSING_OVERLOAD
-			case e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE:
-				errType = e2api.Error_Cause_Misc_HARDWARE_FAILURE
-			case e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION:
-				errType = e2api.Error_Cause_Misc_OM_INTERVENTION
-			case e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED:
-				errType = e2api.Error_Cause_Misc_UNSPECIFIED
-			}
-			return &e2api.Error{
-				Cause: &e2api.Error_Cause{
-					Cause: &e2api.Error_Cause_Misc_{
-						Misc: &e2api.Error_Cause_Misc{
-							Type: errType,
-						},
-					},
-				},
-			}
+	switch c := failure.GetProtocolIes().GetE2ApProtocolIes1().Value.Cause.(type) {
+	case *e2apies.Cause_RicRequest:
+		var errType e2api.Error_Cause_Ric_Type
+		switch c.RicRequest {
+		case e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
+			errType = e2api.Error_Cause_Ric_RAN_FUNCTION_ID_INVALID
+		case e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
+			errType = e2api.Error_Cause_Ric_ACTION_NOT_SUPPORTED
+		case e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
+			errType = e2api.Error_Cause_Ric_EXCESSIVE_ACTIONS
+		case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
+			errType = e2api.Error_Cause_Ric_DUPLICATE_ACTION
+		case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
+			errType = e2api.Error_Cause_Ric_DUPLICATE_EVENT
+		case e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
+			errType = e2api.Error_Cause_Ric_FUNCTION_RESOURCE_LIMIT
+		case e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
+			errType = e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN
+		case e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
+			errType = e2api.Error_Cause_Ric_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE
+		case e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
+			errType = e2api.Error_Cause_Ric_CONTROL_MESSAGE_INVALID
+		case e2apies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
+			errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
+		case e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED:
+			errType = e2api.Error_Cause_Ric_UNSPECIFIED
 		}
-		return nil
+		return &e2api.Error{
+			Cause: &e2api.Error_Cause{
+				Cause: &e2api.Error_Cause_Ric_{
+					Ric: &e2api.Error_Cause_Ric{
+						Type: errType,
+					},
+				},
+			},
+		}
+	case *e2apies.Cause_RicService:
+		var errType e2api.Error_Cause_RicService_Type
+		switch c.RicService {
+		case e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
+			errType = e2api.Error_Cause_RicService_FUNCTION_NOT_REQUIRED
+		case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
+			errType = e2api.Error_Cause_RicService_EXCESSIVE_FUNCTIONS
+		case e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
+			errType = e2api.Error_Cause_RicService_RIC_RESOURCE_LIMIT
+		}
+		return &e2api.Error{
+			Cause: &e2api.Error_Cause{
+				Cause: &e2api.Error_Cause_RicService_{
+					RicService: &e2api.Error_Cause_RicService{
+						Type: errType,
+					},
+				},
+			},
+		}
+	case *e2apies.Cause_Protocol:
+		var errType e2api.Error_Cause_Protocol_Type
+		switch c.Protocol {
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR:
+			errType = e2api.Error_Cause_Protocol_TRANSFER_SYNTAX_ERROR
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT:
+			errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_REJECT
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY:
+			errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE:
+			errType = e2api.Error_Cause_Protocol_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR:
+			errType = e2api.Error_Cause_Protocol_SEMANTIC_ERROR
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE:
+			errType = e2api.Error_Cause_Protocol_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE
+		case e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED:
+			errType = e2api.Error_Cause_Protocol_UNSPECIFIED
+		}
+		return &e2api.Error{
+			Cause: &e2api.Error_Cause{
+				Cause: &e2api.Error_Cause_Protocol_{
+					Protocol: &e2api.Error_Cause_Protocol{
+						Type: errType,
+					},
+				},
+			},
+		}
+	case *e2apies.Cause_Transport:
+		var errType e2api.Error_Cause_Transport_Type
+		switch c.Transport {
+		case e2apies.CauseTransport_CAUSE_TRANSPORT_UNSPECIFIED:
+			errType = e2api.Error_Cause_Transport_UNSPECIFIED
+		case e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE:
+			errType = e2api.Error_Cause_Transport_TRANSPORT_RESOURCE_UNAVAILABLE
+		}
+		return &e2api.Error{
+			Cause: &e2api.Error_Cause{
+				Cause: &e2api.Error_Cause_Transport_{
+					Transport: &e2api.Error_Cause_Transport{
+						Type: errType,
+					},
+				},
+			},
+		}
+	case *e2apies.Cause_Misc:
+		var errType e2api.Error_Cause_Misc_Type
+		switch c.Misc {
+		case e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD:
+			errType = e2api.Error_Cause_Misc_CONTROL_PROCESSING_OVERLOAD
+		case e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE:
+			errType = e2api.Error_Cause_Misc_HARDWARE_FAILURE
+		case e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION:
+			errType = e2api.Error_Cause_Misc_OM_INTERVENTION
+		case e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED:
+			errType = e2api.Error_Cause_Misc_UNSPECIFIED
+		}
+		return &e2api.Error{
+			Cause: &e2api.Error_Cause{
+				Cause: &e2api.Error_Cause_Misc_{
+					Misc: &e2api.Error_Cause_Misc{
+						Type: errType,
+					},
+				},
+			},
+		}
 	}
 	return nil
 }

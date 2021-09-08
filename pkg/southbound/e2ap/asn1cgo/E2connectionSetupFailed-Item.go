@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeE2connectionSetupFailedItem(e2connectionSetupFailedItem *e2ap_pdu_contents.E2ConnectionSetupFailedItem) ([]byte, error) {
@@ -113,7 +114,7 @@ func decodeE2connectionSetupFailedItemBytes(array [144]byte) (*e2ap_pdu_contents
 	tnlAddrbitsUnused := int(binary.LittleEndian.Uint32(array[16:20]))
 	tnlAddrbytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[:8]))), C.int(tnlAddrsize))
 
-		tnlPortPtrC := (*C.BIT_STRING_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[48:56]))))
+	tnlPortPtrC := (*C.BIT_STRING_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[48:56]))))
 
 	e2csfItemC := C.E2connectionSetupFailed_Item_t{
 		tnlInformation: C.TNLinformation_t{

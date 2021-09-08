@@ -6,19 +6,20 @@ package pdudecoder
 
 import (
 	"fmt"
-	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+
+	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func DecodeRicServiceUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (types.RanFunctionRevisions,
+func DecodeRicServiceUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, types.RanFunctionRevisions,
 	types.RanFunctionCauses, error) {
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	//}
 
 	rsua := e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate()
 	if rsua == nil {
-		return nil, nil, fmt.Errorf("error E2APpdu does not have RICserviceUpdateAcknowledge")
+		return nil, nil, nil, fmt.Errorf("error E2APpdu does not have RICserviceUpdateAcknowledge")
 	}
 
 	ranFunctionsAcceptedList := make(types.RanFunctionRevisions)
@@ -36,5 +37,7 @@ func DecodeRicServiceUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu
 		causes[types.RanFunctionID(rfri.GetRanFunctionIdcauseItemIes7().GetValue().GetRanFunctionId().GetValue())] = rfri.GetRanFunctionIdcauseItemIes7().GetValue().GetCause()
 	}
 
-	return ranFunctionsAcceptedList, causes, nil
+	transactionID := rsua.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
+
+	return &transactionID, ranFunctionsAcceptedList, causes, nil
 }

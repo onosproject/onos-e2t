@@ -6,13 +6,13 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"gotest.tools/assert"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"gotest.tools/assert"
 )
 
 func createE2nodeComponentConfigUpdateListMsg() (*e2ap_pdu_contents.E2NodeComponentConfigUpdateList, error) {
@@ -31,17 +31,17 @@ func createE2nodeComponentConfigUpdateListMsg() (*e2ap_pdu_contents.E2NodeCompon
 		E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate{
 			E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate_GNbconfigUpdate{
 				GNbconfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdateGnb{
-					NgApconfigUpdate: "ng_AP",
-					XnApconfigUpdate: "xn_AP",
-					E1ApconfigUpdate: "e1_AP",
-					F1ApconfigUpdate: "f1_AP",
+					NgApconfigUpdate: []byte("ng_AP"),
+					XnApconfigUpdate: []byte("xn_AP"),
+					E1ApconfigUpdate: []byte("e1_AP"),
+					F1ApconfigUpdate: []byte("f1_AP"),
 				},
 			},
 		},
 	}
 
 	item := e2ap_pdu_contents.E2NodeComponentConfigUpdateItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateItem),
+		Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       &e2nodeComponentConfigUpdateItem,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -52,9 +52,9 @@ func createE2nodeComponentConfigUpdateListMsg() (*e2ap_pdu_contents.E2NodeCompon
 	}
 	e2nodeComponentConfigUpdateList.Value = append(e2nodeComponentConfigUpdateList.Value, &item)
 
-	if err := e2nodeComponentConfigUpdateList.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateList %s", err.Error())
-	}
+	//if err := e2nodeComponentConfigUpdateList.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateList %s", err.Error())
+	//}
 	return &e2nodeComponentConfigUpdateList, nil
 }
 
@@ -73,12 +73,12 @@ func Test_xerEncodingE2nodeComponentConfigUpdateList(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeComponentConfigUpdateList XER - decoded\n%v", result)
 	assert.Equal(t, 1, len(result.GetValue()))
-	assert.Equal(t, int32(e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentType()), int32(result.GetValue()[0].GetValue().GetE2NodeComponentType()))
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue(), result.GetValue()[0].GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue())
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate())
+	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentType().Number(), result.GetValue()[0].GetValue().GetE2NodeComponentType().Number())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue(), result.GetValue()[0].GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate())
 }
 
 func Test_perEncodingE2nodeComponentConfigUpdateList(t *testing.T) {
@@ -96,10 +96,10 @@ func Test_perEncodingE2nodeComponentConfigUpdateList(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeComponentConfigUpdateList PER - decoded\n%v", result)
 	assert.Equal(t, 1, len(result.GetValue()))
-	assert.Equal(t, int32(e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentType()), int32(result.GetValue()[0].GetValue().GetE2NodeComponentType()))
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue(), result.GetValue()[0].GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue())
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate())
-	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate())
+	assert.Equal(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentType().Number(), result.GetValue()[0].GetValue().GetE2NodeComponentType().Number())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue(), result.GetValue()[0].GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateList.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate(), result.GetValue()[0].GetValue().GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate())
 }

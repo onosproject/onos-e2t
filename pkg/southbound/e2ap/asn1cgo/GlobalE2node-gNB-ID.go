@@ -14,8 +14,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func xerEncodeGlobalE2nodegNBID(ge2n *e2apies.GlobalE2NodeGnbId) ([]byte, error) {
@@ -75,8 +76,13 @@ func newGlobalE2nodegNBID(gnbID *e2apies.GlobalE2NodeGnbId) (*C.GlobalE2node_gNB
 
 	globalgNBIDC := C.GlobalE2node_gNB_ID_t{
 		global_gNB_ID: *globalgNBID,
-		//gNB_CU_UP_ID:  nil,
-		//gNB_DU_ID:     nil,
+	}
+
+	if gnbID.GlobalEnGNbId != nil {
+		globalgNBIDC.global_en_gNB_ID, err = newGlobalenGnbID(gnbID.GetGlobalEnGNbId())
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if gnbID.GNbCuUpId != nil {
@@ -102,6 +108,13 @@ func decodeGlobalE2nodegNBID(gNBC *C.GlobalE2node_gNB_ID_t) (*e2apies.GlobalE2No
 	result.GlobalGNbId, err = decodeGlobalGnbID(&gNBC.global_gNB_ID)
 	if err != nil {
 		return nil, fmt.Errorf("error decodeGlobalE2nodegNBID() %v", err)
+	}
+
+	if gNBC.global_en_gNB_ID != nil {
+		result.GlobalEnGNbId, err = decodeGlobalenGnbID(gNBC.global_en_gNB_ID)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if gNBC.gNB_CU_UP_ID != nil {

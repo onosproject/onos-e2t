@@ -17,6 +17,13 @@
                                     <ricRequestorID>10</ricRequestorID>
                                     <ricInstanceID>20</ricInstanceID>
                                 </ricRequestorID>
+                                <iEsCriticalityDiagnostics>
+                                    <CriticalityDiagnostics-IE-Item>
+                                        <iECriticality><ignore/></iECriticality>
+                                        <iE-ID>30</iE-ID>
+                                        <typeOfError><missing/></typeOfError>
+                                    </CriticalityDiagnostics-IE-Item>
+                                </iEsCriticalityDiagnostics>
                             </CriticalityDiagnostics>
                         </value>
                     </RICsubscriptionFailure-IEs>
@@ -28,35 +35,12 @@
                         </value>
                     </RICsubscriptionFailure-IEs>
                     <RICsubscriptionFailure-IEs>
-                        <id>18</id>
-                        <criticality><reject/></criticality>
+                        <id>1</id>
+                        <criticality><ignore/></criticality>
                         <value>
-                            <RICaction-NotAdmitted-List>
-                                <ProtocolIE-SingleContainer>
-                                    <id>16</id>
-                                    <criticality><ignore/></criticality>
-                                    <value>
-                                        <RICaction-NotAdmitted-Item>
-                                            <ricActionID>100</ricActionID>
-                                            <cause>
-                                                <transport><transport-resource-unavailable/></transport>
-                                            </cause>
-                                        </RICaction-NotAdmitted-Item>
-                                    </value>
-                                </ProtocolIE-SingleContainer>
-                                <ProtocolIE-SingleContainer>
-                                    <id>16</id>
-                                    <criticality><ignore/></criticality>
-                                    <value>
-                                        <RICaction-NotAdmitted-Item>
-                                            <ricActionID>200</ricActionID>
-                                            <cause>
-                                                <misc><hardware-failure/></misc>
-                                            </cause>
-                                        </RICaction-NotAdmitted-Item>
-                                    </value>
-                                </ProtocolIE-SingleContainer>
-                            </RICaction-NotAdmitted-List>
+                            <Cause>
+                                <misc><control-processing-overload/></misc>
+                            </Cause>
                         </value>
                     </RICsubscriptionFailure-IEs>
                     <RICsubscriptionFailure-IEs>

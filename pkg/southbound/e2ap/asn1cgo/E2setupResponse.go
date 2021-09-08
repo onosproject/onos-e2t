@@ -13,8 +13,9 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeE2setupResponse(e2sr *e2appducontents.E2SetupResponse) ([]byte, error) {
@@ -44,12 +45,12 @@ func perEncodeE2setupResponse(e2sr *e2appducontents.E2SetupResponse) ([]byte, er
 }
 
 func newE2setupResponse(e2sr *e2appducontents.E2SetupResponse) (*C.E2setupResponse_t, error) {
-	pIeC1710P12, err := newE2SetupResponseIes(e2sr.ProtocolIes)
+	pIeC1751P12, err := newE2SetupResponseIes(e2sr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rsrC := C.E2setupResponse_t{
-		protocolIEs: *pIeC1710P12,
+		protocolIEs: *pIeC1751P12,
 	}
 
 	return &rsrC, nil

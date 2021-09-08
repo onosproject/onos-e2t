@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList *e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList) ([]byte, error) {
@@ -92,7 +93,7 @@ func decodeE2nodeComponentConfigUpdateAckList(e2nodeComponentConfigUpdateAckList
 	ieCount := int(e2nodeComponentConfigUpdateAckListC.list.count)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(e2nodeComponentConfigUpdateAckListC.list.array)) * uintptr(i)
-		ieC := *(**C.ProtocolIE_SingleContainer_1713P7_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2nodeComponentConfigUpdateAckListC.list.array)) + offset))
+		ieC := *(**C.ProtocolIE_SingleContainer_1754P7_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2nodeComponentConfigUpdateAckListC.list.array)) + offset))
 		ie, err := decodeE2nodeComponentConfigUpdateAckItemIesSingleContainer(ieC)
 		if err != nil {
 			return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdateAckItemIes() %s", err.Error())
@@ -109,7 +110,7 @@ func decodeE2nodeComponentConfigUpdateAckListBytes(e2nccualC [112]byte) (*e2ap_p
 	size := C.int(binary.LittleEndian.Uint32(e2nccualC[12:16]))
 
 	rfIDlC := C.E2nodeComponentConfigUpdateAck_List_t{
-		list: C.struct___141{
+		list: C.struct___139{
 			array: array,
 			size:  size,
 			count: count,

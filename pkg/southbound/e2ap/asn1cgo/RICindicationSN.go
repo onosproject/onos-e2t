@@ -13,7 +13,8 @@ package asn1cgo
 import "C"
 import (
 	"encoding/binary"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func newRicIndicationSn(rih *e2apies.RicindicationSn) *C.RICindicationSN_t {

@@ -14,8 +14,9 @@ import "C"
 
 import (
 	"fmt"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeResetResponse(rr *e2ap_pdu_contents.ResetResponse) ([]byte, error) {
@@ -68,12 +69,12 @@ func perDecodeResetResponse(bytes []byte) (*e2ap_pdu_contents.ResetResponse, err
 
 func newResetResponse(rr *e2ap_pdu_contents.ResetResponse) (*C.ResetResponse_t, error) {
 
-	pIeC1710P21, err := newResetResponseIe(rr.ProtocolIes)
+	pIeC1751P21, err := newResetResponseIe(rr.ProtocolIes)
 	if err != nil {
 		return nil, err
 	}
 	rrC := C.ResetResponse_t{
-		protocolIEs: *pIeC1710P21,
+		protocolIEs: *pIeC1751P21,
 	}
 
 	return &rrC, nil

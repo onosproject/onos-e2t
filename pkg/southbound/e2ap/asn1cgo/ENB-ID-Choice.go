@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func xerEncodeEnbIDChoice(enbIDChoice *e2ap_ies.EnbIdChoice) ([]byte, error) {
@@ -123,7 +124,7 @@ func decodeEnbIDChoice(enbIDChoiceC *C.ENB_ID_Choice_t) (*e2ap_ies.EnbIdChoice, 
 	case C.ENB_ID_Choice_PR_enb_ID_macro:
 		enbIDChoicestructC := newBitStringFromArray(enbIDChoiceC.choice)
 		enbID, err := decodeBitString(enbIDChoicestructC)
-		if err != nil{
+		if err != nil {
 			return nil, err
 		}
 		enbIDChoice.EnbIdChoice = &e2ap_ies.EnbIdChoice_EnbIdMacro{
@@ -132,7 +133,7 @@ func decodeEnbIDChoice(enbIDChoiceC *C.ENB_ID_Choice_t) (*e2ap_ies.EnbIdChoice, 
 	case C.ENB_ID_Choice_PR_enb_ID_shortmacro:
 		enbIDChoicestructC := newBitStringFromArray(enbIDChoiceC.choice)
 		enbID, err := decodeBitString(enbIDChoicestructC)
-		if err != nil{
+		if err != nil {
 			return nil, err
 		}
 		enbIDChoice.EnbIdChoice = &e2ap_ies.EnbIdChoice_EnbIdShortmacro{
@@ -141,7 +142,7 @@ func decodeEnbIDChoice(enbIDChoiceC *C.ENB_ID_Choice_t) (*e2ap_ies.EnbIdChoice, 
 	case C.ENB_ID_Choice_PR_enb_ID_longmacro:
 		enbIDChoicestructC := newBitStringFromArray(enbIDChoiceC.choice)
 		enbID, err := decodeBitString(enbIDChoicestructC)
-		if err != nil{
+		if err != nil {
 			return nil, err
 		}
 		enbIDChoice.EnbIdChoice = &e2ap_ies.EnbIdChoice_EnbIdLongmacro{

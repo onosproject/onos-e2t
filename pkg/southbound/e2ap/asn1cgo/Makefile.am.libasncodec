@@ -63,14 +63,13 @@ ASN_MODULE_SRCS=	\
 	./CriticalityDiagnostics-IE-Item.c	\
 	./E2nodeComponentConfigUpdate.c	\
 	./E2nodeComponentConfigUpdateGNB.c	\
-	./E2nodeComponentConfigUpdateENgNB.c	\
-	./E2nodeComponentConfigUpdateNGeNB.c	\
 	./E2nodeComponentConfigUpdateENB.c	\
 	./E2nodeComponentConfigUpdateAck.c	\
 	./E2nodeComponentType.c	\
 	./E2nodeComponentID.c	\
 	./E2nodeComponentGNB-CU-UP-ID.c	\
 	./E2nodeComponentGNB-DU-ID.c	\
+	./E2nodeComponentNGeNB-DU-ID.c	\
 	./ENB-ID.c	\
 	./ENB-ID-Choice.c	\
 	./ENGNB-ID.c	\
@@ -87,6 +86,7 @@ ASN_MODULE_SRCS=	\
 	./GNB-CU-UP-ID.c	\
 	./GNB-DU-ID.c	\
 	./GNB-ID-Choice.c	\
+	./NGENB-DU-ID.c	\
 	./PLMN-Identity.c	\
 	./RANfunctionDefinition.c	\
 	./RANfunctionID.c	\
@@ -113,6 +113,7 @@ ASN_MODULE_SRCS=	\
 	./TimeToWait.c	\
 	./TNLinformation.c	\
 	./TNLusage.c	\
+	./TransactionID.c	\
 	./TypeOfError.c	\
 	./Criticality.c	\
 	./Presence.c	\
@@ -192,14 +193,13 @@ ASN_MODULE_HDRS=	\
 	./CriticalityDiagnostics-IE-Item.h	\
 	./E2nodeComponentConfigUpdate.h	\
 	./E2nodeComponentConfigUpdateGNB.h	\
-	./E2nodeComponentConfigUpdateENgNB.h	\
-	./E2nodeComponentConfigUpdateNGeNB.h	\
 	./E2nodeComponentConfigUpdateENB.h	\
 	./E2nodeComponentConfigUpdateAck.h	\
 	./E2nodeComponentType.h	\
 	./E2nodeComponentID.h	\
 	./E2nodeComponentGNB-CU-UP-ID.h	\
 	./E2nodeComponentGNB-DU-ID.h	\
+	./E2nodeComponentNGeNB-DU-ID.h	\
 	./ENB-ID.h	\
 	./ENB-ID-Choice.h	\
 	./ENGNB-ID.h	\
@@ -216,6 +216,7 @@ ASN_MODULE_HDRS=	\
 	./GNB-CU-UP-ID.h	\
 	./GNB-DU-ID.h	\
 	./GNB-ID-Choice.h	\
+	./NGENB-DU-ID.h	\
 	./PLMN-Identity.h	\
 	./RANfunctionDefinition.h	\
 	./RANfunctionID.h	\
@@ -242,6 +243,7 @@ ASN_MODULE_HDRS=	\
 	./TimeToWait.h	\
 	./TNLinformation.h	\
 	./TNLusage.h	\
+	./TransactionID.h	\
 	./TypeOfError.h	\
 	./Criticality.h	\
 	./Presence.h	\

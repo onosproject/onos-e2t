@@ -5,11 +5,12 @@
 package pdudecoder
 
 import (
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
-	"gotest.tools/assert"
 	"io/ioutil"
 	"testing"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"gotest.tools/assert"
 )
 
 func Test_DecodeRicServiceUpdateAcknowledgePdu(t *testing.T) {
@@ -18,7 +19,7 @@ func Test_DecodeRicServiceUpdateAcknowledgePdu(t *testing.T) {
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(rsuaXer)
 	assert.NilError(t, err)
 
-	ranFunctionsAccepted, causes, err := DecodeRicServiceUpdateAcknowledgePdu(e2apPdu)
+	transactionID, ranFunctionsAccepted, causes, err := DecodeRicServiceUpdateAcknowledgePdu(e2apPdu)
 	assert.NilError(t, err)
 	//assert.Assert(t, ricIdentity != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on lines 23, 24 & 25
 
@@ -40,5 +41,9 @@ func Test_DecodeRicServiceUpdateAcknowledgePdu(t *testing.T) {
 		default:
 			assert.Assert(t, false, "unexpected cause %d", id)
 		}
+	}
+
+	if transactionID != nil {
+		assert.Equal(t, int32(1), *transactionID)
 	}
 }

@@ -6,22 +6,22 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"gotest.tools/assert"
 	"testing"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func createE2connectionSetupFailedItemMsg() (*e2ap_pdu_contents.E2ConnectionSetupFailedItem, error) {
 
-	bs1 := &e2ap_commondatatypes.BitString{
+	bs1 := &asn1.BitString{
 		Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 		Len:   64,
 	}
 
-	bs2 := &e2ap_commondatatypes.BitString{
+	bs2 := &asn1.BitString{
 		Value: []byte{0xcd, 0x9b},
 		Len:   16,
 	}
@@ -40,9 +40,9 @@ func createE2connectionSetupFailedItemMsg() (*e2ap_pdu_contents.E2ConnectionSetu
 		},
 	}
 
-	if err := e2connectionSetupFailedItem.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2connectionSetupFailedItem %s", err.Error())
-	}
+	//if err := e2connectionSetupFailedItem.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2connectionSetupFailedItem %s", err.Error())
+	//}
 	return &e2connectionSetupFailedItem, nil
 }
 

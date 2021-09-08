@@ -6,13 +6,13 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"gotest.tools/assert"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"gotest.tools/assert"
 )
 
 func createE2nodeComponentConfigUpdateAckListMsg() (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckList, error) {
@@ -39,7 +39,7 @@ func createE2nodeComponentConfigUpdateAckListMsg() (*e2ap_pdu_contents.E2NodeCom
 	}
 
 	item := &e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
+		Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       &e2nodeComponentConfigUpdateAckItem,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -50,9 +50,9 @@ func createE2nodeComponentConfigUpdateAckListMsg() (*e2ap_pdu_contents.E2NodeCom
 	}
 	e2nodeComponentConfigUpdateAckList.Value = append(e2nodeComponentConfigUpdateAckList.Value, item)
 
-	if err := e2nodeComponentConfigUpdateAckList.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateAckList %s", err.Error())
-	}
+	//if err := e2nodeComponentConfigUpdateAckList.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2nodeComponentConfigUpdateAckList %s", err.Error())
+	//}
 	return &e2nodeComponentConfigUpdateAckList, nil
 }
 

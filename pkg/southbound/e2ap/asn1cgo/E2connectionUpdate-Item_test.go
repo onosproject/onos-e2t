@@ -6,25 +6,23 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-
-	//pdubuilder "github.com/onosproject/onos-e2-sm/servicemodels/e2ap_pdu_contents/pdubuilder"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"gotest.tools/assert"
 	"testing"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func createE2connectionUpdateItemMsg() (*e2ap_pdu_contents.E2ConnectionUpdateItem, error) {
 
 	e2connectionUpdateItem := e2ap_pdu_contents.E2ConnectionUpdateItem{
 		TnlInformation: &e2ap_ies.Tnlinformation{
-			TnlPort: &e2ap_commondatatypes.BitString{
+			TnlPort: &asn1.BitString{
 				Value: []byte{0xcd, 0x9b},
 				Len:   16,
 			},
-			TnlAddress: &e2ap_commondatatypes.BitString{
+			TnlAddress: &asn1.BitString{
 				Value: []byte{0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf5, 0xd6, 0xb7},
 				Len:   64,
 			},
@@ -32,9 +30,9 @@ func createE2connectionUpdateItemMsg() (*e2ap_pdu_contents.E2ConnectionUpdateIte
 		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH,
 	}
 
-	if err := e2connectionUpdateItem.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2connectionUpdateItem %s", err.Error())
-	}
+	//if err := e2connectionUpdateItem.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2connectionUpdateItem %s", err.Error())
+	//}
 	return &e2connectionUpdateItem, nil
 }
 

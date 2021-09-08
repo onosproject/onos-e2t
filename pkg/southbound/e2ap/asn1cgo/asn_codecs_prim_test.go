@@ -5,8 +5,9 @@
 package asn1cgo
 
 import (
-	"gotest.tools/assert"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 func Test_newAsnCodecsPrim(t *testing.T) {

@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func xerEncodeGlobalE2nodeEnGnbID(globalE2nodeEnGnbID *e2ap_ies.GlobalE2NodeEnGnbId) ([]byte, error) {
@@ -76,9 +77,23 @@ func newGlobalE2nodeEnGnbID(globalE2nodeEnGnbID *e2ap_ies.GlobalE2NodeEnGnbId) (
 	if err != nil {
 		return nil, fmt.Errorf("newGlobalenGnbID() %s", err.Error())
 	}
-
-	//ToDo - check whether pointers passed correctly with regard to C-struct's definition .h file
 	globalE2nodeEnGnbIDC.global_gNB_ID = *globalGNbIDC
+
+	if globalE2nodeEnGnbID.GetEnGNbCuUpId() != nil {
+		gnbCuUpIDC, err := newGnbCuUpID(globalE2nodeEnGnbID.GetEnGNbCuUpId())
+		if err != nil {
+			return nil, err
+		}
+		globalE2nodeEnGnbIDC.en_gNB_CU_UP_ID = gnbCuUpIDC
+	}
+
+	if globalE2nodeEnGnbID.GetEnGNbDuId() != nil {
+		gnbDuIDC, err := newGnbDuID(globalE2nodeEnGnbID.GetEnGNbDuId())
+		if err != nil {
+			return nil, err
+		}
+		globalE2nodeEnGnbIDC.en_gNB_DU_ID = gnbDuIDC
+	}
 
 	return &globalE2nodeEnGnbIDC, nil
 }
@@ -86,14 +101,25 @@ func newGlobalE2nodeEnGnbID(globalE2nodeEnGnbID *e2ap_ies.GlobalE2NodeEnGnbId) (
 func decodeGlobalE2nodeEnGnbID(globalE2nodeEnGnbIDC *C.GlobalE2node_en_gNB_ID_t) (*e2ap_ies.GlobalE2NodeEnGnbId, error) {
 
 	var err error
-	globalE2nodeEnGnbID := e2ap_ies.GlobalE2NodeEnGnbId{
-		//ToDo - check whether pointers passed correctly with regard to Protobuf's definition
-		//GlobalGNbId: globalGNbId,
-	}
+	globalE2nodeEnGnbID := e2ap_ies.GlobalE2NodeEnGnbId{}
 
 	globalE2nodeEnGnbID.GlobalGNbId, err = decodeGlobalenGnbID(&globalE2nodeEnGnbIDC.global_gNB_ID)
 	if err != nil {
 		return nil, fmt.Errorf("decodeGlobalenGnbID() %s", err.Error())
+	}
+
+	if globalE2nodeEnGnbIDC.en_gNB_CU_UP_ID != nil {
+		globalE2nodeEnGnbID.EnGNbCuUpId, err = decodeGnbCuUpID(globalE2nodeEnGnbIDC.en_gNB_CU_UP_ID)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if globalE2nodeEnGnbIDC.en_gNB_DU_ID != nil {
+		globalE2nodeEnGnbID.EnGNbDuId, err = decodeGnbDuID(globalE2nodeEnGnbIDC.en_gNB_DU_ID)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &globalE2nodeEnGnbID, nil

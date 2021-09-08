@@ -6,12 +6,12 @@ package procedures
 
 import (
 	"context"
-	e2ap "github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
+
+	e2ap "github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 )
 
 // RICIndication is a RIC indication procedure
@@ -47,9 +47,10 @@ func (p *RICIndicationInitiator) Initiate(ctx context.Context, request *e2appduc
 			},
 		},
 	}
-	if err := pdu.Validate(); err != nil {
+	// TODO enable it when it is supported
+	/*if err := pdu.Validate(); err != nil {
 		return errors.NewInvalid("E2AP PDU validation failed: %v", err)
-	}
+	}*/
 	return p.dispatcher(pdu)
 }
 

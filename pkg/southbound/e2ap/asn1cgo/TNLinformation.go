@@ -13,9 +13,11 @@ package asn1cgo
 import "C"
 
 import (
+	"encoding/binary"
 	"fmt"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func xerEncodeTnlinformation(tnlinformation *e2ap_ies.Tnlinformation) ([]byte, error) {
@@ -105,4 +107,23 @@ func decodeTnlinformation(tnlinformationC *C.TNLinformation_t) (*e2ap_ies.Tnlinf
 	}
 
 	return &tnlinformation, nil
+}
+
+func decodeTnlinformationBytes(bytes [80]byte) (*e2ap_ies.Tnlinformation, error) {
+
+	tnlInformationC := C.TNLinformation_t{
+		tnlAddress: C.BIT_STRING_t{
+			buf:         (*C.uchar)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[0:8])))),
+			size:        C.ulong(binary.LittleEndian.Uint64(bytes[8:16])),
+			bits_unused: C.int(binary.LittleEndian.Uint32(bytes[16:24])),
+		},
+		tnlPort: (*C.BIT_STRING_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[48:56])))),
+		//*C.BIT_STRING_t{
+		//buf:         (*C.uchar)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[48:56])))),
+		//size:        C.ulong(binary.LittleEndian.Uint64(bytes[56:64])),
+		//bits_unused: C.int(binary.LittleEndian.Uint32(bytes[64:72])),
+		//},
+	}
+
+	return decodeTnlinformation(&tnlInformationC)
 }

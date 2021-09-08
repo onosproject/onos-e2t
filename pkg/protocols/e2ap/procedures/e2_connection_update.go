@@ -9,9 +9,9 @@ import (
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 // E2ConnectionUpdate is an E2 connection update procedure
@@ -45,9 +45,10 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 			},
 		},
 	}
-	if err := requestPDU.Validate(); err != nil {
+	// TODO enable validation when it is supported
+	/*if err := requestPDU.Validate(); err != nil {
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
-	}
+	}*/
 
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 Connection Update initiation failed: %v", err)
@@ -138,13 +139,18 @@ func (p *E2ConnectionUpdateProcedure) Handle(requestPDU *e2appdudescriptions.E2A
 				},
 			},
 		}
-		if err := requestPDU.Validate(); err != nil {
+		// TODO enable validation when it is supported
+		/*if err := requestPDU.Validate(); err != nil {
 			log.Errorf("E2 Connection Update response validation failed: %v", err)
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
 				log.Errorf("E2 Connection Update response failed: %v", err)
 			}
+		}*/
+		err := p.dispatcher(responsePDU)
+		if err != nil {
+			log.Errorf("E2 Connection Update response failed: %v", err)
 		}
 	} else if failure != nil {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
@@ -158,14 +164,20 @@ func (p *E2ConnectionUpdateProcedure) Handle(requestPDU *e2appdudescriptions.E2A
 				},
 			},
 		}
-		if err := requestPDU.Validate(); err != nil {
+		// TODO enable validation when it is supported
+		/*if err := requestPDU.Validate(); err != nil {
 			log.Errorf("E2 Connection Update response validation failed: %v", err)
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
 				log.Errorf("E2 Connection Update response failed: %v", err)
 			}
+		}*/
+		err := p.dispatcher(responsePDU)
+		if err != nil {
+			log.Errorf("E2 Connection Update response failed: %v", err)
 		}
+
 	} else {
 		log.Errorf("E2 Connection Update function returned invalid output: no response message found")
 	}

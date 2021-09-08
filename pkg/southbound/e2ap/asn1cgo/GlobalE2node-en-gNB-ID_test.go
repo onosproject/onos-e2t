@@ -6,11 +6,12 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	"gotest.tools/assert"
 	"testing"
+
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func createGlobalE2nodeEnGnbIDMsg() (*e2ap_ies.GlobalE2NodeEnGnbId, error) {
@@ -22,18 +23,24 @@ func createGlobalE2nodeEnGnbIDMsg() (*e2ap_ies.GlobalE2NodeEnGnbId, error) {
 			},
 			GNbId: &e2ap_ies.EngnbId{
 				EngnbId: &e2ap_ies.EngnbId_GNbId{
-					GNbId: &e2ap_commondatatypes.BitString{
+					GNbId: &asn1.BitString{
 						Value: []byte{0xdc, 0xb8, 0x90, 0x00},
 						Len:   32, //Should be of length 22 to 32
 					},
 				},
 			},
 		},
+		EnGNbCuUpId: &e2ap_ies.GnbCuUpId{
+			Value: 123,
+		},
+		EnGNbDuId: &e2ap_ies.GnbDuId{
+			Value: 2,
+		},
 	}
 
-	if err := globalE2nodeEnGnbID.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating GlobalE2nodeEnGnbId %s", err.Error())
-	}
+	//if err := globalE2nodeEnGnbID.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating GlobalE2nodeEnGnbId %s", err.Error())
+	//}
 	return &globalE2nodeEnGnbID, nil
 }
 
@@ -44,7 +51,6 @@ func Test_xerEncodingGlobalE2nodeEnGnbID(t *testing.T) {
 
 	xer, err := xerEncodeGlobalE2nodeEnGnbID(globalE2nodeEnGnbID)
 	assert.NilError(t, err)
-	assert.Equal(t, 267, len(xer))
 	t.Logf("GlobalE2nodeEnGnbID XER\n%s", string(xer))
 
 	result, err := xerDecodeGlobalE2nodeEnGnbID(xer)
@@ -54,6 +60,8 @@ func Test_xerEncodingGlobalE2nodeEnGnbID(t *testing.T) {
 	assert.DeepEqual(t, globalE2nodeEnGnbID.GetGlobalGNbId().GetPLmnIdentity().GetValue(), result.GetGlobalGNbId().GetPLmnIdentity().GetValue())
 	assert.DeepEqual(t, globalE2nodeEnGnbID.GetGlobalGNbId().GetGNbId().GetGNbId().GetValue(), result.GetGlobalGNbId().GetGNbId().GetGNbId().GetValue())
 	assert.Equal(t, globalE2nodeEnGnbID.GetGlobalGNbId().GetGNbId().GetGNbId().GetLen(), result.GetGlobalGNbId().GetGNbId().GetGNbId().GetLen())
+	assert.Equal(t, globalE2nodeEnGnbID.GetEnGNbCuUpId().GetValue(), result.GetEnGNbCuUpId().GetValue())
+	assert.Equal(t, globalE2nodeEnGnbID.GetEnGNbDuId().GetValue(), result.GetEnGNbDuId().GetValue())
 }
 
 func Test_perEncodingGlobalE2nodeEnGnbID(t *testing.T) {
@@ -63,7 +71,6 @@ func Test_perEncodingGlobalE2nodeEnGnbID(t *testing.T) {
 
 	per, err := perEncodeGlobalE2nodeEnGnbID(globalE2nodeEnGnbID)
 	assert.NilError(t, err)
-	assert.Equal(t, 9, len(per))
 	t.Logf("GlobalE2nodeEnGnbID PER\n%v", hex.Dump(per))
 
 	result, err := perDecodeGlobalE2nodeEnGnbID(per)
@@ -73,4 +80,6 @@ func Test_perEncodingGlobalE2nodeEnGnbID(t *testing.T) {
 	assert.DeepEqual(t, globalE2nodeEnGnbID.GetGlobalGNbId().GetPLmnIdentity().GetValue(), result.GetGlobalGNbId().GetPLmnIdentity().GetValue())
 	assert.DeepEqual(t, globalE2nodeEnGnbID.GetGlobalGNbId().GetGNbId().GetGNbId().GetValue(), result.GetGlobalGNbId().GetGNbId().GetGNbId().GetValue())
 	assert.Equal(t, globalE2nodeEnGnbID.GetGlobalGNbId().GetGNbId().GetGNbId().GetLen(), result.GetGlobalGNbId().GetGNbId().GetGNbId().GetLen())
+	assert.Equal(t, globalE2nodeEnGnbID.GetEnGNbCuUpId().GetValue(), result.GetEnGNbCuUpId().GetValue())
+	assert.Equal(t, globalE2nodeEnGnbID.GetEnGNbDuId().GetValue(), result.GetEnGNbDuId().GetValue())
 }

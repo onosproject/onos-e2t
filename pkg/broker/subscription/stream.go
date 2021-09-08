@@ -7,11 +7,12 @@ package subscription
 import (
 	"container/list"
 	"context"
-	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"io"
 	"sync"
+
+	"github.com/onosproject/onos-api/go/onos/e2sub/subscription"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
 const bufferMaxSize = 10000

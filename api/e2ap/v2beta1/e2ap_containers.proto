@@ -1,0 +1,77 @@
+/*
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+////////////////////// e2ap-containers.proto //////////////////////
+// Protobuf generated from /e2ap_v2.0.1_Feb3_21.asn by asn1c-0.9.29
+// E2AP-Containers { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version2(2) e2ap(1) e2ap-Containers(5) }
+
+syntax = "proto3";
+
+package e2ap.v2beta1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-containers";
+
+import "e2ap/v2beta1/e2ap_commondatatypes.proto";
+import "e2ap/v2beta1/e2ap_constants.proto";
+import "validate/v1/validate.proto";
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1751
+// Param E2AP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Container001}
+message ProtocolIeContainer001 {
+    // @inject_tag: aper:""
+    repeated ProtocolIeField001 value = 1 [ json_name="value"];
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1754
+// Param E2AP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-SingleContainer001}
+message ProtocolIeSingleContainer001 {
+    ProtocolIeField001 value = 1 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1757
+// Param E2AP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Field001}
+message ProtocolIeField001 {
+    IdRicrequestId id = 1 [ json_name="id"];
+    Criticality criticality = 2 [ json_name="criticality"];
+//    @id value = 3 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1770
+// Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-ContainerPair}
+message ProtocolIeContainerPair {
+    // @inject_tag: aper:""
+    repeated ProtocolIeFieldPair value = 1 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1773
+// Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-FieldPair}
+message ProtocolIeFieldPair {
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1788
+// Param INTEGER:lowerBound
+// Param INTEGER:upperBound
+// Param E2AP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-ContainerList}
+message ProtocolIeContainerList {
+    // @inject_tag: aper:""
+    repeated ProtocolIeSingleContainer001 value = 1 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.0.1_Feb3_21.asn:1792
+// Param INTEGER:lowerBound
+// Param INTEGER:upperBound
+// Param E2AP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-ContainerPairList}
+message ProtocolIeContainerPairList {
+    // @inject_tag: aper:""
+    repeated ProtocolIeContainerPair value = 1 [ json_name="value"];
+};
+

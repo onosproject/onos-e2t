@@ -1,17 +1,13 @@
 <E2AP-PDU>
     <initiatingMessage>
         <procedureCode>1</procedureCode>
-        <criticality>
-            <reject/>
-        </criticality>
+        <criticality><reject/></criticality>
         <value>
             <E2setupRequest>
                 <protocolIEs>
                     <E2setupRequestIEs>
                         <id>3</id>
-                        <criticality>
-                            <reject/>
-                        </criticality>
+                        <criticality><reject/></criticality>
                         <value>
                             <GlobalE2node-ID>
                                 <gNB>
@@ -19,12 +15,10 @@
                                         <plmn-id>4F 4E 46</plmn-id>
                                         <gnb-id>
                                             <gnb-ID>
-                                                10110101110001100111011110001
+                                                0000000000000000000001
                                             </gnb-ID>
                                         </gnb-id>
                                     </global-gNB-ID>
-                                    <gNB-CU-UP-ID>15</gNB-CU-UP-ID>
-                                    <gNB-DU-ID>21</gNB-DU-ID>
                                 </gNB>
                             </GlobalE2node-ID>
                         </value>
@@ -40,8 +34,9 @@
                                     <value>
                                         <RANfunction-Item>
                                             <ranFunctionID>100</ranFunctionID>
-                                            <ranFunctionDefinition>61 62 63</ranFunctionDefinition>
-                                            <ranFunctionRevision>2</ranFunctionRevision>
+                                            <ranFunctionDefinition>54 79 70 65 20 31</ranFunctionDefinition>
+                                            <ranFunctionRevision>1</ranFunctionRevision>
+                                            <ranFunctionOID>oid1</ranFunctionOID>
                                         </RANfunction-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
@@ -51,12 +46,68 @@
                                     <value>
                                         <RANfunction-Item>
                                             <ranFunctionID>200</ranFunctionID>
-                                            <ranFunctionDefinition>61 62 63</ranFunctionDefinition>
-                                            <ranFunctionRevision>3</ranFunctionRevision>
+                                            <ranFunctionDefinition>54 79 70 65 20 32</ranFunctionDefinition>
+                                            <ranFunctionRevision>2</ranFunctionRevision>
+                                            <ranFunctionOID>oid2</ranFunctionOID>
                                         </RANfunction-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
                             </RANfunctions-List>
+                        </value>
+                    </E2setupRequestIEs>
+                    <E2setupRequestIEs>
+                        <id>33</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <E2nodeComponentConfigUpdate-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>34</id>
+                                    <criticality><reject/></criticality>
+                                    <value>
+                                        <E2nodeComponentConfigUpdate-Item>
+                                            <e2nodeComponentType><gNB/></e2nodeComponentType>
+                                            <e2nodeComponentID>
+                                                <e2nodeComponentTypeGNB-CU-UP>
+                                                    <gNB-CU-UP-ID>21</gNB-CU-UP-ID>
+                                                </e2nodeComponentTypeGNB-CU-UP>
+                                            </e2nodeComponentID>
+                                            <e2nodeComponentConfigUpdate>
+                                                <gNBconfigUpdate>
+                                                    <ngAPconfigUpdate>6E 67 41 70</ngAPconfigUpdate>
+                                                    <e1APconfigUpdate>65 31 41 70</e1APconfigUpdate>
+                                                    <f1APconfigUpdate>66 31 41 70</f1APconfigUpdate>
+                                                </gNBconfigUpdate>
+                                            </e2nodeComponentConfigUpdate>
+                                        </E2nodeComponentConfigUpdate-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>34</id>
+                                    <criticality><reject/></criticality>
+                                    <value>
+                                        <E2nodeComponentConfigUpdate-Item>
+                                            <e2nodeComponentType><eNB/></e2nodeComponentType>
+                                            <e2nodeComponentID>
+                                                <e2nodeComponentTypeGNB-DU>
+                                                    <gNB-DU-ID>13</gNB-DU-ID>
+                                                </e2nodeComponentTypeGNB-DU>
+                                            </e2nodeComponentID>
+                                            <e2nodeComponentConfigUpdate>
+                                                <eNBconfigUpdate>
+                                                    <s1APconfigUpdate>73 31</s1APconfigUpdate>
+                                                </eNBconfigUpdate>
+                                            </e2nodeComponentConfigUpdate>
+                                        </E2nodeComponentConfigUpdate-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </E2nodeComponentConfigUpdate-List>
+                        </value>
+                    </E2setupRequestIEs>
+                    <E2setupRequestIEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
                         </value>
                     </E2setupRequestIEs>
                 </protocolIEs>

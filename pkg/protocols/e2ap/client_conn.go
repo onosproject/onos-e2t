@@ -9,8 +9,8 @@ import (
 	"io"
 	"net"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/procedures"
 	"github.com/onosproject/onos-e2t/pkg/utils/async"
 )
@@ -30,6 +30,7 @@ func NewClientConn(c net.Conn, handler ClientHandler, opts ...Option) ClientConn
 	procs := handler(cc)
 	cc.e2Setup = procedures.NewE2SetupInitiator(parent.send)
 	cc.e2ConnectionUpdate = procedures.NewE2ConnectionUpdateProcedure(parent.send, procs)
+	cc.e2ConfigurationUpdate = procedures.NewE2ConfigurationUpdateInitiator(parent.send)
 	cc.ricControl = procedures.NewRICControlProcedure(parent.send, procs)
 	cc.ricIndication = procedures.NewRICIndicationInitiator(parent.send)
 	cc.ricSubscription = procedures.NewRICSubscriptionProcedure(parent.send, procs)
@@ -42,6 +43,7 @@ func NewClientConn(c net.Conn, handler ClientHandler, opts ...Option) ClientConn
 type clientConn struct {
 	*threadSafeConn
 	e2Setup               *procedures.E2SetupInitiator
+	e2ConfigurationUpdate *procedures.E2ConfigurationUpdateInitiator
 	e2ConnectionUpdate    *procedures.E2ConnectionUpdateProcedure
 	ricControl            *procedures.RICControlProcedure
 	ricIndication         *procedures.RICIndicationInitiator
@@ -71,6 +73,8 @@ func (c *clientConn) recvPDUs() {
 func (c *clientConn) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	if c.e2Setup.Matches(pdu) {
 		go c.e2Setup.Handle(pdu)
+	} else if c.e2ConfigurationUpdate.Matches(pdu) {
+		go c.e2ConfigurationUpdate.Handle(pdu)
 	} else if c.e2ConnectionUpdate.Matches(pdu) {
 		go c.e2ConnectionUpdate.Handle(pdu)
 	} else if c.ricControl.Matches(pdu) {
@@ -86,6 +90,10 @@ func (c *clientConn) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	}
 }
 
+func (c *clientConn) E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
+	return c.e2ConfigurationUpdate.Initiate(ctx, request)
+}
+
 func (c *clientConn) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (response *e2appducontents.E2SetupResponse, failure *e2appducontents.E2SetupFailure, err error) {
 	return c.e2Setup.Initiate(ctx, request)
 }
@@ -98,6 +106,7 @@ func (c *clientConn) Close() error {
 	procedures := []procedures.ElementaryProcedure{
 		c.e2Setup,
 		c.e2ConnectionUpdate,
+		c.e2ConfigurationUpdate,
 		c.ricControl,
 		c.ricIndication,
 		c.ricSubscription,

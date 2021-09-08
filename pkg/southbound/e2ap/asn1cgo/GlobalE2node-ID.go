@@ -18,8 +18,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func xerEncodeGlobalE2nodeID(ge2n *e2apies.GlobalE2NodeId) ([]byte, error) {
@@ -65,7 +66,7 @@ func PerDecodeGlobalE2nodeID(bytes []byte) (*e2apies.GlobalE2NodeId, error) {
 		return nil, err
 	}
 	if unsafePtr == nil {
-		return nil,  fmt.Errorf("pointer decoded from PER is nil")
+		return nil, fmt.Errorf("pointer decoded from PER is nil")
 	}
 	return decodeGlobalE2NodeID((*C.GlobalE2node_ID_t)(unsafePtr))
 }

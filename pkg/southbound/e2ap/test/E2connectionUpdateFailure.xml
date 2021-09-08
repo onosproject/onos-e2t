@@ -43,6 +43,13 @@
                             <TimeToWait><v5s/></TimeToWait>
                         </value>
                     </E2connectionUpdateFailure-IEs>
+                    <E2connectionUpdateFailure-IEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
+                        </value>
+                    </E2connectionUpdateFailure-IEs>
                 </protocolIEs>
             </E2connectionUpdateFailure>
         </value>

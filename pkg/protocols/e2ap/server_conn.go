@@ -9,8 +9,8 @@ import (
 	"io"
 	"net"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/protocols/e2ap/procedures"
 	"github.com/onosproject/onos-e2t/pkg/utils/async"
 )
@@ -29,6 +29,7 @@ func NewServerConn(c net.Conn, handler ServerHandler, opts ...Option) ServerConn
 	}
 	procs := handler(sc)
 	sc.e2Setup = procedures.NewE2SetupProcedure(parent.send, procs)
+	sc.e2ConfigurationUpdate = procedures.NewE2ConfigurationUpdateProcedure(parent.send, procs)
 	sc.e2ConnectionUpdate = procedures.NewE2ConnectionUpdateInitiator(parent.send)
 	sc.ricControl = procedures.NewRICControlInitiator(parent.send)
 	sc.ricIndication = procedures.NewRICIndicationProcedure(parent.send, procs)
@@ -42,6 +43,7 @@ func NewServerConn(c net.Conn, handler ServerHandler, opts ...Option) ServerConn
 type serverConn struct {
 	*threadSafeConn
 	e2Setup               *procedures.E2SetupProcedure
+	e2ConfigurationUpdate *procedures.E2ConfigurationUpdateProcedure
 	e2ConnectionUpdate    *procedures.E2ConnectionUpdateInitiator
 	ricControl            *procedures.RICControlInitiator
 	ricIndication         *procedures.RICIndicationProcedure
@@ -75,6 +77,8 @@ func (c *serverConn) recvPDUs() {
 func (c *serverConn) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	if c.e2Setup.Matches(pdu) {
 		go c.e2Setup.Handle(pdu)
+	} else if c.e2ConfigurationUpdate.Matches(pdu) {
+		go c.e2ConfigurationUpdate.Handle(pdu)
 	} else if c.e2ConnectionUpdate.Matches(pdu) {
 		go c.e2ConnectionUpdate.Handle(pdu)
 	} else if c.ricControl.Matches(pdu) {
@@ -120,6 +124,7 @@ func (c *serverConn) Close() error {
 	procedures := []procedures.ElementaryProcedure{
 		c.e2Setup,
 		c.e2ConnectionUpdate,
+		c.e2ConfigurationUpdate,
 		c.ricControl,
 		c.ricIndication,
 		c.ricSubscription,

@@ -13,12 +13,13 @@ package asn1cgo
 import "C"
 import (
 	"encoding/binary"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	"unsafe"
+
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 )
 
 func newRicCallProcessID(rcpID *e2ap_commondatatypes.RiccallProcessId) *C.RICcallProcessID_t {
-	return newOctetString(string(rcpID.Value))
+	return newOctetString(rcpID.Value)
 }
 
 func decodeRicCallProcessIDBytes(rcpIDBytes []byte) *e2ap_commondatatypes.RiccallProcessId {
@@ -32,7 +33,7 @@ func decodeRicCallProcessIDBytes(rcpIDBytes []byte) *e2ap_commondatatypes.Riccal
 
 func decodeRicCallProcessID(rcpIDC *C.RICcallProcessID_t) *e2ap_commondatatypes.RiccallProcessId {
 	result := e2ap_commondatatypes.RiccallProcessId{
-		Value: []byte(decodeOctetString(rcpIDC)),
+		Value: decodeOctetString(rcpIDC),
 	}
 
 	return &result

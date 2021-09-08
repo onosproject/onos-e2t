@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"unsafe"
+
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateList *e2ap_pdu_contents.E2NodeComponentConfigUpdateList) ([]byte, error) {
@@ -92,7 +93,7 @@ func decodeE2nodeComponentConfigUpdateList(e2nodeComponentConfigUpdateListC *C.E
 	ieCount := int(e2nodeComponentConfigUpdateListC.list.count)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(e2nodeComponentConfigUpdateListC.list.array)) * uintptr(i)
-		ieC := *(**C.ProtocolIE_SingleContainer_1713P6_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2nodeComponentConfigUpdateListC.list.array)) + offset))
+		ieC := *(**C.ProtocolIE_SingleContainer_1754P6_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2nodeComponentConfigUpdateListC.list.array)) + offset))
 		ie, err := decodeE2nodeComponentConfigUpdateItemIesSingleContainer(ieC)
 		if err != nil {
 			return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdateItemIesSingleContainer() %s", err.Error())

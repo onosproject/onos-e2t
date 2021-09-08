@@ -14,8 +14,9 @@ import "C"
 
 import (
 	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	"unsafe"
+
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 )
 
 func xerEncodePlmnIdentity(plmnIdentity *e2ap_commondatatypes.PlmnIdentity) ([]byte, error) {
@@ -68,7 +69,7 @@ func perDecodePlmnIdentity(bytes []byte) (*e2ap_commondatatypes.PlmnIdentity, er
 
 func newPlmnIdentity(plmnIdentity *e2ap_commondatatypes.PlmnIdentity) (*C.PLMN_Identity_t, error) {
 
-	plmnIdentityC := newOctetString(string(plmnIdentity.Value))
+	plmnIdentityC := newOctetString(plmnIdentity.Value)
 
 	return plmnIdentityC, nil
 }
@@ -78,7 +79,7 @@ func decodePlmnIdentity(plmnIdentityC *C.PLMN_Identity_t) (*e2ap_commondatatypes
 	plmnID := decodeOctetString(plmnIdentityC)
 
 	plmnIdentity := e2ap_commondatatypes.PlmnIdentity{
-		Value: []byte(plmnID),
+		Value: plmnID,
 	}
 
 	return &plmnIdentity, nil

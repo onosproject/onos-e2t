@@ -6,12 +6,13 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
-	"gotest.tools/assert"
 	"testing"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap2/types"
+	"gotest.tools/assert"
 )
 
 func createRicActionToBeSetupItem() (*e2appducontents.RicactionToBeSetupItem, error) {
@@ -24,14 +25,14 @@ func createRicActionToBeSetupItem() (*e2appducontents.RicactionToBeSetupItem, er
 		//Ricttw:              e2apies.RictimeToWait_RICTIME_TO_WAIT_W10MS,
 		//RicActionDefinition: []byte{0x33, 0x44},
 	}
-	newE2apPdu, err := pdubuilder.CreateRicSubscriptionRequestE2apPdu(
+	rsr, err := pdubuilder.NewRicSubscriptionRequest(
 		types.RicRequest{RequestorID: 1, InstanceID: 2},
 		3, []byte{0x55, 0x66}, ricActionsToBeSetup)
 	if err != nil {
 		return nil, err
 	}
-	res := newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicSubscription().GetInitiatingMessage().
-		GetProtocolIes().GetE2ApProtocolIes30().GetValue().GetRicActionToBeSetupList().GetValue()[0].GetValue()
+
+	res := rsr.GetProtocolIes().GetE2ApProtocolIes30().GetValue().GetRicActionToBeSetupList().GetValue()[0].GetValue()
 	//fmt.Printf("Returning following structure: \n %v \n", res)
 
 	return res, nil

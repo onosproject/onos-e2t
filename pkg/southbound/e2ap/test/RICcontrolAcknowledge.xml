@@ -1,0 +1,50 @@
+<E2AP-PDU>
+    <successfulOutcome>
+        <procedureCode>4</procedureCode>
+        <criticality><reject/></criticality>
+        <value>
+            <RICcontrolAcknowledge>
+                <protocolIEs>
+                    <RICcontrolAcknowledge-IEs>
+                        <id>5</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RANfunctionID>9</RANfunctionID>
+                        </value>
+                    </RICcontrolAcknowledge-IEs>
+                    <RICcontrolAcknowledge-IEs>
+                        <id>20</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RICcallProcessID>31 32 33</RICcallProcessID>
+                        </value>
+                    </RICcontrolAcknowledge-IEs>
+                    <RICcontrolAcknowledge-IEs>
+                        <id>24</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RICcontrolStatus><success/></RICcontrolStatus>
+                        </value>
+                    </RICcontrolAcknowledge-IEs>
+                    <RICcontrolAcknowledge-IEs>
+                        <id>29</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RICrequestID>
+                                <ricRequestorID>21</ricRequestorID>
+                                <ricInstanceID>22</ricInstanceID>
+                            </RICrequestID>
+                        </value>
+                    </RICcontrolAcknowledge-IEs>
+                    <RICcontrolAcknowledge-IEs>
+                        <id>32</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RICcontrolOutcome>34 35 36</RICcontrolOutcome>
+                        </value>
+                    </RICcontrolAcknowledge-IEs>
+                </protocolIEs>
+            </RICcontrolAcknowledge>
+        </value>
+    </successfulOutcome>
+</E2AP-PDU>

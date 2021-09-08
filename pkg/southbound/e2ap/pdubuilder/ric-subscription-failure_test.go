@@ -5,13 +5,14 @@ package pdubuilder
 
 import (
 	"encoding/hex"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	"testing"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestRicSubscriptionFailure(t *testing.T) {
@@ -27,29 +28,31 @@ func TestRicSubscriptionFailure(t *testing.T) {
 		},
 	}
 
-	procCode := v1beta2.ProcedureCodeIDRICsubscription
+	procCode := v2beta1.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
 	newE2apPdu, err := CreateRicSubscriptionFailureE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
-	}, 9,
-		&procCode, &criticality, &ftg,
+	}, 9, &e2apies.Cause{
+		Cause: &e2apies.Cause_Misc{
+			Misc: e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD,
+		},
+	})
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+	newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscription().GetUnsuccessfulOutcome().SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
-		}, ricActionsNotAdmittedList,
-		[]*types.CritDiag{
+		}, []*types.CritDiag{
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v1beta2.ProtocolIeIDRicsubscriptionDetails,
+				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
 			},
-		},
-	)
-	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
+		})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -58,7 +61,7 @@ func TestRicSubscriptionFailure(t *testing.T) {
 	result, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionFailure E2AP PDU XER - decoded\n%v\n", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -67,7 +70,7 @@ func TestRicSubscriptionFailure(t *testing.T) {
 	result1, err := asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionFailure E2AP PDU PER - decoded\n%v\n", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
 
 func TestRicSubscriptionFailureExcludeOptionalIE(t *testing.T) {
@@ -83,15 +86,19 @@ func TestRicSubscriptionFailureExcludeOptionalIE(t *testing.T) {
 		},
 	}
 
-	//procCode := v1beta2.ProcedureCodeIDRICsubscription
+	//procCode := v2beta1.ProcedureCodeIDRICsubscription
 	//criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
-	//ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+	//ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
 	newE2apPdu, err := CreateRicSubscriptionFailureE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
 	}, 9,
-		nil, nil, nil, nil, ricActionsNotAdmittedList, nil)
+		&e2apies.Cause{
+			Cause: &e2apies.Cause_Misc{
+				Misc: e2apies.CauseMisc_CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD,
+			},
+		})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
@@ -102,7 +109,7 @@ func TestRicSubscriptionFailureExcludeOptionalIE(t *testing.T) {
 	result, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionDeleteFailure E2AP PDU XER - decoded\n%v\n", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -111,5 +118,5 @@ func TestRicSubscriptionFailureExcludeOptionalIE(t *testing.T) {
 	result1, err := asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionDeleteFailure E2AP PDU PER - decoded\n%v\n", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }

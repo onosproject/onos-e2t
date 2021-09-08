@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func xerEncodeE2nodeComponentID(e2nodeComponentID *e2ap_ies.E2NodeComponentId) ([]byte, error) {
@@ -89,6 +90,14 @@ func newE2nodeComponentID(e2nodeComponentID *e2ap_ies.E2NodeComponentId) (*C.E2n
 			return nil, fmt.Errorf("newE2nodeComponentGnbDuID() %s", err.Error())
 		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
+	case *e2ap_ies.E2NodeComponentId_E2NodeComponentTypeNgeNbDu:
+		pr = C.E2nodeComponentID_PR_e2nodeComponentTypeNGeNB_DU
+
+		im, err := newE2nodeComponentNgEnbDuID(choice.E2NodeComponentTypeNgeNbDu)
+		if err != nil {
+			return nil, fmt.Errorf("newE2nodeComponentNgEnbDuID() %s", err.Error())
+		}
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
 	default:
 		return nil, fmt.Errorf("newE2nodeComponentID() %T not yet implemented", choice)
 	}
@@ -121,6 +130,14 @@ func decodeE2nodeComponentID(e2nodeComponentIDC *C.E2nodeComponentID_t) (*e2ap_i
 		}
 		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentTypeGnbDu{
 			E2NodeComponentTypeGnbDu: e2nodeComponentIDstructC,
+		}
+	case C.E2nodeComponentID_PR_e2nodeComponentTypeNGeNB_DU:
+		e2nodeComponentIDstructC, err := decodeE2nodeComponentNgEnbDuIDBytes(e2nodeComponentIDC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2nodeComponentNgEnbDuIDBytes() %s", err.Error())
+		}
+		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentTypeNgeNbDu{
+			E2NodeComponentTypeNgeNbDu: e2nodeComponentIDstructC,
 		}
 	default:
 		return nil, fmt.Errorf("decodeE2nodeComponentID() %v not yet implemented", e2nodeComponentIDC.present)

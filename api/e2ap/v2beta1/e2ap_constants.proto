@@ -1,0 +1,409 @@
+/*
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+////////////////////// e2ap-constants.proto //////////////////////
+// Protobuf generated from /e2ap_v2.0.1_Feb3_21.asn by asn1c-0.9.29
+// E2AP-Constants { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version2(2) e2ap(1) e2ap-Constants(4) }
+
+syntax = "proto3";
+
+package e2ap.v2beta1;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants";
+
+import "e2ap/v2beta1/e2ap_commondatatypes.proto";
+import "validate/v1/validate.proto";
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1577
+// {id-E2setup}
+message IdE2setup {
+    int32 value = 1 [(validate.v1.rules).int32.const = 1, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1578
+// {id-ErrorIndication}
+message IdErrorIndication {
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1579
+// {id-Reset}
+message IdReset {
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1580
+// {id-RICcontrol}
+message IdRiccontrol {
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1581
+// {id-RICindication}
+message IdRicindication {
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1582
+// {id-RICserviceQuery}
+message IdRicserviceQuery {
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1583
+// {id-RICserviceUpdate}
+message IdRicserviceUpdate {
+    int32 value = 1 [(validate.v1.rules).int32.const = 7, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1584
+// {id-RICsubscription}
+message IdRicsubscription {
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1585
+// {id-RICsubscriptionDelete}
+message IdRicsubscriptionDelete {
+    int32 value = 1 [(validate.v1.rules).int32.const = 9, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1586
+// {id-E2nodeConfigurationUpdate}
+message IdE2nodeConfigurationUpdate {
+    int32 value = 1 [(validate.v1.rules).int32.const = 10, json_name="value"]; // ProcedureCode
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1587
+// {id-E2connectionUpdate}
+message IdE2connectionUpdate {
+    int32 value = 1 [(validate.v1.rules).int32.const = 11, json_name="value"]; // ProcedureCode
+};
+
+// constant Integer from e2ap_v2.0.1_Feb3_21.asn:1595
+// {-}
+message MaxProtocolIes {
+    // @inject_tag: aper:"valueLB:65535,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535, json_name="value"];
+};
+
+// constant Integer from e2ap_v2.0.1_Feb3_21.asn:1603
+// {-}
+message MaxnoofErrors {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from e2ap_v2.0.1_Feb3_21.asn:1604
+// {-}
+message MaxofE2nodeComponents {
+    // @inject_tag: aper:"valueLB:1024,valueUB:1024,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1024, json_name="value"];
+};
+
+// constant Integer from e2ap_v2.0.1_Feb3_21.asn:1605
+// {-}
+message MaxofRanfunctionId {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from e2ap_v2.0.1_Feb3_21.asn:1606
+// {-}
+message MaxofRicactionId {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from e2ap_v2.0.1_Feb3_21.asn:1607
+// {-}
+message MaxofTnla {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1614
+// {id-Cause}
+message IdCause {
+    int32 value = 1 [(validate.v1.rules).int32.const = 1, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1615
+// {id-CriticalityDiagnostics}
+message IdCriticalityDiagnostics {
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1616
+// {id-GlobalE2node-ID}
+message IdGlobalE2nodeId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1617
+// {id-GlobalRIC-ID}
+message IdGlobalRicId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1618
+// {id-RANfunctionID}
+message IdRanfunctionId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1619
+// {id-RANfunctionID-Item}
+message IdRanfunctionIdItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1620
+// {id-RANfunctionIEcause-Item}
+message IdRanfunctionIecauseItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 7, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1621
+// {id-RANfunction-Item}
+message IdRanfunctionItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1622
+// {id-RANfunctionsAccepted}
+message IdRanfunctionsAccepted {
+    int32 value = 1 [(validate.v1.rules).int32.const = 9, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1623
+// {id-RANfunctionsAdded}
+message IdRanfunctionsAdded {
+    int32 value = 1 [(validate.v1.rules).int32.const = 10, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1624
+// {id-RANfunctionsDeleted}
+message IdRanfunctionsDeleted {
+    int32 value = 1 [(validate.v1.rules).int32.const = 11, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1625
+// {id-RANfunctionsModified}
+message IdRanfunctionsModified {
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1626
+// {id-RANfunctionsRejected}
+message IdRanfunctionsRejected {
+    int32 value = 1 [(validate.v1.rules).int32.const = 13, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1627
+// {id-RICaction-Admitted-Item}
+message IdRicactionAdmittedItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 14, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1628
+// {id-RICactionID}
+message IdRicactionId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 15, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1629
+// {id-RICaction-NotAdmitted-Item}
+message IdRicactionNotAdmittedItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1630
+// {id-RICactions-Admitted}
+message IdRicactionsAdmitted {
+    int32 value = 1 [(validate.v1.rules).int32.const = 17, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1631
+// {id-RICactions-NotAdmitted}
+message IdRicactionsNotAdmitted {
+    int32 value = 1 [(validate.v1.rules).int32.const = 18, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1632
+// {id-RICaction-ToBeSetup-Item}
+message IdRicactionToBeSetupItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 19, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1633
+// {id-RICcallProcessID}
+message IdRiccallProcessId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 20, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1634
+// {id-RICcontrolAckRequest}
+message IdRiccontrolAckRequest {
+    int32 value = 1 [(validate.v1.rules).int32.const = 21, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1635
+// {id-RICcontrolHeader}
+message IdRiccontrolHeader {
+    int32 value = 1 [(validate.v1.rules).int32.const = 22, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1636
+// {id-RICcontrolMessage}
+message IdRiccontrolMessage {
+    int32 value = 1 [(validate.v1.rules).int32.const = 23, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1637
+// {id-RICcontrolStatus}
+message IdRiccontrolStatus {
+    int32 value = 1 [(validate.v1.rules).int32.const = 24, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1638
+// {id-RICindicationHeader}
+message IdRicindicationHeader {
+    int32 value = 1 [(validate.v1.rules).int32.const = 25, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1639
+// {id-RICindicationMessage}
+message IdRicindicationMessage {
+    int32 value = 1 [(validate.v1.rules).int32.const = 26, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1640
+// {id-RICindicationSN}
+message IdRicindicationSn {
+    int32 value = 1 [(validate.v1.rules).int32.const = 27, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1641
+// {id-RICindicationType}
+message IdRicindicationType {
+    int32 value = 1 [(validate.v1.rules).int32.const = 28, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1642
+// {id-RICrequestID}
+message IdRicrequestId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 29, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1643
+// {id-RICsubscriptionDetails}
+message IdRicsubscriptionDetails {
+    int32 value = 1 [(validate.v1.rules).int32.const = 30, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1644
+// {id-TimeToWait}
+message IdTimeToWait {
+    int32 value = 1 [(validate.v1.rules).int32.const = 31, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1645
+// {id-RICcontrolOutcome}
+message IdRiccontrolOutcome {
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1646
+// {id-E2nodeComponentConfigUpdate}
+message IdE2nodeComponentConfigUpdate {
+    int32 value = 1 [(validate.v1.rules).int32.const = 33, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1647
+// {id-E2nodeComponentConfigUpdate-Item}
+message IdE2nodeComponentConfigUpdateItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 34, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1648
+// {id-E2nodeComponentConfigUpdateAck}
+message IdE2nodeComponentConfigUpdateAck {
+    int32 value = 1 [(validate.v1.rules).int32.const = 35, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1649
+// {id-E2nodeComponentConfigUpdateAck-Item}
+message IdE2nodeComponentConfigUpdateAckItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 36, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1650
+// {id-E2connectionSetup}
+message IdE2connectionSetup {
+    int32 value = 1 [(validate.v1.rules).int32.const = 39, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1651
+// {id-E2connectionSetupFailed}
+message IdE2connectionSetupFailed {
+    int32 value = 1 [(validate.v1.rules).int32.const = 40, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1652
+// {id-E2connectionSetupFailed-Item}
+message IdE2connectionSetupFailedItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 41, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1653
+// {id-E2connectionFailed-Item}
+message IdE2connectionFailedItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 42, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1654
+// {id-E2connectionUpdate-Item}
+message IdE2connectionUpdateItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 43, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1655
+// {id-E2connectionUpdateAdd}
+message IdE2connectionUpdateAdd {
+    int32 value = 1 [(validate.v1.rules).int32.const = 44, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1656
+// {id-E2connectionUpdateModify}
+message IdE2connectionUpdateModify {
+    int32 value = 1 [(validate.v1.rules).int32.const = 45, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1657
+// {id-E2connectionUpdateRemove}
+message IdE2connectionUpdateRemove {
+    int32 value = 1 [(validate.v1.rules).int32.const = 46, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1658
+// {id-E2connectionUpdateRemove-Item}
+message IdE2connectionUpdateRemoveItem {
+    int32 value = 1 [(validate.v1.rules).int32.const = 47, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1659
+// {id-TNLinformation}
+message IdTnlinformation {
+    int32 value = 1 [(validate.v1.rules).int32.const = 48, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from e2ap_v2.0.1_Feb3_21.asn:1660
+// {id-TransactionID}
+message IdTransactionId {
+    int32 value = 1 [(validate.v1.rules).int32.const = 49, json_name="value"]; // ProtocolIE-ID
+};
+
+

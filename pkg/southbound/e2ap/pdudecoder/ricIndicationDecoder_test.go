@@ -5,12 +5,13 @@
 package pdudecoder
 
 import (
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	"io/ioutil"
+	"testing"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"gotest.tools/assert"
 	is "gotest.tools/assert/cmp"
-	"io/ioutil"
-	"testing"
 )
 
 func Test_DecodeRicIndicationPdu(t *testing.T) {
@@ -30,7 +31,6 @@ func Test_DecodeRicIndicationPdu(t *testing.T) {
 	assert.Equal(t, 1, int(ricIndicationSn), "unexpected ricIndicationSn")
 	assert.Equal(t, e2apies.RicindicationType_RICINDICATION_TYPE_INSERT, ricIndicationType, "unexpected ricIndicationType")
 	assert.Assert(t, ricRequest != nil)
-
 }
 
 func Test_DecodeRicIndicationPdu2(t *testing.T) {
@@ -58,5 +58,4 @@ func Test_DecodeRicIndicationPdu2(t *testing.T) {
 	assert.Equal(t, 0, int(ricIndicationSn), "unexpected ricIndicationSn")
 	assert.Equal(t, e2apies.RicindicationType_RICINDICATION_TYPE_REPORT, ricIndicationType, "unexpected ricIndicationType")
 	assert.Assert(t, ricRequest != nil)
-
 }

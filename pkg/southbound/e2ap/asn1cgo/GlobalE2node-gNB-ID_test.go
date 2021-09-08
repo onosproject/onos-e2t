@@ -6,10 +6,12 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	"gotest.tools/assert"
 	"testing"
+
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func createGlobalE2nodeGnbID() *e2apies.GlobalE2NodeGnbId {
@@ -21,7 +23,7 @@ func createGlobalE2nodeGnbID() *e2apies.GlobalE2NodeGnbId {
 			},
 			GnbId: &e2apies.GnbIdChoice{
 				GnbIdChoice: &e2apies.GnbIdChoice_GnbId{
-					GnbId: &e2ap_commondatatypes.BitString{
+					GnbId: &asn1.BitString{
 						Value: []byte{0x4d, 0xcb, 0xac},
 						Len:   22,
 					},

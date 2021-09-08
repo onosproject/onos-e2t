@@ -8,14 +8,15 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	"time"
+
+	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap"
@@ -86,7 +87,7 @@ func uint24ToUint32(val []byte) uint32 {
 }
 
 func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
-	nodeIdentity, ranFuncs, err := pdudecoder.DecodeE2SetupRequest(request)
+	transID, nodeIdentity, ranFuncs, _, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -151,13 +152,19 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	defer e.manager.open(e.e2apConn)
 
 	// Create an E2 setup response
-	response, err := pdubuilder.NewE2SetupResponse(nodeIdentity.Plmn, ricID, rfAccepted, rfRejected)
+	response, err := pdubuilder.NewE2SetupResponse(*transID, nodeIdentity.Plmn, ricID)
 	if err != nil {
 		return nil, nil, err
 	}
+	response.SetRanFunctionAccepted(rfAccepted)
+	response.SetRanFunctionRejected(rfRejected)
 	return response, nil, nil
 }
 
 func (e *E2APServer) RICIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
 	return e.e2apConn.ricIndication(ctx, request)
+}
+
+func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
+	panic("implement me")
 }

@@ -5,8 +5,9 @@
 package asn1cgo
 
 import (
-	"gotest.tools/assert"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 const (

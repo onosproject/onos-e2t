@@ -15,11 +15,12 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
 	"unsafe"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 )
 
 func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_InitiatingMessage, error) {
@@ -240,7 +241,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_E2setupRequest:
 		e2srC := *(**C.E2setupRequestIEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		esC := C.E2setupRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P11_t{
+			protocolIEs: C.ProtocolIE_Container_1751P11_t{
 				list: C.struct___70{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupRequestIEs_t)(unsafe.Pointer(e2srC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -257,7 +258,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			E2Setup: &e2appdudescriptions.E2Setup{
 				InitiatingMessage: e2sr,
 				ProcedureCode: &e2ap_constants.IdE2Setup{
-					Value: int32(v1beta2.ProcedureCodeIDE2setup),
+					Value: int32(v2beta1.ProcedureCodeIDE2setup),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -265,8 +266,8 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICsubscriptionRequest:
 		ricsrC := *(**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		srC := C.RICsubscriptionRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P0_t{
-				list: C.struct___125{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1751P0_t{
+				list: C.struct___123{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionRequest_IEs_t)(unsafe.Pointer(ricsrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -285,7 +286,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicSubscription: &e2appdudescriptions.RicSubscription{
 				InitiatingMessage: sr,
 				ProcedureCode: &e2ap_constants.IdRicsubscription{
-					Value: int32(v1beta2.ProcedureCodeIDRICsubscription),
+					Value: int32(v2beta1.ProcedureCodeIDRICsubscription),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -294,8 +295,8 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICsubscriptionDeleteRequest:
 		ricsdrC := *(**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		sdrC := C.RICsubscriptionDeleteRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P3_t{
-				list: C.struct___119{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1751P3_t{
+				list: C.struct___118{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteRequest_IEs_t)(unsafe.Pointer(ricsdrC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -314,7 +315,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
 				InitiatingMessage: sdr,
 				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
-					Value: int32(v1beta2.ProcedureCodeIDRICsubscriptionDelete),
+					Value: int32(v2beta1.ProcedureCodeIDRICsubscriptionDelete),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{},
 			},
@@ -323,7 +324,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICindication:
 		riIesC := *(**C.RICindication_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		riC := C.RICindication_t{
-			protocolIEs: C.ProtocolIE_Container_1710P6_t{
+			protocolIEs: C.ProtocolIE_Container_1751P6_t{
 				list: C.struct___107{ // TODO: tie this down with a predictable name
 					array: (**C.RICindication_IEs_t)(unsafe.Pointer(riIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -341,7 +342,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicIndication: &e2appdudescriptions.RicIndication{
 				InitiatingMessage: ri,
 				ProcedureCode: &e2ap_constants.IdRicindication{
-					Value: int32(v1beta2.ProcedureCodeIDRICindication),
+					Value: int32(v2beta1.ProcedureCodeIDRICindication),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
@@ -352,7 +353,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICcontrolRequest:
 		rcrIesC := *(**C.RICcontrolRequest_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		rcrC := C.RICcontrolRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P7_t{
+			protocolIEs: C.ProtocolIE_Container_1751P7_t{
 				list: C.struct___106{ // TODO: tie this down with a predictable name
 					array: (**C.RICcontrolRequest_IEs_t)(unsafe.Pointer(rcrIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -370,7 +371,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicControl: &e2appdudescriptions.RicControl{
 				InitiatingMessage: rcr,
 				ProcedureCode: &e2ap_constants.IdRiccontrol{
-					Value: int32(v1beta2.ProcedureCodeIDRICcontrol),
+					Value: int32(v2beta1.ProcedureCodeIDRICcontrol),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -381,7 +382,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_ErrorIndication:
 		eiIesC := *(**C.ErrorIndication_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		eiC := C.ErrorIndication_t{
-			protocolIEs: C.ProtocolIE_Container_1710P10_t{
+			protocolIEs: C.ProtocolIE_Container_1751P10_t{
 				list: C.struct___69{ // TODO: tie this down with a predictable name
 					array: (**C.ErrorIndication_IEs_t)(unsafe.Pointer(eiIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -399,7 +400,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			ErrorIndication: &e2appdudescriptions.ErrorIndicationEp{
 				InitiatingMessage: ei,
 				ProcedureCode: &e2ap_constants.IdErrorIndication{
-					Value: int32(v1beta2.ProcedureCodeIDErrorIndication),
+					Value: int32(v2beta1.ProcedureCodeIDErrorIndication),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
@@ -410,7 +411,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICserviceQuery:
 		rsqIesC := *(**C.RICserviceQuery_IEs_t)(unsafe.Pointer(&listArrayAddr[0]))
 		rsqC := C.RICserviceQuery_t{
-			protocolIEs: C.ProtocolIE_Container_1710P25_t{
+			protocolIEs: C.ProtocolIE_Container_1751P25_t{
 				list: C.struct___108{ // TODO: tie this down with a predictable name
 					array: (**C.RICserviceQuery_IEs_t)(unsafe.Pointer(rsqIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -428,7 +429,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicServiceQuery: &e2appdudescriptions.RicServiceQuery{
 				InitiatingMessage: rsq,
 				ProcedureCode: &e2ap_constants.IdRicserviceQuery{
-					Value: int32(v1beta2.ProcedureCodeIDRICserviceQuery),
+					Value: int32(v2beta1.ProcedureCodeIDRICserviceQuery),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
@@ -439,8 +440,8 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_ResetRequest:
 		rrIesC := *(**C.ResetRequest_t)(unsafe.Pointer(&listArrayAddr[0]))
 		rrC := C.ResetRequest_t{
-			protocolIEs: C.ProtocolIE_Container_1710P20_t{
-				list: C.struct___129{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1751P20_t{
+				list: C.struct___127{ // TODO: tie this down with a predictable name
 					array: (**C.ResetRequestIEs_t)(unsafe.Pointer(rrIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
 					size:  C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[12:16])),
@@ -457,7 +458,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			Reset_: &e2appdudescriptions.Reset{
 				InitiatingMessage: rr,
 				ProcedureCode: &e2ap_constants.IdReset{
-					Value: int32(v1beta2.ProcedureCodeIDReset),
+					Value: int32(v2beta1.ProcedureCodeIDReset),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -468,7 +469,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_RICserviceUpdate:
 		riIesC := *(**C.RICserviceUpdate_t)(unsafe.Pointer(&listArrayAddr[0]))
 		rsuC := C.RICserviceUpdate_t{
-			protocolIEs: C.ProtocolIE_Container_1710P22_t{
+			protocolIEs: C.ProtocolIE_Container_1751P22_t{
 				list: C.struct___110{ // TODO: tie this down with a predictable name
 					array: (**C.RICserviceUpdate_IEs_t)(unsafe.Pointer(riIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -486,7 +487,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			RicServiceUpdate: &e2appdudescriptions.RicServiceUpdate{
 				InitiatingMessage: rsu,
 				ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
-					Value: int32(v1beta2.ProcedureCodeIDRICserviceUpdate),
+					Value: int32(v2beta1.ProcedureCodeIDRICserviceUpdate),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -497,7 +498,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_E2nodeConfigurationUpdate:
 		e2ncuIesC := *(**C.E2nodeConfigurationUpdate_t)(unsafe.Pointer(&listArrayAddr[0]))
 		e2ncuC := C.E2nodeConfigurationUpdate_t{
-			protocolIEs: C.ProtocolIE_Container_1710P17_t{
+			protocolIEs: C.ProtocolIE_Container_1751P17_t{
 				list: C.struct___76{ // TODO: tie this down with a predictable name
 					array: (**C.E2nodeConfigurationUpdate_IEs_t)(unsafe.Pointer(e2ncuIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -515,7 +516,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
 				InitiatingMessage: e2ncu,
 				ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
-					Value: int32(v1beta2.ProcedureCodeIDE2nodeConfigurationUpdate),
+					Value: int32(v2beta1.ProcedureCodeIDE2nodeConfigurationUpdate),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -526,7 +527,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 	case C.InitiatingMessage__value_PR_E2connectionUpdate:
 		e2cuIesC := *(**C.E2connectionUpdate_t)(unsafe.Pointer(&listArrayAddr[0]))
 		e2cuC := C.E2connectionUpdate_t{
-			protocolIEs: C.ProtocolIE_Container_1710P14_t{
+			protocolIEs: C.ProtocolIE_Container_1751P14_t{
 				list: C.struct___73{ // TODO: tie this down with a predictable name
 					array: (**C.E2connectionUpdate_IEs_t)(unsafe.Pointer(e2cuIesC)),
 					count: C.int(binary.LittleEndian.Uint32(initMsgC.value.choice[8:12])),
@@ -544,7 +545,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 			E2ConnectionUpdate: &e2appdudescriptions.E2ConnectionUpdateEp{
 				InitiatingMessage: e2cu,
 				ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
-					Value: int32(v1beta2.ProcedureCodeIDE2connectionUpdate),
+					Value: int32(v2beta1.ProcedureCodeIDE2connectionUpdate),
 				},
 				Criticality: &e2ap_commondatatypes.CriticalityReject{
 					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

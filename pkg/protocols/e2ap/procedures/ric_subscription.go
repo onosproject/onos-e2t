@@ -6,10 +6,11 @@ package procedures
 
 import (
 	"context"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"sync"
+
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
 // RICSubscription is a RIC subscription procedure
@@ -42,9 +43,10 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 			},
 		},
 	}
-	if err := requestPDU.Validate(); err != nil {
+	// TODO enable it when it is supported
+	/*if err := requestPDU.Validate(); err != nil {
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
-	}
+	}*/
 
 	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
 	requestID := request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
@@ -160,14 +162,20 @@ func (p *RICSubscriptionProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPd
 				},
 			},
 		}
-		if err := requestPDU.Validate(); err != nil {
+		// TODO enable validation when it is supported
+		/*if err := requestPDU.Validate(); err != nil {
 			log.Errorf("RIC Subscription response validation failed: %v", err)
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
 				log.Errorf("RIC Subscription response failed: %v", err)
 			}
+		}*/
+		err := p.dispatcher(responsePDU)
+		if err != nil {
+			log.Errorf("RIC Subscription response failed: %v", err)
 		}
+
 	} else if failure != nil {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
@@ -180,14 +188,20 @@ func (p *RICSubscriptionProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPd
 				},
 			},
 		}
-		if err := requestPDU.Validate(); err != nil {
+		// TODO enable validation when it is supported
+		/*if err := requestPDU.Validate(); err != nil {
 			log.Errorf("RIC Subscription response validation failed: %v", err)
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
 				log.Errorf("RIC Subscription response failed: %v", err)
 			}
+		}*/
+		err := p.dispatcher(responsePDU)
+		if err != nil {
+			log.Errorf("RIC Subscription response failed: %v", err)
 		}
+
 	} else {
 		log.Errorf("RIC Subscription function returned invalid output: no response message found")
 	}

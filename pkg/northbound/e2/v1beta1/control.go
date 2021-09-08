@@ -10,7 +10,7 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -18,7 +18,7 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 
@@ -153,12 +153,12 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 	}
 
 	rcar := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
-	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, nil, controlHeaderBytes, controlMessageBytes, &rcar)
-
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, controlHeaderBytes, controlMessageBytes)
 	if err != nil {
 		log.Warn(err)
 		return nil, errors.Status(err).Err()
 	}
+	controlRequest.SetRicControlAckRequest(rcar)
 
 	ack, failure, err := conn.RICControl(ctx, controlRequest)
 	if err != nil {

@@ -1,22 +1,63 @@
 <E2AP-PDU>
     <initiatingMessage>
         <procedureCode>2</procedureCode>
-        <criticality>
-            <reject />
-        </criticality>
+        <criticality><ignore/></criticality>
         <value>
             <ErrorIndication>
                 <protocolIEs>
                     <ErrorIndication-IEs>
+                        <id>2</id>
+                        <criticality><ignore/></criticality>
+                        <value>
+                            <CriticalityDiagnostics>
+                                <procedureCode>8</procedureCode>
+                                <triggeringMessage><unsuccessfull-outcome/></triggeringMessage>
+                                <procedureCriticality><ignore/></procedureCriticality>
+                                <ricRequestorID>
+                                    <ricRequestorID>10</ricRequestorID>
+                                    <ricInstanceID>20</ricInstanceID>
+                                </ricRequestorID>
+                                <iEsCriticalityDiagnostics>
+                                    <CriticalityDiagnostics-IE-Item>
+                                        <iECriticality><ignore/></iECriticality>
+                                        <iE-ID>30</iE-ID>
+                                        <typeOfError><missing/></typeOfError>
+                                    </CriticalityDiagnostics-IE-Item>
+                                </iEsCriticalityDiagnostics>
+                            </CriticalityDiagnostics>
+                        </value>
+                    </ErrorIndication-IEs>
+                    <ErrorIndication-IEs>
+                        <id>5</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RANfunctionID>9</RANfunctionID>
+                        </value>
+                    </ErrorIndication-IEs>
+                    <ErrorIndication-IEs>
+                        <id>1</id>
+                        <criticality><ignore/></criticality>
+                        <value>
+                            <Cause>
+                                <misc><unspecified/></misc>
+                            </Cause>
+                        </value>
+                    </ErrorIndication-IEs>
+                    <ErrorIndication-IEs>
                         <id>29</id>
-                        <criticality>
-                            <ignore />
-                        </criticality>
+                        <criticality><reject/></criticality>
                         <value>
                             <RICrequestID>
-                                <ricRequestorID>543210</ricRequestorID>
-                                <ricInstanceID>6789</ricInstanceID>
+                                <ricRequestorID>22</ricRequestorID>
+                                <ricInstanceID>6</ricInstanceID>
                             </RICrequestID>
+                        </value>
+                    </ErrorIndication-IEs>
+                    <ErrorIndication-IEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>21</TransactionID>
                         </value>
                     </ErrorIndication-IEs>
                 </protocolIEs>

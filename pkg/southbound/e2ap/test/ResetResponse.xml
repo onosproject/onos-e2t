@@ -10,7 +10,7 @@
                         <criticality><ignore/></criticality>
                         <value>
                             <CriticalityDiagnostics>
-                                <procedureCode>8</procedureCode>
+                                <procedureCode>3</procedureCode>
                                 <triggeringMessage><unsuccessfull-outcome/></triggeringMessage>
                                 <procedureCriticality><ignore/></procedureCriticality>
                                 <ricRequestorID>
@@ -25,6 +25,13 @@
                                     </CriticalityDiagnostics-IE-Item>
                                 </iEsCriticalityDiagnostics>
                             </CriticalityDiagnostics>
+                        </value>
+                    </ResetResponseIEs>
+                    <ResetResponseIEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
                         </value>
                     </ResetResponseIEs>
                 </protocolIEs>

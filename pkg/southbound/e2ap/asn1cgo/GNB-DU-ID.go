@@ -14,8 +14,9 @@ import "C"
 
 import (
 	"fmt"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func xerEncodeGnbDuID(gnbDuID *e2apies.GnbDuId) ([]byte, error) {

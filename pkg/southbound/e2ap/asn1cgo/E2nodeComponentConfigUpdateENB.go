@@ -9,14 +9,15 @@ package asn1cgo
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <assert.h>
-//#include "E2nodeComponentConfigUpdateENB.h" //ToDo - if there is an anonymous C-struct option, it would require linking additional C-struct file definition (the one above or before)
+//#include "E2nodeComponentConfigUpdateENB.h"
 import "C"
 
 import (
 	"encoding/binary"
 	"fmt"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func xerEncodeE2nodeComponentConfigUpdateEnb(e2nodeComponentConfigUpdateEnb *e2ap_ies.E2NodeComponentConfigUpdateEnb) ([]byte, error) {
@@ -71,11 +72,20 @@ func newE2nodeComponentConfigUpdateEnb(e2nodeComponentConfigUpdateEnb *e2ap_ies.
 
 	e2nodeComponentConfigUpdateEnbC := C.E2nodeComponentConfigUpdateENB_t{}
 
-	if e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate != "" {
-		e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate)
+	if e2nodeComponentConfigUpdateEnb.NgApconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnbC.ngAPconfigUpdate = newOctetString(e2nodeComponentConfigUpdateEnb.NgApconfigUpdate)
 	}
-	if e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate != "" {
-		e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate = newPrintableString(e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate)
+	if e2nodeComponentConfigUpdateEnb.XnApconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnbC.xnAPconfigUpdate = newOctetString(e2nodeComponentConfigUpdateEnb.XnApconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateEnb.W1ApconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnbC.w1APconfigUpdate = newOctetString(e2nodeComponentConfigUpdateEnb.W1ApconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate = newOctetString(e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate = newOctetString(e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate)
 	}
 
 	return &e2nodeComponentConfigUpdateEnbC, nil
@@ -85,11 +95,20 @@ func decodeE2nodeComponentConfigUpdateEnb(e2nodeComponentConfigUpdateEnbC *C.E2n
 
 	e2nodeComponentConfigUpdateEnb := e2ap_ies.E2NodeComponentConfigUpdateEnb{}
 
+	if e2nodeComponentConfigUpdateEnbC.ngAPconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnb.NgApconfigUpdate = decodeOctetString(e2nodeComponentConfigUpdateEnbC.ngAPconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateEnbC.xnAPconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnb.XnApconfigUpdate = decodeOctetString(e2nodeComponentConfigUpdateEnbC.xnAPconfigUpdate)
+	}
+	if e2nodeComponentConfigUpdateEnbC.w1APconfigUpdate != nil {
+		e2nodeComponentConfigUpdateEnb.W1ApconfigUpdate = decodeOctetString(e2nodeComponentConfigUpdateEnbC.w1APconfigUpdate)
+	}
 	if e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate != nil {
-		e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate)
+		e2nodeComponentConfigUpdateEnb.S1ApconfigUpdate = decodeOctetString(e2nodeComponentConfigUpdateEnbC.s1APconfigUpdate)
 	}
 	if e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate != nil {
-		e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate = decodePrintableString(e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate)
+		e2nodeComponentConfigUpdateEnb.X2ApconfigUpdate = decodeOctetString(e2nodeComponentConfigUpdateEnbC.x2APconfigUpdate)
 	}
 
 	return &e2nodeComponentConfigUpdateEnb, nil

@@ -6,13 +6,33 @@
             <E2nodeConfigurationUpdate>
                 <protocolIEs>
                     <E2nodeConfigurationUpdate-IEs>
+                        <id>3</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <GlobalE2node-ID>
+                                <en-gNB>
+                                    <global-gNB-ID>
+                                        <pLMN-Identity>00 00 01</pLMN-Identity>
+                                        <gNB-ID>
+                                            <gNB-ID>
+                                                0000000000000000000000001
+                                            </gNB-ID>
+                                        </gNB-ID>
+                                    </global-gNB-ID>
+                                    <en-gNB-CU-UP-ID>2</en-gNB-CU-UP-ID>
+                                    <en-gNB-DU-ID>13</en-gNB-DU-ID>
+                                </en-gNB>
+                            </GlobalE2node-ID>
+                        </value>
+                    </E2nodeConfigurationUpdate-IEs>
+                    <E2nodeConfigurationUpdate-IEs>
                         <id>33</id>
-                        <criticality><ignore/></criticality>
+                        <criticality><reject/></criticality>
                         <value>
                             <E2nodeComponentConfigUpdate-List>
                                 <ProtocolIE-SingleContainer>
                                     <id>34</id>
-                                    <criticality><ignore/></criticality>
+                                    <criticality><reject/></criticality>
                                     <value>
                                         <E2nodeComponentConfigUpdate-Item>
                                             <e2nodeComponentType><gNB/></e2nodeComponentType>
@@ -34,7 +54,7 @@
                                 </ProtocolIE-SingleContainer>
                                 <ProtocolIE-SingleContainer>
                                     <id>34</id>
-                                    <criticality><ignore/></criticality>
+                                    <criticality><reject/></criticality>
                                     <value>
                                         <E2nodeComponentConfigUpdate-Item>
                                             <e2nodeComponentType><eNB/></e2nodeComponentType>
@@ -53,6 +73,13 @@
                                     </value>
                                 </ProtocolIE-SingleContainer>
                             </E2nodeComponentConfigUpdate-List>
+                        </value>
+                    </E2nodeConfigurationUpdate-IEs>
+                    <E2nodeConfigurationUpdate-IEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
                         </value>
                     </E2nodeConfigurationUpdate-IEs>
                 </protocolIEs>

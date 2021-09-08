@@ -6,13 +6,14 @@ package asn1cgo
 
 import (
 	"encoding/hex"
-	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
-	"gotest.tools/assert"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
+	"gotest.tools/assert"
 )
 
 func createE2connectionUpdateRemoveListMsg() (*e2ap_pdu_contents.E2ConnectionUpdateRemoveList, error) {
@@ -22,15 +23,15 @@ func createE2connectionUpdateRemoveListMsg() (*e2ap_pdu_contents.E2ConnectionUpd
 	}
 
 	e2connectionUpdateRemoveItem := &e2ap_pdu_contents.E2ConnectionUpdateRemoveItemIes{
-		Id:          int32(v1beta2.ProtocolIeIDE2connectionUpdateRemoveItem),
+		Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateRemoveItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2ap_pdu_contents.E2ConnectionUpdateRemoveItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{
-				TnlAddress: &e2ap_commondatatypes.BitString{
+				TnlAddress: &asn1.BitString{
 					Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x67},
 					Len:   64,
 				},
-				TnlPort: &e2ap_commondatatypes.BitString{
+				TnlPort: &asn1.BitString{
 					Value: []byte{0xae, 0x89},
 					Len:   16,
 				},
@@ -41,9 +42,9 @@ func createE2connectionUpdateRemoveListMsg() (*e2ap_pdu_contents.E2ConnectionUpd
 
 	e2connectionUpdateRemoveList.Value = append(e2connectionUpdateRemoveList.Value, e2connectionUpdateRemoveItem)
 
-	if err := e2connectionUpdateRemoveList.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating e2connectionUpdateRemoveList %s", err.Error())
-	}
+	//if err := e2connectionUpdateRemoveList.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating e2connectionUpdateRemoveList %s", err.Error())
+	//}
 	return &e2connectionUpdateRemoveList, nil
 }
 

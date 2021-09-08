@@ -14,8 +14,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"unsafe"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func newGlobalE2nodeeNBID(enbID *e2apies.GlobalE2NodeEnbId) (*C.GlobalE2node_eNB_ID_t, error) {
