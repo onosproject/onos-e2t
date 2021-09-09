@@ -15,9 +15,62 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"unsafe"
+
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
+
+func xerEncodeRanFunctionsIDList(rfl *e2appducontents.RanfunctionsIdList) ([]byte, error) {
+	rflC, err := newRanFunctionsIDList(rfl)
+
+	if err != nil {
+		return nil, err
+	}
+
+	bytes, err := encodeXer(&C.asn_DEF_RANfunctionsID_List, unsafe.Pointer(rflC))
+	if err != nil {
+		return nil, err
+	}
+	return bytes, nil
+}
+
+func perEncodeRanFunctionsIDList(rfl *e2appducontents.RanfunctionsIdList) ([]byte, error) {
+	rflC, err := newRanFunctionsIDList(rfl)
+
+	if err != nil {
+		return nil, err
+	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_RANfunctionsID_List, unsafe.Pointer(rflC))
+	if err != nil {
+		return nil, err
+	}
+	return bytes, nil
+}
+
+func xerDecodeRanFunctionsIDList(xer []byte) (*e2appducontents.RanfunctionsIdList, error) {
+	unsafePtr, err := decodeXer(xer, &C.asn_DEF_RANfunctionsID_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	rflC := (*C.RANfunctionsID_List_t)(unsafePtr)
+	return decodeRanFunctionsIDList(rflC)
+}
+
+func perDecodeRanFunctionsIDList(per []byte) (*e2appducontents.RanfunctionsIdList, error) {
+	unsafePtr, err := decodePer(per, len(per), &C.asn_DEF_RANfunctionsID_List)
+	if err != nil {
+		return nil, err
+	}
+	if unsafePtr == nil {
+		return nil, fmt.Errorf("pointer decoded from XER is nil")
+	}
+	rflC := (*C.RANfunctionsID_List_t)(unsafePtr)
+	return decodeRanFunctionsIDList(rflC)
+}
 
 func newRanFunctionsIDList(rfIDl *e2appducontents.RanfunctionsIdList) (*C.RANfunctionsID_List_t, error) {
 	rfIDlC := new(C.RANfunctionsID_List_t)
@@ -41,7 +94,7 @@ func decodeRanFunctionsIDListBytes(ranFunctionIDListChoice [112]byte) (*e2appduc
 	size := C.int(binary.LittleEndian.Uint32(ranFunctionIDListChoice[12:16]))
 
 	rfIDlC := C.RANfunctionsID_List_t{
-		list: C.struct___87{
+		list: C.struct___139{
 			array: array,
 			size:  size,
 			count: count,
@@ -60,7 +113,7 @@ func decodeRanFunctionsIDList(rfIDlC *C.RANfunctionsID_List_t) (*e2appducontents
 	//fmt.Printf("RanFunctionIDListC %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*rfIDlC.list.array)) * uintptr(i)
-		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1547P4_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rfIDlC.list.array)) + offset))
+		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1754P9_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rfIDlC.list.array)) + offset))
 		//fmt.Printf("Value %T %p %v\n", rfIDiIeC, rfIDiIeC, rfIDiIeC)
 		rfIDiIe, err := decodeRanFunctionIDItemIesSingleContainer(rfIDiIeC)
 		if err != nil {

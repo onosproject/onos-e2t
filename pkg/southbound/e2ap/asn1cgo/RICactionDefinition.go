@@ -12,16 +12,16 @@ package asn1cgo
 //#include "RICactionDefinition.h"
 import "C"
 import (
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 )
 
 func newRicActionDefinition(rad *e2ap_commondatatypes.RicactionDefinition) *C.RICactionDefinition_t {
-	return newOctetString(string(rad.Value))
+	return newOctetString(rad.Value)
 }
 
 func decodeRicActionDefinition(radC *C.RICactionDefinition_t) *e2ap_commondatatypes.RicactionDefinition {
 	result := e2ap_commondatatypes.RicactionDefinition{
-		Value: []byte(decodeOctetString(radC)),
+		Value: decodeOctetString(radC),
 	}
 
 	return &result

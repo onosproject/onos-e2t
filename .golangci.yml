@@ -41,43 +41,43 @@ issues:
     - path: pkg/southbound/e2ap/pdubuilder/error-indication_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/asn1cgo/TriggeringMessage.go
+    - path: pkg/southbound/e2ap/asn1cgo/TriggeringMessage.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdubuilder/ric-subscription-delete-failure_test.go
+    - path: pkg/southbound/e2ap/pdubuilder/ric-subscription-delete-failure_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/asn1cgo/CriticalityDiagnostics_test.go
+    - path: pkg/southbound/e2ap/asn1cgo/CriticalityDiagnostics_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdubuilder/ric-subscription-failure_test.go
+    - path: pkg/southbound/e2ap/pdubuilder/ric-subscription-failure_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdudecoder/ricSubscriptionFailureDecoder_test.go
+    - path: pkg/southbound/e2ap/pdudecoder/ricSubscriptionFailureDecoder_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdubuilder/e2-setup-failure_test.go
+    - path: pkg/southbound/e2ap/pdubuilder/e2-setup-failure_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdubuilder/error-indication_test.go
+    - path: pkg/southbound/e2ap/pdubuilder/error-indication_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdubuilder/e2-connection-update-failure_test.go
+    - path: pkg/southbound/e2ap/pdubuilder/e2-connection-update-failure_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdubuilder/e2-node-configuration-update-failure_test.go
+    - path: pkg/southbound/e2ap/pdubuilder/e2-node-configuration-update-failure_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdubuilder/reset-response_test.go
+    - path: pkg/southbound/e2ap/pdubuilder/reset-response_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdubuilder/ric-service-update-failure_test.go
+    - path: pkg/southbound/e2ap/pdubuilder/ric-service-update-failure_test.go
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/pdudecoder/
+    - path: pkg/southbound/e2ap/pdudecoder/
       linters:
         - misspell
-    - path: pkg/southbound/e2ap101/asn1cgo/
+    - path: pkg/southbound/e2ap/asn1cgo/
       linters:
         - deadcode
         - unused

@@ -4,23 +4,17 @@
 package pdubuilder
 
 import (
-	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func CreateRicSubscriptionRequestE2apPdu(ricReq types.RicRequest,
-	ranFuncID types.RanFunctionID, ricEventDef types.RicEventDefintion,
-	ricActionsToBeSetup map[types.RicActionID]types.RicActionDef) (
+func CreateRicSubscriptionRequestE2apPdu(request *e2appducontents.RicsubscriptionRequest) (
 	*e2appdudescriptions.E2ApPdu, error) {
-	request, err := NewRicSubscriptionRequest(ricReq, ranFuncID, ricEventDef, ricActionsToBeSetup)
-	if err != nil {
-		return nil, err
-	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
@@ -28,14 +22,20 @@ func CreateRicSubscriptionRequestE2apPdu(ricReq types.RicRequest,
 				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
 					RicSubscription: &e2appdudescriptions.RicSubscription{
 						InitiatingMessage: request,
+						ProcedureCode: &e2ap_constants.IdRicsubscription{
+							Value: int32(v2beta1.ProcedureCodeIDRICsubscription),
+						},
+						Criticality: &e2ap_commondatatypes.CriticalityReject{
+							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+						},
 					},
 				},
 			},
 		},
 	}
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }
 
@@ -45,7 +45,7 @@ func NewRicSubscriptionRequest(ricReq types.RicRequest,
 	*e2appducontents.RicsubscriptionRequest, error) {
 
 	ricRequestID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
-		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReq.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -55,7 +55,7 @@ func NewRicSubscriptionRequest(ricReq types.RicRequest,
 	}
 
 	ranFunctionID := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
-		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+		Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -64,7 +64,7 @@ func NewRicSubscriptionRequest(ricReq types.RicRequest,
 	}
 
 	ricSubscriptionDetails := e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
-		Id:          int32(v1beta1.ProtocolIeIDRicsubscriptionDetails),
+		Id:          int32(v2beta1.ProtocolIeIDRicsubscriptionDetails),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RicsubscriptionDetails{
 			RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{},
@@ -80,7 +80,7 @@ func NewRicSubscriptionRequest(ricReq types.RicRequest,
 
 	for ricActionID, ricAction := range ricActionsToBeSetup {
 		ricActionToSetup := e2appducontents.RicactionToBeSetupItemIes{
-			Id:          int32(v1beta1.ProtocolIeIDRicactionToBeSetupItem),
+			Id:          int32(v2beta1.ProtocolIeIDRicactionToBeSetupItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2appducontents.RicactionToBeSetupItem{
 				RicActionId: &e2apies.RicactionId{

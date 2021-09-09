@@ -492,32 +492,31 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
-	// Watch the channel store for changes
-	eventCh := make(chan e2api.ChannelEvent)
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-	if err := s.chans.Watch(ctx, eventCh, channelstore.WithReplay()); err != nil {
-		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
-		return nil, errors.Status(err).Err()
-	}
-
-	channel := &e2api.Channel{}
 	err := backoff.Retry(func() error {
 		// Get the channel for the subscription/app/instance
 		channel, err := s.chans.Get(ctx, channelID)
 		if err != nil {
+			if errors.IsNotFound(err) {
+				return nil
+			}
 			return backoff.Permanent(err)
 		}
+
 		// Ensure the channel phase is CLOSED
 		if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
 			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
 			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 			channel.Status.Error = nil
 			err := s.chans.Update(ctx, channel)
-			if err != nil && !errors.IsConflict(err) {
+			if err != nil {
+				if errors.IsConflict(err) {
+					return err
+				}
+				if errors.IsNotFound(err) {
+					return nil
+				}
 				return backoff.Permanent(err)
 			}
-			return err
 		}
 		return nil
 
@@ -528,27 +527,7 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		return nil, errors.Status(err).Err()
 	}
 
-	// Wait for the channel state to indicate the subscription has been established
-	for event := range eventCh {
-		if event.Channel.ID == channelID && event.Channel.Status.Phase == e2api.ChannelPhase_CHANNEL_CLOSED {
-			switch event.Channel.Status.State {
-			case e2api.ChannelState_CHANNEL_COMPLETE:
-				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
-				response := &e2api.UnsubscribeResponse{}
-				log.Debugf("Sending UnsubscribeResponse %+v", response)
-				return response, nil
-			case e2api.ChannelState_CHANNEL_FAILED:
-				s.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
-				errStat := status.New(codes.Aborted, "an E2AP failure occurred")
-				errStat, err := errStat.WithDetails(event.Channel.Status.Error)
-				if err != nil {
-					log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
-					return nil, err
-				}
-				log.Warnf("UnsubscribeRequest %+v failed: %s", request, errStat.Err())
-				return nil, errStat.Err()
-			}
-		}
-	}
-	return nil, ctx.Err()
+	response := &e2api.UnsubscribeResponse{}
+	log.Debugf("Sending UnsubscribeResponse %+v", response)
+	return response, nil
 }

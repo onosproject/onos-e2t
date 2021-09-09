@@ -4,8 +4,9 @@
 package pdubuilder
 
 import (
-	"gotest.tools/assert"
 	"testing"
+
+	"gotest.tools/assert"
 )
 
 func TestE2SetupResponseFailure(t *testing.T) {

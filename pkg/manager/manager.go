@@ -18,13 +18,12 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 
 	"github.com/onosproject/onos-e2t/pkg/controller/mastership"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"
 	taskctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	"github.com/onosproject/onos-e2t/pkg/northbound/admin"
 	"github.com/onosproject/onos-lib-go/pkg/certs"
 	"github.com/onosproject/onos-lib-go/pkg/env"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -102,19 +101,19 @@ func (m *Manager) Start() error {
 
 	streams := subscription.NewBroker()
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
-	channels := e2server.NewChannelManager()
+	conns := e2server.NewConnManager()
 
 	err = m.startE2TController(rnibStore)
 	if err != nil {
 		return err
 	}
 
-	err = m.startMastershipController(rnibStore, channels)
+	err = m.startMastershipController(rnibStore)
 	if err != nil {
 		return err
 	}
 
-	err = m.startE2NodeController(rnibStore, channels)
+	err = m.startE2NodeController(rnibStore, conns)
 	if err != nil {
 		return err
 	}
@@ -123,25 +122,25 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, rnibStore, channels)
+	err = m.startSubscriptionv1beta1Controller(subStore, streamsv1beta1, rnibStore, conns)
 	if err != nil {
 		return err
 	}
 
-	err = m.startSouthboundServer(channels, streams, streamsv1beta1)
+	err = m.startSouthboundServer(conns, streams, streamsv1beta1)
 	if err != nil {
 		return err
 	}
 
-	err = m.startNorthboundServer(chanStore, subStore, streamsv1beta1, rnibStore, channels)
+	err = m.startNorthboundServer(chanStore, subStore, streamsv1beta1, rnibStore, conns)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *Manager) startE2NodeController(rnib rnib.Store, channels e2server.ChannelManager) error {
-	e2NodeController := e2node.NewController(rnib, channels)
+func (m *Manager) startE2NodeController(rnib rnib.Store, conns e2server.ConnManager) error {
+	e2NodeController := e2node.NewController(rnib, conns)
 	return e2NodeController.Start()
 }
 
@@ -151,8 +150,8 @@ func (m *Manager) startE2TController(rnib rnib.Store) error {
 }
 
 // startTopov1alpha1Controller starts the topo controller
-func (m *Manager) startMastershipController(topo rnib.Store, channels e2server.ChannelManager) error {
-	mastershipController := mastership.NewController(topo, channels)
+func (m *Manager) startMastershipController(topo rnib.Store) error {
+	mastershipController := mastership.NewController(topo)
 	return mastershipController.Start()
 }
 
@@ -163,21 +162,21 @@ func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs subs
 }
 
 // startSubscriptionv1beta1Controller starts the subscription controllers
-func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, topo rnib.Store, channels e2server.ChannelManager) error {
-	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, topo, channels, m.ModelRegistry, m.OidRegistry)
+func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscriptionv1beta1.Broker, topo rnib.Store, conns e2server.ConnManager) error {
+	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, topo, conns, m.ModelRegistry, m.OidRegistry)
 	return tasksv1beta1.Start()
 }
 
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(channels e2server.ChannelManager, streams subscription.Broker,
+func (m *Manager) startSouthboundServer(conns e2server.ConnManager, streams subscription.Broker,
 	streamsv1beta1 subscriptionv1beta1.Broker) error {
-	server := e2server.NewE2Server(channels, streams, streamsv1beta1, m.ModelRegistry)
+	server := e2server.NewE2Server(conns, streams, streamsv1beta1, m.ModelRegistry)
 	return server.Serve()
 }
 
 // startSouthboundServer starts the northbound gRPC server
 func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streamsv1beta1 subscriptionv1beta1.Broker,
-	rnib rnib.Store, channels e2server.ChannelManager) error {
+	rnib rnib.Store, conns e2server.ConnManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
 		m.Config.KeyPath,
@@ -185,9 +184,8 @@ func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Sto
 		int16(m.Config.GRPCPort),
 		true,
 		northbound.SecurityConfig{}))
-	s.AddService(admin.NewService(channels))
 	s.AddService(logging.Service{})
-	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry, channels, m.OidRegistry, rnib))
+	s.AddService(e2v1beta1service.NewControlService(m.ModelRegistry, conns, m.OidRegistry, rnib))
 	s.AddService(e2v1beta1service.NewSubscriptionService(chans, subs, streamsv1beta1, m.ModelRegistry, m.OidRegistry, rnib))
 
 	doneCh := make(chan error)
@@ -203,7 +201,7 @@ func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Sto
 	return <-doneCh
 }
 
-// Close kills the channels and manager related objects
+// Close kills the connections and manager related objects
 func (m *Manager) Close() {
 	log.Info("Closing Manager")
 	if err := m.Stop(); err != nil {

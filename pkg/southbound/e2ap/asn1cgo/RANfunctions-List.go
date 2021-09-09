@@ -15,8 +15,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
 	"unsafe"
+
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func xerEncodeRanFunctionsList(rfl *e2appducontents.RanfunctionsList) ([]byte, error) {
@@ -93,7 +94,7 @@ func decodeRanFunctionsListBytes(ranFunctionListChoice [48]byte) (*e2appduconten
 	size := C.int(binary.LittleEndian.Uint32(ranFunctionListChoice[12:16]))
 
 	ranFunctionListChoiceC := C.RANfunctions_List_t{
-		list: C.struct___58{
+		list: C.struct___111{
 			array: array,
 			size:  size,
 			count: count,
@@ -112,7 +113,7 @@ func decodeRanFunctionsList(rflC *C.RANfunctions_List_t) (*e2appducontents.Ranfu
 	//fmt.Printf("RanFunctionListC %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*rflC.list.array)) * uintptr(i)
-		rfiIeC := *(**C.ProtocolIE_SingleContainer_1547P3_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rflC.list.array)) + offset))
+		rfiIeC := *(**C.ProtocolIE_SingleContainer_1754P8_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rflC.list.array)) + offset))
 		//fmt.Printf("Value %T %p %v\n", rfiIeC, rfiIeC, rfiIeC)
 		rfiIe, err := decodeRanFunctionItemIesSingleContainer(rfiIeC)
 		if err != nil {

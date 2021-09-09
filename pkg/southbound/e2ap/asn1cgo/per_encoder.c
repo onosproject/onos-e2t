@@ -1,6 +1,6 @@
-#include "asn_application.h"
-#include "asn_internal.h"
-#include "per_encoder.h"
+#include <asn_application.h>
+#include <asn_internal.h>
+#include <per_encoder.h>
 
 static int _uper_encode_flush_outp(asn_per_outp_t *po);
 
@@ -54,7 +54,6 @@ typedef struct enc_to_buf_arg {
 	void *buffer;
 	size_t left;
 } enc_to_buf_arg;
-
 static int encode_to_buffer_cb(const void *buffer, size_t size, void *key) {
 	enc_to_buf_arg *arg = (enc_to_buf_arg *)key;
 

@@ -15,7 +15,8 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func newCause(cause *e2apies.Cause) (*C.Cause_t, error) {

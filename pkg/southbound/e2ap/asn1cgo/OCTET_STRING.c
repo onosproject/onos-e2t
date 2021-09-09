@@ -3,9 +3,9 @@
  * All rights reserved.
  * Redistribution and modifications are permitted subject to BSD license.
  */
-#include "asn_internal.h"
-#include "OCTET_STRING.h"
-#include "BIT_STRING.h"	/* for .bits_unused member */
+#include <asn_internal.h>
+#include <OCTET_STRING.h>
+#include <BIT_STRING.h>	/* for .bits_unused member */
 #include <errno.h>
 
 /*
@@ -1536,11 +1536,9 @@ OCTET_STRING_encode_uper(const asn_TYPE_descriptor_t *td,
 	if(pc) {
 		cval = &pc->value;
 		csiz = &pc->size;
-		ASN_DEBUG("Using PER Constraints (%ld..%ld)", csiz->lower_bound, csiz->upper_bound);
 	} else {
 		cval = &asn_DEF_OCTET_STRING_constraints.value;
 		csiz = &asn_DEF_OCTET_STRING_constraints.size;
-		ASN_DEBUG("NOT using PER Constraints");
 	}
 	ct_extensible = csiz->flags & APC_EXTENSIBLE;
 
@@ -1555,7 +1553,6 @@ OCTET_STRING_encode_uper(const asn_TYPE_descriptor_t *td,
 			unit_bits = cval->range_bits;
 		bpc = OS__BPC_CHAR;
 		size_in_units = st->size;
-		ASN_DEBUG("Case ASN_OSUBV_STR CSize");
 		break;
 	case ASN_OSUBV_U16:
 		canonical_unit_bits = unit_bits = 16;
@@ -1567,7 +1564,6 @@ OCTET_STRING_encode_uper(const asn_TYPE_descriptor_t *td,
 			ASN_DEBUG("%s string size is not modulo 2", td->name);
 			ASN__ENCODE_FAILED;
 		}
-		ASN_DEBUG("Case ASN_OSUBV_U16");
 		break;
 	case ASN_OSUBV_U32:
 		canonical_unit_bits = unit_bits = 32;
@@ -1579,7 +1575,6 @@ OCTET_STRING_encode_uper(const asn_TYPE_descriptor_t *td,
 			ASN_DEBUG("%s string size is not modulo 4", td->name);
 			ASN__ENCODE_FAILED;
 		}
-		ASN_DEBUG("Case ASN_OSUBV_U32");
 		break;
 	}
 

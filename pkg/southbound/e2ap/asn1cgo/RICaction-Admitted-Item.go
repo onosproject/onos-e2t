@@ -13,7 +13,8 @@ package asn1cgo
 import "C"
 import (
 	"encoding/binary"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func newRicActionAdmittedItem(raai *e2appducontents.RicactionAdmittedItem) *C.RICaction_Admitted_Item_t {

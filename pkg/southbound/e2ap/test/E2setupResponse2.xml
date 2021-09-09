@@ -17,6 +17,13 @@
                         </GlobalRIC-ID>
                     </value>
                 </E2setupResponseIEs>
+                <E2setupResponseIEs>
+                    <id>49</id>
+                    <criticality><reject/></criticality>
+                    <value>
+                        <TransactionID>11</TransactionID>
+                    </value>
+                </E2setupResponseIEs>
             </protocolIEs>
         </E2setupResponse>
     </value>

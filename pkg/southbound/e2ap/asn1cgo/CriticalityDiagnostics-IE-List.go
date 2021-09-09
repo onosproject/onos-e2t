@@ -10,12 +10,12 @@ package asn1cgo
 //#include <stdlib.h>
 //#include <assert.h>
 //#include "CriticalityDiagnostics-IE-List.h"
-//#include "CriticalityDiagnostics-IE-Item.h"
 import "C"
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
 	"unsafe"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 )
 
 func newCriticalityDiagnosticsIeList(cdIel *e2apies.CriticalityDiagnosticsIeList) (*C.CriticalityDiagnostics_IE_List_t, error) {

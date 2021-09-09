@@ -13,21 +13,21 @@ import (
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap101/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 )
 
 const queueSize = 100
 
-// ChannelWatcher is a channel watcher
+// Watcher is a connection watcher
 type Watcher struct {
-	channels  e2server.ChannelManager
-	cancel    context.CancelFunc
-	mu        sync.Mutex
-	channelCh chan *e2server.E2Channel
+	conns  e2server.ConnManager
+	cancel context.CancelFunc
+	mu     sync.Mutex
+	connCh chan *e2server.E2APConn
 }
 
-// Start starts the channel watcher
+// Start starts the connection watcher
 func (w *Watcher) Start(ch chan<- controller.ID) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
@@ -35,9 +35,9 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	w.channelCh = make(chan *e2server.E2Channel, queueSize)
+	w.connCh = make(chan *e2server.E2APConn, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.channels.Watch(ctx, w.channelCh)
+	err := w.conns.Watch(ctx, w.connCh)
 	if err != nil {
 		cancel()
 		return err
@@ -45,16 +45,16 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		for channel := range w.channelCh {
-			log.Debugf("Received Channel event '%s'", channel.ID)
-			ch <- controller.NewID(channel.ID)
+		for conn := range w.connCh {
+			log.Debugf("Received Connection event '%s'", conn.ID)
+			ch <- controller.NewID(conn.ID)
 		}
 		close(ch)
 	}()
 	return nil
 }
 
-// Stop stops the channel watcher
+// Stop stops the connection watcher
 func (w *Watcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
@@ -66,10 +66,10 @@ func (w *Watcher) Stop() {
 
 //  TopoWatcher is a topology watcher
 type TopoWatcher struct {
-	topo     rnib.Store
-	channels e2server.ChannelManager
-	cancel   context.CancelFunc
-	mu       sync.Mutex
+	topo   rnib.Store
+	conns  e2server.ConnManager
+	cancel context.CancelFunc
+	mu     sync.Mutex
 }
 
 // Start starts the topology watcher
@@ -92,29 +92,29 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 	go func() {
 		for event := range eventCh {
 			log.Debugf("Received topo event '%s'", event.Object.ID)
-			channels, err := w.channels.List(ctx)
+			conns, err := w.conns.List(ctx)
 			if err != nil {
-				log.Warnf("cannot retrieve the list channels %v:%v", channels, err)
+				log.Warnf("cannot retrieve the list conns %v:%v", conns, err)
 				continue
 			}
 			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok {
 
-				// Enqueue the channel with matching e2node
+				// Enqueue the connection with matching e2node
 				if entity.Entity.KindID == topoapi.E2NODE {
-					for _, channel := range channels {
-						if channel.E2NodeID == event.Object.GetID() {
-							ch <- controller.NewID(channel.ID)
+					for _, conn := range conns {
+						if conn.E2NodeID == event.Object.GetID() {
+							ch <- controller.NewID(conn.ID)
 						}
 					}
 				}
-				// Enqueue the channels with matching cells
+				// Enqueue the conns with matching cells
 				if entity.Entity.KindID == topoapi.E2CELL {
-					for _, channel := range channels {
-						e2Cells := channel.E2Cells
+					for _, conn := range conns {
+						e2Cells := conn.E2Cells
 						for _, e2Cell := range e2Cells {
-							cellID := utils.GetCellID(channel, e2Cell)
+							cellID := utils.GetCellID(conn, e2Cell)
 							if cellID == event.Object.GetID() {
-								ch <- controller.NewID(channel.ID)
+								ch <- controller.NewID(conn.ID)
 							}
 						}
 					}
@@ -122,21 +122,21 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 			}
 			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok {
 				if relation.Relation.KindID == topoapi.CONTAINS {
-					for _, channel := range channels {
-						e2Cells := channel.E2Cells
+					for _, conn := range conns {
+						e2Cells := conn.E2Cells
 						for _, e2Cell := range e2Cells {
-							cellID := utils.GetCellID(channel, e2Cell)
+							cellID := utils.GetCellID(conn, e2Cell)
 							if cellID == relation.Relation.TgtEntityID {
-								ch <- controller.NewID(channel.ID)
+								ch <- controller.NewID(conn.ID)
 							}
 						}
 					}
 				}
 				if relation.Relation.KindID == topoapi.CONTROLS {
-					for _, channel := range channels {
-						relationID := utils.GetE2ControlRelationID(channel.ID)
+					for _, conn := range conns {
+						relationID := utils.GetE2ControlRelationID(conn.ID)
 						if relationID == event.Object.GetID() {
-							ch <- controller.NewID(channel.ID)
+							ch <- controller.NewID(conn.ID)
 						}
 					}
 				}

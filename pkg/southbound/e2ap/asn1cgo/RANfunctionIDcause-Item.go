@@ -14,8 +14,9 @@ import "C"
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 )
 
 func newRanFunctionIDCauseItem(rfIDi *e2appducontents.RanfunctionIdcauseItem) (*C.RANfunctionIDcause_Item_t, error) {

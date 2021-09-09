@@ -1,31 +1,25 @@
 <E2AP-PDU>
     <successfulOutcome>
         <procedureCode>1</procedureCode>
-        <criticality>
-            <reject/>
-        </criticality>
+        <criticality><reject/></criticality>
         <value>
             <E2setupResponse>
                 <protocolIEs>
                     <E2setupResponseIEs>
                         <id>4</id>
-                        <criticality>
-                            <reject/>
-                        </criticality>
+                        <criticality><reject/></criticality>
                         <value>
                             <GlobalRIC-ID>
-                                <pLMN-Identity>4F 4E 46</pLMN-Identity>
+                                <pLMN-Identity>79 78 70</pLMN-Identity>
                                 <ric-ID>
-                                    11011110101111000000
+                                    01001101001000000000
                                 </ric-ID>
                             </GlobalRIC-ID>
                         </value>
                     </E2setupResponseIEs>
                     <E2setupResponseIEs>
                         <id>9</id>
-                        <criticality>
-                            <reject/>
-                        </criticality>
+                        <criticality><reject/></criticality>
                         <value>
                             <RANfunctionsID-List>
                                 <ProtocolIE-SingleContainer>
@@ -61,9 +55,9 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionIDcause-Item>
-                                            <ranFunctionID>102</ranFunctionID>
+                                            <ranFunctionID>101</ranFunctionID>
                                             <cause>
-                                                <protocol><semantic-error/></protocol>
+                                                <misc><hardware-failure/></misc>
                                             </cause>
                                         </RANfunctionIDcause-Item>
                                     </value>
@@ -73,14 +67,69 @@
                                     <criticality><ignore/></criticality>
                                     <value>
                                         <RANfunctionIDcause-Item>
-                                            <ranFunctionID>101</ranFunctionID>
+                                            <ranFunctionID>102</ranFunctionID>
                                             <cause>
-                                                <misc><hardware-failure/></misc>
+                                                <protocol><semantic-error/></protocol>
                                             </cause>
                                         </RANfunctionIDcause-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
                             </RANfunctionsIDcause-List>
+                        </value>
+                    </E2setupResponseIEs>
+                    <E2setupResponseIEs>
+                        <id>35</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <E2nodeComponentConfigUpdateAck-List>
+                                <ProtocolIE-SingleContainer>
+                                    <id>36</id>
+                                    <criticality><reject/></criticality>
+                                    <value>
+                                        <E2nodeComponentConfigUpdateAck-Item>
+                                            <e2nodeComponentType><gNB/></e2nodeComponentType>
+                                            <e2nodeComponentID>
+                                                <e2nodeComponentTypeGNB-CU-UP>
+                                                    <gNB-CU-UP-ID>21</gNB-CU-UP-ID>
+                                                </e2nodeComponentTypeGNB-CU-UP>
+                                            </e2nodeComponentID>
+                                            <e2nodeComponentConfigUpdateAck>
+                                                <updateOutcome><failure/></updateOutcome>
+                                                <failureCause>
+                                                    <protocol><transfer-syntax-error/></protocol>
+                                                </failureCause>
+                                            </e2nodeComponentConfigUpdateAck>
+                                        </E2nodeComponentConfigUpdateAck-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                                <ProtocolIE-SingleContainer>
+                                    <id>36</id>
+                                    <criticality><reject/></criticality>
+                                    <value>
+                                        <E2nodeComponentConfigUpdateAck-Item>
+                                            <e2nodeComponentType><eNB/></e2nodeComponentType>
+                                            <e2nodeComponentID>
+                                                <e2nodeComponentTypeGNB-DU>
+                                                    <gNB-DU-ID>13</gNB-DU-ID>
+                                                </e2nodeComponentTypeGNB-DU>
+                                            </e2nodeComponentID>
+                                            <e2nodeComponentConfigUpdateAck>
+                                                <updateOutcome><failure/></updateOutcome>
+                                                <failureCause>
+                                                    <protocol><abstract-syntax-error-falsely-constructed-message/></protocol>
+                                                </failureCause>
+                                            </e2nodeComponentConfigUpdateAck>
+                                        </E2nodeComponentConfigUpdateAck-Item>
+                                    </value>
+                                </ProtocolIE-SingleContainer>
+                            </E2nodeComponentConfigUpdateAck-List>
+                        </value>
+                    </E2setupResponseIEs>
+                    <E2setupResponseIEs>
+                        <id>49</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <TransactionID>1</TransactionID>
                         </value>
                     </E2setupResponseIEs>
                 </protocolIEs>
