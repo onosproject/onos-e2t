@@ -5,13 +5,14 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	"testing"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestRicServiceUpdateFailure(t *testing.T) {
@@ -56,7 +57,7 @@ func TestRicServiceUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("RicServiceUpdateFailure E2AP PDU XER - decoded is \n%v", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -66,7 +67,7 @@ func TestRicServiceUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("RicServiceUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
 
 func TestRicServiceUpdateFailureExcludeOptionalIE(t *testing.T) {
@@ -99,7 +100,7 @@ func TestRicServiceUpdateFailureExcludeOptionalIE(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("RicServiceUpdateFailure E2AP PDU XER - decoded is \n%v", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -109,5 +110,5 @@ func TestRicServiceUpdateFailureExcludeOptionalIE(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("RicServiceUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }

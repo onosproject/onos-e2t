@@ -40,7 +40,7 @@ func Test_RICcontrolFailure(t *testing.T) {
 
 	e2apPdu, err := xerDecodeRICcontrolFailure(xer)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
+	assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().String(), e2apPdu.String())
 
 	per, err := perEncodeRICcontrolFailure(
 		e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome())
@@ -49,5 +49,5 @@ func Test_RICcontrolFailure(t *testing.T) {
 
 	e2apPdu, err = perDecodeRICcontrolFailure(per)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome(), e2apPdu)
+	assert.DeepEqual(t, e2ApPduRcf.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().String(), e2apPdu.String())
 }

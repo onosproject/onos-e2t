@@ -49,7 +49,7 @@ func TestE2SetupFailure(t *testing.T) {
 	result, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
 	t.Logf("ErrorIndication E2AP PDU XER - decoded\n%v", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -58,5 +58,5 @@ func TestE2SetupFailure(t *testing.T) {
 	result1, err := asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
 	t.Logf("ErrorIndication E2AP PDU PER - decoded\n%v", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
