@@ -7,28 +7,27 @@ package asn1cgo
 import (
 	"encoding/hex"
 	"fmt"
+	"testing"
+
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func createE2nodeConfigurationUpdateMsg() (*e2ap_pdu_contents.E2NodeConfigurationUpdate, error) {
 
 	e2ncID1 := pdubuilder.CreateE2NodeComponentIDGnbCuUp(21)
 	e2ncID2 := pdubuilder.CreateE2NodeComponentIDGnbDu(13)
-	e2nccu1 := pdubuilder.CreateE2NodeComponentConfigUpdateGnb("ngAp", "xnAp", "e1Ap", "f1Ap")
-	e2nccu2 := pdubuilder.CreateE2NodeComponentConfigUpdateEnb("s1", "x2")
 
 	e2nodeConfigurationUpdate, err := pdubuilder.CreateE2NodeConfigurationUpdateE2apPdu([]*types.E2NodeComponentConfigUpdateItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 			E2NodeComponentID:           &e2ncID1,
-			E2NodeComponentConfigUpdate: e2nccu1},
+			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateGnb("ngAp", "xnAp", "e1Ap", "f1Ap")},
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
 			E2NodeComponentID:           &e2ncID2,
-			E2NodeComponentConfigUpdate: e2nccu2},
+			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateEnb("s1", "x2")},
 	})
 	if err != nil {
 		return nil, err
