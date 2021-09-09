@@ -5,6 +5,7 @@ package pdubuilder
 
 import (
 	"fmt"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
@@ -14,14 +15,14 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func CreateE2SetupFailurePdu(cause e2apies.Cause, ttw *e2apies.TimeToWait, failureProcCode *v1beta2.ProcedureCodeT,
+func CreateE2SetupFailurePdu(cause *e2apies.Cause, ttw *e2apies.TimeToWait, failureProcCode *v1beta2.ProcedureCodeT,
 	failureCrit *e2ap_commondatatypes.Criticality, failureTrigMsg *e2ap_commondatatypes.TriggeringMessage,
 	reqID *types.RicRequest, critDiags []*types.CritDiag) (*e2appdudescriptions.E2ApPdu, error) {
 
 	errorCause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
 		Id:          int32(v1beta2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value:       &cause, // Probably, could be any other reason
+		Value:       cause, // Probably, could be any other reason
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 

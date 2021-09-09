@@ -6,10 +6,11 @@ package asn1cgo
 
 import (
 	"encoding/hex"
+	"testing"
+
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func Test_RICcontrolRequest(t *testing.T) {
@@ -36,7 +37,7 @@ func Test_RICcontrolRequest(t *testing.T) {
 
 	e2apPdu, err := xerDecodeRICcontrolRequest(xer)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage(), e2apPdu)
+	assert.DeepEqual(t, e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage().String(), e2apPdu.String())
 
 	per, err := perEncodeRICcontrolRequest(
 		e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage())
@@ -45,5 +46,5 @@ func Test_RICcontrolRequest(t *testing.T) {
 
 	e2apPdu, err = perDecodeRICcontrolRequest(per)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage(), e2apPdu)
+	assert.DeepEqual(t, e2ApPduRcr.GetInitiatingMessage().GetProcedureCode().GetRicControl().GetInitiatingMessage().String(), e2apPdu.String())
 }

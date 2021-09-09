@@ -5,6 +5,7 @@ package pdubuilder
 
 import (
 	"fmt"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
@@ -20,7 +21,7 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeC
 		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
 	}
 
-	configUpdateAckList := e2appducontents.E2NodeComponentConfigUpdateAckList{
+	configUpdateAckList := &e2appducontents.E2NodeComponentConfigUpdateAckList{
 		Value: make([]*e2appducontents.E2NodeComponentConfigUpdateAckItemIes, 0),
 	}
 
@@ -57,7 +58,7 @@ func CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(e2nccual []*types.E2NodeC
 							ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes{
 								Id:          int32(v1beta2.ProtocolIeIDE2nodeComponentConfigUpdateAck),
 								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-								Value:       &configUpdateAckList,
+								Value:       configUpdateAckList,
 								Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 							},
 						},

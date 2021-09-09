@@ -47,11 +47,11 @@ type serverConn struct {
 	ricIndication         *procedures.RICIndicationProcedure
 	ricSubscription       *procedures.RICSubscriptionInitiator
 	ricSubscriptionDelete *procedures.RICSubscriptionDeleteInitiator
-	ricIndicationCh       chan e2appdudescriptions.E2ApPdu
+	ricIndicationCh       chan *e2appdudescriptions.E2ApPdu
 }
 
 func (c *serverConn) open() {
-	c.ricIndicationCh = make(chan e2appdudescriptions.E2ApPdu)
+	c.ricIndicationCh = make(chan *e2appdudescriptions.E2ApPdu)
 	go c.recvPDUs()
 	go c.recvIndications()
 }
@@ -80,7 +80,7 @@ func (c *serverConn) recvPDU(pdu *e2appdudescriptions.E2ApPdu) {
 	} else if c.ricControl.Matches(pdu) {
 		go c.ricControl.Handle(pdu)
 	} else if c.ricIndication.Matches(pdu) {
-		c.ricIndicationCh <- *pdu
+		c.ricIndicationCh <- pdu
 	} else if c.ricSubscription.Matches(pdu) {
 		go c.ricSubscription.Handle(pdu)
 	} else if c.ricSubscriptionDelete.Matches(pdu) {
@@ -96,8 +96,8 @@ func (c *serverConn) recvIndications() {
 	}
 }
 
-func (c *serverConn) recvIndication(pdu e2appdudescriptions.E2ApPdu) {
-	c.ricIndication.Handle(&pdu)
+func (c *serverConn) recvIndication(pdu *e2appdudescriptions.E2ApPdu) {
+	c.ricIndication.Handle(pdu)
 }
 
 func (c *serverConn) E2ConnectionUpdate(ctx context.Context, request *e2appducontents.E2ConnectionUpdate) (response *e2appducontents.E2ConnectionUpdateAcknowledge, failure *e2appducontents.E2ConnectionUpdateFailure, err error) {

@@ -7,6 +7,8 @@ package asn1cgo
 import (
 	"encoding/hex"
 	"fmt"
+	"testing"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
@@ -14,7 +16,6 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func createE2nodeConfigurationUpdateFailureMsg() (*e2ap_pdu_contents.E2NodeConfigurationUpdateFailure, error) {
@@ -24,7 +25,7 @@ func createE2nodeConfigurationUpdateFailureMsg() (*e2ap_pdu_contents.E2NodeConfi
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	e2nodeConfigurationUpdateFailure, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(e2apies.Cause{
+	e2nodeConfigurationUpdateFailure, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(&e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},

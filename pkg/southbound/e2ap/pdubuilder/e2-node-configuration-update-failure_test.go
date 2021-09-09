@@ -5,13 +5,14 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	"testing"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestE2NodeConfigurationUpdateFailure(t *testing.T) {
@@ -20,7 +21,7 @@ func TestE2NodeConfigurationUpdateFailure(t *testing.T) {
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(e2apies.Cause{
+	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(&e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
@@ -47,7 +48,7 @@ func TestE2NodeConfigurationUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateFailure E2AP PDU XER - decoded is \n%v", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -57,7 +58,7 @@ func TestE2NodeConfigurationUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("E2connectionUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
 
 func TestE2NodeConfigurationUpdateFailureExcludeOptionalIE(t *testing.T) {
@@ -66,7 +67,7 @@ func TestE2NodeConfigurationUpdateFailureExcludeOptionalIE(t *testing.T) {
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 
-	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(e2apies.Cause{
+	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(&e2apies.Cause{
 		Cause: &e2apies.Cause_Protocol{
 			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
@@ -93,7 +94,7 @@ func TestE2NodeConfigurationUpdateFailureExcludeOptionalIE(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateFailure E2AP PDU XER - decoded is \n%v", result)
-	assert.DeepEqual(t, newE2apPdu, result)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -103,5 +104,5 @@ func TestE2NodeConfigurationUpdateFailureExcludeOptionalIE(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("E2connectionUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
-	assert.DeepEqual(t, newE2apPdu, result1)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }

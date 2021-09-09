@@ -5,6 +5,7 @@ package pdubuilder
 
 import (
 	"fmt"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
@@ -15,7 +16,7 @@ import (
 )
 
 func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricCallPrID types.RicCallProcessID, cause e2apies.Cause,
+	ricCallPrID types.RicCallProcessID, cause *e2apies.Cause,
 	ricCtrlOut types.RicControlOutcome) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes29{
@@ -40,7 +41,7 @@ func CreateRicControlFailureE2apPdu(ricReqID types.RicRequest, ranFuncID types.R
 	ricCause := e2appducontents.RiccontrolFailureIes_RiccontrolFailureIes1{
 		Id:          int32(v1beta2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value:       &cause,
+		Value:       cause,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 

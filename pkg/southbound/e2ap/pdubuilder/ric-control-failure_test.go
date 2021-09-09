@@ -5,11 +5,12 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	"testing"
+
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestRicControlFailure(t *testing.T) {
@@ -20,7 +21,7 @@ func TestRicControlFailure(t *testing.T) {
 	var ranFuncID types.RanFunctionID = 9
 	//var ricCallPrID types.RicCallProcessID = []byte("123")
 	//var ricCtrlOut types.RicControlOutcome = []byte("456")
-	cause := e2apies.Cause{
+	cause := &e2apies.Cause{
 		Cause: &e2apies.Cause_RicRequest{
 			RicRequest: e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID,
 		},
@@ -36,7 +37,7 @@ func TestRicControlFailure(t *testing.T) {
 
 	e2apPdu, err := asn1cgo.XerDecodeE2apPdu(xer)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu, e2apPdu)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -44,5 +45,5 @@ func TestRicControlFailure(t *testing.T) {
 
 	e2apPdu, err = asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu, e2apPdu)
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 }

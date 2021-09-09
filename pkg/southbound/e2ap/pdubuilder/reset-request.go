@@ -5,6 +5,7 @@ package pdubuilder
 
 import (
 	"fmt"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-constants"
@@ -13,12 +14,12 @@ import (
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-descriptions"
 )
 
-func CreateResetRequestE2apPdu(c e2ap_ies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateResetRequestE2apPdu(c *e2ap_ies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
 
 	cause := e2appducontents.ResetRequestIes_ResetRequestIes1{
 		Id:          int32(v1beta2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-		Value:       &c,
+		Value:       c,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 

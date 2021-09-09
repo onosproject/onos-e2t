@@ -94,7 +94,7 @@ func (c *threadSafeConn) open() {
 func (c *threadSafeConn) send(msg *e2appdudescriptions.E2ApPdu) error {
 	errCh := make(chan error, 1)
 	c.sendCh <- asyncMessage{
-		msg:   *msg,
+		msg:   msg,
 		errCh: errCh,
 	}
 	return <-errCh
@@ -115,8 +115,8 @@ func (c *threadSafeConn) processSends() {
 }
 
 // processSend processes a send
-func (c *threadSafeConn) processSend(msg e2appdudescriptions.E2ApPdu) error {
-	bytes, err := asn1cgo.PerEncodeE2apPdu(&msg)
+func (c *threadSafeConn) processSend(msg *e2appdudescriptions.E2ApPdu) error {
+	bytes, err := asn1cgo.PerEncodeE2apPdu(msg)
 	if err != nil {
 		log.Warn(err)
 		return err
@@ -177,6 +177,6 @@ func (c *threadSafeConn) Close() error {
 }
 
 type asyncMessage struct {
-	msg   e2appdudescriptions.E2ApPdu
+	msg   *e2appdudescriptions.E2ApPdu
 	errCh chan error
 }

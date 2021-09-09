@@ -5,14 +5,15 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	"testing"
+
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestResetRequest(t *testing.T) {
-	newE2apPdu, err := CreateResetRequestE2apPdu(e2ap_ies.Cause{
+	newE2apPdu, err := CreateResetRequestE2apPdu(&e2ap_ies.Cause{
 		Cause: &e2ap_ies.Cause_Protocol{
 			Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
