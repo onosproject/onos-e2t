@@ -5,13 +5,14 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	"testing"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func TestE2SetupFailure(t *testing.T) {
@@ -20,7 +21,7 @@ func TestE2SetupFailure(t *testing.T) {
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
 	newE2apPdu, err := CreateE2SetupFailurePdu(
-		e2apies.Cause{
+		&e2apies.Cause{
 			Cause: &e2apies.Cause_Misc{ // Probably, could be any other reason
 				Misc: e2apies.CauseMisc_CAUSE_MISC_UNSPECIFIED,
 			},

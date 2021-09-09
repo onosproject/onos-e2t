@@ -7,16 +7,17 @@ package asn1cgo
 import (
 	"encoding/hex"
 	"fmt"
+	"testing"
+
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
 	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"gotest.tools/assert"
-	"testing"
 )
 
 func createResetRequestMsg() (*e2ap_pdu_contents.ResetRequest, error) {
 
-	resetRequest, err := pdubuilder.CreateResetRequestE2apPdu(e2ap_ies.Cause{
+	resetRequest, err := pdubuilder.CreateResetRequestE2apPdu(&e2ap_ies.Cause{
 		Cause: &e2ap_ies.Cause_Protocol{
 			Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
