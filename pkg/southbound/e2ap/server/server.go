@@ -12,9 +12,8 @@ import (
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
-	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
-
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
@@ -139,11 +138,8 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 
 				// TODO channel ID should be changed to e2node ID after admin API is removed
 				ranFunctions[oid] = ranFunction
-				if err != nil {
-					log.Warn(err)
-				} else {
-					rfAccepted[ranFunctionID] = ranFunc.Revision
-				}
+				rfAccepted[ranFunctionID] = ranFunc.Revision
+
 			}
 		}
 	}
@@ -156,8 +152,13 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	if err != nil {
 		return nil, nil, err
 	}
-	response.SetRanFunctionAccepted(rfAccepted)
-	response.SetRanFunctionRejected(rfRejected)
+
+	if len(rfAccepted) > 0 {
+		response.SetRanFunctionAccepted(rfAccepted)
+	}
+	if len(rfRejected) > 0 {
+		response.SetRanFunctionRejected(rfRejected)
+	}
 	return response, nil, nil
 }
 
