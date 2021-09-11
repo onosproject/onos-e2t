@@ -100,8 +100,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
 	defer cancel()
 	//  Initially the subscription list should be empty
-	subList := e2utils.GetSubscriptionList(t)
-	defaultNumSubs := len(subList)
+	e2utils.CheckForEmptySubscriptionList(t)
 
 	// Create a Node
 	nodeID := utils.GetTestNodeID(t)
@@ -113,8 +112,8 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	subscriptionID := getSubscriptionID(t, channelID)
 
 	// Check that the subscription list is correct
-	subList = e2utils.GetSubscriptionList(t)
-	assert.Equal(t, defaultNumSubs+1, len(subList))
+	subList := e2utils.GetSubscriptionList(t)
+	assert.Equal(t, 1, len(subList))
 	e2utils.CheckSubscriptionIDInList(t, subscriptionID, subList)
 
 	// Check that querying the subscription is correct
@@ -125,8 +124,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Check number of subscriptions is correct after deleting the subscription
-	subList = e2utils.GetSubscriptionList(t)
-	assert.Equal(t, defaultNumSubs, len(subList))
+	e2utils.CheckForEmptySubscriptionList(t)
 
 	//  Open the subscription again and make sure it is open
 	channelID, ch := createAndVerifySubscription(ctx, t, nodeID, node)
@@ -134,7 +132,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 
 	// Check that the number of subscriptions is correct after reopening
 	subList = e2utils.GetSubscriptionList(t)
-	assert.Equal(t, defaultNumSubs+1, len(subList))
+	assert.Equal(t, 1, len(subList))
 	e2utils.CheckSubscriptionIDInList(t, subscriptionID, subList)
 
 	// Check that querying the subscription is correct

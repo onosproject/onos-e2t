@@ -18,6 +18,7 @@ import (
 
 // TestSubscriptionKpmV1 tests e2 subscription and subscription delete procedures
 func (s *TestSuite) TestSubscriptionKpmV1(t *testing.T) {
+	t.Skip()
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v1")
 
 	nodeID := utils.GetTestNodeID(t)
