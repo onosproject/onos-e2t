@@ -64,8 +64,16 @@ func CheckIndicationMessage(t *testing.T, timeout time.Duration, ch chan v1beta1
 }
 
 func CheckForEmptySubscriptionList(t *testing.T) {
+	iterations := 10
+	for i := 1; i <= iterations; i++ {
+		subList := GetSubscriptionList(t)
+		if len(subList) == 0 {
+			return
+		}
+		time.Sleep(2 * time.Second)
+	}
 	subList := GetSubscriptionList(t)
-	assert.Equal(t, 0, len(subList))
+	assert.Fail(t, "subscription list is not empty:", len(subList))
 }
 
 // getCtx returns a context to use in gRPC calls
