@@ -6,6 +6,13 @@
             <RICsubscriptionRequest>
                 <protocolIEs>
                     <RICsubscriptionRequest-IEs>
+                        <id>5</id>
+                        <criticality><reject/></criticality>
+                        <value>
+                            <RANfunctionID>3</RANfunctionID>
+                        </value>
+                    </RICsubscriptionRequest-IEs>
+                    <RICsubscriptionRequest-IEs>
                         <id>29</id>
                         <criticality><reject/></criticality>
                         <value>
@@ -16,33 +23,38 @@
                         </value>
                     </RICsubscriptionRequest-IEs>
                     <RICsubscriptionRequest-IEs>
-                        <id>5</id>
-                        <criticality><reject/></criticality>
-                        <value>
-                            <RANfunctionID>1</RANfunctionID>
-                        </value>
-                    </RICsubscriptionRequest-IEs>
-                    <RICsubscriptionRequest-IEs>
                         <id>30</id>
                         <criticality><reject/></criticality>
                         <value>
                             <RICsubscriptionDetails>
-                                <ricEventTriggerDefinition>
-                                    41 63 74 69 6F 6E 44 65 66 69 6F 6E 54 72 69 67
-                                    67 65 72 73
-                                </ricEventTriggerDefinition>
+                                <ricEventTriggerDefinition>55 66</ricEventTriggerDefinition>
                                 <ricAction-ToBeSetup-List>
                                     <ProtocolIE-SingleContainer>
                                         <id>19</id>
                                         <criticality><ignore/></criticality>
                                         <value>
                                             <RICaction-ToBeSetup-Item>
-                                                <ricActionID>1</ricActionID>
-                                                <ricActionType><report/></ricActionType>
-                                                <ricActionDefinition>61 62 63</ricActionDefinition>
+                                                <ricActionID>100</ricActionID>
+                                                <ricActionType><insert/></ricActionType>
+                                                <ricActionDefinition>11 22</ricActionDefinition>
                                                 <ricSubsequentAction>
                                                     <ricSubsequentActionType><continue/></ricSubsequentActionType>
-                                                    <ricTimeToWait><w50ms/></ricTimeToWait>
+                                                    <ricTimeToWait><w5ms/></ricTimeToWait>
+                                                </ricSubsequentAction>
+                                            </RICaction-ToBeSetup-Item>
+                                        </value>
+                                    </ProtocolIE-SingleContainer>
+                                    <ProtocolIE-SingleContainer>
+                                        <id>19</id>
+                                        <criticality><ignore/></criticality>
+                                        <value>
+                                            <RICaction-ToBeSetup-Item>
+                                                <ricActionID>200</ricActionID>
+                                                <ricActionType><insert/></ricActionType>
+                                                <ricActionDefinition>33 44</ricActionDefinition>
+                                                <ricSubsequentAction>
+                                                    <ricSubsequentActionType><continue/></ricSubsequentActionType>
+                                                    <ricTimeToWait><w10ms/></ricTimeToWait>
                                                 </ricSubsequentAction>
                                             </RICaction-ToBeSetup-Item>
                                         </value>

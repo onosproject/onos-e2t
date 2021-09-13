@@ -6,7 +6,8 @@ package pdudecoder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -15,9 +16,9 @@ func DecodeRicSubscriptionRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 	types.RanFunctionID, types.RicEventDefintion,
 	map[types.RicActionID]types.RicActionDef, error) {
 
-	if err := e2apPdu.Validate(); err != nil {
-		return types.RicRequest{}, 0, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return types.RicRequest{}, 0, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	//}
 
 	ricSubscription := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicSubscription()
 	if ricSubscription == nil {

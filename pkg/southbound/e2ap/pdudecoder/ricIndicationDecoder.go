@@ -6,8 +6,9 @@ package pdudecoder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -16,9 +17,9 @@ func DecodeRicIndicationPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 	*types.RicIndicationHeader, *types.RicIndicationMessage,
 	types.RicIndicationSn, e2apies.RicindicationType, *types.RicRequest, error) {
 
-	if err := e2apPdu.Validate(); err != nil {
-		return 0, 0, nil, nil, nil, 0, 0, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	}
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return 0, 0, nil, nil, nil, 0, 0, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	//}
 
 	ricIndication := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicIndication()
 	if ricIndication == nil {

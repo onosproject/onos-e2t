@@ -29,5 +29,5 @@ clean:
 regen: regenerate-from-asn1-source
 
 regenerate-from-asn1-source:
-	asn1c -fcompound-names -fincludes-quoted -fno-include-deps -findirect-choice -gen-PER -no-gen-OER -D. e2ap-v01.00.00.asn
+	asn1c -fcompound-names -fincludes-quoted -fno-include-deps -findirect-choice -gen-PER -no-gen-OER -D. ../../../../api/e2ap/v2beta1/e2ap_v2.0.1_Feb3_21.asn
 

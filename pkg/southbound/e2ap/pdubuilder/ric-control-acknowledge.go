@@ -4,22 +4,20 @@
 package pdubuilder
 
 import (
-	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-constants"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2apies"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
-	"github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appdudescriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
 func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricCallPrID types.RicCallProcessID, ricCtrlStatus e2apies.RiccontrolStatus,
-	ricCtrlOut types.RicControlOutcome) (*e2appdudescriptions.E2ApPdu, error) {
+	ricCtrlStatus e2apies.RiccontrolStatus) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29{
-		Id:          int32(v1beta1.ProtocolIeIDRicrequestID),
+		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -29,7 +27,7 @@ func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID typ
 	}
 
 	ranFunctionID := e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes5{
-		Id:          int32(v1beta1.ProtocolIeIDRanfunctionID),
+		Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -37,29 +35,11 @@ func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID typ
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	ricCallProcessID := e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes20{
-		Id:          int32(v1beta1.ProtocolIeIDRiccallProcessID),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2ap_commondatatypes.RiccallProcessId{
-			Value: []byte(ricCallPrID),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-	}
-
 	ricControlStatus := e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24{
-		Id:          int32(v1beta1.ProtocolIeIDRiccontrolStatus),
+		Id:          int32(v2beta1.ProtocolIeIDRiccontrolStatus),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       ricCtrlStatus,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
-	ricControlOutcome := e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes32{
-		Id:          int32(v1beta1.ProtocolIeIDRiccontrolOutcome),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2ap_commondatatypes.RiccontrolOutcome{
-			Value: []byte(ricCtrlOut),
-		},
-		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
@@ -69,15 +49,15 @@ func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID typ
 					RicControl: &e2appdudescriptions.RicControl{
 						SuccessfulOutcome: &e2appducontents.RiccontrolAcknowledge{
 							ProtocolIes: &e2appducontents.RiccontrolAcknowledgeIes{
-								E2ApProtocolIes29: &ricRequestID,      // RIC Requestor & RIC Instance ID
-								E2ApProtocolIes5:  &ranFunctionID,     // RAN function ID
-								E2ApProtocolIes20: &ricCallProcessID,  // RIC Call Process ID
-								E2ApProtocolIes24: &ricControlStatus,  // RIC Control Status
-								E2ApProtocolIes32: &ricControlOutcome, // RIC Control Outcome
+								E2ApProtocolIes29: &ricRequestID,  // RIC Requestor & RIC Instance ID
+								E2ApProtocolIes5:  &ranFunctionID, // RAN function ID
+								//E2ApProtocolIes20: &ricCallProcessID,  // RIC Call Process ID
+								E2ApProtocolIes24: &ricControlStatus, // RIC Control Status
+								//E2ApProtocolIes32: &ricControlOutcome, // RIC Control Outcome
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRiccontrol{
-							Value: int32(v1beta1.ProcedureCodeIDRICcontrol),
+							Value: int32(v2beta1.ProcedureCodeIDRICcontrol),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -87,8 +67,9 @@ func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID typ
 			},
 		},
 	}
-	if err := e2apPdu.Validate(); err != nil {
-		return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
-	}
+
+	//if err := e2apPdu.Validate(); err != nil {
+	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
+	//}
 	return &e2apPdu, nil
 }

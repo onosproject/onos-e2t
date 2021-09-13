@@ -12,15 +12,15 @@ package asn1cgo
 //#include "RICsubscriptionDeleteRequest.h"
 //#include "ProtocolIE-Field.h"
 import "C"
-import "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2appducontents"
+import e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
 
 func newRICsubscriptionDeleteRequest(rsr *e2appducontents.RicsubscriptionDeleteRequest) (*C.RICsubscriptionDeleteRequest_t, error) {
-	pIeC1544P3, err := newRicSubscriptionDeleteRequestIes(rsr.GetProtocolIes())
+	pIeC1751P3, err := newRicSubscriptionDeleteRequestIes(rsr.GetProtocolIes())
 	if err != nil {
 		return nil, err
 	}
 	rsrC := C.RICsubscriptionDeleteRequest_t{
-		protocolIEs: *pIeC1544P3,
+		protocolIEs: *pIeC1751P3,
 	}
 
 	return &rsrC, nil

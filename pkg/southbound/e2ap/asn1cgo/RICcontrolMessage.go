@@ -13,12 +13,13 @@ package asn1cgo
 import "C"
 import (
 	"encoding/binary"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
 	"unsafe"
+
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 )
 
 func newRicControlMessage(rcm *e2ap_commondatatypes.RiccontrolMessage) *C.RICcontrolMessage_t {
-	return newOctetString(string(rcm.GetValue()))
+	return newOctetString(rcm.GetValue())
 }
 
 func decodeRicControlMessageBytes(rcmBytes []byte) *e2ap_commondatatypes.RiccontrolMessage {
@@ -31,7 +32,7 @@ func decodeRicControlMessageBytes(rcmBytes []byte) *e2ap_commondatatypes.Riccont
 
 func decodeRicControlMessage(rcmC *C.RICcontrolMessage_t) *e2ap_commondatatypes.RiccontrolMessage {
 	result := e2ap_commondatatypes.RiccontrolMessage{
-		Value: []byte(decodeOctetString(rcmC)),
+		Value: decodeOctetString(rcmC),
 	}
 
 	return &result

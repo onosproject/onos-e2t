@@ -4,7 +4,7 @@
 
 package types
 
-type RicIdentifierBits uint64
+type RicIdentifierBits []byte
 type RicIdentifierLen uint32
 
 type RicIdentifier struct {

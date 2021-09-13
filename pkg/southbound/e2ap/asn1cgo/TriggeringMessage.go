@@ -13,7 +13,8 @@ package asn1cgo
 import "C"
 import (
 	"fmt"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta1/e2ap-commondatatypes"
+
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
 )
 
 func newTriggeringMessage(tm e2ap_commondatatypes.TriggeringMessage) (C.TriggeringMessage_t, error) {
@@ -23,8 +24,8 @@ func newTriggeringMessage(tm e2ap_commondatatypes.TriggeringMessage) (C.Triggeri
 		ret = C.TriggeringMessage_initiating_message
 	case e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_SUCCESSFUL_OUTCOME:
 		ret = C.TriggeringMessage_successful_outcome
-	case e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME:
-		ret = C.TriggeringMessage_unsuccessfull_outcome
+	case e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME:
+		ret = C.TriggeringMessage_UNSUCCESSFUL_outcome
 	default:
 		return 0, fmt.Errorf("unexpected TriggeringMessage %v", tm)
 	}
