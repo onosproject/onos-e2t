@@ -1,4 +1,4 @@
-FROM onosproject/golang-build:v0.6.10 as build
+FROM onosproject/golang-build:v1.0 as build
 
 
 ENV GO111MODULE=on
