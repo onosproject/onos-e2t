@@ -11,7 +11,9 @@ linters:
     - exportloopref
 run:
   skip-dirs:
-    - modelplugin
+    - modelplug
+    - api/e2ap/v1beta2
+    - pkg/southbound/e2ap/asn1cgo
 
 issues:
   exclude:
