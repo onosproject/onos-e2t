@@ -4,3 +4,4 @@ set -e
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 make images
 docker push onosproject/onos-e2t:e2ap101-latest
+docker tag onosproject/onos-e2t:e2ap101-latest onosproject/onos-e2t:latest
