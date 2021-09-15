@@ -3,7 +3,7 @@ export GO111MODULE=on
 
 .PHONY: build
 
-ONOS_E2T_VERSION := e2ap101-latest
+ONOS_E2T_VERSION := latest
 ONOS_PROTOC_VERSION := v0.6.9
 BUF_VERSION := 0.50.0
 
@@ -69,14 +69,14 @@ onos-e2t-docker: # @HELP build onos-e2t Docker image
 onos-e2t-docker:
 	@go mod vendor
 	docker build . -f build/onos-e2t/Dockerfile \
-		-t onosproject/onos-e2t:${ONOS_E2T_VERSION}
+		-t onosproject/onos-e2t:e2ap101-${ONOS_E2T_VERSION}
 	@rm -r vendor
 
 onos-e2t-sim-app-docker: # @HELP build onos-e2t-sim-app Docker image
 onos-e2t-sim-app-docker:
 	@go mod vendor
 	docker build . -f build/onos-e2t-sim-app/Dockerfile \
-		-t onosproject/onos-e2t-sim-app:${ONOS_E2T_VERSION}
+		-t onosproject/onos-e2t-sim-app:e2ap101-${ONOS_E2T_VERSION}
 	@rm -r vendor
 
 images: # @HELP build all Docker images
@@ -85,7 +85,7 @@ images: build onos-e2t-docker
 kind: # @HELP build Docker images and add them to the currently configured kind cluster
 kind: images
 	@if [ "`kind get clusters`" = '' ]; then echo "no kind cluster found" && exit 1; fi
-	kind load docker-image onosproject/onos-e2t:${ONOS_E2T_VERSION}
+	kind load docker-image onosproject/onos-e2t:e2ap101-${ONOS_E2T_VERSION}
 
 all: build images
 
