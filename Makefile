@@ -3,7 +3,7 @@ export GO111MODULE=on
 
 .PHONY: build
 
-ONOS_E2T_VERSION := latest
+ONOS_E2T_VERSION := e2ap101-latest
 ONOS_PROTOC_VERSION := v0.6.9
 BUF_VERSION := 0.50.0
 
