@@ -107,17 +107,17 @@ type isE2ApPdu_E2ApPdu interface {
 
 type E2ApPdu_InitiatingMessage struct {
 	// @inject_tag: aper:"choiceIdx:1"
-	InitiatingMessage *InitiatingMessage `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3,oneof"`
+	InitiatingMessage *InitiatingMessage `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3,oneof" aper:"choiceIdx:1"`
 }
 
 type E2ApPdu_SuccessfulOutcome struct {
 	// @inject_tag: aper:"choiceIdx:2"
-	SuccessfulOutcome *SuccessfulOutcome `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3,oneof"`
+	SuccessfulOutcome *SuccessfulOutcome `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3,oneof" aper:"choiceIdx:2"`
 }
 
 type E2ApPdu_UnsuccessfulOutcome struct {
 	// @inject_tag: aper:"choiceIdx:3"
-	UnsuccessfulOutcome *UnsuccessfulOutcome `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=unsuccessfulOutcome,proto3,oneof"`
+	UnsuccessfulOutcome *UnsuccessfulOutcome `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=unsuccessfulOutcome,proto3,oneof" aper:"choiceIdx:3"`
 }
 
 func (*E2ApPdu_InitiatingMessage) isE2ApPdu_E2ApPdu() {}
@@ -134,7 +134,7 @@ type InitiatingMessage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProcedureCode *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueExt"`
 }
 
 func (x *InitiatingMessage) Reset() {
@@ -184,7 +184,7 @@ type SuccessfulOutcome struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProcedureCode *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueExt"`
 }
 
 func (x *SuccessfulOutcome) Reset() {
@@ -234,7 +234,7 @@ type UnsuccessfulOutcome struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProcedureCode *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode *E2ApElementaryProcedures `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueExt"`
 }
 
 func (x *UnsuccessfulOutcome) Reset() {
@@ -601,11 +601,11 @@ type E2ConnectionUpdateEp struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.E2ConnectionUpdate `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.E2ConnectionUpdate `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	SuccessfulOutcome *e2ap_pdu_contents.E2ConnectionUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty"`
+	SuccessfulOutcome *e2ap_pdu_contents.E2ConnectionUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	UnsuccessfulOutcome *e2ap_pdu_contents.E2ConnectionUpdateFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty"`
+	UnsuccessfulOutcome *e2ap_pdu_contents.E2ConnectionUpdateFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode       *e2ap_constants.IdE2ConnectionUpdate         `protobuf:"bytes,4,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality         *e2ap_commondatatypes.CriticalityReject      `protobuf:"bytes,5,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -685,11 +685,11 @@ type E2NodeConfigurationUpdateEp struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.E2NodeConfigurationUpdate `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.E2NodeConfigurationUpdate `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	SuccessfulOutcome *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty"`
+	SuccessfulOutcome *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	UnsuccessfulOutcome *e2ap_pdu_contents.E2NodeConfigurationUpdateFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty"`
+	UnsuccessfulOutcome *e2ap_pdu_contents.E2NodeConfigurationUpdateFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode       *e2ap_constants.IdE2NodeConfigurationUpdate         `protobuf:"bytes,4,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality         *e2ap_commondatatypes.CriticalityReject             `protobuf:"bytes,5,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -769,11 +769,11 @@ type E2Setup struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.E2SetupRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.E2SetupRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	SuccessfulOutcome *e2ap_pdu_contents.E2SetupResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty"`
+	SuccessfulOutcome *e2ap_pdu_contents.E2SetupResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	UnsuccessfulOutcome *e2ap_pdu_contents.E2SetupFailure       `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty"`
+	UnsuccessfulOutcome *e2ap_pdu_contents.E2SetupFailure       `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode       *e2ap_constants.IdE2Setup               `protobuf:"bytes,4,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality         *e2ap_commondatatypes.CriticalityReject `protobuf:"bytes,5,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -853,7 +853,7 @@ type ErrorIndicationEp struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.ErrorIndication      `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.ErrorIndication      `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	ProcedureCode     *e2ap_constants.IdErrorIndication       `protobuf:"bytes,2,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality       *e2ap_commondatatypes.CriticalityIgnore `protobuf:"bytes,3,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -919,9 +919,9 @@ type Reset struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.ResetRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.ResetRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	SuccessfulOutcome *e2ap_pdu_contents.ResetResponse        `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty"`
+	SuccessfulOutcome *e2ap_pdu_contents.ResetResponse        `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode     *e2ap_constants.IdReset                 `protobuf:"bytes,3,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality       *e2ap_commondatatypes.CriticalityReject `protobuf:"bytes,4,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -994,11 +994,11 @@ type RicControl struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.RiccontrolRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.RiccontrolRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	SuccessfulOutcome *e2ap_pdu_contents.RiccontrolAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty"`
+	SuccessfulOutcome *e2ap_pdu_contents.RiccontrolAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	UnsuccessfulOutcome *e2ap_pdu_contents.RiccontrolFailure    `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty"`
+	UnsuccessfulOutcome *e2ap_pdu_contents.RiccontrolFailure    `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode       *e2ap_constants.IdRiccontrol            `protobuf:"bytes,4,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality         *e2ap_commondatatypes.CriticalityReject `protobuf:"bytes,5,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -1078,7 +1078,7 @@ type RicIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.Ricindication        `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.Ricindication        `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	ProcedureCode     *e2ap_constants.IdRicindication         `protobuf:"bytes,2,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality       *e2ap_commondatatypes.CriticalityIgnore `protobuf:"bytes,3,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -1144,7 +1144,7 @@ type RicServiceQuery struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.RicserviceQuery      `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.RicserviceQuery      `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	ProcedureCode     *e2ap_constants.IdRicserviceQuery       `protobuf:"bytes,2,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality       *e2ap_commondatatypes.CriticalityIgnore `protobuf:"bytes,3,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -1210,11 +1210,11 @@ type RicServiceUpdate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.RicserviceUpdate `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.RicserviceUpdate `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	SuccessfulOutcome *e2ap_pdu_contents.RicserviceUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty"`
+	SuccessfulOutcome *e2ap_pdu_contents.RicserviceUpdateAcknowledge `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	UnsuccessfulOutcome *e2ap_pdu_contents.RicserviceUpdateFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty"`
+	UnsuccessfulOutcome *e2ap_pdu_contents.RicserviceUpdateFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode       *e2ap_constants.IdRicserviceUpdate         `protobuf:"bytes,4,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality         *e2ap_commondatatypes.CriticalityReject    `protobuf:"bytes,5,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -1294,11 +1294,11 @@ type RicSubscription struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.RicsubscriptionRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.RicsubscriptionRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	SuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty"`
+	SuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	UnsuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty"`
+	UnsuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode       *e2ap_constants.IdRicsubscription         `protobuf:"bytes,4,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality         *e2ap_commondatatypes.CriticalityReject   `protobuf:"bytes,5,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -1378,11 +1378,11 @@ type RicSubscriptionDelete struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.RicsubscriptionDeleteRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.RicsubscriptionDeleteRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	SuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionDeleteResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty"`
+	SuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionDeleteResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	UnsuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionDeleteFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty"`
+	UnsuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionDeleteFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode       *e2ap_constants.IdRicsubscriptionDelete         `protobuf:"bytes,4,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality         *e2ap_commondatatypes.CriticalityReject         `protobuf:"bytes,5,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }
@@ -1462,7 +1462,7 @@ type RicSubscriptionDeleteRequired struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	InitiatingMessage *e2ap_pdu_contents.RicsubscriptionDeleteRequired `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty"`
+	InitiatingMessage *e2ap_pdu_contents.RicsubscriptionDeleteRequired `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
 	ProcedureCode     *e2ap_constants.IdRicsubscriptionDeleteRequired  `protobuf:"bytes,2,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality       *e2ap_commondatatypes.CriticalityIgnore          `protobuf:"bytes,3,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 }

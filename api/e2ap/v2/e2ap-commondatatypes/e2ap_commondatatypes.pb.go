@@ -467,7 +467,7 @@ type ProcedureCode struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:255"`
 }
 
 func (x *ProcedureCode) Reset() {
@@ -517,7 +517,7 @@ type ProtocolIeId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:65535"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:65535"`
 }
 
 func (x *ProtocolIeId) Reset() {
@@ -902,7 +902,7 @@ type RanfunctionOid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:1000,sizeExt"
-	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1000,sizeExt"`
 }
 
 func (x *RanfunctionOid) Reset() {
@@ -951,7 +951,7 @@ type PlmnIdentity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:3,sizeUB:3"
-	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:3,sizeUB:3"`
 }
 
 func (x *PlmnIdentity) Reset() {
@@ -1096,7 +1096,7 @@ type Amfname struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:150,sizeExt"
-	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:150,sizeExt"`
 }
 
 func (x *Amfname) Reset() {
@@ -1145,7 +1145,7 @@ type Mmename struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:150,sizeExt"
-	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:150,sizeExt"`
 }
 
 func (x *Mmename) Reset() {

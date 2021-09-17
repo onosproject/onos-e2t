@@ -33,7 +33,7 @@ type RicsubscriptionRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RicsubscriptionRequestIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicsubscriptionRequestIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicsubscriptionRequest) Reset() {
@@ -205,7 +205,7 @@ type RicactionsToBeSetupList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16"
-	Value []*RicactionToBeSetupItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RicactionToBeSetupItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16"`
 }
 
 func (x *RicactionsToBeSetupList) Reset() {
@@ -257,7 +257,7 @@ type RicactionToBeSetupItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *RicactionToBeSetupItem `protobuf:"bytes,3,opt,name=value,json=ricActionToBeSetupItem,proto3" json:"value,omitempty"`
+	Value    *RicactionToBeSetupItem `protobuf:"bytes,3,opt,name=value,json=ricActionToBeSetupItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                   `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -330,11 +330,11 @@ type RicactionToBeSetupItem struct {
 
 	RicActionId *e2ap_ies.RicactionId `protobuf:"bytes,1,opt,name=ric_action_id,json=ricActionID,proto3" json:"ric_action_id,omitempty"`
 	// @inject_tag: aper:"valueLB:0,valueLB:2,valueExt"
-	RicActionType e2ap_ies.RicactionType `protobuf:"varint,2,opt,name=ric_action_type,json=ricActionType,proto3,enum=e2ap.v2.RicactionType" json:"ric_action_type,omitempty"`
+	RicActionType e2ap_ies.RicactionType `protobuf:"varint,2,opt,name=ric_action_type,json=ricActionType,proto3,enum=e2ap.v2.RicactionType" json:"ric_action_type,omitempty" aper:"valueLB:0,valueLB:2,valueExt"`
 	// @inject_tag: aper:"optional"
-	RicActionDefinition *e2ap_commondatatypes.RicactionDefinition `protobuf:"bytes,3,opt,name=ric_action_definition,json=ricActionDefinition,proto3,oneof" json:"ric_action_definition,omitempty"`
+	RicActionDefinition *e2ap_commondatatypes.RicactionDefinition `protobuf:"bytes,3,opt,name=ric_action_definition,json=ricActionDefinition,proto3,oneof" json:"ric_action_definition,omitempty" aper:"optional"`
 	// @inject_tag: aper:"optional,valueExt"
-	RicSubsequentAction *e2ap_ies.RicsubsequentAction `protobuf:"bytes,4,opt,name=ric_subsequent_action,json=ricSubsequentAction,proto3,oneof" json:"ric_subsequent_action,omitempty"`
+	RicSubsequentAction *e2ap_ies.RicsubsequentAction `protobuf:"bytes,4,opt,name=ric_subsequent_action,json=ricSubsequentAction,proto3,oneof" json:"ric_subsequent_action,omitempty" aper:"optional,valueExt"`
 }
 
 func (x *RicactionToBeSetupItem) Reset() {
@@ -405,7 +405,7 @@ type RicsubscriptionResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RicsubscriptionResponseIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicsubscriptionResponseIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicsubscriptionResponse) Reset() {
@@ -528,7 +528,7 @@ type RicactionAdmittedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16"
-	Value []*RicactionAdmittedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RicactionAdmittedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16"`
 }
 
 func (x *RicactionAdmittedList) Reset() {
@@ -580,7 +580,7 @@ type RicactionAdmittedItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *RicactionAdmittedItem `protobuf:"bytes,3,opt,name=value,json=ricActionAdmittedItem,proto3" json:"value,omitempty"`
+	Value    *RicactionAdmittedItem `protobuf:"bytes,3,opt,name=value,json=ricActionAdmittedItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -701,7 +701,7 @@ type RicactionNotAdmittedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:0,sizeUB:16"
-	Value []*RicactionNotAdmittedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RicactionNotAdmittedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:0,sizeUB:16"`
 }
 
 func (x *RicactionNotAdmittedList) Reset() {
@@ -792,7 +792,7 @@ type RicactionNotAdmittedItem struct {
 
 	RicActionId *e2ap_ies.RicactionId `protobuf:"bytes,1,opt,name=ric_action_id,json=ricActionID,proto3" json:"ric_action_id,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty"`
+	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"valueExt"`
 }
 
 func (x *RicactionNotAdmittedItem) Reset() {
@@ -849,7 +849,7 @@ type RicsubscriptionFailure struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RicsubscriptionFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicsubscriptionFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicsubscriptionFailure) Reset() {
@@ -972,7 +972,7 @@ type RicsubscriptionDeleteRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RicsubscriptionDeleteRequestIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicsubscriptionDeleteRequestIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicsubscriptionDeleteRequest) Reset() {
@@ -1079,7 +1079,7 @@ type RicsubscriptionDeleteResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RicsubscriptionDeleteResponseIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicsubscriptionDeleteResponseIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicsubscriptionDeleteResponse) Reset() {
@@ -1186,7 +1186,7 @@ type RicsubscriptionDeleteFailure struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RicsubscriptionDeleteFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicsubscriptionDeleteFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicsubscriptionDeleteFailure) Reset() {
@@ -1309,7 +1309,7 @@ type RicsubscriptionDeleteRequired struct {
 	unknownFields protoimpl.UnknownFields
 
 	//@inject_tag: aper:"valueExt"
-	ProtocolIes *RicsubscriptionDeleteRequiredIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicsubscriptionDeleteRequiredIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicsubscriptionDeleteRequired) Reset() {
@@ -1432,7 +1432,7 @@ type RicsubscriptionListWithCause struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:4294967295"
-	Value []*RicsubscriptionWithCauseItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RicsubscriptionWithCauseItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:4294967295"`
 }
 
 func (x *RicsubscriptionListWithCause) Reset() {
@@ -1484,7 +1484,7 @@ type RicsubscriptionWithCauseItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *RicsubscriptionListWithCause `protobuf:"bytes,3,opt,name=value,json=ricSubscriptionListWithCause,proto3" json:"value,omitempty"`
+	Value    *RicsubscriptionListWithCause `protobuf:"bytes,3,opt,name=value,json=ricSubscriptionListWithCause,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                         `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -1556,10 +1556,10 @@ type RicsubscriptionWithCauseItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	RicRequestId  *e2ap_ies.RicrequestId  `protobuf:"bytes,1,opt,name=ric_request_id,json=ricRequestID,proto3" json:"ric_request_id,omitempty"`
+	RicRequestId  *e2ap_ies.RicrequestId  `protobuf:"bytes,1,opt,name=ric_request_id,json=ricRequestID,proto3" json:"ric_request_id,omitempty" aper:"valueExt"`
 	RanFunctionId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=ran_function_id,json=ranFunctionID,proto3" json:"ran_function_id,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Cause *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,proto3" json:"cause,omitempty"`
+	Cause *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,proto3" json:"cause,omitempty" aper:"valueExt"`
 }
 
 func (x *RicsubscriptionWithCauseItem) Reset() {
@@ -1623,7 +1623,7 @@ type Ricindication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RicindicationIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicindicationIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *Ricindication) Reset() {
@@ -1778,7 +1778,7 @@ type RiccontrolRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RiccontrolRequestIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RiccontrolRequestIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RiccontrolRequest) Reset() {
@@ -1917,7 +1917,7 @@ type RiccontrolAcknowledge struct {
 	unknownFields protoimpl.UnknownFields
 
 	//@inject_tag: aper:"valueExt"
-	ProtocolIes *RiccontrolAcknowledgeIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RiccontrolAcknowledgeIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RiccontrolAcknowledge) Reset() {
@@ -2040,7 +2040,7 @@ type RiccontrolFailure struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *RiccontrolFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RiccontrolFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RiccontrolFailure) Reset() {
@@ -2171,7 +2171,7 @@ type ErrorIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *ErrorIndicationIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *ErrorIndicationIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *ErrorIndication) Reset() {
@@ -2302,7 +2302,7 @@ type E2SetupRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *E2SetupRequestIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *E2SetupRequestIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *E2SetupRequest) Reset() {
@@ -2425,7 +2425,7 @@ type E2SetupResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *E2SetupResponseIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *E2SetupResponseIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *E2SetupResponse) Reset() {
@@ -2556,7 +2556,7 @@ type E2SetupFailure struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *E2SetupFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *E2SetupFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *E2SetupFailure) Reset() {
@@ -2687,7 +2687,7 @@ type E2ConnectionUpdate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *E2ConnectionUpdateIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *E2ConnectionUpdateIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *E2ConnectionUpdate) Reset() {
@@ -2810,7 +2810,7 @@ type E2ConnectionUpdateList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32"
-	Value []*E2ConnectionUpdateItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2ConnectionUpdateItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32"`
 }
 
 func (x *E2ConnectionUpdateList) Reset() {
@@ -2862,7 +2862,7 @@ type E2ConnectionUpdateItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *E2ConnectionUpdateItem `protobuf:"bytes,3,opt,name=value,json=E2connectionUpdateItem,proto3" json:"value,omitempty"`
+	Value    *E2ConnectionUpdateItem `protobuf:"bytes,3,opt,name=value,json=E2connectionUpdateItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                   `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -2934,9 +2934,9 @@ type E2ConnectionUpdateItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty"`
+	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,valueExt"
-	TnlUsage e2ap_ies.Tnlusage `protobuf:"varint,2,opt,name=tnl_usage,json=tnlUsage,proto3,enum=e2ap.v2.Tnlusage" json:"tnl_usage,omitempty"`
+	TnlUsage e2ap_ies.Tnlusage `protobuf:"varint,2,opt,name=tnl_usage,json=tnlUsage,proto3,enum=e2ap.v2.Tnlusage" json:"tnl_usage,omitempty" aper:"valueLB:0,valueUB:2,valueExt"`
 }
 
 func (x *E2ConnectionUpdateItem) Reset() {
@@ -2993,7 +2993,7 @@ type E2ConnectionUpdateRemoveList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32"
-	Value []*E2ConnectionUpdateRemoveItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2ConnectionUpdateRemoveItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32"`
 }
 
 func (x *E2ConnectionUpdateRemoveList) Reset() {
@@ -3045,7 +3045,7 @@ type E2ConnectionUpdateRemoveItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *E2ConnectionUpdateRemoveItem `protobuf:"bytes,3,opt,name=value,json=E2connectionUpdateRemoveItem,proto3" json:"value,omitempty"`
+	Value    *E2ConnectionUpdateRemoveItem `protobuf:"bytes,3,opt,name=value,json=E2connectionUpdateRemoveItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                         `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -3117,7 +3117,7 @@ type E2ConnectionUpdateRemoveItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty"`
+	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty" aper:"valueExt"`
 }
 
 func (x *E2ConnectionUpdateRemoveItem) Reset() {
@@ -3167,7 +3167,7 @@ type E2ConnectionUpdateAcknowledge struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *E2ConnectionUpdateAckIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *E2ConnectionUpdateAckIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *E2ConnectionUpdateAcknowledge) Reset() {
@@ -3282,7 +3282,7 @@ type E2ConnectionSetupFailedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32"
-	Value []*E2ConnectionSetupFailedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2ConnectionSetupFailedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32"`
 }
 
 func (x *E2ConnectionSetupFailedList) Reset() {
@@ -3406,9 +3406,9 @@ type E2ConnectionSetupFailedItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty"`
+	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty"`
+	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"valueExt"`
 }
 
 func (x *E2ConnectionSetupFailedItem) Reset() {
@@ -3465,7 +3465,7 @@ type E2ConnectionUpdateFailure struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *E2ConnectionUpdateFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *E2ConnectionUpdateFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *E2ConnectionUpdateFailure) Reset() {
@@ -3588,7 +3588,7 @@ type E2NodeConfigurationUpdate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	ProtocolIes *E2NodeConfigurationUpdateIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *E2NodeConfigurationUpdateIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *E2NodeConfigurationUpdate) Reset() {
@@ -3727,7 +3727,7 @@ type E2NodeComponentConfigAdditionList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigAdditionItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2NodeComponentConfigAdditionItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigAdditionList) Reset() {
@@ -3779,7 +3779,7 @@ type E2NodeComponentConfigAdditionItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	//@inject_tag: aper:"valueExt"
-	Value    *E2NodeComponentConfigUpdateItem `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigUpdateItem,proto3" json:"value,omitempty"`
+	Value    *E2NodeComponentConfigUpdateItem `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigUpdateItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -3851,11 +3851,11 @@ type E2NodeComponentConfigAdditionItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
-	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty"`
+	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty"`
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentConfiguration *e2ap_ies.E2NodeComponentConfiguration `protobuf:"bytes,3,opt,name=e2node_component_configuration,json=e2nodeComponentConfiguration,proto3" json:"e2node_component_configuration,omitempty"`
+	E2NodeComponentConfiguration *e2ap_ies.E2NodeComponentConfiguration `protobuf:"bytes,3,opt,name=e2node_component_configuration,json=e2nodeComponentConfiguration,proto3" json:"e2node_component_configuration,omitempty" aper:"valueExt"`
 }
 
 func (x *E2NodeComponentConfigAdditionItem) Reset() {
@@ -3919,7 +3919,7 @@ type E2NodeComponentConfigUpdateList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigUpdateItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2NodeComponentConfigUpdateItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigUpdateList) Reset() {
@@ -3971,7 +3971,7 @@ type E2NodeComponentConfigUpdateItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	//@inject_tag: aper:"valueExt"
-	Value    *E2NodeComponentConfigUpdateItem `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigUpdateItem,proto3" json:"value,omitempty"`
+	Value    *E2NodeComponentConfigUpdateItem `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigUpdateItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -4043,11 +4043,11 @@ type E2NodeComponentConfigUpdateItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
-	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty"`
+	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty"`
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentConfiguration *e2ap_ies.E2NodeComponentConfiguration `protobuf:"bytes,3,opt,name=e2node_component_configuration,json=e2nodeComponentConfiguration,proto3" json:"e2node_component_configuration,omitempty"`
+	E2NodeComponentConfiguration *e2ap_ies.E2NodeComponentConfiguration `protobuf:"bytes,3,opt,name=e2node_component_configuration,json=e2nodeComponentConfiguration,proto3" json:"e2node_component_configuration,omitempty" aper:"valueExt"`
 }
 
 func (x *E2NodeComponentConfigUpdateItem) Reset() {
@@ -4111,7 +4111,7 @@ type E2NodeComponentConfigRemovalList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigRemovalItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2NodeComponentConfigRemovalItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigRemovalList) Reset() {
@@ -4163,7 +4163,7 @@ type E2NodeComponentConfigRemovalItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	//@inject_tag: aper:"valueExt"
-	Value    *E2NodeComponentConfigRemovalItem `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigRemovalItem,proto3" json:"value,omitempty"`
+	Value    *E2NodeComponentConfigRemovalItem `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigRemovalItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                             `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -4235,9 +4235,9 @@ type E2NodeComponentConfigRemovalItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
-	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty"`
+	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty"`
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
 }
 
 func (x *E2NodeComponentConfigRemovalItem) Reset() {
@@ -4294,7 +4294,7 @@ type E2NodeTnlassociationRemovalList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32"
-	Value []*E2NodeTnlassociationRemovalItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2NodeTnlassociationRemovalItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32"`
 }
 
 func (x *E2NodeTnlassociationRemovalList) Reset() {
@@ -4346,7 +4346,7 @@ type E2NodeTnlassociationRemovalItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	//@inject_tag: aper:"valueExt"
-	Value    *E2NodeTnlassociationRemovalItem `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigRemovalItem,proto3" json:"value,omitempty"`
+	Value    *E2NodeTnlassociationRemovalItem `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigRemovalItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -4418,9 +4418,9 @@ type E2NodeTnlassociationRemovalItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt"
-	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty"`
+	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	TnlInformationRic *e2ap_ies.Tnlinformation `protobuf:"bytes,2,opt,name=tnl_information_ric,json=tnlInformationRIC,proto3" json:"tnl_information_ric,omitempty"`
+	TnlInformationRic *e2ap_ies.Tnlinformation `protobuf:"bytes,2,opt,name=tnl_information_ric,json=tnlInformationRIC,proto3" json:"tnl_information_ric,omitempty" aper:"valueExt"`
 }
 
 func (x *E2NodeTnlassociationRemovalItem) Reset() {
@@ -4600,7 +4600,7 @@ type E2NodeComponentConfigAdditionAckList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigAdditionAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2NodeComponentConfigAdditionAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigAdditionAckList) Reset() {
@@ -4652,7 +4652,7 @@ type E2NodeComponentConfigAdditionAckItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *E2NodeComponentConfigAdditionAckItem `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *E2NodeComponentConfigAdditionAckItem `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                                 `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -4724,11 +4724,11 @@ type E2NodeComponentConfigAdditionAckItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
-	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty"`
+	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty"`
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty"`
+	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty" aper:"valueExt"`
 }
 
 func (x *E2NodeComponentConfigAdditionAckItem) Reset() {
@@ -4792,7 +4792,7 @@ type E2NodeComponentConfigUpdateAckList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigUpdateAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2NodeComponentConfigUpdateAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigUpdateAckList) Reset() {
@@ -4844,7 +4844,7 @@ type E2NodeComponentConfigUpdateAckItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *E2NodeComponentConfigUpdateAckItem `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *E2NodeComponentConfigUpdateAckItem `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                               `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -4916,11 +4916,11 @@ type E2NodeComponentConfigUpdateAckItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
-	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty"`
+	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty"`
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty"`
+	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty" aper:"valueExt"`
 }
 
 func (x *E2NodeComponentConfigUpdateAckItem) Reset() {
@@ -4984,7 +4984,7 @@ type E2NodeComponentConfigRemovalAckList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigRemovalAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*E2NodeComponentConfigRemovalAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigRemovalAckList) Reset() {
@@ -5036,7 +5036,7 @@ type E2NodeComponentConfigRemovalAckItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *E2NodeComponentConfigRemovalAckItem `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *E2NodeComponentConfigRemovalAckItem `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                                `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -5108,11 +5108,11 @@ type E2NodeComponentConfigRemovalAckItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
-	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty"`
+	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty"`
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
 	// @inject_tag: aper:"valueExt"
-	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty"`
+	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty" aper:"valueExt"`
 }
 
 func (x *E2NodeComponentConfigRemovalAckItem) Reset() {
@@ -5636,7 +5636,7 @@ type RanfunctionsList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256"
-	Value []*RanfunctionItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RanfunctionItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256"`
 }
 
 func (x *RanfunctionsList) Reset() {
@@ -5738,7 +5738,7 @@ type RanfunctionItem struct {
 	RanFunctionDefinition *e2ap_commondatatypes.RanfunctionDefinition `protobuf:"bytes,2,opt,name=ran_function_definition,json=ranFunctionDefinition,proto3" json:"ran_function_definition,omitempty"`
 	RanFunctionRevision   *e2ap_ies.RanfunctionRevision               `protobuf:"bytes,3,opt,name=ran_function_revision,json=ranFunctionRevision,proto3" json:"ran_function_revision,omitempty"`
 	// @inject_tag: aper:"sizeExt,sizeLB:1,sizeUB:1000"
-	RanFunctionOid *e2ap_commondatatypes.RanfunctionOid `protobuf:"bytes,4,opt,name=ran_function_oid,json=ranFunctionOID,proto3" json:"ran_function_oid,omitempty"`
+	RanFunctionOid *e2ap_commondatatypes.RanfunctionOid `protobuf:"bytes,4,opt,name=ran_function_oid,json=ranFunctionOID,proto3" json:"ran_function_oid,omitempty" aper:"sizeExt,sizeLB:1,sizeUB:1000"`
 }
 
 func (x *RanfunctionItem) Reset() {
@@ -5809,7 +5809,7 @@ type RanfunctionsIdList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256"
-	Value []*RanfunctionIdItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RanfunctionIdItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256"`
 }
 
 func (x *RanfunctionsIdList) Reset() {
@@ -5965,7 +5965,7 @@ type RicserviceUpdateAcknowledge struct {
 	unknownFields protoimpl.UnknownFields
 
 	//@inject_tag: aper:"valueExt"
-	ProtocolIes *RicserviceUpdateAcknowledgeIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicserviceUpdateAcknowledgeIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicserviceUpdateAcknowledge) Reset() {
@@ -6080,7 +6080,7 @@ type RanfunctionsIdcauseList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256"
-	Value []*RanfunctionIdcauseItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RanfunctionIdcauseItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256"`
 }
 
 func (x *RanfunctionsIdcauseList) Reset() {
@@ -6180,7 +6180,7 @@ type RanfunctionIdcauseItem struct {
 
 	RanFunctionId *e2ap_ies.RanfunctionId `protobuf:"bytes,1,opt,name=ran_function_id,json=ranFunctionID,proto3" json:"ran_function_id,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty"`
+	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"valueExt"`
 }
 
 func (x *RanfunctionIdcauseItem) Reset() {
@@ -6237,7 +6237,7 @@ type RicserviceUpdateFailure struct {
 	unknownFields protoimpl.UnknownFields
 
 	//@inject_tag: aper:"valueExt"
-	ProtocolIes *RicserviceUpdateFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicserviceUpdateFailureIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicserviceUpdateFailure) Reset() {
@@ -6360,7 +6360,7 @@ type RicserviceQuery struct {
 	unknownFields protoimpl.UnknownFields
 
 	//@inject_tag: aper:"valueExt"
-	ProtocolIes *RicserviceQueryIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes *RicserviceQueryIes `protobuf:"bytes,1,opt,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"valueExt"`
 }
 
 func (x *RicserviceQuery) Reset() {
@@ -6468,7 +6468,7 @@ type RicsubscriptionRequestIes_RicsubscriptionRequestIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -6613,7 +6613,7 @@ type RicsubscriptionRequestIes_RicsubscriptionRequestIes30 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *RicsubscriptionDetails `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *RicsubscriptionDetails `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                   `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -6686,7 +6686,7 @@ type RicsubscriptionResponseIes_RicsubscriptionResponseIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -6974,7 +6974,7 @@ type RicactionNotAdmittedItemIes_RicactionNotAdmittedItemIes struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *RicactionNotAdmittedItem `protobuf:"bytes,3,opt,name=value,json=ricActionNotAdmittedItem,proto3" json:"value,omitempty"`
+	Value    *RicactionNotAdmittedItem `protobuf:"bytes,3,opt,name=value,json=ricActionNotAdmittedItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                     `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7047,7 +7047,7 @@ type RicsubscriptionFailureIes_RicsubscriptionFailureIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7192,7 +7192,7 @@ type RicsubscriptionFailureIes_RicsubscriptionFailureIes1 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7265,7 +7265,7 @@ type RicsubscriptionFailureIes_RicsubscriptionFailureIes2 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7338,7 +7338,7 @@ type RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7483,7 +7483,7 @@ type RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29 struct 
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7628,7 +7628,7 @@ type RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7773,7 +7773,7 @@ type RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes1 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7846,7 +7846,7 @@ type RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes2 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -7919,7 +7919,7 @@ type RicindicationIes_RicindicationIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -8208,7 +8208,7 @@ type RicindicationIes_RicindicationIes28 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1"
-	Value    e2ap_ies.RicindicationType `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.RicindicationType" json:"value,omitempty"`
+	Value    e2ap_ies.RicindicationType `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.RicindicationType" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:1"`
 	Presence int32                      `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -8497,7 +8497,7 @@ type RiccontrolRequestIes_RiccontrolRequestIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -8858,7 +8858,7 @@ type RiccontrolRequestIes_RiccontrolRequestIes21 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1"
-	Value    e2ap_ies.RiccontrolAckRequest `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.RiccontrolAckRequest" json:"value,omitempty"` // ToDo - should it have optional label since presence is optional??
+	Value    e2ap_ies.RiccontrolAckRequest `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.RiccontrolAckRequest" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:1"` // ToDo - should it have optional label since presence is optional??
 	Presence int32                         `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -8931,7 +8931,7 @@ type RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -9220,7 +9220,7 @@ type RiccontrolFailureIes_RiccontrolFailureIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -9437,7 +9437,7 @@ type RiccontrolFailureIes_RiccontrolFailureIes1 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -9654,7 +9654,7 @@ type ErrorIndicationIes_ErrorIndicationIes29 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.RicrequestId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                  `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -9799,7 +9799,7 @@ type ErrorIndicationIes_ErrorIndicationIes1 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -9872,7 +9872,7 @@ type ErrorIndicationIes_ErrorIndicationIes2 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -10017,7 +10017,7 @@ type E2SetupRequestIes_E2SetupRequestIes3 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                    `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -10306,7 +10306,7 @@ type E2SetupResponseIes_E2SetupResponseIes4 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.GlobalRicId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.GlobalRicId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                 `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -10667,7 +10667,7 @@ type E2SetupFailureIes_E2SetupFailureIes1 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -10740,7 +10740,7 @@ type E2SetupFailureIes_E2SetupFailureIes31 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-	Value    e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.TimeToWait" json:"value,omitempty"`
+	Value    e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.TimeToWait" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:5"`
 	Presence int32               `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -10813,7 +10813,7 @@ type E2SetupFailureIes_E2SetupFailureIes2 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -10886,7 +10886,7 @@ type E2SetupFailureIes_E2SetupFailureIes48 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Tnlinformation `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Tnlinformation `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                    `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -11535,7 +11535,7 @@ type E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes1 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -11608,7 +11608,7 @@ type E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes31 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-	Value    e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.TimeToWait" json:"value,omitempty"`
+	Value    e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.TimeToWait" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:5"`
 	Presence int32               `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -11681,7 +11681,7 @@ type E2ConnectionUpdateFailureIes_E2ConnectionUpdateFailureIes2 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -11826,7 +11826,7 @@ type E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes3 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                    `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -12551,7 +12551,7 @@ type E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1 st
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -12624,7 +12624,7 @@ type E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes31 s
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-	Value    e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.TimeToWait" json:"value,omitempty"`
+	Value    e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.TimeToWait" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:5"`
 	Presence int32               `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -12697,7 +12697,7 @@ type E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes2 st
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -12842,7 +12842,7 @@ type ResetRequestIes_ResetRequestIes1 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -12987,7 +12987,7 @@ type ResetResponseIes_ResetResponseIes2 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -13348,7 +13348,7 @@ type RanfunctionItemIes_RanfunctionItemIes8 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	//@inject_tag: aper:"valueExt"
-	Value    *RanfunctionItem `protobuf:"bytes,3,opt,name=value,json=ranFunctionItem,proto3" json:"value,omitempty"`
+	Value    *RanfunctionItem `protobuf:"bytes,3,opt,name=value,json=ranFunctionItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32            `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -13710,7 +13710,7 @@ type RanfunctionIdcauseItemIes_RanfunctionIdcauseItemIes7 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty"`
 	//@inject_tag: aper:"valueExt"
-	Value    *RanfunctionIdcauseItem `protobuf:"bytes,3,opt,name=value,json=ranFunctionIDcauseItem,proto3" json:"value,omitempty"`
+	Value    *RanfunctionIdcauseItem `protobuf:"bytes,3,opt,name=value,json=ranFunctionIDcauseItem,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                   `protobuf:"varint,4,opt,name=presence,proto3" json:"presence,omitempty"`
 }
 
@@ -13855,7 +13855,7 @@ type RicserviceUpdateFailureIes_RicserviceUpdateFailureIes1 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32           `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -13928,7 +13928,7 @@ type RicserviceUpdateFailureIes_RicserviceUpdateFailureIes31 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-	Value    e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.TimeToWait" json:"value,omitempty"`
+	Value    e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,json=&Value,proto3,enum=e2ap.v2.TimeToWait" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:5"`
 	Presence int32               `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
@@ -14001,7 +14001,7 @@ type RicserviceUpdateFailureIes_RicserviceUpdateFailureIes2 struct {
 	Id          int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
 	// @inject_tag: aper:"valueExt"
-	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value    *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"valueExt"`
 	Presence int32                            `protobuf:"varint,4,opt,name=presence,json=&presence,proto3" json:"presence,omitempty"`
 }
 
