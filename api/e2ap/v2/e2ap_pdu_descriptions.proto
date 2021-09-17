@@ -1,0 +1,242 @@
+/*
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+*/
+
+////////////////////// e2ap-pdu-descriptions.proto //////////////////////
+// Protobuf generated from /e2ap_v2.asn by asn1c-0.9.29
+// E2AP-PDU-Descriptions { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version2(2) e2ap(1) e2ap-PDU-Descriptions(0) }
+
+syntax = "proto3";
+
+package e2ap.v2;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions";
+
+import "e2ap/v2/e2ap_commondatatypes.proto";
+import "e2ap/v2/e2ap_pdu_contents.proto";
+import "e2ap/v2/e2ap_constants.proto";
+import "validate/v1/validate.proto";
+
+// sequence from e2ap_v2.asn:100
+// {E2AP-PDU}
+// aper:"valueExt"
+message E2ApPdu {
+    // choice from e2ap_v2.asn:100
+    oneof e2_ap_pdu {
+        // @inject_tag: aper:"choiceIdx:1"
+        InitiatingMessage initiating_message = 1 [ json_name="initiatingMessage"];
+        // @inject_tag: aper:"choiceIdx:2"
+        SuccessfulOutcome successful_outcome = 2 [ json_name="successfulOutcome"];
+        // @inject_tag: aper:"choiceIdx:3"
+        UnsuccessfulOutcome unsuccessful_outcome = 3 [ json_name="unsuccessfulOutcome"];
+    }
+};
+
+// sequence from e2ap_v2.asn:107
+// {InitiatingMessage}
+message InitiatingMessage {
+    // @inject_tag: aper:"valueExt"
+    E2ApElementaryProcedures procedure_code = 1 [ json_name="procedureCode"];
+//    @procedureCode criticality = 2 [ json_name="criticality"];
+//    @procedureCode value = 3 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.asn:113
+// {SuccessfulOutcome}
+message SuccessfulOutcome {
+    // @inject_tag: aper:"valueExt"
+    E2ApElementaryProcedures procedure_code = 1 [ json_name="procedureCode"];
+//    @procedureCode criticality = 2 [ json_name="criticality"];
+//    @procedureCode value = 3 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.asn:119
+// {UnsuccessfulOutcome}
+message UnsuccessfulOutcome {
+    // @inject_tag: aper:"valueExt"
+    E2ApElementaryProcedures procedure_code = 1 [ json_name="procedureCode"];
+//    @procedureCode criticality = 2 [ json_name="criticality"];
+//    @procedureCode value = 3 [ json_name="value"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:130
+// {_E2AP-ELEMENTARY-PROCEDURES}
+message E2ApElementaryProcedures {
+    RicSubscription ric_subscription = 1 [ json_name="ric_subscription"];
+    RicSubscriptionDelete ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
+    RicServiceUpdate ric_service_update = 3 [ json_name="ric_service_update"];
+    RicControl ric_control = 4 [ json_name="ric_control"];
+    E2setup e2setup = 5 [ json_name="e2setup"];
+    E2nodeConfigurationUpdateEp e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
+    E2connectionUpdateEp e2connection_update = 7 [ json_name="e2connection_update"];
+    Reset reset = 8 [ json_name="reset"];
+    RicIndication ric_indication = 9 [ json_name="ric_indication"];
+    RicServiceQuery ric_service_query = 10 [ json_name="ric_service_query"];
+    ErrorIndicationEp error_indication = 11 [ json_name="error_indication"];
+    RicSubscriptionDeleteRequired ric_subscription_delete_required = 12 [ json_name="ric_subscription_delete_required"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:136
+// {_E2AP-ELEMENTARY-PROCEDURES-CLASS-1}
+// aper:"valueExt"
+message E2ApElementaryProceduresClass1 {
+    RicSubscription ric_subscription = 1 [ json_name="ric_subscription"];
+    RicSubscriptionDelete ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
+    RicServiceUpdate ric_service_update = 3 [ json_name="ric_service_update"];
+    RicControl ric_control = 4 [ json_name="ric_control"];
+    E2setup e2setup = 5 [ json_name="e2setup"];
+    E2nodeConfigurationUpdateEp e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
+    E2connectionUpdateEp e2connection_update = 7 [ json_name="e2connection_update"];
+    Reset reset = 8 [ json_name="reset"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:148
+// {_E2AP-ELEMENTARY-PROCEDURES-CLASS-2}
+// aper:"valueExt"
+message E2ApElementaryProceduresClass2 {
+    RicIndication ric_indication = 1 [ json_name="ric_indication"];
+    RicServiceQuery ric_service_query = 2 [ json_name="ric_service_query"];
+    ErrorIndicationEp error_indication = 3 [ json_name="error_indication"];
+    RicSubscriptionDeleteRequired ric_subscription_delete_required = 4 [ json_name="ric_subscription_delete_required"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:163
+// {_e2connectionUpdate}
+message E2connectionUpdateEp {
+    // @inject_tag: aper:"valueExt"
+    E2connectionUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
+    // @inject_tag: aper:"valueExt"
+    E2connectionUpdateAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    // @inject_tag: aper:"valueExt"
+    E2connectionUpdateFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdE2connectionUpdate procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:171
+// {_e2nodeConfigurationUpdate}
+message E2nodeConfigurationUpdateEp {
+    // @inject_tag: aper:"valueExt"
+    E2nodeConfigurationUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
+    // @inject_tag: aper:"valueExt"
+    E2nodeConfigurationUpdateAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    // @inject_tag: aper:"valueExt"
+    E2nodeConfigurationUpdateFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdE2nodeConfigurationUpdate procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:179
+// {_e2setup}
+message E2setup {
+    // @inject_tag: aper:"valueExt"
+    E2setupRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    // @inject_tag: aper:"valueExt"
+    E2setupResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    // @inject_tag: aper:"valueExt"
+    E2setupFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdE2setup procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:187
+// {_errorIndication}
+message ErrorIndicationEp {
+    // @inject_tag: aper:"valueExt"
+    ErrorIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
+    IdErrorIndication procedure_code = 2 [ json_name="&procedureCode"];
+    CriticalityIgnore criticality = 3 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:193
+// {_reset}
+message Reset {
+    // @inject_tag: aper:"valueExt"
+    ResetRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    // @inject_tag: aper:"valueExt"
+    ResetResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    IdReset procedure_code = 3 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 4 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:200
+// {_ricControl}
+message RicControl {
+    // @inject_tag: aper:"valueExt"
+    RiccontrolRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    // @inject_tag: aper:"valueExt"
+    RiccontrolAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    // @inject_tag: aper:"valueExt"
+    RiccontrolFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdRiccontrol procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:208
+// {_ricIndication}
+message RicIndication {
+    // @inject_tag: aper:"valueExt"
+    Ricindication initiating_message = 1 [ json_name="&InitiatingMessage"];
+    IdRicindication procedure_code = 2 [ json_name="&procedureCode"];
+    CriticalityIgnore criticality = 3 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:214
+// {_ricServiceQuery}
+message RicServiceQuery {
+    // @inject_tag: aper:"valueExt"
+    RicserviceQuery initiating_message = 1 [ json_name="&InitiatingMessage"];
+    IdRicserviceQuery procedure_code = 2 [ json_name="&procedureCode"];
+    CriticalityIgnore criticality = 3 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:220
+// {_ricServiceUpdate}
+message RicServiceUpdate {
+    // @inject_tag: aper:"valueExt"
+    RicserviceUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
+    // @inject_tag: aper:"valueExt"
+    RicserviceUpdateAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    // @inject_tag: aper:"valueExt"
+    RicserviceUpdateFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdRicserviceUpdate procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:228
+// {_ricSubscription}
+message RicSubscription {
+    // @inject_tag: aper:"valueExt"
+    RicsubscriptionRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    // @inject_tag: aper:"valueExt"
+    RicsubscriptionResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    // @inject_tag: aper:"valueExt"
+    RicsubscriptionFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdRicsubscription procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:236
+// {_ricSubscriptionDelete}
+message RicSubscriptionDelete {
+    // @inject_tag: aper:"valueExt"
+    RicsubscriptionDeleteRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
+    // @inject_tag: aper:"valueExt"
+    RicsubscriptionDeleteResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
+    // @inject_tag: aper:"valueExt"
+    RicsubscriptionDeleteFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
+    IdRicsubscriptionDelete procedure_code = 4 [ json_name="&procedureCode"];
+    CriticalityReject criticality = 5 [ json_name="&criticality"];
+};
+
+// concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:244
+// {_ricSubscriptionDeleteRequired}
+message RicSubscriptionDeleteRequired {
+    // @inject_tag: aper:"valueExt"
+    RicsubscriptionDeleteRequired initiating_message = 1 [ json_name="&InitiatingMessage"];
+    IdRicsubscriptionDeleteRequired procedure_code = 2 [ json_name="&procedureCode"];
+    CriticalityIgnore criticality = 3 [ json_name="&criticality"];
+};
+
+
