@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -19,19 +19,28 @@ const (
 	DefaultIndicationTimeout = 10 * time.Second
 )
 
-// GetSubscriptionList get  list of subscriptions
-func GetSubscriptionList(t *testing.T) []v1beta1.Subscription {
+// GetSubscriptionList get list of subscriptions
+func GetSubscriptionList(t *testing.T) []e2api.Subscription {
 	subClient := utils.GetSubAdminClient(t)
-	req := v1beta1.ListSubscriptionsRequest{}
+	req := e2api.ListSubscriptionsRequest{}
 	subList, err := subClient.ListSubscriptions(context.Background(), &req)
 	assert.NoError(t, err)
 	return subList.GetSubscriptions()
 }
 
-// CheckSubscriptionGet make sure that the given subscription ID can be fetched via the subscription API
-func CheckSubscriptionGet(t *testing.T, expectedID v1beta1.SubscriptionID) {
+// GetChannelList get list of channels
+func GetChannelList(t *testing.T) []e2api.Channel {
 	subClient := utils.GetSubAdminClient(t)
-	req := v1beta1.GetSubscriptionRequest{
+	req := e2api.ListChannelsRequest{}
+	chanList, err := subClient.ListChannels(context.Background(), &req)
+	assert.NoError(t, err)
+	return chanList.Channels
+}
+
+// CheckSubscriptionGet make sure that the given subscription ID can be fetched via the subscription API
+func CheckSubscriptionGet(t *testing.T, expectedID e2api.SubscriptionID) {
+	subClient := utils.GetSubAdminClient(t)
+	req := e2api.GetSubscriptionRequest{
 		SubscriptionID: expectedID,
 	}
 	fetched, err := subClient.GetSubscription(context.Background(), &req)
@@ -41,7 +50,7 @@ func CheckSubscriptionGet(t *testing.T, expectedID v1beta1.SubscriptionID) {
 }
 
 // CheckSubscriptionIDInList makes sure that the give subscription ID appears once and only once in the subscription list
-func CheckSubscriptionIDInList(t *testing.T, expectedID v1beta1.SubscriptionID, subList []v1beta1.Subscription) {
+func CheckSubscriptionIDInList(t *testing.T, expectedID e2api.SubscriptionID, subList []e2api.Subscription) {
 	found := 0
 	for _, sub := range subList {
 		if sub.ID == expectedID {
@@ -52,7 +61,7 @@ func CheckSubscriptionIDInList(t *testing.T, expectedID v1beta1.SubscriptionID, 
 }
 
 // CheckIndicationMessage makes sure that a valid indication message can be read from the channel
-func CheckIndicationMessage(t *testing.T, timeout time.Duration, ch chan v1beta1.Indication) v1beta1.Indication {
+func CheckIndicationMessage(t *testing.T, timeout time.Duration, ch chan e2api.Indication) e2api.Indication {
 	select {
 	case indicationMsg := <-ch:
 		t.Log(indicationMsg)
@@ -60,7 +69,7 @@ func CheckIndicationMessage(t *testing.T, timeout time.Duration, ch chan v1beta1
 	case <-time.After(timeout):
 		assert.Equal(t, false, "failed to receive indication message")
 	}
-	return v1beta1.Indication{}
+	return e2api.Indication{}
 }
 
 func CheckForEmptySubscriptionList(t *testing.T) {
@@ -76,7 +85,7 @@ func CheckForEmptySubscriptionList(t *testing.T) {
 	assert.Fail(t, "subscription list is not empty:", len(subList))
 }
 
-// getCtx returns a context to use in gRPC calls
+// GetCtx returns a context to use in gRPC calls
 func GetCtx() (context.Context, context.CancelFunc) {
 	return context.WithTimeout(context.Background(), 2*time.Minute)
 }
