@@ -6,6 +6,8 @@ package utils
 
 import (
 	"context"
+	"fmt"
+	"os"
 	"testing"
 	"time"
 
@@ -177,6 +179,12 @@ func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
 	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	assert.NoError(t, err)
 
+	return CreateKpmV2SubWithCell(t, nodeID, cells[0].CellObjectID)
+}
+
+// CreateKpmV2SubWithCell :
+func CreateKpmV2SubWithCell(t *testing.T, nodeID topoapi.ID, cellObjectID string) e2api.SubscriptionSpec {
+	fmt.Fprintf(os.Stderr, "cell object ID is %v\n", cellObjectID)
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
 
@@ -185,7 +193,6 @@ func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
 	actionDefinitionBytes, err := CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 
