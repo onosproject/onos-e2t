@@ -85,7 +85,9 @@ func CreateRanSimulatorWithName(t *testing.T, c *input.Context, name string) *he
 		SetPassword(password).
 		Set("image.tag", "latest").
 		Set("fullnameOverride", "").
-		Set("global.image.registry", registry)
+		Set("global.image.registry", registry).
+		Set("ran-simulator.logging.loggers.root.level", "debug").
+		Set("logging.loggers.root.level", "debug")
 	err = simulator.Install(true)
 	assert.NoError(t, err, "could not install device simulator %v", err)
 
