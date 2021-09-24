@@ -100,15 +100,8 @@ func (s *TestSuite) TestSubscriptionWrongMaster(t *testing.T) {
 		Subscription:  spec,
 	}
 
-	c, err := client.Subscribe(ctx, req)
-	assert.NoError(t, err)
-	assert.NotNil(t, c)
-
-	response, err := c.Recv()
-	assert.NoError(t, err)
-	assert.NotNil(t, response)
-
-	fmt.Fprintf(os.Stderr, "Recv of:\n%v\n", response)
+	_, err = client.Subscribe(ctx, req)
+	assert.Error(t, err)
 
 	//assert.NoError(t, sim.Uninstall())
 	//e2utils.CheckForEmptySubscriptionList(t)
