@@ -87,17 +87,17 @@ func (s *TestSuite) TestSubscriptionWrongMaster(t *testing.T) {
 	spec := utils.CreateKpmV2Sub(t, e2NodeID)
 
 	req := &e2api.SubscribeRequest{
-		Headers:            e2api.RequestHeaders{
+		Headers: e2api.RequestHeaders{
 			AppID:         "app",
 			AppInstanceID: "",
 			E2NodeID:      e2api.E2NodeID(e2NodeID),
-			ServiceModel:  e2api.ServiceModel{
+			ServiceModel: e2api.ServiceModel{
 				Name:    utils.KpmServiceModelName,
 				Version: utils.Version2,
 			},
 		},
-		TransactionID:      "sub1",
-		Subscription:       spec,
+		TransactionID: "sub1",
+		Subscription:  spec,
 	}
 
 	c, err := client.Subscribe(ctx, req)
