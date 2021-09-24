@@ -16,8 +16,8 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestSubscriptionWrongMaster tests e2 subscription to a non-master node
-func (s *TestSuite) TestSubscriptionWrongMaster(t *testing.T) {
+// TestUnsubscribeWrongMaster tests e2 subscription to a non-master node
+func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
 	assert.NotNil(t, sim)
 
@@ -30,8 +30,10 @@ func (s *TestSuite) TestSubscriptionWrongMaster(t *testing.T) {
 
 	fmt.Fprintf(os.Stderr, "master ip is %s:%d\n", master.IP, master.Port)
 	fmt.Fprintf(os.Stderr, "non master ip is %s:%d\n", nonMasters[0].IP, nonMasters[0].Port)
-	client := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
-	assert.NotNil(t, client)
+	nonMasterClient := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
+	assert.NotNil(t, nonMasterClient)
+	masterClient := utils.GetSubClientForIP(t, master.IP, master.Port)
+	assert.NotNil(t, masterClient)
 
 	spec := utils.CreateKpmV2Sub(t, e2NodeID)
 
@@ -49,8 +51,19 @@ func (s *TestSuite) TestSubscriptionWrongMaster(t *testing.T) {
 		Subscription:  spec,
 	}
 
-	_, err := client.Subscribe(ctx, req)
-	assert.Error(t, err)
+	c, err := masterClient.Subscribe(ctx, req)
+	assert.NoError(t, err)
+
+	msg, err := c.Recv()
+	assert.NotNil(t, msg)
+
+	unsubscribeRequest := &e2api.UnsubscribeRequest{
+		Headers:       e2api.RequestHeaders{},
+		TransactionID: "sub1",
+	}
+	unsubscribeResponse, err := nonMasterClient.Unsubscribe(ctx, unsubscribeRequest)
+	assert.NoError(t, err)
+	assert.NotNil(t, unsubscribeResponse)
 
 	//assert.NoError(t, sim.Uninstall())
 	//e2utils.CheckForEmptySubscriptionList(t)

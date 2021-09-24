@@ -31,7 +31,7 @@ func GetSubClient(t *testing.T) subapi.SubscriptionServiceClient {
 	return subapi.NewSubscriptionServiceClient(conn)
 }
 
-// GetSubClient returns an SDK subscription client
+// GetSubClientForIP returns an SDK subscription client
 func GetSubClientForIP(t *testing.T, IP string, port uint32) subapi.SubscriptionServiceClient {
 	conn, err := ConnectE2t(IP, port)
 	assert.NoError(t, err)
