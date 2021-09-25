@@ -15,7 +15,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func newRicControlStatus(rcs e2apies.RiccontrolStatus) (*C.RICcontrolStatus_t, error) {

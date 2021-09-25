@@ -388,7 +388,7 @@ message RicsubscriptionWithCauseItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 61, json_name="id"];
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     // @inject_tag: aper:"valueExt"
-    RicsubscriptionListWithCause value = 3 [json_name="ricSubscriptionListWithCause"];
+    RicsubscriptionWithCauseItem value = 3 [json_name="ricSubscriptionListWithCause"];
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -1186,7 +1186,7 @@ message E2nodeComponentConfigAdditionItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 51, json_name="id"];
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     //@inject_tag: aper:"valueExt"
-    E2nodeComponentConfigUpdateItem value = 3 [json_name="E2nodeComponentConfigUpdateItem"];
+    E2nodeComponentConfigAdditionItem value = 3 [json_name="E2nodeComponentConfigUpdateItem"];
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 

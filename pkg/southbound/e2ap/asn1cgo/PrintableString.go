@@ -14,7 +14,6 @@ import "C"
 
 //import "unsafe"
 
-// TODO: Change the argument to a []byte
 func newPrintableString(msg string) *C.PrintableString_t {
 	// PrintableString is defined via OctetString --> see PrintableString.h
 	prntStrC := newOctetString([]byte(msg))

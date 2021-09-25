@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodeCriticalityDiagnostics(cd *e2apies.CriticalityDiagnostics) ([]byte, error) {

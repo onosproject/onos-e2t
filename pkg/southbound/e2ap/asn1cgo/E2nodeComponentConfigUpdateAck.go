@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodeE2nodeComponentConfigUpdateAck(e2nodeComponentConfigUpdateAck *e2ap_ies.E2NodeComponentConfigUpdateAck) ([]byte, error) {

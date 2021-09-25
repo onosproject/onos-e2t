@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodeCauseTransport(causeTransport *e2ap_ies.CauseTransport) ([]byte, error) {
@@ -24,7 +24,7 @@ func xerEncodeCauseTransport(causeTransport *e2ap_ies.CauseTransport) ([]byte, e
 		return nil, err
 	}
 
-	bytes, err := encodeXer(&C.asn_DEF_CauseTransport, unsafe.Pointer(causeTransportCP)) //ToDo - change name of C-encoder tag
+	bytes, err := encodeXer(&C.asn_DEF_CauseTransport, unsafe.Pointer(causeTransportCP))
 	if err != nil {
 		return nil, fmt.Errorf("xerEncodeCauseTransport() %s", err.Error())
 	}
@@ -52,7 +52,7 @@ func xerDecodeCauseTransport(bytes []byte) (*e2ap_ies.CauseTransport, error) {
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
-	return decodeCauseTransport((*C.CauseTransport_t)(unsafePtr)) //ToDo - change name of C-struct
+	return decodeCauseTransport((*C.CauseTransport_t)(unsafePtr))
 }
 
 func perDecodeCauseTransport(bytes []byte) (*e2ap_ies.CauseTransport, error) {
@@ -82,7 +82,6 @@ func newCauseTransport(causeTransport *e2ap_ies.CauseTransport) (*C.CauseTranspo
 
 func decodeCauseTransport(causeTransportC *C.CauseTransport_t) (*e2ap_ies.CauseTransport, error) {
 
-	//ToDo: int32 shouldn't be valid all the time -- investigate in data type conversion (casting) more
 	causeTransport := e2ap_ies.CauseTransport(int32(*causeTransportC))
 
 	return &causeTransport, nil

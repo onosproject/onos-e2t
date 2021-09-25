@@ -15,7 +15,7 @@ import (
 	"encoding/binary"
 	"unsafe"
 
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 )
 
 func newRicControlMessage(rcm *e2ap_commondatatypes.RiccontrolMessage) *C.RICcontrolMessage_t {

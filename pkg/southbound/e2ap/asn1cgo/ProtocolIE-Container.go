@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func newE2SetupRequestIes(esv *e2appducontents.E2SetupRequestIes) (*C.ProtocolIE_Container_1751P11_t, error) {
@@ -339,6 +339,45 @@ func decodeRicSubscriptionRequestIes(protocolIEsC *C.ProtocolIE_Container_1751P0
 		}
 		if ie.E2ApProtocolIes30 != nil {
 			pIEs.E2ApProtocolIes30 = ie.E2ApProtocolIes30
+		}
+	}
+
+	return pIEs, nil
+}
+
+func newRicSubscriptionDeleteRequiredIes(rsrIEs *e2appducontents.RicsubscriptionDeleteRequiredIes) (*C.ProtocolIE_Container_1908P6_t, error) {
+	pIeC1908P6 := new(C.ProtocolIE_Container_1908P6_t)
+
+	if rsrIEs.GetValue() != nil {
+		ie, err := newRicSubscriptionDeleteRequiredIesRicSubscriptionListWithCause(rsrIEs.Value)
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P6), unsafe.Pointer(ie)); err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, fmt.Errorf("newRicSubscriptionDeleteRequiredIes(): RicSubscriptionListWithCause should be mandatory present in the message")
+	}
+
+	return pIeC1908P6, nil
+}
+
+func decodeRicSubscriptionDeleteRequiredIes(protocolIEsC *C.ProtocolIE_Container_1908P6_t) (*e2appducontents.RicsubscriptionDeleteRequiredIes, error) {
+	pIEs := new(e2appducontents.RicsubscriptionDeleteRequiredIes)
+
+	ieCount := int(protocolIEsC.list.count)
+	//	fmt.Printf("1544P0 Type %T Count %v Size %v\n", *protocolIEsC.list.array, protocolIEsC.list.count, protocolIEsC.list.size)
+	for i := 0; i < ieCount; i++ {
+		offset := unsafe.Sizeof(unsafe.Pointer(*protocolIEsC.list.array)) * uintptr(i)
+		rsrIeC := *(**C.RICsubscriptionDeleteRequired_IEs_t)(unsafe.Pointer(uintptr(unsafe.Pointer(protocolIEsC.list.array)) + offset))
+
+		ie, err := decodeRicSubscriptionDeleteRequiredIE(rsrIeC)
+		if err != nil {
+			return nil, err
+		}
+		if ie != nil {
+			pIEs = ie
 		}
 	}
 

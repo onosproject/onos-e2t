@@ -14,7 +14,7 @@ import "C"
 import (
 	"encoding/binary"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func newRicActionAdmittedItem(raai *e2appducontents.RicactionAdmittedItem) *C.RICaction_Admitted_Item_t {

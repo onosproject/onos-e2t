@@ -16,7 +16,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func newCause(cause *e2apies.Cause) (*C.Cause_t, error) {
@@ -40,6 +40,9 @@ func newCause(cause *e2apies.Cause) (*C.Cause_t, error) {
 	case *e2apies.Cause_Transport:
 		pr = C.Cause_PR_transport
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(cause.GetTransport()))
+	case *e2apies.Cause_E2Node:
+		pr = C.Cause_PR_e2Node
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(cause.GetE2Node()))
 	default:
 		return nil, fmt.Errorf("unexpected cause type %v", causeType)
 	}
@@ -74,7 +77,7 @@ func decodeCause(causeC *C.Cause_t) (*e2apies.Cause, error) {
 		}
 	case C.Cause_PR_ricRequest:
 		cause.Cause = &e2apies.Cause_RicRequest{
-			RicRequest: e2apies.CauseRic(binary.LittleEndian.Uint64(causeC.choice[:])),
+			RicRequest: e2apies.CauseRicrequest(binary.LittleEndian.Uint64(causeC.choice[:])),
 		}
 	case C.Cause_PR_ricService:
 		cause.Cause = &e2apies.Cause_RicService{
@@ -83,6 +86,10 @@ func decodeCause(causeC *C.Cause_t) (*e2apies.Cause, error) {
 	case C.Cause_PR_transport:
 		cause.Cause = &e2apies.Cause_Transport{
 			Transport: e2apies.CauseTransport(binary.LittleEndian.Uint64(causeC.choice[:])),
+		}
+	case C.Cause_PR_e2Node:
+		cause.Cause = &e2apies.Cause_E2Node{
+			E2Node: e2apies.CauseE2Node(binary.LittleEndian.Uint64(causeC.choice[:])),
 		}
 	default:
 		return nil, fmt.Errorf("unexpected cause type %v", causeC.present)

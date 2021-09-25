@@ -17,10 +17,10 @@ import (
 	"fmt"
 	"unsafe"
 
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
 )
 
 func newSuccessfulOutcome(so *e2appdudescriptions.SuccessfulOutcome) (*C.SuccessfulOutcome_t, error) {
@@ -192,7 +192,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 	switch successC.value.present {
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionResponse:
 		rsrespC := C.RICsubscriptionResponse_t{
-			protocolIEs: C.ProtocolIE_Container_1751P1_t{
+			protocolIEs: C.ProtocolIE_Container_1908P1_t{
 				list: C.struct___133{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionResponse_IEs_t)(listArrayAddr),
 					count: count,
@@ -216,7 +216,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 		}
 	case C.SuccessfulOutcome__value_PR_E2setupResponse:
 		e2SrC := C.E2setupResponse_t{
-			protocolIEs: C.ProtocolIE_Container_1751P12_t{
+			protocolIEs: C.ProtocolIE_Container_1908P12_t{
 				list: C.struct___132{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupResponseIEs_t)(listArrayAddr),
 					count: count,
@@ -239,7 +239,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 		}
 	case C.SuccessfulOutcome__value_PR_RICsubscriptionDeleteResponse:
 		rsdrC := C.RICsubscriptionDeleteResponse_t{
-			protocolIEs: C.ProtocolIE_Container_1751P4_t{
+			protocolIEs: C.ProtocolIE_Container_1908P4_t{
 				list: C.struct___136{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteResponse_IEs_t)(listArrayAddr),
 					count: count,
@@ -263,7 +263,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 		}
 	case C.SuccessfulOutcome__value_PR_RICcontrolAcknowledge:
 		rcaC := C.RICcontrolAcknowledge_t{
-			protocolIEs: C.ProtocolIE_Container_1751P8_t{
+			protocolIEs: C.ProtocolIE_Container_1908P8_t{
 				list: C.struct___137{ // TODO: tie this down with a predictable name
 					array: (**C.RICcontrolAcknowledge_IEs_t)(listArrayAddr),
 					count: count,
@@ -287,7 +287,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 		}
 	case C.SuccessfulOutcome__value_PR_ResetResponse:
 		rrC := C.ResetResponse_t{
-			protocolIEs: C.ProtocolIE_Container_1751P21_t{
+			protocolIEs: C.ProtocolIE_Container_1908P21_t{
 				list: C.struct___134{ // TODO: tie this down with a predictable name
 					array: (**C.ResetResponseIEs_t)(listArrayAddr),
 					count: count,
@@ -312,7 +312,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 
 	case C.SuccessfulOutcome__value_PR_RICserviceUpdateAcknowledge:
 		rsuaC := C.RICserviceUpdateAcknowledge_t{
-			protocolIEs: C.ProtocolIE_Container_1751P23_t{
+			protocolIEs: C.ProtocolIE_Container_1908P23_t{
 				list: C.struct___135{ // TODO: tie this down with a predictable name
 					array: (**C.RICserviceUpdateAcknowledge_IEs_t)(listArrayAddr),
 					count: count,
@@ -337,7 +337,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 
 	case C.SuccessfulOutcome__value_PR_E2nodeConfigurationUpdateAcknowledge:
 		e2ncuaC := C.E2nodeConfigurationUpdateAcknowledge_t{
-			protocolIEs: C.ProtocolIE_Container_1751P18_t{
+			protocolIEs: C.ProtocolIE_Container_1908P18_t{
 				list: C.struct___131{ // TODO: tie this down with a predictable name
 					array: (**C.E2nodeConfigurationUpdateAcknowledge_IEs_t)(listArrayAddr),
 					count: count,
@@ -362,7 +362,7 @@ func decodeSuccessfulOutcome(successC *C.SuccessfulOutcome_t) (*e2appdudescripti
 
 	case C.SuccessfulOutcome__value_PR_E2connectionUpdateAcknowledge:
 		e2cuaC := C.E2connectionUpdateAcknowledge_t{
-			protocolIEs: C.ProtocolIE_Container_1751P15_t{
+			protocolIEs: C.ProtocolIE_Container_1908P15_t{
 				list: C.struct___130{ // TODO: tie this down with a predictable name
 					array: (**C.E2connectionUpdateAck_IEs_t)(listArrayAddr),
 					count: count,
