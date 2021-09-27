@@ -22,7 +22,7 @@ func TestE2NodeConfigurationUpdateAck(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetSuccessfulOutcome().
-		SetE2nodeComponentConfigUpdate([]*types.E2NodeComponentConfigUpdateAckItem{
+		SetE2nodeComponentConfigUpdateAck([]*types.E2NodeComponentConfigUpdateAckItem{
 			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
 				E2NodeComponentID: &e2ncID1,
 				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
