@@ -6,10 +6,8 @@ package utils
 
 import (
 	"context"
-	"fmt"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/stretchr/testify/assert"
-	"os"
 	"testing"
 )
 
@@ -23,8 +21,6 @@ func findMasterRelation(t *testing.T, e2Node topoapi.Object, nodeID topoapi.ID) 
 	var result *topoapi.Relation
 	for _, relationObject := range relations {
 		relation := relationObject.GetRelation()
-		fmt.Fprintf(os.Stderr, "src entity %s node id %s\n", relation.SrcEntityID, e2Node.ID)
-		fmt.Fprintf(os.Stderr, "tgt entity %s node id %s\n", relation.TgtEntityID, nodeID)
 		if relation.SrcEntityID == e2Node.ID &&
 			relation.TgtEntityID == nodeID {
 			result = relation
@@ -54,11 +50,9 @@ func GetE2Masters(t *testing.T, e2NodeID topoapi.ID) (IPAndPort, []IPAndPort) {
 		err := node.GetAspect(e2tInfo)
 		assert.NoError(t, err)
 		for _, iface := range e2tInfo.Interfaces {
-			fmt.Fprintf(os.Stderr, "!!!!!!!    found e2ap200 interface E2T node %v \n", iface)
 			if iface.Type == topoapi.Interface_INTERFACE_E2T {
 				e2tIP = iface.IP
 				e2tPort = iface.Port
-				fmt.Fprintf(os.Stderr, "!!!!!!!    found interface E2T node %v:%v \n", e2tIP, e2tPort)
 				break
 			}
 		}
@@ -66,10 +60,8 @@ func GetE2Masters(t *testing.T, e2NodeID topoapi.ID) (IPAndPort, []IPAndPort) {
 		if rel != nil {
 			master.IP = e2tIP
 			master.Port = e2tPort
-			fmt.Fprintf(os.Stderr, "------    E2T node %v:%v is master\n", e2tIP, e2tPort)
 		} else {
 			nonMasters = append(nonMasters, IPAndPort{IP: e2tIP, Port: e2tPort})
-			fmt.Fprintf(os.Stderr, "++++++    E2T node %v:%v is not master\n", e2tIP, e2tPort)
 		}
 	}
 	return master, nonMasters

@@ -6,9 +6,7 @@ package e2
 
 import (
 	"context"
-	"fmt"
 	"github.com/onosproject/onos-e2t/test/e2utils"
-	"os"
 	"testing"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -29,8 +27,6 @@ func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 
 	master, nonMasters := utils.GetE2Masters(t, e2NodeID)
 
-	fmt.Fprintf(os.Stderr, "master ip is %s:%d\n", master.IP, master.Port)
-	fmt.Fprintf(os.Stderr, "non master ip is %s:%d\n", nonMasters[0].IP, nonMasters[0].Port)
 	nonMasterClient := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
 	assert.NotNil(t, nonMasterClient)
 	masterClient := utils.GetSubClientForIP(t, master.IP, master.Port)
