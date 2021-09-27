@@ -8,8 +8,7 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
-	"github.com/onosproject/onos-lib-go/pkg/env"
-	"github.com/onosproject/onos-lib-go/pkg/uri"
+	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 	"io"
 	"time"
 
@@ -193,12 +192,6 @@ func (s *SubscriptionServer) WatchSubscriptions(request *e2api.WatchSubscription
 	return nil
 }
 
-func getE2TID() topoapi.ID {
-	return topoapi.ID(uri.NewURI(
-		uri.WithScheme("e2"),
-		uri.WithOpaque(env.GetPodID())).String())
-}
-
 func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e2api.SubscriptionService_SubscribeServer) error {
 	log.Debugf("Received SubscribeRequest %+v", request)
 	encoding := request.Headers.Encoding
@@ -224,7 +217,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		return errors.Status(errors.NewUnavailable("Master relation not found for E2Node '%s'", request.Headers.E2NodeID)).Err()
 	}
 
-	if e2NodeRelation.GetRelation().SrcEntityID != getE2TID() {
+	if e2NodeRelation.GetRelation().SrcEntityID != utils.GetE2TID() {
 		log.Warnf("Not the master for E2Node '%s'", request.Headers.E2NodeID)
 		return errors.Status(errors.NewUnavailable("Not the master for E2Node '%s'", request.Headers.E2NodeID)).Err()
 	}
