@@ -17,8 +17,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const E2TReplicaCount int64 = 2
-
 func getCredentials() (string, string, error) {
 	kubClient, err := kubernetes.New()
 	if err != nil {
@@ -52,7 +50,6 @@ func CreateSdranRelease(c *input.Context) (*helm.HelmRelease, error) {
 		Set("onos-topo.image.tag", "latest").
 		Set("onos-e2t.image.tag", "latest").
 		Set("ran-simulator.image.tag", "latest").
-		Set("onos-e2t.replicaCount", E2TReplicaCount).
 		Set("onos-uenib.image.tag", "latest").
 		Set("global.image.registry", registry)
 
@@ -85,9 +82,7 @@ func CreateRanSimulatorWithName(t *testing.T, c *input.Context, name string) *he
 		SetPassword(password).
 		Set("image.tag", "latest").
 		Set("fullnameOverride", "").
-		Set("global.image.registry", registry).
-		Set("ran-simulator.logging.loggers.root.level", "debug").
-		Set("logging.loggers.root.level", "debug")
+		Set("global.image.registry", registry)
 	err = simulator.Install(true)
 	assert.NoError(t, err, "could not install device simulator %v", err)
 
