@@ -167,14 +167,18 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 	}
 
 	if ack != nil {
-		outcomeProtoBytes := ack.ProtocolIes.E2ApProtocolIes32.Value.Value
-		if request.Headers.Encoding == e2api.Encoding_PROTO {
-			outcomeProtoBytes, err = serviceModelPlugin.ControlOutcomeASN1toProto(outcomeProtoBytes)
-			if err != nil {
-				log.Warnf("Error transforming Control Outcome ASN1 to Proto bytes: %s", err.Error())
-				return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
+		outcomeProtoBytes := make([]byte, 0)
+		if ack.ProtocolIes.E2ApProtocolIes32 != nil {
+			outcomeProtoBytes = ack.ProtocolIes.E2ApProtocolIes32.Value.Value
+			if request.Headers.Encoding == e2api.Encoding_PROTO {
+				outcomeProtoBytes, err = serviceModelPlugin.ControlOutcomeASN1toProto(outcomeProtoBytes)
+				if err != nil {
+					log.Warnf("Error transforming Control Outcome ASN1 to Proto bytes: %s", err.Error())
+					return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
+				}
 			}
 		}
+
 		response = &e2api.ControlResponse{
 			Headers: e2api.ResponseHeaders{
 				Encoding: e2api.Encoding_PROTO,
