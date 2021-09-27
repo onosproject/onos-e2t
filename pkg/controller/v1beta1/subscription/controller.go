@@ -7,11 +7,10 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
-	"github.com/onosproject/onos-lib-go/pkg/env"
-	"github.com/onosproject/onos-lib-go/pkg/uri"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
@@ -143,7 +142,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		return controller.Result{}, nil
 	}
 
-	if e2NodeRelation.GetRelation().SrcEntityID != getE2TID() {
+	if e2NodeRelation.GetRelation().SrcEntityID != utils.GetE2TID() {
 		log.Warnf("Not the master for E2Node '%s'", sub.E2NodeID)
 		return controller.Result{}, nil
 	}
@@ -352,7 +351,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, nil
 	}
 
-	if e2NodeRelation.GetRelation().SrcEntityID != getE2TID() {
+	if e2NodeRelation.GetRelation().SrcEntityID != utils.GetE2TID() {
 		return controller.Result{}, nil
 	}
 
@@ -694,10 +693,4 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 		}
 	}
 	return nil
-}
-
-func getE2TID() topoapi.ID {
-	return topoapi.ID(uri.NewURI(
-		uri.WithScheme("e2"),
-		uri.WithOpaque(env.GetPodID())).String())
 }
