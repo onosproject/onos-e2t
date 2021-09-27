@@ -193,13 +193,12 @@ func (s *SubscriptionServer) WatchSubscriptions(request *e2api.WatchSubscription
 }
 
 func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e2api.SubscriptionService_SubscribeServer) error {
-	log.Warnf("Received SubscribeRequest %+v", request)
+	log.Debugf("Received SubscribeRequest %+v", request)
 	encoding := request.Headers.Encoding
 
 	mastership := &topoapi.MastershipState{}
 	e2nodeEntity, err := s.rnib.Get(server.Context(), topoapi.ID(request.Headers.E2NodeID))
 	if err != nil {
-		log.Warnf("unavailable due to error on e2 node fetch")
 		return errors.Status(errors.NewUnavailable("not found e2 node entity %s:%v", request.Headers.E2NodeID, err)).Err()
 	}
 	err = e2nodeEntity.GetAspect(mastership)
@@ -222,7 +221,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		log.Warnf("Not the master for E2Node '%s'", request.Headers.E2NodeID)
 		return errors.Status(errors.NewUnavailable("Not the master for E2Node '%s'", request.Headers.E2NodeID)).Err()
 	}
-	
+
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
 		string(request.Headers.ServiceModel.Name),
 		string(request.Headers.ServiceModel.Version))
