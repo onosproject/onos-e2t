@@ -7,6 +7,7 @@ package e2
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"os"
 	"testing"
 
@@ -18,7 +19,7 @@ import (
 
 // TestUnsubscribeWrongMaster tests e2 subscription to a non-master node
 func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "unsubscribe-non-master")
 	assert.NotNil(t, sim)
 
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
@@ -37,16 +38,18 @@ func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 
 	spec := utils.CreateKpmV2Sub(t, e2NodeID)
 
-	req := &e2api.SubscribeRequest{
-		Headers: e2api.RequestHeaders{
-			AppID:         "app",
-			AppInstanceID: "",
-			E2NodeID:      e2api.E2NodeID(e2NodeID),
-			ServiceModel: e2api.ServiceModel{
-				Name:    utils.KpmServiceModelName,
-				Version: utils.Version2,
-			},
+	headers := e2api.RequestHeaders{
+		AppID:         "app",
+		AppInstanceID: "",
+		E2NodeID:      e2api.E2NodeID(e2NodeID),
+		ServiceModel: e2api.ServiceModel{
+			Name:    utils.KpmServiceModelName,
+			Version: utils.Version2,
 		},
+	}
+
+	req := &e2api.SubscribeRequest{
+		Headers:       headers,
 		TransactionID: "sub1",
 		Subscription:  spec,
 	}
@@ -56,15 +59,16 @@ func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 
 	msg, err := c.Recv()
 	assert.NotNil(t, msg)
+	assert.NoError(t, err)
 
 	unsubscribeRequest := &e2api.UnsubscribeRequest{
-		Headers:       e2api.RequestHeaders{},
+		Headers:       headers,
 		TransactionID: "sub1",
 	}
 	unsubscribeResponse, err := nonMasterClient.Unsubscribe(ctx, unsubscribeRequest)
 	assert.NoError(t, err)
 	assert.NotNil(t, unsubscribeResponse)
 
-	//assert.NoError(t, sim.Uninstall())
-	//e2utils.CheckForEmptySubscriptionList(t)
+	assert.NoError(t, sim.Uninstall())
+	e2utils.CheckForEmptySubscriptionList(t)
 }

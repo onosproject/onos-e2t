@@ -7,6 +7,7 @@ package e2
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"os"
 	"testing"
 
@@ -18,7 +19,7 @@ import (
 
 // TestSubscriptionWrongMaster tests e2 subscription to a non-master node
 func (s *TestSuite) TestSubscriptionWrongMaster(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-wrong-master")
 	assert.NotNil(t, sim)
 
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)
@@ -49,9 +50,13 @@ func (s *TestSuite) TestSubscriptionWrongMaster(t *testing.T) {
 		Subscription:  spec,
 	}
 
-	_, err := client.Subscribe(ctx, req)
-	assert.Error(t, err)
+	c, err := client.Subscribe(ctx, req)
+	assert.NoError(t, err)
 
-	//assert.NoError(t, sim.Uninstall())
-	//e2utils.CheckForEmptySubscriptionList(t)
+	resp, err := c.Recv()
+	assert.Nil(t, resp)
+	assert.Contains(t, err.Error(), "Unavailable")
+
+	assert.NoError(t, sim.Uninstall())
+	e2utils.CheckForEmptySubscriptionList(t)
 }

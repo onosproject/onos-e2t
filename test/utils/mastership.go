@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
+// SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
@@ -34,13 +34,13 @@ func findMasterRelation(t *testing.T, e2Node topoapi.Object, nodeID topoapi.ID) 
 }
 
 type IPAndPort struct {
-	IP   string;
+	IP   string
 	Port uint32
 }
 
-func GetE2Masters(t *testing.T, e2NodeID topoapi.ID) (IPAndPort, []IPAndPort){
+func GetE2Masters(t *testing.T, e2NodeID topoapi.ID) (IPAndPort, []IPAndPort) {
 	var master IPAndPort
-	nonMasters := make ([]IPAndPort, 0)
+	nonMasters := make([]IPAndPort, 0)
 	topoClient, err := NewTopoClient()
 	assert.NoError(t, err)
 
