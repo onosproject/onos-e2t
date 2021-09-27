@@ -8,7 +8,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
@@ -55,7 +55,7 @@ func Test_RicActionsToBeSetupList(t *testing.T) {
 	assert.Equal(t, 2, len(ratbsL.GetValue()))
 
 	for _, raTbsItem := range ratbsL.GetValue() {
-		assert.Equal(t, int32(v2beta1.ProtocolIeIDRicactionToBeSetupItem), raTbsItem.GetId())
+		assert.Equal(t, int32(v2.ProtocolIeIDRicactionToBeSetupItem), raTbsItem.GetId())
 		assert.Equal(t, e2apies.RicactionType_RICACTION_TYPE_INSERT, raTbsItem.GetValue().GetRicActionType())
 		assert.Equal(t, e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE, raTbsItem.GetValue().GetRicSubsequentAction().GetRicSubsequentActionType())
 		switch raID := raTbsItem.GetValue().GetRicActionId().GetValue(); raID {

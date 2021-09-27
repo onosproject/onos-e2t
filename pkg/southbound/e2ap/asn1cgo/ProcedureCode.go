@@ -14,29 +14,29 @@ import "C"
 import (
 	"fmt"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 )
 
 func newProcedureCode(pc *e2ap_commondatatypes.ProcedureCode) (C.ProcedureCode_t, error) {
-	switch pcT := v2beta1.ProcedureCodeT(pc.GetValue()); pcT {
-	case v2beta1.ProcedureCodeIDE2setup:
+	switch pcT := v2.ProcedureCodeT(pc.GetValue()); pcT {
+	case v2.ProcedureCodeIDE2setup:
 		return C.ProcedureCode_id_E2setup, nil
-	case v2beta1.ProcedureCodeIDErrorIndication:
+	case v2.ProcedureCodeIDErrorIndication:
 		return C.ProcedureCode_id_ErrorIndication, nil
-	case v2beta1.ProcedureCodeIDReset:
+	case v2.ProcedureCodeIDReset:
 		return C.ProcedureCode_id_Reset, nil
-	case v2beta1.ProcedureCodeIDRICcontrol:
+	case v2.ProcedureCodeIDRICcontrol:
 		return C.ProcedureCode_id_RICcontrol, nil
-	case v2beta1.ProcedureCodeIDRICindication:
+	case v2.ProcedureCodeIDRICindication:
 		return C.ProcedureCode_id_RICindication, nil
-	case v2beta1.ProcedureCodeIDRICserviceQuery:
+	case v2.ProcedureCodeIDRICserviceQuery:
 		return C.ProcedureCode_id_RICserviceQuery, nil
-	case v2beta1.ProcedureCodeIDRICserviceUpdate:
+	case v2.ProcedureCodeIDRICserviceUpdate:
 		return C.ProcedureCode_id_RICserviceUpdate, nil
-	case v2beta1.ProcedureCodeIDRICsubscription:
+	case v2.ProcedureCodeIDRICsubscription:
 		return C.ProcedureCode_id_RICsubscription, nil
-	case v2beta1.ProcedureCodeIDRICsubscriptionDelete:
+	case v2.ProcedureCodeIDRICsubscriptionDelete:
 		return C.ProcedureCode_id_RICsubscriptionDelete, nil
 	default:
 		return 0, fmt.Errorf("unexpected procedure code %v", pcT)

@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"time"
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
@@ -148,7 +149,17 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	defer e.manager.open(e.e2apConn)
 
 	// Create an E2 setup response
-	response, err := pdubuilder.NewE2SetupResponse(*transID, nodeIdentity.Plmn, ricID)
+	e2ncID3 := pdubuilder.CreateE2NodeComponentIDS1("S1-component")
+	e2nccaal := make([]*types.E2NodeComponentConfigAdditionAckItem, 0)
+	ie1 := types.E2NodeComponentConfigAdditionAckItem{
+		E2NodeComponentConfigurationAck: e2ap_ies.E2NodeComponentConfigurationAck{
+			UpdateOutcome: e2ap_ies.UpdateOutcome_UPDATE_OUTCOME_SUCCESS,
+		},
+		E2NodeComponentID: e2ncID3,
+		E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_S1,
+	}
+	e2nccaal = append(e2nccaal, &ie1)
+	response, err := pdubuilder.NewE2SetupResponse(*transID, nodeIdentity.Plmn, ricID, e2nccaal)
 	if err != nil {
 		return nil, nil, err
 	}

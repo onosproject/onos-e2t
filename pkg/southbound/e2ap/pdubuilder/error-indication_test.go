@@ -7,7 +7,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
@@ -17,7 +17,7 @@ import (
 
 func TestErrorIndicationE2apPdu(t *testing.T) {
 	var ranFuncID types.RanFunctionID = 9
-	procCode := v2beta1.ProcedureCodeIDRICsubscription
+	procCode := v2.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
@@ -38,7 +38,7 @@ func TestErrorIndicationE2apPdu(t *testing.T) {
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
+				IEId:          v2.ProtocolIeIDRicsubscriptionDetails,
 			},
 		})
 	assert.Assert(t, newE2apPdu != nil)
@@ -62,7 +62,7 @@ func TestErrorIndicationE2apPdu(t *testing.T) {
 
 func TestErrorIndicationE2apPduExcludeSomeOptionalIEs(t *testing.T) {
 	var ranFuncID types.RanFunctionID = 9
-	procCode := v2beta1.ProcedureCodeIDRICsubscription
+	procCode := v2.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 	var trID int32 = 21
@@ -80,7 +80,7 @@ func TestErrorIndicationE2apPduExcludeSomeOptionalIEs(t *testing.T) {
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
+				IEId:          v2.ProtocolIeIDRicsubscriptionDetails,
 			},
 		},
 	)

@@ -4,7 +4,7 @@
 package pdubuilder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
@@ -25,7 +25,7 @@ func CreateRicServiceUpdateE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, er
 								//E2ApProtocolIes11: &ranFunctionsDeletedList,  //RAN functions ID (deleted) List
 								//E2ApProtocolIes12: &ranFunctionsModifiedList, //RAN functions (modified) List
 								E2ApProtocolIes49: &e2appducontents.RicserviceUpdateIes_RicserviceUpdateIes49{
-									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Id:          int32(v2.ProtocolIeIDTransactionID),
 									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 									Value: &e2apies.TransactionId{
 										Value: trID,
@@ -35,7 +35,7 @@ func CreateRicServiceUpdateE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, er
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
-							Value: int32(v2beta1.ProcedureCodeIDRICserviceUpdate),
+							Value: int32(v2.ProcedureCodeIDRICserviceUpdate),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

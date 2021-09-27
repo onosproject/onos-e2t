@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
@@ -30,7 +30,7 @@ func Test_DecodeRicSubscriptionFailurePdu(t *testing.T) {
 	assert.Equal(t, 22, int(rrID.RequestorID))
 	assert.Equal(t, 6, int(rrID.InstanceID))
 
-	assert.Equal(t, v2beta1.ProcedureCodeIDRICsubscription, pc)
+	assert.Equal(t, v2.ProcedureCodeIDRICsubscription, pc)
 	assert.Equal(t, e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE, crit)
 	assert.Equal(t, e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME, tm)
 

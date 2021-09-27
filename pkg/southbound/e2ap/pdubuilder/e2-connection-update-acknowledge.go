@@ -4,7 +4,7 @@
 package pdubuilder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
@@ -24,7 +24,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(trID int32) (*e2appdudescription
 								//E2ApProtocolIes39: &connectionSetup,       //E2 Connection Setup List
 								//E2ApProtocolIes40: &connectionSetupFailed, //E2 Connection Setup Failed List
 								E2ApProtocolIes49: &e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes49{
-									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Id:          int32(v2.ProtocolIeIDTransactionID),
 									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 									Value: &e2ap_ies.TransactionId{
 										Value: trID,
@@ -34,7 +34,7 @@ func CreateE2connectionUpdateAcknowledgeE2apPdu(trID int32) (*e2appdudescription
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
-							Value: int32(v2beta1.ProcedureCodeIDE2connectionUpdate),
+							Value: int32(v2.ProcedureCodeIDE2connectionUpdate),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

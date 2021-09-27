@@ -21,7 +21,7 @@ func TestE2connectionUpdate(t *testing.T) {
 
 	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2ConnectionUpdate().GetInitiatingMessage().
 		SetE2ConnectionUpdateAdd([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
-			TnlPort: asn1.BitString{
+			TnlPort: &asn1.BitString{
 				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
@@ -30,7 +30,7 @@ func TestE2connectionUpdate(t *testing.T) {
 				Len:   64,
 			}},
 			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}}).SetE2ConnectionUpdateModify([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
-		TnlPort: asn1.BitString{
+		TnlPort: &asn1.BitString{
 			Value: []byte{0xba, 0x91},
 			Len:   16,
 		},
@@ -39,7 +39,7 @@ func TestE2connectionUpdate(t *testing.T) {
 			Len:   64,
 		}},
 		TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE}}).SetE2ConnectionUpdateRemove([]*types.TnlInformation{
-		{TnlPort: asn1.BitString{
+		{TnlPort: &asn1.BitString{
 			Value: []byte{0xba, 0x98},
 			Len:   16,
 		},
@@ -47,7 +47,7 @@ func TestE2connectionUpdate(t *testing.T) {
 				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x76},
 				Len:   64,
 			}},
-		{TnlPort: asn1.BitString{
+		{TnlPort: &asn1.BitString{
 			Value: []byte{0xdc, 0x98},
 			Len:   16,
 		},
@@ -86,7 +86,7 @@ func TestE2connectionUpdateExcludeOptionalIEs(t *testing.T) {
 
 	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2ConnectionUpdate().GetInitiatingMessage().
 		SetE2ConnectionUpdateModify([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
-			TnlPort: asn1.BitString{
+			TnlPort: &asn1.BitString{
 				Value: []byte{0xba, 0x19},
 				Len:   16,
 			},
@@ -95,7 +95,7 @@ func TestE2connectionUpdateExcludeOptionalIEs(t *testing.T) {
 				Len:   64,
 			}},
 			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_RIC_SERVICE}}).SetE2ConnectionUpdateRemove([]*types.TnlInformation{
-		{TnlPort: asn1.BitString{
+		{TnlPort: &asn1.BitString{
 			Value: []byte{0xba, 0x98},
 			Len:   16,
 		},
@@ -103,7 +103,7 @@ func TestE2connectionUpdateExcludeOptionalIEs(t *testing.T) {
 				Value: []byte{0x89, 0xab, 0xdc, 0xdf, 0x01, 0x23, 0x45, 0x76},
 				Len:   64,
 			}},
-		{TnlPort: asn1.BitString{
+		{TnlPort: &asn1.BitString{
 			Value: []byte{0xdc, 0x98},
 			Len:   16,
 		},

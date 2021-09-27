@@ -7,7 +7,7 @@ package pdudecoder
 import (
 	"fmt"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
@@ -16,7 +16,7 @@ import (
 
 func DecodeRicSubscriptionDeleteFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 	*types.RanFunctionID, *types.RicRequest, *e2ap_ies.Cause,
-	*v2beta1.ProcedureCodeT, *e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage, *types.RicRequest,
+	*v2.ProcedureCodeT, *e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage, *types.RicRequest,
 	[]*types.CritDiag, error) {
 
 	//if err := e2apPdu.Validate(); err != nil {
@@ -46,13 +46,13 @@ func DecodeRicSubscriptionDeleteFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu)
 	cause := ricSubscriptionDelete.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes1().GetValue()
 
 	critDiagnostics := ricSubscriptionDelete.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2()
-	var pc v2beta1.ProcedureCodeT
+	var pc v2.ProcedureCodeT
 	var crit e2ap_commondatatypes.Criticality
 	var tm e2ap_commondatatypes.TriggeringMessage
 	var critDiagRequestID types.RicRequest
 	var diags []*types.CritDiag
 	if critDiagnostics != nil { //It's optional
-		pc = v2beta1.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
+		pc = v2.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
 		crit = critDiagnostics.GetValue().GetProcedureCriticality()
 		tm = critDiagnostics.GetValue().GetTriggeringMessage()
 		critDiagRequestID = types.RicRequest{
@@ -62,7 +62,7 @@ func DecodeRicSubscriptionDeleteFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu)
 		for _, ie := range critDiagnostics.GetValue().GetIEsCriticalityDiagnostics().GetValue() {
 			diag := types.CritDiag{
 				IECriticality: ie.IEcriticality,
-				IEId:          v2beta1.ProtocolIeID(ie.GetIEId().GetValue()),
+				IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
 				TypeOfError:   ie.TypeOfError,
 			}
 			diags = append(diags, &diag)
