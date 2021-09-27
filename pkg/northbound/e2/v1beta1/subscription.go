@@ -8,6 +8,8 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"github.com/onosproject/onos-lib-go/pkg/env"
+	"github.com/onosproject/onos-lib-go/pkg/uri"
 	"io"
 	"time"
 
@@ -191,6 +193,12 @@ func (s *SubscriptionServer) WatchSubscriptions(request *e2api.WatchSubscription
 	return nil
 }
 
+func getE2TID() topoapi.ID {
+	return topoapi.ID(uri.NewURI(
+		uri.WithScheme("e2"),
+		uri.WithOpaque(env.GetPodID())).String())
+}
+
 func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e2api.SubscriptionService_SubscribeServer) error {
 	log.Debugf("Received SubscribeRequest %+v", request)
 	encoding := request.Headers.Encoding
@@ -204,6 +212,21 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	if err != nil {
 		log.Warnf("Failed to fetch mastership state for e2node: %s", request.Headers.E2NodeID)
 		return errors.Status(errors.NewUnavailable("not the master for e2 node: %s:%v", request.Headers.E2NodeID, err)).Err()
+	}
+
+	e2NodeRelation, err := s.rnib.Get(server.Context(), topoapi.ID(mastership.NodeId))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
+			return err
+		}
+		log.Warnf("Master relation not found for E2Node '%s'", request.Headers.E2NodeID)
+		return errors.Status(errors.NewUnavailable("Master relation not found for E2Node '%s'", request.Headers.E2NodeID)).Err()
+	}
+
+	if e2NodeRelation.GetRelation().SrcEntityID != getE2TID() {
+		log.Warnf("Not the master for E2Node '%s'", request.Headers.E2NodeID)
+		return errors.Status(errors.NewUnavailable("Not the master for E2Node '%s'", request.Headers.E2NodeID)).Err()
 	}
 
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
