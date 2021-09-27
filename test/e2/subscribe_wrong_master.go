@@ -15,8 +15,8 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
-// TestSubscriptionWrongMaster tests e2 subscription to a non-master node
-func (s *TestSuite) TestSubscriptionWrongMaster(t *testing.T) {
+// TestSubscribeWrongMaster tests e2 subscription to a non-master node
+func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-wrong-master")
 	assert.NotNil(t, sim)
 
