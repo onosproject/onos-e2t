@@ -71,7 +71,7 @@ func perDecodeE2nodeComponentInterfaceNG(bytes []byte) (*e2ap_ies.E2NodeComponen
 func newE2nodeComponentInterfaceNG(e2nodeComponentInterfaceNG *e2ap_ies.E2NodeComponentInterfaceNg) (*C.E2nodeComponentInterfaceNG_t, error) {
 
 	e2nodeComponentInterfaceNGC := C.E2nodeComponentInterfaceNG_t{
-		amf_name: newAmfName(e2nodeComponentInterfaceNG.GetAmfName()),
+		amf_name: *newAmfName(e2nodeComponentInterfaceNG.GetAmfName()),
 	}
 
 	return &e2nodeComponentInterfaceNGC, nil
@@ -80,7 +80,7 @@ func newE2nodeComponentInterfaceNG(e2nodeComponentInterfaceNG *e2ap_ies.E2NodeCo
 func decodeE2nodeComponentInterfaceNG(e2nodeComponentInterfaceNGC *C.E2nodeComponentInterfaceNG_t) (*e2ap_ies.E2NodeComponentInterfaceNg, error) {
 
 	e2nodeComponentInterfaceNG := e2ap_ies.E2NodeComponentInterfaceNg{
-		AmfName:  decodeAmfName(e2nodeComponentInterfaceNGC.amf_name),
+		AmfName:  decodeAmfName(&e2nodeComponentInterfaceNGC.amf_name),
 	}
 
 	return &e2nodeComponentInterfaceNG, nil

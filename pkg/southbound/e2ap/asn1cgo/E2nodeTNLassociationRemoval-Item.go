@@ -80,8 +80,8 @@ func newE2nodeTNLassociationRemovalItem(e2nodeTNLassociationRemovalItem *e2ap_pd
 	}
 
 	e2nodeTNLassociationRemovalItemC := C.E2nodeTNLassociationRemoval_Item_t{
-		tnlInformation:    tnlC,
-		tnlInformationRIC: tnlRicC,
+		tnlInformation:    *tnlC,
+		tnlInformationRIC: *tnlRicC,
 	}
 
 	return &e2nodeTNLassociationRemovalItemC, nil
@@ -89,12 +89,12 @@ func newE2nodeTNLassociationRemovalItem(e2nodeTNLassociationRemovalItem *e2ap_pd
 
 func decodeE2nodeTNLassociationRemovalItem(e2nodeTNLassociationRemovalItemC *C.E2nodeTNLassociationRemoval_Item_t) (*e2ap_pdu_contents.E2NodeTnlassociationRemovalItem, error) {
 
-	tnl, err := decodeTnlinformation(e2nodeTNLassociationRemovalItemC.tnlInformation)
+	tnl, err := decodeTnlinformation(&e2nodeTNLassociationRemovalItemC.tnlInformation)
 	if err != nil {
 		return nil, err
 	}
 
-	tnlRic, err := decodeTnlinformation(e2nodeTNLassociationRemovalItemC.tnlInformationRIC)
+	tnlRic, err := decodeTnlinformation(&e2nodeTNLassociationRemovalItemC.tnlInformationRIC)
 	if err != nil {
 		return nil, err
 	}
@@ -107,8 +107,42 @@ func decodeE2nodeTNLassociationRemovalItem(e2nodeTNLassociationRemovalItemC *C.E
 	return &e2nodeTNLassociationRemovalItem, nil
 }
 
-func decodeE2nodeTNLassociationRemovalItemBytes(array [8]byte) (*e2ap_pdu_contents.E2NodeTnlassociationRemovalItem, error) {
-	e2ncc := (*C.E2nodeTNLassociationRemoval_Item_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+func decodeE2nodeTNLassociationRemovalItemBytes(array [184]byte) (*e2ap_pdu_contents.E2NodeTnlassociationRemovalItem, error) {
 
-	return decodeE2nodeTNLassociationRemovalItem(e2ncc)
+	tnlAddrsize1 := binary.LittleEndian.Uint64(array[8:16])
+	tnlAddrbitsUnused1 := int(binary.LittleEndian.Uint32(array[16:20]))
+	tnlAddrbytes1 := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[:8]))), C.int(tnlAddrsize1))
+	tnlPort1PtrC := (*C.BIT_STRING_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[48:56]))))
+
+	tnlAddrsize2 := binary.LittleEndian.Uint64(array[88:96])
+	tnlAddrbitsUnused2 := int(binary.LittleEndian.Uint32(array[96:100]))
+	tnlAddrbytes2 := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[80:88]))), C.int(tnlAddrsize2))
+	tnlPort2PtrC := (*C.BIT_STRING_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[128:136]))))
+
+	e2nccC := C.E2nodeTNLassociationRemoval_Item_t{
+		tnlInformation: C.TNLinformation_t{
+			tnlAddress: C.BIT_STRING_t{
+				buf:         (*C.uchar)(C.CBytes(tnlAddrbytes1)),
+				size:        C.ulong(tnlAddrsize1),
+				bits_unused: C.int(tnlAddrbitsUnused1),
+			},
+			// Gap of 24 for the asn_struct_ctx_t belonging to BIT_STRING --> 48
+			tnlPort: tnlPort1PtrC,
+		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to TNLinformation --> 80
+		tnlInformationRIC: C.TNLinformation_t{
+			tnlAddress: C.BIT_STRING_t{
+				buf:         (*C.uchar)(C.CBytes(tnlAddrbytes2)),
+				size:        C.ulong(tnlAddrsize2),
+				bits_unused: C.int(tnlAddrbitsUnused2),
+			},
+			// Gap of 24 for the asn_struct_ctx_t belonging to BIT_STRING --> 128
+			tnlPort: tnlPort2PtrC,
+		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to TNLinformation --> 152
+	}
+	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeTNLassociationRemoval_Item --> 176
+
+
+	return decodeE2nodeTNLassociationRemovalItem(&e2nccC)
 }

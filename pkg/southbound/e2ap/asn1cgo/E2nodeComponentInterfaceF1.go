@@ -70,8 +70,12 @@ func perDecodeE2nodeComponentInterfaceF1(bytes []byte) (*e2ap_ies.E2NodeComponen
 
 func newE2nodeComponentInterfaceF1(e2nodeComponentInterfaceF1 *e2ap_ies.E2NodeComponentInterfaceF1) (*C.E2nodeComponentInterfaceF1_t, error) {
 
+	gnbDuID, err := newGnbDuID(e2nodeComponentInterfaceF1.GetGNbDuId())
+	if err != nil {
+		return nil, err
+	}
 	e2nodeComponentInterfaceF1C := C.E2nodeComponentInterfaceF1_t{
-		gNB_DU_ID: newGnbDuID(e2nodeComponentInterfaceF1.GetGNbDuId()),
+		gNB_DU_ID: *gnbDuID,
 	}
 
 	return &e2nodeComponentInterfaceF1C, nil
@@ -79,7 +83,7 @@ func newE2nodeComponentInterfaceF1(e2nodeComponentInterfaceF1 *e2ap_ies.E2NodeCo
 
 func decodeE2nodeComponentInterfaceF1(e2nodeComponentInterfaceF1C *C.E2nodeComponentInterfaceF1_t) (*e2ap_ies.E2NodeComponentInterfaceF1, error) {
 
-	gnbDuID, err := decodeGnbDuID(e2nodeComponentInterfaceF1C.gNB_DU_ID)
+	gnbDuID, err := decodeGnbDuID(&e2nodeComponentInterfaceF1C.gNB_DU_ID)
 	if err != nil {
 		return nil, err
 	}

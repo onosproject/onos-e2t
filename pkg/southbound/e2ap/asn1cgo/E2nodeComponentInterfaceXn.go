@@ -76,7 +76,7 @@ func newE2nodeComponentInterfaceXn(e2nodeComponentInterfaceXn *e2ap_ies.E2NodeCo
 	}
 
 	e2nodeComponentInterfaceXnC := C.E2nodeComponentInterfaceXn_t{
-		global_NG_RAN_Node_ID: gNgRanNodeIDC,
+		global_NG_RAN_Node_ID: *gNgRanNodeIDC,
 	}
 
 	return &e2nodeComponentInterfaceXnC, nil
@@ -84,7 +84,7 @@ func newE2nodeComponentInterfaceXn(e2nodeComponentInterfaceXn *e2ap_ies.E2NodeCo
 
 func decodeE2nodeComponentInterfaceXn(e2nodeComponentInterfaceXnC *C.E2nodeComponentInterfaceXn_t) (*e2ap_ies.E2NodeComponentInterfaceXn, error) {
 
-	gNgRanNodeID, err := decodeGlobalNgRanNodeID(e2nodeComponentInterfaceXnC.global_eNB_ID)
+	gNgRanNodeID, err := decodeGlobalNgRanNodeID(&e2nodeComponentInterfaceXnC.global_NG_RAN_Node_ID)
 	if err != nil {
 		return nil, err
 	}

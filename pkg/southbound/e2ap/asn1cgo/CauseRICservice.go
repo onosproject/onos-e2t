@@ -70,7 +70,7 @@ func newCauseRicservice(causeRicservice *e2ap_ies.CauseRicservice) (*C.CauseRICs
 	var ret C.CauseRICservice_t
 	switch *causeRicservice {
 	case e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_RAN_FUNCTION_NOT_SUPPORTED:
-		ret = C.CauseRICservice_ran_function_not_required
+		ret = C.CauseRICservice_ran_function_not_supported
 	case e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
 		ret = C.CauseRICservice_excessive_functions
 	case e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:

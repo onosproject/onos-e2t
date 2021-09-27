@@ -21,6 +21,6 @@ type E2NodeComponentConfigUpdateAckItem struct {
 }
 
 type E2NodeComponentConfigurationAck struct {
-	UpdateOutcome int32
+	UpdateOutcome e2ap_ies.UpdateOutcome
 	FailureCause  *e2ap_ies.Cause
 }

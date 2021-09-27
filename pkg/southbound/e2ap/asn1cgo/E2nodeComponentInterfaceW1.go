@@ -76,7 +76,7 @@ func newE2nodeComponentInterfaceW1(e2nodeComponentInterfaceW1 *e2ap_ies.E2NodeCo
 	}
 
 	e2nodeComponentInterfaceW1C := C.E2nodeComponentInterfaceW1_t{
-		ng_eNB_DU_ID: ngEnbDuIDC,
+		ng_eNB_DU_ID: *ngEnbDuIDC,
 	}
 
 	return &e2nodeComponentInterfaceW1C, nil
@@ -84,7 +84,7 @@ func newE2nodeComponentInterfaceW1(e2nodeComponentInterfaceW1 *e2ap_ies.E2NodeCo
 
 func decodeE2nodeComponentInterfaceW1(e2nodeComponentInterfaceW1C *C.E2nodeComponentInterfaceW1_t) (*e2ap_ies.E2NodeComponentInterfaceW1, error) {
 
-	ngEnbDuID, err := decodeNgEnbDuID(e2nodeComponentInterfaceW1C.ng_eNB_DU_ID)
+	ngEnbDuID, err := decodeNgEnbDuID(&e2nodeComponentInterfaceW1C.ng_eNB_DU_ID)
 	if err != nil {
 		return nil, err
 	}

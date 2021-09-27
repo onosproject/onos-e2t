@@ -87,7 +87,7 @@ func newE2nodeComponentConfigurationAck(e2nodeComponentConfigurationAck *e2ap_ie
 
 	e2nodeComponentConfigurationAckC := C.E2nodeComponentConfigurationAck_t{
 		updateOutcome: uoC,
-		failureCause:  *fc,
+		failureCause:  fc,
 	}
 
 	return &e2nodeComponentConfigurationAckC, nil

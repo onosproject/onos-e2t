@@ -70,15 +70,12 @@ func perDecodeE2nodeComponentConfigAdditionItem(bytes []byte) (*e2ap_pdu_content
 
 func newE2nodeComponentConfigAdditionItem(e2nodeComponentConfigAdditionItem *e2ap_pdu_contents.E2NodeComponentConfigAdditionItem) (*C.E2nodeComponentConfigAddition_Item_t, error) {
 
-	var err error
-	e2nodeComponentConfigAdditionItemC := C.E2nodeComponentConfigAddition_Item_t{}
-
 	e2nodeComponentInterfaceTypeC, err := newE2nodeComponentInterfaceType(&e2nodeComponentConfigAdditionItem.E2NodeComponentInterfaceType)
 	if err != nil {
 		return nil, fmt.Errorf("newE2nodeComponentInterfaceType() %s", err.Error())
 	}
 
-	e2nodeComponentConfigAdditionItemC.e2nodeComponentID, err = newE2nodeComponentID(e2nodeComponentConfigAdditionItem.E2NodeComponentId)
+	e2nodeComponentIDC, err := newE2nodeComponentID(e2nodeComponentConfigAdditionItem.E2NodeComponentId)
 	if err != nil {
 		return nil, fmt.Errorf("newE2nodeComponentID() %s", err.Error())
 	}
@@ -88,8 +85,11 @@ func newE2nodeComponentConfigAdditionItem(e2nodeComponentConfigAdditionItem *e2a
 		return nil, fmt.Errorf("newE2nodeComponentConfiguration() %s", err.Error())
 	}
 
-	e2nodeComponentConfigAdditionItemC.e2nodeComponentInterfaceType = *e2nodeComponentInterfaceTypeC
-	e2nodeComponentConfigAdditionItemC.e2nodeComponentConfiguration = *e2nodeComponentConfigurationC
+	e2nodeComponentConfigAdditionItemC := C.E2nodeComponentConfigAddition_Item_t{
+		e2nodeComponentInterfaceType: *e2nodeComponentInterfaceTypeC,
+		e2nodeComponentID:            *e2nodeComponentIDC,
+		e2nodeComponentConfiguration: *e2nodeComponentConfigurationC,
+	}
 
 	return &e2nodeComponentConfigAdditionItemC, nil
 }
@@ -99,18 +99,17 @@ func decodeE2nodeComponentConfigAdditionItem(e2nodeComponentConfigAdditionItemC 
 	var err error
 	e2nodeComponentConfigAdditionItem := e2ap_pdu_contents.E2NodeComponentConfigAdditionItem{}
 
-	componentType, err := decodeE2nodeComponentType(&e2nodeComponentConfigAdditionItemC.e2nodeComponentInterfaceType)
+	componentType, err := decodeE2nodeComponentInterfaceType(&e2nodeComponentConfigAdditionItemC.e2nodeComponentInterfaceType)
 	if err != nil {
 		return nil, fmt.Errorf("decodeE2nodeComponentType() %s", err.Error())
 	}
 	e2nodeComponentConfigAdditionItem.E2NodeComponentInterfaceType = *componentType
 
-	if e2nodeComponentConfigAdditionItemC.e2nodeComponentID != nil {
-		e2nodeComponentConfigAdditionItem.E2NodeComponentId, err = decodeE2nodeComponentID(e2nodeComponentConfigAdditionItemC.e2nodeComponentID)
-		if err != nil {
-			return nil, fmt.Errorf("decodeE2nodeComponentID() %s", err.Error())
-		}
+	e2nodeComponentConfigAdditionItem.E2NodeComponentId, err = decodeE2nodeComponentID(&e2nodeComponentConfigAdditionItemC.e2nodeComponentID)
+	if err != nil {
+		return nil, fmt.Errorf("decodeE2nodeComponentID() %s", err.Error())
 	}
+
 	e2nodeComponentConfigAdditionItem.E2NodeComponentConfiguration, err = decodeE2nodeComponentConfiguration(&e2nodeComponentConfigAdditionItemC.e2nodeComponentConfiguration)
 	if err != nil {
 		return nil, fmt.Errorf("decodeE2nodeComponentConfigAddition() %s", err.Error())
@@ -119,18 +118,35 @@ func decodeE2nodeComponentConfigAdditionItem(e2nodeComponentConfigAdditionItemC 
 	return &e2nodeComponentConfigAdditionItem, nil
 }
 
-func decodeE2nodeComponentConfigAdditionItemBytes(bytes [80]byte) (*e2ap_pdu_contents.E2NodeComponentConfigAdditionItem, error) {
+func decodeE2nodeComponentConfigAdditionItemBytes(bytes [176]byte) (*e2ap_pdu_contents.E2NodeComponentConfigAdditionItem, error) {
 
-	e2nccuC := C.E2nodeComponentConfigAddition_t{
-		present: C.E2nodeComponentConfigAddition_PR(binary.LittleEndian.Uint64(bytes[40:48])),
-	}
-	copy(e2nccuC.choice[:8], bytes[48:56])
+	requestSize := binary.LittleEndian.Uint64(bytes[56:64])
+	requestGobytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[48:56]))), C.int(requestSize))
+	responseSize := binary.LittleEndian.Uint64(bytes[96:104])
+	responseGobytes := C.GoBytes(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[88:96]))), C.int(requestSize))
 
 	e2nodeComponentConfigAdditionItemC := C.E2nodeComponentConfigAddition_Item_t{
 		e2nodeComponentInterfaceType: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
-		e2nodeComponentID:            (*C.struct_E2nodeComponentID)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16])))),
-		e2nodeComponentConfiguration: e2nccuC,
+		e2nodeComponentID: C.E2nodeComponentID_t{
+			present: C.E2nodeComponentID_PR(binary.LittleEndian.Uint64(bytes[8:16])),
+		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
+		e2nodeComponentConfiguration: C.E2nodeComponentConfiguration_t{
+			e2nodeComponentRequestPart: C.OCTET_STRING_t{
+				buf:  (*C.uchar)(C.CBytes(requestGobytes)),
+				size: C.ulong(requestSize),
+			},
+			// Gap of 24 for the asn_struct_ctx_t belonging to OCTET_STRING --> 88
+			e2nodeComponentResponsePart: C.OCTET_STRING_t{
+				buf:  (*C.uchar)(C.CBytes(responseGobytes)),
+				size: C.ulong(responseSize),
+			},
+			// Gap of 24 for the asn_struct_ctx_t belonging to OCTET_STRING --> 128
+		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentConfiguration --> 152
 	}
+	copy(e2nodeComponentConfigAdditionItemC.e2nodeComponentID.choice[:], bytes[16:24])
+	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentConfigAddition_Item --> 176
 
 	return decodeE2nodeComponentConfigAdditionItem(&e2nodeComponentConfigAdditionItemC)
 }

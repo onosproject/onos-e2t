@@ -104,13 +104,13 @@ func decodeE2nodeComponentConfigAdditionAckList(e2curlC *C.E2nodeComponentConfig
 	return &e2curl, nil
 }
 
-func decodeE2nodeComponentConfigAdditionAckListBytes(e2curlC [48]byte) (*e2ap_pdu_contents.E2NodeComponentConfigAdditionAckList, error) {
+func decodeE2nodeComponentConfigAdditionAckListBytes(e2curlC []byte) (*e2ap_pdu_contents.E2NodeComponentConfigAdditionAckList, error) {
 	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(e2curlC[0:8]))))
 	count := C.int(binary.LittleEndian.Uint32(e2curlC[8:12]))
 	size := C.int(binary.LittleEndian.Uint32(e2curlC[12:16]))
 
 	rfIDlC := C.E2nodeComponentConfigAdditionAck_List_t{
-		list: C.struct___97{
+		list: C.struct___150{
 			array: array,
 			size:  size,
 			count: count,

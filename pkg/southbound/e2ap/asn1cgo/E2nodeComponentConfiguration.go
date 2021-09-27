@@ -71,8 +71,8 @@ func perDecodeE2nodeComponentConfiguration(bytes []byte) (*e2ap_ies.E2NodeCompon
 func newE2nodeComponentConfiguration(e2nodeComponentConfiguration *e2ap_ies.E2NodeComponentConfiguration) (*C.E2nodeComponentConfiguration_t, error) {
 
 	e2nodeComponentConfigurationC := C.E2nodeComponentConfiguration_t{
-		e2nodeComponentRequestPart: newOctetString(e2nodeComponentConfiguration.GetE2NodeComponentRequestPart()),
-		e2nodeComponentResponse:    newOctetString(e2nodeComponentConfiguration.GetE2NodeComponentResponsePart()),
+		e2nodeComponentRequestPart:  *newOctetString(e2nodeComponentConfiguration.GetE2NodeComponentRequestPart()),
+		e2nodeComponentResponsePart: *newOctetString(e2nodeComponentConfiguration.GetE2NodeComponentResponsePart()),
 	}
 
 	return &e2nodeComponentConfigurationC, nil
@@ -81,8 +81,8 @@ func newE2nodeComponentConfiguration(e2nodeComponentConfiguration *e2ap_ies.E2No
 func decodeE2nodeComponentConfiguration(e2nodeComponentConfigurationC *C.E2nodeComponentConfiguration_t) (*e2ap_ies.E2NodeComponentConfiguration, error) {
 
 	e2nodeComponentConfiguration := e2ap_ies.E2NodeComponentConfiguration{
-		E2NodeComponentRequestPart:  decodeOctetString(e2nodeComponentConfigurationC.e2nodeComponentRequestPart),
-		E2NodeComponentResponsePart: decodeOctetString(e2nodeComponentConfigurationC.e2nodeComponentResponsePart),
+		E2NodeComponentRequestPart:  decodeOctetString(&e2nodeComponentConfigurationC.e2nodeComponentRequestPart),
+		E2NodeComponentResponsePart: decodeOctetString(&e2nodeComponentConfigurationC.e2nodeComponentResponsePart),
 	}
 
 	return &e2nodeComponentConfiguration, nil

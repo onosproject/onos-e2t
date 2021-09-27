@@ -68,10 +68,6 @@ func perDecodeRicSubscriptionWithCauseItem(bytes []byte) (*e2appducontents.Ricsu
 }
 
 func newRicSubscriptionWithCauseItem(rswcItem *e2appducontents.RicsubscriptionWithCauseItem) (*C.RICsubscription_withCause_Item_t, error) {
-	rfID, err := newRanFunctionID(rswcItem.GetRanFunctionId())
-	if err != nil {
-		return nil, fmt.Errorf("newRicActionType() %s", err.Error())
-	}
 
 	c, err := newCause(rswcItem.GetCause())
 	if err != nil {
@@ -79,36 +75,45 @@ func newRicSubscriptionWithCauseItem(rswcItem *e2appducontents.RicsubscriptionWi
 	}
 
 	rswcItemC := C.RICsubscription_withCause_Item_t{
-		ricRequestID:  newRicRequestID(rswcItem.GetRicRequestId()),
-		ranFunctionID: rfID,
-		cause:         c,
+		ricRequestID:  *newRicRequestID(rswcItem.GetRicRequestId()),
+		ranFunctionID: newRanFunctionID(rswcItem.GetRanFunctionId()),
+		cause:         *c,
 	}
 
 	return &rswcItemC, nil
 }
 
-func decodeRicSubscriptionWithCauseItemBytes(bytes [56]byte) (*e2appducontents.RicsubscriptionWithCauseItem, error) {
+func decodeRicSubscriptionWithCauseItemBytes(bytes [112]byte) (*e2appducontents.RicsubscriptionWithCauseItem, error) {
 
 	rswcItemC := C.RICsubscription_withCause_Item_t{
-		ricRequestID:  C.long(binary.LittleEndian.Uint64(bytes[:8])),
-		ranFunctionID: C.long(binary.LittleEndian.Uint64(bytes[8:16])),
-		cause:         (*C.Cause_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[16:24])))),
+		ricRequestID: C.RICrequestID_t{
+			ricRequestorID: C.long(binary.LittleEndian.Uint64(bytes[:8])),
+			ricInstanceID:  C.long(binary.LittleEndian.Uint64(bytes[8:16])),
+		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to RICrequestID --> 40
+		ranFunctionID: C.long(binary.LittleEndian.Uint64(bytes[40:48])),
+		cause: C.Cause_t{
+			present: C.Cause_PR(binary.LittleEndian.Uint64(bytes[48:56])),
+		},
 	}
+	copy(rswcItemC.cause.choice[:], bytes[56:64])
+	// Gap of 24 for the asn_struct_ctx_t belonging to Cause --> 88
+	// Gap of 24 for the asn_struct_ctx_t belonging to RICsubscription_withCause_Item --> 112
 
 	return decodeRicSubscriptionWithCauseItem(&rswcItemC)
 }
 
 func decodeRicSubscriptionWithCauseItem(rswcItemC *C.RICsubscription_withCause_Item_t) (*e2appducontents.RicsubscriptionWithCauseItem, error) {
 
-	c, err := decodeCause(rswcItemC.cause)
+	c, err := decodeCause(&rswcItemC.cause)
 	if err != nil {
 		return nil, err
 	}
 
 	rswcItem := e2appducontents.RicsubscriptionWithCauseItem{
-		RicRequestId:   decodeRicRequestID(rswcItemC.ricRequestID),
-		RanFunctionId: decodeRanFunctionID(rswcItemC.ranFunctionID),
-		Cause: c,
+		RicRequestId:  decodeRicRequestID(&rswcItemC.ricRequestID),
+		RanFunctionId: decodeRanFunctionID(&rswcItemC.ranFunctionID),
+		Cause:         c,
 	}
 
 	return &rswcItem, nil

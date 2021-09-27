@@ -110,7 +110,7 @@ func decodeE2nodeComponentConfigRemovalListBytes(e2curlC [48]byte) (*e2ap_pdu_co
 	size := C.int(binary.LittleEndian.Uint32(e2curlC[12:16]))
 
 	rfIDlC := C.E2nodeComponentConfigRemoval_List_t{
-		list: C.struct___97{
+		list: C.struct___105{
 			array: array,
 			size:  size,
 			count: count,

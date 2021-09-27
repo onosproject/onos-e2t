@@ -90,6 +90,17 @@ enum E2nodeComponentInterfaceType {
     E2NODE_COMPONENT_INTERFACE_TYPE_X2 = 6;
 };
 
+// enumerated from e2ap_v2.asn:1318
+enum E2nodeComponentInterfaceType {
+    E2NODE_COMPONENT_INTERFACE_TYPE_NG = 0;
+    E2NODE_COMPONENT_INTERFACE_TYPE_XN = 1;
+    E2NODE_COMPONENT_INTERFACE_TYPE_E1 = 2;
+    E2NODE_COMPONENT_INTERFACE_TYPE_F1 = 3;
+    E2NODE_COMPONENT_INTERFACE_TYPE_W1 = 4;
+    E2NODE_COMPONENT_INTERFACE_TYPE_S1 = 5;
+    E2NODE_COMPONENT_INTERFACE_TYPE_X2 = 6;
+};
+
 // enumerated from e2ap_v2.asn:1547
 enum RicactionType {
     RICACTION_TYPE_REPORT = 0;
@@ -101,6 +112,13 @@ enum RicactionType {
 enum RiccontrolAckRequest {
     RICCONTROL_ACK_REQUEST_NO_ACK = 0;
     RICCONTROL_ACK_REQUEST_ACK = 1;
+};
+
+// enumerated from e2ap_v2.0.1_Feb3_21.asn:1423
+enum RiccontrolStatus {
+    RICCONTROL_STATUS_SUCCESS = 0;
+    RICCONTROL_STATUS_REJECTED = 1;
+    RICCONTROL_STATUS_FAILED = 2;
 };
 
 // enumerated from e2ap_v2.asn:1597

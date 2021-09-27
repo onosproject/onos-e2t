@@ -70,15 +70,12 @@ func perDecodeE2nodeComponentConfigRemovalAckItem(bytes []byte) (*e2ap_pdu_conte
 
 func newE2nodeComponentConfigRemovalAckItem(e2nodeComponentConfigRemovalAckItem *e2ap_pdu_contents.E2NodeComponentConfigRemovalAckItem) (*C.E2nodeComponentConfigRemovalAck_Item_t, error) {
 
-	var err error
-	e2nodeComponentConfigRemovalAckItemC := C.E2nodeComponentConfigRemovalAck_Item_t{}
-
 	e2nodeComponentInterfaceTypeC, err := newE2nodeComponentInterfaceType(&e2nodeComponentConfigRemovalAckItem.E2NodeComponentInterfaceType)
 	if err != nil {
 		return nil, fmt.Errorf("newE2nodeComponentInterfaceType() %s", err.Error())
 	}
 
-	e2nodeComponentConfigRemovalAckItemC.e2nodeComponentID, err = newE2nodeComponentID(e2nodeComponentConfigRemovalAckItem.E2NodeComponentId)
+	e2nodeComponentIDC, err := newE2nodeComponentID(e2nodeComponentConfigRemovalAckItem.E2NodeComponentId)
 	if err != nil {
 		return nil, fmt.Errorf("newE2nodeComponentID() %s", err.Error())
 	}
@@ -88,9 +85,11 @@ func newE2nodeComponentConfigRemovalAckItem(e2nodeComponentConfigRemovalAckItem 
 		return nil, fmt.Errorf("newE2nodeComponentConfiguration() %s", err.Error())
 	}
 
-	e2nodeComponentConfigRemovalAckItemC.e2nodeComponentInterfaceType = *e2nodeComponentInterfaceTypeC
-	e2nodeComponentConfigRemovalAckItemC.e2nodeComponentConfigurationAck = *e2nodeComponentConfigurationC
-
+	e2nodeComponentConfigRemovalAckItemC := C.E2nodeComponentConfigRemovalAck_Item_t{
+		e2nodeComponentInterfaceType:    *e2nodeComponentInterfaceTypeC,
+		e2nodeComponentID:               *e2nodeComponentIDC,
+		e2nodeComponentConfigurationAck: *e2nodeComponentConfigurationC,
+	}
 	return &e2nodeComponentConfigRemovalAckItemC, nil
 }
 
@@ -99,19 +98,18 @@ func decodeE2nodeComponentConfigRemovalAckItem(e2nodeComponentConfigRemovalAckIt
 	var err error
 	e2nodeComponentConfigRemovalAckItem := e2ap_pdu_contents.E2NodeComponentConfigRemovalAckItem{}
 
-	componentType, err := decodeE2nodeComponentType(&e2nodeComponentConfigRemovalAckItemC.e2nodeComponentInterfaceType)
+	componentType, err := decodeE2nodeComponentInterfaceType(&e2nodeComponentConfigRemovalAckItemC.e2nodeComponentInterfaceType)
 	if err != nil {
 		return nil, fmt.Errorf("decodeE2nodeComponentType() %s", err.Error())
 	}
 	e2nodeComponentConfigRemovalAckItem.E2NodeComponentInterfaceType = *componentType
 
-	if e2nodeComponentConfigRemovalAckItemC.e2nodeComponentID != nil {
-		e2nodeComponentConfigRemovalAckItem.E2NodeComponentId, err = decodeE2nodeComponentID(e2nodeComponentConfigRemovalAckItemC.e2nodeComponentID)
-		if err != nil {
-			return nil, fmt.Errorf("decodeE2nodeComponentID() %s", err.Error())
-		}
+	e2nodeComponentConfigRemovalAckItem.E2NodeComponentId, err = decodeE2nodeComponentID(&e2nodeComponentConfigRemovalAckItemC.e2nodeComponentID)
+	if err != nil {
+		return nil, fmt.Errorf("decodeE2nodeComponentID() %s", err.Error())
 	}
-	e2nodeComponentConfigRemovalAckItem.E2NodeComponentConfigurationAck, err = decodeE2nodeComponentConfigurationAck(&e2nodeComponentConfigAdditionAckItemC.e2nodeComponentConfigurationAck)
+
+	e2nodeComponentConfigRemovalAckItem.E2NodeComponentConfigurationAck, err = decodeE2nodeComponentConfigurationAck(&e2nodeComponentConfigRemovalAckItemC.e2nodeComponentConfigurationAck)
 	if err != nil {
 		return nil, fmt.Errorf("decodeE2nodeComponentConfigAddition() %s", err.Error())
 	}
@@ -119,18 +117,22 @@ func decodeE2nodeComponentConfigRemovalAckItem(e2nodeComponentConfigRemovalAckIt
 	return &e2nodeComponentConfigRemovalAckItem, nil
 }
 
-func decodeE2nodeComponentConfigRemovalAckItemBytes(bytes [80]byte) (*e2ap_pdu_contents.E2NodeComponentConfigRemovalAckItem, error) {
-
-	//e2nccuC := C.E2nodeComponentConfigAdditionAck_t{
-	//	present: C.E2nodeComponentConfigAdditionAck_PR(binary.LittleEndian.Uint64(bytes[40:48])),
-	//}
-	//copy(e2nccuC.choice[:8], bytes[48:56])
+func decodeE2nodeComponentConfigRemovalAckItemBytes(bytes [112]byte) (*e2ap_pdu_contents.E2NodeComponentConfigRemovalAckItem, error) {
 
 	e2nodeComponentConfigRemovalAckItemC := C.E2nodeComponentConfigRemovalAck_Item_t{
-		e2nodeComponentInterfaceType:    C.long(binary.LittleEndian.Uint64(bytes[0:8])),
-		e2nodeComponentID:               (*C.struct_E2nodeComponentID)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16])))),
-		e2nodeComponentConfigurationAck: C.long(binary.LittleEndian.Uint64(bytes[16:24])),
+		e2nodeComponentInterfaceType: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
+		e2nodeComponentID: C.E2nodeComponentID_t{
+			present: C.E2nodeComponentID_PR(binary.LittleEndian.Uint64(bytes[8:16])),
+		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
+		e2nodeComponentConfigurationAck: C.E2nodeComponentConfigurationAck_t{
+			updateOutcome: C.long(binary.LittleEndian.Uint64(bytes[48:56])),
+			failureCause:  (*C.struct_Cause)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64])))), // OPTIONAL, so it's a pinter
+		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentConfiguration --> 88
 	}
+	copy(e2nodeComponentConfigRemovalAckItemC.e2nodeComponentID.choice[:], bytes[16:24])
+	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentConfigAdditionAck_Item --> 112
 
 	return decodeE2nodeComponentConfigRemovalAckItem(&e2nodeComponentConfigRemovalAckItemC)
 }

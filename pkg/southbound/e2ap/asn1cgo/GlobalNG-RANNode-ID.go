@@ -55,7 +55,7 @@ func xerDecodeGlobalNgRanNodeID(bytes []byte) (*e2apies.GlobalNgRannodeId, error
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
-	return decodeGlobalNgRanNodeID((*C.GlobalNG_RANNode_ID_PR_gNB)(unsafePtr))
+	return decodeGlobalNgRanNodeID((*C.GlobalNG_RANNode_ID_t)(unsafePtr))
 }
 
 func perDecodeGlobalNgRanNodeID(bytes []byte) (*e2apies.GlobalNgRannodeId, error) {
@@ -66,11 +66,11 @@ func perDecodeGlobalNgRanNodeID(bytes []byte) (*e2apies.GlobalNgRannodeId, error
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from PER is nil")
 	}
-	return decodeGlobalNgRanNodeID((*C.GlobalNG_RANNode_ID_PR_gNB)(unsafePtr))
+	return decodeGlobalNgRanNodeID((*C.GlobalNG_RANNode_ID_t)(unsafePtr))
 }
 
 func newGlobalNgRanNodeID(gnID *e2apies.GlobalNgRannodeId) (*C.GlobalNG_RANNode_ID_t, error) {
-	var prC C.GlobalNG_RANNode_ID_t
+	var prC C.GlobalNG_RANNode_ID_PR
 
 	choiceC := [8]byte{} // The size of the GlobalE2node_ID_u
 	switch choice := gnID.GetGlobalNgRannodeId().(type) {

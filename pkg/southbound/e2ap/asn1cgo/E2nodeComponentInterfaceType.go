@@ -94,7 +94,7 @@ func newE2nodeComponentInterfaceType(e2nodeComponentInterfaceType *e2ap_ies.E2No
 
 func decodeE2nodeComponentInterfaceType(e2nodeComponentInterfaceTypeC *C.E2nodeComponentInterfaceType_t) (*e2ap_ies.E2NodeComponentInterfaceType, error) {
 
-	e2ncit := e2ap_ies.E2NodeComponentInterfaceType(int32(e2nodeComponentInterfaceTypeC))
+	e2ncit := e2ap_ies.E2NodeComponentInterfaceType(int32(*e2nodeComponentInterfaceTypeC))
 
 	return &e2ncit, nil
 }

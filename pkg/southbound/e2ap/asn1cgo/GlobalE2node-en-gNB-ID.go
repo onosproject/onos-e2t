@@ -73,11 +73,11 @@ func newGlobalE2nodeEnGnbID(globalE2nodeEnGnbID *e2ap_ies.GlobalE2NodeEnGnbId) (
 	var err error
 	globalE2nodeEnGnbIDC := C.GlobalE2node_en_gNB_ID_t{}
 
-	globalGNbIDC, err := newGlobalenGnbID(globalE2nodeEnGnbID.GlobalGNbId)
+	globalGNbIDC, err := newGlobalenGnbID(globalE2nodeEnGnbID.GlobalEnGNbId)
 	if err != nil {
 		return nil, fmt.Errorf("newGlobalenGnbID() %s", err.Error())
 	}
-	globalE2nodeEnGnbIDC.global_gNB_ID = *globalGNbIDC
+	globalE2nodeEnGnbIDC.global_en_gNB_ID = *globalGNbIDC
 
 	if globalE2nodeEnGnbID.GetEnGNbCuUpId() != nil {
 		gnbCuUpIDC, err := newGnbCuUpID(globalE2nodeEnGnbID.GetEnGNbCuUpId())
@@ -103,7 +103,7 @@ func decodeGlobalE2nodeEnGnbID(globalE2nodeEnGnbIDC *C.GlobalE2node_en_gNB_ID_t)
 	var err error
 	globalE2nodeEnGnbID := e2ap_ies.GlobalE2NodeEnGnbId{}
 
-	globalE2nodeEnGnbID.GlobalGNbId, err = decodeGlobalenGnbID(&globalE2nodeEnGnbIDC.global_gNB_ID)
+	globalE2nodeEnGnbID.GlobalEnGNbId, err = decodeGlobalenGnbID(&globalE2nodeEnGnbIDC.global_en_gNB_ID)
 	if err != nil {
 		return nil, fmt.Errorf("decodeGlobalenGnbID() %s", err.Error())
 	}

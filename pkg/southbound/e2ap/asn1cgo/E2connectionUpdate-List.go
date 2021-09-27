@@ -93,7 +93,7 @@ func decodeE2connectionUpdateList(e2culC *C.E2connectionUpdate_List_t) (*e2ap_pd
 	ieCount := int(e2culC.list.count)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(e2culC.list.array)) * uintptr(i)
-		ieC := *(**C.ProtocolIE_SingleContainer_1754P3_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2culC.list.array)) + offset))
+		ieC := *(**C.ProtocolIE_SingleContainer_1911P4_t)(unsafe.Pointer(uintptr(unsafe.Pointer(e2culC.list.array)) + offset))
 		ie, err := decodeE2connectionUpdateItemIesSingleContainer(ieC)
 		if err != nil {
 			return nil, fmt.Errorf("decodeE2connectionUpdateItemIesSingleContainer() %s", err.Error())
@@ -110,7 +110,7 @@ func decodeE2connectionUpdateListBytes(e2curlC [48]byte) (*e2ap_pdu_contents.E2C
 	size := C.int(binary.LittleEndian.Uint32(e2curlC[12:16]))
 
 	rfIDlC := C.E2connectionUpdate_List_t{
-		list: C.struct___139{
+		list: C.struct___150{
 			array: array,
 			size:  size,
 			count: count,

@@ -106,13 +106,13 @@ func decodeRicSubscriptionListWithCause(ratbsLC *C.RICsubscription_List_withCaus
 	return &ratbsL, nil
 }
 
-func decodeRicSubscriptionListWithCauseBytes(list [48]byte) (*e2appducontents.RicsubscriptionListWithCause, error) {
+func decodeRicSubscriptionListWithCauseBytes(list []byte) (*e2appducontents.RicsubscriptionListWithCause, error) {
 	array := (**C.struct_ProtocolIE_SingleContainer)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(list[0:8]))))
 	count := C.int(binary.LittleEndian.Uint32(list[8:12]))
 	size := C.int(binary.LittleEndian.Uint32(list[12:16]))
 
 	ranFunctionListChoiceC := C.RICsubscription_List_withCause_t{
-		list: C.struct___111{
+		list: C.struct___129{
 			array: array,
 			size:  size,
 			count: count,
