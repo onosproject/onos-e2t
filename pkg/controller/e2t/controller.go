@@ -64,7 +64,7 @@ func (r *Reconciler) createE2T(ctx context.Context, e2tID topoapi.ID) error {
 	interfaces[0] = &topoapi.Interface{
 		IP:   env.GetPodIP(),
 		Port: defaultE2APPort,
-		Type: topoapi.Interface_INTERFACE_E2AP101,
+		Type: topoapi.Interface_INTERFACE_E2AP200,
 	}
 
 	interfaces[1] = &topoapi.Interface{

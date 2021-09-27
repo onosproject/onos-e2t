@@ -14,16 +14,16 @@ import (
 
 var log = logging.GetLogger("southbound", "e2ap", "server")
 
-type ConnManager interface {
+type E2APConnManager interface {
 	Get(ctx context.Context, id ConnID) (*E2APConn, error)
 	List(ctx context.Context) ([]*E2APConn, error)
 	Watch(ctx context.Context, ch chan<- *E2APConn) error
 	open(conn *E2APConn)
 }
 
-// NewConnManager creates a new connection manager
-func NewConnManager() ConnManager {
-	mgr := &connManager{
+// NewE2APConnManager creates a new E2AP connection manager
+func NewE2APConnManager() E2APConnManager {
+	mgr := &e2apConnManager{
 		conns:   make(map[ConnID]*E2APConn),
 		eventCh: make(chan *E2APConn),
 	}
@@ -31,7 +31,7 @@ func NewConnManager() ConnManager {
 	return mgr
 }
 
-type connManager struct {
+type e2apConnManager struct {
 	conns      map[ConnID]*E2APConn
 	connsMu    sync.RWMutex
 	watchers   []chan<- *E2APConn
@@ -39,13 +39,13 @@ type connManager struct {
 	eventCh    chan *E2APConn
 }
 
-func (m *connManager) processEvents() {
+func (m *e2apConnManager) processEvents() {
 	for conn := range m.eventCh {
 		m.processEvent(conn)
 	}
 }
 
-func (m *connManager) processEvent(conn *E2APConn) {
+func (m *e2apConnManager) processEvent(conn *E2APConn) {
 	log.Info("Notifying connection")
 	m.watchersMu.RLock()
 	for _, watcher := range m.watchers {
@@ -54,7 +54,7 @@ func (m *connManager) processEvent(conn *E2APConn) {
 	m.watchersMu.RUnlock()
 }
 
-func (m *connManager) open(conn *E2APConn) {
+func (m *e2apConnManager) open(conn *E2APConn) {
 	log.Infof("Opened connection %s", conn.ID)
 	m.connsMu.Lock()
 	defer m.connsMu.Unlock()
@@ -71,7 +71,7 @@ func (m *connManager) open(conn *E2APConn) {
 }
 
 // Get gets a connection by ID
-func (m *connManager) Get(ctx context.Context, connID ConnID) (*E2APConn, error) {
+func (m *e2apConnManager) Get(ctx context.Context, connID ConnID) (*E2APConn, error) {
 	m.connsMu.RLock()
 	defer m.connsMu.RUnlock()
 	conn, ok := m.conns[connID]
@@ -82,7 +82,7 @@ func (m *connManager) Get(ctx context.Context, connID ConnID) (*E2APConn, error)
 }
 
 // List lists connections
-func (m *connManager) List(ctx context.Context) ([]*E2APConn, error) {
+func (m *e2apConnManager) List(ctx context.Context) ([]*E2APConn, error) {
 	m.connsMu.RLock()
 	defer m.connsMu.RUnlock()
 	conns := make([]*E2APConn, 0, len(m.conns))
@@ -93,7 +93,7 @@ func (m *connManager) List(ctx context.Context) ([]*E2APConn, error) {
 }
 
 // Watch watches for new connections
-func (m *connManager) Watch(ctx context.Context, ch chan<- *E2APConn) error {
+func (m *e2apConnManager) Watch(ctx context.Context, ch chan<- *E2APConn) error {
 	m.watchersMu.Lock()
 	m.connsMu.Lock()
 	m.watchers = append(m.watchers, ch)
@@ -120,9 +120,9 @@ func (m *connManager) Watch(ctx context.Context, ch chan<- *E2APConn) error {
 }
 
 // Close closes the manager
-func (m *connManager) Close() error {
+func (m *e2apConnManager) Close() error {
 	close(m.eventCh)
 	return nil
 }
 
-var _ ConnManager = &connManager{}
+var _ E2APConnManager = &e2apConnManager{}

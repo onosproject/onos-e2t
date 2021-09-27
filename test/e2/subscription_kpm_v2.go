@@ -22,7 +22,7 @@ import (
 
 // TestSubscriptionKpmV2 tests e2 subscription and subscription delete procedures using kpm version 2
 func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "subscription-kpm-v2")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "ran-simulator")
 	assert.NotNil(t, sim)
 
 	ctx, cancel := context.WithTimeout(context.Background(), subscriptionTimeout)

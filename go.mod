@@ -10,7 +10,7 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/uuid v1.1.2
 	github.com/onosproject/helmit v0.6.18
-	github.com/onosproject/onos-api/go v0.7.95
+	github.com/onosproject/onos-api/go v0.7.99
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.7.59
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.59
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.59
@@ -27,3 +27,5 @@ require (
 )
 
 replace github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
+
+replace github.com/onosproject/onos-api/go => /Users/adibrastegarnia/go/src/github.com/onosproject/onos-api/go

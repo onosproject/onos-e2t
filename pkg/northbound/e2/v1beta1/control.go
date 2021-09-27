@@ -39,7 +39,7 @@ import (
 var log = logging.GetLogger("northbound", "e2", "v1beta1")
 
 // NewControlService creates a new control service
-func NewControlService(modelRegistry modelregistry.ModelRegistry, conns e2server.ConnManager,
+func NewControlService(modelRegistry modelregistry.ModelRegistry, conns e2server.E2APConnManager,
 	oidRegistry oid.Registry, topo rnib.Store) northbound.Service {
 	return &ControlService{
 		modelRegistry: modelRegistry,
@@ -53,7 +53,7 @@ func NewControlService(modelRegistry modelregistry.ModelRegistry, conns e2server
 type ControlService struct {
 	northbound.Service
 	modelRegistry modelregistry.ModelRegistry
-	conns         e2server.ConnManager
+	conns         e2server.E2APConnManager
 	oidRegistry   oid.Registry
 	topo          rnib.Store
 }
@@ -71,7 +71,7 @@ func (s ControlService) Register(r *grpc.Server) {
 // ControlServer implements the gRPC service for control
 type ControlServer struct {
 	modelRegistry modelregistry.ModelRegistry
-	conns         e2server.ConnManager
+	conns         e2server.E2APConnManager
 	oidRegistry   oid.Registry
 	topo          rnib.Store
 	requestID     int32
@@ -147,13 +147,15 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		}
 	}
 
-	ranFuncID, ok := conn.GetRANFunction(serviceModelOID)
+	ranFuncID, ok := conn.GetRANFunctionID(ctx, serviceModelOID)
 	if !ok {
-		log.Warn("RAN function not found for SM %s", serviceModelOID)
+		err := errors.NewNotFound("RAN function ID not found for service model:%s", serviceModelOID)
+		log.Warn(err)
+		return nil, errors.Status(err).Err()
 	}
 
 	rcar := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
-	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID.ID, controlHeaderBytes, controlMessageBytes)
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, controlHeaderBytes, controlMessageBytes)
 	if err != nil {
 		log.Warn(err)
 		return nil, errors.Status(err).Err()

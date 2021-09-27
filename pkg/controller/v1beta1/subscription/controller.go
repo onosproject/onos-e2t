@@ -38,7 +38,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, conns e2server.ConnManager,
+func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
@@ -75,7 +75,7 @@ type Reconciler struct {
 	streams                   subscription.Broker
 	subs                      substore.Store
 	topo                      rnib.Store
-	conns                     e2server.ConnManager
+	conns                     e2server.E2APConnManager
 	models                    modelregistry.ModelRegistry
 	oidRegistry               oid.Registry
 	connIDs                   map[e2api.SubscriptionID]e2server.ConnID
@@ -232,7 +232,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		InstanceID:  config.InstanceID,
 	}
 
-	ranFunction, ok := conn.GetRANFunction(serviceModelOID)
+	ranFunctionID, ok := conn.GetRANFunctionID(ctx, serviceModelOID)
 	if !ok {
 		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
@@ -250,7 +250,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		}
 	}
 
-	request, err := r.newRicSubscriptionRequest(ricRequest, ranFunction.ID, ricEventDef, ricActionsToBeSetup)
+	request, err := r.newRicSubscriptionRequest(ricRequest, ranFunctionID, ricEventDef, ricActionsToBeSetup)
 	if err != nil {
 		log.Warnf("Failed to create E2ApPdu %+v for Subscription %+v: %s", request, sub, err)
 		return controller.Result{}, err
@@ -383,12 +383,12 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, err
 	}
 
-	ranFunction, ok := conn.GetRANFunction(serviceModelOID)
+	ranFunctionID, ok := conn.GetRANFunctionID(ctx, serviceModelOID)
 	if !ok {
 		log.Warn("RAN function not found for SM %s", serviceModelOID)
 	}
 
-	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFunction.ID)
+	request, err := pdubuilder.NewRicSubscriptionDeleteRequest(ricRequest, ranFunctionID)
 	if err != nil {
 		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
 		return controller.Result{}, err
