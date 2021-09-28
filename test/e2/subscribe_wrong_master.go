@@ -27,6 +27,12 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 
 	_, nonMasters := utils.GetE2Masters(t, e2NodeID)
 
+	if len(nonMasters) == 0 && s.E2TReplicaCount == 1 {
+		// Test is not applicable - no non-master nodes
+		t.Skip("Test not applicable to single node")
+		return
+	}
+
 	client := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
 	assert.NotNil(t, client)
 
