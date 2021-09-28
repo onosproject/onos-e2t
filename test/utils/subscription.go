@@ -6,6 +6,7 @@ package utils
 
 import (
 	"context"
+	"fmt"
 	"testing"
 	"time"
 
@@ -155,7 +156,7 @@ func (subRequest *Subscription) CreateWithActionDefinition() (e2api.Subscription
 	return spec, nil
 }
 
-// ConnectE2tServiceHost connects to subscription service
+// ConnectE2tServiceHost connects to subscription service via service name
 func ConnectE2tServiceHost() (*grpc.ClientConn, error) {
 	tlsConfig, err := creds.GetClientCredentials()
 	if err != nil {
@@ -168,6 +169,20 @@ func ConnectE2tServiceHost() (*grpc.ClientConn, error) {
 	return grpc.DialContext(context.Background(), E2tServiceAddress, opts...)
 }
 
+// ConnectE2t connects to subscription service via IP/port
+func ConnectE2t(IP string, port uint32) (*grpc.ClientConn, error) {
+	tlsConfig, err := creds.GetClientCredentials()
+	if err != nil {
+		return nil, err
+	}
+	opts := []grpc.DialOption{
+		grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)),
+	}
+
+	addr := fmt.Sprintf("%s:%d", IP, port)
+	return grpc.DialContext(context.Background(), addr, opts...)
+}
+
 // CreateKpmV2Sub :
 func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
 
@@ -177,6 +192,11 @@ func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
 	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	assert.NoError(t, err)
 
+	return CreateKpmV2SubWithCell(t, nodeID, cells[0].CellObjectID)
+}
+
+// CreateKpmV2SubWithCell :
+func CreateKpmV2SubWithCell(t *testing.T, nodeID topoapi.ID, cellObjectID string) e2api.SubscriptionSpec {
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
 
@@ -185,7 +205,6 @@ func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
 	actionDefinitionBytes, err := CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 
