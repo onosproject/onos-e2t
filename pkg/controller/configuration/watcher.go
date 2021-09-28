@@ -43,7 +43,7 @@ func (w *MgmtConnWatcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for conn := range w.connCh {
-			log.Debugf("Received management Connection event '%s'", conn.ID)
+			log.Debugf("Received management Connection event'%s'", conn.ID)
 			ch <- controller.NewID(conn.ID)
 		}
 		close(ch)
