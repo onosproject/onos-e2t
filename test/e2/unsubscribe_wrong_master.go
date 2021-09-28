@@ -30,6 +30,7 @@ func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 	if len(nonMasters) == 0 && s.E2TReplicaCount == 1 {
 		// Test is not applicable - no non-master nodes
 		t.Skip("Test not applicable to single node")
+		_ = sim.Uninstall()
 		return
 	}
 
