@@ -60,16 +60,18 @@ func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.R
 func (c *E2APConn) GetRANFunctionID(ctx context.Context, oid e2smtypes.OID) (types.RanFunctionID, bool) {
 	object, err := c.rnib.Get(ctx, c.E2NodeID)
 	if err != nil {
+		log.Warn(err)
 		return 0, false
 	}
 	e2Node := &topoapi.E2Node{}
 	err = object.GetAspect(e2Node)
 	if err != nil {
+		log.Warn(err)
 		return 0, false
 	}
 	ranFunctionIDs := e2Node.ServiceModels[string(oid)].RanFunctionIDs
 	// TODO each service model can have multiple RAN functions
 	// 	for now it each service model has one supported RAN function so it returns the first ran function ID
 	// 	in the list
-	return types.RanFunctionID(ranFunctionIDs[0]), false
+	return types.RanFunctionID(ranFunctionIDs[0]), true
 }
