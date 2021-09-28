@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
-=======
-// SPDX-FileCopyrightText: ${year}-present Open Networking Foundation <info@opennetworking.org>
-// SPDX-License-Identifier: Apache-2.0
->>>>>>> Implement E2 configuration controller and seperate management connection
 
 package utils
 
