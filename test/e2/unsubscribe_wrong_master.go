@@ -17,6 +17,12 @@ import (
 
 // TestUnsubscribeWrongMaster tests e2 subscription to a non-master node
 func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
+	if s.E2TReplicaCount == 1 {
+		// Test is not applicable - no non-master nodes
+		t.Skip("Test not applicable to single node")
+		return
+	}
+
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "unsubscribe-non-master")
 	assert.NotNil(t, sim)
 
@@ -26,13 +32,6 @@ func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 	e2NodeID := utils.GetTestNodeID(t)
 
 	master, nonMasters := utils.GetE2Masters(t, e2NodeID)
-
-	if len(nonMasters) == 0 && s.E2TReplicaCount == 1 {
-		// Test is not applicable - no non-master nodes
-		t.Skip("Test not applicable to single node")
-		_ = sim.Uninstall()
-		return
-	}
 
 	nonMasterClient := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
 	assert.NotNil(t, nonMasterClient)
