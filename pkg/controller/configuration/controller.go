@@ -11,6 +11,7 @@ import (
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
@@ -117,6 +118,16 @@ func (r *Reconciler) createConnectionUpdateReq(ip string) *e2appducontents.E2Con
 	return connectionUpdateRequest
 }
 
+func (r *Reconciler) connectionExist(e2tConn *topoapi.Interface, e2NodeConns []topoapi.Interface) bool {
+	for _, e2NodeConn := range e2NodeConns {
+		if e2NodeConn.IP == e2tConn.IP &&
+			e2NodeConn.Port == e2tConn.Port && e2NodeConn.Type == e2tConn.Type {
+			return true
+		}
+	}
+	return false
+}
+
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
@@ -132,31 +143,63 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		return controller.Result{}, err
 	}
 
+	e2NodeID := conn.NodeID
+
 	e2tNodes, err := r.rnib.List(ctx, utils.GetE2TFilter())
 	if err != nil {
 		return controller.Result{}, err
 	}
-	log.Info("Test Get E2T lists:", e2tNodes)
+	if len(e2tNodes) == 0 {
+		return controller.Result{
+			Requeue: id,
+		}, nil
+	}
+	e2Node, err := r.rnib.Get(ctx, topoapi.ID(e2NodeID))
+	if err != nil {
+		return controller.Result{}, err
+	}
 
+	e2NodeConfig := &topoapi.E2NodeConfig{}
+	_ = e2Node.GetAspect(e2NodeConfig)
+
+	e2NodeConns := e2NodeConfig.Connections
 	for _, e2tNode := range e2tNodes {
-		e2tInfo := &topoapi.E2TInfo{}
-		err = e2tNode.GetAspect(e2tInfo)
+		e2tNodeInfo := &topoapi.E2TInfo{}
+		err := e2tNode.GetAspect(e2tNodeInfo)
 		if err != nil {
 			return controller.Result{}, err
 		}
-
-		for _, e2tInterface := range e2tInfo.GetInterfaces() {
-			if e2tInterface.Type == topoapi.Interface_INTERFACE_E2AP200 {
-				connUpdateRequest := r.createConnectionUpdateReq(e2tInterface.IP)
-				ack, failure, err := conn.E2ConnectionUpdate(ctx, connUpdateRequest)
+		for _, e2tConn := range e2tNodeInfo.GetInterfaces() {
+			if e2tConn.Type == topoapi.Interface_INTERFACE_E2AP200 && !r.connectionExist(e2tConn, e2NodeConns) {
+				connectionUpdateReq := r.createConnectionUpdateReq(e2tConn.IP)
+				connUpdateAck, connUpdateFailure, err := conn.E2ConnectionUpdate(ctx, connectionUpdateReq)
 				if err != nil {
 					return controller.Result{}, err
 				}
 
-				log.Info("Test:", ack, failure, err)
+				if connUpdateAck != nil {
+					log.Infof("Test1 Received connection update ack:%+v", connUpdateAck)
+					e2NodeConfig.Connections = append(e2NodeConfig.Connections, *e2tConn)
+					err := e2Node.SetAspect(e2NodeConfig)
+					if err != nil {
+						return controller.Result{}, err
+					}
+
+					err = r.rnib.Update(ctx, e2Node)
+					if err != nil {
+						if !errors.IsNotFound(err) {
+							return controller.Result{}, err
+						}
+						return controller.Result{}, nil
+					}
+					return controller.Result{}, nil
+
+				}
+				if connUpdateFailure != nil {
+					log.Infof("Received connection update failure: %+v", connUpdateFailure)
+				}
 			}
 		}
-
 	}
 
 	return controller.Result{}, nil

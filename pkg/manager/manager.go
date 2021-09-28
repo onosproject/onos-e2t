@@ -8,6 +8,7 @@ import (
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/controller/configuration"
+	"github.com/onosproject/onos-e2t/pkg/controller/controlrelation"
 	"github.com/onosproject/onos-e2t/pkg/controller/e2node"
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
@@ -134,6 +135,11 @@ func (m *Manager) Start() error {
 		return err
 	}
 
+	err = m.startControlRelationController(rnibStore, e2apConns)
+	if err != nil {
+		return err
+	}
+
 	err = m.startSouthboundServer(e2apConns, mgmtConns, streams, streamsv1beta1, rnibStore)
 	if err != nil {
 		return err
@@ -144,6 +150,11 @@ func (m *Manager) Start() error {
 		return err
 	}
 	return nil
+}
+
+func (m *Manager) startControlRelationController(rnib rnib.Store, e2apConn e2server.E2APConnManager) error {
+	ctrlRelationController := controlrelation.NewController(rnib, e2apConn)
+	return ctrlRelationController.Start()
 }
 
 func (m *Manager) startConfigurationController(rnib rnib.Store, mgmtConns e2server.MgmtConnManager, e2apConn e2server.E2APConnManager) error {

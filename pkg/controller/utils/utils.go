@@ -22,7 +22,7 @@ func GetE2TID() topoapi.ID {
 		uri.WithOpaque(env.GetPodID())).String())
 }
 
-func getFilter(kind string) *topoapi.Filters {
+func getKindFilter(kind string) *topoapi.Filters {
 	controlRelationFilter := &topoapi.Filters{
 		KindFilter: &topoapi.Filter{
 			Filter: &topoapi.Filter_Equal_{
@@ -35,14 +35,24 @@ func getFilter(kind string) *topoapi.Filters {
 	return controlRelationFilter
 
 }
+
 func GetE2NodeFilter() *topoapi.Filters {
-	return getFilter(topoapi.E2NODE)
+	return getKindFilter(topoapi.E2NODE)
 }
 
-func GetControlRelationFilter() *topoapi.Filters {
-	return getFilter(topoapi.CONTROLS)
+func GetControlRelationTargetFilter(targetID string) *topoapi.Filters {
+	return &topoapi.Filters{
+		RelationFilter: &topoapi.RelationFilter{
+			RelationKind: topoapi.CONTROLS,
+			TargetId:     targetID,
+		},
+	}
+}
+
+func GetControlRelationKindFilter() *topoapi.Filters {
+	return getKindFilter(topoapi.CONTROLS)
 }
 
 func GetE2TFilter() *topoapi.Filters {
-	return getFilter(topoapi.E2T)
+	return getKindFilter(topoapi.E2T)
 }
