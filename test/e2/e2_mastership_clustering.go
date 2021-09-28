@@ -6,6 +6,9 @@ package e2
 
 import (
 	"fmt"
+	"strings"
+	"testing"
+
 	"github.com/onosproject/helmit/pkg/helm"
 	modelapi "github.com/onosproject/onos-api/go/onos/ransim/model"
 	ransimtypes "github.com/onosproject/onos-api/go/onos/ransim/types"
@@ -13,8 +16,6 @@ import (
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/stretchr/testify/assert"
-	"strings"
-	"testing"
 )
 
 var gnbID = ransimtypes.GnbID(166000)
@@ -128,6 +129,7 @@ func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
 
 	// Check that the e2t control relation is correct
 	e2Node := getE2Node(t)
+	t.Log(e2Node.ID)
 	assert.NotNil(t, e2Node)
 	checkE2tNodeRelation(t, *e2Node)
 

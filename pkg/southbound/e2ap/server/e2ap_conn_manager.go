@@ -62,9 +62,12 @@ func (m *e2apConnManager) open(conn *E2APConn) {
 	m.eventCh <- conn
 	go func() {
 		<-conn.Context().Done()
-		log.Infof("Closing connection %s", conn.ID)
+		log.Infof("Closing connection for e2 node %s:%s", conn.ID, conn.E2NodeID)
+		log.Infof("Test List of connections before: %+v", m.conns)
+
 		m.connsMu.Lock()
 		delete(m.conns, conn.ID)
+		log.Infof("Test List of connections after: %+v", m.conns)
 		m.connsMu.Unlock()
 		m.eventCh <- conn
 	}()

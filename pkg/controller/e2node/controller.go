@@ -87,7 +87,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) createE2Node(ctx context.Context, conn *e2server.ManagementConn) (bool, error) {
-	log.Debug("Creating E2 node %s for connection %v", conn.E2NodeID, conn.ID)
+	log.Debugf("Creating E2 node %s for connection %v", conn.E2NodeID, conn.ID)
 	object, err := r.rnib.Get(ctx, conn.E2NodeID)
 	if err != nil {
 		if !errors.IsNotFound(err) {
