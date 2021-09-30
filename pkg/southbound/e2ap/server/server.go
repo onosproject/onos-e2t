@@ -108,7 +108,30 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	log.Infof("Received E2 setup request: %+v", request)
 	transID, nodeIdentity, ranFuncs, _, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
-		return nil, nil, err
+		cause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
+			Id:          int32(v2beta1.ProtocolIeIDCause),
+			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2apies.Cause{
+				Cause: &e2apies.Cause_RicRequest{
+					RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED,
+				},
+			},
+			Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		failure := &e2appducontents.E2SetupFailure{
+			ProtocolIes: &e2appducontents.E2SetupFailureIes{
+				E2ApProtocolIes1: &cause,
+				E2ApProtocolIes49: &e2appducontents.E2SetupFailureIes_E2SetupFailureIes49{
+					Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+					Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
+					Value: &e2apies.TransactionId{
+						Value: request.GetProtocolIes().GetE2ApProtocolIes49().Value.Value,
+					},
+					Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+				},
+			},
+		}
+		return nil, failure, err
 	}
 
 	rawPlmnid := []byte{nodeIdentity.Plmn[0], nodeIdentity.Plmn[1], nodeIdentity.Plmn[2]}
@@ -167,7 +190,30 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	e2nccaal = append(e2nccaal, &ie1)
 	response, err := pdubuilder.NewE2SetupResponse(*transID, nodeIdentity.Plmn, ricID, e2nccaal)
 	if err != nil {
-		return nil, nil, err
+		cause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
+			Id:          int32(v2beta1.ProtocolIeIDCause),
+			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2apies.Cause{
+				Cause: &e2apies.Cause_RicRequest{
+					RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED,
+				},
+			},
+			Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		failure := &e2appducontents.E2SetupFailure{
+			ProtocolIes: &e2appducontents.E2SetupFailureIes{
+				E2ApProtocolIes1: &cause,
+				E2ApProtocolIes49: &e2appducontents.E2SetupFailureIes_E2SetupFailureIes49{
+					Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+					Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
+					Value: &e2apies.TransactionId{
+						Value: request.GetProtocolIes().GetE2ApProtocolIes49().Value.Value,
+					},
+					Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+				},
+			},
+		}
+		return nil, failure, err
 	}
 
 	if len(rfAccepted) > 0 {
@@ -187,14 +233,14 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	log.Infof("Received E2 node configuration update request: %+v", request)
 	ie3 := request.GetProtocolIes().GetE2ApProtocolIes3()
 	if ie3 != nil {
-		nodeIdentity, err := pdudecoder.ExtractE2NodeIdentity(ie3.GetValue())
+		nodeID, err := pdudecoder.ExtractE2NodeIdentity(ie3.GetValue())
 		if err != nil {
 			cause := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
 				Id:          int32(v2beta1.ProtocolIeIDCause),
 				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2apies.Cause{
-					Cause: &e2apies.Cause_Protocol{
-						Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED,
+					Cause: &e2apies.Cause_RicRequest{
+						RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED,
 					},
 				},
 				Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
@@ -217,8 +263,10 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 		}
 
 		// Creates a new E2AP data connection
-		e.e2apConn = NewE2APConn(createE2NodeURI(nodeIdentity), e.serverConn, e.streamsv1beta1, e.rnib)
+		e.e2apConn = NewE2APConn(createE2NodeURI(nodeID), e.serverConn, e.streamsv1beta1, e.rnib)
 		defer e.e2apConns.open(e.e2apConn)
+
+		// Creates a controls relation
 		object := &topoapi.Object{
 			ID:   topoapi.ID(e.e2apConn.ID),
 			Type: topoapi.Object_RELATION,
@@ -236,8 +284,8 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 				Id:          int32(v2beta1.ProtocolIeIDCause),
 				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2apies.Cause{
-					Cause: &e2apies.Cause_Protocol{
-						Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_UNSPECIFIED,
+					Cause: &e2apies.Cause_RicRequest{
+						RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED,
 					},
 				},
 				Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
@@ -258,9 +306,9 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 			}
 			return nil, failure, err
 		}
-
 	}
-	log.Debugf("Sending config update ack to e2 node:", e.e2apConn.E2NodeID)
+
+	log.Debugf("Sending config update ack to e2 node: %s", e.e2apConn.E2NodeID)
 	return &e2appducontents.E2NodeConfigurationUpdateAcknowledge{
 		ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes{
 			E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes49{

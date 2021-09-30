@@ -131,7 +131,7 @@ func (r *Reconciler) createE2Node(ctx context.Context, conn *e2server.Management
 	e2NodeAspect := &topoapi.E2Node{}
 	err = object.GetAspect(e2NodeAspect)
 	if err == nil {
-		log.Debug("E2 node %s aspect is already set ", conn.E2NodeID)
+		log.Debugf("E2 node %s aspect is already set ", conn.E2NodeID)
 		return false, nil
 	}
 
@@ -216,7 +216,7 @@ func (r *Reconciler) createE2Cell(ctx context.Context, conn *e2server.Management
 	e2CellAspect := &topoapi.E2Cell{}
 	err = object.GetAspect(e2CellAspect)
 	if err == nil {
-		log.Debug("E2 cell %s aspect is already set", cellID)
+		log.Debugf("E2 cell %s aspect is already set", cellID)
 		return false, nil
 	}
 
@@ -272,31 +272,3 @@ func (r *Reconciler) createE2CellRelation(ctx context.Context, conn *e2server.Ma
 	}
 	return false, nil
 }
-
-/*func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, connID e2server.ConnID) error {
-	relationID := utils.GetE2ControlRelationID(connID)
-	log.Debugf("Deleting E2Node relation '%s' for connection '%s'", relationID, connID)
-	object, err := r.rnib.Get(ctx, relationID)
-	if err == nil {
-		err := r.rnib.Delete(ctx, object)
-		if err != nil {
-			if !errors.IsNotFound(err) {
-				log.Warnf("Deleting E2Node relation '%s' for connection '%s' failed: %v", relationID, connID, err)
-				return err
-			}
-			return nil
-		}
-	}
-
-	return nil
-}
-
-func (r *Reconciler) reconcileDeleteE2ControlRelation(connID e2server.ConnID) (controller.Result, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
-	defer cancel()
-
-	if err := r.deleteE2ControlRelation(ctx, connID); err != nil {
-		return controller.Result{}, err
-	}
-	return controller.Result{}, nil
-}*/

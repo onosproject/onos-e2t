@@ -90,16 +90,15 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for event := range eventCh {
-			log.Debugf("Received topo event '%s'", event.Object.ID)
 			conns, err := w.mgmtConns.List(ctx)
 			if err != nil {
-				log.Warnf("cannot retrieve the list conns %v:%v", conns, err)
+				log.Warnf("cannot retrieve the list conns %s", err)
 				continue
 			}
 
 			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok {
 				if relation.Relation.KindID == topoapi.CONTROLS {
-					log.Debugf("Received control relation event: %+v", event)
+					log.Debugf("Received control relation event: %+v", event.Object.ID)
 					for _, conn := range conns {
 						if conn.E2NodeID == relation.Relation.GetTgtEntityID() {
 							ch <- controller.NewID(conn.ID)
@@ -112,7 +111,7 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 
 				// Enqueue the management connection with matching e2node
 				if entity.Entity.KindID == topoapi.E2NODE {
-					log.Debugf("Received E2 node event: %+v", event)
+					log.Debugf("Received E2 node event: %+v", event.Object.ID)
 					for _, conn := range conns {
 						if conn.E2NodeID == event.Object.GetID() {
 							ch <- controller.NewID(conn.ID)

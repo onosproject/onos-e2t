@@ -73,6 +73,7 @@ func (m *mgmtConnManager) Get(ctx context.Context, connID ConnID) (*ManagementCo
 	m.connsMu.RLock()
 	defer m.connsMu.RUnlock()
 	conn, ok := m.conns[connID]
+	log.Infof("Test list of management connections: %+v", m.conns)
 	if !ok {
 		return nil, errors.NewNotFound("management connection '%s' not found", connID)
 	}

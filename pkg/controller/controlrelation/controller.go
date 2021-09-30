@@ -56,7 +56,6 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	_, err := r.e2apConns.Get(ctx, connID)
 	if err != nil {
 		if errors.IsNotFound(err) {
-
 			return r.reconcileDeleteE2ControlRelation(connID)
 		}
 		log.Warnf("Failed to reconcile E2 node control relation for connection %s: %s", connID, err)
