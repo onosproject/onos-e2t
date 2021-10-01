@@ -129,7 +129,6 @@ func (s *TestSuite) TestE2TMastershipClustering(t *testing.T) {
 
 	// Check that the e2t control relation is correct
 	e2Node := getE2Node(t)
-	t.Log(e2Node.ID)
 	assert.NotNil(t, e2Node)
 	checkE2tNodeRelation(t, *e2Node)
 
