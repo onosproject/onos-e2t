@@ -13,7 +13,7 @@ import (
 )
 
 func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *types.RicIdentity, types.RanFunctionRevisions,
-	types.RanFunctionCauses, []*types.E2NodeComponentConfigUpdateAckItem, error) {
+	types.RanFunctionCauses, []*types.E2NodeComponentConfigAdditionAckItem, error) {
 	//if err := e2apPdu.Validate(); err != nil {
 	//	return nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
 	//}
@@ -64,15 +64,15 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *ty
 		}
 	}
 
-	e2nccual := make([]*types.E2NodeComponentConfigUpdateAckItem, 0)
-	list := e2setup.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()
+	e2nccual := make([]*types.E2NodeComponentConfigAdditionAckItem, 0)
+	list := e2setup.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes52().GetValue().GetValue()
 	for _, ie := range list {
-		e2nccuai := types.E2NodeComponentConfigUpdateAckItem{}
-		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentType()
+		e2nccuai := types.E2NodeComponentConfigAdditionAckItem{}
+		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentInterfaceType()
 		e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentId()
-		e2nccuai.E2NodeComponentConfigUpdateAck = types.E2NodeComponentConfigUpdateAck{
-			UpdateOutcome: ie.GetValue().GetE2NodeComponentConfigUpdateAck().GetUpdateOutcome(),
-			FailureCause:  ie.GetValue().GetE2NodeComponentConfigUpdateAck().GetFailureCause(),
+		e2nccuai.E2NodeComponentConfigurationAck = e2apies.E2NodeComponentConfigurationAck{
+			UpdateOutcome: ie.GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome(),
+			FailureCause:  ie.GetValue().GetE2NodeComponentConfigurationAck().GetFailureCause(),
 		}
 
 		e2nccual = append(e2nccual, &e2nccuai)

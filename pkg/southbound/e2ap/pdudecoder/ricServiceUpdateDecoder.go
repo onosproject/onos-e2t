@@ -25,7 +25,7 @@ func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, 
 	ranFunctionsAddedList := make(types.RanFunctions)
 	rfal := rsu.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()
 	for _, ie := range rfal {
-		val := ie.GetE2ApProtocolIes10().GetValue()
+		val := ie.GetE2ApProtocolIes8().GetValue()
 		ranFunctionsAddedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 			Description: val.GetRanFunctionDefinition().GetValue(),
 			Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
@@ -45,7 +45,7 @@ func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, 
 	ranFunctionsModifiedList := make(types.RanFunctions)
 	rfml := rsu.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()
 	for _, ie := range rfml {
-		val := ie.GetE2ApProtocolIes10().GetValue()
+		val := ie.GetE2ApProtocolIes8().GetValue()
 		ranFunctionsModifiedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 			Description: val.GetRanFunctionDefinition().GetValue(),
 			Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),

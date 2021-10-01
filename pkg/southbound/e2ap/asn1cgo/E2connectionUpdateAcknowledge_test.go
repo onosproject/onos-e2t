@@ -25,7 +25,7 @@ func createE2connectionUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2ConnectionUp
 
 	e2connectionUpdateAcknowledge.GetSuccessfulOutcome().GetProcedureCode().GetE2ConnectionUpdate().GetSuccessfulOutcome().
 		SetE2ConnectionSetup([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
-			TnlPort: asn1.BitString{
+			TnlPort: &asn1.BitString{
 				Value: []byte{0xae, 0x89},
 				Len:   16,
 			},
@@ -34,7 +34,7 @@ func createE2connectionUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2ConnectionUp
 				Len:   64,
 			}},
 			TnlUsage: e2ap_ies.Tnlusage_TNLUSAGE_BOTH}}).SetE2ConnectionSetupFailed([]*types.E2ConnectionSetupFailedItem{{TnlInformation: types.TnlInformation{
-		TnlPort: asn1.BitString{
+		TnlPort: &asn1.BitString{
 			Value: []byte{0xae, 0x89},
 			Len:   16,
 		},

@@ -13,8 +13,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricCtrlStatus e2apies.RiccontrolStatus) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29{
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
@@ -35,13 +34,6 @@ func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID typ
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	ricControlStatus := e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes24{
-		Id:          int32(v2.ProtocolIeIDRiccontrolStatus),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value:       ricCtrlStatus,
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-	}
-
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 			SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
@@ -52,7 +44,6 @@ func CreateRicControlAcknowledgeE2apPdu(ricReqID types.RicRequest, ranFuncID typ
 								E2ApProtocolIes29: &ricRequestID,  // RIC Requestor & RIC Instance ID
 								E2ApProtocolIes5:  &ranFunctionID, // RAN function ID
 								//E2ApProtocolIes20: &ricCallProcessID,  // RIC Call Process ID
-								E2ApProtocolIes24: &ricControlStatus, // RIC Control Status
 								//E2ApProtocolIes32: &ricControlOutcome, // RIC Control Outcome
 							},
 						},

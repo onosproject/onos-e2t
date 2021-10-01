@@ -13,8 +13,8 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func CreateRicSubscriptionDeleteFailureE2apPdu(
-	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, cause *e2apies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateRicSubscriptionDeleteFailureE2apPdu(ricReq *types.RicRequest, ranFuncID types.RanFunctionID,
+	cause *e2apies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RicsubscriptionDeleteFailureIes_RicsubscriptionDeleteFailureIes29{
 		Id:          int32(v2.ProtocolIeIDRicrequestID),

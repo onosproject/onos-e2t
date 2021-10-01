@@ -17,8 +17,8 @@ import (
 
 const mask20bitricResponse = 0xFFFFF
 
-func CreateRicSubscriptionResponseE2apPdu(
-	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, ricActionsAccepted []*types.RicActionID) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateRicSubscriptionResponseE2apPdu(ricReq *types.RicRequest, ranFuncID types.RanFunctionID,
+	ricActionsAdmitted []*types.RicActionID) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if ricReq.RequestorID|mask20bitricResponse > mask20bitricResponse {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReq.RequestorID)
@@ -55,7 +55,7 @@ func CreateRicSubscriptionResponseE2apPdu(
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	for _, raa := range ricActionsAccepted {
+	for _, raa := range ricActionsAdmitted {
 		raaIe := &e2appducontents.RicactionAdmittedItemIes{
 			Id:          int32(v2.ProtocolIeIDRicactionAdmittedItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),

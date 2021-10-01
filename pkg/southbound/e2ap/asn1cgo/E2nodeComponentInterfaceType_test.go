@@ -40,7 +40,7 @@ func createE2nodeComponentInterfaceTypeX2() e2ap_ies.E2NodeComponentInterfaceTyp
 	return e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_X2
 }
 
-func Test_xerEncodiTypeE2nodeComponentInterfaceType(t *testing.T) {
+func Test_xerEncodingTypeE2nodeComponentInterfaceType(t *testing.T) {
 
 	it := createE2nodeComponentInterfaceTypeNg()
 
@@ -84,7 +84,7 @@ func Test_xerEncodiTypeE2nodeComponentInterfaceType(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("E2nodeComponentInterfaceType (F1) XER\n%s", string(xer3))
 
-	result3, err := xerDecodeE2nodeComponentInterfaceType(xer)
+	result3, err := xerDecodeE2nodeComponentInterfaceType(xer3)
 	assert.NilError(t, err)
 	assert.Assert(t, result3 != nil)
 	t.Logf("E2nodeComponentInterfaceType (F1) XER - decoded\n%v", result3)
@@ -127,7 +127,7 @@ func Test_xerEncodiTypeE2nodeComponentInterfaceType(t *testing.T) {
 	assert.Equal(t, it6.Number(), result6.Number())
 }
 
-func Test_perEncodiTypeE2nodeComponentInterfaceType(t *testing.T) {
+func Test_perEncodingTypeE2nodeComponentInterfaceType(t *testing.T) {
 
 	it := createE2nodeComponentInterfaceTypeNg()
 
@@ -171,7 +171,7 @@ func Test_perEncodiTypeE2nodeComponentInterfaceType(t *testing.T) {
 	assert.NilError(t, err)
 	t.Logf("E2nodeComponentInterfaceType (F1) PER\n%v", hex.Dump(per3))
 
-	result3, err := perDecodeE2nodeComponentInterfaceType(per)
+	result3, err := perDecodeE2nodeComponentInterfaceType(per3)
 	assert.NilError(t, err)
 	assert.Assert(t, result3 != nil)
 	t.Logf("E2nodeComponentInterfaceType (F1) PER - decoded\n%v", result3)

@@ -277,7 +277,9 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				ProcedureCode: &e2ap_constants.IdE2Setup{
 					Value: int32(v2.ProcedureCodeIDE2setup),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 	case C.InitiatingMessage__value_PR_RICsubscriptionRequest:
@@ -305,7 +307,9 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				ProcedureCode: &e2ap_constants.IdRicsubscription{
 					Value: int32(v2.ProcedureCodeIDRICsubscription),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 
@@ -334,7 +338,9 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				ProcedureCode: &e2ap_constants.IdRicsubscriptionDeleteRequired{
 					Value: int32(v2.ProcedureCodeIDRICsubscriptionDeleteRequired),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityIgnore{},
+				Criticality: &e2ap_commondatatypes.CriticalityIgnore{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+				},
 			},
 		}
 
@@ -363,7 +369,9 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
 					Value: int32(v2.ProcedureCodeIDRICsubscriptionDelete),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 

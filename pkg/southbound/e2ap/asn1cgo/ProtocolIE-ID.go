@@ -113,6 +113,30 @@ func protocolIeIDToC(pcIeID v2.ProtocolIeID) (C.ProtocolIE_ID_t, error) {
 		return C.ProtocolIE_ID_id_TNLinformation, nil
 	case v2.ProtocolIeIDTransactionID:
 		return C.ProtocolIE_ID_id_TransactionID, nil
+	case v2.ProtocolIeIDE2nodeComponentConfigAddition:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigAddition, nil
+	case v2.ProtocolIeIDE2nodeComponentConfigAdditionItem:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigAddition_Item, nil
+	case v2.ProtocolIeIDE2nodeComponentConfigAdditionAck:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigAdditionAck, nil
+	case v2.ProtocolIeIDE2nodeComponentConfigAdditionAckItem:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigAdditionAck_Item, nil
+	case v2.ProtocolIeIDE2nodeComponentConfigRemoval:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigRemoval, nil
+	case v2.ProtocolIeIDE2nodeComponentConfigRemovalItem:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigRemoval_Item, nil
+	case v2.ProtocolIeIDE2nodeComponentConfigRemovalAck:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigRemovalAck, nil
+	case v2.ProtocolIeIDE2nodeComponentConfigRemovalAckItem:
+		return C.ProtocolIE_ID_id_E2nodeComponentConfigRemovalAck_Item, nil
+	case v2.ProtocolIeIDE2nodeTNLassociationRemoval:
+		return C.ProtocolIE_ID_id_E2nodeTNLassociationRemoval, nil
+	case v2.ProtocolIeIDE2nodeTNLassociationRemovalItem:
+		return C.ProtocolIE_ID_id_E2nodeTNLassociationRemoval_Item, nil
+	case v2.ProtocolIeIDRICsubscriptionToBeRemoved:
+		return C.ProtocolIE_ID_id_RICsubscriptionToBeRemoved, nil
+	case v2.ProtocolIeIDRICsubscriptionWithCauseItem:
+		return C.ProtocolIE_ID_id_RICsubscription_withCause_Item, nil
 	default:
 		return C.ProtocolIE_ID_t(-1), fmt.Errorf("unexpected value for ProtocolIE_IDT %v", pcIeID)
 	}

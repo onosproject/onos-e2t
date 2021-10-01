@@ -17,8 +17,8 @@ import (
 
 func createE2nodeConfigurationUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge, error) {
 
-	//e2ncID1 := pdubuilder.CreateE2NodeComponentIDGnbCuUp(21)
-	e2ncID2 := pdubuilder.CreateE2NodeComponentIDGnbDu(13)
+	e2ncID1 := pdubuilder.CreateE2NodeComponentIDNg("onf")
+	e2ncID2 := pdubuilder.CreateE2NodeComponentIDE1(5)
 
 	e2nodeConfigurationUpdateAcknowledge, err := pdubuilder.CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(1)
 	if err != nil {
@@ -28,9 +28,9 @@ func createE2nodeConfigurationUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2NodeC
 	e2nodeConfigurationUpdateAcknowledge.GetSuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetSuccessfulOutcome().
 		SetE2nodeComponentConfigUpdateAck([]*types.E2NodeComponentConfigUpdateAckItem{
 			{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_NG,
-				//E2NodeComponentID: e2ncID1,
+				E2NodeComponentID: e2ncID1,
 				E2NodeComponentConfigurationAck: types.E2NodeComponentConfigurationAck{
-					UpdateOutcome: 1,
+					UpdateOutcome: e2ap_ies.UpdateOutcome_UPDATE_OUTCOME_FAILURE,
 					FailureCause: &e2ap_ies.Cause{
 						Cause: &e2ap_ies.Cause_Protocol{
 							Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
@@ -38,9 +38,9 @@ func createE2nodeConfigurationUpdateAcknowledgeMsg() (*e2ap_pdu_contents.E2NodeC
 					},
 				}},
 			{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
-				E2NodeComponentID: &e2ncID2,
+				E2NodeComponentID: e2ncID2,
 				E2NodeComponentConfigurationAck: types.E2NodeComponentConfigurationAck{
-					UpdateOutcome: 1,
+					UpdateOutcome: e2ap_ies.UpdateOutcome_UPDATE_OUTCOME_SUCCESS,
 					//FailureCause: e2ap_ies.Cause{
 					//	Cause: &e2ap_ies.Cause_Protocol{
 					//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
@@ -68,10 +68,11 @@ func Test_xerEncodingE2nodeConfigurationUpdateAcknowledge(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeConfigurationUpdateAcknowledge XER - decoded\n%v", result)
 	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetId(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetId())
-	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentInterfaceType(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentInterfaceType())
-	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome())
-	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentInterfaceType(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentInterfaceType())
-	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentInterfaceType().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentInterfaceType().Number())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome().Number())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetFailureCause().GetProtocol().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetFailureCause().GetProtocol().Number())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentInterfaceType().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentInterfaceType().Number())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome().Number())
 	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue())
 }
 
@@ -89,9 +90,10 @@ func Test_perEncodingE2nodeConfigurationUpdateAcknowledge(t *testing.T) {
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeConfigurationUpdateAcknowledge PER - decoded\n%v", result)
 	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetId(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetId())
-	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentInterfaceType(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentInterfaceType())
-	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome())
-	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentInterfaceType(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentInterfaceType())
-	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentInterfaceType().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentInterfaceType().Number())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome().Number())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetFailureCause().GetProtocol().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[0].GetValue().GetE2NodeComponentConfigurationAck().GetFailureCause().GetProtocol().Number())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentInterfaceType().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentInterfaceType().Number())
+	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome().Number(), result.GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()[1].GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome().Number())
 	assert.Equal(t, e2nodeConfigurationUpdateAcknowledge.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue())
 }

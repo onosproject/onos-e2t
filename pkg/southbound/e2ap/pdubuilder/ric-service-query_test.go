@@ -20,7 +20,8 @@ func TestRicServiceQuery(t *testing.T) {
 	newE2apPdu, err := CreateRicServiceQueryE2apPdu(54)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
-	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceQuery().GetInitiatingMessage().SetRanFunctionsAccepted(rfAccepted)
+	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceQuery().GetInitiatingMessage().
+		SetRanFunctionsAccepted(rfAccepted)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)

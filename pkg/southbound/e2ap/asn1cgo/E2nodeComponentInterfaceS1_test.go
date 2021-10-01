@@ -27,7 +27,7 @@ func createE2nodeComponentInterfaceS1Msg() (*e2ap_ies.E2NodeComponentInterfaceS1
 	return &e2ncc, nil
 }
 
-func Test_xerEncodiS1E2nodeComponentInterfaceS1(t *testing.T) {
+func Test_xerEncodingS1E2nodeComponentInterfaceS1(t *testing.T) {
 
 	e2ncc, err := createE2nodeComponentInterfaceS1Msg()
 	assert.NilError(t, err, "Error creatiS1 E2nodeComponentInterfaceS1 PDU")
@@ -43,7 +43,7 @@ func Test_xerEncodiS1E2nodeComponentInterfaceS1(t *testing.T) {
 	assert.Equal(t, e2ncc.GetMmeName().GetValue(), result.GetMmeName().GetValue())
 }
 
-func Test_perEncodiS1E2nodeComponentInterfaceS1(t *testing.T) {
+func Test_perEncodingS1E2nodeComponentInterfaceS1(t *testing.T) {
 
 	e2ncc, err := createE2nodeComponentInterfaceS1Msg()
 	assert.NilError(t, err, "Error creatiS1 E2nodeComponentInterfaceS1 PDU")

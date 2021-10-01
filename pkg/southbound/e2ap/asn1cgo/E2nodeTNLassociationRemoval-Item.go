@@ -139,9 +139,9 @@ func decodeE2nodeTNLassociationRemovalItemBytes(array [184]byte) (*e2ap_pdu_cont
 			// Gap of 24 for the asn_struct_ctx_t belonging to BIT_STRING --> 128
 			tnlPort: tnlPort2PtrC,
 		},
-		// Gap of 24 for the asn_struct_ctx_t belonging to TNLinformation --> 152
+		// Gap of 24 for the asn_struct_ctx_t belonging to TNLinformation --> 160
 	}
-	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeTNLassociationRemoval_Item --> 176
+	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeTNLassociationRemoval_Item --> 184
 
 
 	return decodeE2nodeTNLassociationRemovalItem(&e2nccC)

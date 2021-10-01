@@ -78,51 +78,28 @@
                         </value>
                     </E2setupResponseIEs>
                     <E2setupResponseIEs>
-                        <id>35</id>
+                        <id>52</id>
                         <criticality><reject/></criticality>
                         <value>
-                            <E2nodeComponentConfigUpdateAck-List>
+                            <E2nodeComponentConfigAdditionAck-List>
                                 <ProtocolIE-SingleContainer>
-                                    <id>36</id>
+                                    <id>53</id>
                                     <criticality><reject/></criticality>
                                     <value>
-                                        <E2nodeComponentConfigUpdateAck-Item>
-                                            <e2nodeComponentType><gNB/></e2nodeComponentType>
+                                        <E2nodeComponentConfigAdditionAck-Item>
+                                            <e2nodeComponentInterfaceType><s1/></e2nodeComponentInterfaceType>
                                             <e2nodeComponentID>
-                                                <e2nodeComponentTypeGNB-CU-UP>
-                                                    <gNB-CU-UP-ID>21</gNB-CU-UP-ID>
-                                                </e2nodeComponentTypeGNB-CU-UP>
+                                                <e2nodeComponentInterfaceTypeS1>
+                                                    <mme-name>S1-component</mme-name>
+                                                </e2nodeComponentInterfaceTypeS1>
                                             </e2nodeComponentID>
-                                            <e2nodeComponentConfigUpdateAck>
-                                                <updateOutcome><failure/></updateOutcome>
-                                                <failureCause>
-                                                    <protocol><transfer-syntax-error/></protocol>
-                                                </failureCause>
-                                            </e2nodeComponentConfigUpdateAck>
-                                        </E2nodeComponentConfigUpdateAck-Item>
+                                            <e2nodeComponentConfigurationAck>
+                                                <updateOutcome><success/></updateOutcome>
+                                            </e2nodeComponentConfigurationAck>
+                                        </E2nodeComponentConfigAdditionAck-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
-                                <ProtocolIE-SingleContainer>
-                                    <id>36</id>
-                                    <criticality><reject/></criticality>
-                                    <value>
-                                        <E2nodeComponentConfigUpdateAck-Item>
-                                            <e2nodeComponentType><eNB/></e2nodeComponentType>
-                                            <e2nodeComponentID>
-                                                <e2nodeComponentTypeGNB-DU>
-                                                    <gNB-DU-ID>13</gNB-DU-ID>
-                                                </e2nodeComponentTypeGNB-DU>
-                                            </e2nodeComponentID>
-                                            <e2nodeComponentConfigUpdateAck>
-                                                <updateOutcome><failure/></updateOutcome>
-                                                <failureCause>
-                                                    <protocol><abstract-syntax-error-falsely-constructed-message/></protocol>
-                                                </failureCause>
-                                            </e2nodeComponentConfigUpdateAck>
-                                        </E2nodeComponentConfigUpdateAck-Item>
-                                    </value>
-                                </ProtocolIE-SingleContainer>
-                            </E2nodeComponentConfigUpdateAck-List>
+                            </E2nodeComponentConfigAdditionAck-List>
                         </value>
                     </E2setupResponseIEs>
                     <E2setupResponseIEs>

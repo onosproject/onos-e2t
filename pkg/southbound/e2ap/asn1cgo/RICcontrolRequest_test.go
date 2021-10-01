@@ -28,7 +28,7 @@ func Test_RICcontrolRequest(t *testing.T) {
 		ranFuncID, ricCtrlHdr, ricCtrlMsg)
 	assert.NilError(t, err)
 	assert.Assert(t, e2ApPduRcr != nil)
-	e2ApPduRcr.SetRicCallProcessID([]byte{0xCF, 0xFF}).SetRicControlAckRequest(e2ap_ies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_N_ACK)
+	e2ApPduRcr.SetRicCallProcessID([]byte{0xCF, 0xFF}).SetRicControlAckRequest(e2ap_ies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_NO_ACK)
 
 	t.Logf("That's what we're going to encode: \n %v \n", e2ApPduRcr)
 

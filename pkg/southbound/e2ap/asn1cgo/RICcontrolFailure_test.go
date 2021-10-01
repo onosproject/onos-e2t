@@ -24,7 +24,7 @@ func Test_RICcontrolFailure(t *testing.T) {
 	var ricCtrlOut types.RicControlOutcome = []byte("456")
 	cause := &e2apies.Cause{
 		Cause: &e2apies.Cause_RicRequest{
-			RicRequest: e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID,
+			RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_MESSAGE_INVALID,
 		},
 	}
 	e2ApPduRcf, err := pdubuilder.CreateRicControlFailureE2apPdu(ricRequestID,

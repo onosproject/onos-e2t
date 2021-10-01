@@ -32,7 +32,7 @@ func DecodeE2connectionUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApP
 	for _, ie := range list {
 		item := types.E2ConnectionUpdateItem{}
 		item.TnlInformation.TnlAddress = *ie.GetValue().GetTnlInformation().GetTnlAddress()
-		item.TnlInformation.TnlPort = *ie.GetValue().GetTnlInformation().GetTnlPort()
+		item.TnlInformation.TnlPort = ie.GetValue().GetTnlInformation().GetTnlPort()
 		item.TnlUsage = ie.GetValue().GetTnlUsage()
 		connSetup = append(connSetup, &item)
 	}
@@ -42,7 +42,7 @@ func DecodeE2connectionUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApP
 	for _, ie := range failedList {
 		item := types.E2ConnectionSetupFailedItem{}
 		item.TnlInformation.TnlAddress = *ie.GetValue().GetTnlInformation().GetTnlAddress()
-		item.TnlInformation.TnlPort = *ie.GetValue().GetTnlInformation().GetTnlPort()
+		item.TnlInformation.TnlPort = ie.GetValue().GetTnlInformation().GetTnlPort()
 		item.Cause = *ie.GetValue().GetCause()
 		connSetupFail = append(connSetupFail, &item)
 	}

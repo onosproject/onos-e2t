@@ -24,8 +24,8 @@ func createE2nodeComponentInterfaceX2Msg() (*e2ap_ies.E2NodeComponentInterfaceX2
 			ENbId: &e2ap_ies.EnbId{
 				EnbId: &e2ap_ies.EnbId_MacroENbId{
 					MacroENbId: &asn1.BitString{
-						Value: []byte{0x00, 0x00, 0x00, 0x10},
-						Len:   28,
+						Value: []byte{0x00, 0x00, 0x10},
+						Len:   20,
 					},
 				},
 			},
@@ -51,7 +51,7 @@ func createE2nodeComponentInterfaceX2Msg() (*e2ap_ies.E2NodeComponentInterfaceX2
 	return &e2ncc, nil
 }
 
-func Test_xerEncodiX2E2nodeComponentInterfaceX2(t *testing.T) {
+func Test_xerEncodingX2E2nodeComponentInterfaceX2(t *testing.T) {
 
 	e2ncc, err := createE2nodeComponentInterfaceX2Msg()
 	assert.NilError(t, err, "Error creatiX2 E2nodeComponentInterfaceX2 PDU")
@@ -70,7 +70,7 @@ func Test_xerEncodiX2E2nodeComponentInterfaceX2(t *testing.T) {
 	assert.DeepEqual(t, e2ncc.GetGlobalEnGNbId().GetGNbId().GetGNbId().GetValue(), result.GetGlobalEnGNbId().GetGNbId().GetGNbId().GetValue())
 }
 
-func Test_perEncodiX2E2nodeComponentInterfaceX2(t *testing.T) {
+func Test_perEncodingX2E2nodeComponentInterfaceX2(t *testing.T) {
 
 	e2ncc, err := createE2nodeComponentInterfaceX2Msg()
 	assert.NilError(t, err, "Error creatiX2 E2nodeComponentInterfaceX2 PDU")

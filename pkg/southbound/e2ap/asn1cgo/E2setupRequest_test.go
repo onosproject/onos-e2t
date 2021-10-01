@@ -38,13 +38,19 @@ func Test_E2setupRequest(t *testing.T) {
 	})
 	assert.NilError(t, err)
 
-	e2srPdu, err := pdubuilder.CreateE2SetupRequestPdu(1, globale2nID, ranFunctionList, []*types.E2NodeComponentConfigUpdateItem{
-		{E2NodeComponentType: e2apies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-			//E2NodeComponentID:           &e2ncID1,
-			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)},
-		{E2NodeComponentType: e2apies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-			//E2NodeComponentID:           &e2ncID2,
-			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)},
+	e2srPdu, err := pdubuilder.CreateE2SetupRequestPdu(1, globale2nID, ranFunctionList, []*types.E2NodeComponentConfigAdditionItem{
+		{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_W1,
+			E2NodeComponentID: pdubuilder.CreateE2NodeComponentIDW1(3),
+			E2NodeComponentConfiguration: e2apies.E2NodeComponentConfiguration{
+				E2NodeComponentResponsePart: []byte{0x00, 0x01, 0x02},
+				E2NodeComponentRequestPart:  []byte{0xAB, 0xCD, 0xEF},
+			}},
+		{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
+			E2NodeComponentID: pdubuilder.CreateE2NodeComponentIDE1(2),
+			E2NodeComponentConfiguration: e2apies.E2NodeComponentConfiguration{
+				E2NodeComponentResponsePart: []byte{0x00, 0x01, 0x02},
+				E2NodeComponentRequestPart:  []byte{0xAB, 0xCD, 0xEF},
+			}},
 	})
 	assert.NilError(t, err)
 	assert.Assert(t, e2srPdu != nil)

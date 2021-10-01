@@ -284,7 +284,7 @@ func CreateEnbIDHome(bs *asn1.BitString) (*e2apies.EnbId, error) {
 	if len(bs.GetValue()) != 4 {
 		return nil, fmt.Errorf("expecting length to be exactly 4 bytes, got %d", len(bs.GetValue()))
 	}
-	if bs.GetValue()[4]&0x0f > 0 {
+	if bs.GetValue()[3]&0x0f > 0 {
 		return nil, fmt.Errorf("expected last 4 bits of byte array to be unused, and to contain only trailing zeroes. %b", bs.GetValue()[2])
 	}
 	return &e2apies.EnbId{

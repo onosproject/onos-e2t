@@ -42,7 +42,7 @@ func createE2nodeComponentInterfaceXnMsg() (*e2ap_ies.E2NodeComponentInterfaceXn
 	return &e2ncc, nil
 }
 
-func Test_xerEncodiXnE2nodeComponentInterfaceXn(t *testing.T) {
+func Test_xerEncodingXnE2nodeComponentInterfaceXn(t *testing.T) {
 
 	e2ncc, err := createE2nodeComponentInterfaceXnMsg()
 	assert.NilError(t, err, "Error creatiXn E2nodeComponentInterfaceXn PDU")
@@ -59,7 +59,7 @@ func Test_xerEncodiXnE2nodeComponentInterfaceXn(t *testing.T) {
 	assert.DeepEqual(t, e2ncc.GetGlobalNgRanNodeId().GetNgENb().GetEnbId().GetEnbIdMacro().GetValue(), result.GetGlobalNgRanNodeId().GetNgENb().GetEnbId().GetEnbIdMacro().GetValue())
 }
 
-func Test_perEncodiXnE2nodeComponentInterfaceXn(t *testing.T) {
+func Test_perEncodingXnE2nodeComponentInterfaceXn(t *testing.T) {
 
 	e2ncc, err := createE2nodeComponentInterfaceXnMsg()
 	assert.NilError(t, err, "Error creatiXn E2nodeComponentInterfaceXn PDU")

@@ -38,6 +38,8 @@ func newProcedureCode(pc *e2ap_commondatatypes.ProcedureCode) (C.ProcedureCode_t
 		return C.ProcedureCode_id_RICsubscription, nil
 	case v2.ProcedureCodeIDRICsubscriptionDelete:
 		return C.ProcedureCode_id_RICsubscriptionDelete, nil
+	case v2.ProcedureCodeIDRICsubscriptionDeleteRequired:
+		return C.ProcedureCode_id_RICsubscriptionDeleteRequired, nil
 	default:
 		return 0, fmt.Errorf("unexpected procedure code %v", pcT)
 	}

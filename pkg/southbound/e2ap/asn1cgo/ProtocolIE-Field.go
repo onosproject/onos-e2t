@@ -3690,7 +3690,7 @@ func newE2nodeTnlAssociationRemovalItemIEs(e2nccaaItemIes *e2appducontents.E2Nod
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeComponentConfigRemovalItem)
+	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeTNLassociationRemovalItem)
 	if err != nil {
 		return nil, err
 	}
@@ -3712,6 +3712,8 @@ func newE2nodeTnlAssociationRemovalItemIEs(e2nccaaItemIes *e2appducontents.E2Nod
 	binary.LittleEndian.PutUint64(choiceC[96:], uint64(e2nccaaItemC.tnlInformationRIC.tnlAddress.bits_unused))
 	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
 	binary.LittleEndian.PutUint64(choiceC[128:], uint64(uintptr(unsafe.Pointer(e2nccaaItemC.tnlInformationRIC.tnlPort))))
+	// Gap of 24 for the asn_struct_ctx_t belonging to TNLinformation --> 160
+	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeTNLassociationRemoval_Item --> 184
 
 	e2nccaaItemIesC := C.E2nodeTNLassociationRemoval_ItemIEs_t{
 		id:          idC,
@@ -4025,7 +4027,7 @@ func decodeE2setupResponseIE(e2srIeC *C.E2setupResponseIEs_t) (*e2appducontents.
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAck),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value:       e2nccaal,
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
+			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
 	case C.E2setupResponseIEs__value_PR_TransactionID:
 		ret.E2ApProtocolIes49 = &e2appducontents.E2SetupResponseIes_E2SetupResponseIes49{
@@ -4097,7 +4099,7 @@ func decodeRicSubscriptionDeleteRequiredIE(rsrIeC *C.RICsubscriptionDeleteRequir
 		ret = &e2appducontents.RicsubscriptionDeleteRequiredIes{
 			Id:          int32(v2.ProtocolIeIDRICsubscriptionToBeRemoved),
 			Value:       list,
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
 	case C.RICsubscriptionDeleteRequired_IEs__value_PR_NOTHING:

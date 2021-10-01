@@ -48,7 +48,7 @@ func createGlobalE2nodeIDenGNb() *e2apies.GlobalE2NodeId {
 	return &e2apies.GlobalE2NodeId{
 		GlobalE2NodeId: &e2apies.GlobalE2NodeId_EnGNb{
 			EnGNb: &e2apies.GlobalE2NodeEnGnbId{
-				GlobalGNbId: &e2apies.GlobalenGnbId{
+				GlobalEnGNbId: &e2apies.GlobalenGnbId{
 					PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
 						Value: []byte{0x01, 0x02, 0x03},
 					},
@@ -139,8 +139,8 @@ func Test_xerDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversed != nil)
 	t.Logf("GlobalE2nodeID (en-GNb) decoded from XER is \n%v", ge2nReversed)
-	assert.Equal(t, ge2n.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetLen(), ge2nReversed.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetLen())
-	assert.DeepEqual(t, ge2n.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetValue(), ge2nReversed.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetValue())
+	assert.Equal(t, ge2n.GetEnGNb().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetLen(), ge2nReversed.GetEnGNb().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetEnGNb().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetValue(), ge2nReversed.GetEnGNb().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetValue())
 
 	ge2n = createGlobalE2nodeIDENb()
 
@@ -198,8 +198,8 @@ func Test_perDecodeGlobalE2nodeID(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, ge2nReversedFromPer != nil)
 	t.Logf("GlobalE2nodeID (en-GNb) decoded from PER is \n%v", ge2nReversedFromPer)
-	assert.Equal(t, ge2n.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetLen(), ge2nReversedFromPer.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetLen())
-	assert.DeepEqual(t, ge2n.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetValue(), ge2nReversedFromPer.GetEnGNb().GetGlobalGNbId().GetGNbId().GetGNbId().GetValue())
+	assert.Equal(t, ge2n.GetEnGNb().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetLen(), ge2nReversedFromPer.GetEnGNb().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetLen())
+	assert.DeepEqual(t, ge2n.GetEnGNb().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetValue(), ge2nReversedFromPer.GetEnGNb().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetValue())
 
 	ge2n = createGlobalE2nodeIDENb()
 

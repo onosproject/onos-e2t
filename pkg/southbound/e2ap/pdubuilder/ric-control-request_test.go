@@ -28,7 +28,7 @@ func TestRicControlRequest(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, request != nil)
 
-	request.SetRicCallProcessID([]byte{0xCF, 0xFF}).SetRicControlAckRequest(e2ap_ies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_N_ACK)
+	request.SetRicCallProcessID([]byte{0xCF, 0xFF}).SetRicControlAckRequest(e2ap_ies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_NO_ACK)
 	newE2apPdu, err := CreateRicControlRequestE2apPdu(request)
 	assert.NilError(t, err)
 	assert.Assert(t, request != nil)

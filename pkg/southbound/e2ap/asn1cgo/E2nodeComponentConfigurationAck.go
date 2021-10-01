@@ -70,11 +70,6 @@ func perDecodeE2nodeComponentConfigurationAck(bytes []byte) (*e2ap_ies.E2NodeCom
 
 func newE2nodeComponentConfigurationAck(e2nodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck) (*C.E2nodeComponentConfigurationAck_t, error) {
 
-	fc, err := newCause(e2nodeComponentConfigurationAck.GetFailureCause())
-	if err != nil {
-		return nil, err
-	}
-
 	var uoC C.E2nodeComponentConfigurationAck__updateOutcome_t
 	switch e2nodeComponentConfigurationAck.GetUpdateOutcome() {
 	case e2ap_ies.UpdateOutcome_UPDATE_OUTCOME_SUCCESS:
@@ -87,7 +82,15 @@ func newE2nodeComponentConfigurationAck(e2nodeComponentConfigurationAck *e2ap_ie
 
 	e2nodeComponentConfigurationAckC := C.E2nodeComponentConfigurationAck_t{
 		updateOutcome: uoC,
-		failureCause:  fc,
+		//failureCause:  fc,
+	}
+
+	if e2nodeComponentConfigurationAck.GetFailureCause() != nil {
+		fc, err := newCause(e2nodeComponentConfigurationAck.GetFailureCause())
+		if err != nil {
+			return nil, err
+		}
+		e2nodeComponentConfigurationAckC.failureCause = fc
 	}
 
 	return &e2nodeComponentConfigurationAckC, nil
@@ -95,14 +98,16 @@ func newE2nodeComponentConfigurationAck(e2nodeComponentConfigurationAck *e2ap_ie
 
 func decodeE2nodeComponentConfigurationAck(e2nodeComponentConfigurationAckC *C.E2nodeComponentConfigurationAck_t) (*e2ap_ies.E2NodeComponentConfigurationAck, error) {
 
-	fc, err := decodeCause(e2nodeComponentConfigurationAckC.failureCause)
-	if err != nil {
-		return nil, err
-	}
-
+	var err error
 	e2nodeComponentConfigurationAck := e2ap_ies.E2NodeComponentConfigurationAck{
 		UpdateOutcome: e2ap_ies.UpdateOutcome(int32(e2nodeComponentConfigurationAckC.updateOutcome)),
-		FailureCause:  fc,
+	}
+
+	if e2nodeComponentConfigurationAckC.failureCause != nil {
+		e2nodeComponentConfigurationAck.FailureCause, err = decodeCause(e2nodeComponentConfigurationAckC.failureCause)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &e2nodeComponentConfigurationAck, nil
