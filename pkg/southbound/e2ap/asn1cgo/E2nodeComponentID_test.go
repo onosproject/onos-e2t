@@ -102,7 +102,7 @@ func createE2nodeComponentIDX2() (*e2ap_ies.E2NodeComponentId, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	gEnbID, err := pdubuilder.CreateGlobalEnbID([]byte{0xAA, 0xBB, 0xCC}, enbID)
 	if err != nil {
 		return nil, err
@@ -110,9 +110,12 @@ func createE2nodeComponentIDX2() (*e2ap_ies.E2NodeComponentId, error) {
 
 	gEnGnbID, err := pdubuilder.CreateGlobalEnGnbID([]byte{0xFF, 0xCD, 0xBF}, &asn1.BitString{
 		Value: []byte{0xFA, 0x2C, 0xD4, 0xF8},
-		Len: 29,
+		Len:   29,
 	})
-	
+	if err != nil {
+		return nil, err
+	}
+
 	e2nodeComponentID := pdubuilder.CreateE2NodeComponentIDX2(gEnbID, gEnGnbID)
 
 	//if err := e2nodeComponentID.Validate(); err != nil {

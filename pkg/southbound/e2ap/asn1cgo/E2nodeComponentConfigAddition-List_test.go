@@ -22,7 +22,7 @@ func createE2nodeComponentConfigAdditionListMsg() (*e2ap_pdu_contents.E2NodeComp
 	}
 
 	e2nccai := &e2ap_pdu_contents.E2NodeComponentConfigAdditionItemIes{
-		Id: int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionItem),
+		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_pdu_contents.E2NodeComponentConfigAdditionItem{
 			E2NodeComponentConfiguration: &e2ap_ies.E2NodeComponentConfiguration{

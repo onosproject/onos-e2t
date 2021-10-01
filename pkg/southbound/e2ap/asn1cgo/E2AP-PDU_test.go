@@ -31,7 +31,7 @@ func Test_newE2setupResponseE2APpdu(t *testing.T) {
 		E2NodeComponentConfigurationAck: e2ap_ies.E2NodeComponentConfigurationAck{
 			UpdateOutcome: e2ap_ies.UpdateOutcome_UPDATE_OUTCOME_SUCCESS,
 		},
-		E2NodeComponentID: e2ncID3,
+		E2NodeComponentID:   e2ncID3,
 		E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_S1,
 	}
 	e2nccaal = append(e2nccaal, &ie1)

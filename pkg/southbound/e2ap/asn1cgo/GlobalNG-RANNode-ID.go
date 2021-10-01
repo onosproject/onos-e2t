@@ -132,37 +132,37 @@ func decodeGlobalNgRanNodeID(globalNgRanNodeID *C.GlobalNG_RANNode_ID_t) (*e2api
 	return result, nil
 }
 
-func decodeGlobalNgRanNodeIDBytes(globalNgRanNodeIDchoice [48]byte) (*e2apies.GlobalNgRannodeId, error) {
-
-	present := C.long(binary.LittleEndian.Uint64(globalNgRanNodeIDchoice[0:8]))
-	result := new(e2apies.GlobalNgRannodeId)
-
-	switch present {
-	case C.GlobalNG_RANNode_ID_PR_gNB:
-		bufC := globalNgRanNodeIDchoice[8:16]
-		gNbC := *(**C.GlobalgNB_ID_t)(unsafe.Pointer(&bufC[0]))
-		gNB, err := decodeGlobalGnbID(gNbC)
-		if err != nil {
-			return nil, fmt.Errorf("decodeGlobalE2NodeID() %v", err)
-		}
-
-		result.GlobalNgRannodeId = &e2apies.GlobalNgRannodeId_GNb{
-			GNb: gNB,
-		}
-	case C.GlobalNG_RANNode_ID_PR_ng_eNB:
-		bufC := globalNgRanNodeIDchoice[8:16]
-		ngENbC := *(**C.GlobalngeNB_ID_t)(unsafe.Pointer(&bufC[0]))
-		ngENb, err := decodeGlobalngeNbID(ngENbC)
-		if err != nil {
-			return nil, fmt.Errorf("decodeGlobalE2nodeNgEnbID() %v", err)
-		}
-
-		result.GlobalNgRannodeId = &e2apies.GlobalNgRannodeId_NgENb{
-			NgENb: ngENb,
-		}
-	default:
-		return nil, fmt.Errorf("decodeGlobalNgRanNodeIDBytes(). %v not yet implemneted", present)
-	}
-
-	return result, nil
-}
+//func decodeGlobalNgRanNodeIDBytes(globalNgRanNodeIDchoice [48]byte) (*e2apies.GlobalNgRannodeId, error) {
+//
+//	present := C.long(binary.LittleEndian.Uint64(globalNgRanNodeIDchoice[0:8]))
+//	result := new(e2apies.GlobalNgRannodeId)
+//
+//	switch present {
+//	case C.GlobalNG_RANNode_ID_PR_gNB:
+//		bufC := globalNgRanNodeIDchoice[8:16]
+//		gNbC := *(**C.GlobalgNB_ID_t)(unsafe.Pointer(&bufC[0]))
+//		gNB, err := decodeGlobalGnbID(gNbC)
+//		if err != nil {
+//			return nil, fmt.Errorf("decodeGlobalE2NodeID() %v", err)
+//		}
+//
+//		result.GlobalNgRannodeId = &e2apies.GlobalNgRannodeId_GNb{
+//			GNb: gNB,
+//		}
+//	case C.GlobalNG_RANNode_ID_PR_ng_eNB:
+//		bufC := globalNgRanNodeIDchoice[8:16]
+//		ngENbC := *(**C.GlobalngeNB_ID_t)(unsafe.Pointer(&bufC[0]))
+//		ngENb, err := decodeGlobalngeNbID(ngENbC)
+//		if err != nil {
+//			return nil, fmt.Errorf("decodeGlobalE2nodeNgEnbID() %v", err)
+//		}
+//
+//		result.GlobalNgRannodeId = &e2apies.GlobalNgRannodeId_NgENb{
+//			NgENb: ngENb,
+//		}
+//	default:
+//		return nil, fmt.Errorf("decodeGlobalNgRanNodeIDBytes(). %v not yet implemneted", present)
+//	}
+//
+//	return result, nil
+//}

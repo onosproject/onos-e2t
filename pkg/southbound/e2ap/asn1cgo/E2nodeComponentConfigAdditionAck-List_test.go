@@ -22,7 +22,7 @@ func createE2nodeComponentConfigAdditionAckListMsg() (*e2ap_pdu_contents.E2NodeC
 	}
 
 	e2nccai := &e2ap_pdu_contents.E2NodeComponentConfigAdditionAckItemIes{
-		Id: int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAckItem),
+		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAckItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_pdu_contents.E2NodeComponentConfigAdditionAckItem{
 			E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{

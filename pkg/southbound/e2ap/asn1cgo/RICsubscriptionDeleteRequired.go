@@ -13,36 +13,8 @@ package asn1cgo
 //#include "ProtocolIE-Field.h"
 import "C"
 import (
-	"unsafe"
-
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
-
-func xerEncodeRICsubscriptionDeleteRequired(rsr *e2appducontents.RicsubscriptionDeleteRequired) ([]byte, error) {
-	rsrC, err := newRicSubscriptionDeleteRequired(rsr)
-	if err != nil {
-		return nil, err
-	}
-
-	bytes, err := encodeXer(&C.asn_DEF_RICsubscriptionDeleteRequired, unsafe.Pointer(rsrC))
-	if err != nil {
-		return nil, err
-	}
-	return bytes, nil
-}
-
-func perEncodeRICsubscriptionDeleteRequired(rsr *e2appducontents.RicsubscriptionDeleteRequired) ([]byte, error) {
-	rsrC, err := newRicSubscriptionDeleteRequired(rsr)
-	if err != nil {
-		return nil, err
-	}
-
-	bytes, err := encodePerBuffer(&C.asn_DEF_RICsubscriptionDeleteRequired, unsafe.Pointer(rsrC))
-	if err != nil {
-		return nil, err
-	}
-	return bytes, nil
-}
 
 func newRicSubscriptionDeleteRequired(rsr *e2appducontents.RicsubscriptionDeleteRequired) (*C.RICsubscriptionDeleteRequired_t, error) {
 	pIeC1908P6, err := newRicSubscriptionDeleteRequiredIes(rsr.GetProtocolIes())

@@ -9,8 +9,8 @@ import (
 )
 
 type RicSubscriptionWithCauseItem struct {
-	RicRequestID  RicRequest
-	Cause         *e2ap_ies.Cause
+	RicRequestID RicRequest
+	Cause        *e2ap_ies.Cause
 }
 
 type RicSubscriptionWithCauseList map[RanFunctionID]*RicSubscriptionWithCauseItem

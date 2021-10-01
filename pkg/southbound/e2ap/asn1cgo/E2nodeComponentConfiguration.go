@@ -13,7 +13,6 @@ package asn1cgo
 import "C"
 
 import (
-	"encoding/binary"
 	"fmt"
 	"unsafe"
 
@@ -86,10 +85,4 @@ func decodeE2nodeComponentConfiguration(e2nodeComponentConfigurationC *C.E2nodeC
 	}
 
 	return &e2nodeComponentConfiguration, nil
-}
-
-func decodeE2nodeComponentConfigurationBytes(array [8]byte) (*e2ap_ies.E2NodeComponentConfiguration, error) {
-	e2ncc := (*C.E2nodeComponentConfiguration_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
-
-	return decodeE2nodeComponentConfiguration(e2ncc)
 }

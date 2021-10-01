@@ -82,8 +82,9 @@ func TestE2SetupRequestCuDuIDs(t *testing.T) {
 
 	gEnGnbID, err := CreateGlobalEnGnbID([]byte{0xFF, 0xCD, 0xBF}, &asn1.BitString{
 		Value: []byte{0xFA, 0x2C, 0xD4, 0xF8},
-		Len: 29,
+		Len:   29,
 	})
+	assert.NilError(t, err)
 
 	e2ncID1 := CreateE2NodeComponentIDX2(gEnbID, gEnGnbID)
 	e2ncID2 := CreateE2NodeComponentIDNg("NG-Component")
@@ -109,13 +110,13 @@ func TestE2SetupRequestCuDuIDs(t *testing.T) {
 
 	newE2apPdu, err := CreateE2SetupRequestPdu(1, ge2nID, ranFunctionList, []*types.E2NodeComponentConfigAdditionItem{
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_X2,
-			E2NodeComponentID:           e2ncID1,
+			E2NodeComponentID: e2ncID1,
 			E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
 				E2NodeComponentResponsePart: []byte{0x01, 0x02, 0x03},
 				E2NodeComponentRequestPart:  []byte{0x04, 0x05, 0x06},
 			}},
 		{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_NG,
-			E2NodeComponentID:          e2ncID2,
+			E2NodeComponentID: e2ncID2,
 			E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
 				E2NodeComponentResponsePart: []byte{0x07, 0x08, 0x09},
 				E2NodeComponentRequestPart:  []byte{0x0A, 0x0B, 0x0C},

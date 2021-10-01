@@ -18,7 +18,7 @@ func TestE2NodeConfigurationUpdateAck(t *testing.T) {
 
 	grnID, err := CreateGlobalNgRanNodeIDGnb([]byte{0x01, 0x02, 0x03}, &asn1.BitString{
 		Value: []byte{0xAB, 0xCD, 0xEF, 0xFF},
-		Len: 32,
+		Len:   32,
 	})
 	assert.NilError(t, err)
 

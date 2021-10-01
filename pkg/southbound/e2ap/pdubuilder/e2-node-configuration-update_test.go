@@ -39,7 +39,7 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 					E2NodeComponentRequestPart:  []byte{0x04, 0x05, 0x06},
 				}},
 			{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
-				E2NodeComponentID:           e2ncID2,
+				E2NodeComponentID: e2ncID2,
 				E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
 					E2NodeComponentResponsePart: []byte{0x07, 0x08, 0x09},
 					E2NodeComponentRequestPart:  []byte{0x0A, 0x0B, 0x0C},

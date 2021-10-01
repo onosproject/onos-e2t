@@ -55,7 +55,6 @@
 #include "RICcontrolHeader.h"
 #include "RICcontrolMessage.h"
 #include "RICcontrolAckRequest.h"
-#include "RICcontrolStatus.h"
 #include "RICcontrolOutcome.h"
 #include "TransactionID.h"
 #include "GlobalE2node-ID.h"

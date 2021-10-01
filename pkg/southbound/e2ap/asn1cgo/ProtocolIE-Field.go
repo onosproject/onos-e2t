@@ -4096,12 +4096,12 @@ func decodeRicSubscriptionDeleteRequiredIE(rsrIeC *C.RICsubscriptionDeleteRequir
 		if err != nil {
 			return nil, err
 		}
-		ret = &e2appducontents.RicsubscriptionDeleteRequiredIes{
-			Id:          int32(v2.ProtocolIeIDRICsubscriptionToBeRemoved),
-			Value:       list,
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-			Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		}
+		//ret = &e2appducontents.RicsubscriptionDeleteRequiredIes{
+			ret.Id = int32(v2.ProtocolIeIDRICsubscriptionToBeRemoved)
+			ret.Value = list
+			ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE)
+			ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY)
+		//}
 	case C.RICsubscriptionDeleteRequired_IEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeRicSubscriptionDeleteRequiredIE(). %v not yet implemneted", rsrIeC.value.present)
 

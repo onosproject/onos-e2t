@@ -94,6 +94,9 @@ func decodeE2nodeComponentInterfaceX2(e2nodeComponentInterfaceX2C *C.E2nodeCompo
 		return nil, err
 	}
 	enGnbID, err := decodeGlobalenGnbID(e2nodeComponentInterfaceX2C.global_en_gNB_ID)
+	if err != nil {
+		return nil, err
+	}
 
 	e2nodeComponentInterfaceX2 := e2ap_ies.E2NodeComponentInterfaceX2{
 		GlobalENbId:   enbID,

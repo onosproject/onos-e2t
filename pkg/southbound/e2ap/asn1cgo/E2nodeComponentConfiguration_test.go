@@ -15,7 +15,7 @@ import (
 func createE2nodeComponentConfigurationMsg() (*e2ap_ies.E2NodeComponentConfiguration, error) {
 
 	e2ncc := e2ap_ies.E2NodeComponentConfiguration{
-		E2NodeComponentRequestPart: []byte{0x00, 0x01},
+		E2NodeComponentRequestPart:  []byte{0x00, 0x01},
 		E2NodeComponentResponsePart: []byte{0x02, 0x03},
 	}
 

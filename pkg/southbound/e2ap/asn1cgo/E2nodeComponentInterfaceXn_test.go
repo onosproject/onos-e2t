@@ -27,7 +27,7 @@ func createE2nodeComponentInterfaceXnMsg() (*e2ap_ies.E2NodeComponentInterfaceXn
 						EnbIdChoice: &e2ap_ies.EnbIdChoice_EnbIdMacro{
 							EnbIdMacro: &asn1.BitString{
 								Value: []byte{0x00, 0x00, 0x10},
-								Len: 20,
+								Len:   20,
 							},
 						},
 					},

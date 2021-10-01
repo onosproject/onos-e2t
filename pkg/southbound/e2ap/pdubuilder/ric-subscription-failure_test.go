@@ -44,16 +44,16 @@ func TestRicSubscriptionFailure(t *testing.T) {
 	assert.Assert(t, newE2apPdu != nil)
 	newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscription().GetUnsuccessfulOutcome().
 		SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
-		&types.RicRequest{
-			RequestorID: 10,
-			InstanceID:  20,
-		}, []*types.CritDiag{
-			{
-				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
-				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v2.ProtocolIeIDRicsubscriptionDetails,
-			},
-		})
+			&types.RicRequest{
+				RequestorID: 10,
+				InstanceID:  20,
+			}, []*types.CritDiag{
+				{
+					TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
+					IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+					IEId:          v2.ProtocolIeIDRicsubscriptionDetails,
+				},
+			})
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
