@@ -83,9 +83,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
 		return controller.Result{}, err
 	}
-	log.Infof("Test After getting management conn:", mgmtConn.ID)
 	e2NodeID := mgmtConn.NodeID
-
 	e2tNodes, err := r.rnib.List(ctx, utils.GetE2TFilter())
 	if err != nil {
 		log.Warn(err)

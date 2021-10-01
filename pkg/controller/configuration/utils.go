@@ -58,7 +58,6 @@ func createConnectionUpdateReq(ip string) *e2appducontents.E2ConnectionUpdate {
 		Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 	connectionAddList.Value.Value = append(connectionAddList.Value.Value, cai)
-	// Send the subscription request and await a response
 	connectionUpdateRequest := &e2appducontents.E2ConnectionUpdate{
 		ProtocolIes: &e2appducontents.E2ConnectionUpdateIes{
 			E2ApProtocolIes44: connectionAddList,
