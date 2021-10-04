@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open NetworkiType Foundation <info@opennetworkiType.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
 package asn1cgo
 

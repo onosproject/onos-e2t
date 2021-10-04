@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open NetworkiX2 Foundation <info@opennetworkiX2.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
 package asn1cgo
 
