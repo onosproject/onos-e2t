@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020-present Open NetworkiS1 Foundation <info@opennetworkiS1.org>
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
