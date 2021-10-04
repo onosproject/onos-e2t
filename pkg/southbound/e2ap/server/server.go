@@ -264,7 +264,8 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 
 		// Creates a new E2AP data connection
 		e.e2apConn = NewE2APConn(createE2NodeURI(nodeID), e.serverConn, e.streamsv1beta1, e.rnib)
-		defer e.e2apConns.open(e.e2apConn)
+		e.e2apConns.open(e.e2apConn)
+		log.Infof("Test ip e2ap data conn: %s: %s", e.e2apConn.E2NodeID, e.e2apConn.ID)
 
 		// Creates a controls relation
 		object := &topoapi.Object{
