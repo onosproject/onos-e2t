@@ -7,7 +7,6 @@ package e2ap
 import (
 	"context"
 	"encoding/binary"
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	"io"
 	"net"
 	"testing"
@@ -140,7 +139,7 @@ func TestConns(t *testing.T) {
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes49: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes49{
-				Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+				Id:          int32(v2.ProtocolIeIDTransactionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.TransactionId{
 					Value: 2,
@@ -158,7 +157,7 @@ func TestConns(t *testing.T) {
 	ricSubscriptionRequest := &e2appducontents.RicsubscriptionRequest{
 		ProtocolIes: &e2appducontents.RicsubscriptionRequestIes{
 			E2ApProtocolIes5: &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes5{
-				Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
+				Id:          int32(v2.ProtocolIeIDRanfunctionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RanfunctionId{
 					Value: 1,
@@ -166,7 +165,7 @@ func TestConns(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes29: &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes29{
-				Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v2.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RicrequestId{
 					RicRequestorId: 1,
@@ -175,14 +174,14 @@ func TestConns(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes30: &e2appducontents.RicsubscriptionRequestIes_RicsubscriptionRequestIes30{
-				Id:          int32(v2beta1.ProtocolIeIDRicsubscriptionDetails),
+				Id:          int32(v2.ProtocolIeIDRicsubscriptionDetails),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2appducontents.RicsubscriptionDetails{
 					RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{},
 					RicActionToBeSetupList: &e2appducontents.RicactionsToBeSetupList{
 						Value: []*e2appducontents.RicactionToBeSetupItemIes{
 							{
-								Id:          int32(v2beta1.ProtocolIeIDRicactionToBeSetupItem),
+								Id:          int32(v2.ProtocolIeIDRicactionToBeSetupItem),
 								Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 								Value: &e2appducontents.RicactionToBeSetupItem{
 									RicActionId: &e2apies.RicactionId{
@@ -209,7 +208,7 @@ func TestConns(t *testing.T) {
 	ricIndication := &e2appducontents.Ricindication{
 		ProtocolIes: &e2appducontents.RicindicationIes{
 			E2ApProtocolIes29: &e2appducontents.RicindicationIes_RicindicationIes29{
-				Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v2.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RicrequestId{
 					RicRequestorId: 1,
@@ -218,7 +217,7 @@ func TestConns(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes5: &e2appducontents.RicindicationIes_RicindicationIes5{
-				Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
+				Id:          int32(v2.ProtocolIeIDRanfunctionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RanfunctionId{
 					Value: 1,
@@ -226,7 +225,7 @@ func TestConns(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes15: &e2appducontents.RicindicationIes_RicindicationIes15{
-				Id:          int32(v2beta1.ProtocolIeIDRicactionID),
+				Id:          int32(v2.ProtocolIeIDRicactionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RicactionId{
 					Value: 2,
@@ -234,7 +233,7 @@ func TestConns(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes27: &e2appducontents.RicindicationIes_RicindicationIes27{
-				Id:          int32(v2beta1.ProtocolIeIDRicindicationSn),
+				Id:          int32(v2.ProtocolIeIDRicindicationSn),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RicindicationSn{
 					Value: 3,
@@ -242,13 +241,13 @@ func TestConns(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 			},
 			E2ApProtocolIes28: &e2appducontents.RicindicationIes_RicindicationIes28{
-				Id:          int32(v2beta1.ProtocolIeIDRicindicationType),
+				Id:          int32(v2.ProtocolIeIDRicindicationType),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       e2apies.RicindicationType_RICINDICATION_TYPE_REPORT,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes25: &e2appducontents.RicindicationIes_RicindicationIes25{
-				Id:          int32(v2beta1.ProtocolIeIDRicindicationHeader),
+				Id:          int32(v2.ProtocolIeIDRicindicationHeader),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2ap_commondatatypes.RicindicationHeader{
 					Value: []byte("foo"),
@@ -256,7 +255,7 @@ func TestConns(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes26: &e2appducontents.RicindicationIes_RicindicationIes26{
-				Id:          int32(v2beta1.ProtocolIeIDRicindicationMessage),
+				Id:          int32(v2.ProtocolIeIDRicindicationMessage),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2ap_commondatatypes.RicindicationMessage{
 					Value: []byte("bar"),
@@ -264,7 +263,7 @@ func TestConns(t *testing.T) {
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes20: &e2appducontents.RicindicationIes_RicindicationIes20{
-				Id:          int32(v2beta1.ProtocolIeIDRiccallProcessID),
+				Id:          int32(v2.ProtocolIeIDRiccallProcessID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2ap_commondatatypes.RiccallProcessId{
 					Value: []byte("baz"),
@@ -278,7 +277,7 @@ func TestConns(t *testing.T) {
 	time.Sleep(time.Second)
 
 	connectionAddList := &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
-		Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateAdd),
+		Id:          int32(v2.ProtocolIeIDE2connectionUpdateAdd),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.E2ConnectionUpdateList{
 			Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
@@ -291,7 +290,7 @@ func TestConns(t *testing.T) {
 	port := uint16(36421)
 	binary.BigEndian.PutUint16(portBytes, port)
 	cai := &e2appducontents.E2ConnectionUpdateItemIes{
-		Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateItem),
+		Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2appducontents.E2ConnectionUpdateItem{
 			TnlInformation: &e2apies.Tnlinformation{
@@ -310,7 +309,7 @@ func TestConns(t *testing.T) {
 	}
 
 	transactionID := &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes49{
-		Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.TransactionId{
 			Value: 3,
@@ -334,7 +333,7 @@ func TestConns(t *testing.T) {
 	assert.Equal(t, port, binary.BigEndian.Uint16(tnlInformation.GetTnlInformation().GetTnlPort().GetValue()))
 
 	configUpdateNodeID := &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes3{
-		Id:          int32(v2beta1.ProtocolIeIDGlobalE2nodeID),
+		Id:          int32(v2.ProtocolIeIDGlobalE2nodeID),
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       ge2nID,
@@ -343,7 +342,7 @@ func TestConns(t *testing.T) {
 	configUpdate := &e2appducontents.E2NodeConfigurationUpdate{
 		ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateIes{
 			E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes49{
-				Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+				Id:          int32(v2.ProtocolIeIDTransactionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.TransactionId{
 					Value: 2,
@@ -392,7 +391,7 @@ func (p *testClientProcedures) RICControl(ctx context.Context, request *e2appduc
 	return &e2appducontents.RiccontrolAcknowledge{
 		ProtocolIes: &e2appducontents.RiccontrolAcknowledgeIes{
 			E2ApProtocolIes29: &e2appducontents.RiccontrolAcknowledgeIes_RiccontrolAcknowledgeIes29{
-				Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v2.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       request.ProtocolIes.E2ApProtocolIes29.Value,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -408,7 +407,7 @@ func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2a
 	res := make([]*e2appducontents.RicactionAdmittedItemIes, 0)
 	for _, raa := range ricActionsAccepted {
 		raaIe := &e2appducontents.RicactionAdmittedItemIes{
-			Id:          int32(v2beta1.ProtocolIeIDRicactionAdmittedItem),
+			Id:          int32(v2.ProtocolIeIDRicactionAdmittedItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2appducontents.RicactionAdmittedItem{
 				RicActionId: &e2apies.RicactionId{
@@ -422,13 +421,13 @@ func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2a
 	return &e2appducontents.RicsubscriptionResponse{
 		ProtocolIes: &e2appducontents.RicsubscriptionResponseIes{
 			E2ApProtocolIes29: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes29{
-				Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v2.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       request.ProtocolIes.E2ApProtocolIes29.Value,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes5: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes5{
-				Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
+				Id:          int32(v2.ProtocolIeIDRanfunctionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.RanfunctionId{
 					Value: int32(1),
@@ -436,7 +435,7 @@ func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2a
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes17: &e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17{
-				Id:          int32(v2beta1.ProtocolIeIDRicactionsAdmitted),
+				Id:          int32(v2.ProtocolIeIDRicactionsAdmitted),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2appducontents.RicactionAdmittedList{
 					Value: res,
@@ -451,7 +450,7 @@ func (p *testClientProcedures) RICSubscriptionDelete(ctx context.Context, reques
 	return &e2appducontents.RicsubscriptionDeleteResponse{
 		ProtocolIes: &e2appducontents.RicsubscriptionDeleteResponseIes{
 			E2ApProtocolIes29: &e2appducontents.RicsubscriptionDeleteResponseIes_RicsubscriptionDeleteResponseIes29{
-				Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v2.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value:       request.ProtocolIes.E2ApProtocolIes29.Value,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -464,7 +463,7 @@ func (p *testClientProcedures) E2ConnectionUpdate(ctx context.Context, request *
 	response = &e2appducontents.E2ConnectionUpdateAcknowledge{
 		ProtocolIes: &e2appducontents.E2ConnectionUpdateAckIes{
 			E2ApProtocolIes39: &e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes39{
-				Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+				Id:          int32(v2.ProtocolIeIDRicrequestID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2appducontents.E2ConnectionUpdateList{
 					Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
@@ -472,7 +471,7 @@ func (p *testClientProcedures) E2ConnectionUpdate(ctx context.Context, request *
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 			},
 			E2ApProtocolIes49: &e2appducontents.E2ConnectionUpdateAckIes_E2ConnectionUpdateAckIes49{
-				Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+				Id:          int32(v2.ProtocolIeIDTransactionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.TransactionId{
 					Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,
@@ -483,7 +482,7 @@ func (p *testClientProcedures) E2ConnectionUpdate(ctx context.Context, request *
 	}
 	tnlInfo := request.GetProtocolIes().GetE2ApProtocolIes44().GetValue().GetValue()[0].GetValue()
 	si := &e2appducontents.E2ConnectionUpdateItemIes{
-		Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateItem),
+		Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2appducontents.E2ConnectionUpdateItem{
 			TnlInformation: tnlInfo.GetTnlInformation(),
@@ -502,7 +501,7 @@ func (p *testServerProcedures) E2ConfigurationUpdate(ctx context.Context, reques
 	return &e2appducontents.E2NodeConfigurationUpdateAcknowledge{
 		ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes{
 			E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes49{
-				Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+				Id:          int32(v2.ProtocolIeIDTransactionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.TransactionId{
 					Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,
@@ -522,7 +521,7 @@ func (p *testServerProcedures) E2Setup(ctx context.Context, request *e2appducont
 	return &e2appducontents.E2SetupResponse{
 		ProtocolIes: &e2appducontents.E2SetupResponseIes{
 			E2ApProtocolIes4: &e2appducontents.E2SetupResponseIes_E2SetupResponseIes4{
-				Id:          int32(v2beta1.ProtocolIeIDGlobalRicID),
+				Id:          int32(v2.ProtocolIeIDGlobalRicID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.GlobalRicId{
 					PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
@@ -536,7 +535,7 @@ func (p *testServerProcedures) E2Setup(ctx context.Context, request *e2appducont
 				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes49: &e2appducontents.E2SetupResponseIes_E2SetupResponseIes49{
-				Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+				Id:          int32(v2.ProtocolIeIDTransactionID),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.TransactionId{
 					Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,
