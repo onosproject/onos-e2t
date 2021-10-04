@@ -18,6 +18,12 @@ import "e2ap/v2/e2ap_constants.proto";
 import "validate/v1/validate.proto";
 import "asn1/v1/asn1.proto";
 
+// enumerated from e2ap_v2.asn:1313
+enum UpdateOutcome {
+    UPDATE_OUTCOME_SUCCESS = 0;
+    UPDATE_OUTCOME_FAILURE = 1;
+};
+
 // enumerated from e2ap_v2.asn:1227
 enum CauseE2node {
     CAUSE_E2NODE_E2NODE_COMPONENT_UNKNOWN = 0;
@@ -95,6 +101,13 @@ enum RicactionType {
 enum RiccontrolAckRequest {
     RICCONTROL_ACK_REQUEST_NO_ACK = 0;
     RICCONTROL_ACK_REQUEST_ACK = 1;
+};
+
+// enumerated from e2ap_v2.0.1_Feb3_21.asn:1423
+enum RiccontrolStatus {
+    RICCONTROL_STATUS_SUCCESS = 0;
+    RICCONTROL_STATUS_REJECTED = 1;
+    RICCONTROL_STATUS_FAILED = 2;
 };
 
 // enumerated from e2ap_v2.asn:1597
@@ -216,7 +229,7 @@ message E2nodeComponentConfiguration {
 // {E2nodeComponentConfigurationAck}
 message E2nodeComponentConfigurationAck {
     // @inject_tag: aper:"valueLB:0,valueUB:1,valueExt"
-    int32 update_outcome = 1 [ json_name="updateOutcome"];
+    UpdateOutcome update_outcome = 1 [ json_name="updateOutcome"];
     // @inject_tag: aper:"optional,valueExt"
     optional Cause failure_cause = 2 [ json_name="failureCause"];
 };

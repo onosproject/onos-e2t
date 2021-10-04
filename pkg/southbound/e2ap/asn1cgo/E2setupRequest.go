@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func xerEncodeE2SetupRequest(e2SetupRequest *e2appducontents.E2SetupRequest) ([]byte, error) {

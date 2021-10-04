@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 )
 
 // XerDecodeE2apPdu - the main entry to decode E2AP PDU message in XER format

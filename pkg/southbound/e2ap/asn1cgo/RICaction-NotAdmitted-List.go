@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func newRicActionNotAdmittedList(ranaL *e2appducontents.RicactionNotAdmittedList) (*C.RICaction_NotAdmitted_List_t, error) {
@@ -42,7 +42,7 @@ func decodeRicActionNotAdmittedListBytes(ranaLBytes []byte) (*e2appducontents.Ri
 	size := C.int(binary.LittleEndian.Uint32(ranaLBytes[12:16]))
 
 	ranaLC := C.RICaction_NotAdmitted_List_t{
-		list: C.struct___139{
+		list: C.struct___150{
 			array: array,
 			size:  size,
 			count: count,
@@ -62,7 +62,7 @@ func decodeRicActionNotAdmittedList(ranaLC *C.RICaction_NotAdmitted_List_t) (*e2
 	//fmt.Printf("RicactionAdmittedList %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*ranaLC.list.array)) * uintptr(i)
-		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1754P2_t)(unsafe.Pointer(uintptr(unsafe.Pointer(ranaLC.list.array)) + offset))
+		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1911P2_t)(unsafe.Pointer(uintptr(unsafe.Pointer(ranaLC.list.array)) + offset))
 		//fmt.Printf("Value %T %p %v\n", rfIDiIeC, rfIDiIeC, rfIDiIeC)
 		rfIDiIe, err := decodeRicActionNotAdmittedItemIesSingleContainer(rfIDiIeC)
 		if err != nil {

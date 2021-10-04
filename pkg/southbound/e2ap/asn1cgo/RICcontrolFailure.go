@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func xerEncodeRICcontrolFailure(rcf *e2appducontents.RiccontrolFailure) ([]byte, error) {

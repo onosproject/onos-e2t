@@ -7,14 +7,14 @@ package pdudecoder
 import (
 	"fmt"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
 func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *types.E2NodeIdentity, *types.RanFunctions,
-	[]*types.E2NodeComponentConfigUpdateItem, error) {
+	[]*types.E2NodeComponentConfigAdditionItem, error) {
 	var nodeIdentity *types.E2NodeIdentity
 	var err error
 
@@ -31,7 +31,7 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 	}
 
 	for _, rfIe := range ranFunctionsIe.GetValue().GetValue() {
-		rfItem := rfIe.GetE2ApProtocolIes10().GetValue()
+		rfItem := rfIe.GetE2ApProtocolIes8().GetValue()
 		ranFunctionsList[types.RanFunctionID(rfItem.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 			Description: types.RanFunctionDescription(rfItem.GetRanFunctionDefinition().GetValue()),
 			Revision:    types.RanFunctionRevision(rfItem.GetRanFunctionRevision().GetValue()),
@@ -39,13 +39,13 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 		}
 	}
 
-	e2nccul := make([]*types.E2NodeComponentConfigUpdateItem, 0)
-	list := request.GetProtocolIes().GetE2ApProtocolIes33().GetValue().GetValue()
+	e2nccul := make([]*types.E2NodeComponentConfigAdditionItem, 0)
+	list := request.GetProtocolIes().GetE2ApProtocolIes50().GetValue().GetValue()
 	for _, ie := range list {
-		e2nccuai := types.E2NodeComponentConfigUpdateItem{}
-		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentType()
+		e2nccuai := types.E2NodeComponentConfigAdditionItem{}
+		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentInterfaceType()
 		e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentId()
-		e2nccuai.E2NodeComponentConfigUpdate = *ie.GetValue().GetE2NodeComponentConfigUpdate()
+		e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2NodeComponentConfiguration()
 
 		e2nccul = append(e2nccul, &e2nccuai)
 	}
@@ -56,7 +56,7 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 }
 
 func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *types.E2NodeIdentity, *types.RanFunctions,
-	[]*types.E2NodeComponentConfigUpdateItem, error) {
+	[]*types.E2NodeComponentConfigAdditionItem, error) {
 	//if err := e2apPdu.Validate(); err != nil {
 	//	return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
 	//}
@@ -109,13 +109,13 @@ func ExtractE2NodeIdentity(ge2nID *e2apies.GlobalE2NodeId) (*types.E2NodeIdentit
 		//}
 
 	case *e2apies.GlobalE2NodeId_EnGNb:
-		nodeIdentity, err = types.NewE2NodeIdentity(e2NodeID.EnGNb.GetGlobalGNbId().GetPLmnIdentity().GetValue())
+		nodeIdentity, err = types.NewE2NodeIdentity(e2NodeID.EnGNb.GetGlobalEnGNbId().GetPLmnIdentity().GetValue())
 		if err != nil {
 			return nil, fmt.Errorf("error extracting node identifier")
 		}
 		nodeIdentity.NodeType = types.E2NodeTypeEnGNB
-		nodeIdentity.NodeIDLength = int(e2NodeID.EnGNb.GetGlobalGNbId().GetGNbId().GetGNbId().GetLen())
-		nodeIdentity.NodeIdentifier = e2NodeID.EnGNb.GetGlobalGNbId().GetGNbId().GetGNbId().GetValue()
+		nodeIdentity.NodeIDLength = int(e2NodeID.EnGNb.GetGlobalEnGNbId().GetGNbId().GetGNbId().GetLen())
+		nodeIdentity.NodeIdentifier = e2NodeID.EnGNb.GetGlobalEnGNbId().GetGNbId().GetGNbId().GetValue()
 		if e2NodeID.EnGNb.EnGNbCuUpId != nil {
 			nodeIdentity.CuID = &e2NodeID.EnGNb.EnGNbCuUpId.Value
 		}

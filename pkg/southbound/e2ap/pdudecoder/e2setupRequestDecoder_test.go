@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
@@ -43,25 +43,30 @@ func Test_DecodeE2SetupRequestPduCuDuIDs(t *testing.T) {
 		assert.Equal(t, int64(21), *identifier.DuID)
 	}
 
-	//t.Logf("Node ID is %x\n", identifier.NodeIdentifier)
 	nodeID := GetE2NodeID(identifier.NodeIdentifier, 30)
 	t.Logf("Node ID is %s\n", nodeID)
 
-	//assert.Assert(t, ranFunctions != nil) //Commented due to the Linters (v1.34.1) error - possible nil pointer dereference (https://staticcheck.io/docs/checks#SA5011) on line 29
 	assert.Equal(t, 2, len(*ranFunctions))
 	rf0 := (*ranFunctions)[100]
 	assert.Equal(t, 1, int(rf0.Revision))
+	assert.Equal(t, "oid1", string(rf0.OID))
+	assert.DeepEqual(t, []byte{0x54, 0x79, 0x70, 0x65, 0x20, 0x31}, []byte(rf0.Description))
 	rf1 := (*ranFunctions)[200]
 	assert.Equal(t, 2, int(rf1.Revision))
+	assert.Equal(t, "oid2", string(rf1.OID))
+	assert.DeepEqual(t, []byte{0x54, 0x79, 0x70, 0x65, 0x20, 0x32}, []byte(rf1.Description))
 
-	assert.Equal(t, int32(e2nccul[0].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB))
-	assert.Equal(t, int32(e2nccul[0].E2NodeComponentID.GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue()), int32(21))
-	assert.DeepEqual(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetNgApconfigUpdate(), []byte("ngAp"))
-	assert.DeepEqual(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetF1ApconfigUpdate(), []byte("f1Ap"))
-	assert.DeepEqual(t, e2nccul[0].E2NodeComponentConfigUpdate.GetGNbconfigUpdate().GetE1ApconfigUpdate(), []byte("e1Ap"))
-	assert.Equal(t, int32(e2nccul[1].E2NodeComponentType), int32(e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB))
-	assert.Equal(t, int32(e2nccul[1].E2NodeComponentID.GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue()), int32(13))
-	assert.DeepEqual(t, e2nccul[1].E2NodeComponentConfigUpdate.GetENbconfigUpdate().GetS1ApconfigUpdate(), []byte("s1"))
+	assert.Equal(t, e2nccul[0].E2NodeComponentType.Number(), e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_X2.Number())
+	assert.DeepEqual(t, e2nccul[0].E2NodeComponentID.GetE2NodeComponentInterfaceTypeX2().GetGlobalENbId().GetPLmnIdentity().GetValue(), []byte{0xAA, 0xBB, 0xCC})
+	assert.DeepEqual(t, e2nccul[0].E2NodeComponentID.GetE2NodeComponentInterfaceTypeX2().GetGlobalENbId().GetENbId().GetHomeENbId().GetValue(), []byte{0x00, 0xA7, 0xDD, 0xF0})
+	assert.DeepEqual(t, e2nccul[0].E2NodeComponentID.GetE2NodeComponentInterfaceTypeX2().GetGlobalEnGNbId().GetPLmnIdentity().GetValue(), []byte{0xFF, 0xCD, 0xBF})
+	assert.DeepEqual(t, e2nccul[0].E2NodeComponentID.GetE2NodeComponentInterfaceTypeX2().GetGlobalEnGNbId().GetGNbId().GetGNbId().GetValue(), []byte{0xFA, 0x2C, 0xD4, 0xF8})
+	assert.DeepEqual(t, e2nccul[0].E2NodeComponentConfiguration.GetE2NodeComponentResponsePart(), []byte{0x01, 0x02, 0x03})
+	assert.DeepEqual(t, e2nccul[0].E2NodeComponentConfiguration.GetE2NodeComponentRequestPart(), []byte{0x04, 0x05, 0x06})
+	assert.Equal(t, e2nccul[1].E2NodeComponentType.Number(), e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_NG.Number())
+	assert.Equal(t, e2nccul[1].E2NodeComponentID.GetE2NodeComponentInterfaceTypeNg().GetAmfName().GetValue(), "NG-Component")
+	assert.DeepEqual(t, e2nccul[1].E2NodeComponentConfiguration.GetE2NodeComponentRequestPart(), []byte{0x0A, 0x0B, 0x0C})
+	assert.DeepEqual(t, e2nccul[1].E2NodeComponentConfiguration.GetE2NodeComponentResponsePart(), []byte{0x07, 0x08, 0x09})
 	if transactionID != nil {
 		assert.Equal(t, int32(1), *transactionID)
 	}

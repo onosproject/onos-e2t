@@ -20,13 +20,6 @@
                         </value>
                     </RICcontrolAcknowledge-IEs>
                     <RICcontrolAcknowledge-IEs>
-                        <id>24</id>
-                        <criticality><reject/></criticality>
-                        <value>
-                            <RICcontrolStatus><success/></RICcontrolStatus>
-                        </value>
-                    </RICcontrolAcknowledge-IEs>
-                    <RICcontrolAcknowledge-IEs>
                         <id>29</id>
                         <criticality><reject/></criticality>
                         <value>

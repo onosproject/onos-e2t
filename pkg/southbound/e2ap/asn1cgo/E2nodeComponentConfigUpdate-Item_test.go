@@ -8,33 +8,27 @@ import (
 	"encoding/hex"
 	"testing"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"gotest.tools/assert"
 )
 
 func createE2nodeComponentConfigUpdateItemMsg() (*e2ap_pdu_contents.E2NodeComponentConfigUpdateItem, error) {
 
 	e2nodeComponentConfigUpdateItem := e2ap_pdu_contents.E2NodeComponentConfigUpdateItem{
-		E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-		//E2NodeComponentId: &e2ap_ies.E2NodeComponentId{
-		//	E2NodeComponentId: &e2ap_ies.E2NodeComponentId_E2NodeComponentTypeGnbCuUp{
-		//		E2NodeComponentTypeGnbCuUp: &e2ap_ies.E2NodeComponentGnbCuUpId{
-		//			GNbCuUpId: &e2ap_ies.GnbCuUpId{
-		//				Value: 21,
-		//			},
-		//		},
-		//	},
-		//},
-		E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate{
-			E2NodeComponentConfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdate_GNbconfigUpdate{
-				GNbconfigUpdate: &e2ap_ies.E2NodeComponentConfigUpdateGnb{
-					NgApconfigUpdate: []byte("ng_AP"),
-					//XnApconfigUpdate: []byte("xn_AP"),
-					//E1ApconfigUpdate: []byte("e1_AP"),
-					//F1ApconfigUpdate: []byte("f1_AP"),
+		E2NodeComponentInterfaceType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_W1,
+		E2NodeComponentId: &e2ap_ies.E2NodeComponentId{
+			E2NodeComponentId: &e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeW1{
+				E2NodeComponentInterfaceTypeW1: &e2ap_ies.E2NodeComponentInterfaceW1{
+					NgENbDuId: &e2ap_ies.NgenbDuId{
+						Value: 31,
+					},
 				},
 			},
+		},
+		E2NodeComponentConfiguration: &e2ap_ies.E2NodeComponentConfiguration{
+			E2NodeComponentRequestPart:  []byte{0x00, 0x01},
+			E2NodeComponentResponsePart: []byte{0x02, 0x03},
 		},
 	}
 
@@ -58,12 +52,10 @@ func Test_xerEncodingE2nodeComponentConfigUpdateItem(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeComponentConfigUpdateItem XER - decoded\n%v", result)
-	assert.Equal(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentType().Number(), result.GetE2NodeComponentType().Number())
-	//assert.Equal(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue(), result.GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue())
-	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate(), result.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate())
-	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate(), result.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate())
-	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate(), result.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate())
-	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate(), result.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate())
+	assert.Equal(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentInterfaceType().Number(), result.GetE2NodeComponentInterfaceType().Number())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfiguration().GetE2NodeComponentResponsePart(), result.GetE2NodeComponentConfiguration().GetE2NodeComponentResponsePart())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfiguration().GetE2NodeComponentRequestPart(), result.GetE2NodeComponentConfiguration().GetE2NodeComponentRequestPart())
+	assert.Equal(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentId().GetE2NodeComponentInterfaceTypeW1().GetNgENbDuId().GetValue(), result.GetE2NodeComponentId().GetE2NodeComponentInterfaceTypeW1().GetNgENbDuId().GetValue())
 }
 
 func Test_perEncodingE2nodeComponentConfigUpdateItem(t *testing.T) {
@@ -80,10 +72,8 @@ func Test_perEncodingE2nodeComponentConfigUpdateItem(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2nodeComponentConfigUpdateItem PER - decoded\n%v", result)
-	assert.Equal(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentType().Number(), result.GetE2NodeComponentType().Number())
-	//assert.Equal(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue(), result.GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue())
-	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate(), result.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetE1ApconfigUpdate())
-	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate(), result.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetF1ApconfigUpdate())
-	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate(), result.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetXnApconfigUpdate())
-	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate(), result.GetE2NodeComponentConfigUpdate().GetGNbconfigUpdate().GetNgApconfigUpdate())
+	assert.Equal(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentInterfaceType().Number(), result.GetE2NodeComponentInterfaceType().Number())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfiguration().GetE2NodeComponentResponsePart(), result.GetE2NodeComponentConfiguration().GetE2NodeComponentResponsePart())
+	assert.DeepEqual(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentConfiguration().GetE2NodeComponentRequestPart(), result.GetE2NodeComponentConfiguration().GetE2NodeComponentRequestPart())
+	assert.Equal(t, e2nodeComponentConfigUpdateItem.GetE2NodeComponentId().GetE2NodeComponentInterfaceTypeW1().GetNgENbDuId().GetValue(), result.GetE2NodeComponentId().GetE2NodeComponentInterfaceTypeW1().GetNgENbDuId().GetValue())
 }

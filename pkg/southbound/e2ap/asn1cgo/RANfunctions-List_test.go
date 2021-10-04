@@ -8,8 +8,8 @@ import (
 	"encoding/hex"
 	"testing"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
@@ -17,8 +17,7 @@ import (
 )
 
 func Test_RanFunctionsList(t *testing.T) {
-	e2ncID1 := pdubuilder.CreateE2NodeComponentIDGnbCuUp(21)
-	e2ncID2 := pdubuilder.CreateE2NodeComponentIDGnbDu(13)
+
 	ranFunctionList := make(types.RanFunctions)
 	ranFunctionList[100] = types.RanFunctionItem{
 		Description: []byte("Type 1"),
@@ -38,13 +37,19 @@ func Test_RanFunctionsList(t *testing.T) {
 	})
 	assert.NilError(t, err)
 
-	e2apSetupRequest, err := pdubuilder.CreateE2SetupRequestPdu(1, ge2nID, ranFunctionList, []*types.E2NodeComponentConfigUpdateItem{
-		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-			E2NodeComponentID:           &e2ncID1,
-			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)},
-		{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-			E2NodeComponentID:           &e2ncID2,
-			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), nil)},
+	e2apSetupRequest, err := pdubuilder.CreateE2SetupRequestPdu(1, ge2nID, ranFunctionList, []*types.E2NodeComponentConfigAdditionItem{
+		{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_W1,
+			E2NodeComponentID: pdubuilder.CreateE2NodeComponentIDW1(1),
+			E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
+				E2NodeComponentResponsePart: []byte{0x00, 0x01, 0x02},
+				E2NodeComponentRequestPart:  []byte{0xAB, 0xCD, 0xEF},
+			}},
+		{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
+			E2NodeComponentID: pdubuilder.CreateE2NodeComponentIDE1(2),
+			E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
+				E2NodeComponentResponsePart: []byte{0x00, 0x01, 0x02},
+				E2NodeComponentRequestPart:  []byte{0xAB, 0xCD, 0xEF},
+			}},
 	})
 	assert.NilError(t, err)
 

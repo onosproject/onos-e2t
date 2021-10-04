@@ -7,16 +7,14 @@ import (
 	"encoding/hex"
 	"testing"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 )
 
 func TestE2SetupResponse(t *testing.T) {
-	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
-	e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
@@ -33,36 +31,26 @@ func TestE2SetupResponse(t *testing.T) {
 		},
 	}
 
+	e2ncID3 := CreateE2NodeComponentIDS1("S1-component")
+	e2nccaal := make([]*types.E2NodeComponentConfigAdditionAckItem, 0)
+	ie1 := types.E2NodeComponentConfigAdditionAckItem{
+		E2NodeComponentConfigurationAck: e2ap_ies.E2NodeComponentConfigurationAck{
+			UpdateOutcome: e2ap_ies.UpdateOutcome_UPDATE_OUTCOME_SUCCESS,
+		},
+		E2NodeComponentID:   e2ncID3,
+		E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_S1,
+	}
+	e2nccaal = append(e2nccaal, &ie1)
+
 	plmnID := [3]byte{0x79, 0x78, 0x70}
 	ricID := types.RicIdentifier{
 		RicIdentifierValue: []byte{0x4d, 0x20, 0x00},
 		RicIdentifierLen:   20,
 	}
-	response, err := NewE2SetupResponse(1, plmnID, ricID)
+	response, err := NewE2SetupResponse(1, plmnID, ricID, e2nccaal)
 	assert.NilError(t, err)
 	assert.Assert(t, response != nil)
-	response.SetRanFunctionAccepted(rfAccepted).SetRanFunctionRejected(rfRejected).
-		SetE2nodeComponentConfigUpdateAck([]*types.E2NodeComponentConfigUpdateAckItem{
-			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-				E2NodeComponentID: &e2ncID1,
-				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
-					UpdateOutcome: 1,
-					FailureCause: &e2ap_ies.Cause{
-						Cause: &e2ap_ies.Cause_Protocol{
-							Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
-						},
-					},
-				}},
-			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-				E2NodeComponentID: &e2ncID2,
-				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
-					UpdateOutcome: 1,
-					FailureCause: &e2ap_ies.Cause{
-						Cause: &e2ap_ies.Cause_Protocol{
-							Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
-						},
-					},
-				}}})
+	response.SetRanFunctionAccepted(rfAccepted).SetRanFunctionRejected(rfRejected)
 
 	newE2apPdu, err := CreateResponseE2apPdu(response)
 	assert.NilError(t, err)

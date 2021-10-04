@@ -5,13 +5,13 @@
 package types
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 type CritDiag struct {
 	TypeOfError   e2apies.TypeOfError
 	IECriticality e2ap_commondatatypes.Criticality
-	IEId          v2beta1.ProtocolIeID
+	IEId          v2.ProtocolIeID
 }

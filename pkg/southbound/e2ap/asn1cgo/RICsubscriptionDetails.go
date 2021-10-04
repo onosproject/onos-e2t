@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func newRicSubscriptionDetails(rsDet *e2appducontents.RicsubscriptionDetails) (*C.RICsubscriptionDetails_t, error) {
@@ -45,7 +45,7 @@ func decodeRicSubscriptionDetailsBytes(bytes []byte) (*e2appducontents.Ricsubscr
 			size: C.ulong(binary.LittleEndian.Uint64(bytes[8:])),
 		},
 		ricAction_ToBeSetup_List: C.RICactions_ToBeSetup_List_t{
-			list: C.struct___124{ // TODO: tie this down with a predictable name
+			list: C.struct___135{ // TODO: tie this down with a predictable name
 				array: array,
 				size:  size,
 				count: count,

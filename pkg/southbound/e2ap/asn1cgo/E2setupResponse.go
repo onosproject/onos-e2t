@@ -15,7 +15,7 @@ import "C"
 import (
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func xerEncodeE2setupResponse(e2sr *e2appducontents.E2SetupResponse) ([]byte, error) {

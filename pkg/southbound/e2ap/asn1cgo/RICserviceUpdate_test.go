@@ -8,7 +8,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
@@ -71,12 +71,12 @@ func Test_xerEncodingRicServiceUpdate(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("RicServiceUpdate XER - decoded\n%v", result)
-	assert.DeepEqual(t, rsu.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionOid().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionOid().GetValue())
-	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionRevision().GetValue())
+	assert.DeepEqual(t, rsu.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionOid().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionOid().GetValue())
+	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionRevision().GetValue())
 	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes11().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes11().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue())
-	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionId().GetValue())
-	assert.DeepEqual(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionOid().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionOid().GetValue())
-	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionRevision().GetValue())
+	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionId().GetValue())
+	assert.DeepEqual(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionOid().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionOid().GetValue())
+	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionRevision().GetValue())
 	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue())
 }
 
@@ -93,11 +93,11 @@ func Test_perEncodingRicServiceUpdate(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("RicServiceUpdate PER - decoded\n%v", result)
-	assert.DeepEqual(t, rsu.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionOid().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionOid().GetValue())
-	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionRevision().GetValue())
+	assert.DeepEqual(t, rsu.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionOid().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionOid().GetValue())
+	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionRevision().GetValue())
 	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes11().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes11().GetValue().GetValue()[0].GetRanFunctionIdItemIes6().GetValue().GetRanFunctionId().GetValue())
-	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionId().GetValue())
-	assert.DeepEqual(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionOid().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionOid().GetValue())
-	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes10().GetValue().GetRanFunctionRevision().GetValue())
+	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionId().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionId().GetValue())
+	assert.DeepEqual(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionOid().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionOid().GetValue())
+	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionRevision().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()[0].GetE2ApProtocolIes8().GetValue().GetRanFunctionRevision().GetValue())
 	assert.Equal(t, rsu.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue(), result.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue())
 }

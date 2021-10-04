@@ -7,7 +7,7 @@ package pdudecoder
 import (
 	"fmt"
 
-	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -27,7 +27,7 @@ func DecodeE2connectionUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32
 	for _, ie := range cal {
 		item := types.E2ConnectionUpdateItem{}
 		item.TnlInformation.TnlAddress = *ie.GetValue().GetTnlInformation().GetTnlAddress()
-		item.TnlInformation.TnlPort = *ie.GetValue().GetTnlInformation().GetTnlPort()
+		item.TnlInformation.TnlPort = ie.GetValue().GetTnlInformation().GetTnlPort()
 		item.TnlUsage = ie.GetValue().GetTnlUsage()
 		connAdd = append(connAdd, &item)
 	}
@@ -37,7 +37,7 @@ func DecodeE2connectionUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32
 	for _, ie := range cml {
 		item := types.E2ConnectionUpdateItem{}
 		item.TnlInformation.TnlAddress = *ie.GetValue().GetTnlInformation().GetTnlAddress()
-		item.TnlInformation.TnlPort = *ie.GetValue().GetTnlInformation().GetTnlPort()
+		item.TnlInformation.TnlPort = ie.GetValue().GetTnlInformation().GetTnlPort()
 		item.TnlUsage = ie.GetValue().GetTnlUsage()
 		connModify = append(connModify, &item)
 	}
@@ -47,7 +47,7 @@ func DecodeE2connectionUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32
 	for _, ie := range crl {
 		item := types.TnlInformation{}
 		item.TnlAddress = *ie.GetValue().GetTnlInformation().GetTnlAddress()
-		item.TnlPort = *ie.GetValue().GetTnlInformation().GetTnlPort()
+		item.TnlPort = ie.GetValue().GetTnlInformation().GetTnlPort()
 		connRemove = append(connRemove, &item)
 	}
 

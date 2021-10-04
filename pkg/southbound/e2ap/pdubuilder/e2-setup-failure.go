@@ -4,19 +4,19 @@
 package pdubuilder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
 func CreateE2SetupFailurePdu(trID int32, cause *e2apies.Cause) (*e2appdudescriptions.E2ApPdu, error) {
 
 	errorCause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
-		Id:          int32(v2beta1.ProtocolIeIDCause),
+		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value:       cause, // Probably, could be any other reason
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
@@ -33,7 +33,7 @@ func CreateE2SetupFailurePdu(trID int32, cause *e2apies.Cause) (*e2appdudescript
 								//E2ApProtocolIes31: &timeToWait,             // RAN function ID
 								//E2ApProtocolIes2:  &criticalityDiagnostics, // CriticalityDiagnostics
 								E2ApProtocolIes49: &e2appducontents.E2SetupFailureIes_E2SetupFailureIes49{
-									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Id:          int32(v2.ProtocolIeIDTransactionID),
 									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 									Value: &e2apies.TransactionId{
 										Value: trID,
@@ -43,7 +43,7 @@ func CreateE2SetupFailurePdu(trID int32, cause *e2apies.Cause) (*e2appdudescript
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2Setup{
-							Value: int32(v2beta1.ProcedureCodeIDE2setup),
+							Value: int32(v2.ProcedureCodeIDE2setup),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

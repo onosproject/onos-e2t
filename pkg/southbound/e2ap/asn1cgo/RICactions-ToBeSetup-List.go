@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func xerEncodeRicActionsToBeSetupList(ratbsl *e2appducontents.RicactionsToBeSetupList) ([]byte, error) {
@@ -83,7 +83,7 @@ func decodeRicActionToBeSetupList(ratbsLC *C.RICactions_ToBeSetup_List_t) (*e2ap
 	ieCount := int(ratbsLC.list.count)
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*ratbsLC.list.array)) * uintptr(i)
-		ratbsIeC := *(**C.ProtocolIE_SingleContainer_1754P0_t)(unsafe.Pointer(uintptr(unsafe.Pointer(ratbsLC.list.array)) + offset))
+		ratbsIeC := *(**C.ProtocolIE_SingleContainer_1911P0_t)(unsafe.Pointer(uintptr(unsafe.Pointer(ratbsLC.list.array)) + offset))
 		ratbsIe, err := decodeRicActionToBeSetupItemIesSingleContainer(ratbsIeC)
 		if err != nil {
 			return nil, fmt.Errorf("decodeRicActionToBeSetupItemIesSingleContainer() %s", err.Error())

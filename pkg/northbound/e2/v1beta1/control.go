@@ -10,7 +10,7 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -18,7 +18,7 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 
@@ -203,27 +203,34 @@ func getControlError(failure *e2appducontents.RiccontrolFailure) *e2api.Error {
 	case *e2apies.Cause_RicRequest:
 		var errType e2api.Error_Cause_Ric_Type
 		switch c.RicRequest {
-		case e2apies.CauseRic_CAUSE_RIC_RAN_FUNCTION_ID_INVALID:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_RAN_FUNCTION_ID_INVALID:
 			errType = e2api.Error_Cause_Ric_RAN_FUNCTION_ID_INVALID
-		case e2apies.CauseRic_CAUSE_RIC_ACTION_NOT_SUPPORTED:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_ACTION_NOT_SUPPORTED:
 			errType = e2api.Error_Cause_Ric_ACTION_NOT_SUPPORTED
-		case e2apies.CauseRic_CAUSE_RIC_EXCESSIVE_ACTIONS:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_EXCESSIVE_ACTIONS:
 			errType = e2api.Error_Cause_Ric_EXCESSIVE_ACTIONS
-		case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_ACTION:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_DUPLICATE_ACTION:
 			errType = e2api.Error_Cause_Ric_DUPLICATE_ACTION
-		case e2apies.CauseRic_CAUSE_RIC_DUPLICATE_EVENT:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_DUPLICATE_EVENT_TRIGGER:
 			errType = e2api.Error_Cause_Ric_DUPLICATE_EVENT
-		case e2apies.CauseRic_CAUSE_RIC_FUNCTION_RESOURCE_LIMIT:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_FUNCTION_RESOURCE_LIMIT:
 			errType = e2api.Error_Cause_Ric_FUNCTION_RESOURCE_LIMIT
-		case e2apies.CauseRic_CAUSE_RIC_REQUEST_ID_UNKNOWN:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_REQUEST_ID_UNKNOWN:
 			errType = e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN
-		case e2apies.CauseRic_CAUSE_RIC_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE:
 			errType = e2api.Error_Cause_Ric_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE
-		case e2apies.CauseRic_CAUSE_RIC_CONTROL_MESSAGE_INVALID:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_MESSAGE_INVALID:
 			errType = e2api.Error_Cause_Ric_CONTROL_MESSAGE_INVALID
-		case e2apies.CauseRic_CAUSE_RIC_CALL_PROCESS_ID_INVALID:
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_RIC_CALL_PROCESS_ID_INVALID:
 			errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
-		case e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED:
+		//ToDo - fill in missing part in onos-api
+		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
+		//	errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
+		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
+		//	errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
+		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
+		//	errType = e2api.Error_Cause_Ric_CONTROL_SYSTEM_NOT_READY
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED:
 			errType = e2api.Error_Cause_Ric_UNSPECIFIED
 		}
 		return &e2api.Error{
@@ -238,7 +245,8 @@ func getControlError(failure *e2appducontents.RiccontrolFailure) *e2api.Error {
 	case *e2apies.Cause_RicService:
 		var errType e2api.Error_Cause_RicService_Type
 		switch c.RicService {
-		case e2apies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
+		//ToDo - change naming in onos-api to Error_Cause_RicService_RAN_FUNCTION_NOT_REQUIRED
+		case e2apies.CauseRicservice_CAUSE_RICSERVICE_RAN_FUNCTION_NOT_SUPPORTED:
 			errType = e2api.Error_Cause_RicService_FUNCTION_NOT_REQUIRED
 		case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
 			errType = e2api.Error_Cause_RicService_EXCESSIVE_FUNCTIONS

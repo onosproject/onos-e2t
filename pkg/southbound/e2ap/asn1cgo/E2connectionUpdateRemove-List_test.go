@@ -8,10 +8,10 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
 )
@@ -23,7 +23,7 @@ func createE2connectionUpdateRemoveListMsg() (*e2ap_pdu_contents.E2ConnectionUpd
 	}
 
 	e2connectionUpdateRemoveItem := &e2ap_pdu_contents.E2ConnectionUpdateRemoveItemIes{
-		Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateRemoveItem),
+		Id:          int32(v2.ProtocolIeIDE2connectionUpdateRemoveItem),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2ap_pdu_contents.E2ConnectionUpdateRemoveItem{
 			TnlInformation: &e2ap_ies.Tnlinformation{

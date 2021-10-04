@@ -8,7 +8,6 @@ import (
 	"encoding/hex"
 	"testing"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
@@ -21,10 +20,9 @@ func Test_RICcontrolAcknowledge(t *testing.T) {
 	}
 	var ranFuncID types.RanFunctionID = 9
 	var ricCallPrID types.RicCallProcessID = []byte("123")
-	ricControlStatus := e2apies.RiccontrolStatus_RICCONTROL_STATUS_SUCCESS
 	var ricCtrlOut types.RicControlOutcome = []byte("456")
 	e2ApPduRca, err := pdubuilder.CreateRicControlAcknowledgeE2apPdu(ricRequestID,
-		ranFuncID, ricControlStatus)
+		ranFuncID)
 	assert.NilError(t, err)
 	assert.Assert(t, e2ApPduRca != nil)
 	e2ApPduRca.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome().

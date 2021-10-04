@@ -9,6 +9,11 @@ import (
 )
 
 type TnlInformation struct {
-	TnlPort    asn1.BitString
+	TnlPort    *asn1.BitString // optional structure
 	TnlAddress asn1.BitString
+}
+
+type TnlAssociationRemovalItem struct {
+	TnlInformation    TnlInformation
+	TnlInformationRic TnlInformation
 }

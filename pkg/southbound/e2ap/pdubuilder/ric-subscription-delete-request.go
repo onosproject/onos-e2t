@@ -4,12 +4,12 @@
 package pdubuilder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -17,7 +17,7 @@ func NewRicSubscriptionDeleteRequest(ricReq types.RicRequest,
 	ranFuncID types.RanFunctionID) (
 	*e2appducontents.RicsubscriptionDeleteRequest, error) {
 	ricRequestID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes29{
-		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReq.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -27,7 +27,7 @@ func NewRicSubscriptionDeleteRequest(ricReq types.RicRequest,
 	}
 
 	ranFunctionID := e2appducontents.RicsubscriptionDeleteRequestIes_RicsubscriptionDeleteRequestIes5{
-		Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
+		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -58,7 +58,7 @@ func CreateRicSubscriptionDeleteRequestE2apPdu(ricReq types.RicRequest,
 					RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
 						InitiatingMessage: request,
 						ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
-							Value: int32(v2beta1.ProcedureCodeIDRICsubscriptionDelete),
+							Value: int32(v2.ProcedureCodeIDRICsubscriptionDelete),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

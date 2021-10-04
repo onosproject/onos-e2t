@@ -7,11 +7,11 @@ package procedures
 import (
 	"context"
 
-	e2ap "github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	e2ap "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 )
 
 // RICIndication is a RIC indication procedure
