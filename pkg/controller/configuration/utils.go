@@ -8,9 +8,8 @@ import (
 	"encoding/binary"
 	"net"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-
 	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+
 	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
@@ -33,7 +32,7 @@ func createConnectionUpdateReq(ip string) *e2appducontents.E2ConnectionUpdate {
 	port := uint16(36421)
 	binary.BigEndian.PutUint16(portBytes, port)
 	cai := &e2appducontents.E2ConnectionUpdateItemIes{
-		Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateItem),
+		Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 		Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &e2appducontents.E2ConnectionUpdateItem{
 			TnlInformation: &e2apies.Tnlinformation{
@@ -52,7 +51,7 @@ func createConnectionUpdateReq(ip string) *e2appducontents.E2ConnectionUpdate {
 	}
 
 	transactionID := &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes49{
-		Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.TransactionId{
 			Value: 3,
