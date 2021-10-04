@@ -8,8 +8,9 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"time"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 
@@ -17,9 +18,9 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
@@ -109,11 +110,11 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	transID, nodeIdentity, ranFuncs, _, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
 		cause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
-			Id:          int32(v2beta1.ProtocolIeIDCause),
+			Id:          int32(v2.ProtocolIeIDCause),
 			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2apies.Cause{
 				Cause: &e2apies.Cause_RicRequest{
-					RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED,
+					RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
 				},
 			},
 			Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
@@ -122,7 +123,7 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 			ProtocolIes: &e2appducontents.E2SetupFailureIes{
 				E2ApProtocolIes1: &cause,
 				E2ApProtocolIes49: &e2appducontents.E2SetupFailureIes_E2SetupFailureIes49{
-					Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+					Id:          int32(v2.ProtocolIeIDTransactionID),
 					Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
 					Value: &e2apies.TransactionId{
 						Value: request.GetProtocolIes().GetE2ApProtocolIes49().Value.Value,
@@ -191,11 +192,11 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	response, err := pdubuilder.NewE2SetupResponse(*transID, nodeIdentity.Plmn, ricID, e2nccaal)
 	if err != nil {
 		cause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
-			Id:          int32(v2beta1.ProtocolIeIDCause),
+			Id:          int32(v2.ProtocolIeIDCause),
 			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2apies.Cause{
 				Cause: &e2apies.Cause_RicRequest{
-					RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED,
+					RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
 				},
 			},
 			Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
@@ -204,7 +205,7 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 			ProtocolIes: &e2appducontents.E2SetupFailureIes{
 				E2ApProtocolIes1: &cause,
 				E2ApProtocolIes49: &e2appducontents.E2SetupFailureIes_E2SetupFailureIes49{
-					Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+					Id:          int32(v2.ProtocolIeIDTransactionID),
 					Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
 					Value: &e2apies.TransactionId{
 						Value: request.GetProtocolIes().GetE2ApProtocolIes49().Value.Value,
@@ -236,11 +237,11 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 		nodeID, err := pdudecoder.ExtractE2NodeIdentity(ie3.GetValue())
 		if err != nil {
 			cause := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
-				Id:          int32(v2beta1.ProtocolIeIDCause),
+				Id:          int32(v2.ProtocolIeIDCause),
 				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2apies.Cause{
 					Cause: &e2apies.Cause_RicRequest{
-						RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED,
+						RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
 					},
 				},
 				Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
@@ -250,7 +251,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 				ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateFailureIes{
 					E2ApProtocolIes1: &cause,
 					E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes49{
-						Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+						Id:          int32(v2.ProtocolIeIDTransactionID),
 						Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
 						Value: &e2apies.TransactionId{
 							Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,
@@ -282,11 +283,11 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 		err = e.rnib.Create(ctx, object)
 		if err != nil {
 			cause := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
-				Id:          int32(v2beta1.ProtocolIeIDCause),
+				Id:          int32(v2.ProtocolIeIDCause),
 				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2apies.Cause{
 					Cause: &e2apies.Cause_RicRequest{
-						RicRequest: e2apies.CauseRic_CAUSE_RIC_UNSPECIFIED,
+						RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
 					},
 				},
 				Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
@@ -296,7 +297,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 				ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateFailureIes{
 					E2ApProtocolIes1: &cause,
 					E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes49{
-						Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+						Id:          int32(v2.ProtocolIeIDTransactionID),
 						Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
 						Value: &e2apies.TransactionId{
 							Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,
@@ -313,7 +314,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	return &e2appducontents.E2NodeConfigurationUpdateAcknowledge{
 		ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes{
 			E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes49{
-				Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+				Id:          int32(v2.ProtocolIeIDTransactionID),
 				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
 				Value: &e2apies.TransactionId{
 					Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,

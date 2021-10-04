@@ -16,7 +16,7 @@ import (
 	"github.com/google/uuid"
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap"
 	"github.com/onosproject/onos-lib-go/pkg/uri"

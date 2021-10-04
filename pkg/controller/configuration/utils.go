@@ -9,15 +9,17 @@ import (
 	"net"
 
 	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
 func createConnectionUpdateReq(ip string) *e2appducontents.E2ConnectionUpdate {
 	connectionAddList := &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
-		Id:          int32(v2beta1.ProtocolIeIDE2connectionUpdateAdd),
+		Id:          int32(v2.ProtocolIeIDE2connectionUpdateAdd),
 		Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.E2ConnectionUpdateList{
 			Value: make([]*e2appducontents.E2ConnectionUpdateItemIes, 0),
