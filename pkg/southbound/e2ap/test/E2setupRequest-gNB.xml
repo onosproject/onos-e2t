@@ -19,6 +19,8 @@
                                             </gnb-ID>
                                         </gnb-id>
                                     </global-gNB-ID>
+                                    <gNB-CU-UP-ID>15</gNB-CU-UP-ID>
+                                    <gNB-DU-ID>21</gNB-DU-ID>
                                 </gNB>
                             </GlobalE2node-ID>
                         </value>
@@ -56,51 +58,62 @@
                         </value>
                     </E2setupRequestIEs>
                     <E2setupRequestIEs>
-                        <id>33</id>
+                        <id>50</id>
                         <criticality><reject/></criticality>
                         <value>
-                            <E2nodeComponentConfigUpdate-List>
+                            <E2nodeComponentConfigAddition-List>
                                 <ProtocolIE-SingleContainer>
-                                    <id>34</id>
+                                    <id>51</id>
                                     <criticality><reject/></criticality>
                                     <value>
-                                        <E2nodeComponentConfigUpdate-Item>
-                                            <e2nodeComponentType><gNB/></e2nodeComponentType>
+                                        <E2nodeComponentConfigAddition-Item>
+                                            <e2nodeComponentInterfaceType><x2/></e2nodeComponentInterfaceType>
                                             <e2nodeComponentID>
-                                                <e2nodeComponentTypeGNB-CU-UP>
-                                                    <gNB-CU-UP-ID>21</gNB-CU-UP-ID>
-                                                </e2nodeComponentTypeGNB-CU-UP>
+                                                <e2nodeComponentInterfaceTypeX2>
+                                                    <global-eNB-ID>
+                                                        <pLMN-Identity>AA BB CC</pLMN-Identity>
+                                                        <eNB-ID>
+                                                            <home-eNB-ID>
+                                                                0000000010100111110111011111
+                                                            </home-eNB-ID>
+                                                        </eNB-ID>
+                                                    </global-eNB-ID>
+                                                    <global-en-gNB-ID>
+                                                        <pLMN-Identity>FF CD BF</pLMN-Identity>
+                                                        <gNB-ID>
+                                                            <gNB-ID>
+                                                                11111010001011001101010011111
+                                                            </gNB-ID>
+                                                        </gNB-ID>
+                                                    </global-en-gNB-ID>
+                                                </e2nodeComponentInterfaceTypeX2>
                                             </e2nodeComponentID>
-                                            <e2nodeComponentConfigUpdate>
-                                                <gNBconfigUpdate>
-                                                    <ngAPconfigUpdate>6E 67 41 70</ngAPconfigUpdate>
-                                                    <e1APconfigUpdate>65 31 41 70</e1APconfigUpdate>
-                                                    <f1APconfigUpdate>66 31 41 70</f1APconfigUpdate>
-                                                </gNBconfigUpdate>
-                                            </e2nodeComponentConfigUpdate>
-                                        </E2nodeComponentConfigUpdate-Item>
+                                            <e2nodeComponentConfiguration>
+                                                <e2nodeComponentRequestPart>04 05 06</e2nodeComponentRequestPart>
+                                                <e2nodeComponentResponsePart>01 02 03</e2nodeComponentResponsePart>
+                                            </e2nodeComponentConfiguration>
+                                        </E2nodeComponentConfigAddition-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
                                 <ProtocolIE-SingleContainer>
-                                    <id>34</id>
+                                    <id>51</id>
                                     <criticality><reject/></criticality>
                                     <value>
-                                        <E2nodeComponentConfigUpdate-Item>
-                                            <e2nodeComponentType><eNB/></e2nodeComponentType>
+                                        <E2nodeComponentConfigAddition-Item>
+                                            <e2nodeComponentInterfaceType><ng/></e2nodeComponentInterfaceType>
                                             <e2nodeComponentID>
-                                                <e2nodeComponentTypeGNB-DU>
-                                                    <gNB-DU-ID>13</gNB-DU-ID>
-                                                </e2nodeComponentTypeGNB-DU>
+                                                <e2nodeComponentInterfaceTypeNG>
+                                                    <amf-name>NG-Component</amf-name>
+                                                </e2nodeComponentInterfaceTypeNG>
                                             </e2nodeComponentID>
-                                            <e2nodeComponentConfigUpdate>
-                                                <eNBconfigUpdate>
-                                                    <s1APconfigUpdate>73 31</s1APconfigUpdate>
-                                                </eNBconfigUpdate>
-                                            </e2nodeComponentConfigUpdate>
-                                        </E2nodeComponentConfigUpdate-Item>
+                                            <e2nodeComponentConfiguration>
+                                                <e2nodeComponentRequestPart>0A 0B 0C</e2nodeComponentRequestPart>
+                                                <e2nodeComponentResponsePart>07 08 09</e2nodeComponentResponsePart>
+                                            </e2nodeComponentConfiguration>
+                                        </E2nodeComponentConfigAddition-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
-                            </E2nodeComponentConfigUpdate-List>
+                            </E2nodeComponentConfigAddition-List>
                         </value>
                     </E2setupRequestIEs>
                     <E2setupRequestIEs>

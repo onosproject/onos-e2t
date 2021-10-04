@@ -1,13 +1,14 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package pdubuilder
 
 import (
 	"encoding/hex"
+	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"testing"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
@@ -15,28 +16,34 @@ import (
 
 func TestE2NodeConfigurationUpdateAck(t *testing.T) {
 
-	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
-	//e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
+	grnID, err := CreateGlobalNgRanNodeIDGnb([]byte{0x01, 0x02, 0x03}, &asn1.BitString{
+		Value: []byte{0xAB, 0xCD, 0xEF, 0xFF},
+		Len:   32,
+	})
+	assert.NilError(t, err)
+
+	e2ncID1 := CreateE2NodeComponentIDF1(21)
+	e2ncID2 := CreateE2NodeComponentIDXn(grnID)
 
 	newE2apPdu, err := CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(1)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetSuccessfulOutcome().
-		SetE2nodeComponentConfigUpdate([]*types.E2NodeComponentConfigUpdateAckItem{
-			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-				E2NodeComponentID: &e2ncID1,
-				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
-					UpdateOutcome: 1,
+		SetE2nodeComponentConfigUpdateAck([]*types.E2NodeComponentConfigUpdateAckItem{
+			{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_F1,
+				E2NodeComponentID: e2ncID1,
+				E2NodeComponentConfigurationAck: types.E2NodeComponentConfigurationAck{
+					UpdateOutcome: e2ap_ies.UpdateOutcome_UPDATE_OUTCOME_FAILURE,
 					//FailureCause: e2ap_ies.Cause{
 					//	Cause: &e2ap_ies.Cause_Protocol{
 					//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 					//	},
 					//},
 				}},
-			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-				//E2NodeComponentID: &e2ncID2,
-				E2NodeComponentConfigUpdateAck: types.E2NodeComponentConfigUpdateAck{
-					UpdateOutcome: 1,
+			{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_XN,
+				E2NodeComponentID: e2ncID2,
+				E2NodeComponentConfigurationAck: types.E2NodeComponentConfigurationAck{
+					UpdateOutcome: e2ap_ies.UpdateOutcome_UPDATE_OUTCOME_SUCCESS,
 					FailureCause: &e2ap_ies.Cause{
 						Cause: &e2ap_ies.Cause_Protocol{
 							Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,

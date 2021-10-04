@@ -1,15 +1,15 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package pdubuilder
 
 import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
@@ -18,7 +18,7 @@ import (
 
 func TestE2SetupFailure(t *testing.T) {
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V10S
-	procCode := v2beta1.ProcedureCodeIDRICsubscription
+	procCode := v2.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
@@ -50,7 +50,7 @@ func TestE2SetupFailure(t *testing.T) {
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
+				IEId:          v2.ProtocolIeIDRicsubscriptionDetails,
 			},
 		})
 	//fmt.Printf("TimeToWait is \n%v\n", newE2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2Setup().GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes31())

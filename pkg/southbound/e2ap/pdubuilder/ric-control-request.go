@@ -1,22 +1,22 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package pdubuilder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
 func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 	ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage) (*e2appducontents.RiccontrolRequest, error) {
 	ricRequestID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes29{
-		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -26,7 +26,7 @@ func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 	}
 
 	ranFunctionID := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes5{
-		Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
+		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -35,7 +35,7 @@ func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 	}
 
 	ricControlHeader := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes22{
-		Id:          int32(v2beta1.ProtocolIeIDRiccontrolHeader),
+		Id:          int32(v2.ProtocolIeIDRiccontrolHeader),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_commondatatypes.RiccontrolHeader{
 			Value: []byte(ricCtrlHdr),
@@ -44,7 +44,7 @@ func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 	}
 
 	ricControlMessage := e2appducontents.RiccontrolRequestIes_RiccontrolRequestIes23{
-		Id:          int32(v2beta1.ProtocolIeIDRiccontrolMessage),
+		Id:          int32(v2.ProtocolIeIDRiccontrolMessage),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_commondatatypes.RiccontrolMessage{
 			Value: []byte(ricCtrlMsg),
@@ -76,7 +76,7 @@ func CreateRicControlRequestE2apPdu(request *e2appducontents.RiccontrolRequest) 
 					RicControl: &e2appdudescriptions.RicControl{
 						InitiatingMessage: request,
 						ProcedureCode: &e2ap_constants.IdRiccontrol{
-							Value: int32(v2beta1.ProcedureCodeIDRICcontrol),
+							Value: int32(v2.ProcedureCodeIDRICcontrol),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

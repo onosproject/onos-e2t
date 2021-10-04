@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func newRanFunctionsIDcauseList(rfIDcl *e2appducontents.RanfunctionsIdcauseList) (*C.RANfunctionsIDcause_List_t, error) {
@@ -41,7 +41,7 @@ func decodeRanFunctionsIDCauseListBytes(ranFunctionIDCauseListChoice [112]byte) 
 	size := C.int(binary.LittleEndian.Uint32(ranFunctionIDCauseListChoice[12:16]))
 
 	rfIDCauselC := C.RANfunctionsIDcause_List_t{
-		list: C.struct___139{
+		list: C.struct___150{
 			array: array,
 			size:  size,
 			count: count,
@@ -60,7 +60,7 @@ func decodeRanFunctionsCauseIDList(rfIDCauselC *C.RANfunctionsIDcause_List_t) (*
 	//fmt.Printf("RanFunctionIDListC %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*rfIDCauselC.list.array)) * uintptr(i)
-		rfIDciIeC := *(**C.ProtocolIE_SingleContainer_1754P10_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rfIDCauselC.list.array)) + offset))
+		rfIDciIeC := *(**C.ProtocolIE_SingleContainer_1911P16_t)(unsafe.Pointer(uintptr(unsafe.Pointer(rfIDCauselC.list.array)) + offset))
 		//fmt.Printf("Value %T %p %v\n", rfIDciIeC, rfIDciIeC, rfIDciIeC)
 		rfIDiIe, err := decodeRanFunctionIDCauseItemIesSingleContainer(rfIDciIeC)
 		if err != nil {

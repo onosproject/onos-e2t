@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -12,11 +12,12 @@ package asn1cgo
 //#include "GlobalgNB-ID.h"
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
 	"unsafe"
 
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodegNBID(gnbID *e2apies.GlobalgNbId) ([]byte, error) {
@@ -74,4 +75,10 @@ func decodeGlobalGnbID(globalGnbID *C.GlobalgNB_ID_t) (*e2apies.GlobalgNbId, err
 		return nil, err
 	}
 	return result, nil
+}
+
+func decodeGlobalGnbIDBytes(array [8]byte) (*e2apies.GlobalgNbId, error) {
+	gnbID := (*C.GlobalgNB_ID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+
+	return decodeGlobalGnbID(gnbID)
 }

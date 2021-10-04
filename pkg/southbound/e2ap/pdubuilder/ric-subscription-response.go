@@ -1,24 +1,24 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package pdubuilder
 
 import (
 	"fmt"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
 const mask20bitricResponse = 0xFFFFF
 
-func CreateRicSubscriptionResponseE2apPdu(
-	ricReq *types.RicRequest, ranFuncID types.RanFunctionID, ricActionsAccepted []*types.RicActionID) (*e2appdudescriptions.E2ApPdu, error) {
+func CreateRicSubscriptionResponseE2apPdu(ricReq *types.RicRequest, ranFuncID types.RanFunctionID,
+	ricActionsAdmitted []*types.RicActionID) (*e2appdudescriptions.E2ApPdu, error) {
 
 	if ricReq.RequestorID|mask20bitricResponse > mask20bitricResponse {
 		return nil, fmt.Errorf("expecting 20 bit identifier for RIC. Got %0x", ricReq.RequestorID)
@@ -28,7 +28,7 @@ func CreateRicSubscriptionResponseE2apPdu(
 	}
 
 	ricRequestID := e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes29{
-		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReq.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -38,7 +38,7 @@ func CreateRicSubscriptionResponseE2apPdu(
 	}
 
 	ranFunctionID := e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes5{
-		Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
+		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -47,7 +47,7 @@ func CreateRicSubscriptionResponseE2apPdu(
 	}
 
 	ricActionAdmit := e2appducontents.RicsubscriptionResponseIes_RicsubscriptionResponseIes17{
-		Id:          int32(v2beta1.ProtocolIeIDRicactionsAdmitted),
+		Id:          int32(v2.ProtocolIeIDRicactionsAdmitted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RicactionAdmittedList{
 			Value: make([]*e2appducontents.RicactionAdmittedItemIes, 0),
@@ -55,9 +55,9 @@ func CreateRicSubscriptionResponseE2apPdu(
 		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
-	for _, raa := range ricActionsAccepted {
+	for _, raa := range ricActionsAdmitted {
 		raaIe := &e2appducontents.RicactionAdmittedItemIes{
-			Id:          int32(v2beta1.ProtocolIeIDRicactionAdmittedItem),
+			Id:          int32(v2.ProtocolIeIDRicactionAdmittedItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2appducontents.RicactionAdmittedItem{
 				RicActionId: &e2apies.RicactionId{
@@ -83,7 +83,7 @@ func CreateRicSubscriptionResponseE2apPdu(
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRicsubscription{
-							Value: int32(v2beta1.ProcedureCodeIDRICsubscription),
+							Value: int32(v2.ProcedureCodeIDRICsubscription),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,

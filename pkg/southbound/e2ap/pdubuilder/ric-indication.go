@@ -1,15 +1,15 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package pdubuilder
 
 import (
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -19,7 +19,7 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 	*e2appdudescriptions.E2ApPdu, error) {
 
 	ricRequestID := e2appducontents.RicindicationIes_RicindicationIes29{
-		Id:          int32(v2beta1.ProtocolIeIDRicrequestID),
+		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicrequestId{
 			RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
@@ -29,7 +29,7 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 	}
 
 	ranFunctionID := e2appducontents.RicindicationIes_RicindicationIes5{
-		Id:          int32(v2beta1.ProtocolIeIDRanfunctionID),
+		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RanfunctionId{
 			Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
@@ -38,7 +38,7 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 	}
 
 	ricAct := e2appducontents.RicindicationIes_RicindicationIes15{
-		Id:          int32(v2beta1.ProtocolIeIDRicactionID),
+		Id:          int32(v2.ProtocolIeIDRicactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2apies.RicactionId{
 			Value: int32(ricAction),
@@ -47,14 +47,14 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 	}
 
 	ricIndType := e2appducontents.RicindicationIes_RicindicationIes28{
-		Id:          int32(v2beta1.ProtocolIeIDRicindicationType),
+		Id:          int32(v2.ProtocolIeIDRicindicationType),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       ricIndicationType,
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 	}
 
 	ricIndHeader := e2appducontents.RicindicationIes_RicindicationIes25{
-		Id:          int32(v2beta1.ProtocolIeIDRicindicationHeader),
+		Id:          int32(v2.ProtocolIeIDRicindicationHeader),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_commondatatypes.RicindicationHeader{
 			Value: []byte(ricIndHd),
@@ -63,7 +63,7 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 	}
 
 	ricIndMessage := e2appducontents.RicindicationIes_RicindicationIes26{
-		Id:          int32(v2beta1.ProtocolIeIDRicindicationMessage),
+		Id:          int32(v2.ProtocolIeIDRicindicationMessage),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2ap_commondatatypes.RicindicationMessage{
 			Value: []byte(ricIndMsg),
@@ -89,7 +89,7 @@ func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunction
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdRicindication{
-							Value: int32(v2beta1.ProcedureCodeIDRICindication),
+							Value: int32(v2.ProcedureCodeIDRICindication),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityIgnore{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,

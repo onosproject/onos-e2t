@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -8,16 +8,16 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
 )
 
 func Test_CriticalityDiagnostics(t *testing.T) {
-	procCode := v2beta1.ProcedureCodeIDRICsubscription
+	procCode := v2.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 	newE2apPdu, err := pdubuilder.CreateRicSubscriptionDeleteFailureE2apPdu(&types.RicRequest{
@@ -40,7 +40,7 @@ func Test_CriticalityDiagnostics(t *testing.T) {
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-				IEId:          v2beta1.ProtocolIeIDRicsubscriptionDetails,
+				IEId:          v2.ProtocolIeIDRicsubscriptionDetails,
 			},
 		})
 

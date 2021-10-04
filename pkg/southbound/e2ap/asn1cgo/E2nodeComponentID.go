@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodeE2nodeComponentID(e2nodeComponentID *e2ap_ies.E2NodeComponentId) ([]byte, error) {
@@ -74,28 +74,60 @@ func newE2nodeComponentID(e2nodeComponentID *e2ap_ies.E2NodeComponentId) (*C.E2n
 	choiceC := [8]byte{}
 
 	switch choice := e2nodeComponentID.E2NodeComponentId.(type) {
-	case *e2ap_ies.E2NodeComponentId_E2NodeComponentTypeGnbCuUp:
-		pr = C.E2nodeComponentID_PR_e2nodeComponentTypeGNB_CU_UP
+	case *e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeNg:
+		pr = C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeNG
 
-		im, err := newE2nodeComponentGnbCuUpID(choice.E2NodeComponentTypeGnbCuUp)
+		im, err := newE2nodeComponentInterfaceNG(choice.E2NodeComponentInterfaceTypeNg)
 		if err != nil {
-			return nil, fmt.Errorf("newE2nodeComponentGnbCuUpID() %s", err.Error())
+			return nil, fmt.Errorf("newE2nodeComponentInterfaceNG() %s", err.Error())
 		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
-	case *e2ap_ies.E2NodeComponentId_E2NodeComponentTypeGnbDu:
-		pr = C.E2nodeComponentID_PR_e2nodeComponentTypeGNB_DU
+	case *e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeXn:
+		pr = C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeXn
 
-		im, err := newE2nodeComponentGnbDuID(choice.E2NodeComponentTypeGnbDu)
+		im, err := newE2nodeComponentInterfaceXn(choice.E2NodeComponentInterfaceTypeXn)
 		if err != nil {
-			return nil, fmt.Errorf("newE2nodeComponentGnbDuID() %s", err.Error())
+			return nil, fmt.Errorf("newE2nodeComponentInterfaceXn() %s", err.Error())
 		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
-	case *e2ap_ies.E2NodeComponentId_E2NodeComponentTypeNgeNbDu:
-		pr = C.E2nodeComponentID_PR_e2nodeComponentTypeNGeNB_DU
+	case *e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeE1:
+		pr = C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeE1
 
-		im, err := newE2nodeComponentNgEnbDuID(choice.E2NodeComponentTypeNgeNbDu)
+		im, err := newE2nodeComponentInterfaceE1(choice.E2NodeComponentInterfaceTypeE1)
 		if err != nil {
-			return nil, fmt.Errorf("newE2nodeComponentNgEnbDuID() %s", err.Error())
+			return nil, fmt.Errorf("newE2nodeComponentInterfaceE1() %s", err.Error())
+		}
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
+	case *e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeF1:
+		pr = C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeF1
+
+		im, err := newE2nodeComponentInterfaceF1(choice.E2NodeComponentInterfaceTypeF1)
+		if err != nil {
+			return nil, fmt.Errorf("newE2nodeComponentInterfaceF1() %s", err.Error())
+		}
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
+	case *e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeW1:
+		pr = C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeW1
+
+		im, err := newE2nodeComponentInterfaceW1(choice.E2NodeComponentInterfaceTypeW1)
+		if err != nil {
+			return nil, fmt.Errorf("newE2nodeComponentInterfaceW1() %s", err.Error())
+		}
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
+	case *e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeS1:
+		pr = C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeS1
+
+		im, err := newE2nodeComponentInterfaceS1(choice.E2NodeComponentInterfaceTypeS1)
+		if err != nil {
+			return nil, fmt.Errorf("newE2nodeComponentInterfaceS1() %s", err.Error())
+		}
+		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
+	case *e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeX2:
+		pr = C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeX2
+
+		im, err := newE2nodeComponentInterfaceX2(choice.E2NodeComponentInterfaceTypeX2)
+		if err != nil {
+			return nil, fmt.Errorf("newE2nodeComponentInterfaceX2() %s", err.Error())
 		}
 		binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(im))))
 	default:
@@ -115,29 +147,61 @@ func decodeE2nodeComponentID(e2nodeComponentIDC *C.E2nodeComponentID_t) (*e2ap_i
 	e2nodeComponentID := new(e2ap_ies.E2NodeComponentId)
 
 	switch e2nodeComponentIDC.present {
-	case C.E2nodeComponentID_PR_e2nodeComponentTypeGNB_CU_UP:
-		e2nodeComponentIDstructC, err := decodeE2nodeComponentGnbCuUpIDBytes(e2nodeComponentIDC.choice)
+	case C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeNG:
+		e2nodeComponentIDstructC, err := decodeE2nodeComponentInterfaceNGBytes(e2nodeComponentIDC.choice)
 		if err != nil {
-			return nil, fmt.Errorf("decodeE2nodeComponentGnbCuUpIDBytes() %s", err.Error())
+			return nil, fmt.Errorf("decodeE2nodeComponentInterfaceNGBytes() %s", err.Error())
 		}
-		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentTypeGnbCuUp{
-			E2NodeComponentTypeGnbCuUp: e2nodeComponentIDstructC,
+		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeNg{
+			E2NodeComponentInterfaceTypeNg: e2nodeComponentIDstructC,
 		}
-	case C.E2nodeComponentID_PR_e2nodeComponentTypeGNB_DU:
-		e2nodeComponentIDstructC, err := decodeE2nodeComponentGnbDuIDBytes(e2nodeComponentIDC.choice)
+	case C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeXn:
+		e2nodeComponentIDstructC, err := decodeE2nodeComponentInterfaceXnBytes(e2nodeComponentIDC.choice)
 		if err != nil {
-			return nil, fmt.Errorf("decodeE2nodeComponentGnbDuIDBytes() %s", err.Error())
+			return nil, fmt.Errorf("decodeE2nodeComponentInterfaceXnBytes() %s", err.Error())
 		}
-		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentTypeGnbDu{
-			E2NodeComponentTypeGnbDu: e2nodeComponentIDstructC,
+		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeXn{
+			E2NodeComponentInterfaceTypeXn: e2nodeComponentIDstructC,
 		}
-	case C.E2nodeComponentID_PR_e2nodeComponentTypeNGeNB_DU:
-		e2nodeComponentIDstructC, err := decodeE2nodeComponentNgEnbDuIDBytes(e2nodeComponentIDC.choice)
+	case C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeE1:
+		e2nodeComponentIDstructC, err := decodeE2nodeComponentInterfaceE1Bytes(e2nodeComponentIDC.choice)
 		if err != nil {
-			return nil, fmt.Errorf("decodeE2nodeComponentNgEnbDuIDBytes() %s", err.Error())
+			return nil, fmt.Errorf("decodeE2nodeComponentInterfaceE1Bytes() %s", err.Error())
 		}
-		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentTypeNgeNbDu{
-			E2NodeComponentTypeNgeNbDu: e2nodeComponentIDstructC,
+		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeE1{
+			E2NodeComponentInterfaceTypeE1: e2nodeComponentIDstructC,
+		}
+	case C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeF1:
+		e2nodeComponentIDstructC, err := decodeE2nodeComponentInterfaceF1Bytes(e2nodeComponentIDC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2nodeComponentInterfaceF1Bytes() %s", err.Error())
+		}
+		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeF1{
+			E2NodeComponentInterfaceTypeF1: e2nodeComponentIDstructC,
+		}
+	case C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeW1:
+		e2nodeComponentIDstructC, err := decodeE2nodeComponentInterfaceW1Bytes(e2nodeComponentIDC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2nodeComponentInterfaceW1Bytes() %s", err.Error())
+		}
+		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeW1{
+			E2NodeComponentInterfaceTypeW1: e2nodeComponentIDstructC,
+		}
+	case C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeS1:
+		e2nodeComponentIDstructC, err := decodeE2nodeComponentInterfaceS1Bytes(e2nodeComponentIDC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2nodeComponentInterfaceS1Bytes() %s", err.Error())
+		}
+		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeS1{
+			E2NodeComponentInterfaceTypeS1: e2nodeComponentIDstructC,
+		}
+	case C.E2nodeComponentID_PR_e2nodeComponentInterfaceTypeX2:
+		e2nodeComponentIDstructC, err := decodeE2nodeComponentInterfaceX2Bytes(e2nodeComponentIDC.choice)
+		if err != nil {
+			return nil, fmt.Errorf("decodeE2nodeComponentInterfaceX2Bytes() %s", err.Error())
+		}
+		e2nodeComponentID.E2NodeComponentId = &e2ap_ies.E2NodeComponentId_E2NodeComponentInterfaceTypeX2{
+			E2NodeComponentInterfaceTypeX2: e2nodeComponentIDstructC,
 		}
 	default:
 		return nil, fmt.Errorf("decodeE2nodeComponentID() %v not yet implemented", e2nodeComponentIDC.present)

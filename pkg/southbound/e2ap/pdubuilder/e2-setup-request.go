@@ -1,26 +1,26 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package pdubuilder
 
 import (
 	"fmt"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
 func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunctionIds types.RanFunctions,
-	e2nccul []*types.E2NodeComponentConfigUpdateItem) (*e2appdudescriptions.E2ApPdu, error) {
+	e2nccul []*types.E2NodeComponentConfigAdditionItem) (*e2appdudescriptions.E2ApPdu, error) {
 
 	gnbIDIe := e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
-		Id:          int32(v2beta1.ProtocolIeIDGlobalE2nodeID),
+		Id:          int32(v2.ProtocolIeIDGlobalE2nodeID),
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       ge2nID,
@@ -30,22 +30,22 @@ func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunc
 		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
 	}
 
-	configUpdateList := e2appducontents.E2NodeComponentConfigUpdateList{
-		Value: make([]*e2appducontents.E2NodeComponentConfigUpdateItemIes, 0),
+	configAdditionList := e2appducontents.E2NodeComponentConfigAdditionList{
+		Value: make([]*e2appducontents.E2NodeComponentConfigAdditionItemIes, 0),
 	}
 
 	for _, e2nccui := range e2nccul {
-		cui := &e2appducontents.E2NodeComponentConfigUpdateItemIes{
-			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateItem),
+		cui := &e2appducontents.E2NodeComponentConfigAdditionItemIes{
+			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.E2NodeComponentConfigUpdateItem{
-				E2NodeComponentType:         e2nccui.E2NodeComponentType,
-				E2NodeComponentId:           e2nccui.E2NodeComponentID,
-				E2NodeComponentConfigUpdate: &e2nccui.E2NodeComponentConfigUpdate,
+			Value: &e2appducontents.E2NodeComponentConfigAdditionItem{
+				E2NodeComponentInterfaceType: e2nccui.E2NodeComponentType,
+				E2NodeComponentId:            e2nccui.E2NodeComponentID,
+				E2NodeComponentConfiguration: &e2nccui.E2NodeComponentConfiguration,
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
-		configUpdateList.Value = append(configUpdateList.Value, cui)
+		configAdditionList.Value = append(configAdditionList.Value, cui)
 	}
 
 	e2apPdu := e2appdudescriptions.E2ApPdu{
@@ -57,14 +57,14 @@ func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunc
 							ProtocolIes: &e2appducontents.E2SetupRequestIes{
 								E2ApProtocolIes3: &gnbIDIe,
 								//E2ApProtocolIes10: &ranFunctions,
-								E2ApProtocolIes33: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes33{
-									Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate),
+								E2ApProtocolIes50: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes50{
+									Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAddition),
 									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-									Value:       &configUpdateList,
+									Value:       &configAdditionList,
 									Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 								},
 								E2ApProtocolIes49: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes49{
-									Id:          int32(v2beta1.ProtocolIeIDTransactionID),
+									Id:          int32(v2.ProtocolIeIDTransactionID),
 									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 									Value: &e2apies.TransactionId{
 										Value: trID,
@@ -74,7 +74,7 @@ func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunc
 							},
 						},
 						ProcedureCode: &e2ap_constants.IdE2Setup{
-							Value: int32(v2beta1.ProcedureCodeIDE2setup),
+							Value: int32(v2.ProcedureCodeIDE2setup),
 						},
 						Criticality: &e2ap_commondatatypes.CriticalityReject{
 							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
@@ -86,7 +86,7 @@ func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunc
 	}
 
 	ranFunctions := e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
-		Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAdded),
+		Id:          int32(v2.ProtocolIeIDRanfunctionsAdded),
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsList{
@@ -96,8 +96,8 @@ func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunc
 
 	for id, ranFunctionID := range ranFunctionIds {
 		ranFunction := e2appducontents.RanfunctionItemIes{
-			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-				Id:          int32(v2beta1.ProtocolIeIDRanfunctionItem),
+			E2ApProtocolIes8: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
+				Id:          int32(v2.ProtocolIeIDRanfunctionItem),
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.RanfunctionItem{
@@ -171,7 +171,7 @@ func CreateGlobalE2nodeIDEnGnb(plmnID types.PlmnID, enGnbID *asn1.BitString) (*e
 	return &e2apies.GlobalE2NodeId{
 		GlobalE2NodeId: &e2apies.GlobalE2NodeId_EnGNb{
 			EnGNb: &e2apies.GlobalE2NodeEnGnbId{
-				GlobalGNbId: &e2apies.GlobalenGnbId{
+				GlobalEnGNbId: &e2apies.GlobalenGnbId{
 					PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
 						Value: []byte{plmnID[0], plmnID[1], plmnID[2]},
 					},
@@ -284,7 +284,7 @@ func CreateEnbIDHome(bs *asn1.BitString) (*e2apies.EnbId, error) {
 	if len(bs.GetValue()) != 4 {
 		return nil, fmt.Errorf("expecting length to be exactly 4 bytes, got %d", len(bs.GetValue()))
 	}
-	if bs.GetValue()[4]&0x0f > 0 {
+	if bs.GetValue()[3]&0x0f > 0 {
 		return nil, fmt.Errorf("expected last 4 bits of byte array to be unused, and to contain only trailing zeroes. %b", bs.GetValue()[2])
 	}
 	return &e2apies.EnbId{

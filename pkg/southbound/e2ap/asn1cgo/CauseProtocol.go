@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodeCauseProtocol(causeProtocol *e2ap_ies.CauseProtocol) ([]byte, error) {
@@ -24,7 +24,7 @@ func xerEncodeCauseProtocol(causeProtocol *e2ap_ies.CauseProtocol) ([]byte, erro
 		return nil, err
 	}
 
-	bytes, err := encodeXer(&C.asn_DEF_CauseProtocol, unsafe.Pointer(causeProtocolCP)) //ToDo - change name of C-encoder tag
+	bytes, err := encodeXer(&C.asn_DEF_CauseProtocol, unsafe.Pointer(causeProtocolCP))
 	if err != nil {
 		return nil, fmt.Errorf("xerEncodeCauseProtocol() %s", err.Error())
 	}
@@ -52,7 +52,7 @@ func xerDecodeCauseProtocol(bytes []byte) (*e2ap_ies.CauseProtocol, error) {
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
-	return decodeCauseProtocol((*C.CauseProtocol_t)(unsafePtr)) //ToDo - change name of C-struct
+	return decodeCauseProtocol((*C.CauseProtocol_t)(unsafePtr))
 }
 
 func perDecodeCauseProtocol(bytes []byte) (*e2ap_ies.CauseProtocol, error) {
@@ -92,7 +92,6 @@ func newCauseProtocol(causeProtocol *e2ap_ies.CauseProtocol) (*C.CauseProtocol_t
 
 func decodeCauseProtocol(causeProtocolC *C.CauseProtocol_t) (*e2ap_ies.CauseProtocol, error) {
 
-	//ToDo: int32 shouldn't be valid all the time -- investigate in data type conversion (casting) more
 	causeProtocol := e2ap_ies.CauseProtocol(int32(*causeProtocolC))
 
 	return &causeProtocol, nil

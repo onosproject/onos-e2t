@@ -1,13 +1,13 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 package pdubuilder
 
 import (
 	"encoding/hex"
 	"testing"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
@@ -23,8 +23,8 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 	assert.NilError(t, err)
 	ge2nID.GetEnGNb().SetGnbCuUpID(2).SetGnbDuID(13)
 
-	e2ncID1 := CreateE2NodeComponentIDGnbCuUp(21)
-	e2ncID2 := CreateE2NodeComponentIDGnbDu(13)
+	e2ncID1 := CreateE2NodeComponentIDNg("NG-Component")
+	e2ncID2 := CreateE2NodeComponentIDE1(13)
 
 	e2nodeConfigurationUpdate, err := CreateE2NodeConfigurationUpdateE2apPdu(1)
 	assert.NilError(t, err)
@@ -32,12 +32,18 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 
 	e2nodeConfigurationUpdate.GetInitiatingMessage().GetProcedureCode().GetE2NodeConfigurationUpdate().GetInitiatingMessage().
 		SetE2nodeComponentConfigUpdate([]*types.E2NodeComponentConfigUpdateItem{
-			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-				E2NodeComponentID:           &e2ncID1,
-				E2NodeComponentConfigUpdate: CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), []byte("xnAp"), []byte("e1Ap"), []byte("f1Ap"), nil)},
-			{E2NodeComponentType: e2ap_ies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_E_NB,
-				E2NodeComponentID:           &e2ncID2,
-				E2NodeComponentConfigUpdate: CreateE2NodeComponentConfigUpdateEnb(nil, nil, nil, []byte("s1"), []byte("x2"))},
+			{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_NG,
+				E2NodeComponentID: e2ncID1,
+				E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
+					E2NodeComponentResponsePart: []byte{0x01, 0x02, 0x03},
+					E2NodeComponentRequestPart:  []byte{0x04, 0x05, 0x06},
+				}},
+			{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
+				E2NodeComponentID: e2ncID2,
+				E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
+					E2NodeComponentResponsePart: []byte{0x07, 0x08, 0x09},
+					E2NodeComponentRequestPart:  []byte{0x0A, 0x0B, 0x0C},
+				}},
 		}).SetGlobalE2nodeID(ge2nID)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(e2nodeConfigurationUpdate)

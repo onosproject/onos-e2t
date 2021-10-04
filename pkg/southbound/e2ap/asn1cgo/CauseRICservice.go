@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodeCauseRicservice(causeRicservice *e2ap_ies.CauseRicservice) ([]byte, error) {
@@ -24,7 +24,7 @@ func xerEncodeCauseRicservice(causeRicservice *e2ap_ies.CauseRicservice) ([]byte
 		return nil, err
 	}
 
-	bytes, err := encodeXer(&C.asn_DEF_CauseRICservice, unsafe.Pointer(causeRicserviceCP)) //ToDo - change name of C-encoder tag
+	bytes, err := encodeXer(&C.asn_DEF_CauseRICservice, unsafe.Pointer(causeRicserviceCP))
 	if err != nil {
 		return nil, fmt.Errorf("xerEncodeCauseRicservice() %s", err.Error())
 	}
@@ -52,7 +52,7 @@ func xerDecodeCauseRicservice(bytes []byte) (*e2ap_ies.CauseRicservice, error) {
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
-	return decodeCauseRicservice((*C.CauseRICservice_t)(unsafePtr)) //ToDo - change name of C-struct
+	return decodeCauseRicservice((*C.CauseRICservice_t)(unsafePtr))
 }
 
 func perDecodeCauseRicservice(bytes []byte) (*e2ap_ies.CauseRicservice, error) {
@@ -69,8 +69,8 @@ func perDecodeCauseRicservice(bytes []byte) (*e2ap_ies.CauseRicservice, error) {
 func newCauseRicservice(causeRicservice *e2ap_ies.CauseRicservice) (*C.CauseRICservice_t, error) {
 	var ret C.CauseRICservice_t
 	switch *causeRicservice {
-	case e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_FUNCTION_NOT_REQUIRED:
-		ret = C.CauseRICservice_function_not_required
+	case e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_RAN_FUNCTION_NOT_SUPPORTED:
+		ret = C.CauseRICservice_ran_function_not_supported
 	case e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
 		ret = C.CauseRICservice_excessive_functions
 	case e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
@@ -84,7 +84,6 @@ func newCauseRicservice(causeRicservice *e2ap_ies.CauseRicservice) (*C.CauseRICs
 
 func decodeCauseRicservice(causeRicserviceC *C.CauseRICservice_t) (*e2ap_ies.CauseRicservice, error) {
 
-	//ToDo: int32 shouldn't be valid all the time -- investigate in data type conversion (casting) more
 	causeRicservice := e2ap_ies.CauseRicservice(int32(*causeRicserviceC))
 
 	return &causeRicservice, nil

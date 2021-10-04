@@ -7,15 +7,16 @@ package e2ap
 import (
 	"context"
 	"encoding/binary"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
 	"io"
 	"net"
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
@@ -48,7 +49,7 @@ func TestConns(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	gnbIDIe := &e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
-		Id:          int32(v2beta1.ProtocolIeIDGlobalE2nodeID),
+		Id:          int32(v2.ProtocolIeIDGlobalE2nodeID),
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value:       ge2nID,
@@ -68,7 +69,7 @@ func TestConns(t *testing.T) {
 	}
 
 	ranFunctions := &e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
-		Id:          int32(v2beta1.ProtocolIeIDRanfunctionsAdded),
+		Id:          int32(v2.ProtocolIeIDRanfunctionsAdded),
 		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.RanfunctionsList{
@@ -78,8 +79,8 @@ func TestConns(t *testing.T) {
 
 	for id, ranFunctionID := range ranFunctionList {
 		ranFunction := e2appducontents.RanfunctionItemIes{
-			E2ApProtocolIes10: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-				Id:          int32(v2beta1.ProtocolIeIDRanfunctionItem),
+			E2ApProtocolIes8: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
+				Id:          int32(v2.ProtocolIeIDRanfunctionItem),
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 				Value: &e2appducontents.RanfunctionItem{
@@ -101,38 +102,41 @@ func TestConns(t *testing.T) {
 		ranFunctions.Value.Value = append(ranFunctions.Value.Value, &ranFunction)
 	}
 
-	e2ncID1 := pdubuilder.CreateE2NodeComponentIDGnbCuUp(21)
-	configComponentUpdateItems := []*types.E2NodeComponentConfigUpdateItem{
-		{E2NodeComponentType: e2apies.E2NodeComponentType_E2NODE_COMPONENT_TYPE_G_NB,
-			E2NodeComponentID:           &e2ncID1,
-			E2NodeComponentConfigUpdate: pdubuilder.CreateE2NodeComponentConfigUpdateGnb([]byte("ngAp"), nil, []byte("e1Ap"), []byte("f1Ap"), nil)},
+	configComponentAdditionItems := []*types.E2NodeComponentConfigAdditionItem{
+		{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
+			E2NodeComponentID: pdubuilder.CreateE2NodeComponentIDE1(21),
+			E2NodeComponentConfiguration: e2apies.E2NodeComponentConfiguration{
+				E2NodeComponentRequestPart:  []byte{0x00, 0x01, 0x02},
+				E2NodeComponentResponsePart: []byte{0x03, 0x04, 0x05},
+			},
+		},
 	}
 
-	configUpdateList := e2appducontents.E2NodeComponentConfigUpdateList{
-		Value: make([]*e2appducontents.E2NodeComponentConfigUpdateItemIes, 0),
+	configUpdateAdditionList := e2appducontents.E2NodeComponentConfigAdditionList{
+		Value: make([]*e2appducontents.E2NodeComponentConfigAdditionItemIes, 0),
 	}
-	for _, configUpdateItem := range configComponentUpdateItems {
-		cui := &e2appducontents.E2NodeComponentConfigUpdateItemIes{
-			Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdateItem),
+	for _, configAdditionItem := range configComponentAdditionItems {
+		cui := &e2appducontents.E2NodeComponentConfigAdditionItemIes{
+			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.E2NodeComponentConfigUpdateItem{
-				E2NodeComponentType:         configUpdateItem.E2NodeComponentType,
-				E2NodeComponentId:           configUpdateItem.E2NodeComponentID,
-				E2NodeComponentConfigUpdate: &configUpdateItem.E2NodeComponentConfigUpdate,
+			Value: &e2appducontents.E2NodeComponentConfigAdditionItem{
+				E2NodeComponentInterfaceType: configAdditionItem.E2NodeComponentType,
+				E2NodeComponentId:            configAdditionItem.E2NodeComponentID,
+				E2NodeComponentConfiguration: &configAdditionItem.E2NodeComponentConfiguration,
 			},
 			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 		}
-		configUpdateList.Value = append(configUpdateList.Value, cui)
+		configUpdateAdditionList.Value = append(configUpdateAdditionList.Value, cui)
 	}
 
 	e2SetupRequest := &e2appducontents.E2SetupRequest{
 		ProtocolIes: &e2appducontents.E2SetupRequestIes{
 			E2ApProtocolIes3:  gnbIDIe,
 			E2ApProtocolIes10: ranFunctions,
-			E2ApProtocolIes33: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes33{
-				Id:          int32(v2beta1.ProtocolIeIDE2nodeComponentConfigUpdate),
+			E2ApProtocolIes50: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes50{
+				Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAddition),
 				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-				Value:       &configUpdateList,
+				Value:       &configUpdateAdditionList,
 				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
 			},
 			E2ApProtocolIes49: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes49{

@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func xerEncodeE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItem *e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem) ([]byte, error) {
@@ -70,29 +70,26 @@ func perDecodeE2nodeComponentConfigUpdateAckItem(bytes []byte) (*e2ap_pdu_conten
 
 func newE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItem *e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem) (*C.E2nodeComponentConfigUpdateAck_Item_t, error) {
 
-	var err error
-	e2nodeComponentConfigUpdateAckItemC := C.E2nodeComponentConfigUpdateAck_Item_t{}
-
-	e2nodeComponentTypeC, err := newE2nodeComponentType(&e2nodeComponentConfigUpdateAckItem.E2NodeComponentType)
+	e2nodeComponentInterfaceTypeC, err := newE2nodeComponentInterfaceType(&e2nodeComponentConfigUpdateAckItem.E2NodeComponentInterfaceType)
 	if err != nil {
-		return nil, fmt.Errorf("newE2nodeComponentType() %s", err.Error())
+		return nil, fmt.Errorf("newE2nodeComponentInterfaceType() %s", err.Error())
 	}
 
-	//optional structure
-	if e2nodeComponentConfigUpdateAckItem.GetE2NodeComponentId() != nil {
-		e2nodeComponentIDC, err := newE2nodeComponentID(e2nodeComponentConfigUpdateAckItem.E2NodeComponentId)
-		if err != nil {
-			return nil, fmt.Errorf("newE2nodeComponentConfigUpdateAckItem() %s", err.Error())
-		}
-		e2nodeComponentConfigUpdateAckItemC.e2nodeComponentID = e2nodeComponentIDC
-	}
-	e2nodeComponentConfigUpdateAckC, err := newE2nodeComponentConfigUpdateAck(e2nodeComponentConfigUpdateAckItem.E2NodeComponentConfigUpdateAck)
+	e2nodeComponentIDC, err := newE2nodeComponentID(e2nodeComponentConfigUpdateAckItem.E2NodeComponentId)
 	if err != nil {
-		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateAck() %s", err.Error())
+		return nil, fmt.Errorf("newE2nodeComponentID() %s", err.Error())
 	}
 
-	e2nodeComponentConfigUpdateAckItemC.e2nodeComponentType = *e2nodeComponentTypeC
-	e2nodeComponentConfigUpdateAckItemC.e2nodeComponentConfigUpdateAck = *e2nodeComponentConfigUpdateAckC
+	e2nodeComponentConfigurationAckC, err := newE2nodeComponentConfigurationAck(e2nodeComponentConfigUpdateAckItem.E2NodeComponentConfigurationAck)
+	if err != nil {
+		return nil, fmt.Errorf("newE2nodeComponentConfigurationAck() %s", err.Error())
+	}
+
+	e2nodeComponentConfigUpdateAckItemC := C.E2nodeComponentConfigUpdateAck_Item_t{
+		e2nodeComponentInterfaceType:    *e2nodeComponentInterfaceTypeC,
+		e2nodeComponentID:               *e2nodeComponentIDC,
+		e2nodeComponentConfigurationAck: *e2nodeComponentConfigurationAckC,
+	}
 
 	return &e2nodeComponentConfigUpdateAckItemC, nil
 }
@@ -102,37 +99,41 @@ func decodeE2nodeComponentConfigUpdateAckItem(e2nodeComponentConfigUpdateAckItem
 	var err error
 	e2nodeComponentConfigUpdateAckItem := e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem{}
 
-	e2NodeComponentType, err := decodeE2nodeComponentType(&e2nodeComponentConfigUpdateAckItemC.e2nodeComponentType)
+	componentType, err := decodeE2nodeComponentInterfaceType(&e2nodeComponentConfigUpdateAckItemC.e2nodeComponentInterfaceType)
 	if err != nil {
 		return nil, fmt.Errorf("decodeE2nodeComponentType() %s", err.Error())
 	}
-	e2nodeComponentConfigUpdateAckItem.E2NodeComponentType = *e2NodeComponentType
+	e2nodeComponentConfigUpdateAckItem.E2NodeComponentInterfaceType = *componentType
 
-	if e2nodeComponentConfigUpdateAckItemC.e2nodeComponentID != nil {
-		e2nodeComponentConfigUpdateAckItem.E2NodeComponentId, err = decodeE2nodeComponentID(e2nodeComponentConfigUpdateAckItemC.e2nodeComponentID)
-		if err != nil {
-			return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdateAckItem() %s", err.Error())
-		}
+	e2nodeComponentConfigUpdateAckItem.E2NodeComponentId, err = decodeE2nodeComponentID(&e2nodeComponentConfigUpdateAckItemC.e2nodeComponentID)
+	if err != nil {
+		return nil, fmt.Errorf("decodeE2nodeComponentID() %s", err.Error())
 	}
 
-	e2nodeComponentConfigUpdateAckItem.E2NodeComponentConfigUpdateAck, err = decodeE2nodeComponentConfigUpdateAck(&e2nodeComponentConfigUpdateAckItemC.e2nodeComponentConfigUpdateAck)
+	e2nodeComponentConfigUpdateAckItem.E2NodeComponentConfigurationAck, err = decodeE2nodeComponentConfigurationAck(&e2nodeComponentConfigUpdateAckItemC.e2nodeComponentConfigurationAck)
 	if err != nil {
-		return nil, fmt.Errorf("decodeE2nodeComponentConfigUpdateAckItem() %s", err.Error())
+		return nil, fmt.Errorf("decodeE2nodeComponentConfigAddition() %s", err.Error())
 	}
 
 	return &e2nodeComponentConfigUpdateAckItem, nil
 }
 
-func decodeE2nodeComponentConfigUpdateAckItemBytes(bytes [80]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem, error) {
+func decodeE2nodeComponentConfigUpdateAckItemBytes(bytes [112]byte) (*e2ap_pdu_contents.E2NodeComponentConfigUpdateAckItem, error) {
 
-	e2nccuaiC := C.E2nodeComponentConfigUpdateAck_Item_t{
-		e2nodeComponentType: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
-		e2nodeComponentID:   (*C.struct_E2nodeComponentID)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[8:16])))),
-		e2nodeComponentConfigUpdateAck: C.E2nodeComponentConfigUpdateAck_t{
-			updateOutcome: C.long(binary.LittleEndian.Uint64(bytes[16:24])),
-			failureCause:  (*C.struct_Cause)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[24:])))),
+	e2nodeComponentConfigUpdateItemC := C.E2nodeComponentConfigUpdateAck_Item_t{
+		e2nodeComponentInterfaceType: C.long(binary.LittleEndian.Uint64(bytes[0:8])),
+		e2nodeComponentID: C.E2nodeComponentID_t{
+			present: C.E2nodeComponentID_PR(binary.LittleEndian.Uint64(bytes[8:16])),
 		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
+		e2nodeComponentConfigurationAck: C.E2nodeComponentConfigurationAck_t{
+			updateOutcome: C.long(binary.LittleEndian.Uint64(bytes[48:56])),
+			failureCause:  (*C.struct_Cause)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(bytes[56:64])))), // OPTIONAL, so it's a pinter
+		},
+		// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentConfiguration --> 88
 	}
+	copy(e2nodeComponentConfigUpdateItemC.e2nodeComponentID.choice[:], bytes[16:24])
+	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentConfigAdditionAck_Item --> 112
 
-	return decodeE2nodeComponentConfigUpdateAckItem(&e2nccuaiC)
+	return decodeE2nodeComponentConfigUpdateAckItem(&e2nodeComponentConfigUpdateItemC)
 }

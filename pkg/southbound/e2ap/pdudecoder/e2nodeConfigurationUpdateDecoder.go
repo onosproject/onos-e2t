@@ -1,13 +1,13 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package pdudecoder
 
 import (
 	"fmt"
 
-	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -33,9 +33,9 @@ func DecodeE2nodeConfigurationUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) 
 	list := e2ncu.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes33().GetValue().GetValue()
 	for _, ie := range list {
 		e2nccuai := types.E2NodeComponentConfigUpdateItem{}
-		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentType()
+		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentInterfaceType()
 		e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentId()
-		e2nccuai.E2NodeComponentConfigUpdate = *ie.GetValue().GetE2NodeComponentConfigUpdate()
+		e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2NodeComponentConfiguration()
 
 		e2nccual = append(e2nccual, &e2nccuai)
 	}

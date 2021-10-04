@@ -1,13 +1,13 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package pdudecoder
 
 import (
 	"fmt"
 
-	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
@@ -26,11 +26,11 @@ func DecodeE2nodeConfigurationUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_description
 	list := e2ncua.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes35().GetValue().GetValue()
 	for _, ie := range list {
 		e2nccuai := types.E2NodeComponentConfigUpdateAckItem{}
-		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentType()
+		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentInterfaceType()
 		e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentId()
-		e2nccuai.E2NodeComponentConfigUpdateAck = types.E2NodeComponentConfigUpdateAck{
-			UpdateOutcome: ie.GetValue().GetE2NodeComponentConfigUpdateAck().GetUpdateOutcome(),
-			FailureCause:  ie.GetValue().GetE2NodeComponentConfigUpdateAck().GetFailureCause(),
+		e2nccuai.E2NodeComponentConfigurationAck = types.E2NodeComponentConfigurationAck{
+			UpdateOutcome: ie.GetValue().GetE2NodeComponentConfigurationAck().GetUpdateOutcome(),
+			FailureCause:  ie.GetValue().GetE2NodeComponentConfigurationAck().GetFailureCause(),
 		}
 
 		e2nccual = append(e2nccual, &e2nccuai)

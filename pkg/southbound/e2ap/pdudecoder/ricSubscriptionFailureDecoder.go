@@ -1,21 +1,21 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package pdudecoder
 
 import (
 	"fmt"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
 func DecodeRicSubscriptionFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
-	*types.RicRequest, *types.RanFunctionID, v2beta1.ProcedureCodeT,
+	*types.RicRequest, *types.RanFunctionID, v2.ProcedureCodeT,
 	e2ap_commondatatypes.Criticality, e2ap_commondatatypes.TriggeringMessage,
 	*types.RicRequest, *e2apies.Cause, []*types.CritDiag, error) {
 
@@ -46,13 +46,13 @@ func DecodeRicSubscriptionFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 	cause := ricSubscription.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes1().GetValue()
 
 	critDiagnostics := ricSubscription.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2()
-	var pc v2beta1.ProcedureCodeT
+	var pc v2.ProcedureCodeT
 	var crit e2ap_commondatatypes.Criticality
 	var tm e2ap_commondatatypes.TriggeringMessage
 	var critDiagRequestID *types.RicRequest
 	var diags []*types.CritDiag
 	if critDiagnostics != nil { //It's optional
-		pc = v2beta1.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
+		pc = v2.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
 		crit = critDiagnostics.GetValue().GetProcedureCriticality()
 		tm = critDiagnostics.GetValue().GetTriggeringMessage()
 		critDiagRequestID = &types.RicRequest{
@@ -62,7 +62,7 @@ func DecodeRicSubscriptionFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 		for _, ie := range critDiagnostics.GetValue().GetIEsCriticalityDiagnostics().GetValue() {
 			diag := types.CritDiag{
 				IECriticality: ie.IEcriticality,
-				IEId:          v2beta1.ProtocolIeID(ie.GetIEId().GetValue()),
+				IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
 				TypeOfError:   ie.TypeOfError,
 			}
 			diags = append(diags, &diag)

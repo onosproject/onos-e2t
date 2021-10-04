@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -13,10 +13,11 @@ package asn1cgo
 import "C"
 
 import (
+	"encoding/binary"
 	"fmt"
 	"unsafe"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodeGlobalngeNbID(globalngeNbID *e2ap_ies.GlobalngeNbId) ([]byte, error) {
@@ -104,4 +105,10 @@ func decodeGlobalngeNbID(globalngeNbIDC *C.GlobalngeNB_ID_t) (*e2ap_ies.Globalng
 	}
 
 	return &globalngeNbID, nil
+}
+
+func decodeGlobalngeNbIDBytes(array [8]byte) (*e2ap_ies.GlobalngeNbId, error) {
+	ngEnbID := (*C.GlobalngeNB_ID_t)(unsafe.Pointer(uintptr(binary.LittleEndian.Uint64(array[0:8]))))
+
+	return decodeGlobalngeNbID(ngEnbID)
 }

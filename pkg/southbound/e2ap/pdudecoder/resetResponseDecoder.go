@@ -1,19 +1,19 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package pdudecoder
 
 import (
 	"fmt"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
 
-func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *v2beta1.ProcedureCodeT,
+func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *v2.ProcedureCodeT,
 	*e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage,
 	*types.RicRequest, []*types.CritDiag, error) {
 	//if err := e2apPdu.Validate(); err != nil {
@@ -26,13 +26,13 @@ func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *v2be
 	}
 
 	critDiagnostics := rr.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2()
-	var pc v2beta1.ProcedureCodeT
+	var pc v2.ProcedureCodeT
 	var crit e2ap_commondatatypes.Criticality
 	var tm e2ap_commondatatypes.TriggeringMessage
 	var critDiagRequestID *types.RicRequest
 	var diags []*types.CritDiag
 	if critDiagnostics != nil { //It's optional
-		pc = v2beta1.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
+		pc = v2.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
 		crit = critDiagnostics.GetValue().GetProcedureCriticality()
 		tm = critDiagnostics.GetValue().GetTriggeringMessage()
 		critDiagRequestID = &types.RicRequest{
@@ -42,7 +42,7 @@ func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *v2be
 		for _, ie := range critDiagnostics.GetValue().GetIEsCriticalityDiagnostics().GetValue() {
 			diag := types.CritDiag{
 				IECriticality: ie.IEcriticality,
-				IEId:          v2beta1.ProtocolIeID(ie.GetIEId().GetValue()),
+				IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
 				TypeOfError:   ie.TypeOfError,
 			}
 			diags = append(diags, &diag)

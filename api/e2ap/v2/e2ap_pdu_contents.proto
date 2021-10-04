@@ -1,7 +1,7 @@
 /*
 SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
 
-SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 */
 
 ////////////////////// e2ap-pdu-contents.proto //////////////////////
@@ -176,15 +176,13 @@ message RicactionNotAdmittedList {
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:464
-// {_RICaction-NotAdmitted-ItemIEs}
+// {RICaction-NotAdmitted-ItemIEs}
 message RicactionNotAdmittedItemIes {
-    message RicactionNotAdmittedItemIes {
-        int32 id = 1 [(validate.v1.rules).int32.const = 16, json_name = "id"];
-        int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name = "criticality"];
-        // @inject_tag: aper:"valueExt"
-        RicactionNotAdmittedItem value = 3 [json_name = "ricActionNotAdmittedItem"];
-        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name = "presence"];
-    }
+   int32 id = 1 [(validate.v1.rules).int32.const = 16, json_name = "id"];
+   int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name = "criticality"];
+   // @inject_tag: aper:"valueExt"
+   RicactionNotAdmittedItem value = 3 [json_name = "ricActionNotAdmittedItem"];
+   int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name = "presence"];
 };
 
 // sequence from e2ap_v2.asn:470
@@ -388,7 +386,7 @@ message RicsubscriptionWithCauseItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 61, json_name="id"];
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     // @inject_tag: aper:"valueExt"
-    RicsubscriptionListWithCause value = 3 [json_name="ricSubscriptionListWithCause"];
+    RicsubscriptionWithCauseItem value = 3 [json_name="ricSubscriptionListWithCause"];
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -1186,7 +1184,7 @@ message E2nodeComponentConfigAdditionItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 51, json_name="id"];
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     //@inject_tag: aper:"valueExt"
-    E2nodeComponentConfigUpdateItem value = 3 [json_name="E2nodeComponentConfigUpdateItem"];
+    E2nodeComponentConfigAdditionItem value = 3 [json_name="E2nodeComponentConfigUpdateItem"];
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 

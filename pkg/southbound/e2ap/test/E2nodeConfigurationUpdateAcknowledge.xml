@@ -15,15 +15,15 @@
                                     <criticality><reject/></criticality>
                                     <value>
                                         <E2nodeComponentConfigUpdateAck-Item>
-                                            <e2nodeComponentType><gNB/></e2nodeComponentType>
+                                            <e2nodeComponentInterfaceType><f1/></e2nodeComponentInterfaceType>
                                             <e2nodeComponentID>
-                                                <e2nodeComponentTypeGNB-CU-UP>
-                                                    <gNB-CU-UP-ID>21</gNB-CU-UP-ID>
-                                                </e2nodeComponentTypeGNB-CU-UP>
+                                                <e2nodeComponentInterfaceTypeF1>
+                                                    <gNB-DU-ID>21</gNB-DU-ID>
+                                                </e2nodeComponentInterfaceTypeF1>
                                             </e2nodeComponentID>
-                                            <e2nodeComponentConfigUpdateAck>
+                                            <e2nodeComponentConfigurationAck>
                                                 <updateOutcome><failure/></updateOutcome>
-                                            </e2nodeComponentConfigUpdateAck>
+                                            </e2nodeComponentConfigurationAck>
                                         </E2nodeComponentConfigUpdateAck-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>
@@ -32,13 +32,27 @@
                                     <criticality><reject/></criticality>
                                     <value>
                                         <E2nodeComponentConfigUpdateAck-Item>
-                                            <e2nodeComponentType><eNB/></e2nodeComponentType>
-                                            <e2nodeComponentConfigUpdateAck>
-                                                <updateOutcome><failure/></updateOutcome>
+                                            <e2nodeComponentInterfaceType><xn/></e2nodeComponentInterfaceType>
+                                            <e2nodeComponentID>
+                                                <e2nodeComponentInterfaceTypeXn>
+                                                    <global-NG-RAN-Node-ID>
+                                                        <gNB>
+                                                            <plmn-id>01 02 03</plmn-id>
+                                                            <gnb-id>
+                                                                <gnb-ID>
+                                                                    10101011110011011110111111111111
+                                                                </gnb-ID>
+                                                            </gnb-id>
+                                                        </gNB>
+                                                    </global-NG-RAN-Node-ID>
+                                                </e2nodeComponentInterfaceTypeXn>
+                                            </e2nodeComponentID>
+                                            <e2nodeComponentConfigurationAck>
+                                                <updateOutcome><success/></updateOutcome>
                                                 <failureCause>
                                                     <protocol><abstract-syntax-error-falsely-constructed-message/></protocol>
                                                 </failureCause>
-                                            </e2nodeComponentConfigUpdateAck>
+                                            </e2nodeComponentConfigurationAck>
                                         </E2nodeComponentConfigUpdateAck-Item>
                                     </value>
                                 </ProtocolIE-SingleContainer>

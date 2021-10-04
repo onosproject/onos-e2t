@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -17,7 +17,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 func newRicActionAdmittedList(raal *e2appducontents.RicactionAdmittedList) (*C.RICaction_Admitted_List_t, error) {
@@ -42,7 +42,7 @@ func decodeRicActionAdmittedListBytes(raalBytes []byte) (*e2appducontents.Ricact
 	size := C.int(binary.LittleEndian.Uint32(raalBytes[12:16]))
 
 	raalC := C.RICaction_Admitted_List_t{
-		list: C.struct___139{
+		list: C.struct___150{
 			array: array,
 			size:  size,
 			count: count,
@@ -62,7 +62,7 @@ func decodeRicActionAdmittedList(raalC *C.RICaction_Admitted_List_t) (*e2appduco
 	//fmt.Printf("RicactionAdmittedList %T List %T %v Array %T %v Deref %v\n", rflC, rflC.list, rflC.list, rflC.list.array, *rflC.list.array, *(rflC.list.array))
 	for i := 0; i < ieCount; i++ {
 		offset := unsafe.Sizeof(unsafe.Pointer(*raalC.list.array)) * uintptr(i)
-		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1754P1_t)(unsafe.Pointer(uintptr(unsafe.Pointer(raalC.list.array)) + offset))
+		rfIDiIeC := *(**C.ProtocolIE_SingleContainer_1911P1_t)(unsafe.Pointer(uintptr(unsafe.Pointer(raalC.list.array)) + offset))
 		//fmt.Printf("Value %T %p %v\n", rfIDiIeC, rfIDiIeC, rfIDiIeC)
 		rfIDiIe, err := decodeRicActionAdmittedItemIesSingleContainer(rfIDiIeC)
 		if err != nil {

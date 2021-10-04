@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -14,7 +14,6 @@ import "C"
 
 //import "unsafe"
 
-// TODO: Change the argument to a []byte
 func newPrintableString(msg string) *C.PrintableString_t {
 	// PrintableString is defined via OctetString --> see PrintableString.h
 	prntStrC := newOctetString([]byte(msg))

@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package types
 
@@ -9,6 +9,11 @@ import (
 )
 
 type TnlInformation struct {
-	TnlPort    asn1.BitString
+	TnlPort    *asn1.BitString // optional structure
 	TnlAddress asn1.BitString
+}
+
+type TnlAssociationRemovalItem struct {
+	TnlInformation    TnlInformation
+	TnlInformationRic TnlInformation
 }

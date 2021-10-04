@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -17,10 +17,10 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2beta1"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-constants"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 )
 
 func newUnsuccessfulOutcome(uso *e2appdudescriptions.UnsuccessfulOutcome) (*C.UnsuccessfulOutcome_t, error) {
@@ -159,8 +159,8 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 	switch failureC.value.present {
 	case C.UnsuccessfulOutcome__value_PR_RICsubscriptionFailure:
 		rsfC := C.RICsubscriptionFailure_t{
-			protocolIEs: C.ProtocolIE_Container_1751P2_t{
-				list: C.struct___144{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1908P2_t{
+				list: C.struct___156{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -176,16 +176,18 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicSubscription: &e2appdudescriptions.RicSubscription{
 				UnsuccessfulOutcome: rsf,
 				ProcedureCode: &e2ap_constants.IdRicsubscription{
-					Value: int32(v2beta1.ProcedureCodeIDRICsubscription),
+					Value: int32(v2.ProcedureCodeIDRICsubscription),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 
 	case C.UnsuccessfulOutcome__value_PR_RICcontrolFailure:
 		rcfC := C.RICcontrolFailure_t{
-			protocolIEs: C.ProtocolIE_Container_1751P9_t{
-				list: C.struct___146{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1908P10_t{
+				list: C.struct___154{ // TODO: tie this down with a predictable name
 					array: (**C.RICcontrolFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -201,16 +203,18 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicControl: &e2appdudescriptions.RicControl{
 				UnsuccessfulOutcome: rcf,
 				ProcedureCode: &e2ap_constants.IdRiccontrol{
-					Value: int32(v2beta1.ProcedureCodeIDRICcontrol),
+					Value: int32(v2.ProcedureCodeIDRICcontrol),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 
 	case C.UnsuccessfulOutcome__value_PR_RICsubscriptionDeleteFailure:
 		rsdfC := C.RICsubscriptionDeleteFailure_t{
-			protocolIEs: C.ProtocolIE_Container_1751P5_t{
-				list: C.struct___145{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1908P5_t{
+				list: C.struct___157{ // TODO: tie this down with a predictable name
 					array: (**C.RICsubscriptionDeleteFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -226,16 +230,18 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
 				UnsuccessfulOutcome: rsdf,
 				ProcedureCode: &e2ap_constants.IdRicsubscriptionDelete{
-					Value: int32(v2beta1.ProcedureCodeIDRICsubscriptionDelete),
+					Value: int32(v2.ProcedureCodeIDRICsubscriptionDelete),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 
 	case C.UnsuccessfulOutcome__value_PR_E2setupFailure:
 		e2sfC := C.E2setupFailure_t{
-			protocolIEs: C.ProtocolIE_Container_1751P13_t{
-				list: C.struct___142{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1908P14_t{
+				list: C.struct___153{ // TODO: tie this down with a predictable name
 					array: (**C.E2setupFailureIEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -251,16 +257,18 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			E2Setup: &e2appdudescriptions.E2Setup{
 				UnsuccessfulOutcome: e2sf,
 				ProcedureCode: &e2ap_constants.IdE2Setup{
-					Value: int32(v2beta1.ProcedureCodeIDE2setup),
+					Value: int32(v2.ProcedureCodeIDE2setup),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 
 	case C.UnsuccessfulOutcome__value_PR_RICserviceUpdateFailure:
 		rsufC := C.RICserviceUpdateFailure_t{
-			protocolIEs: C.ProtocolIE_Container_1751P24_t{
-				list: C.struct___143{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1908P25_t{
+				list: C.struct___155{ // TODO: tie this down with a predictable name
 					array: (**C.RICserviceUpdateFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -276,16 +284,18 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			RicServiceUpdate: &e2appdudescriptions.RicServiceUpdate{
 				UnsuccessfulOutcome: rsuf,
 				ProcedureCode: &e2ap_constants.IdRicserviceUpdate{
-					Value: int32(v2beta1.ProcedureCodeIDRICserviceUpdate),
+					Value: int32(v2.ProcedureCodeIDRICserviceUpdate),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 
 	case C.UnsuccessfulOutcome__value_PR_E2nodeConfigurationUpdateFailure:
 		e2ncufC := C.E2nodeConfigurationUpdateFailure_t{
-			protocolIEs: C.ProtocolIE_Container_1751P19_t{
-				list: C.struct___141{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1908P20_t{
+				list: C.struct___152{ // TODO: tie this down with a predictable name
 					array: (**C.E2nodeConfigurationUpdateFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -301,16 +311,18 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
 				UnsuccessfulOutcome: e2ncuf,
 				ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
-					Value: int32(v2beta1.ProcedureCodeIDE2nodeConfigurationUpdate),
+					Value: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 
 	case C.UnsuccessfulOutcome__value_PR_E2connectionUpdateFailure:
 		e2cufC := C.E2connectionUpdateFailure_t{
-			protocolIEs: C.ProtocolIE_Container_1751P16_t{
-				list: C.struct___140{ // TODO: tie this down with a predictable name
+			protocolIEs: C.ProtocolIE_Container_1908P17_t{
+				list: C.struct___151{ // TODO: tie this down with a predictable name
 					array: (**C.E2connectionUpdateFailure_IEs_t)(listArrayAddr),
 					count: count,
 					size:  size,
@@ -326,9 +338,11 @@ func decodeUnsuccessfulOutcome(failureC *C.UnsuccessfulOutcome_t) (*e2appdudescr
 			E2ConnectionUpdate: &e2appdudescriptions.E2ConnectionUpdateEp{
 				UnsuccessfulOutcome: e2cuf,
 				ProcedureCode: &e2ap_constants.IdE2ConnectionUpdate{
-					Value: int32(v2beta1.ProcedureCodeIDE2connectionUpdate),
+					Value: int32(v2.ProcedureCodeIDE2connectionUpdate),
 				},
-				Criticality: &e2ap_commondatatypes.CriticalityReject{},
+				Criticality: &e2ap_commondatatypes.CriticalityReject{
+					Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				},
 			},
 		}
 

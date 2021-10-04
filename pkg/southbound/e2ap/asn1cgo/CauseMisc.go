@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
-// SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
 
 package asn1cgo
 
@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2beta1/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 )
 
 func xerEncodeCauseMisc(causeMisc *e2ap_ies.CauseMisc) ([]byte, error) {
@@ -24,7 +24,7 @@ func xerEncodeCauseMisc(causeMisc *e2ap_ies.CauseMisc) ([]byte, error) {
 		return nil, err
 	}
 
-	bytes, err := encodeXer(&C.asn_DEF_CauseMisc, unsafe.Pointer(causeMiscCP)) //ToDo - change name of C-encoder tag
+	bytes, err := encodeXer(&C.asn_DEF_CauseMisc, unsafe.Pointer(causeMiscCP))
 	if err != nil {
 		return nil, fmt.Errorf("xerEncodeCauseMisc() %s", err.Error())
 	}
@@ -52,7 +52,7 @@ func xerDecodeCauseMisc(bytes []byte) (*e2ap_ies.CauseMisc, error) {
 	if unsafePtr == nil {
 		return nil, fmt.Errorf("pointer decoded from XER is nil")
 	}
-	return decodeCauseMisc((*C.CauseMisc_t)(unsafePtr)) //ToDo - change name of C-struct
+	return decodeCauseMisc((*C.CauseMisc_t)(unsafePtr))
 }
 
 func perDecodeCauseMisc(bytes []byte) (*e2ap_ies.CauseMisc, error) {
@@ -86,7 +86,6 @@ func newCauseMisc(causeMisc *e2ap_ies.CauseMisc) (*C.CauseMisc_t, error) {
 
 func decodeCauseMisc(causeMiscC *C.CauseMisc_t) (*e2ap_ies.CauseMisc, error) {
 
-	//ToDo: int32 shouldn't be valid all the time -- investigate in data type conversion (casting) more
 	causeMisc := e2ap_ies.CauseMisc(int32(*causeMiscC))
 
 	return &causeMisc, nil
