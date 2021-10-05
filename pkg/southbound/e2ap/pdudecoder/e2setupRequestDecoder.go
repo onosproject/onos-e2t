@@ -92,7 +92,12 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		//ToDo - couldn't it be just this?
 		//nodeIdentity.NodeIdentifier = identifierBytes
 
-		// For OAI
+		// Goal of the below code block assigns the CU and DU IDs if the node type is eNB and the eNB is not the standalone eNB but CU/DU eNB
+		// In the E2AP v1.01, the eNB ID field does not have CU and DU ID unlike the gNB ID field
+		// If the eNB consists of CU and DU like SD-RAN OAI, there is no way to assign CU/DU IDs by referring to the eNB ID field
+		// To avoid this problem, 'E2nodeComponentConfigUpdate` can be used, which includes CU and DU IDs (Current OAI CU and DU report their CU and DU IDs with this field)
+		// The below block decodes the 'E2nodeComponentConfigUpdate` field and assign CU and DU ID only for the eNB CU/DU case
+		// Since e2AP v2.0 has the CU and DU ID in eNB or NgEnb field, this block is only submitted into e2ap101 branch
 		if request.GetProtocolIes().GetE2ApProtocolIes33() != nil && request.GetProtocolIes().GetE2ApProtocolIes33().GetValue() != nil {
 			for _, id := range request.GetProtocolIes().GetE2ApProtocolIes33().GetValue().GetValue() {
 				if id.GetValue() != nil && id.GetValue().GetE2NodeComponentId() != nil {
