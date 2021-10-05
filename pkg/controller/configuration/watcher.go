@@ -108,7 +108,12 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 			}
 
 			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok {
-
+				if entity.Entity.KindID == topoapi.E2T {
+					log.Debugf("Received E2T node event: %+v", event.Object.ID)
+					for _, conn := range conns {
+						ch <- controller.NewID(conn.ID)
+					}
+				}
 				// Enqueue the management connection with matching e2node
 				if entity.Entity.KindID == topoapi.E2NODE {
 					log.Debugf("Received E2 node event: %+v", event.Object.ID)

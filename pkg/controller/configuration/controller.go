@@ -149,7 +149,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 					err = r.rnib.Update(ctx, e2Node)
 					if err != nil {
 						log.Warnf("Test4 err", err)
-						if !errors.IsNotFound(err) {
+						if !errors.IsNotFound(err) && !errors.IsConflict(err) {
 							log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
 							return controller.Result{}, err
 						}
