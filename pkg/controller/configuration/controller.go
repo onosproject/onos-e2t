@@ -104,8 +104,8 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	_ = e2Node.GetAspect(e2NodeConfig)
 
 	e2NodeConns := e2NodeConfig.Connections
-	for index, e2tNode := range e2tNodes {
-		log.Infof("Test4: index and len e2t: %d, %d", index, len(e2tNodes))
+	for _, e2tNode := range e2tNodes {
+		log.Infof("Test4: len e2t: %d", len(e2tNodes))
 		e2tNodeInfo := &topoapi.E2TInfo{}
 		err := e2tNode.GetAspect(e2tNodeInfo)
 		if err != nil {
@@ -115,11 +115,20 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 		for _, e2tConn := range e2tNodeInfo.GetInterfaces() {
 			log.Infof("Test4 connections::%+v", e2NodeConns)
-			if e2tConn.Type == topoapi.Interface_INTERFACE_E2AP200 && !connectionExist(e2Node.ID, e2tConn, e2NodeConns) {
+			if e2tConn.Type == topoapi.Interface_INTERFACE_E2AP200 && !connectionExist(topoapi.ID(e2NodeID), e2tConn, e2NodeConns) {
 				connUpdateReq := createConnectionUpdateReq(e2tConn.IP)
 				log.Infof("Test4 e2tNode: %s", e2tNode.ID)
 				log.Infof("Test4 new connection: %+v, %s", e2tConn, e2NodeID)
 				log.Infof("Test4 Sending connection update using management connection: %s", mgmtConn.ID)
+				mgmtConn, err := r.mgmtConns.Get(ctx, connID)
+				if err != nil {
+					if errors.IsNotFound(err) {
+						log.Warn(err)
+						return controller.Result{}, nil
+					}
+					log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
+					return controller.Result{}, err
+				}
 				connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
 				if err != nil {
 					log.Warnf("Test4 Failed to reconcile configuration using management connection %s: %s", connID, err)
@@ -146,7 +155,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 						}
 						return controller.Result{}, nil
 					}
-					//return controller.Result{}, nil
+					return controller.Result{}, nil
 				}
 				if connUpdateFailure != nil {
 					log.Infof("Received connection update failure: %+v", connUpdateFailure)

@@ -135,7 +135,7 @@ func (r *Reconciler) updateE2NodeConfig(ctx context.Context, connID e2server.Con
 			}
 		}
 	}
-	return nil
+	return err
 
 }
 
@@ -143,11 +143,13 @@ func (r *Reconciler) reconcileDeleteE2ControlRelation(connID e2server.ConnID) (c
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
-	if err := r.deleteE2ControlRelation(ctx, connID); err != nil {
+	if err := r.updateE2NodeConfig(ctx, connID); err != nil {
+		log.Warnf("Failed to update E2 node config for connection: %s %s", connID, err)
 		return controller.Result{}, err
 	}
 
-	if err := r.updateE2NodeConfig(ctx, connID); err != nil {
+	if err := r.deleteE2ControlRelation(ctx, connID); err != nil {
+		log.Warnf("Failed to delete control relation for connection: %s, %s", connID, err)
 		return controller.Result{}, err
 	}
 
