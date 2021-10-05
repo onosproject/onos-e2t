@@ -143,12 +143,13 @@ func (r *Reconciler) reconcileDeleteE2ControlRelation(connID e2server.ConnID) (c
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
 
+	if err := r.deleteE2ControlRelation(ctx, connID); err != nil {
+		return controller.Result{}, err
+	}
+
 	if err := r.updateE2NodeConfig(ctx, connID); err != nil {
 		return controller.Result{}, err
 	}
 
-	if err := r.deleteE2ControlRelation(ctx, connID); err != nil {
-		return controller.Result{}, err
-	}
 	return controller.Result{}, nil
 }

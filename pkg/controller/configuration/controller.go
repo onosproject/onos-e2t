@@ -73,7 +73,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	defer cancel()
 
 	connID := id.Value.(e2server.ConnID)
-	log.Infof("Reconciling  configuration using mgmt connection: %s", connID)
+	log.Infof("Test4 Reconciling  configuration using mgmt connection: %s", connID)
 	mgmtConn, err := r.mgmtConns.Get(ctx, connID)
 	if err != nil {
 		if errors.IsNotFound(err) {
@@ -92,7 +92,6 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	if len(e2tNodes) == 0 {
 		return controller.Result{Requeue: id}, nil
 	}
-
 	e2Node, err := r.rnib.Get(ctx, topoapi.ID(e2NodeID))
 	if err != nil {
 		log.Warn(err)
@@ -101,55 +100,53 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		}
 		return controller.Result{}, nil
 	}
-
 	e2NodeConfig := &topoapi.E2NodeConfig{}
 	_ = e2Node.GetAspect(e2NodeConfig)
 
 	e2NodeConns := e2NodeConfig.Connections
-	for _, e2tNode := range e2tNodes {
+	for index, e2tNode := range e2tNodes {
+		log.Infof("Test4: index and len e2t: %d, %d", index, len(e2tNodes))
 		e2tNodeInfo := &topoapi.E2TInfo{}
 		err := e2tNode.GetAspect(e2tNodeInfo)
 		if err != nil {
-			log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
+			log.Warnf("Test4 Failed to reconcile configuration using management connection %s: %s", connID, err)
 			return controller.Result{}, err
 		}
+
 		for _, e2tConn := range e2tNodeInfo.GetInterfaces() {
+			log.Infof("Test4 connections::%+v", e2NodeConns)
 			if e2tConn.Type == topoapi.Interface_INTERFACE_E2AP200 && !connectionExist(e2Node.ID, e2tConn, e2NodeConns) {
 				connUpdateReq := createConnectionUpdateReq(e2tConn.IP)
-				mgmtConn, err := r.mgmtConns.Get(ctx, connID)
-				if err != nil {
-					if errors.IsNotFound(err) {
-						log.Warn(err)
-						return controller.Result{}, nil
-					}
-					log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
-					return controller.Result{}, err
-				}
-				log.Infof("Sending connection update using management connection: %s", mgmtConn.ID)
+				log.Infof("Test4 e2tNode: %s", e2tNode.ID)
+				log.Infof("Test4 new connection: %+v, %s", e2tConn, e2NodeID)
+				log.Infof("Test4 Sending connection update using management connection: %s", mgmtConn.ID)
 				connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
 				if err != nil {
-					log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
+					log.Warnf("Test4 Failed to reconcile configuration using management connection %s: %s", connID, err)
 					return controller.Result{}, err
 				}
 
 				if connUpdateAck != nil {
 					log.Infof("Received connection update ack:%+v", connUpdateAck)
-					e2NodeConfig.Connections = append(e2NodeConfig.Connections, *e2tConn)
+					e2NodeConns = append(e2NodeConns, *e2tConn)
+					e2NodeConfig.Connections = e2NodeConns
 					err := e2Node.SetAspect(e2NodeConfig)
 					if err != nil {
 						log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
 						return controller.Result{}, err
 					}
+					log.Infof("Test4 After updater:", e2NodeConns)
 
 					err = r.rnib.Update(ctx, e2Node)
 					if err != nil {
+						log.Warnf("Test4 err", err)
 						if !errors.IsNotFound(err) {
 							log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
 							return controller.Result{}, err
 						}
 						return controller.Result{}, nil
 					}
-					return controller.Result{}, nil
+					//return controller.Result{}, nil
 				}
 				if connUpdateFailure != nil {
 					log.Infof("Received connection update failure: %+v", connUpdateFailure)
@@ -157,6 +154,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			}
 		}
 	}
+	log.Infof("Test4: End")
 
 	return controller.Result{}, nil
 }
