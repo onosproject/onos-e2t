@@ -91,6 +91,21 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*types.E2Nod
 		nodeIdentity.NodeIDLength = idLength
 		//ToDo - couldn't it be just this?
 		//nodeIdentity.NodeIdentifier = identifierBytes
+
+		// For OAI
+		if request.GetProtocolIes().GetE2ApProtocolIes33() != nil && request.GetProtocolIes().GetE2ApProtocolIes33().GetValue() != nil {
+			for _, id := range request.GetProtocolIes().GetE2ApProtocolIes33().GetValue().GetValue() {
+				if id.GetValue() != nil && id.GetValue().GetE2NodeComponentId() != nil {
+					if id.GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbDu() != nil {
+						duID := id.GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbDu().GetGNbDuId().GetValue()
+						nodeIdentity.DuID = &duID
+					} else if id.GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp() != nil {
+						cuID := id.GetValue().GetE2NodeComponentId().GetE2NodeComponentTypeGnbCuUp().GetGNbCuUpId().GetValue()
+						nodeIdentity.CuID = &cuID
+					}
+				}
+			}
+		}
 	}
 
 	ranFunctionsList := make(types.RanFunctions)
