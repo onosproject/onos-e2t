@@ -13,6 +13,7 @@ import (
 	"github.com/onosproject/helmit/pkg/input"
 	"github.com/onosproject/helmit/pkg/kubernetes"
 	"github.com/onosproject/helmit/pkg/util/random"
+	testutils "github.com/onosproject/onos-ric-sdk-go/pkg/utils"
 	"github.com/onosproject/onos-test/pkg/onostest"
 	"github.com/stretchr/testify/assert"
 )
@@ -90,4 +91,8 @@ func CreateRanSimulatorWithName(t *testing.T, c *input.Context, name string) *he
 	assert.NoError(t, err, "could not install device simulator %v", err)
 
 	return simulator
+}
+
+func CreateOnosProxy() {
+	testutils.StartTestProxy()
 }

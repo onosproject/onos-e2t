@@ -43,5 +43,7 @@ func (s *TestSuite) SetupTestSuite(c *input.Context) error {
 	s.release = sdran.Set("global.image.registry", registry)
 	r := s.release.Install(true)
 	s.E2TReplicaCount = getInt(sdran.Get("onos-e2t.replicaCount"))
+
+	utils.CreateOnosProxy()
 	return r
 }
