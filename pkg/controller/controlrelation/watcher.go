@@ -45,7 +45,7 @@ func (w *E2APConnWatcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for conn := range w.connCh {
-			log.Debugf("Received Connection event '%s'", conn.ID)
+			log.Debugf("Received  E2AP Connection event '%s'", conn.ID)
 			ch <- controller.NewID(conn.ID)
 		}
 		close(ch)
@@ -92,7 +92,7 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 		for event := range eventCh {
 			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok &&
 				entity.Entity.KindID == topoapi.E2T && event.Type == topoapi.EventType_REMOVED {
-				log.Debugf("Received topo event '%s'", event.Object.ID)
+				log.Debugf("Received E2T topo event '%s'", event.Object.ID)
 				controlRelationSrcIDFilter := &topoapi.Filters{
 					RelationFilter: &topoapi.RelationFilter{
 						RelationKind: topoapi.CONTROLS,

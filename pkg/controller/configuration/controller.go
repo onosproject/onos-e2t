@@ -88,9 +88,6 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		log.Warn(err)
 		return controller.Result{}, err
 	}
-	if len(e2tNodes) == 0 {
-		return controller.Result{Requeue: id}, nil
-	}
 
 	for _, e2tNode := range e2tNodes {
 		e2tNodeInfo := &topoapi.E2TInfo{}
@@ -125,6 +122,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 				}
 				if connUpdateFailure != nil {
 					log.Infof("Received connection update failure: %+v", connUpdateFailure)
+
 				}
 			}
 		}
