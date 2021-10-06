@@ -59,6 +59,9 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 	connID := id.Value.(e2server.ConnID)
 	log.Infof("Reconciling E2 node Control relation for connection: %s", connID)
+
+	// Remove a CONTROLS relation if the relation is associated with the local E2T node and
+	//  the connection does not exist, or if the relation is associated with an E2T node that’s not in topo.
 	_, err := r.e2apConns.Get(ctx, connID)
 	if err != nil {
 		if errors.IsNotFound(err) {

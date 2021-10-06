@@ -89,11 +89,10 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 	w.cancel = cancel
 
 	go func() {
-		ch <- controller.NewID(utils.GetE2TID())
 		for event := range eventCh {
-			log.Debugf("Received topo event '%s'", event.Object.ID)
 			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok &&
-				entity.Entity.KindID == topoapi.E2T {
+				entity.Entity.KindID == topoapi.E2T && event.Type == topoapi.EventType_REMOVED {
+				log.Debugf("Received topo event '%s'", event.Object.ID)
 				controlRelationSrcIDFilter := &topoapi.Filters{
 					RelationFilter: &topoapi.RelationFilter{
 						RelationKind: topoapi.CONTROLS,
@@ -108,7 +107,7 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 				}
 
 				for _, relation := range relations {
-					ch <- controller.NewID(relation.ID)
+					ch <- controller.NewID(e2server.ConnID(relation.ID))
 				}
 			}
 		}
