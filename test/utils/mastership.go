@@ -20,8 +20,7 @@ func getMasterRelation(t *testing.T, masterRelationID topoapi.ID) *topoapi.Relat
 
 	for _, relationObject := range relations {
 		if relationObject.ID == masterRelationID {
-			relation := relationObject.GetRelation()
-			return relation
+			return relationObject.GetRelation()
 		}
 	}
 	return nil
@@ -44,22 +43,23 @@ func GetE2NodeNonMasterNodes(t *testing.T, e2NodeID topoapi.ID) []topoapi.Interf
 	assert.NotNil(t, masterRelation)
 
 	for _, e2tNode := range e2tNodes {
-		e2tIP := ""
-		e2tPort := uint32(0)
+
+		e2tIface := topoapi.Interface{}
 		e2tInfo := &topoapi.E2TInfo{}
 		err := e2tNode.GetAspect(e2tInfo)
 		assert.NoError(t, err)
 		for _, iface := range e2tInfo.Interfaces {
 			if iface.Type == topoapi.Interface_INTERFACE_E2T {
-				e2tIP = iface.IP
-				e2tPort = iface.Port
+				e2tIface.IP = iface.IP
+				e2tIface.Port = iface.Port
+				e2tIface.Type = topoapi.Interface_INTERFACE_E2T
 				break
 			}
 		}
 		if masterRelation.GetSrcEntityID() == e2tNode.GetID() {
 			continue
 		} else {
-			nonMasters = append(nonMasters, topoapi.Interface{IP: e2tIP, Port: e2tPort, Type: topoapi.Interface_INTERFACE_E2T})
+			nonMasters = append(nonMasters, e2tIface)
 		}
 	}
 	t.Logf("List of non master e2t Nodes for e2 node  %s are %+v", e2NodeID, nonMasters)
@@ -81,21 +81,21 @@ func GetE2NodeMaster(t *testing.T, e2NodeID topoapi.ID) topoapi.Interface {
 	assert.NotNil(t, masterRelation)
 
 	for _, e2tNode := range e2tNodes {
-		e2tIP := ""
-		e2tPort := uint32(0)
+		e2tIface := topoapi.Interface{}
 		e2tInfo := &topoapi.E2TInfo{}
 		err := e2tNode.GetAspect(e2tInfo)
 		assert.NoError(t, err)
 		for _, iface := range e2tInfo.Interfaces {
 			if iface.Type == topoapi.Interface_INTERFACE_E2T {
-				e2tIP = iface.IP
-				e2tPort = iface.Port
+				e2tIface.IP = iface.IP
+				e2tIface.Port = iface.Port
 				break
 			}
 		}
 		if masterRelation.GetSrcEntityID() == e2tNode.GetID() {
-			master.IP = e2tIP
-			master.Port = e2tPort
+			master.IP = e2tIface.IP
+			master.Port = e2tIface.Port
+			master.Type = topoapi.Interface_INTERFACE_E2T
 			break
 		}
 	}
