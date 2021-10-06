@@ -100,15 +100,6 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		for _, e2tConn := range e2tNodeInfo.GetInterfaces() {
 			if e2tConn.Type == topoapi.Interface_INTERFACE_E2AP200 && !connectionExist(e2tConn, mgmtConn) {
 				connUpdateReq := createConnectionUpdateReq(e2tConn.IP)
-				mgmtConn, err := r.mgmtConns.Get(ctx, connID)
-				if err != nil {
-					if errors.IsNotFound(err) {
-						log.Warn(err)
-						return controller.Result{}, nil
-					}
-					log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
-					return controller.Result{}, err
-				}
 				connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
 				if err != nil {
 					log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
