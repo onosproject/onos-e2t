@@ -6,8 +6,9 @@ package e2
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
+
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
@@ -30,7 +31,7 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 
 	e2NodeID := utils.GetTestNodeID(t)
 
-	_, nonMasters := utils.GetE2Masters(t, e2NodeID)
+	nonMasters := utils.GetE2NodeNonMasterNodes(t, e2NodeID)
 
 	client := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
 	assert.NotNil(t, client)

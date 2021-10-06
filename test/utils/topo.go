@@ -97,6 +97,20 @@ func (c *Client) GetE2NodeAspects(ctx context.Context, nodeID topoapi.ID) (*topo
 
 }
 
+func (c *Client) GetE2NodeMastershipState(ctx context.Context, nodeID topoapi.ID) (*topoapi.MastershipState, error) {
+	object, err := c.client.Get(ctx, nodeID)
+	if err != nil {
+		return nil, err
+	}
+	mastershipState := &topoapi.MastershipState{}
+	err = object.GetAspect(mastershipState)
+	if err != nil {
+		return nil, err
+	}
+
+	return mastershipState, nil
+}
+
 // GetCells get list of cells for each E2 node
 func (c *Client) GetCells(ctx context.Context, nodeID topoapi.ID) ([]*topoapi.E2Cell, error) {
 	filter := &topoapi.Filters{
