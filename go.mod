@@ -3,8 +3,8 @@ module github.com/onosproject/onos-e2t
 go 1.16
 
 require (
-	github.com/atomix/atomix-go-client v0.5.21
-	github.com/atomix/atomix-go-framework v0.7.0
+	github.com/atomix/atomix-go-client v0.6.2
+	github.com/atomix/atomix-go-framework v0.9.3
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
