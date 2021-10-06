@@ -27,13 +27,8 @@ func getMasterRelation(t *testing.T, masterRelationID topoapi.ID) *topoapi.Relat
 	return nil
 }
 
-type IPAndPort struct {
-	IP   string
-	Port uint32
-}
-
-func GetE2NodeNonMasterNodes(t *testing.T, e2NodeID topoapi.ID) []IPAndPort {
-	nonMasters := make([]IPAndPort, 0)
+func GetE2NodeNonMasterNodes(t *testing.T, e2NodeID topoapi.ID) []topoapi.Interface {
+	nonMasters := make([]topoapi.Interface, 0)
 	topoClient, err := NewTopoClient()
 	assert.NoError(t, err)
 
@@ -64,15 +59,15 @@ func GetE2NodeNonMasterNodes(t *testing.T, e2NodeID topoapi.ID) []IPAndPort {
 		if masterRelation.GetSrcEntityID() == e2tNode.GetID() {
 			continue
 		} else {
-			nonMasters = append(nonMasters, IPAndPort{IP: e2tIP, Port: e2tPort})
+			nonMasters = append(nonMasters, topoapi.Interface{IP: e2tIP, Port: e2tPort, Type: topoapi.Interface_INTERFACE_E2T})
 		}
 	}
 	t.Logf("List of non master e2t Nodes for e2 node  %s are %+v", e2NodeID, nonMasters)
 	return nonMasters
 }
 
-func GetE2NodeMaster(t *testing.T, e2NodeID topoapi.ID) IPAndPort {
-	var master IPAndPort
+func GetE2NodeMaster(t *testing.T, e2NodeID topoapi.ID) topoapi.Interface {
+	var master topoapi.Interface
 	topoClient, err := NewTopoClient()
 	assert.NoError(t, err)
 
