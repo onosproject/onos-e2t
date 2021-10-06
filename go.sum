@@ -94,11 +94,13 @@ github.com/asaskevich/govalidator v0.0.0-20200428143746-21a406dcc535/go.mod h1:o
 github.com/atomix/api v0.3.3 h1:7iTCHxeTrnkZ5C0S6XTXkBCYjUW4KbTjDd3X4pxD3Us=
 github.com/atomix/api v0.3.3/go.mod h1:G8fCdKYiPhZMYTgfz7QAtw6JqIfY2szigiz/gILNY50=
 github.com/atomix/atomix-api/go v0.4.4/go.mod h1:N6gtApjoC9bRS9m7dksdVQIWSKaNArAl5EiOoaTHnmw=
+github.com/atomix/atomix-api/go v0.4.5/go.mod h1:N6gtApjoC9bRS9m7dksdVQIWSKaNArAl5EiOoaTHnmw=
 github.com/atomix/atomix-api/go v0.4.9 h1:7+CDTdndGRK9dm1dNVmpWk3TcmsON7bSVigEli2NHDM=
 github.com/atomix/atomix-api/go v0.4.9/go.mod h1:N6gtApjoC9bRS9m7dksdVQIWSKaNArAl5EiOoaTHnmw=
 github.com/atomix/atomix-go-client v0.6.2 h1:H1pe7ybFyZ0JvkHluPvSHgoxBIOKfSOVQg5SMvsG0ts=
 github.com/atomix/atomix-go-client v0.6.2/go.mod h1:lSWCSGroyTAtVizBoSRHCFTV8LoI0v8qP5PWKrnqADk=
 github.com/atomix/atomix-go-framework v0.6.5/go.mod h1:EkESsxBGOTVYPghrcJSLa36a8Zq1Dnu8Mq56xcjXX/k=
+github.com/atomix/atomix-go-framework v0.7.0/go.mod h1:x0k+DV9H2y0l4t17jKTlejK6Ka8DYgbQd4wYYIP8dIE=
 github.com/atomix/atomix-go-framework v0.9.0/go.mod h1:5diVS7TBAK8u6785FoZXAwnMSYVMdv2sJbCghsD3roE=
 github.com/atomix/atomix-go-framework v0.9.3 h1:KiLMYnf/zpndHW4psj/jAd9VsgrttpFcN/XlaRAzGzc=
 github.com/atomix/atomix-go-framework v0.9.3/go.mod h1:5diVS7TBAK8u6785FoZXAwnMSYVMdv2sJbCghsD3roE=
@@ -647,8 +649,10 @@ github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.59/go.mod h1:KE
 github.com/onosproject/onos-lib-go v0.7.18/go.mod h1:yEu+qDh+z1G6b9clPAjDLQNnBll8TMl8o2sFDBzk/fI=
 github.com/onosproject/onos-lib-go v0.7.19 h1:FkkA86lQxLQmQjK8d/zvIUmr58jKBNXEPafVZ4sVe40=
 github.com/onosproject/onos-lib-go v0.7.19/go.mod h1:6Cm9H/aqJqJef2za3K3Lx6UrCrtOD7tN+DCThFOHcA8=
-github.com/onosproject/onos-ric-sdk-go v0.7.26 h1:qsDddpCDJHwMCMe2Kj1eVlc9FvGa1LG7xU1EzE8d6nQ=
-github.com/onosproject/onos-ric-sdk-go v0.7.26/go.mod h1:jEB+lSHxTyIASm8+C9jw+Dw+UqzuQPgN2BvC1Aq6GW0=
+github.com/onosproject/onos-proxy v0.0.1 h1:Djcl30r+nyN8bxCuYKhVgUQJTFtYhQj5Qy/a/qmrW2w=
+github.com/onosproject/onos-proxy v0.0.1/go.mod h1:yxaYxvuiOQisezdlpTPR30sJpS2QaQVTDW6tk/UPJQQ=
+github.com/onosproject/onos-ric-sdk-go v0.7.28 h1:1MPSaFDi2FcGdXElDQb3is5Chv9ctfI2eOljOyCen0g=
+github.com/onosproject/onos-ric-sdk-go v0.7.28/go.mod h1:SGHJakUnDamlZVC0tEPfV91H1PV43YvSIqWY5qpOBgM=
 github.com/onosproject/onos-test v0.6.4 h1:ocJhMv5mZ5RsojkhBUadE68Q6uSgBZpyDDjnwOPmu6g=
 github.com/onosproject/onos-test v0.6.4/go.mod h1:Ugb1OKR2bJhZjqpSMm9F5o6Ma2iwbtswhSlNyXXPgrg=
 github.com/onsi/ginkgo v0.0.0-20170829012221-11459a886d9c/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=

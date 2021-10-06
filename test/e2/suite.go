@@ -9,6 +9,7 @@ import (
 	"github.com/onosproject/helmit/pkg/input"
 	"github.com/onosproject/helmit/pkg/test"
 	"github.com/onosproject/onos-e2t/test/utils"
+	testutils "github.com/onosproject/onos-ric-sdk-go/pkg/utils"
 )
 
 // TestSuite is the primary onos-e2t test suite
@@ -43,5 +44,13 @@ func (s *TestSuite) SetupTestSuite(c *input.Context) error {
 	s.release = sdran.Set("global.image.registry", registry)
 	r := s.release.Install(true)
 	s.E2TReplicaCount = getInt(sdran.Get("onos-e2t.replicaCount"))
+
+	testutils.StartTestProxy()
 	return r
+}
+
+// TearDownTestSuite tears down the test ONOS proxy.
+func (s *TestSuite) TearDownTestSuite(c *input.Context) error {
+	testutils.StopTestProxy()
+	return nil
 }
