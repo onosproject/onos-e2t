@@ -97,25 +97,33 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			return controller.Result{}, err
 		}
 
-		for _, e2tConn := range e2tNodeInfo.GetInterfaces() {
-			if e2tConn.Type == topoapi.Interface_INTERFACE_E2AP200 && !connectionExist(e2tConn, mgmtConn) {
-				connUpdateReq := createConnectionUpdateReq(e2tConn.IP)
-				connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
-				if err != nil {
-					log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
-					return controller.Result{}, err
-				}
+		missingConnList := getMissingConnList(mgmtConn, e2tNodeInfo.Interfaces)
+		log.Debugf("Missing connection list: %+v", missingConnList)
+		connAddList := createConnectionAddListIE(missingConnList)
 
-				if connUpdateAck != nil {
-					log.Infof("Received connection update ack:%+v", connUpdateAck)
-					mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, *e2tConn)
-					return controller.Result{}, nil
-				}
-				if connUpdateFailure != nil {
-					log.Infof("Received connection update failure: %+v", connUpdateFailure)
+		// Creates a connection update request to include list of the connections
+		// that should be added and list of connections that should be removed
+		connUpdateReq := NewConnectionUpdate(
+			WithConnectionAddList(connAddList)).
+			Build()
 
-				}
+		log.Infof("Sending connection update request: %+v", connUpdateReq)
+		connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
+		if err != nil {
+			log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
+			return controller.Result{}, err
+		}
+
+		if connUpdateAck != nil {
+			log.Infof("Received connection update ack:%+v", connUpdateAck)
+			for _, e2tConn := range missingConnList {
+				mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, e2tConn)
 			}
+			return controller.Result{}, nil
+		}
+		if connUpdateFailure != nil {
+			log.Infof("Received connection update failure: %+v", connUpdateFailure)
+
 		}
 	}
 	return controller.Result{}, nil
