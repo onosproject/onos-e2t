@@ -33,6 +33,7 @@ func NewMgmtConn(nodeID topoapi.ID, plmnID string, nodeIdentity *types.E2NodeIde
 		TimeAlive:     now,
 		ServiceModels: serviceModels,
 		E2Cells:       e2Cells,
+		E2NodeConfig:  &topoapi.E2NodeConfig{},
 	}
 }
 
@@ -48,4 +49,5 @@ type ManagementConn struct {
 	TimeAlive     time.Time
 	ServiceModels map[string]*topoapi.ServiceModelInfo
 	E2Cells       []*topoapi.E2Cell
+	E2NodeConfig  *topoapi.E2NodeConfig
 }
