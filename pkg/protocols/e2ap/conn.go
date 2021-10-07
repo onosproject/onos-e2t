@@ -92,6 +92,12 @@ func (c *threadSafeConn) open() {
 
 // send sends a message on the connection
 func (c *threadSafeConn) send(msg *e2appdudescriptions.E2ApPdu) error {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Debug("recovering from panic:", err)
+			return
+		}
+	}()
 	errCh := make(chan error, 1)
 	c.sendCh <- asyncMessage{
 		msg:   msg,
