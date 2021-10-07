@@ -19,8 +19,25 @@ import (
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
+func createConnectionAddList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44 {
+	missingConnList := getMissingConnList(mgmtConn, e2tInterfaces)
+	log.Debugf("Missing connection list: %+v", missingConnList)
+	return createConnectionAddListIE(missingConnList)
+
+}
+
 func getMissingConnList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
 	var missingConnList []topoapi.Interface
+	if len(mgmtConn.E2NodeConfig.Connections) == 0 {
+		log.Debugf("No configured connection is available")
+		for _, e2tIface := range e2tInterfaces {
+			if e2tIface.Type == topoapi.Interface_INTERFACE_E2T {
+				missingConnList = append(missingConnList, *e2tIface)
+			}
+		}
+		return missingConnList
+	}
+
 	for _, e2tIface := range e2tInterfaces {
 		exist := false
 		if e2tIface.Type == topoapi.Interface_INTERFACE_E2T {
@@ -31,10 +48,9 @@ func getMissingConnList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topo
 					exist = true
 				}
 			}
-		}
-		if !exist {
-			log.Debugf("Adding missing connection to missing connection list: %+v", e2tIface)
-			missingConnList = append(missingConnList, *e2tIface)
+			if !exist {
+				missingConnList = append(missingConnList, *e2tIface)
+			}
 		}
 	}
 	return missingConnList
@@ -139,12 +155,19 @@ func (c *ConnectionUpdate) Build() *e2appducontents.E2ConnectionUpdate {
 		},
 		Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
 	}
+
 	connectionUpdateRequest := &e2appducontents.E2ConnectionUpdate{
 		ProtocolIes: &e2appducontents.E2ConnectionUpdateIes{
-			E2ApProtocolIes44: c.connectionAddList,
 			E2ApProtocolIes49: transactionID,
-			//E2ApProtocolIes46: c.connectionRemoveList,
 		},
+	}
+
+	if c.connectionAddList != nil && len(c.connectionAddList.Value.Value) != 0 {
+		connectionUpdateRequest.ProtocolIes.E2ApProtocolIes44 = c.connectionAddList
+
+	}
+	if c.connectionRemoveList != nil && len(c.connectionRemoveList.Value.Value) != 0 {
+		connectionUpdateRequest.ProtocolIes.E2ApProtocolIes46 = c.connectionRemoveList
 	}
 
 	return connectionUpdateRequest

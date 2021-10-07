@@ -97,33 +97,38 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			return controller.Result{}, err
 		}
 
+		// Creates list of connections that should be added by the E2 node
 		missingConnList := getMissingConnList(mgmtConn, e2tNodeInfo.Interfaces)
-		log.Debugf("Missing connection list: %+v", missingConnList)
-		connAddList := createConnectionAddListIE(missingConnList)
+		log.Debugf("Missing connection list for e2 node %s: %+v", mgmtConn.E2NodeID, missingConnList)
+		if len(missingConnList) > 0 {
+			connAddList := createConnectionAddListIE(missingConnList)
+			log.Debugf("Connection Add List for e2 node %s, %+v", mgmtConn.E2NodeID, connAddList)
 
-		// Creates a connection update request to include list of the connections
-		// that should be added and list of connections that should be removed
-		connUpdateReq := NewConnectionUpdate(
-			WithConnectionAddList(connAddList)).
-			Build()
+			// Creates a connection update request to include list of the connections
+			// that should be added and list of connections that should be removed
+			connUpdateReq := NewConnectionUpdate(
+				WithConnectionAddList(connAddList),
+				WithTransactionID(3)).
+				Build()
 
-		log.Infof("Sending connection update request: %+v", connUpdateReq)
-		connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
-		if err != nil {
-			log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
-			return controller.Result{}, err
-		}
-
-		if connUpdateAck != nil {
-			log.Infof("Received connection update ack:%+v", connUpdateAck)
-			for _, e2tConn := range missingConnList {
-				mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, e2tConn)
+			log.Infof("Sending connection update request for e2Node: %s, %+v", mgmtConn.E2NodeID, connUpdateReq)
+			connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
+			if err != nil {
+				log.Warnf("Failed to reconcile configuration for e2 node %s using management connection %s: %s", mgmtConn.E2NodeID, connID, err)
+				return controller.Result{}, err
 			}
-			return controller.Result{}, nil
-		}
-		if connUpdateFailure != nil {
-			log.Infof("Received connection update failure: %+v", connUpdateFailure)
 
+			if connUpdateAck != nil {
+				log.Infof("Received connection update ack for e2 node %s:%+v", mgmtConn.E2NodeID, connUpdateAck)
+				for _, e2tConn := range missingConnList {
+					mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, e2tConn)
+				}
+				return controller.Result{}, nil
+			}
+			if connUpdateFailure != nil {
+				log.Infof("Received connection update failure: %+v", connUpdateFailure)
+
+			}
 		}
 	}
 	return controller.Result{}, nil
