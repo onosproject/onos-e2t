@@ -19,23 +19,41 @@ import (
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
-func createConnectionAddList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44 {
-	missingConnList := getMissingConnList(mgmtConn, e2tInterfaces)
-	log.Debugf("Missing connection list: %+v", missingConnList)
-	return createConnectionAddListIE(missingConnList)
+const (
+	defaultSCTPPort = uint16(36421)
+)
 
-}
-
-func getMissingConnList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
-	var missingConnList []topoapi.Interface
-	if len(mgmtConn.E2NodeConfig.Connections) == 0 {
-		log.Debugf("No configured connection is available")
+func getConnToRemoveList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
+	var connToRemoveList []topoapi.Interface
+	for _, conn := range mgmtConn.E2NodeConfig.Connections {
+		exist := false
 		for _, e2tIface := range e2tInterfaces {
 			if e2tIface.Type == topoapi.Interface_INTERFACE_E2T {
-				missingConnList = append(missingConnList, *e2tIface)
+				if conn.IP == e2tIface.IP && conn.Port == e2tIface.Port &&
+					conn.Type == e2tIface.Type {
+					exist = true
+				}
+			}
+
+		}
+		if !exist {
+			connToRemoveList = append(connToRemoveList, conn)
+		}
+	}
+	return connToRemoveList
+}
+
+// getConnToAddList finds list of all missing connections that should be added
+func getConnToAddList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
+	var connToAddList []topoapi.Interface
+	if len(mgmtConn.E2NodeConfig.Connections) == 0 {
+		log.Debugf("No configured connection is available, adding connections for all of the E2T instances")
+		for _, e2tIface := range e2tInterfaces {
+			if e2tIface.Type == topoapi.Interface_INTERFACE_E2T {
+				connToAddList = append(connToAddList, *e2tIface)
 			}
 		}
-		return missingConnList
+		return connToAddList
 	}
 
 	for _, e2tIface := range e2tInterfaces {
@@ -49,14 +67,14 @@ func getMissingConnList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topo
 				}
 			}
 			if !exist {
-				missingConnList = append(missingConnList, *e2tIface)
+				connToAddList = append(connToAddList, *e2tIface)
 			}
 		}
 	}
-	return missingConnList
+	return connToAddList
 }
 
-func createConnectionAddListIE(missingConnList []topoapi.Interface) *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44 {
+func createConnectionAddListIE(connToAddList []topoapi.Interface) *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44 {
 	connectionAddList := &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes44{
 		Id:          int32(v2.ProtocolIeIDE2connectionUpdateAdd),
 		Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
@@ -66,11 +84,10 @@ func createConnectionAddListIE(missingConnList []topoapi.Interface) *e2appducont
 		Presence: int32(e2apcommondatatypes.Presence_PRESENCE_OPTIONAL),
 	}
 
-	for _, missingConn := range missingConnList {
-		parsedIP := net.ParseIP(missingConn.IP)
+	for _, connToAdd := range connToAddList {
+		parsedIP := net.ParseIP(connToAdd.IP)
 		portBytes := make([]byte, 2)
-		port := uint16(36421)
-		binary.BigEndian.PutUint16(portBytes, port)
+		binary.BigEndian.PutUint16(portBytes, defaultSCTPPort)
 		cai := &e2appducontents.E2ConnectionUpdateItemIes{
 			Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
@@ -95,7 +112,7 @@ func createConnectionAddListIE(missingConnList []topoapi.Interface) *e2appducont
 	return connectionAddList
 }
 
-func createConnectionRemoveList() *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46 {
+func createConnectionRemoveList(connToRemoveList []topoapi.Interface) *e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46 {
 	connectionRemoveList := &e2appducontents.E2ConnectionUpdateIes_E2ConnectionUpdateIes46{
 		Id:          int32(v2.ProtocolIeIDE2connectionUpdateAdd),
 		Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
@@ -103,6 +120,31 @@ func createConnectionRemoveList() *e2appducontents.E2ConnectionUpdateIes_E2Conne
 			Value: make([]*e2appducontents.E2ConnectionUpdateRemoveItemIes, 0),
 		},
 		Presence: int32(e2apcommondatatypes.Presence_PRESENCE_OPTIONAL),
+	}
+
+	for _, connToRemove := range connToRemoveList {
+		parsedIP := net.ParseIP(connToRemove.IP)
+		portBytes := make([]byte, 2)
+		binary.BigEndian.PutUint16(portBytes, uint16(connToRemove.Port))
+		cri := &e2appducontents.E2ConnectionUpdateRemoveItemIes{
+			Id:          int32(v2.ProtocolIeIDE2connectionUpdateRemoveItem),
+			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2appducontents.E2ConnectionUpdateRemoveItem{
+				TnlInformation: &e2apies.Tnlinformation{
+					TnlPort: &asn1.BitString{
+						Value: portBytes,
+						Len:   16,
+					},
+					TnlAddress: &asn1.BitString{
+						Value: parsedIP.To4(),
+						Len:   32,
+					},
+				},
+			},
+			Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		connectionRemoveList.Value.Value = append(connectionRemoveList.Value.Value, cri)
+
 	}
 	return connectionRemoveList
 }

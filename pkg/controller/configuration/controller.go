@@ -56,18 +56,6 @@ type Reconciler struct {
 	rnib      rnib.Store
 }
 
-func connectionExist(e2tConn *topoapi.Interface, mgmtConn *e2server.ManagementConn) bool {
-	for _, e2NodeConn := range mgmtConn.E2NodeConfig.Connections {
-		if e2NodeConn.IP == e2tConn.IP &&
-			e2NodeConn.Port == e2tConn.Port && e2NodeConn.Type == e2tConn.Type {
-			log.Debugf("Connection %+v already exists for e2node: %s", e2NodeConn, mgmtConn.E2NodeID)
-			return true
-		}
-	}
-	log.Debugf("Connection %+v does not exists", e2tConn)
-	return false
-}
-
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
 	defer cancel()
@@ -98,16 +86,21 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		}
 
 		// Creates list of connections that should be added by the E2 node
-		missingConnList := getMissingConnList(mgmtConn, e2tNodeInfo.Interfaces)
-		log.Debugf("Missing connection list for e2 node %s: %+v", mgmtConn.E2NodeID, missingConnList)
-		if len(missingConnList) > 0 {
-			connAddList := createConnectionAddListIE(missingConnList)
-			log.Debugf("Connection Add List for e2 node %s, %+v", mgmtConn.E2NodeID, connAddList)
+		connToAddList := getConnToAddList(mgmtConn, e2tNodeInfo.Interfaces)
+		connToRemoveList := getConnToRemoveList(mgmtConn, e2tNodeInfo.Interfaces)
+
+		if len(connToAddList) > 0 || len(connToRemoveList) > 0 {
+			connAddList := createConnectionAddListIE(connToAddList)
+			log.Debugf("Connection To Add List for e2 node %s, %+v", mgmtConn.E2NodeID, connAddList)
+
+			connRemoveList := createConnectionRemoveList(connToRemoveList)
+			log.Debugf("Connection To Remove List for e2 node %s, %+v", mgmtConn.E2NodeID, connRemoveList)
 
 			// Creates a connection update request to include list of the connections
 			// that should be added and list of connections that should be removed
 			connUpdateReq := NewConnectionUpdate(
 				WithConnectionAddList(connAddList),
+				WithConnectionRemoveList(connRemoveList),
 				WithTransactionID(3)).
 				Build()
 
@@ -120,12 +113,11 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 			if connUpdateAck != nil {
 				log.Infof("Received connection update ack for e2 node %s:%+v", mgmtConn.E2NodeID, connUpdateAck)
-				for _, e2tConn := range missingConnList {
-					mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, e2tConn)
-				}
+				mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, connToAddList...)
 				return controller.Result{}, nil
 			}
 			if connUpdateFailure != nil {
+				// TODO returns an appropriate error to retry
 				log.Infof("Received connection update failure: %+v", connUpdateFailure)
 
 			}
