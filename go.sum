@@ -649,10 +649,10 @@ github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.59/go.mod h1:KE
 github.com/onosproject/onos-lib-go v0.7.18/go.mod h1:yEu+qDh+z1G6b9clPAjDLQNnBll8TMl8o2sFDBzk/fI=
 github.com/onosproject/onos-lib-go v0.7.19 h1:FkkA86lQxLQmQjK8d/zvIUmr58jKBNXEPafVZ4sVe40=
 github.com/onosproject/onos-lib-go v0.7.19/go.mod h1:6Cm9H/aqJqJef2za3K3Lx6UrCrtOD7tN+DCThFOHcA8=
-github.com/onosproject/onos-proxy v0.0.2 h1:ThjG3rdbELsl8PPIbipltpCIg+6C80VYKM63PsIORSk=
-github.com/onosproject/onos-proxy v0.0.2/go.mod h1:yxaYxvuiOQisezdlpTPR30sJpS2QaQVTDW6tk/UPJQQ=
-github.com/onosproject/onos-ric-sdk-go v0.7.29 h1:9YSi3kS5Xj3y6jQskVTiyFNlfuV++B3S8cPD83DPEHc=
-github.com/onosproject/onos-ric-sdk-go v0.7.29/go.mod h1:mrbMGVKB3EVMQnor0Ej4fvPPSFufIiFVx75FNGd4FG8=
+github.com/onosproject/onos-proxy v0.0.3 h1:B8wv4rQhdl608J51XYoLxtmHduwqWfOY5DLLkU5h04o=
+github.com/onosproject/onos-proxy v0.0.3/go.mod h1:yxaYxvuiOQisezdlpTPR30sJpS2QaQVTDW6tk/UPJQQ=
+github.com/onosproject/onos-ric-sdk-go v0.7.30 h1:JaLWjJwvD6Xb6yWTXYOgWuM9Z9S5rERNyVqaAvgLjDE=
+github.com/onosproject/onos-ric-sdk-go v0.7.30/go.mod h1:ojZncK/OM7TyVA9VlpvRP74h78n87w/2fD4Yp9KoCpM=
 github.com/onosproject/onos-test v0.6.4 h1:ocJhMv5mZ5RsojkhBUadE68Q6uSgBZpyDDjnwOPmu6g=
 github.com/onosproject/onos-test v0.6.4/go.mod h1:Ugb1OKR2bJhZjqpSMm9F5o6Ma2iwbtswhSlNyXXPgrg=
 github.com/onsi/ginkgo v0.0.0-20170829012221-11459a886d9c/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
