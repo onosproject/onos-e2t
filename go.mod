@@ -15,7 +15,7 @@ require (
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.7.59
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.7.59
 	github.com/onosproject/onos-lib-go v0.7.19
-	github.com/onosproject/onos-ric-sdk-go v0.7.28
+	github.com/onosproject/onos-ric-sdk-go v0.7.29
 	github.com/onosproject/onos-test v0.6.4
 	github.com/stretchr/testify v1.7.0
 	google.golang.org/grpc v1.33.2
@@ -27,3 +27,5 @@ require (
 )
 
 replace github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
+
+replace github.com/onosproject/onos-ric-sdk-go => /Users/tom/src/github.com/onosproject/onos-ric-sdk-go
