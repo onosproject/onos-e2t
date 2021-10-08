@@ -19,10 +19,6 @@ import (
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
-const (
-	defaultSCTPPort = uint16(36421)
-)
-
 func getConnToRemoveList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
 	var connToRemoveList []topoapi.Interface
 
