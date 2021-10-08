@@ -280,6 +280,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 		}
 		err = e.rnib.Create(ctx, object)
 		if err != nil {
+			log.Warn(err)
 			cause := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
 				Id:          int32(v2.ProtocolIeIDCause),
 				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),

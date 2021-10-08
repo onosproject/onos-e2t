@@ -25,12 +25,12 @@ const (
 
 func getConnToRemoveList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
 	var connToRemoveList []topoapi.Interface
+
 	for _, conn := range mgmtConn.E2NodeConfig.Connections {
 		exist := false
 		for _, e2tIface := range e2tInterfaces {
-			if e2tIface.Type == topoapi.Interface_INTERFACE_E2T {
-				if conn.IP == e2tIface.IP && conn.Port == e2tIface.Port &&
-					conn.Type == e2tIface.Type {
+			if e2tIface.Type == topoapi.Interface_INTERFACE_E2AP200 {
+				if conn.IP == e2tIface.IP && conn.Port == e2tIface.Port && e2tIface.Type == conn.Type {
 					exist = true
 				}
 			}
@@ -49,8 +49,13 @@ func getConnToAddList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoap
 	if len(mgmtConn.E2NodeConfig.Connections) == 0 {
 		log.Debugf("No configured connection is available, adding connections for all of the E2T instances")
 		for _, e2tIface := range e2tInterfaces {
-			if e2tIface.Type == topoapi.Interface_INTERFACE_E2T {
-				connToAddList = append(connToAddList, *e2tIface)
+			if e2tIface.Type == topoapi.Interface_INTERFACE_E2AP200 {
+				conn := topoapi.Interface{
+					IP:   e2tIface.IP,
+					Port: e2tIface.Port,
+					Type: topoapi.Interface_INTERFACE_E2AP200,
+				}
+				connToAddList = append(connToAddList, conn)
 			}
 		}
 		return connToAddList
@@ -58,16 +63,20 @@ func getConnToAddList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoap
 
 	for _, e2tIface := range e2tInterfaces {
 		exist := false
-		if e2tIface.Type == topoapi.Interface_INTERFACE_E2T {
+		if e2tIface.Type == topoapi.Interface_INTERFACE_E2AP200 {
 			for _, e2NodeConn := range mgmtConn.E2NodeConfig.Connections {
-				if e2NodeConn.IP == e2tIface.IP &&
-					e2NodeConn.Port == e2tIface.Port && e2NodeConn.Type == e2tIface.Type {
+				if e2NodeConn.IP == e2tIface.IP && e2NodeConn.Port == e2tIface.Port && e2NodeConn.Type == e2tIface.Type {
 					log.Debugf("Connection %+v already exists for e2node: %s", e2NodeConn, mgmtConn.E2NodeID)
 					exist = true
 				}
 			}
 			if !exist {
-				connToAddList = append(connToAddList, *e2tIface)
+				conn := topoapi.Interface{
+					IP:   e2tIface.IP,
+					Port: e2tIface.Port,
+					Type: topoapi.Interface_INTERFACE_E2AP200,
+				}
+				connToAddList = append(connToAddList, conn)
 			}
 		}
 	}
@@ -87,7 +96,7 @@ func createConnectionAddListIE(connToAddList []topoapi.Interface) *e2appduconten
 	for _, connToAdd := range connToAddList {
 		parsedIP := net.ParseIP(connToAdd.IP)
 		portBytes := make([]byte, 2)
-		binary.BigEndian.PutUint16(portBytes, defaultSCTPPort)
+		binary.BigEndian.PutUint16(portBytes, uint16(connToAdd.Port))
 		cai := &e2appducontents.E2ConnectionUpdateItemIes{
 			Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),

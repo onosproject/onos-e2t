@@ -77,6 +77,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		return controller.Result{}, err
 	}
 
+	var e2tNodesInterfaces []*topoapi.Interface
 	for _, e2tNode := range e2tNodes {
 		e2tNodeInfo := &topoapi.E2TInfo{}
 		err := e2tNode.GetAspect(e2tNodeInfo)
@@ -84,43 +85,48 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
 			return controller.Result{}, err
 		}
-
-		// Creates list of connections that should be added by the E2 node
-		connToAddList := getConnToAddList(mgmtConn, e2tNodeInfo.Interfaces)
-		connToRemoveList := getConnToRemoveList(mgmtConn, e2tNodeInfo.Interfaces)
-
-		if len(connToAddList) > 0 || len(connToRemoveList) > 0 {
-			connAddList := createConnectionAddListIE(connToAddList)
-			log.Debugf("Connection To Add List for e2 node %s, %+v", mgmtConn.E2NodeID, connAddList)
-
-			connRemoveList := createConnectionRemoveList(connToRemoveList)
-			log.Debugf("Connection To Remove List for e2 node %s, %+v", mgmtConn.E2NodeID, connRemoveList)
-
-			// Creates a connection update request to include list of the connections
-			// that should be added and list of connections that should be removed
-			connUpdateReq := NewConnectionUpdate(
-				WithConnectionAddList(connAddList),
-				WithConnectionRemoveList(connRemoveList),
-				WithTransactionID(3)).
-				Build()
-
-			log.Infof("Sending connection update request for e2Node: %s, %+v", mgmtConn.E2NodeID, connUpdateReq)
-			connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
-			if err != nil {
-				log.Warnf("Failed to reconcile configuration for e2 node %s using management connection %s: %s", mgmtConn.E2NodeID, connID, err)
-				return controller.Result{}, err
+		for _, e2tIface := range e2tNodeInfo.Interfaces {
+			if e2tIface.Type == topoapi.Interface_INTERFACE_E2AP200 {
+				e2tNodesInterfaces = append(e2tNodesInterfaces, e2tIface)
 			}
+		}
+	}
 
-			if connUpdateAck != nil {
-				log.Infof("Received connection update ack for e2 node %s:%+v", mgmtConn.E2NodeID, connUpdateAck)
-				mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, connToAddList...)
-				return controller.Result{}, nil
-			}
-			if connUpdateFailure != nil {
-				// TODO returns an appropriate error to retry
-				log.Infof("Received connection update failure: %+v", connUpdateFailure)
+	// Creates list of connections that should be added by the E2 node
+	connToAddList := getConnToAddList(mgmtConn, e2tNodesInterfaces)
+	connToRemoveList := getConnToRemoveList(mgmtConn, e2tNodesInterfaces)
 
-			}
+	if len(connToAddList) > 0 || len(connToRemoveList) > 0 {
+		connAddList := createConnectionAddListIE(connToAddList)
+		log.Debugf("Connection To Add List for e2 node %s, %+v", mgmtConn.E2NodeID, connAddList)
+
+		connRemoveList := createConnectionRemoveList(connToRemoveList)
+		log.Debugf("Connection To Remove List for e2 node %s, %+v", mgmtConn.E2NodeID, connRemoveList)
+
+		// Creates a connection update request to include list of the connections
+		// that should be added and list of connections that should be removed
+		connUpdateReq := NewConnectionUpdate(
+			WithConnectionAddList(connAddList),
+			WithConnectionRemoveList(connRemoveList),
+			WithTransactionID(3)).
+			Build()
+
+		log.Infof("Sending connection update request for e2Node: %s, %+v", mgmtConn.E2NodeID, connUpdateReq)
+		connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)
+		if err != nil {
+			log.Warnf("Failed to reconcile configuration for e2 node %s using management connection %s: %s", mgmtConn.E2NodeID, connID, err)
+			return controller.Result{}, err
+		}
+
+		if connUpdateAck != nil {
+			log.Infof("Received connection update ack for e2 node %s:%+v", mgmtConn.E2NodeID, connUpdateAck)
+			mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, connToAddList...)
+			return controller.Result{}, nil
+		}
+		if connUpdateFailure != nil {
+			// TODO returns an appropriate error to retry
+			log.Infof("Received connection update failure: %+v", connUpdateFailure)
+
 		}
 	}
 	return controller.Result{}, nil
