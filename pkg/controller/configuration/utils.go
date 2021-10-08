@@ -22,6 +22,7 @@ import (
 func getConnToRemoveList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
 	var connToRemoveList []topoapi.Interface
 
+	// TODO use E2 node config aspect
 	/*for _, conn := range mgmtConn.E2NodeConfig.Connections {
 		exist := false
 		for _, e2tIface := range e2tInterfaces {
