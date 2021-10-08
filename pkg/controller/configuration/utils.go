@@ -22,7 +22,7 @@ import (
 func getConnToRemoveList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*topoapi.Interface) []topoapi.Interface {
 	var connToRemoveList []topoapi.Interface
 
-	for _, conn := range mgmtConn.E2NodeConfig.Connections {
+	/*for _, conn := range mgmtConn.E2NodeConfig.Connections {
 		exist := false
 		for _, e2tIface := range e2tInterfaces {
 			if e2tIface.Type == topoapi.Interface_INTERFACE_E2AP200 {
@@ -35,7 +35,7 @@ func getConnToRemoveList(mgmtConn *e2server.ManagementConn, e2tInterfaces []*top
 		if !exist {
 			connToRemoveList = append(connToRemoveList, conn)
 		}
-	}
+	}*/
 	return connToRemoveList
 }
 
