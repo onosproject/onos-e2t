@@ -260,7 +260,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 					},
 				},
 			}
-			return nil, failure, err
+			return nil, failure, nil
 		}
 
 		// Creates a new E2AP data connection
@@ -305,7 +305,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 					},
 				},
 			}
-			return nil, failure, err
+			return nil, failure, nil
 		}
 	}
 
