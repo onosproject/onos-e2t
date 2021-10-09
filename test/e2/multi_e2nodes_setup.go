@@ -62,7 +62,6 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	assert.Equal(t, numRequestedE2Nodes+defaultNumNodes, numNodes)
 
 	utils.CountTopoAddedOrNoneEvent(topoEventChan, numNodes)
-
 	e2nodes := utils.GetNodes(t, nodeClient)
 	for _, e2node := range e2nodes {
 		_, err = nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{

@@ -5,7 +5,10 @@
 package server
 
 import (
+	"crypto/md5"
 	"fmt"
+
+	uuid2 "github.com/google/uuid"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdudecoder"
@@ -49,4 +52,24 @@ func createE2NodeURI(nodeIdentity *types.E2NodeIdentity) topoapi.ID {
 		String()
 
 	return topoapi.ID(uriString)
+}
+
+// GetE2ControlRelationID gets E2 relation ID
+func GetE2ControlRelationID(connID ConnID) topoapi.ID {
+	return topoapi.ID(connID)
+}
+
+func GetCellID(conn *ManagementConn, cell *topoapi.E2Cell) topoapi.ID {
+	return topoapi.ID(uri.NewURI(uri.WithOpaque(fmt.Sprintf("%s/%s", conn.E2NodeID, cell.CellGlobalID.Value))).String())
+}
+
+func GetCellRelationID(conn *ManagementConn, cell *topoapi.E2Cell) topoapi.ID {
+	bytes := md5.Sum([]byte(fmt.Sprintf("%s/%s", conn.E2NodeID, cell.CellGlobalID.Value)))
+	uuid, err := uuid2.FromBytes(bytes[:])
+	if err != nil {
+		panic(err)
+	}
+	return topoapi.ID(uri.NewURI(
+		uri.WithScheme("uuid"),
+		uri.WithOpaque(uuid.String())).String())
 }

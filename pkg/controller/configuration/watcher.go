@@ -2,31 +2,30 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-package e2node
+package configuration
 
 import (
 	"context"
 	"sync"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-e2t/pkg/store/rnib"
-
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 )
 
 const queueSize = 100
 
-// Watcher is a connection managements watcher
-type Watcher struct {
+// MgmtConnWatcher  is a management connection watcher
+type MgmtConnWatcher struct {
 	mgmtConns e2server.MgmtConnManager
 	cancel    context.CancelFunc
 	mu        sync.Mutex
 	connCh    chan *e2server.ManagementConn
 }
 
-// Start starts the connection watcher
-func (w *Watcher) Start(ch chan<- controller.ID) error {
+// Start starts the management connection watcher
+func (w *MgmtConnWatcher) Start(ch chan<- controller.ID) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.cancel != nil {
@@ -44,7 +43,7 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for conn := range w.connCh {
-			log.Debugf("Received Connection event '%s'", conn.ID)
+			log.Debugf("Received management Connection event'%s'", conn.ID)
 			ch <- controller.NewID(conn.ID)
 		}
 		close(ch)
@@ -52,8 +51,8 @@ func (w *Watcher) Start(ch chan<- controller.ID) error {
 	return nil
 }
 
-// Stop stops the connection watcher
-func (w *Watcher) Stop() {
+// Stop stops the management connection watcher
+func (w *MgmtConnWatcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
 		w.cancel()
@@ -62,10 +61,11 @@ func (w *Watcher) Stop() {
 	w.mu.Unlock()
 }
 
-//  TopoWatcher is a topology watcher
+// TopoWatcher  is a topology watcher
 type TopoWatcher struct {
-	topo      rnib.Store
+	rnib      rnib.Store
 	mgmtConns e2server.MgmtConnManager
+	e2apConns e2server.E2APConnManager
 	cancel    context.CancelFunc
 	mu        sync.Mutex
 }
@@ -80,7 +80,8 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 
 	eventCh := make(chan topoapi.Event, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.topo.Watch(ctx, eventCh, nil)
+
+	err := w.rnib.Watch(ctx, eventCh, nil)
 	if err != nil {
 		cancel()
 		return err
@@ -89,44 +90,36 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 
 	go func() {
 		for event := range eventCh {
-			log.Debugf("Received topo event '%s'", event.Object.ID)
 			conns, err := w.mgmtConns.List(ctx)
 			if err != nil {
-				log.Warnf("cannot retrieve the list conns %v:%v", conns, err)
+				log.Warnf("cannot retrieve the list conns %s", err)
 				continue
 			}
-			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok {
 
-				// Enqueue the connection with matching e2node
-				if entity.Entity.KindID == topoapi.E2NODE {
+			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok {
+				if relation.Relation.KindID == topoapi.CONTROLS {
+					log.Debugf("Received control relation event: %+v", event.Object.ID)
 					for _, conn := range conns {
-						if conn.E2NodeID == event.Object.GetID() {
+						if conn.E2NodeID == relation.Relation.GetTgtEntityID() {
 							ch <- controller.NewID(conn.ID)
 						}
 					}
 				}
-				// Enqueue the conns with matching cells
-				if entity.Entity.KindID == topoapi.E2CELL {
+			}
+
+			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok {
+				if entity.Entity.KindID == topoapi.E2T {
+					log.Debugf("Received E2T node event: %+v", event.Object.ID)
 					for _, conn := range conns {
-						e2Cells := conn.E2Cells
-						for _, e2Cell := range e2Cells {
-							cellID := e2server.GetCellID(conn, e2Cell)
-							if cellID == event.Object.GetID() {
-								ch <- controller.NewID(conn.ID)
-							}
-						}
+						ch <- controller.NewID(conn.ID)
 					}
 				}
-			}
-			if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok {
-				if relation.Relation.KindID == topoapi.CONTAINS {
+				// Enqueue the management connection with matching e2node
+				if entity.Entity.KindID == topoapi.E2NODE {
+					log.Debugf("Received E2 node event: %+v", event.Object.ID)
 					for _, conn := range conns {
-						e2Cells := conn.E2Cells
-						for _, e2Cell := range e2Cells {
-							cellID := e2server.GetCellID(conn, e2Cell)
-							if cellID == relation.Relation.TgtEntityID {
-								ch <- controller.NewID(conn.ID)
-							}
+						if conn.E2NodeID == event.Object.GetID() {
+							ch <- controller.NewID(conn.ID)
 						}
 					}
 				}
@@ -146,5 +139,3 @@ func (w *TopoWatcher) Stop() {
 	}
 	w.mu.Unlock()
 }
-
-var _ controller.Watcher = &TopoWatcher{}

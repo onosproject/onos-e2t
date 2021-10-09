@@ -105,7 +105,6 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 	subList := e2utils.GetSubscriptionList(t)
 	assert.Equal(t, 1, len(subList))
 
-	t.Log("Here")
 	err = nodeApp1.Unsubscribe(ctx, subName1)
 	assert.NoError(t, err)
 

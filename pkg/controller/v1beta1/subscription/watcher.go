@@ -6,11 +6,12 @@ package subscription
 
 import (
 	"context"
+	"sync"
+
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
-	"sync"
 
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -66,7 +67,7 @@ var _ controller.Watcher = &Watcher{}
 // ConnWatcher is a connection watcher
 type ConnWatcher struct {
 	subs   substore.Store
-	conns  e2server.ConnManager
+	conns  e2server.E2APConnManager
 	cancel context.CancelFunc
 	mu     sync.Mutex
 	connCh chan *e2server.E2APConn

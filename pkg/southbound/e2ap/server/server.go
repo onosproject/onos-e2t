@@ -8,8 +8,19 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"time"
+
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+
+	"github.com/onosproject/onos-e2t/pkg/controller/utils"
+
+	prototypes "github.com/gogo/protobuf/types"
+
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
+
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
@@ -31,35 +42,41 @@ var ricID = types.RicIdentifier{
 	RicIdentifierLen:   20,
 }
 
-func NewE2Server(conns ConnManager,
-	streams subscription.Broker,
+func NewE2Server(e2apConns E2APConnManager,
+	mgmtConns MgmtConnManager, streams subscription.Broker,
 	streamsv1beta1 subscriptionv1beta1.Broker,
-	modelRegistry modelregistry.ModelRegistry) *E2Server {
+	modelRegistry modelregistry.ModelRegistry, rnib rnib.Store) *E2Server {
 	return &E2Server{
 		server:         e2.NewServer(),
-		conns:          conns,
+		e2apConns:      e2apConns,
+		mgmtConns:      mgmtConns,
 		subs:           streams,
 		streamsv1beta1: streamsv1beta1,
 		modelRegistry:  modelRegistry,
+		rnib:           rnib,
 	}
 }
 
 type E2Server struct {
 	server         *e2.Server
-	conns          ConnManager
+	e2apConns      E2APConnManager
+	mgmtConns      MgmtConnManager
 	subs           subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	modelRegistry  modelregistry.ModelRegistry
+	rnib           rnib.Store
 }
 
 func (s *E2Server) Serve() error {
 	return s.server.Serve(func(conn e2.ServerConn) e2.ServerInterface {
 		return &E2APServer{
 			serverConn:     conn,
-			manager:        s.conns,
+			e2apConns:      s.e2apConns,
+			mgmtConns:      s.mgmtConns,
 			streams:        s.subs,
 			streamsv1beta1: s.streamsv1beta1,
 			modelRegistry:  s.modelRegistry,
+			rnib:           s.rnib,
 		}
 	})
 }
@@ -69,12 +86,14 @@ func (s *E2Server) Stop() error {
 }
 
 type E2APServer struct {
-	manager        ConnManager
+	e2apConns      E2APConnManager
+	mgmtConns      MgmtConnManager
 	streams        subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	serverConn     e2.ServerConn
 	e2apConn       *E2APConn
 	modelRegistry  modelregistry.ModelRegistry
+	rnib           rnib.Store
 }
 
 // uint24ToUint32 converts uint24 uint32
@@ -87,9 +106,33 @@ func uint24ToUint32(val []byte) uint32 {
 }
 
 func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
+	log.Infof("Received E2 setup request: %+v", request)
 	transID, nodeIdentity, ranFuncs, _, err := pdudecoder.DecodeE2SetupRequest(request)
 	if err != nil {
-		return nil, nil, err
+		cause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
+			Id:          int32(v2.ProtocolIeIDCause),
+			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2apies.Cause{
+				Cause: &e2apies.Cause_RicRequest{
+					RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
+				},
+			},
+			Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		failure := &e2appducontents.E2SetupFailure{
+			ProtocolIes: &e2appducontents.E2SetupFailureIes{
+				E2ApProtocolIes1: &cause,
+				E2ApProtocolIes49: &e2appducontents.E2SetupFailureIes_E2SetupFailureIes49{
+					Id:          int32(v2.ProtocolIeIDTransactionID),
+					Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
+					Value: &e2apies.TransactionId{
+						Value: request.GetProtocolIes().GetE2ApProtocolIes49().Value.Value,
+					},
+					Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+				},
+			},
+		}
+		return nil, failure, err
 	}
 
 	rawPlmnid := []byte{nodeIdentity.Plmn[0], nodeIdentity.Plmn[1], nodeIdentity.Plmn[2]}
@@ -97,19 +140,21 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 
 	var e2Cells []*topoapi.E2Cell
 	serviceModels := make(map[string]*topoapi.ServiceModelInfo)
-	ranFunctions := make(map[e2smtypes.OID]RANFunction)
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfRejected := make(types.RanFunctionCauses)
 	plugins := e.modelRegistry.GetPlugins()
-	for ranFunctionID, ranFunc := range *ranFuncs {
-		for smOid, sm := range plugins {
+
+	for smOid, sm := range plugins {
+		var ranFunctions []*prototypes.Any
+		serviceModels[string(smOid)] = &topoapi.ServiceModelInfo{
+			OID:          string(smOid),
+			RanFunctions: ranFunctions,
+		}
+		var ranFunctionIDs []uint32
+		for ranFunctionID, ranFunc := range *ranFuncs {
 			oid := e2smtypes.OID(ranFunc.OID)
 			if smOid == oid {
-
-				serviceModels[string(oid)] = &topoapi.ServiceModelInfo{
-					OID: string(oid),
-				}
-
+				ranFunctionIDs = append(ranFunctionIDs, uint32(ranFunctionID))
 				if setup, ok := sm.(modelregistry.E2Setup); ok {
 					onSetupRequest := &e2smtypes.OnSetupRequest{
 						ServiceModels:          serviceModels,
@@ -124,29 +169,14 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 					}
 				}
 
-				ranFunctionDescriptionProto, err := sm.RanFuncDescriptionASN1toProto(ranFunc.Description)
-				if err != nil {
-					log.Warn(err)
-					log.Warnf("Following set of bytes of length %v were pushed to the decoder \n%v\n", len(ranFunc.Description), hex.Dump(ranFunc.Description))
-					continue
-				}
-
-				ranFunction := RANFunction{
-					OID:         oid,
-					ID:          ranFunctionID,
-					Description: ranFunctionDescriptionProto,
-				}
-
-				// TODO channel ID should be changed to e2node ID after admin API is removed
-				ranFunctions[oid] = ranFunction
 				rfAccepted[ranFunctionID] = ranFunc.Revision
-
 			}
 		}
+		serviceModels[string(smOid)].RanFunctionIDs = ranFunctionIDs
 	}
 
-	e.e2apConn = NewE2NodeConn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, e.streams, e.streamsv1beta1, serviceModels, ranFunctions, e2Cells, time.Now())
-	defer e.manager.open(e.e2apConn)
+	mgmtConn := NewMgmtConn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, serviceModels, e2Cells, time.Now())
+	defer e.mgmtConns.open(mgmtConn)
 
 	// Create an E2 setup response
 	e2ncID3 := pdubuilder.CreateE2NodeComponentIDS1("S1-component")
@@ -161,7 +191,30 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	e2nccaal = append(e2nccaal, &ie1)
 	response, err := pdubuilder.NewE2SetupResponse(*transID, nodeIdentity.Plmn, ricID, e2nccaal)
 	if err != nil {
-		return nil, nil, err
+		cause := e2appducontents.E2SetupFailureIes_E2SetupFailureIes1{
+			Id:          int32(v2.ProtocolIeIDCause),
+			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
+			Value: &e2apies.Cause{
+				Cause: &e2apies.Cause_RicRequest{
+					RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
+				},
+			},
+			Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+		}
+		failure := &e2appducontents.E2SetupFailure{
+			ProtocolIes: &e2appducontents.E2SetupFailureIes{
+				E2ApProtocolIes1: &cause,
+				E2ApProtocolIes49: &e2appducontents.E2SetupFailureIes_E2SetupFailureIes49{
+					Id:          int32(v2.ProtocolIeIDTransactionID),
+					Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
+					Value: &e2apies.TransactionId{
+						Value: request.GetProtocolIes().GetE2ApProtocolIes49().Value.Value,
+					},
+					Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+				},
+			},
+		}
+		return nil, failure, err
 	}
 
 	if len(rfAccepted) > 0 {
@@ -178,5 +231,95 @@ func (e *E2APServer) RICIndication(ctx context.Context, request *e2appducontents
 }
 
 func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error) {
-	panic("implement me")
+	log.Infof("Received E2 node configuration update request: %+v", request)
+	ie3 := request.GetProtocolIes().GetE2ApProtocolIes3()
+	if ie3 != nil {
+		nodeID, err := pdudecoder.ExtractE2NodeIdentity(ie3.GetValue())
+		if err != nil {
+			cause := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
+				Id:          int32(v2.ProtocolIeIDCause),
+				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2apies.Cause{
+					Cause: &e2apies.Cause_RicRequest{
+						RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
+					},
+				},
+				Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+			}
+
+			failure = &e2appducontents.E2NodeConfigurationUpdateFailure{
+				ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateFailureIes{
+					E2ApProtocolIes1: &cause,
+					E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes49{
+						Id:          int32(v2.ProtocolIeIDTransactionID),
+						Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
+						Value: &e2apies.TransactionId{
+							Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,
+						},
+						Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+					},
+				},
+			}
+			return nil, failure, err
+		}
+
+		// Creates a new E2AP data connection
+		e.e2apConn = NewE2APConn(createE2NodeURI(nodeID), e.serverConn, e.streamsv1beta1, e.rnib)
+		defer e.e2apConns.open(e.e2apConn)
+		// Creates a controls relation
+		object := &topoapi.Object{
+			ID:   topoapi.ID(e.e2apConn.ID),
+			Type: topoapi.Object_RELATION,
+			Obj: &topoapi.Object_Relation{
+				Relation: &topoapi.Relation{
+					KindID:      topoapi.CONTROLS,
+					SrcEntityID: utils.GetE2TID(),
+					TgtEntityID: e.e2apConn.E2NodeID,
+				},
+			},
+		}
+		err = e.rnib.Create(ctx, object)
+		if err != nil {
+			log.Warn(err)
+			cause := e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes1{
+				Id:          int32(v2.ProtocolIeIDCause),
+				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
+				Value: &e2apies.Cause{
+					Cause: &e2apies.Cause_RicRequest{
+						RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
+					},
+				},
+				Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+			}
+
+			failure = &e2appducontents.E2NodeConfigurationUpdateFailure{
+				ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateFailureIes{
+					E2ApProtocolIes1: &cause,
+					E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateFailureIes_E2NodeConfigurationUpdateFailureIes49{
+						Id:          int32(v2.ProtocolIeIDTransactionID),
+						Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
+						Value: &e2apies.TransactionId{
+							Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,
+						},
+						Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+					},
+				},
+			}
+			return nil, failure, err
+		}
+	}
+
+	log.Debugf("Sending config update ack to e2 node: %s", e.e2apConn.E2NodeID)
+	return &e2appducontents.E2NodeConfigurationUpdateAcknowledge{
+		ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes{
+			E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes49{
+				Id:          int32(v2.ProtocolIeIDTransactionID),
+				Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_REJECT),
+				Value: &e2apies.TransactionId{
+					Value: request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().Value,
+				},
+				Presence: int32(e2apcommondatatypes.Presence_PRESENCE_MANDATORY),
+			},
+		},
+	}, nil, nil
 }
