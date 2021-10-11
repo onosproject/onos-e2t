@@ -5,8 +5,6 @@
 package e2
 
 import (
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -19,13 +17,8 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 	numberOfE2Nodes := 2
 	numberOfControlRelationships := numberOfE2TNodes * numberOfE2Nodes
 	maxWaitForRelations := 15
-
-	ctx, cancel := e2utils.GetCtx()
-	defer cancel()
+	
 	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-	topoNodeEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Nodes(ctx, topoNodeEventChan)
 	assert.NoError(t, err)
 
 	// create a simulator
@@ -42,9 +35,6 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 
 	// tear down the simulator
 	assert.NoError(t, sim.Uninstall())
-
-	// Wait for the nodes to shut down
-	utils.CountTopoRemovedEvent(topoNodeEventChan, numberOfControlRelationships)
 
 	// Check that there are no relations left
 	assert.True(t, utils.Retry(maxWaitForRelations, time.Second,
