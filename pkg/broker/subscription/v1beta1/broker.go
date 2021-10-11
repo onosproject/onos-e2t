@@ -5,6 +5,8 @@
 package v1beta1
 
 import (
+	"context"
+	"github.com/google/uuid"
 	"io"
 	"sync"
 
@@ -17,7 +19,8 @@ var log = logging.GetLogger("broker", "subscription", "v1beta1")
 // NewBroker creates a new subscription stream broker
 func NewBroker() Broker {
 	return &streamBroker{
-		streams: newStreamRegistry(),
+		streams:  newStreamRegistry(),
+		watchers: make(map[uuid.UUID]chan<- e2api.SubscriptionID),
 	}
 }
 
@@ -42,26 +45,37 @@ type Broker interface {
 	// GetWriter gets a write stream by its StreamID
 	// If no StreamWriter exists for the given StreamID, ok will be false
 	GetWriter(streamID StreamID) (writer StreamWriter, ok bool)
+
+	// Watch watches the broker for new subscription streams
+	Watch(ctx context.Context, ch chan<- e2api.SubscriptionID) error
 }
 
 type streamBroker struct {
-	streams *streamRegistry
-	mu      sync.RWMutex
+	streams    *streamRegistry
+	streamsMu  sync.RWMutex
+	watchers   map[uuid.UUID]chan<- e2api.SubscriptionID
+	watchersMu sync.RWMutex
 }
 
 func (b *streamBroker) OpenReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID, transactionID e2api.TransactionID) StreamReader {
-	b.mu.Lock()
-	defer b.mu.Unlock()
+	b.streamsMu.Lock()
+	defer b.streamsMu.Unlock()
+	go func() {
+		b.watchersMu.RLock()
+		for _, watcher := range b.watchers {
+			watcher <- subID
+		}
+		b.watchersMu.RUnlock()
+	}()
 	return b.streams.openSubStream(subID).
 		openAppStream(appID).
 		openTransactionStream(transactionID).
 		openInstanceStream(instanceID)
-
 }
 
 func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID, instanceID e2api.AppInstanceID, transactionID e2api.TransactionID) {
-	b.mu.Lock()
-	defer b.mu.Unlock()
+	b.streamsMu.Lock()
+	defer b.streamsMu.Unlock()
 	subStream, ok := b.streams.getSubStream(subID)
 	if !ok {
 		return
@@ -83,21 +97,46 @@ func (b *streamBroker) CloseReader(subID e2api.SubscriptionID, appID e2api.AppID
 }
 
 func (b *streamBroker) GetReader(subID e2api.SubscriptionID) (StreamReader, bool) {
-	b.mu.RLock()
-	defer b.mu.RUnlock()
+	b.streamsMu.RLock()
+	defer b.streamsMu.RUnlock()
 	stream, ok := b.streams.getSubStream(subID)
 	return stream, ok
 }
 
 func (b *streamBroker) GetWriter(streamID StreamID) (StreamWriter, bool) {
-	b.mu.RLock()
-	defer b.mu.RUnlock()
+	b.streamsMu.RLock()
+	defer b.streamsMu.RUnlock()
 	return b.streams.getStream(streamID)
 }
 
+func (b *streamBroker) Watch(ctx context.Context, ch chan<- e2api.SubscriptionID) error {
+	b.watchersMu.Lock()
+	id := uuid.New()
+	b.watchers[id] = ch
+	b.watchersMu.Unlock()
+
+	b.streamsMu.RLock()
+	subIDs := make([]e2api.SubscriptionID, 0, len(b.streams.streams))
+	for _, stream := range b.streams.streams {
+		subIDs = append(subIDs, stream.subID)
+	}
+	b.streamsMu.RUnlock()
+
+	go func() {
+		for _, subID := range subIDs {
+			ch <- subID
+		}
+		<-ctx.Done()
+		b.watchersMu.Lock()
+		delete(b.watchers, id)
+		b.watchersMu.Unlock()
+	}()
+	return nil
+}
+
 func (b *streamBroker) Close() error {
-	b.mu.Lock()
-	defer b.mu.Unlock()
+	b.streamsMu.Lock()
+	defer b.streamsMu.Unlock()
 	return b.streams.Close()
 }
 

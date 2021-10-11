@@ -52,6 +52,9 @@ func NewController(streams subscription.Broker, subs substore.Store, topo rnib.S
 		subs: subs,
 		topo: topo,
 	})
+	c.Watch(&StreamWatcher{
+		streams: streams,
+	})
 	c.Reconcile(&Reconciler{
 		streams:                   streams,
 		subs:                      subs,
@@ -222,9 +225,8 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 
 	stream, ok := r.streams.GetReader(sub.ID)
 	if !ok {
-		err = errors.NewNotFound("stream not found")
-		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
-		return controller.Result{}, err
+		log.Warnf("Failed to reconcile Subscription %+v: stream not found", sub)
+		return controller.Result{}, nil
 	}
 
 	ricRequest := types.RicRequest{
