@@ -22,44 +22,30 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 	defer cancel()
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
+	topoNodeEventChan := make(chan topoapi.Event)
+	err = topoSdkClient.WatchE2Nodes(ctx, topoNodeEventChan)
 
 	// create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-connection-update")
 	assert.NotNil(t, sim)
 
 	// Wait for the E2 nodes to connect
-	topoNodeEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Nodes(ctx, topoNodeEventChan)
 	assert.NoError(t, err)
 	utils.CountTopoAddedOrNoneEvent(topoNodeEventChan, numberOfE2Nodes)
 
-	// Check that the E2T Nodes are correct in topology
-	e2TNodes, err := topoSdkClient.E2TNodes(ctx)
-	assert.NoError(t, err)
-	assert.Len(t, e2TNodes, numberOfE2TNodes)
-
-	// Check that the E2 Nodes are correct in topology
-	e2Nodes, err := topoSdkClient.E2Nodes(ctx)
-	assert.NoError(t, err)
-	assert.Len(t, e2TNodes, numberOfE2Nodes)
-
 	// Check that there are the correct number of relations
-	relations, err := topoSdkClient.GetControlRelationsForTarget()
+	relations, err := topoSdkClient.GetControlRelations()
 	assert.NoError(t, err)
 	assert.Len(t, relations, numberOfControlRelationships)
 
-	// Check that each E2 Node has the correct relations
-	for _, e2Node := range e2Nodes {
-		relCount := 0
-		for _, o := range relations {
-			rel := o.GetRelation()
-			if rel.TgtEntityID == e2Node.ID {
-				relCount++
-			}
-		}
-		assert.Equal(t, numberOfE2Nodes, relCount)
-	}
-
 	// tear down the simulator
 	assert.NoError(t, sim.Uninstall())
+
+	// Wait for the nodes to shut down
+	utils.CountTopoRemovedEvent(topoNodeEventChan, numberOfE2Nodes)
+
+	// Check that there are no relations left
+	relationsAfter, err := topoSdkClient.GetControlRelations()
+	assert.NoError(t, err)
+	assert.Len(t, relationsAfter, 0)
 }
