@@ -10,33 +10,30 @@ import (
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
-	"time"
 )
 
 // TestE2TConnectionUpdate checks that the control relations are correct
 func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 	numberOfE2TNodes := int(s.E2TReplicaCount)
-	numberOfSimulatorNodes := 1
-	numberOfE2Nodes := numberOfSimulatorNodes * 2
-	//numberOfControlRelationsPerNode := 2 // Will change
-	//numberOfControlRelationships := numberOfE2TNodes * numberOfControlRelationsPerNode
-	numberOfControlRelationships := numberOfE2Nodes * 1
+	numberOfE2Nodes := 2
+	numberOfControlRelationships := numberOfE2TNodes * numberOfE2Nodes
 
 	ctx, cancel := e2utils.GetCtx()
 	defer cancel()
 	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-	topoNodeEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Nodes(ctx, topoNodeEventChan)
 	assert.NoError(t, err)
 
 	// create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-connection-update")
 	assert.NotNil(t, sim)
 
-	time.Sleep(15 * time.Second)
+	// Wait for the E2 nodes to connect
+	topoNodeEventChan := make(chan topoapi.Event)
+	err = topoSdkClient.WatchE2Nodes(ctx, topoNodeEventChan)
+	assert.NoError(t, err)
+	utils.CountTopoAddedOrNoneEvent(topoNodeEventChan, numberOfE2Nodes)
 
-	// Check that the e2T Nodes are correct in topology
+	// Check that the E2T Nodes are correct in topology
 	e2TNodes, err := topoSdkClient.E2TNodes(ctx)
 	assert.NoError(t, err)
 	assert.Len(t, e2TNodes, numberOfE2TNodes)
@@ -60,7 +57,7 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 				relCount++
 			}
 		}
-		assert.Equal(t, 1, relCount) // will change
+		assert.Equal(t, numberOfE2Nodes, relCount)
 	}
 
 	// tear down the simulator
