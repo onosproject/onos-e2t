@@ -15,7 +15,7 @@ import (
 func getMasterRelation(t *testing.T, masterRelationID topoapi.ID) *topoapi.Relation {
 	topoSdkClient, err := NewTopoClient()
 	assert.NoError(t, err)
-	relations, err := topoSdkClient.GetControlRelationsForTarget()
+	relations, err := topoSdkClient.GetControlRelations()
 	assert.NoError(t, err)
 
 	for _, relationObject := range relations {

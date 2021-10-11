@@ -60,7 +60,7 @@ func getE2Node(t *testing.T) *topoapi.Object {
 func checkE2tNodeRelation(t *testing.T, e2Node topoapi.Object) *topoapi.Relation {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
-	relations, err := topoSdkClient.GetControlRelationsForTarget()
+	relations, err := topoSdkClient.GetControlRelations()
 	assert.NoError(t, err)
 
 	// TODO - replace this with a filter when one is available

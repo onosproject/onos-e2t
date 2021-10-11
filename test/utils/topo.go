@@ -24,7 +24,7 @@ type TopoClient interface {
 	GetCells(ctx context.Context, nodeID topoapi.ID) ([]*topoapi.E2Cell, error)
 	GetE2NodeAspects(ctx context.Context, nodeID topoapi.ID) (*topoapi.E2Node, error)
 	E2NodeRelationIDs(ctx context.Context) ([]topoapi.ID, error)
-	GetControlRelationsForTarget() ([]topoapi.Object, error)
+	GetControlRelations() ([]topoapi.Object, error)
 }
 
 // NewTopoClient creates a new topo SDK client
@@ -271,7 +271,7 @@ func CountTopoAddedOrNoneEvent(ch chan topoapi.Event, expectedValue int) {
 	}
 }
 
-func (c *Client) GetControlRelationsForTarget() ([]topoapi.Object, error) {
+func (c *Client) GetControlRelations() ([]topoapi.Object, error) {
 	filter := getControlRelationFilter()
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
 	relationsList, err := c.client.List(ctx, toposdk.WithListFilters(filter))
