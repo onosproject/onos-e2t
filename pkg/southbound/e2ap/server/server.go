@@ -28,7 +28,6 @@ import (
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
@@ -43,14 +42,14 @@ var ricID = types.RicIdentifier{
 }
 
 func NewE2Server(e2apConns E2APConnManager,
-	mgmtConns MgmtConnManager, streams subscription.Broker,
+	mgmtConns MgmtConnManager,
 	streamsv1beta1 subscriptionv1beta1.Broker,
 	modelRegistry modelregistry.ModelRegistry, rnib rnib.Store) *E2Server {
 	return &E2Server{
-		server:         e2.NewServer(),
-		e2apConns:      e2apConns,
-		mgmtConns:      mgmtConns,
-		subs:           streams,
+		server:    e2.NewServer(),
+		e2apConns: e2apConns,
+		mgmtConns: mgmtConns,
+
 		streamsv1beta1: streamsv1beta1,
 		modelRegistry:  modelRegistry,
 		rnib:           rnib,
@@ -61,7 +60,6 @@ type E2Server struct {
 	server         *e2.Server
 	e2apConns      E2APConnManager
 	mgmtConns      MgmtConnManager
-	subs           subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	modelRegistry  modelregistry.ModelRegistry
 	rnib           rnib.Store
@@ -73,7 +71,6 @@ func (s *E2Server) Serve() error {
 			serverConn:     conn,
 			e2apConns:      s.e2apConns,
 			mgmtConns:      s.mgmtConns,
-			streams:        s.subs,
 			streamsv1beta1: s.streamsv1beta1,
 			modelRegistry:  s.modelRegistry,
 			rnib:           s.rnib,
@@ -88,7 +85,6 @@ func (s *E2Server) Stop() error {
 type E2APServer struct {
 	e2apConns      E2APConnManager
 	mgmtConns      MgmtConnManager
-	streams        subscription.Broker
 	streamsv1beta1 subscriptionv1beta1.Broker
 	serverConn     e2.ServerConn
 	e2apConn       *E2APConn

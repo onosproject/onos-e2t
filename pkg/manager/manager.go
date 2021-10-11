@@ -17,7 +17,6 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription"
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
 	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
@@ -101,7 +100,6 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	streams := subscription.NewBroker()
 	streamsv1beta1 := subscriptionv1beta1.NewBroker()
 	e2apConns := e2server.NewE2APConnManager()
 	mgmtConns := e2server.NewMgmtConnManager()
@@ -140,7 +138,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startSouthboundServer(e2apConns, mgmtConns, streams, streamsv1beta1, rnibStore)
+	err = m.startSouthboundServer(e2apConns, mgmtConns, streamsv1beta1, rnibStore)
 	if err != nil {
 		return err
 	}
@@ -191,9 +189,9 @@ func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, stream
 }
 
 // startSouthboundServer starts the southbound server
-func (m *Manager) startSouthboundServer(e2apConns e2server.E2APConnManager, mgmtConns e2server.MgmtConnManager, streams subscription.Broker,
+func (m *Manager) startSouthboundServer(e2apConns e2server.E2APConnManager, mgmtConns e2server.MgmtConnManager,
 	streamsv1beta1 subscriptionv1beta1.Broker, rnib rnib.Store) error {
-	server := e2server.NewE2Server(e2apConns, mgmtConns, streams, streamsv1beta1, m.ModelRegistry, rnib)
+	server := e2server.NewE2Server(e2apConns, mgmtConns, streamsv1beta1, m.ModelRegistry, rnib)
 	return server.Serve()
 }
 
