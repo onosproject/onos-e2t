@@ -17,7 +17,7 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 	numberOfE2Nodes := 2
 	numberOfControlRelationships := numberOfE2TNodes * numberOfE2Nodes
 	maxWaitForRelations := 15
-	
+
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
