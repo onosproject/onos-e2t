@@ -45,7 +45,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 
 	mastershipState, err := topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
 	assert.NoError(t, err)
-	assert.Equal(t, uint64(1), mastershipState.GetTerm())
+	currentMastershipTerm := mastershipState.Term
 
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
@@ -132,7 +132,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 
 	mastershipState, err = topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
 	assert.NoError(t, err)
-	assert.Equal(t, uint64(2), mastershipState.GetTerm())
+	assert.Equal(t, currentMastershipTerm+1, mastershipState.GetTerm())
 
 	t.Logf("Unsubscribing %s", subName)
 	err = node.Unsubscribe(context.Background(), subName)
