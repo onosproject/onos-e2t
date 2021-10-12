@@ -6,9 +6,10 @@ package ha
 
 import (
 	"context"
-	"github.com/onosproject/helmit/pkg/kubernetes"
 	"testing"
 	"time"
+
+	"github.com/onosproject/helmit/pkg/kubernetes"
 
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -91,7 +92,7 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Restart topo node")
+	t.Log("Restarting topo node")
 	client, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
 	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-topo")
@@ -102,7 +103,7 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	pod := pods[0]
 	assert.NoError(t, pod.Delete(ctx))
 
-	t.Log("Check indications")
+	t.Log("Checking indications")
 	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
@@ -115,7 +116,7 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Unsubscribe")
+	t.Logf("Unsubscribing %s", subName)
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 

@@ -6,9 +6,13 @@ package ha
 
 import (
 	"context"
-	"github.com/onosproject/helmit/pkg/kubernetes"
+	"strings"
 	"testing"
 	"time"
+
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+
+	"github.com/onosproject/helmit/pkg/kubernetes"
 
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -22,8 +26,6 @@ import (
 
 // TestE2TNodeRestart checks that a subscription recovers after an E2T node restart
 func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
-	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -31,9 +33,19 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
+	topoE2NodeEventChan := make(chan topoapi.Event)
+	err = topoSdkClient.WatchE2Nodes(ctx, topoE2NodeEventChan)
+	assert.NoError(t, err)
+	// Create a simulator
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
+
 	nodeID := utils.GetTestNodeID(t)
 	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	assert.NoError(t, err)
+
+	mastershipState, err := topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
+	assert.NoError(t, err)
+	assert.Equal(t, uint64(1), mastershipState.GetTerm())
 
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
@@ -91,51 +103,22 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Restart e2t node")
+	master := utils.GetE2NodeMaster(t, nodeID)
+
+	t.Logf("Deleting e2t master with ID %s for e2 node: %s", master.ID, nodeID)
 	sdranClient, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
 	sdranDep, err := sdranClient.AppsV1().
 		Deployments().
 		Get(ctx, "onos-e2t")
 	assert.NoError(t, err)
-	sdranPods, err := sdranDep.Pods().List(ctx)
+	masterPod, err := sdranDep.Pods().Get(ctx, strings.TrimPrefix(string(master.ID), "e2:"))
 	assert.NoError(t, err)
-	assert.NotZero(t, len(sdranPods))
-	sdranPod := sdranPods[0]
-	sdranPodUID := sdranPod.UID
-	err = sdranPod.Delete(ctx)
+	err = masterPod.Delete(ctx)
 	assert.NoError(t, err)
 
-	iterations := 0
-	for {
-		sdranPods, err := sdranDep.Pods().List(ctx)
-		assert.NoError(t, err)
-		if len(sdranPods) == 1 && sdranPods[0].UID != sdranPodUID {
-			break
-		}
-		iterations++
-		if iterations == 300 {
-			t.Fail()
-			return
-		}
-		time.Sleep(1 * time.Second)
-	}
-
-	ransimClient, err := kubernetes.NewForRelease(sim)
-	assert.NoError(t, err)
-	ransimDep, err := ransimClient.AppsV1().
-		Deployments().
-		Get(ctx, "e2t-restart-subscription-ran-simulator")
-	assert.NoError(t, err)
-	ransimPods, err := ransimDep.Pods().List(ctx)
-	assert.NoError(t, err)
-	assert.NotZero(t, len(ransimPods))
-	ransimPod := ransimPods[0]
-	err = ransimPod.Delete(ctx)
-	assert.NoError(t, err)
-
-	t.Log("Check indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
+	t.Log("Checking indications")
+	indicationReport = e2utils.CheckIndicationMessage(t, 2*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 
@@ -147,7 +130,11 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Unsubscribe")
+	mastershipState, err = topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
+	assert.NoError(t, err)
+	assert.Equal(t, uint64(2), mastershipState.GetTerm())
+
+	t.Logf("Unsubscribing %s", subName)
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 
