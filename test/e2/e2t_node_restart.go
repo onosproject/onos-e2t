@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
@@ -46,6 +46,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	mastershipState, err := topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
 	assert.NoError(t, err)
 	currentMastershipTerm := mastershipState.Term
+	assert.Equal(t, uint64(1), currentMastershipTerm)
 
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
