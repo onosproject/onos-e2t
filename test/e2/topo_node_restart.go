@@ -1,16 +1,12 @@
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
+// SPDX-FileCopyrightText: ${year}-present Open Networking Foundation <info@opennetworking.org>
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-package ha
+package e2
 
 import (
 	"context"
-	"strings"
 	"testing"
 	"time"
-
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
 	"github.com/onosproject/helmit/pkg/kubernetes"
 
@@ -24,8 +20,10 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// TestE2TNodeRestart checks that a subscription recovers after an E2T node restart
-func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
+// TestTopoNodeRestart checks that a subscription recovers after a topo node restart
+func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
+	// Create a simulator
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "topo-restart-subscription")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -33,19 +31,9 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 
-	topoE2NodeEventChan := make(chan topoapi.Event)
-	err = topoSdkClient.WatchE2Nodes(ctx, topoE2NodeEventChan)
-	assert.NoError(t, err)
-	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
-
 	nodeID := utils.GetTestNodeID(t)
 	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	assert.NoError(t, err)
-
-	mastershipState, err := topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
-	assert.NoError(t, err)
-	currentMastershipTerm := mastershipState.Term
 
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
@@ -83,7 +71,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
-	subName := "TestE2TNodeRestart"
+	subName := "TestTopoNodeRestart"
 
 	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
@@ -103,22 +91,19 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	master := utils.GetE2NodeMaster(t, nodeID)
-
-	t.Logf("Deleting e2t master with ID %s for e2 node: %s", master.ID, nodeID)
-	sdranClient, err := kubernetes.NewForRelease(s.release)
+	t.Log("Restarting topo node")
+	client, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
-	sdranDep, err := sdranClient.AppsV1().
-		Deployments().
-		Get(ctx, "onos-e2t")
+	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-topo")
 	assert.NoError(t, err)
-	masterPod, err := sdranDep.Pods().Get(ctx, strings.TrimPrefix(string(master.ID), "e2:"))
+	pods, err := dep.Pods().List(ctx)
 	assert.NoError(t, err)
-	err = masterPod.Delete(ctx)
-	assert.NoError(t, err)
+	assert.NotZero(t, len(pods))
+	pod := pods[0]
+	assert.NoError(t, pod.Delete(ctx))
 
 	t.Log("Checking indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, 2*time.Minute, ch)
+	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 
@@ -129,10 +114,6 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
-
-	mastershipState, err = topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
-	assert.NoError(t, err)
-	assert.Equal(t, currentMastershipTerm+1, mastershipState.GetTerm())
 
 	t.Logf("Unsubscribing %s", subName)
 	err = node.Unsubscribe(context.Background(), subName)

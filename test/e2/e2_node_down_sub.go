@@ -1,8 +1,7 @@
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
+// SPDX-FileCopyrightText: ${year}-present Open Networking Foundation <info@opennetworking.org>
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-package ha
+package e2
 
 import (
 	"context"

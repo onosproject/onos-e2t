@@ -1,8 +1,7 @@
-// SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
-//
+// SPDX-FileCopyrightText: ${year}-present Open Networking Foundation <info@opennetworking.org>
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-package ha
+package e2
 
 import (
 	"context"
@@ -21,10 +20,11 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-// TestTopoNodeRestart checks that a subscription recovers after a topo node restart
-func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
+// TestE2NodeRestart checks that a subscription channel read times out if
+// the e2 node is down.
+func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	// Create a simulator
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "topo-restart-subscription")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-restart-subscription")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -72,7 +72,7 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	subSpec, err := subRequest.CreateWithActionDefinition()
 	assert.NoError(t, err)
 
-	subName := "TestTopoNodeRestart"
+	subName := "TestE2NodeRestart"
 
 	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
@@ -92,18 +92,21 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Restarting topo node")
-	client, err := kubernetes.NewForRelease(s.release)
+	t.Log("Restart e2 node")
+	ransimClient, err := kubernetes.NewForRelease(sim)
 	assert.NoError(t, err)
-	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-topo")
+	ransimDep, err := ransimClient.AppsV1().
+		Deployments().
+		Get(ctx, "e2node-restart-subscription-ran-simulator")
 	assert.NoError(t, err)
-	pods, err := dep.Pods().List(ctx)
+	ransimPods, err := ransimDep.Pods().List(ctx)
 	assert.NoError(t, err)
-	assert.NotZero(t, len(pods))
-	pod := pods[0]
-	assert.NoError(t, pod.Delete(ctx))
+	assert.NotZero(t, len(ransimPods))
+	ransimPod := ransimPods[0]
+	err = ransimPod.Delete(ctx)
+	assert.NoError(t, err)
 
-	t.Log("Checking indications")
+	t.Log("Check indications")
 	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
@@ -116,7 +119,7 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Logf("Unsubscribing %s", subName)
+	t.Log("Unsubscribe")
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 
