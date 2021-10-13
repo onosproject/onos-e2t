@@ -95,8 +95,8 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
+	e2utils.CheckForEmptySubscriptionList(t)
 	err = sim.Uninstall()
 	assert.NoError(t, err)
 
-	e2utils.CheckForEmptySubscriptionList(t)
 }

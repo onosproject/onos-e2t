@@ -23,10 +23,9 @@ import (
 
 // TestTopoNodeRestart checks that a subscription recovers after a topo node restart
 func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
-	t.Skip()
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "topo-restart-subscription")
-
+	assert.NotNil(t, sim)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -96,13 +95,17 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	t.Log("Restarting topo node")
 	client, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
-	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-topo")
+	topoDeployment, err := client.AppsV1().Deployments().Get(ctx, "onos-topo")
 	assert.NoError(t, err)
-	pods, err := dep.Pods().List(ctx)
+	pods, err := topoDeployment.Pods().List(ctx)
 	assert.NoError(t, err)
 	assert.NotZero(t, len(pods))
 	pod := pods[0]
 	assert.NoError(t, pod.Delete(ctx))
+
+	t.Log("Wait for topo deployment to be ready")
+	err = topoDeployment.Wait(ctx, 3*time.Minute)
+	assert.NoError(t, err)
 
 	t.Log("Checking indications")
 	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
@@ -121,8 +124,8 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 
+	e2utils.CheckForEmptySubscriptionList(t)
+
 	err = sim.Uninstall()
 	assert.NoError(t, err)
-
-	e2utils.CheckForEmptySubscriptionList(t)
 }

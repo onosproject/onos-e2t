@@ -120,8 +120,8 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 	subList = e2utils.GetSubscriptionList(t)
 	t.Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)
 
+	e2utils.CheckForEmptySubscriptionList(t)
+
 	err = sim.Uninstall()
 	assert.NoError(t, err)
-
-	e2utils.CheckForEmptySubscriptionList(t)
 }

@@ -103,7 +103,8 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 
-	_ = sim.Uninstall()
 	e2utils.CheckForEmptySubscriptionList(t)
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 
 }

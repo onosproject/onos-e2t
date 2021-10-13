@@ -5,10 +5,11 @@
 package e2
 
 import (
-	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-e2t/test/utils"
+	"github.com/stretchr/testify/assert"
 )
 
 // TestE2TConnectionUpdate checks that the control relations are correct
@@ -33,9 +34,6 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 			return len(relations) == numberOfControlRelationships
 		}))
 
-	// tear down the simulator
-	assert.NoError(t, sim.Uninstall())
-
 	// Check that there are no relations left
 	assert.True(t, utils.Retry(maxWaitForRelations, time.Second,
 		func() bool {
@@ -43,4 +41,9 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 			assert.NoError(t, err)
 			return len(relations) == 0
 		}))
+
+	// tear down the simulator
+	err = sim.Uninstall()
+	assert.NoError(t, err)
+
 }

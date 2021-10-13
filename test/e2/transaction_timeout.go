@@ -5,10 +5,11 @@
 package e2
 
 import (
-	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
@@ -51,5 +52,6 @@ func (s *TestSuite) TestTransactionTimeout(t *testing.T) {
 	assert.Equal(t, 0, len(e2utils.GetChannelList(t)))
 
 	// clean up the simulator
-	assert.NoError(t, sim.Uninstall())
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 }
