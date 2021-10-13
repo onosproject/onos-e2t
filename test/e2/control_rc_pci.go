@@ -31,7 +31,7 @@ const (
 
 // TestControl tests E2 control procedure using ransim and SDK
 func (s *TestSuite) TestControl(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "test-control-oran-e2sm-rc-pre-v2")
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "control-oran-e2sm-rc-pre-v2")
 	assert.NotNil(t, sim)
 	ch := make(chan e2api.Indication)
 	ctx := context.Background()
@@ -68,7 +68,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	subReq, err := subRequest.Create()
 	assert.NoError(t, err)
 
-	subName := "test-control-subscribe-oran-e2sm-rc-pre-v2"
+	subName := "control-subscribe-oran-e2sm-rc-pre-v2"
 
 	// Subscribe to RC Pre service model
 	_, err = node.Subscribe(ctx, subName, subReq, ch)
