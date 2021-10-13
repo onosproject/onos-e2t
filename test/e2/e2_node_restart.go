@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: ${year}-present Open Networking Foundation <info@opennetworking.org>
+// SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+//
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
 package e2

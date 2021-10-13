@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: ${year}-present Open Networking Foundation <info@opennetworking.org>
+// SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+//
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
 package e2
@@ -131,6 +132,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 
 	mastershipState, err = topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
 	assert.NoError(t, err)
+	t.Logf("Mastership term after restarting E2T: %d", mastershipState.GetTerm())
 	assert.Equal(t, currentMastershipTerm+1, mastershipState.GetTerm())
 
 	t.Logf("Unsubscribing %s", subName)
