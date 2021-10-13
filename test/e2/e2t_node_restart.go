@@ -46,8 +46,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	mastershipState, err := topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
 	assert.NoError(t, err)
 	currentMastershipTerm := mastershipState.Term
-	assert.Equal(t, uint64(1), currentMastershipTerm)
-
+	assert.Greater(t, currentMastershipTerm, 0)
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
 

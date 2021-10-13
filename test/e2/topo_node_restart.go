@@ -23,6 +23,7 @@ import (
 
 // TestTopoNodeRestart checks that a subscription recovers after a topo node restart
 func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
+	t.Skip()
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "topo-restart-subscription")
 
