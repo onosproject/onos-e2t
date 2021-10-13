@@ -55,8 +55,8 @@ func (m *mgmtConnManager) processEvent(conn *ManagementConn) {
 func (m *mgmtConnManager) open(conn *ManagementConn) {
 	log.Infof("Opened management connection %s", conn.ID)
 	m.connsMu.Lock()
-	defer m.connsMu.Unlock()
 	m.conns[conn.ID] = conn
+	m.connsMu.Unlock()
 	m.eventCh <- conn
 	go func() {
 		<-conn.Context().Done()

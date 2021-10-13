@@ -8,6 +8,7 @@ import (
 	"context"
 	"io"
 	"net"
+	"sync"
 
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
@@ -53,7 +54,7 @@ func newThreadSafeConn(c net.Conn, opts ...Option) *threadSafeConn {
 	ctx, cancel := context.WithCancel(context.Background())
 	conn := &threadSafeConn{
 		conn:    c,
-		sendCh:  make(chan asyncMessage),
+		sendCh:  make(chan asyncMessage, 1000),
 		recvCh:  make(chan e2appdudescriptions.E2ApPdu),
 		options: options,
 		ctx:     ctx,
@@ -71,6 +72,8 @@ type threadSafeConn struct {
 	options Options
 	ctx     context.Context
 	cancel  context.CancelFunc
+	closed  bool
+	mu      sync.RWMutex
 }
 
 func (c *threadSafeConn) Context() context.Context {
@@ -92,17 +95,18 @@ func (c *threadSafeConn) open() {
 
 // send sends a message on the connection
 func (c *threadSafeConn) send(msg *e2appdudescriptions.E2ApPdu) error {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Debug("recovering from panic:", err)
-			return
-		}
-	}()
+	c.mu.RLock()
+	if c.closed {
+		c.mu.RUnlock()
+		return c.ctx.Err()
+	}
+
 	errCh := make(chan error, 1)
 	c.sendCh <- asyncMessage{
 		msg:   msg,
 		errCh: errCh,
 	}
+	c.mu.RUnlock()
 	return <-errCh
 }
 
@@ -171,14 +175,14 @@ func (c *threadSafeConn) processRecv(bytes []byte) error {
 }
 
 func (c *threadSafeConn) Close() error {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Debug("recovering from panic:", err)
-		}
-	}()
-	close(c.sendCh)
-	close(c.recvCh)
-	c.cancel()
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if !c.closed {
+		close(c.sendCh)
+		close(c.recvCh)
+		c.cancel()
+		c.closed = true
+	}
 	return c.conn.Close()
 }
 

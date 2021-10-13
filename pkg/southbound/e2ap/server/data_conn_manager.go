@@ -57,8 +57,8 @@ func (m *e2apConnManager) processEvent(conn *E2APConn) {
 func (m *e2apConnManager) open(conn *E2APConn) {
 	log.Infof("Opened data connection %s", conn.ID)
 	m.connsMu.Lock()
-	defer m.connsMu.Unlock()
 	m.conns[conn.ID] = conn
+	m.connsMu.Unlock()
 	m.eventCh <- conn
 	go func() {
 		<-conn.Context().Done()
