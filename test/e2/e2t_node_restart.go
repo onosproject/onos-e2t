@@ -47,6 +47,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 	currentMastershipTerm := mastershipState.Term
 	assert.Greater(t, currentMastershipTerm, uint64(0))
+	t.Logf("Current mastership term: %d", currentMastershipTerm)
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
 
