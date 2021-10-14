@@ -144,9 +144,9 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 
 	assert.True(t, utils.ReadToEndOfChannel(ch))
 
+	e2utils.CheckForEmptySubscriptionList(t)
+
 	// Clean up the ran-sim instance
 	simErr := sim.Uninstall()
 	assert.NoError(t, simErr)
-
-	e2utils.CheckForEmptySubscriptionList(t)
 }

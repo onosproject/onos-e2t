@@ -54,8 +54,8 @@ func (s *TestSuite) TestSubscriptionCancel(t *testing.T) {
 	assert.NoError(t, err)
 	unsubCancel()
 
+	e2utils.CheckForEmptySubscriptionList(t)
+
 	err = sim.Uninstall()
 	assert.NoError(t, err)
-
-	e2utils.CheckForEmptySubscriptionList(t)
 }

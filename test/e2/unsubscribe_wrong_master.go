@@ -37,7 +37,7 @@ func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 
 	nonMasterClient := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
 	assert.NotNil(t, nonMasterClient)
-	masterClient := utils.GetSubClientForIP(t, master.IP, master.Port)
+	masterClient := utils.GetSubClientForIP(t, master.Interface.IP, master.Interface.Port)
 	assert.NotNil(t, masterClient)
 
 	spec := utils.CreateKpmV2Sub(t, e2NodeID)
@@ -73,6 +73,7 @@ func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, unsubscribeResponse)
 
-	assert.NoError(t, sim.Uninstall())
 	e2utils.CheckForEmptySubscriptionList(t)
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 }

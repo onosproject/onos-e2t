@@ -66,8 +66,13 @@ func GetE2NodeNonMasterNodes(t *testing.T, e2NodeID topoapi.ID) []topoapi.Interf
 	return nonMasters
 }
 
-func GetE2NodeMaster(t *testing.T, e2NodeID topoapi.ID) topoapi.Interface {
-	var master topoapi.Interface
+// MasterE2TInfo information about E2T master node such as its POD ID and interface infomration
+type MasterE2TInfo struct {
+	Interface topoapi.Interface
+	ID        topoapi.ID
+}
+
+func GetE2NodeMaster(t *testing.T, e2NodeID topoapi.ID) MasterE2TInfo {
 	topoClient, err := NewTopoClient()
 	assert.NoError(t, err)
 
@@ -79,6 +84,9 @@ func GetE2NodeMaster(t *testing.T, e2NodeID topoapi.ID) topoapi.Interface {
 	assert.NotNil(t, e2NodeMastershipState)
 	masterRelation := getMasterRelation(t, topoapi.ID(e2NodeMastershipState.GetNodeId()))
 	assert.NotNil(t, masterRelation)
+
+	var masterNodeInfo MasterE2TInfo
+	t.Log("List of E2T entities:", e2tNodes)
 
 	for _, e2tNode := range e2tNodes {
 		e2tIface := topoapi.Interface{}
@@ -93,12 +101,13 @@ func GetE2NodeMaster(t *testing.T, e2NodeID topoapi.ID) topoapi.Interface {
 			}
 		}
 		if masterRelation.GetSrcEntityID() == e2tNode.GetID() {
-			master.IP = e2tIface.IP
-			master.Port = e2tIface.Port
-			master.Type = topoapi.Interface_INTERFACE_E2T
+			masterNodeInfo.Interface.IP = e2tIface.IP
+			masterNodeInfo.Interface.Port = e2tIface.Port
+			masterNodeInfo.Interface.Type = topoapi.Interface_INTERFACE_E2T
+			masterNodeInfo.ID = e2tNode.GetID()
 			break
 		}
 	}
-	t.Logf("Master node for e2 Node %s is %+v", e2NodeID, master)
-	return master
+	t.Logf("Master node for e2 Node %s is %+v", e2NodeID, masterNodeInfo.ID)
+	return masterNodeInfo
 }

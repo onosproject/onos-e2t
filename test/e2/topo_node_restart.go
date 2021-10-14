@@ -2,13 +2,14 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-package ha
+package e2
 
 import (
 	"context"
-	"github.com/onosproject/helmit/pkg/kubernetes"
 	"testing"
 	"time"
+
+	"github.com/onosproject/helmit/pkg/kubernetes"
 
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -24,7 +25,7 @@ import (
 func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	// Create a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "topo-restart-subscription")
-
+	assert.NotNil(t, sim)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -91,18 +92,22 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Restart topo node")
+	t.Log("Restarting topo node")
 	client, err := kubernetes.NewForRelease(s.release)
 	assert.NoError(t, err)
-	dep, err := client.AppsV1().Deployments().Get(ctx, "onos-topo")
+	topoDeployment, err := client.AppsV1().Deployments().Get(ctx, "onos-topo")
 	assert.NoError(t, err)
-	pods, err := dep.Pods().List(ctx)
+	pods, err := topoDeployment.Pods().List(ctx)
 	assert.NoError(t, err)
 	assert.NotZero(t, len(pods))
 	pod := pods[0]
 	assert.NoError(t, pod.Delete(ctx))
 
-	t.Log("Check indications")
+	t.Log("Wait for topo deployment to be ready")
+	err = topoDeployment.Wait(ctx, 3*time.Minute)
+	assert.NoError(t, err)
+
+	t.Log("Checking indications")
 	indicationReport = e2utils.CheckIndicationMessage(t, 5*time.Minute, ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
@@ -115,12 +120,12 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
 
-	t.Log("Unsubscribe")
+	t.Logf("Unsubscribing %s", subName)
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 
+	e2utils.CheckForEmptySubscriptionList(t)
+
 	err = sim.Uninstall()
 	assert.NoError(t, err)
-
-	e2utils.CheckForEmptySubscriptionList(t)
 }

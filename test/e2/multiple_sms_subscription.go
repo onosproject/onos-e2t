@@ -145,11 +145,11 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	err = RCNode.Unsubscribe(context.Background(), RCSubName)
 	assert.NoError(t, err)
 
-	err = sim.Uninstall()
-	assert.NoError(t, err)
-
 	KPMCancel()
 	RCCancel()
 
 	e2utils.CheckForEmptySubscriptionList(t)
+
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 }

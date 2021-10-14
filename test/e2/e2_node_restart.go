@@ -2,13 +2,14 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-package ha
+package e2
 
 import (
 	"context"
-	"github.com/onosproject/helmit/pkg/kubernetes"
 	"testing"
 	"time"
+
+	"github.com/onosproject/helmit/pkg/kubernetes"
 
 	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -123,8 +124,8 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 
+	e2utils.CheckForEmptySubscriptionList(t)
+
 	err = sim.Uninstall()
 	assert.NoError(t, err)
-
-	e2utils.CheckForEmptySubscriptionList(t)
 }

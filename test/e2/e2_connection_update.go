@@ -5,10 +5,11 @@
 package e2
 
 import (
-	"github.com/onosproject/onos-e2t/test/utils"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/onosproject/onos-e2t/test/utils"
+	"github.com/stretchr/testify/assert"
 )
 
 // TestE2TConnectionUpdate checks that the control relations are correct
@@ -16,7 +17,7 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 	numberOfE2TNodes := int(s.E2TReplicaCount)
 	numberOfE2Nodes := 2
 	numberOfControlRelationships := numberOfE2TNodes * numberOfE2Nodes
-	maxWaitForRelations := 15
+	maxWaitForRelations := 30
 
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
@@ -34,8 +35,8 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 		}))
 
 	// tear down the simulator
-	assert.NoError(t, sim.Uninstall())
-
+	err = sim.Uninstall()
+	assert.NoError(t, err)
 	// Check that there are no relations left
 	assert.True(t, utils.Retry(maxWaitForRelations, time.Second,
 		func() bool {
@@ -43,4 +44,5 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 			assert.NoError(t, err)
 			return len(relations) == 0
 		}))
+
 }

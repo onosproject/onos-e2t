@@ -140,8 +140,7 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 			runTestCase(t, pinTestCase)
 		})
 	}
+	e2utils.CheckForEmptySubscriptionList(t)
 	err = sim.Uninstall()
 	assert.NoError(t, err)
-
-	e2utils.CheckForEmptySubscriptionList(t)
 }
