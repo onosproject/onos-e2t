@@ -173,7 +173,7 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			if err == context.Canceled {
+			if err == context.Canceled || err == context.DeadlineExceeded {
 				log.Warnf("RIC Control response failed: %v", err)
 				return
 			}
@@ -203,7 +203,7 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			if err == context.Canceled {
+			if err == context.Canceled || err == context.DeadlineExceeded {
 				log.Warnf("RIC Control response failed: %v", err)
 				return
 			}

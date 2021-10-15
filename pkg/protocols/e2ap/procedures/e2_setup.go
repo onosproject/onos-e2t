@@ -148,7 +148,7 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			if err == context.Canceled {
+			if err == context.Canceled || err == context.DeadlineExceeded {
 				log.Warnf("E2 Setup response failed: %v", err)
 				return
 			}
@@ -178,7 +178,7 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			if err == context.Canceled {
+			if err == context.Canceled || err == context.DeadlineExceeded {
 				log.Warnf("E2 Setup response failed: %v", err)
 				return
 			}
