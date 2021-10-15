@@ -191,6 +191,7 @@ func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
 
 	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	assert.NoError(t, err)
+	assert.Greater(t, len(cells), 0)
 
 	return CreateKpmV2SubWithCell(t, nodeID, cells[0].CellObjectID)
 }
