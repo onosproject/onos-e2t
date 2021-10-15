@@ -150,6 +150,10 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled {
+				log.Warnf("E2 configuration update response failed: %v", err)
+				return
+			}
 			log.Errorf("E2 configuration update response failed: %v", err)
 		}
 
@@ -176,7 +180,12 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled {
+				log.Warnf("E2 configuration update response failed: %v", err)
+				return
+			}
 			log.Errorf("E2 configuration update response failed: %v", err)
+
 		}
 
 	} else {

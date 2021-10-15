@@ -173,6 +173,10 @@ func (p *RICSubscriptionDeleteProcedure) Handle(requestPDU *e2appdudescriptions.
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled {
+				log.Warnf("RIC Subscription Delete response failed: %v", err)
+				return
+			}
 			log.Errorf("RIC Subscription Delete response failed: %v", err)
 		}
 
@@ -199,7 +203,11 @@ func (p *RICSubscriptionDeleteProcedure) Handle(requestPDU *e2appdudescriptions.
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			log.Errorf("RIC Subscription Delete response failed: %v", err)
+			if err == context.Canceled {
+				log.Warnf("RIC Subscription Delete response failed: %v", err)
+				return
+			}
+			log.Errorf("RIC Subscription Delete response faile: %v", err)
 		}
 
 	} else {

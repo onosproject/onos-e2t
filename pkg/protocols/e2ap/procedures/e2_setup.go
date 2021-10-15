@@ -148,6 +148,10 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled {
+				log.Warnf("E2 Setup response failed: %v", err)
+				return
+			}
 			log.Errorf("E2 Setup response failed: %v", err)
 		}
 
@@ -174,6 +178,10 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled {
+				log.Warnf("E2 Setup response failed: %v", err)
+				return
+			}
 			log.Errorf("E2 Setup response failed: %v", err)
 		}
 
