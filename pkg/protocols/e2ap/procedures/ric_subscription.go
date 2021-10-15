@@ -173,6 +173,10 @@ func (p *RICSubscriptionProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPd
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled || err == context.DeadlineExceeded {
+				log.Warnf("RIC Subscription response failed: %v", err)
+				return
+			}
 			log.Errorf("RIC Subscription response failed: %v", err)
 		}
 
@@ -199,6 +203,10 @@ func (p *RICSubscriptionProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPd
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled || err == context.DeadlineExceeded {
+				log.Warnf("RIC Subscription response failed: %v", err)
+				return
+			}
 			log.Errorf("RIC Subscription response failed: %v", err)
 		}
 

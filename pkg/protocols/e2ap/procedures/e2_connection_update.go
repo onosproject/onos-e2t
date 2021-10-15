@@ -150,7 +150,12 @@ func (p *E2ConnectionUpdateProcedure) Handle(requestPDU *e2appdudescriptions.E2A
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled || err == context.DeadlineExceeded {
+				log.Warnf("E2 Connection Update response failed: %v", err)
+				return
+			}
 			log.Errorf("E2 Connection Update response failed: %v", err)
+
 		}
 	} else if failure != nil {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
@@ -175,6 +180,10 @@ func (p *E2ConnectionUpdateProcedure) Handle(requestPDU *e2appdudescriptions.E2A
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
+			if err == context.Canceled || err == context.DeadlineExceeded {
+				log.Warnf("E2 Connection Update response failed: %v", err)
+				return
+			}
 			log.Errorf("E2 Connection Update response failed: %v", err)
 		}
 
