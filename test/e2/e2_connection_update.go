@@ -35,8 +35,8 @@ func (s *TestSuite) TestE2TConnectionUpdate(t *testing.T) {
 		}))
 
 	// tear down the simulator
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	utils.UninstallRanSimulatorOrDie(t, sim)
+
 	// Check that there are no relations left
 	assert.True(t, utils.Retry(maxWaitForRelations, time.Second,
 		func() bool {

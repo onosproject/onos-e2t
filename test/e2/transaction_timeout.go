@@ -52,6 +52,5 @@ func (s *TestSuite) TestTransactionTimeout(t *testing.T) {
 	assert.Equal(t, 0, len(e2utils.GetChannelList(t)))
 
 	// clean up the simulator
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }

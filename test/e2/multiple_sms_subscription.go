@@ -149,7 +149,5 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	RCCancel()
 
 	e2utils.CheckForEmptySubscriptionList(t)
-
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }
