@@ -6,6 +6,8 @@ package channel
 
 import (
 	"context"
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"sync"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -61,16 +63,16 @@ func (w *Watcher) Stop() {
 
 var _ controller.Watcher = &Watcher{}
 
-// TaskWatcher is a termination endpoint watcher
-type TaskWatcher struct {
+// SubscriptionWatcher is a subscription watcher
+type SubscriptionWatcher struct {
 	chans  chanstore.Store
 	subs   substore.Store
 	cancel context.CancelFunc
 	mu     sync.Mutex
 }
 
-// Start starts the channel watcher
-func (w *TaskWatcher) Start(ch chan<- controller.ID) error {
+// Start starts the subscription watcher
+func (w *SubscriptionWatcher) Start(ch chan<- controller.ID) error {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	if w.cancel != nil {
@@ -105,7 +107,7 @@ func (w *TaskWatcher) Start(ch chan<- controller.ID) error {
 }
 
 // Stop stops the channel watcher
-func (w *TaskWatcher) Stop() {
+func (w *SubscriptionWatcher) Stop() {
 	w.mu.Lock()
 	if w.cancel != nil {
 		w.cancel()
@@ -114,4 +116,61 @@ func (w *TaskWatcher) Stop() {
 	w.mu.Unlock()
 }
 
-var _ controller.Watcher = &TaskWatcher{}
+var _ controller.Watcher = &SubscriptionWatcher{}
+
+// TopoWatcher is a topo watcher
+type TopoWatcher struct {
+	topo   rnib.Store
+	chans  chanstore.Store
+	cancel context.CancelFunc
+	mu     sync.Mutex
+}
+
+// Start starts the subscription watcher
+func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	if w.cancel != nil {
+		return nil
+	}
+
+	eventCh := make(chan topoapi.Event, queueSize)
+	ctx, cancel := context.WithCancel(context.Background())
+	err := w.topo.Watch(ctx, eventCh, nil)
+	if err != nil {
+		cancel()
+		return err
+	}
+	w.cancel = cancel
+
+	go func() {
+		for event := range eventCh {
+			log.Debugf("Received topo event '%s'", event.Object.ID)
+			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok &&
+				entity.Entity.KindID == topoapi.E2T {
+				channels, err := w.chans.List(ctx)
+				if err != nil {
+					log.Error(err)
+				} else {
+					for _, channel := range channels {
+						ch <- controller.NewID(channel.ID)
+					}
+				}
+			}
+		}
+		close(ch)
+	}()
+	return nil
+}
+
+// Stop stops the subscription watcher
+func (w *TopoWatcher) Stop() {
+	w.mu.Lock()
+	if w.cancel != nil {
+		w.cancel()
+		w.cancel = nil
+	}
+	w.mu.Unlock()
+}
+
+var _ controller.Watcher = &TopoWatcher{}

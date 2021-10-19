@@ -6,6 +6,9 @@ package channel
 
 import (
 	"context"
+	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/pkg/controller/utils"
+	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"time"
 
 	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
@@ -26,19 +29,24 @@ const (
 )
 
 // NewController returns a new channel controller
-func NewController(chans chanstore.Store, subs substore.Store, streams subscription.Broker) *controller.Controller {
+func NewController(chans chanstore.Store, subs substore.Store, streams subscription.Broker, topo rnib.Store) *controller.Controller {
 	c := controller.NewController("Channel")
 	c.Watch(&Watcher{
 		chans: chans,
 	})
-	c.Watch(&TaskWatcher{
+	c.Watch(&SubscriptionWatcher{
 		chans: chans,
 		subs:  subs,
+	})
+	c.Watch(&TopoWatcher{
+		chans: chans,
+		topo:  topo,
 	})
 	c.Reconcile(&Reconciler{
 		chans:   chans,
 		subs:    subs,
 		streams: streams,
+		topo:    topo,
 	})
 	return c
 }
@@ -48,6 +56,7 @@ type Reconciler struct {
 	chans   chanstore.Store
 	subs    substore.Store
 	streams subscription.Broker
+	topo    rnib.Store
 }
 
 // Reconcile reconciles the state of a channel
@@ -64,20 +73,23 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	}
 
 	log.Infof("Reconciling Channel %+v", channel)
+	if ok, err := r.finalizeChannel(ctx, channel); err != nil {
+		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
+	}
 
 	// Reconcile the channel state according to its phase
 	switch channel.Status.Phase {
 	case e2api.ChannelPhase_CHANNEL_OPEN:
-		return r.reconcileOpenChannel(channel)
+		return r.reconcileOpenChannel(ctx, channel)
 	case e2api.ChannelPhase_CHANNEL_CLOSED:
-		return r.reconcileClosedChannel(channel)
+		return r.reconcileClosedChannel(ctx, channel)
 	}
 	return controller.Result{}, nil
 }
 
-func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Result, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
-	defer cancel()
+func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Channel) (controller.Result, error) {
 	if channel.Status.Timestamp != nil {
 		transactionTimeout := defaultTransactionTimeout
 		if channel.Spec.TransactionTimeout != nil {
@@ -181,17 +193,16 @@ func (r *Reconciler) reconcileOpenChannel(channel *e2api.Channel) (controller.Re
 	return controller.Result{}, nil
 }
 
-func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.Result, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), defaultTimeout)
-	defer cancel()
-
+func (r *Reconciler) reconcileClosedChannel(ctx context.Context, channel *e2api.Channel) (controller.Result, error) {
 	// If the close has completed, delete the channel
 	if channel.Status.State == e2api.ChannelState_CHANNEL_COMPLETE {
-		log.Debugf("Deleting closed Channel %+v", channel)
-		err := r.chans.Delete(ctx, channel)
-		if err != nil && !errors.IsNotFound(err) {
-			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
-			return controller.Result{}, err
+		if len(channel.Finalizers) == 0 {
+			log.Debugf("Deleting closed Channel %+v", channel)
+			err := r.chans.Delete(ctx, channel)
+			if err != nil && !errors.IsNotFound(err) {
+				log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
+				return controller.Result{}, err
+			}
 		}
 		return controller.Result{}, nil
 	}
@@ -210,7 +221,6 @@ func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
-		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
 		return controller.Result{}, nil
 	}
 
@@ -247,8 +257,34 @@ func (r *Reconciler) reconcileClosedChannel(channel *e2api.Channel) (controller.
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
-		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
 		return controller.Result{}, nil
 	}
 	return controller.Result{}, nil
+}
+
+func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel) (bool, error) {
+	// If this node is not the master for the channel, clean up the streams
+	nodeID := string(utils.GetE2TID())
+	if channel.Status.Master != nodeID && utils.ContainsString(channel.Finalizers, nodeID) {
+		log.Infof("New master elected for channel %+v: closing channel stream", channel)
+		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
+		channel.Finalizers = utils.RemoveString(channel.Finalizers, nodeID)
+		if err := r.chans.Update(ctx, channel); err != nil {
+			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
+			return false, err
+		}
+		return true, nil
+	}
+
+	for _, nodeID := range channel.Finalizers {
+		if _, err := r.topo.Get(ctx, topoapi.ID(nodeID)); errors.IsNotFound(err) {
+			channel.Finalizers = utils.RemoveString(channel.Finalizers, nodeID)
+			if err := r.chans.Update(ctx, channel); err != nil {
+				log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
+				return false, err
+			}
+			return true, nil
+		}
+	}
+	return false, nil
 }

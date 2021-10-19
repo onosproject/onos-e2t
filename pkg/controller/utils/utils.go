@@ -51,3 +51,22 @@ func GetControlRelationKindFilter() *topoapi.Filters {
 func GetE2TFilter() *topoapi.Filters {
 	return getKindFilter(topoapi.E2T)
 }
+
+func ContainsString(strings []string, value string) bool {
+	for _, s := range strings {
+		if s == value {
+			return true
+		}
+	}
+	return false
+}
+
+func RemoveString(strings []string, value string) []string {
+	newStrings := make([]string, len(strings)-1, len(strings))
+	for _, s := range strings {
+		if s != value {
+			newStrings = append(newStrings, s)
+		}
+	}
+	return newStrings
+}

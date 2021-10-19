@@ -37,6 +37,8 @@ import (
 	"google.golang.org/grpc"
 )
 
+const defaultTransactionTimeout = 60 * time.Second
+
 // NewSubscriptionService creates a new E2T subscription service
 func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams channelbroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
 	return &SubscriptionService{
@@ -280,7 +282,14 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
+	timeout := defaultTransactionTimeout
+	if request.TransactionTimeout != nil {
+		timeout = *request.TransactionTimeout
+	}
+
+	nodeID := string(utils.GetE2TID())
 	err = backoff.Retry(func() error {
+		timestamp := time.Now()
 		channel, err := s.chans.Get(server.Context(), channelID)
 		if err != nil {
 			if !errors.IsNotFound(err) {
@@ -296,14 +305,18 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 					SubscriptionID: subID,
 					ServiceModel:   request.Headers.ServiceModel,
 					Encoding:       e2api.Encoding_ASN1_PER,
+					Finalizers:     []string{nodeID},
 				},
 				Spec: e2api.ChannelSpec{
 					SubscriptionSpec:   subSpec,
-					TransactionTimeout: request.TransactionTimeout,
+					TransactionTimeout: &timeout,
 				},
 				Status: e2api.ChannelStatus{
-					Phase: e2api.ChannelPhase_CHANNEL_OPEN,
-					Term:  mastership.Term,
+					Phase:     e2api.ChannelPhase_CHANNEL_OPEN,
+					State:     e2api.ChannelState_CHANNEL_PENDING,
+					Term:      mastership.Term,
+					Master:    nodeID,
+					Timestamp: &timestamp,
 				},
 			}
 			err = s.chans.Create(server.Context(), channel)
@@ -316,8 +329,14 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			return nil
 		}
 
-		channel.Status.Timestamp = nil
+		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
+		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 		channel.Status.Term = mastership.Term
+		channel.Status.Master = nodeID
+		channel.Status.Timestamp = &timestamp
+		if !utils.ContainsString(channel.Finalizers, nodeID) {
+			channel.Finalizers = append(channel.Finalizers, nodeID)
+		}
 		err = s.chans.Update(server.Context(), channel)
 		if err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			return backoff.Permanent(err)
@@ -328,6 +347,47 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return errors.Status(err).Err()
 	}
+
+	go func() {
+		ticker := time.NewTicker(timeout / 2)
+		defer ticker.Stop()
+		for {
+			select {
+			case <-ticker.C:
+				_ = backoff.Retry(func() error {
+					ctx := context.Background()
+					channel, err := s.chans.Get(ctx, channelID)
+					if err != nil {
+						if errors.IsNotFound(err) {
+							log.Debugf("Channel %s not found", channelID)
+							return backoff.Permanent(err)
+						}
+						log.Warn(err)
+						return err
+					}
+					if channel.Status.Term == mastership.Term {
+						currentTime := time.Now()
+						channel.Status.Timestamp = &currentTime
+						log.Debugf("Updating channel timestamp %s", currentTime)
+						err := s.chans.Update(ctx, channel)
+						if err != nil {
+							if errors.IsNotFound(err) {
+								log.Debugf("Channel %s not found", channelID)
+								return backoff.Permanent(err)
+							} else if !errors.IsConflict(err) {
+								log.Warn(err)
+							}
+							return err
+						}
+						return nil
+					}
+					return nil
+				}, backoff.NewExponentialBackOff())
+			case <-server.Context().Done():
+				return
+			}
+		}
+	}()
 
 	// Open a stream reader for the app instance
 	reader := s.streams.OpenReader(subID, request.Headers.AppID, request.Headers.AppInstanceID, request.TransactionID)
@@ -401,36 +461,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	for {
 		indication, err := reader.Recv(server.Context())
 		if err == io.EOF {
-			break
-		}
-
-		if err == context.Canceled {
-			err = backoff.Retry(func() error {
-				ctx := context.Background()
-				channel, err := s.chans.Get(ctx, channelID)
-				if err != nil {
-					log.Warnf("cannot find channel %s:%v", channelID, err)
-					return backoff.Permanent(err)
-
-				}
-				log.Debugf("Context is canceled, updating channel status for channel:%s", channelID)
-				if channel.Status.Term <= mastership.Term {
-					currentTime := time.Now()
-					channel.Status.Timestamp = &currentTime
-					channel.Status.Term = mastership.Term
-					log.Debugf("Updating channel status; timestamp: %v and mastership term: %d", currentTime, mastership.Term)
-					err := s.chans.Update(ctx, channel)
-					if err != nil && !errors.IsConflict(err) {
-						return backoff.Permanent(err)
-					}
-					return err
-				}
-				return nil
-			}, backoff.NewExponentialBackOff())
-			if err != nil {
-				log.Warnf("SubscribeRequest %+v failed: %v", request, err)
-				return err
-			}
+			log.Debugf("SubscribeRequest %+v complete", request)
 			return nil
 		}
 
@@ -496,8 +527,6 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			return err
 		}
 	}
-	log.Debugf("Subscription %+v closed", request)
-	return nil
 }
 
 func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.UnsubscribeRequest) (*e2api.UnsubscribeResponse, error) {
