@@ -105,6 +105,17 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 						}
 					}
 				}
+				if relation.Relation.KindID == topoapi.CONTAINS {
+					for _, conn := range conns {
+						e2Cells := conn.E2Cells
+						for _, e2Cell := range e2Cells {
+							cellID := e2server.GetCellID(conn, e2Cell)
+							if cellID == relation.Relation.TgtEntityID {
+								ch <- controller.NewID(conn.ID)
+							}
+						}
+					}
+				}
 			}
 
 			if entity, ok := event.Object.Obj.(*topoapi.Object_Entity); ok {
@@ -120,6 +131,18 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 					for _, conn := range conns {
 						if conn.E2NodeID == event.Object.GetID() {
 							ch <- controller.NewID(conn.ID)
+						}
+					}
+				}
+				// Enqueue the conns with matching cells
+				if entity.Entity.KindID == topoapi.E2CELL {
+					for _, conn := range conns {
+						e2Cells := conn.E2Cells
+						for _, e2Cell := range e2Cells {
+							cellID := e2server.GetCellID(conn, e2Cell)
+							if cellID == event.Object.GetID() {
+								ch <- controller.NewID(conn.ID)
+							}
 						}
 					}
 				}
