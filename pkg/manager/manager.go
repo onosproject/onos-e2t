@@ -9,7 +9,6 @@ import (
 	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/controller/configuration"
 	"github.com/onosproject/onos-e2t/pkg/controller/controlrelation"
-	"github.com/onosproject/onos-e2t/pkg/controller/e2node"
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
@@ -114,11 +113,6 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startE2NodeController(rnibStore, mgmtConns)
-	if err != nil {
-		return err
-	}
-
 	err = m.startChannelv1beta1Controller(chanStore, subStore, streamsv1beta1)
 	if err != nil {
 		return err
@@ -158,11 +152,6 @@ func (m *Manager) startControlRelationController(rnib rnib.Store, e2apConn e2ser
 func (m *Manager) startConfigurationController(rnib rnib.Store, mgmtConns e2server.MgmtConnManager, e2apConn e2server.E2APConnManager) error {
 	connController := configuration.NewController(rnib, mgmtConns, e2apConn)
 	return connController.Start()
-}
-
-func (m *Manager) startE2NodeController(rnib rnib.Store, conns e2server.MgmtConnManager) error {
-	e2NodeController := e2node.NewController(rnib, conns)
-	return e2NodeController.Start()
 }
 
 func (m *Manager) startE2TController(rnib rnib.Store) error {

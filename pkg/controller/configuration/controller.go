@@ -8,6 +8,8 @@ import (
 	"context"
 	"time"
 
+	gogotypes "github.com/gogo/protobuf/types"
+
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
@@ -71,6 +73,25 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		log.Warnf("Failed to reconcile configuration using management connection %s: %s", connID, err)
 		return controller.Result{}, err
 	}
+
+	if ok, err := r.createE2Node(ctx, mgmtConn); err != nil {
+		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
+	}
+
+	if ok, err := r.createE2Cells(ctx, mgmtConn); err != nil {
+		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
+	}
+
+	if ok, err := r.createE2CellRelations(ctx, mgmtConn); err != nil {
+		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
+	}
+
 	e2tNodes, err := r.rnib.List(ctx, utils.GetE2TFilter())
 	if err != nil {
 		log.Warn(err)
@@ -130,4 +151,191 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		}
 	}
 	return controller.Result{}, nil
+}
+
+func (r *Reconciler) createE2Node(ctx context.Context, conn *e2server.ManagementConn) (bool, error) {
+	log.Debugf("Creating E2 node %s for connection %v", conn.E2NodeID, conn.ID)
+	object, err := r.rnib.Get(ctx, conn.E2NodeID)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Creating E2Node entity '%s' for connection '%s': %v", conn.E2NodeID, conn.ID, err)
+			return false, err
+		}
+		log.Debugf("Creating E2Node entity '%s' for connection '%s'", conn.E2NodeID, conn.ID)
+		object = &topoapi.Object{
+			ID:   conn.E2NodeID,
+			Type: topoapi.Object_ENTITY,
+			Obj: &topoapi.Object_Entity{
+				Entity: &topoapi.Entity{
+					KindID: topoapi.E2NODE,
+				},
+			},
+			Aspects: make(map[string]*gogotypes.Any),
+			Labels:  map[string]string{},
+		}
+
+		aspect := &topoapi.E2Node{
+			ServiceModels: conn.ServiceModels,
+		}
+
+		err = object.SetAspect(aspect)
+		if err != nil {
+			log.Warnf("Creating E2Node entity '%s' for connection failed '%s': %v", conn.E2NodeID, conn.ID, err)
+			return false, err
+		}
+
+		err = r.rnib.Create(ctx, object)
+		if err != nil {
+			if !errors.IsAlreadyExists(err) {
+				log.Warnf("Creating E2Node entity '%s' for connection '%s': %v", conn.E2NodeID, conn.ID, err)
+				return false, err
+			}
+			return false, nil
+		}
+		return true, nil
+	}
+
+	e2NodeAspect := &topoapi.E2Node{}
+	err = object.GetAspect(e2NodeAspect)
+	if err == nil {
+		log.Debugf("E2 node %s aspect is already set ", conn.E2NodeID)
+		return false, nil
+	}
+
+	e2NodeAspect = &topoapi.E2Node{
+		ServiceModels: conn.ServiceModels,
+	}
+	err = object.SetAspect(e2NodeAspect)
+	if err != nil {
+		return false, err
+	}
+	err = r.rnib.Update(ctx, object)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			return false, err
+		}
+		return false, nil
+	}
+	return true, nil
+}
+
+func (r *Reconciler) createE2CellRelations(ctx context.Context, conn *e2server.ManagementConn) (bool, error) {
+	for _, e2Cell := range conn.E2Cells {
+		if ok, err := r.createE2CellRelation(ctx, conn, e2Cell); err != nil {
+			return false, err
+		} else if ok {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+
+func (r *Reconciler) createE2Cells(ctx context.Context, conn *e2server.ManagementConn) (bool, error) {
+	for _, e2Cell := range conn.E2Cells {
+		if ok, err := r.createE2Cell(ctx, conn, e2Cell); err != nil {
+			return false, err
+		} else if ok {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+
+func (r *Reconciler) createE2Cell(ctx context.Context, conn *e2server.ManagementConn, cell *topoapi.E2Cell) (bool, error) {
+	cellID := e2server.GetCellID(conn, cell)
+	object, err := r.rnib.Get(ctx, cellID)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Creating E2Cell entity '%s' for connection '%s': %v", cell.CellGlobalID.Value, conn.ID, err)
+			return false, err
+		}
+
+		log.Debugf("Creating E2Cell entity '%s' for connection '%s'", cell.CellGlobalID.Value, conn.ID)
+		object := &topoapi.Object{
+			ID:   cellID,
+			Type: topoapi.Object_ENTITY,
+			Obj: &topoapi.Object_Entity{
+				Entity: &topoapi.Entity{
+					KindID: topoapi.E2CELL,
+				},
+			},
+			Aspects: make(map[string]*gogotypes.Any),
+			Labels:  map[string]string{},
+		}
+
+		err = object.SetAspect(cell)
+		if err != nil {
+			log.Warnf("Creating E2Cell entity '%s' for connection '%s': %v", cell.CellGlobalID.Value, conn.ID, err)
+			return false, err
+		}
+
+		err = r.rnib.Create(ctx, object)
+		if err != nil {
+			if !errors.IsAlreadyExists(err) {
+				log.Warnf("Creating E2Cell entity '%s' for connection '%s': %v", cell.CellGlobalID.Value, conn.ID, err)
+				return false, err
+			}
+			return false, nil
+		}
+		return true, nil
+	}
+
+	e2CellAspect := &topoapi.E2Cell{}
+	err = object.GetAspect(e2CellAspect)
+	if err == nil {
+		log.Debugf("E2 cell %s aspect is already set", cellID)
+		return false, nil
+	}
+
+	log.Debugf("Updating E2Cell entity '%s' for connection '%s'", cell.CellGlobalID.Value, conn.ID)
+	err = object.SetAspect(cell)
+	if err != nil {
+		log.Warnf("Creating E2Cell entity '%s' for connection '%s': %v", cell.CellGlobalID.Value, conn.ID, err)
+		return false, err
+	}
+
+	err = r.rnib.Update(ctx, object)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Creating E2Cell entity '%s' for connection '%s': %v", cell.CellGlobalID.Value, conn.ID, err)
+			return false, err
+		}
+		return false, nil
+	}
+	return true, nil
+}
+
+func (r *Reconciler) createE2CellRelation(ctx context.Context, conn *e2server.ManagementConn, cell *topoapi.E2Cell) (bool, error) {
+	cellID := e2server.GetCellID(conn, cell)
+	relationID := e2server.GetCellRelationID(conn, cell)
+	_, err := r.rnib.Get(ctx, relationID)
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Creating E2Cell '%s' relation '%s' for connection '%s': %v", cellID, relationID, conn.ID, err)
+			return false, err
+		}
+		log.Debugf("Creating E2Cell '%s' relation '%s' for connection '%s'", cellID, relationID, conn.ID)
+		object := &topoapi.Object{
+			ID:   relationID,
+			Type: topoapi.Object_RELATION,
+			Obj: &topoapi.Object_Relation{
+				Relation: &topoapi.Relation{
+					KindID:      topoapi.CONTAINS,
+					SrcEntityID: conn.E2NodeID,
+					TgtEntityID: cellID,
+				},
+			},
+		}
+
+		err = r.rnib.Create(ctx, object)
+		if err != nil {
+			if !errors.IsAlreadyExists(err) {
+				log.Warnf("Creating E2Cell '%s' relation '%s' for connection '%s': %v", cellID, relationID, conn.ID, err)
+				return false, err
+			}
+			return false, nil
+		}
+		return true, nil
+	}
+	return false, nil
 }
