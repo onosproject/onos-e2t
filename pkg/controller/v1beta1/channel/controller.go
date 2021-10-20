@@ -265,8 +265,10 @@ func (r *Reconciler) reconcileClosedChannel(ctx context.Context, channel *e2api.
 func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel) (bool, error) {
 	// If this node is not the master for the channel, clean up the streams
 	nodeID := string(utils.GetE2TID())
-	if (channel.Status.Phase == e2api.ChannelPhase_CHANNEL_CLOSED && channel.Status.State == e2api.ChannelState_CHANNEL_COMPLETE) ||
-		(channel.Status.Master != nodeID && utils.ContainsString(channel.Finalizers, nodeID)) {
+	if ((channel.Status.Phase == e2api.ChannelPhase_CHANNEL_CLOSED &&
+		channel.Status.State == e2api.ChannelState_CHANNEL_COMPLETE) ||
+		channel.Status.Master != nodeID) &&
+		utils.ContainsString(channel.Finalizers, nodeID) {
 		log.Infof("New master elected for channel %+v: closing channel stream", channel)
 		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
 		channel.Finalizers = utils.RemoveString(channel.Finalizers, nodeID)
