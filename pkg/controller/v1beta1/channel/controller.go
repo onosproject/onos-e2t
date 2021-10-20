@@ -141,11 +141,9 @@ func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Ch
 		}
 		log.Debugf("Creating Channel %+v Subscription %+v", channel, sub)
 		err := r.subs.Create(ctx, sub)
-		if err != nil {
-			if !errors.IsAlreadyExists(err) {
-				log.Warnf("Failed to reconcile Channel %+v: %s", sub, err)
-				return controller.Result{}, err
-			}
+		if err != nil && !errors.IsAlreadyExists(err) {
+			log.Warnf("Failed to reconcile Channel %+v: %s", sub, err)
+			return controller.Result{}, err
 		}
 		return controller.Result{}, nil
 	}
@@ -160,7 +158,7 @@ func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Ch
 	if _, ok := channels[channel.ID]; !ok {
 		log.Debugf("Binding Channel %+v to existing Subscription %+v", channel, sub)
 		sub.Status.Channels = append(sub.Status.Channels, channel.ID)
-		if err := r.subs.Update(ctx, sub); err != nil {
+		if err := r.subs.Update(ctx, sub); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
@@ -242,7 +240,7 @@ func (r *Reconciler) reconcileClosedChannel(ctx context.Context, channel *e2api.
 			log.Debugf("Unbinding Channel %+v from Subscription %+v", channel, sub)
 		}
 		sub.Status.Channels = channels
-		if err := r.subs.Update(ctx, sub); err != nil {
+		if err := r.subs.Update(ctx, sub); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
