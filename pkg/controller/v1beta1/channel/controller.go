@@ -73,7 +73,14 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	}
 
 	log.Infof("Reconciling Channel %+v", channel)
+
 	if ok, err := r.finalizeChannel(ctx, channel); err != nil {
+		return controller.Result{}, err
+	} else if ok {
+		return controller.Result{}, nil
+	}
+
+	if ok, err := r.reconcileMastership(ctx, channel); err != nil {
 		return controller.Result{}, err
 	} else if ok {
 		return controller.Result{}, nil
@@ -258,6 +265,50 @@ func (r *Reconciler) reconcileClosedChannel(ctx context.Context, channel *e2api.
 		return controller.Result{}, nil
 	}
 	return controller.Result{}, nil
+}
+
+func (r *Reconciler) reconcileMastership(ctx context.Context, channel *e2api.Channel) (bool, error) {
+	log.Debugf("Fetching mastership state for E2Node '%s'", channel.E2NodeID)
+
+	// Get the E2 node entity from topo
+	e2NodeEntity, err := r.topo.Get(ctx, topoapi.ID(channel.E2NodeID))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", channel.E2NodeID, err)
+			return false, err
+		}
+		log.Warnf("Mastership state not found for E2Node '%s' %v", channel.E2NodeID, err)
+		return false, nil
+	}
+
+	// Decode the mastership state
+	mastership := topoapi.MastershipState{}
+	_ = e2NodeEntity.GetAspect(&mastership)
+
+	// Return if the channel status is already up-to-date
+	if mastership.Term <= channel.Status.Term {
+		return false, nil
+	}
+
+	// Get the master relation
+	e2NodeRelation, err := r.topo.Get(ctx, topoapi.ID(mastership.NodeId))
+	if err != nil {
+		if !errors.IsNotFound(err) {
+			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", channel.E2NodeID, err)
+			return false, err
+		}
+		log.Warnf("Master relation not found for E2Node '%s'", channel.E2NodeID)
+		return false, nil
+	}
+
+	// Update the channel status with the new term/master
+	channel.Status.Term = mastership.Term
+	channel.Status.Master = string(e2NodeRelation.GetRelation().SrcEntityID)
+	if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
+		log.Warnf("Failed to update channel %s: %s", channel.ID, err)
+		return false, err
+	}
+	return true, nil
 }
 
 func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel) (bool, error) {
