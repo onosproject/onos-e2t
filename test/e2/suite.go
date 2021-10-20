@@ -9,8 +9,13 @@ import (
 	"github.com/onosproject/helmit/pkg/input"
 	"github.com/onosproject/helmit/pkg/test"
 	"github.com/onosproject/onos-e2t/test/utils"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 	testutils "github.com/onosproject/onos-ric-sdk-go/pkg/utils"
 )
+
+func init() {
+	logging.SetLevel(logging.WarnLevel)
+}
 
 // TestSuite is the primary onos-e2t test suite
 type TestSuite struct {

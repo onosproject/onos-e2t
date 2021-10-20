@@ -280,6 +280,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
+	nodeID := string(utils.GetE2TID())
 	err = backoff.Retry(func() error {
 		channel, err := s.chans.Get(server.Context(), channelID)
 		if err != nil {
@@ -296,14 +297,17 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 					SubscriptionID: subID,
 					ServiceModel:   request.Headers.ServiceModel,
 					Encoding:       e2api.Encoding_ASN1_PER,
+					Finalizers:     []string{nodeID},
 				},
 				Spec: e2api.ChannelSpec{
 					SubscriptionSpec:   subSpec,
 					TransactionTimeout: request.TransactionTimeout,
 				},
 				Status: e2api.ChannelStatus{
-					Phase: e2api.ChannelPhase_CHANNEL_OPEN,
-					Term:  mastership.Term,
+					Phase:  e2api.ChannelPhase_CHANNEL_OPEN,
+					State:  e2api.ChannelState_CHANNEL_PENDING,
+					Term:   mastership.Term,
+					Master: nodeID,
 				},
 			}
 			err = s.chans.Create(server.Context(), channel)
@@ -316,8 +320,14 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			return nil
 		}
 
-		channel.Status.Timestamp = nil
+		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
+		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 		channel.Status.Term = mastership.Term
+		channel.Status.Master = nodeID
+		channel.Status.Timestamp = nil
+		if !utils.ContainsString(channel.Finalizers, nodeID) {
+			channel.Finalizers = append(channel.Finalizers, nodeID)
+		}
 		err = s.chans.Update(server.Context(), channel)
 		if err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			return backoff.Permanent(err)
@@ -404,20 +414,20 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			break
 		}
 
-		if err == context.Canceled {
-			err = backoff.Retry(func() error {
+		if err == context.Canceled || err == context.DeadlineExceeded {
+			e := backoff.Retry(func() error {
 				ctx := context.Background()
 				channel, err := s.chans.Get(ctx, channelID)
 				if err != nil {
 					log.Warnf("cannot find channel %s:%v", channelID, err)
 					return backoff.Permanent(err)
-
 				}
 				log.Debugf("Context is canceled, updating channel status for channel:%s", channelID)
 				if channel.Status.Term <= mastership.Term {
 					currentTime := time.Now()
 					channel.Status.Timestamp = &currentTime
 					channel.Status.Term = mastership.Term
+					channel.Status.Master = nodeID
 					log.Debugf("Updating channel status; timestamp: %v and mastership term: %d", currentTime, mastership.Term)
 					err := s.chans.Update(ctx, channel)
 					if err != nil && !errors.IsConflict(err) {
@@ -427,11 +437,10 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				}
 				return nil
 			}, backoff.NewExponentialBackOff())
-			if err != nil {
-				log.Warnf("SubscribeRequest %+v failed: %v", request, err)
-				return err
+			if e != nil {
+				log.Warnf("SubscribeRequest %+v failed: %v", request, e)
 			}
-			return nil
+			return err
 		}
 
 		if err != nil {
