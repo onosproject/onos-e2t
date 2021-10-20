@@ -102,7 +102,7 @@ func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Ch
 			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
 			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 			channel.Status.Error = nil
-			if err := r.chans.Update(ctx, channel); err != nil {
+			if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 				log.Warnf("Failed to update channel %s: %s", channel.ID, err)
 				return controller.Result{}, err
 			}
@@ -177,7 +177,7 @@ func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Ch
 	case e2api.SubscriptionState_SUBSCRIPTION_COMPLETE:
 		log.Debugf("Completing Channel %+v: Subscription complete", channel)
 		channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
-		if err := r.chans.Update(ctx, channel); err != nil {
+		if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
@@ -185,7 +185,7 @@ func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Ch
 		log.Debugf("Failing Channel %+v: Subscription failed", channel)
 		channel.Status.State = e2api.ChannelState_CHANNEL_FAILED
 		channel.Status.Error = sub.Status.Error
-		if err := r.chans.Update(ctx, channel); err != nil {
+		if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
@@ -217,7 +217,7 @@ func (r *Reconciler) reconcileClosedChannel(ctx context.Context, channel *e2api.
 		// If the subscription is not found, complete the channel close
 		log.Debugf("Completing closed Channel %+v: subscription not found", channel)
 		channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
-		if err := r.chans.Update(ctx, channel); err != nil {
+		if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
@@ -253,7 +253,7 @@ func (r *Reconciler) reconcileClosedChannel(ctx context.Context, channel *e2api.
 	if sub.Status.Phase == e2api.SubscriptionPhase_SUBSCRIPTION_OPEN || sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
 		log.Debugf("Completing close Channel %+v: subscription closed", channel)
 		channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
-		if err := r.chans.Update(ctx, channel); err != nil {
+		if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return controller.Result{}, err
 		}
@@ -270,7 +270,7 @@ func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel
 		log.Infof("New master elected for channel %+v: closing channel stream", channel)
 		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
 		channel.Finalizers = utils.RemoveString(channel.Finalizers, nodeID)
-		if err := r.chans.Update(ctx, channel); err != nil {
+		if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 			return false, err
 		}
@@ -281,7 +281,7 @@ func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel
 		if _, err := r.topo.Get(ctx, topoapi.ID(nodeID)); errors.IsNotFound(err) &&
 			utils.ContainsString(channel.Finalizers, nodeID) {
 			channel.Finalizers = utils.RemoveString(channel.Finalizers, nodeID)
-			if err := r.chans.Update(ctx, channel); err != nil {
+			if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 				log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
 				return false, err
 			}
