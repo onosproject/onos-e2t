@@ -278,7 +278,8 @@ func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel
 	}
 
 	for _, nodeID := range channel.Finalizers {
-		if _, err := r.topo.Get(ctx, topoapi.ID(nodeID)); errors.IsNotFound(err) {
+		if _, err := r.topo.Get(ctx, topoapi.ID(nodeID)); errors.IsNotFound(err) &&
+			utils.ContainsString(channel.Finalizers, nodeID) {
 			channel.Finalizers = utils.RemoveString(channel.Finalizers, nodeID)
 			if err := r.chans.Update(ctx, channel); err != nil {
 				log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)
