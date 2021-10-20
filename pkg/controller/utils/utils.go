@@ -61,12 +61,11 @@ func ContainsString(strings []string, value string) bool {
 	return false
 }
 
-func RemoveString(strings []string, value string) []string {
-	newStrings := make([]string, len(strings)-1, len(strings))
-	for _, s := range strings {
-		if s != value {
-			newStrings = append(newStrings, s)
+func RemoveString(strings []string, r string) []string {
+	for i, v := range strings {
+		if v == r {
+			return append(strings[:i], strings[i+1:]...)
 		}
 	}
-	return newStrings
+	return strings
 }
