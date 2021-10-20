@@ -6,7 +6,7 @@ package subscription
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
+	"github.com/onosproject/onos-e2t/pkg/broker"
 	"sync"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -180,7 +180,7 @@ var _ controller.Watcher = &TopoWatcher{}
 
 // StreamWatcher is a stream broker watcher
 type StreamWatcher struct {
-	streams v1beta1.Broker
+	streams *broker.Broker
 	cancel  context.CancelFunc
 	mu      sync.Mutex
 }
@@ -195,11 +195,7 @@ func (w *StreamWatcher) Start(ch chan<- controller.ID) error {
 
 	eventCh := make(chan e2api.SubscriptionID, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	err := w.streams.Watch(ctx, eventCh)
-	if err != nil {
-		cancel()
-		return err
-	}
+	w.streams.Subscriptions().Watch(ctx, eventCh)
 	w.cancel = cancel
 
 	go func() {

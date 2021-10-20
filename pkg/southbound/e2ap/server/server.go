@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/broker"
 	"time"
 
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
@@ -25,8 +26,6 @@ import (
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
-
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap"
@@ -43,37 +42,37 @@ var ricID = types.RicIdentifier{
 
 func NewE2Server(e2apConns E2APConnManager,
 	mgmtConns MgmtConnManager,
-	streamsv1beta1 subscriptionv1beta1.Broker,
+	streams *broker.Broker,
 	modelRegistry modelregistry.ModelRegistry, rnib rnib.Store) *E2Server {
 	return &E2Server{
 		server:    e2.NewServer(),
 		e2apConns: e2apConns,
 		mgmtConns: mgmtConns,
 
-		streamsv1beta1: streamsv1beta1,
-		modelRegistry:  modelRegistry,
-		rnib:           rnib,
+		streams:       streams,
+		modelRegistry: modelRegistry,
+		rnib:          rnib,
 	}
 }
 
 type E2Server struct {
-	server         *e2.Server
-	e2apConns      E2APConnManager
-	mgmtConns      MgmtConnManager
-	streamsv1beta1 subscriptionv1beta1.Broker
-	modelRegistry  modelregistry.ModelRegistry
-	rnib           rnib.Store
+	server        *e2.Server
+	e2apConns     E2APConnManager
+	mgmtConns     MgmtConnManager
+	streams       *broker.Broker
+	modelRegistry modelregistry.ModelRegistry
+	rnib          rnib.Store
 }
 
 func (s *E2Server) Serve() error {
 	return s.server.Serve(func(conn e2.ServerConn) e2.ServerInterface {
 		return &E2APServer{
-			serverConn:     conn,
-			e2apConns:      s.e2apConns,
-			mgmtConns:      s.mgmtConns,
-			streamsv1beta1: s.streamsv1beta1,
-			modelRegistry:  s.modelRegistry,
-			rnib:           s.rnib,
+			serverConn:    conn,
+			e2apConns:     s.e2apConns,
+			mgmtConns:     s.mgmtConns,
+			streams:       s.streams,
+			modelRegistry: s.modelRegistry,
+			rnib:          s.rnib,
 		}
 	})
 }
@@ -83,13 +82,13 @@ func (s *E2Server) Stop() error {
 }
 
 type E2APServer struct {
-	e2apConns      E2APConnManager
-	mgmtConns      MgmtConnManager
-	streamsv1beta1 subscriptionv1beta1.Broker
-	serverConn     e2.ServerConn
-	e2apConn       *E2APConn
-	modelRegistry  modelregistry.ModelRegistry
-	rnib           rnib.Store
+	e2apConns     E2APConnManager
+	mgmtConns     MgmtConnManager
+	streams       *broker.Broker
+	serverConn    e2.ServerConn
+	e2apConn      *E2APConn
+	modelRegistry modelregistry.ModelRegistry
+	rnib          rnib.Store
 }
 
 // uint24ToUint32 converts uint24 uint32
@@ -260,7 +259,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 		}
 
 		// Creates a new E2AP data connection
-		e.e2apConn = NewE2APConn(createE2NodeURI(nodeID), e.serverConn, e.streamsv1beta1, e.rnib)
+		e.e2apConn = NewE2APConn(createE2NodeURI(nodeID), e.serverConn, e.streams, e.rnib)
 		defer e.e2apConns.open(e.e2apConn)
 		// Creates a controls relation
 		object := &topoapi.Object{
