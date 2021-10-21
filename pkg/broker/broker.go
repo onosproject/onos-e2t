@@ -17,30 +17,38 @@ const bufferMaxSize = 10000
 type StreamID int
 
 // NewBroker creates a new subscription stream broker
-func NewBroker() *Broker {
-	subs := &SubscriptionManager{
-		streams: &StreamManager{
+func NewBroker() Broker {
+	subs := &subscriptionManager{
+		streams: &streamManager{
 			streams: make(map[StreamID]*Stream),
 		},
 		subs:     make(map[e2api.SubscriptionID]*SubscriptionStream),
 		watchers: make(map[uuid.UUID]chan<- e2api.SubscriptionID),
 	}
-	return &Broker{
+	return &broker{
 		streams: subs.streams,
 		subs:    subs,
 	}
 }
 
-// Broker is a subscription broker
-type Broker struct {
-	streams *StreamManager
-	subs    *SubscriptionManager
+// Broker is a subscription stream broker
+type Broker interface {
+	Streams() StreamManager
+	Subscriptions() SubscriptionManager
 }
 
-func (s *Broker) Streams() *StreamManager {
+// broker is a subscription broker
+type broker struct {
+	streams StreamManager
+	subs    SubscriptionManager
+}
+
+func (s *broker) Streams() StreamManager {
 	return s.streams
 }
 
-func (s *Broker) Subscriptions() *SubscriptionManager {
+func (s *broker) Subscriptions() SubscriptionManager {
 	return s.subs
 }
+
+var _ Broker = &broker{}

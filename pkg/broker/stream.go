@@ -9,20 +9,26 @@ import (
 	"sync"
 )
 
-type StreamManager struct {
+type StreamManager interface {
+	Get(id StreamID) (*Stream, bool)
+	create(ch chan<- *e2appducontents.Ricindication) *Stream
+	close(id StreamID)
+}
+
+type streamManager struct {
 	streams  map[StreamID]*Stream
 	streamID StreamID
 	mu       sync.RWMutex
 }
 
-func (s *StreamManager) Get(id StreamID) (*Stream, bool) {
+func (s *streamManager) Get(id StreamID) (*Stream, bool) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	stream, ok := s.streams[id]
 	return stream, ok
 }
 
-func (s *StreamManager) create(ch chan<- *e2appducontents.Ricindication) *Stream {
+func (s *streamManager) create(ch chan<- *e2appducontents.Ricindication) *Stream {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.streamID++
@@ -34,7 +40,7 @@ func (s *StreamManager) create(ch chan<- *e2appducontents.Ricindication) *Stream
 	return stream
 }
 
-func (s *StreamManager) close(id StreamID) {
+func (s *streamManager) close(id StreamID) {
 	s.mu.Lock()
 	stream, ok := s.streams[id]
 	delete(s.streams, id)

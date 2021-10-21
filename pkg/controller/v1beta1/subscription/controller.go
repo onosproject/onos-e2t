@@ -38,7 +38,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams *broker.Broker, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
+func NewController(streams broker.Broker, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
@@ -75,7 +75,7 @@ type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	streams                   *broker.Broker
+	streams                   broker.Broker
 	subs                      substore.Store
 	topo                      rnib.Store
 	conns                     e2server.E2APConnManager

@@ -12,22 +12,30 @@ import (
 	"sync"
 )
 
-type SubscriptionManager struct {
-	streams    *StreamManager
+type SubscriptionManager interface {
+	Get(id e2api.SubscriptionID) (*SubscriptionStream, bool)
+	List() []*SubscriptionStream
+	Create(id e2api.SubscriptionID) *SubscriptionStream
+	Close(id e2api.SubscriptionID)
+	Watch(ctx context.Context, ch chan<- e2api.SubscriptionID)
+}
+
+type subscriptionManager struct {
+	streams    StreamManager
 	subs       map[e2api.SubscriptionID]*SubscriptionStream
 	subsMu     sync.RWMutex
 	watchers   map[uuid.UUID]chan<- e2api.SubscriptionID
 	watchersMu sync.RWMutex
 }
 
-func (s *SubscriptionManager) Get(id e2api.SubscriptionID) (*SubscriptionStream, bool) {
+func (s *subscriptionManager) Get(id e2api.SubscriptionID) (*SubscriptionStream, bool) {
 	s.subsMu.RLock()
 	defer s.subsMu.RUnlock()
 	sub, ok := s.subs[id]
 	return sub, ok
 }
 
-func (s *SubscriptionManager) List() []*SubscriptionStream {
+func (s *subscriptionManager) List() []*SubscriptionStream {
 	s.subsMu.RLock()
 	defer s.subsMu.RUnlock()
 	subs := make([]*SubscriptionStream, 0, len(s.subs))
@@ -37,7 +45,7 @@ func (s *SubscriptionManager) List() []*SubscriptionStream {
 	return subs
 }
 
-func (s *SubscriptionManager) Create(id e2api.SubscriptionID) *SubscriptionStream {
+func (s *subscriptionManager) Create(id e2api.SubscriptionID) *SubscriptionStream {
 	s.subsMu.RLock()
 	sub, ok := s.subs[id]
 	s.subsMu.RUnlock()
@@ -56,7 +64,7 @@ func (s *SubscriptionManager) Create(id e2api.SubscriptionID) *SubscriptionStrea
 		SubscriptionID: id,
 		ch:             ch,
 	}
-	sub.apps = &AppManager{
+	sub.apps = &appManager{
 		sub:      sub,
 		apps:     make(map[e2api.AppID]*AppStream),
 		watchers: make(map[uuid.UUID]chan<- e2api.AppID),
@@ -67,7 +75,7 @@ func (s *SubscriptionManager) Create(id e2api.SubscriptionID) *SubscriptionStrea
 	return sub
 }
 
-func (s *SubscriptionManager) Close(id e2api.SubscriptionID) {
+func (s *subscriptionManager) Close(id e2api.SubscriptionID) {
 	s.subsMu.Lock()
 	sub, ok := s.subs[id]
 	delete(s.subs, id)
@@ -78,7 +86,7 @@ func (s *SubscriptionManager) Close(id e2api.SubscriptionID) {
 	}
 }
 
-func (s *SubscriptionManager) notify(subID e2api.SubscriptionID) {
+func (s *subscriptionManager) notify(subID e2api.SubscriptionID) {
 	s.watchersMu.RLock()
 	for _, watcher := range s.watchers {
 		watcher <- subID
@@ -86,7 +94,7 @@ func (s *SubscriptionManager) notify(subID e2api.SubscriptionID) {
 	s.watchersMu.RUnlock()
 }
 
-func (s *SubscriptionManager) Watch(ctx context.Context, ch chan<- e2api.SubscriptionID) {
+func (s *subscriptionManager) Watch(ctx context.Context, ch chan<- e2api.SubscriptionID) {
 	s.watchersMu.Lock()
 	id := uuid.New()
 	s.watchers[id] = ch
@@ -113,7 +121,7 @@ func (s *SubscriptionManager) Watch(ctx context.Context, ch chan<- e2api.Subscri
 type SubscriptionStream struct {
 	*Stream
 	SubscriptionID e2api.SubscriptionID
-	apps           *AppManager
+	apps           AppManager
 	ch             <-chan *e2appducontents.Ricindication
 }
 
@@ -128,6 +136,6 @@ func (s *SubscriptionStream) receive() {
 	}
 }
 
-func (s *SubscriptionStream) Apps() *AppManager {
+func (s *SubscriptionStream) Apps() AppManager {
 	return s.apps
 }

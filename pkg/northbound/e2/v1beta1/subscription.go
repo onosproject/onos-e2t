@@ -38,7 +38,7 @@ import (
 )
 
 // NewSubscriptionService creates a new E2T subscription service
-func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams *streambroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
+func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams streambroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
 	return &SubscriptionService{
 		chans:         chans,
 		subs:          subs,
@@ -54,7 +54,7 @@ type SubscriptionService struct {
 	northbound.Service
 	chans         channelstore.Store
 	subs          substore.Store
-	streams       *streambroker.Broker
+	streams       streambroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 	rnib          rnib.Store
@@ -78,7 +78,7 @@ func (s SubscriptionService) Register(r *grpc.Server) {
 type SubscriptionServer struct {
 	chans         channelstore.Store
 	subs          substore.Store
-	streams       *streambroker.Broker
+	streams       streambroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 	rnib          rnib.Store

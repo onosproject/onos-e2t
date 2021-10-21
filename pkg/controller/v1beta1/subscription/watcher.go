@@ -180,7 +180,7 @@ var _ controller.Watcher = &TopoWatcher{}
 
 // StreamWatcher is a stream broker watcher
 type StreamWatcher struct {
-	streams *broker.Broker
+	streams broker.Broker
 	cancel  context.CancelFunc
 	mu      sync.Mutex
 }

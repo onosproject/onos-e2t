@@ -12,7 +12,17 @@ import (
 	"sync"
 )
 
-type AppManager struct {
+type AppManager interface {
+	Get(id e2api.AppID) (*AppStream, bool)
+	List() []*AppStream
+	Create(id e2api.AppID) *AppStream
+	Close(id e2api.AppID)
+	Watch(ctx context.Context, ch chan<- e2api.AppID)
+	send(ind *e2appducontents.Ricindication)
+	close()
+}
+
+type appManager struct {
 	sub        *SubscriptionStream
 	apps       map[e2api.AppID]*AppStream
 	appsMu     sync.RWMutex
@@ -20,14 +30,14 @@ type AppManager struct {
 	watchersMu sync.RWMutex
 }
 
-func (s *AppManager) Get(id e2api.AppID) (*AppStream, bool) {
+func (s *appManager) Get(id e2api.AppID) (*AppStream, bool) {
 	s.appsMu.RLock()
 	defer s.appsMu.RUnlock()
 	sub, ok := s.apps[id]
 	return sub, ok
 }
 
-func (s *AppManager) List() []*AppStream {
+func (s *appManager) List() []*AppStream {
 	s.appsMu.RLock()
 	defer s.appsMu.RUnlock()
 	subs := make([]*AppStream, 0, len(s.apps))
@@ -37,7 +47,7 @@ func (s *AppManager) List() []*AppStream {
 	return subs
 }
 
-func (s *AppManager) Create(id e2api.AppID) *AppStream {
+func (s *appManager) Create(id e2api.AppID) *AppStream {
 	s.appsMu.RLock()
 	app, ok := s.apps[id]
 	s.appsMu.RUnlock()
@@ -56,7 +66,7 @@ func (s *AppManager) Create(id e2api.AppID) *AppStream {
 		AppID:              id,
 		ch:                 ch,
 	}
-	app.transactions = &TransactionManager{
+	app.transactions = &transactionManager{
 		app:          app,
 		transactions: make(map[e2api.TransactionID]*TransactionStream),
 		watchers:     make(map[uuid.UUID]chan<- e2api.TransactionID),
@@ -67,7 +77,7 @@ func (s *AppManager) Create(id e2api.AppID) *AppStream {
 	return app
 }
 
-func (s *AppManager) Close(id e2api.AppID) {
+func (s *appManager) Close(id e2api.AppID) {
 	s.appsMu.Lock()
 	app, ok := s.apps[id]
 	delete(s.apps, id)
@@ -78,7 +88,7 @@ func (s *AppManager) Close(id e2api.AppID) {
 	}
 }
 
-func (s *AppManager) notify(appID e2api.AppID) {
+func (s *appManager) notify(appID e2api.AppID) {
 	s.watchersMu.RLock()
 	for _, watcher := range s.watchers {
 		watcher <- appID
@@ -86,7 +96,7 @@ func (s *AppManager) notify(appID e2api.AppID) {
 	s.watchersMu.RUnlock()
 }
 
-func (s *AppManager) Watch(ctx context.Context, ch chan<- e2api.AppID) {
+func (s *appManager) Watch(ctx context.Context, ch chan<- e2api.AppID) {
 	s.watchersMu.Lock()
 	id := uuid.New()
 	s.watchers[id] = ch
@@ -110,7 +120,7 @@ func (s *AppManager) Watch(ctx context.Context, ch chan<- e2api.AppID) {
 	}()
 }
 
-func (s *AppManager) send(ind *e2appducontents.Ricindication) {
+func (s *appManager) send(ind *e2appducontents.Ricindication) {
 	s.appsMu.RLock()
 	defer s.appsMu.RUnlock()
 	for _, app := range s.apps {
@@ -118,7 +128,7 @@ func (s *AppManager) send(ind *e2appducontents.Ricindication) {
 	}
 }
 
-func (s *AppManager) close() {
+func (s *appManager) close() {
 	s.appsMu.RLock()
 	defer s.appsMu.RUnlock()
 	for _, app := range s.apps {
@@ -129,7 +139,7 @@ func (s *AppManager) close() {
 type AppStream struct {
 	*SubscriptionStream
 	AppID        e2api.AppID
-	transactions *TransactionManager
+	transactions TransactionManager
 	ch           chan *e2appducontents.Ricindication
 }
 
@@ -148,7 +158,7 @@ func (s *AppStream) receive() {
 	}
 }
 
-func (s *AppStream) Transactions() *TransactionManager {
+func (s *AppStream) Transactions() TransactionManager {
 	return s.transactions
 }
 

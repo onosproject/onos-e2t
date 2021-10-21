@@ -42,7 +42,7 @@ var ricID = types.RicIdentifier{
 
 func NewE2Server(e2apConns E2APConnManager,
 	mgmtConns MgmtConnManager,
-	streams *broker.Broker,
+	streams broker.Broker,
 	modelRegistry modelregistry.ModelRegistry, rnib rnib.Store) *E2Server {
 	return &E2Server{
 		server:    e2.NewServer(),
@@ -59,7 +59,7 @@ type E2Server struct {
 	server        *e2.Server
 	e2apConns     E2APConnManager
 	mgmtConns     MgmtConnManager
-	streams       *broker.Broker
+	streams       broker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	rnib          rnib.Store
 }
@@ -84,7 +84,7 @@ func (s *E2Server) Stop() error {
 type E2APServer struct {
 	e2apConns     E2APConnManager
 	mgmtConns     MgmtConnManager
-	streams       *broker.Broker
+	streams       broker.Broker
 	serverConn    e2.ServerConn
 	e2apConn      *E2APConn
 	modelRegistry modelregistry.ModelRegistry

@@ -28,7 +28,7 @@ const (
 )
 
 // NewController returns a new channel controller
-func NewController(chans chanstore.Store, subs substore.Store, streams *broker.Broker, topo rnib.Store) *controller.Controller {
+func NewController(chans chanstore.Store, subs substore.Store, streams broker.Broker, topo rnib.Store) *controller.Controller {
 	c := controller.NewController("Channel")
 	c.Watch(&Watcher{
 		chans: chans,
@@ -54,7 +54,7 @@ func NewController(chans chanstore.Store, subs substore.Store, streams *broker.B
 type Reconciler struct {
 	chans   chanstore.Store
 	subs    substore.Store
-	streams *broker.Broker
+	streams broker.Broker
 	topo    rnib.Store
 }
 

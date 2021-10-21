@@ -23,7 +23,7 @@ import (
 )
 
 // NewE2APConn creates a new E2AP connection
-func NewE2APConn(nodeID topoapi.ID, conn e2.ServerConn, streams *broker.Broker, rnib rnib.Store) *E2APConn {
+func NewE2APConn(nodeID topoapi.ID, conn e2.ServerConn, streams broker.Broker, rnib rnib.Store) *E2APConn {
 	connID := ConnID(uri.NewURI(
 		uri.WithScheme("uuid"),
 		uri.WithOpaque(uuid.New().String())).String())
@@ -42,7 +42,7 @@ type E2APConn struct {
 	e2.ServerConn
 	ID       ConnID
 	E2NodeID topoapi.ID
-	streams  *broker.Broker
+	streams  broker.Broker
 	rnib     rnib.Store
 }
 

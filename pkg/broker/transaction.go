@@ -13,7 +13,17 @@ import (
 	"sync"
 )
 
-type TransactionManager struct {
+type TransactionManager interface {
+	Get(id e2api.TransactionID) (*TransactionStream, bool)
+	List() []*TransactionStream
+	Create(id e2api.TransactionID) *TransactionStream
+	Close(id e2api.TransactionID)
+	Watch(ctx context.Context, ch chan<- e2api.TransactionID)
+	send(ind *e2appducontents.Ricindication)
+	close()
+}
+
+type transactionManager struct {
 	app            *AppStream
 	transactions   map[e2api.TransactionID]*TransactionStream
 	transactionsMu sync.RWMutex
@@ -21,14 +31,14 @@ type TransactionManager struct {
 	watchersMu     sync.RWMutex
 }
 
-func (s *TransactionManager) Get(id e2api.TransactionID) (*TransactionStream, bool) {
+func (s *transactionManager) Get(id e2api.TransactionID) (*TransactionStream, bool) {
 	s.transactionsMu.RLock()
 	defer s.transactionsMu.RUnlock()
 	app, ok := s.transactions[id]
 	return app, ok
 }
 
-func (s *TransactionManager) List() []*TransactionStream {
+func (s *transactionManager) List() []*TransactionStream {
 	s.transactionsMu.RLock()
 	defer s.transactionsMu.RUnlock()
 	apps := make([]*TransactionStream, 0, len(s.transactions))
@@ -38,7 +48,7 @@ func (s *TransactionManager) List() []*TransactionStream {
 	return apps
 }
 
-func (s *TransactionManager) Create(id e2api.TransactionID) *TransactionStream {
+func (s *transactionManager) Create(id e2api.TransactionID) *TransactionStream {
 	s.transactionsMu.RLock()
 	transaction, ok := s.transactions[id]
 	s.transactionsMu.RUnlock()
@@ -66,7 +76,7 @@ func (s *TransactionManager) Create(id e2api.TransactionID) *TransactionStream {
 	return transaction
 }
 
-func (s *TransactionManager) Close(id e2api.TransactionID) {
+func (s *transactionManager) Close(id e2api.TransactionID) {
 	s.transactionsMu.Lock()
 	app, ok := s.transactions[id]
 	delete(s.transactions, id)
@@ -77,7 +87,7 @@ func (s *TransactionManager) Close(id e2api.TransactionID) {
 	}
 }
 
-func (s *TransactionManager) notify(transactionID e2api.TransactionID) {
+func (s *transactionManager) notify(transactionID e2api.TransactionID) {
 	s.watchersMu.RLock()
 	for _, watcher := range s.watchers {
 		watcher <- transactionID
@@ -85,7 +95,7 @@ func (s *TransactionManager) notify(transactionID e2api.TransactionID) {
 	s.watchersMu.RUnlock()
 }
 
-func (s *TransactionManager) Watch(ctx context.Context, ch chan<- e2api.TransactionID) {
+func (s *transactionManager) Watch(ctx context.Context, ch chan<- e2api.TransactionID) {
 	s.watchersMu.Lock()
 	id := uuid.New()
 	s.watchers[id] = ch
@@ -109,7 +119,7 @@ func (s *TransactionManager) Watch(ctx context.Context, ch chan<- e2api.Transact
 	}()
 }
 
-func (s *TransactionManager) send(ind *e2appducontents.Ricindication) {
+func (s *transactionManager) send(ind *e2appducontents.Ricindication) {
 	s.transactionsMu.RLock()
 	defer s.transactionsMu.RUnlock()
 	for _, transaction := range s.transactions {
@@ -117,7 +127,7 @@ func (s *TransactionManager) send(ind *e2appducontents.Ricindication) {
 	}
 }
 
-func (s *TransactionManager) close() {
+func (s *transactionManager) close() {
 	s.transactionsMu.RLock()
 	defer s.transactionsMu.RUnlock()
 	for _, transaction := range s.transactions {
