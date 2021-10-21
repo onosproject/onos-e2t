@@ -24,7 +24,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 
-	channelbroker "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
+	streambroker "github.com/onosproject/onos-e2t/pkg/broker"
 	channelstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -38,7 +38,7 @@ import (
 )
 
 // NewSubscriptionService creates a new E2T subscription service
-func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams channelbroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
+func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams streambroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
 	return &SubscriptionService{
 		chans:         chans,
 		subs:          subs,
@@ -54,7 +54,7 @@ type SubscriptionService struct {
 	northbound.Service
 	chans         channelstore.Store
 	subs          substore.Store
-	streams       channelbroker.Broker
+	streams       streambroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 	rnib          rnib.Store
@@ -78,7 +78,7 @@ func (s SubscriptionService) Register(r *grpc.Server) {
 type SubscriptionServer struct {
 	chans         channelstore.Store
 	subs          substore.Store
-	streams       channelbroker.Broker
+	streams       streambroker.Broker
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 	rnib          rnib.Store
@@ -339,8 +339,12 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		return errors.Status(err).Err()
 	}
 
-	// Open a stream reader for the app instance
-	reader := s.streams.OpenReader(subID, request.Headers.AppID, request.Headers.AppInstanceID, request.TransactionID)
+	stream := s.streams.Subscriptions().
+		Create(subID).
+		Apps().
+		Create(request.Headers.AppID).
+		Transactions().
+		Create(request.TransactionID)
 
 	completeCh := make(chan error)
 	go func() {
@@ -409,13 +413,71 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 
 	// Read indications from the stream and send them to the client
 	for {
-		indication, err := reader.Recv(server.Context())
-		if err == io.EOF {
-			break
-		}
+		select {
+		case indication, ok := <-stream.C:
+			if !ok {
+				log.Debugf("Subscription %+v closed", request)
+				return nil
+			}
 
-		if err == context.Canceled || err == context.DeadlineExceeded {
-			e := backoff.Retry(func() error {
+			ranFuncID := indication.ProtocolIes.E2ApProtocolIes5.Value.Value
+			ricActionID := indication.ProtocolIes.E2ApProtocolIes15.Value.Value
+			indHeaderAsn1 := indication.ProtocolIes.E2ApProtocolIes25.Value.Value
+			indMessageAsn1 := indication.ProtocolIes.E2ApProtocolIes26.Value.Value
+			log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)
+
+			response := &e2api.SubscribeResponse{
+				Headers: e2api.ResponseHeaders{
+					Encoding: encoding,
+				},
+			}
+
+			switch encoding {
+			case e2api.Encoding_PROTO:
+				indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
+				if err != nil {
+					log.Errorf("Error transforming Header ASN Bytes to Proto %s", err.Error())
+					return errors.Status(errors.NewInvalid(err.Error())).Err()
+				}
+				log.Infof("Indication Header %d bytes", len(indHeaderProto))
+
+				indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(indMessageAsn1)
+				if err != nil {
+					log.Errorf("Error transforming Message ASN Bytes to Proto %s", err.Error())
+					return errors.Status(errors.NewInvalid(err.Error())).Err()
+				}
+				log.Infof("Indication Message %d bytes", len(indMessageProto))
+				response.Message = &e2api.SubscribeResponse_Indication{
+					Indication: &e2api.Indication{
+						Header:  indHeaderProto,
+						Payload: indMessageProto,
+					},
+				}
+				log.Infof("RICIndication successfully decoded from ASN1 to Proto #Bytes - Header: %d, Message: %d",
+					len(indHeaderProto), len(indMessageProto))
+			case e2api.Encoding_ASN1_PER:
+				response.Message = &e2api.SubscribeResponse_Indication{
+					Indication: &e2api.Indication{
+						Header:  indHeaderAsn1,
+						Payload: indMessageAsn1,
+					},
+				}
+			default:
+				log.Errorf("encoding type %v not supported", encoding)
+				return errors.Status(errors.NewInvalid("encoding type %v not supported", encoding)).Err()
+			}
+
+			log.Debugf("Sending SubscribeResponse %+v", response)
+			err = server.Send(response)
+			if err == io.EOF {
+				return nil
+			}
+			if err != nil {
+				log.Warnf("Sending SubscribeResponse %+v failed: %v", response, err)
+				return err
+			}
+		case <-server.Context().Done():
+			err := backoff.Retry(func() error {
 				ctx := context.Background()
 				channel, err := s.chans.Get(ctx, channelID)
 				if err != nil {
@@ -437,76 +499,12 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				}
 				return nil
 			}, backoff.NewExponentialBackOff())
-			if e != nil {
-				log.Warnf("SubscribeRequest %+v failed: %v", request, e)
-			}
-			return err
-		}
-
-		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed: %v", request, err)
-			return err
-		}
-
-		ranFuncID := indication.ProtocolIes.E2ApProtocolIes5.Value.Value
-		ricActionID := indication.ProtocolIes.E2ApProtocolIes15.Value.Value
-		indHeaderAsn1 := indication.ProtocolIes.E2ApProtocolIes25.Value.Value
-		indMessageAsn1 := indication.ProtocolIes.E2ApProtocolIes26.Value.Value
-		log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)
-
-		response := &e2api.SubscribeResponse{
-			Headers: e2api.ResponseHeaders{
-				Encoding: encoding,
-			},
-		}
-
-		switch encoding {
-		case e2api.Encoding_PROTO:
-			indHeaderProto, err := serviceModelPlugin.IndicationHeaderASN1toProto(indHeaderAsn1)
 			if err != nil {
-				log.Errorf("Error transforming Header ASN Bytes to Proto %s", err.Error())
-				return errors.Status(errors.NewInvalid(err.Error())).Err()
+				log.Warnf("SubscribeRequest %+v failed: %v", request, err)
 			}
-			log.Infof("Indication Header %d bytes", len(indHeaderProto))
-
-			indMessageProto, err := serviceModelPlugin.IndicationMessageASN1toProto(indMessageAsn1)
-			if err != nil {
-				log.Errorf("Error transforming Message ASN Bytes to Proto %s", err.Error())
-				return errors.Status(errors.NewInvalid(err.Error())).Err()
-			}
-			log.Infof("Indication Message %d bytes", len(indMessageProto))
-			response.Message = &e2api.SubscribeResponse_Indication{
-				Indication: &e2api.Indication{
-					Header:  indHeaderProto,
-					Payload: indMessageProto,
-				},
-			}
-			log.Infof("RICIndication successfully decoded from ASN1 to Proto #Bytes - Header: %d, Message: %d",
-				len(indHeaderProto), len(indMessageProto))
-		case e2api.Encoding_ASN1_PER:
-			response.Message = &e2api.SubscribeResponse_Indication{
-				Indication: &e2api.Indication{
-					Header:  indHeaderAsn1,
-					Payload: indMessageAsn1,
-				},
-			}
-		default:
-			log.Errorf("encoding type %v not supported", encoding)
-			return errors.Status(errors.NewInvalid("encoding type %v not supported", encoding)).Err()
-		}
-
-		log.Debugf("Sending SubscribeResponse %+v", response)
-		err = server.Send(response)
-		if err == io.EOF {
-			return nil
-		}
-		if err != nil {
-			log.Warnf("Sending SubscribeResponse %+v failed: %v", response, err)
-			return err
+			return server.Context().Err()
 		}
 	}
-	log.Debugf("Subscription %+v closed", request)
-	return nil
 }
 
 func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.UnsubscribeRequest) (*e2api.UnsubscribeResponse, error) {

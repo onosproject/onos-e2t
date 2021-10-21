@@ -7,11 +7,10 @@ package channel
 import (
 	"context"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/pkg/broker"
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"time"
-
-	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
@@ -29,7 +28,7 @@ const (
 )
 
 // NewController returns a new channel controller
-func NewController(chans chanstore.Store, subs substore.Store, streams subscription.Broker, topo rnib.Store) *controller.Controller {
+func NewController(chans chanstore.Store, subs substore.Store, streams broker.Broker, topo rnib.Store) *controller.Controller {
 	c := controller.NewController("Channel")
 	c.Watch(&Watcher{
 		chans: chans,
@@ -55,7 +54,7 @@ func NewController(chans chanstore.Store, subs substore.Store, streams subscript
 type Reconciler struct {
 	chans   chanstore.Store
 	subs    substore.Store
-	streams subscription.Broker
+	streams broker.Broker
 	topo    rnib.Store
 }
 
@@ -319,7 +318,13 @@ func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel
 			(channel.Status.Phase == e2api.ChannelPhase_CHANNEL_CLOSED &&
 				channel.Status.State == e2api.ChannelState_CHANNEL_COMPLETE)) {
 		log.Infof("New master elected for channel %+v: closing channel stream", channel)
-		r.streams.CloseReader(channel.SubscriptionID, channel.AppID, channel.AppInstanceID, channel.TransactionID)
+		sub, ok := r.streams.Subscriptions().Get(channel.SubscriptionID)
+		if ok {
+			app, ok := sub.Apps().Get(channel.AppID)
+			if ok {
+				app.Transactions().Close(channel.TransactionID)
+			}
+		}
 		channel.Finalizers = utils.RemoveString(channel.Finalizers, nodeID)
 		if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)

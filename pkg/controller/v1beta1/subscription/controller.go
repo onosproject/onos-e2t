@@ -7,6 +7,7 @@ package subscription
 import (
 	"context"
 	"fmt"
+	"github.com/onosproject/onos-e2t/pkg/broker"
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 	"time"
 
@@ -14,7 +15,6 @@ import (
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
-	subscription "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
@@ -38,7 +38,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams subscription.Broker, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
+func NewController(streams broker.Broker, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
@@ -75,7 +75,7 @@ type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	streams                   subscription.Broker
+	streams                   broker.Broker
 	subs                      substore.Store
 	topo                      rnib.Store
 	conns                     e2server.E2APConnManager
@@ -223,14 +223,10 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Debugf("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	stream, ok := r.streams.GetReader(sub.ID)
-	if !ok {
-		log.Warnf("Failed to reconcile Subscription %+v: stream not found", sub)
-		return controller.Result{}, nil
-	}
+	stream := r.streams.Subscriptions().Create(sub.ID)
 
 	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(stream.ID()),
+		RequestorID: types.RicRequestorID(stream.StreamID),
 		InstanceID:  config.InstanceID,
 	}
 
@@ -366,8 +362,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, nil
 	}
 
-	// Get the subscription stream reader
-	stream, ok := r.streams.GetReader(sub.ID)
+	stream, ok := r.streams.Subscriptions().Get(sub.ID)
 	if !ok {
 		err = errors.NewNotFound("stream not found")
 		log.Warnf("Failed to reconcile Subscription %+v: %s", sub, err)
@@ -375,7 +370,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	}
 
 	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(stream.ID()),
+		RequestorID: types.RicRequestorID(stream.StreamID),
 		InstanceID:  config.InstanceID,
 	}
 

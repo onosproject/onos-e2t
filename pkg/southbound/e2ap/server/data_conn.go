@@ -6,6 +6,7 @@ package server
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/pkg/broker"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 
@@ -17,44 +18,46 @@ import (
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	subscriptionv1beta1 "github.com/onosproject/onos-e2t/pkg/broker/subscription/v1beta1"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap"
 	"github.com/onosproject/onos-lib-go/pkg/uri"
 )
 
 // NewE2APConn creates a new E2AP connection
-func NewE2APConn(nodeID topoapi.ID, conn e2.ServerConn, streamsv1beta1 subscriptionv1beta1.Broker, rnib rnib.Store) *E2APConn {
+func NewE2APConn(nodeID topoapi.ID, conn e2.ServerConn, streams broker.Broker, rnib rnib.Store) *E2APConn {
 	connID := ConnID(uri.NewURI(
 		uri.WithScheme("uuid"),
 		uri.WithOpaque(uuid.New().String())).String())
 
 	return &E2APConn{
-		ServerConn:     conn,
-		ID:             connID,
-		E2NodeID:       nodeID,
-		streamsv1beta1: streamsv1beta1,
-		rnib:           rnib,
+		ServerConn: conn,
+		ID:         connID,
+		E2NodeID:   nodeID,
+		streams:    streams,
+		rnib:       rnib,
 	}
-
 }
 
 // E2APConn e2ap connection
 type E2APConn struct {
 	e2.ServerConn
-	ID             ConnID
-	E2NodeID       topoapi.ID
-	streamsv1beta1 subscriptionv1beta1.Broker
-	rnib           rnib.Store
+	ID       ConnID
+	E2NodeID topoapi.ID
+	streams  broker.Broker
+	rnib     rnib.Store
 }
 
 func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
 	log.Debugf("Received RICIndication %+v", request)
-	streamID := subscriptionv1beta1.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
-	stream, ok := c.streamsv1beta1.GetWriter(streamID)
+	streamID := broker.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
+	stream, ok := c.streams.Streams().Get(streamID)
 	if !ok {
-		return errors.NewNotFound("stream %s not found", stream.ID())
+		return errors.NewNotFound("stream %s not found", streamID)
 	}
-	return stream.Send(request)
+	defer func() {
+		_ = recover()
+	}()
+	stream.C <- request
+	return nil
 }
 
 func (c *E2APConn) GetRANFunctionID(ctx context.Context, oid e2smtypes.OID) (types.RanFunctionID, bool) {
