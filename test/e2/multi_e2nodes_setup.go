@@ -74,6 +74,5 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 
 	numNodes = utils.GetNumNodes(t, nodeClient)
 	assert.Equal(t, 0, numNodes)
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }

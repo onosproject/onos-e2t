@@ -72,8 +72,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Cause the simulator to crash
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 
 	for {
 		pods, err := kube.CoreV1().Pods().List(context.Background())

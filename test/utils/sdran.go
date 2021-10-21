@@ -71,6 +71,11 @@ func CreateRanSimulatorWithNameOrDie(t *testing.T, c *input.Context, simName str
 	return sim
 }
 
+// UninstallRanSimulatorOrDie uninstalls a simulator and fails the test if the operation returned an error
+func UninstallRanSimulatorOrDie(t *testing.T, sim *helm.HelmRelease) {
+	assert.NoError(t, sim.Uninstall())
+}
+
 // CreateRanSimulatorWithName creates a ran simulator
 func CreateRanSimulatorWithName(t *testing.T, c *input.Context, name string) *helm.HelmRelease {
 	username, password, err := getCredentials()

@@ -60,7 +60,5 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 	assert.Contains(t, err.Error(), "Unavailable")
 
 	e2utils.CheckForEmptySubscriptionList(t)
-
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }

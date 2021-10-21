@@ -119,7 +119,5 @@ func (s *TestSuite) TestInvalidControl(t *testing.T) {
 			runControlTestCase(t, pinTestCase, string(nodeID))
 		})
 	}
-	err = sim.Uninstall()
-	assert.NoError(t, err)
-
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }

@@ -141,6 +141,5 @@ func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 		})
 	}
 	e2utils.CheckForEmptySubscriptionList(t)
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }

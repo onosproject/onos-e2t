@@ -147,6 +147,5 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	e2utils.CheckForEmptySubscriptionList(t)
 
 	// Clean up the ran-sim instance
-	simErr := sim.Uninstall()
-	assert.NoError(t, simErr)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }

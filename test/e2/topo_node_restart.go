@@ -125,7 +125,5 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	e2utils.CheckForEmptySubscriptionList(t)
-
-	err = sim.Uninstall()
-	assert.NoError(t, err)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }
