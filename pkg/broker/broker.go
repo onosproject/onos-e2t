@@ -14,13 +14,12 @@ var log = logging.GetLogger("broker")
 
 const bufferMaxSize = 10000
 
-type StreamID int
-
 // NewBroker creates a new subscription stream broker
 func NewBroker() Broker {
-	subs := &subscriptionManager{
-		streams: &streamManager{
-			streams: make(map[StreamID]*Stream),
+	subs := &subscriptionStreamManager{
+		streams: &southboundStreamManager{
+			streams:  make(map[StreamID]*SouthboundStream),
+			watchers: make(map[uuid.UUID]chan<- StreamID),
 		},
 		subs:     make(map[e2api.SubscriptionID]*SubscriptionStream),
 		watchers: make(map[uuid.UUID]chan<- e2api.SubscriptionID),
@@ -33,21 +32,21 @@ func NewBroker() Broker {
 
 // Broker is a subscription stream broker
 type Broker interface {
-	Streams() StreamManager
-	Subscriptions() SubscriptionManager
+	Streams() SouthboundStreamManager
+	Subscriptions() SubscriptionStreamManager
 }
 
 // broker is a subscription broker
 type broker struct {
-	streams StreamManager
-	subs    SubscriptionManager
+	streams SouthboundStreamManager
+	subs    SubscriptionStreamManager
 }
 
-func (s *broker) Streams() StreamManager {
+func (s *broker) Streams() SouthboundStreamManager {
 	return s.streams
 }
 
-func (s *broker) Subscriptions() SubscriptionManager {
+func (s *broker) Subscriptions() SubscriptionStreamManager {
 	return s.subs
 }
 

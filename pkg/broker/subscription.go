@@ -12,30 +12,31 @@ import (
 	"sync"
 )
 
-type SubscriptionManager interface {
+type SubscriptionStreamManager interface {
+	StreamManager
 	Get(id e2api.SubscriptionID) (*SubscriptionStream, bool)
 	List() []*SubscriptionStream
-	Create(id e2api.SubscriptionID) *SubscriptionStream
-	Close(id e2api.SubscriptionID)
+	Open(id e2api.SubscriptionID) *SubscriptionStream
 	Watch(ctx context.Context, ch chan<- e2api.SubscriptionID)
+	close(id e2api.SubscriptionID)
 }
 
-type subscriptionManager struct {
-	streams    StreamManager
+type subscriptionStreamManager struct {
+	streams    SouthboundStreamManager
 	subs       map[e2api.SubscriptionID]*SubscriptionStream
 	subsMu     sync.RWMutex
 	watchers   map[uuid.UUID]chan<- e2api.SubscriptionID
 	watchersMu sync.RWMutex
 }
 
-func (s *subscriptionManager) Get(id e2api.SubscriptionID) (*SubscriptionStream, bool) {
+func (s *subscriptionStreamManager) Get(id e2api.SubscriptionID) (*SubscriptionStream, bool) {
 	s.subsMu.RLock()
 	defer s.subsMu.RUnlock()
 	sub, ok := s.subs[id]
 	return sub, ok
 }
 
-func (s *subscriptionManager) List() []*SubscriptionStream {
+func (s *subscriptionStreamManager) List() []*SubscriptionStream {
 	s.subsMu.RLock()
 	defer s.subsMu.RUnlock()
 	subs := make([]*SubscriptionStream, 0, len(s.subs))
@@ -45,7 +46,7 @@ func (s *subscriptionManager) List() []*SubscriptionStream {
 	return subs
 }
 
-func (s *subscriptionManager) Create(id e2api.SubscriptionID) *SubscriptionStream {
+func (s *subscriptionStreamManager) Open(id e2api.SubscriptionID) *SubscriptionStream {
 	s.subsMu.RLock()
 	sub, ok := s.subs[id]
 	s.subsMu.RUnlock()
@@ -60,11 +61,12 @@ func (s *subscriptionManager) Create(id e2api.SubscriptionID) *SubscriptionStrea
 	}
 	ch := make(chan *e2appducontents.Ricindication)
 	sub = &SubscriptionStream{
-		Stream:         s.streams.create(ch),
-		SubscriptionID: id,
-		ch:             ch,
+		SouthboundStream: s.streams.create(ch),
+		manager:          s,
+		SubscriptionID:   id,
+		ch:               ch,
 	}
-	sub.apps = &appManager{
+	sub.apps = &appStreamManager{
 		sub:      sub,
 		apps:     make(map[e2api.AppID]*AppStream),
 		watchers: make(map[uuid.UUID]chan<- e2api.AppID),
@@ -75,18 +77,7 @@ func (s *subscriptionManager) Create(id e2api.SubscriptionID) *SubscriptionStrea
 	return sub
 }
 
-func (s *subscriptionManager) Close(id e2api.SubscriptionID) {
-	s.subsMu.Lock()
-	sub, ok := s.subs[id]
-	delete(s.subs, id)
-	s.subsMu.Unlock()
-	if ok {
-		s.streams.close(sub.StreamID)
-		go s.notify(id)
-	}
-}
-
-func (s *subscriptionManager) notify(subID e2api.SubscriptionID) {
+func (s *subscriptionStreamManager) notify(subID e2api.SubscriptionID) {
 	s.watchersMu.RLock()
 	for _, watcher := range s.watchers {
 		watcher <- subID
@@ -94,7 +85,7 @@ func (s *subscriptionManager) notify(subID e2api.SubscriptionID) {
 	s.watchersMu.RUnlock()
 }
 
-func (s *subscriptionManager) Watch(ctx context.Context, ch chan<- e2api.SubscriptionID) {
+func (s *subscriptionStreamManager) Watch(ctx context.Context, ch chan<- e2api.SubscriptionID) {
 	s.watchersMu.Lock()
 	id := uuid.New()
 	s.watchers[id] = ch
@@ -118,10 +109,20 @@ func (s *subscriptionManager) Watch(ctx context.Context, ch chan<- e2api.Subscri
 	}()
 }
 
+func (s *subscriptionStreamManager) close(id e2api.SubscriptionID) {
+	s.subsMu.Lock()
+	defer s.subsMu.Unlock()
+	if _, ok := s.subs[id]; ok {
+		delete(s.subs, id)
+		go s.notify(id)
+	}
+}
+
 type SubscriptionStream struct {
-	*Stream
+	*SouthboundStream
+	manager        SubscriptionStreamManager
 	SubscriptionID e2api.SubscriptionID
-	apps           AppManager
+	apps           AppStreamManager
 	ch             <-chan *e2appducontents.Ricindication
 }
 
@@ -130,12 +131,23 @@ func (s *SubscriptionStream) open() {
 }
 
 func (s *SubscriptionStream) receive() {
-	defer s.apps.close()
 	for ind := range s.ch {
-		s.apps.send(ind)
+		for _, app := range s.apps.List() {
+			app.send(ind)
+		}
+	}
+	for _, app := range s.apps.List() {
+		app.Close()
 	}
 }
 
-func (s *SubscriptionStream) Apps() AppManager {
+func (s *SubscriptionStream) Apps() AppStreamManager {
 	return s.apps
 }
+
+func (s *SubscriptionStream) Close() {
+	s.manager.close(s.SubscriptionID)
+	s.SouthboundStream.Close()
+}
+
+var _ Stream = &SubscriptionStream{}

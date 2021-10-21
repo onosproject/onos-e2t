@@ -407,7 +407,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Debugf("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	stream := r.streams.Subscriptions().Create(sub.ID)
+	stream := r.streams.Subscriptions().Open(sub.ID)
 
 	ricRequest := types.RicRequest{
 		RequestorID: types.RicRequestorID(stream.StreamID),

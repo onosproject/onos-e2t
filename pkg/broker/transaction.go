@@ -13,17 +13,16 @@ import (
 	"sync"
 )
 
-type TransactionManager interface {
+type TransactionStreamManager interface {
+	StreamManager
 	Get(id e2api.TransactionID) (*TransactionStream, bool)
 	List() []*TransactionStream
-	Create(id e2api.TransactionID) *TransactionStream
-	Close(id e2api.TransactionID)
+	Open(id e2api.TransactionID) *TransactionStream
 	Watch(ctx context.Context, ch chan<- e2api.TransactionID)
-	send(ind *e2appducontents.Ricindication)
-	close()
+	close(id e2api.TransactionID)
 }
 
-type transactionManager struct {
+type transactionStreamManager struct {
 	app            *AppStream
 	transactions   map[e2api.TransactionID]*TransactionStream
 	transactionsMu sync.RWMutex
@@ -31,14 +30,14 @@ type transactionManager struct {
 	watchersMu     sync.RWMutex
 }
 
-func (s *transactionManager) Get(id e2api.TransactionID) (*TransactionStream, bool) {
+func (s *transactionStreamManager) Get(id e2api.TransactionID) (*TransactionStream, bool) {
 	s.transactionsMu.RLock()
 	defer s.transactionsMu.RUnlock()
 	app, ok := s.transactions[id]
 	return app, ok
 }
 
-func (s *transactionManager) List() []*TransactionStream {
+func (s *transactionStreamManager) List() []*TransactionStream {
 	s.transactionsMu.RLock()
 	defer s.transactionsMu.RUnlock()
 	apps := make([]*TransactionStream, 0, len(s.transactions))
@@ -48,7 +47,7 @@ func (s *transactionManager) List() []*TransactionStream {
 	return apps
 }
 
-func (s *transactionManager) Create(id e2api.TransactionID) *TransactionStream {
+func (s *transactionStreamManager) Open(id e2api.TransactionID) *TransactionStream {
 	s.transactionsMu.RLock()
 	transaction, ok := s.transactions[id]
 	s.transactionsMu.RUnlock()
@@ -64,11 +63,16 @@ func (s *transactionManager) Create(id e2api.TransactionID) *TransactionStream {
 	ch := make(chan *e2appducontents.Ricindication)
 	transaction = &TransactionStream{
 		AppStream:     s.app,
+		transactions:  s,
 		TransactionID: id,
-		C:             ch,
 		ch:            ch,
 		buffer:        list.New(),
 		cond:          sync.NewCond(&sync.Mutex{}),
+	}
+	transaction.instances = &appInstanceStreamManager{
+		transaction: transaction,
+		instances:   make(map[e2api.AppInstanceID]*AppInstanceStream),
+		watchers:    make(map[uuid.UUID]chan<- e2api.AppInstanceID),
 	}
 	s.transactions[id] = transaction
 	transaction.open()
@@ -76,18 +80,7 @@ func (s *transactionManager) Create(id e2api.TransactionID) *TransactionStream {
 	return transaction
 }
 
-func (s *transactionManager) Close(id e2api.TransactionID) {
-	s.transactionsMu.Lock()
-	app, ok := s.transactions[id]
-	delete(s.transactions, id)
-	s.transactionsMu.Unlock()
-	if ok {
-		app.close()
-		go s.notify(id)
-	}
-}
-
-func (s *transactionManager) notify(transactionID e2api.TransactionID) {
+func (s *transactionStreamManager) notify(transactionID e2api.TransactionID) {
 	s.watchersMu.RLock()
 	for _, watcher := range s.watchers {
 		watcher <- transactionID
@@ -95,7 +88,7 @@ func (s *transactionManager) notify(transactionID e2api.TransactionID) {
 	s.watchersMu.RUnlock()
 }
 
-func (s *transactionManager) Watch(ctx context.Context, ch chan<- e2api.TransactionID) {
+func (s *transactionStreamManager) Watch(ctx context.Context, ch chan<- e2api.TransactionID) {
 	s.watchersMu.Lock()
 	id := uuid.New()
 	s.watchers[id] = ch
@@ -119,30 +112,28 @@ func (s *transactionManager) Watch(ctx context.Context, ch chan<- e2api.Transact
 	}()
 }
 
-func (s *transactionManager) send(ind *e2appducontents.Ricindication) {
-	s.transactionsMu.RLock()
-	defer s.transactionsMu.RUnlock()
-	for _, transaction := range s.transactions {
-		transaction.send(ind)
-	}
-}
-
-func (s *transactionManager) close() {
-	s.transactionsMu.RLock()
-	defer s.transactionsMu.RUnlock()
-	for _, transaction := range s.transactions {
-		transaction.close()
+func (s *transactionStreamManager) close(id e2api.TransactionID) {
+	s.transactionsMu.Lock()
+	defer s.transactionsMu.Unlock()
+	if _, ok := s.transactions[id]; ok {
+		delete(s.transactions, id)
+		go s.notify(id)
 	}
 }
 
 type TransactionStream struct {
 	*AppStream
+	transactions  TransactionStreamManager
+	instances     AppInstanceStreamManager
 	TransactionID e2api.TransactionID
-	C             <-chan *e2appducontents.Ricindication
 	ch            chan *e2appducontents.Ricindication
 	buffer        *list.List
 	cond          *sync.Cond
 	closed        bool
+}
+
+func (s *TransactionStream) Instances() AppInstanceStreamManager {
+	return s.instances
 }
 
 func (s *TransactionStream) open() {
@@ -187,9 +178,12 @@ func (s *TransactionStream) next() (*e2appducontents.Ricindication, bool) {
 	return result, true
 }
 
-func (s *TransactionStream) close() {
+func (s *TransactionStream) Close() {
+	s.transactions.close(s.TransactionID)
 	s.cond.L.Lock()
 	s.closed = true
 	s.cond.Signal()
 	s.cond.L.Unlock()
 }
+
+var _ Stream = &TransactionStream{}

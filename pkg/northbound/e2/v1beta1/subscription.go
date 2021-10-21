@@ -342,11 +342,15 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	}
 
 	stream := s.streams.Subscriptions().
-		Create(subID).
+		Open(subID).
 		Apps().
-		Create(request.Headers.AppID).
+		Open(request.Headers.AppID).
 		Transactions().
-		Create(request.TransactionID)
+		Open(request.TransactionID).
+		Instances().
+		Open(request.Headers.AppInstanceID).
+		Streams().
+		New(server.Context())
 
 	completeCh := make(chan error)
 	go func() {

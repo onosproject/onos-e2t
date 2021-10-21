@@ -313,14 +313,31 @@ func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel
 		(channel.Status.Master != e2api.MasterID(nodeID) ||
 			(channel.Status.Phase == e2api.ChannelPhase_CHANNEL_CLOSED &&
 				channel.Status.State == e2api.ChannelState_CHANNEL_COMPLETE)) {
-		log.Infof("New master elected for channel %+v: closing channel stream", channel)
+		log.Infof("New master elected for channel '%s': closing channel stream", channel.ID)
+		var (
+			sub  *broker.SubscriptionStream
+			app  *broker.AppStream
+			tx   *broker.TransactionStream
+			inst *broker.AppInstanceStream
+		)
 		sub, ok := r.streams.Subscriptions().Get(channel.SubscriptionID)
-		if ok {
-			app, ok := sub.Apps().Get(channel.AppID)
-			if ok {
-				app.Transactions().Close(channel.TransactionID)
-			}
+		if !ok {
+			goto finalize
 		}
+		app, ok = sub.Apps().Get(channel.AppID)
+		if !ok {
+			goto finalize
+		}
+		tx, ok = app.Transactions().Get(channel.TransactionID)
+		if !ok {
+			goto finalize
+		}
+		inst, ok = tx.Instances().Get(channel.AppInstanceID)
+		if !ok {
+			goto finalize
+		}
+		inst.Close()
+	finalize:
 		channel.Finalizers = utils.RemoveString(channel.Finalizers, string(nodeID))
 		if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 			log.Warnf("Failed to reconcile Channel %+v: %s", channel, err)

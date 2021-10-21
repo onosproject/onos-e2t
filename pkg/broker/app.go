@@ -12,17 +12,16 @@ import (
 	"sync"
 )
 
-type AppManager interface {
+type AppStreamManager interface {
+	StreamManager
 	Get(id e2api.AppID) (*AppStream, bool)
 	List() []*AppStream
-	Create(id e2api.AppID) *AppStream
-	Close(id e2api.AppID)
+	Open(id e2api.AppID) *AppStream
 	Watch(ctx context.Context, ch chan<- e2api.AppID)
-	send(ind *e2appducontents.Ricindication)
-	close()
+	close(id e2api.AppID)
 }
 
-type appManager struct {
+type appStreamManager struct {
 	sub        *SubscriptionStream
 	apps       map[e2api.AppID]*AppStream
 	appsMu     sync.RWMutex
@@ -30,24 +29,24 @@ type appManager struct {
 	watchersMu sync.RWMutex
 }
 
-func (s *appManager) Get(id e2api.AppID) (*AppStream, bool) {
+func (s *appStreamManager) Get(id e2api.AppID) (*AppStream, bool) {
 	s.appsMu.RLock()
 	defer s.appsMu.RUnlock()
-	sub, ok := s.apps[id]
-	return sub, ok
+	app, ok := s.apps[id]
+	return app, ok
 }
 
-func (s *appManager) List() []*AppStream {
+func (s *appStreamManager) List() []*AppStream {
 	s.appsMu.RLock()
 	defer s.appsMu.RUnlock()
-	subs := make([]*AppStream, 0, len(s.apps))
-	for _, sub := range s.apps {
-		subs = append(subs, sub)
+	apps := make([]*AppStream, 0, len(s.apps))
+	for _, app := range s.apps {
+		apps = append(apps, app)
 	}
-	return subs
+	return apps
 }
 
-func (s *appManager) Create(id e2api.AppID) *AppStream {
+func (s *appStreamManager) Open(id e2api.AppID) *AppStream {
 	s.appsMu.RLock()
 	app, ok := s.apps[id]
 	s.appsMu.RUnlock()
@@ -63,10 +62,11 @@ func (s *appManager) Create(id e2api.AppID) *AppStream {
 	ch := make(chan *e2appducontents.Ricindication)
 	app = &AppStream{
 		SubscriptionStream: s.sub,
+		manager:            s,
 		AppID:              id,
 		ch:                 ch,
 	}
-	app.transactions = &transactionManager{
+	app.transactions = &transactionStreamManager{
 		app:          app,
 		transactions: make(map[e2api.TransactionID]*TransactionStream),
 		watchers:     make(map[uuid.UUID]chan<- e2api.TransactionID),
@@ -77,18 +77,7 @@ func (s *appManager) Create(id e2api.AppID) *AppStream {
 	return app
 }
 
-func (s *appManager) Close(id e2api.AppID) {
-	s.appsMu.Lock()
-	app, ok := s.apps[id]
-	delete(s.apps, id)
-	s.appsMu.Unlock()
-	if ok {
-		close(app.ch)
-		go s.notify(id)
-	}
-}
-
-func (s *appManager) notify(appID e2api.AppID) {
+func (s *appStreamManager) notify(appID e2api.AppID) {
 	s.watchersMu.RLock()
 	for _, watcher := range s.watchers {
 		watcher <- appID
@@ -96,7 +85,7 @@ func (s *appManager) notify(appID e2api.AppID) {
 	s.watchersMu.RUnlock()
 }
 
-func (s *appManager) Watch(ctx context.Context, ch chan<- e2api.AppID) {
+func (s *appStreamManager) Watch(ctx context.Context, ch chan<- e2api.AppID) {
 	s.watchersMu.Lock()
 	id := uuid.New()
 	s.watchers[id] = ch
@@ -120,27 +109,25 @@ func (s *appManager) Watch(ctx context.Context, ch chan<- e2api.AppID) {
 	}()
 }
 
-func (s *appManager) send(ind *e2appducontents.Ricindication) {
-	s.appsMu.RLock()
-	defer s.appsMu.RUnlock()
-	for _, app := range s.apps {
-		app.send(ind)
-	}
-}
-
-func (s *appManager) close() {
-	s.appsMu.RLock()
-	defer s.appsMu.RUnlock()
-	for _, app := range s.apps {
-		app.close()
+func (s *appStreamManager) close(id e2api.AppID) {
+	s.appsMu.Lock()
+	defer s.appsMu.Unlock()
+	if _, ok := s.apps[id]; ok {
+		delete(s.apps, id)
+		go s.notify(id)
 	}
 }
 
 type AppStream struct {
 	*SubscriptionStream
+	manager      AppStreamManager
 	AppID        e2api.AppID
-	transactions TransactionManager
+	transactions TransactionStreamManager
 	ch           chan *e2appducontents.Ricindication
+}
+
+func (s *AppStream) Transactions() TransactionStreamManager {
+	return s.transactions
 }
 
 func (s *AppStream) open() {
@@ -152,16 +139,19 @@ func (s *AppStream) send(ind *e2appducontents.Ricindication) {
 }
 
 func (s *AppStream) receive() {
-	defer s.transactions.close()
 	for ind := range s.ch {
-		s.transactions.send(ind)
+		for _, transaction := range s.transactions.List() {
+			transaction.send(ind)
+		}
+	}
+	for _, transaction := range s.transactions.List() {
+		transaction.Close()
 	}
 }
 
-func (s *AppStream) Transactions() TransactionManager {
-	return s.transactions
-}
-
-func (s *AppStream) close() {
+func (s *AppStream) Close() {
+	s.manager.close(s.AppID)
 	close(s.ch)
 }
+
+var _ Stream = &AppStream{}
