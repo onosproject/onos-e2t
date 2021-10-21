@@ -301,6 +301,8 @@ func (r *Reconciler) reconcileMastership(ctx context.Context, channel *e2api.Cha
 	}
 
 	// Update the channel status with the new term/master
+	currentTime := time.Now()
+	channel.Status.Timestamp = &currentTime
 	channel.Status.Term = mastership.Term
 	channel.Status.Master = string(e2NodeRelation.GetRelation().SrcEntityID)
 	if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
