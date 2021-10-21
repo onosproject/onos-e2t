@@ -10,6 +10,7 @@ import (
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
 func TestStreamBroker(t *testing.T) {
@@ -48,6 +49,8 @@ func TestStreamBroker(t *testing.T) {
 		},
 	}
 
+	time.Sleep(time.Second)
+
 	app, ok := sub.Apps().Get("bar")
 	assert.False(t, ok)
 	assert.Nil(t, app)
@@ -76,6 +79,8 @@ func TestStreamBroker(t *testing.T) {
 			},
 		},
 	}
+
+	time.Sleep(time.Second)
 
 	transaction, ok := app.Transactions().Get("baz")
 	assert.False(t, ok)
