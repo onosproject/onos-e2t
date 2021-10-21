@@ -413,8 +413,8 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			log.Warnf("SubscribeResponse %+v failed: %v", response, err)
 			return err
 		}
-	case <-server.Context().Done():
-		return server.Context().Err()
+	case <-stream.Context().Done():
+		return stream.Context().Err()
 	}
 
 	// Read indications from the stream and send them to the client
@@ -482,7 +482,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				log.Warnf("Sending SubscribeResponse %+v failed: %v", response, err)
 				return err
 			}
-		case <-server.Context().Done():
+		case <-stream.Context().Done():
 			err := backoff.Retry(func() error {
 				ctx := context.Background()
 				channel, err := s.chans.Get(ctx, channelID)
@@ -508,7 +508,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			if err != nil {
 				log.Warnf("SubscribeRequest %+v failed: %v", request, err)
 			}
-			return server.Context().Err()
+			return stream.Context().Err()
 		}
 	}
 }
