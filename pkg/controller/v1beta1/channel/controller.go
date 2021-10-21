@@ -298,7 +298,7 @@ func (r *Reconciler) reconcileMastership(ctx context.Context, channel *e2api.Cha
 	currentTime := time.Now()
 	channel.Status.Timestamp = &currentTime
 	channel.Status.Term = e2api.TermID(mastership.Term)
-	channel.Status.Master = e2api.E2TInstanceID(e2NodeRelation.GetRelation().SrcEntityID)
+	channel.Status.Master = e2api.MasterID(e2NodeRelation.GetRelation().SrcEntityID)
 	if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
 		log.Warnf("Failed to update channel %s: %s", channel.ID, err)
 		return false, err
@@ -310,7 +310,7 @@ func (r *Reconciler) finalizeChannel(ctx context.Context, channel *e2api.Channel
 	// If this node is not the master for the channel, clean up the streams
 	nodeID := e2api.E2TInstanceID(utils.GetE2TID())
 	if utils.ContainsString(channel.Finalizers, string(nodeID)) &&
-		(channel.Status.Master != nodeID ||
+		(channel.Status.Master != e2api.MasterID(nodeID) ||
 			(channel.Status.Phase == e2api.ChannelPhase_CHANNEL_CLOSED &&
 				channel.Status.State == e2api.ChannelState_CHANNEL_COMPLETE)) {
 		log.Infof("New master elected for channel %+v: closing channel stream", channel)
