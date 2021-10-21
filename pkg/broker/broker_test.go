@@ -6,6 +6,8 @@ package broker
 
 import (
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -32,6 +34,20 @@ func TestStreamBroker(t *testing.T) {
 	subs := broker.Subscriptions().List()
 	assert.Len(t, subs, 1)
 
+	stream, ok = broker.Streams().Get(1)
+	assert.True(t, ok)
+	assert.Equal(t, StreamID(1), stream.StreamID)
+	stream.C <- &e2appducontents.Ricindication{
+		ProtocolIes: &e2appducontents.RicindicationIes{
+			E2ApProtocolIes29: &e2appducontents.RicindicationIes_RicindicationIes29{
+				Value: &e2apies.RicrequestId{
+					RicInstanceId:  1,
+					RicRequestorId: 1,
+				},
+			},
+		},
+	}
+
 	app, ok := sub.Apps().Get("bar")
 	assert.False(t, ok)
 	assert.Nil(t, app)
@@ -49,6 +65,17 @@ func TestStreamBroker(t *testing.T) {
 
 	apps := sub.Apps().List()
 	assert.Len(t, apps, 1)
+
+	stream.C <- &e2appducontents.Ricindication{
+		ProtocolIes: &e2appducontents.RicindicationIes{
+			E2ApProtocolIes29: &e2appducontents.RicindicationIes_RicindicationIes29{
+				Value: &e2apies.RicrequestId{
+					RicInstanceId:  1,
+					RicRequestorId: 2,
+				},
+			},
+		},
+	}
 
 	transaction, ok := app.Transactions().Get("baz")
 	assert.False(t, ok)
@@ -73,6 +100,21 @@ func TestStreamBroker(t *testing.T) {
 	stream, ok = broker.Streams().Get(1)
 	assert.True(t, ok)
 	assert.Equal(t, StreamID(1), stream.StreamID)
+
+	stream.C <- &e2appducontents.Ricindication{
+		ProtocolIes: &e2appducontents.RicindicationIes{
+			E2ApProtocolIes29: &e2appducontents.RicindicationIes_RicindicationIes29{
+				Value: &e2apies.RicrequestId{
+					RicInstanceId:  1,
+					RicRequestorId: 3,
+				},
+			},
+		},
+	}
+
+	ind, ok := <-transaction.C
+	assert.True(t, ok)
+	assert.Equal(t, int32(3), ind.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 
 	broker.Subscriptions().Close("foo")
 	_, ok = broker.Subscriptions().Get("foo")
