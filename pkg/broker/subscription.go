@@ -114,7 +114,7 @@ type SubscriptionStream struct {
 	*Stream
 	SubscriptionID e2api.SubscriptionID
 	apps           *AppManager
-	ch             chan *e2appducontents.Ricindication
+	ch             <-chan *e2appducontents.Ricindication
 }
 
 func (s *SubscriptionStream) open() {
@@ -130,8 +130,4 @@ func (s *SubscriptionStream) receive() {
 
 func (s *SubscriptionStream) Apps() *AppManager {
 	return s.apps
-}
-
-func (s *SubscriptionStream) close() {
-	close(s.ch)
 }
