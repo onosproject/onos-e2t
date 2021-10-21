@@ -280,7 +280,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
-	nodeID := string(utils.GetE2TID())
+	instanceID := e2api.E2TInstanceID(utils.GetE2TID())
 	err = backoff.Retry(func() error {
 		channel, err := s.chans.Get(server.Context(), channelID)
 		if err != nil {
@@ -297,7 +297,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 					SubscriptionID: subID,
 					ServiceModel:   request.Headers.ServiceModel,
 					Encoding:       e2api.Encoding_ASN1_PER,
-					Finalizers:     []string{nodeID},
+					Finalizers:     []string{string(instanceID)},
 				},
 				Spec: e2api.ChannelSpec{
 					SubscriptionSpec:   subSpec,
@@ -306,8 +306,8 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				Status: e2api.ChannelStatus{
 					Phase:  e2api.ChannelPhase_CHANNEL_OPEN,
 					State:  e2api.ChannelState_CHANNEL_PENDING,
-					Term:   mastership.Term,
-					Master: nodeID,
+					Term:   e2api.TermID(mastership.Term),
+					Master: e2api.MasterID(instanceID),
 				},
 			}
 			err = s.chans.Create(server.Context(), channel)
@@ -316,17 +316,19 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			}
 			return err
 		}
-		if channel.Status.Term > mastership.Term || (channel.Status.Timestamp == nil && channel.Status.Term == mastership.Term) {
+		if channel.Status.Term > e2api.TermID(mastership.Term) ||
+			(channel.Status.Timestamp == nil &&
+				channel.Status.Term == e2api.TermID(mastership.Term)) {
 			return nil
 		}
 
 		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
 		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
-		channel.Status.Term = mastership.Term
-		channel.Status.Master = nodeID
+		channel.Status.Term = e2api.TermID(mastership.Term)
+		channel.Status.Master = e2api.MasterID(instanceID)
 		channel.Status.Timestamp = nil
-		if !utils.ContainsString(channel.Finalizers, nodeID) {
-			channel.Finalizers = append(channel.Finalizers, nodeID)
+		if !utils.ContainsString(channel.Finalizers, string(instanceID)) {
+			channel.Finalizers = append(channel.Finalizers, string(instanceID))
 		}
 		err = s.chans.Update(server.Context(), channel)
 		if err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
@@ -485,11 +487,11 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 					return backoff.Permanent(err)
 				}
 				log.Debugf("Context is canceled, updating channel status for channel:%s", channelID)
-				if channel.Status.Term <= mastership.Term {
+				if channel.Status.Term <= e2api.TermID(mastership.Term) {
 					currentTime := time.Now()
 					channel.Status.Timestamp = &currentTime
-					channel.Status.Term = mastership.Term
-					channel.Status.Master = nodeID
+					channel.Status.Term = e2api.TermID(mastership.Term)
+					channel.Status.Master = e2api.MasterID(instanceID)
 					log.Debugf("Updating channel status; timestamp: %v and mastership term: %d", currentTime, mastership.Term)
 					err := s.chans.Update(ctx, channel)
 					if err != nil && !errors.IsConflict(err) {
