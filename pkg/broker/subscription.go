@@ -54,13 +54,15 @@ func (s *SubscriptionManager) Create(id e2api.SubscriptionID) *SubscriptionStrea
 	sub = &SubscriptionStream{
 		Stream:         s.streams.create(ch),
 		SubscriptionID: id,
+		ch:             ch,
 	}
 	sub.apps = &AppManager{
-		sub:  sub,
-		apps: make(map[e2api.AppID]*AppStream),
+		sub:      sub,
+		apps:     make(map[e2api.AppID]*AppStream),
+		watchers: make(map[uuid.UUID]chan<- e2api.AppID),
 	}
 	s.subs[id] = sub
-	go sub.receive(ch)
+	sub.open()
 	go s.notify(id)
 	return sub
 }
@@ -112,23 +114,24 @@ type SubscriptionStream struct {
 	*Stream
 	SubscriptionID e2api.SubscriptionID
 	apps           *AppManager
+	ch             chan *e2appducontents.Ricindication
 }
 
-func (s *SubscriptionStream) receive(ch <-chan *e2appducontents.Ricindication) {
-	for ind := range ch {
-		s.apps.mu.RLock()
-		for _, app := range s.apps.apps {
-			_ = app.send(ind)
-		}
-		s.apps.mu.RUnlock()
+func (s *SubscriptionStream) open() {
+	go s.receive()
+}
+
+func (s *SubscriptionStream) receive() {
+	defer s.apps.close()
+	for ind := range s.ch {
+		s.apps.send(ind)
 	}
-	s.apps.mu.RLock()
-	for _, app := range s.apps.apps {
-		app.close()
-	}
-	s.apps.mu.RUnlock()
 }
 
 func (s *SubscriptionStream) Apps() *AppManager {
 	return s.apps
+}
+
+func (s *SubscriptionStream) close() {
+	close(s.ch)
 }

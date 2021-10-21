@@ -7,7 +7,10 @@ package broker
 import (
 	"github.com/google/uuid"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
+
+var log = logging.GetLogger("broker")
 
 const bufferMaxSize = 10000
 
