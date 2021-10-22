@@ -63,8 +63,9 @@ func (s *transactionStreamManager) Open(id e2api.TransactionID) *TransactionStre
 	ch := make(chan *e2appducontents.Ricindication)
 	transaction = &TransactionStream{
 		AppStream:     s.app,
-		transactions:  s,
+		manager:       s,
 		TransactionID: id,
+		C:             ch,
 		ch:            ch,
 		buffer:        list.New(),
 		cond:          sync.NewCond(&sync.Mutex{}),
@@ -123,9 +124,10 @@ func (s *transactionStreamManager) close(id e2api.TransactionID) {
 
 type TransactionStream struct {
 	*AppStream
-	transactions  TransactionStreamManager
+	manager       TransactionStreamManager
 	instances     AppInstanceStreamManager
 	TransactionID e2api.TransactionID
+	C             <-chan *e2appducontents.Ricindication
 	ch            chan *e2appducontents.Ricindication
 	buffer        *list.List
 	cond          *sync.Cond
@@ -179,7 +181,7 @@ func (s *TransactionStream) next() (*e2appducontents.Ricindication, bool) {
 }
 
 func (s *TransactionStream) Close() {
-	s.transactions.close(s.TransactionID)
+	s.manager.close(s.TransactionID)
 	s.cond.L.Lock()
 	s.closed = true
 	s.cond.Signal()

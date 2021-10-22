@@ -7,7 +7,6 @@ package broker
 import (
 	"context"
 	"github.com/google/uuid"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"sync"
 )
 
@@ -52,13 +51,10 @@ func (s *northboundStreamManager) New(ctx context.Context) *NorthboundStream {
 	s.streamID++
 	streamID := s.streamID
 	ctx, cancel := context.WithCancel(ctx)
-	ch := make(chan *e2appducontents.Ricindication)
 	stream := &NorthboundStream{
 		AppInstanceStream: s.instance,
 		streams:           s,
 		StreamID:          streamID,
-		C:                 ch,
-		ch:                ch,
 		ctx:               ctx,
 		cancel:            cancel,
 	}
@@ -115,8 +111,6 @@ type NorthboundStream struct {
 	StreamID StreamID
 	ctx      context.Context
 	cancel   context.CancelFunc
-	C        <-chan *e2appducontents.Ricindication
-	ch       chan *e2appducontents.Ricindication
 }
 
 func (s *NorthboundStream) Context() context.Context {
@@ -124,23 +118,10 @@ func (s *NorthboundStream) Context() context.Context {
 }
 
 func (s *NorthboundStream) open() {
-	go s.receive()
-}
-
-func (s *NorthboundStream) receive() {
-	defer s.streams.close(s.StreamID)
-	for {
-		select {
-		case ind, ok := <-s.AppInstanceStream.ch:
-			if !ok {
-				close(s.ch)
-				return
-			}
-			s.ch <- ind
-		case <-s.ctx.Done():
-			return
-		}
-	}
+	go func() {
+		<-s.ctx.Done()
+		s.streams.close(s.StreamID)
+	}()
 }
 
 func (s *NorthboundStream) Close() {

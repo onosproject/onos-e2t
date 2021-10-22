@@ -8,7 +8,6 @@ import (
 	"context"
 	"github.com/google/uuid"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"sync"
 )
 
@@ -59,11 +58,9 @@ func (s *appInstanceStreamManager) Open(id e2api.AppInstanceID) *AppInstanceStre
 	if ok {
 		return instance
 	}
-	ch := make(chan *e2appducontents.Ricindication)
 	instance = &AppInstanceStream{
 		TransactionStream: s.transaction,
 		AppInstanceID:     id,
-		ch:                ch,
 	}
 	instance.streams = &northboundStreamManager{
 		instance: instance,
@@ -119,11 +116,9 @@ func (s *appInstanceStreamManager) close(id e2api.AppInstanceID) {
 
 type AppInstanceStream struct {
 	*TransactionStream
-	instances     AppInstanceStreamManager
+	manager       AppInstanceStreamManager
 	streams       NorthboundStreamManager
 	AppInstanceID e2api.AppInstanceID
-	ch            chan *e2appducontents.Ricindication
-	closeCh       chan struct{}
 }
 
 func (s *AppInstanceStream) Streams() NorthboundStreamManager {
@@ -131,27 +126,11 @@ func (s *AppInstanceStream) Streams() NorthboundStreamManager {
 }
 
 func (s *AppInstanceStream) open() {
-	go s.receive()
-}
 
-func (s *AppInstanceStream) receive() {
-	defer close(s.ch)
-	for {
-		select {
-		case ind, ok := <-s.TransactionStream.ch:
-			if !ok {
-				return
-			}
-			s.ch <- ind
-		case <-s.closeCh:
-			return
-		}
-	}
 }
 
 func (s *AppInstanceStream) Close() {
-	s.instances.close(s.AppInstanceID)
-	close(s.closeCh)
+	s.manager.close(s.AppInstanceID)
 }
 
 var _ Stream = &AppInstanceStream{}
