@@ -260,10 +260,12 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			SubscriptionSpec:   subSpec,
 			TransactionTimeout: request.TransactionTimeout,
 		},
+		Status: e2api.ChannelStatus{
+			Phase: e2api.ChannelPhase_CHANNEL_OPEN,
+			State: e2api.ChannelState_CHANNEL_PENDING,
+		},
 	}
 
-	channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
-	channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 	if err := s.chans.Create(server.Context(), channel); err != nil && !errors.IsAlreadyExists(err) {
 		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return errors.Status(err).Err()

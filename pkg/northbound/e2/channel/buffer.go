@@ -24,9 +24,11 @@ type Buffer interface {
 
 func newChannelBuffer(id BufferID) Buffer {
 	buffer := &channelBuffer{
-		id:  id,
-		in:  make(chan *e2appducontents.Ricindication),
-		out: make(chan *e2appducontents.Ricindication),
+		id:     id,
+		in:     make(chan *e2appducontents.Ricindication),
+		out:    make(chan *e2appducontents.Ricindication),
+		buffer: list.New(),
+		cond:   sync.NewCond(&sync.Mutex{}),
 	}
 	buffer.open()
 	return buffer

@@ -86,6 +86,7 @@ func (s *channelStream) Fail(err error) {
 	if s.open {
 		return
 	}
+	s.manager.close(s)
 	s.openCh <- err
 	close(s.openCh)
 	s.open = true
@@ -105,10 +106,10 @@ func (s *channelStream) Close(err error) {
 	if s.done {
 		return
 	}
+	s.manager.close(s)
 	if err != nil {
 		s.doneCh <- err
 	}
-	s.manager.close(s)
 	close(s.doneCh)
 	s.done = true
 }
