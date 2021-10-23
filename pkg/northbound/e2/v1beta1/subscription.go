@@ -16,7 +16,6 @@ import (
 	"github.com/gogo/protobuf/proto"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 
-	streambroker "github.com/onosproject/onos-e2t/pkg/broker"
 	channelstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
@@ -30,7 +29,7 @@ import (
 )
 
 // NewSubscriptionService creates a new E2T subscription service
-func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams streambroker.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
+func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams channel.Manager, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
 	return &SubscriptionService{
 		chans:         chans,
 		subs:          subs,
@@ -46,7 +45,7 @@ type SubscriptionService struct {
 	northbound.Service
 	chans         channelstore.Store
 	subs          substore.Store
-	streams       streambroker.Broker
+	streams       channel.Manager
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 	rnib          rnib.Store
@@ -68,10 +67,9 @@ func (s SubscriptionService) Register(r *grpc.Server) {
 
 // SubscriptionServer implements the gRPC service for E2 Subscription related functions.
 type SubscriptionServer struct {
-	channels      channel.Manager
 	chans         channelstore.Store
 	subs          substore.Store
-	streams       streambroker.Broker
+	streams       channel.Manager
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 	rnib          rnib.Store
@@ -271,7 +269,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		return errors.Status(err).Err()
 	}
 
-	stream := s.channels.Open(channel)
+	stream := s.streams.Open(channel)
 	select {
 	case err := <-stream.Reader().Open():
 		if err != nil {
