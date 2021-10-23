@@ -11,18 +11,31 @@ import (
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
-	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 	"sync"
 )
 
 type Manager interface {
 	Get(channelID e2api.ChannelID) (Channel, bool)
 	Open(channel *e2api.Channel) Channel
-	Watch(ctx context.Context, ch <-chan Channel) error
+	Watch(ctx context.Context, ch chan<- Channel) error
+}
+
+func NewManager(subs subscription.Manager) (Manager, error) {
+	manager := &channelManager{
+		subs:        subs,
+		chanStreams: make(map[e2api.ChannelID]Channel),
+		buffers:     make(map[BufferID]Buffer),
+		bufferChans: make(map[BufferID]map[e2api.ChannelID]bool),
+		subBuffers:  make(map[e2api.SubscriptionID]map[BufferID]bool),
+		watchers:    make(map[uuid.UUID]chan<- Channel),
+	}
+	if err := manager.open(); err != nil {
+		return nil, err
+	}
+	return manager, nil
 }
 
 type channelManager struct {
-	chans       chanstore.Store
 	subs        subscription.Manager
 	chanStreams map[e2api.ChannelID]Channel
 	buffers     map[BufferID]Buffer
@@ -52,7 +65,7 @@ func (m *channelManager) open() error {
 }
 
 func (m *channelManager) propagateStream(subStream subscription.Subscription) {
-	for ind := range subStream.Reader().Indications() {
+	for ind := range subStream.Out() {
 		m.propagateIndication(subStream, ind)
 	}
 }
