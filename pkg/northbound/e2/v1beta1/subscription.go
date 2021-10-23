@@ -271,7 +271,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		return errors.Status(err).Err()
 	}
 
-	stream := s.streams.Open(channel)
+	stream := s.streams.Open(channel.ID, channel.ChannelMeta)
 	select {
 	case err := <-stream.Reader().Open():
 		if err != nil {

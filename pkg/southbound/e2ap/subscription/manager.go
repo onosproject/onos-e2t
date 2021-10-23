@@ -13,7 +13,7 @@ import (
 
 type Manager interface {
 	Get(streamID StreamID) (Subscription, bool)
-	Open(sub *e2api.Subscription) Subscription
+	Open(id e2api.SubscriptionID, meta e2api.SubscriptionMeta) Subscription
 	Watch(ctx context.Context, ch chan<- Subscription) error
 }
 
@@ -49,18 +49,18 @@ func (m *subscriptionManager) Get(streamID StreamID) (Subscription, bool) {
 	return channel, ok
 }
 
-func (m *subscriptionManager) Open(sub *e2api.Subscription) Subscription {
+func (m *subscriptionManager) Open(id e2api.SubscriptionID, meta e2api.SubscriptionMeta) Subscription {
 	m.subsMu.Lock()
 	defer m.subsMu.Unlock()
 
-	stream, ok := m.subs[sub.ID]
+	stream, ok := m.subs[id]
 	if ok {
 		return stream
 	}
 
 	m.streamID++
-	stream = newSubscriptionStream(m.streamID, sub, m)
-	m.subs[sub.ID] = stream
+	stream = newSubscriptionStream(id, meta, m.streamID, m)
+	m.subs[id] = stream
 	m.streams[m.streamID] = stream
 
 	go m.notify(stream)
@@ -70,7 +70,7 @@ func (m *subscriptionManager) Open(sub *e2api.Subscription) Subscription {
 func (m *subscriptionManager) close(stream Subscription) {
 	m.subsMu.Lock()
 	defer m.subsMu.Unlock()
-	delete(m.subs, stream.Subscription().ID)
+	delete(m.subs, stream.ID())
 	delete(m.streams, stream.StreamID())
 	go m.notify(stream)
 }

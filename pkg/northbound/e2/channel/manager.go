@@ -16,7 +16,7 @@ import (
 
 type Manager interface {
 	Get(channelID e2api.ChannelID) (Channel, bool)
-	Open(channel *e2api.Channel) Channel
+	Open(channelID e2api.ChannelID, meta e2api.ChannelMeta) Channel
 	Watch(ctx context.Context, ch chan<- Channel) error
 }
 
@@ -70,10 +70,10 @@ func (m *channelManager) propagateStream(subStream subscription.Subscription) {
 	}
 }
 
-func (m *channelManager) propagateIndication(subStream subscription.Subscription, ind *e2appducontents.Ricindication) {
+func (m *channelManager) propagateIndication(sub subscription.Subscription, ind *e2appducontents.Ricindication) {
 	m.streamsMu.RLock()
 	defer m.streamsMu.RUnlock()
-	buffers := m.subBuffers[subStream.Subscription().ID]
+	buffers := m.subBuffers[sub.ID()]
 	for bufferID := range buffers {
 		if buffer, ok := m.buffers[bufferID]; ok {
 			buffer.In() <- ind
@@ -88,36 +88,36 @@ func (m *channelManager) Get(channelID e2api.ChannelID) (Channel, bool) {
 	return channel, ok
 }
 
-func (m *channelManager) Open(channel *e2api.Channel) Channel {
+func (m *channelManager) Open(id e2api.ChannelID, meta e2api.ChannelMeta) Channel {
 	m.streamsMu.Lock()
 	defer m.streamsMu.Unlock()
 
-	stream, ok := m.chanStreams[channel.ID]
+	stream, ok := m.chanStreams[id]
 	if ok {
 		return stream
 	}
 
-	bufferID := BufferID(fmt.Sprintf("%s:%s:%s", channel.E2NodeID, channel.AppID, channel.TransactionID))
+	bufferID := BufferID(fmt.Sprintf("%s:%s:%s", meta.E2NodeID, meta.AppID, meta.TransactionID))
 	buffer, ok := m.buffers[bufferID]
 	if !ok {
 		buffer = newChannelBuffer(bufferID)
 		m.buffers[bufferID] = buffer
 	}
 
-	stream = newChannelStream(channel, buffer, m)
-	m.chanStreams[channel.ID] = stream
+	stream = newChannelStream(id, meta, buffer, m)
+	m.chanStreams[id] = stream
 
 	bufferChans, ok := m.bufferChans[bufferID]
 	if !ok {
 		bufferChans = make(map[e2api.ChannelID]bool)
 		m.bufferChans[bufferID] = bufferChans
 	}
-	bufferChans[channel.ID] = true
+	bufferChans[id] = true
 
-	subBuffers, ok := m.subBuffers[channel.SubscriptionID]
+	subBuffers, ok := m.subBuffers[meta.SubscriptionID]
 	if !ok {
 		subBuffers = make(map[BufferID]bool)
-		m.subBuffers[channel.SubscriptionID] = subBuffers
+		m.subBuffers[meta.SubscriptionID] = subBuffers
 	}
 	subBuffers[bufferID] = true
 
@@ -129,19 +129,21 @@ func (m *channelManager) close(stream Channel) {
 	m.streamsMu.Lock()
 	defer m.streamsMu.Unlock()
 
-	delete(m.chanStreams, stream.Channel().ID)
+	delete(m.chanStreams, stream.ID())
 
-	bufferID := BufferID(fmt.Sprintf("%s:%s:%s", stream.Channel().E2NodeID, stream.Channel().AppID, stream.Channel().TransactionID))
-	bufferChans := m.bufferChans[bufferID]
-	delete(bufferChans, stream.Channel().ID)
+	bufferChans := m.bufferChans[stream.BufferID()]
+	delete(bufferChans, stream.ID())
 	if len(bufferChans) == 0 {
-		if buffer, ok := m.buffers[bufferID]; ok {
+		if buffer, ok := m.buffers[stream.BufferID()]; ok {
 			buffer.Close()
-			delete(m.buffers, bufferID)
+			delete(m.buffers, stream.BufferID())
 		}
-		delete(m.bufferChans, bufferID)
-		for _, subBuffers := range m.subBuffers {
-			delete(subBuffers, bufferID)
+		delete(m.bufferChans, stream.BufferID())
+		for subID, subBuffers := range m.subBuffers {
+			delete(subBuffers, stream.BufferID())
+			if len(subBuffers) == 0 {
+				delete(m.subBuffers, subID)
+			}
 		}
 	}
 	go m.notify(stream)

@@ -95,7 +95,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			log.Debugf("Subscription '%s' not found", subID)
 			return controller.Result{}, nil
 		}
-		log.Errorf("Failed to reconcile Subscription '%s'", sub.ID, err)
+		log.Errorf("Failed to reconcile Subscription '%s'", subID, err)
 		return controller.Result{}, err
 	}
 
@@ -228,7 +228,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			return controller.Result{}, err
 		}
 
-		stream := r.streams.Open(sub)
+		stream := r.streams.Open(sub.ID, sub.SubscriptionMeta)
 
 		ricRequest := types.RicRequest{
 			RequestorID: types.RicRequestorID(stream.StreamID()),
@@ -392,7 +392,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Debugf("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	stream := r.streams.Open(sub)
+	stream := r.streams.Open(sub.ID, sub.SubscriptionMeta)
 
 	ricRequest := types.RicRequest{
 		RequestorID: types.RicRequestorID(stream.StreamID()),
@@ -538,7 +538,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, err
 	}
 
-	stream := r.streams.Open(sub)
+	stream := r.streams.Open(sub.ID, sub.SubscriptionMeta)
 
 	ricRequest := types.RicRequest{
 		RequestorID: types.RicRequestorID(stream.StreamID()),

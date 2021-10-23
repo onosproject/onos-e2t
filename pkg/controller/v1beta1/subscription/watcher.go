@@ -193,16 +193,16 @@ func (w *StreamWatcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	eventCh := make(chan subscription.Subscription, queueSize)
+	streamCh := make(chan subscription.Subscription, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	if err := w.streams.Watch(ctx, eventCh); err != nil {
+	if err := w.streams.Watch(ctx, streamCh); err != nil {
 		cancel()
 		return err
 	}
 	w.cancel = cancel
 
 	go func() {
-		for stream := range eventCh {
+		for stream := range streamCh {
 			ch <- controller.NewID(stream.ID())
 		}
 		close(ch)

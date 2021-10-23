@@ -22,16 +22,16 @@ func TestChannelManager(t *testing.T) {
 	chans, err := NewManager(subs)
 	assert.NoError(t, err)
 
-	channel1 := chans.Open(&e2api.Channel{
-		ID: "chan-1",
-		ChannelMeta: e2api.ChannelMeta{
-			AppID:          "app-1",
-			AppInstanceID:  "instance-1",
-			E2NodeID:       "node-1",
-			TransactionID:  "trans-1",
-			SubscriptionID: "sub-1",
-		},
+	channel1 := chans.Open("chan-1", e2api.ChannelMeta{
+		AppID:          "app-1",
+		AppInstanceID:  "instance-1",
+		E2NodeID:       "node-1",
+		TransactionID:  "trans-1",
+		SubscriptionID: "sub-1",
 	})
+
+	_, ok := chans.Get("chan-1")
+	assert.True(t, ok)
 
 	select {
 	case <-channel1.Reader().Open():
@@ -40,11 +40,8 @@ func TestChannelManager(t *testing.T) {
 		break
 	}
 
-	sub := subs.Open(&e2api.Subscription{
-		ID: "sub-1",
-		SubscriptionMeta: e2api.SubscriptionMeta{
-			E2NodeID: "node-1",
-		},
+	sub := subs.Open("sub-1", e2api.SubscriptionMeta{
+		E2NodeID: "node-1",
 	})
 
 	channel1.Writer().Ack()
@@ -68,15 +65,12 @@ func TestChannelManager(t *testing.T) {
 
 	sub.In() <- newIndication(2)
 
-	channel2 := chans.Open(&e2api.Channel{
-		ID: "chan-2",
-		ChannelMeta: e2api.ChannelMeta{
-			AppID:          "app-1",
-			AppInstanceID:  "instance-2",
-			E2NodeID:       "node-1",
-			TransactionID:  "trans-1",
-			SubscriptionID: "sub-1",
-		},
+	channel2 := chans.Open("chan-2", e2api.ChannelMeta{
+		AppID:          "app-1",
+		AppInstanceID:  "instance-2",
+		E2NodeID:       "node-1",
+		TransactionID:  "trans-1",
+		SubscriptionID: "sub-1",
 	})
 
 	channel2.Writer().Fail(errors.NewUnknown("something bad happened"))
@@ -90,16 +84,29 @@ func TestChannelManager(t *testing.T) {
 		t.Error("timed out waiting for stream open")
 	}
 
-	channel2 = chans.Open(&e2api.Channel{
-		ID: "chan-2",
-		ChannelMeta: e2api.ChannelMeta{
-			AppID:          "app-1",
-			AppInstanceID:  "instance-2",
-			E2NodeID:       "node-1",
-			TransactionID:  "trans-1",
-			SubscriptionID: "sub-1",
-		},
+	_, ok = chans.Get("chan-2")
+	assert.False(t, ok)
+
+	channel2 = chans.Open("chan-2", e2api.ChannelMeta{
+		AppID:          "app-1",
+		AppInstanceID:  "instance-2",
+		E2NodeID:       "node-1",
+		TransactionID:  "trans-1",
+		SubscriptionID: "sub-1",
 	})
+
+	_, ok = chans.Get("chan-2")
+	assert.True(t, ok)
+
+	channel2.Writer().Ack()
+
+	select {
+	case err := <-channel2.Reader().Open():
+		assert.Nil(t, err)
+		break
+	case <-time.After(time.Second):
+		t.Error("timed out waiting for stream open")
+	}
 
 	select {
 	case ind := <-channel2.Reader().Indications():
@@ -116,6 +123,9 @@ func TestChannelManager(t *testing.T) {
 	}
 
 	channel1.Writer().Close(nil)
+
+	_, ok = chans.Get("chan-1")
+	assert.False(t, ok)
 
 	select {
 	case err := <-channel1.Reader().Done():
@@ -135,6 +145,9 @@ func TestChannelManager(t *testing.T) {
 	case <-time.After(time.Second):
 		t.Error("timed out waiting for stream close")
 	}
+
+	_, ok = chans.Get("chan-2")
+	assert.False(t, ok)
 }
 
 func newIndication(requestID int32) *e2appducontents.Ricindication {

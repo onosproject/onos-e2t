@@ -12,7 +12,8 @@ import (
 
 type Channel interface {
 	ID() e2api.ChannelID
-	Channel() *e2api.Channel
+	BufferID() BufferID
+	Meta() e2api.ChannelMeta
 	Writer() Writer
 	Reader() Reader
 }
@@ -29,10 +30,11 @@ type Reader interface {
 	Done() <-chan error
 }
 
-func newChannelStream(channel *e2api.Channel, buffer Buffer, manager *channelManager) Channel {
+func newChannelStream(id e2api.ChannelID, meta e2api.ChannelMeta, buffer Buffer, manager *channelManager) Channel {
 	return &channelStream{
 		manager: manager,
-		channel: channel,
+		id:      id,
+		meta:    meta,
 		buffer:  buffer,
 		openCh:  make(chan error, 1),
 		doneCh:  make(chan error, 1),
@@ -41,7 +43,8 @@ func newChannelStream(channel *e2api.Channel, buffer Buffer, manager *channelMan
 
 type channelStream struct {
 	manager *channelManager
-	channel *e2api.Channel
+	id      e2api.ChannelID
+	meta    e2api.ChannelMeta
 	buffer  Buffer
 	openCh  chan error
 	open    bool
@@ -51,11 +54,15 @@ type channelStream struct {
 }
 
 func (s *channelStream) ID() e2api.ChannelID {
-	return s.channel.ID
+	return s.id
 }
 
-func (s *channelStream) Channel() *e2api.Channel {
-	return s.channel
+func (s *channelStream) Meta() e2api.ChannelMeta {
+	return s.meta
+}
+
+func (s *channelStream) BufferID() BufferID {
+	return s.buffer.ID()
 }
 
 func (s *channelStream) Writer() Writer {
