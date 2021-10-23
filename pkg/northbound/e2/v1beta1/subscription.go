@@ -8,21 +8,13 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
-	"github.com/onosproject/onos-e2t/pkg/controller/utils"
+	"github.com/onosproject/onos-e2t/pkg/northbound/e2/channel"
 	"io"
-	"time"
-
-	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	"github.com/cenkalti/backoff"
-
-	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-
 	"github.com/gogo/protobuf/proto"
+	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 
 	streambroker "github.com/onosproject/onos-e2t/pkg/broker"
 	channelstore "github.com/onosproject/onos-e2t/pkg/store/channel"
@@ -76,6 +68,7 @@ func (s SubscriptionService) Register(r *grpc.Server) {
 
 // SubscriptionServer implements the gRPC service for E2 Subscription related functions.
 type SubscriptionServer struct {
+	channels      channel.Manager
 	chans         channelstore.Store
 	subs          substore.Store
 	streams       streambroker.Broker
@@ -196,32 +189,6 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	log.Debugf("Received SubscribeRequest %+v", request)
 	encoding := request.Headers.Encoding
 
-	mastership := &topoapi.MastershipState{}
-	e2nodeEntity, err := s.rnib.Get(server.Context(), topoapi.ID(request.Headers.E2NodeID))
-	if err != nil {
-		return errors.Status(errors.NewUnavailable("not found e2 node entity %s:%v", request.Headers.E2NodeID, err)).Err()
-	}
-	err = e2nodeEntity.GetAspect(mastership)
-	if err != nil {
-		log.Warnf("Failed to fetch mastership state for e2node: %s", request.Headers.E2NodeID)
-		return errors.Status(errors.NewUnavailable("not the master for e2 node: %s:%v", request.Headers.E2NodeID, err)).Err()
-	}
-
-	e2NodeRelation, err := s.rnib.Get(server.Context(), topoapi.ID(mastership.NodeId))
-	if err != nil {
-		if !errors.IsNotFound(err) {
-			log.Warnf("Fetching mastership state for E2Node '%s' failed: %v", request.Headers.E2NodeID, err)
-			return err
-		}
-		log.Warnf("Master relation not found for E2Node '%s'", request.Headers.E2NodeID)
-		return errors.Status(errors.NewUnavailable("Master relation not found for E2Node '%s'", request.Headers.E2NodeID)).Err()
-	}
-
-	if e2NodeRelation.GetRelation().SrcEntityID != utils.GetE2TID() {
-		log.Warnf("Not the master for E2Node '%s'", request.Headers.E2NodeID)
-		return errors.Status(errors.NewUnavailable("Not the master for E2Node '%s'", request.Headers.E2NodeID)).Err()
-	}
-
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
 		string(request.Headers.ServiceModel.Name),
 		string(request.Headers.ServiceModel.Version))
@@ -280,156 +247,50 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
-	instanceID := e2api.E2TInstanceID(utils.GetE2TID())
-	err = backoff.Retry(func() error {
-		channel, err := s.chans.Get(server.Context(), channelID)
-		if err != nil {
-			if !errors.IsNotFound(err) {
-				return backoff.Permanent(err)
-			}
-			channel = &e2api.Channel{
-				ID: channelID,
-				ChannelMeta: e2api.ChannelMeta{
-					AppID:          request.Headers.AppID,
-					AppInstanceID:  request.Headers.AppInstanceID,
-					E2NodeID:       request.Headers.E2NodeID,
-					TransactionID:  request.TransactionID,
-					SubscriptionID: subID,
-					ServiceModel:   request.Headers.ServiceModel,
-					Encoding:       e2api.Encoding_ASN1_PER,
-					Finalizers:     []string{string(instanceID)},
-				},
-				Spec: e2api.ChannelSpec{
-					SubscriptionSpec:   subSpec,
-					TransactionTimeout: request.TransactionTimeout,
-				},
-				Status: e2api.ChannelStatus{
-					Phase:  e2api.ChannelPhase_CHANNEL_OPEN,
-					State:  e2api.ChannelState_CHANNEL_PENDING,
-					Term:   e2api.TermID(mastership.Term),
-					Master: e2api.MasterID(instanceID),
-				},
-			}
-			err = s.chans.Create(server.Context(), channel)
-			if err != nil && !errors.IsAlreadyExists(err) {
-				return backoff.Permanent(err)
-			}
-			return err
-		}
-		if channel.Status.Term > e2api.TermID(mastership.Term) ||
-			(channel.Status.Timestamp == nil &&
-				channel.Status.Term == e2api.TermID(mastership.Term)) {
-			return nil
-		}
+	channel := &e2api.Channel{
+		ID: channelID,
+		ChannelMeta: e2api.ChannelMeta{
+			AppID:          request.Headers.AppID,
+			AppInstanceID:  request.Headers.AppInstanceID,
+			E2NodeID:       request.Headers.E2NodeID,
+			TransactionID:  request.TransactionID,
+			SubscriptionID: subID,
+			ServiceModel:   request.Headers.ServiceModel,
+			Encoding:       e2api.Encoding_ASN1_PER,
+		},
+		Spec: e2api.ChannelSpec{
+			SubscriptionSpec:   subSpec,
+			TransactionTimeout: request.TransactionTimeout,
+		},
+	}
 
-		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
-		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
-		channel.Status.Term = e2api.TermID(mastership.Term)
-		channel.Status.Master = e2api.MasterID(instanceID)
-		channel.Status.Timestamp = nil
-		if !utils.ContainsString(channel.Finalizers, string(instanceID)) {
-			channel.Finalizers = append(channel.Finalizers, string(instanceID))
-		}
-		err = s.chans.Update(server.Context(), channel)
-		if err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-			return backoff.Permanent(err)
-		}
-		return err
-	}, backoff.NewExponentialBackOff())
+	stream, err := s.channels.Open(server.Context(), channel)
 	if err != nil {
 		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return errors.Status(err).Err()
 	}
 
-	stream := s.streams.Subscriptions().
-		Open(subID).
-		Apps().
-		Open(request.Headers.AppID).
-		Transactions().
-		Open(request.TransactionID).
-		Instances().
-		Open(request.Headers.AppInstanceID).
-		Streams().
-		New(server.Context())
-
-	completeCh := make(chan error)
-	go func() {
-		defer close(completeCh)
-		// Watch the channel store for changes
-		eventCh := make(chan e2api.ChannelEvent)
-		ctx, cancel := context.WithCancel(server.Context())
-		defer cancel()
-		if err := s.chans.Watch(ctx, eventCh, channelstore.WithReplay()); err != nil {
-			completeCh <- errors.Status(err).Err()
-			return
-		}
-
-		for event := range eventCh {
-			if event.Channel.ID == channelID && event.Channel.Status.Phase == e2api.ChannelPhase_CHANNEL_OPEN {
-				switch event.Channel.Status.State {
-				case e2api.ChannelState_CHANNEL_COMPLETE:
-					return
-				case e2api.ChannelState_CHANNEL_FAILED:
-					// If the channel open failed, send the failure to the client as an error
-					errStat := status.New(codes.Aborted, "an E2AP failure occurred")
-					errStat, err := errStat.WithDetails(event.Channel.Status.Error)
-					if err != nil {
-						completeCh <- err
-					} else {
-						completeCh <- errStat.Err()
-					}
-					return
-				}
-			}
-		}
-	}()
-
-	// Wait for the channel subscription to be completed
-	select {
-	case err := <-completeCh:
-		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-			return err
-		}
-
-		// If the channel open is complete, send an ack response to the client
-		response := &e2api.SubscribeResponse{
-			Headers: e2api.ResponseHeaders{
-				Encoding: encoding,
-			},
-			Message: &e2api.SubscribeResponse_Ack{
-				Ack: &e2api.Acknowledgement{
-					ChannelID: channelID,
-				},
-			},
-		}
-
-		log.Debugf("Sending SubscribeResponse %+v", response)
-		err = server.Send(response)
-		if err == io.EOF {
-			return nil
-		}
-		if err != nil {
-			log.Warnf("SubscribeResponse %+v failed: %v", response, err)
-			return err
-		}
-	case <-stream.Context().Done():
-		return stream.Context().Err()
+	err = server.Send(&e2api.SubscribeResponse{
+		Message: &e2api.SubscribeResponse_Ack{
+			Ack: &e2api.Acknowledgement{},
+		},
+	})
+	if err != nil {
+		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+		return err
 	}
 
-	// Read indications from the stream and send them to the client
 	for {
 		select {
-		case indication, ok := <-stream.C:
+		case ind, ok := <-stream.Indications():
 			if !ok {
-				log.Debugf("Subscription %+v closed", request)
-				return nil
+				return errors.Status(errors.NewUnavailable("stream closed")).Err()
 			}
 
-			ranFuncID := indication.ProtocolIes.E2ApProtocolIes5.Value.Value
-			ricActionID := indication.ProtocolIes.E2ApProtocolIes15.Value.Value
-			indHeaderAsn1 := indication.ProtocolIes.E2ApProtocolIes25.Value.Value
-			indMessageAsn1 := indication.ProtocolIes.E2ApProtocolIes26.Value.Value
+			ranFuncID := ind.ProtocolIes.E2ApProtocolIes5.Value.Value
+			ricActionID := ind.ProtocolIes.E2ApProtocolIes15.Value.Value
+			indHeaderAsn1 := ind.ProtocolIes.E2ApProtocolIes25.Value.Value
+			indMessageAsn1 := ind.ProtocolIes.E2ApProtocolIes26.Value.Value
 			log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)
 
 			response := &e2api.SubscribeResponse{
@@ -469,7 +330,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 					},
 				}
 			default:
-				log.Errorf("encoding type %v not supported", encoding)
+				log.Errorf("Encoding type %v not supported", encoding)
 				return errors.Status(errors.NewInvalid("encoding type %v not supported", encoding)).Err()
 			}
 
@@ -482,33 +343,10 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				log.Warnf("Sending SubscribeResponse %+v failed: %v", response, err)
 				return err
 			}
-		case <-stream.Context().Done():
-			err := backoff.Retry(func() error {
-				ctx := context.Background()
-				channel, err := s.chans.Get(ctx, channelID)
-				if err != nil {
-					log.Warnf("cannot find channel %s:%v", channelID, err)
-					return backoff.Permanent(err)
-				}
-				log.Debugf("Context is canceled, updating channel status for channel:%s", channelID)
-				if channel.Status.Term <= e2api.TermID(mastership.Term) {
-					currentTime := time.Now()
-					channel.Status.Timestamp = &currentTime
-					channel.Status.Term = e2api.TermID(mastership.Term)
-					channel.Status.Master = e2api.MasterID(instanceID)
-					log.Debugf("Updating channel status; timestamp: %v and mastership term: %d", currentTime, mastership.Term)
-					err := s.chans.Update(ctx, channel)
-					if err != nil && !errors.IsConflict(err) {
-						return backoff.Permanent(err)
-					}
-					return err
-				}
-				return nil
-			}, backoff.NewExponentialBackOff())
-			if err != nil {
-				log.Warnf("SubscribeRequest %+v failed: %v", request, err)
-			}
-			return stream.Context().Err()
+		case err := <-stream.Done():
+			return err
+		case <-server.Context().Done():
+			return server.Context().Err()
 		}
 	}
 }
@@ -521,37 +359,20 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
-	err := backoff.Retry(func() error {
-		// Get the channel for the subscription/app/instance
-		channel, err := s.chans.Get(ctx, channelID)
-		if err != nil {
-			if errors.IsNotFound(err) {
-				return nil
-			}
-			return backoff.Permanent(err)
-		}
-
+	channel, err := s.chans.Get(ctx, channelID)
+	if err == nil {
 		// Ensure the channel phase is CLOSED
 		if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
 			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
 			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 			channel.Status.Error = nil
 			err := s.chans.Update(ctx, channel)
-			if err != nil {
-				if errors.IsConflict(err) {
-					return err
-				}
-				if errors.IsNotFound(err) {
-					return nil
-				}
-				return backoff.Permanent(err)
+			if err != nil && !errors.IsNotFound(err) {
+				log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
+				return nil, errors.Status(err).Err()
 			}
 		}
-		return nil
-
-	}, backoff.NewExponentialBackOff())
-
-	if err != nil {
+	} else if !errors.IsNotFound(err) {
 		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 		return nil, errors.Status(err).Err()
 	}
