@@ -7,6 +7,7 @@ package channel
 import (
 	"context"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/pkg/northbound/e2/channel"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"sync"
 
@@ -174,3 +175,44 @@ func (w *TopoWatcher) Stop() {
 }
 
 var _ controller.Watcher = &TopoWatcher{}
+
+// StreamWatcher is a stream broker watcher
+type StreamWatcher struct {
+	streams channel.Manager
+	cancel  context.CancelFunc
+	mu      sync.Mutex
+}
+
+// Start starts the subscription watcher
+func (w *StreamWatcher) Start(ch chan<- controller.ID) error {
+	w.mu.Lock()
+	defer w.mu.Unlock()
+	if w.cancel != nil {
+		return nil
+	}
+
+	channelCh := make(chan channel.Channel, queueSize)
+	ctx, cancel := context.WithCancel(context.Background())
+	w.streams.Watch(ctx, channelCh)
+	w.cancel = cancel
+
+	go func() {
+		for channel := range channelCh {
+			ch <- controller.NewID(channel.Channel().ID)
+		}
+		close(ch)
+	}()
+	return nil
+}
+
+// Stop stops the subscription watcher
+func (w *StreamWatcher) Stop() {
+	w.mu.Lock()
+	if w.cancel != nil {
+		w.cancel()
+		w.cancel = nil
+	}
+	w.mu.Unlock()
+}
+
+var _ controller.Watcher = &StreamWatcher{}

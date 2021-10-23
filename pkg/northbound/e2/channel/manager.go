@@ -12,13 +12,12 @@ import (
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
-	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"sync"
 )
 
 type Manager interface {
-	Get(channelID e2api.ChannelID) (Channel, error)
-	Open(ctx context.Context, channel *e2api.Channel) (Channel, error)
+	Get(channelID e2api.ChannelID) (Channel, bool)
+	Open(channel *e2api.Channel) Channel
 	Watch(ctx context.Context, ch <-chan Channel) error
 }
 
@@ -26,11 +25,9 @@ type channelManager struct {
 	chans       chanstore.Store
 	subs        subscription.Manager
 	chanStreams map[e2api.ChannelID]Channel
-	openChans   map[e2api.SubscriptionID]chan struct{}
 	buffers     map[BufferID]Buffer
 	bufferChans map[BufferID]map[e2api.ChannelID]bool
 	subBuffers  map[e2api.SubscriptionID]map[BufferID]bool
-	subStreams  map[e2api.SubscriptionID]subscription.Stream
 	streamsMu   sync.RWMutex
 	watchers    map[uuid.UUID]chan<- Channel
 	watchersMu  sync.RWMutex
@@ -40,13 +37,13 @@ type channelManager struct {
 func (m *channelManager) open() error {
 	ctx, cancel := context.WithCancel(context.Background())
 	m.cancel = cancel
-	subsCh := make(chan subscription.Stream)
+	subsCh := make(chan subscription.Subscription)
 	if err := m.subs.Watch(ctx, subsCh); err != nil {
 		return err
 	}
 	go func() {
 		for subStream := range subsCh {
-			go func(subStream subscription.Stream) {
+			go func(subStream subscription.Subscription) {
 				m.propagateStream(subStream)
 			}(subStream)
 		}
@@ -54,23 +51,13 @@ func (m *channelManager) open() error {
 	return nil
 }
 
-func (m *channelManager) propagateStream(subStream subscription.Stream) {
-	m.streamsMu.Lock()
-	if ch, ok := m.openChans[subStream.Subscription().ID]; ok {
-		close(ch)
-		delete(m.openChans, subStream.Subscription().ID)
-	}
-	m.subStreams[subStream.Subscription().ID] = subStream
-	m.streamsMu.Unlock()
+func (m *channelManager) propagateStream(subStream subscription.Subscription) {
 	for ind := range subStream.Reader().Indications() {
 		m.propagateIndication(subStream, ind)
 	}
-	m.streamsMu.Lock()
-	delete(m.subStreams, subStream.Subscription().ID)
-	m.streamsMu.Unlock()
 }
 
-func (m *channelManager) propagateIndication(subStream subscription.Stream, ind *e2appducontents.Ricindication) {
+func (m *channelManager) propagateIndication(subStream subscription.Subscription, ind *e2appducontents.Ricindication) {
 	m.streamsMu.RLock()
 	defer m.streamsMu.RUnlock()
 	buffers := m.subBuffers[subStream.Subscription().ID]
@@ -81,28 +68,20 @@ func (m *channelManager) propagateIndication(subStream subscription.Stream, ind 
 	}
 }
 
-func (m *channelManager) Get(channelID e2api.ChannelID) (Channel, error) {
+func (m *channelManager) Get(channelID e2api.ChannelID) (Channel, bool) {
 	m.streamsMu.RLock()
 	defer m.streamsMu.RUnlock()
 	channel, ok := m.chanStreams[channelID]
-	if !ok {
-		return nil, errors.NewNotFound("channel %s not found", channelID)
-	}
-	return channel, nil
+	return channel, ok
 }
 
-func (m *channelManager) Open(ctx context.Context, channel *e2api.Channel) (Channel, error) {
-	channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
-	channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
-	if err := m.chans.Create(ctx, channel); err != nil && !errors.IsAlreadyExists(err) {
-		return nil, err
-	}
-
+func (m *channelManager) Open(channel *e2api.Channel) Channel {
 	m.streamsMu.Lock()
+	defer m.streamsMu.Unlock()
 
 	stream, ok := m.chanStreams[channel.ID]
 	if ok {
-		stream.Close(errors.NewUnavailable("stream closed"))
+		return stream
 	}
 
 	bufferID := BufferID(fmt.Sprintf("%s:%s:%s", channel.E2NodeID, channel.AppID, channel.TransactionID))
@@ -129,30 +108,8 @@ func (m *channelManager) Open(ctx context.Context, channel *e2api.Channel) (Chan
 	}
 	subBuffers[bufferID] = true
 
-	var openCh chan struct{}
-	if _, ok = m.subStreams[channel.SubscriptionID]; ok {
-		openCh = make(chan struct{})
-		close(openCh)
-	} else {
-		openCh, ok = m.openChans[channel.SubscriptionID]
-		if !ok {
-			openCh = make(chan struct{})
-			m.openChans[channel.SubscriptionID] = openCh
-		}
-	}
-
-	m.streamsMu.Unlock()
-
 	go m.notify(stream)
-
-	select {
-	case <-openCh:
-		return stream, nil
-	case err := <-stream.Done():
-		return nil, err
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
+	return stream
 }
 
 func (m *channelManager) close(stream Channel) {

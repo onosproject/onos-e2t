@@ -264,25 +264,36 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		},
 	}
 
-	stream, err := s.channels.Open(server.Context(), channel)
-	if err != nil {
+	channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
+	channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
+	if err := s.chans.Create(server.Context(), channel); err != nil && !errors.IsAlreadyExists(err) {
 		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
 		return errors.Status(err).Err()
 	}
 
-	err = server.Send(&e2api.SubscribeResponse{
-		Message: &e2api.SubscribeResponse_Ack{
-			Ack: &e2api.Acknowledgement{},
-		},
-	})
-	if err != nil {
-		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-		return err
+	stream := s.channels.Open(channel)
+	select {
+	case err := <-stream.Reader().Open():
+		if err != nil {
+			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+			return err
+		}
+		err = server.Send(&e2api.SubscribeResponse{
+			Message: &e2api.SubscribeResponse_Ack{
+				Ack: &e2api.Acknowledgement{},
+			},
+		})
+		if err != nil {
+			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+			return err
+		}
+	case <-server.Context().Done():
+		return server.Context().Err()
 	}
 
 	for {
 		select {
-		case ind, ok := <-stream.Indications():
+		case ind, ok := <-stream.Reader().Indications():
 			if !ok {
 				return errors.Status(errors.NewUnavailable("stream closed")).Err()
 			}
@@ -343,7 +354,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				log.Warnf("Sending SubscribeResponse %+v failed: %v", response, err)
 				return err
 			}
-		case err := <-stream.Done():
+		case err := <-stream.Reader().Done():
 			return err
 		case <-server.Context().Done():
 			return server.Context().Err()
