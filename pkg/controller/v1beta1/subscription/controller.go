@@ -259,6 +259,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			log.Warnf("Failed to send E2ApPdu %+v for Subscription '%s'", request, sub.ID, err)
 			return controller.Result{}, err
 		} else if response != nil {
+			defer stream.Close()
 			log.Debugf("Received RicsubscriptionDeleteResponse %+v", response)
 			log.Infof("Updating Subscription '%s' mastership to term %d", sub.ID, e2NodeMastershipTerm)
 			sub.Status.Term = e2NodeMastershipTerm
@@ -279,6 +280,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 				case *e2api.Error_Cause_Ric_:
 					switch c.Ric.GetType() {
 					case e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN:
+						defer stream.Close()
 						log.Infof("Updating Subscription %s mastership to term %d", sub.ID, e2NodeMastershipTerm)
 						sub.Status.Term = e2NodeMastershipTerm
 						sub.Status.Master = e2NodeMasterID
