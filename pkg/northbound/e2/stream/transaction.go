@@ -11,7 +11,7 @@ import (
 	"github.com/google/uuid"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	"github.com/prometheus/common/log"
 	"sync"
 )
@@ -24,7 +24,7 @@ type TransactionManager interface {
 	Watch(ctx context.Context, ch chan<- Transaction) error
 }
 
-func newTransactionManager(subs subscription.Manager) (TransactionManager, error) {
+func newTransactionManager(subs stream.Manager) (TransactionManager, error) {
 	manager := &transactionManager{
 		subs:            subs,
 		transactions:    make(map[TransactionID]Transaction),
@@ -38,8 +38,8 @@ func newTransactionManager(subs subscription.Manager) (TransactionManager, error
 }
 
 type transactionManager struct {
-	subs            subscription.Manager
-	transactions    map[TransactionID]Transaction
+	subs         stream.Manager
+	transactions map[TransactionID]Transaction
 	subTransactions map[e2api.SubscriptionID]map[TransactionID]bool
 	transactionsMu  sync.RWMutex
 	watchers        map[uuid.UUID]chan<- Transaction
@@ -50,13 +50,13 @@ type transactionManager struct {
 func (m *transactionManager) open() error {
 	ctx, cancel := context.WithCancel(context.Background())
 	m.cancel = cancel
-	subsCh := make(chan subscription.Subscription)
+	subsCh := make(chan stream.Subscription)
 	if err := m.subs.Watch(ctx, subsCh); err != nil {
 		return err
 	}
 	go func() {
 		for subStream := range subsCh {
-			go func(subStream subscription.Subscription) {
+			go func(subStream stream.Subscription) {
 				m.propagateStream(subStream)
 			}(subStream)
 		}
@@ -64,13 +64,13 @@ func (m *transactionManager) open() error {
 	return nil
 }
 
-func (m *transactionManager) propagateStream(subStream subscription.Subscription) {
+func (m *transactionManager) propagateStream(subStream stream.Subscription) {
 	for ind := range subStream.Out() {
 		m.propagateIndication(subStream, ind)
 	}
 }
 
-func (m *transactionManager) propagateIndication(sub subscription.Subscription, ind *e2appducontents.Ricindication) {
+func (m *transactionManager) propagateIndication(sub stream.Subscription, ind *e2appducontents.Ricindication) {
 	m.transactionsMu.RLock()
 	defer m.transactionsMu.RUnlock()
 	subTransactions := m.subTransactions[sub.ID()]

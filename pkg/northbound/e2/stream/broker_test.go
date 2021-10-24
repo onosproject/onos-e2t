@@ -8,7 +8,7 @@ import (
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -16,22 +16,22 @@ import (
 )
 
 func TestChannelManager(t *testing.T) {
-	subs, err := subscription.NewManager()
+	subs, err := stream.NewManager()
 	assert.NoError(t, err)
 
 	streams, err := NewBroker(subs)
 	assert.NoError(t, err)
 
 	streams.Transactions().Open(e2api.ChannelMeta{
-		AppID:          "app-1",
-		E2NodeID:       "node-1",
-		TransactionID:  "trans-1",
+		AppID:         "app-1",
+		E2NodeID:      "node-1",
+		TransactionID: "trans-1",
 	})
 
 	_, ok := streams.Transactions().Get(e2api.ChannelMeta{
-		AppID:          "app-1",
-		E2NodeID:       "node-1",
-		TransactionID:  "trans-1",
+		AppID:         "app-1",
+		E2NodeID:      "node-1",
+		TransactionID: "trans-1",
 	})
 	assert.True(t, ok)
 
@@ -53,9 +53,7 @@ func TestChannelManager(t *testing.T) {
 		break
 	}
 
-	sub := subs.Open("sub-1", e2api.SubscriptionMeta{
-		E2NodeID: "node-1",
-	})
+	sub := subs.Open("sub-1")
 
 	channel1.Writer().Ack()
 
@@ -163,9 +161,9 @@ func TestChannelManager(t *testing.T) {
 	assert.False(t, ok)
 
 	_, ok = streams.Transactions().Get(e2api.ChannelMeta{
-		AppID:          "app-1",
-		E2NodeID:       "node-1",
-		TransactionID:  "trans-1",
+		AppID:         "app-1",
+		E2NodeID:      "node-1",
+		TransactionID: "trans-1",
 	})
 	assert.False(t, ok)
 }

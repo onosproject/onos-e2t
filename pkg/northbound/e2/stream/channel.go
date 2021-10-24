@@ -210,13 +210,19 @@ func (s *channelStream) Done() <-chan error {
 func (s *channelStream) Close(err error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	if s.done {
-		return
+	if !s.open {
+		if err != nil {
+			s.openCh <- err
+		}
+		close(s.openCh)
+		s.open = true
 	}
 	s.manager.close(s)
-	if err != nil {
-		s.doneCh <- err
+	if !s.done {
+		if err != nil {
+			s.doneCh <- err
+		}
+		close(s.doneCh)
+		s.done = true
 	}
-	close(s.doneCh)
-	s.done = true
 }

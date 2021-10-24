@@ -9,9 +9,9 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/controller/configuration"
 	"github.com/onosproject/onos-e2t/pkg/controller/controlrelation"
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
-	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
+	nbstream "github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
+	sbstream "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 
@@ -100,11 +100,11 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	subscriptions, err := subscription.NewManager()
+	subscriptions, err := sbstream.NewManager()
 	if err != nil {
 		return err
 	}
-	streams, err := stream.NewBroker(subscriptions)
+	streams, err := nbstream.NewBroker(subscriptions)
 	if err != nil {
 		return err
 	}
@@ -174,26 +174,26 @@ func (m *Manager) startMastershipController(topo rnib.Store) error {
 }
 
 // startChannelv1beta1Controller starts the subscription controllers
-func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams stream.Broker, topo rnib.Store) error {
+func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams nbstream.Broker, topo rnib.Store) error {
 	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams, topo)
 	return subsv1beta1.Start()
 }
 
 // startSubscriptionv1beta1Controller starts the subscription controllers
-func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams subscription.Manager, topo rnib.Store, e2apConns e2server.E2APConnManager) error {
+func (m *Manager) startSubscriptionv1beta1Controller(subs substore.Store, streams sbstream.Manager, topo rnib.Store, e2apConns e2server.E2APConnManager) error {
 	tasksv1beta1 := taskctrlv1beta1.NewController(streams, subs, topo, e2apConns, m.ModelRegistry, m.OidRegistry)
 	return tasksv1beta1.Start()
 }
 
 // startSouthboundServer starts the southbound server
 func (m *Manager) startSouthboundServer(e2apConns e2server.E2APConnManager, mgmtConns e2server.MgmtConnManager,
-	streams subscription.Manager, rnib rnib.Store) error {
+	streams sbstream.Manager, rnib rnib.Store) error {
 	server := e2server.NewE2Server(e2apConns, mgmtConns, streams, m.ModelRegistry, rnib)
 	return server.Serve()
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streams stream.Broker,
+func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streams nbstream.Broker,
 	rnib rnib.Store, e2apConns e2server.E2APConnManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,

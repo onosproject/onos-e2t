@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-package subscription
+package stream
 
 import (
 	"context"
@@ -13,7 +13,7 @@ import (
 
 type Manager interface {
 	Get(streamID StreamID) (Subscription, bool)
-	Open(id e2api.SubscriptionID, meta e2api.SubscriptionMeta) Subscription
+	Open(id e2api.SubscriptionID) Subscription
 	Watch(ctx context.Context, ch chan<- Subscription) error
 }
 
@@ -49,21 +49,18 @@ func (m *subscriptionManager) Get(streamID StreamID) (Subscription, bool) {
 	return channel, ok
 }
 
-func (m *subscriptionManager) Open(id e2api.SubscriptionID, meta e2api.SubscriptionMeta) Subscription {
+func (m *subscriptionManager) Open(id e2api.SubscriptionID) Subscription {
 	m.subsMu.Lock()
 	defer m.subsMu.Unlock()
 
 	stream, ok := m.subs[id]
-	if ok {
-		return stream
+	if !ok {
+		m.streamID++
+		stream = newSubscriptionStream(id, m.streamID, m)
+		m.subs[id] = stream
+		m.streams[m.streamID] = stream
+		go m.notify(stream)
 	}
-
-	m.streamID++
-	stream = newSubscriptionStream(id, meta, m.streamID, m)
-	m.subs[id] = stream
-	m.streams[m.streamID] = stream
-
-	go m.notify(stream)
 	return stream
 }
 

@@ -4,7 +4,7 @@
 
 package stream
 
-import "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
+import "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 
 type Broker interface {
 	Transactions() TransactionManager
@@ -12,7 +12,7 @@ type Broker interface {
 }
 
 // NewBroker creates a new northbound stream broker
-func NewBroker(subs subscription.Manager) (Broker, error) {
+func NewBroker(subs stream.Manager) (Broker, error) {
 	transactions, err := newTransactionManager(subs)
 	if err != nil {
 		return nil, err

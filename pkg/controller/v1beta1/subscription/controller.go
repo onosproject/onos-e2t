@@ -7,7 +7,7 @@ package subscription
 import (
 	"context"
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
@@ -37,7 +37,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams subscription.Manager, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
+func NewController(streams stream.Manager, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
@@ -73,7 +73,7 @@ type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	streams                   subscription.Manager
+	streams                   stream.Manager
 	subs                      substore.Store
 	topo                      rnib.Store
 	conns                     e2server.E2APConnManager
@@ -228,7 +228,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			return controller.Result{}, err
 		}
 
-		stream := r.streams.Open(sub.ID, sub.SubscriptionMeta)
+		stream := r.streams.Open(sub.ID)
 
 		ricRequest := types.RicRequest{
 			RequestorID: types.RicRequestorID(stream.StreamID()),
@@ -394,7 +394,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Debugf("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	stream := r.streams.Open(sub.ID, sub.SubscriptionMeta)
+	stream := r.streams.Open(sub.ID)
 
 	ricRequest := types.RicRequest{
 		RequestorID: types.RicRequestorID(stream.StreamID()),
@@ -540,7 +540,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, err
 	}
 
-	stream := r.streams.Open(sub.ID, sub.SubscriptionMeta)
+	stream := r.streams.Open(sub.ID)
 
 	ricRequest := types.RicRequest{
 		RequestorID: types.RicRequestorID(stream.StreamID()),

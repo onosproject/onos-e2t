@@ -6,7 +6,7 @@ package server
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 
@@ -23,7 +23,7 @@ import (
 )
 
 // NewE2APConn creates a new E2AP connection
-func NewE2APConn(nodeID topoapi.ID, conn e2.ServerConn, streams subscription.Manager, rnib rnib.Store) *E2APConn {
+func NewE2APConn(nodeID topoapi.ID, conn e2.ServerConn, streams stream.Manager, rnib rnib.Store) *E2APConn {
 	connID := ConnID(uri.NewURI(
 		uri.WithScheme("uuid"),
 		uri.WithOpaque(uuid.New().String())).String())
@@ -42,13 +42,13 @@ type E2APConn struct {
 	e2.ServerConn
 	ID       ConnID
 	E2NodeID topoapi.ID
-	streams  subscription.Manager
+	streams  stream.Manager
 	rnib     rnib.Store
 }
 
 func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
 	log.Debugf("Received RICIndication %+v", request)
-	streamID := subscription.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
+	streamID := stream.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	stream, ok := c.streams.Get(streamID)
 	if !ok {
 		return errors.NewNotFound("stream %s not found", streamID)
