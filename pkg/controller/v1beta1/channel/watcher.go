@@ -7,7 +7,7 @@ package channel
 import (
 	"context"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-e2t/pkg/northbound/e2/channel"
+	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"sync"
 
@@ -178,7 +178,7 @@ var _ controller.Watcher = &TopoWatcher{}
 
 // StreamWatcher is a stream broker watcher
 type StreamWatcher struct {
-	streams channel.Manager
+	streams stream.Broker
 	cancel  context.CancelFunc
 	mu      sync.Mutex
 }
@@ -191,9 +191,9 @@ func (w *StreamWatcher) Start(ch chan<- controller.ID) error {
 		return nil
 	}
 
-	streamCh := make(chan channel.Channel, queueSize)
+	streamCh := make(chan stream.Channel, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	if err := w.streams.Watch(ctx, streamCh); err != nil {
+	if err := w.streams.Channels().Watch(ctx, streamCh); err != nil {
 		cancel()
 		return err
 	}

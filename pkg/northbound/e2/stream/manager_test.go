@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
-package channel
+package stream
 
 import (
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -19,10 +19,10 @@ func TestChannelManager(t *testing.T) {
 	subs, err := subscription.NewManager()
 	assert.NoError(t, err)
 
-	chans, err := NewManager(subs)
+	broker, err := NewBroker(subs)
 	assert.NoError(t, err)
 
-	channel1 := chans.Open("chan-1", e2api.ChannelMeta{
+	channel1 := broker.Channels().Open("chan-1", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-1",
 		E2NodeID:       "node-1",
@@ -30,7 +30,7 @@ func TestChannelManager(t *testing.T) {
 		SubscriptionID: "sub-1",
 	})
 
-	_, ok := chans.Get("chan-1")
+	_, ok := broker.Channels().Get("chan-1")
 	assert.True(t, ok)
 
 	select {
@@ -65,7 +65,7 @@ func TestChannelManager(t *testing.T) {
 
 	sub.In() <- newIndication(2)
 
-	channel2 := chans.Open("chan-2", e2api.ChannelMeta{
+	channel2 := broker.Channels().Open("chan-2", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-2",
 		E2NodeID:       "node-1",
@@ -84,10 +84,10 @@ func TestChannelManager(t *testing.T) {
 		t.Error("timed out waiting for stream open")
 	}
 
-	_, ok = chans.Get("chan-2")
+	_, ok = broker.Channels().Get("chan-2")
 	assert.False(t, ok)
 
-	channel2 = chans.Open("chan-2", e2api.ChannelMeta{
+	channel2 = broker.Channels().Open("chan-2", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-2",
 		E2NodeID:       "node-1",
@@ -95,7 +95,7 @@ func TestChannelManager(t *testing.T) {
 		SubscriptionID: "sub-1",
 	})
 
-	_, ok = chans.Get("chan-2")
+	_, ok = broker.Channels().Get("chan-2")
 	assert.True(t, ok)
 
 	channel2.Writer().Ack()
@@ -124,7 +124,7 @@ func TestChannelManager(t *testing.T) {
 
 	channel1.Writer().Close(nil)
 
-	_, ok = chans.Get("chan-1")
+	_, ok = broker.Channels().Get("chan-1")
 	assert.False(t, ok)
 
 	select {
@@ -146,7 +146,7 @@ func TestChannelManager(t *testing.T) {
 		t.Error("timed out waiting for stream close")
 	}
 
-	_, ok = chans.Get("chan-2")
+	_, ok = broker.Channels().Get("chan-2")
 	assert.False(t, ok)
 }
 

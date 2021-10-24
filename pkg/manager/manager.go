@@ -9,7 +9,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/controller/configuration"
 	"github.com/onosproject/onos-e2t/pkg/controller/controlrelation"
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
-	"github.com/onosproject/onos-e2t/pkg/northbound/e2/channel"
+	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/subscription"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
@@ -104,7 +104,7 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	channels, err := channel.NewManager(subscriptions)
+	streams, err := stream.NewBroker(subscriptions)
 	if err != nil {
 		return err
 	}
@@ -121,7 +121,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startChannelv1beta1Controller(chanStore, subStore, channels, rnibStore)
+	err = m.startChannelv1beta1Controller(chanStore, subStore, streams, rnibStore)
 	if err != nil {
 		return err
 	}
@@ -145,7 +145,7 @@ func (m *Manager) Start() error {
 		return err
 	}
 
-	err = m.startNorthboundServer(chanStore, subStore, channels, rnibStore, e2apConns)
+	err = m.startNorthboundServer(chanStore, subStore, streams, rnibStore, e2apConns)
 	if err != nil {
 		return err
 	}
@@ -174,7 +174,7 @@ func (m *Manager) startMastershipController(topo rnib.Store) error {
 }
 
 // startChannelv1beta1Controller starts the subscription controllers
-func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams channel.Manager, topo rnib.Store) error {
+func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams stream.Broker, topo rnib.Store) error {
 	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams, topo)
 	return subsv1beta1.Start()
 }
@@ -193,7 +193,7 @@ func (m *Manager) startSouthboundServer(e2apConns e2server.E2APConnManager, mgmt
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streams channel.Manager,
+func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streams stream.Broker,
 	rnib rnib.Store, e2apConns e2server.E2APConnManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,
