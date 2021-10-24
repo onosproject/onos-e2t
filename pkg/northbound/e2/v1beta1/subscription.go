@@ -191,17 +191,18 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		string(request.Headers.ServiceModel.Name),
 		string(request.Headers.ServiceModel.Version))
 	if err != nil {
-		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+		log.Warnf("SubscribeRequest %+v failed", request, err)
 		return err
 	}
 
 	serviceModelPlugin, err := s.modelRegistry.GetPlugin(serviceModelOID)
 	if err != nil {
-		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+		log.Warnf("SubscribeRequest %+v failed", request, err)
 		return errors.Status(errors.NewNotFound(err.Error())).Err()
 	}
+
 	smData := serviceModelPlugin.ServiceModelData()
-	log.Infof("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
+	log.Debugf("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
 	if encoding != e2api.Encoding_PROTO && encoding != e2api.Encoding_ASN1_PER {
 		err = errors.NewNotSupported("encoding type %s is not supported", encoding)
@@ -213,7 +214,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	if encoding == e2api.Encoding_PROTO {
 		eventTriggerBytes, err := serviceModelPlugin.EventTriggerDefinitionProtoToASN1(subSpec.EventTrigger.Payload)
 		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+			log.Warnf("SubscribeRequest %+v failed", request, err)
 			return errors.Status(errors.NewInvalid(err.Error())).Err()
 		}
 		subSpec.EventTrigger.Payload = eventTriggerBytes
@@ -223,7 +224,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		if encoding == e2api.Encoding_PROTO && action.Payload != nil {
 			actionBytes, err := serviceModelPlugin.ActionDefinitionProtoToASN1(action.Payload)
 			if err != nil {
-				log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+				log.Warnf("SubscribeRequest %+v failed", request, err)
 				return errors.Status(errors.NewInvalid(err.Error())).Err()
 			}
 			action.Payload = actionBytes
@@ -233,8 +234,8 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 
 	subBytes, err := proto.Marshal(&subSpec)
 	if err != nil {
-		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
-		return err
+		log.Warnf("SubscribeRequest %+v failed", request, err)
+		return errors.Status(errors.NewInvalid(err.Error())).Err()
 	}
 
 	subID := e2api.SubscriptionID(fmt.Sprintf("%x:%s", md5.Sum(subBytes), request.Headers.E2NodeID))
@@ -267,7 +268,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	}
 
 	if err := s.chans.Create(server.Context(), channel); err != nil && !errors.IsAlreadyExists(err) {
-		log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+		log.Warnf("SubscribeRequest %+v failed", request, err)
 		return errors.Status(err).Err()
 	}
 
@@ -275,19 +276,25 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 	select {
 	case err := <-stream.Reader().Open():
 		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+			log.Warnf("SubscribeRequest %+v failed", request, err)
+			if _, ok := err.(*errors.TypedError); ok {
+				return errors.Status(err).Err()
+			}
 			return err
 		}
 		err = server.Send(&e2api.SubscribeResponse{
 			Message: &e2api.SubscribeResponse_Ack{
-				Ack: &e2api.Acknowledgement{},
+				Ack: &e2api.Acknowledgement{
+					ChannelID: channelID,
+				},
 			},
 		})
 		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed: %s", request, err)
+			log.Warnf("SubscribeRequest %+v failed", request, err)
 			return err
 		}
 	case <-server.Context().Done():
+		log.Debugf("SubscribeRequest %+v closed", request)
 		return server.Context().Err()
 	}
 
@@ -351,12 +358,21 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				return nil
 			}
 			if err != nil {
-				log.Warnf("Sending SubscribeResponse %+v failed: %v", response, err)
+				log.Warnf("Sending SubscribeResponse %+v failed", response, err)
 				return err
 			}
 		case err := <-stream.Reader().Done():
-			return err
+			if err != nil {
+				log.Warnf("SubscribeRequest %+v failed", request, err)
+				if _, ok := err.(*errors.TypedError); ok {
+					return errors.Status(err).Err()
+				}
+				return err
+			}
+			log.Debugf("SubscribeRequest %+v complete", request)
+			return nil
 		case <-server.Context().Done():
+			log.Debugf("SubscribeRequest %+v closed", request)
 			return server.Context().Err()
 		}
 	}
