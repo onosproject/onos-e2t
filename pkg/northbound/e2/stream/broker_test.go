@@ -19,10 +19,23 @@ func TestChannelManager(t *testing.T) {
 	subs, err := subscription.NewManager()
 	assert.NoError(t, err)
 
-	broker, err := NewBroker(subs)
+	streams, err := NewBroker(subs)
 	assert.NoError(t, err)
 
-	channel1 := broker.Channels().Open("chan-1", e2api.ChannelMeta{
+	streams.Transactions().Open(e2api.ChannelMeta{
+		AppID:          "app-1",
+		E2NodeID:       "node-1",
+		TransactionID:  "trans-1",
+	})
+
+	_, ok := streams.Transactions().Get(e2api.ChannelMeta{
+		AppID:          "app-1",
+		E2NodeID:       "node-1",
+		TransactionID:  "trans-1",
+	})
+	assert.True(t, ok)
+
+	channel1 := streams.Channels().Open("chan-1", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-1",
 		E2NodeID:       "node-1",
@@ -30,7 +43,7 @@ func TestChannelManager(t *testing.T) {
 		SubscriptionID: "sub-1",
 	})
 
-	_, ok := broker.Channels().Get("chan-1")
+	_, ok = streams.Channels().Get("chan-1")
 	assert.True(t, ok)
 
 	select {
@@ -65,7 +78,7 @@ func TestChannelManager(t *testing.T) {
 
 	sub.In() <- newIndication(2)
 
-	channel2 := broker.Channels().Open("chan-2", e2api.ChannelMeta{
+	channel2 := streams.Channels().Open("chan-2", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-2",
 		E2NodeID:       "node-1",
@@ -84,10 +97,10 @@ func TestChannelManager(t *testing.T) {
 		t.Error("timed out waiting for stream open")
 	}
 
-	_, ok = broker.Channels().Get("chan-2")
+	_, ok = streams.Channels().Get("chan-2")
 	assert.False(t, ok)
 
-	channel2 = broker.Channels().Open("chan-2", e2api.ChannelMeta{
+	channel2 = streams.Channels().Open("chan-2", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-2",
 		E2NodeID:       "node-1",
@@ -95,7 +108,7 @@ func TestChannelManager(t *testing.T) {
 		SubscriptionID: "sub-1",
 	})
 
-	_, ok = broker.Channels().Get("chan-2")
+	_, ok = streams.Channels().Get("chan-2")
 	assert.True(t, ok)
 
 	channel2.Writer().Ack()
@@ -124,7 +137,7 @@ func TestChannelManager(t *testing.T) {
 
 	channel1.Writer().Close(nil)
 
-	_, ok = broker.Channels().Get("chan-1")
+	_, ok = streams.Channels().Get("chan-1")
 	assert.False(t, ok)
 
 	select {
@@ -146,7 +159,14 @@ func TestChannelManager(t *testing.T) {
 		t.Error("timed out waiting for stream close")
 	}
 
-	_, ok = broker.Channels().Get("chan-2")
+	_, ok = streams.Channels().Get("chan-2")
+	assert.False(t, ok)
+
+	_, ok = streams.Transactions().Get(e2api.ChannelMeta{
+		AppID:          "app-1",
+		E2NodeID:       "node-1",
+		TransactionID:  "trans-1",
+	})
 	assert.False(t, ok)
 }
 

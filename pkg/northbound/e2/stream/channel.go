@@ -48,12 +48,11 @@ func (m *channelManager) Open(channelID e2api.ChannelID, meta e2api.ChannelMeta)
 	defer m.chansMu.Unlock()
 
 	channel, ok := m.chans[channelID]
-	if ok {
-		return channel
+	if !ok {
+		channel = newChannelStream(channelID, meta, m.transactions.Open(meta), m)
+		m.chans[channelID] = channel
+		go m.notify(channel)
 	}
-
-	channel = newChannelStream(channelID, meta, m.transactions.Open(meta), m)
-	m.chans[channelID] = channel
 
 	transactionChans, ok := m.transactionChans[channel.TransactionID()]
 	if !ok {
@@ -61,8 +60,6 @@ func (m *channelManager) Open(channelID e2api.ChannelID, meta e2api.ChannelMeta)
 		m.transactionChans[channel.TransactionID()] = transactionChans
 	}
 	transactionChans[channelID] = true
-
-	go m.notify(channel)
 	return channel
 }
 

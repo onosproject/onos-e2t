@@ -98,12 +98,11 @@ func (m *transactionManager) Open(meta e2api.ChannelMeta) Transaction {
 
 	transactionID := getTransactionID(meta)
 	transaction, ok := m.transactions[transactionID]
-	if ok {
-		return transaction
+	if !ok {
+		transaction = newTransactionStream(transactionID, m)
+		m.transactions[transactionID] = transaction
+		go m.notify(transaction)
 	}
-
-	transaction = newTransactionStream(transactionID, m)
-	m.transactions[transactionID] = transaction
 
 	subTransactions, ok := m.subTransactions[meta.SubscriptionID]
 	if !ok {
@@ -111,8 +110,6 @@ func (m *transactionManager) Open(meta e2api.ChannelMeta) Transaction {
 		m.subTransactions[meta.SubscriptionID] = subTransactions
 	}
 	subTransactions[transactionID] = true
-
-	go m.notify(transaction)
 	return transaction
 }
 
