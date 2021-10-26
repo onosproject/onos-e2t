@@ -44,6 +44,7 @@ func (c *channelOutput) open() {
 	}
 	defer close(c.readyCh)
 	c.ready = true
+	go c.notify()
 }
 
 func (c *channelOutput) close(err error) {
@@ -56,7 +57,9 @@ func (c *channelOutput) close(err error) {
 		c.err.Store(err)
 	}
 	defer close(c.doneCh)
+	defer c.manager.close(c)
 	c.done = true
+	go c.notify()
 }
 
 func (c *channelOutput) Ready() <-chan struct{} {

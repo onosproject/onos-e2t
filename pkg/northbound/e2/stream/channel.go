@@ -52,13 +52,10 @@ func (c *channel) Output() Output {
 
 func (c *channel) open() {
 	c.output.open()
-	go c.notify()
 }
 
 func (c *channel) close(err error) {
 	c.output.close(err)
-	c.manager.close(c)
-	go c.notify()
 }
 
 func (c *channel) notify() {
