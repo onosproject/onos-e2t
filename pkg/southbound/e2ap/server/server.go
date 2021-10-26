@@ -8,7 +8,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	"github.com/onosproject/onos-e2t/pkg/broker"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	"time"
 
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
@@ -42,7 +42,7 @@ var ricID = types.RicIdentifier{
 
 func NewE2Server(e2apConns E2APConnManager,
 	mgmtConns MgmtConnManager,
-	streams broker.Broker,
+	streams stream.Manager,
 	modelRegistry modelregistry.ModelRegistry, rnib rnib.Store) *E2Server {
 	return &E2Server{
 		server:    e2.NewServer(),
@@ -59,7 +59,7 @@ type E2Server struct {
 	server        *e2.Server
 	e2apConns     E2APConnManager
 	mgmtConns     MgmtConnManager
-	streams       broker.Broker
+	streams       stream.Manager
 	modelRegistry modelregistry.ModelRegistry
 	rnib          rnib.Store
 }
@@ -84,7 +84,7 @@ func (s *E2Server) Stop() error {
 type E2APServer struct {
 	e2apConns     E2APConnManager
 	mgmtConns     MgmtConnManager
-	streams       broker.Broker
+	streams       stream.Manager
 	serverConn    e2.ServerConn
 	e2apConn      *E2APConn
 	modelRegistry modelregistry.ModelRegistry

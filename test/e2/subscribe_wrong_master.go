@@ -6,6 +6,8 @@ package e2
 
 import (
 	"context"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"testing"
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
@@ -38,16 +40,18 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 
 	spec := utils.CreateKpmV2Sub(t, e2NodeID)
 
-	req := &e2api.SubscribeRequest{
-		Headers: e2api.RequestHeaders{
-			AppID:         "app",
-			AppInstanceID: "",
-			E2NodeID:      e2api.E2NodeID(e2NodeID),
-			ServiceModel: e2api.ServiceModel{
-				Name:    utils.KpmServiceModelName,
-				Version: utils.Version2,
-			},
+	headers := e2api.RequestHeaders{
+		AppID:         "app",
+		AppInstanceID: "",
+		E2NodeID:      e2api.E2NodeID(e2NodeID),
+		ServiceModel: e2api.ServiceModel{
+			Name:    utils.KpmServiceModelName,
+			Version: utils.Version2,
 		},
+	}
+
+	req := &e2api.SubscribeRequest{
+		Headers:       headers,
 		TransactionID: "sub1",
 		Subscription:  spec,
 	}
@@ -57,7 +61,15 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 
 	resp, err := c.Recv()
 	assert.Nil(t, resp)
-	assert.Contains(t, err.Error(), "Unavailable")
+	assert.Equal(t, codes.Unavailable, status.Code(err))
+
+	unsubscribeRequest := &e2api.UnsubscribeRequest{
+		Headers:       headers,
+		TransactionID: "sub1",
+	}
+	unsubscribeResponse, err := client.Unsubscribe(ctx, unsubscribeRequest)
+	assert.NoError(t, err)
+	assert.NotNil(t, unsubscribeResponse)
 
 	e2utils.CheckForEmptySubscriptionList(t)
 	utils.UninstallRanSimulatorOrDie(t, sim)

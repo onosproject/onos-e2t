@@ -6,8 +6,8 @@ package subscription
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/broker"
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
@@ -37,7 +37,7 @@ const defaultTimeout = 30 * time.Second
 var log = logging.GetLogger("controller", "subscription")
 
 // NewController returns a new network controller
-func NewController(streams broker.Broker, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
+func NewController(streams stream.Manager, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,
 	models modelregistry.ModelRegistry, oidRegistry oid.Registry) *controller.Controller {
 	c := controller.NewController("Subscription")
 	c.Watch(&Watcher{
@@ -73,7 +73,7 @@ type RicSubscriptionRequestBuilder func(ricReq types.RicRequest,
 
 // Reconciler is a device change reconciler
 type Reconciler struct {
-	streams                   broker.Broker
+	streams                   stream.Manager
 	subs                      substore.Store
 	topo                      rnib.Store
 	conns                     e2server.E2APConnManager
@@ -95,7 +95,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 			log.Debugf("Subscription '%s' not found", subID)
 			return controller.Result{}, nil
 		}
-		log.Errorf("Failed to reconcile Subscription '%s'", sub.ID, err)
+		log.Errorf("Failed to reconcile Subscription '%s'", subID, err)
 		return controller.Result{}, err
 	}
 
@@ -228,25 +228,10 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			return controller.Result{}, err
 		}
 
-		// Get the subscription stream reader to determine the subscription request ID
-		subStream, ok := r.streams.Subscriptions().Get(sub.ID)
-		if !ok {
-			// If the subscription stream is not found, update the subscription master/term
-			log.Infof("Updating Subscription '%s' mastership to term %d", sub.ID, e2NodeMastershipTerm)
-			sub.Status.Term = e2NodeMastershipTerm
-			sub.Status.Master = e2NodeMasterID
-			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_PENDING
-			sub.Status.Error = nil
-			log.Debug(sub)
-			if err := r.subs.Update(ctx, sub); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-				log.Errorf("Error updating mastership for Subscription '%s'", sub.ID, err)
-				return controller.Result{}, err
-			}
-			return controller.Result{}, nil
-		}
+		stream := r.streams.Open(sub.ID)
 
 		ricRequest := types.RicRequest{
-			RequestorID: types.RicRequestorID(subStream.StreamID),
+			RequestorID: types.RicRequestorID(stream.StreamID()),
 			InstanceID:  config.InstanceID,
 		}
 
@@ -274,6 +259,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			log.Warnf("Failed to send E2ApPdu %+v for Subscription '%s'", request, sub.ID, err)
 			return controller.Result{}, err
 		} else if response != nil {
+			defer stream.Close()
 			log.Debugf("Received RicsubscriptionDeleteResponse %+v", response)
 			log.Infof("Updating Subscription '%s' mastership to term %d", sub.ID, e2NodeMastershipTerm)
 			sub.Status.Term = e2NodeMastershipTerm
@@ -294,6 +280,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 				case *e2api.Error_Cause_Ric_:
 					switch c.Ric.GetType() {
 					case e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN:
+						defer stream.Close()
 						log.Infof("Updating Subscription %s mastership to term %d", sub.ID, e2NodeMastershipTerm)
 						sub.Status.Term = e2NodeMastershipTerm
 						sub.Status.Master = e2NodeMasterID
@@ -407,10 +394,10 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 	smData := serviceModelPlugin.ServiceModelData()
 	log.Debugf("Service model found %s %s %s", smData.Name, smData.Version, smData.OID)
 
-	stream := r.streams.Subscriptions().Create(sub.ID)
+	stream := r.streams.Open(sub.ID)
 
 	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(stream.StreamID),
+		RequestorID: types.RicRequestorID(stream.StreamID()),
 		InstanceID:  config.InstanceID,
 	}
 
@@ -553,21 +540,10 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, err
 	}
 
-	stream, ok := r.streams.Subscriptions().Get(sub.ID)
-	if !ok {
-		log.Warnf("Stream not found for Subscription '%s'", sub.ID)
-		log.Infof("Completing Subscription '%s'", sub.ID)
-		sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
-		log.Debug(sub)
-		if err := r.subs.Update(ctx, sub); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-			log.Errorf("Error completing Subscription '%s'", sub, err)
-			return controller.Result{}, err
-		}
-		return controller.Result{}, nil
-	}
+	stream := r.streams.Open(sub.ID)
 
 	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(stream.StreamID),
+		RequestorID: types.RicRequestorID(stream.StreamID()),
 		InstanceID:  config.InstanceID,
 	}
 
@@ -595,6 +571,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		log.Warnf("Failed to send E2ApPdu %+v for Subscription '%s'", request, sub.ID, err)
 		return controller.Result{}, err
 	} else if response != nil {
+		defer stream.Close()
 		log.Debugf("Received RicsubscriptionDeleteResponse %+v", response)
 		log.Infof("Completing Subscription '%s'", sub.ID)
 		sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
@@ -612,6 +589,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 			case *e2api.Error_Cause_Ric_:
 				switch c.Ric.GetType() {
 				case e2api.Error_Cause_Ric_REQUEST_ID_UNKNOWN:
+					defer stream.Close()
 					log.Infof("Completing Subscription '%s'", sub.ID)
 					sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
 					log.Debug(sub)
