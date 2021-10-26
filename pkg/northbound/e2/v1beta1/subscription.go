@@ -11,6 +11,7 @@ import (
 	"github.com/cenkalti/backoff"
 	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	"io"
+	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
@@ -246,34 +247,66 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		request.Headers.AppInstanceID,
 		request.Headers.E2NodeID,
 		request.TransactionID))
-
-	channel := &e2api.Channel{
-		ID: channelID,
-		ChannelMeta: e2api.ChannelMeta{
-			AppID:          request.Headers.AppID,
-			AppInstanceID:  request.Headers.AppInstanceID,
-			E2NodeID:       request.Headers.E2NodeID,
-			TransactionID:  request.TransactionID,
-			SubscriptionID: subID,
-			ServiceModel:   request.Headers.ServiceModel,
-			Encoding:       e2api.Encoding_ASN1_PER,
-		},
-		Spec: e2api.ChannelSpec{
-			SubscriptionSpec:   subSpec,
-			TransactionTimeout: request.TransactionTimeout,
-		},
-		Status: e2api.ChannelStatus{
-			Phase: e2api.ChannelPhase_CHANNEL_OPEN,
-			State: e2api.ChannelState_CHANNEL_PENDING,
-		},
+	channelMeta := e2api.ChannelMeta{
+		AppID:          request.Headers.AppID,
+		AppInstanceID:  request.Headers.AppInstanceID,
+		E2NodeID:       request.Headers.E2NodeID,
+		TransactionID:  request.TransactionID,
+		SubscriptionID: subID,
+		ServiceModel:   request.Headers.ServiceModel,
+		Encoding:       e2api.Encoding_ASN1_PER,
 	}
 
-	if err := s.chans.Create(server.Context(), channel); err != nil && !errors.IsAlreadyExists(err) {
+	err = backoff.Retry(func() error {
+		if channel, err := s.chans.Get(server.Context(), channelID); err == nil {
+			// Change the channel phase to OPEN if necessary
+			if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_OPEN {
+				channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
+				channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
+				channel.Status.Error = nil
+				now := time.Now()
+				channel.Status.Timestamp = &now
+				if err := s.chans.Update(server.Context(), channel); err != nil {
+					if !errors.IsNotFound(err) && !errors.IsConflict(err) {
+						return backoff.Permanent(err)
+					}
+					return err
+				}
+			}
+		} else if errors.IsNotFound(err) {
+			// Create the channel if necessary
+			now := time.Now()
+			channel := &e2api.Channel{
+				ID:          channelID,
+				ChannelMeta: channelMeta,
+				Spec: e2api.ChannelSpec{
+					SubscriptionSpec:   subSpec,
+					TransactionTimeout: request.TransactionTimeout,
+				},
+				Status: e2api.ChannelStatus{
+					Phase:     e2api.ChannelPhase_CHANNEL_OPEN,
+					State:     e2api.ChannelState_CHANNEL_PENDING,
+					Timestamp: &now,
+				},
+			}
+
+			if err := s.chans.Create(server.Context(), channel); err != nil {
+				if !errors.IsAlreadyExists(err) {
+					return backoff.Permanent(err)
+				}
+				return err
+			}
+		} else {
+			return backoff.Permanent(err)
+		}
+		return nil
+	}, backoff.WithContext(backoff.NewExponentialBackOff(), server.Context()))
+	if err != nil {
 		log.Warnf("SubscribeRequest %+v failed", request, err)
 		return errors.Status(err).Err()
 	}
 
-	stream := s.streams.Open(channel.ID, channel.ChannelMeta).Output().Open(server.Context())
+	stream := s.streams.Open(channelID, channelMeta).Output().Open(server.Context())
 
 	select {
 	case <-stream.Ready():
@@ -417,7 +450,7 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 			}
 		}
 		return nil
-	}, backoff.NewExponentialBackOff())
+	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
 	if err != nil {
 		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 		return nil, errors.Status(err).Err()
