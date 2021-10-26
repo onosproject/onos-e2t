@@ -9,17 +9,17 @@ import (
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
-type StreamID int
+type ID int
 
 type Subscription interface {
 	ID() e2api.SubscriptionID
-	StreamID() StreamID
+	StreamID() ID
 	In() chan<- *e2appducontents.Ricindication
 	Out() <-chan *e2appducontents.Ricindication
 	Close()
 }
 
-func newSubscriptionStream(id e2api.SubscriptionID, streamID StreamID, manager *subscriptionManager) Subscription {
+func newSubscriptionStream(id e2api.SubscriptionID, streamID ID, manager *subscriptionManager) Subscription {
 	return &subscriptionStream{
 		manager:  manager,
 		id:       id,
@@ -30,7 +30,7 @@ func newSubscriptionStream(id e2api.SubscriptionID, streamID StreamID, manager *
 
 type subscriptionStream struct {
 	manager  *subscriptionManager
-	streamID StreamID
+	streamID ID
 	id       e2api.SubscriptionID
 	ch       chan *e2appducontents.Ricindication
 }
@@ -39,7 +39,7 @@ func (s *subscriptionStream) ID() e2api.SubscriptionID {
 	return s.id
 }
 
-func (s *subscriptionStream) StreamID() StreamID {
+func (s *subscriptionStream) StreamID() ID {
 	return s.streamID
 }
 

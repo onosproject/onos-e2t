@@ -30,7 +30,7 @@ const (
 )
 
 // NewController returns a new channel controller
-func NewController(chans chanstore.Store, subs substore.Store, streams stream.Broker, topo rnib.Store) *controller.Controller {
+func NewController(chans chanstore.Store, subs substore.Store, streams stream.Manager, topo rnib.Store) *controller.Controller {
 	c := controller.NewController("Channel")
 	c.Watch(&Watcher{
 		chans: chans,
@@ -59,7 +59,7 @@ func NewController(chans chanstore.Store, subs substore.Store, streams stream.Br
 type Reconciler struct {
 	chans   chanstore.Store
 	subs    substore.Store
-	streams stream.Broker
+	streams stream.Manager
 	topo    rnib.Store
 }
 
@@ -93,59 +93,6 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 }
 
 func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Channel) (controller.Result, error) {
-	now := time.Now()
-	localInstanceID := e2api.E2TInstanceID(utils.GetE2TID())
-	masterInstanceID := e2api.E2TInstanceID(channel.Status.Master)
-
-	// If the channel expiration timestamp is set, determine whether the channel has expired
-	if channel.Status.Timestamp != nil {
-		if _, ok := r.streams.Channels().Get(channel.ID); ok && localInstanceID == masterInstanceID {
-			log.Infof("Unsetting disconnect timestamp for Channel '%s'", channel.ID)
-			channel.Status.Timestamp = nil
-			log.Debug(channel)
-			if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-				log.Errorf("Error setting disconnect timestamp for Channel '%s'", channel.ID, err)
-				return controller.Result{}, err
-			}
-			return controller.Result{}, nil
-		}
-
-		transactionTimeout := defaultTransactionTimeout
-		if channel.Spec.TransactionTimeout != nil {
-			transactionTimeout = *channel.Spec.TransactionTimeout
-		}
-
-		expireTime := channel.Status.Timestamp.Add(transactionTimeout)
-		if time.Now().After(expireTime) {
-			log.Infof("Closing Channel '%s': transaction timed out", channel.ID)
-			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
-			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
-			channel.Status.Error = nil
-			log.Debug(channel)
-			if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-				log.Errorf("Error closing Channel '%s'", channel.ID, err)
-				return controller.Result{}, err
-			}
-			return controller.Result{}, nil
-		}
-
-		log.Debugf("Rescheduling reconciliation for Channel '%s' at %v", channel.ID, expireTime)
-		return controller.Result{
-			RequeueAt: expireTime,
-		}, nil
-	} else {
-		if _, ok := r.streams.Channels().Get(channel.ID); !ok && localInstanceID == masterInstanceID {
-			log.Infof("Setting disconnect timestamp for Channel '%s'", channel.ID)
-			channel.Status.Timestamp = &now
-			log.Debug(channel)
-			if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-				log.Errorf("Error setting disconnect timestamp for Channel '%s'", channel.ID, err)
-				return controller.Result{}, err
-			}
-			return controller.Result{}, nil
-		}
-	}
-
 	// Get the subscription or create one if it doesn't already exist
 	sub, err := r.subs.Get(ctx, channel.SubscriptionID)
 	if err != nil {
@@ -212,18 +159,13 @@ func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Ch
 			return controller.Result{}, err
 		}
 
-		// Close the local channel stream with an Unavailable error to force the client to try a new master
-		if stream, ok := r.streams.Channels().Get(channel.ID); ok && masterInstanceID == localInstanceID {
-			log.Infof("Closing Channel '%s' stream: mastership changed", channel.ID)
-			stream.Writer().Close(errors.NewUnavailable("mastership term changed"))
-		}
-
 		log.Infof("Updating Channel '%s' mastership to term %d", channel.ID, sub.Status.Term)
 		e2NodeMasterID := e2api.MasterID(e2NodeMasterRelation.GetRelation().SrcEntityID)
 		channel.Status.Term = sub.Status.Term
 		channel.Status.Master = e2NodeMasterID
 		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 		channel.Status.Error = nil
+		now := time.Now()
 		channel.Status.Timestamp = &now
 		log.Debug(channel)
 		if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
@@ -239,69 +181,118 @@ func (r *Reconciler) reconcileOpenChannel(ctx context.Context, channel *e2api.Ch
 		return controller.Result{}, nil
 	}
 
-	// If this node is not the master, skip reconciliation
-	if localInstanceID != masterInstanceID {
-		log.Warnf("Not the master for Channel '%s'", channel.ID)
-		if stream, ok := r.streams.Channels().Get(channel.ID); ok {
-			log.Infof("Closing Channel '%s' stream: mastership changed", channel.ID)
-			stream.Writer().Close(errors.NewUnavailable("mastership term changed"))
-		}
-		return controller.Result{}, nil
-	}
-
-	switch channel.Status.State {
-	case e2api.ChannelState_CHANNEL_PENDING:
-		// If the channel is pending on this node, ensure the channel stream is open
-		r.streams.Transactions().Open(channel.ChannelMeta)
-
-		// If the channel stream has not yet been opened, wait for the client to open a stream
-		if _, ok := r.streams.Channels().Get(channel.ID); !ok {
-			log.Debugf("Waiting for Channel '%s' stream to connect", channel.ID)
-			return controller.Result{}, nil
-		}
-
-		// If the subscription is in a finished state, update the channel state
-		switch sub.Status.State {
-		case e2api.SubscriptionState_SUBSCRIPTION_COMPLETE:
-			log.Debugf("Completing Channel '%s': Subscription complete", channel.ID)
-			channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
-			log.Debug(channel)
-			if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-				log.Warnf("Failed to reconcile Channel '%s'", channel.ID, err)
-				return controller.Result{}, err
-			}
-			return controller.Result{}, nil
-		case e2api.SubscriptionState_SUBSCRIPTION_FAILED:
-			log.Debugf("Failing Channel '%s': Subscription failed", channel.ID)
-			channel.Status.State = e2api.ChannelState_CHANNEL_FAILED
-			channel.Status.Error = sub.Status.Error
-			log.Debug(channel)
-			if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-				log.Warnf("Failed to reconcile Channel '%s'", channel.ID, err)
-				return controller.Result{}, err
-			}
-			return controller.Result{}, nil
-		}
-	case e2api.ChannelState_CHANNEL_COMPLETE:
-		// If the channel state is COMPLETE, acknowledge the channel stream
-		if stream, ok := r.streams.Channels().Get(channel.ID); ok {
-			log.Infof("Acknowledging Channel '%s' stream", channel.ID)
-			stream.Writer().Ack()
-		}
-		return controller.Result{}, nil
-	case e2api.ChannelState_CHANNEL_FAILED:
-		// If the channel state is FAILED, fail the channel stream
-		if stream, ok := r.streams.Channels().Get(channel.ID); ok {
-			log.Infof("Failing Channel '%s' stream", channel.ID)
-			errStat := status.New(codes.Aborted, "an E2AP failure occurred")
-			errStat, err := errStat.WithDetails(channel.Status.Error)
-			if err != nil {
-				log.Errorf("Error failing Channel '%s' stream", channel.ID, err)
+	// If this is the master for the channel term, update the channel/stream state
+	localInstanceID := e2api.E2TInstanceID(utils.GetE2TID())
+	masterInstanceID := e2api.E2TInstanceID(channel.Status.Master)
+	if localInstanceID == masterInstanceID {
+		// If the channel expiration timestamp is set, check if it needs to be unset
+		// If the channel expiration timestamp is not set, check if it needs to be set
+		if channel.Status.Timestamp != nil {
+			if stream, ok := r.streams.Get(channel.ID); ok && len(stream.Output().Streams()) > 0 {
+				log.Infof("Unsetting disconnect timestamp for Channel '%s'", channel.ID)
+				channel.Status.Timestamp = nil
+				log.Debug(channel)
+				if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
+					log.Errorf("Error setting disconnect timestamp for Channel '%s'", channel.ID, err)
+					return controller.Result{}, err
+				}
 				return controller.Result{}, nil
 			}
-			stream.Writer().Fail(errStat.Err())
+		} else {
+			if stream, ok := r.streams.Get(channel.ID); !ok || len(stream.Output().Streams()) == 0 {
+				log.Infof("Setting disconnect timestamp for Channel '%s'", channel.ID)
+				now := time.Now()
+				channel.Status.Timestamp = &now
+				log.Debug(channel)
+				if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
+					log.Errorf("Error setting disconnect timestamp for Channel '%s'", channel.ID, err)
+					return controller.Result{}, err
+				}
+				return controller.Result{}, nil
+			}
 		}
-		return controller.Result{}, nil
+
+		// Reconcile the channel based on its state
+		switch channel.Status.State {
+		case e2api.ChannelState_CHANNEL_PENDING:
+			// If the channel is pending on this node, ensure the channel stream is open
+			r.streams.Open(channel.ID, channel.ChannelMeta)
+
+			// If the subscription is in a finished state, update the channel state
+			switch sub.Status.State {
+			case e2api.SubscriptionState_SUBSCRIPTION_COMPLETE:
+				log.Debugf("Completing Channel '%s': Subscription complete", channel.ID)
+				channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
+				log.Debug(channel)
+				if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
+					log.Warnf("Failed to reconcile Channel '%s'", channel.ID, err)
+					return controller.Result{}, err
+				}
+				return controller.Result{}, nil
+			case e2api.SubscriptionState_SUBSCRIPTION_FAILED:
+				log.Debugf("Failing Channel '%s': Subscription failed", channel.ID)
+				channel.Status.State = e2api.ChannelState_CHANNEL_FAILED
+				channel.Status.Error = sub.Status.Error
+				log.Debug(channel)
+				if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
+					log.Warnf("Failed to reconcile Channel '%s'", channel.ID, err)
+					return controller.Result{}, err
+				}
+				return controller.Result{}, nil
+			}
+		case e2api.ChannelState_CHANNEL_COMPLETE:
+			// If the channel state is COMPLETE, acknowledge the channel stream
+			if stream, ok := r.streams.Get(channel.ID); ok {
+				log.Infof("Acknowledging Channel '%s' stream", channel.ID)
+				stream.Input().Open()
+			}
+		case e2api.ChannelState_CHANNEL_FAILED:
+			// If the channel state is FAILED, fail the channel stream
+			if stream, ok := r.streams.Get(channel.ID); ok {
+				log.Infof("Failing Channel '%s' stream", channel.ID)
+				errStat := status.New(codes.Aborted, "an E2AP failure occurred")
+				errStat, err := errStat.WithDetails(channel.Status.Error)
+				if err != nil {
+					log.Errorf("Error failing Channel '%s' stream", channel.ID, err)
+					return controller.Result{}, nil
+				}
+				stream.Input().Close(errStat.Err())
+			}
+		}
+	} else {
+		log.Warnf("Not the master for Channel '%s'", channel.ID)
+		if stream, ok := r.streams.Get(channel.ID); ok {
+			log.Infof("Closing Channel '%s' stream: mastership changed", channel.ID)
+			stream.Input().Close(errors.NewUnavailable("mastership term changed"))
+			return controller.Result{}, nil
+		}
+	}
+
+	// If the channel expiration timestamp is set, determine whether the channel has expired
+	if channel.Status.Timestamp != nil {
+		transactionTimeout := defaultTransactionTimeout
+		if channel.Spec.TransactionTimeout != nil {
+			transactionTimeout = *channel.Spec.TransactionTimeout
+		}
+
+		expireTime := channel.Status.Timestamp.Add(transactionTimeout)
+		if time.Now().After(expireTime) {
+			log.Infof("Closing Channel '%s': transaction timed out", channel.ID)
+			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
+			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
+			channel.Status.Error = nil
+			log.Debug(channel)
+			if err := r.chans.Update(ctx, channel); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
+				log.Errorf("Error closing Channel '%s'", channel.ID, err)
+				return controller.Result{}, err
+			}
+			return controller.Result{}, nil
+		}
+
+		log.Debugf("Rescheduling reconciliation for Channel '%s' at %v", channel.ID, expireTime)
+		return controller.Result{
+			RequeueAt: expireTime,
+		}, nil
 	}
 	return controller.Result{}, nil
 }
@@ -345,9 +336,9 @@ func (r *Reconciler) reconcileClosedChannel(ctx context.Context, channel *e2api.
 
 		// If the subscription is not found, complete the channel close
 		log.Infof("Completing closed Channel '%s': subscription not found", channel.ID)
-		if stream, ok := r.streams.Channels().Get(channel.ID); ok {
+		if stream, ok := r.streams.Get(channel.ID); ok {
 			log.Infof("Closing Channel '%s' stream", channel.ID)
-			stream.Writer().Close(nil)
+			stream.Input().Close(nil)
 		}
 		channel.Status.State = e2api.ChannelState_CHANNEL_COMPLETE
 		log.Debug(channel)
@@ -378,14 +369,13 @@ func (r *Reconciler) reconcileClosedChannel(ctx context.Context, channel *e2api.
 		return controller.Result{}, nil
 	}
 
-	// If the subscription is OPEN or it's CLOSED phase with a finished state, update the channel state
-	if sub.Status.Phase == e2api.SubscriptionPhase_SUBSCRIPTION_OPEN || sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE {
-		// If this node is the master for the channel, close the channel stream
-		if localInstanceID == masterInstanceID {
-			if stream, ok := r.streams.Channels().Get(channel.ID); ok {
-				log.Infof("Closing closed Channel '%s' stream", channel.ID)
-				stream.Writer().Close(nil)
-			}
+	// If the subscription is OPEN or it's CLOSED with a finished state, update the channel state
+	if len(sub.Status.Channels) > 0 ||
+		(sub.Status.Phase == e2api.SubscriptionPhase_SUBSCRIPTION_CLOSED &&
+			sub.Status.State == e2api.SubscriptionState_SUBSCRIPTION_COMPLETE) {
+		if stream, ok := r.streams.Get(channel.ID); ok {
+			log.Infof("Closing closed Channel '%s' stream", channel.ID)
+			stream.Input().Close(nil)
 		}
 
 		// Complete the closed channel

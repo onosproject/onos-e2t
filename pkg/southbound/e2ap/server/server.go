@@ -83,9 +83,9 @@ func (s *E2Server) Stop() error {
 
 type E2APServer struct {
 	e2apConns     E2APConnManager
-	mgmtConns  MgmtConnManager
-	streams    stream.Manager
-	serverConn e2.ServerConn
+	mgmtConns     MgmtConnManager
+	streams       stream.Manager
+	serverConn    e2.ServerConn
 	e2apConn      *E2APConn
 	modelRegistry modelregistry.ModelRegistry
 	rnib          rnib.Store

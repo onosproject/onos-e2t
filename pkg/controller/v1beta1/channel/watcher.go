@@ -178,7 +178,7 @@ var _ controller.Watcher = &TopoWatcher{}
 
 // StreamWatcher is a stream broker watcher
 type StreamWatcher struct {
-	streams stream.Broker
+	streams stream.Manager
 	cancel  context.CancelFunc
 	mu      sync.Mutex
 }
@@ -193,7 +193,7 @@ func (w *StreamWatcher) Start(ch chan<- controller.ID) error {
 
 	streamCh := make(chan stream.Channel, queueSize)
 	ctx, cancel := context.WithCancel(context.Background())
-	if err := w.streams.Channels().Watch(ctx, streamCh); err != nil {
+	if err := w.streams.Watch(ctx, streamCh); err != nil {
 		cancel()
 		return err
 	}

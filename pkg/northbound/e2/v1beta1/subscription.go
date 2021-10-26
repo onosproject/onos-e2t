@@ -8,6 +8,7 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"github.com/cenkalti/backoff"
 	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	"io"
 
@@ -29,7 +30,7 @@ import (
 )
 
 // NewSubscriptionService creates a new E2T subscription service
-func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams stream.Broker, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
+func NewSubscriptionService(chans channelstore.Store, subs substore.Store, streams stream.Manager, modelRegistry modelregistry.ModelRegistry, oidRegistry oid.Registry, rnib rnib.Store) northbound.Service {
 	return &SubscriptionService{
 		chans:         chans,
 		subs:          subs,
@@ -45,7 +46,7 @@ type SubscriptionService struct {
 	northbound.Service
 	chans         channelstore.Store
 	subs          substore.Store
-	streams       stream.Broker
+	streams       stream.Manager
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 	rnib          rnib.Store
@@ -69,7 +70,7 @@ func (s SubscriptionService) Register(r *grpc.Server) {
 type SubscriptionServer struct {
 	chans         channelstore.Store
 	subs          substore.Store
-	streams       stream.Broker
+	streams       stream.Manager
 	modelRegistry modelregistry.ModelRegistry
 	oidRegistry   oid.Registry
 	rnib          rnib.Store
@@ -272,17 +273,11 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		return errors.Status(err).Err()
 	}
 
-	stream := s.streams.Channels().Open(channel.ID, channel.ChannelMeta)
+	stream := s.streams.Open(channel.ID, channel.ChannelMeta).Output().Open(server.Context())
+
 	select {
-	case err := <-stream.Reader().Open():
-		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed", request, err)
-			if _, ok := err.(*errors.TypedError); ok {
-				return errors.Status(err).Err()
-			}
-			return err
-		}
-		err = server.Send(&e2api.SubscribeResponse{
+	case <-stream.Ready():
+		err := server.Send(&e2api.SubscribeResponse{
 			Message: &e2api.SubscribeResponse_Ack{
 				Ack: &e2api.Acknowledgement{
 					ChannelID: channelID,
@@ -293,6 +288,17 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			log.Warnf("SubscribeRequest %+v failed", request, err)
 			return err
 		}
+	case <-stream.Done():
+		err := stream.Err()
+		if err != nil {
+			log.Warnf("SubscribeRequest %+v failed", request, err)
+			if _, ok := err.(*errors.TypedError); ok {
+				return errors.Status(err).Err()
+			}
+			return err
+		}
+		log.Debugf("SubscribeRequest %+v complete", request)
+		return nil
 	case <-server.Context().Done():
 		log.Debugf("SubscribeRequest %+v closed", request)
 		return server.Context().Err()
@@ -300,7 +306,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 
 	for {
 		select {
-		case ind, ok := <-stream.Reader().Indications():
+		case ind, ok := <-stream.Indications():
 			if !ok {
 				return errors.Status(errors.NewUnavailable("stream closed")).Err()
 			}
@@ -361,7 +367,8 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				log.Warnf("Sending SubscribeResponse %+v failed", response, err)
 				return err
 			}
-		case err := <-stream.Reader().Done():
+		case <-stream.Done():
+			err := stream.Err()
 			if err != nil {
 				log.Warnf("SubscribeRequest %+v failed", request, err)
 				if _, ok := err.(*errors.TypedError); ok {
@@ -386,20 +393,32 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
-	channel, err := s.chans.Get(ctx, channelID)
-	if err == nil {
-		// Ensure the channel phase is CLOSED
+	err := backoff.Retry(func() error {
+		channel, err := s.chans.Get(ctx, channelID)
+		if err != nil {
+			if errors.IsNotFound(err) {
+				return nil
+			}
+			return err
+		}
 		if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
 			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
 			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
 			channel.Status.Error = nil
 			err := s.chans.Update(ctx, channel)
-			if err != nil && !errors.IsNotFound(err) {
-				log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
-				return nil, errors.Status(err).Err()
+			if err != nil {
+				if errors.IsNotFound(err) {
+					return nil
+				}
+				if errors.IsConflict(err) {
+					return err
+				}
+				return backoff.Permanent(err)
 			}
 		}
-	} else if !errors.IsNotFound(err) {
+		return nil
+	}, backoff.NewExponentialBackOff())
+	if err != nil {
 		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
 		return nil, errors.Status(err).Err()
 	}

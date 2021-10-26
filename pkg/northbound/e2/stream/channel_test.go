@@ -5,6 +5,7 @@
 package stream
 
 import (
+	"context"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
@@ -15,27 +16,14 @@ import (
 	"time"
 )
 
-func TestChannelManager(t *testing.T) {
+func TestChannelStreams(t *testing.T) {
 	subs, err := stream.NewManager()
 	assert.NoError(t, err)
 
-	streams, err := NewBroker(subs)
+	channels, err := NewManager(subs)
 	assert.NoError(t, err)
 
-	streams.Transactions().Open(e2api.ChannelMeta{
-		AppID:         "app-1",
-		E2NodeID:      "node-1",
-		TransactionID: "trans-1",
-	})
-
-	_, ok := streams.Transactions().Get(e2api.ChannelMeta{
-		AppID:         "app-1",
-		E2NodeID:      "node-1",
-		TransactionID: "trans-1",
-	})
-	assert.True(t, ok)
-
-	channel1 := streams.Channels().Open("chan-1", e2api.ChannelMeta{
+	channel1 := channels.Open("chan-1", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-1",
 		E2NodeID:       "node-1",
@@ -43,32 +31,35 @@ func TestChannelManager(t *testing.T) {
 		SubscriptionID: "sub-1",
 	})
 
-	_, ok = streams.Channels().Get("chan-1")
+	_, ok := channels.Get("chan-1")
 	assert.True(t, ok)
 
+	ctx1, cancel1 := context.WithCancel(context.Background())
+	stream1 := channel1.Output().Open(ctx1)
+
 	select {
-	case <-channel1.Reader().Open():
-		t.Error("stream opened prematurely")
+	case <-stream1.Ready():
+		t.Error("stream ready prematurely")
 	case <-time.After(time.Second):
 		break
 	}
 
 	sub := subs.Open("sub-1")
 
-	channel1.Writer().Ack()
+	channel1.Input().Open()
 
 	select {
-	case err := <-channel1.Reader().Open():
-		assert.Nil(t, err)
+	case <-stream1.Ready():
+		assert.Nil(t, stream1.Err())
 		break
 	case <-time.After(time.Second):
-		t.Error("timed out waiting for stream open")
+		t.Error("timed out waiting for stream ready")
 	}
 
 	sub.In() <- newIndication(1)
 
 	select {
-	case ind := <-channel1.Reader().Indications():
+	case ind := <-stream1.Indications():
 		assert.Equal(t, int32(1), ind.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	case <-time.After(time.Second):
 		t.Error("Timed out waiting for indication 1")
@@ -76,7 +67,7 @@ func TestChannelManager(t *testing.T) {
 
 	sub.In() <- newIndication(2)
 
-	channel2 := streams.Channels().Open("chan-2", e2api.ChannelMeta{
+	channel2 := channels.Open("chan-2", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-2",
 		E2NodeID:       "node-1",
@@ -84,21 +75,26 @@ func TestChannelManager(t *testing.T) {
 		SubscriptionID: "sub-1",
 	})
 
-	channel2.Writer().Fail(errors.NewUnknown("something bad happened"))
+	channel2.Input().Close(errors.NewUnknown("something bad happened"))
+
+	ctx2, cancel2 := context.WithCancel(context.Background())
+	stream2 := channel2.Output().Open(ctx2)
 
 	select {
-	case err := <-channel2.Reader().Open():
-		assert.NotNil(t, err)
-		assert.True(t, errors.IsUnknown(err))
+	case <-stream2.Done():
+		assert.NotNil(t, stream2.Err())
+		assert.True(t, errors.IsUnknown(stream2.Err()))
 		break
 	case <-time.After(time.Second):
-		t.Error("timed out waiting for stream open")
+		t.Error("timed out waiting for stream done")
 	}
 
-	_, ok = streams.Channels().Get("chan-2")
+	_, ok = channels.Get("chan-2")
 	assert.False(t, ok)
 
-	channel2 = streams.Channels().Open("chan-2", e2api.ChannelMeta{
+	cancel2()
+
+	channel2 = channels.Open("chan-2", e2api.ChannelMeta{
 		AppID:          "app-1",
 		AppInstanceID:  "instance-2",
 		E2NodeID:       "node-1",
@@ -106,66 +102,84 @@ func TestChannelManager(t *testing.T) {
 		SubscriptionID: "sub-1",
 	})
 
-	_, ok = streams.Channels().Get("chan-2")
+	_, ok = channels.Get("chan-2")
 	assert.True(t, ok)
 
-	channel2.Writer().Ack()
+	channel2.Input().Open()
+
+	ctx2, cancel2 = context.WithCancel(context.Background())
+	stream2 = channel2.Output().Open(ctx2)
 
 	select {
-	case err := <-channel2.Reader().Open():
-		assert.Nil(t, err)
+	case <-stream2.Ready():
+		assert.Nil(t, stream2.Err())
 		break
 	case <-time.After(time.Second):
-		t.Error("timed out waiting for stream open")
+		t.Error("timed out waiting for stream ready")
 	}
 
 	select {
-	case ind := <-channel2.Reader().Indications():
+	case ind := <-stream2.Indications():
 		assert.Equal(t, int32(2), ind.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	case <-time.After(time.Second):
 		t.Error("Timed out waiting for indication 2")
 	}
 
 	select {
-	case <-channel1.Reader().Done():
-		t.Error("stream closed prematurely")
+	case <-stream1.Done():
+		t.Error("stream done prematurely")
 	case <-time.After(time.Second):
 		break
 	}
 
-	channel1.Writer().Close(nil)
+	channel1.Input().Close(nil)
 
-	_, ok = streams.Channels().Get("chan-1")
+	_, ok = channels.Get("chan-1")
 	assert.False(t, ok)
+	cancel1()
 
 	select {
-	case err := <-channel1.Reader().Done():
-		assert.Nil(t, err)
+	case <-stream1.Done():
+		assert.Nil(t, stream1.Err())
 		break
 	case <-time.After(time.Second):
-		t.Error("timed out waiting for stream close")
+		t.Error("timed out waiting for stream done")
 	}
 
-	channel2.Writer().Close(errors.NewUnavailable("stream closed"))
+	channel2.Input().Close(errors.NewUnavailable("stream closed"))
 
 	select {
-	case err := <-channel2.Reader().Done():
-		assert.NotNil(t, err)
-		assert.True(t, errors.IsUnavailable(err))
+	case <-stream2.Done():
+		assert.NotNil(t, stream2.Err())
+		assert.True(t, errors.IsUnavailable(stream2.Err()))
 		break
 	case <-time.After(time.Second):
-		t.Error("timed out waiting for stream close")
+		t.Error("timed out waiting for stream done")
 	}
 
-	_, ok = streams.Channels().Get("chan-2")
+	_, ok = channels.Get("chan-2")
 	assert.False(t, ok)
+	cancel2()
 
-	_, ok = streams.Transactions().Get(e2api.ChannelMeta{
-		AppID:         "app-1",
-		E2NodeID:      "node-1",
-		TransactionID: "trans-1",
+	channel3 := channels.Open("chan-3", e2api.ChannelMeta{
+		AppID:          "app-1",
+		AppInstanceID:  "instance-3",
+		E2NodeID:       "node-1",
+		TransactionID:  "trans-1",
+		SubscriptionID: "sub-1",
 	})
-	assert.False(t, ok)
+
+	_, ok = channels.Get("chan-3")
+	assert.True(t, ok)
+
+	ctx3, cancel3 := context.WithCancel(context.Background())
+	channel3.Output().Open(ctx3)
+	assert.Len(t, channel3.Output().Streams(), 1)
+
+	cancel3()
+
+	time.Sleep(time.Second)
+	assert.Len(t, channel3.Output().Streams(), 0)
 }
 
 func newIndication(requestID int32) *e2appducontents.Ricindication {

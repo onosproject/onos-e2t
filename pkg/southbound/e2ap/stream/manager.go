@@ -12,14 +12,14 @@ import (
 )
 
 type Manager interface {
-	Get(streamID StreamID) (Subscription, bool)
+	Get(streamID ID) (Subscription, bool)
 	Open(id e2api.SubscriptionID) Subscription
 	Watch(ctx context.Context, ch chan<- Subscription) error
 }
 
 func NewManager() (Manager, error) {
 	manager := &subscriptionManager{
-		streams:  make(map[StreamID]Subscription),
+		streams:  make(map[ID]Subscription),
 		subs:     make(map[e2api.SubscriptionID]Subscription),
 		watchers: make(map[uuid.UUID]chan<- Subscription),
 	}
@@ -30,8 +30,8 @@ func NewManager() (Manager, error) {
 }
 
 type subscriptionManager struct {
-	streamID   StreamID
-	streams    map[StreamID]Subscription
+	streamID   ID
+	streams    map[ID]Subscription
 	subs       map[e2api.SubscriptionID]Subscription
 	subsMu     sync.RWMutex
 	watchers   map[uuid.UUID]chan<- Subscription
@@ -42,7 +42,7 @@ func (m *subscriptionManager) open() error {
 	return nil
 }
 
-func (m *subscriptionManager) Get(streamID StreamID) (Subscription, bool) {
+func (m *subscriptionManager) Get(streamID ID) (Subscription, bool) {
 	m.subsMu.RLock()
 	defer m.subsMu.RUnlock()
 	channel, ok := m.streams[streamID]

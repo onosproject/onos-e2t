@@ -104,7 +104,7 @@ func (m *Manager) Start() error {
 	if err != nil {
 		return err
 	}
-	streams, err := nbstream.NewBroker(subscriptions)
+	streams, err := nbstream.NewManager(subscriptions)
 	if err != nil {
 		return err
 	}
@@ -174,7 +174,7 @@ func (m *Manager) startMastershipController(topo rnib.Store) error {
 }
 
 // startChannelv1beta1Controller starts the subscription controllers
-func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams nbstream.Broker, topo rnib.Store) error {
+func (m *Manager) startChannelv1beta1Controller(chans chanstore.Store, subs substore.Store, streams nbstream.Manager, topo rnib.Store) error {
 	subsv1beta1 := subctrlv1beta1.NewController(chans, subs, streams, topo)
 	return subsv1beta1.Start()
 }
@@ -193,7 +193,7 @@ func (m *Manager) startSouthboundServer(e2apConns e2server.E2APConnManager, mgmt
 }
 
 // startSouthboundServer starts the northbound gRPC server
-func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streams nbstream.Broker,
+func (m *Manager) startNorthboundServer(chans chanstore.Store, subs substore.Store, streams nbstream.Manager,
 	rnib rnib.Store, e2apConns e2server.E2APConnManager) error {
 	s := northbound.NewServer(northbound.NewServerCfg(
 		m.Config.CAPath,

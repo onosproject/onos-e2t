@@ -48,7 +48,7 @@ type E2APConn struct {
 
 func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
 	log.Debugf("Received RICIndication %+v", request)
-	streamID := stream.StreamID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
+	streamID := stream.ID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
 	stream, ok := c.streams.Get(streamID)
 	if !ok {
 		return errors.NewNotFound("stream %s not found", streamID)

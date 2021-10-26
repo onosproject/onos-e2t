@@ -51,7 +51,7 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 	}
 
 	req := &e2api.SubscribeRequest{
-		Headers: headers,
+		Headers:       headers,
 		TransactionID: "sub1",
 		Subscription:  spec,
 	}
