@@ -495,33 +495,10 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 	}
 
 	log.Debugf("Fetching mastership state for E2Node '%s'", sub.E2NodeID)
-	e2NodeEntity, err := r.topo.Get(ctx, topoapi.ID(sub.E2NodeID))
+	e2NodeRelation, err := r.topo.Get(ctx, topoapi.ID(sub.Status.Master))
 	if err != nil {
 		if errors.IsNotFound(err) {
-			log.Warnf("Mastershiop state not found for E2Node '%s'", sub.E2NodeID)
-			log.Infof("Completing Subscription '%s'", sub.ID)
-			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
-			log.Debug(sub)
-			if err := r.subs.Update(ctx, sub); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
-				log.Errorf("Error completing Subscription '%s'", sub.ID, err)
-				return controller.Result{}, err
-			}
-			return controller.Result{}, nil
-		}
-		log.Errorf("Error fetching mastership state for E2Node '%s'", sub.E2NodeID, err)
-		return controller.Result{}, err
-	}
-
-	mastership := topoapi.MastershipState{}
-	_ = e2NodeEntity.GetAspect(&mastership)
-	if mastership.Term == 0 {
-		return controller.Result{}, nil
-	}
-
-	e2NodeRelation, err := r.topo.Get(ctx, topoapi.ID(mastership.NodeId))
-	if err != nil {
-		if errors.IsNotFound(err) {
-			log.Warnf("Mastershiop state not found for E2Node '%s'", sub.E2NodeID)
+			log.Warnf("Mastership state not found for E2Node '%s'", sub.E2NodeID)
 			log.Infof("Completing Subscription '%s'", sub.ID)
 			sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
 			log.Debug(sub)
