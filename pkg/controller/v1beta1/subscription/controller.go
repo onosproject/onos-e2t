@@ -494,6 +494,18 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		return controller.Result{}, nil
 	}
 
+	if sub.Status.Term == 0 {
+		log.Warnf("No master for Subscription '%s'", sub.ID)
+		log.Infof("Completing Subscription '%s'", sub.ID)
+		sub.Status.State = e2api.SubscriptionState_SUBSCRIPTION_COMPLETE
+		log.Debug(sub)
+		if err := r.subs.Update(ctx, sub); err != nil && !errors.IsNotFound(err) && !errors.IsConflict(err) {
+			log.Errorf("Error completing Subscription '%s'", sub.ID, err)
+			return controller.Result{}, err
+		}
+		return controller.Result{}, nil
+	}
+
 	log.Debugf("Fetching mastership state for E2Node '%s'", sub.E2NodeID)
 	e2NodeRelation, err := r.topo.Get(ctx, topoapi.ID(sub.Status.Master))
 	if err != nil {
