@@ -48,10 +48,6 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
 	}*/
 
-	if err := p.dispatcher(requestPDU); err != nil {
-		return nil, nil, errors.NewUnavailable("RIC Subscription Delete initiation failed: %v", err)
-	}
-
 	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
 	requestID := request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
 	p.mu.Lock()
@@ -63,6 +59,10 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 		delete(p.responseChs, requestID)
 		p.mu.Unlock()
 	}()
+
+	if err := p.dispatcher(requestPDU); err != nil {
+		return nil, nil, errors.NewUnavailable("RIC Subscription Delete initiation failed: %v", err)
+	}
 
 	select {
 	case responsePDU, ok := <-responseCh:
