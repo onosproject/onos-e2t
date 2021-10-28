@@ -224,7 +224,8 @@ func GetTestNodeID(t *testing.T) topoapi.ID {
 	ch := make(chan topoapi.Event)
 	err = topoSdkClient.WatchE2Connections(ctx, ch)
 	assert.NoError(t, err)
-	event := <-ch
+	event, ok := <-ch
+	assert.True(t, ok)
 	object := event.GetObject()
 	assert.NotNil(t, object)
 	return object.GetRelation().GetTgtEntityID()
