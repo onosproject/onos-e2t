@@ -96,7 +96,7 @@ integration-tests:
 		--secret sd-ran-username=${repo_user} --secret sd-ran-password=${repo_password} \
 		--no-teardown --set sd-ran.onos-e2t.logging.loggers.root.level=debug \
 		--set sd-ran.onos-e2t.logging.loggers.onos/grpc/retry.level=error \
-		--set sd-ran.onos-e2t.replicaCount=2 \
+		--set sd-ran.onos-e2t.replicaCount=2 --timeout 30m \
 		--suite e2
 
 publish: # @HELP publish version on github and dockerhub
