@@ -92,11 +92,12 @@ all: build images
 integration-tests: # @HELP run helmit integration tests
 integration-tests:
 	@kubectl delete ns test; kubectl create ns test
-	helmit test -n test ./cmd/onos-e2t-tests \
+	helmit test -n test ./cmd/onos-e2t-tests --timeout 30m --no-teardown \
 		--secret sd-ran-username=${repo_user} --secret sd-ran-password=${repo_password} \
-		--no-teardown --set sd-ran.onos-e2t.logging.loggers.root.level=debug \
+		--set sd-ran.onos-topo.logging.loggers.root.level=debug \
+		--set sd-ran.onos-e2t.logging.loggers.root.level=debug \
 		--set sd-ran.onos-e2t.logging.loggers.onos/grpc/retry.level=error \
-		--set sd-ran.onos-e2t.replicaCount=2 --timeout 30m \
+		--set sd-ran.onos-e2t.replicaCount=2 \
 		--suite e2
 
 publish: # @HELP publish version on github and dockerhub
