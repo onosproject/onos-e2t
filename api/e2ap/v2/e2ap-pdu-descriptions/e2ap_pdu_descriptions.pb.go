@@ -1295,9 +1295,9 @@ type RicSubscription struct {
 
 	// @inject_tag: aper:"valueExt"
 	InitiatingMessage *e2ap_pdu_contents.RicsubscriptionRequest `protobuf:"bytes,1,opt,name=initiating_message,json=&InitiatingMessage,proto3" json:"initiating_message,omitempty" aper:"valueExt"`
-	// @inject_tag: aper:"valueExt"
+	// @inject_tag: aper:"optional,valueExt"
 	SuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionResponse `protobuf:"bytes,2,opt,name=successful_outcome,json=&SuccessfulOutcome,proto3" json:"successful_outcome,omitempty" aper:"valueExt"`
-	// @inject_tag: aper:"valueExt"
+	// @inject_tag: aper:"optional,valueExt"
 	UnsuccessfulOutcome *e2ap_pdu_contents.RicsubscriptionFailure `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=&UnsuccessfulOutcome,proto3" json:"unsuccessful_outcome,omitempty" aper:"valueExt"`
 	ProcedureCode       *e2ap_constants.IdRicsubscription         `protobuf:"bytes,4,opt,name=procedure_code,json=&procedureCode,proto3" json:"procedure_code,omitempty"`
 	Criticality         *e2ap_commondatatypes.CriticalityReject   `protobuf:"bytes,5,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty"`
