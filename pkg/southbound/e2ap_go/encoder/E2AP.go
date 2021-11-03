@@ -7,15 +7,15 @@ package encoder
 import (
 	"encoding/hex"
 	"github.com/google/martian/log"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
 )
 
 func init() {
-	log.SetLevel(log.Debug)
+	log.SetLevel(log.Info)
 }
 
-func PerEncodeE2ApPdu(e2ap *e2appdudescriptions.E2ApPdu) ([]byte, error) {
+func PerEncodeE2ApPduRicServiceQuery(e2ap *e2appdudescriptions.E2ApPduRicServiceQuery) ([]byte, error) {
 
 	log.Debugf("Obtained E2AP-PDU message is\n%v", e2ap)
 	aper.ChoiceMap = e2appdudescriptions.E2ApPduChoicemap
@@ -28,11 +28,11 @@ func PerEncodeE2ApPdu(e2ap *e2appdudescriptions.E2ApPdu) ([]byte, error) {
 	return per, nil
 }
 
-func PerDecodeE2ApPdu(per []byte) (*e2appdudescriptions.E2ApPdu, error) {
+func PerDecodeE2ApPduRicServiceQuery(per []byte) (*e2appdudescriptions.E2ApPduRicServiceQuery, error) {
 
 	log.Debugf("Obtained E2AP-PDU PER bytes are\n%v", hex.Dump(per))
 	aper.ChoiceMap = e2appdudescriptions.E2ApPduChoicemap
-	result := e2appdudescriptions.E2ApPdu{}
+	result := e2appdudescriptions.E2ApPduRicServiceQuery{}
 	err := aper.UnmarshalWithParams(per, &result, "valueExt")
 	if err != nil {
 		return nil, err

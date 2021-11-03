@@ -10,12 +10,12 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
 syntax = "proto3";
 
-package e2ap.v2;
-option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions";
+package e2ap_go.v2;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions";
 
-import "e2ap/v2/e2ap_commondatatypes.proto";
-import "e2ap/v2/e2ap_pdu_contents.proto";
-import "e2ap/v2/e2ap_constants.proto";
+import "e2ap_go/v2/e2ap_commondatatypes.proto";
+import "e2ap_go/v2/e2ap_pdu_contents.proto";
+import "e2ap_go/v2/e2ap_constants.proto";
 import "validate/v1/validate.proto";
 
 // sequence from e2ap_v2.asn:100
@@ -31,6 +31,28 @@ message E2ApPdu {
         // @inject_tag: aper:"choiceIdx:3"
         UnsuccessfulOutcome unsuccessful_outcome = 3 [ json_name="unsuccessfulOutcome"];
     }
+};
+
+message E2ApPduRicServiceQuery {
+    // choice from e2ap_v2.asn:100
+    oneof e2_ap_pdu {
+        // @inject_tag: aper:"choiceIdx:1"
+        InitiatingMessageRicServiceQuery initiating_message = 1 [ json_name="initiatingMessage"];
+        // @inject_tag: aper:"choiceIdx:2"
+        SuccessfulOutcome successful_outcome = 2 [ json_name="successfulOutcome"];
+        // @inject_tag: aper:"choiceIdx:3"
+        UnsuccessfulOutcome unsuccessful_outcome = 3 [ json_name="unsuccessfulOutcome"];
+    }
+};
+
+// sequence from e2ap_v2.asn:107
+// {InitiatingMessage}
+message InitiatingMessageRicServiceQuery {
+    // @inject_tag: aper:"valueLB:0,valueUB:255"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    RicserviceQuery value = 3 [ json_name="value"];
 };
 
 // sequence from e2ap_v2.asn:107

@@ -10,8 +10,8 @@ SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
 
 syntax = "proto3";
 
-package e2ap.v2;
-option go_package = "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes";
+package e2ap_go.v2;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes";
 
 import "validate/v1/validate.proto";
 
