@@ -13,27 +13,32 @@ import (
 
 func CreateRicServiceQueryE2apPdu(trID int32) (*e2appdudescriptions.E2ApPduRicServiceQuery, error) {
 
+	pIes := &e2appducontents.RicserviceQueryIes{
+		//E2ApProtocolIes9: &ranFunctionsAccepted, //RAN functions Accepted List
+		E2ApProtocolIes49: &e2appducontents.RicserviceQueryIes_RicserviceQueryIes49{
+			Id:          int32(v2.ProtocolIeIDTransactionID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &e2apies.TransactionId{
+				Value: trID,
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		},
+	}
+
 	e2apPdu := e2appdudescriptions.E2ApPduRicServiceQuery{
 		E2ApPdu: &e2appdudescriptions.E2ApPduRicServiceQuery_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessageRicServiceQuery{
 				Value: &e2appducontents.RicserviceQuery{
-					ProtocolIes: &e2appducontents.RicserviceQueryIes{
-						//E2ApProtocolIes9: &ranFunctionsAccepted, //RAN functions Accepted List
-						E2ApProtocolIes49: &e2appducontents.RicserviceQueryIes_RicserviceQueryIes49{
-							Id:          int32(v2.ProtocolIeIDTransactionID),
-							Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-							Value: &e2apies.TransactionId{
-								Value: trID,
-							},
-							Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-						},
-					},
+					ProtocolIes: make([]*e2appducontents.RicserviceQueryIes, 0),
 				},
 				ProcedureCode: int32(v2.ProcedureCodeIDRICserviceQuery),
 				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 			},
 		},
 	}
+
+	e2apPdu.GetInitiatingMessage().GetValue().ProtocolIes = append(e2apPdu.GetInitiatingMessage().GetValue().ProtocolIes, pIes)
+
 	//if err := e2apPdu.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())
 	//}

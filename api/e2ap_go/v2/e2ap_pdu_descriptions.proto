@@ -52,6 +52,7 @@ message InitiatingMessageRicServiceQuery {
     int32 procedure_code = 1 [ json_name="procedureCode"];
     // @inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"valueExt"
     RicserviceQuery value = 3 [ json_name="value"];
 };
 
