@@ -879,32 +879,32 @@ func (m *Ricindication) SetRicCallProcessID(ricCallPrID types.RicCallProcessID) 
 	return m
 }
 
-func (m *RicserviceQuery) SetRanFunctionsAccepted(rfAccepted types.RanFunctionRevisions) *RicserviceQuery {
-	m.GetProtocolIes().GetE2ApProtocolIes9().Value = &RanfunctionsIdList{
-		Value: make([]*RanfunctionIdItemIes, 0),
-	}
-
-	for rfID, rfRevision := range rfAccepted {
-		rfIDiIe := RanfunctionIdItemIes{
-			RanFunctionIdItemIes6: &RanfunctionIdItemIes_RanfunctionIdItemIes6{
-				Id:          int32(v2.ProtocolIeIDRanfunctionIDItem),
-				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-				Value: &RanfunctionIdItem{
-					RanFunctionId: &e2ap_ies.RanfunctionId{
-						Value: int32(rfID),
-					},
-					RanFunctionRevision: &e2ap_ies.RanfunctionRevision{
-						Value: int32(rfRevision),
-					},
-				},
-				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-			},
-		}
-		m.GetProtocolIes().GetE2ApProtocolIes9().GetValue().Value = append(m.GetProtocolIes().GetE2ApProtocolIes9().GetValue().Value, &rfIDiIe)
-	}
-	//m.GetProtocolIes().E2ApProtocolIes9 = &ranFunctionsAccepted
-	return m
-}
+//func (m *RicserviceQuery) SetRanFunctionsAccepted(rfAccepted types.RanFunctionRevisions) *RicserviceQuery {
+//	m.GetProtocolIes().GetE2ApProtocolIes9().Value = &RanfunctionsIdList{
+//		Value: make([]*RanfunctionIdItemIes, 0),
+//	}
+//
+//	for rfID, rfRevision := range rfAccepted {
+//		rfIDiIe := RanfunctionIdItemIes{
+//			RanFunctionIdItemIes6: &RanfunctionIdItemIes_RanfunctionIdItemIes6{
+//				Id:          int32(v2.ProtocolIeIDRanfunctionIDItem),
+//				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+//				Value: &RanfunctionIdItem{
+//					RanFunctionId: &e2ap_ies.RanfunctionId{
+//						Value: int32(rfID),
+//					},
+//					RanFunctionRevision: &e2ap_ies.RanfunctionRevision{
+//						Value: int32(rfRevision),
+//					},
+//				},
+//				Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+//			},
+//		}
+//		m.GetProtocolIes().GetE2ApProtocolIes9().GetValue().Value = append(m.GetProtocolIes().GetE2ApProtocolIes9().GetValue().Value, &rfIDiIe)
+//	}
+//	//m.GetProtocolIes().E2ApProtocolIes9 = &ranFunctionsAccepted
+//	return m
+//}
 
 func (m *RicserviceUpdate) SetRanFunctionsAdded(rfal types.RanFunctions) *RicserviceUpdate {
 	ranFunctionsAddedList := RicserviceUpdateIes_RicserviceUpdateIes10{

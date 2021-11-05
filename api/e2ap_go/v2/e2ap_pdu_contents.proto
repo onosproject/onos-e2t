@@ -31,27 +31,36 @@ message RicsubscriptionRequest {
 message RicsubscriptionRequestIes {
 // {RICsubscriptionRequest-IEs29}
     message RicsubscriptionRequestIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionRequest-IEs5}
     message RicsubscriptionRequestIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionRequest-IEs30}
     message RicsubscriptionRequestIes30 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 30, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicsubscriptionDetails value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
@@ -77,10 +86,13 @@ message RicactionsToBeSetupList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:417
 // {_RICaction-ToBeSetup-ItemIEs}
 message RicactionToBeSetupItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 19, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     // @inject_tag: aper:"valueExt"
     RicactionToBeSetupItem value = 3 [json_name="ricActionToBeSetupItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -108,34 +120,46 @@ message RicsubscriptionResponse {
 message RicsubscriptionResponseIes {
 // {RICsubscriptionResponse-IEs29}
     message RicsubscriptionResponseIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionResponse-IEs5}
     message RicsubscriptionResponseIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionResponse-IEs17}
     message RicsubscriptionResponseIes17 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 17, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RicactionAdmittedList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionResponse-IEs18}
     message RicsubscriptionResponseIes18 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 18, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RicactionNotAdmittedList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -155,10 +179,13 @@ message RicactionAdmittedList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:452
 // {_RICaction-Admitted-ItemIEs}
 message RicactionAdmittedItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 14, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     // @inject_tag: aper:"valueExt"
     RicactionAdmittedItem value = 3 [json_name="ricActionAdmittedItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -178,10 +205,13 @@ message RicactionNotAdmittedList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:464
 // {RICaction-NotAdmitted-ItemIEs}
 message RicactionNotAdmittedItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
    int32 id = 1 [(validate.v1.rules).int32.const = 16, json_name = "id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
    int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name = "criticality"];
    // @inject_tag: aper:"valueExt"
    RicactionNotAdmittedItem value = 3 [json_name = "ricActionNotAdmittedItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
    int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name = "presence"];
 };
 
@@ -205,36 +235,48 @@ message RicsubscriptionFailure {
 message RicsubscriptionFailureIes {
 // {RICsubscriptionFailure-IEs29}
     message RicsubscriptionFailureIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionFailure-IEs5}
     message RicsubscriptionFailureIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionFailure-IEs1}
     message RicsubscriptionFailureIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionFailure-IEs2}
     message RicsubscriptionFailureIes2 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -256,18 +298,24 @@ message RicsubscriptionDeleteRequest {
 message RicsubscriptionDeleteRequestIes {
 // {RICsubscriptionDeleteRequest-IEs29}
     message RicsubscriptionDeleteRequestIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionDeleteRequest-IEs5}
     message RicsubscriptionDeleteRequestIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
@@ -287,18 +335,24 @@ message RicsubscriptionDeleteResponse {
 message RicsubscriptionDeleteResponseIes {
 // {RICsubscriptionDeleteResponse-IEs29}
     message RicsubscriptionDeleteResponseIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionDeleteResponse-IEs5}
     message RicsubscriptionDeleteResponseIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
@@ -318,36 +372,48 @@ message RicsubscriptionDeleteFailure {
 message RicsubscriptionDeleteFailureIes {
 // {RICsubscriptionDeleteFailure-IEs29}
     message RicsubscriptionDeleteFailureIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionDeleteFailure-IEs5}
     message RicsubscriptionDeleteFailureIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionDeleteFailure-IEs1}
     message RicsubscriptionDeleteFailureIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICsubscriptionDeleteFailure-IEs2}
     message RicsubscriptionDeleteFailureIes2 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -367,9 +433,12 @@ message RicsubscriptionDeleteRequired {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:563
 // {_RICsubscriptionDeleteRequired-IEs}
 message RicsubscriptionDeleteRequiredIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 60, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     RicsubscriptionListWithCause value = 3 [json_name="ricSubscriptionListWithCause"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -383,10 +452,13 @@ message RicsubscriptionListWithCause {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:570
 // {_RICsubscription-withCause-ItemIEs}
 message RicsubscriptionWithCauseItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 61, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     // @inject_tag: aper:"valueExt"
     RicsubscriptionWithCauseItem value = 3 [json_name="ricSubscriptionListWithCause"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -412,67 +484,91 @@ message Ricindication {
 message RicindicationIes {
 // {RICindication-IEs29}
     message RicindicationIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICindication-IEs5}
     message RicindicationIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICindication-IEs15}
     message RicindicationIes15 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 15, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RicactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICindication-IEs27}
     message RicindicationIes27 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 27, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RicindicationSn value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {RICindication-IEs28}
     message RicindicationIes28 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 28, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:1"
         RicindicationType value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICindication-IEs25}
     message RicindicationIes25 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 25, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RicindicationHeader value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICindication-IEs26}
     message RicindicationIes26 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 26, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RicindicationMessage value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICindication-IEs20}
     message RicindicationIes20 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 20, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RiccallProcessId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -498,51 +594,69 @@ message RiccontrolRequest {
 message RiccontrolRequestIes {
 // {RICcontrolRequest-IEs29}
     message RiccontrolRequestIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolRequest-IEs5}
     message RiccontrolRequestIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolRequest-IEs20}
     message RiccontrolRequestIes20 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 20, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RiccallProcessId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {RICcontrolRequest-IEs22}
     message RiccontrolRequestIes22 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 22, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RiccontrolHeader value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolRequest-IEs23}
     message RiccontrolRequestIes23 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 23, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RiccontrolMessage value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolRequest-IEs21}
     message RiccontrolRequestIes21 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 21, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:1"
         RiccontrolAckRequest value = 3 [ json_name="&Value"]; // ToDo - should it have optional label since presence is optional??
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -566,34 +680,46 @@ message RiccontrolAcknowledge {
 message RiccontrolAcknowledgeIes {
 // {RICcontrolAcknowledge-IEs29}
     message RiccontrolAcknowledgeIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolAcknowledge-IEs5}
     message RiccontrolAcknowledgeIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolAcknowledge-IEs20}
     message RiccontrolAcknowledgeIes20 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 20, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RiccallProcessId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {RICcontrolAcknowledge-IEs32}
     message RiccontrolAcknowledgeIes32 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 32, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RiccontrolOutcome value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -615,43 +741,58 @@ message RiccontrolFailure {
 message RiccontrolFailureIes {
 // {RICcontrolFailure-IEs29}
     message RiccontrolFailureIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolFailure-IEs5}
     message RiccontrolFailureIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolFailure-IEs20}
     message RiccontrolFailureIes20 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 20, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RiccallProcessId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {RICcontrolFailure-IEs1}
     message RiccontrolFailureIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICcontrolFailure-IEs32}
     message RiccontrolFailureIes32 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 32, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RiccontrolOutcome value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -674,44 +815,59 @@ message ErrorIndication {
 message ErrorIndicationIes {
 // {ErrorIndication-IEs49}
     message ErrorIndicationIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {ErrorIndication-IEs29}
     message ErrorIndicationIes29 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 29, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         RicrequestId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {ErrorIndication-IEs5}
     message ErrorIndicationIes5 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 5, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {ErrorIndication-IEs1}
     message ErrorIndicationIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {ErrorIndication-IEs2}
     message ErrorIndicationIes2 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -734,34 +890,46 @@ message E2setupRequest {
 message E2setupRequestIes {
 // {E2setupRequestIEs49}
     message E2setupRequestIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2setupRequestIEs3}
     message E2setupRequestIes3 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 3, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         GlobalE2nodeId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2setupRequestIEs10}
     message E2setupRequestIes10 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 10, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionsList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2setupRequestIEs50}
     message E2setupRequestIes50 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 50, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeComponentConfigAdditionList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
@@ -783,42 +951,57 @@ message E2setupResponse {
 message E2setupResponseIes {
 // {E2setupResponseIEs49}
     message E2setupResponseIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2setupResponseIEs4}
     message E2setupResponseIes4 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 4, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         GlobalRicId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2setupResponseIEs9}
     message E2setupResponseIes9 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 9, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionsIdList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2setupResponseIEs13}
     message E2setupResponseIes13 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 13, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionsIdcauseList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2setupResponseIEs52}
     message E2setupResponseIes52 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 52, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeComponentConfigAdditionAckList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
@@ -841,45 +1024,60 @@ message E2setupFailure {
 message E2setupFailureIes {
 // {E2setupFailureIEs49}
     message E2setupFailureIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2setupFailureIEs1}
     message E2setupFailureIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2setupFailureIEs31}
     message E2setupFailureIes31 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 31, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2setupFailureIEs2}
     message E2setupFailureIes2 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2setupFailureIEs48}
     message E2setupFailureIes48 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 48, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Tnlinformation value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -902,33 +1100,45 @@ message E2connectionUpdate {
 message E2connectionUpdateIes {
 // {E2connectionUpdate-IEs49}
     message E2connectionUpdateIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2connectionUpdate-IEs44}
     message E2connectionUpdateIes44 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 44, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2connectionUpdateList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2connectionUpdate-IEs46}
     message E2connectionUpdateIes46 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 46, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2connectionUpdateRemoveList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2connectionUpdate-IEs45}
     message E2connectionUpdateIes45 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 45, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2connectionUpdateList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -948,10 +1158,13 @@ message E2connectionUpdateList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:788
 // {_E2connectionUpdate-ItemIEs}
 message E2connectionUpdateItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 43, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     // @inject_tag: aper:"valueExt"
     E2connectionUpdateItem value = 3 [json_name="E2connectionUpdateItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -974,10 +1187,13 @@ message E2connectionUpdateRemoveList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:801
 // {_E2connectionUpdateRemove-ItemIEs}
 message E2connectionUpdateRemoveItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 47, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     // @inject_tag: aper:"valueExt"
     E2connectionUpdateRemoveItem value = 3 [json_name="E2connectionUpdateRemoveItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -1000,25 +1216,34 @@ message E2connectionUpdateAcknowledge {
 message E2connectionUpdateAckIes {
 // {E2connectionUpdateAck-IEs49}
     message E2connectionUpdateAckIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2connectionUpdateAck-IEs39}
     message E2connectionUpdateAckIes39 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 39, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2connectionUpdateList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2connectionUpdateAck-IEs40}
     message E2connectionUpdateAckIes40 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 40, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2connectionSetupFailedList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1037,10 +1262,13 @@ message E2connectionSetupFailedList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:832
 // {_E2connectionSetupFailed-ItemIEs}
 message E2connectionSetupFailedItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 41, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
     //@inject_tag: aper"valueExt"
     E2connectionSetupFailedItem value = 3 [json_name="E2connectionSetupFailedItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -1065,36 +1293,48 @@ message E2connectionUpdateFailure {
 message E2connectionUpdateFailureIes {
 // {E2connectionUpdateFailure-IEs49}
     message E2connectionUpdateFailureIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2connectionUpdateFailure-IEs1}
     message E2connectionUpdateFailureIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2connectionUpdateFailure-IEs31}
     message E2connectionUpdateFailureIes31 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 31, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2connectionUpdateFailure-IEs2}
     message E2connectionUpdateFailureIes2 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1116,50 +1356,68 @@ message E2nodeConfigurationUpdate {
 message E2nodeConfigurationUpdateIes {
 // {E2nodeConfigurationUpdate-IEs49}
     message E2nodeConfigurationUpdateIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdate-IEs3}
     message E2nodeConfigurationUpdateIes3 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 3, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         GlobalE2nodeId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdate-IEs50}
     message E2nodeConfigurationUpdateIes50 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 50, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeComponentConfigAdditionList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdate-IEs33}
     message E2nodeConfigurationUpdateIes33 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 33, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeComponentConfigUpdateList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdate-IEs54}
     message E2nodeConfigurationUpdateIes54 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 54, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeComponentConfigRemovalList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdate-IEs58}
     message E2nodeConfigurationUpdateIes58 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 58, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeTnlassociationRemovalList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1181,10 +1439,13 @@ message E2nodeComponentConfigAdditionList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:888
 // {_E2nodeComponentConfigAddition-ItemIEs}
 message E2nodeComponentConfigAdditionItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 51, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     //@inject_tag: aper:"valueExt"
     E2nodeComponentConfigAdditionItem value = 3 [json_name="E2nodeComponentConfigUpdateItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -1209,10 +1470,13 @@ message E2nodeComponentConfigUpdateList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:902
 // {_E2nodeComponentConfigUpdate-ItemIEs}
 message E2nodeComponentConfigUpdateItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 34, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     //@inject_tag: aper:"valueExt"
     E2nodeComponentConfigUpdateItem value = 3 [json_name="E2nodeComponentConfigUpdateItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -1237,10 +1501,13 @@ message E2nodeComponentConfigRemovalList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:916
 // {_E2nodeComponentConfigRemoval-ItemIEs}
 message E2nodeComponentConfigRemovalItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 55, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     //@inject_tag: aper:"valueExt"
     E2nodeComponentConfigRemovalItem value = 3 [json_name="E2nodeComponentConfigRemovalItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -1263,10 +1530,13 @@ message E2nodeTnlassociationRemovalList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:929
 // {_E2nodeTNLassociationRemoval-ItemIEs}
 message E2nodeTnlassociationRemovalItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 59, json_name="id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="criticality"];
     //@inject_tag: aper:"valueExt"
     E2nodeTnlassociationRemovalItem value = 3 [json_name="E2nodeComponentConfigRemovalItem"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
 };
 
@@ -1291,33 +1561,45 @@ message E2nodeConfigurationUpdateAcknowledge {
 message E2nodeConfigurationUpdateAcknowledgeIes {
 // {E2nodeConfigurationUpdateAcknowledge-IEs49}
     message E2nodeConfigurationUpdateAcknowledgeIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdateAcknowledge-IEs52}
     message E2nodeConfigurationUpdateAcknowledgeIes52 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 52, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeComponentConfigAdditionAckList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdateAcknowledge-IEs35}
     message E2nodeConfigurationUpdateAcknowledgeIes35 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 35, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeComponentConfigUpdateAckList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdateAcknowledge-IEs56}
     message E2nodeConfigurationUpdateAcknowledgeIes56 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 56, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         E2nodeComponentConfigRemovalAckList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1337,10 +1619,13 @@ message E2nodeComponentConfigAdditionAckList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:960
 // {_E2nodeComponentConfigAdditionAck-ItemIEs}
 message E2nodeComponentConfigAdditionAckItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 57, json_name="&id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
     // @inject_tag: aper:"valueExt"
     E2nodeComponentConfigAdditionAckItem value = 3 [ json_name="&Value"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
 };
 
@@ -1365,10 +1650,13 @@ message E2nodeComponentConfigUpdateAckList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:974
 // {_E2nodeComponentConfigUpdateAck-ItemIEs}
 message E2nodeComponentConfigUpdateAckItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 36, json_name="&id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
     // @inject_tag: aper:"valueExt"
     E2nodeComponentConfigUpdateAckItem value = 3 [ json_name="&Value"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
 };
 
@@ -1393,10 +1681,13 @@ message E2nodeComponentConfigRemovalAckList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:988
 // {_E2nodeComponentConfigRemovalAck-ItemIEs}
 message E2nodeComponentConfigRemovalAckItemIes {
+    //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 57, json_name="&id"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
     // @inject_tag: aper:"valueExt"
     E2nodeComponentConfigRemovalAckItem value = 3 [ json_name="&Value"];
+    //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
 };
 
@@ -1423,36 +1714,48 @@ message E2nodeConfigurationUpdateFailure {
 message E2nodeConfigurationUpdateFailureIes {
 // {E2nodeConfigurationUpdateFailure-IEs49}
     message E2nodeConfigurationUpdateFailureIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdateFailure-IEs1}
     message E2nodeConfigurationUpdateFailureIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdateFailure-IEs31}
     message E2nodeConfigurationUpdateFailureIes31 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 31, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {E2nodeConfigurationUpdateFailure-IEs2}
     message E2nodeConfigurationUpdateFailureIes2 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1474,18 +1777,24 @@ message ResetRequest {
 message ResetRequestIes {
 // {ResetRequestIEs49}
     message ResetRequestIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {ResetRequestIEs1}
     message ResetRequestIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
@@ -1505,18 +1814,24 @@ message ResetResponse {
 message ResetResponseIes {
 // {ResetResponseIEs49}
     message ResetResponseIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {ResetResponseIEs2}
     message ResetResponseIes2 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1536,33 +1851,45 @@ message RicserviceUpdate {
 message RicserviceUpdateIes {
 // {RICserviceUpdate-IEs49}
     message RicserviceUpdateIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICserviceUpdate-IEs10}
     message RicserviceUpdateIes10 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 10, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionsList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {RICserviceUpdate-IEs12}
     message RicserviceUpdateIes12 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 12, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionsList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {RICserviceUpdate-IEs11}
     message RicserviceUpdateIes11 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 11, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionsIdList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1584,10 +1911,13 @@ message RanfunctionsList {
 message RanfunctionItemIes {
     //{RANfunctionItemIEs8}
     message RanfunctionItemIes8 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 8, json_name="id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
         //@inject_tag: aper:"valueExt"
         RanfunctionItem value = 3 [json_name="ranFunctionItem"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
     }
     RanfunctionItemIes8 e2_ap_protocol_ies8 = 1 [json_name="ranFunctionItemIEs8"];
@@ -1647,25 +1977,34 @@ message RicserviceUpdateAcknowledge {
 message RicserviceUpdateAcknowledgeIes {
 // {RICserviceUpdateAcknowledge-IEs49}
     message RicserviceUpdateAcknowledgeIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICserviceUpdateAcknowledge-IEs9}
     message RicserviceUpdateAcknowledgeIes9 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 9, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionsIdList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICserviceUpdateAcknowledge-IEs13}
     message RicserviceUpdateAcknowledgeIes13 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 13, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         RanfunctionsIdcauseList value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1686,10 +2025,13 @@ message RanfunctionsIdcauseList {
 message RanfunctionIdcauseItemIes {
     //{RANfunctionIDcauseItemIEs7}
     message RanfunctionIdcauseItemIes7 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 7, json_name="id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
         //@inject_tag: aper:"valueExt"
         RanfunctionIdcauseItem value = 3 [json_name="ranFunctionIDcauseItem"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="presence"];
     }
 
@@ -1716,36 +2058,48 @@ message RicserviceUpdateFailure {
 message RicserviceUpdateFailureIes {
 // {RICserviceUpdateFailure-IEs49}
     message RicserviceUpdateFailureIes49 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICserviceUpdateFailure-IEs1}
     message RicserviceUpdateFailureIes1 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 1, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         Cause value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICserviceUpdateFailure-IEs31}
     message RicserviceUpdateFailureIes31 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 31, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
 // {RICserviceUpdateFailure-IEs2}
     message RicserviceUpdateFailureIes2 {
+        //@inject_tag: aper:"valueLB:0,valueUB:65535"
         int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics value = 3 [ json_name="&Value"];
+        //@inject_tag: aper:"valueLB:0,valueUB:2"
         int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
@@ -1758,8 +2112,9 @@ message RicserviceUpdateFailureIes {
 // sequence from e2ap_v2.asn:1171
 // {RICserviceQuery}
 message RicserviceQuery {
-    //@inject_tag: aper:"valueExt"
-    RicserviceQueryIes protocol_ies = 1 [ json_name="protocolIEs"];
+    //ToDo - RICserviceQueryIE should consist of id, criticality and value - nothing more (XML representation corresponds to it)
+    //@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
+    repeated RicserviceQueryIes protocol_ies = 1 [ json_name="protocolIEs"];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:1175
@@ -1772,8 +2127,9 @@ message RicserviceQueryIes {
         // @inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
+        //ToDo - presence is probably only for informational purpose notation
         // @inject_tag: aper:"valueLB:0,valueUB:2"
-        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+//        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICserviceQuery-IEs9}
@@ -1785,10 +2141,11 @@ message RicserviceQueryIes {
         //@inject_tag: aper:"optional"
         optional RanfunctionsIdList value = 3 [ json_name="&Value"];
         // @inject_tag: aper:"valueLB:0,valueUB:2"
-        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+//        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
-    RicserviceQueryIes9 e2_ap_protocol_ies9 = 2 [ json_name="E2AP-PROTOCOL-IES9"];
+    //@inject_tag: aper:"optional"
+    optional RicserviceQueryIes9 e2_ap_protocol_ies9 = 2 [ json_name="E2AP-PROTOCOL-IES9"];
     RicserviceQueryIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
 };
 
