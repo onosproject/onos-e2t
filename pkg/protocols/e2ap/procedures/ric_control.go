@@ -7,6 +7,7 @@ package procedures
 import (
 	"context"
 	"sync"
+	"syscall"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
@@ -173,7 +174,7 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded {
+			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
 				log.Warnf("RIC Control response failed: %v", err)
 				return
 			}
@@ -203,7 +204,7 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded {
+			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
 				log.Warnf("RIC Control response failed: %v", err)
 				return
 			}

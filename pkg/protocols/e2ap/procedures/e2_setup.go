@@ -6,6 +6,7 @@ package procedures
 
 import (
 	"context"
+	"syscall"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
@@ -148,7 +149,7 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded {
+			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
 				log.Warnf("E2 Setup response failed: %v", err)
 				return
 			}
@@ -178,7 +179,7 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		}*/
 		err := p.dispatcher(responsePDU)
 		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded {
+			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
 				log.Warnf("E2 Setup response failed: %v", err)
 				return
 			}
