@@ -2120,6 +2120,7 @@ message RicserviceQuery {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:1175
 // {_RICserviceQuery-IEs}
 message RicserviceQueryIes {
+    //ToDo - this message should be of type Enumerator - it has "|" in notation between IEs and thus defines a value set which is UNION -> both IEs are accepted
 // {RICserviceQuery-IEs49}
     message RicserviceQueryIes49 {
         //@inject_tag: aper:"valueLB:0,valueUB:65535"
@@ -2127,9 +2128,9 @@ message RicserviceQueryIes {
         // @inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
         TransactionId value = 3 [ json_name="&Value"];
-        //ToDo - presence is probably only for informational purpose notation
+        //ToDo - presence must be explicitly present - it is defined through E2AP-PROTOCOL-IES class
         // @inject_tag: aper:"valueLB:0,valueUB:2"
-//        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICserviceQuery-IEs9}
@@ -2141,11 +2142,19 @@ message RicserviceQueryIes {
         //@inject_tag: aper:"optional"
         optional RanfunctionsIdList value = 3 [ json_name="&Value"];
         // @inject_tag: aper:"valueLB:0,valueUB:2"
-//        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
 
-    //@inject_tag: aper:"optional"
-    optional RicserviceQueryIes9 e2_ap_protocol_ies9 = 2 [ json_name="E2AP-PROTOCOL-IES9"];
+//    oneof ricServiceQueryIE {
+//        // @inject_tag: aper:"choiceIdx:1"
+//        RicserviceQueryIes9 e2_ap_protocol_ies9 = 2 [ json_name="E2AP-PROTOCOL-IES9"];
+//        // @inject_tag: aper:"choiceIdx:2"
+//        RicserviceQueryIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
+//    }
+
+    // ToDo - in fact it should be present, not the value, but the whole skeleton of a structure..
+    // @ inject_tag: aper:"optional"
+    RicserviceQueryIes9 e2_ap_protocol_ies9 = 2 [ json_name="E2AP-PROTOCOL-IES9"];
     RicserviceQueryIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
 };
 

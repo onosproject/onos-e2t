@@ -1172,6 +1172,7 @@ RICserviceQuery ::= SEQUENCE {
 	...
 }
 
+-- defining a value set here
 RICserviceQuery-IEs E2AP-PROTOCOL-IES ::= {
 	{ ID id-TransactionID				CRITICALITY reject	TYPE TransactionID					PRESENCE mandatory	}|
 	{ ID id-RANfunctionsAccepted		CRITICALITY reject	TYPE RANfunctionsID-List			PRESENCE optional	},
