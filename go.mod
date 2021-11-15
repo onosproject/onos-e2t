@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/atomix/atomix-go-client v0.6.2
-	github.com/atomix/atomix-go-framework v0.9.3
+	github.com/atomix/atomix-go-framework v0.10.0
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
@@ -20,8 +20,8 @@ require (
 	github.com/onosproject/onos-test v0.6.4
 	github.com/prometheus/common v0.10.0
 	github.com/stretchr/testify v1.7.0
-	google.golang.org/grpc v1.33.2
-	google.golang.org/protobuf v1.26.0
+	google.golang.org/grpc v1.40.0
+	google.golang.org/protobuf v1.27.1
 	gotest.tools v2.2.0+incompatible
 	k8s.io/api v0.21.0
 	k8s.io/apimachinery v0.21.0

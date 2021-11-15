@@ -2113,7 +2113,7 @@ message RicserviceUpdateFailureIes {
 // {RICserviceQuery}
 message RicserviceQuery {
     //ToDo - RICserviceQueryIE should consist of id, criticality and value - nothing more (XML representation corresponds to it)
-    //@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
+    //@inject_tag: aper:"sizeLB:0,sizeUB:65535"
     repeated RicserviceQueryIes protocol_ies = 1 [ json_name="protocolIEs"];
 };
 
@@ -2127,10 +2127,12 @@ message RicserviceQueryIes {
         int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
         // @inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        // @inject_tag: aper:"valueLB:0,valueUB:2"
+        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
         TransactionId value = 3 [ json_name="&Value"];
         //ToDo - presence must be explicitly present - it is defined through E2AP-PROTOCOL-IES class
         // @inject_tag: aper:"valueLB:0,valueUB:2"
-        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
+//        int32 presence = 4 [(validate.v1.rules).int32.const = 2, json_name="&presence"];
     };
 
 // {RICserviceQuery-IEs9}
@@ -2139,18 +2141,13 @@ message RicserviceQueryIes {
         int32 id = 1 [(validate.v1.rules).int32.const = 9, json_name="&id"];
         // @inject_tag: aper:"valueLB:0,valueUB:2"
         int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+        // @ inject_tag: aper:"valueLB:0,valueUB:2"
+        int32 presence = 3 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
         //@inject_tag: aper:"optional"
-        optional RanfunctionsIdList value = 3 [ json_name="&Value"];
+        optional RanfunctionsIdList value = 4 [ json_name="&Value"];
         // @inject_tag: aper:"valueLB:0,valueUB:2"
-        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
+//        int32 presence = 4 [(validate.v1.rules).int32.const = 0, json_name="&presence"];
     };
-
-//    oneof ricServiceQueryIE {
-//        // @inject_tag: aper:"choiceIdx:1"
-//        RicserviceQueryIes9 e2_ap_protocol_ies9 = 2 [ json_name="E2AP-PROTOCOL-IES9"];
-//        // @inject_tag: aper:"choiceIdx:2"
-//        RicserviceQueryIes49 e2_ap_protocol_ies49 = 1 [ json_name="E2AP-PROTOCOL-IES49"];
-//    }
 
     // ToDo - in fact it should be present, not the value, but the whole skeleton of a structure..
     // @ inject_tag: aper:"optional"

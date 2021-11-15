@@ -6,7 +6,6 @@ package e2ap_pdu_descriptions
 
 import (
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
-	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
 	"reflect"
 )
 
@@ -15,10 +14,6 @@ var E2ApPduChoicemap = map[string]map[int]reflect.Type{
 		1: reflect.TypeOf(E2ApPduRicServiceQuery_InitiatingMessage{}),
 		2: reflect.TypeOf(E2ApPduRicServiceQuery_SuccessfulOutcome{}),
 		3: reflect.TypeOf(E2ApPduRicServiceQuery_UnsuccessfulOutcome{}),
-	},
-	"ricServiceQueryIE": {
-	    1: reflect.TypeOf(e2ap_pdu_contents.RicserviceQueryIes_E2ApProtocolIes49{}),
-	    2: reflect.TypeOf(e2ap_pdu_contents.RicserviceQueryIes_E2ApProtocolIes9{}),
 	},
 	"cause": {
 		1: reflect.TypeOf(e2ap_ies.Cause_RicRequest{}),

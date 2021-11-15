@@ -14,18 +14,44 @@ import (
 func CreateRicServiceQueryE2apPdu(trID int32) (*e2appdudescriptions.E2ApPduRicServiceQuery, error) {
 
 	pIes := &e2appducontents.RicserviceQueryIes{
-		RicServiceQueryIE: &e2appducontents.RicserviceQueryIes_E2ApProtocolIes49{
-			//E2ApProtocolIes9: &ranFunctionsAccepted, //RAN functions Accepted List
-			E2ApProtocolIes49: &e2appducontents.RicserviceQueryIes_RicserviceQueryIes49{
-				Id:          int32(v2.ProtocolIeIDTransactionID),
-				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-				Value: &e2apies.TransactionId{
-					Value: trID,
-				},
-				//Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-			},
+		//RicServiceQueryIE: &e2appducontents.RicserviceQueryIes_E2ApProtocolIes49{
+		//E2ApProtocolIes9: &ranFunctionsAccepted, //RAN functions Accepted List
+		E2ApProtocolIes9: &e2appducontents.RicserviceQueryIes_RicserviceQueryIes9{ //RAN functions Accepted List
+			Id:          int32(v2.ProtocolIeIDRanfunctionsAccepted),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: nil,
+				//&e2appducontents.RanfunctionsIdList{
+				//Value: nil, //make([]*e2appducontents.RanfunctionIdItemIes, 0),
+			//},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
 		},
+		E2ApProtocolIes49: &e2appducontents.RicserviceQueryIes_RicserviceQueryIes49{
+			Id:          int32(v2.ProtocolIeIDTransactionID),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &e2apies.TransactionId{
+				Value: trID,
+			},
+			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+		},
+		//},
 	}
+
+	//rfIDie := &e2appducontents.RanfunctionIdItemIes{
+	//	RanFunctionIdItemIes6: &e2appducontents.RanfunctionIdItemIes_RanfunctionIdItemIes6{
+	//		Id:          int32(v2.ProtocolIeIDRanfunctionIDItem),
+	//		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
+	//		Value: &e2appducontents.RanfunctionIdItem{
+	//			RanFunctionId: &e2apies.RanfunctionId{
+	//				Value: 0,
+	//			},
+	//			RanFunctionRevision: &e2apies.RanfunctionRevision{
+	//				Value: 0,
+	//			},
+	//		},
+	//		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
+	//	},
+	//}
+	//pIes.GetE2ApProtocolIes9().GetValue().Value = append(pIes.GetE2ApProtocolIes9().GetValue().Value, rfIDie)
 
 	e2apPdu := e2appdudescriptions.E2ApPduRicServiceQuery{
 		E2ApPdu: &e2appdudescriptions.E2ApPduRicServiceQuery_InitiatingMessage{
