@@ -39,7 +39,7 @@ func TestRicServiceQuery(t *testing.T) {
 	//rsq.GetInitiatingMessage().GetValue().
 	//	SetRanFunctionsAccepted(rfAccepted1)
 
-	perNew, err := encoder.PerEncodeE2ApPduRicServiceQuery(rsq)
+	perNew, err := encoder.PerEncodeE2ApPdu(rsq)
 	assert.NilError(t, err)
 	t.Logf("RicServiceQuery E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 

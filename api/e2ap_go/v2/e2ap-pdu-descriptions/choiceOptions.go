@@ -6,14 +6,33 @@ package e2ap_pdu_descriptions
 
 import (
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
+	e2ap_pdu_contents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
 	"reflect"
 )
 
 var E2ApPduChoicemap = map[string]map[int]reflect.Type{
 	"e2_ap_pdu": {
-		1: reflect.TypeOf(E2ApPduRicServiceQuery_InitiatingMessage{}),
-		2: reflect.TypeOf(E2ApPduRicServiceQuery_SuccessfulOutcome{}),
-		3: reflect.TypeOf(E2ApPduRicServiceQuery_UnsuccessfulOutcome{}),
+		1: reflect.TypeOf(E2ApPdu_InitiatingMessage{}),
+		2: reflect.TypeOf(E2ApPdu_SuccessfulOutcome{}),
+		3: reflect.TypeOf(E2ApPdu_UnsuccessfulOutcome{}),
+	},
+	"im_values": {
+		1: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_RicSubscription{}),
+		2: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDelete{}),
+		3: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_RicServiceUpdate{}),
+		4: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_RicControl{}),
+		5: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_E2Setup{}),
+		6: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_E2NodeConfigurationUpdate{}),
+		7: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_E2ConnectionUpdate{}),
+		8: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_Reset_{}),
+		9: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_RicIndication{}),
+		10: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_RicServiceQuery{}),
+		11: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_ErrorIndication{}),
+		12: reflect.TypeOf(InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDeleteRequired{}),
+	},
+	"ric_service_query_ie_value": {
+		1: reflect.TypeOf(e2ap_pdu_contents.RicServiceQueryIeValue_Id{}),
+		2: reflect.TypeOf(e2ap_pdu_contents.RicServiceQueryIeValue_RfidList{}),
 	},
 	"cause": {
 		1: reflect.TypeOf(e2ap_ies.Cause_RicRequest{}),

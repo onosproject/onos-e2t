@@ -15,7 +15,7 @@ func init() {
 	log.SetLevel(log.Info)
 }
 
-func PerEncodeE2ApPduRicServiceQuery(e2ap *e2appdudescriptions.E2ApPduRicServiceQuery) ([]byte, error) {
+func PerEncodeE2ApPdu(e2ap *e2appdudescriptions.E2ApPdu) ([]byte, error) {
 
 	log.Debugf("Obtained E2AP-PDU message is\n%v", e2ap)
 	aper.ChoiceMap = e2appdudescriptions.E2ApPduChoicemap
@@ -28,11 +28,11 @@ func PerEncodeE2ApPduRicServiceQuery(e2ap *e2appdudescriptions.E2ApPduRicService
 	return per, nil
 }
 
-func PerDecodeE2ApPduRicServiceQuery(per []byte) (*e2appdudescriptions.E2ApPduRicServiceQuery, error) {
+func PerDecodeE2ApPdu(per []byte) (*e2appdudescriptions.E2ApPdu, error) {
 
 	log.Debugf("Obtained E2AP-PDU PER bytes are\n%v", hex.Dump(per))
 	aper.ChoiceMap = e2appdudescriptions.E2ApPduChoicemap
-	result := e2appdudescriptions.E2ApPduRicServiceQuery{}
+	result := e2appdudescriptions.E2ApPdu{}
 	err := aper.UnmarshalWithParams(per, &result, "valueExt")
 	if err != nil {
 		return nil, err
