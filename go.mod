@@ -15,7 +15,7 @@ require (
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.8.0
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.8.0
 	github.com/onosproject/onos-lib-go v0.8.1
-	github.com/onosproject/onos-ric-sdk-go v0.7.34
+	github.com/onosproject/onos-ric-sdk-go v0.8.0
 	github.com/onosproject/onos-test v0.6.4
 	github.com/prometheus/common v0.26.0
 	github.com/stretchr/testify v1.7.0
