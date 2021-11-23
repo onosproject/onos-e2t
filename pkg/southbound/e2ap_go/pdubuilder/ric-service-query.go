@@ -16,8 +16,8 @@ func CreateRicServiceQueryE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, err
 	pIes := &e2appducontents.RicserviceQueryIes{
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2appducontents.RicServiceQueryIeValue{
-			RicServiceQueryIeValue: &e2appducontents.RicServiceQueryIeValue_Id{
+		Value: &e2appducontents.RicServiceQueryIe{
+			RicServiceQueryIe: &e2appducontents.RicServiceQueryIe_Id{
 				Id: &e2apies.TransactionId{
 					Value: trID,
 				},
@@ -83,26 +83,6 @@ func CreateRicServiceQueryE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, err
 					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicServiceQuery{
 						RicServiceQuery: &e2appducontents.RicserviceQuery{
 							ProtocolIes: make([]*e2appducontents.RicserviceQueryIes, 0),
-							//ProtocolIes: &e2appducontents.RicserviceQueryIes{
-							//	E2ApProtocolIes9: &e2appducontents.RicserviceQueryIes_RicserviceQueryIes9{ //RAN functions Accepted List
-							//		Id:          int32(v2.ProtocolIeIDRanfunctionsAccepted),
-							//		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-							//		Value:
-							//			nil,
-							//		//&e2appducontents.RanfunctionsIdList{
-							//		//Value: make([]*e2appducontents.RanfunctionIdItemIes, 0),
-							//		//},
-							//		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-							//	},
-							//	E2ApProtocolIes49: &e2appducontents.RicserviceQueryIes_RicserviceQueryIes49{
-							//		Id:          int32(v2.ProtocolIeIDTransactionID),
-							//		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-							//		Value: &e2apies.TransactionId{
-							//			Value: trID,
-							//		},
-							//		Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-							//	},
-							//},
 						},
 					},
 				},

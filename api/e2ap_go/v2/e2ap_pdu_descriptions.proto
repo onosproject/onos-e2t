@@ -80,8 +80,30 @@ message SuccessfulOutcome {
     int32 procedure_code = 1 [ json_name="procedureCode"];
     // @inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="criticality"];
-    E2ApElementaryProcedures value = 3 [ json_name="value"];
+    SuccessfulOutcomeE2ApElementaryProcedures value = 3 [ json_name="value"];
 };
+
+message SuccessfulOutcomeE2ApElementaryProcedures {
+
+    oneof so_values {
+        // @inject_tag: aper:"choiceIdx:1"
+        RicsubscriptionResponse ric_subscription = 1 [ json_name="ric_subscription"];
+        // @inject_tag: aper:"choiceIdx:2"
+        RicsubscriptionDeleteResponse ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
+        // @inject_tag: aper:"choiceIdx:3"
+        RicserviceUpdateAcknowledge ric_service_update = 3 [ json_name="ric_service_update"];
+        // @inject_tag: aper:"choiceIdx:4"
+        RiccontrolAcknowledge ric_control = 4 [ json_name="ric_control"];
+        // @inject_tag: aper:"choiceIdx:5"
+        E2setupResponse e2setup = 5 [ json_name="e2setup"];
+        // @inject_tag: aper:"choiceIdx:6"
+        E2nodeConfigurationUpdateAcknowledge e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
+        // @inject_tag: aper:"choiceIdx:7"
+        E2connectionUpdateAcknowledge e2connection_update = 7 [ json_name="e2connection_update"];
+        // @inject_tag: aper:"choiceIdx:8"
+        ResetResponse reset = 8 [ json_name="reset"];
+        }
+}
 
 // sequence from e2ap_v2.asn:119
 // {UnsuccessfulOutcome}
@@ -90,8 +112,28 @@ message UnsuccessfulOutcome {
     int32 procedure_code = 1 [ json_name="procedureCode"];
     // @inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="criticality"];
-    E2ApElementaryProcedures value = 3 [ json_name="value"];
+    UnsuccessfulOutcomeE2ApElementaryProcedures value = 3 [ json_name="value"];
 };
+
+message UnsuccessfulOutcomeE2ApElementaryProcedures {
+
+    oneof uo_values {
+        // @inject_tag: aper:"choiceIdx:1"
+        RicsubscriptionFailure ric_subscription = 1 [ json_name="ric_subscription"];
+        // @inject_tag: aper:"choiceIdx:2"
+        RicsubscriptionDeleteFailure ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
+        // @inject_tag: aper:"choiceIdx:3"
+        RicserviceUpdateFailure ric_service_update = 3 [ json_name="ric_service_update"];
+        // @inject_tag: aper:"choiceIdx:4"
+        RiccontrolFailure ric_control = 4 [ json_name="ric_control"];
+        // @inject_tag: aper:"choiceIdx:5"
+        E2setupFailure e2setup = 5 [ json_name="e2setup"];
+        // @inject_tag: aper:"choiceIdx:6"
+        E2nodeConfigurationUpdateFailure e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
+        // @inject_tag: aper:"choiceIdx:7"
+        E2connectionUpdateFailure e2connection_update = 7 [ json_name="e2connection_update"];
+    }
+}
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:130
 // {_E2AP-ELEMENTARY-PROCEDURES}

@@ -1,8 +1,3 @@
-//
-//SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
-//
-//SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
-
 ////////////////////// e2ap-pdu-descriptions.proto //////////////////////
 // Protobuf generated from /e2ap_v2.asn by asn1c-0.9.29
 // E2AP-PDU-Descriptions { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version2(2) e2ap(1) e2ap-PDU-Descriptions(0) }
@@ -456,8 +451,8 @@ type SuccessfulOutcome struct {
 	// @inject_tag: aper:"valueLB:0,valueUB:255"
 	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality e2ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2ApElementaryProcedures        `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Criticality e2ap_commondatatypes.Criticality           `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	Value       *SuccessfulOutcomeE2ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
 }
 
 func (x *SuccessfulOutcome) Reset() {
@@ -506,11 +501,191 @@ func (x *SuccessfulOutcome) GetCriticality() e2ap_commondatatypes.Criticality {
 	return e2ap_commondatatypes.Criticality(0)
 }
 
-func (x *SuccessfulOutcome) GetValue() *E2ApElementaryProcedures {
+func (x *SuccessfulOutcome) GetValue() *SuccessfulOutcomeE2ApElementaryProcedures {
 	if x != nil {
 		return x.Value
 	}
 	return nil
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to SoValues:
+	//	*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription
+	//	*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete
+	//	*SuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate
+	//	*SuccessfulOutcomeE2ApElementaryProcedures_RicControl
+	//	*SuccessfulOutcomeE2ApElementaryProcedures_E2Setup
+	//	*SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate
+	//	*SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate
+	//	*SuccessfulOutcomeE2ApElementaryProcedures_Reset_
+	SoValues isSuccessfulOutcomeE2ApElementaryProcedures_SoValues `protobuf_oneof:"so_values"`
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) Reset() {
+	*x = SuccessfulOutcomeE2ApElementaryProcedures{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures) ProtoMessage() {}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) ProtoReflect() protoreflect.Message {
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SuccessfulOutcomeE2ApElementaryProcedures.ProtoReflect.Descriptor instead.
+func (*SuccessfulOutcomeE2ApElementaryProcedures) Descriptor() ([]byte, []int) {
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{4}
+}
+
+func (m *SuccessfulOutcomeE2ApElementaryProcedures) GetSoValues() isSuccessfulOutcomeE2ApElementaryProcedures_SoValues {
+	if m != nil {
+		return m.SoValues
+	}
+	return nil
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) GetRicSubscription() *e2ap_pdu_contents.RicsubscriptionResponse {
+	if x, ok := x.GetSoValues().(*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription); ok {
+		return x.RicSubscription
+	}
+	return nil
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) GetRicSubscriptionDelete() *e2ap_pdu_contents.RicsubscriptionDeleteResponse {
+	if x, ok := x.GetSoValues().(*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete); ok {
+		return x.RicSubscriptionDelete
+	}
+	return nil
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) GetRicServiceUpdate() *e2ap_pdu_contents.RicserviceUpdateAcknowledge {
+	if x, ok := x.GetSoValues().(*SuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate); ok {
+		return x.RicServiceUpdate
+	}
+	return nil
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) GetRicControl() *e2ap_pdu_contents.RiccontrolAcknowledge {
+	if x, ok := x.GetSoValues().(*SuccessfulOutcomeE2ApElementaryProcedures_RicControl); ok {
+		return x.RicControl
+	}
+	return nil
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) GetE2Setup() *e2ap_pdu_contents.E2SetupResponse {
+	if x, ok := x.GetSoValues().(*SuccessfulOutcomeE2ApElementaryProcedures_E2Setup); ok {
+		return x.E2Setup
+	}
+	return nil
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) GetE2NodeConfigurationUpdate() *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge {
+	if x, ok := x.GetSoValues().(*SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate); ok {
+		return x.E2NodeConfigurationUpdate
+	}
+	return nil
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) GetE2ConnectionUpdate() *e2ap_pdu_contents.E2ConnectionUpdateAcknowledge {
+	if x, ok := x.GetSoValues().(*SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate); ok {
+		return x.E2ConnectionUpdate
+	}
+	return nil
+}
+
+func (x *SuccessfulOutcomeE2ApElementaryProcedures) GetReset_() *e2ap_pdu_contents.ResetResponse {
+	if x, ok := x.GetSoValues().(*SuccessfulOutcomeE2ApElementaryProcedures_Reset_); ok {
+		return x.Reset_
+	}
+	return nil
+}
+
+type isSuccessfulOutcomeE2ApElementaryProcedures_SoValues interface {
+	isSuccessfulOutcomeE2ApElementaryProcedures_SoValues()
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription struct {
+	// @inject_tag: aper:"choiceIdx:1"
+	RicSubscription *e2ap_pdu_contents.RicsubscriptionResponse `protobuf:"bytes,1,opt,name=ric_subscription,proto3,oneof" aper:"choiceIdx:1"`
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete struct {
+	// @inject_tag: aper:"choiceIdx:2"
+	RicSubscriptionDelete *e2ap_pdu_contents.RicsubscriptionDeleteResponse `protobuf:"bytes,2,opt,name=ric_subscription_delete,proto3,oneof" aper:"choiceIdx:2"`
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate struct {
+	// @inject_tag: aper:"choiceIdx:3"
+	RicServiceUpdate *e2ap_pdu_contents.RicserviceUpdateAcknowledge `protobuf:"bytes,3,opt,name=ric_service_update,proto3,oneof" aper:"choiceIdx:3"`
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures_RicControl struct {
+	// @inject_tag: aper:"choiceIdx:4"
+	RicControl *e2ap_pdu_contents.RiccontrolAcknowledge `protobuf:"bytes,4,opt,name=ric_control,proto3,oneof" aper:"choiceIdx:4"`
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures_E2Setup struct {
+	// @inject_tag: aper:"choiceIdx:5"
+	E2Setup *e2ap_pdu_contents.E2SetupResponse `protobuf:"bytes,5,opt,name=e2setup,proto3,oneof" aper:"choiceIdx:5"`
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate struct {
+	// @inject_tag: aper:"choiceIdx:6"
+	E2NodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge `protobuf:"bytes,6,opt,name=e2node_configuration_update,proto3,oneof" aper:"choiceIdx:6"`
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate struct {
+	// @inject_tag: aper:"choiceIdx:7"
+	E2ConnectionUpdate *e2ap_pdu_contents.E2ConnectionUpdateAcknowledge `protobuf:"bytes,7,opt,name=e2connection_update,proto3,oneof" aper:"choiceIdx:7"`
+}
+
+type SuccessfulOutcomeE2ApElementaryProcedures_Reset_ struct {
+	// @inject_tag: aper:"choiceIdx:8"
+	Reset_ *e2ap_pdu_contents.ResetResponse `protobuf:"bytes,8,opt,name=reset,proto3,oneof" aper:"choiceIdx:8"`
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures_RicControl) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures_E2Setup) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
+}
+
+func (*SuccessfulOutcomeE2ApElementaryProcedures_Reset_) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
 }
 
 // sequence from e2ap_v2.asn:119
@@ -523,14 +698,14 @@ type UnsuccessfulOutcome struct {
 	// @inject_tag: aper:"valueLB:0,valueUB:255"
 	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality e2ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2ApElementaryProcedures        `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Criticality e2ap_commondatatypes.Criticality             `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	Value       *UnsuccessfulOutcomeE2ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
 }
 
 func (x *UnsuccessfulOutcome) Reset() {
 	*x = UnsuccessfulOutcome{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[4]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -543,7 +718,7 @@ func (x *UnsuccessfulOutcome) String() string {
 func (*UnsuccessfulOutcome) ProtoMessage() {}
 
 func (x *UnsuccessfulOutcome) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[4]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -556,7 +731,7 @@ func (x *UnsuccessfulOutcome) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UnsuccessfulOutcome.ProtoReflect.Descriptor instead.
 func (*UnsuccessfulOutcome) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{4}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *UnsuccessfulOutcome) GetProcedureCode() int32 {
@@ -573,11 +748,175 @@ func (x *UnsuccessfulOutcome) GetCriticality() e2ap_commondatatypes.Criticality 
 	return e2ap_commondatatypes.Criticality(0)
 }
 
-func (x *UnsuccessfulOutcome) GetValue() *E2ApElementaryProcedures {
+func (x *UnsuccessfulOutcome) GetValue() *UnsuccessfulOutcomeE2ApElementaryProcedures {
 	if x != nil {
 		return x.Value
 	}
 	return nil
+}
+
+type UnsuccessfulOutcomeE2ApElementaryProcedures struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to UoValues:
+	//	*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription
+	//	*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete
+	//	*UnsuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate
+	//	*UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl
+	//	*UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup
+	//	*UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate
+	//	*UnsuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate
+	UoValues isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues `protobuf_oneof:"uo_values"`
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) Reset() {
+	*x = UnsuccessfulOutcomeE2ApElementaryProcedures{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures) ProtoMessage() {}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) ProtoReflect() protoreflect.Message {
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnsuccessfulOutcomeE2ApElementaryProcedures.ProtoReflect.Descriptor instead.
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures) Descriptor() ([]byte, []int) {
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{6}
+}
+
+func (m *UnsuccessfulOutcomeE2ApElementaryProcedures) GetUoValues() isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues {
+	if m != nil {
+		return m.UoValues
+	}
+	return nil
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) GetRicSubscription() *e2ap_pdu_contents.RicsubscriptionFailure {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription); ok {
+		return x.RicSubscription
+	}
+	return nil
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) GetRicSubscriptionDelete() *e2ap_pdu_contents.RicsubscriptionDeleteFailure {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete); ok {
+		return x.RicSubscriptionDelete
+	}
+	return nil
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) GetRicServiceUpdate() *e2ap_pdu_contents.RicserviceUpdateFailure {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate); ok {
+		return x.RicServiceUpdate
+	}
+	return nil
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) GetRicControl() *e2ap_pdu_contents.RiccontrolFailure {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl); ok {
+		return x.RicControl
+	}
+	return nil
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) GetE2Setup() *e2ap_pdu_contents.E2SetupFailure {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup); ok {
+		return x.E2Setup
+	}
+	return nil
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) GetE2NodeConfigurationUpdate() *e2ap_pdu_contents.E2NodeConfigurationUpdateFailure {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate); ok {
+		return x.E2NodeConfigurationUpdate
+	}
+	return nil
+}
+
+func (x *UnsuccessfulOutcomeE2ApElementaryProcedures) GetE2ConnectionUpdate() *e2ap_pdu_contents.E2ConnectionUpdateFailure {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate); ok {
+		return x.E2ConnectionUpdate
+	}
+	return nil
+}
+
+type isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues interface {
+	isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues()
+}
+
+type UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription struct {
+	// @inject_tag: aper:"choiceIdx:1"
+	RicSubscription *e2ap_pdu_contents.RicsubscriptionFailure `protobuf:"bytes,1,opt,name=ric_subscription,proto3,oneof" aper:"choiceIdx:1"`
+}
+
+type UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete struct {
+	// @inject_tag: aper:"choiceIdx:2"
+	RicSubscriptionDelete *e2ap_pdu_contents.RicsubscriptionDeleteFailure `protobuf:"bytes,2,opt,name=ric_subscription_delete,proto3,oneof" aper:"choiceIdx:2"`
+}
+
+type UnsuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate struct {
+	// @inject_tag: aper:"choiceIdx:3"
+	RicServiceUpdate *e2ap_pdu_contents.RicserviceUpdateFailure `protobuf:"bytes,3,opt,name=ric_service_update,proto3,oneof" aper:"choiceIdx:3"`
+}
+
+type UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl struct {
+	// @inject_tag: aper:"choiceIdx:4"
+	RicControl *e2ap_pdu_contents.RiccontrolFailure `protobuf:"bytes,4,opt,name=ric_control,proto3,oneof" aper:"choiceIdx:4"`
+}
+
+type UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup struct {
+	// @inject_tag: aper:"choiceIdx:5"
+	E2Setup *e2ap_pdu_contents.E2SetupFailure `protobuf:"bytes,5,opt,name=e2setup,proto3,oneof" aper:"choiceIdx:5"`
+}
+
+type UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate struct {
+	// @inject_tag: aper:"choiceIdx:6"
+	E2NodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdateFailure `protobuf:"bytes,6,opt,name=e2node_configuration_update,proto3,oneof" aper:"choiceIdx:6"`
+}
+
+type UnsuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate struct {
+	// @inject_tag: aper:"choiceIdx:7"
+	E2ConnectionUpdate *e2ap_pdu_contents.E2ConnectionUpdateFailure `protobuf:"bytes,7,opt,name=e2connection_update,proto3,oneof" aper:"choiceIdx:7"`
+}
+
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription) isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues() {
+}
+
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete) isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues() {
+}
+
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate) isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues() {
+}
+
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl) isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues() {
+}
+
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup) isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues() {
+}
+
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate) isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues() {
+}
+
+func (*UnsuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate) isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues() {
 }
 
 // concrete instance(s) of class E2AP-ELEMENTARY-PROCEDURE from e2ap_v2.asn:130
@@ -604,7 +943,7 @@ type E2ApElementaryProcedures struct {
 func (x *E2ApElementaryProcedures) Reset() {
 	*x = E2ApElementaryProcedures{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[5]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -617,7 +956,7 @@ func (x *E2ApElementaryProcedures) String() string {
 func (*E2ApElementaryProcedures) ProtoMessage() {}
 
 func (x *E2ApElementaryProcedures) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[5]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -630,7 +969,7 @@ func (x *E2ApElementaryProcedures) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use E2ApElementaryProcedures.ProtoReflect.Descriptor instead.
 func (*E2ApElementaryProcedures) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{5}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *E2ApElementaryProcedures) GetRicSubscription() *RicSubscription {
@@ -738,7 +1077,7 @@ type E2ApElementaryProceduresClass1 struct {
 func (x *E2ApElementaryProceduresClass1) Reset() {
 	*x = E2ApElementaryProceduresClass1{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[6]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -751,7 +1090,7 @@ func (x *E2ApElementaryProceduresClass1) String() string {
 func (*E2ApElementaryProceduresClass1) ProtoMessage() {}
 
 func (x *E2ApElementaryProceduresClass1) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[6]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -764,7 +1103,7 @@ func (x *E2ApElementaryProceduresClass1) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use E2ApElementaryProceduresClass1.ProtoReflect.Descriptor instead.
 func (*E2ApElementaryProceduresClass1) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{6}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *E2ApElementaryProceduresClass1) GetRicSubscription() *RicSubscription {
@@ -840,7 +1179,7 @@ type E2ApElementaryProceduresClass2 struct {
 func (x *E2ApElementaryProceduresClass2) Reset() {
 	*x = E2ApElementaryProceduresClass2{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[7]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -853,7 +1192,7 @@ func (x *E2ApElementaryProceduresClass2) String() string {
 func (*E2ApElementaryProceduresClass2) ProtoMessage() {}
 
 func (x *E2ApElementaryProceduresClass2) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[7]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -866,7 +1205,7 @@ func (x *E2ApElementaryProceduresClass2) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use E2ApElementaryProceduresClass2.ProtoReflect.Descriptor instead.
 func (*E2ApElementaryProceduresClass2) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{7}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *E2ApElementaryProceduresClass2) GetRicIndication() *RicIndication {
@@ -917,7 +1256,7 @@ type E2ConnectionUpdateEp struct {
 func (x *E2ConnectionUpdateEp) Reset() {
 	*x = E2ConnectionUpdateEp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[8]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -930,7 +1269,7 @@ func (x *E2ConnectionUpdateEp) String() string {
 func (*E2ConnectionUpdateEp) ProtoMessage() {}
 
 func (x *E2ConnectionUpdateEp) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[8]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -943,7 +1282,7 @@ func (x *E2ConnectionUpdateEp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use E2ConnectionUpdateEp.ProtoReflect.Descriptor instead.
 func (*E2ConnectionUpdateEp) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{8}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *E2ConnectionUpdateEp) GetInitiatingMessage() *e2ap_pdu_contents.E2ConnectionUpdate {
@@ -1001,7 +1340,7 @@ type E2NodeConfigurationUpdateEp struct {
 func (x *E2NodeConfigurationUpdateEp) Reset() {
 	*x = E2NodeConfigurationUpdateEp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[9]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1014,7 +1353,7 @@ func (x *E2NodeConfigurationUpdateEp) String() string {
 func (*E2NodeConfigurationUpdateEp) ProtoMessage() {}
 
 func (x *E2NodeConfigurationUpdateEp) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[9]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1027,7 +1366,7 @@ func (x *E2NodeConfigurationUpdateEp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use E2NodeConfigurationUpdateEp.ProtoReflect.Descriptor instead.
 func (*E2NodeConfigurationUpdateEp) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{9}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *E2NodeConfigurationUpdateEp) GetInitiatingMessage() *e2ap_pdu_contents.E2NodeConfigurationUpdate {
@@ -1085,7 +1424,7 @@ type E2Setup struct {
 func (x *E2Setup) Reset() {
 	*x = E2Setup{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[10]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1098,7 +1437,7 @@ func (x *E2Setup) String() string {
 func (*E2Setup) ProtoMessage() {}
 
 func (x *E2Setup) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[10]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1111,7 +1450,7 @@ func (x *E2Setup) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use E2Setup.ProtoReflect.Descriptor instead.
 func (*E2Setup) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{10}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *E2Setup) GetInitiatingMessage() *e2ap_pdu_contents.E2SetupRequest {
@@ -1165,7 +1504,7 @@ type ErrorIndicationEp struct {
 func (x *ErrorIndicationEp) Reset() {
 	*x = ErrorIndicationEp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[11]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1178,7 +1517,7 @@ func (x *ErrorIndicationEp) String() string {
 func (*ErrorIndicationEp) ProtoMessage() {}
 
 func (x *ErrorIndicationEp) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[11]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1191,7 +1530,7 @@ func (x *ErrorIndicationEp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ErrorIndicationEp.ProtoReflect.Descriptor instead.
 func (*ErrorIndicationEp) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{11}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *ErrorIndicationEp) GetInitiatingMessage() *e2ap_pdu_contents.ErrorIndication {
@@ -1233,7 +1572,7 @@ type Reset struct {
 func (x *Reset) Reset() {
 	*x = Reset{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[12]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1246,7 +1585,7 @@ func (x *Reset) String() string {
 func (*Reset) ProtoMessage() {}
 
 func (x *Reset) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[12]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1259,7 +1598,7 @@ func (x *Reset) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Reset.ProtoReflect.Descriptor instead.
 func (*Reset) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{12}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *Reset) GetInitiatingMessage() *e2ap_pdu_contents.ResetRequest {
@@ -1310,7 +1649,7 @@ type RicControl struct {
 func (x *RicControl) Reset() {
 	*x = RicControl{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[13]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1323,7 +1662,7 @@ func (x *RicControl) String() string {
 func (*RicControl) ProtoMessage() {}
 
 func (x *RicControl) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[13]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1336,7 +1675,7 @@ func (x *RicControl) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RicControl.ProtoReflect.Descriptor instead.
 func (*RicControl) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{13}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *RicControl) GetInitiatingMessage() *e2ap_pdu_contents.RiccontrolRequest {
@@ -1390,7 +1729,7 @@ type RicIndication struct {
 func (x *RicIndication) Reset() {
 	*x = RicIndication{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[14]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1403,7 +1742,7 @@ func (x *RicIndication) String() string {
 func (*RicIndication) ProtoMessage() {}
 
 func (x *RicIndication) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[14]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1416,7 +1755,7 @@ func (x *RicIndication) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RicIndication.ProtoReflect.Descriptor instead.
 func (*RicIndication) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{14}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *RicIndication) GetInitiatingMessage() *e2ap_pdu_contents.Ricindication {
@@ -1456,7 +1795,7 @@ type RicServiceQuery struct {
 func (x *RicServiceQuery) Reset() {
 	*x = RicServiceQuery{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[15]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1469,7 +1808,7 @@ func (x *RicServiceQuery) String() string {
 func (*RicServiceQuery) ProtoMessage() {}
 
 func (x *RicServiceQuery) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[15]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1482,7 +1821,7 @@ func (x *RicServiceQuery) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RicServiceQuery.ProtoReflect.Descriptor instead.
 func (*RicServiceQuery) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{15}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *RicServiceQuery) GetInitiatingMessage() *e2ap_pdu_contents.RicserviceQuery {
@@ -1526,7 +1865,7 @@ type RicServiceUpdate struct {
 func (x *RicServiceUpdate) Reset() {
 	*x = RicServiceUpdate{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[16]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1539,7 +1878,7 @@ func (x *RicServiceUpdate) String() string {
 func (*RicServiceUpdate) ProtoMessage() {}
 
 func (x *RicServiceUpdate) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[16]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1552,7 +1891,7 @@ func (x *RicServiceUpdate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RicServiceUpdate.ProtoReflect.Descriptor instead.
 func (*RicServiceUpdate) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{16}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *RicServiceUpdate) GetInitiatingMessage() *e2ap_pdu_contents.RicserviceUpdate {
@@ -1610,7 +1949,7 @@ type RicSubscription struct {
 func (x *RicSubscription) Reset() {
 	*x = RicSubscription{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[17]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1623,7 +1962,7 @@ func (x *RicSubscription) String() string {
 func (*RicSubscription) ProtoMessage() {}
 
 func (x *RicSubscription) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[17]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1636,7 +1975,7 @@ func (x *RicSubscription) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RicSubscription.ProtoReflect.Descriptor instead.
 func (*RicSubscription) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{17}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *RicSubscription) GetInitiatingMessage() *e2ap_pdu_contents.RicsubscriptionRequest {
@@ -1694,7 +2033,7 @@ type RicSubscriptionDelete struct {
 func (x *RicSubscriptionDelete) Reset() {
 	*x = RicSubscriptionDelete{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[18]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1707,7 +2046,7 @@ func (x *RicSubscriptionDelete) String() string {
 func (*RicSubscriptionDelete) ProtoMessage() {}
 
 func (x *RicSubscriptionDelete) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[18]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1720,7 +2059,7 @@ func (x *RicSubscriptionDelete) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RicSubscriptionDelete.ProtoReflect.Descriptor instead.
 func (*RicSubscriptionDelete) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{18}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *RicSubscriptionDelete) GetInitiatingMessage() *e2ap_pdu_contents.RicsubscriptionDeleteRequest {
@@ -1774,7 +2113,7 @@ type RicSubscriptionDeleteRequired struct {
 func (x *RicSubscriptionDeleteRequired) Reset() {
 	*x = RicSubscriptionDeleteRequired{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[19]
+		mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1787,7 +2126,7 @@ func (x *RicSubscriptionDeleteRequired) String() string {
 func (*RicSubscriptionDeleteRequired) ProtoMessage() {}
 
 func (x *RicSubscriptionDeleteRequired) ProtoReflect() protoreflect.Message {
-	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[19]
+	mi := &file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1800,7 +2139,7 @@ func (x *RicSubscriptionDeleteRequired) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RicSubscriptionDeleteRequired.ProtoReflect.Descriptor instead.
 func (*RicSubscriptionDeleteRequired) Descriptor() ([]byte, []int) {
-	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{19}
+	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *RicSubscriptionDeleteRequired) GetInitiatingMessage() *e2ap_pdu_contents.RicsubscriptionDeleteRequired {
@@ -1932,7 +2271,7 @@ var file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDesc = []byte{
 	0x52, 0x65, 0x71, 0x75, 0x69, 0x72, 0x65, 0x64, 0x48, 0x00, 0x52, 0x20, 0x72, 0x69, 0x63, 0x5f,
 	0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x64, 0x65, 0x6c,
 	0x65, 0x74, 0x65, 0x5f, 0x72, 0x65, 0x71, 0x75, 0x69, 0x72, 0x65, 0x64, 0x42, 0x0b, 0x0a, 0x09,
-	0x69, 0x6d, 0x5f, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x22, 0xb1, 0x01, 0x0a, 0x11, 0x53, 0x75,
+	0x69, 0x6d, 0x5f, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x22, 0xc2, 0x01, 0x0a, 0x11, 0x53, 0x75,
 	0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x75, 0x74, 0x63, 0x6f, 0x6d, 0x65, 0x12,
 	0x25, 0x0a, 0x0e, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x5f, 0x63, 0x6f, 0x64,
 	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0d, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75,
@@ -1940,22 +2279,111 @@ var file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDesc = []byte{
 	0x61, 0x6c, 0x69, 0x74, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x17, 0x2e, 0x65, 0x32,
 	0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61,
 	0x6c, 0x69, 0x74, 0x79, 0x52, 0x0b, 0x63, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x69, 0x74,
-	0x79, 0x12, 0x3a, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x24, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x45, 0x32,
-	0x41, 0x70, 0x45, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x61, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x63,
-	0x65, 0x64, 0x75, 0x72, 0x65, 0x73, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0xb3, 0x01,
-	0x0a, 0x13, 0x55, 0x6e, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x75,
-	0x74, 0x63, 0x6f, 0x6d, 0x65, 0x12, 0x25, 0x0a, 0x0e, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75,
-	0x72, 0x65, 0x5f, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0d, 0x70,
-	0x72, 0x6f, 0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x39, 0x0a, 0x0b,
-	0x63, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x69, 0x74, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x0e, 0x32, 0x17, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x43,
-	0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x69, 0x74, 0x79, 0x52, 0x0b, 0x63, 0x72, 0x69, 0x74,
-	0x69, 0x63, 0x61, 0x6c, 0x69, 0x74, 0x79, 0x12, 0x3a, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f,
-	0x2e, 0x76, 0x32, 0x2e, 0x45, 0x32, 0x41, 0x70, 0x45, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x61,
-	0x72, 0x79, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x73, 0x52, 0x05, 0x76, 0x61,
-	0x6c, 0x75, 0x65, 0x22, 0xaf, 0x07, 0x0a, 0x18, 0x45, 0x32, 0x41, 0x70, 0x45, 0x6c, 0x65, 0x6d,
+	0x79, 0x12, 0x4b, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x35, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x53, 0x75,
+	0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x75, 0x74, 0x63, 0x6f, 0x6d, 0x65, 0x45,
+	0x32, 0x41, 0x70, 0x45, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x61, 0x72, 0x79, 0x50, 0x72, 0x6f,
+	0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x73, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0xd5,
+	0x05, 0x0a, 0x29, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x75, 0x74,
+	0x63, 0x6f, 0x6d, 0x65, 0x45, 0x32, 0x41, 0x70, 0x45, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x61,
+	0x72, 0x79, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x73, 0x12, 0x51, 0x0a, 0x10,
+	0x72, 0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f,
+	0x2e, 0x76, 0x32, 0x2e, 0x52, 0x69, 0x63, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x10, 0x72,
+	0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x65, 0x0a, 0x17, 0x72, 0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x5f, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x29, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x52, 0x69,
+	0x63, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x17, 0x72,
+	0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f,
+	0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x59, 0x0a, 0x12, 0x72, 0x69, 0x63, 0x5f, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x27, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e,
+	0x52, 0x69, 0x63, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x41, 0x63, 0x6b, 0x6e, 0x6f, 0x77, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x48, 0x00, 0x52, 0x12, 0x72,
+	0x69, 0x63, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x12, 0x45, 0x0a, 0x0b, 0x72, 0x69, 0x63, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x6f, 0x6c,
+	0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f,
+	0x2e, 0x76, 0x32, 0x2e, 0x52, 0x69, 0x63, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x6f, 0x6c, 0x41, 0x63,
+	0x6b, 0x6e, 0x6f, 0x77, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x48, 0x00, 0x52, 0x0b, 0x72, 0x69, 0x63,
+	0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x6f, 0x6c, 0x12, 0x37, 0x0a, 0x07, 0x65, 0x32, 0x73, 0x65,
+	0x74, 0x75, 0x70, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x65, 0x32, 0x61, 0x70,
+	0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x45, 0x32, 0x73, 0x65, 0x74, 0x75, 0x70, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x07, 0x65, 0x32, 0x73, 0x65, 0x74, 0x75,
+	0x70, 0x12, 0x74, 0x0a, 0x1b, 0x65, 0x32, 0x6e, 0x6f, 0x64, 0x65, 0x5f, 0x63, 0x6f, 0x6e, 0x66,
+	0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x30, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f,
+	0x2e, 0x76, 0x32, 0x2e, 0x45, 0x32, 0x6e, 0x6f, 0x64, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67,
+	0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x41, 0x63, 0x6b,
+	0x6e, 0x6f, 0x77, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x48, 0x00, 0x52, 0x1b, 0x65, 0x32, 0x6e, 0x6f,
+	0x64, 0x65, 0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x5d, 0x0a, 0x13, 0x65, 0x32, 0x63, 0x6f, 0x6e,
+	0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x18, 0x07,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76,
+	0x32, 0x2e, 0x45, 0x32, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x41, 0x63, 0x6b, 0x6e, 0x6f, 0x77, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x48,
+	0x00, 0x52, 0x13, 0x65, 0x32, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f,
+	0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x31, 0x0a, 0x05, 0x72, 0x65, 0x73, 0x65, 0x74, 0x18,
+	0x08, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e,
+	0x76, 0x32, 0x2e, 0x52, 0x65, 0x73, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x48, 0x00, 0x52, 0x05, 0x72, 0x65, 0x73, 0x65, 0x74, 0x42, 0x0b, 0x0a, 0x09, 0x73, 0x6f, 0x5f,
+	0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x22, 0xc6, 0x01, 0x0a, 0x13, 0x55, 0x6e, 0x73, 0x75, 0x63,
+	0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x75, 0x74, 0x63, 0x6f, 0x6d, 0x65, 0x12, 0x25,
+	0x0a, 0x0e, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x5f, 0x63, 0x6f, 0x64, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0d, 0x70, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75, 0x72,
+	0x65, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x39, 0x0a, 0x0b, 0x63, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61,
+	0x6c, 0x69, 0x74, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x17, 0x2e, 0x65, 0x32, 0x61,
+	0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x43, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c,
+	0x69, 0x74, 0x79, 0x52, 0x0b, 0x63, 0x72, 0x69, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x69, 0x74, 0x79,
+	0x12, 0x4d, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x37, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x55, 0x6e, 0x73,
+	0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x4f, 0x75, 0x74, 0x63, 0x6f, 0x6d, 0x65,
+	0x45, 0x32, 0x41, 0x70, 0x45, 0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x61, 0x72, 0x79, 0x50, 0x72,
+	0x6f, 0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x73, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22,
+	0x91, 0x05, 0x0a, 0x2b, 0x55, 0x6e, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c,
+	0x4f, 0x75, 0x74, 0x63, 0x6f, 0x6d, 0x65, 0x45, 0x32, 0x41, 0x70, 0x45, 0x6c, 0x65, 0x6d, 0x65,
+	0x6e, 0x74, 0x61, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x73, 0x12,
+	0x50, 0x0a, 0x10, 0x72, 0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x22, 0x2e, 0x65, 0x32, 0x61, 0x70,
+	0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x52, 0x69, 0x63, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x46, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x48, 0x00, 0x52,
+	0x10, 0x72, 0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x12, 0x64, 0x0a, 0x17, 0x72, 0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x28, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e,
+	0x52, 0x69, 0x63, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x46, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x48, 0x00, 0x52, 0x17,
+	0x72, 0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x5f, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x55, 0x0a, 0x12, 0x72, 0x69, 0x63, 0x5f, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32,
+	0x2e, 0x52, 0x69, 0x63, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x46, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x48, 0x00, 0x52, 0x12, 0x72, 0x69, 0x63, 0x5f,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x41,
+	0x0a, 0x0b, 0x72, 0x69, 0x63, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x6f, 0x6c, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32,
+	0x2e, 0x52, 0x69, 0x63, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x6f, 0x6c, 0x46, 0x61, 0x69, 0x6c, 0x75,
+	0x72, 0x65, 0x48, 0x00, 0x52, 0x0b, 0x72, 0x69, 0x63, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x6f,
+	0x6c, 0x12, 0x36, 0x0a, 0x07, 0x65, 0x32, 0x73, 0x65, 0x74, 0x75, 0x70, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e,
+	0x45, 0x32, 0x73, 0x65, 0x74, 0x75, 0x70, 0x46, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x48, 0x00,
+	0x52, 0x07, 0x65, 0x32, 0x73, 0x65, 0x74, 0x75, 0x70, 0x12, 0x70, 0x0a, 0x1b, 0x65, 0x32, 0x6e,
+	0x6f, 0x64, 0x65, 0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c,
+	0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f, 0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x45, 0x32, 0x6e, 0x6f,
+	0x64, 0x65, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x48, 0x00, 0x52, 0x1b,
+	0x65, 0x32, 0x6e, 0x6f, 0x64, 0x65, 0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x59, 0x0a, 0x13, 0x65,
+	0x32, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x75, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x65, 0x32, 0x61, 0x70, 0x5f,
+	0x67, 0x6f, 0x2e, 0x76, 0x32, 0x2e, 0x45, 0x32, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x61, 0x69, 0x6c, 0x75, 0x72, 0x65, 0x48,
+	0x00, 0x52, 0x13, 0x65, 0x32, 0x63, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f,
+	0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x42, 0x0b, 0x0a, 0x09, 0x75, 0x6f, 0x5f, 0x76, 0x61, 0x6c,
+	0x75, 0x65, 0x73, 0x22, 0xaf, 0x07, 0x0a, 0x18, 0x45, 0x32, 0x41, 0x70, 0x45, 0x6c, 0x65, 0x6d,
 	0x65, 0x6e, 0x74, 0x61, 0x72, 0x79, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x64, 0x75, 0x72, 0x65, 0x73,
 	0x12, 0x47, 0x0a, 0x10, 0x72, 0x69, 0x63, 0x5f, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70,
 	0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x65, 0x32, 0x61,
@@ -2357,173 +2785,190 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescGZIP() []byte {
 	return file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDescData
 }
 
-var file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_goTypes = []interface{}{
 	(*E2ApPdu)(nil),           // 0: e2ap_go.v2.E2ApPdu
 	(*InitiatingMessage)(nil), // 1: e2ap_go.v2.InitiatingMessage
 	(*InitiatingMessageE2ApElementaryProcedures)(nil),              // 2: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures
 	(*SuccessfulOutcome)(nil),                                      // 3: e2ap_go.v2.SuccessfulOutcome
-	(*UnsuccessfulOutcome)(nil),                                    // 4: e2ap_go.v2.UnsuccessfulOutcome
-	(*E2ApElementaryProcedures)(nil),                               // 5: e2ap_go.v2.E2ApElementaryProcedures
-	(*E2ApElementaryProceduresClass1)(nil),                         // 6: e2ap_go.v2.E2ApElementaryProceduresClass1
-	(*E2ApElementaryProceduresClass2)(nil),                         // 7: e2ap_go.v2.E2ApElementaryProceduresClass2
-	(*E2ConnectionUpdateEp)(nil),                                   // 8: e2ap_go.v2.E2connectionUpdateEp
-	(*E2NodeConfigurationUpdateEp)(nil),                            // 9: e2ap_go.v2.E2nodeConfigurationUpdateEp
-	(*E2Setup)(nil),                                                // 10: e2ap_go.v2.E2setup
-	(*ErrorIndicationEp)(nil),                                      // 11: e2ap_go.v2.ErrorIndicationEp
-	(*Reset)(nil),                                                  // 12: e2ap_go.v2.Reset
-	(*RicControl)(nil),                                             // 13: e2ap_go.v2.RicControl
-	(*RicIndication)(nil),                                          // 14: e2ap_go.v2.RicIndication
-	(*RicServiceQuery)(nil),                                        // 15: e2ap_go.v2.RicServiceQuery
-	(*RicServiceUpdate)(nil),                                       // 16: e2ap_go.v2.RicServiceUpdate
-	(*RicSubscription)(nil),                                        // 17: e2ap_go.v2.RicSubscription
-	(*RicSubscriptionDelete)(nil),                                  // 18: e2ap_go.v2.RicSubscriptionDelete
-	(*RicSubscriptionDeleteRequired)(nil),                          // 19: e2ap_go.v2.RicSubscriptionDeleteRequired
-	(e2ap_commondatatypes.Criticality)(0),                          // 20: e2ap_go.v2.Criticality
-	(*e2ap_pdu_contents.RicsubscriptionRequest)(nil),               // 21: e2ap_go.v2.RicsubscriptionRequest
-	(*e2ap_pdu_contents.RicsubscriptionDeleteRequest)(nil),         // 22: e2ap_go.v2.RicsubscriptionDeleteRequest
-	(*e2ap_pdu_contents.RicserviceUpdate)(nil),                     // 23: e2ap_go.v2.RicserviceUpdate
-	(*e2ap_pdu_contents.RiccontrolRequest)(nil),                    // 24: e2ap_go.v2.RiccontrolRequest
-	(*e2ap_pdu_contents.E2SetupRequest)(nil),                       // 25: e2ap_go.v2.E2setupRequest
-	(*e2ap_pdu_contents.E2NodeConfigurationUpdate)(nil),            // 26: e2ap_go.v2.E2nodeConfigurationUpdate
-	(*e2ap_pdu_contents.E2ConnectionUpdate)(nil),                   // 27: e2ap_go.v2.E2connectionUpdate
-	(*e2ap_pdu_contents.ResetRequest)(nil),                         // 28: e2ap_go.v2.ResetRequest
-	(*e2ap_pdu_contents.Ricindication)(nil),                        // 29: e2ap_go.v2.Ricindication
-	(*e2ap_pdu_contents.RicserviceQuery)(nil),                      // 30: e2ap_go.v2.RicserviceQuery
-	(*e2ap_pdu_contents.ErrorIndication)(nil),                      // 31: e2ap_go.v2.ErrorIndication
-	(*e2ap_pdu_contents.RicsubscriptionDeleteRequired)(nil),        // 32: e2ap_go.v2.RicsubscriptionDeleteRequired
-	(*e2ap_pdu_contents.E2ConnectionUpdateAcknowledge)(nil),        // 33: e2ap_go.v2.E2connectionUpdateAcknowledge
-	(*e2ap_pdu_contents.E2ConnectionUpdateFailure)(nil),            // 34: e2ap_go.v2.E2connectionUpdateFailure
-	(*e2ap_constants.IdE2ConnectionUpdate)(nil),                    // 35: e2ap_go.v2.IdE2connectionUpdate
-	(*e2ap_commondatatypes.CriticalityReject)(nil),                 // 36: e2ap_go.v2.CriticalityReject
-	(*e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge)(nil), // 37: e2ap_go.v2.E2nodeConfigurationUpdateAcknowledge
-	(*e2ap_pdu_contents.E2NodeConfigurationUpdateFailure)(nil),     // 38: e2ap_go.v2.E2nodeConfigurationUpdateFailure
-	(*e2ap_constants.IdE2NodeConfigurationUpdate)(nil),             // 39: e2ap_go.v2.IdE2nodeConfigurationUpdate
-	(*e2ap_pdu_contents.E2SetupResponse)(nil),                      // 40: e2ap_go.v2.E2setupResponse
-	(*e2ap_pdu_contents.E2SetupFailure)(nil),                       // 41: e2ap_go.v2.E2setupFailure
-	(*e2ap_constants.IdE2Setup)(nil),                               // 42: e2ap_go.v2.IdE2setup
-	(*e2ap_constants.IdErrorIndication)(nil),                       // 43: e2ap_go.v2.IdErrorIndication
-	(*e2ap_commondatatypes.CriticalityIgnore)(nil),                 // 44: e2ap_go.v2.CriticalityIgnore
-	(*e2ap_pdu_contents.ResetResponse)(nil),                        // 45: e2ap_go.v2.ResetResponse
-	(*e2ap_constants.IdReset)(nil),                                 // 46: e2ap_go.v2.IdReset
-	(*e2ap_pdu_contents.RiccontrolAcknowledge)(nil),                // 47: e2ap_go.v2.RiccontrolAcknowledge
-	(*e2ap_pdu_contents.RiccontrolFailure)(nil),                    // 48: e2ap_go.v2.RiccontrolFailure
-	(*e2ap_constants.IdRiccontrol)(nil),                            // 49: e2ap_go.v2.IdRiccontrol
-	(*e2ap_constants.IdRicindication)(nil),                         // 50: e2ap_go.v2.IdRicindication
-	(*e2ap_constants.IdRicserviceQuery)(nil),                       // 51: e2ap_go.v2.IdRicserviceQuery
-	(*e2ap_pdu_contents.RicserviceUpdateAcknowledge)(nil),          // 52: e2ap_go.v2.RicserviceUpdateAcknowledge
-	(*e2ap_pdu_contents.RicserviceUpdateFailure)(nil),              // 53: e2ap_go.v2.RicserviceUpdateFailure
-	(*e2ap_constants.IdRicserviceUpdate)(nil),                      // 54: e2ap_go.v2.IdRicserviceUpdate
-	(*e2ap_pdu_contents.RicsubscriptionResponse)(nil),              // 55: e2ap_go.v2.RicsubscriptionResponse
-	(*e2ap_pdu_contents.RicsubscriptionFailure)(nil),               // 56: e2ap_go.v2.RicsubscriptionFailure
-	(*e2ap_constants.IdRicsubscription)(nil),                       // 57: e2ap_go.v2.IdRicsubscription
-	(*e2ap_pdu_contents.RicsubscriptionDeleteResponse)(nil),        // 58: e2ap_go.v2.RicsubscriptionDeleteResponse
-	(*e2ap_pdu_contents.RicsubscriptionDeleteFailure)(nil),         // 59: e2ap_go.v2.RicsubscriptionDeleteFailure
-	(*e2ap_constants.IdRicsubscriptionDelete)(nil),                 // 60: e2ap_go.v2.IdRicsubscriptionDelete
-	(*e2ap_constants.IdRicsubscriptionDeleteRequired)(nil),         // 61: e2ap_go.v2.IdRicsubscriptionDeleteRequired
+	(*SuccessfulOutcomeE2ApElementaryProcedures)(nil),              // 4: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures
+	(*UnsuccessfulOutcome)(nil),                                    // 5: e2ap_go.v2.UnsuccessfulOutcome
+	(*UnsuccessfulOutcomeE2ApElementaryProcedures)(nil),            // 6: e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures
+	(*E2ApElementaryProcedures)(nil),                               // 7: e2ap_go.v2.E2ApElementaryProcedures
+	(*E2ApElementaryProceduresClass1)(nil),                         // 8: e2ap_go.v2.E2ApElementaryProceduresClass1
+	(*E2ApElementaryProceduresClass2)(nil),                         // 9: e2ap_go.v2.E2ApElementaryProceduresClass2
+	(*E2ConnectionUpdateEp)(nil),                                   // 10: e2ap_go.v2.E2connectionUpdateEp
+	(*E2NodeConfigurationUpdateEp)(nil),                            // 11: e2ap_go.v2.E2nodeConfigurationUpdateEp
+	(*E2Setup)(nil),                                                // 12: e2ap_go.v2.E2setup
+	(*ErrorIndicationEp)(nil),                                      // 13: e2ap_go.v2.ErrorIndicationEp
+	(*Reset)(nil),                                                  // 14: e2ap_go.v2.Reset
+	(*RicControl)(nil),                                             // 15: e2ap_go.v2.RicControl
+	(*RicIndication)(nil),                                          // 16: e2ap_go.v2.RicIndication
+	(*RicServiceQuery)(nil),                                        // 17: e2ap_go.v2.RicServiceQuery
+	(*RicServiceUpdate)(nil),                                       // 18: e2ap_go.v2.RicServiceUpdate
+	(*RicSubscription)(nil),                                        // 19: e2ap_go.v2.RicSubscription
+	(*RicSubscriptionDelete)(nil),                                  // 20: e2ap_go.v2.RicSubscriptionDelete
+	(*RicSubscriptionDeleteRequired)(nil),                          // 21: e2ap_go.v2.RicSubscriptionDeleteRequired
+	(e2ap_commondatatypes.Criticality)(0),                          // 22: e2ap_go.v2.Criticality
+	(*e2ap_pdu_contents.RicsubscriptionRequest)(nil),               // 23: e2ap_go.v2.RicsubscriptionRequest
+	(*e2ap_pdu_contents.RicsubscriptionDeleteRequest)(nil),         // 24: e2ap_go.v2.RicsubscriptionDeleteRequest
+	(*e2ap_pdu_contents.RicserviceUpdate)(nil),                     // 25: e2ap_go.v2.RicserviceUpdate
+	(*e2ap_pdu_contents.RiccontrolRequest)(nil),                    // 26: e2ap_go.v2.RiccontrolRequest
+	(*e2ap_pdu_contents.E2SetupRequest)(nil),                       // 27: e2ap_go.v2.E2setupRequest
+	(*e2ap_pdu_contents.E2NodeConfigurationUpdate)(nil),            // 28: e2ap_go.v2.E2nodeConfigurationUpdate
+	(*e2ap_pdu_contents.E2ConnectionUpdate)(nil),                   // 29: e2ap_go.v2.E2connectionUpdate
+	(*e2ap_pdu_contents.ResetRequest)(nil),                         // 30: e2ap_go.v2.ResetRequest
+	(*e2ap_pdu_contents.Ricindication)(nil),                        // 31: e2ap_go.v2.Ricindication
+	(*e2ap_pdu_contents.RicserviceQuery)(nil),                      // 32: e2ap_go.v2.RicserviceQuery
+	(*e2ap_pdu_contents.ErrorIndication)(nil),                      // 33: e2ap_go.v2.ErrorIndication
+	(*e2ap_pdu_contents.RicsubscriptionDeleteRequired)(nil),        // 34: e2ap_go.v2.RicsubscriptionDeleteRequired
+	(*e2ap_pdu_contents.RicsubscriptionResponse)(nil),              // 35: e2ap_go.v2.RicsubscriptionResponse
+	(*e2ap_pdu_contents.RicsubscriptionDeleteResponse)(nil),        // 36: e2ap_go.v2.RicsubscriptionDeleteResponse
+	(*e2ap_pdu_contents.RicserviceUpdateAcknowledge)(nil),          // 37: e2ap_go.v2.RicserviceUpdateAcknowledge
+	(*e2ap_pdu_contents.RiccontrolAcknowledge)(nil),                // 38: e2ap_go.v2.RiccontrolAcknowledge
+	(*e2ap_pdu_contents.E2SetupResponse)(nil),                      // 39: e2ap_go.v2.E2setupResponse
+	(*e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge)(nil), // 40: e2ap_go.v2.E2nodeConfigurationUpdateAcknowledge
+	(*e2ap_pdu_contents.E2ConnectionUpdateAcknowledge)(nil),        // 41: e2ap_go.v2.E2connectionUpdateAcknowledge
+	(*e2ap_pdu_contents.ResetResponse)(nil),                        // 42: e2ap_go.v2.ResetResponse
+	(*e2ap_pdu_contents.RicsubscriptionFailure)(nil),               // 43: e2ap_go.v2.RicsubscriptionFailure
+	(*e2ap_pdu_contents.RicsubscriptionDeleteFailure)(nil),         // 44: e2ap_go.v2.RicsubscriptionDeleteFailure
+	(*e2ap_pdu_contents.RicserviceUpdateFailure)(nil),              // 45: e2ap_go.v2.RicserviceUpdateFailure
+	(*e2ap_pdu_contents.RiccontrolFailure)(nil),                    // 46: e2ap_go.v2.RiccontrolFailure
+	(*e2ap_pdu_contents.E2SetupFailure)(nil),                       // 47: e2ap_go.v2.E2setupFailure
+	(*e2ap_pdu_contents.E2NodeConfigurationUpdateFailure)(nil),     // 48: e2ap_go.v2.E2nodeConfigurationUpdateFailure
+	(*e2ap_pdu_contents.E2ConnectionUpdateFailure)(nil),            // 49: e2ap_go.v2.E2connectionUpdateFailure
+	(*e2ap_constants.IdE2ConnectionUpdate)(nil),                    // 50: e2ap_go.v2.IdE2connectionUpdate
+	(*e2ap_commondatatypes.CriticalityReject)(nil),                 // 51: e2ap_go.v2.CriticalityReject
+	(*e2ap_constants.IdE2NodeConfigurationUpdate)(nil),             // 52: e2ap_go.v2.IdE2nodeConfigurationUpdate
+	(*e2ap_constants.IdE2Setup)(nil),                               // 53: e2ap_go.v2.IdE2setup
+	(*e2ap_constants.IdErrorIndication)(nil),                       // 54: e2ap_go.v2.IdErrorIndication
+	(*e2ap_commondatatypes.CriticalityIgnore)(nil),                 // 55: e2ap_go.v2.CriticalityIgnore
+	(*e2ap_constants.IdReset)(nil),                                 // 56: e2ap_go.v2.IdReset
+	(*e2ap_constants.IdRiccontrol)(nil),                            // 57: e2ap_go.v2.IdRiccontrol
+	(*e2ap_constants.IdRicindication)(nil),                         // 58: e2ap_go.v2.IdRicindication
+	(*e2ap_constants.IdRicserviceQuery)(nil),                       // 59: e2ap_go.v2.IdRicserviceQuery
+	(*e2ap_constants.IdRicserviceUpdate)(nil),                      // 60: e2ap_go.v2.IdRicserviceUpdate
+	(*e2ap_constants.IdRicsubscription)(nil),                       // 61: e2ap_go.v2.IdRicsubscription
+	(*e2ap_constants.IdRicsubscriptionDelete)(nil),                 // 62: e2ap_go.v2.IdRicsubscriptionDelete
+	(*e2ap_constants.IdRicsubscriptionDeleteRequired)(nil),         // 63: e2ap_go.v2.IdRicsubscriptionDeleteRequired
 }
 var file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_depIdxs = []int32{
-	1,  // 0: e2ap_go.v2.E2ApPdu.initiating_message:type_name -> e2ap_go.v2.InitiatingMessage
-	3,  // 1: e2ap_go.v2.E2ApPdu.successful_outcome:type_name -> e2ap_go.v2.SuccessfulOutcome
-	4,  // 2: e2ap_go.v2.E2ApPdu.unsuccessful_outcome:type_name -> e2ap_go.v2.UnsuccessfulOutcome
-	20, // 3: e2ap_go.v2.InitiatingMessage.criticality:type_name -> e2ap_go.v2.Criticality
-	2,  // 4: e2ap_go.v2.InitiatingMessage.value:type_name -> e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures
-	21, // 5: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_subscription:type_name -> e2ap_go.v2.RicsubscriptionRequest
-	22, // 6: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_subscription_delete:type_name -> e2ap_go.v2.RicsubscriptionDeleteRequest
-	23, // 7: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_service_update:type_name -> e2ap_go.v2.RicserviceUpdate
-	24, // 8: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_control:type_name -> e2ap_go.v2.RiccontrolRequest
-	25, // 9: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.e2setup:type_name -> e2ap_go.v2.E2setupRequest
-	26, // 10: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.e2node_configuration_update:type_name -> e2ap_go.v2.E2nodeConfigurationUpdate
-	27, // 11: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.e2connection_update:type_name -> e2ap_go.v2.E2connectionUpdate
-	28, // 12: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.reset:type_name -> e2ap_go.v2.ResetRequest
-	29, // 13: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_indication:type_name -> e2ap_go.v2.Ricindication
-	30, // 14: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_service_query:type_name -> e2ap_go.v2.RicserviceQuery
-	31, // 15: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.error_indication:type_name -> e2ap_go.v2.ErrorIndication
-	32, // 16: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_subscription_delete_required:type_name -> e2ap_go.v2.RicsubscriptionDeleteRequired
-	20, // 17: e2ap_go.v2.SuccessfulOutcome.criticality:type_name -> e2ap_go.v2.Criticality
-	5,  // 18: e2ap_go.v2.SuccessfulOutcome.value:type_name -> e2ap_go.v2.E2ApElementaryProcedures
-	20, // 19: e2ap_go.v2.UnsuccessfulOutcome.criticality:type_name -> e2ap_go.v2.Criticality
-	5,  // 20: e2ap_go.v2.UnsuccessfulOutcome.value:type_name -> e2ap_go.v2.E2ApElementaryProcedures
-	17, // 21: e2ap_go.v2.E2ApElementaryProcedures.ric_subscription:type_name -> e2ap_go.v2.RicSubscription
-	18, // 22: e2ap_go.v2.E2ApElementaryProcedures.ric_subscription_delete:type_name -> e2ap_go.v2.RicSubscriptionDelete
-	16, // 23: e2ap_go.v2.E2ApElementaryProcedures.ric_service_update:type_name -> e2ap_go.v2.RicServiceUpdate
-	13, // 24: e2ap_go.v2.E2ApElementaryProcedures.ric_control:type_name -> e2ap_go.v2.RicControl
-	10, // 25: e2ap_go.v2.E2ApElementaryProcedures.e2setup:type_name -> e2ap_go.v2.E2setup
-	9,  // 26: e2ap_go.v2.E2ApElementaryProcedures.e2node_configuration_update:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateEp
-	8,  // 27: e2ap_go.v2.E2ApElementaryProcedures.e2connection_update:type_name -> e2ap_go.v2.E2connectionUpdateEp
-	12, // 28: e2ap_go.v2.E2ApElementaryProcedures.reset:type_name -> e2ap_go.v2.Reset
-	14, // 29: e2ap_go.v2.E2ApElementaryProcedures.ric_indication:type_name -> e2ap_go.v2.RicIndication
-	15, // 30: e2ap_go.v2.E2ApElementaryProcedures.ric_service_query:type_name -> e2ap_go.v2.RicServiceQuery
-	11, // 31: e2ap_go.v2.E2ApElementaryProcedures.error_indication:type_name -> e2ap_go.v2.ErrorIndicationEp
-	19, // 32: e2ap_go.v2.E2ApElementaryProcedures.ric_subscription_delete_required:type_name -> e2ap_go.v2.RicSubscriptionDeleteRequired
-	17, // 33: e2ap_go.v2.E2ApElementaryProceduresClass1.ric_subscription:type_name -> e2ap_go.v2.RicSubscription
-	18, // 34: e2ap_go.v2.E2ApElementaryProceduresClass1.ric_subscription_delete:type_name -> e2ap_go.v2.RicSubscriptionDelete
-	16, // 35: e2ap_go.v2.E2ApElementaryProceduresClass1.ric_service_update:type_name -> e2ap_go.v2.RicServiceUpdate
-	13, // 36: e2ap_go.v2.E2ApElementaryProceduresClass1.ric_control:type_name -> e2ap_go.v2.RicControl
-	10, // 37: e2ap_go.v2.E2ApElementaryProceduresClass1.e2setup:type_name -> e2ap_go.v2.E2setup
-	9,  // 38: e2ap_go.v2.E2ApElementaryProceduresClass1.e2node_configuration_update:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateEp
-	8,  // 39: e2ap_go.v2.E2ApElementaryProceduresClass1.e2connection_update:type_name -> e2ap_go.v2.E2connectionUpdateEp
-	12, // 40: e2ap_go.v2.E2ApElementaryProceduresClass1.reset:type_name -> e2ap_go.v2.Reset
-	14, // 41: e2ap_go.v2.E2ApElementaryProceduresClass2.ric_indication:type_name -> e2ap_go.v2.RicIndication
-	15, // 42: e2ap_go.v2.E2ApElementaryProceduresClass2.ric_service_query:type_name -> e2ap_go.v2.RicServiceQuery
-	11, // 43: e2ap_go.v2.E2ApElementaryProceduresClass2.error_indication:type_name -> e2ap_go.v2.ErrorIndicationEp
-	19, // 44: e2ap_go.v2.E2ApElementaryProceduresClass2.ric_subscription_delete_required:type_name -> e2ap_go.v2.RicSubscriptionDeleteRequired
-	27, // 45: e2ap_go.v2.E2connectionUpdateEp.initiating_message:type_name -> e2ap_go.v2.E2connectionUpdate
-	33, // 46: e2ap_go.v2.E2connectionUpdateEp.successful_outcome:type_name -> e2ap_go.v2.E2connectionUpdateAcknowledge
-	34, // 47: e2ap_go.v2.E2connectionUpdateEp.unsuccessful_outcome:type_name -> e2ap_go.v2.E2connectionUpdateFailure
-	35, // 48: e2ap_go.v2.E2connectionUpdateEp.procedure_code:type_name -> e2ap_go.v2.IdE2connectionUpdate
-	36, // 49: e2ap_go.v2.E2connectionUpdateEp.criticality:type_name -> e2ap_go.v2.CriticalityReject
-	26, // 50: e2ap_go.v2.E2nodeConfigurationUpdateEp.initiating_message:type_name -> e2ap_go.v2.E2nodeConfigurationUpdate
-	37, // 51: e2ap_go.v2.E2nodeConfigurationUpdateEp.successful_outcome:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateAcknowledge
-	38, // 52: e2ap_go.v2.E2nodeConfigurationUpdateEp.unsuccessful_outcome:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateFailure
-	39, // 53: e2ap_go.v2.E2nodeConfigurationUpdateEp.procedure_code:type_name -> e2ap_go.v2.IdE2nodeConfigurationUpdate
-	36, // 54: e2ap_go.v2.E2nodeConfigurationUpdateEp.criticality:type_name -> e2ap_go.v2.CriticalityReject
-	25, // 55: e2ap_go.v2.E2setup.initiating_message:type_name -> e2ap_go.v2.E2setupRequest
-	40, // 56: e2ap_go.v2.E2setup.successful_outcome:type_name -> e2ap_go.v2.E2setupResponse
-	41, // 57: e2ap_go.v2.E2setup.unsuccessful_outcome:type_name -> e2ap_go.v2.E2setupFailure
-	42, // 58: e2ap_go.v2.E2setup.procedure_code:type_name -> e2ap_go.v2.IdE2setup
-	36, // 59: e2ap_go.v2.E2setup.criticality:type_name -> e2ap_go.v2.CriticalityReject
-	31, // 60: e2ap_go.v2.ErrorIndicationEp.initiating_message:type_name -> e2ap_go.v2.ErrorIndication
-	43, // 61: e2ap_go.v2.ErrorIndicationEp.procedure_code:type_name -> e2ap_go.v2.IdErrorIndication
-	44, // 62: e2ap_go.v2.ErrorIndicationEp.criticality:type_name -> e2ap_go.v2.CriticalityIgnore
-	28, // 63: e2ap_go.v2.Reset.initiating_message:type_name -> e2ap_go.v2.ResetRequest
-	45, // 64: e2ap_go.v2.Reset.successful_outcome:type_name -> e2ap_go.v2.ResetResponse
-	46, // 65: e2ap_go.v2.Reset.procedure_code:type_name -> e2ap_go.v2.IdReset
-	36, // 66: e2ap_go.v2.Reset.criticality:type_name -> e2ap_go.v2.CriticalityReject
-	24, // 67: e2ap_go.v2.RicControl.initiating_message:type_name -> e2ap_go.v2.RiccontrolRequest
-	47, // 68: e2ap_go.v2.RicControl.successful_outcome:type_name -> e2ap_go.v2.RiccontrolAcknowledge
-	48, // 69: e2ap_go.v2.RicControl.unsuccessful_outcome:type_name -> e2ap_go.v2.RiccontrolFailure
-	49, // 70: e2ap_go.v2.RicControl.procedure_code:type_name -> e2ap_go.v2.IdRiccontrol
-	36, // 71: e2ap_go.v2.RicControl.criticality:type_name -> e2ap_go.v2.CriticalityReject
-	29, // 72: e2ap_go.v2.RicIndication.initiating_message:type_name -> e2ap_go.v2.Ricindication
-	50, // 73: e2ap_go.v2.RicIndication.procedure_code:type_name -> e2ap_go.v2.IdRicindication
-	44, // 74: e2ap_go.v2.RicIndication.criticality:type_name -> e2ap_go.v2.CriticalityIgnore
-	30, // 75: e2ap_go.v2.RicServiceQuery.initiating_message:type_name -> e2ap_go.v2.RicserviceQuery
-	51, // 76: e2ap_go.v2.RicServiceQuery.procedure_code:type_name -> e2ap_go.v2.IdRicserviceQuery
-	44, // 77: e2ap_go.v2.RicServiceQuery.criticality:type_name -> e2ap_go.v2.CriticalityIgnore
-	23, // 78: e2ap_go.v2.RicServiceUpdate.initiating_message:type_name -> e2ap_go.v2.RicserviceUpdate
-	52, // 79: e2ap_go.v2.RicServiceUpdate.successful_outcome:type_name -> e2ap_go.v2.RicserviceUpdateAcknowledge
-	53, // 80: e2ap_go.v2.RicServiceUpdate.unsuccessful_outcome:type_name -> e2ap_go.v2.RicserviceUpdateFailure
-	54, // 81: e2ap_go.v2.RicServiceUpdate.procedure_code:type_name -> e2ap_go.v2.IdRicserviceUpdate
-	36, // 82: e2ap_go.v2.RicServiceUpdate.criticality:type_name -> e2ap_go.v2.CriticalityReject
-	21, // 83: e2ap_go.v2.RicSubscription.initiating_message:type_name -> e2ap_go.v2.RicsubscriptionRequest
-	55, // 84: e2ap_go.v2.RicSubscription.successful_outcome:type_name -> e2ap_go.v2.RicsubscriptionResponse
-	56, // 85: e2ap_go.v2.RicSubscription.unsuccessful_outcome:type_name -> e2ap_go.v2.RicsubscriptionFailure
-	57, // 86: e2ap_go.v2.RicSubscription.procedure_code:type_name -> e2ap_go.v2.IdRicsubscription
-	36, // 87: e2ap_go.v2.RicSubscription.criticality:type_name -> e2ap_go.v2.CriticalityReject
-	22, // 88: e2ap_go.v2.RicSubscriptionDelete.initiating_message:type_name -> e2ap_go.v2.RicsubscriptionDeleteRequest
-	58, // 89: e2ap_go.v2.RicSubscriptionDelete.successful_outcome:type_name -> e2ap_go.v2.RicsubscriptionDeleteResponse
-	59, // 90: e2ap_go.v2.RicSubscriptionDelete.unsuccessful_outcome:type_name -> e2ap_go.v2.RicsubscriptionDeleteFailure
-	60, // 91: e2ap_go.v2.RicSubscriptionDelete.procedure_code:type_name -> e2ap_go.v2.IdRicsubscriptionDelete
-	36, // 92: e2ap_go.v2.RicSubscriptionDelete.criticality:type_name -> e2ap_go.v2.CriticalityReject
-	32, // 93: e2ap_go.v2.RicSubscriptionDeleteRequired.initiating_message:type_name -> e2ap_go.v2.RicsubscriptionDeleteRequired
-	61, // 94: e2ap_go.v2.RicSubscriptionDeleteRequired.procedure_code:type_name -> e2ap_go.v2.IdRicsubscriptionDeleteRequired
-	44, // 95: e2ap_go.v2.RicSubscriptionDeleteRequired.criticality:type_name -> e2ap_go.v2.CriticalityIgnore
-	96, // [96:96] is the sub-list for method output_type
-	96, // [96:96] is the sub-list for method input_type
-	96, // [96:96] is the sub-list for extension type_name
-	96, // [96:96] is the sub-list for extension extendee
-	0,  // [0:96] is the sub-list for field type_name
+	1,   // 0: e2ap_go.v2.E2ApPdu.initiating_message:type_name -> e2ap_go.v2.InitiatingMessage
+	3,   // 1: e2ap_go.v2.E2ApPdu.successful_outcome:type_name -> e2ap_go.v2.SuccessfulOutcome
+	5,   // 2: e2ap_go.v2.E2ApPdu.unsuccessful_outcome:type_name -> e2ap_go.v2.UnsuccessfulOutcome
+	22,  // 3: e2ap_go.v2.InitiatingMessage.criticality:type_name -> e2ap_go.v2.Criticality
+	2,   // 4: e2ap_go.v2.InitiatingMessage.value:type_name -> e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures
+	23,  // 5: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_subscription:type_name -> e2ap_go.v2.RicsubscriptionRequest
+	24,  // 6: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_subscription_delete:type_name -> e2ap_go.v2.RicsubscriptionDeleteRequest
+	25,  // 7: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_service_update:type_name -> e2ap_go.v2.RicserviceUpdate
+	26,  // 8: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_control:type_name -> e2ap_go.v2.RiccontrolRequest
+	27,  // 9: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.e2setup:type_name -> e2ap_go.v2.E2setupRequest
+	28,  // 10: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.e2node_configuration_update:type_name -> e2ap_go.v2.E2nodeConfigurationUpdate
+	29,  // 11: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.e2connection_update:type_name -> e2ap_go.v2.E2connectionUpdate
+	30,  // 12: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.reset:type_name -> e2ap_go.v2.ResetRequest
+	31,  // 13: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_indication:type_name -> e2ap_go.v2.Ricindication
+	32,  // 14: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_service_query:type_name -> e2ap_go.v2.RicserviceQuery
+	33,  // 15: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.error_indication:type_name -> e2ap_go.v2.ErrorIndication
+	34,  // 16: e2ap_go.v2.InitiatingMessageE2ApElementaryProcedures.ric_subscription_delete_required:type_name -> e2ap_go.v2.RicsubscriptionDeleteRequired
+	22,  // 17: e2ap_go.v2.SuccessfulOutcome.criticality:type_name -> e2ap_go.v2.Criticality
+	4,   // 18: e2ap_go.v2.SuccessfulOutcome.value:type_name -> e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures
+	35,  // 19: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures.ric_subscription:type_name -> e2ap_go.v2.RicsubscriptionResponse
+	36,  // 20: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures.ric_subscription_delete:type_name -> e2ap_go.v2.RicsubscriptionDeleteResponse
+	37,  // 21: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures.ric_service_update:type_name -> e2ap_go.v2.RicserviceUpdateAcknowledge
+	38,  // 22: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures.ric_control:type_name -> e2ap_go.v2.RiccontrolAcknowledge
+	39,  // 23: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures.e2setup:type_name -> e2ap_go.v2.E2setupResponse
+	40,  // 24: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures.e2node_configuration_update:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateAcknowledge
+	41,  // 25: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures.e2connection_update:type_name -> e2ap_go.v2.E2connectionUpdateAcknowledge
+	42,  // 26: e2ap_go.v2.SuccessfulOutcomeE2ApElementaryProcedures.reset:type_name -> e2ap_go.v2.ResetResponse
+	22,  // 27: e2ap_go.v2.UnsuccessfulOutcome.criticality:type_name -> e2ap_go.v2.Criticality
+	6,   // 28: e2ap_go.v2.UnsuccessfulOutcome.value:type_name -> e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures
+	43,  // 29: e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures.ric_subscription:type_name -> e2ap_go.v2.RicsubscriptionFailure
+	44,  // 30: e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures.ric_subscription_delete:type_name -> e2ap_go.v2.RicsubscriptionDeleteFailure
+	45,  // 31: e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures.ric_service_update:type_name -> e2ap_go.v2.RicserviceUpdateFailure
+	46,  // 32: e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures.ric_control:type_name -> e2ap_go.v2.RiccontrolFailure
+	47,  // 33: e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures.e2setup:type_name -> e2ap_go.v2.E2setupFailure
+	48,  // 34: e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures.e2node_configuration_update:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateFailure
+	49,  // 35: e2ap_go.v2.UnsuccessfulOutcomeE2ApElementaryProcedures.e2connection_update:type_name -> e2ap_go.v2.E2connectionUpdateFailure
+	19,  // 36: e2ap_go.v2.E2ApElementaryProcedures.ric_subscription:type_name -> e2ap_go.v2.RicSubscription
+	20,  // 37: e2ap_go.v2.E2ApElementaryProcedures.ric_subscription_delete:type_name -> e2ap_go.v2.RicSubscriptionDelete
+	18,  // 38: e2ap_go.v2.E2ApElementaryProcedures.ric_service_update:type_name -> e2ap_go.v2.RicServiceUpdate
+	15,  // 39: e2ap_go.v2.E2ApElementaryProcedures.ric_control:type_name -> e2ap_go.v2.RicControl
+	12,  // 40: e2ap_go.v2.E2ApElementaryProcedures.e2setup:type_name -> e2ap_go.v2.E2setup
+	11,  // 41: e2ap_go.v2.E2ApElementaryProcedures.e2node_configuration_update:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateEp
+	10,  // 42: e2ap_go.v2.E2ApElementaryProcedures.e2connection_update:type_name -> e2ap_go.v2.E2connectionUpdateEp
+	14,  // 43: e2ap_go.v2.E2ApElementaryProcedures.reset:type_name -> e2ap_go.v2.Reset
+	16,  // 44: e2ap_go.v2.E2ApElementaryProcedures.ric_indication:type_name -> e2ap_go.v2.RicIndication
+	17,  // 45: e2ap_go.v2.E2ApElementaryProcedures.ric_service_query:type_name -> e2ap_go.v2.RicServiceQuery
+	13,  // 46: e2ap_go.v2.E2ApElementaryProcedures.error_indication:type_name -> e2ap_go.v2.ErrorIndicationEp
+	21,  // 47: e2ap_go.v2.E2ApElementaryProcedures.ric_subscription_delete_required:type_name -> e2ap_go.v2.RicSubscriptionDeleteRequired
+	19,  // 48: e2ap_go.v2.E2ApElementaryProceduresClass1.ric_subscription:type_name -> e2ap_go.v2.RicSubscription
+	20,  // 49: e2ap_go.v2.E2ApElementaryProceduresClass1.ric_subscription_delete:type_name -> e2ap_go.v2.RicSubscriptionDelete
+	18,  // 50: e2ap_go.v2.E2ApElementaryProceduresClass1.ric_service_update:type_name -> e2ap_go.v2.RicServiceUpdate
+	15,  // 51: e2ap_go.v2.E2ApElementaryProceduresClass1.ric_control:type_name -> e2ap_go.v2.RicControl
+	12,  // 52: e2ap_go.v2.E2ApElementaryProceduresClass1.e2setup:type_name -> e2ap_go.v2.E2setup
+	11,  // 53: e2ap_go.v2.E2ApElementaryProceduresClass1.e2node_configuration_update:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateEp
+	10,  // 54: e2ap_go.v2.E2ApElementaryProceduresClass1.e2connection_update:type_name -> e2ap_go.v2.E2connectionUpdateEp
+	14,  // 55: e2ap_go.v2.E2ApElementaryProceduresClass1.reset:type_name -> e2ap_go.v2.Reset
+	16,  // 56: e2ap_go.v2.E2ApElementaryProceduresClass2.ric_indication:type_name -> e2ap_go.v2.RicIndication
+	17,  // 57: e2ap_go.v2.E2ApElementaryProceduresClass2.ric_service_query:type_name -> e2ap_go.v2.RicServiceQuery
+	13,  // 58: e2ap_go.v2.E2ApElementaryProceduresClass2.error_indication:type_name -> e2ap_go.v2.ErrorIndicationEp
+	21,  // 59: e2ap_go.v2.E2ApElementaryProceduresClass2.ric_subscription_delete_required:type_name -> e2ap_go.v2.RicSubscriptionDeleteRequired
+	29,  // 60: e2ap_go.v2.E2connectionUpdateEp.initiating_message:type_name -> e2ap_go.v2.E2connectionUpdate
+	41,  // 61: e2ap_go.v2.E2connectionUpdateEp.successful_outcome:type_name -> e2ap_go.v2.E2connectionUpdateAcknowledge
+	49,  // 62: e2ap_go.v2.E2connectionUpdateEp.unsuccessful_outcome:type_name -> e2ap_go.v2.E2connectionUpdateFailure
+	50,  // 63: e2ap_go.v2.E2connectionUpdateEp.procedure_code:type_name -> e2ap_go.v2.IdE2connectionUpdate
+	51,  // 64: e2ap_go.v2.E2connectionUpdateEp.criticality:type_name -> e2ap_go.v2.CriticalityReject
+	28,  // 65: e2ap_go.v2.E2nodeConfigurationUpdateEp.initiating_message:type_name -> e2ap_go.v2.E2nodeConfigurationUpdate
+	40,  // 66: e2ap_go.v2.E2nodeConfigurationUpdateEp.successful_outcome:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateAcknowledge
+	48,  // 67: e2ap_go.v2.E2nodeConfigurationUpdateEp.unsuccessful_outcome:type_name -> e2ap_go.v2.E2nodeConfigurationUpdateFailure
+	52,  // 68: e2ap_go.v2.E2nodeConfigurationUpdateEp.procedure_code:type_name -> e2ap_go.v2.IdE2nodeConfigurationUpdate
+	51,  // 69: e2ap_go.v2.E2nodeConfigurationUpdateEp.criticality:type_name -> e2ap_go.v2.CriticalityReject
+	27,  // 70: e2ap_go.v2.E2setup.initiating_message:type_name -> e2ap_go.v2.E2setupRequest
+	39,  // 71: e2ap_go.v2.E2setup.successful_outcome:type_name -> e2ap_go.v2.E2setupResponse
+	47,  // 72: e2ap_go.v2.E2setup.unsuccessful_outcome:type_name -> e2ap_go.v2.E2setupFailure
+	53,  // 73: e2ap_go.v2.E2setup.procedure_code:type_name -> e2ap_go.v2.IdE2setup
+	51,  // 74: e2ap_go.v2.E2setup.criticality:type_name -> e2ap_go.v2.CriticalityReject
+	33,  // 75: e2ap_go.v2.ErrorIndicationEp.initiating_message:type_name -> e2ap_go.v2.ErrorIndication
+	54,  // 76: e2ap_go.v2.ErrorIndicationEp.procedure_code:type_name -> e2ap_go.v2.IdErrorIndication
+	55,  // 77: e2ap_go.v2.ErrorIndicationEp.criticality:type_name -> e2ap_go.v2.CriticalityIgnore
+	30,  // 78: e2ap_go.v2.Reset.initiating_message:type_name -> e2ap_go.v2.ResetRequest
+	42,  // 79: e2ap_go.v2.Reset.successful_outcome:type_name -> e2ap_go.v2.ResetResponse
+	56,  // 80: e2ap_go.v2.Reset.procedure_code:type_name -> e2ap_go.v2.IdReset
+	51,  // 81: e2ap_go.v2.Reset.criticality:type_name -> e2ap_go.v2.CriticalityReject
+	26,  // 82: e2ap_go.v2.RicControl.initiating_message:type_name -> e2ap_go.v2.RiccontrolRequest
+	38,  // 83: e2ap_go.v2.RicControl.successful_outcome:type_name -> e2ap_go.v2.RiccontrolAcknowledge
+	46,  // 84: e2ap_go.v2.RicControl.unsuccessful_outcome:type_name -> e2ap_go.v2.RiccontrolFailure
+	57,  // 85: e2ap_go.v2.RicControl.procedure_code:type_name -> e2ap_go.v2.IdRiccontrol
+	51,  // 86: e2ap_go.v2.RicControl.criticality:type_name -> e2ap_go.v2.CriticalityReject
+	31,  // 87: e2ap_go.v2.RicIndication.initiating_message:type_name -> e2ap_go.v2.Ricindication
+	58,  // 88: e2ap_go.v2.RicIndication.procedure_code:type_name -> e2ap_go.v2.IdRicindication
+	55,  // 89: e2ap_go.v2.RicIndication.criticality:type_name -> e2ap_go.v2.CriticalityIgnore
+	32,  // 90: e2ap_go.v2.RicServiceQuery.initiating_message:type_name -> e2ap_go.v2.RicserviceQuery
+	59,  // 91: e2ap_go.v2.RicServiceQuery.procedure_code:type_name -> e2ap_go.v2.IdRicserviceQuery
+	55,  // 92: e2ap_go.v2.RicServiceQuery.criticality:type_name -> e2ap_go.v2.CriticalityIgnore
+	25,  // 93: e2ap_go.v2.RicServiceUpdate.initiating_message:type_name -> e2ap_go.v2.RicserviceUpdate
+	37,  // 94: e2ap_go.v2.RicServiceUpdate.successful_outcome:type_name -> e2ap_go.v2.RicserviceUpdateAcknowledge
+	45,  // 95: e2ap_go.v2.RicServiceUpdate.unsuccessful_outcome:type_name -> e2ap_go.v2.RicserviceUpdateFailure
+	60,  // 96: e2ap_go.v2.RicServiceUpdate.procedure_code:type_name -> e2ap_go.v2.IdRicserviceUpdate
+	51,  // 97: e2ap_go.v2.RicServiceUpdate.criticality:type_name -> e2ap_go.v2.CriticalityReject
+	23,  // 98: e2ap_go.v2.RicSubscription.initiating_message:type_name -> e2ap_go.v2.RicsubscriptionRequest
+	35,  // 99: e2ap_go.v2.RicSubscription.successful_outcome:type_name -> e2ap_go.v2.RicsubscriptionResponse
+	43,  // 100: e2ap_go.v2.RicSubscription.unsuccessful_outcome:type_name -> e2ap_go.v2.RicsubscriptionFailure
+	61,  // 101: e2ap_go.v2.RicSubscription.procedure_code:type_name -> e2ap_go.v2.IdRicsubscription
+	51,  // 102: e2ap_go.v2.RicSubscription.criticality:type_name -> e2ap_go.v2.CriticalityReject
+	24,  // 103: e2ap_go.v2.RicSubscriptionDelete.initiating_message:type_name -> e2ap_go.v2.RicsubscriptionDeleteRequest
+	36,  // 104: e2ap_go.v2.RicSubscriptionDelete.successful_outcome:type_name -> e2ap_go.v2.RicsubscriptionDeleteResponse
+	44,  // 105: e2ap_go.v2.RicSubscriptionDelete.unsuccessful_outcome:type_name -> e2ap_go.v2.RicsubscriptionDeleteFailure
+	62,  // 106: e2ap_go.v2.RicSubscriptionDelete.procedure_code:type_name -> e2ap_go.v2.IdRicsubscriptionDelete
+	51,  // 107: e2ap_go.v2.RicSubscriptionDelete.criticality:type_name -> e2ap_go.v2.CriticalityReject
+	34,  // 108: e2ap_go.v2.RicSubscriptionDeleteRequired.initiating_message:type_name -> e2ap_go.v2.RicsubscriptionDeleteRequired
+	63,  // 109: e2ap_go.v2.RicSubscriptionDeleteRequired.procedure_code:type_name -> e2ap_go.v2.IdRicsubscriptionDeleteRequired
+	55,  // 110: e2ap_go.v2.RicSubscriptionDeleteRequired.criticality:type_name -> e2ap_go.v2.CriticalityIgnore
+	111, // [111:111] is the sub-list for method output_type
+	111, // [111:111] is the sub-list for method input_type
+	111, // [111:111] is the sub-list for extension type_name
+	111, // [111:111] is the sub-list for extension extendee
+	0,   // [0:111] is the sub-list for field type_name
 }
 
 func init() { file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() }
@@ -2581,7 +3026,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UnsuccessfulOutcome); i {
+			switch v := v.(*SuccessfulOutcomeE2ApElementaryProcedures); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2593,7 +3038,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*E2ApElementaryProcedures); i {
+			switch v := v.(*UnsuccessfulOutcome); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2605,7 +3050,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*E2ApElementaryProceduresClass1); i {
+			switch v := v.(*UnsuccessfulOutcomeE2ApElementaryProcedures); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2617,7 +3062,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*E2ApElementaryProceduresClass2); i {
+			switch v := v.(*E2ApElementaryProcedures); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2629,7 +3074,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*E2ConnectionUpdateEp); i {
+			switch v := v.(*E2ApElementaryProceduresClass1); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2641,7 +3086,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*E2NodeConfigurationUpdateEp); i {
+			switch v := v.(*E2ApElementaryProceduresClass2); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2653,7 +3098,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*E2Setup); i {
+			switch v := v.(*E2ConnectionUpdateEp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2665,7 +3110,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ErrorIndicationEp); i {
+			switch v := v.(*E2NodeConfigurationUpdateEp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2677,7 +3122,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Reset); i {
+			switch v := v.(*E2Setup); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2689,7 +3134,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RicControl); i {
+			switch v := v.(*ErrorIndicationEp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2701,7 +3146,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RicIndication); i {
+			switch v := v.(*Reset); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2713,7 +3158,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RicServiceQuery); i {
+			switch v := v.(*RicControl); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2725,7 +3170,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RicServiceUpdate); i {
+			switch v := v.(*RicIndication); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2737,7 +3182,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RicSubscription); i {
+			switch v := v.(*RicServiceQuery); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2749,7 +3194,7 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RicSubscriptionDelete); i {
+			switch v := v.(*RicServiceUpdate); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2761,6 +3206,30 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 			}
 		}
 		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RicSubscription); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RicSubscriptionDelete); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RicSubscriptionDeleteRequired); i {
 			case 0:
 				return &v.state
@@ -2792,13 +3261,32 @@ func file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_init() {
 		(*InitiatingMessageE2ApElementaryProcedures_ErrorIndication)(nil),
 		(*InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDeleteRequired)(nil),
 	}
+	file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[4].OneofWrappers = []interface{}{
+		(*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription)(nil),
+		(*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete)(nil),
+		(*SuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate)(nil),
+		(*SuccessfulOutcomeE2ApElementaryProcedures_RicControl)(nil),
+		(*SuccessfulOutcomeE2ApElementaryProcedures_E2Setup)(nil),
+		(*SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate)(nil),
+		(*SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate)(nil),
+		(*SuccessfulOutcomeE2ApElementaryProcedures_Reset_)(nil),
+	}
+	file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_msgTypes[6].OneofWrappers = []interface{}{
+		(*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription)(nil),
+		(*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete)(nil),
+		(*UnsuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate)(nil),
+		(*UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl)(nil),
+		(*UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup)(nil),
+		(*UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate)(nil),
+		(*UnsuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_e2ap_go_v2_e2ap_pdu_descriptions_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   20,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
