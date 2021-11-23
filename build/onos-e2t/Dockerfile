@@ -9,6 +9,7 @@ COPY cmd/ /build/cmd/
 COPY pkg/ /build/pkg/
 COPY vendor/ /build/vendor/
 COPY api/ /build/api
+COPY build/build-tools /build/build/build-tools/
 
 WORKDIR /build
 
