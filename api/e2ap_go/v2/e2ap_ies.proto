@@ -1,0 +1,547 @@
+/*
+SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+*/
+
+////////////////////// e2ap-ies.proto //////////////////////
+// Protobuf generated from /e2ap_v2.asn by asn1c-0.9.29
+// E2AP-IEs { iso(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) 53148 e2(1) version2(2) e2ap(1) e2ap-IEs(2) }
+
+syntax = "proto3";
+
+package e2ap_go.v2;
+option go_package = "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies";
+
+import "e2ap_go/v2/e2ap_commondatatypes.proto";
+import "e2ap_go/v2/e2ap_constants.proto";
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+
+// enumerated from e2ap_v2.asn:1313
+enum UpdateOutcome {
+    UPDATE_OUTCOME_SUCCESS = 0;
+    UPDATE_OUTCOME_FAILURE = 1;
+};
+
+// enumerated from e2ap_v2.asn:1227
+enum CauseE2node {
+    CAUSE_E2NODE_E2NODE_COMPONENT_UNKNOWN = 0;
+};
+
+// enumerated from e2ap_v2.asn:1232
+enum CauseMisc {
+    CAUSE_MISC_CONTROL_PROCESSING_OVERLOAD = 0;
+    CAUSE_MISC_HARDWARE_FAILURE = 1;
+    CAUSE_MISC_OM_INTERVENTION = 2;
+    CAUSE_MISC_UNSPECIFIED = 3;
+};
+
+// enumerated from e2ap_v2.asn:1240
+enum CauseProtocol {
+    CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR = 0;
+    CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_REJECT = 1;
+    CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_IGNORE_AND_NOTIFY = 2;
+    CAUSE_PROTOCOL_MESSAGE_NOT_COMPATIBLE_WITH_RECEIVER_STATE = 3;
+    CAUSE_PROTOCOL_SEMANTIC_ERROR = 4;
+    CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE = 5;
+    CAUSE_PROTOCOL_UNSPECIFIED = 6;
+};
+
+// enumerated from e2ap_v2.asn:1251
+enum CauseRicrequest {
+    CAUSE_RICREQUEST_RAN_FUNCTION_ID_INVALID = 0;
+    CAUSE_RICREQUEST_ACTION_NOT_SUPPORTED = 1;
+    CAUSE_RICREQUEST_EXCESSIVE_ACTIONS = 2;
+    CAUSE_RICREQUEST_DUPLICATE_ACTION = 3;
+    CAUSE_RICREQUEST_DUPLICATE_EVENT_TRIGGER = 4;
+    CAUSE_RICREQUEST_FUNCTION_RESOURCE_LIMIT = 5;
+    CAUSE_RICREQUEST_REQUEST_ID_UNKNOWN = 6;
+    CAUSE_RICREQUEST_INCONSISTENT_ACTION_SUBSEQUENT_ACTION_SEQUENCE = 7;
+    CAUSE_RICREQUEST_CONTROL_MESSAGE_INVALID = 8;
+    CAUSE_RICREQUEST_RIC_CALL_PROCESS_ID_INVALID = 9;
+    CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED = 10;
+    CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE = 11;
+    CAUSE_RICREQUEST_SYSTEM_NOT_READY = 12;
+    CAUSE_RICREQUEST_UNSPECIFIED = 13;
+};
+
+// enumerated from e2ap_v2.asn:1269
+enum CauseRicservice {
+    CAUSE_RICSERVICE_RAN_FUNCTION_NOT_SUPPORTED = 0;
+    CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS = 1;
+    CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT = 2;
+};
+
+// enumerated from e2ap_v2.asn:1275
+enum CauseTransport {
+    CAUSE_TRANSPORT_UNSPECIFIED = 0;
+    CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE = 1;
+};
+
+// enumerated from e2ap_v2.asn:1318
+enum E2nodeComponentInterfaceType {
+    E2NODE_COMPONENT_INTERFACE_TYPE_NG = 0;
+    E2NODE_COMPONENT_INTERFACE_TYPE_XN = 1;
+    E2NODE_COMPONENT_INTERFACE_TYPE_E1 = 2;
+    E2NODE_COMPONENT_INTERFACE_TYPE_F1 = 3;
+    E2NODE_COMPONENT_INTERFACE_TYPE_W1 = 4;
+    E2NODE_COMPONENT_INTERFACE_TYPE_S1 = 5;
+    E2NODE_COMPONENT_INTERFACE_TYPE_X2 = 6;
+};
+
+// enumerated from e2ap_v2.asn:1547
+enum RicactionType {
+    RICACTION_TYPE_REPORT = 0;
+    RICACTION_TYPE_INSERT = 1;
+    RICACTION_TYPE_POLICY = 2;
+};
+
+// enumerated from e2ap_v2.asn:1559
+enum RiccontrolAckRequest {
+    RICCONTROL_ACK_REQUEST_NO_ACK = 0;
+    RICCONTROL_ACK_REQUEST_ACK = 1;
+};
+
+// enumerated from e2ap_v2.0.1_Feb3_21.asn:1423
+enum RiccontrolStatus {
+    RICCONTROL_STATUS_SUCCESS = 0;
+    RICCONTROL_STATUS_REJECTED = 1;
+    RICCONTROL_STATUS_FAILED = 2;
+};
+
+// enumerated from e2ap_v2.asn:1597
+enum RicindicationType {
+    RICINDICATION_TYPE_REPORT = 0;
+    RICINDICATION_TYPE_INSERT = 1;
+};
+
+// enumerated from e2ap_v2.asn:1615
+enum RicsubsequentActionType {
+    RICSUBSEQUENT_ACTION_TYPE_CONTINUE = 0;
+    RICSUBSEQUENT_ACTION_TYPE_WAIT = 1;
+};
+
+// enumerated from e2ap_v2.asn:1621
+enum RictimeToWait {
+    RICTIME_TO_WAIT_W1MS = 0;
+    RICTIME_TO_WAIT_W2MS = 1;
+    RICTIME_TO_WAIT_W5MS = 2;
+    RICTIME_TO_WAIT_W10MS = 3;
+    RICTIME_TO_WAIT_W20MS = 4;
+    RICTIME_TO_WAIT_W30MS = 5;
+    RICTIME_TO_WAIT_W40MS = 6;
+    RICTIME_TO_WAIT_W50MS = 7;
+    RICTIME_TO_WAIT_W100MS = 8;
+    RICTIME_TO_WAIT_W200MS = 9;
+    RICTIME_TO_WAIT_W500MS = 10;
+    RICTIME_TO_WAIT_W1S = 11;
+    RICTIME_TO_WAIT_W2S = 12;
+    RICTIME_TO_WAIT_W5S = 13;
+    RICTIME_TO_WAIT_W10S = 14;
+    RICTIME_TO_WAIT_W20S = 15;
+    RICTIME_TO_WAIT_W60S = 16;
+};
+
+// enumerated from e2ap_v2.asn:1645
+enum TimeToWait {
+    TIME_TO_WAIT_V1S = 0;
+    TIME_TO_WAIT_V2S = 1;
+    TIME_TO_WAIT_V5S = 2;
+    TIME_TO_WAIT_V10S = 3;
+    TIME_TO_WAIT_V20S = 4;
+    TIME_TO_WAIT_V60S = 5;
+};
+
+// enumerated from e2ap_v2.asn:1654
+enum Tnlusage {
+    TNLUSAGE_RIC_SERVICE = 0;
+    TNLUSAGE_SUPPORT_FUNCTION = 1;
+    TNLUSAGE_BOTH = 2;
+};
+
+// enumerated from e2ap_v2.asn:1662
+enum TypeOfError {
+    TYPE_OF_ERROR_NOT_UNDERSTOOD = 0;
+    TYPE_OF_ERROR_MISSING = 1;
+};
+
+// sequence from e2ap_v2.asn:1217
+// {Cause}
+message Cause {
+    // choice from e2ap_v2.asn:1217
+    oneof cause {
+        // @inject_tag: aper:"choiceIdx:1,valueLB:0,valueUB:13,valueExt"
+        CauseRicrequest ric_request = 1 [ json_name="ricRequest"];
+        // @inject_tag: aper:"choiceIdx:2,valueLB:0,valueUB:2,valueExt"
+        CauseRicservice ric_service = 2 [ json_name="ricService"];
+        // @inject_tag: aper:"choiceIdx:3,valueLB:0,valueUB:0,valueExt"
+        CauseE2node e2_node = 3 [ json_name="e2Node"];
+        // @inject_tag: aper:"choiceIdx:4,valueLB:0,valueUB:1,valueExt"
+        CauseTransport transport = 4 [ json_name="transport"];
+        // @inject_tag: aper:"choiceIdx:5,valueLB:0,valueUB:6,valueExt"
+        CauseProtocol protocol = 5 [ json_name="protocol"];
+        // @inject_tag: aper:"choiceIdx:6,valueLB:0,valueUB:3,valueExt"
+        CauseMisc misc = 6 [ json_name="misc"];
+    }
+};
+
+// sequence from e2ap_v2.asn:1285
+// {CriticalityDiagnostics}
+message CriticalityDiagnostics {
+    // @inject_tag: aper:"optional"
+    optional ProcedureCode procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"optional,valueLB:0,valueUB:2"
+    optional TriggeringMessage triggering_message = 2 [ json_name="triggeringMessage"];
+    // @inject_tag: aper:"optional,valueLB:0,valueUB:2"
+    optional Criticality procedure_criticality = 3 [ json_name="procedureCriticality"];
+    // @inject_tag: aper:"optional,valueExt"
+    optional RicrequestId ric_requestor_id = 4 [ json_name="ricRequestorID"];
+    // @inject_tag: aper:"optional"
+    optional CriticalityDiagnosticsIeList i_es_criticality_diagnostics = 5 [ json_name="iEsCriticalityDiagnostics"];
+};
+
+// sequence from e2ap_v2.asn:1295
+// {CriticalityDiagnostics-IE-List}
+message CriticalityDiagnosticsIeList {
+    // @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256"
+    repeated CriticalityDiagnosticsIeItem value = 1 [ json_name="value"];
+};
+
+// sequence from e2ap_v2.asn:1296
+// {CriticalityDiagnostics-IE-Item}
+message CriticalityDiagnosticsIeItem {
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality i_ecriticality = 1 [ json_name="iECriticality"];
+    ProtocolIeId i_e_id = 2 [ json_name="iE-ID"];
+    // @inject_tag: aper:"valueLB:0,valueUB:1,valueExt"
+    TypeOfError type_of_error = 3 [ json_name="typeOfError"];
+};
+
+// sequence from e2ap_v2.asn:1307
+// {E2nodeComponentConfiguration}
+message E2nodeComponentConfiguration {
+    bytes e2node_component_request_part = 1 [ json_name="e2nodeComponentRequestPart"];
+    bytes e2node_component_response_part = 2 [ json_name="e2nodeComponentResponsePart"];
+};
+
+// sequence from e2ap_v2.asn:1313
+// {E2nodeComponentConfigurationAck}
+message E2nodeComponentConfigurationAck {
+    // @inject_tag: aper:"valueLB:0,valueUB:1,valueExt"
+    UpdateOutcome update_outcome = 1 [ json_name="updateOutcome"];
+    // @inject_tag: aper:"optional,valueExt"
+    optional Cause failure_cause = 2 [ json_name="failureCause"];
+};
+
+// sequence from e2ap_v2.asn:1321
+// {E2nodeComponentID}
+message E2nodeComponentId {
+    // choice from e2ap_v2.asn:1321
+    oneof e2node_component_id {
+        // @inject_tag: aper:"choiceIdx:1,valueExt"
+        E2nodeComponentInterfaceNg e2node_component_interface_type_ng = 1 [ json_name="e2nodeComponentInterfaceTypeNG"];
+        // @inject_tag: aper:"choiceIdx:2,valueExt"
+        E2nodeComponentInterfaceXn e2node_component_interface_type_xn = 2 [ json_name="e2nodeComponentInterfaceTypeXn"];
+        // @inject_tag: aper:"choiceIdx:3,valueExt"
+        E2nodeComponentInterfaceE1 e2node_component_interface_type_e1 = 3 [ json_name="e2nodeComponentInterfaceTypeE1"];
+        // @inject_tag: aper:"choiceIdx:4,valueExt"
+        E2nodeComponentInterfaceF1 e2node_component_interface_type_f1 = 4 [ json_name="e2nodeComponentInterfaceTypeF1"];
+        // @inject_tag: aper:"choiceIdx:5,valueExt"
+        E2nodeComponentInterfaceW1 e2node_component_interface_type_w1 = 5 [ json_name="e2nodeComponentInterfaceTypeW1"];
+        // @inject_tag: aper:"choiceIdx:6,valueExt"
+        E2nodeComponentInterfaceS1 e2node_component_interface_type_s1 = 6 [ json_name="e2nodeComponentInterfaceTypeS1"];
+        // @inject_tag: aper:"choiceIdx:7,valueExt"
+        E2nodeComponentInterfaceX2 e2node_component_interface_type_x2 = 7 [ json_name="e2nodeComponentInterfaceTypeX2"];
+    }
+};
+
+// sequence from e2ap_v2.asn:1332
+// {E2nodeComponentInterfaceE1}
+message E2nodeComponentInterfaceE1 {
+    GnbCuUpId g_nb_cu_cp_id = 1 [ json_name="gNB-CU-CP-ID"];
+};
+
+// sequence from e2ap_v2.asn:1337
+// {E2nodeComponentInterfaceF1}
+message E2nodeComponentInterfaceF1 {
+    GnbDuId g_nb_du_id = 1 [ json_name="gNB-DU-ID"];
+};
+
+// sequence from e2ap_v2.asn:1342
+// {E2nodeComponentInterfaceNG}
+message E2nodeComponentInterfaceNg {
+    Amfname amf_name = 1 [ json_name="amf-name"];
+};
+
+// sequence from e2ap_v2.asn:1347
+// {E2nodeComponentInterfaceS1}
+message E2nodeComponentInterfaceS1 {
+    Mmename mme_name = 1 [ json_name="mme-name"];
+};
+
+// sequence from e2ap_v2.asn:1352
+// {E2nodeComponentInterfaceX2}
+message E2nodeComponentInterfaceX2 {
+    // @inject_tag: aper:"optional,valueExt"
+    optional GlobalEnbId global_e_nb_id = 1 [ json_name="global-eNB-ID"];
+    // @inject_tag: aper:"optional,valueExt"
+    optional GlobalenGnbId global_en_g_nb_id = 2 [ json_name="global-en-gNB-ID"];
+};
+
+// sequence from e2ap_v2.asn:1358
+// {E2nodeComponentInterfaceXn}
+message E2nodeComponentInterfaceXn {
+    // @inject_tag: aper:"valueExt"
+    GlobalNgRannodeId global_ng_ran_node_id = 1 [ json_name="global-NG-RAN-Node-ID"];
+};
+
+// sequence from e2ap_v2.asn:1363
+// {E2nodeComponentInterfaceW1}
+message E2nodeComponentInterfaceW1 {
+    NgenbDuId ng_e_nb_du_id = 1 [ json_name="ng-eNB-DU-ID"];
+};
+
+// sequence from e2ap_v2.asn:1372
+// {ENB-ID}
+message EnbId {
+    // choice from e2ap_v2.asn:1372
+    oneof enb_id {
+        // @inject_tag: aper:"choiceIdx:1,sizeLB:20,sizeUB:20"
+        asn1.v1.BitString macro_e_nb_id = 1 [ json_name="macro-eNB-ID"];
+        // @inject_tag: aper:"choiceIdx:2,sizeLB:28,sizeUB:28"
+        asn1.v1.BitString home_e_nb_id = 2 [ json_name="home-eNB-ID"];
+        // @inject_tag: aper:"choiceIdx:3,sizeLB:18,sizeUB:18"
+        asn1.v1.BitString short_macro_e_nb_id = 3 [ json_name="short-Macro-eNB-ID"];
+        // @inject_tag: aper:"choiceIdx:4,sizeLB:21,sizeUB:21"
+        asn1.v1.BitString long_macro_e_nb_id = 4 [ json_name="long-Macro-eNB-ID"];
+    }
+};
+
+// sequence from e2ap_v2.asn:1382
+// {ENB-ID-Choice}
+message EnbIdChoice {
+    // choice from e2ap_v2.asn:1382
+    oneof enb_id_choice {
+        // @inject_tag: aper:"choiceIdx:1,sizeLB:20,sizeUB:20"
+        asn1.v1.BitString enb_id_macro = 1 [ json_name="enb-ID-macro"];
+        // @inject_tag: aper:"choiceIdx:2,sizeLB:18,sizeUB:18"
+        asn1.v1.BitString enb_id_shortmacro = 2 [ json_name="enb-ID-shortmacro"];
+        // @inject_tag: aper:"choiceIdx:3,sizeLB:21,sizeUB:21"
+        asn1.v1.BitString enb_id_longmacro = 3 [ json_name="enb-ID-longmacro"];
+    }
+};
+
+// sequence from e2ap_v2.asn:1394
+// {ENGNB-ID}
+message EngnbId {
+    // choice from e2ap_v2.asn:1394
+    oneof engnb_id {
+        // @inject_tag: aper:"choiceIdx:1,sizeLB:22,sizeUB:32"
+        asn1.v1.BitString g_nb_id = 1 [ json_name="gNB-ID"];
+    }
+};
+
+// sequence from e2ap_v2.asn:1401
+// {GlobalE2node-ID}
+message GlobalE2nodeId {
+    // choice from e2ap_v2.asn:1401
+    oneof global_e2node_id {
+        // @inject_tag: aper:"choiceIdx:1,valueExt"
+        GlobalE2nodeGnbId g_nb = 1 [ json_name="gNB"];
+        // @inject_tag: aper:"choiceIdx:2,valueExt"
+        GlobalE2nodeEnGnbId en_g_nb = 2 [ json_name="en-gNB"];
+        // @inject_tag: aper:"choiceIdx:3,valueExt"
+        GlobalE2nodeNgEnbId ng_e_nb = 3 [ json_name="ng-eNB"];
+        // @inject_tag: aper:"choiceIdx:4,valueExt"
+        GlobalE2nodeEnbId e_nb = 4 [ json_name="eNB"];
+    }
+};
+
+// sequence from e2ap_v2.asn:1409
+// {GlobalE2node-en-gNB-ID}
+message GlobalE2nodeEnGnbId {
+    // @inject_tag: aper:"valueExt"
+    GlobalenGnbId global_en_g_nb_id = 1 [ json_name="global-en-gNB-ID"];
+    // @inject_tag: aper:"optional"
+    optional GnbCuUpId en_g_nb_cu_up_id = 2 [ json_name="en-gNB-CU-UP-ID"];
+    // @inject_tag: aper:"optional"
+    optional GnbDuId en_g_nb_du_id = 3 [ json_name="en-gNB-DU-ID"];
+};
+
+// sequence from e2ap_v2.asn:1415
+// {GlobalE2node-eNB-ID}
+message GlobalE2nodeEnbId {
+    // @inject_tag: aper:"valueExt"
+    GlobalEnbId global_e_nb_id = 1 [ json_name="global-eNB-ID"];
+};
+
+// sequence from e2ap_v2.asn:1419
+// {GlobalE2node-gNB-ID}
+message GlobalE2nodeGnbId {
+    // @inject_tag: aper:"valueExt"
+    GlobalgNbId global_g_nb_id = 1 [ json_name="global-gNB-ID"];
+    // @inject_tag: aper:"optional,valueExt"
+    optional GlobalenGnbId global_en_g_nb_id = 2 [ json_name="global-en-gNB-ID"];
+    // @inject_tag: aper:"optional"
+    optional GnbCuUpId g_nb_cu_up_id = 3 [ json_name="gNB-CU-UP-ID"];
+    // @inject_tag: aper:"optional"
+    optional GnbDuId g_nb_du_id = 4 [ json_name="gNB-DU-ID"];
+};
+
+// sequence from e2ap_v2.asn:1426
+// {GlobalE2node-ng-eNB-ID}
+message GlobalE2nodeNgEnbId {
+    GlobalngeNbId global_ng_e_nb_id = 1 [ json_name="global-ng-eNB-ID"];
+    // @inject_tag: aper:"optional,valueExt"
+    optional GlobalEnbId global_e_nb_id = 2 [ json_name="global-eNB-ID"];
+    // @inject_tag: aper:"optional"
+    optional NgenbDuId ng_enb_du_id = 3 [ json_name="ngENB-DU-ID"];
+};
+
+// sequence from e2ap_v2.asn:1437
+// {GlobalENB-ID}
+message GlobalEnbId {
+    PlmnIdentity p_lmn_identity = 1 [ json_name="pLMN-Identity"];
+    // @inject_tag: aper:"valueExt"
+    EnbId e_nb_id = 2 [ json_name="eNB-ID"];
+};
+
+// sequence from e2ap_v2.asn:1446
+// {GlobalenGNB-ID}
+message GlobalenGnbId {
+    PlmnIdentity p_lmn_identity = 1 [ json_name="pLMN-Identity"];
+    // @inject_tag: aper:"valueExt"
+    EngnbId g_nb_id = 2 [ json_name="gNB-ID"];
+};
+
+// sequence from e2ap_v2.asn:1454
+// {GlobalgNB-ID}
+message GlobalgNbId {
+    PlmnIdentity plmn_id = 1 [ json_name="plmn-id"];
+    // @inject_tag: aper:"valueExt"
+    GnbIdChoice gnb_id = 2 [ json_name="gnb-id"];
+};
+
+// sequence from e2ap_v2.asn:1464
+// {GlobalngeNB-ID}
+message GlobalngeNbId {
+    PlmnIdentity plmn_id = 1 [ json_name="plmn-id"];
+    // @inject_tag: aper:"valueExt"
+    EnbIdChoice enb_id = 2 [ json_name="enb-id"];
+};
+
+// sequence from e2ap_v2.asn:1475
+// {GlobalNG-RANNode-ID}
+message GlobalNgRannodeId {
+    // choice from e2ap_v2.asn:1475
+    oneof global_ng_rannode_id {
+        // @inject_tag: aper:"choiceIdx:1,valueExt"
+        GlobalgNbId g_nb = 1 [ json_name="gNB"];
+        // @inject_tag: aper:"choiceIdx:2,valueExt"
+        GlobalngeNbId ng_e_nb = 2 [ json_name="ng-eNB"];
+    }
+};
+
+// sequence from e2ap_v2.asn:1481
+// {GlobalRIC-ID}
+message GlobalRicId {
+    PlmnIdentity p_lmn_identity = 1 [ json_name="pLMN-Identity"];
+    // @inject_tag: aper:"sizeLB:20,sizeUB:20"
+    asn1.v1.BitString ric_id = 2 [ json_name="ric-ID"];
+};
+
+// range of Integer from e2ap_v2.asn:1489
+// {GNB-CU-UP-ID}
+message GnbCuUpId {
+    // @inject_tag: aper:"valueLB:0,valueUB:68719476735"
+    int64 value = 1 [(validate.v1.rules).int64 = {gte: 0, lte: 68719476735}, json_name="value"];
+};
+
+// range of Integer from e2ap_v2.asn:1490
+// {GNB-DU-ID}
+message GnbDuId {
+    // @inject_tag: aper:"valueLB:0,valueUB:68719476735"
+    int64 value = 1 [(validate.v1.rules).int64 = {gte: 0, lte: 68719476735}, json_name="value"];
+};
+
+// sequence from e2ap_v2.asn:1496
+// {GNB-ID-Choice}
+message GnbIdChoice {
+    // choice from e2ap_v2.asn:1496
+    oneof gnb_id_choice {
+        // @inject_tag: aper:"choiceIdx:1,sizeLB:22,sizeUB:32"
+        asn1.v1.BitString gnb_id = 1 [ json_name="gnb-ID"];
+    }
+};
+
+// range of Integer from e2ap_v2.asn:1516
+// {NGENB-DU-ID}
+message NgenbDuId {
+    // @inject_tag: aper:"valueLB:0,valueUB:68719476735"
+    int64 value = 1 [(validate.v1.rules).int64 = {gte: 0, lte: 68719476735}, json_name="value"];
+};
+
+// range of Integer from e2ap_v2.asn:1533
+// {RANfunctionID}
+message RanfunctionId {
+    // @inject_tag: aper:"valueLB:0,valueUB:4095"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095}, json_name="value"];
+};
+
+// range of Integer from e2ap_v2.asn:1537
+// {RANfunctionRevision}
+message RanfunctionRevision {
+    // @inject_tag: aper:"valueLB:0,valueUB:4095"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095}, json_name="value"];
+};
+
+// range of Integer from e2ap_v2.asn:1544
+// {RICactionID}
+message RicactionId {
+    // @inject_tag: aper:"valueLB:0,valueUB:255"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}, json_name="value"];
+};
+
+// range of Integer from e2ap_v2.asn:1594
+// {RICindicationSN}
+message RicindicationSn {
+    // @inject_tag: aper:"valueLB:0,valueUB:65535"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 65535}, json_name="value"];
+};
+
+// sequence from e2ap_v2.asn:1603
+// {RICrequestID}
+message RicrequestId {
+    // @inject_tag: aper:"valueLB:0,valueUB:65535"
+    int32 ric_requestor_id = 1 [ json_name="ricRequestorID"];
+    // @inject_tag: aper:"valueLB:0,valueUB:65535"
+    int32 ric_instance_id = 2 [ json_name="ricInstanceID"];
+};
+
+// sequence from e2ap_v2.asn:1609
+// {RICsubsequentAction}
+message RicsubsequentAction {
+    // @inject_tag: aper:"valueLB:0,valueUB:1,valueExt"
+    RicsubsequentActionType ric_subsequent_action_type = 1 [ json_name="ricSubsequentActionType"];
+    // @inject_tag: aper:"valueLB:0,valueUB:16,valueExt"
+    RictimeToWait ric_time_to_wait = 2 [ json_name="ricTimeToWait"];
+};
+
+// sequence from e2ap_v2.asn:1649
+// {TNLinformation}
+message Tnlinformation {
+    // @inject_tag: aper:"sizeLB:1,sizeUB:160,sizeExt"
+    asn1.v1.BitString tnl_address = 1 [ json_name="tnlAddress"];
+    // @inject_tag: aper:"optional,sizeLB:16,sizeUB:16"
+    optional asn1.v1.BitString tnl_port = 2 [ json_name="tnlPort"];
+};
+
+// range of Integer from e2ap_v2.asn:1656
+// {TransactionID}
+message TransactionId {
+    // @inject_tag: aper:"valueLB:0,valueUB:255,valueExt"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}, json_name="value"];
+};
+
+

@@ -80,6 +80,9 @@ issues:
     - path: api/e2ap/v2
       linters:
         - revive
+    - path: api/e2ap_go/v2
+      linters:
+        - revive
     - path: pkg/southbound/e2ap/asn1cgo/
       linters:
         - deadcode
