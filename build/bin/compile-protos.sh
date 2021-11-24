@@ -40,24 +40,24 @@ go_import_paths="${go_import_paths},Mgoogle/protobuf/duration.proto=github.com/g
 #  --proto_path=api --go_out=. api/e2ap/v2beta1/e2ap_pdu_descriptions.proto
 #protoc-go-inject-tag -input=api/e2ap/v2beta1/e2ap-pdu-descriptions/e2ap_pdu_descriptions.pb.go
 
-#protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
-#  --proto_path=api --go_out=. api/e2ap/v2/e2ap_commondatatypes.proto
-#protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes/e2ap_commondatatypes.pb.go
-#protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
-#  --proto_path=api --go_out=. api/e2ap/v2/e2ap_constants.proto
-#protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap_constants/e2ap_constants.pb.go
-#protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
-#  --proto_path=api --go_out=. api/e2ap/v2/e2ap_containers.proto
-#protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-containers/e2ap_containers.pb.go
-#protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
-#  --proto_path=api --go_out=. api/e2ap/v2/e2ap_ies.proto
-#protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies/e2ap_ies.pb.go
-#protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
-#  --proto_path=api --go_out=. api/e2ap/v2/e2ap_pdu_contents.proto
-#protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents/e2ap_pdu_contents.pb.go
-#protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
-#  --proto_path=api --go_out=. api/e2ap/v2/e2ap_pdu_descriptions.proto
-#protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions/e2ap_pdu_descriptions.pb.go
+protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
+  --proto_path=api --go_out=. api/e2ap/v2/e2ap_commondatatypes.proto
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes/e2ap_commondatatypes.pb.go
+protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
+  --proto_path=api --go_out=. api/e2ap/v2/e2ap_constants.proto
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap_constants/e2ap_constants.pb.go
+protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
+  --proto_path=api --go_out=. api/e2ap/v2/e2ap_containers.proto
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-containers/e2ap_containers.pb.go
+protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
+  --proto_path=api --go_out=. api/e2ap/v2/e2ap_ies.proto
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies/e2ap_ies.pb.go
+protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
+  --proto_path=api --go_out=. api/e2ap/v2/e2ap_pdu_contents.proto
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents/e2ap_pdu_contents.pb.go
+protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
+  --proto_path=api --go_out=. api/e2ap/v2/e2ap_pdu_descriptions.proto
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions/e2ap_pdu_descriptions.pb.go
 
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/e2ap_go/v2/e2ap_commondatatypes.proto
