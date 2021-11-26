@@ -464,117 +464,162 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeTnlAssociationRemoval(e2ntnlar []*t
 	return m
 }
 
-//func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigAdditionAck(e2nccual []*types.E2NodeComponentConfigAdditionAckItem) *E2NodeConfigurationUpdateAcknowledge {
-//	configAdditionAckList := E2NodeComponentConfigAdditionAckList{
-//		Value: make([]*E2NodeComponentConfigAdditionAckItemIes, 0),
-//	}
-//
-//	for _, e2nccuai := range e2nccual {
-//		cuai := &E2NodeComponentConfigAdditionAckItemIes{
-//			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAckItem),
-//			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-//			Value: &E2NodeComponentConfigAdditionAckItem{
-//				E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
-//				E2NodeComponentId:            e2nccuai.E2NodeComponentID,
-//				E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
-//					UpdateOutcome: e2nccuai.E2NodeComponentConfigurationAck.UpdateOutcome,
-//					//FailureCause:  e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
-//				},
-//			},
-//			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-//		}
-//		if e2nccuai.E2NodeComponentID != nil {
-//			cuai.Value.E2NodeComponentId = e2nccuai.E2NodeComponentID
-//		}
-//		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
-//			cuai.Value.E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
-//		}
-//
-//		configAdditionAckList.Value = append(configAdditionAckList.Value, cuai)
-//	}
-//	m.GetProtocolIes().E2ApProtocolIes52 = &E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes52{
-//		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAck),
-//		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-//		Value:       &configAdditionAckList,
-//		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-//	}
-//	return m
-//}
-//
-//func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigUpdateAck(e2nccual []*types.E2NodeComponentConfigUpdateAckItem) *E2NodeConfigurationUpdateAcknowledge {
-//	configUpdateAckList := E2NodeComponentConfigUpdateAckList{
-//		Value: make([]*E2NodeComponentConfigUpdateAckItemIes, 0),
-//	}
-//
-//	for _, e2nccuai := range e2nccual {
-//		cuai := &E2NodeComponentConfigUpdateAckItemIes{
-//			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
-//			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-//			Value: &E2NodeComponentConfigUpdateAckItem{
-//				E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
-//				E2NodeComponentId:            e2nccuai.E2NodeComponentID,
-//				E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
-//					UpdateOutcome: e2nccuai.E2NodeComponentConfigurationAck.UpdateOutcome,
-//					//FailureCause:  e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
-//				},
-//			},
-//			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-//		}
-//		if e2nccuai.E2NodeComponentID != nil {
-//			cuai.Value.E2NodeComponentId = e2nccuai.E2NodeComponentID
-//		}
-//		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
-//			cuai.Value.E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
-//		}
-//
-//		configUpdateAckList.Value = append(configUpdateAckList.Value, cuai)
-//	}
-//	m.GetProtocolIes().E2ApProtocolIes35 = &E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes35{
-//		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigUpdateAck),
-//		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-//		Value:       &configUpdateAckList,
-//		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-//	}
-//	return m
-//}
-//
-//func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigRemovalAck(e2nccual []*types.E2NodeComponentConfigRemovalAckItem) *E2NodeConfigurationUpdateAcknowledge {
-//	configRemovalAckList := E2NodeComponentConfigRemovalAckList{
-//		Value: make([]*E2NodeComponentConfigRemovalAckItemIes, 0),
-//	}
-//
-//	for _, e2nccuai := range e2nccual {
-//		cuai := &E2NodeComponentConfigRemovalAckItemIes{
-//			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigRemovalAckItem),
-//			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-//			Value: &E2NodeComponentConfigRemovalAckItem{
-//				E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
-//				E2NodeComponentId:            e2nccuai.E2NodeComponentID,
-//				E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
-//					UpdateOutcome: e2nccuai.E2NodeComponentConfigurationAck.UpdateOutcome,
-//					//FailureCause:  e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
-//				},
-//			},
-//			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-//		}
-//		if e2nccuai.E2NodeComponentID != nil {
-//			cuai.Value.E2NodeComponentId = e2nccuai.E2NodeComponentID
-//		}
-//		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
-//			cuai.Value.E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
-//		}
-//
-//		configRemovalAckList.Value = append(configRemovalAckList.Value, cuai)
-//	}
-//	m.GetProtocolIes().E2ApProtocolIes56 = &E2NodeConfigurationUpdateAcknowledgeIes_E2NodeConfigurationUpdateAcknowledgeIes56{
-//		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigRemovalAck),
-//		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-//		Value:       &configRemovalAckList,
-//		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_OPTIONAL),
-//	}
-//	return m
-//}
-//
+func (m *E2NodeConfigurationUpdateAcknowledge) SetTransactionID(trID int32) *E2NodeConfigurationUpdateAcknowledge {
+
+	ie := &E2NodeConfigurationUpdateAcknowledgeIes{
+		Id:          int32(v2.ProtocolIeIDTransactionID),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Value: &E2NodeConfigurationUpdateAcknowledgeIe{
+			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_TrId{
+				TrId: &e2ap_ies.TransactionId{
+					Value: trID,
+				},
+			},
+		},
+	}
+
+	m.ProtocolIes = append(m.ProtocolIes, ie)
+	return m
+}
+
+func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigAdditionAck(e2nccual []*types.E2NodeComponentConfigAdditionAckItem) *E2NodeConfigurationUpdateAcknowledge {
+	configAdditionAckList := E2NodeComponentConfigAdditionAckList{
+		Value: make([]*E2NodeComponentConfigAdditionAckItemIes, 0),
+	}
+
+	for _, e2nccuai := range e2nccual {
+		cuai := &E2NodeComponentConfigAdditionAckItemIes{
+			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAckItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &E2NodeComponentConfigAdditionAckItemIe{
+				E2NodeComponentConfigAdditionAckItemIe: &E2NodeComponentConfigAdditionAckItemIe_E2Nccaai{
+					E2Nccaai: &E2NodeComponentConfigAdditionAckItem{
+						E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
+						E2NodeComponentId:            e2nccuai.E2NodeComponentID,
+						E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
+							UpdateOutcome: e2nccuai.E2NodeComponentConfigurationAck.UpdateOutcome,
+							//FailureCause:  e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
+						},
+					},
+				},
+			},
+		}
+		if e2nccuai.E2NodeComponentID != nil {
+			cuai.GetValue().GetE2Nccaai().E2NodeComponentId = e2nccuai.E2NodeComponentID
+		}
+		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
+			cuai.GetValue().GetE2Nccaai().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
+		}
+
+		configAdditionAckList.Value = append(configAdditionAckList.Value, cuai)
+	}
+
+	ie := &E2NodeConfigurationUpdateAcknowledgeIes{
+		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAck),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Value: &E2NodeConfigurationUpdateAcknowledgeIe{
+			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2Nccaal{
+				E2Nccaal: &configAdditionAckList,
+			},
+		},
+	}
+
+	m.ProtocolIes = append(m.ProtocolIes, ie)
+	return m
+}
+
+func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigUpdateAck(e2nccual []*types.E2NodeComponentConfigUpdateAckItem) *E2NodeConfigurationUpdateAcknowledge {
+	configUpdateAckList := E2NodeComponentConfigUpdateAckList{
+		Value: make([]*E2NodeComponentConfigUpdateAckItemIes, 0),
+	}
+
+	for _, e2nccuai := range e2nccual {
+		cuai := &E2NodeComponentConfigUpdateAckItemIes{
+			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &E2NodeComponentConfigUpdateAckItemIe{
+				E2NodeComponentConfigUpdateAckItemIe: &E2NodeComponentConfigUpdateAckItemIe_E2Nccuai{
+					E2Nccuai: &E2NodeComponentConfigUpdateAckItem{
+						E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
+						E2NodeComponentId:            e2nccuai.E2NodeComponentID,
+						E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
+							UpdateOutcome: e2nccuai.E2NodeComponentConfigurationAck.UpdateOutcome,
+							//FailureCause:  e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
+						},
+					},
+				},
+			},
+		}
+		if e2nccuai.E2NodeComponentID != nil {
+			cuai.GetValue().GetE2Nccuai().E2NodeComponentId = e2nccuai.E2NodeComponentID
+		}
+		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
+			cuai.GetValue().GetE2Nccuai().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
+		}
+
+		configUpdateAckList.Value = append(configUpdateAckList.Value, cuai)
+	}
+
+	ie := &E2NodeConfigurationUpdateAcknowledgeIes{
+		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigUpdateAck),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Value: &E2NodeConfigurationUpdateAcknowledgeIe{
+			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2Nccual{
+				E2Nccual: &configUpdateAckList,
+			},
+		},
+	}
+
+	m.ProtocolIes = append(m.ProtocolIes, ie)
+	return m
+}
+
+func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigRemovalAck(e2nccual []*types.E2NodeComponentConfigRemovalAckItem) *E2NodeConfigurationUpdateAcknowledge {
+	configRemovalAckList := E2NodeComponentConfigRemovalAckList{
+		Value: make([]*E2NodeComponentConfigRemovalAckItemIes, 0),
+	}
+
+	for _, e2nccuai := range e2nccual {
+		cuai := &E2NodeComponentConfigRemovalAckItemIes{
+			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigRemovalAckItem),
+			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+			Value: &E2NodeComponentConfigRemovalAckItemIe{
+				E2NodeComponentConfigRemovalAckItemIe: &E2NodeComponentConfigRemovalAckItemIe_E2Nccrai{
+					E2Nccrai: &E2NodeComponentConfigRemovalAckItem{
+						E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
+						E2NodeComponentId:            e2nccuai.E2NodeComponentID,
+						E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
+							UpdateOutcome: e2nccuai.E2NodeComponentConfigurationAck.UpdateOutcome,
+							//FailureCause:  e2nccuai.E2NodeComponentConfigUpdateAck.FailureCause,
+						},
+					},
+				},
+			},
+		}
+		if e2nccuai.E2NodeComponentID != nil {
+			cuai.GetValue().GetE2Nccrai().E2NodeComponentId = e2nccuai.E2NodeComponentID
+		}
+		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
+			cuai.GetValue().GetE2Nccrai().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
+		}
+
+		configRemovalAckList.Value = append(configRemovalAckList.Value, cuai)
+	}
+
+	ie := &E2NodeConfigurationUpdateAcknowledgeIes{
+		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigRemovalAck),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Value: &E2NodeConfigurationUpdateAcknowledgeIe{
+			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2Nccral{
+				E2Nccral: &configRemovalAckList,
+			},
+		},
+	}
+
+	m.ProtocolIes = append(m.ProtocolIes, ie)
+	return m
+}
+
 //func (m *E2NodeConfigurationUpdateFailure) SetCriticalityDiagnostics(failureProcCode *v2.ProcedureCodeT,
 //	failureCrit *e2ap_commondatatypes.Criticality, failureTrigMsg *e2ap_commondatatypes.TriggeringMessage,
 //	reqID *types.RicRequest, critDiags []*types.CritDiag) *E2NodeConfigurationUpdateFailure {
