@@ -540,7 +540,7 @@ message E2setupRequestIe {
         //@inject_tag: aper:"choiceIdx:1"
         TransactionId trId = 1;
         //@inject_tag: aper:"choiceIdx:2,valueExt"
-        GlobalRicId gRicId = 2;
+        GlobalE2nodeId gE2nId = 2;
         // @inject_tag: aper:"choiceIdx:3"
         RanfunctionsList rfl = 3;
         //@inject_tag: aper:"choiceIdx:4"
@@ -723,11 +723,11 @@ message E2connectionUpdateAckIes {
 
 message E2connectionUpdateAckIe {
     oneof e2connection_update_ack_ie {
-        // @inject_tag: "choiceIdx:1"
+        // @inject_tag: aper:"choiceIdx:1"
         TransactionId trId = 1;
-        // @inject_tag: "choiceIdx:2"
+        // @inject_tag: aper:"choiceIdx:2"
         E2connectionUpdateList e2cul = 2;
-        // @inject_tag: "choiceIdx:3"
+        // @inject_tag: aper:"choiceIdx:3"
         E2connectionSetupFailedList e2csfl = 3;
     }
 };
@@ -789,9 +789,9 @@ message E2connectionUpdateFailureIe {
         // @inject_tag: aper:"choiceIdx:2,valueExt"
         Cause c = 2;
         // @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"
-        TimeToWait value = 3 [ json_name="&Value"];
+        TimeToWait ttw = 3 [ json_name="&Value"];
         // @inject_tag: aper:"choiceIdx:4,valueExt"
-        CriticalityDiagnostics e2nccul = 4;
+        CriticalityDiagnostics cd = 4;
     }
 };
 

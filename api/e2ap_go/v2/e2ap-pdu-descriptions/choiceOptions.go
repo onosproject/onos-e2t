@@ -136,7 +136,7 @@ var E2ApPduChoicemap = map[string]map[int]reflect.Type{
 	},
 	"e2setup_request_ie": {
 		1: reflect.TypeOf(e2ap_pdu_contents.E2SetupRequestIe_TrId{}),
-		2: reflect.TypeOf(e2ap_pdu_contents.E2SetupRequestIe_GRicId{}),
+		2: reflect.TypeOf(e2ap_pdu_contents.E2SetupRequestIe_GE2NId{}),
 		3: reflect.TypeOf(e2ap_pdu_contents.E2SetupRequestIe_Rfl{}),
 		4: reflect.TypeOf(e2ap_pdu_contents.E2SetupRequestIe_E2Nccal{}),
 	},
@@ -176,8 +176,8 @@ var E2ApPduChoicemap = map[string]map[int]reflect.Type{
 	"e2connection_update_failure_ie": {
 		1: reflect.TypeOf(e2ap_pdu_contents.E2ConnectionUpdateFailureIe_TrId{}),
 		2: reflect.TypeOf(e2ap_pdu_contents.E2ConnectionUpdateFailureIe_C{}),
-		3: reflect.TypeOf(e2ap_pdu_contents.E2ConnectionUpdateFailureIe_Value{}),
-		4: reflect.TypeOf(e2ap_pdu_contents.E2ConnectionUpdateFailureIe_E2Nccul{}),
+		3: reflect.TypeOf(e2ap_pdu_contents.E2ConnectionUpdateFailureIe_Ttw{}),
+		4: reflect.TypeOf(e2ap_pdu_contents.E2ConnectionUpdateFailureIe_Cd{}),
 	},
 	"e2node_configuration_update_ie": {
 		1: reflect.TypeOf(e2ap_pdu_contents.E2NodeConfigurationUpdateIe_TrId{}),

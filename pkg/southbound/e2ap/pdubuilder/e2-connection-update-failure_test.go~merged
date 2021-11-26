@@ -1,10 +1,15 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
+<<<<<<< HEAD
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+=======
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 package pdubuilder
 
 import (
 	"encoding/hex"
+<<<<<<< HEAD
 	"testing"
 
 	"github.com/onosproject/onos-e2t/api/e2ap/v2"
@@ -13,10 +18,20 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
+=======
+	"github.com/onosproject/onos-e2t/api/e2ap/v1beta2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"gotest.tools/assert"
+	"testing"
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 )
 
 func TestE2connectionUpdateFailure(t *testing.T) {
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V5S
+<<<<<<< HEAD
 	procCode := v2.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
@@ -30,6 +45,17 @@ func TestE2connectionUpdateFailure(t *testing.T) {
 				Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 			},
 		}).SetTimeToWait(ttw).SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
+=======
+	procCode := v1beta2.ProcedureCodeIDRICsubscription
+	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
+	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFULL_OUTCOME
+
+	newE2apPdu, err := CreateE2connectionUpdateFailureE2apPdu(&e2apies.Cause{
+		Cause: &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+		},
+	}, &ttw, &procCode, &criticality, &ftg,
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 		&types.RicRequest{
 			RequestorID: 10,
 			InstanceID:  20,
@@ -37,9 +63,18 @@ func TestE2connectionUpdateFailure(t *testing.T) {
 			{
 				TypeOfError:   e2apies.TypeOfError_TYPE_OF_ERROR_MISSING,
 				IECriticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+<<<<<<< HEAD
 				IEId:          v2.ProtocolIeIDRicsubscriptionDetails,
 			},
 		})
+=======
+				IEId:          v1beta2.ProtocolIeIDRicsubscriptionDetails,
+			},
+		},
+	)
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -49,7 +84,11 @@ func TestE2connectionUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateFailure E2AP PDU XER - decoded is \n%v", result)
+<<<<<<< HEAD
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+=======
+	assert.DeepEqual(t, newE2apPdu, result)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -59,11 +98,16 @@ func TestE2connectionUpdateFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("E2connectionUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
+<<<<<<< HEAD
 	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
+=======
+	assert.DeepEqual(t, newE2apPdu, result1)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 }
 
 func TestE2connectionUpdateFailureExcludeOptionalIE(t *testing.T) {
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V5S
+<<<<<<< HEAD
 	newE2apPdu, err := CreateE2connectionUpdateFailureE2apPdu(1)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
@@ -73,6 +117,15 @@ func TestE2connectionUpdateFailureExcludeOptionalIE(t *testing.T) {
 				Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 			},
 		}).SetTimeToWait(ttw)
+=======
+	newE2apPdu, err := CreateE2connectionUpdateFailureE2apPdu(&e2apies.Cause{
+		Cause: &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+		},
+	}, &ttw, nil, nil, nil, nil, nil)
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -82,7 +135,11 @@ func TestE2connectionUpdateFailureExcludeOptionalIE(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("E2connectionUpdateFailure E2AP PDU XER - decoded is \n%v", result)
+<<<<<<< HEAD
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+=======
+	assert.DeepEqual(t, newE2apPdu, result)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -92,5 +149,9 @@ func TestE2connectionUpdateFailureExcludeOptionalIE(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("E2connectionUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
+<<<<<<< HEAD
 	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
+=======
+	assert.DeepEqual(t, newE2apPdu, result1)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 }
