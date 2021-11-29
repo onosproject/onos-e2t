@@ -131,7 +131,7 @@ func TestE2SetupRequestCuDuIDs(t *testing.T) {
 
 	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("E2connectionUpdate E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
+	t.Logf("E2SetupRequest E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
 	//assert.DeepEqual(t, per, perNew)
