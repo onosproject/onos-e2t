@@ -82,7 +82,7 @@ message RicactionToBeSetupItemIe {
 // {RICaction-ToBeSetup-Item}
 message RicactionToBeSetupItem {
     RicactionId ric_action_id = 1 [ json_name="ricActionID"];
-    // @inject_tag: aper:"valueLB:0,valueLB:2,valueExt"
+    // @inject_tag: aper:"valueLB:0,valueUB:2,valueExt"
     RicactionType ric_action_type = 2 [ json_name="ricActionType"];
     // @inject_tag: aper:"optional"
     optional RicactionDefinition ric_action_definition = 3 [ json_name="ricActionDefinition"];

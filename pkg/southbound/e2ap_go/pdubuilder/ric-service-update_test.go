@@ -51,7 +51,7 @@ func TestRicServiceUpdate(t *testing.T) {
 
 	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicIndication E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
+	t.Logf("RicServiceUpdate E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
 	//assert.DeepEqual(t, per, perNew)
@@ -92,7 +92,7 @@ func TestRicServiceUpdateExcludeOptionalIEs(t *testing.T) {
 
 	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicIndication E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
+	t.Logf("RicServiceUpdate E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
 	//assert.DeepEqual(t, per, perNew)

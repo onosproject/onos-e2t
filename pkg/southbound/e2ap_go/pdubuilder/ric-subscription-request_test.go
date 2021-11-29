@@ -5,11 +5,11 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/encoder"
 	"testing"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 	"gotest.tools/assert"
 )
 
@@ -41,21 +41,23 @@ func TestRicSubscriptionRequest(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, rsr != nil)
 
-	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
+	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicSubscriptionRequest E2AP PDU\n%s", xer)
+	t.Logf("RicSubscriptionRequest E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
-	result, err := asn1cgo.XerDecodeE2apPdu(xer)
-	assert.NilError(t, err)
-	t.Logf("RicSubscriptionRequest E2AP PDU XER - decoded\n%v\n", result)
-	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+	//Comparing reference PER bytes with Go APER library produced
+	//assert.DeepEqual(t, per, perNew)
 
-	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
 	assert.NilError(t, err)
-	t.Logf("RicSubscriptionRequest E2AP PDU PER\n%v", hex.Dump(per))
-
-	result1, err := asn1cgo.PerDecodeE2apPdu(per)
-	assert.NilError(t, err)
-	t.Logf("RicSubscriptionRequest E2AP PDU PER - decoded\n%v\n", result1)
-	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	//
+	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	//assert.NilError(t, err)
+	//t.Logf("RicSubscriptionRequest E2AP PDU PER\n%v", hex.Dump(per))
+	//
+	//result1, err := asn1cgo.PerDecodeE2apPdu(per)
+	//assert.NilError(t, err)
+	//t.Logf("RicSubscriptionRequest E2AP PDU PER - decoded\n%v\n", result1)
+	//assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }

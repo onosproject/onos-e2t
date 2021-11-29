@@ -488,8 +488,8 @@ type RicactionToBeSetupItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	RicActionId *e2ap_ies.RicactionId `protobuf:"bytes,1,opt,name=ric_action_id,json=ricActionID,proto3" json:"ric_action_id,omitempty"`
-	// @inject_tag: aper:"valueLB:0,valueLB:2,valueExt"
-	RicActionType e2ap_ies.RicactionType `protobuf:"varint,2,opt,name=ric_action_type,json=ricActionType,proto3,enum=e2ap_go.v2.RicactionType" json:"ric_action_type,omitempty" aper:"valueLB:0,valueLB:2,valueExt"`
+	// @inject_tag: aper:"valueLB:0,valueUB:2,valueExt"
+	RicActionType e2ap_ies.RicactionType `protobuf:"varint,2,opt,name=ric_action_type,json=ricActionType,proto3,enum=e2ap_go.v2.RicactionType" json:"ric_action_type,omitempty" aper:"valueLB:0,valueUB:2,valueExt"`
 	// @inject_tag: aper:"optional"
 	RicActionDefinition *e2ap_commondatatypes.RicactionDefinition `protobuf:"bytes,3,opt,name=ric_action_definition,json=ricActionDefinition,proto3,oneof" json:"ric_action_definition,omitempty" aper:"optional"`
 	// @inject_tag: aper:"optional,valueExt"

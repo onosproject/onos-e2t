@@ -13,32 +13,33 @@ import (
 	"gotest.tools/assert"
 )
 
-func TestRicServiceUpdateAcknowledge(t *testing.T) {
-	rfAccepted := make(types.RanFunctionRevisions)
-	rfAccepted[100] = 2
-	rfAccepted[200] = 2
-
-	rfRejected := make(types.RanFunctionCauses)
-	rfRejected[101] = &e2apies.Cause{
+func TestRicSubscriptionResponse(t *testing.T) {
+	ricActionsNotAdmittedList := make(map[types.RicActionID]*e2apies.Cause)
+	ricActionsNotAdmittedList[100] = &e2apies.Cause{
+		Cause: &e2apies.Cause_Transport{
+			Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE,
+		},
+	}
+	ricActionsNotAdmittedList[200] = &e2apies.Cause{
 		Cause: &e2apies.Cause_Misc{
 			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
 		},
 	}
-	rfRejected[102] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Protocol{
-			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
-	}
 
-	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(1, rfAccepted)
+	var ricActionAdmitted10 types.RicActionID = 10
+	var ricActionAdmitted20 types.RicActionID = 20
+	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
+		RequestorID: 22,
+		InstanceID:  6,
+	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
-	newE2apPdu.GetSuccessfulOutcome().GetValue().GetRicServiceUpdate().
-		SetRanFunctionsRejected(rfRejected)
+	newE2apPdu.GetSuccessfulOutcome().GetValue().GetRicSubscription().
+		SetRicActionNotAdmitted(ricActionsNotAdmittedList)
 
 	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicServiceUpdateAcknowledge E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
+	t.Logf("RicSubscriptionRequest E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
 	//assert.DeepEqual(t, per, perNew)
@@ -49,27 +50,27 @@ func TestRicServiceUpdateAcknowledge(t *testing.T) {
 
 	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	//assert.NilError(t, err)
-	//t.Logf("RicServiceUpdateAcknowledge E2AP PDU PER\n%v", hex.Dump(per))
+	//t.Logf("RicSubscriptionResponse E2AP PDU PER\n%v", hex.Dump(per))
 	//
 	//result1, err := asn1cgo.PerDecodeE2apPdu(per)
 	//assert.NilError(t, err)
-	//assert.Assert(t, result1 != nil)
-	//t.Logf("RicServiceUpdateAcknowledge E2AP PDU PER - decoded is \n%v", result1)
+	//t.Logf("RicSubscriptionResponse E2AP PDU PER - decoded\n%v\n", result1)
 	//assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
 
-func TestRicServiceUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
-	rfAccepted := make(types.RanFunctionRevisions)
-	rfAccepted[100] = 2
-	rfAccepted[200] = 2
-
-	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(3, rfAccepted)
+func TestRicSubscriptionResponseExceptOptionalIE(t *testing.T) {
+	var ricActionAdmitted10 types.RicActionID = 10
+	var ricActionAdmitted20 types.RicActionID = 20
+	newE2apPdu, err := CreateRicSubscriptionResponseE2apPdu(&types.RicRequest{
+		RequestorID: 22,
+		InstanceID:  6,
+	}, 9, []*types.RicActionID{&ricActionAdmitted10, &ricActionAdmitted20})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
 	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicServiceUpdateAcknowledge E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
+	t.Logf("RicSubscriptionRequest E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
 	//assert.DeepEqual(t, per, perNew)
@@ -80,11 +81,10 @@ func TestRicServiceUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
 
 	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	//assert.NilError(t, err)
-	//t.Logf("RicServiceUpdateAcknowledge E2AP PDU PER\n%v", hex.Dump(per))
+	//t.Logf("RicSubscriptionResponse E2AP PDU PER\n%v", hex.Dump(per))
 	//
 	//result1, err := asn1cgo.PerDecodeE2apPdu(per)
 	//assert.NilError(t, err)
-	//assert.Assert(t, result1 != nil)
-	//t.Logf("RicServiceUpdateAcknowledge E2AP PDU PER - decoded is \n%v", result1)
+	//t.Logf("RicSubscriptionResponse E2AP PDU PER - decoded\n%v\n", result1)
 	//assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
