@@ -1303,11 +1303,11 @@ message RicserviceUpdateAcknowledgeIes {
 message RicServiceUpdateAcknowledgeIe {
     oneof ric_service_update_acknowledge_ie {
         // @inject_tag: aper:"choiceIdx:1"
-        TransactionId id = 1;
+        TransactionId trId = 1;
         // @inject_tag: aper:"choiceIdx:2,valueExt"
-        RanfunctionsIdList rfidl = 2;
+        RanfunctionsIdListSingleContainer rfIdl = 2;
         // @inject_tag: aper:"choiceIdx:3"
-        RanfunctionsIdcauseListSingleContainer rfidcl = 3;
+        RanfunctionsIdcauseListSingleContainer rfIdcl = 3;
     }
 };
 
@@ -1368,7 +1368,7 @@ message RicserviceUpdateFailureIes {
 message RicServiceUpdateFailureIe {
     oneof ric_service_update_failure_ie {
         // @inject_tag: aper:"choiceIdx:1"
-        TransactionId id = 1;
+        TransactionId trId = 1;
         // @inject_tag: aper:"choiceIdx:2,valueExt"
         Cause c = 2;
         // @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"
@@ -1398,8 +1398,8 @@ message RicserviceQueryIes {
 message RicServiceQueryIe {
     oneof ric_service_query_ie {
         // @inject_tag: aper:"choiceIdx:1"
-        TransactionId id = 1;
+        TransactionId trId = 1;
         // @inject_tag: aper:"choiceIdx:2"
-        RanfunctionsIdListSingleContainer rfid_list = 2;
+        RanfunctionsIdListSingleContainer rfIdl = 2;
     }
 };
