@@ -16,7 +16,7 @@ func CreateRicServiceUpdateE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, er
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
 				ProcedureCode: int32(v2.ProcedureCodeIDRICserviceUpdate),
-				Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
 					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicServiceUpdate{
 						RicServiceUpdate: &e2appducontents.RicserviceUpdate{

@@ -16,7 +16,7 @@ func CreateResetResponseE2apPdu(trID int32) (*e2appdudescriptions.E2ApPdu, error
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 			SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
 				ProcedureCode: int32(v2.ProcedureCodeIDReset),
-				Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 				Value: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures{
 					SoValues: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_Reset_{
 						Reset_: &e2appducontents.ResetResponse{

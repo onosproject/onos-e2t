@@ -17,7 +17,7 @@ func CreateRicSubscriptionDeleteRequiredE2apPdu(rswcl types.RicSubscriptionWithC
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
 				ProcedureCode: int32(v2.ProcedureCodeIDRICsubscriptionDeleteRequired),
-				Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
 					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDeleteRequired{
 						RicSubscriptionDeleteRequired: &e2appducontents.RicsubscriptionDeleteRequired{

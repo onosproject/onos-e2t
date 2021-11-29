@@ -23,7 +23,7 @@ func CreateRicServiceUpdateAcknowledgeE2apPdu(trID int32, rfAccepted types.RanFu
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 			SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
 				ProcedureCode: int32(v2.ProcedureCodeIDRICserviceUpdate),
-				Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
 				Value: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures{
 					SoValues: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate{
 						RicServiceUpdate: &e2appducontents.RicserviceUpdateAcknowledge{

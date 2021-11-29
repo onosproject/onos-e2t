@@ -76,7 +76,6 @@ func CreateErrorIndicationE2apPdu(trID *int32, ricReqID *types.RicRequest, ranFu
 		e2apPdu.GetInitiatingMessage().GetValue().GetErrorIndication().SetRanFunctionID(ranFuncID)
 	}
 
-
 	if failureProcCode != nil && failureTrigMsg != nil && failureCrit != nil && reqID != nil {
 		e2apPdu.GetInitiatingMessage().GetValue().GetErrorIndication().
 			SetCriticalityDiagnostics(failureProcCode, failureCrit, failureTrigMsg, reqID, critDiags)
