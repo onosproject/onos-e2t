@@ -266,7 +266,7 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		//fmt.Printf("E2SetupRequestC %+v\n %+v\n", initMsgC, riC)
+
 		e2sr, err := decodeE2setupRequest(&esC)
 		if err != nil {
 			return nil, err
@@ -293,7 +293,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		//fmt.Printf("RICsubscriptionRequest_t %+v\n %+v\n", initMsgC, sdrC)
 
 		sr, err := decodeRicSubscriptionRequest(&srC)
 		if err != nil {
@@ -324,7 +323,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		//fmt.Printf("RICsubscriptionDeleteRequired_t %+v\n %+v\n", initMsgC, sdrC)
 
 		sdr, err := decodeRicSubscriptionDeleteRequired(&sdrC)
 		if err != nil {
@@ -355,7 +353,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		//fmt.Printf("RICsubscriptionRequest_t %+v\n %+v\n", initMsgC, sdrC)
 
 		sdr, err := decodeRicSubscriptionDeleteRequest(&sdrC)
 		if err != nil {
@@ -386,7 +383,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("RICindication_t %+v\n %+v\n", initMsgC, riC)
 
 		ri, err := decodeRicIndication(&riC)
 		if err != nil {
@@ -415,7 +411,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("RICcontrolRequest_t %+v\n %+v\n", initMsgC, rcrC)
 
 		rcr, err := decodeRicControlRequest(&rcrC)
 		if err != nil {
@@ -444,7 +439,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("ErrorIndication_t %+v\n %+v\n", initMsgC, eiC)
 
 		ei, err := decodeErrorIndication(&eiC)
 		if err != nil {
@@ -473,7 +467,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("RICserviceQuery_t %+v\n %+v\n", initMsgC, rsqC)
 
 		rsq, err := decodeRicServiceQuery(&rsqC)
 		if err != nil {
@@ -502,7 +495,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("ResetRequest_t %+v\n %+v\n", initMsgC, rrC)
 
 		rr, err := decodeResetRequest(&rrC)
 		if err != nil {
@@ -531,7 +523,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("RICserviceUpdate_t %+v\n %+v\n", initMsgC, rsuC)
 
 		rsu, err := decodeRicServiceUpdate(&rsuC)
 		if err != nil {
@@ -560,7 +551,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("E2nodeConfigurationUpdate_t %+v\n %+v\n", initMsgC, e2ncuC)
 
 		e2ncu, err := decodeE2nodeConfigurationUpdate(&e2ncuC)
 		if err != nil {
@@ -589,7 +579,6 @@ func decodeInitiatingMessage(initMsgC *C.InitiatingMessage_t) (*e2appdudescripti
 				},
 			},
 		}
-		fmt.Printf("E2connectionUpdate_t %+v\n %+v\n", initMsgC, e2cuC)
 
 		e2cu, err := decodeE2connectionUpdate(&e2cuC)
 		if err != nil {
