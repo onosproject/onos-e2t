@@ -5,12 +5,11 @@ package pdubuilder
 
 import (
 	"fmt"
-	"github.com/onosproject/onos-e2t/api/e2ap/v2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/api/e2ap_go/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
@@ -19,31 +18,20 @@ func CreateE2NodeConfigurationUpdateE2apPdu(trID int32) (*e2appdudescriptions.E2
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
-						InitiatingMessage: &e2appducontents.E2NodeConfigurationUpdate{
-							ProtocolIes: &e2appducontents.E2NodeConfigurationUpdateIes{
-								E2ApProtocolIes49: &e2appducontents.E2NodeConfigurationUpdateIes_E2NodeConfigurationUpdateIes49{
-									Id:          int32(v2.ProtocolIeIDTransactionID),
-									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-									Value: &e2ap_ies.TransactionId{
-										Value: trID,
-									},
-									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-								},
-							},
-						},
-						ProcedureCode: &e2ap_constants.IdE2NodeConfigurationUpdate{
-							Value: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
-						},
-						Criticality: &e2ap_commondatatypes.CriticalityReject{
-							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				ProcedureCode: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
+					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2NodeConfigurationUpdate{
+						E2NodeConfigurationUpdate: &e2appducontents.E2NodeConfigurationUpdate{
+							ProtocolIes: make([]*e2appducontents.E2NodeConfigurationUpdateIes, 0),
 						},
 					},
 				},
 			},
 		},
 	}
+
+	e2apPdu.GetInitiatingMessage().GetValue().GetE2NodeConfigurationUpdate().SetTransactionID(trID)
 
 	//if err := e2apPdu.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())

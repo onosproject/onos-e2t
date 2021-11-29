@@ -1,16 +1,28 @@
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
+<<<<<<< HEAD
 // SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+=======
+// SPDX-License-Identifier: LicenseRef-ONF-Member-1.0
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 package pdubuilder
 
 import (
 	"encoding/hex"
+<<<<<<< HEAD
 	"testing"
 
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"gotest.tools/assert"
+=======
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v1beta2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"gotest.tools/assert"
+	"testing"
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 )
 
 func TestRicServiceUpdateAcknowledge(t *testing.T) {
@@ -30,11 +42,17 @@ func TestRicServiceUpdateAcknowledge(t *testing.T) {
 		},
 	}
 
+<<<<<<< HEAD
 	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(1, rfAccepted)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 	newE2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetSuccessfulOutcome().
 		SetRanFunctionsRejected(rfRejected)
+=======
+	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted, rfRejected)
+	assert.NilError(t, err)
+	assert.Assert(t, newE2apPdu != nil)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 
 	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -44,7 +62,11 @@ func TestRicServiceUpdateAcknowledge(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("RicServiceUpdateAcknowledge E2AP PDU XER - decoded is \n%v", result)
+<<<<<<< HEAD
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+=======
+	assert.DeepEqual(t, newE2apPdu, result)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -54,7 +76,11 @@ func TestRicServiceUpdateAcknowledge(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("RicServiceUpdateAcknowledge E2AP PDU PER - decoded is \n%v", result1)
+<<<<<<< HEAD
 	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
+=======
+	assert.DeepEqual(t, newE2apPdu, result1)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 }
 
 func TestRicServiceUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
@@ -62,7 +88,11 @@ func TestRicServiceUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
 
+<<<<<<< HEAD
 	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(3, rfAccepted)
+=======
+	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(rfAccepted, nil)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
@@ -74,7 +104,11 @@ func TestRicServiceUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result != nil)
 	t.Logf("RicServiceUpdateAcknowledge E2AP PDU XER - decoded is \n%v", result)
+<<<<<<< HEAD
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+=======
+	assert.DeepEqual(t, newE2apPdu, result)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -84,5 +118,9 @@ func TestRicServiceUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
 	t.Logf("RicServiceUpdateAcknowledge E2AP PDU PER - decoded is \n%v", result1)
+<<<<<<< HEAD
 	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
+=======
+	assert.DeepEqual(t, newE2apPdu, result1)
+>>>>>>> Refactor E2AP protocol interface to disambiguate northbound and southbound interfaces (#440)
 }

@@ -6,78 +6,27 @@ package pdubuilder
 import (
 	"fmt"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
-	e2ap_constants "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-e2t/api/e2ap_go/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
 func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunctionIds types.RanFunctions,
 	e2nccul []*types.E2NodeComponentConfigAdditionItem) (*e2appdudescriptions.E2ApPdu, error) {
 
-	gnbIDIe := e2appducontents.E2SetupRequestIes_E2SetupRequestIes3{
-		Id:          int32(v2.ProtocolIeIDGlobalE2nodeID),
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value:       ge2nID,
-	}
-
-	if e2nccul == nil {
-		return nil, fmt.Errorf("no input parameters were passed - you should have at least one")
-	}
-
-	configAdditionList := e2appducontents.E2NodeComponentConfigAdditionList{
-		Value: make([]*e2appducontents.E2NodeComponentConfigAdditionItemIes, 0),
-	}
-
-	for _, e2nccui := range e2nccul {
-		cui := &e2appducontents.E2NodeComponentConfigAdditionItemIes{
-			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionItem),
-			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-			Value: &e2appducontents.E2NodeComponentConfigAdditionItem{
-				E2NodeComponentInterfaceType: e2nccui.E2NodeComponentType,
-				E2NodeComponentId:            e2nccui.E2NodeComponentID,
-				E2NodeComponentConfiguration: &e2nccui.E2NodeComponentConfiguration,
-			},
-			Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		}
-		configAdditionList.Value = append(configAdditionList.Value, cui)
-	}
-
 	e2apPdu := e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					E2Setup: &e2appdudescriptions.E2Setup{
-						InitiatingMessage: &e2appducontents.E2SetupRequest{
-							ProtocolIes: &e2appducontents.E2SetupRequestIes{
-								E2ApProtocolIes3: &gnbIDIe,
-								//E2ApProtocolIes10: &ranFunctions,
-								E2ApProtocolIes50: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes50{
-									Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAddition),
-									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-									Value:       &configAdditionList,
-									Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-								},
-								E2ApProtocolIes49: &e2appducontents.E2SetupRequestIes_E2SetupRequestIes49{
-									Id:          int32(v2.ProtocolIeIDTransactionID),
-									Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-									Value: &e2apies.TransactionId{
-										Value: trID,
-									},
-									Presence: int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-								},
-							},
-						},
-						ProcedureCode: &e2ap_constants.IdE2Setup{
-							Value: int32(v2.ProcedureCodeIDE2setup),
-						},
-						Criticality: &e2ap_commondatatypes.CriticalityReject{
-							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				ProcedureCode: int32(v2.ProcedureCodeIDE2setup),
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
+					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2Setup{
+						E2Setup: &e2appducontents.E2SetupRequest{
+							ProtocolIes: make([]*e2appducontents.E2SetupRequestIes, 0),
 						},
 					},
 				},
@@ -85,40 +34,8 @@ func CreateE2SetupRequestPdu(trID int32, ge2nID *e2apies.GlobalE2NodeId, ranFunc
 		},
 	}
 
-	ranFunctions := e2appducontents.E2SetupRequestIes_E2SetupRequestIes10{
-		Id:          int32(v2.ProtocolIeIDRanfunctionsAdded),
-		Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
-		Value: &e2appducontents.RanfunctionsList{
-			Value: make([]*e2appducontents.RanfunctionItemIes, 0),
-		},
-	}
-
-	for id, ranFunctionID := range ranFunctionIds {
-		ranFunction := e2appducontents.RanfunctionItemIes{
-			E2ApProtocolIes8: &e2appducontents.RanfunctionItemIes_RanfunctionItemIes8{
-				Id:          int32(v2.ProtocolIeIDRanfunctionItem),
-				Presence:    int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY),
-				Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
-				Value: &e2appducontents.RanfunctionItem{
-					RanFunctionId: &e2apies.RanfunctionId{
-						Value: int32(id),
-					},
-					RanFunctionDefinition: &e2ap_commondatatypes.RanfunctionDefinition{
-						Value: []byte(ranFunctionID.Description),
-					},
-					RanFunctionRevision: &e2apies.RanfunctionRevision{
-						Value: int32(ranFunctionID.Revision),
-					},
-					RanFunctionOid: &e2ap_commondatatypes.RanfunctionOid{
-						Value: string(ranFunctionID.OID),
-					},
-				},
-			},
-		}
-		ranFunctions.Value.Value = append(ranFunctions.Value.Value, &ranFunction)
-	}
-	e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2Setup().GetInitiatingMessage().GetProtocolIes().E2ApProtocolIes10 = &ranFunctions
+	e2apPdu.GetInitiatingMessage().GetValue().GetE2Setup().SetTransactionID(trID).
+		SetGlobalE2nodeID(ge2nID).SetRanFunctionsAdded(ranFunctionIds).SetE2nodeComponentConfigAddition(e2nccul)
 
 	//if err := e2apPdu.Validate(); err != nil {
 	//	return nil, fmt.Errorf("error validating E2ApPDU %s", err.Error())

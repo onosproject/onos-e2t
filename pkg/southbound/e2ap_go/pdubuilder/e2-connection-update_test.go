@@ -5,11 +5,11 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/encoder"
 	"testing"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"gotest.tools/assert"
 )
@@ -19,7 +19,7 @@ func TestE2connectionUpdate(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
-	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2ConnectionUpdate().GetInitiatingMessage().
+	newE2apPdu.GetInitiatingMessage().GetValue().GetE2ConnectionUpdate().
 		SetE2ConnectionUpdateAdd([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 			TnlPort: &asn1.BitString{
 				Value: []byte{0xae, 0x89},
@@ -58,25 +58,26 @@ func TestE2connectionUpdate(t *testing.T) {
 	})
 	t.Logf("That's what we are goint to encode\n%v", newE2apPdu)
 
-	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
+	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("E2connectionUpdate E2AP PDU XER\n%s", string(xer))
+	t.Logf("E2connectionUpdate E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
-	result, err := asn1cgo.XerDecodeE2apPdu(xer)
-	assert.NilError(t, err)
-	assert.Assert(t, result != nil)
-	t.Logf("E2connectionUpdate E2AP PDU XER - decoded is \n%v", result)
-	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+	//Comparing reference PER bytes with Go APER library produced
+	//assert.DeepEqual(t, per, perNew)
 
-	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
 	assert.NilError(t, err)
-	t.Logf("E2connectionUpdate E2AP PDU PER\n%v", hex.Dump(per))
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
-	result1, err := asn1cgo.PerDecodeE2apPdu(per)
-	assert.NilError(t, err)
-	assert.Assert(t, result1 != nil)
-	t.Logf("E2connectionUpdate E2AP PDU PER - decoded is \n%v", result1)
-	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
+	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	//assert.NilError(t, err)
+	//t.Logf("E2connectionUpdate E2AP PDU PER\n%v", hex.Dump(per))
+	//
+	//result1, err := asn1cgo.PerDecodeE2apPdu(per)
+	//assert.NilError(t, err)
+	//assert.Assert(t, result1 != nil)
+	//t.Logf("E2connectionUpdate E2AP PDU PER - decoded is \n%v", result1)
+	//assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
 
 func TestE2connectionUpdateExcludeOptionalIEs(t *testing.T) {
@@ -84,7 +85,7 @@ func TestE2connectionUpdateExcludeOptionalIEs(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 
-	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2ConnectionUpdate().GetInitiatingMessage().
+	newE2apPdu.GetInitiatingMessage().GetValue().GetE2ConnectionUpdate().
 		SetE2ConnectionUpdateModify([]*types.E2ConnectionUpdateItem{{TnlInformation: types.TnlInformation{
 			TnlPort: &asn1.BitString{
 				Value: []byte{0xba, 0x19},
@@ -113,23 +114,24 @@ func TestE2connectionUpdateExcludeOptionalIEs(t *testing.T) {
 			}},
 	})
 
-	xer, err := asn1cgo.XerEncodeE2apPdu(newE2apPdu)
+	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("E2connectionUpdate E2AP PDU XER\n%s", string(xer))
+	t.Logf("E2connectionUpdate E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
-	result, err := asn1cgo.XerDecodeE2apPdu(xer)
-	assert.NilError(t, err)
-	assert.Assert(t, result != nil)
-	t.Logf("E2connectionUpdate E2AP PDU XER - decoded is \n%v", result)
-	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+	//Comparing reference PER bytes with Go APER library produced
+	//assert.DeepEqual(t, per, perNew)
 
-	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
 	assert.NilError(t, err)
-	t.Logf("E2connectionUpdate E2AP PDU PER\n%v", hex.Dump(per))
+	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
-	result1, err := asn1cgo.PerDecodeE2apPdu(per)
-	assert.NilError(t, err)
-	assert.Assert(t, result1 != nil)
-	t.Logf("E2connectionUpdate E2AP PDU PER - decoded is \n%v", result1)
-	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
+	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
+	//assert.NilError(t, err)
+	//t.Logf("E2connectionUpdate E2AP PDU PER\n%v", hex.Dump(per))
+	//
+	//result1, err := asn1cgo.PerDecodeE2apPdu(per)
+	//assert.NilError(t, err)
+	//assert.Assert(t, result1 != nil)
+	//t.Logf("E2connectionUpdate E2AP PDU PER - decoded is \n%v", result1)
+	//assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }
