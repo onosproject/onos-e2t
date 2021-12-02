@@ -6,13 +6,12 @@ package subscription
 
 import (
 	"context"
+
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	"github.com/atomix/atomix-go-framework/pkg/atomix/meta"
 	api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"io"
-	"time"
 
 	_map "github.com/atomix/atomix-go-client/pkg/atomix/map"
 	"github.com/gogo/protobuf/proto"
@@ -33,8 +32,6 @@ func NewAtomixStore(client atomix.Client) (Store, error) {
 
 // Store stores subscription information
 type Store interface {
-	io.Closer
-
 	// Get retrieves an subscription from the store
 	Get(ctx context.Context, id api.SubscriptionID) (*api.Subscription, error)
 
@@ -52,6 +49,9 @@ type Store interface {
 
 	// Watch streams subscription events to the given channel
 	Watch(ctx context.Context, ch chan<- api.SubscriptionEvent, opts ...WatchOption) error
+
+	// Close closes the subscription store
+	Close(ctx context.Context) error
 }
 
 // WatchOption is a configuration option for Watch calls
@@ -194,11 +194,12 @@ func (s *atomixStore) Watch(ctx context.Context, ch chan<- api.SubscriptionEvent
 	return nil
 }
 
-func (s *atomixStore) Close() error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	_ = s.subs.Close(ctx)
-	defer cancel()
-	return s.subs.Close(ctx)
+func (s *atomixStore) Close(ctx context.Context) error {
+	err := s.subs.Close(ctx)
+	if err != nil {
+		return errors.FromAtomix(err)
+	}
+	return nil
 }
 
 func decodeSub(entry _map.Entry) (*api.Subscription, error) {
