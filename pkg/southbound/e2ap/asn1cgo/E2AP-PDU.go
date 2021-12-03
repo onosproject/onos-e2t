@@ -16,6 +16,7 @@ package asn1cgo
 import "C"
 import (
 	"encoding/binary"
+	"encoding/hex"
 	"fmt"
 	"unsafe"
 
@@ -114,6 +115,12 @@ func newE2apPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*C.E2AP_PDU_t, error) {
 		present: present,
 		choice:  choiceC,
 	}
+
+	bytesss, err := encodePerBuffer(&C.asn_DEF_E2AP_PDU, unsafe.Pointer(&e2apPduC))
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("newE2apPdu() PER is \n%v\n", hex.Dump(bytesss))
 
 	return &e2apPduC, nil
 }

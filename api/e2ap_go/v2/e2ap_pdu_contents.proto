@@ -1390,12 +1390,14 @@ message RicserviceQuery {
 message RicserviceQueryIes {
     //@inject_tag: aper:"valueLB:0,valueUB:65535"
     int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
-    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    // @inject_tag: aper:"valueLB:0,valueUB:2,fullOctet"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+    // @inject_tag: aper:"fullOctetChoice"
     RicServiceQueryIe value = 3;
 };
 
 message RicServiceQueryIe {
+    // @ inject_tag: aper:"fullOctetChoice"
     oneof ric_service_query_ie {
         // @inject_tag: aper:"choiceIdx:1"
         TransactionId trId = 1;

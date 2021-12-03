@@ -13,6 +13,7 @@ package asn1cgo
 import "C"
 
 import (
+	"encoding/hex"
 	"fmt"
 	"unsafe"
 
@@ -76,6 +77,12 @@ func newRicServiceQuery(rsq *e2ap_pdu_contents.RicserviceQuery) (*C.RICserviceQu
 	rsqC := C.RICserviceQuery_t{
 		protocolIEs: *pIeC1751P25,
 	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_RICserviceQuery, unsafe.Pointer(&rsqC))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQuery() %s", err.Error())
+	}
+	fmt.Printf("newRicServiceQuery() PER is \n%v\n", hex.Dump(bytes))
 
 	return &rsqC, nil
 }

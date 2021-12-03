@@ -14,6 +14,7 @@ package asn1cgo
 import "C"
 import (
 	"encoding/binary"
+	"encoding/hex"
 	"fmt"
 	"unsafe"
 
@@ -244,6 +245,25 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 			choice:  choiceC,
 		},
 	}
+
+	bytes2, err := encodePerBuffer(&C.asn_DEF_ProcedureCode, unsafe.Pointer(&pcC))
+	if err != nil {
+		return nil, fmt.Errorf("newInitiatingMessage() error encoding ProcedureCode\n%s", err.Error())
+	}
+	fmt.Printf("newInitiatingMessage() ProcedureCode PER is \n%v\n", hex.Dump(bytes2))
+
+	bytes1, err := encodePerBuffer(&C.asn_DEF_Criticality, unsafe.Pointer(&critC))
+	if err != nil {
+		return nil, fmt.Errorf("newInitiatingMessage() error encoding Criticality\n%s", err.Error())
+	}
+	fmt.Printf("newInitiatingMessage() Criticality PER is \n%v\n", hex.Dump(bytes1))
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_InitiatingMessage, unsafe.Pointer(&imC))
+	if err != nil {
+		return nil, fmt.Errorf("newInitiatingMessage() %s", err.Error())
+	}
+	fmt.Printf("newInitiatingMessage() PER is \n%v\n", hex.Dump(bytes))
+	//fmt.Printf("Produced structure in newInitiatingMessage() is \n%v\n", imC)
 
 	return &imC, nil
 }

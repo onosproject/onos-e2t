@@ -17,13 +17,13 @@ import (
 func TestRicServiceQuery(t *testing.T) {
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfAccepted[100] = 2
-	rfAccepted[200] = 2
+	//rfAccepted[200] = 2
 
 	newE2apPdu, err := pdubuilder.CreateRicServiceQueryE2apPdu(54)
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
-	//newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceQuery().GetInitiatingMessage().
-	//	SetRanFunctionsAccepted(rfAccepted)
+	newE2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceQuery().GetInitiatingMessage().
+		SetRanFunctionsAccepted(rfAccepted)
 
 	per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	assert.NilError(t, err)
@@ -31,12 +31,12 @@ func TestRicServiceQuery(t *testing.T) {
 
 	rfAccepted1 := make(types1.RanFunctionRevisions)
 	rfAccepted1[100] = 2
-	rfAccepted1[200] = 2
+	//rfAccepted1[200] = 2
 
 	rsq, err := CreateRicServiceQueryE2apPdu(54)
 	assert.NilError(t, err)
 	assert.Assert(t, rsq != nil)
-	//rsq.GetInitiatingMessage().GetValue().GetRicServiceQuery().SetRanFunctionsAccepted(rfAccepted1)
+	rsq.GetInitiatingMessage().GetValue().GetRicServiceQuery().SetRanFunctionsAccepted(rfAccepted1)
 
 	perNew, err := encoder.PerEncodeE2ApPdu(rsq)
 	assert.NilError(t, err)

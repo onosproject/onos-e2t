@@ -14,6 +14,7 @@ package asn1cgo
 import "C"
 import (
 	"encoding/binary"
+	"encoding/hex"
 	"fmt"
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
@@ -1051,14 +1052,29 @@ func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResp
 }
 
 func newRicServiceQueryIes9RanFunctionsAccepted(esIe *e2appducontents.RicserviceQueryIes_RicserviceQueryIes9) (*C.RICserviceQuery_IEs_t, error) {
+
+	fmt.Printf("WE'RE INSIDE newRicServiceQueryIes9RanFunctionsAccepted()\n")
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
 		return nil, err
 	}
+
+	bytes1, err := encodePerBuffer(&C.asn_DEF_Criticality, unsafe.Pointer(&critC))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQueryIes9RanFunctionsAccepted() error encoding Criticality\n%s", err.Error())
+	}
+	fmt.Printf("newRicServiceQueryIes9RanFunctionsAccepted() Criticality PER is \n%v\n", hex.Dump(bytes1))
+
 	idC, err := protocolIeIDToC(v2.ProtocolIeIDRanfunctionsAccepted)
 	if err != nil {
 		return nil, err
 	}
+
+	bytes2, err := encodePerBuffer(&C.asn_DEF_ProtocolIE_ID, unsafe.Pointer(&idC))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQueryIes9RanFunctionsAccepted() error encoding ProtocolIE-ID\n%s", err.Error())
+	}
+	fmt.Printf("newRicServiceQueryIes9RanFunctionsAccepted() ProtocolIE-ID PER is \n%v\n", hex.Dump(bytes2))
 
 	choiceC := [48]byte{} // The size of the RICserviceQueryIEs__value_u
 
@@ -1070,6 +1086,12 @@ func newRicServiceQueryIes9RanFunctionsAccepted(esIe *e2appducontents.Ricservice
 	binary.LittleEndian.PutUint32(choiceC[8:], uint32(ranFunctionsIDListC.list.count))
 	binary.LittleEndian.PutUint32(choiceC[12:], uint32(ranFunctionsIDListC.list.size))
 
+	bytes3, err := encodePerBuffer(&C.asn_DEF_RANfunctionsID_List, unsafe.Pointer(ranFunctionsIDListC))
+	if err != nil {
+		return nil, err
+	}
+	fmt.Printf("newRicServiceQueryIes9RanFunctionsAccepted() RanFunctionsID-List PER is \n%v\n", hex.Dump(bytes3))
+
 	ie := C.RICserviceQuery_IEs_t{
 		id:          idC,
 		criticality: critC,
@@ -1078,6 +1100,12 @@ func newRicServiceQueryIes9RanFunctionsAccepted(esIe *e2appducontents.Ricservice
 			choice:  choiceC,
 		},
 	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_RICserviceQuery_IEs, unsafe.Pointer(&ie))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQueryIes9RanFunctionsAccepted() %s\n", err.Error())
+	}
+	fmt.Printf("newRicServiceQueryIes9RanFunctionsAccepted() PER is \n%v\n", hex.Dump(bytes))
 
 	return &ie, nil
 }
@@ -3010,20 +3038,42 @@ func newRicServiceUpdateFailureIes49TransactionID(rsufIe *e2appducontents.Ricser
 }
 
 func newRicServiceQueryIes49TransactionID(esIe *e2appducontents.RicserviceQueryIes_RicserviceQueryIes49) (*C.RICserviceQuery_IEs_t, error) {
+
+	fmt.Printf("WE'RE INSIDE newRicServiceQueryIes49TransactionID()\n")
+
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
 		return nil, err
 	}
+
+	bytes1, err := encodePerBuffer(&C.asn_DEF_Criticality, unsafe.Pointer(&critC))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQueryIes49TransactionID() error encoding Criticality\n%s", err.Error())
+	}
+	fmt.Printf("newRicServiceQueryIes49TransactionID() Criticality PER is \n%v\n", hex.Dump(bytes1))
+
 	idC, err := protocolIeIDToC(v2.ProtocolIeIDTransactionID)
 	if err != nil {
 		return nil, err
 	}
+
+	bytes2, err := encodePerBuffer(&C.asn_DEF_ProtocolIE_ID, unsafe.Pointer(&idC))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQueryIes49TransactionID() error encoding ProtocolIE-ID\n%s", err.Error())
+	}
+	fmt.Printf("newRicServiceQueryIes49TransactionID() ProtocolIE-ID PER is \n%v\n", hex.Dump(bytes2))
 
 	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(esIe.Value)
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(*transactionID))
+
+	bytes3, err := encodePerBuffer(&C.asn_DEF_TransactionID, unsafe.Pointer(transactionID))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQueryIes49TransactionID() error encoding TransactionID\n%s", err.Error())
+	}
+	fmt.Printf("newRicServiceQueryIes49TransactionID() TransactionID PER is \n%v\n", hex.Dump(bytes3))
 
 	ie := C.RICserviceQuery_IEs_t{
 		id:          idC,
@@ -3033,6 +3083,14 @@ func newRicServiceQueryIes49TransactionID(esIe *e2appducontents.RicserviceQueryI
 			choice:  choiceC,
 		},
 	}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_RICserviceQuery_IEs, unsafe.Pointer(&ie))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQueryIes49TransactionID() %s", err.Error())
+	}
+	fmt.Printf("newRicServiceQueryIes49TransactionID() PER is \n%v\n", hex.Dump(bytes))
+
+	//fmt.Printf("Produced structure in newRicServiceQueryIes49TransactionID() is \n%v\n", ie)
 
 	return &ie, nil
 }
@@ -4097,10 +4155,10 @@ func decodeRicSubscriptionDeleteRequiredIE(rsrIeC *C.RICsubscriptionDeleteRequir
 			return nil, err
 		}
 		//ret = &e2appducontents.RicsubscriptionDeleteRequiredIes{
-			ret.Id = int32(v2.ProtocolIeIDRICsubscriptionToBeRemoved)
-			ret.Value = list
-			ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE)
-			ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY)
+		ret.Id = int32(v2.ProtocolIeIDRICsubscriptionToBeRemoved)
+		ret.Value = list
+		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE)
+		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY)
 		//}
 	case C.RICsubscriptionDeleteRequired_IEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeRicSubscriptionDeleteRequiredIE(). %v not yet implemneted", rsrIeC.value.present)

@@ -12,6 +12,7 @@ package asn1cgo
 //#include "ProtocolIE-Container.h"
 import "C"
 import (
+	"encoding/hex"
 	"fmt"
 	"unsafe"
 
@@ -1184,9 +1185,16 @@ func newRicServiceQueryIe(rsqIEs *e2appducontents.RicserviceQueryIes) (*C.Protoc
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P26), unsafe.Pointer(ie49C)); err != nil {
 			return nil, err
 		}
-	} else {
-		return nil, fmt.Errorf("newRicServiceQueryIe() TransactionID should be mandatory present in the message")
 	}
+	//else {
+	//	return nil, fmt.Errorf("newRicServiceQueryIe() TransactionID should be mandatory present in the message")
+	//}
+
+	bytes, err := encodePerBuffer(&C.asn_DEF_ProtocolIE_Container_1908P26, unsafe.Pointer(pIeC1908P26))
+	if err != nil {
+		return nil, fmt.Errorf("newRicServiceQueryIe() %s", err.Error())
+	}
+	fmt.Printf("newRicServiceQueryIe() PER is \n%v\n", hex.Dump(bytes))
 
 	return pIeC1908P26, nil
 }

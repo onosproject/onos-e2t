@@ -10407,9 +10407,10 @@ type RicserviceQueryIes struct {
 
 	//@inject_tag: aper:"valueLB:0,valueUB:65535"
 	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
-	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32              `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicServiceQueryIe `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	// @inject_tag: aper:"valueLB:0,valueUB:2,fullOctet"
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,fullOctet"`
+	// @inject_tag: aper:"fullOctetChoice"
+	Value *RicServiceQueryIe `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"fullOctetChoice"`
 }
 
 func (x *RicserviceQueryIes) Reset() {
@@ -10470,6 +10471,8 @@ type RicServiceQueryIe struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// @ inject_tag: aper:"fullOctetChoice"
+	//
 	// Types that are assignable to RicServiceQueryIe:
 	//	*RicServiceQueryIe_TrId
 	//	*RicServiceQueryIe_RfIdl
