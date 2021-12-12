@@ -133,12 +133,12 @@ type InitiatingMessage struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueLB:0,valueUB:255"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255"`
-	// @inject_tag: aper:"valueLB:0,valueUB:2,align"
-	Criticality e2ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,align"`
-	// @inject_tag: aper:"fullOctetChoice"
-	Value *InitiatingMessageE2ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"fullOctetChoice"`
+	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
+	// @inject_tag: aper:"valueLB:0,valueUB:2"
+	Criticality e2ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	// @inject_tag: aper:"canonicalOrder"
+	Value *InitiatingMessageE2ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *InitiatingMessage) Reset() {
@@ -199,8 +199,6 @@ type InitiatingMessageE2ApElementaryProcedures struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @ inject_tag: aper:"fullOctetChoice"
-	//
 	// Types that are assignable to ImValues:
 	//	*InitiatingMessageE2ApElementaryProcedures_RicSubscription
 	//	*InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDelete
@@ -345,63 +343,63 @@ type isInitiatingMessageE2ApElementaryProcedures_ImValues interface {
 }
 
 type InitiatingMessageE2ApElementaryProcedures_RicSubscription struct {
-	// @inject_tag: aper:"choiceIdx:1,valueExt"
-	RicSubscription *e2ap_pdu_contents.RicsubscriptionRequest `protobuf:"bytes,1,opt,name=ric_subscription,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicSubscription *e2ap_pdu_contents.RicsubscriptionRequest `protobuf:"bytes,1,opt,name=ric_subscription,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDelete struct {
-	// @inject_tag: aper:"choiceIdx:2,valueExt"
-	RicSubscriptionDelete *e2ap_pdu_contents.RicsubscriptionDeleteRequest `protobuf:"bytes,2,opt,name=ric_subscription_delete,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicSubscriptionDelete *e2ap_pdu_contents.RicsubscriptionDeleteRequest `protobuf:"bytes,2,opt,name=ric_subscription_delete,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_RicServiceUpdate struct {
-	// @inject_tag: aper:"choiceIdx:3,valueExt"
-	RicServiceUpdate *e2ap_pdu_contents.RicserviceUpdate `protobuf:"bytes,3,opt,name=ric_service_update,proto3,oneof" aper:"choiceIdx:3,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicServiceUpdate *e2ap_pdu_contents.RicserviceUpdate `protobuf:"bytes,3,opt,name=ric_service_update,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_RicControl struct {
-	// @inject_tag: aper:"choiceIdx:4,valueExt"
-	RicControl *e2ap_pdu_contents.RiccontrolRequest `protobuf:"bytes,4,opt,name=ric_control,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicControl *e2ap_pdu_contents.RiccontrolRequest `protobuf:"bytes,4,opt,name=ric_control,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_E2Setup struct {
-	// @inject_tag: aper:"choiceIdx:5,valueExt"
-	E2Setup *e2ap_pdu_contents.E2SetupRequest `protobuf:"bytes,5,opt,name=e2setup,proto3,oneof" aper:"choiceIdx:5,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2Setup *e2ap_pdu_contents.E2SetupRequest `protobuf:"bytes,5,opt,name=e2setup,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_E2NodeConfigurationUpdate struct {
-	// @inject_tag: aper:"choiceIdx:6,valueExt"
-	E2NodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdate `protobuf:"bytes,6,opt,name=e2node_configuration_update,proto3,oneof" aper:"choiceIdx:6,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2NodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdate `protobuf:"bytes,6,opt,name=e2node_configuration_update,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_E2ConnectionUpdate struct {
-	// @inject_tag: aper:"choiceIdx:7,valueExt"
-	E2ConnectionUpdate *e2ap_pdu_contents.E2ConnectionUpdate `protobuf:"bytes,7,opt,name=e2connection_update,proto3,oneof" aper:"choiceIdx:7,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2ConnectionUpdate *e2ap_pdu_contents.E2ConnectionUpdate `protobuf:"bytes,7,opt,name=e2connection_update,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_Reset_ struct {
-	// @inject_tag: aper:"choiceIdx:8,valueExt"
-	Reset_ *e2ap_pdu_contents.ResetRequest `protobuf:"bytes,8,opt,name=reset,proto3,oneof" aper:"choiceIdx:8,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	Reset_ *e2ap_pdu_contents.ResetRequest `protobuf:"bytes,8,opt,name=reset,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_RicIndication struct {
-	// @inject_tag: aper:"choiceIdx:9,valueExt"
-	RicIndication *e2ap_pdu_contents.Ricindication `protobuf:"bytes,9,opt,name=ric_indication,proto3,oneof" aper:"choiceIdx:9,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicIndication *e2ap_pdu_contents.Ricindication `protobuf:"bytes,9,opt,name=ric_indication,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_RicServiceQuery struct {
-	// @inject_tag: aper:"choiceIdx:10,valueExt"
-	RicServiceQuery *e2ap_pdu_contents.RicserviceQuery `protobuf:"bytes,10,opt,name=ric_service_query,proto3,oneof" aper:"choiceIdx:10,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicServiceQuery *e2ap_pdu_contents.RicserviceQuery `protobuf:"bytes,10,opt,name=ric_service_query,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_ErrorIndication struct {
-	// @inject_tag: aper:"choiceIdx:11,valueExt"
-	ErrorIndication *e2ap_pdu_contents.ErrorIndication `protobuf:"bytes,11,opt,name=error_indication,proto3,oneof" aper:"choiceIdx:11,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	ErrorIndication *e2ap_pdu_contents.ErrorIndication `protobuf:"bytes,11,opt,name=error_indication,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDeleteRequired struct {
-	// @inject_tag: aper:"choiceIdx:12,valueExt"
-	RicSubscriptionDeleteRequired *e2ap_pdu_contents.RicsubscriptionDeleteRequired `protobuf:"bytes,12,opt,name=ric_subscription_delete_required,proto3,oneof" aper:"choiceIdx:12,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicSubscriptionDeleteRequired *e2ap_pdu_contents.RicsubscriptionDeleteRequired `protobuf:"bytes,12,opt,name=ric_subscription_delete_required,proto3,oneof" aper:"valueExt"`
 }
 
 func (*InitiatingMessageE2ApElementaryProcedures_RicSubscription) isInitiatingMessageE2ApElementaryProcedures_ImValues() {
@@ -447,11 +445,12 @@ type SuccessfulOutcome struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueLB:0,valueUB:255"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255"`
+	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality e2ap_commondatatypes.Criticality           `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *SuccessfulOutcomeE2ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Criticality e2ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	// @inject_tag: aper:"canonicalOrder"
+	Value *SuccessfulOutcomeE2ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *SuccessfulOutcome) Reset() {
@@ -624,43 +623,43 @@ type isSuccessfulOutcomeE2ApElementaryProcedures_SoValues interface {
 }
 
 type SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription struct {
-	// @inject_tag: aper:"choiceIdx:1,valueExt"
-	RicSubscription *e2ap_pdu_contents.RicsubscriptionResponse `protobuf:"bytes,1,opt,name=ric_subscription,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicSubscription *e2ap_pdu_contents.RicsubscriptionResponse `protobuf:"bytes,1,opt,name=ric_subscription,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete struct {
-	// @inject_tag: aper:"choiceIdx:2,valueExt"
-	RicSubscriptionDelete *e2ap_pdu_contents.RicsubscriptionDeleteResponse `protobuf:"bytes,2,opt,name=ric_subscription_delete,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicSubscriptionDelete *e2ap_pdu_contents.RicsubscriptionDeleteResponse `protobuf:"bytes,2,opt,name=ric_subscription_delete,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate struct {
-	// @inject_tag: aper:"choiceIdx:3,valueExt"
-	RicServiceUpdate *e2ap_pdu_contents.RicserviceUpdateAcknowledge `protobuf:"bytes,3,opt,name=ric_service_update,proto3,oneof" aper:"choiceIdx:3,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicServiceUpdate *e2ap_pdu_contents.RicserviceUpdateAcknowledge `protobuf:"bytes,3,opt,name=ric_service_update,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeE2ApElementaryProcedures_RicControl struct {
-	// @inject_tag: aper:"choiceIdx:4,valueExt"
-	RicControl *e2ap_pdu_contents.RiccontrolAcknowledge `protobuf:"bytes,4,opt,name=ric_control,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicControl *e2ap_pdu_contents.RiccontrolAcknowledge `protobuf:"bytes,4,opt,name=ric_control,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeE2ApElementaryProcedures_E2Setup struct {
-	// @inject_tag: aper:"choiceIdx:5,valueExt"
-	E2Setup *e2ap_pdu_contents.E2SetupResponse `protobuf:"bytes,5,opt,name=e2setup,proto3,oneof" aper:"choiceIdx:5,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2Setup *e2ap_pdu_contents.E2SetupResponse `protobuf:"bytes,5,opt,name=e2setup,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate struct {
-	// @inject_tag: aper:"choiceIdx:6,valueExt"
-	E2NodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge `protobuf:"bytes,6,opt,name=e2node_configuration_update,proto3,oneof" aper:"choiceIdx:6,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2NodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdateAcknowledge `protobuf:"bytes,6,opt,name=e2node_configuration_update,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate struct {
-	// @inject_tag: aper:"choiceIdx:7,valueExt"
-	E2ConnectionUpdate *e2ap_pdu_contents.E2ConnectionUpdateAcknowledge `protobuf:"bytes,7,opt,name=e2connection_update,proto3,oneof" aper:"choiceIdx:7,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2ConnectionUpdate *e2ap_pdu_contents.E2ConnectionUpdateAcknowledge `protobuf:"bytes,7,opt,name=e2connection_update,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeE2ApElementaryProcedures_Reset_ struct {
-	// @inject_tag: aper:"choiceIdx:8,valueExt"
-	Reset_ *e2ap_pdu_contents.ResetResponse `protobuf:"bytes,8,opt,name=reset,proto3,oneof" aper:"choiceIdx:8,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	Reset_ *e2ap_pdu_contents.ResetResponse `protobuf:"bytes,8,opt,name=reset,proto3,oneof" aper:"valueExt"`
 }
 
 func (*SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription) isSuccessfulOutcomeE2ApElementaryProcedures_SoValues() {
@@ -694,11 +693,12 @@ type UnsuccessfulOutcome struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueLB:0,valueUB:255"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255"`
+	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality e2ap_commondatatypes.Criticality             `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *UnsuccessfulOutcomeE2ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Criticality e2ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=e2ap_go.v2.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	// @inject_tag: aper:"canonicalOrder"
+	Value *UnsuccessfulOutcomeE2ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *UnsuccessfulOutcome) Reset() {
@@ -863,38 +863,38 @@ type isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues interface {
 }
 
 type UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription struct {
-	// @inject_tag: aper:"choiceIdx:1,valueExt"
-	RicSubscription *e2ap_pdu_contents.RicsubscriptionFailure `protobuf:"bytes,1,opt,name=ric_subscription,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicSubscription *e2ap_pdu_contents.RicsubscriptionFailure `protobuf:"bytes,1,opt,name=ric_subscription,proto3,oneof" aper:"valueExt"`
 }
 
 type UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete struct {
-	// @inject_tag: aper:"choiceIdx:2,valueExt"
-	RicSubscriptionDelete *e2ap_pdu_contents.RicsubscriptionDeleteFailure `protobuf:"bytes,2,opt,name=ric_subscription_delete,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicSubscriptionDelete *e2ap_pdu_contents.RicsubscriptionDeleteFailure `protobuf:"bytes,2,opt,name=ric_subscription_delete,proto3,oneof" aper:"valueExt"`
 }
 
 type UnsuccessfulOutcomeE2ApElementaryProcedures_RicServiceUpdate struct {
-	// @inject_tag: aper:"choiceIdx:3,valueExt"
-	RicServiceUpdate *e2ap_pdu_contents.RicserviceUpdateFailure `protobuf:"bytes,3,opt,name=ric_service_update,proto3,oneof" aper:"choiceIdx:3,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicServiceUpdate *e2ap_pdu_contents.RicserviceUpdateFailure `protobuf:"bytes,3,opt,name=ric_service_update,proto3,oneof" aper:"valueExt"`
 }
 
 type UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl struct {
-	// @inject_tag: aper:"choiceIdx:4,valueExt"
-	RicControl *e2ap_pdu_contents.RiccontrolFailure `protobuf:"bytes,4,opt,name=ric_control,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	RicControl *e2ap_pdu_contents.RiccontrolFailure `protobuf:"bytes,4,opt,name=ric_control,proto3,oneof" aper:"valueExt"`
 }
 
 type UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup struct {
-	// @inject_tag: aper:"choiceIdx:5,valueExt"
-	E2Setup *e2ap_pdu_contents.E2SetupFailure `protobuf:"bytes,5,opt,name=e2setup,proto3,oneof" aper:"choiceIdx:5,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2Setup *e2ap_pdu_contents.E2SetupFailure `protobuf:"bytes,5,opt,name=e2setup,proto3,oneof" aper:"valueExt"`
 }
 
 type UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate struct {
-	// @inject_tag: aper:"choiceIdx:6,valueExt"
-	E2NodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdateFailure `protobuf:"bytes,6,opt,name=e2node_configuration_update,proto3,oneof" aper:"choiceIdx:6,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2NodeConfigurationUpdate *e2ap_pdu_contents.E2NodeConfigurationUpdateFailure `protobuf:"bytes,6,opt,name=e2node_configuration_update,proto3,oneof" aper:"valueExt"`
 }
 
 type UnsuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate struct {
-	// @inject_tag: aper:"choiceIdx:7,valueExt"
-	E2ConnectionUpdate *e2ap_pdu_contents.E2ConnectionUpdateFailure `protobuf:"bytes,7,opt,name=e2connection_update,proto3,oneof" aper:"choiceIdx:7,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	E2ConnectionUpdate *e2ap_pdu_contents.E2ConnectionUpdateFailure `protobuf:"bytes,7,opt,name=e2connection_update,proto3,oneof" aper:"valueExt"`
 }
 
 func (*UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription) isUnsuccessfulOutcomeE2ApElementaryProcedures_UoValues() {

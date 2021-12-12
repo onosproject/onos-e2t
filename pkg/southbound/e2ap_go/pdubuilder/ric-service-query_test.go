@@ -43,7 +43,7 @@ func TestRicServiceQuery(t *testing.T) {
 	t.Logf("RicServiceQuery E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
-	//assert.DeepEqual(t, per, perNew)
+	assert.DeepEqual(t, per, perNew)
 
 	e2apPdu, err := asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)

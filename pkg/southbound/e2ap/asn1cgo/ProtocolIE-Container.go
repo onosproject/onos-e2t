@@ -1167,16 +1167,6 @@ func decodeErrorIndicationIes(protocolIEsC *C.ProtocolIE_Container_1908P11_t) (*
 func newRicServiceQueryIe(rsqIEs *e2appducontents.RicserviceQueryIes) (*C.ProtocolIE_Container_1908P26_t, error) {
 	pIeC1908P26 := new(C.ProtocolIE_Container_1908P26_t)
 
-	if rsqIEs.GetE2ApProtocolIes9() != nil {
-		ie9C, err := newRicServiceQueryIes9RanFunctionsAccepted(rsqIEs.GetE2ApProtocolIes9())
-		if err != nil {
-			return nil, err
-		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P26), unsafe.Pointer(ie9C)); err != nil {
-			return nil, err
-		}
-	}
-
 	if rsqIEs.GetE2ApProtocolIes49() != nil {
 		ie49C, err := newRicServiceQueryIes49TransactionID(rsqIEs.GetE2ApProtocolIes49())
 		if err != nil {
@@ -1189,6 +1179,16 @@ func newRicServiceQueryIe(rsqIEs *e2appducontents.RicserviceQueryIes) (*C.Protoc
 	//else {
 	//	return nil, fmt.Errorf("newRicServiceQueryIe() TransactionID should be mandatory present in the message")
 	//}
+
+	if rsqIEs.GetE2ApProtocolIes9() != nil {
+		ie9C, err := newRicServiceQueryIes9RanFunctionsAccepted(rsqIEs.GetE2ApProtocolIes9())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P26), unsafe.Pointer(ie9C)); err != nil {
+			return nil, err
+		}
+	}
 
 	bytes, err := encodePerBuffer(&C.asn_DEF_ProtocolIE_Container_1908P26, unsafe.Pointer(pIeC1908P26))
 	if err != nil {

@@ -29,20 +29,20 @@ message RicsubscriptionRequest {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:401
 // {_RICsubscriptionRequest-IEs}
 message RicsubscriptionRequestIes {
-    //@inject_tag: aper:"valueLB:0,valueUB:65535"
+    //@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
     int32 id = 1 [(validate.v1.rules).int32.const = 30, json_name="&id"];
     //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
+    // @inject_tag: aper:"canonicalOrder"
     RicsubscriptionRequestIe value = 3 [ json_name="&Value"];
 };
 
 message RicsubscriptionRequestIe {
     oneof ricsubscription_request_ie {
-        //@inject_tag: aper:"choiceIdx:1,valueExt"
+        //@inject_tag: aper:"valueExt"
         RicrequestId rrId = 1;
-        //@inject_tag: aper:"choiceIdx:2"
         RanfunctionId rfId = 2;
-        //@inject_tag: aper:"choiceIdx:3,valueExt"
+        //@inject_tag: aper:"valueExt"
         RicsubscriptionDetails rsd = 3;
     }
 };
@@ -64,10 +64,11 @@ message RicactionsToBeSetupList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:417
 // {_RICaction-ToBeSetup-ItemIEs}
 message RicactionToBeSetupItemIes {
-    //@inject_tag: aper:"valueLB:0,valueUB:65535"
+    //@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
     int32 id = 1 [(validate.v1.rules).int32.const = 19, json_name="id"];
     //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
     RicactionToBeSetupItemIe value = 3 [json_name="ricActionToBeSetupItem"];
 };
 
@@ -1255,7 +1256,7 @@ message RanfunctionsIdListSingleContainer {
 // sequence from e2ap_v2.asn:1097
 // {RANfunctionsID-List}
 message RanfunctionsIdList {
-    // @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256"
+    // @inject_tag: aper:"sizeLB:1,sizeUB:256"
     repeated RanfunctionIdItemIes value = 1 [ json_name="value"];
 };
 
@@ -1266,12 +1267,13 @@ message RanfunctionIdItemIes {
     int32 id = 1 [(validate.v1.rules).int32.const = 6, json_name="id"];
     //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    //@inject_tag: aper:"canonicalOrder"
     RanfunctionIdItemIe value = 3 [json_name="ranFunctionIDItem"];
 };
 
 message RanfunctionIdItemIe {
   oneof ranfunction_id_item_ie {
-      // @inject_tag: aper:"choiceIdx:1,valueExt"
+      // @inject_tag: aper:"valueExt"
       RanfunctionIdItem rfId = 1;
   }
 };
@@ -1293,20 +1295,19 @@ message RicserviceUpdateAcknowledge {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:1120
 // {_RICserviceUpdateAcknowledge-IEs}
 message RicserviceUpdateAcknowledgeIes {
-    //@inject_tag: aper:"valueLB:0,valueUB:65535"
+    //@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
     int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
     //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+    // @inject_tag: aper:"canonicalOrder"
     RicServiceUpdateAcknowledgeIe value = 3 [ json_name="&Value"];
 };
 
 message RicServiceUpdateAcknowledgeIe {
     oneof ric_service_update_acknowledge_ie {
-        // @inject_tag: aper:"choiceIdx:1"
         TransactionId trId = 1;
-        // @inject_tag: aper:"choiceIdx:2,valueExt"
+        // @inject_tag: aper:"valueExt"
         RanfunctionsIdListSingleContainer rfIdl = 2;
-        // @inject_tag: aper:"choiceIdx:3"
         RanfunctionsIdcauseListSingleContainer rfIdcl = 3;
     }
 };
@@ -1326,16 +1327,17 @@ message RanfunctionsIdcauseList {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:1129
 // {_RANfunctionIDcause-ItemIEs}
 message RanfunctionIdcauseItemIes {
-    //@inject_tag: aper:"valueLB:0,valueUB:65535"
+    //@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
     int32 id = 1 [(validate.v1.rules).int32.const = 7, json_name="id"];
     //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
     RanfunctionIdcauseItemIe value = 3 [json_name="ranFunctionIDcauseItem"];
 };
 
 message RanfunctionIdcauseItemIe {
   oneof ranfunction_idcause_item_ie {
-      // @inject_tag: aper:"choiceIdx:1,valueExt"
+      // @inject_tag: aper:"valueExt"
       RanfunctionIdcauseItem rfIdci = 1;
   }
 };
@@ -1358,22 +1360,22 @@ message RicserviceUpdateFailure {
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:1152
 // {_RICserviceUpdateFailure-IEs}
 message RicserviceUpdateFailureIes {
-    //@inject_tag: aper:"valueLB:0,valueUB:65535"
+    //@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
     int32 id = 1 [(validate.v1.rules).int32.const = 2, json_name="&id"];
     //@inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 1, json_name="&criticality"];
+    // @inject_tag: aper:"canonicalOrder"
     RicServiceUpdateFailureIe value = 3 [ json_name="&Value"];
 };
 
 message RicServiceUpdateFailureIe {
     oneof ric_service_update_failure_ie {
-        // @inject_tag: aper:"choiceIdx:1"
         TransactionId trId = 1;
-        // @inject_tag: aper:"choiceIdx:2,valueExt"
+        // @inject_tag: aper:"valueExt"
         Cause c = 2;
-        // @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"
+        // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait ttw = 3;
-        // @inject_tag: aper:"choiceIdx:4,valueExt"
+        // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics cd = 4;
     }
 };
@@ -1381,27 +1383,24 @@ message RicServiceUpdateFailureIe {
 // sequence from e2ap_v2.asn:1171
 // {RICserviceQuery}
 message RicserviceQuery {
-    //@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
+    //@inject_tag: aper:"sizeLB:0,sizeUB:65535"
     repeated RicserviceQueryIes protocol_ies = 1 [ json_name="protocolIEs"];
 };
 
 // concrete instance(s) of class E2AP-PROTOCOL-IES from e2ap_v2.asn:1175
 // {_RICserviceQuery-IEs}
 message RicserviceQueryIes {
-    //@inject_tag: aper:"valueLB:0,valueUB:65535"
+    //@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
     int32 id = 1 [(validate.v1.rules).int32.const = 49, json_name="&id"];
-    // @inject_tag: aper:"valueLB:0,valueUB:2,fullOctet"
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
     int32 criticality = 2 [(validate.v1.rules).int32.const = 0, json_name="&criticality"];
-    // @inject_tag: aper:"fullOctetChoice"
+    // @inject_tag: aper:"canonicalOrder"
     RicServiceQueryIe value = 3;
 };
 
 message RicServiceQueryIe {
-    // @ inject_tag: aper:"fullOctetChoice"
     oneof ric_service_query_ie {
-        // @inject_tag: aper:"choiceIdx:1"
         TransactionId trId = 1;
-        // @inject_tag: aper:"choiceIdx:2"
         RanfunctionsIdListSingleContainer rfIdl = 2;
     }
 };

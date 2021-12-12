@@ -36,41 +36,40 @@ message E2ApPdu {
 // sequence from e2ap_v2.asn:107
 // {InitiatingMessage}
 message InitiatingMessage {
-    // @inject_tag: aper:"valueLB:0,valueUB:255"
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
     int32 procedure_code = 1 [ json_name="procedureCode"];
-    // @inject_tag: aper:"valueLB:0,valueUB:2,align"
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="criticality"];
-    // @inject_tag: aper:"fullOctetChoice"
+    // @inject_tag: aper:"canonicalOrder"
     InitiatingMessageE2ApElementaryProcedures value = 3 [ json_name="value"];
 };
 
 message InitiatingMessageE2ApElementaryProcedures {
 
-    // @ inject_tag: aper:"fullOctetChoice"
     oneof im_values {
-        // @inject_tag: aper:"choiceIdx:1,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicsubscriptionRequest ric_subscription = 1 [ json_name="ric_subscription"];
-        // @inject_tag: aper:"choiceIdx:2,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicsubscriptionDeleteRequest ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
-        // @inject_tag: aper:"choiceIdx:3,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicserviceUpdate ric_service_update = 3 [ json_name="ric_service_update"];
-        // @inject_tag: aper:"choiceIdx:4,valueExt"
+        // @inject_tag: aper:"valueExt"
         RiccontrolRequest ric_control = 4 [ json_name="ric_control"];
-        // @inject_tag: aper:"choiceIdx:5,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2setupRequest e2setup = 5 [ json_name="e2setup"];
-        // @inject_tag: aper:"choiceIdx:6,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2nodeConfigurationUpdate e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
-        // @inject_tag: aper:"choiceIdx:7,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2connectionUpdate e2connection_update = 7 [ json_name="e2connection_update"];
-        // @inject_tag: aper:"choiceIdx:8,valueExt"
+        // @inject_tag: aper:"valueExt"
         ResetRequest reset = 8 [ json_name="reset"];
-        // @inject_tag: aper:"choiceIdx:9,valueExt"
+        // @inject_tag: aper:"valueExt"
         Ricindication ric_indication = 9 [ json_name="ric_indication"];
-        // @inject_tag: aper:"choiceIdx:10,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicserviceQuery ric_service_query = 10 [ json_name="ric_service_query"];
-        // @inject_tag: aper:"choiceIdx:11,valueExt"
+        // @inject_tag: aper:"valueExt"
         ErrorIndication error_indication = 11 [ json_name="error_indication"];
-        // @inject_tag: aper:"choiceIdx:12,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicsubscriptionDeleteRequired ric_subscription_delete_required = 12 [ json_name="ric_subscription_delete_required"];
     }
 }
@@ -78,31 +77,32 @@ message InitiatingMessageE2ApElementaryProcedures {
 // sequence from e2ap_v2.asn:113
 // {SuccessfulOutcome}
 message SuccessfulOutcome {
-    // @inject_tag: aper:"valueLB:0,valueUB:255"
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
     int32 procedure_code = 1 [ json_name="procedureCode"];
     // @inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
     SuccessfulOutcomeE2ApElementaryProcedures value = 3 [ json_name="value"];
 };
 
 message SuccessfulOutcomeE2ApElementaryProcedures {
 
     oneof so_values {
-        // @inject_tag: aper:"choiceIdx:1,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicsubscriptionResponse ric_subscription = 1 [ json_name="ric_subscription"];
-        // @inject_tag: aper:"choiceIdx:2,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicsubscriptionDeleteResponse ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
-        // @inject_tag: aper:"choiceIdx:3,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicserviceUpdateAcknowledge ric_service_update = 3 [ json_name="ric_service_update"];
-        // @inject_tag: aper:"choiceIdx:4,valueExt"
+        // @inject_tag: aper:"valueExt"
         RiccontrolAcknowledge ric_control = 4 [ json_name="ric_control"];
-        // @inject_tag: aper:"choiceIdx:5,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2setupResponse e2setup = 5 [ json_name="e2setup"];
-        // @inject_tag: aper:"choiceIdx:6,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2nodeConfigurationUpdateAcknowledge e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
-        // @inject_tag: aper:"choiceIdx:7,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2connectionUpdateAcknowledge e2connection_update = 7 [ json_name="e2connection_update"];
-        // @inject_tag: aper:"choiceIdx:8,valueExt"
+        // @inject_tag: aper:"valueExt"
         ResetResponse reset = 8 [ json_name="reset"];
         }
 }
@@ -110,29 +110,30 @@ message SuccessfulOutcomeE2ApElementaryProcedures {
 // sequence from e2ap_v2.asn:119
 // {UnsuccessfulOutcome}
 message UnsuccessfulOutcome {
-    // @inject_tag: aper:"valueLB:0,valueUB:255"
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
     int32 procedure_code = 1 [ json_name="procedureCode"];
     // @inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
     UnsuccessfulOutcomeE2ApElementaryProcedures value = 3 [ json_name="value"];
 };
 
 message UnsuccessfulOutcomeE2ApElementaryProcedures {
 
     oneof uo_values {
-        // @inject_tag: aper:"choiceIdx:1,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicsubscriptionFailure ric_subscription = 1 [ json_name="ric_subscription"];
-        // @inject_tag: aper:"choiceIdx:2,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicsubscriptionDeleteFailure ric_subscription_delete = 2 [ json_name="ric_subscription_delete"];
-        // @inject_tag: aper:"choiceIdx:3,valueExt"
+        // @inject_tag: aper:"valueExt"
         RicserviceUpdateFailure ric_service_update = 3 [ json_name="ric_service_update"];
-        // @inject_tag: aper:"choiceIdx:4,valueExt"
+        // @inject_tag: aper:"valueExt"
         RiccontrolFailure ric_control = 4 [ json_name="ric_control"];
-        // @inject_tag: aper:"choiceIdx:5,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2setupFailure e2setup = 5 [ json_name="e2setup"];
-        // @inject_tag: aper:"choiceIdx:6,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2nodeConfigurationUpdateFailure e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
-        // @inject_tag: aper:"choiceIdx:7,valueExt"
+        // @inject_tag: aper:"valueExt"
         E2connectionUpdateFailure e2connection_update = 7 [ json_name="e2connection_update"];
     }
 }
