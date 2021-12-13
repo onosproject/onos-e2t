@@ -45,7 +45,11 @@ func TestRicServiceQuery(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
-	e2apPdu, err := asn1cgo.PerDecodeE2apPdu(per)
+	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
+	//assert.NilError(t, err)
+	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+
+	e2apPdu, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
 	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 }

@@ -12,7 +12,6 @@ package asn1cgo
 //#include "ProtocolIE-Container.h"
 import "C"
 import (
-	"encoding/hex"
 	"fmt"
 	"unsafe"
 
@@ -1175,10 +1174,9 @@ func newRicServiceQueryIe(rsqIEs *e2appducontents.RicserviceQueryIes) (*C.Protoc
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P26), unsafe.Pointer(ie49C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicServiceQueryIe() TransactionID should be mandatory present in the message")
 	}
-	//else {
-	//	return nil, fmt.Errorf("newRicServiceQueryIe() TransactionID should be mandatory present in the message")
-	//}
 
 	if rsqIEs.GetE2ApProtocolIes9() != nil {
 		ie9C, err := newRicServiceQueryIes9RanFunctionsAccepted(rsqIEs.GetE2ApProtocolIes9())
@@ -1189,12 +1187,6 @@ func newRicServiceQueryIe(rsqIEs *e2appducontents.RicserviceQueryIes) (*C.Protoc
 			return nil, err
 		}
 	}
-
-	bytes, err := encodePerBuffer(&C.asn_DEF_ProtocolIE_Container_1908P26, unsafe.Pointer(pIeC1908P26))
-	if err != nil {
-		return nil, fmt.Errorf("newRicServiceQueryIe() %s", err.Error())
-	}
-	fmt.Printf("newRicServiceQueryIe() PER is \n%v\n", hex.Dump(bytes))
 
 	return pIeC1908P26, nil
 }
@@ -1226,18 +1218,6 @@ func decodeRicServiceQueryIes(protocolIEsC *C.ProtocolIE_Container_1908P26_t) (*
 func newResetRequestIe(rrIEs *e2appducontents.ResetRequestIes) (*C.ProtocolIE_Container_1908P21_t, error) {
 	pIeC1908P21 := new(C.ProtocolIE_Container_1908P21_t)
 
-	if rrIEs.GetE2ApProtocolIes1() != nil {
-		ie1C, err := newResetRequestIes1Cause(rrIEs.GetE2ApProtocolIes1())
-		if err != nil {
-			return nil, err
-		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P21), unsafe.Pointer(ie1C)); err != nil {
-			return nil, err
-		}
-	} else {
-		return nil, fmt.Errorf("newResetRequestIe() Cause should be mandatory present in the message")
-	}
-
 	if rrIEs.GetE2ApProtocolIes49() != nil {
 		ie49C, err := newResetRequestIes49TransactionID(rrIEs.GetE2ApProtocolIes49())
 		if err != nil {
@@ -1248,6 +1228,18 @@ func newResetRequestIe(rrIEs *e2appducontents.ResetRequestIes) (*C.ProtocolIE_Co
 		}
 	} else {
 		return nil, fmt.Errorf("newResetRequestIe() TransactionID should be mandatory present in the message")
+	}
+
+	if rrIEs.GetE2ApProtocolIes1() != nil {
+		ie1C, err := newResetRequestIes1Cause(rrIEs.GetE2ApProtocolIes1())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P21), unsafe.Pointer(ie1C)); err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, fmt.Errorf("newResetRequestIe() Cause should be mandatory present in the message")
 	}
 
 	return pIeC1908P21, nil
@@ -1280,16 +1272,6 @@ func decodeResetRequestIes(protocolIEsC *C.ProtocolIE_Container_1908P21_t) (*e2a
 func newResetResponseIe(rrIEs *e2appducontents.ResetResponseIes) (*C.ProtocolIE_Container_1908P22_t, error) {
 	pIeC1908P22 := new(C.ProtocolIE_Container_1908P22_t)
 
-	if rrIEs.GetE2ApProtocolIes2() != nil {
-		ie2C, err := newResetResponseIes2CriticalityDiagnostics(rrIEs.GetE2ApProtocolIes2())
-		if err != nil {
-			return nil, err
-		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P22), unsafe.Pointer(ie2C)); err != nil {
-			return nil, err
-		}
-	}
-
 	if rrIEs.GetE2ApProtocolIes49() != nil {
 		ie49C, err := newResetResponseIes49TransactionID(rrIEs.GetE2ApProtocolIes49())
 		if err != nil {
@@ -1300,6 +1282,16 @@ func newResetResponseIe(rrIEs *e2appducontents.ResetResponseIes) (*C.ProtocolIE_
 		}
 	} else {
 		return nil, fmt.Errorf("newResetResponseIe() TransactionID should be mandatory present in the message")
+	}
+
+	if rrIEs.GetE2ApProtocolIes2() != nil {
+		ie2C, err := newResetResponseIes2CriticalityDiagnostics(rrIEs.GetE2ApProtocolIes2())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P22), unsafe.Pointer(ie2C)); err != nil {
+			return nil, err
+		}
 	}
 
 	return pIeC1908P22, nil

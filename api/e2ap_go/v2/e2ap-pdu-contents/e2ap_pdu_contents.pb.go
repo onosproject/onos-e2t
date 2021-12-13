@@ -32,8 +32,8 @@ type RicsubscriptionRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicsubscriptionRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicsubscriptionRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicsubscriptionRequest) Reset() {
@@ -303,8 +303,8 @@ type RicactionsToBeSetupList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16"
-	Value []*RicactionToBeSetupItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:16"
+	Value []*RicactionToBeSetupItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:16"`
 }
 
 func (x *RicactionsToBeSetupList) Reset() {
@@ -475,8 +475,8 @@ type isRicactionToBeSetupItemIe_RicactionToBeSetupItem interface {
 }
 
 type RicactionToBeSetupItemIe_Ratbsi struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	Ratbsi *RicactionToBeSetupItem `protobuf:"bytes,1,opt,name=ratbsi,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	Ratbsi *RicactionToBeSetupItem `protobuf:"bytes,1,opt,name=ratbsi,proto3,oneof" aper:"valueExt"`
 }
 
 func (*RicactionToBeSetupItemIe_Ratbsi) isRicactionToBeSetupItemIe_RicactionToBeSetupItem() {}
@@ -564,8 +564,8 @@ type RicsubscriptionResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicsubscriptionResponseIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicsubscriptionResponseIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicsubscriptionResponse) Reset() {
@@ -614,11 +614,12 @@ type RicsubscriptionResponseIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                      `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicsubscriptionResponseIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicsubscriptionResponseIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicsubscriptionResponseIes) Reset() {
@@ -759,23 +760,20 @@ type isRicsubscriptionResponseIe_RicsubscriptionResponseIe interface {
 }
 
 type RicsubscriptionResponseIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RicsubscriptionResponseIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 type RicsubscriptionResponseIe_Raal struct {
-	//@inject_tag: aper:"choiceIdx:3"
-	Raal *RicactionAdmittedList `protobuf:"bytes,3,opt,name=raal,proto3,oneof" aper:"choiceIdx:3"`
+	Raal *RicactionAdmittedList `protobuf:"bytes,3,opt,name=raal,proto3,oneof"`
 }
 
 type RicsubscriptionResponseIe_Ranal struct {
-	//@inject_tag: aper:"choiceIdx:4"
-	Ranal *RicactionNotAdmittedList `protobuf:"bytes,4,opt,name=ranal,proto3,oneof" aper:"choiceIdx:4"`
+	Ranal *RicactionNotAdmittedList `protobuf:"bytes,4,opt,name=ranal,proto3,oneof"`
 }
 
 func (*RicsubscriptionResponseIe_RrId) isRicsubscriptionResponseIe_RicsubscriptionResponseIe() {}
@@ -793,8 +791,8 @@ type RicactionAdmittedList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16"
-	Value []*RicactionAdmittedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:16"
+	Value []*RicactionAdmittedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:16"`
 }
 
 func (x *RicactionAdmittedList) Reset() {
@@ -843,11 +841,12 @@ type RicactionAdmittedItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                    `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicactionAdmittedItemIe `protobuf:"bytes,3,opt,name=value,json=ricActionAdmittedItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicactionAdmittedItemIe `protobuf:"bytes,3,opt,name=value,json=ricActionAdmittedItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicactionAdmittedItemIes) Reset() {
@@ -964,8 +963,8 @@ type isRicactionAdmittedItemIe_RicactionAdmittedItemIe interface {
 }
 
 type RicactionAdmittedItemIe_Ranai struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	Ranai *RicactionAdmittedItem `protobuf:"bytes,1,opt,name=ranai,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	Ranai *RicactionAdmittedItem `protobuf:"bytes,1,opt,name=ranai,proto3,oneof" aper:"valueExt"`
 }
 
 func (*RicactionAdmittedItemIe_Ranai) isRicactionAdmittedItemIe_RicactionAdmittedItemIe() {}
@@ -1026,8 +1025,8 @@ type RicactionNotAdmittedList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:0,sizeUB:16"
-	Value []*RicactionNotAdmittedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:0,sizeUB:16"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:16"
+	Value []*RicactionNotAdmittedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:0,sizeUB:16"`
 }
 
 func (x *RicactionNotAdmittedList) Reset() {
@@ -1076,11 +1075,12 @@ type RicactionNotAdmittedItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                       `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicactionNotAdmittedItemIe `protobuf:"bytes,3,opt,name=value,json=ricActionNotAdmittedItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicactionNotAdmittedItemIe `protobuf:"bytes,3,opt,name=value,json=ricActionNotAdmittedItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicactionNotAdmittedItemIes) Reset() {
@@ -1197,8 +1197,8 @@ type isRicactionNotAdmittedItemIe_RicactionNotAdmittedItemIe interface {
 }
 
 type RicactionNotAdmittedItemIe_Ranai struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	Ranai *RicactionNotAdmittedItem `protobuf:"bytes,1,opt,name=ranai,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	Ranai *RicactionNotAdmittedItem `protobuf:"bytes,1,opt,name=ranai,proto3,oneof" aper:"valueExt"`
 }
 
 func (*RicactionNotAdmittedItemIe_Ranai) isRicactionNotAdmittedItemIe_RicactionNotAdmittedItemIe() {}
@@ -1268,8 +1268,8 @@ type RicsubscriptionFailure struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicsubscriptionFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicsubscriptionFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicsubscriptionFailure) Reset() {
@@ -1318,11 +1318,12 @@ type RicsubscriptionFailureIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                     `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicsubscriptionFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicsubscriptionFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicsubscriptionFailureIes) Reset() {
@@ -1463,23 +1464,22 @@ type isRicsubscriptionFailureIe_RicsubscriptionFailureIe interface {
 }
 
 type RicsubscriptionFailureIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RicsubscriptionFailureIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 type RicsubscriptionFailureIe_C struct {
-	//@inject_tag: aper:"choiceIdx:3,valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=c,proto3,oneof" aper:"choiceIdx:3,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=c,proto3,oneof" aper:"valueExt"`
 }
 
 type RicsubscriptionFailureIe_Cd struct {
-	//@inject_tag: aper:"choiceIdx:4,valueExt"
-	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"valueExt"`
 }
 
 func (*RicsubscriptionFailureIe_RrId) isRicsubscriptionFailureIe_RicsubscriptionFailureIe() {}
@@ -1497,8 +1497,8 @@ type RicsubscriptionDeleteRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicsubscriptionDeleteRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicsubscriptionDeleteRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicsubscriptionDeleteRequest) Reset() {
@@ -1547,11 +1547,12 @@ type RicsubscriptionDeleteRequestIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                           `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicsubscriptionDeleteRequestIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicsubscriptionDeleteRequestIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicsubscriptionDeleteRequestIes) Reset() {
@@ -1676,13 +1677,12 @@ type isRicsubscriptionDeleteRequestIe_RicsubscriptionDeleteRequestIe interface {
 }
 
 type RicsubscriptionDeleteRequestIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RicsubscriptionDeleteRequestIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 func (*RicsubscriptionDeleteRequestIe_RrId) isRicsubscriptionDeleteRequestIe_RicsubscriptionDeleteRequestIe() {
@@ -1698,8 +1698,8 @@ type RicsubscriptionDeleteResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicsubscriptionDeleteResponseIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicsubscriptionDeleteResponseIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicsubscriptionDeleteResponse) Reset() {
@@ -1748,11 +1748,12 @@ type RicsubscriptionDeleteResponseIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                            `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicsubscriptionDeleteResponseIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicsubscriptionDeleteResponseIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicsubscriptionDeleteResponseIes) Reset() {
@@ -1877,13 +1878,12 @@ type isRicsubscriptionDeleteResponseIe_RicsubscriptionDeleteResponseIe interface
 }
 
 type RicsubscriptionDeleteResponseIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RicsubscriptionDeleteResponseIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 func (*RicsubscriptionDeleteResponseIe_RrId) isRicsubscriptionDeleteResponseIe_RicsubscriptionDeleteResponseIe() {
@@ -1899,8 +1899,8 @@ type RicsubscriptionDeleteFailure struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicsubscriptionDeleteFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicsubscriptionDeleteFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicsubscriptionDeleteFailure) Reset() {
@@ -1949,11 +1949,12 @@ type RicsubscriptionDeleteFailureIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                           `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicsubscriptionDeleteFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicsubscriptionDeleteFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicsubscriptionDeleteFailureIes) Reset() {
@@ -2094,23 +2095,22 @@ type isRicsubscriptionDeleteFailureIe_RicsubscriptionDeleteFailureIe interface {
 }
 
 type RicsubscriptionDeleteFailureIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RicsubscriptionDeleteFailureIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 type RicsubscriptionDeleteFailureIe_C struct {
-	//@inject_tag: aper:"choiceIdx:3,valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=c,proto3,oneof" aper:"choiceIdx:3,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=c,proto3,oneof" aper:"valueExt"`
 }
 
 type RicsubscriptionDeleteFailureIe_Cd struct {
-	//@inject_tag: aper:"choiceIdx:4,valueExt"
-	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"valueExt"`
 }
 
 func (*RicsubscriptionDeleteFailureIe_RrId) isRicsubscriptionDeleteFailureIe_RicsubscriptionDeleteFailureIe() {
@@ -2132,8 +2132,8 @@ type RicsubscriptionDeleteRequired struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicsubscriptionDeleteRequiredIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicsubscriptionDeleteRequiredIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicsubscriptionDeleteRequired) Reset() {
@@ -2182,11 +2182,12 @@ type RicsubscriptionDeleteRequiredIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                            `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicsubscriptionDeleteRequiredIe `protobuf:"bytes,3,opt,name=value,json=ricSubscriptionListWithCause,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicsubscriptionDeleteRequiredIe `protobuf:"bytes,3,opt,name=value,json=ricSubscriptionListWithCause,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicsubscriptionDeleteRequiredIes) Reset() {
@@ -2303,8 +2304,7 @@ type isRicsubscriptionDeleteRequiredIe_RicsubscriptionDeleteRequiredIe interface
 }
 
 type RicsubscriptionDeleteRequiredIe_Rsdr struct {
-	//@inject_tag: aper:"choiceIdx:1"
-	Rsdr *RicsubscriptionListWithCause `protobuf:"bytes,1,opt,name=rsdr,proto3,oneof" aper:"choiceIdx:1"`
+	Rsdr *RicsubscriptionListWithCause `protobuf:"bytes,1,opt,name=rsdr,proto3,oneof"`
 }
 
 func (*RicsubscriptionDeleteRequiredIe_Rsdr) isRicsubscriptionDeleteRequiredIe_RicsubscriptionDeleteRequiredIe() {
@@ -2317,8 +2317,8 @@ type RicsubscriptionListWithCause struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:4294967295"
-	Value []*RicsubscriptionWithCauseItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:4294967295"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:4294967295"
+	Value []*RicsubscriptionWithCauseItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:4294967295"`
 }
 
 func (x *RicsubscriptionListWithCause) Reset() {
@@ -2367,11 +2367,12 @@ type RicsubscriptionWithCauseItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                           `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicsubscriptionWithCauseItemIe `protobuf:"bytes,3,opt,name=value,json=ricSubscriptionListWithCause,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicsubscriptionWithCauseItemIe `protobuf:"bytes,3,opt,name=value,json=ricSubscriptionListWithCause,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicsubscriptionWithCauseItemIes) Reset() {
@@ -2488,8 +2489,8 @@ type isRicsubscriptionWithCauseItemIe_RicsubscriptionWithCauseItemIe interface {
 }
 
 type RicsubscriptionWithCauseItemIe_E2Curi struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Curi *RicsubscriptionWithCauseItem `protobuf:"bytes,1,opt,name=e2curi,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Curi *RicsubscriptionWithCauseItem `protobuf:"bytes,1,opt,name=e2curi,proto3,oneof" aper:"valueExt"`
 }
 
 func (*RicsubscriptionWithCauseItemIe_E2Curi) isRicsubscriptionWithCauseItemIe_RicsubscriptionWithCauseItemIe() {
@@ -2569,8 +2570,8 @@ type Ricindication struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicindicationIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicindicationIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *Ricindication) Reset() {
@@ -2619,11 +2620,12 @@ type RicindicationIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32            `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicindicationIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicindicationIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicindicationIes) Reset() {
@@ -2796,43 +2798,37 @@ type isRicindicationIe_RicindicationIe interface {
 }
 
 type RicindicationIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RicindicationIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 type RicindicationIe_RaId struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	RaId *e2ap_ies.RicactionId `protobuf:"bytes,3,opt,name=raId,proto3,oneof" aper:"choiceIdx:3"`
+	RaId *e2ap_ies.RicactionId `protobuf:"bytes,3,opt,name=raId,proto3,oneof"`
 }
 
 type RicindicationIe_RiSn struct {
-	// @inject_tag: aper:"choiceIdx:4"
-	RiSn *e2ap_ies.RicindicationSn `protobuf:"bytes,4,opt,name=riSn,proto3,oneof" aper:"choiceIdx:4"`
+	RiSn *e2ap_ies.RicindicationSn `protobuf:"bytes,4,opt,name=riSn,proto3,oneof"`
 }
 
 type RicindicationIe_Rit struct {
-	// @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:1"
-	Rit e2ap_ies.RicindicationType `protobuf:"varint,5,opt,name=rit,proto3,enum=e2ap_go.v2.RicindicationType,oneof" aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:1"`
+	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1"
+	Rit e2ap_ies.RicindicationType `protobuf:"varint,5,opt,name=rit,proto3,enum=e2ap_go.v2.RicindicationType,oneof" aper:"valueExt,valueLB:0,valueUB:1"`
 }
 
 type RicindicationIe_Rih struct {
-	// @inject_tag: aper:"choiceIdx:6"
-	Rih *e2ap_commondatatypes.RicindicationHeader `protobuf:"bytes,6,opt,name=rih,proto3,oneof" aper:"choiceIdx:6"`
+	Rih *e2ap_commondatatypes.RicindicationHeader `protobuf:"bytes,6,opt,name=rih,proto3,oneof"`
 }
 
 type RicindicationIe_Rim struct {
-	// @inject_tag: aper:"choiceIdx:7"
-	Rim *e2ap_commondatatypes.RicindicationMessage `protobuf:"bytes,7,opt,name=rim,proto3,oneof" aper:"choiceIdx:7"`
+	Rim *e2ap_commondatatypes.RicindicationMessage `protobuf:"bytes,7,opt,name=rim,proto3,oneof"`
 }
 
 type RicindicationIe_RcpId struct {
-	// @inject_tag: aper:"choiceIdx:8"
-	RcpId *e2ap_commondatatypes.RiccallProcessId `protobuf:"bytes,8,opt,name=rcpId,proto3,oneof" aper:"choiceIdx:8"`
+	RcpId *e2ap_commondatatypes.RiccallProcessId `protobuf:"bytes,8,opt,name=rcpId,proto3,oneof"`
 }
 
 func (*RicindicationIe_RrId) isRicindicationIe_RicindicationIe() {}
@@ -2858,8 +2854,8 @@ type RiccontrolRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RiccontrolRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RiccontrolRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RiccontrolRequest) Reset() {
@@ -2908,11 +2904,12 @@ type RiccontrolRequestIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RiccontrolRequestIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RiccontrolRequestIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RiccontrolRequestIes) Reset() {
@@ -3069,33 +3066,29 @@ type isRiccontrolRequestIe_RiccontrolRequestIe interface {
 }
 
 type RiccontrolRequestIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RiccontrolRequestIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 type RiccontrolRequestIe_RcpId struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	RcpId *e2ap_commondatatypes.RiccallProcessId `protobuf:"bytes,3,opt,name=rcpId,proto3,oneof" aper:"choiceIdx:3"`
+	RcpId *e2ap_commondatatypes.RiccallProcessId `protobuf:"bytes,3,opt,name=rcpId,proto3,oneof"`
 }
 
 type RiccontrolRequestIe_Rch struct {
-	// @inject_tag: aper:"choiceIdx:4"
-	Rch *e2ap_commondatatypes.RiccontrolHeader `protobuf:"bytes,4,opt,name=rch,proto3,oneof" aper:"choiceIdx:4"`
+	Rch *e2ap_commondatatypes.RiccontrolHeader `protobuf:"bytes,4,opt,name=rch,proto3,oneof"`
 }
 
 type RiccontrolRequestIe_Rcm struct {
-	// @inject_tag: aper:"choiceIdx:5"
-	Rcm *e2ap_commondatatypes.RiccontrolMessage `protobuf:"bytes,5,opt,name=rcm,proto3,oneof" aper:"choiceIdx:5"`
+	Rcm *e2ap_commondatatypes.RiccontrolMessage `protobuf:"bytes,5,opt,name=rcm,proto3,oneof"`
 }
 
 type RiccontrolRequestIe_Rcar struct {
-	// @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:1"
-	Rcar e2ap_ies.RiccontrolAckRequest `protobuf:"varint,6,opt,name=rcar,proto3,enum=e2ap_go.v2.RiccontrolAckRequest,oneof" aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:1"`
+	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1"
+	Rcar e2ap_ies.RiccontrolAckRequest `protobuf:"varint,6,opt,name=rcar,proto3,enum=e2ap_go.v2.RiccontrolAckRequest,oneof" aper:"valueExt,valueLB:0,valueUB:1"`
 }
 
 func (*RiccontrolRequestIe_RrId) isRiccontrolRequestIe_RiccontrolRequestIe() {}
@@ -3117,8 +3110,8 @@ type RiccontrolAcknowledge struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RiccontrolAcknowledgeIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RiccontrolAcknowledgeIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RiccontrolAcknowledge) Reset() {
@@ -3167,11 +3160,12 @@ type RiccontrolAcknowledgeIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                    `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RiccontrolAcknowledgeIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RiccontrolAcknowledgeIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RiccontrolAcknowledgeIes) Reset() {
@@ -3312,23 +3306,20 @@ type isRiccontrolAcknowledgeIe_RiccontrolAcknowledgeIe interface {
 }
 
 type RiccontrolAcknowledgeIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RiccontrolAcknowledgeIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 type RiccontrolAcknowledgeIe_RcpId struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	RcpId *e2ap_commondatatypes.RiccallProcessId `protobuf:"bytes,3,opt,name=rcpId,proto3,oneof" aper:"choiceIdx:3"`
+	RcpId *e2ap_commondatatypes.RiccallProcessId `protobuf:"bytes,3,opt,name=rcpId,proto3,oneof"`
 }
 
 type RiccontrolAcknowledgeIe_Co struct {
-	// @inject_tag: aper:"choiceIdx:4"
-	Co *e2ap_commondatatypes.RiccontrolOutcome `protobuf:"bytes,4,opt,name=co,proto3,oneof" aper:"choiceIdx:4"`
+	Co *e2ap_commondatatypes.RiccontrolOutcome `protobuf:"bytes,4,opt,name=co,proto3,oneof"`
 }
 
 func (*RiccontrolAcknowledgeIe_RrId) isRiccontrolAcknowledgeIe_RiccontrolAcknowledgeIe() {}
@@ -3346,8 +3337,8 @@ type RiccontrolFailure struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RiccontrolFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RiccontrolFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RiccontrolFailure) Reset() {
@@ -3396,11 +3387,12 @@ type RiccontrolFailureIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RiccontrolFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RiccontrolFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RiccontrolFailureIes) Reset() {
@@ -3549,28 +3541,25 @@ type isRiccontrolFailureIe_RiccontrolFailureIe interface {
 }
 
 type RiccontrolFailureIe_RrId struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	RrId *e2ap_ies.RicrequestId `protobuf:"bytes,1,opt,name=rrId,proto3,oneof" aper:"valueExt"`
 }
 
 type RiccontrolFailureIe_RfId struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof" aper:"choiceIdx:2"`
+	RfId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=rfId,proto3,oneof"`
 }
 
 type RiccontrolFailureIe_RcpId struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	RcpId *e2ap_commondatatypes.RiccallProcessId `protobuf:"bytes,3,opt,name=rcpId,proto3,oneof" aper:"choiceIdx:3"`
+	RcpId *e2ap_commondatatypes.RiccallProcessId `protobuf:"bytes,3,opt,name=rcpId,proto3,oneof"`
 }
 
 type RiccontrolFailureIe_C struct {
-	//@inject_tag: aper:"choiceIdx:4,valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,4,opt,name=c,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,4,opt,name=c,proto3,oneof" aper:"valueExt"`
 }
 
 type RiccontrolFailureIe_Co struct {
-	// @inject_tag: aper:"choiceIdx:5"
-	Co *e2ap_commondatatypes.RiccontrolOutcome `protobuf:"bytes,5,opt,name=co,proto3,oneof" aper:"choiceIdx:5"`
+	Co *e2ap_commondatatypes.RiccontrolOutcome `protobuf:"bytes,5,opt,name=co,proto3,oneof"`
 }
 
 func (*RiccontrolFailureIe_RrId) isRiccontrolFailureIe_RiccontrolFailureIe() {}
@@ -3590,8 +3579,8 @@ type ErrorIndication struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*ErrorIndicationIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*ErrorIndicationIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *ErrorIndication) Reset() {
@@ -3640,11 +3629,12 @@ type ErrorIndicationIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32              `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *ErrorIndicationIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *ErrorIndicationIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *ErrorIndicationIes) Reset() {
@@ -3793,28 +3783,26 @@ type isErrorIndicationIe_ErrorIndicationIe interface {
 }
 
 type ErrorIndicationIe_TrId struct {
-	//@inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type ErrorIndicationIe_Rr struct {
-	//@inject_tag: aper:"choiceIdx:2,valueExt"
-	Rr *e2ap_ies.RicrequestId `protobuf:"bytes,2,opt,name=rr,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	Rr *e2ap_ies.RicrequestId `protobuf:"bytes,2,opt,name=rr,proto3,oneof" aper:"valueExt"`
 }
 
 type ErrorIndicationIe_Rfid struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	Rfid *e2ap_ies.RanfunctionId `protobuf:"bytes,3,opt,name=rfid,proto3,oneof" aper:"choiceIdx:3"`
+	Rfid *e2ap_ies.RanfunctionId `protobuf:"bytes,3,opt,name=rfid,proto3,oneof"`
 }
 
 type ErrorIndicationIe_C struct {
-	//@inject_tag: aper:"choiceIdx:4,valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,4,opt,name=c,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,4,opt,name=c,proto3,oneof" aper:"valueExt"`
 }
 
 type ErrorIndicationIe_Cd struct {
-	// @inject_tag: aper:"choiceIdx:5,valueExt"
-	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=cd,proto3,oneof" aper:"choiceIdx:5,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=cd,proto3,oneof" aper:"valueExt"`
 }
 
 func (*ErrorIndicationIe_TrId) isErrorIndicationIe_ErrorIndicationIe() {}
@@ -3834,8 +3822,8 @@ type E2SetupRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*E2SetupRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2SetupRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2SetupRequest) Reset() {
@@ -3884,11 +3872,12 @@ type E2SetupRequestIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32             `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2SetupRequestIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2SetupRequestIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2SetupRequestIes) Reset() {
@@ -4029,23 +4018,20 @@ type isE2SetupRequestIe_E2SetupRequestIe interface {
 }
 
 type E2SetupRequestIe_TrId struct {
-	//@inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2SetupRequestIe_GE2NId struct {
-	//@inject_tag: aper:"choiceIdx:2,valueExt"
-	GE2NId *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,2,opt,name=gE2nId,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	GE2NId *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,2,opt,name=gE2nId,proto3,oneof" aper:"valueExt"`
 }
 
 type E2SetupRequestIe_Rfl struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	Rfl *RanfunctionsList `protobuf:"bytes,3,opt,name=rfl,proto3,oneof" aper:"choiceIdx:3"`
+	Rfl *RanfunctionsList `protobuf:"bytes,3,opt,name=rfl,proto3,oneof"`
 }
 
 type E2SetupRequestIe_E2Nccal struct {
-	//@inject_tag: aper:"choiceIdx:4"
-	E2Nccal *E2NodeComponentConfigAdditionList `protobuf:"bytes,4,opt,name=e2nccal,proto3,oneof" aper:"choiceIdx:4"`
+	E2Nccal *E2NodeComponentConfigAdditionList `protobuf:"bytes,4,opt,name=e2nccal,proto3,oneof"`
 }
 
 func (*E2SetupRequestIe_TrId) isE2SetupRequestIe_E2SetupRequestIe() {}
@@ -4063,8 +4049,8 @@ type E2SetupResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*E2SetupResponseIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2SetupResponseIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2SetupResponse) Reset() {
@@ -4113,11 +4099,12 @@ type E2SetupResponseIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32              `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2SetupResponseIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2SetupResponseIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2SetupResponseIes) Reset() {
@@ -4266,28 +4253,24 @@ type isE2SetupResponseIe_E2SetupResponseIe interface {
 }
 
 type E2SetupResponseIe_TrId struct {
-	//@inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2SetupResponseIe_GRicId struct {
-	//@inject_tag: aper:"choiceIdx:2,valueExt"
-	GRicId *e2ap_ies.GlobalRicId `protobuf:"bytes,2,opt,name=gRicId,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	GRicId *e2ap_ies.GlobalRicId `protobuf:"bytes,2,opt,name=gRicId,proto3,oneof" aper:"valueExt"`
 }
 
 type E2SetupResponseIe_RfIdl struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	RfIdl *RanfunctionsIdList `protobuf:"bytes,3,opt,name=rfIdl,proto3,oneof" aper:"choiceIdx:3"`
+	RfIdl *RanfunctionsIdList `protobuf:"bytes,3,opt,name=rfIdl,proto3,oneof"`
 }
 
 type E2SetupResponseIe_RfIdcl struct {
-	//@inject_tag: aper:"choiceIdx:4"
-	RfIdcl *RanfunctionsIdcauseList `protobuf:"bytes,4,opt,name=rfIdcl,proto3,oneof" aper:"choiceIdx:4"`
+	RfIdcl *RanfunctionsIdcauseList `protobuf:"bytes,4,opt,name=rfIdcl,proto3,oneof"`
 }
 
 type E2SetupResponseIe_E2Nccaal struct {
-	//@inject_tag: aper:"choiceIdx:5"
-	E2Nccaal *E2NodeComponentConfigAdditionAckList `protobuf:"bytes,5,opt,name=e2nccaal,proto3,oneof" aper:"choiceIdx:5"`
+	E2Nccaal *E2NodeComponentConfigAdditionAckList `protobuf:"bytes,5,opt,name=e2nccaal,proto3,oneof"`
 }
 
 func (*E2SetupResponseIe_TrId) isE2SetupResponseIe_E2SetupResponseIe() {}
@@ -4307,8 +4290,8 @@ type E2SetupFailure struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*E2SetupFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2SetupFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2SetupFailure) Reset() {
@@ -4357,11 +4340,12 @@ type E2SetupFailureIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32             `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2SetupFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2SetupFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2SetupFailureIes) Reset() {
@@ -4510,28 +4494,27 @@ type isE2SetupFailureIe_E2SetupFailureIe interface {
 }
 
 type E2SetupFailureIe_TrId struct {
-	//@inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2SetupFailureIe_C struct {
-	//@inject_tag: aper:"choiceIdx:2,valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
 }
 
 type E2SetupFailureIe_Ttw struct {
-	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"
-	Ttw e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=ttw,proto3,enum=e2ap_go.v2.TimeToWait,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"`
+	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
+	Ttw e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=ttw,proto3,enum=e2ap_go.v2.TimeToWait,oneof" aper:"valueExt,valueLB:0,valueUB:5"`
 }
 
 type E2SetupFailureIe_Cd struct {
-	//@inject_tag: aper:"choiceIdx:4,valueExt"
-	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"valueExt"`
 }
 
 type E2SetupFailureIe_TnlInfo struct {
-	//@inject_tag: aper:"choiceIdx:5,valueExt"
-	TnlInfo *e2ap_ies.Tnlinformation `protobuf:"bytes,5,opt,name=tnlInfo,proto3,oneof" aper:"choiceIdx:5,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	TnlInfo *e2ap_ies.Tnlinformation `protobuf:"bytes,5,opt,name=tnlInfo,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2SetupFailureIe_TrId) isE2SetupFailureIe_E2SetupFailureIe() {}
@@ -4551,8 +4534,8 @@ type E2ConnectionUpdate struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*E2ConnectionUpdateIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2ConnectionUpdateIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2ConnectionUpdate) Reset() {
@@ -4601,11 +4584,12 @@ type E2ConnectionUpdateIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2ConnectionUpdateIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2ConnectionUpdateIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2ConnectionUpdateIes) Reset() {
@@ -4738,18 +4722,15 @@ type isE2ConnectionUpdateIe_E2ConnectionUpdateIe interface {
 }
 
 type E2ConnectionUpdateIe_TrId struct {
-	//@inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2ConnectionUpdateIe_E2Cul struct {
-	//@inject_tag: aper:"choiceIdx:2"
-	E2Cul *E2ConnectionUpdateList `protobuf:"bytes,2,opt,name=e2cul,proto3,oneof" aper:"choiceIdx:2"`
+	E2Cul *E2ConnectionUpdateList `protobuf:"bytes,2,opt,name=e2cul,proto3,oneof"`
 }
 
 type E2ConnectionUpdateIe_E2Curl struct {
-	//@inject_tag: aper:"choiceIdx:3"
-	E2Curl *E2ConnectionUpdateRemoveList `protobuf:"bytes,3,opt,name=e2curl,proto3,oneof" aper:"choiceIdx:3"`
+	E2Curl *E2ConnectionUpdateRemoveList `protobuf:"bytes,3,opt,name=e2curl,proto3,oneof"`
 }
 
 func (*E2ConnectionUpdateIe_TrId) isE2ConnectionUpdateIe_E2ConnectionUpdateIe() {}
@@ -4765,8 +4746,8 @@ type E2ConnectionUpdateList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32"
-	Value []*E2ConnectionUpdateItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:32"
+	Value []*E2ConnectionUpdateItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32"`
 }
 
 func (x *E2ConnectionUpdateList) Reset() {
@@ -4815,11 +4796,12 @@ type E2ConnectionUpdateItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                     `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2ConnectionUpdateItemIe `protobuf:"bytes,3,opt,name=value,json=E2connectionUpdateItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2ConnectionUpdateItemIe `protobuf:"bytes,3,opt,name=value,json=E2connectionUpdateItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2ConnectionUpdateItemIes) Reset() {
@@ -4936,8 +4918,8 @@ type isE2ConnectionUpdateItemIe_E2ConnectionUpdateItemIe interface {
 }
 
 type E2ConnectionUpdateItemIe_E2Curi struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Curi *E2ConnectionUpdateItem `protobuf:"bytes,1,opt,name=e2curi,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Curi *E2ConnectionUpdateItem `protobuf:"bytes,1,opt,name=e2curi,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2ConnectionUpdateItemIe_E2Curi) isE2ConnectionUpdateItemIe_E2ConnectionUpdateItemIe() {}
@@ -5008,8 +4990,8 @@ type E2ConnectionUpdateRemoveList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32"
-	Value []*E2ConnectionUpdateRemoveItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:32"
+	Value []*E2ConnectionUpdateRemoveItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32"`
 }
 
 func (x *E2ConnectionUpdateRemoveList) Reset() {
@@ -5058,11 +5040,12 @@ type E2ConnectionUpdateRemoveItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                           `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2ConnectionUpdateRemoveItemIe `protobuf:"bytes,3,opt,name=value,json=E2connectionUpdateRemoveItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2ConnectionUpdateRemoveItemIe `protobuf:"bytes,3,opt,name=value,json=E2connectionUpdateRemoveItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2ConnectionUpdateRemoveItemIes) Reset() {
@@ -5179,8 +5162,8 @@ type isE2ConnectionUpdateRemoveItemIe_E2ConnectionUpdateRemoveItemIe interface {
 }
 
 type E2ConnectionUpdateRemoveItemIe_E2Curi struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Curi *E2ConnectionUpdateRemoveItem `protobuf:"bytes,1,opt,name=e2curi,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Curi *E2ConnectionUpdateRemoveItem `protobuf:"bytes,1,opt,name=e2curi,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2ConnectionUpdateRemoveItemIe_E2Curi) isE2ConnectionUpdateRemoveItemIe_E2ConnectionUpdateRemoveItemIe() {
@@ -5243,8 +5226,8 @@ type E2ConnectionUpdateAcknowledge struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*E2ConnectionUpdateAckIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2ConnectionUpdateAckIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2ConnectionUpdateAcknowledge) Reset() {
@@ -5293,11 +5276,12 @@ type E2ConnectionUpdateAckIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                    `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2ConnectionUpdateAckIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2ConnectionUpdateAckIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2ConnectionUpdateAckIes) Reset() {
@@ -5430,18 +5414,15 @@ type isE2ConnectionUpdateAckIe_E2ConnectionUpdateAckIe interface {
 }
 
 type E2ConnectionUpdateAckIe_TrId struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2ConnectionUpdateAckIe_E2Cul struct {
-	// @inject_tag: aper:"choiceIdx:2"
-	E2Cul *E2ConnectionUpdateList `protobuf:"bytes,2,opt,name=e2cul,proto3,oneof" aper:"choiceIdx:2"`
+	E2Cul *E2ConnectionUpdateList `protobuf:"bytes,2,opt,name=e2cul,proto3,oneof"`
 }
 
 type E2ConnectionUpdateAckIe_E2Csfl struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	E2Csfl *E2ConnectionSetupFailedList `protobuf:"bytes,3,opt,name=e2csfl,proto3,oneof" aper:"choiceIdx:3"`
+	E2Csfl *E2ConnectionSetupFailedList `protobuf:"bytes,3,opt,name=e2csfl,proto3,oneof"`
 }
 
 func (*E2ConnectionUpdateAckIe_TrId) isE2ConnectionUpdateAckIe_E2ConnectionUpdateAckIe() {}
@@ -5457,8 +5438,8 @@ type E2ConnectionSetupFailedList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32"
-	Value []*E2ConnectionSetupFailedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:32"
+	Value []*E2ConnectionSetupFailedItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32"`
 }
 
 func (x *E2ConnectionSetupFailedList) Reset() {
@@ -5507,11 +5488,12 @@ type E2ConnectionSetupFailedItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                          `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2ConnectionSetupFailedItemIe `protobuf:"bytes,3,opt,name=value,json=E2connectionSetupFailedItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2ConnectionSetupFailedItemIe `protobuf:"bytes,3,opt,name=value,json=E2connectionSetupFailedItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2ConnectionSetupFailedItemIes) Reset() {
@@ -5628,8 +5610,8 @@ type isE2ConnectionSetupFailedItemIe_E2ConnectionSetupFailedItemIe interface {
 }
 
 type E2ConnectionSetupFailedItemIe_E2Csfi struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Csfi *E2ConnectionSetupFailedItem `protobuf:"bytes,1,opt,name=e2csfi,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Csfi *E2ConnectionSetupFailedItem `protobuf:"bytes,1,opt,name=e2csfi,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2ConnectionSetupFailedItemIe_E2Csfi) isE2ConnectionSetupFailedItemIe_E2ConnectionSetupFailedItemIe() {
@@ -5701,8 +5683,8 @@ type E2ConnectionUpdateFailure struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*E2ConnectionUpdateFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2ConnectionUpdateFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2ConnectionUpdateFailure) Reset() {
@@ -5751,11 +5733,12 @@ type E2ConnectionUpdateFailureIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                        `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2ConnectionUpdateFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2ConnectionUpdateFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2ConnectionUpdateFailureIes) Reset() {
@@ -5896,23 +5879,22 @@ type isE2ConnectionUpdateFailureIe_E2ConnectionUpdateFailureIe interface {
 }
 
 type E2ConnectionUpdateFailureIe_TrId struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2ConnectionUpdateFailureIe_C struct {
-	// @inject_tag: aper:"choiceIdx:2,valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
 }
 
 type E2ConnectionUpdateFailureIe_Ttw struct {
-	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"
-	Ttw e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=ttw,json=&Value,proto3,enum=e2ap_go.v2.TimeToWait,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"`
+	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
+	Ttw e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=ttw,json=&Value,proto3,enum=e2ap_go.v2.TimeToWait,oneof" aper:"valueExt,valueLB:0,valueUB:5"`
 }
 
 type E2ConnectionUpdateFailureIe_Cd struct {
-	// @inject_tag: aper:"choiceIdx:4,valueExt"
-	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2ConnectionUpdateFailureIe_TrId) isE2ConnectionUpdateFailureIe_E2ConnectionUpdateFailureIe() {
@@ -5931,8 +5913,8 @@ type E2NodeConfigurationUpdate struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*E2NodeConfigurationUpdateIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	// @inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2NodeConfigurationUpdateIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2NodeConfigurationUpdate) Reset() {
@@ -5981,11 +5963,12 @@ type E2NodeConfigurationUpdateIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                        `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeConfigurationUpdateIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeConfigurationUpdateIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeConfigurationUpdateIes) Reset() {
@@ -6142,33 +6125,28 @@ type isE2NodeConfigurationUpdateIe_E2NodeConfigurationUpdateIe interface {
 }
 
 type E2NodeConfigurationUpdateIe_TrId struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2NodeConfigurationUpdateIe_Ge2NId struct {
-	// @inject_tag: aper:"choiceIdx:2,valueExt"
-	Ge2NId *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,2,opt,name=ge2nId,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	Ge2NId *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,2,opt,name=ge2nId,proto3,oneof" aper:"valueExt"`
 }
 
 type E2NodeConfigurationUpdateIe_E2Nccal struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	E2Nccal *E2NodeComponentConfigAdditionList `protobuf:"bytes,3,opt,name=e2nccal,proto3,oneof" aper:"choiceIdx:3"`
+	E2Nccal *E2NodeComponentConfigAdditionList `protobuf:"bytes,3,opt,name=e2nccal,proto3,oneof"`
 }
 
 type E2NodeConfigurationUpdateIe_E2Nccul struct {
-	// @inject_tag: aper:"choiceIdx:4"
-	E2Nccul *E2NodeComponentConfigUpdateList `protobuf:"bytes,4,opt,name=e2nccul,proto3,oneof" aper:"choiceIdx:4"`
+	E2Nccul *E2NodeComponentConfigUpdateList `protobuf:"bytes,4,opt,name=e2nccul,proto3,oneof"`
 }
 
 type E2NodeConfigurationUpdateIe_E2Nccrl struct {
-	// @inject_tag: aper:"choiceIdx:5"
-	E2Nccrl *E2NodeComponentConfigRemovalList `protobuf:"bytes,5,opt,name=e2nccrl,proto3,oneof" aper:"choiceIdx:5"`
+	E2Nccrl *E2NodeComponentConfigRemovalList `protobuf:"bytes,5,opt,name=e2nccrl,proto3,oneof"`
 }
 
 type E2NodeConfigurationUpdateIe_E2Ntnlarl struct {
-	// @inject_tag: aper:"choiceIdx:6"
-	E2Ntnlarl *E2NodeTnlassociationRemovalList `protobuf:"bytes,6,opt,name=e2ntnlarl,proto3,oneof" aper:"choiceIdx:6"`
+	E2Ntnlarl *E2NodeTnlassociationRemovalList `protobuf:"bytes,6,opt,name=e2ntnlarl,proto3,oneof"`
 }
 
 func (*E2NodeConfigurationUpdateIe_TrId) isE2NodeConfigurationUpdateIe_E2NodeConfigurationUpdateIe() {
@@ -6196,8 +6174,8 @@ type E2NodeComponentConfigAdditionList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigAdditionItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:1024"
+	Value []*E2NodeComponentConfigAdditionItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigAdditionList) Reset() {
@@ -6246,11 +6224,12 @@ type E2NodeComponentConfigAdditionItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                                `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeComponentConfigAdditionItemIe `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigUpdateItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeComponentConfigAdditionItemIe `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigUpdateItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeComponentConfigAdditionItemIes) Reset() {
@@ -6367,8 +6346,8 @@ type isE2NodeComponentConfigAdditionItemIe_E2NodeComponentConfigAdditionItemIe i
 }
 
 type E2NodeComponentConfigAdditionItemIe_E2Nccui struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Nccui *E2NodeComponentConfigAdditionItem `protobuf:"bytes,1,opt,name=e2nccui,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Nccui *E2NodeComponentConfigAdditionItem `protobuf:"bytes,1,opt,name=e2nccui,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2NodeComponentConfigAdditionItemIe_E2Nccui) isE2NodeComponentConfigAdditionItemIe_E2NodeComponentConfigAdditionItemIe() {
@@ -6449,8 +6428,8 @@ type E2NodeComponentConfigUpdateList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigUpdateItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:1024"
+	Value []*E2NodeComponentConfigUpdateItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigUpdateList) Reset() {
@@ -6499,11 +6478,12 @@ type E2NodeComponentConfigUpdateItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                              `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeComponentConfigUpdateItemIe `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigUpdateItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeComponentConfigUpdateItemIe `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigUpdateItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeComponentConfigUpdateItemIes) Reset() {
@@ -6620,8 +6600,8 @@ type isE2NodeComponentConfigUpdateItemIe_E2NodeComponentConfigUpdateItemIe inter
 }
 
 type E2NodeComponentConfigUpdateItemIe_E2Nccui struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Nccui *E2NodeComponentConfigUpdateItem `protobuf:"bytes,1,opt,name=e2nccui,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Nccui *E2NodeComponentConfigUpdateItem `protobuf:"bytes,1,opt,name=e2nccui,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2NodeComponentConfigUpdateItemIe_E2Nccui) isE2NodeComponentConfigUpdateItemIe_E2NodeComponentConfigUpdateItemIe() {
@@ -6702,8 +6682,8 @@ type E2NodeComponentConfigRemovalList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigRemovalItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:1024"
+	Value []*E2NodeComponentConfigRemovalItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigRemovalList) Reset() {
@@ -6752,11 +6732,12 @@ type E2NodeComponentConfigRemovalItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                               `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeComponentConfigRemovalItemIe `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigRemovalItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeComponentConfigRemovalItemIe `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigRemovalItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeComponentConfigRemovalItemIes) Reset() {
@@ -6873,8 +6854,8 @@ type isE2NodeComponentConfigRemovalItemIe_E2NodeComponentConfigRemovalItemIe int
 }
 
 type E2NodeComponentConfigRemovalItemIe_E2Nccri struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Nccri *E2NodeComponentConfigRemovalItem `protobuf:"bytes,1,opt,name=e2nccri,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Nccri *E2NodeComponentConfigRemovalItem `protobuf:"bytes,1,opt,name=e2nccri,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2NodeComponentConfigRemovalItemIe_E2Nccri) isE2NodeComponentConfigRemovalItemIe_E2NodeComponentConfigRemovalItemIe() {
@@ -6946,8 +6927,8 @@ type E2NodeTnlassociationRemovalList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32"
-	Value []*E2NodeTnlassociationRemovalItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:32"
+	Value []*E2NodeTnlassociationRemovalItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32"`
 }
 
 func (x *E2NodeTnlassociationRemovalList) Reset() {
@@ -6996,11 +6977,12 @@ type E2NodeTnlassociationRemovalItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                              `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeTnlassociationRemovalItemIe `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigRemovalItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeTnlassociationRemovalItemIe `protobuf:"bytes,3,opt,name=value,json=E2nodeComponentConfigRemovalItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeTnlassociationRemovalItemIes) Reset() {
@@ -7117,8 +7099,8 @@ type isE2NodeTnlassociationRemovalItemIe_E2NodeTnlassociationRemovalItemIe inter
 }
 
 type E2NodeTnlassociationRemovalItemIe_E2Ntnlai struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Ntnlai *E2NodeTnlassociationRemovalItem `protobuf:"bytes,1,opt,name=e2ntnlai,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Ntnlai *E2NodeTnlassociationRemovalItem `protobuf:"bytes,1,opt,name=e2ntnlai,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2NodeTnlassociationRemovalItemIe_E2Ntnlai) isE2NodeTnlassociationRemovalItemIe_E2NodeTnlassociationRemovalItemIe() {
@@ -7190,7 +7172,7 @@ type E2NodeConfigurationUpdateAcknowledge struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper: "sizeLB:0,sizeUB:65535,valueExt"
+	//@inject_tag: aper: "sizeLB:0,sizeUB:65535"
 	ProtocolIes []*E2NodeConfigurationUpdateAcknowledgeIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
 }
 
@@ -7240,11 +7222,12 @@ type E2NodeConfigurationUpdateAcknowledgeIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                                   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeConfigurationUpdateAcknowledgeIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeConfigurationUpdateAcknowledgeIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeConfigurationUpdateAcknowledgeIes) Reset() {
@@ -7385,23 +7368,19 @@ type isE2NodeConfigurationUpdateAcknowledgeIe_E2NodeConfigurationUpdateAcknowled
 }
 
 type E2NodeConfigurationUpdateAcknowledgeIe_TrId struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2NodeConfigurationUpdateAcknowledgeIe_E2Nccaal struct {
-	// @inject_tag: aper:"choiceIdx:2"
-	E2Nccaal *E2NodeComponentConfigAdditionAckList `protobuf:"bytes,2,opt,name=e2nccaal,proto3,oneof" aper:"choiceIdx:2"`
+	E2Nccaal *E2NodeComponentConfigAdditionAckList `protobuf:"bytes,2,opt,name=e2nccaal,proto3,oneof"`
 }
 
 type E2NodeConfigurationUpdateAcknowledgeIe_E2Nccual struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	E2Nccual *E2NodeComponentConfigUpdateAckList `protobuf:"bytes,3,opt,name=e2nccual,proto3,oneof" aper:"choiceIdx:3"`
+	E2Nccual *E2NodeComponentConfigUpdateAckList `protobuf:"bytes,3,opt,name=e2nccual,proto3,oneof"`
 }
 
 type E2NodeConfigurationUpdateAcknowledgeIe_E2Nccral struct {
-	// @inject_tag: aper:"choiceIdx:4"
-	E2Nccral *E2NodeComponentConfigRemovalAckList `protobuf:"bytes,4,opt,name=e2nccral,proto3,oneof" aper:"choiceIdx:4"`
+	E2Nccral *E2NodeComponentConfigRemovalAckList `protobuf:"bytes,4,opt,name=e2nccral,proto3,oneof"`
 }
 
 func (*E2NodeConfigurationUpdateAcknowledgeIe_TrId) isE2NodeConfigurationUpdateAcknowledgeIe_E2NodeConfigurationUpdateAcknowledgeIe() {
@@ -7423,8 +7402,8 @@ type E2NodeComponentConfigAdditionAckList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigAdditionAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:1024"
+	Value []*E2NodeComponentConfigAdditionAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigAdditionAckList) Reset() {
@@ -7473,11 +7452,12 @@ type E2NodeComponentConfigAdditionAckItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                                   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeComponentConfigAdditionAckItemIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeComponentConfigAdditionAckItemIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeComponentConfigAdditionAckItemIes) Reset() {
@@ -7594,8 +7574,8 @@ type isE2NodeComponentConfigAdditionAckItemIe_E2NodeComponentConfigAdditionAckIt
 }
 
 type E2NodeComponentConfigAdditionAckItemIe_E2Nccaai struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Nccaai *E2NodeComponentConfigAdditionAckItem `protobuf:"bytes,1,opt,name=e2nccaai,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Nccaai *E2NodeComponentConfigAdditionAckItem `protobuf:"bytes,1,opt,name=e2nccaai,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2NodeComponentConfigAdditionAckItemIe_E2Nccaai) isE2NodeComponentConfigAdditionAckItemIe_E2NodeComponentConfigAdditionAckItemIe() {
@@ -7676,8 +7656,8 @@ type E2NodeComponentConfigUpdateAckList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigUpdateAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:1024"
+	Value []*E2NodeComponentConfigUpdateAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigUpdateAckList) Reset() {
@@ -7726,11 +7706,12 @@ type E2NodeComponentConfigUpdateAckItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                                 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeComponentConfigUpdateAckItemIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeComponentConfigUpdateAckItemIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeComponentConfigUpdateAckItemIes) Reset() {
@@ -7847,8 +7828,8 @@ type isE2NodeComponentConfigUpdateAckItemIe_E2NodeComponentConfigUpdateAckItemIe
 }
 
 type E2NodeComponentConfigUpdateAckItemIe_E2Nccuai struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Nccuai *E2NodeComponentConfigUpdateAckItem `protobuf:"bytes,1,opt,name=e2nccuai,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Nccuai *E2NodeComponentConfigUpdateAckItem `protobuf:"bytes,1,opt,name=e2nccuai,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2NodeComponentConfigUpdateAckItemIe_E2Nccuai) isE2NodeComponentConfigUpdateAckItemIe_E2NodeComponentConfigUpdateAckItemIe() {
@@ -7929,8 +7910,8 @@ type E2NodeComponentConfigRemovalAckList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024"
-	Value []*E2NodeComponentConfigRemovalAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:1024"
+	Value []*E2NodeComponentConfigRemovalAckItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1024"`
 }
 
 func (x *E2NodeComponentConfigRemovalAckList) Reset() {
@@ -7979,11 +7960,12 @@ type E2NodeComponentConfigRemovalAckItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                                  `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeComponentConfigRemovalAckItemIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeComponentConfigRemovalAckItemIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeComponentConfigRemovalAckItemIes) Reset() {
@@ -8100,8 +8082,8 @@ type isE2NodeComponentConfigRemovalAckItemIe_E2NodeComponentConfigRemovalAckItem
 }
 
 type E2NodeComponentConfigRemovalAckItemIe_E2Nccrai struct {
-	//@inject_tag: aper:"choiceIdx:1,valueExt"
-	E2Nccrai *E2NodeComponentConfigRemovalAckItem `protobuf:"bytes,1,opt,name=e2nccrai,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	//@inject_tag: aper:"valueExt"
+	E2Nccrai *E2NodeComponentConfigRemovalAckItem `protobuf:"bytes,1,opt,name=e2nccrai,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2NodeComponentConfigRemovalAckItemIe_E2Nccrai) isE2NodeComponentConfigRemovalAckItemIe_E2NodeComponentConfigRemovalAckItemIe() {
@@ -8182,8 +8164,8 @@ type E2NodeConfigurationUpdateFailure struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*E2NodeConfigurationUpdateFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2NodeConfigurationUpdateFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2NodeConfigurationUpdateFailure) Reset() {
@@ -8232,11 +8214,12 @@ type E2NodeConfigurationUpdateFailureIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32                               `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *E2NodeConfigurationUpdateFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *E2NodeConfigurationUpdateFailureIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *E2NodeConfigurationUpdateFailureIes) Reset() {
@@ -8377,23 +8360,22 @@ type isE2NodeConfigurationUpdateFailureIe_E2NodeConfigurationUpdateFailureIe int
 }
 
 type E2NodeConfigurationUpdateFailureIe_TrId struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type E2NodeConfigurationUpdateFailureIe_C struct {
-	// @inject_tag: aper:"choiceIdx:2,valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
 }
 
 type E2NodeConfigurationUpdateFailureIe_Value struct {
-	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"
-	Value e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,proto3,enum=e2ap_go.v2.TimeToWait,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:5"`
+	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
+	Value e2ap_ies.TimeToWait `protobuf:"varint,3,opt,name=value,proto3,enum=e2ap_go.v2.TimeToWait,oneof" aper:"valueExt,valueLB:0,valueUB:5"`
 }
 
 type E2NodeConfigurationUpdateFailureIe_Cd struct {
-	// @inject_tag: aper:"choiceIdx:4,valueExt"
-	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"choiceIdx:4,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=cd,proto3,oneof" aper:"valueExt"`
 }
 
 func (*E2NodeConfigurationUpdateFailureIe_TrId) isE2NodeConfigurationUpdateFailureIe_E2NodeConfigurationUpdateFailureIe() {
@@ -8415,8 +8397,8 @@ type ResetRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*ResetRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*ResetRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *ResetRequest) Reset() {
@@ -8465,11 +8447,12 @@ type ResetRequestIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32           `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *ResetRequestIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *ResetRequestIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *ResetRequestIes) Reset() {
@@ -8594,13 +8577,12 @@ type isResetRequestIe_ResetRequestIe interface {
 }
 
 type ResetRequestIe_TrId struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type ResetRequestIe_C struct {
-	// @inject_tag: aper:"choiceIdx:2,valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
 }
 
 func (*ResetRequestIe_TrId) isResetRequestIe_ResetRequestIe() {}
@@ -8614,8 +8596,8 @@ type ResetResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*ResetResponseIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*ResetResponseIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *ResetResponse) Reset() {
@@ -8664,11 +8646,12 @@ type ResetResponseIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32            `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *ResetResponseIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *ResetResponseIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *ResetResponseIes) Reset() {
@@ -8793,13 +8776,12 @@ type isResetResponseIe_ResetResponseIe interface {
 }
 
 type ResetResponseIe_TrId struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type ResetResponseIe_Cd struct {
-	// @inject_tag: aper:"choiceIdx:2,valueExt"
-	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=cd,proto3,oneof" aper:"choiceIdx:2,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	Cd *e2ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=cd,proto3,oneof" aper:"valueExt"`
 }
 
 func (*ResetResponseIe_TrId) isResetResponseIe_ResetResponseIe() {}
@@ -8813,8 +8795,8 @@ type RicserviceUpdate struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicserviceUpdateIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicserviceUpdateIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicserviceUpdate) Reset() {
@@ -8863,11 +8845,12 @@ type RicserviceUpdateIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32               `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RicserviceUpdateIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RicserviceUpdateIe `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RicserviceUpdateIes) Reset() {
@@ -9000,18 +8983,15 @@ type isRicserviceUpdateIe_RicServiceUpdateIe interface {
 }
 
 type RicserviceUpdateIe_TrId struct {
-	// @inject_tag: aper:"choiceIdx:1"
-	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof" aper:"choiceIdx:1"`
+	TrId *e2ap_ies.TransactionId `protobuf:"bytes,1,opt,name=trId,proto3,oneof"`
 }
 
 type RicserviceUpdateIe_Rfl struct {
-	// @inject_tag: aper:"choiceIdx:2"
-	Rfl *RanfunctionsListSingleContainer `protobuf:"bytes,2,opt,name=rfl,proto3,oneof" aper:"choiceIdx:2"`
+	Rfl *RanfunctionsListSingleContainer `protobuf:"bytes,2,opt,name=rfl,proto3,oneof"`
 }
 
 type RicserviceUpdateIe_Rfidl struct {
-	// @inject_tag: aper:"choiceIdx:3"
-	Rfidl *RanfunctionsIdListSingleContainer `protobuf:"bytes,3,opt,name=rfidl,proto3,oneof" aper:"choiceIdx:3"`
+	Rfidl *RanfunctionsIdListSingleContainer `protobuf:"bytes,3,opt,name=rfidl,proto3,oneof"`
 }
 
 func (*RicserviceUpdateIe_TrId) isRicserviceUpdateIe_RicServiceUpdateIe() {}
@@ -9074,8 +9054,8 @@ type RanfunctionsList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256"
-	Value []*RanfunctionItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:256"
+	Value []*RanfunctionItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:256"`
 }
 
 func (x *RanfunctionsList) Reset() {
@@ -9124,11 +9104,12 @@ type RanfunctionItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality int32              `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
-	Value       *RanfunctionItemIe `protobuf:"bytes,3,opt,name=value,json=ranFunctionItem,proto3" json:"value,omitempty"`
+	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
+	//@inject_tag: aper:"canonicalOrder"
+	Value *RanfunctionItemIe `protobuf:"bytes,3,opt,name=value,json=ranFunctionItem,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *RanfunctionItemIes) Reset() {
@@ -9245,8 +9226,8 @@ type isRanfunctionItemIe_RanfunctionItemIe interface {
 }
 
 type RanfunctionItemIe_Rfi struct {
-	// @inject_tag: aper:"choiceIdx:1,valueExt"
-	Rfi *RanfunctionItem `protobuf:"bytes,1,opt,name=rfi,proto3,oneof" aper:"choiceIdx:1,valueExt"`
+	// @inject_tag: aper:"valueExt"
+	Rfi *RanfunctionItem `protobuf:"bytes,1,opt,name=rfi,proto3,oneof" aper:"valueExt"`
 }
 
 func (*RanfunctionItemIe_Rfi) isRanfunctionItemIe_RanfunctionItemIe() {}
@@ -9429,8 +9410,8 @@ type RanfunctionIdItemIes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"valueLB:0,valueUB:65535"
-	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535"`
+	//@inject_tag: aper:"valueLB:0,valueUB:65535,unique"
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty" aper:"valueLB:0,valueUB:65535,unique"`
 	//@inject_tag: aper:"valueLB:0,valueUB:2"
 	Criticality int32 `protobuf:"varint,2,opt,name=criticality,proto3" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	//@inject_tag: aper:"canonicalOrder"
@@ -9621,8 +9602,8 @@ type RicserviceUpdateAcknowledge struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicserviceUpdateAcknowledgeIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicserviceUpdateAcknowledgeIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicserviceUpdateAcknowledge) Reset() {
@@ -9885,8 +9866,8 @@ type RanfunctionsIdcauseList struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256"
-	Value []*RanfunctionIdcauseItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:256"
+	Value []*RanfunctionIdcauseItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:256"`
 }
 
 func (x *RanfunctionsIdcauseList) Reset() {
@@ -10128,8 +10109,8 @@ type RicserviceUpdateFailure struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*RicserviceUpdateFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*RicserviceUpdateFailureIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *RicserviceUpdateFailure) Reset() {
