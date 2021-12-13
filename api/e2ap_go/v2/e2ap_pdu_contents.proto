@@ -1107,7 +1107,7 @@ message E2nodeConfigurationUpdateFailureIe {
         // @inject_tag: aper:"valueExt"
         Cause c = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-        TimeToWait value = 3;
+        TimeToWait ttw = 3;
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics cd = 4;
     }

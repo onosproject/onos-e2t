@@ -5,6 +5,10 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	types1 "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/encoder"
 	"testing"
 
@@ -14,6 +18,28 @@ import (
 )
 
 func TestRicIndication(t *testing.T) {
+	ricRequestID1 := types1.RicRequest{
+		RequestorID: 21,
+		InstanceID:  22,
+	}
+	var ranFuncID1 types1.RanFunctionID = 9
+	var ricAction1 = e2ap_ies.RicactionType_RICACTION_TYPE_POLICY
+	var ricIndicationType1 = e2ap_ies.RicindicationType_RICINDICATION_TYPE_INSERT
+	var ricSn1 types1.RicIndicationSn = 1
+	var ricIndHd1 types1.RicIndicationHeader = []byte("123")
+	var ricIndMsg1 types1.RicIndicationMessage = []byte("456")
+	var ricCallPrID1 types1.RicCallProcessID = []byte("789")
+	e2apPdu, err := pdubuilder.RicIndicationE2apPdu(ricRequestID1,
+		ranFuncID1, ricAction1, ricIndicationType1, ricIndHd1, ricIndMsg1)
+	assert.NilError(t, err)
+	assert.Assert(t, e2apPdu != nil)
+	e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicIndication().GetInitiatingMessage().
+		SetRicCallProcessID(ricCallPrID1).SetRicIndicationSN(ricSn1)
+
+	per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
+	assert.NilError(t, err)
+	t.Logf("RicIndication E2AP PDU PER\n%v", hex.Dump(per))
+
 	ricRequestID := types.RicRequest{
 		RequestorID: 21,
 		InstanceID:  22,
@@ -37,17 +63,13 @@ func TestRicIndication(t *testing.T) {
 	t.Logf("RicIndication E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
-	//assert.DeepEqual(t, per, perNew)
+	assert.DeepEqual(t, per, perNew)
 
 	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
 	//assert.NilError(t, err)
 	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
-	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("RIC Indication PER\n%v", hex.Dump(per))
-	//
-	//e2apPdu, err = asn1cgo.PerDecodeE2apPdu(per)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	result, err := asn1cgo.PerDecodeE2apPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, result.String(), e2apPdu.String())
 }

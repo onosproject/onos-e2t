@@ -217,7 +217,7 @@ var E2ApPduChoicemap = map[string]map[int]reflect.Type{
 	"e2node_configuration_update_failure_ie": {
 		1: reflect.TypeOf(e2ap_pdu_contents.E2NodeConfigurationUpdateFailureIe_TrId{}),
 		2: reflect.TypeOf(e2ap_pdu_contents.E2NodeConfigurationUpdateFailureIe_C{}),
-		3: reflect.TypeOf(e2ap_pdu_contents.E2NodeConfigurationUpdateFailureIe_Value{}),
+		3: reflect.TypeOf(e2ap_pdu_contents.E2NodeConfigurationUpdateFailureIe_Ttw{}),
 		4: reflect.TypeOf(e2ap_pdu_contents.E2NodeConfigurationUpdateFailureIe_Cd{}),
 	},
 	"reset_request_ie": {
