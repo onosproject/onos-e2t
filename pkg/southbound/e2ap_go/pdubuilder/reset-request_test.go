@@ -47,7 +47,8 @@ func TestResetRequest(t *testing.T) {
 	//assert.NilError(t, err)
 	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
-	result, err := asn1cgo.PerDecodeE2apPdu(perNew)
+	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
-	assert.Assert(t, result != nil)
+	assert.Assert(t, result1 != nil)
+	assert.DeepEqual(t, e2apPdu.String(), result1.String())
 }

@@ -1287,15 +1287,13 @@ message RicserviceUpdateAcknowledgeIes {
 message RicServiceUpdateAcknowledgeIe {
     oneof ric_service_update_acknowledge_ie {
         TransactionId trId = 1;
-        // @inject_tag: aper:"valueExt"
         RanfunctionsIdListSingleContainer rfIdl = 2;
         RanfunctionsIdcauseListSingleContainer rfIdcl = 3;
     }
 };
 
 message RanfunctionsIdcauseListSingleContainer {
-    // @inject_tag: aper:"optional"
-    optional RanfunctionsIdcauseList value = 1 [ json_name="value"];
+    RanfunctionsIdcauseList value = 1 [ json_name="value"];
 };
 
 // sequence from e2ap_v2.asn:1127

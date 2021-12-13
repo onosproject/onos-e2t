@@ -1958,6 +1958,7 @@ func (m *RicserviceUpdate) SetRanFunctionsDeleted(rfDeleted types.RanFunctionRev
 		}
 		rfd.Value = append(rfd.Value, &rfIDiIe)
 	}
+
 	ie := &RicserviceUpdateIes{
 		Id:          int32(v2.ProtocolIeIDRanfunctionsDeleted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
@@ -1969,6 +1970,7 @@ func (m *RicserviceUpdate) SetRanFunctionsDeleted(rfDeleted types.RanFunctionRev
 			},
 		},
 	}
+
 	m.ProtocolIes = append(m.ProtocolIes, ie)
 	return m
 }

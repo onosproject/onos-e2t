@@ -50,9 +50,9 @@ func TestE2connectionUpdateAcknowledge(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	//assert.DeepEqual(t, per, perNew)
 
-	e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
-	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
+	//assert.NilError(t, err)
+	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
 	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	//assert.NilError(t, err)
@@ -90,9 +90,9 @@ func TestE2connectionUpdateAcknowledgeExcludeOptionalIE(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	//assert.DeepEqual(t, per, perNew)
 
-	e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
-	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
+	//assert.NilError(t, err)
+	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
 	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
 	//assert.NilError(t, err)

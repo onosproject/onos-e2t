@@ -49,7 +49,8 @@ func TestRicServiceQuery(t *testing.T) {
 	//assert.NilError(t, err)
 	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
 
-	e2apPdu, err := asn1cgo.PerDecodeE2apPdu(perNew)
+	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	assert.Assert(t, result1 != nil)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
 }

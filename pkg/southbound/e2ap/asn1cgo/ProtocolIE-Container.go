@@ -1324,18 +1324,20 @@ func decodeResetResponseIes(protocolIEsC *C.ProtocolIE_Container_1908P22_t) (*e2
 func newRicServiceUpdateIe(rsuIEs *e2appducontents.RicserviceUpdateIes) (*C.ProtocolIE_Container_1908P23_t, error) {
 	pIeC1908P23 := new(C.ProtocolIE_Container_1908P23_t)
 
-	if rsuIEs.GetE2ApProtocolIes10() != nil {
-		ie1C, err := newRicServiceUpdateIes10RanFunctionAddedList(rsuIEs.GetE2ApProtocolIes10())
+	if rsuIEs.GetE2ApProtocolIes49() != nil {
+		ie1C, err := newRicServiceUpdateIes49TransactionID(rsuIEs.GetE2ApProtocolIes49())
 		if err != nil {
 			return nil, err
 		}
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P23), unsafe.Pointer(ie1C)); err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, fmt.Errorf("newRicServiceUpdateIe() TransactionID should be mandatory present in the message")
 	}
 
-	if rsuIEs.GetE2ApProtocolIes11() != nil {
-		ie1C, err := newRicServiceUpdateIes11RanFunctionDeletedList(rsuIEs.GetE2ApProtocolIes11())
+	if rsuIEs.GetE2ApProtocolIes10() != nil {
+		ie1C, err := newRicServiceUpdateIes10RanFunctionAddedList(rsuIEs.GetE2ApProtocolIes10())
 		if err != nil {
 			return nil, err
 		}
@@ -1354,16 +1356,14 @@ func newRicServiceUpdateIe(rsuIEs *e2appducontents.RicserviceUpdateIes) (*C.Prot
 		}
 	}
 
-	if rsuIEs.GetE2ApProtocolIes49() != nil {
-		ie1C, err := newRicServiceUpdateIes49TransactionID(rsuIEs.GetE2ApProtocolIes49())
+	if rsuIEs.GetE2ApProtocolIes11() != nil {
+		ie1C, err := newRicServiceUpdateIes11RanFunctionDeletedList(rsuIEs.GetE2ApProtocolIes11())
 		if err != nil {
 			return nil, err
 		}
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P23), unsafe.Pointer(ie1C)); err != nil {
 			return nil, err
 		}
-	} else {
-		return nil, fmt.Errorf("newRicServiceUpdateIe() TransactionID should be mandatory present in the message")
 	}
 
 	return pIeC1908P23, nil
@@ -1405,6 +1405,18 @@ func decodeRicServiceUpdateIes(protocolIEsC *C.ProtocolIE_Container_1908P23_t) (
 func newRicServiceUpdateAcknowledgeIe(rsuIEs *e2appducontents.RicserviceUpdateAcknowledgeIes) (*C.ProtocolIE_Container_1908P24_t, error) {
 	pIeC1908P24 := new(C.ProtocolIE_Container_1908P24_t)
 
+	if rsuIEs.GetE2ApProtocolIes49() != nil {
+		ie49C, err := newRicServiceUpdateAcknowledgeIes49TransactionID(rsuIEs.GetE2ApProtocolIes49())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P24), unsafe.Pointer(ie49C)); err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, fmt.Errorf("newRicServiceUpdateAcknowledgeIe() TransactionID should be mandatory present in the message")
+	}
+
 	if rsuIEs.GetE2ApProtocolIes9() != nil {
 		ie9C, err := newRicServiceUpdateAcknowledgeIes9RanFunctionsAccepted(rsuIEs.GetE2ApProtocolIes9())
 		if err != nil {
@@ -1425,18 +1437,6 @@ func newRicServiceUpdateAcknowledgeIe(rsuIEs *e2appducontents.RicserviceUpdateAc
 		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P24), unsafe.Pointer(ie13C)); err != nil {
 			return nil, err
 		}
-	}
-
-	if rsuIEs.GetE2ApProtocolIes49() != nil {
-		ie49C, err := newRicServiceUpdateAcknowledgeIes49TransactionID(rsuIEs.GetE2ApProtocolIes49())
-		if err != nil {
-			return nil, err
-		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P24), unsafe.Pointer(ie49C)); err != nil {
-			return nil, err
-		}
-	} else {
-		return nil, fmt.Errorf("newRicServiceUpdateAcknowledgeIe() TransactionID should be mandatory present in the message")
 	}
 
 	return pIeC1908P24, nil
@@ -1474,6 +1474,18 @@ func decodeRicServiceUpdateAcknowledgeIes(protocolIEsC *C.ProtocolIE_Container_1
 func newRicServiceUpdateFailureIe(rsuIEs *e2appducontents.RicserviceUpdateFailureIes) (*C.ProtocolIE_Container_1908P25_t, error) {
 	pIeC1908P25 := new(C.ProtocolIE_Container_1908P25_t)
 
+	if rsuIEs.GetE2ApProtocolIes49() != nil {
+		ie49C, err := newRicServiceUpdateFailureIes49TransactionID(rsuIEs.GetE2ApProtocolIes49())
+		if err != nil {
+			return nil, err
+		}
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P25), unsafe.Pointer(ie49C)); err != nil {
+			return nil, err
+		}
+	} else {
+		return nil, fmt.Errorf("newRicServiceUpdateFailureIe() TransactionID should be mandatory present in the message")
+	}
+
 	if rsuIEs.GetE2ApProtocolIes1() != nil {
 		ie1C, err := newRicServiceUpdateFailureIes1Cause(rsuIEs.GetE2ApProtocolIes1())
 		if err != nil {
@@ -1486,16 +1498,6 @@ func newRicServiceUpdateFailureIe(rsuIEs *e2appducontents.RicserviceUpdateFailur
 		return nil, fmt.Errorf("newRicServiceUpdateFailureIe() Cause should be mandatory present in the message")
 	}
 
-	if rsuIEs.GetE2ApProtocolIes2() != nil {
-		ie2C, err := newRicServiceUpdateFailureIe2CriticalityDiagnostics(rsuIEs.GetE2ApProtocolIes2())
-		if err != nil {
-			return nil, err
-		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P25), unsafe.Pointer(ie2C)); err != nil {
-			return nil, err
-		}
-	}
-
 	if rsuIEs.GetE2ApProtocolIes31() != nil {
 		ie31C, err := newRicServiceUpdateFailureIe31TimeToWait(rsuIEs.GetE2ApProtocolIes31())
 		if err != nil {
@@ -1506,16 +1508,14 @@ func newRicServiceUpdateFailureIe(rsuIEs *e2appducontents.RicserviceUpdateFailur
 		}
 	}
 
-	if rsuIEs.GetE2ApProtocolIes49() != nil {
-		ie49C, err := newRicServiceUpdateFailureIes49TransactionID(rsuIEs.GetE2ApProtocolIes49())
+	if rsuIEs.GetE2ApProtocolIes2() != nil {
+		ie2C, err := newRicServiceUpdateFailureIe2CriticalityDiagnostics(rsuIEs.GetE2ApProtocolIes2())
 		if err != nil {
 			return nil, err
 		}
-		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P25), unsafe.Pointer(ie49C)); err != nil {
+		if _, err = C.asn_sequence_add(unsafe.Pointer(pIeC1908P25), unsafe.Pointer(ie2C)); err != nil {
 			return nil, err
 		}
-	} else {
-		return nil, fmt.Errorf("newRicServiceUpdateFailureIe() TransactionID should be mandatory present in the message")
 	}
 
 	return pIeC1908P25, nil
