@@ -2710,7 +2710,7 @@ func (m *RicsubscriptionFailure) SetCause(cause *e2ap_ies.Cause) *Ricsubscriptio
 	return m
 }
 
-func (m *RicsubscriptionFailure) SetCriticalityDiagnostics(failureProcCode *v2.ProcedureCodeT,
+func (m *RicsubscriptionFailure) SetCriticalityDiagnostics(failureProcCode v2.ProcedureCodeT,
 	failureCrit *e2ap_commondatatypes.Criticality, failureTrigMsg *e2ap_commondatatypes.TriggeringMessage,
 	reqID *types.RicRequest, critDiags []*types.CritDiag) *RicsubscriptionFailure {
 
@@ -2721,7 +2721,7 @@ func (m *RicsubscriptionFailure) SetCriticalityDiagnostics(failureProcCode *v2.P
 			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_Cd{
 				Cd: &e2ap_ies.CriticalityDiagnostics{
 					ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
-						Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
+						Value: int32(failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 					},
 					TriggeringMessage:    failureTrigMsg,
 					ProcedureCriticality: failureCrit, // from e2ap-v01.00.asn1:153
@@ -2749,6 +2749,7 @@ func (m *RicsubscriptionFailure) SetCriticalityDiagnostics(failureProcCode *v2.P
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
+		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)

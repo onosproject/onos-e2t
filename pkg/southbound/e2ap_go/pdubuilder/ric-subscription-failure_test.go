@@ -92,7 +92,7 @@ func TestRicSubscriptionFailure(t *testing.T) {
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
 	newE2apPdu.GetUnsuccessfulOutcome().GetValue().GetRicSubscription().
-		SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
+		SetCriticalityDiagnostics(procCode, &criticality, &ftg,
 			&types.RicRequest{
 				RequestorID: 10,
 				InstanceID:  20,
