@@ -1756,7 +1756,7 @@ func (m *Ricindication) SetRicIndicationType(ricIndicationType e2ap_ies.Ricindic
 func (m *Ricindication) SetRicIndicationHeader(ricIndHd types.RicIndicationHeader) *Ricindication {
 
 	ie := &RicindicationIes{
-		Id:          int32(v2.ProtocolIeIDRicindicationType),
+		Id:          int32(v2.ProtocolIeIDRicindicationHeader),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
 			RicindicationIe: &RicindicationIe_Rih{
@@ -1774,7 +1774,7 @@ func (m *Ricindication) SetRicIndicationHeader(ricIndHd types.RicIndicationHeade
 func (m *Ricindication) SetRicIndicationMessage(ricIndMsg types.RicIndicationMessage) *Ricindication {
 
 	ie := &RicindicationIes{
-		Id:          int32(v2.ProtocolIeIDRicindicationType),
+		Id:          int32(v2.ProtocolIeIDRicindicationMessage),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
 			RicindicationIe: &RicindicationIe_Rim{
@@ -2048,7 +2048,7 @@ func (m *RicserviceUpdateAcknowledge) SetRanFunctionsAccepted(rfAccepted types.R
 
 	for rfID, rfRevision := range rfAccepted {
 		ranFunction := RanfunctionIdItemIes{
-			Id:          int32(v2.ProtocolIeIDRanfunctionItem),
+			Id:          int32(v2.ProtocolIeIDRanfunctionIDItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionIdItemIe{
 				RanfunctionIdItemIe: &RanfunctionIdItemIe_RfId{
@@ -2337,6 +2337,7 @@ func (m *RicsubscriptionDeleteFailure) SetCriticalityDiagnostics(failureProcCode
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
+		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)

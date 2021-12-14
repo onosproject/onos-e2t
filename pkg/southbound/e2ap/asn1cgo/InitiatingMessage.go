@@ -101,7 +101,7 @@ func newInitiatingMessage(im *e2appdudescriptions.InitiatingMessage) (*C.struct_
 
 		presentC = C.InitiatingMessage__value_PR_RICindication
 		pcC = C.ProcedureCode_id_RICindication
-		critC = C.long(C.Criticality_reject)
+		critC = C.long(C.Criticality_ignore)
 		riC, err := newRicIndication(pc.GetInitiatingMessage())
 		if err != nil {
 			return nil, err
