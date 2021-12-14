@@ -7172,8 +7172,8 @@ type E2NodeConfigurationUpdateAcknowledge struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//@inject_tag: aper: "sizeLB:0,sizeUB:65535"
-	ProtocolIes []*E2NodeConfigurationUpdateAcknowledgeIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	//@inject_tag: aper:"sizeLB:0,sizeUB:65535"
+	ProtocolIes []*E2NodeConfigurationUpdateAcknowledgeIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535"`
 }
 
 func (x *E2NodeConfigurationUpdateAcknowledge) Reset() {

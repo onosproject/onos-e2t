@@ -816,7 +816,7 @@ func (m *E2NodeConfigurationUpdateFailure) SetCause(c *e2ap_ies.Cause) *E2NodeCo
 
 	ie := &E2NodeConfigurationUpdateFailureIes{
 		Id:          int32(v2.ProtocolIeIDCause),
-		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
+		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2NodeConfigurationUpdateFailureIe{
 			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_C{
 				C: c,

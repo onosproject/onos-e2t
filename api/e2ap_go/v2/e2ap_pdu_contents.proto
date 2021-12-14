@@ -951,7 +951,7 @@ message E2nodeTnlassociationRemovalItem {
 // sequence from e2ap_v2.asn:946
 // {E2nodeConfigurationUpdateAcknowledge}
 message E2nodeConfigurationUpdateAcknowledge {
-    //@inject_tag: aper: "sizeLB:0,sizeUB:65535"
+    //@inject_tag: aper:"sizeLB:0,sizeUB:65535"
     repeated E2nodeConfigurationUpdateAcknowledgeIes protocol_ies = 1 [ json_name="protocolIEs"];
 };
 

@@ -3141,7 +3141,7 @@ func newE2nodeConfigurationUpdateIes54E2nodeComponentConfigRemovalList(e2sfIe *e
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeComponentConfigAddition)
+	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeComponentConfigRemoval)
 	if err != nil {
 		return nil, err
 	}
@@ -3205,7 +3205,7 @@ func newE2nodeConfigurationUpdateIes58E2nodeTnlAssociationRemovalList(e2sfIe *e2
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeComponentConfigAddition)
+	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeTNLassociationRemoval)
 	if err != nil {
 		return nil, err
 	}

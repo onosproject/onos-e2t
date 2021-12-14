@@ -47,7 +47,49 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 					E2NodeComponentResponsePart: []byte{0x07, 0x08, 0x09},
 					E2NodeComponentRequestPart:  []byte{0x0A, 0x0B, 0x0C},
 				}},
-		}).SetGlobalE2nodeID(ge2nID1)
+		}).SetGlobalE2nodeID(ge2nID1).SetE2nodeComponentConfigAddition([]*types1.E2NodeComponentConfigAdditionItem{
+		{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_NG,
+			E2NodeComponentID: e2ncID11,
+			E2NodeComponentConfiguration: e2apies.E2NodeComponentConfiguration{
+				E2NodeComponentResponsePart: []byte{0x01, 0x02, 0x03},
+				E2NodeComponentRequestPart:  []byte{0x04, 0x05, 0x06},
+			}},
+		{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
+			E2NodeComponentID: e2ncID12,
+			E2NodeComponentConfiguration: e2apies.E2NodeComponentConfiguration{
+				E2NodeComponentResponsePart: []byte{0x07, 0x08, 0x09},
+				E2NodeComponentRequestPart:  []byte{0x0A, 0x0B, 0x0C},
+			}},
+	}).SetE2nodeComponentConfigRemoval([]*types1.E2NodeComponentConfigRemovalItem{
+		{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_NG,
+			E2NodeComponentID: e2ncID11,
+		},
+		//{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
+		//	E2NodeComponentID: e2ncID12,
+		//},
+	}).SetE2nodeTnlAssociationRemoval([]*types1.TnlAssociationRemovalItem{
+		{TnlInformation: types1.TnlInformation{
+			TnlAddress: asn1.BitString{
+				Value: []byte{0xF0, 0xAB, 0x34, 0x9F},
+				Len:   32,
+			},
+			TnlPort: &asn1.BitString{
+				Value: []byte{0x00, 0x02},
+				Len:   16,
+			},
+		},
+			TnlInformationRic: types1.TnlInformation{
+				TnlAddress: asn1.BitString{
+					Value: []byte{0xF0, 0xAB, 0x34, 0x9F},
+					Len:   32,
+				},
+				TnlPort: &asn1.BitString{
+					Value: []byte{0x00, 0x02},
+					Len:   16,
+				},
+			},
+		},
+	})
 
 	per, err := asn1cgo.PerEncodeE2apPdu(e2nodeConfigurationUpdate1)
 	assert.NilError(t, err)
@@ -81,7 +123,49 @@ func TestE2NodeConfigurationUpdate(t *testing.T) {
 					E2NodeComponentResponsePart: []byte{0x07, 0x08, 0x09},
 					E2NodeComponentRequestPart:  []byte{0x0A, 0x0B, 0x0C},
 				}},
-		})
+		}).SetE2nodeComponentConfigAddition([]*types.E2NodeComponentConfigAdditionItem{
+		{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_NG,
+			E2NodeComponentID: e2ncID1,
+			E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
+				E2NodeComponentResponsePart: []byte{0x01, 0x02, 0x03},
+				E2NodeComponentRequestPart:  []byte{0x04, 0x05, 0x06},
+			}},
+		{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
+			E2NodeComponentID: e2ncID2,
+			E2NodeComponentConfiguration: e2ap_ies.E2NodeComponentConfiguration{
+				E2NodeComponentResponsePart: []byte{0x07, 0x08, 0x09},
+				E2NodeComponentRequestPart:  []byte{0x0A, 0x0B, 0x0C},
+			}},
+	}).SetE2nodeComponentConfigRemoval([]*types.E2NodeComponentConfigRemovalItem{
+		{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_NG,
+			E2NodeComponentID: e2ncID1,
+		},
+		//{E2NodeComponentType: e2ap_ies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_E1,
+		//	E2NodeComponentID: e2ncID2,
+		//},
+	}).SetE2nodeTnlAssociationRemoval([]*types.TnlAssociationRemovalItem{
+		{TnlInformation: types.TnlInformation{
+			TnlAddress: asn1.BitString{
+				Value: []byte{0xF0, 0xAB, 0x34, 0x9F},
+				Len:   32,
+			},
+			TnlPort: &asn1.BitString{
+				Value: []byte{0x00, 0x02},
+				Len:   16,
+			},
+		},
+			TnlInformationRic: types.TnlInformation{
+				TnlAddress: asn1.BitString{
+					Value: []byte{0xF0, 0xAB, 0x34, 0x9F},
+					Len:   32,
+				},
+				TnlPort: &asn1.BitString{
+					Value: []byte{0x00, 0x02},
+					Len:   16,
+				},
+			},
+		},
+	})
 
 	perNew, err := encoder.PerEncodeE2ApPdu(e2nodeConfigurationUpdate)
 	assert.NilError(t, err)

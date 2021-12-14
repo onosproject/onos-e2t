@@ -21,6 +21,7 @@ func TestE2SetupResponse(t *testing.T) {
 	rfAccepted1 := make(types1.RanFunctionRevisions)
 	rfAccepted1[100] = 2
 	rfAccepted1[200] = 2
+	rfAccepted1[150] = 2
 
 	rfRejected1 := make(types1.RanFunctionCauses)
 	rfRejected1[101] = &e2ap_ies.Cause{
@@ -65,6 +66,7 @@ func TestE2SetupResponse(t *testing.T) {
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfAccepted[100] = 2
 	rfAccepted[200] = 2
+	rfAccepted[150] = 2
 
 	rfRejected := make(types.RanFunctionCauses)
 	rfRejected[101] = &e2apies.Cause{
