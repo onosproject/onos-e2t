@@ -2589,7 +2589,7 @@ func (m *RicsubscriptionResponse) SetRicActionAdmitted(ricActionsAdmitted []*typ
 		Value: make([]*RicactionAdmittedItemIes, 0),
 	}
 
-	for ricActionID := range ricActionsAdmitted {
+	for _, ricActionID := range ricActionsAdmitted {
 		ranaIe := &RicactionAdmittedItemIes{
 			Id:          int32(v2.ProtocolIeIDRicactionAdmittedItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
@@ -2597,7 +2597,7 @@ func (m *RicsubscriptionResponse) SetRicActionAdmitted(ricActionsAdmitted []*typ
 				RicactionAdmittedItemIe: &RicactionAdmittedItemIe_Ranai{
 					Ranai: &RicactionAdmittedItem{
 						RicActionId: &e2ap_ies.RicactionId{
-							Value: int32(ricActionID),
+							Value: int32(*ricActionID),
 						},
 					},
 				},
