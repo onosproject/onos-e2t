@@ -17,7 +17,6 @@ import (
 func TestRicServiceQuery(t *testing.T) {
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfAccepted[100] = 2
-	//rfAccepted[200] = 2
 
 	newE2apPdu, err := pdubuilder.CreateRicServiceQueryE2apPdu(54)
 	assert.NilError(t, err)
@@ -31,7 +30,6 @@ func TestRicServiceQuery(t *testing.T) {
 
 	rfAccepted1 := make(types1.RanFunctionRevisions)
 	rfAccepted1[100] = 2
-	//rfAccepted1[200] = 2
 
 	rsq, err := CreateRicServiceQueryE2apPdu(54)
 	assert.NilError(t, err)
