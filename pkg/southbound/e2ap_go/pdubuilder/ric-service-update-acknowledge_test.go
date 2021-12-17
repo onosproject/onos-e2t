@@ -20,7 +20,7 @@ import (
 func TestRicServiceUpdateAcknowledge(t *testing.T) {
 	rfAccepted1 := make(types1.RanFunctionRevisions)
 	rfAccepted1[100] = 2
-	rfAccepted1[200] = 2
+	//rfAccepted1[200] = 2
 
 	rfRejected1 := make(types1.RanFunctionCauses)
 	rfRejected1[101] = &e2ap_ies.Cause{
@@ -28,11 +28,11 @@ func TestRicServiceUpdateAcknowledge(t *testing.T) {
 			Misc: e2ap_ies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
 		},
 	}
-	rfRejected1[102] = &e2ap_ies.Cause{
-		Cause: &e2ap_ies.Cause_Protocol{
-			Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
-	}
+	//rfRejected1[102] = &e2ap_ies.Cause{
+	//	Cause: &e2ap_ies.Cause_Protocol{
+	//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+	//	},
+	//}
 
 	e2apPdu, err := pdubuilder.CreateRicServiceUpdateAcknowledgeE2apPdu(1, rfAccepted1)
 	assert.NilError(t, err)
@@ -46,7 +46,7 @@ func TestRicServiceUpdateAcknowledge(t *testing.T) {
 
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfAccepted[100] = 2
-	rfAccepted[200] = 2
+	//rfAccepted[200] = 2
 
 	rfRejected := make(types.RanFunctionCauses)
 	rfRejected[101] = &e2apies.Cause{
@@ -54,11 +54,11 @@ func TestRicServiceUpdateAcknowledge(t *testing.T) {
 			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
 		},
 	}
-	rfRejected[102] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Protocol{
-			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
-	}
+	//rfRejected[102] = &e2apies.Cause{
+	//	Cause: &e2apies.Cause_Protocol{
+	//		Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+	//	},
+	//}
 
 	newE2apPdu, err := CreateRicServiceUpdateAcknowledgeE2apPdu(1, rfAccepted)
 	assert.NilError(t, err)

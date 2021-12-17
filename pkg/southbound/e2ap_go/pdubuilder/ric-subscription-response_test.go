@@ -24,11 +24,11 @@ func TestRicSubscriptionResponse(t *testing.T) {
 			Transport: e2ap_ies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE,
 		},
 	}
-	ricActionsNotAdmittedList1[200] = &e2ap_ies.Cause{
-		Cause: &e2ap_ies.Cause_Misc{
-			Misc: e2ap_ies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
-		},
-	}
+	//ricActionsNotAdmittedList1[200] = &e2ap_ies.Cause{
+	//	Cause: &e2ap_ies.Cause_Misc{
+	//		Misc: e2ap_ies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
+	//	},
+	//}
 
 	var ricActionAdmitted110 types1.RicActionID = 10
 	var ricActionAdmitted120 types1.RicActionID = 20
@@ -51,11 +51,11 @@ func TestRicSubscriptionResponse(t *testing.T) {
 			Transport: e2apies.CauseTransport_CAUSE_TRANSPORT_TRANSPORT_RESOURCE_UNAVAILABLE,
 		},
 	}
-	ricActionsNotAdmittedList[200] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Misc{
-			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
-		},
-	}
+	//ricActionsNotAdmittedList[200] = &e2apies.Cause{
+	//	Cause: &e2apies.Cause_Misc{
+	//		Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
+	//	},
+	//}
 
 	var ricActionAdmitted10 types.RicActionID = 10
 	var ricActionAdmitted20 types.RicActionID = 20

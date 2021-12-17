@@ -23,15 +23,15 @@ func TestRicServiceUpdate(t *testing.T) {
 		OID:         "oid1",
 	}
 
-	ranFunctionAddedList1[200] = types1.RanFunctionItem{
-		Description: []byte("Type 2"),
-		Revision:    2,
-		OID:         "oid2",
-	}
+	//ranFunctionAddedList1[200] = types1.RanFunctionItem{
+	//	Description: []byte("Type 2"),
+	//	Revision:    2,
+	//	OID:         "oid2",
+	//}
 
 	rfDeleted1 := make(types1.RanFunctionRevisions)
 	rfDeleted1[100] = 2
-	rfDeleted1[200] = 2
+	//rfDeleted1[200] = 2
 
 	ranFunctionModifiedList1 := make(map[types1.RanFunctionID]types1.RanFunctionItem)
 	ranFunctionModifiedList1[100] = types1.RanFunctionItem{
@@ -40,11 +40,11 @@ func TestRicServiceUpdate(t *testing.T) {
 		OID:         "oid3",
 	}
 
-	ranFunctionModifiedList1[200] = types1.RanFunctionItem{
-		Description: []byte("Type 4"),
-		Revision:    4,
-		OID:         "oid4",
-	}
+	//ranFunctionModifiedList1[200] = types1.RanFunctionItem{
+	//	Description: []byte("Type 4"),
+	//	Revision:    4,
+	//	OID:         "oid4",
+	//}
 
 	e2apPdu, err := pdubuilder.CreateRicServiceUpdateE2apPdu(1)
 	assert.NilError(t, err)
@@ -64,15 +64,15 @@ func TestRicServiceUpdate(t *testing.T) {
 		OID:         "oid1",
 	}
 
-	ranFunctionAddedList[200] = types.RanFunctionItem{
-		Description: []byte("Type 2"),
-		Revision:    2,
-		OID:         "oid2",
-	}
+	//ranFunctionAddedList[200] = types.RanFunctionItem{
+	//	Description: []byte("Type 2"),
+	//	Revision:    2,
+	//	OID:         "oid2",
+	//}
 
 	rfDeleted := make(types.RanFunctionRevisions)
 	rfDeleted[100] = 2
-	rfDeleted[200] = 2
+	//rfDeleted[200] = 2
 
 	ranFunctionModifiedList := make(map[types.RanFunctionID]types.RanFunctionItem)
 	ranFunctionModifiedList[100] = types.RanFunctionItem{
@@ -81,11 +81,11 @@ func TestRicServiceUpdate(t *testing.T) {
 		OID:         "oid3",
 	}
 
-	ranFunctionModifiedList[200] = types.RanFunctionItem{
-		Description: []byte("Type 4"),
-		Revision:    4,
-		OID:         "oid4",
-	}
+	//ranFunctionModifiedList[200] = types.RanFunctionItem{
+	//	Description: []byte("Type 4"),
+	//	Revision:    4,
+	//	OID:         "oid4",
+	//}
 
 	newE2apPdu, err := CreateRicServiceUpdateE2apPdu(1)
 	assert.NilError(t, err)
@@ -119,11 +119,11 @@ func TestRicServiceUpdateExcludeOptionalIEs(t *testing.T) {
 		OID:         "oid1",
 	}
 
-	ranFunctionAddedList1[200] = types1.RanFunctionItem{
-		Description: []byte("Type 2"),
-		Revision:    2,
-		OID:         "oid2",
-	}
+	//ranFunctionAddedList1[200] = types1.RanFunctionItem{
+	//	Description: []byte("Type 2"),
+	//	Revision:    2,
+	//	OID:         "oid2",
+	//}
 
 	e2apPdu, err := pdubuilder.CreateRicServiceUpdateE2apPdu(1)
 	assert.NilError(t, err)
@@ -141,11 +141,11 @@ func TestRicServiceUpdateExcludeOptionalIEs(t *testing.T) {
 		OID:         "oid1",
 	}
 
-	ranFunctionAddedList[200] = types.RanFunctionItem{
-		Description: []byte("Type 2"),
-		Revision:    2,
-		OID:         "oid2",
-	}
+	//ranFunctionAddedList[200] = types.RanFunctionItem{
+	//	Description: []byte("Type 2"),
+	//	Revision:    2,
+	//	OID:         "oid2",
+	//}
 
 	newE2apPdu, err := CreateRicServiceUpdateE2apPdu(1)
 	assert.NilError(t, err)

@@ -27,13 +27,13 @@ func TestRicSubscriptionRequest(t *testing.T) {
 		RicActionDefinition: []byte{0x11, 0x22},
 	}
 
-	ricActionsToBeSetup1[200] = types1.RicActionDef{
-		RicActionID:         200,
-		RicActionType:       e2ap_ies.RicactionType_RICACTION_TYPE_INSERT,
-		RicSubsequentAction: e2ap_ies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE,
-		Ricttw:              e2ap_ies.RictimeToWait_RICTIME_TO_WAIT_W10MS,
-		RicActionDefinition: []byte{0x33, 0x44},
-	}
+	//ricActionsToBeSetup1[200] = types1.RicActionDef{
+	//	RicActionID:         200,
+	//	RicActionType:       e2ap_ies.RicactionType_RICACTION_TYPE_INSERT,
+	//	RicSubsequentAction: e2ap_ies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE,
+	//	Ricttw:              e2ap_ies.RictimeToWait_RICTIME_TO_WAIT_W10MS,
+	//	RicActionDefinition: []byte{0x33, 0x44},
+	//}
 
 	rsr1, err := pdubuilder.NewRicSubscriptionRequest(
 		types1.RicRequest{RequestorID: 1, InstanceID: 2},
@@ -58,13 +58,13 @@ func TestRicSubscriptionRequest(t *testing.T) {
 		RicActionDefinition: []byte{0x11, 0x22},
 	}
 
-	ricActionsToBeSetup[200] = types.RicActionDef{
-		RicActionID:         200,
-		RicActionType:       e2apies.RicactionType_RICACTION_TYPE_INSERT,
-		RicSubsequentAction: e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE,
-		Ricttw:              e2apies.RictimeToWait_RICTIME_TO_WAIT_W10MS,
-		RicActionDefinition: []byte{0x33, 0x44},
-	}
+	//ricActionsToBeSetup[200] = types.RicActionDef{
+	//	RicActionID:         200,
+	//	RicActionType:       e2apies.RicactionType_RICACTION_TYPE_INSERT,
+	//	RicSubsequentAction: e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE,
+	//	Ricttw:              e2apies.RictimeToWait_RICTIME_TO_WAIT_W10MS,
+	//	RicActionDefinition: []byte{0x33, 0x44},
+	//}
 
 	rsr, err := NewRicSubscriptionRequest(
 		types.RicRequest{RequestorID: 1, InstanceID: 2},

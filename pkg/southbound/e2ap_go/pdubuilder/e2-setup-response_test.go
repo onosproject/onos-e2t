@@ -20,8 +20,8 @@ import (
 func TestE2SetupResponse(t *testing.T) {
 	rfAccepted1 := make(types1.RanFunctionRevisions)
 	rfAccepted1[100] = 2
-	rfAccepted1[200] = 2
-	rfAccepted1[150] = 2
+	//rfAccepted1[200] = 2
+	//rfAccepted1[150] = 2
 
 	rfRejected1 := make(types1.RanFunctionCauses)
 	rfRejected1[101] = &e2ap_ies.Cause{
@@ -29,11 +29,11 @@ func TestE2SetupResponse(t *testing.T) {
 			Misc: e2ap_ies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
 		},
 	}
-	rfRejected1[102] = &e2ap_ies.Cause{
-		Cause: &e2ap_ies.Cause_Protocol{
-			Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
-	}
+	//rfRejected1[102] = &e2ap_ies.Cause{
+	//	Cause: &e2ap_ies.Cause_Protocol{
+	//		Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+	//	},
+	//}
 
 	e2ncID13 := pdubuilder.CreateE2NodeComponentIDS1("S1-component")
 	e2nccaal1 := make([]*types1.E2NodeComponentConfigAdditionAckItem, 0)
@@ -65,8 +65,8 @@ func TestE2SetupResponse(t *testing.T) {
 
 	rfAccepted := make(types.RanFunctionRevisions)
 	rfAccepted[100] = 2
-	rfAccepted[200] = 2
-	rfAccepted[150] = 2
+	//rfAccepted[200] = 2
+	//rfAccepted[150] = 2
 
 	rfRejected := make(types.RanFunctionCauses)
 	rfRejected[101] = &e2apies.Cause{
@@ -74,11 +74,11 @@ func TestE2SetupResponse(t *testing.T) {
 			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
 		},
 	}
-	rfRejected[102] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Protocol{
-			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
-	}
+	//rfRejected[102] = &e2apies.Cause{
+	//	Cause: &e2apies.Cause_Protocol{
+	//		Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
+	//	},
+	//}
 
 	e2ncID3 := CreateE2NodeComponentIDS1("S1-component")
 	e2nccaal := make([]*types.E2NodeComponentConfigAdditionAckItem, 0)
