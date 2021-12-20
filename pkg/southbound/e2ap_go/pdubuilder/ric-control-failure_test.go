@@ -5,6 +5,10 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	types1 "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/encoder"
 	"testing"
 
@@ -14,6 +18,29 @@ import (
 )
 
 func TestRicControlFailure(t *testing.T) {
+	ricRequestID1 := types1.RicRequest{
+		RequestorID: 21,
+		InstanceID:  22,
+	}
+	var ranFuncID1 types1.RanFunctionID = 9
+	//var ricCallPrID types.RicCallProcessID = []byte("123")
+	//var ricCtrlOut types.RicControlOutcome = []byte("456")
+	cause1 := e2ap_ies.Cause{
+		Cause: &e2ap_ies.Cause_RicRequest{
+			RicRequest: e2ap_ies.CauseRicrequest_CAUSE_RICREQUEST_REQUEST_ID_UNKNOWN,
+		},
+	}
+	e2apPdu, err := pdubuilder.CreateRicControlFailureE2apPdu(ricRequestID1,
+		ranFuncID1, &cause1)
+	assert.NilError(t, err)
+	assert.Assert(t, e2apPdu != nil)
+	e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().
+		SetRicControlOutcome([]byte{0xFF, 0xFF, 0xDD, 0x4A}).SetRicCallProcessID([]byte{0xCC, 0x3D, 0x1F})
+
+	per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
+	assert.NilError(t, err)
+	t.Logf("RicControlFailure E2AP PDU PER\n%v", hex.Dump(per))
+
 	ricRequestID := types.RicRequest{
 		RequestorID: 21,
 		InstanceID:  22,
@@ -38,17 +65,13 @@ func TestRicControlFailure(t *testing.T) {
 	t.Logf("RicControlFailure E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
-	//assert.DeepEqual(t, per, perNew)
+	assert.DeepEqual(t, per, perNew)
 
-	e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
-	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
-
-	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("RIC Control Request E2AP PDU\n%v", hex.Dump(per))
-	//
-	//e2apPdu, err = asn1cgo.PerDecodeE2apPdu(per)
+	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
 	//assert.NilError(t, err)
 	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+
+	result, err := asn1cgo.PerDecodeE2apPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, result.String(), e2apPdu.String())
 }

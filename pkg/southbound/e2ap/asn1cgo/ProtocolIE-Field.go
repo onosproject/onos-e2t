@@ -160,7 +160,6 @@ func newErrorIndicationIe1Cause(eiCauseIe *e2appducontents.ErrorIndicationIes_Er
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	rsdfCauseC, err := newCause(eiCauseIe.GetValue())
@@ -193,7 +192,6 @@ func newE2setupFailureIe1Cause(e2sfCauseIe *e2appducontents.E2SetupFailureIes_E2
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [80]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	e2sfCauseC, err := newCause(e2sfCauseIe.GetValue())
@@ -226,7 +224,6 @@ func newResetRequestIes1Cause(rrCauseIe *e2appducontents.ResetRequestIes_ResetRe
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [40]byte{} // The size of the ResetRequest_IEs__value
 
 	rrCauseIeC, err := newCause(rrCauseIe.GetValue())
@@ -259,7 +256,6 @@ func newE2nodeConfigurationUpdateFailureIes1Cause(e2cuaIe *e2appducontents.E2Nod
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{} // The size of the ResetRequest_IEs__value
 
 	rrCauseIeC, err := newCause(e2cuaIe.GetValue())
@@ -292,7 +288,6 @@ func newE2connectionUpdateFailureIes1Cause(e2cuaIe *e2appducontents.E2Connection
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{} // The size of the ResetRequest_IEs__value
 
 	rrCauseIeC, err := newCause(e2cuaIe.GetValue())
@@ -427,7 +422,6 @@ func newErrorIndicationIe2CriticalityDiagnostics(eiCritDiagsIe *e2appducontents.
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{} // The size of the ErrorIndication_IEs__value
 
 	eiCritDiagsC, err := newCriticalityDiagnostics(eiCritDiagsIe.GetValue())
@@ -462,7 +456,6 @@ func newE2setupIe2CriticalityDiagnostics(e2sfCritDiagsIe *e2appducontents.E2Setu
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [80]byte{} // The size of the ErrorIndication_IEs__value
 
 	e2sfCritDiagsC, err := newCriticalityDiagnostics(e2sfCritDiagsIe.GetValue())
@@ -998,7 +991,6 @@ func newErrorIndicationIe5RanFunctionID(eiRfIe *e2appducontents.ErrorIndicationI
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{} // The size of the ErrorIndication_IEs__value_u
 
 	ranFunctionIDC := newRanFunctionID(eiRfIe.Value)
@@ -1051,10 +1043,12 @@ func newE2setupResponseIe9RanFunctionsAccepted(esIe *e2appducontents.E2SetupResp
 }
 
 func newRicServiceQueryIes9RanFunctionsAccepted(esIe *e2appducontents.RicserviceQueryIes_RicserviceQueryIes9) (*C.RICserviceQuery_IEs_t, error) {
+
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
 		return nil, err
 	}
+
 	idC, err := protocolIeIDToC(v2.ProtocolIeIDRanfunctionsAccepted)
 	if err != nil {
 		return nil, err
@@ -1582,7 +1576,6 @@ func newRicControlRequestIe22RiccontrolHeader(rcrIe22 *e2appducontents.Riccontro
 		return nil, err
 	}
 
-	//ToDo - double-check number of bytes required here
 	choiceC := [40]byte{} // The size of the E2setupResponseIEs__value_u
 
 	ricControlHeaderC := newRicControlHeader(rcrIe22.Value)
@@ -1611,7 +1604,6 @@ func newRicControlRequestIe23RiccontrolMessage(rcrIe23 *e2appducontents.Riccontr
 		return nil, err
 	}
 
-	//ToDo - double-check number of bytes required here
 	choiceC := [40]byte{} // The size of the E2setupResponseIEs__value_u
 
 	ricControlMessageC := newRicControlMessage(rcrIe23.Value)
@@ -2023,7 +2015,6 @@ func newErrorIndicationIe29RicRequestID(eiRrIDIe *e2appducontents.ErrorIndicatio
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{}
 
 	ricRequestIDC := newRicRequestID(eiRrIDIe.Value)
@@ -2150,7 +2141,6 @@ func newE2setupFailureIe31TimeToWait(e2sfIe *e2appducontents.E2SetupFailureIes_E
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [80]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	e2sfTtwC, err := newTimeToWait(e2sfIe.GetValue())
@@ -2183,7 +2173,6 @@ func newRicServiceUpdateFailureIe31TimeToWait(e2sfIe *e2appducontents.Ricservice
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	e2sfTtwC, err := newTimeToWait(e2sfIe.GetValue())
@@ -2216,7 +2205,6 @@ func newE2connectionUpdateFailureIes31TimeToWait(e2cuafIe *e2appducontents.E2Con
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	e2sfTtwC, err := newTimeToWait(e2cuafIe.GetValue())
@@ -2249,7 +2237,6 @@ func newE2nodeConfigurationUpdateFailureIes31TimeToWait(e2cuaIe *e2appducontents
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{} // The size of the RICsubscriptionDeleteFailure_IEs__value
 
 	e2sfTtwC, err := newTimeToWait(e2cuaIe.GetValue())
@@ -2282,7 +2269,6 @@ func newRicControlFailureIe32RiccontrolOutcome(rcfIe32 *e2appducontents.Riccontr
 		return nil, err
 	}
 
-	//ToDo - double-check number of bytes required here
 	choiceC := [40]byte{} // The size of the RICcontrolFailureIEs__value_u
 
 	ricControlOutcomeC := newRicControlOutcome(rcfIe32.Value)
@@ -2311,7 +2297,6 @@ func newRicControlAcknowledgeIe32RiccontrolOutcome(rcrIe32 *e2appducontents.Ricc
 		return nil, err
 	}
 
-	//ToDo - double-check number of bytes required here
 	choiceC := [40]byte{} // The size of the E2setupResponseIEs__value_u
 
 	ricControlOutcomeC := newRicControlOutcome(rcrIe32.Value)
@@ -2599,7 +2584,6 @@ func newErrorIndicationIe49TransactionID(eiRrIDIe *e2appducontents.ErrorIndicati
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{}
 
 	transactionID := newTransactionID(eiRrIDIe.Value)
@@ -2627,7 +2611,6 @@ func newE2setupRequestIe49TransactionID(e2srIe *e2appducontents.E2SetupRequestIe
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2srIe.Value)
@@ -2655,7 +2638,6 @@ func newE2setupResponseIe49TransactionID(e2srIe *e2appducontents.E2SetupResponse
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [112]byte{}
 
 	transactionID := newTransactionID(e2srIe.Value)
@@ -2683,7 +2665,6 @@ func newE2setupFailureIe49TransactionID(e2sfIe *e2appducontents.E2SetupFailureIe
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [80]byte{}
 
 	transactionID := newTransactionID(e2sfIe.Value)
@@ -2711,7 +2692,6 @@ func newE2connectionUpdateIe49TransactionID(e2cuIe *e2appducontents.E2Connection
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2cuIe.GetValue())
@@ -2739,7 +2719,6 @@ func newE2connectionUpdateAck49TransactionID(e2cuaIe *e2appducontents.E2Connecti
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2cuaIe.Value)
@@ -2767,7 +2746,6 @@ func newE2connectionUpdateFailureIes49TransactionID(e2cufIe *e2appducontents.E2C
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{}
 
 	transactionID := newTransactionID(e2cufIe.Value)
@@ -2795,7 +2773,6 @@ func newE2nodeConfigurationUpdateIes49TransactionID(e2ncuIe *e2appducontents.E2N
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2ncuIe.Value)
@@ -2823,7 +2800,6 @@ func newE2nodeConfigurationUpdateAcknowledgeIes49TransactionID(e2ncuIe *e2appduc
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(e2ncuIe.Value)
@@ -2851,7 +2827,6 @@ func newE2nodeConfigurationUpdateFailureIes49TransactionID(e2ncuIe *e2appduconte
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{}
 
 	transactionID := newTransactionID(e2ncuIe.Value)
@@ -2879,7 +2854,6 @@ func newResetRequestIes49TransactionID(rrIe *e2appducontents.ResetRequestIes_Res
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [40]byte{}
 
 	transactionID := newTransactionID(rrIe.Value)
@@ -2907,7 +2881,6 @@ func newResetResponseIes49TransactionID(rrIe *e2appducontents.ResetResponseIes_R
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{}
 
 	transactionID := newTransactionID(rrIe.Value)
@@ -2935,7 +2908,6 @@ func newRicServiceUpdateIes49TransactionID(rsuIe *e2appducontents.RicserviceUpda
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(rsuIe.Value)
@@ -2963,7 +2935,6 @@ func newRicServiceUpdateAcknowledgeIes49TransactionID(rsuIe *e2appducontents.Ric
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(rsuIe.Value)
@@ -2991,7 +2962,6 @@ func newRicServiceUpdateFailureIes49TransactionID(rsufIe *e2appducontents.Ricser
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [64]byte{}
 
 	transactionID := newTransactionID(rsufIe.Value)
@@ -3010,16 +2980,17 @@ func newRicServiceUpdateFailureIes49TransactionID(rsufIe *e2appducontents.Ricser
 }
 
 func newRicServiceQueryIes49TransactionID(esIe *e2appducontents.RicserviceQueryIes_RicserviceQueryIes49) (*C.RICserviceQuery_IEs_t, error) {
+
 	critC, err := criticalityToC(e2ap_commondatatypes.Criticality(esIe.GetCriticality()))
 	if err != nil {
 		return nil, err
 	}
+
 	idC, err := protocolIeIDToC(v2.ProtocolIeIDTransactionID)
 	if err != nil {
 		return nil, err
 	}
 
-	//TODO: Size should be double-checked
 	choiceC := [48]byte{}
 
 	transactionID := newTransactionID(esIe.Value)
@@ -3170,7 +3141,7 @@ func newE2nodeConfigurationUpdateIes54E2nodeComponentConfigRemovalList(e2sfIe *e
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeComponentConfigAddition)
+	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeComponentConfigRemoval)
 	if err != nil {
 		return nil, err
 	}
@@ -3234,7 +3205,7 @@ func newE2nodeConfigurationUpdateIes58E2nodeTnlAssociationRemovalList(e2sfIe *e2
 	if err != nil {
 		return nil, err
 	}
-	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeComponentConfigAddition)
+	idC, err := protocolIeIDToC(v2.ProtocolIeIDE2nodeTNLassociationRemoval)
 	if err != nil {
 		return nil, err
 	}
@@ -3400,7 +3371,7 @@ func newE2nodeComponentConfigUpdateItemIEs(e2nccuItemIes *e2appducontents.E2Node
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccuItemC.e2nodeComponentInterfaceType))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2nccuItemC.e2nodeComponentID.present))
 	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
@@ -3441,7 +3412,7 @@ func newE2nodeComponentConfigUpdateAckItemIEs(e2nccuaItemIes *e2appducontents.E2
 	if err != nil {
 		return nil, fmt.Errorf("newE2nodeComponentConfigUpdateAckItemIEs() %s", err.Error())
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccuItemC.e2nodeComponentInterfaceType))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2nccuItemC.e2nodeComponentID.present))
 	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
@@ -3478,7 +3449,7 @@ func newE2connectionUpdateItemIEs(e2cuItemIes *e2appducontents.E2ConnectionUpdat
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlAddress.buf))))
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(e2cuItemC.tnlInformation.tnlAddress.size))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2cuItemC.tnlInformation.tnlAddress.bits_unused))
@@ -3486,9 +3457,6 @@ func newE2connectionUpdateItemIEs(e2cuItemIes *e2appducontents.E2ConnectionUpdat
 	binary.LittleEndian.PutUint64(choiceC[48:], uint64(uintptr(unsafe.Pointer(e2cuItemC.tnlInformation.tnlPort))))
 	// Gap of 24 for the asn_struct_ctx_t belonging to BIT STRING
 	binary.LittleEndian.PutUint64(choiceC[80:], uint64(e2cuItemC.tnlUsage))
-
-	//ToDo - print it out
-	//fmt.Printf("Choice is \n%v", hex.Dump(choiceC))
 
 	rfItemIesC := C.E2connectionUpdate_ItemIEs_t{
 		id:          idC,
@@ -3551,7 +3519,7 @@ func newE2nodeComponentConfigAdditionItemIEs(e2nccaItemIes *e2appducontents.E2No
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccaItemC.e2nodeComponentInterfaceType))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2nccaItemC.e2nodeComponentID.present))
 	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
@@ -3592,7 +3560,7 @@ func newE2nodeComponentConfigAdditionAckItemIEs(e2nccaaItemIes *e2appducontents.
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccaaItemC.e2nodeComponentInterfaceType))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2nccaaItemC.e2nodeComponentID.present))
 	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
@@ -3629,7 +3597,7 @@ func newE2nodeComponentConfigRemovalAckItemIEs(e2nccraItemIes *e2appducontents.E
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccaaItemC.e2nodeComponentInterfaceType))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2nccaaItemC.e2nodeComponentID.present))
 	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
@@ -3666,7 +3634,7 @@ func newE2nodeComponentConfigRemovalItemIEs(e2nccaaItemIes *e2appducontents.E2No
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(e2nccaaItemC.e2nodeComponentInterfaceType))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(e2nccaaItemC.e2nodeComponentID.present))
 	// Gap of 24 for the asn_struct_ctx_t belonging to E2nodeComponentID --> 48
@@ -3700,7 +3668,7 @@ func newE2nodeTnlAssociationRemovalItemIEs(e2nccaaItemIes *e2appducontents.E2Nod
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2nccaaItemC.tnlInformation.tnlAddress.buf))))
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(e2nccaaItemC.tnlInformation.tnlAddress.size))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2nccaaItemC.tnlInformation.tnlAddress.bits_unused))
@@ -3742,7 +3710,7 @@ func newE2connectionSetupFailedItemIEs(e2csfItemIes *e2appducontents.E2Connectio
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:], uint64(uintptr(unsafe.Pointer(e2csfItemC.tnlInformation.tnlAddress.buf))))
 	binary.LittleEndian.PutUint64(choiceC[8:], uint64(e2csfItemC.tnlInformation.tnlAddress.size))
 	binary.LittleEndian.PutUint64(choiceC[16:], uint64(e2csfItemC.tnlInformation.tnlAddress.bits_unused))
@@ -3899,7 +3867,7 @@ func newRicSubscriptionWithCauseItemIEs(ratbsItemIes *e2appducontents.Ricsubscri
 	if err != nil {
 		return nil, err
 	}
-	//ToDo - verify correctness of passing bytes there..
+
 	binary.LittleEndian.PutUint64(choiceC[0:8], uint64(ratbsItemC.ricRequestID.ricRequestorID))
 	binary.LittleEndian.PutUint64(choiceC[8:16], uint64(ratbsItemC.ricRequestID.ricInstanceID))
 	// Gap of 24 for the asn_struct_ctx_t belonging to RICrequestID
@@ -4097,10 +4065,10 @@ func decodeRicSubscriptionDeleteRequiredIE(rsrIeC *C.RICsubscriptionDeleteRequir
 			return nil, err
 		}
 		//ret = &e2appducontents.RicsubscriptionDeleteRequiredIes{
-			ret.Id = int32(v2.ProtocolIeIDRICsubscriptionToBeRemoved)
-			ret.Value = list
-			ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE)
-			ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY)
+		ret.Id = int32(v2.ProtocolIeIDRICsubscriptionToBeRemoved)
+		ret.Value = list
+		ret.Criticality = int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE)
+		ret.Presence = int32(e2ap_commondatatypes.Presence_PRESENCE_MANDATORY)
 		//}
 	case C.RICsubscriptionDeleteRequired_IEs__value_PR_NOTHING:
 		return nil, fmt.Errorf("decodeRicSubscriptionDeleteRequiredIE(). %v not yet implemneted", rsrIeC.value.present)

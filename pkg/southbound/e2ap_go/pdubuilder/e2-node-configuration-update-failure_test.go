@@ -21,32 +21,21 @@ import (
 	"gotest.tools/assert"
 )
 
-func TestRicServiceUpdateFailure(t *testing.T) {
-	rfRejected1 := make(types1.RanFunctionCauses)
-	rfRejected1[101] = &e2ap_ies.Cause{
-		Cause: &e2ap_ies.Cause_Misc{
-			Misc: e2ap_ies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
-		},
-	}
-	rfRejected1[102] = &e2ap_ies.Cause{
-		Cause: &e2ap_ies.Cause_Protocol{
-			Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
-	}
-
+func TestE2NodeConfigurationUpdateFailure(t *testing.T) {
 	ttw1 := e2ap_ies.TimeToWait_TIME_TO_WAIT_V2S
 	procCode1 := v21.ProcedureCodeIDRICsubscription
 	criticality1 := e2apcommondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg1 := e2apcommondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
-	e2apPdu, err := pdubuilder.CreateRicServiceUpdateFailureE2apPdu(1, &e2ap_ies.Cause{
-		Cause: &e2ap_ies.Cause_RicService{
-			RicService: e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT,
+	e2apPdu, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(1, &e2ap_ies.Cause{
+		Cause: &e2ap_ies.Cause_Protocol{
+			Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
 	})
 	assert.NilError(t, err)
 	assert.Assert(t, e2apPdu != nil)
-	e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetUnsuccessfulOutcome().
+
+	e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetUnsuccessfulOutcome().
 		SetTimeToWait(ttw1).SetCriticalityDiagnostics(&procCode1, &criticality1, &ftg1,
 		&types1.RicRequest{
 			RequestorID: 10,
@@ -59,38 +48,24 @@ func TestRicServiceUpdateFailure(t *testing.T) {
 			},
 		})
 
-	assert.NilError(t, err)
-	assert.Assert(t, e2apPdu != nil)
-
 	per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicServiceUpdateFailure E2AP PDU PER\n%v", hex.Dump(per))
-
-	rfRejected := make(types.RanFunctionCauses)
-	rfRejected[101] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Misc{
-			Misc: e2apies.CauseMisc_CAUSE_MISC_HARDWARE_FAILURE,
-		},
-	}
-	rfRejected[102] = &e2apies.Cause{
-		Cause: &e2apies.Cause_Protocol{
-			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_SEMANTIC_ERROR,
-		},
-	}
+	t.Logf("E2NodeConfigurationUpdateFailure E2AP PDU PER\n%v", hex.Dump(per))
 
 	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V2S
 	procCode := v2.ProcedureCodeIDRICsubscription
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
 
-	newE2apPdu, err := CreateRicServiceUpdateFailureE2apPdu(1, &e2apies.Cause{
-		Cause: &e2apies.Cause_RicService{
-			RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT,
+	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(1, &e2apies.Cause{
+		Cause: &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
 	})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
-	newE2apPdu.GetUnsuccessfulOutcome().GetValue().GetRicServiceUpdate().
+
+	newE2apPdu.GetUnsuccessfulOutcome().GetValue().GetE2NodeConfigurationUpdate().
 		SetTimeToWait(ttw).SetCriticalityDiagnostics(&procCode, &criticality, &ftg,
 		&types.RicRequest{
 			RequestorID: 10,
@@ -103,68 +78,56 @@ func TestRicServiceUpdateFailure(t *testing.T) {
 			},
 		})
 
-	assert.NilError(t, err)
-	assert.Assert(t, newE2apPdu != nil)
-
 	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicServiceUpdateFailure E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
+	t.Logf("E2NodeConfigurationUpdateFailure E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
 	//result, err := encoder.PerDecodeE2ApPdu(perNew)
 	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), result.String())
+	//t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER - decoded\n%v", result)
 
 	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
-	t.Logf("RicServiceUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
+	t.Logf("E2connectionUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
 	assert.DeepEqual(t, e2apPdu.String(), result1.String())
 }
 
-func TestRicServiceUpdateFailureExcludeOptionalIE(t *testing.T) {
-	ttw1 := e2ap_ies.TimeToWait_TIME_TO_WAIT_V2S
-
-	e2apPdu, err := pdubuilder.CreateRicServiceUpdateFailureE2apPdu(1, &e2ap_ies.Cause{
-		Cause: &e2ap_ies.Cause_RicService{
-			RicService: e2ap_ies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT,
+func TestE2NodeConfigurationUpdateFailureExcludeOptionalIE(t *testing.T) {
+	e2apPdu, err := pdubuilder.CreateE2NodeConfigurationUpdateFailureE2apPdu(1, &e2ap_ies.Cause{
+		Cause: &e2ap_ies.Cause_Protocol{
+			Protocol: e2ap_ies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
 	})
 	assert.NilError(t, err)
 	assert.Assert(t, e2apPdu != nil)
-	e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicServiceUpdate().GetUnsuccessfulOutcome().SetTimeToWait(ttw1)
 
 	per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicServiceUpdateFailure E2AP PDU PER \n%v", hex.Dump(per))
+	t.Logf("E2NodeConfigurationUpdateFailure E2AP PDU PER\n%v", hex.Dump(per))
 
-	ttw := e2apies.TimeToWait_TIME_TO_WAIT_V2S
-
-	newE2apPdu, err := CreateRicServiceUpdateFailureE2apPdu(1, &e2apies.Cause{
-		Cause: &e2apies.Cause_RicService{
-			RicService: e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT,
+	newE2apPdu, err := CreateE2NodeConfigurationUpdateFailureE2apPdu(1, &e2apies.Cause{
+		Cause: &e2apies.Cause_Protocol{
+			Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
 		},
 	})
 	assert.NilError(t, err)
 	assert.Assert(t, newE2apPdu != nil)
-	newE2apPdu.GetUnsuccessfulOutcome().GetValue().GetRicServiceUpdate().SetTimeToWait(ttw)
 
 	perNew, err := encoder.PerEncodeE2ApPdu(newE2apPdu)
 	assert.NilError(t, err)
-	t.Logf("RicServiceUpdateFailure E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
-
-	//Comparing reference PER bytes with Go APER library produced
-	assert.DeepEqual(t, per, perNew)
+	t.Logf("E2NodeConfigurationUpdateFailure E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//result, err := encoder.PerDecodeE2ApPdu(perNew)
 	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), result.String())
+	//t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER - decoded\n%v", result)
 
 	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)
-	t.Logf("RicServiceUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
+	t.Logf("E2connectionUpdateFailure E2AP PDU PER - decoded is \n%v", result1)
 	assert.DeepEqual(t, e2apPdu.String(), result1.String())
 }

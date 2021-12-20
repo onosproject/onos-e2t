@@ -5,6 +5,10 @@ package pdubuilder
 
 import (
 	"encoding/hex"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	types1 "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/encoder"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"testing"
@@ -15,6 +19,45 @@ import (
 )
 
 func TestE2NodeConfigurationUpdateAck(t *testing.T) {
+	grnID1, err := pdubuilder.CreateGlobalNgRanNodeIDGnb([]byte{0x01, 0x02, 0x03}, &asn1.BitString{
+		Value: []byte{0xAB, 0xCD, 0xEF, 0xFF},
+		Len:   32,
+	})
+	assert.NilError(t, err)
+
+	e2ncID11 := pdubuilder.CreateE2NodeComponentIDF1(21)
+	e2ncID12 := pdubuilder.CreateE2NodeComponentIDXn(grnID1)
+
+	e2apPdu, err := pdubuilder.CreateE2NodeConfigurationUpdateAcknowledgeE2apPdu(1)
+	assert.NilError(t, err)
+	assert.Assert(t, e2apPdu != nil)
+	e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetE2NodeConfigurationUpdate().GetSuccessfulOutcome().
+		SetE2nodeComponentConfigUpdateAck([]*types1.E2NodeComponentConfigUpdateAckItem{
+			{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_F1,
+				E2NodeComponentID: e2ncID11,
+				E2NodeComponentConfigurationAck: types1.E2NodeComponentConfigurationAck{
+					UpdateOutcome: e2apies.UpdateOutcome_UPDATE_OUTCOME_FAILURE,
+					//FailureCause: e2apies.Cause{
+					//	Cause: &e2ap_ies.CauseProtocol{
+					//		Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_TRANSFER_SYNTAX_ERROR,
+					//	},
+					//},
+				}},
+			{E2NodeComponentType: e2apies.E2NodeComponentInterfaceType_E2NODE_COMPONENT_INTERFACE_TYPE_XN,
+				E2NodeComponentID: e2ncID12,
+				E2NodeComponentConfigurationAck: types1.E2NodeComponentConfigurationAck{
+					UpdateOutcome: e2apies.UpdateOutcome_UPDATE_OUTCOME_SUCCESS,
+					FailureCause: &e2apies.Cause{
+						Cause: &e2apies.Cause_Protocol{
+							Protocol: e2apies.CauseProtocol_CAUSE_PROTOCOL_ABSTRACT_SYNTAX_ERROR_FALSELY_CONSTRUCTED_MESSAGE,
+						},
+					},
+				}}})
+	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU \n%v", e2apPdu)
+
+	per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
+	assert.NilError(t, err)
+	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER\n%v", hex.Dump(per))
 
 	grnID, err := CreateGlobalNgRanNodeIDGnb([]byte{0x01, 0x02, 0x03}, &asn1.BitString{
 		Value: []byte{0xAB, 0xCD, 0xEF, 0xFF},
@@ -57,18 +100,14 @@ func TestE2NodeConfigurationUpdateAck(t *testing.T) {
 	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER with Go APER library\n%v", hex.Dump(perNew))
 
 	//Comparing reference PER bytes with Go APER library produced
-	//assert.DeepEqual(t, per, perNew)
+	assert.DeepEqual(t, per, perNew)
 
-	e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
+	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
+	//assert.NilError(t, err)
+	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+
+	result, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
-
-	//per, err := asn1cgo.PerEncodeE2apPdu(newE2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER\n%v", hex.Dump(per))
-	//
-	//resultPer, err := asn1cgo.PerDecodeE2apPdu(per)
-	//assert.NilError(t, err)
-	//t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER - decoded\n%v", resultPer)
-	//assert.DeepEqual(t, newE2apPdu.String(), resultPer.String())
+	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER - decoded\n%v", result)
+	assert.DeepEqual(t, e2apPdu.String(), result.String())
 }

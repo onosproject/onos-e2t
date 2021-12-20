@@ -8,13 +8,14 @@ require (
 	github.com/cenkalti/backoff v2.2.1+incompatible
 	github.com/envoyproxy/protoc-gen-validate v0.4.1
 	github.com/gogo/protobuf v1.3.2
+	github.com/google/martian v2.1.0+incompatible
 	github.com/google/uuid v1.2.0
 	github.com/onosproject/helmit v0.6.19
 	github.com/onosproject/onos-api/go v0.8.0
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.8.0
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.8.0
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.8.0
-	github.com/onosproject/onos-lib-go v0.8.1
+	github.com/onosproject/onos-lib-go v0.8.3
 	github.com/onosproject/onos-ric-sdk-go v0.8.0
 	github.com/onosproject/onos-test v0.6.4
 	github.com/prometheus/common v0.26.0
