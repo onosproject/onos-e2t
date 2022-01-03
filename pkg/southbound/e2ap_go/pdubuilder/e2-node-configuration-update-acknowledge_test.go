@@ -102,12 +102,17 @@ func TestE2NodeConfigurationUpdateAck(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
-	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	result, err := encoder.PerDecodeE2ApPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
-	result, err := asn1cgo.PerDecodeE2apPdu(perNew)
+	// Decoding the message from the APER bytes produced by CGo
+	result11, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result11.String())
+
+	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
 	t.Logf("E2NodeConfigurationUpdateAck E2AP PDU PER - decoded\n%v", result)
-	assert.DeepEqual(t, e2apPdu.String(), result.String())
+	assert.DeepEqual(t, e2apPdu.String(), result1.String())
 }

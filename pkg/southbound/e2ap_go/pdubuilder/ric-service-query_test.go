@@ -47,6 +47,11 @@ func TestRicServiceQuery(t *testing.T) {
 	assert.NilError(t, err)
 	assert.DeepEqual(t, rsq.String(), e2apPdu.String())
 
+	// Decoding the message from the APER bytes produced by CGo
+	e2apPduC, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, rsq.String(), e2apPduC.String())
+
 	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
 	assert.Assert(t, result1 != nil)

@@ -87,13 +87,18 @@ func TestErrorIndicationE2apPdu(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
-	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
-
-	result, err := asn1cgo.PerDecodeE2apPdu(perNew)
+	result, err := encoder.PerDecodeE2ApPdu(perNew)
 	assert.NilError(t, err)
-	assert.DeepEqual(t, result.String(), e2apPdu.String())
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+
+	// Decoding the message from the APER bytes produced by CGo
+	result11, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result11.String())
+
+	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, result1.String(), e2apPdu.String())
 }
 
 func TestErrorIndicationE2apPduExcludeSomeOptionalIEs(t *testing.T) {
@@ -160,9 +165,14 @@ func TestErrorIndicationE2apPduExcludeSomeOptionalIEs(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
-	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	result1, err := encoder.PerDecodeE2ApPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result1.String())
+
+	// Decoding the message from the APER bytes produced by CGo
+	result11, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result11.String())
 
 	result, err := asn1cgo.PerDecodeE2apPdu(per)
 	assert.NilError(t, err)

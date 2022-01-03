@@ -87,6 +87,11 @@ func TestRicSubscriptionRequest(t *testing.T) {
 	assert.NilError(t, err)
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
 
+	// Decoding the message from the APER bytes produced by CGo
+	result11, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result11.String())
+
 	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
 	t.Logf("RicSubscriptionRequest E2AP PDU PER - decoded\n%v\n", result1)

@@ -113,9 +113,14 @@ func TestRicServiceUpdateFailure(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
-	//result, err := encoder.PerDecodeE2ApPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), result.String())
+	result, err := encoder.PerDecodeE2ApPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+
+	// Decoding the message from the APER bytes produced by CGo
+	result11, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result11.String())
 
 	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
@@ -158,9 +163,14 @@ func TestRicServiceUpdateFailureExcludeOptionalIE(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
-	//result, err := encoder.PerDecodeE2ApPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), result.String())
+	result, err := encoder.PerDecodeE2ApPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+
+	// Decoding the message from the APER bytes produced by CGo
+	result11, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result11.String())
 
 	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
