@@ -19,7 +19,8 @@ func PerEncodeE2ApPdu(e2ap *e2appdudescriptions.E2ApPdu) ([]byte, error) {
 
 	log.Debugf("Obtained E2AP-PDU message is\n%v", e2ap)
 	aper.ChoiceMap = e2appdudescriptions.E2ApPduChoicemap
-	per, err := aper.MarshalWithParams(e2ap, "valueExt")
+	aper.CanonicalChoiceMap = e2appdudescriptions.E2ApPduCanonicalChoicemap
+	per, err := aper.MarshalWithParams(e2ap, "choiceExt")
 	if err != nil {
 		return nil, err
 	}
@@ -32,8 +33,9 @@ func PerDecodeE2ApPdu(per []byte) (*e2appdudescriptions.E2ApPdu, error) {
 
 	log.Debugf("Obtained E2AP-PDU PER bytes are\n%v", hex.Dump(per))
 	aper.ChoiceMap = e2appdudescriptions.E2ApPduChoicemap
+	aper.CanonicalChoiceMap = e2appdudescriptions.E2ApPduCanonicalChoicemap
 	result := e2appdudescriptions.E2ApPdu{}
-	err := aper.UnmarshalWithParams(per, &result, "valueExt")
+	err := aper.UnmarshalWithParams(per, &result, "choiceExt")
 	if err != nil {
 		return nil, err
 	}

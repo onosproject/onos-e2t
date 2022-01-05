@@ -1211,8 +1211,8 @@ type RicactionNotAdmittedItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	RicActionId *e2ap_ies.RicactionId `protobuf:"bytes,1,opt,name=ric_action_id,json=ricActionID,proto3" json:"ric_action_id,omitempty"`
-	// @inject_tag: aper:"valueExt"
-	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"choiceExt"`
 }
 
 func (x *RicactionNotAdmittedItem) Reset() {
@@ -1473,8 +1473,8 @@ type RicsubscriptionFailureIe_RfId struct {
 }
 
 type RicsubscriptionFailureIe_C struct {
-	//@inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=c,proto3,oneof" aper:"valueExt"`
+	//@inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 type RicsubscriptionFailureIe_Cd struct {
@@ -2104,8 +2104,8 @@ type RicsubscriptionDeleteFailureIe_RfId struct {
 }
 
 type RicsubscriptionDeleteFailureIe_C struct {
-	//@inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=c,proto3,oneof" aper:"valueExt"`
+	//@inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 type RicsubscriptionDeleteFailureIe_Cd struct {
@@ -2506,8 +2506,8 @@ type RicsubscriptionWithCauseItem struct {
 	// @inject_tag: aper:"valueExt"
 	RicRequestId  *e2ap_ies.RicrequestId  `protobuf:"bytes,1,opt,name=ric_request_id,json=ricRequestID,proto3" json:"ric_request_id,omitempty" aper:"valueExt"`
 	RanFunctionId *e2ap_ies.RanfunctionId `protobuf:"bytes,2,opt,name=ran_function_id,json=ranFunctionID,proto3" json:"ran_function_id,omitempty"`
-	// @inject_tag: aper:"valueExt"
-	Cause *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,proto3" json:"cause,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	Cause *e2ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,proto3" json:"cause,omitempty" aper:"choiceExt"`
 }
 
 func (x *RicsubscriptionWithCauseItem) Reset() {
@@ -3554,8 +3554,8 @@ type RiccontrolFailureIe_RcpId struct {
 }
 
 type RiccontrolFailureIe_C struct {
-	//@inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,4,opt,name=c,proto3,oneof" aper:"valueExt"`
+	//@inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,4,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 type RiccontrolFailureIe_Co struct {
@@ -3796,8 +3796,8 @@ type ErrorIndicationIe_Rfid struct {
 }
 
 type ErrorIndicationIe_C struct {
-	//@inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,4,opt,name=c,proto3,oneof" aper:"valueExt"`
+	//@inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,4,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 type ErrorIndicationIe_Cd struct {
@@ -4022,8 +4022,8 @@ type E2SetupRequestIe_TrId struct {
 }
 
 type E2SetupRequestIe_GE2NId struct {
-	//@inject_tag: aper:"valueExt"
-	GE2NId *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,2,opt,name=gE2nId,proto3,oneof" aper:"valueExt"`
+	//@inject_tag: aper:"choiceExt"
+	GE2NId *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,2,opt,name=gE2nId,proto3,oneof" aper:"choiceExt"`
 }
 
 type E2SetupRequestIe_Rfl struct {
@@ -4498,8 +4498,8 @@ type E2SetupFailureIe_TrId struct {
 }
 
 type E2SetupFailureIe_C struct {
-	//@inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
+	//@inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 type E2SetupFailureIe_Ttw struct {
@@ -5626,8 +5626,8 @@ type E2ConnectionSetupFailedItem struct {
 
 	// @inject_tag: aper:"valueExt"
 	TnlInformation *e2ap_ies.Tnlinformation `protobuf:"bytes,1,opt,name=tnl_information,json=tnlInformation,proto3" json:"tnl_information,omitempty" aper:"valueExt"`
-	// @inject_tag: aper:"valueExt"
-	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"choiceExt"`
 }
 
 func (x *E2ConnectionSetupFailedItem) Reset() {
@@ -5883,8 +5883,8 @@ type E2ConnectionUpdateFailureIe_TrId struct {
 }
 
 type E2ConnectionUpdateFailureIe_C struct {
-	// @inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 type E2ConnectionUpdateFailureIe_Ttw struct {
@@ -6129,8 +6129,8 @@ type E2NodeConfigurationUpdateIe_TrId struct {
 }
 
 type E2NodeConfigurationUpdateIe_Ge2NId struct {
-	// @inject_tag: aper:"valueExt"
-	Ge2NId *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,2,opt,name=ge2nId,proto3,oneof" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	Ge2NId *e2ap_ies.GlobalE2NodeId `protobuf:"bytes,2,opt,name=ge2nId,proto3,oneof" aper:"choiceExt"`
 }
 
 type E2NodeConfigurationUpdateIe_E2Nccal struct {
@@ -6362,8 +6362,8 @@ type E2NodeComponentConfigAdditionItem struct {
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
 	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap_go.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
-	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"choiceExt"`
 	// @inject_tag: aper:"valueExt"
 	E2NodeComponentConfiguration *e2ap_ies.E2NodeComponentConfiguration `protobuf:"bytes,3,opt,name=e2node_component_configuration,json=e2nodeComponentConfiguration,proto3" json:"e2node_component_configuration,omitempty" aper:"valueExt"`
 }
@@ -6616,8 +6616,8 @@ type E2NodeComponentConfigUpdateItem struct {
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
 	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap_go.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
-	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"choiceExt"`
 	// @inject_tag: aper:"valueExt"
 	E2NodeComponentConfiguration *e2ap_ies.E2NodeComponentConfiguration `protobuf:"bytes,3,opt,name=e2node_component_configuration,json=e2nodeComponentConfiguration,proto3" json:"e2node_component_configuration,omitempty" aper:"valueExt"`
 }
@@ -6870,8 +6870,8 @@ type E2NodeComponentConfigRemovalItem struct {
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
 	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap_go.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
-	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"choiceExt"`
 }
 
 func (x *E2NodeComponentConfigRemovalItem) Reset() {
@@ -7590,8 +7590,8 @@ type E2NodeComponentConfigAdditionAckItem struct {
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
 	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap_go.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
-	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"choiceExt"`
 	// @inject_tag: aper:"valueExt"
 	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty" aper:"valueExt"`
 }
@@ -7844,8 +7844,8 @@ type E2NodeComponentConfigUpdateAckItem struct {
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
 	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap_go.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
-	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"choiceExt"`
 	// @inject_tag: aper:"valueExt"
 	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty" aper:"valueExt"`
 }
@@ -8098,8 +8098,8 @@ type E2NodeComponentConfigRemovalAckItem struct {
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
 	E2NodeComponentInterfaceType e2ap_ies.E2NodeComponentInterfaceType `protobuf:"varint,1,opt,name=e2node_component_interface_type,json=e2nodeComponentInterfaceType,proto3,enum=e2ap_go.v2.E2NodeComponentInterfaceType" json:"e2node_component_interface_type,omitempty" aper:"valueExt,valueLB:0,valueUB:6"`
-	// @inject_tag: aper:"valueExt"
-	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	E2NodeComponentId *e2ap_ies.E2NodeComponentId `protobuf:"bytes,2,opt,name=e2node_component_id,json=e2nodeComponentID,proto3" json:"e2node_component_id,omitempty" aper:"choiceExt"`
 	// @inject_tag: aper:"valueExt"
 	E2NodeComponentConfigurationAck *e2ap_ies.E2NodeComponentConfigurationAck `protobuf:"bytes,3,opt,name=e2node_component_configuration_ack,json=e2nodeComponentConfigurationAck,proto3" json:"e2node_component_configuration_ack,omitempty" aper:"valueExt"`
 }
@@ -8364,8 +8364,8 @@ type E2NodeConfigurationUpdateFailureIe_TrId struct {
 }
 
 type E2NodeConfigurationUpdateFailureIe_C struct {
-	// @inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 type E2NodeConfigurationUpdateFailureIe_Ttw struct {
@@ -8581,8 +8581,8 @@ type ResetRequestIe_TrId struct {
 }
 
 type ResetRequestIe_C struct {
-	// @inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 func (*ResetRequestIe_TrId) isResetRequestIe_ResetRequestIe() {}
@@ -10050,8 +10050,8 @@ type RanfunctionIdcauseItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	RanFunctionId *e2ap_ies.RanfunctionId `protobuf:"bytes,1,opt,name=ran_function_id,json=ranFunctionID,proto3" json:"ran_function_id,omitempty"`
-	// @inject_tag: aper:"valueExt"
-	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	Cause *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty" aper:"choiceExt"`
 }
 
 func (x *RanfunctionIdcauseItem) Reset() {
@@ -10307,8 +10307,8 @@ type RicServiceUpdateFailureIe_TrId struct {
 }
 
 type RicServiceUpdateFailureIe_C struct {
-	// @inject_tag: aper:"valueExt"
-	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"valueExt"`
+	// @inject_tag: aper:"choiceExt"
+	C *e2ap_ies.Cause `protobuf:"bytes,2,opt,name=c,proto3,oneof" aper:"choiceExt"`
 }
 
 type RicServiceUpdateFailureIe_Ttw struct {

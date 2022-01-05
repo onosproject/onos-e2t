@@ -52,7 +52,6 @@ func TestRicServiceUpdate(t *testing.T) {
 	e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceUpdate().GetInitiatingMessage().
 		SetRanFunctionsAdded(ranFunctionAddedList1).SetRanFunctionsModified(ranFunctionModifiedList1).SetRanFunctionsDeleted(rfDeleted1)
 
-	// ToDo - investigate where 80 86 comes from, in particular 0x80 and enhance Go APER library
 	per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
 	assert.NilError(t, err)
 	t.Logf("RicServiceUpdate E2AP PDU PER\n%v", hex.Dump(per))
@@ -100,9 +99,14 @@ func TestRicServiceUpdate(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
-	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	result, err := encoder.PerDecodeE2ApPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+
+	// Decoding the message from the APER bytes produced by CGo
+	result11, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result11.String())
 
 	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
@@ -159,9 +163,14 @@ func TestRicServiceUpdateExcludeOptionalIEs(t *testing.T) {
 	//Comparing reference PER bytes with Go APER library produced
 	assert.DeepEqual(t, per, perNew)
 
-	//e2apPdu, err := encoder.PerDecodeE2ApPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), e2apPdu.String())
+	result, err := encoder.PerDecodeE2ApPdu(perNew)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result.String())
+
+	// Decoding the message from the APER bytes produced by CGo
+	result11, err := encoder.PerDecodeE2ApPdu(per)
+	assert.NilError(t, err)
+	assert.DeepEqual(t, newE2apPdu.String(), result11.String())
 
 	result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
 	assert.NilError(t, err)
