@@ -356,7 +356,7 @@ var E2ApPduCanonicalChoicemap = map[string]map[int64]reflect.Type{
 		int64(v2.ProtocolIeIDRicactionAdmittedItem): reflect.TypeOf(e2ap_pdu_contents.RicactionAdmittedItemIe_Ranai{}),
 	},
 	"ricaction_not_admitted_item_ie": {
-		int64(v2.ProtocolIeIDRicactionAdmittedItem): reflect.TypeOf(e2ap_pdu_contents.RicactionNotAdmittedItemIe_Ranai{}),
+		int64(v2.ProtocolIeIDRicactionNotAdmittedItem): reflect.TypeOf(e2ap_pdu_contents.RicactionNotAdmittedItemIe_Ranai{}),
 	},
 	"ricsubscription_failure_ie": {
 		int64(v2.ProtocolIeIDRicrequestID):           reflect.TypeOf(e2ap_pdu_contents.RicsubscriptionFailureIe_RrId{}),

@@ -179,7 +179,7 @@ message RicactionNotAdmittedItemIe {
 // {RICaction-NotAdmitted-Item}
 message RicactionNotAdmittedItem {
     RicactionId ric_action_id = 1 [ json_name="ricActionID"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     Cause cause = 2 [ json_name="cause"];
 };
 
@@ -206,7 +206,7 @@ message RicsubscriptionFailureIe {
         //@inject_tag: aper:"valueExt"
         RicrequestId rrId = 1;
         RanfunctionId rfId = 2;
-        //@inject_tag: aper:"valueExt"
+        //@inject_tag: aper:"choiceExt"
         Cause c = 3;
         //@inject_tag: aper:"valueExt"
         CriticalityDiagnostics cd = 4;
@@ -288,7 +288,7 @@ message RicsubscriptionDeleteFailureIe {
         //@inject_tag: aper:"valueExt"
         RicrequestId rrId = 1;
         RanfunctionId rfId = 2;
-        //@inject_tag: aper:"valueExt"
+        //@inject_tag: aper:"choiceExt"
         Cause c = 3;
         //@inject_tag: aper:"valueExt"
         CriticalityDiagnostics cd = 4;
@@ -350,7 +350,7 @@ message RicsubscriptionWithCauseItem {
     // @inject_tag: aper:"valueExt"
     RicrequestId ric_request_id = 1 [ json_name="ricRequestID"];
     RanfunctionId ran_function_id = 2 [ json_name="ranFunctionID"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     Cause cause = 3 [ json_name="cause"];
 };
 
@@ -470,7 +470,7 @@ message RiccontrolFailureIe {
         RicrequestId rrId = 1;
         RanfunctionId rfId = 2;
         RiccallProcessId rcpId = 3;
-        //@inject_tag: aper:"valueExt"
+        //@inject_tag: aper:"choiceExt"
         Cause c = 4;
         RiccontrolOutcome co = 5;
     }
@@ -500,7 +500,7 @@ message ErrorIndicationIe {
         //@inject_tag: aper:"valueExt"
         RicrequestId rr = 2;
         RanfunctionId rfid = 3;
-        //@inject_tag: aper:"valueExt"
+        //@inject_tag: aper:"choiceExt"
         Cause c = 4;
         // @inject_tag: aper:"valueExt"
         CriticalityDiagnostics cd = 5;
@@ -528,7 +528,7 @@ message E2setupRequestIes {
 message E2setupRequestIe {
     oneof e2setup_request_ie {
         TransactionId trId = 1;
-        //@inject_tag: aper:"valueExt"
+        //@inject_tag: aper:"choiceExt"
         GlobalE2nodeId gE2nId = 2;
         RanfunctionsList rfl = 3;
         E2nodeComponentConfigAdditionList e2nccal = 4;
@@ -585,7 +585,7 @@ message E2setupFailureIes {
 message E2setupFailureIe {
     oneof e2setup_failure_ie {
         TransactionId trId = 1;
-        //@inject_tag: aper:"valueExt"
+        //@inject_tag: aper:"choiceExt"
         Cause c = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait ttw = 3;
@@ -744,7 +744,7 @@ message E2connectionSetupFailedItemIe {
 message E2connectionSetupFailedItem {
     // @inject_tag: aper:"valueExt"
     Tnlinformation tnl_information = 1 [ json_name="tnlInformation"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     Cause cause = 2 [ json_name="cause"];
 };
 
@@ -769,7 +769,7 @@ message E2connectionUpdateFailureIes {
 message E2connectionUpdateFailureIe {
     oneof e2connection_update_failure_ie {
         TransactionId trId = 1;
-        // @inject_tag: aper:"valueExt"
+        // @inject_tag: aper:"choiceExt"
         Cause c = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait ttw = 3 [ json_name="&Value"];
@@ -799,7 +799,7 @@ message E2nodeConfigurationUpdateIes {
 message E2nodeConfigurationUpdateIe {
     oneof e2node_configuration_update_ie {
         TransactionId trId = 1;
-        // @inject_tag: aper:"valueExt"
+        // @inject_tag: aper:"choiceExt"
         GlobalE2nodeId ge2nId = 2;
         E2nodeComponentConfigAdditionList e2nccal = 3;
         E2nodeComponentConfigUpdateList e2nccul = 4;
@@ -838,7 +838,7 @@ message E2nodeComponentConfigAdditionItemIe {
 message E2nodeComponentConfigAdditionItem {
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
     E2nodeComponentInterfaceType e2node_component_interface_type = 1 [ json_name="e2nodeComponentInterfaceType"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     E2nodeComponentId e2node_component_id = 2 [ json_name="e2nodeComponentID"];
     // @inject_tag: aper:"valueExt"
     E2nodeComponentConfiguration e2node_component_configuration = 3 [ json_name="e2nodeComponentConfiguration"];
@@ -874,7 +874,7 @@ message E2nodeComponentConfigUpdateItemIe {
 message E2nodeComponentConfigUpdateItem {
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
     E2nodeComponentInterfaceType e2node_component_interface_type = 1 [ json_name="e2nodeComponentInterfaceType"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     E2nodeComponentId e2node_component_id = 2 [ json_name="e2nodeComponentID"];
     // @inject_tag: aper:"valueExt"
     E2nodeComponentConfiguration e2node_component_configuration = 3 [ json_name="e2nodeComponentConfiguration"];
@@ -910,7 +910,7 @@ message E2nodeComponentConfigRemovalItemIe {
 message E2nodeComponentConfigRemovalItem {
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
     E2nodeComponentInterfaceType e2node_component_interface_type = 1 [ json_name="e2nodeComponentInterfaceType"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     E2nodeComponentId e2node_component_id = 2 [ json_name="e2nodeComponentID"];
 };
 
@@ -1005,7 +1005,7 @@ message E2nodeComponentConfigAdditionAckItemIe {
 message E2nodeComponentConfigAdditionAckItem {
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
     E2nodeComponentInterfaceType e2node_component_interface_type = 1 [ json_name="e2nodeComponentInterfaceType"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     E2nodeComponentId e2node_component_id = 2 [ json_name="e2nodeComponentID"];
     // @inject_tag: aper:"valueExt"
     E2nodeComponentConfigurationAck e2node_component_configuration_ack = 3 [ json_name="e2nodeComponentConfigurationAck"];
@@ -1041,7 +1041,7 @@ message E2nodeComponentConfigUpdateAckItemIe {
 message E2nodeComponentConfigUpdateAckItem {
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
     E2nodeComponentInterfaceType e2node_component_interface_type = 1 [ json_name="e2nodeComponentInterfaceType"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     E2nodeComponentId e2node_component_id = 2 [ json_name="e2nodeComponentID"];
     // @inject_tag: aper:"valueExt"
     E2nodeComponentConfigurationAck e2node_component_configuration_ack = 3 [ json_name="e2nodeComponentConfigurationAck"];
@@ -1077,7 +1077,7 @@ message E2nodeComponentConfigRemovalAckItemIe {
 message E2nodeComponentConfigRemovalAckItem {
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:6"
     E2nodeComponentInterfaceType e2node_component_interface_type = 1 [ json_name="e2nodeComponentInterfaceType"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     E2nodeComponentId e2node_component_id = 2 [ json_name="e2nodeComponentID"];
     // @inject_tag: aper:"valueExt"
     E2nodeComponentConfigurationAck e2node_component_configuration_ack = 3 [ json_name="e2nodeComponentConfigurationAck"];
@@ -1104,7 +1104,7 @@ message E2nodeConfigurationUpdateFailureIes {
 message E2nodeConfigurationUpdateFailureIe {
     oneof e2node_configuration_update_failure_ie {
         TransactionId trId = 1;
-        // @inject_tag: aper:"valueExt"
+        // @inject_tag: aper:"choiceExt"
         Cause c = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait ttw = 3;
@@ -1134,7 +1134,7 @@ message ResetRequestIes {
 message ResetRequestIe {
     oneof reset_request_ie {
         TransactionId trId = 1;
-        // @inject_tag: aper:"valueExt"
+        // @inject_tag: aper:"choiceExt"
         Cause c = 2;
     }
 };
@@ -1325,7 +1325,7 @@ message RanfunctionIdcauseItemIe {
 // {RANfunctionIDcause-Item}
 message RanfunctionIdcauseItem {
     RanfunctionId ran_function_id = 1 [ json_name="ranFunctionID"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     Cause cause = 2 [ json_name="cause"];
 };
 
@@ -1350,7 +1350,7 @@ message RicserviceUpdateFailureIes {
 message RicServiceUpdateFailureIe {
     oneof ric_service_update_failure_ie {
         TransactionId trId = 1;
-        // @inject_tag: aper:"valueExt"
+        // @inject_tag: aper:"choiceExt"
         Cause c = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
         TimeToWait ttw = 3;
