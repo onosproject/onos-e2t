@@ -15,7 +15,7 @@ require (
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm v0.8.0
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2 v0.8.0
 	github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre v0.8.0
-	github.com/onosproject/onos-lib-go v0.8.3
+	github.com/onosproject/onos-lib-go v0.8.6
 	github.com/onosproject/onos-ric-sdk-go v0.8.0
 	github.com/onosproject/onos-test v0.6.4
 	github.com/prometheus/common v0.26.0
@@ -29,5 +29,3 @@ require (
 )
 
 replace github.com/docker/docker => github.com/docker/engine v1.4.2-0.20200229013735-71373c6105e3
-
-replace github.com/onosproject/onos-lib-go => ../onos-lib-go
