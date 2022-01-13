@@ -6,10 +6,12 @@ package procedures
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
 	"syscall"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
@@ -36,9 +38,11 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 	requestPDU := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					E2Setup: &e2appdudescriptions.E2Setup{
-						InitiatingMessage: request,
+				ProcedureCode: int32(v2.ProcedureCodeIDE2setup),
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
+					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2Setup{
+						E2Setup: request,
 					},
 				},
 			},
@@ -61,9 +65,9 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return msg.SuccessfulOutcome.ProcedureCode.E2Setup.SuccessfulOutcome, nil, nil
+			return msg.SuccessfulOutcome.Value.GetE2Setup(), nil, nil
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, msg.UnsuccessfulOutcome.ProcedureCode.E2Setup.UnsuccessfulOutcome, nil
+			return nil, msg.UnsuccessfulOutcome.Value.GetE2Setup(), nil
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -75,9 +79,9 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 func (p *E2SetupInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.ProcedureCode.E2Setup != nil
+		return msg.SuccessfulOutcome.Value.GetE2Setup() != nil
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.ProcedureCode.E2Setup != nil
+		return msg.UnsuccessfulOutcome.Value.GetE2Setup() != nil
 	default:
 		return false
 	}
@@ -116,23 +120,25 @@ type E2SetupProcedure struct {
 func (p *E2SetupProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.ProcedureCode.E2Setup != nil
+		return msg.InitiatingMessage.Value.GetE2Setup() != nil
 	default:
 		return false
 	}
 }
 
 func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
-	response, failure, err := p.handler.E2Setup(context.Background(), requestPDU.GetInitiatingMessage().ProcedureCode.E2Setup.InitiatingMessage)
+	response, failure, err := p.handler.E2Setup(context.Background(), requestPDU.GetInitiatingMessage().Value.GetE2Setup())
 	if err != nil {
 		log.Errorf("E2 Setup procedure failed: %v", err)
 	} else if response != nil {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 				SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
-					ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-						E2Setup: &e2appdudescriptions.E2Setup{
-							SuccessfulOutcome: response,
+					ProcedureCode: int32(v2.ProcedureCodeIDE2setup),
+					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					Value: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures{
+						SoValues: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2Setup{
+							E2Setup: response,
 						},
 					},
 				},
@@ -160,9 +166,11 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
 				UnsuccessfulOutcome: &e2appdudescriptions.UnsuccessfulOutcome{
-					ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-						E2Setup: &e2appdudescriptions.E2Setup{
-							UnsuccessfulOutcome: failure,
+					ProcedureCode: int32(v2.ProcedureCodeIDE2setup),
+					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					Value: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures{
+						UoValues: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup{
+							E2Setup: failure,
 						},
 					},
 				},

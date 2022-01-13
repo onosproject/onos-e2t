@@ -6,11 +6,13 @@ package procedures
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
 	"sync"
 	"syscall"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
@@ -36,9 +38,11 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 	requestPDU := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					RicSubscription: &e2appdudescriptions.RicSubscription{
-						InitiatingMessage: request,
+				ProcedureCode: int32(v2.ProcedureCodeIDRICsubscription),
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
+					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicSubscription{
+						RicSubscription: request,
 					},
 				},
 			},
@@ -73,9 +77,9 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 
 		switch response := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return response.SuccessfulOutcome.ProcedureCode.RicSubscription.SuccessfulOutcome, nil, nil
+			return response.SuccessfulOutcome.Value.GetRicSubscription(), nil, nil
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, response.UnsuccessfulOutcome.ProcedureCode.RicSubscription.UnsuccessfulOutcome, nil
+			return nil, response.UnsuccessfulOutcome.Value.GetRicSubscription(), nil
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -87,9 +91,9 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 func (p *RICSubscriptionInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.ProcedureCode.RicSubscription != nil
+		return msg.SuccessfulOutcome.Value.GetRicSubscription() != nil
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.ProcedureCode.RicSubscription != nil
+		return msg.UnsuccessfulOutcome.Value.GetRicSubscription() != nil
 	default:
 		return false
 	}
@@ -99,9 +103,9 @@ func (p *RICSubscriptionInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	var requestID int32
 	switch response := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		requestID = response.SuccessfulOutcome.ProcedureCode.RicSubscription.SuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
+		requestID = response.SuccessfulOutcome.Value.GetRicSubscription().ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		requestID = response.UnsuccessfulOutcome.ProcedureCode.RicSubscription.UnsuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
+		requestID = response.UnsuccessfulOutcome.Value.GetRicSubscription().ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
 	}
 
 	p.mu.RLock()
@@ -141,23 +145,25 @@ type RICSubscriptionProcedure struct {
 func (p *RICSubscriptionProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.ProcedureCode.RicSubscription != nil
+		return msg.InitiatingMessage.Value.GetRicSubscription() != nil
 	default:
 		return false
 	}
 }
 
 func (p *RICSubscriptionProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
-	response, failure, err := p.handler.RICSubscription(context.Background(), requestPDU.GetInitiatingMessage().ProcedureCode.RicSubscription.InitiatingMessage)
+	response, failure, err := p.handler.RICSubscription(context.Background(), requestPDU.GetInitiatingMessage().GetValue().GetRicSubscription())
 	if err != nil {
 		log.Errorf("RIC Subscription procedure failed: %v", err)
 	} else if response != nil {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 				SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
-					ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-						RicSubscription: &e2appdudescriptions.RicSubscription{
-							SuccessfulOutcome: response,
+					ProcedureCode: int32(v2.ProcedureCodeIDRICsubscription),
+					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					Value: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures{
+						SoValues: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription{
+							RicSubscription: response,
 						},
 					},
 				},
@@ -185,9 +191,11 @@ func (p *RICSubscriptionProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPd
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
 				UnsuccessfulOutcome: &e2appdudescriptions.UnsuccessfulOutcome{
-					ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-						RicSubscription: &e2appdudescriptions.RicSubscription{
-							UnsuccessfulOutcome: failure,
+					ProcedureCode: int32(v2.ProcedureCodeIDRICsubscription),
+					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					Value: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures{
+						UoValues: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription{
+							RicSubscription: failure,
 						},
 					},
 				},
