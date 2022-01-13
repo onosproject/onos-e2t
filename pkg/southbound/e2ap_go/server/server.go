@@ -8,10 +8,10 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/stream"
 	"time"
 
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
 
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 
@@ -19,19 +19,19 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2"
-	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	"github.com/onosproject/onos-e2t/api/e2ap_go/v2"
+	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
 
 	e2smtypes "github.com/onosproject/onos-api/go/onos/e2t/e2sm"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdudecoder"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/pdudecoder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 )
 
 // TODO: Change the RIC ID to something appropriate

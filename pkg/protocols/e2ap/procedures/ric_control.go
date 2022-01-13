@@ -6,7 +6,7 @@ package procedures
 
 import (
 	"context"
-	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
 	"sync"
 	"syscall"
@@ -54,7 +54,13 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 	}*/
 
 	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
-	requestID := request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
+	var requestID int32
+	for _, v := range request.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+			requestID = v.GetValue().GetRrId().GetRicRequestorId()
+			break
+		}
+	}
 	p.mu.Lock()
 	p.responseChs[requestID] = responseCh
 	p.mu.Unlock()
@@ -101,11 +107,22 @@ func (p *RICControlInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 
 func (p *RICControlInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	var requestID int32
+	// Assuming that RequestID is always included in the message
 	switch response := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		requestID = response.SuccessfulOutcome.ProcedureCode.RicControl.SuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
+		for _, v := range response.SuccessfulOutcome.Value.GetRicControl().GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+				requestID = v.GetValue().GetRrId().GetRicRequestorId()
+				break
+			}
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		requestID = response.UnsuccessfulOutcome.ProcedureCode.RicControl.UnsuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
+		for _, v := range response.UnsuccessfulOutcome.Value.GetRicControl().GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+				requestID = v.GetValue().GetRrId().GetRicRequestorId()
+				break
+			}
+		}
 	}
 
 	p.mu.RLock()

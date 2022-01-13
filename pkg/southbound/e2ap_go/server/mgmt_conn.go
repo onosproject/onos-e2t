@@ -10,7 +10,7 @@ import (
 	"time"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 
 	e2 "github.com/onosproject/onos-e2t/pkg/protocols/e2ap"
 )

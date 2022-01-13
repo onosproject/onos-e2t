@@ -6,12 +6,12 @@ package e2ap
 
 import (
 	"context"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/encoder"
 	"io"
 	"net"
 	"sync"
 
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
@@ -126,7 +126,7 @@ func (c *threadSafeConn) processSends() {
 
 // processSend processes a send
 func (c *threadSafeConn) processSend(msg *e2appdudescriptions.E2ApPdu) error {
-	bytes, err := asn1cgo.PerEncodeE2apPdu(msg)
+	bytes, err := encoder.PerEncodeE2ApPdu(msg)
 	if err != nil {
 		log.Warn(err)
 		return err
@@ -165,7 +165,7 @@ func (c *threadSafeConn) processRecvs() {
 
 // processRecvs processes the receive channel
 func (c *threadSafeConn) processRecv(bytes []byte) error {
-	msg, err := asn1cgo.PerDecodeE2apPdu(bytes)
+	msg, err := encoder.PerDecodeE2ApPdu(bytes)
 	if err != nil {
 		log.Warn(err)
 		return err
