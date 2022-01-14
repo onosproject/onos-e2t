@@ -13,9 +13,9 @@ import (
 )
 
 func DecodeResetRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*e2ap_ies.Cause, *int32, error) {
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
 	rr := e2apPdu.GetInitiatingMessage().GetValue().GetReset_()
 	if rr == nil {

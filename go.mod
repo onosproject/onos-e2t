@@ -6,7 +6,7 @@ require (
 	github.com/atomix/atomix-go-client v0.6.2
 	github.com/atomix/atomix-go-framework v0.10.1
 	github.com/cenkalti/backoff v2.2.1+incompatible
-	github.com/envoyproxy/protoc-gen-validate v0.4.1
+	github.com/envoyproxy/protoc-gen-validate v0.6.3
 	github.com/gogo/protobuf v1.3.2
 	github.com/google/martian v2.1.0+incompatible
 	github.com/google/uuid v1.2.0
