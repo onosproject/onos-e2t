@@ -6,54 +6,63 @@ package pdudecoder
 
 import (
 	"fmt"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
 
-	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 )
 
 func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, types.RanFunctions, types.RanFunctionRevisions,
 	types.RanFunctions, error) {
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
-	rsu := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceUpdate()
+	rsu := e2apPdu.GetInitiatingMessage().GetValue().GetRicServiceUpdate()
 	if rsu == nil {
 		return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have RICserviceUpdate")
 	}
 
+	var transactionID int32
 	ranFunctionsAddedList := make(types.RanFunctions)
-	rfal := rsu.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes10().GetValue().GetValue()
-	for _, ie := range rfal {
-		val := ie.GetE2ApProtocolIes8().GetValue()
-		ranFunctionsAddedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
-			Description: val.GetRanFunctionDefinition().GetValue(),
-			Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
-			OID:         types.RanFunctionOID(val.GetRanFunctionOid().GetValue()),
-		}
-	}
-
 	ranFunctionsDeletedList := make(types.RanFunctionRevisions)
-	rfdl := rsu.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes11().GetValue().GetValue()
-	for _, ranFunctionIDItemIe := range rfdl {
-		ranFunctionIDItem := ranFunctionIDItemIe.GetRanFunctionIdItemIes6().GetValue()
-		id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
-		val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
-		ranFunctionsDeletedList[id] = val
-	}
-
 	ranFunctionsModifiedList := make(types.RanFunctions)
-	rfml := rsu.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes12().GetValue().GetValue()
-	for _, ie := range rfml {
-		val := ie.GetE2ApProtocolIes8().GetValue()
-		ranFunctionsModifiedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
-			Description: val.GetRanFunctionDefinition().GetValue(),
-			Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
-			OID:         types.RanFunctionOID(val.GetRanFunctionOid().GetValue()),
+	for _, v := range rsu.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
+			transactionID = v.GetValue().GetTrId().GetValue()
+		}
+		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAdded) {
+			rfal := v.GetValue().GetRfl().GetValue()
+			for _, ie := range rfal.GetValue() {
+				val := ie.GetValue().GetRfi()
+				ranFunctionsAddedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
+					Description: val.GetRanFunctionDefinition().GetValue(),
+					Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
+					OID:         types.RanFunctionOID(val.GetRanFunctionOid().GetValue()),
+				}
+			}
+		}
+		if v.Id == int32(v2.ProtocolIeIDRanfunctionsModified) {
+			rfml := v.GetValue().GetRfl().GetValue()
+			for _, ie := range rfml.GetValue() {
+				val := ie.GetValue().GetRfi()
+				ranFunctionsModifiedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
+					Description: val.GetRanFunctionDefinition().GetValue(),
+					Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
+					OID:         types.RanFunctionOID(val.GetRanFunctionOid().GetValue()),
+				}
+			}
+		}
+		if v.Id == int32(v2.ProtocolIeIDRanfunctionsDeleted) {
+			rfdl := v.GetValue().GetRfidl().GetValue()
+			for _, ranFunctionIDItemIe := range rfdl.GetValue() {
+				ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRfId()
+				id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
+				val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
+				ranFunctionsDeletedList[id] = val
+			}
 		}
 	}
-
-	transactionID := rsu.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
 
 	return &transactionID, ranFunctionsAddedList, ranFunctionsDeletedList, ranFunctionsModifiedList, nil
 }

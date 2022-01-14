@@ -6,34 +6,41 @@ package pdudecoder
 
 import (
 	"fmt"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
 
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 )
 
 func DecodeRicServiceQueryPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, types.RanFunctionRevisions, error) {
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
-	rsq := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicServiceQuery()
+	rsq := e2apPdu.GetInitiatingMessage().GetValue().GetRicServiceQuery()
 	if rsq == nil {
 		return nil, nil, fmt.Errorf("error E2APpdu does not have RICserviceQuery")
 	}
 
+	var transactionID int32
 	rfAccepted := make(types.RanFunctionRevisions)
-	ranFunctionsAcceptedIE := rsq.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes9()
-	if ranFunctionsAcceptedIE != nil {
-		// It's not mandatory
-		for _, ranFunctionIDItemIe := range ranFunctionsAcceptedIE.GetValue().GetValue() {
-			ranFunctionIDItem := ranFunctionIDItemIe.GetRanFunctionIdItemIes6().GetValue()
-			id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
-			val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
-			rfAccepted[id] = val
+	for _, v := range rsq.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
+			transactionID = v.GetValue().GetTrId().GetValue()
+		}
+		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAccepted) {
+			ranFunctionsAcceptedIE := v.GetValue().GetRfIdl().GetValue()
+			if ranFunctionsAcceptedIE != nil {
+				// It's not mandatory
+				for _, ranFunctionIDItemIe := range ranFunctionsAcceptedIE.GetValue() {
+					ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRfId()
+					id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
+					val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
+					rfAccepted[id] = val
+				}
+			}
 		}
 	}
-
-	transactionID := rsq.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
 
 	return &transactionID, rfAccepted, nil
 }

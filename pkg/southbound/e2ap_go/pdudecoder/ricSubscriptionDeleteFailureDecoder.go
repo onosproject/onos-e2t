@@ -7,11 +7,11 @@ package pdudecoder
 import (
 	"fmt"
 
-	"github.com/onosproject/onos-e2t/api/e2ap/v2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
-	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-e2t/api/e2ap_go/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
+	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 )
 
 func DecodeRicSubscriptionDeleteFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
@@ -19,55 +19,63 @@ func DecodeRicSubscriptionDeleteFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu)
 	*v2.ProcedureCodeT, *e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage, *types.RicRequest,
 	[]*types.CritDiag, error) {
 
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
-	ricSubscriptionDelete := e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicSubscriptionDelete()
+	ricSubscriptionDelete := e2apPdu.GetUnsuccessfulOutcome().GetValue().GetRicSubscriptionDelete()
 	if ricSubscriptionDelete == nil {
 		return nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have RicSubscriptionDelete")
 	}
 
-	ranFunctionIDIe := ricSubscriptionDelete.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes5()
-	if ranFunctionIDIe == nil {
-		return nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionID (mandatory)")
-	}
-	ranFunctionID := types.RanFunctionID(ranFunctionIDIe.GetValue().GetValue())
+	var cause *e2ap_ies.Cause
+	var ricRequestID types.RicRequest
+	var ranFunctionID types.RanFunctionID
 
-	ricRequestIDIe := ricSubscriptionDelete.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes29()
-	if ricRequestIDIe == nil {
-		return nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICrequestID (mandatory)")
-	}
-	ricRequestID := &types.RicRequest{
-		RequestorID: types.RicRequestorID(ricRequestIDIe.GetValue().GetRicRequestorId()),
-		InstanceID:  types.RicInstanceID(ricRequestIDIe.GetValue().GetRicInstanceId()),
-	}
-
-	cause := ricSubscriptionDelete.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes1().GetValue()
-
-	critDiagnostics := ricSubscriptionDelete.GetUnsuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2()
 	var pc v2.ProcedureCodeT
 	var crit e2ap_commondatatypes.Criticality
 	var tm e2ap_commondatatypes.TriggeringMessage
 	var critDiagRequestID types.RicRequest
 	var diags []*types.CritDiag
-	if critDiagnostics != nil { //It's optional
-		pc = v2.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
-		crit = critDiagnostics.GetValue().GetProcedureCriticality()
-		tm = critDiagnostics.GetValue().GetTriggeringMessage()
-		critDiagRequestID = types.RicRequest{
-			RequestorID: types.RicRequestorID(critDiagnostics.GetValue().GetRicRequestorId().GetRicRequestorId()),
-			InstanceID:  types.RicInstanceID(critDiagnostics.GetValue().GetRicRequestorId().GetRicInstanceId()),
-		}
-		for _, ie := range critDiagnostics.GetValue().GetIEsCriticalityDiagnostics().GetValue() {
-			diag := types.CritDiag{
-				IECriticality: ie.IEcriticality,
-				IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
-				TypeOfError:   ie.TypeOfError,
+
+	for _, v := range ricSubscriptionDelete.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+			if v.GetValue().GetRrId() == nil {
+				return nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICrequestID (mandatory)")
 			}
-			diags = append(diags, &diag)
+			ricRequestID.RequestorID = types.RicRequestorID(v.GetValue().GetRrId().GetRicRequestorId())
+			ricRequestID.InstanceID = types.RicInstanceID(v.GetValue().GetRrId().GetRicInstanceId())
+		}
+		if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
+			if v.GetValue().GetRfId() == nil {
+				return nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionID (mandatory)")
+			}
+			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
+		}
+		if v.Id == int32(v2.ProtocolIeIDCause) {
+			cause = v.GetValue().GetC()
+		}
+		if v.Id == int32(v2.ProtocolIeIDCriticalityDiagnostics) {
+			critDiagnostics := v.GetValue().GetCd()
+			if critDiagnostics != nil { //It's optional
+				pc = v2.ProcedureCodeT(critDiagnostics.GetProcedureCode().GetValue())
+				crit = critDiagnostics.GetProcedureCriticality()
+				tm = critDiagnostics.GetTriggeringMessage()
+				critDiagRequestID = types.RicRequest{
+					RequestorID: types.RicRequestorID(critDiagnostics.GetRicRequestorId().GetRicRequestorId()),
+					InstanceID:  types.RicInstanceID(critDiagnostics.GetRicRequestorId().GetRicInstanceId()),
+				}
+				for _, ie := range critDiagnostics.GetIEsCriticalityDiagnostics().GetValue() {
+					diag := types.CritDiag{
+						IECriticality: ie.IEcriticality,
+						IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
+						TypeOfError:   ie.TypeOfError,
+					}
+					diags = append(diags, &diag)
+				}
+			}
 		}
 	}
 
-	return &ranFunctionID, ricRequestID, cause, &pc, &crit, &tm, &critDiagRequestID, diags, nil
+	return &ranFunctionID, &ricRequestID, cause, &pc, &crit, &tm, &critDiagRequestID, diags, nil
 }

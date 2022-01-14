@@ -6,66 +6,73 @@ package pdudecoder
 
 import (
 	"fmt"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 )
 
 func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *types.E2NodeIdentity, *types.RanFunctions,
 	[]*types.E2NodeComponentConfigAdditionItem, error) {
-	var nodeIdentity *types.E2NodeIdentity
+
 	var err error
-
-	identifierIe := request.GetProtocolIes().GetE2ApProtocolIes3()
-	nodeIdentity, err = ExtractE2NodeIdentity(identifierIe.GetValue())
-	if err != nil {
-		return nil, nil, nil, nil, fmt.Errorf("couldn't extract E2nodeID %s", err)
-	}
-
+	var transactionID int32
+	var nodeIdentity *types.E2NodeIdentity
 	ranFunctionsList := make(types.RanFunctions)
-	ranFunctionsIe := request.GetProtocolIes().GetE2ApProtocolIes10()
-	if ranFunctionsIe == nil {
-		return nil, nodeIdentity, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionsAdded")
-	}
+	e2nccul := make([]*types.E2NodeComponentConfigAdditionItem, 0)
+	for _, v := range request.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
+			transactionID = v.GetValue().GetTrId().GetValue()
+		}
+		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
+			globalE2NodeID := v.GetValue().GetGE2NId()
+			nodeIdentity, err = ExtractE2NodeIdentity(globalE2NodeID)
+			if err != nil {
+				return nil, nil, nil, nil, err
+			}
+		}
+		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAdded) {
+			ranFunctionsIe := v.GetValue()
+			if ranFunctionsIe == nil {
+				return nil, nodeIdentity, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionsAdded")
+			}
+			for _, rfIe := range ranFunctionsIe.GetRfl().GetValue() {
+				ranFunctionsList[types.RanFunctionID(rfIe.GetValue().GetRfi().GetRanFunctionId().GetValue())] = types.RanFunctionItem{
+					Description: rfIe.GetValue().GetRfi().GetRanFunctionDefinition().GetValue(),
+					Revision:    types.RanFunctionRevision(rfIe.GetValue().GetRfi().GetRanFunctionRevision().GetValue()),
+					OID:         types.RanFunctionOID(rfIe.GetValue().GetRfi().GetRanFunctionOid().GetValue()),
+				}
+			}
+		}
+		if v.Id == int32(v2.ProtocolIeIDE2nodeComponentConfigAddition) {
+			list := v.GetValue().GetE2Nccal().GetValue()
+			for _, ie := range list {
+				e2nccuai := types.E2NodeComponentConfigAdditionItem{}
+				e2nccuai.E2NodeComponentType = ie.GetValue().GetE2Nccui().GetE2NodeComponentInterfaceType()
+				e2nccuai.E2NodeComponentID = ie.GetValue().GetE2Nccui().GetE2NodeComponentId()
+				e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2Nccui().GetE2NodeComponentConfiguration()
 
-	for _, rfIe := range ranFunctionsIe.GetValue().GetValue() {
-		rfItem := rfIe.GetE2ApProtocolIes8().GetValue()
-		ranFunctionsList[types.RanFunctionID(rfItem.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
-			Description: types.RanFunctionDescription(rfItem.GetRanFunctionDefinition().GetValue()),
-			Revision:    types.RanFunctionRevision(rfItem.GetRanFunctionRevision().GetValue()),
-			OID:         types.RanFunctionOID(rfItem.GetRanFunctionOid().GetValue()),
+				e2nccul = append(e2nccul, &e2nccuai)
+			}
 		}
 	}
-
-	e2nccul := make([]*types.E2NodeComponentConfigAdditionItem, 0)
-	list := request.GetProtocolIes().GetE2ApProtocolIes50().GetValue().GetValue()
-	for _, ie := range list {
-		e2nccuai := types.E2NodeComponentConfigAdditionItem{}
-		e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentInterfaceType()
-		e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentId()
-		e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2NodeComponentConfiguration()
-
-		e2nccul = append(e2nccul, &e2nccuai)
-	}
-
-	transactionID := request.GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
 
 	return &transactionID, nodeIdentity, &ranFunctionsList, e2nccul, nil
 }
 
 func DecodeE2SetupRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *types.E2NodeIdentity, *types.RanFunctions,
 	[]*types.E2NodeComponentConfigAdditionItem, error) {
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
-	e2setup := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetE2Setup()
+	e2setup := e2apPdu.GetInitiatingMessage().GetValue().GetE2Setup()
 	if e2setup == nil {
 		return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have E2Setup")
 	}
-	return DecodeE2SetupRequest(e2setup.GetInitiatingMessage())
+	return DecodeE2SetupRequest(e2setup)
 }
 
 func GetE2NodeID(nodeID []byte, length int) string {
