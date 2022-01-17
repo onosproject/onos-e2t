@@ -1701,7 +1701,7 @@ func (m *Ricindication) SetRanFunctionID(ranFuncID types.RanFunctionID) *Ricindi
 	return m
 }
 
-func (m *Ricindication) SetRicActionID(ricAction e2ap_ies.RicactionType) *Ricindication {
+func (m *Ricindication) SetRicActionID(ricAction int32) *Ricindication {
 
 	ie := &RicindicationIes{
 		Id:          int32(v2.ProtocolIeIDRicactionID),
@@ -1709,7 +1709,7 @@ func (m *Ricindication) SetRicActionID(ricAction e2ap_ies.RicactionType) *Ricind
 		Value: &RicindicationIe{
 			RicindicationIe: &RicindicationIe_RaId{
 				RaId: &e2ap_ies.RicactionId{
-					Value: int32(ricAction),
+					Value: ricAction,
 				},
 			},
 		},

@@ -11,7 +11,7 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/controller/e2t"
 	nbstream "github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	e2v1beta1service "github.com/onosproject/onos-e2t/pkg/northbound/e2/v1beta1"
-	sbstream "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
+	sbstream "github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/stream"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 
@@ -19,7 +19,7 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/server"
 
 	"github.com/onosproject/onos-e2t/pkg/controller/mastership"
 	subctrlv1beta1 "github.com/onosproject/onos-e2t/pkg/controller/v1beta1/channel"

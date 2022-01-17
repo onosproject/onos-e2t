@@ -13,7 +13,7 @@ import (
 )
 
 func RicIndicationE2apPdu(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricAction e2apies.RicactionType, ricIndicationType e2apies.RicindicationType,
+	ricAction int32, ricIndicationType e2apies.RicindicationType,
 	ricIndHd types.RicIndicationHeader, ricIndMsg types.RicIndicationMessage) (
 	*e2appdudescriptions.E2ApPdu, error) {
 

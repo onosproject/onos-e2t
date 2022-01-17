@@ -8,8 +8,8 @@ import (
 	"context"
 	"github.com/google/uuid"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/stream"
 	"sync"
 )
 

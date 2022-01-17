@@ -16,7 +16,7 @@ import (
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/server"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )

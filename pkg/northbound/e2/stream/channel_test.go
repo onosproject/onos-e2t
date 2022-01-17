@@ -7,9 +7,10 @@ package stream
 import (
 	"context"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/stream"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -60,7 +61,14 @@ func TestChannelStreams(t *testing.T) {
 
 	select {
 	case ind := <-stream1.Indications():
-		assert.Equal(t, int32(1), ind.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
+		var rrID int32
+		for _, v := range ind.GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+				rrID = v.GetValue().GetRrId().GetRicRequestorId()
+				break
+			}
+		}
+		assert.Equal(t, int32(1), rrID)
 	case <-time.After(time.Second):
 		t.Error("Timed out waiting for indication 1")
 	}
@@ -120,7 +128,14 @@ func TestChannelStreams(t *testing.T) {
 
 	select {
 	case ind := <-stream2.Indications():
-		assert.Equal(t, int32(2), ind.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
+		var rrID int32
+		for _, v := range ind.GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+				rrID = v.GetValue().GetRrId().GetRicRequestorId()
+				break
+			}
+		}
+		assert.Equal(t, int32(2), rrID)
 	case <-time.After(time.Second):
 		t.Error("Timed out waiting for indication 2")
 	}
@@ -183,13 +198,13 @@ func TestChannelStreams(t *testing.T) {
 }
 
 func newIndication(requestID int32) *e2appducontents.Ricindication {
-	return &e2appducontents.Ricindication{
-		ProtocolIes: &e2appducontents.RicindicationIes{
-			E2ApProtocolIes29: &e2appducontents.RicindicationIes_RicindicationIes29{
-				Value: &e2apies.RicrequestId{
-					RicRequestorId: requestID,
-				},
-			},
-		},
+	ri := &e2appducontents.Ricindication{
+		ProtocolIes: make([]*e2appducontents.RicindicationIes, 0),
 	}
+	ri.SetRicRequestID(types.RicRequest{
+		RequestorID: types.RicRequestorID(requestID),
+		InstanceID:  types.RicInstanceID(0),
+	})
+
+	return ri
 }

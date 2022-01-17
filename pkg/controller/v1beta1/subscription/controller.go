@@ -6,8 +6,9 @@ package subscription
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/stream"
 	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
@@ -16,15 +17,15 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/pdubuilder"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/server"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
 	"github.com/onosproject/onos-e2t/pkg/config"
 	substore "github.com/onosproject/onos-e2t/pkg/store/subscription"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
@@ -273,7 +274,14 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			}
 			return controller.Result{}, nil
 		} else if failure != nil {
-			switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
+			var cause *e2apies.Cause
+			for _, v := range failure.GetProtocolIes() {
+				if v.Id == int32(v2.ProtocolIeIDCause) {
+					cause = v.GetValue().GetC()
+					break
+				}
+			}
+			switch cause.GetCause().(type) {
 			case *e2apies.Cause_RicRequest:
 				e2apErr := getSubscriptionDeleteError(failure)
 				switch c := e2apErr.GetCause().GetCause().(type) {
@@ -587,7 +595,14 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		}
 		return controller.Result{}, nil
 	} else if failure != nil {
-		switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
+		var cause *e2apies.Cause
+		for _, v := range failure.GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDCause) {
+				cause = v.GetValue().GetC()
+				break
+			}
+		}
+		switch cause.GetCause().(type) {
 		case *e2apies.Cause_RicRequest:
 			e2apErr := getSubscriptionDeleteError(failure)
 			switch c := e2apErr.GetCause().GetCause().(type) {
@@ -621,7 +636,14 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 		return nil
 	}
 
-	switch c := failure.GetProtocolIes().GetE2ApProtocolIes1().Value.Cause.(type) {
+	var cause *e2apies.Cause
+	for _, v := range failure.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDCause) {
+			cause = v.GetValue().GetC()
+			break
+		}
+	}
+	switch c := cause.GetCause().(type) {
 	case *e2apies.Cause_RicRequest:
 		var errType e2api.Error_Cause_Ric_Type
 		switch c.RicRequest {
@@ -758,7 +780,14 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 		return nil
 	}
 
-	switch c := failure.GetProtocolIes().GetE2ApProtocolIes1().Value.Cause.(type) {
+	var cause *e2apies.Cause
+	for _, v := range failure.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDCause) {
+			cause = v.GetValue().GetC()
+			break
+		}
+	}
+	switch c := cause.GetCause().(type) {
 	case *e2apies.Cause_RicRequest:
 		var errType e2api.Error_Cause_Ric_Type
 		switch c.RicRequest {

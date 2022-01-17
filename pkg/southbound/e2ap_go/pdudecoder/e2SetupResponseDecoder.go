@@ -49,10 +49,9 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *ty
 			ricIdentity.PlmnID = plmnID
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAccepted) {
-			ranFunctionsAcceptedIE := v.GetValue().GetRfIdl().GetValue()
-			if ranFunctionsAcceptedIE != nil {
+			if v.GetValue().GetRfIdl().GetValue() != nil {
 				// It's not mandatory
-				for _, ranFunctionIDItemIe := range ranFunctionsAcceptedIE {
+				for _, ranFunctionIDItemIe := range v.GetValue().GetRfIdl().GetValue() {
 					ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRfId()
 					id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
 					val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
@@ -61,10 +60,9 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *ty
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsRejected) {
-			ranFunctionsRejectedIE := v.GetValue().GetRfIdcl()
-			if ranFunctionsRejectedIE != nil {
+			if v.GetValue().GetRfIdcl() != nil {
 				// It's not mandatory
-				for _, ranFunctionIDRejectedItemIe := range ranFunctionsRejectedIE.GetValue() {
+				for _, ranFunctionIDRejectedItemIe := range v.GetValue().GetRfIdcl().GetValue() {
 					ranFunctionIDcauseItem := ranFunctionIDRejectedItemIe.GetValue().GetRfIdci()
 					id := types.RanFunctionID(ranFunctionIDcauseItem.GetRanFunctionId().GetValue())
 					rfRejected[id] = &e2apies.Cause{

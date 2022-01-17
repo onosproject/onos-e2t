@@ -6,11 +6,13 @@ package v1beta1
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
 	"sync"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -18,15 +20,15 @@ import (
 
 	"github.com/onosproject/onos-e2t/pkg/oid"
 
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
 
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdubuilder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/pdubuilder"
 
 	"github.com/onosproject/onos-e2t/pkg/config"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/types"
 
 	"github.com/onosproject/onos-e2t/pkg/modelregistry"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/server"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
@@ -170,8 +172,15 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 
 	if ack != nil {
 		outcomeProtoBytes := make([]byte, 0)
-		if ack.ProtocolIes.E2ApProtocolIes32 != nil {
-			outcomeProtoBytes = ack.ProtocolIes.E2ApProtocolIes32.Value.Value
+		var co *e2ap_commondatatypes.RiccontrolOutcome
+		for _, v := range failure.GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDRiccontrolOutcome) {
+				co = v.GetValue().GetCo()
+				break
+			}
+		}
+		if co != nil {
+			outcomeProtoBytes = co.Value
 			if request.Headers.Encoding == e2api.Encoding_PROTO {
 				outcomeProtoBytes, err = serviceModelPlugin.ControlOutcomeASN1toProto(outcomeProtoBytes)
 				if err != nil {
@@ -201,7 +210,14 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 }
 
 func getControlError(failure *e2appducontents.RiccontrolFailure) *e2api.Error {
-	switch c := failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
+	var cause *e2apies.Cause
+	for _, v := range failure.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDCause) {
+			cause = v.GetValue().GetC()
+			break
+		}
+	}
+	switch c := cause.GetCause().(type) {
 	case *e2apies.Cause_RicRequest:
 		var errType e2api.Error_Cause_Ric_Type
 		switch c.RicRequest {

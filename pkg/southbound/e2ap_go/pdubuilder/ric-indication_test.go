@@ -45,7 +45,7 @@ func TestRicIndication(t *testing.T) {
 		InstanceID:  22,
 	}
 	var ranFuncID types.RanFunctionID = 9
-	var ricAction = e2apies.RicactionType_RICACTION_TYPE_POLICY
+	var ricAction int32 = 2
 	var ricIndicationType = e2apies.RicindicationType_RICINDICATION_TYPE_INSERT
 	var ricSn types.RicIndicationSn = 1
 	var ricIndHd types.RicIndicationHeader = []byte("123")
