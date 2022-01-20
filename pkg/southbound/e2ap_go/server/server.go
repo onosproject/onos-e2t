@@ -221,6 +221,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
 			nodeIdentity = v.GetValue().GetGe2NId()
+			break
 		}
 	}
 
@@ -237,6 +238,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 			for _, v := range request.GetProtocolIes() {
 				if v.Id == int32(v2.ProtocolIeIDTransactionID) {
 					trID = v.GetValue().GetTrId().GetValue()
+					break
 				}
 			}
 
@@ -277,6 +279,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 			for _, v := range request.GetProtocolIes() {
 				if v.Id == int32(v2.ProtocolIeIDTransactionID) {
 					trID = v.GetValue().GetTrId().GetValue()
+					break
 				}
 			}
 
@@ -295,6 +298,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
 			trID = v.GetValue().GetTrId().GetValue()
+			break
 		}
 	}
 
@@ -302,6 +306,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 		ProtocolIes: make([]*e2appducontents.E2NodeConfigurationUpdateAcknowledgeIes, 0),
 	}
 	e2ncua.SetTransactionID(trID)
+	log.Debugf("Composed E2nodeConfigurationUpdateMessage is\n%v", e2ncua)
 
 	return e2ncua, nil, nil
 }
