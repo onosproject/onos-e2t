@@ -9,7 +9,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/cenkalti/backoff"
-	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	"io"
 	"time"

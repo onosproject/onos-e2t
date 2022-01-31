@@ -5,7 +5,7 @@
 package stream
 
 import (
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 type Stream interface {

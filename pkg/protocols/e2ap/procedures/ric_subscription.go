@@ -7,12 +7,12 @@ package procedures
 import (
 	"context"
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	"sync"
 	"syscall"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 )
 
@@ -81,11 +81,11 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 			return nil, nil, errors.NewUnavailable("connection closed")
 		}
 
-		switch response := responsePDU.E2ApPdu.(type) {
+		switch responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return response.SuccessfulOutcome.Value.GetRicSubscription(), nil, nil
+			return responsePDU.GetSuccessfulOutcome().GetValue().GetRicSubscription(), nil, nil
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, response.UnsuccessfulOutcome.Value.GetRicSubscription(), nil
+			return nil, responsePDU.GetUnsuccessfulOutcome().GetValue().GetRicSubscription(), nil
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -95,11 +95,11 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 }
 
 func (p *RICSubscriptionInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
-	switch msg := pdu.E2ApPdu.(type) {
+	switch pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.Value.GetRicSubscription() != nil
+		return pdu.GetSuccessfulOutcome().GetValue().GetRicSubscription() != nil
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.Value.GetRicSubscription() != nil
+		return pdu.GetUnsuccessfulOutcome().GetValue().GetRicSubscription() != nil
 	default:
 		return false
 	}
@@ -107,16 +107,16 @@ func (p *RICSubscriptionInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) boo
 
 func (p *RICSubscriptionInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	var requestID int32
-	switch response := pdu.E2ApPdu.(type) {
+	switch pdu.GetE2ApPdu().(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		for _, v := range response.SuccessfulOutcome.Value.GetRicSubscription().GetProtocolIes() {
+		for _, v := range pdu.GetSuccessfulOutcome().GetValue().GetRicSubscription().GetProtocolIes() {
 			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
 				requestID = v.GetValue().GetRrId().GetRicRequestorId()
 				break
 			}
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		for _, v := range response.UnsuccessfulOutcome.Value.GetRicSubscription().GetProtocolIes() {
+		for _, v := range pdu.GetUnsuccessfulOutcome().GetValue().GetRicSubscription().GetProtocolIes() {
 			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
 				requestID = v.GetValue().GetRrId().GetRicRequestorId()
 				break
@@ -159,9 +159,9 @@ type RICSubscriptionProcedure struct {
 }
 
 func (p *RICSubscriptionProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
-	switch msg := pdu.E2ApPdu.(type) {
+	switch pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.Value.GetRicSubscription() != nil
+		return pdu.GetInitiatingMessage().GetValue().GetRicSubscription() != nil
 	default:
 		return false
 	}

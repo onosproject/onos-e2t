@@ -7,12 +7,12 @@ package e2ap
 import (
 	"context"
 	"encoding/hex"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/encoder"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/encoder"
 	"io"
 	"net"
 	"sync"
 
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 

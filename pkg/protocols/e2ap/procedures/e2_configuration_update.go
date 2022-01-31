@@ -6,15 +6,15 @@ package procedures
 
 import (
 	"context"
-	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	"syscall"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 // E2ConfigurationUpdate is an E2 configuration procedure
@@ -81,9 +81,9 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 func (p *E2ConfigurationUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.Value.GetE2NodeConfigurationUpdate() != nil
+		return msg.SuccessfulOutcome.GetValue().GetE2NodeConfigurationUpdate() != nil
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.Value.GetE2NodeConfigurationUpdate() != nil
+		return msg.UnsuccessfulOutcome.GetValue().GetE2NodeConfigurationUpdate() != nil
 	default:
 		return false
 	}
@@ -120,9 +120,9 @@ type E2ConfigurationUpdateProcedure struct {
 }
 
 func (p *E2ConfigurationUpdateProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
-	switch msg := pdu.E2ApPdu.(type) {
+	switch pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.Value.GetE2NodeConfigurationUpdate() != nil
+		return pdu.GetInitiatingMessage().GetValue().GetE2NodeConfigurationUpdate() != nil
 	default:
 		return false
 	}

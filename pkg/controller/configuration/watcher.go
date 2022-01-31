@@ -9,7 +9,7 @@ import (
 	"sync"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"github.com/onosproject/onos-lib-go/pkg/controller"
 )

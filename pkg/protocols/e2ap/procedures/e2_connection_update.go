@@ -6,16 +6,16 @@ package procedures
 
 import (
 	"context"
-	v2 "github.com/onosproject/onos-e2t/api/e2ap_go/v2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
-	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	"syscall"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
-	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-descriptions"
+	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 )
 
 // E2ConnectionUpdate is an E2 connection update procedure

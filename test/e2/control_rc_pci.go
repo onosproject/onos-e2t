@@ -6,6 +6,7 @@ package e2
 
 import (
 	"context"
+	"encoding/hex"
 	"testing"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -111,6 +112,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 	response, err := node.Control(ctx, request)
 	assert.NoError(t, err)
+	t.Logf("Control Outcome Payload is\n%v", hex.Dump(response.Payload))
 
 	assert.NotNil(t, response)
 	assert.NotNil(t, response.Payload)

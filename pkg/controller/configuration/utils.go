@@ -6,17 +6,17 @@ package configuration
 
 import (
 	"encoding/binary"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	"net"
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
-	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap_go/server"
+	e2server "github.com/onosproject/onos-e2t/pkg/southbound/e2ap/server"
 
-	"github.com/onosproject/onos-e2t/api/e2ap_go/v2"
+	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 
-	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-commondatatypes"
-	e2apies "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-ies"
-	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap_go/v2/e2ap-pdu-contents"
+	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
+	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 )
 
