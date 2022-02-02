@@ -120,9 +120,9 @@ type E2ConfigurationUpdateProcedure struct {
 }
 
 func (p *E2ConfigurationUpdateProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
-	switch pdu.E2ApPdu.(type) {
+	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return pdu.GetInitiatingMessage().GetValue().GetE2NodeConfigurationUpdate() != nil
+		return msg.InitiatingMessage.Value.GetE2NodeConfigurationUpdate() != nil
 	default:
 		return false
 	}
