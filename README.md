@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2020 Open Networking Foundation <info@opennetworking.org>
+
+SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+-->
 # onos-e2t
 E2 AP Termination module for ONOS SD-RAN (µONOS Architecture)
 
