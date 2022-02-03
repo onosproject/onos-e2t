@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 export CGO_ENABLED=1
 export GO111MODULE=on
 
@@ -23,7 +27,7 @@ test: build deps linters license_check_member_only
 	GODEBUG=cgocheck=0 go test -race github.com/onosproject/onos-e2t/...
 
 jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
-jenkins-test: deps license_check_member_only linters
+jenkins-test: deps license_check_apache linters
 	GODEBUG=cgocheck=0 TEST_PACKAGES=github.com/onosproject/onos-e2t/... ./build/build-tools/build/jenkins/make-unit
 
 coverage: # @HELP generate unit test coverage data
