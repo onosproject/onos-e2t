@@ -96,7 +96,7 @@ sed -i "s/import \"e2ap_v01_01_00_asn1\/v1/import \"e2ap\/v1beta2/g" e2ap*.proto
 ## Add the license header
 ```bash
 for f in e2ap_*.proto;
-do echo -e "$(cat ../../../../build-tools/licensing/boilerplates/LicenseRef-ONF-Member-Only-1.0/boilerplate.proto.txt)""\n" | cat - $f > temp && mv temp $f;
+do echo -e "$(cat ../../../../build-tools/licensing/boilerplates/Apache-2.0/boilerplate.proto.txt)""\n" | cat - $f > temp && mv temp $f;
 sed -i "0,/YEAR/s//2021/" $f
 done
 ```

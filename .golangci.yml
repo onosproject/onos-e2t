@@ -1,0 +1,94 @@
+# SPDX-FileCopyrightText: 2020 Open Networking Foundation <info@opennetworking.org>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+linters:
+  enable:
+    - gofmt
+    - revive
+    - misspell
+    - typecheck
+    - errcheck
+    - dogsled
+    - unconvert
+    - nakedret
+    - exportloopref
+run:
+  skip-dirs:
+    - modelplugin
+
+issues:
+  exclude:
+    - Error return value of `.*Close` is not checked
+    - Error return value of `.*Flush` is not checked
+    - Error return value of `.*Write` is not checked
+    - Error return value of `.*Stop` is not checked
+  exclude-rules:
+    - path: pkg/southbound/e2ap/asn1cgo/TriggeringMessage.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/ric-subscription-delete-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/asn1cgo/CriticalityDiagnostics_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/ric-subscription-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdudecoder/ricSubscriptionFailureDecoder_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/e2-setup-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/error-indication_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/asn1cgo/TriggeringMessage.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/ric-subscription-delete-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/asn1cgo/CriticalityDiagnostics_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/ric-subscription-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdudecoder/ricSubscriptionFailureDecoder_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/e2-setup-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/error-indication_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/e2-connection-update-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/e2-node-configuration-update-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/reset-response_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdubuilder/ric-service-update-failure_test.go
+      linters:
+        - misspell
+    - path: pkg/southbound/e2ap/pdudecoder/
+      linters:
+        - misspell
+    - path: api/e2ap/v2
+      linters:
+        - revive
+    - path: api/e2ap_go/v2
+      linters:
+        - revive
+    - path: pkg/southbound/e2ap/asn1cgo/
+      linters:
+        - deadcode
+        - unused
+        - misspell

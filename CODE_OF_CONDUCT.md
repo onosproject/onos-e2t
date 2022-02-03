@@ -1,7 +1,7 @@
 <!--
 SPDX-FileCopyrightText: 2020 Open Networking Foundation <info@opennetworking.org>
 
-SPDX-License-Identifier: LicenseRef-ONF-Member-Only-1.0
+SPDX-License-Identifier: Apache-2.0
 -->
 We expect all ONF employees, member companies, and participants to abide by our [Code of Conduct](https://www.opennetworking.org/wp-content/themes/onf/img/onf-code-of-conduct.pdf).
 
