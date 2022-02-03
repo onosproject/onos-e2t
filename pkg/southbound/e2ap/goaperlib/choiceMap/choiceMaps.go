@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package goaperlib
+package choiceMap
 
 import (
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"

@@ -233,7 +233,19 @@ var bytes = []byte{
 
 func Test1(t *testing.T) {
 	// Decoding the message from the APER bytes produced by CGo
-	result11, err := encoder.PerDecodeE2ApPdu(bytes)
-	assert.NilError(t, err)
-	t.Logf("Decoded message is\n%v", result11)
+	go func() {
+		result11, err := encoder.PerDecodeE2ApPdu(bytes)
+		assert.NilError(t, err)
+		t.Logf("Decoded message is\n%v", result11)
+	}()
+	go func() {
+		result11, err := encoder.PerDecodeE2ApPdu(bytes)
+		assert.NilError(t, err)
+		t.Logf("Decoded message is\n%v", result11)
+	}()
+	go func() {
+		result11, err := encoder.PerDecodeE2ApPdu(bytes)
+		assert.NilError(t, err)
+		t.Logf("Decoded message is\n%v", result11)
+	}()
 }

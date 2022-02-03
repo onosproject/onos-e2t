@@ -83,9 +83,21 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 
 		switch response := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return response.SuccessfulOutcome.Value.GetRicSubscriptionDelete(), nil, nil
+			//return response.SuccessfulOutcome.Value.GetRicSubscriptionDelete(), nil, nil
+			switch ret := response.SuccessfulOutcome.Value.SoValues.(type) {
+			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
+				return ret.RicSubscriptionDelete, nil, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, response.UnsuccessfulOutcome.Value.GetRicSubscriptionDelete(), nil
+			//return nil, response.UnsuccessfulOutcome.Value.GetRicSubscriptionDelete(), nil
+			switch ret := response.UnsuccessfulOutcome.Value.UoValues.(type) {
+			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
+				return nil, ret.RicSubscriptionDelete, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -97,9 +109,21 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 func (p *RICSubscriptionDeleteInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.Value.GetRicSubscriptionDelete() != nil
+		//return msg.SuccessfulOutcome.Value.GetRicSubscriptionDelete() != nil
+		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
+			return ret.RicSubscriptionDelete != nil
+		default:
+			return false
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.Value.GetRicSubscriptionDelete() != nil
+		//return msg.UnsuccessfulOutcome.Value.GetRicSubscriptionDelete() != nil
+		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
+			return ret.RicSubscriptionDelete != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
@@ -161,7 +185,13 @@ type RICSubscriptionDeleteProcedure struct {
 func (p *RICSubscriptionDeleteProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.Value.GetRicSubscriptionDelete() != nil
+		//return msg.InitiatingMessage.Value.GetRicSubscriptionDelete() != nil
+		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
+		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDelete:
+			return ret.RicSubscriptionDelete != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}

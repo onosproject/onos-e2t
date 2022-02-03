@@ -29,11 +29,11 @@ func init() {
 
 // choicemap - a global map of choices - specific to the Protobuf being handled
 //var choicemap = map[string]map[int]reflect.Type{}
-var choicemap = e2ApPduChoicemap //setting it by default
+//var choicemap = e2ApPduChoicemap //setting it by default
 
 // canonicalChoiceMap - a global map of choices in canonical ordering - specific to the Protobuf being handled
 //var canonicalChoiceMap = map[string]map[int64]reflect.Type{}
-var canonicalchoiceMap = e2ApPduCanonicalChoicemap //setting it by default
+//var canonicalchoiceMap = e2ApPduCanonicalChoicemap //setting it by default
 
 var canonicalOrdering = false
 var choiceCanBeExtended = false
@@ -874,9 +874,9 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 		var err error
 		var choiceStruct reflect.Value
 		if canonicalOrdering {
-			canonicalChoiceMap, ok := canonicalchoiceMap[params.oneofName]
+			canonicalChoiceMap, ok := e2ApPduCanonicalChoicemap[params.oneofName]
 			if !ok {
-				return errors.NewInvalid("Expected a Canonical Choice map with %s", params.oneofName)
+				return errors.NewInvalid("Expected a Canonical Choice map with %s, whole map is\n%v", params.oneofName, e2ApPduCanonicalChoicemap)
 			}
 			// Parsing number of bytes which are following and verifying checksum
 			err := pd.getCanonicalChoiceIndex()
@@ -904,7 +904,7 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 			// Setting this flag back to false in order to indicate the next CHOICE in canonical ordering
 			canonicalOrdering = false
 		} else {
-			choiceMap, ok := choicemap[params.oneofName]
+			choiceMap, ok := e2ApPduChoicemap[params.oneofName]
 			if !ok {
 				return errors.NewInvalid("Expected a Regular Choice map with %s", params.oneofName)
 			}

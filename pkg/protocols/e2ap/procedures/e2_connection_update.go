@@ -68,9 +68,21 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return msg.SuccessfulOutcome.Value.GetE2ConnectionUpdate(), nil, nil
+			//return msg.SuccessfulOutcome.Value.GetE2ConnectionUpdate(), nil, nil
+			switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate:
+				return ret.E2ConnectionUpdate, nil, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, msg.UnsuccessfulOutcome.Value.GetE2ConnectionUpdate(), nil
+			//return nil, msg.UnsuccessfulOutcome.Value.GetE2ConnectionUpdate(), nil
+			switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate:
+				return nil, ret.E2ConnectionUpdate, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -82,9 +94,21 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 func (p *E2ConnectionUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.Value.GetE2ConnectionUpdate() != nil
+		//return msg.SuccessfulOutcome.Value.GetE2ConnectionUpdate() != nil
+		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate:
+			return ret.E2ConnectionUpdate != nil
+		default:
+			return false
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.Value.GetE2ConnectionUpdate() != nil
+		//return msg.UnsuccessfulOutcome.Value.GetE2ConnectionUpdate() != nil
+		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate:
+			return ret.E2ConnectionUpdate != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
@@ -123,7 +147,13 @@ type E2ConnectionUpdateProcedure struct {
 func (p *E2ConnectionUpdateProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.Value.GetE2ConnectionUpdate() != nil
+		//return msg.InitiatingMessage.Value.GetE2ConnectionUpdate() != nil
+		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
+		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2ConnectionUpdate:
+			return ret.E2ConnectionUpdate != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}

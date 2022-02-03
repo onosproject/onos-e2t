@@ -65,9 +65,21 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return msg.SuccessfulOutcome.Value.GetE2Setup(), nil, nil
+			//return responsePDU.GetSuccessfulOutcome().GetValue().GetE2Setup(), nil, nil
+			switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2Setup:
+				return ret.E2Setup, nil, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, msg.UnsuccessfulOutcome.Value.GetE2Setup(), nil
+			//return nil, msg.UnsuccessfulOutcome.Value.GetE2Setup(), nil
+			switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup:
+				return nil, ret.E2Setup, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -79,9 +91,21 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 func (p *E2SetupInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.Value.GetE2Setup() != nil
+		//return msg.SuccessfulOutcome.Value.GetE2Setup() != nil
+		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2Setup:
+			return ret.E2Setup != nil
+		default:
+			return false
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.Value.GetE2Setup() != nil
+		//return msg.UnsuccessfulOutcome.Value.GetE2Setup() != nil
+		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup:
+			return ret.E2Setup != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
@@ -120,7 +144,13 @@ type E2SetupProcedure struct {
 func (p *E2SetupProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.Value.GetE2Setup() != nil
+		//return msg.InitiatingMessage.Value.GetE2Setup() != nil
+		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
+		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2Setup:
+			return ret.E2Setup != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}

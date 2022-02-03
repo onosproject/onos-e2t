@@ -83,9 +83,21 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return msg.SuccessfulOutcome.Value.GetRicSubscription(), nil, nil
+			//return msg.SuccessfulOutcome.Value.GetRicSubscription(), nil, nil
+			switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription:
+				return ret.RicSubscription, nil, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, msg.UnsuccessfulOutcome.Value.GetRicSubscription(), nil
+			//return nil, msg.UnsuccessfulOutcome.Value.GetRicSubscription(), nil
+			switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription:
+				return nil, ret.RicSubscription, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -97,9 +109,21 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 func (p *RICSubscriptionInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.Value.GetRicSubscription() != nil
+		//return msg.SuccessfulOutcome.Value.GetRicSubscription() != nil
+		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscription:
+			return ret.RicSubscription != nil
+		default:
+			return false
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.Value.GetRicSubscription() != nil
+		//return msg.UnsuccessfulOutcome.Value.GetRicSubscription() != nil
+		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscription:
+			return ret.RicSubscription != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}

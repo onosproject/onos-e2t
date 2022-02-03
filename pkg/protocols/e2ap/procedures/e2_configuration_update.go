@@ -67,9 +67,21 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return msg.SuccessfulOutcome.Value.GetE2NodeConfigurationUpdate(), nil, nil
+			//return msg.SuccessfulOutcome.Value.GetE2NodeConfigurationUpdate(), nil, nil
+			switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+				return ret.E2NodeConfigurationUpdate, nil, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, msg.UnsuccessfulOutcome.Value.GetE2NodeConfigurationUpdate(), nil
+			//return nil, msg.UnsuccessfulOutcome.Value.GetE2NodeConfigurationUpdate(), nil
+			switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+				return nil, ret.E2NodeConfigurationUpdate, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -81,9 +93,21 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 func (p *E2ConfigurationUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.GetValue().GetE2NodeConfigurationUpdate() != nil
+		//return msg.SuccessfulOutcome.Value.GetE2NodeConfigurationUpdate() != nil
+		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+			return ret.E2NodeConfigurationUpdate != nil
+		default:
+			return false
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.GetValue().GetE2NodeConfigurationUpdate() != nil
+		//return msg.UnsuccessfulOutcome.Value.GetE2NodeConfigurationUpdate() != nil
+		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+			return ret.E2NodeConfigurationUpdate != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
@@ -122,7 +146,13 @@ type E2ConfigurationUpdateProcedure struct {
 func (p *E2ConfigurationUpdateProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.Value.GetE2NodeConfigurationUpdate() != nil
+		//return msg.InitiatingMessage.Value.GetE2NodeConfigurationUpdate() != nil
+		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
+		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+			return ret.E2NodeConfigurationUpdate != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}

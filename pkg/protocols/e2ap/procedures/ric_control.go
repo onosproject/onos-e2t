@@ -83,9 +83,21 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 
 		switch response := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return response.SuccessfulOutcome.Value.GetRicControl(), nil, nil
+			//return response.SuccessfulOutcome.Value.GetRicControl(), nil, nil
+			switch ret := response.SuccessfulOutcome.Value.SoValues.(type) {
+			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicControl:
+				return ret.RicControl, nil, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, response.UnsuccessfulOutcome.Value.GetRicControl(), nil
+			//return nil, response.UnsuccessfulOutcome.Value.GetRicControl(), nil
+			switch ret := response.UnsuccessfulOutcome.Value.UoValues.(type) {
+			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl:
+				return nil, ret.RicControl, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -97,9 +109,21 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 func (p *RICControlInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.Value.GetRicControl() != nil
+		//return msg.SuccessfulOutcome.Value.GetRicControl() != nil
+		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicControl:
+			return ret.RicControl != nil
+		default:
+			return false
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.Value.GetRicControl() != nil
+		//return msg.UnsuccessfulOutcome.Value.GetRicControl() != nil
+		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl:
+			return ret.RicControl != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
@@ -162,7 +186,13 @@ type RICControlProcedure struct {
 func (p *RICControlProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.Value.GetRicControl() != nil
+		//return msg.InitiatingMessage.Value.GetRicControl() != nil
+		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
+		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicControl:
+			return ret.RicControl != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}

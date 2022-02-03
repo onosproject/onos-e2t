@@ -924,7 +924,7 @@ func (pd *perRawBitData) makeField(v reflect.Value, params fieldParameters) erro
 				if params.canonicalOrder {
 					tempParams := structParams[fieldIdx]
 					tempParams.valueExtensible = false
-					canonicalChoiceMap, ok := canonicalchoiceMap[choiceType]
+					canonicalChoiceMap, ok := e2ApPduCanonicalChoicemap[choiceType]
 					if !ok {
 						return errors.NewInvalid("Expected a Canonical Choice map with %s", choiceType)
 					}
@@ -936,7 +936,7 @@ func (pd *perRawBitData) makeField(v reflect.Value, params fieldParameters) erro
 						return fmt.Errorf("choice Index is nil at Field %v, Index %v.\n Make sure all aper tags are injected in your proto", v.Field(i).Type(), fieldIdx)
 					}
 					present := int(*structParams[fieldIdx].choiceIndex)
-					choiceMap, ok := choicemap[choiceType]
+					choiceMap, ok := e2ApPduChoicemap[choiceType]
 					//When there is only one item in the choice, you don't need to encode choice index
 					if !ok {
 						return errors.NewInvalid("Expected a Regular Choice map with %s", choiceType)
