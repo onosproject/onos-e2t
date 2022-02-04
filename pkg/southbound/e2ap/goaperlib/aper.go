@@ -24,7 +24,7 @@ import (
 )
 
 func init() {
-	log.SetLevel(log.Debug)
+	log.SetLevel(log.Info)
 }
 
 // choicemap - a global map of choices - specific to the Protobuf being handled
@@ -35,13 +35,16 @@ func init() {
 //var canonicalChoiceMap = map[string]map[int64]reflect.Type{}
 //var canonicalchoiceMap = e2ApPduCanonicalChoicemap //setting it by default
 
-var canonicalOrdering = false
-var choiceCanBeExtended = false
+//var canonicalOrdering = false
+//var choiceCanBeExtended = false
 
 type perBitData struct {
-	bytes      []byte
-	byteOffset uint64
-	bitsOffset uint
+	bytes               []byte
+	byteOffset          uint64
+	bitsOffset          uint
+	unique              int64
+	canonicalOrdering   bool
+	choiceCanBeExtended bool
 }
 
 func perBitLog(numBits uint64, byteOffset uint64, bitsOffset uint, value interface{}) string {
@@ -589,11 +592,11 @@ func (pd *perBitData) parseSequenceOf(sizeExtensed bool, params fieldParameters,
 	return sliceContent, nil
 }
 
-func (pd *perBitData) getChoiceIndex(extensed bool, fromChoiceExtension bool, numItemsNotInExtension int, choiceCanBeExtended bool, choiceMapLen int) (present int, err error) {
+func (pd *perBitData) getChoiceIndex(extensed bool, fromChoiceExtension bool, numItemsNotInExtension int, choiceMapLen int) (present int, err error) {
 
-	if choiceCanBeExtended {
+	if pd.choiceCanBeExtended {
 		// This flag has already served for its purpose. Setting it back to its initial value
-		choiceCanBeExtended = false
+		pd.choiceCanBeExtended = false
 
 		isExtended := false
 		if bitsValue, err1 := pd.getBitsValue(1); err1 != nil {
@@ -745,14 +748,14 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 	if params.choiceExt && v.Kind() != reflect.Slice {
 		// We have to make this variable global. In the decoding we§re parsing parent structure first
 		// and then drilling down to its child.  Once we've drilled down, we don't see previous (local) flag anymore.
-		choiceCanBeExtended = true
+		pd.choiceCanBeExtended = true
 		log.Debugf("CHOICE can be extended")
 	}
 
 	// Setting explicitly flag for canonical ordering here due to the specificity of passing flags to choices
 	// (canonicalOrder flag is being set one level above than for regular choice)
 	if params.canonicalOrder {
-		canonicalOrdering = true
+		pd.canonicalOrdering = true
 		log.Debugf("Setting canonicalOrdering flag to true. Next CHOICE is expected to be in canonical ordering")
 	}
 
@@ -792,8 +795,8 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 		val.SetInt(parsedInt)
 		log.Debugf("Decoded INTEGER Value: %d", parsedInt)
 		if params.unique {
-			unique = parsedInt
-			log.Debugf("UNIQUE flag was found, it is %v", unique)
+			pd.unique = parsedInt
+			log.Debugf("UNIQUE flag was found, it is %v", pd.unique)
 		}
 		return nil
 	case reflect.Struct:
@@ -873,7 +876,7 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 		var choiceIdx int //:= 1
 		var err error
 		var choiceStruct reflect.Value
-		if canonicalOrdering {
+		if pd.canonicalOrdering {
 			canonicalChoiceMap, ok := e2ApPduCanonicalChoicemap[params.oneofName]
 			if !ok {
 				return errors.NewInvalid("Expected a Canonical Choice map with %s, whole map is\n%v", params.oneofName, e2ApPduCanonicalChoicemap)
@@ -884,13 +887,13 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 				return err
 			}
 
-			if unique == -1 {
+			if pd.unique == -1 {
 				return errors.NewInvalid("Didn't find UNIQUE flag. Please revisit ASN1 definition")
 			}
 
-			choiceType, ok := canonicalChoiceMap[unique]
+			choiceType, ok := canonicalChoiceMap[pd.unique]
 			if !ok {
-				return errors.NewInvalid("Expected a Canonical Choice map %s to have index %d", params.oneofName, unique)
+				return errors.NewInvalid("Expected a Canonical Choice map %s to have index %d", params.oneofName, pd.unique)
 			}
 			choiceStruct = reflect.New(choiceType)
 			if v.CanSet() {
@@ -900,9 +903,9 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 			log.Debugf("type is %s", choiceType.String())
 
 			// Setting unique to -1 in order to reset CHOICE value (since we've already extracted it)
-			unique = -1
+			pd.unique = -1
 			// Setting this flag back to false in order to indicate the next CHOICE in canonical ordering
-			canonicalOrdering = false
+			pd.canonicalOrdering = false
 		} else {
 			choiceMap, ok := e2ApPduChoicemap[params.oneofName]
 			if !ok {
@@ -934,9 +937,9 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 				log.Debugf("ValueExt is %v", params.valueExtensible)
 				log.Debugf("FromChoiceExt is %v", params.fromChoiceExt)
 				log.Debugf("Amount of values which are not in extension is %v", ieNotInExt)
-				log.Debugf("Choice can be extended is %v", choiceCanBeExtended)
+				log.Debugf("Choice can be extended is %v", pd.choiceCanBeExtended)
 
-				choiceIdx, err = pd.getChoiceIndex(params.valueExtensible, params.fromChoiceExt, ieNotInExt, choiceCanBeExtended, len(choiceMap))
+				choiceIdx, err = pd.getChoiceIndex(params.valueExtensible, params.fromChoiceExt, ieNotInExt, len(choiceMap))
 				if err != nil {
 					return err
 				}
@@ -955,7 +958,7 @@ func parseField(v reflect.Value, pd *perBitData, params fieldParameters) error {
 			} else {
 				// treating the case when there is only single option
 				// Firstly checking extension bit, if it is defined in the encoding schema
-				if choiceCanBeExtended {
+				if pd.choiceCanBeExtended {
 					if bitsValue, err1 := pd.getBitsValue(1); err1 != nil {
 						return err1
 					} else if bitsValue != 0 {
@@ -1048,7 +1051,7 @@ func Unmarshal(b []byte, value interface{}) error {
 // top-level element. The form of the params is the same as the field tags.
 func UnmarshalWithParams(b []byte, value interface{}, params string) error {
 	v := reflect.ValueOf(value).Elem()
-	pd := &perBitData{b, 0, 0}
+	pd := &perBitData{b, 0, 0, -1, false, false}
 	err := parseField(v, pd, parseFieldParameters(params))
 	if err != nil {
 		return fmt.Errorf("Decoding failed with error %v\n%v", err, hex.Dump(b))

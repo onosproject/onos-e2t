@@ -8,13 +8,11 @@ import (
 	"encoding/hex"
 	"github.com/google/martian/log"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/goaperlib"
-
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
 )
 
 func init() {
-	log.SetLevel(log.Debug)
+	log.SetLevel(log.Info)
 }
 
 func PerEncodeE2ApPdu(e2ap *e2appdudescriptions.E2ApPdu) ([]byte, error) {
@@ -23,10 +21,10 @@ func PerEncodeE2ApPdu(e2ap *e2appdudescriptions.E2ApPdu) ([]byte, error) {
 	//choicemap = e2appdudescriptions.E2ApPduChoicemap
 	//canonicalChoiceMap = e2appdudescriptions.E2ApPduCanonicalChoicemap
 
-	log.Debugf("CHOICE map is following:\n%v", aper.ChoiceMap)
-	log.Debugf("Canonical CHOICE map is following:\n%v", aper.CanonicalChoiceMap)
+	//log.Debugf("CHOICE map is following:\n%v", aper.ChoiceMap)
+	//log.Debugf("Canonical CHOICE map is following:\n%v", aper.CanonicalChoiceMap)
 
-	per, err := goaperlib.MarshalWithParams(e2ap, "choiceExt")
+	per, err := aper.MarshalWithParams(e2ap, "choiceExt", e2appdudescriptions.E2ApPduChoicemap, e2appdudescriptions.E2ApPduCanonicalChoicemap)
 	if err != nil {
 		return nil, err
 	}
@@ -41,11 +39,11 @@ func PerDecodeE2ApPdu(per []byte) (*e2appdudescriptions.E2ApPdu, error) {
 	//choicemap = e2appdudescriptions.E2ApPduChoicemap
 	//canonicalChoiceMap = e2appdudescriptions.E2ApPduCanonicalChoicemap
 
-	log.Debugf("CHOICE map is following:\n%v", aper.ChoiceMap)
-	log.Debugf("Canonical CHOICE map is following:\n%v", aper.CanonicalChoiceMap)
+	//log.Debugf("CHOICE map is following:\n%v", aper.ChoiceMap)
+	//log.Debugf("Canonical CHOICE map is following:\n%v", aper.CanonicalChoiceMap)
 
 	result := e2appdudescriptions.E2ApPdu{}
-	err := goaperlib.UnmarshalWithParams(per, &result, "choiceExt")
+	err := aper.UnmarshalWithParams(per, &result, "choiceExt", e2appdudescriptions.E2ApPduChoicemap, e2appdudescriptions.E2ApPduCanonicalChoicemap)
 	if err != nil {
 		return nil, err
 	}

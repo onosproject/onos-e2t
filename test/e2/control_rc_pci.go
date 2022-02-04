@@ -6,7 +6,6 @@ package e2
 
 import (
 	"context"
-	"encoding/hex"
 	"fmt"
 	"testing"
 
@@ -113,7 +112,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.NoError(t, err)
 	response, err := node.Control(ctx, request)
 	assert.NoError(t, err)
-	fmt.Printf("Control Outcome Payload is\n%v", hex.Dump(response.Payload))
+	fmt.Printf("Control Outcome Payload is\n%v", response)
 	//t.Logf("Control Outcome Payload is\n%v", hex.Dump(response.Payload))
 
 	assert.NotNil(t, response)
