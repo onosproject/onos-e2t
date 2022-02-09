@@ -6,10 +6,9 @@ package procedures
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 
-	e2ap "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
-	"github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-constants"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 )
@@ -33,15 +32,11 @@ func (p *RICIndicationInitiator) Initiate(ctx context.Context, request *e2appduc
 	pdu := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					RicIndication: &e2appdudescriptions.RicIndication{
-						InitiatingMessage: request,
-						ProcedureCode: &e2ap_constants.IdRicindication{
-							Value: int32(e2ap.ProcedureCodeIDRICindication),
-						},
-						Criticality: &e2ap_commondatatypes.CriticalityIgnore{
-							Criticality: e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
-						},
+				ProcedureCode: int32(v2.ProcedureCodeIDRICindication),
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
+				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
+					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicIndication{
+						RicIndication: request,
 					},
 				},
 			},
@@ -83,14 +78,20 @@ type RICIndicationProcedure struct {
 func (p *RICIndicationProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.ProcedureCode.RicIndication != nil
+		//return msg.InitiatingMessage.Value.GetRicIndication() != nil
+		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
+		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicIndication:
+			return ret.RicIndication != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
 }
 
 func (p *RICIndicationProcedure) Handle(pdu *e2appdudescriptions.E2ApPdu) {
-	err := p.handler.RICIndication(context.Background(), pdu.GetInitiatingMessage().ProcedureCode.RicIndication.InitiatingMessage)
+	err := p.handler.RICIndication(context.Background(), pdu.GetInitiatingMessage().GetValue().GetRicIndication())
 	if err != nil {
 		log.Errorf("RIC Indication procedure failed: %v", err)
 	}

@@ -16,40 +16,46 @@ import (
 func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *v2.ProcedureCodeT,
 	*e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage,
 	*types.RicRequest, []*types.CritDiag, error) {
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return nil, nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
-	rr := e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetReset_()
+	rr := e2apPdu.GetSuccessfulOutcome().GetValue().GetReset_()
 	if rr == nil {
 		return nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have ResetResponse")
 	}
 
-	critDiagnostics := rr.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes2()
+	var transactionID int32
 	var pc v2.ProcedureCodeT
 	var crit e2ap_commondatatypes.Criticality
 	var tm e2ap_commondatatypes.TriggeringMessage
-	var critDiagRequestID *types.RicRequest
+	var critDiagRequestID types.RicRequest
 	var diags []*types.CritDiag
-	if critDiagnostics != nil { //It's optional
-		pc = v2.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
-		crit = critDiagnostics.GetValue().GetProcedureCriticality()
-		tm = critDiagnostics.GetValue().GetTriggeringMessage()
-		critDiagRequestID = &types.RicRequest{
-			RequestorID: types.RicRequestorID(critDiagnostics.GetValue().GetRicRequestorId().GetRicRequestorId()),
-			InstanceID:  types.RicInstanceID(critDiagnostics.GetValue().GetRicRequestorId().GetRicInstanceId()),
+	for _, v := range rr.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
+			transactionID = v.GetValue().GetTrId().GetValue()
 		}
-		for _, ie := range critDiagnostics.GetValue().GetIEsCriticalityDiagnostics().GetValue() {
-			diag := types.CritDiag{
-				IECriticality: ie.IEcriticality,
-				IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
-				TypeOfError:   ie.TypeOfError,
+		if v.Id == int32(v2.ProtocolIeIDCriticalityDiagnostics) {
+			critDiagnostics := v.GetValue().GetCd()
+			if critDiagnostics != nil { //It's optional
+				pc = v2.ProcedureCodeT(critDiagnostics.GetProcedureCode().GetValue())
+				crit = critDiagnostics.GetProcedureCriticality()
+				tm = critDiagnostics.GetTriggeringMessage()
+				critDiagRequestID = types.RicRequest{
+					RequestorID: types.RicRequestorID(critDiagnostics.GetRicRequestorId().GetRicRequestorId()),
+					InstanceID:  types.RicInstanceID(critDiagnostics.GetRicRequestorId().GetRicInstanceId()),
+				}
+				for _, ie := range critDiagnostics.GetIEsCriticalityDiagnostics().GetValue() {
+					diag := types.CritDiag{
+						IECriticality: ie.IEcriticality,
+						IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
+						TypeOfError:   ie.TypeOfError,
+					}
+					diags = append(diags, &diag)
+				}
 			}
-			diags = append(diags, &diag)
 		}
 	}
 
-	transactionID := rr.GetSuccessfulOutcome().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
-
-	return &transactionID, &pc, &crit, &tm, critDiagRequestID, diags, nil
+	return &transactionID, &pc, &crit, &tm, &critDiagRequestID, diags, nil
 }

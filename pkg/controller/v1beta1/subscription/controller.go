@@ -6,6 +6,7 @@ package subscription
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	"time"
@@ -273,7 +274,14 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			}
 			return controller.Result{}, nil
 		} else if failure != nil {
-			switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
+			var cause *e2apies.Cause
+			for _, v := range failure.GetProtocolIes() {
+				if v.Id == int32(v2.ProtocolIeIDCause) {
+					cause = v.GetValue().GetC()
+					break
+				}
+			}
+			switch cause.GetCause().(type) {
 			case *e2apies.Cause_RicRequest:
 				e2apErr := getSubscriptionDeleteError(failure)
 				switch c := e2apErr.GetCause().GetCause().(type) {
@@ -587,7 +595,14 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		}
 		return controller.Result{}, nil
 	} else if failure != nil {
-		switch failure.ProtocolIes.E2ApProtocolIes1.Value.Cause.(type) {
+		var cause *e2apies.Cause
+		for _, v := range failure.GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDCause) {
+				cause = v.GetValue().GetC()
+				break
+			}
+		}
+		switch cause.GetCause().(type) {
 		case *e2apies.Cause_RicRequest:
 			e2apErr := getSubscriptionDeleteError(failure)
 			switch c := e2apErr.GetCause().GetCause().(type) {
@@ -621,7 +636,14 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 		return nil
 	}
 
-	switch c := failure.GetProtocolIes().GetE2ApProtocolIes1().Value.Cause.(type) {
+	var cause *e2apies.Cause
+	for _, v := range failure.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDCause) {
+			cause = v.GetValue().GetC()
+			break
+		}
+	}
+	switch c := cause.GetCause().(type) {
 	case *e2apies.Cause_RicRequest:
 		var errType e2api.Error_Cause_Ric_Type
 		switch c.RicRequest {
@@ -758,7 +780,14 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 		return nil
 	}
 
-	switch c := failure.GetProtocolIes().GetE2ApProtocolIes1().Value.Cause.(type) {
+	var cause *e2apies.Cause
+	for _, v := range failure.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDCause) {
+			cause = v.GetValue().GetC()
+			break
+		}
+	}
+	switch c := cause.GetCause().(type) {
 	case *e2apies.Cause_RicRequest:
 		var errType e2api.Error_Cause_Ric_Type
 		switch c.RicRequest {

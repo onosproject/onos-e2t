@@ -6,12 +6,13 @@ package e2ap
 
 import (
 	"context"
+	"encoding/hex"
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/encoder"
 	"io"
 	"net"
 	"sync"
 
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/asn1cgo"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
@@ -126,11 +127,13 @@ func (c *threadSafeConn) processSends() {
 
 // processSend processes a send
 func (c *threadSafeConn) processSend(msg *e2appdudescriptions.E2ApPdu) error {
-	bytes, err := asn1cgo.PerEncodeE2apPdu(msg)
+	log.Debugf("Obtained message to encode is:\n%v", msg)
+	bytes, err := encoder.PerEncodeE2ApPdu(msg)
 	if err != nil {
 		log.Warn(err)
 		return err
 	}
+	log.Debugf("Encoded message is:\n%v", hex.Dump(bytes))
 	_, err = c.conn.Write(bytes)
 	return err
 }
@@ -165,11 +168,13 @@ func (c *threadSafeConn) processRecvs() {
 
 // processRecvs processes the receive channel
 func (c *threadSafeConn) processRecv(bytes []byte) error {
-	msg, err := asn1cgo.PerDecodeE2apPdu(bytes)
+	log.Debugf("Obtained bytes to decode are\n%v", hex.Dump(bytes))
+	msg, err := encoder.PerDecodeE2ApPdu(bytes)
 	if err != nil {
 		log.Warn(err)
 		return err
 	}
+	log.Debugf("Decoded message is:\n%v", msg)
 	c.recvCh <- *msg
 	return nil
 }

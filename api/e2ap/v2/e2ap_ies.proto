@@ -230,7 +230,7 @@ message E2nodeComponentConfiguration {
 message E2nodeComponentConfigurationAck {
     // @inject_tag: aper:"valueLB:0,valueUB:1,valueExt"
     UpdateOutcome update_outcome = 1 [ json_name="updateOutcome"];
-    // @inject_tag: aper:"optional,valueExt"
+    // @inject_tag: aper:"optional,choiceExt"
     optional Cause failure_cause = 2 [ json_name="failureCause"];
 };
 
@@ -292,7 +292,7 @@ message E2nodeComponentInterfaceX2 {
 // sequence from e2ap_v2.asn:1358
 // {E2nodeComponentInterfaceXn}
 message E2nodeComponentInterfaceXn {
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     GlobalNgRannodeId global_ng_ran_node_id = 1 [ json_name="global-NG-RAN-Node-ID"];
 };
 
@@ -311,9 +311,9 @@ message EnbId {
         asn1.v1.BitString macro_e_nb_id = 1 [ json_name="macro-eNB-ID"];
         // @inject_tag: aper:"choiceIdx:2,sizeLB:28,sizeUB:28"
         asn1.v1.BitString home_e_nb_id = 2 [ json_name="home-eNB-ID"];
-        // @inject_tag: aper:"choiceIdx:3,sizeLB:18,sizeUB:18"
+        // @inject_tag: aper:"choiceIdx:3,sizeLB:18,sizeUB:18,fromChoiceExt"
         asn1.v1.BitString short_macro_e_nb_id = 3 [ json_name="short-Macro-eNB-ID"];
-        // @inject_tag: aper:"choiceIdx:4,sizeLB:21,sizeUB:21"
+        // @inject_tag: aper:"choiceIdx:4,sizeLB:21,sizeUB:21,fromChoiceExt"
         asn1.v1.BitString long_macro_e_nb_id = 4 [ json_name="long-Macro-eNB-ID"];
     }
 };
@@ -403,7 +403,7 @@ message GlobalE2nodeNgEnbId {
 // {GlobalENB-ID}
 message GlobalEnbId {
     PlmnIdentity p_lmn_identity = 1 [ json_name="pLMN-Identity"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     EnbId e_nb_id = 2 [ json_name="eNB-ID"];
 };
 
@@ -411,7 +411,7 @@ message GlobalEnbId {
 // {GlobalenGNB-ID}
 message GlobalenGnbId {
     PlmnIdentity p_lmn_identity = 1 [ json_name="pLMN-Identity"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     EngnbId g_nb_id = 2 [ json_name="gNB-ID"];
 };
 
@@ -419,7 +419,7 @@ message GlobalenGnbId {
 // {GlobalgNB-ID}
 message GlobalgNbId {
     PlmnIdentity plmn_id = 1 [ json_name="plmn-id"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     GnbIdChoice gnb_id = 2 [ json_name="gnb-id"];
 };
 
@@ -427,7 +427,7 @@ message GlobalgNbId {
 // {GlobalngeNB-ID}
 message GlobalngeNbId {
     PlmnIdentity plmn_id = 1 [ json_name="plmn-id"];
-    // @inject_tag: aper:"valueExt"
+    // @inject_tag: aper:"choiceExt"
     EnbIdChoice enb_id = 2 [ json_name="enb-id"];
 };
 

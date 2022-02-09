@@ -6,6 +6,7 @@ package pdudecoder
 
 import (
 	"fmt"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
@@ -14,28 +15,32 @@ import (
 func DecodeRicSubscriptionDeleteRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 	types.RicRequest, types.RanFunctionID, error) {
 
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return types.RicRequest{}, 0, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return types.RicRequest{}, 0, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
-	ricSubscriptionDelete := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetRicSubscriptionDelete()
+	ricSubscriptionDelete := e2apPdu.GetInitiatingMessage().GetValue().GetRicSubscriptionDelete()
 	if ricSubscriptionDelete == nil {
 		return types.RicRequest{}, 0, fmt.Errorf("error E2APpdu does not have RicSubscriptionDelete")
 	}
 
-	ranFunctionIDIe := ricSubscriptionDelete.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes5()
-	if ranFunctionIDIe == nil {
-		return types.RicRequest{}, 0, fmt.Errorf("error E2APpdu does not have id-RANfunctionID (mandatory)")
-	}
-	ranFunctionID := types.RanFunctionID(ranFunctionIDIe.GetValue().GetValue())
+	var ricRequestID types.RicRequest
+	var ranFunctionID types.RanFunctionID
 
-	ricRequestIDIe := ricSubscriptionDelete.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes29()
-	if ricRequestIDIe == nil {
-		return types.RicRequest{}, 0, fmt.Errorf("error E2APpdu does not have id-RICrequestID (mandatory)")
-	}
-	ricRequestID := types.RicRequest{
-		RequestorID: types.RicRequestorID(ricRequestIDIe.GetValue().GetRicRequestorId()),
-		InstanceID:  types.RicInstanceID(ricRequestIDIe.GetValue().GetRicInstanceId()),
+	for _, v := range ricSubscriptionDelete.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+			if v.GetValue().GetRrId() == nil {
+				return types.RicRequest{}, 0, fmt.Errorf("error E2APpdu does not have id-RICrequestID (mandatory)")
+			}
+			ricRequestID.RequestorID = types.RicRequestorID(v.GetValue().GetRrId().GetRicRequestorId())
+			ricRequestID.InstanceID = types.RicInstanceID(v.GetValue().GetRrId().GetRicInstanceId())
+		}
+		if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
+			if v.GetValue().GetRfId() == nil {
+				return types.RicRequest{}, 0, fmt.Errorf("error E2APpdu does not have id-RANfunctionID (mandatory)")
+			}
+			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
+		}
 	}
 
 	return ricRequestID, ranFunctionID, nil

@@ -17,50 +17,62 @@ import (
 func DecodeErrorIndicationPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *e2ap_ies.Cause, *types.RanFunctionID,
 	*types.RicRequest, *v2.ProcedureCodeT, *e2ap_commondatatypes.Criticality, *e2ap_commondatatypes.TriggeringMessage, *types.RicRequest,
 	[]*types.CritDiag, error) {
-	//if err := e2apPdu.Validate(); err != nil {
-	//	return nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
-	//}
+	if err := e2apPdu.Validate(); err != nil {
+		return nil, nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("invalid E2APpdu %s", err.Error())
+	}
 
-	ei := e2apPdu.GetInitiatingMessage().GetProcedureCode().GetErrorIndication()
+	ei := e2apPdu.GetInitiatingMessage().GetValue().GetErrorIndication()
 	if ei == nil {
 		return nil, nil, nil, nil, nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have ErrorIndication")
 	}
 
-	transactionID := ei.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes49().GetValue().GetValue()
-	cause := ei.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes1().GetValue()
+	var transactionID int32
+	var cause *e2ap_ies.Cause
+	var ricRequestID types.RicRequest
+	var ranFunctionID types.RanFunctionID
 
-	ricRequestIDIe := ei.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes29()
-	ricRequestID := &types.RicRequest{
-		RequestorID: types.RicRequestorID(ricRequestIDIe.GetValue().GetRicRequestorId()),
-		InstanceID:  types.RicInstanceID(ricRequestIDIe.GetValue().GetRicInstanceId()),
-	}
-
-	ranFunctionIDIe := ei.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes5()
-	ranFunctionID := types.RanFunctionID(ranFunctionIDIe.GetValue().GetValue())
-
-	critDiagnostics := ei.GetInitiatingMessage().GetProtocolIes().GetE2ApProtocolIes2()
 	var pc v2.ProcedureCodeT
 	var crit e2ap_commondatatypes.Criticality
 	var tm e2ap_commondatatypes.TriggeringMessage
 	var critDiagRequestID types.RicRequest
 	var diags []*types.CritDiag
-	if critDiagnostics != nil { //It's optional
-		pc = v2.ProcedureCodeT(critDiagnostics.GetValue().GetProcedureCode().GetValue())
-		crit = critDiagnostics.GetValue().GetProcedureCriticality()
-		tm = critDiagnostics.GetValue().GetTriggeringMessage()
-		critDiagRequestID = types.RicRequest{
-			RequestorID: types.RicRequestorID(critDiagnostics.GetValue().GetRicRequestorId().GetRicRequestorId()),
-			InstanceID:  types.RicInstanceID(critDiagnostics.GetValue().GetRicRequestorId().GetRicInstanceId()),
+
+	for _, v := range ei.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
+			transactionID = v.GetValue().GetTrId().GetValue()
 		}
-		for _, ie := range critDiagnostics.GetValue().GetIEsCriticalityDiagnostics().GetValue() {
-			diag := types.CritDiag{
-				IECriticality: ie.IEcriticality,
-				IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
-				TypeOfError:   ie.TypeOfError,
+		if v.Id == int32(v2.ProtocolIeIDCause) {
+			cause = v.GetValue().GetC()
+
+		}
+		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+			ricRequestIDIe := v.GetValue().GetRr()
+			ricRequestID.RequestorID = types.RicRequestorID(ricRequestIDIe.GetRicRequestorId())
+			ricRequestID.InstanceID = types.RicInstanceID(ricRequestIDIe.GetRicInstanceId())
+
+			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
+		}
+		if v.Id == int32(v2.ProtocolIeIDCriticalityDiagnostics) {
+			critDiagnostics := v.GetValue().GetCd()
+			if critDiagnostics != nil { //It's optional
+				pc = v2.ProcedureCodeT(critDiagnostics.GetProcedureCode().GetValue())
+				crit = critDiagnostics.GetProcedureCriticality()
+				tm = critDiagnostics.GetTriggeringMessage()
+				critDiagRequestID = types.RicRequest{
+					RequestorID: types.RicRequestorID(critDiagnostics.GetRicRequestorId().GetRicRequestorId()),
+					InstanceID:  types.RicInstanceID(critDiagnostics.GetRicRequestorId().GetRicInstanceId()),
+				}
+				for _, ie := range critDiagnostics.GetIEsCriticalityDiagnostics().GetValue() {
+					diag := types.CritDiag{
+						IECriticality: ie.IEcriticality,
+						IEId:          v2.ProtocolIeID(ie.GetIEId().GetValue()),
+						TypeOfError:   ie.TypeOfError,
+					}
+					diags = append(diags, &diag)
+				}
 			}
-			diags = append(diags, &diag)
 		}
 	}
 
-	return &transactionID, cause, &ranFunctionID, ricRequestID, &pc, &crit, &tm, &critDiagRequestID, diags, nil
+	return &transactionID, cause, &ranFunctionID, &ricRequestID, &pc, &crit, &tm, &critDiagRequestID, diags, nil
 }
