@@ -9,6 +9,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/cenkalti/backoff"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	"io"
 	"time"
@@ -344,10 +345,24 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				return errors.Status(errors.NewUnavailable("stream closed")).Err()
 			}
 
-			ranFuncID := ind.ProtocolIes.E2ApProtocolIes5.Value.Value
-			ricActionID := ind.ProtocolIes.E2ApProtocolIes15.Value.Value
-			indHeaderAsn1 := ind.ProtocolIes.E2ApProtocolIes25.Value.Value
-			indMessageAsn1 := ind.ProtocolIes.E2ApProtocolIes26.Value.Value
+			var ranFuncID int32
+			var ricActionID int32
+			var indHeaderAsn1 []byte
+			var indMessageAsn1 []byte
+			for _, v := range ind.GetProtocolIes() {
+				if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
+					ranFuncID = v.GetValue().GetRfId().GetValue()
+				}
+				if v.Id == int32(v2.ProtocolIeIDRicactionID) {
+					ricActionID = v.GetValue().GetRaId().GetValue()
+				}
+				if v.Id == int32(v2.ProtocolIeIDRicindicationHeader) {
+					indHeaderAsn1 = v.GetValue().GetRih().GetValue()
+				}
+				if v.Id == int32(v2.ProtocolIeIDRicindicationMessage) {
+					indMessageAsn1 = v.GetValue().GetRim().GetValue()
+				}
+			}
 			log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)
 
 			response := &e2api.SubscribeResponse{

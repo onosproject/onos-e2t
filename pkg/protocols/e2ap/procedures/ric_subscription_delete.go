@@ -6,6 +6,8 @@ package procedures
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	"sync"
 	"syscall"
 
@@ -36,9 +38,11 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 	requestPDU := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
-						InitiatingMessage: request,
+				ProcedureCode: int32(v2.ProcedureCodeIDRICsubscriptionDelete),
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
+					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDelete{
+						RicSubscriptionDelete: request,
 					},
 				},
 			},
@@ -50,7 +54,13 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 	}*/
 
 	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
-	requestID := request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
+	var requestID int32
+	for _, v := range request.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+			requestID = v.GetValue().GetRrId().GetRicRequestorId()
+			break
+		}
+	}
 	p.mu.Lock()
 	p.responseChs[requestID] = responseCh
 	p.mu.Unlock()
@@ -73,9 +83,21 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 
 		switch response := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return response.SuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.SuccessfulOutcome, nil, nil
+			//return response.SuccessfulOutcome.Value.GetRicSubscriptionDelete(), nil, nil
+			switch ret := response.SuccessfulOutcome.Value.SoValues.(type) {
+			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
+				return ret.RicSubscriptionDelete, nil, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, response.UnsuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.UnsuccessfulOutcome, nil
+			//return nil, response.UnsuccessfulOutcome.Value.GetRicSubscriptionDelete(), nil
+			switch ret := response.UnsuccessfulOutcome.Value.UoValues.(type) {
+			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
+				return nil, ret.RicSubscriptionDelete, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -87,9 +109,21 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 func (p *RICSubscriptionDeleteInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.ProcedureCode.RicSubscriptionDelete != nil
+		//return msg.SuccessfulOutcome.Value.GetRicSubscriptionDelete() != nil
+		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
+			return ret.RicSubscriptionDelete != nil
+		default:
+			return false
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.ProcedureCode.RicSubscriptionDelete != nil
+		//return msg.UnsuccessfulOutcome.Value.GetRicSubscriptionDelete() != nil
+		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
+			return ret.RicSubscriptionDelete != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
@@ -99,9 +133,19 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 	var requestID int32
 	switch response := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		requestID = response.SuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.SuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
+		for _, v := range response.SuccessfulOutcome.Value.GetRicSubscriptionDelete().GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+				requestID = v.GetValue().GetRrId().GetRicRequestorId()
+				break
+			}
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		requestID = response.UnsuccessfulOutcome.ProcedureCode.RicSubscriptionDelete.UnsuccessfulOutcome.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId
+		for _, v := range response.UnsuccessfulOutcome.Value.GetRicSubscriptionDelete().GetProtocolIes() {
+			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+				requestID = v.GetValue().GetRrId().GetRicRequestorId()
+				break
+			}
+		}
 	}
 
 	p.mu.RLock()
@@ -141,23 +185,31 @@ type RICSubscriptionDeleteProcedure struct {
 func (p *RICSubscriptionDeleteProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.ProcedureCode.RicSubscriptionDelete != nil
+		//return msg.InitiatingMessage.Value.GetRicSubscriptionDelete() != nil
+		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
+		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDelete:
+			return ret.RicSubscriptionDelete != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
 }
 
 func (p *RICSubscriptionDeleteProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
-	response, failure, err := p.handler.RICSubscriptionDelete(context.Background(), requestPDU.GetInitiatingMessage().ProcedureCode.RicSubscriptionDelete.InitiatingMessage)
+	response, failure, err := p.handler.RICSubscriptionDelete(context.Background(), requestPDU.GetInitiatingMessage().GetValue().GetRicSubscriptionDelete())
 	if err != nil {
 		log.Errorf("RIC Subscription Delete procedure failed: %v", err)
 	} else if response != nil {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 				SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
-					ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-						RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
-							SuccessfulOutcome: response,
+					ProcedureCode: int32(v2.ProcedureCodeIDRICsubscriptionDelete),
+					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					Value: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures{
+						SoValues: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete{
+							RicSubscriptionDelete: response,
 						},
 					},
 				},
@@ -185,9 +237,11 @@ func (p *RICSubscriptionDeleteProcedure) Handle(requestPDU *e2appdudescriptions.
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
 				UnsuccessfulOutcome: &e2appdudescriptions.UnsuccessfulOutcome{
-					ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-						RicSubscriptionDelete: &e2appdudescriptions.RicSubscriptionDelete{
-							UnsuccessfulOutcome: failure,
+					ProcedureCode: int32(v2.ProcedureCodeIDRICsubscriptionDelete),
+					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					Value: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures{
+						UoValues: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete{
+							RicSubscriptionDelete: failure,
 						},
 					},
 				},

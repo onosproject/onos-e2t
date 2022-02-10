@@ -6,6 +6,7 @@ package server
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
@@ -48,7 +49,14 @@ type E2APConn struct {
 
 func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.Ricindication) error {
 	log.Debugf("Received RICIndication %+v", request)
-	streamID := stream.ID(request.ProtocolIes.E2ApProtocolIes29.Value.RicRequestorId)
+	var requestID int32
+	for _, v := range request.GetProtocolIes() {
+		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+			requestID = v.GetValue().GetRrId().GetRicRequestorId()
+			break
+		}
+	}
+	streamID := stream.ID(requestID)
 	stream, ok := c.streams.Get(streamID)
 	if !ok {
 		return errors.NewNotFound("stream %s not found", streamID)

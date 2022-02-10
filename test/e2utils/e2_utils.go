@@ -6,6 +6,7 @@ package e2utils
 
 import (
 	"context"
+	"encoding/hex"
 	"testing"
 	"time"
 
@@ -64,7 +65,7 @@ func CheckSubscriptionIDInList(t *testing.T, expectedID e2api.SubscriptionID, su
 func CheckIndicationMessage(t *testing.T, timeout time.Duration, ch chan e2api.Indication) e2api.Indication {
 	select {
 	case indicationMsg := <-ch:
-		t.Log(indicationMsg)
+		t.Logf("Indication Message Header is\n%v\nIndication Message Payload is\n%v", hex.Dump(indicationMsg.Header), hex.Dump(indicationMsg.Payload))
 		return indicationMsg
 	case <-time.After(timeout):
 		assert.Equal(t, false, "failed to receive indication message")

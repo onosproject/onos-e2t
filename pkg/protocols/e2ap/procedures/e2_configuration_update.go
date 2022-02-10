@@ -6,6 +6,8 @@ package procedures
 
 import (
 	"context"
+	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	"syscall"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
@@ -38,9 +40,11 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 	requestPDU := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-					E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
-						InitiatingMessage: request,
+				ProcedureCode: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
+				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
+					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2NodeConfigurationUpdate{
+						E2NodeConfigurationUpdate: request,
 					},
 				},
 			},
@@ -63,9 +67,21 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			return msg.SuccessfulOutcome.ProcedureCode.E2NodeConfigurationUpdate.SuccessfulOutcome, nil, nil
+			//return msg.SuccessfulOutcome.Value.GetE2NodeConfigurationUpdate(), nil, nil
+			switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+				return ret.E2NodeConfigurationUpdate, nil, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			return nil, msg.UnsuccessfulOutcome.ProcedureCode.E2NodeConfigurationUpdate.UnsuccessfulOutcome, nil
+			//return nil, msg.UnsuccessfulOutcome.Value.GetE2NodeConfigurationUpdate(), nil
+			switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+				return nil, ret.E2NodeConfigurationUpdate, nil
+			default:
+				return nil, nil, errors.NewInternal("received unexpected outcome")
+			}
 		default:
 			return nil, nil, errors.NewInternal("received unexpected outcome")
 		}
@@ -77,9 +93,21 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 func (p *E2ConfigurationUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		return msg.SuccessfulOutcome.ProcedureCode.E2NodeConfigurationUpdate != nil
+		//return msg.SuccessfulOutcome.Value.GetE2NodeConfigurationUpdate() != nil
+		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
+		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+			return ret.E2NodeConfigurationUpdate != nil
+		default:
+			return false
+		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		return msg.UnsuccessfulOutcome.ProcedureCode.E2NodeConfigurationUpdate != nil
+		//return msg.UnsuccessfulOutcome.Value.GetE2NodeConfigurationUpdate() != nil
+		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
+		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+			return ret.E2NodeConfigurationUpdate != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
@@ -118,23 +146,31 @@ type E2ConfigurationUpdateProcedure struct {
 func (p *E2ConfigurationUpdateProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		return msg.InitiatingMessage.ProcedureCode.E2NodeConfigurationUpdate != nil
+		//return msg.InitiatingMessage.Value.GetE2NodeConfigurationUpdate() != nil
+		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
+		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2NodeConfigurationUpdate:
+			return ret.E2NodeConfigurationUpdate != nil
+		default:
+			return false
+		}
 	default:
 		return false
 	}
 }
 
 func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
-	response, failure, err := p.handler.E2ConfigurationUpdate(context.Background(), requestPDU.GetInitiatingMessage().ProcedureCode.E2NodeConfigurationUpdate.InitiatingMessage)
+	response, failure, err := p.handler.E2ConfigurationUpdate(context.Background(), requestPDU.GetInitiatingMessage().GetValue().GetE2NodeConfigurationUpdate())
 	if err != nil {
 		log.Errorf("E2 configuration update procedure failed: %v", err)
 	} else if response != nil {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 				SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
-					ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-						E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
-							SuccessfulOutcome: response,
+					ProcedureCode: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
+					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					Value: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures{
+						SoValues: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate{
+							E2NodeConfigurationUpdate: response,
 						},
 					},
 				},
@@ -162,9 +198,11 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
 				UnsuccessfulOutcome: &e2appdudescriptions.UnsuccessfulOutcome{
-					ProcedureCode: &e2appdudescriptions.E2ApElementaryProcedures{
-						E2NodeConfigurationUpdate: &e2appdudescriptions.E2NodeConfigurationUpdateEp{
-							UnsuccessfulOutcome: failure,
+					ProcedureCode: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
+					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					Value: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures{
+						UoValues: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate{
+							E2NodeConfigurationUpdate: failure,
 						},
 					},
 				},

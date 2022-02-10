@@ -23,7 +23,7 @@ sim-app:
 	CGO_ENABLED=0 go build -o build/_output/onos-e2t-sim-app ./cmd/onos-e2t-sim-app
 
 test: # @HELP run the unit tests and source code validation producing a golang style report
-test: build deps linters license_check_member_only
+test: build deps linters license_check_apache
 	GODEBUG=cgocheck=0 go test -race github.com/onosproject/onos-e2t/...
 
 jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins

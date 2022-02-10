@@ -92,3 +92,6 @@ issues:
         - deadcode
         - unused
         - misspell
+    - path: pkg/protocols/e2ap/
+      linters:
+        - govet
