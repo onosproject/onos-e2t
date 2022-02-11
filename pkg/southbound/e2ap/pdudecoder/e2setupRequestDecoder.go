@@ -19,7 +19,7 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 
 	var err error
 	var transactionID int32
-	var nodeIdentity *types.E2NodeIdentity
+	var globalE2NodeID *e2apies.GlobalE2NodeId
 	ranFunctionsList := make(types.RanFunctions)
 	e2nccul := make([]*types.E2NodeComponentConfigAdditionItem, 0)
 	for _, v := range request.GetProtocolIes() {
@@ -27,8 +27,7 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 			transactionID = v.GetValue().GetTrId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
-			globalE2NodeID := v.GetValue().GetGE2NId()
-			nodeIdentity, err = ExtractE2NodeIdentity(globalE2NodeID)
+			globalE2NodeID = v.GetValue().GetGE2NId()
 			if err != nil {
 				return nil, nil, nil, nil, err
 			}
@@ -36,7 +35,7 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAdded) {
 			ranFunctionsIe := v.GetValue()
 			if ranFunctionsIe == nil {
-				return nil, nodeIdentity, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionsAdded")
+				return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionsAdded")
 			}
 			for _, rfIe := range ranFunctionsIe.GetRfl().GetValue() {
 				ranFunctionsList[types.RanFunctionID(rfIe.GetValue().GetRfi().GetRanFunctionId().GetValue())] = types.RanFunctionItem{
@@ -58,6 +57,8 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 			}
 		}
 	}
+	//extract node ID
+	nodeIdentity, err := ExtractE2NodeIdentity(globalE2NodeID, e2nccul)
 
 	return &transactionID, nodeIdentity, &ranFunctionsList, e2nccul, nil
 }
@@ -86,7 +87,7 @@ func GetE2NodeID(nodeID []byte, length int) string {
 	return fmt.Sprintf("%x", result)
 }
 
-func ExtractE2NodeIdentity(ge2nID *e2apies.GlobalE2NodeId) (*types.E2NodeIdentity, error) {
+func ExtractE2NodeIdentity(ge2nID *e2apies.GlobalE2NodeId, e2ncu interface{}) (*types.E2NodeIdentity, error) {
 	var nodeIdentity *types.E2NodeIdentity
 	var err error
 
@@ -155,6 +156,48 @@ func ExtractE2NodeIdentity(ge2nID *e2apies.GlobalE2NodeId) (*types.E2NodeIdentit
 		nodeIdentity.NodeIdentifier, nodeIdentity.NodeIDLength, err = ExtractEnbID(e2NodeID.ENb.GetGlobalENbId().GetENbId())
 		if err != nil {
 			return nil, err
+		}
+
+		// Goal of the below code block assigns the CU and DU IDs if the node type is eNB and the eNB is not the standalone eNB but CU/DU eNB
+		// In the E2AP v1.01, the eNB ID field does not have CU and DU ID unlike the gNB ID field
+		// If the eNB consists of CU and DU like SD-RAN OAI, there is no way to assign CU/DU IDs by referring to the eNB ID field
+		// To avoid this problem, 'E2nodeComponentConfigUpdate` can be used, which includes CU and DU IDs (Current OAI CU and DU report their CU and DU IDs with this field)
+		// The below block decodes the 'E2nodeComponentConfigUpdate` field and assign CU and DU ID only for the eNB CU/DU case
+		// Since e2AP v2.0 has the CU and DU ID in eNB or NgEnb field, this block is only submitted into e2ap101 branch
+		switch list := e2ncu.(type) {
+		case []*types.E2NodeComponentConfigAdditionItem:
+			if len(list) != 0 {
+				for _, c := range list {
+					switch id := c.E2NodeComponentID.GetE2NodeComponentId().(type) {
+					case *e2apies.E2NodeComponentId_E2NodeComponentInterfaceTypeE1:
+						nodeIdentity.CuID = &id.E2NodeComponentInterfaceTypeE1.GNbCuCpId.Value
+					case *e2apies.E2NodeComponentId_E2NodeComponentInterfaceTypeF1:
+						nodeIdentity.DuID = &id.E2NodeComponentInterfaceTypeF1.GNbDuId.Value
+					}
+				}
+			}
+		case []*types.E2NodeComponentConfigUpdateItem:
+			if len(list) != 0 {
+				for _, c := range list {
+					switch id := c.E2NodeComponentID.GetE2NodeComponentId().(type) {
+					case *e2apies.E2NodeComponentId_E2NodeComponentInterfaceTypeE1:
+						nodeIdentity.CuID = &id.E2NodeComponentInterfaceTypeE1.GNbCuCpId.Value
+					case *e2apies.E2NodeComponentId_E2NodeComponentInterfaceTypeF1:
+						nodeIdentity.DuID = &id.E2NodeComponentInterfaceTypeF1.GNbDuId.Value
+					}
+				}
+			}
+		case []*e2appducontents.E2NodeComponentConfigUpdateItem:
+			if len(list) != 0 {
+				for _, c := range list {
+					switch id := c.E2NodeComponentId.GetE2NodeComponentId().(type) {
+					case *e2apies.E2NodeComponentId_E2NodeComponentInterfaceTypeE1:
+						nodeIdentity.CuID = &id.E2NodeComponentInterfaceTypeE1.GNbCuCpId.Value
+					case *e2apies.E2NodeComponentId_E2NodeComponentInterfaceTypeF1:
+						nodeIdentity.DuID = &id.E2NodeComponentInterfaceTypeF1.GNbDuId.Value
+					}
+				}
+			}
 		}
 	}
 

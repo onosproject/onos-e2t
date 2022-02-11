@@ -135,14 +135,14 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 
 	for smOid, sm := range plugins {
 		var ranFunctions []*prototypes.Any
-		serviceModels[string(smOid)] = &topoapi.ServiceModelInfo{
-			OID:          string(smOid),
-			RanFunctions: ranFunctions,
-		}
 		var ranFunctionIDs []uint32
 		for ranFunctionID, ranFunc := range *ranFuncs {
 			oid := e2smtypes.OID(ranFunc.OID)
 			if smOid == oid {
+				serviceModels[string(smOid)] = &topoapi.ServiceModelInfo{
+					OID:          string(smOid),
+					RanFunctions: ranFunctions,
+				}
 				ranFunctionIDs = append(ranFunctionIDs, uint32(ranFunctionID))
 				if setup, ok := sm.(modelregistry.E2Setup); ok {
 					onSetupRequest := &e2smtypes.OnSetupRequest{
@@ -157,11 +157,10 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 						log.Debugf("RAN Function Description Bytes in hex format: %v", hex.Dump(onSetupRequest.RANFunctionDescription))
 					}
 				}
-
 				rfAccepted[ranFunctionID] = ranFunc.Revision
+				serviceModels[string(smOid)].RanFunctionIDs = ranFunctionIDs
 			}
 		}
-		serviceModels[string(smOid)].RanFunctionIDs = ranFunctionIDs
 	}
 
 	mgmtConn := NewMgmtConn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, serviceModels, e2Cells, time.Now())
@@ -218,15 +217,26 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	log.Infof("Received E2 node configuration update request: %+v", request)
 
 	var nodeIdentity *e2apies.GlobalE2NodeId
+	e2nccual := make([]*types.E2NodeComponentConfigUpdateItem, 0)
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
 			nodeIdentity = v.GetValue().GetGe2NId()
-			break
+		}
+		if v.Id == int32(v2.ProtocolIeIDE2nodeComponentConfigUpdate) {
+			list := v.GetValue().GetE2Nccul().GetValue()
+			for _, ie := range list {
+				e2nccuai := types.E2NodeComponentConfigUpdateItem{}
+				e2nccuai.E2NodeComponentType = ie.GetValue().GetE2Nccui().GetE2NodeComponentInterfaceType()
+				e2nccuai.E2NodeComponentID = ie.GetValue().GetE2Nccui().GetE2NodeComponentId()
+				e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2Nccui().GetE2NodeComponentConfiguration()
+
+				e2nccual = append(e2nccual, &e2nccuai)
+			}
 		}
 	}
 
 	if nodeIdentity != nil {
-		nodeID, err := pdudecoder.ExtractE2NodeIdentity(nodeIdentity)
+		nodeID, err := pdudecoder.ExtractE2NodeIdentity(nodeIdentity, e2nccual)
 		if err != nil {
 			cause := &e2apies.Cause{
 				Cause: &e2apies.Cause_RicRequest{

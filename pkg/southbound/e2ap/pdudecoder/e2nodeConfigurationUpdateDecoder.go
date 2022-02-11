@@ -7,6 +7,7 @@ package pdudecoder
 import (
 	"fmt"
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 
 	e2ap_pdu_descriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
@@ -24,15 +25,14 @@ func DecodeE2nodeConfigurationUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) 
 
 	var err error
 	var transactionID int32
-	var nodeIdentity *types.E2NodeIdentity
+	var globalE2NodeID *e2apies.GlobalE2NodeId
 	e2nccual := make([]*types.E2NodeComponentConfigUpdateItem, 0)
 	for _, v := range e2ncu.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
 			transactionID = v.GetValue().GetTrId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
-			globalE2NodeID := v.GetValue().GetGe2NId()
-			nodeIdentity, err = ExtractE2NodeIdentity(globalE2NodeID)
+			globalE2NodeID = v.GetValue().GetGe2NId()
 			if err != nil {
 				return nil, nil, nil, err
 			}
@@ -49,6 +49,9 @@ func DecodeE2nodeConfigurationUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) 
 			}
 		}
 	}
+
+	// Extract node ID
+	nodeIdentity, err := ExtractE2NodeIdentity(globalE2NodeID, e2ncu)
 
 	return &transactionID, nodeIdentity, e2nccual, nil
 }
