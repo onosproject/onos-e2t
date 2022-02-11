@@ -33,9 +33,6 @@ func DecodeE2nodeConfigurationUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) 
 		}
 		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
 			globalE2NodeID = v.GetValue().GetGe2NId()
-			if err != nil {
-				return nil, nil, nil, err
-			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2nodeComponentConfigUpdate) {
 			list := v.GetValue().GetE2Nccul().GetValue()
@@ -52,6 +49,9 @@ func DecodeE2nodeConfigurationUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) 
 
 	// Extract node ID
 	nodeIdentity, err := ExtractE2NodeIdentity(globalE2NodeID, e2ncu)
+	if err != nil {
+		return nil, nil, nil, err
+	}
 
 	return &transactionID, nodeIdentity, e2nccual, nil
 }

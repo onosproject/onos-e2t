@@ -28,9 +28,6 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 		}
 		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
 			globalE2NodeID = v.GetValue().GetGE2NId()
-			if err != nil {
-				return nil, nil, nil, nil, err
-			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAdded) {
 			ranFunctionsIe := v.GetValue()
@@ -57,8 +54,11 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 			}
 		}
 	}
-	//extract node ID
+
 	nodeIdentity, err := ExtractE2NodeIdentity(globalE2NodeID, e2nccul)
+	if err != nil {
+		return nil, nil, nil, nil, err
+	}
 
 	return &transactionID, nodeIdentity, &ranFunctionsList, e2nccul, nil
 }
