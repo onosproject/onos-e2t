@@ -9,10 +9,12 @@ import (
 	"github.com/google/martian/log"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
 func init() {
-	log.SetLevel(log.Info)
+	log := logging.GetLogger("asn1")
+	log.SetLevel(logging.InfoLevel)
 }
 
 func PerEncodeE2ApPdu(e2ap *e2appdudescriptions.E2ApPdu) ([]byte, error) {
