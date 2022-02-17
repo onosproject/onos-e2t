@@ -13,24 +13,6 @@ import (
 )
 
 func TestRicControlAcknowledge(t *testing.T) {
-	//ricRequestID1 := types1.RicRequest{
-	//	RequestorID: 21,
-	//	InstanceID:  22,
-	//}
-	//var ranFuncID1 types1.RanFunctionID = 9
-	//var ricCallPrID1 types1.RicCallProcessID = []byte("123")
-	//var ricCtrlOut1 types1.RicControlOutcome = []byte("456")
-	//e2apPdu, err := pdubuilder.CreateRicControlAcknowledgeE2apPdu(ricRequestID1,
-	//	ranFuncID1)
-	//assert.NilError(t, err)
-	//assert.Assert(t, e2apPdu != nil)
-	//e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetRicControl().GetSuccessfulOutcome().
-	//	SetRicControlOutcome(ricCtrlOut1).SetRicCallProcessID(ricCallPrID1)
-	//
-	//per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("RicControlAcknowledge E2AP PDU PER\n%v", hex.Dump(per))
-
 	ricRequestID := types.RicRequest{
 		RequestorID: 21,
 		InstanceID:  22,
@@ -55,13 +37,4 @@ func TestRicControlAcknowledge(t *testing.T) {
 	result, err := encoder.PerDecodeE2ApPdu(perNew)
 	assert.NilError(t, err)
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
-
-	// Decoding the message from the APER bytes produced by CGo
-	//result11, err := encoder.PerDecodeE2ApPdu(per)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), result11.String())
-	//
-	//result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, result1.String(), e2apPdu.String())
 }

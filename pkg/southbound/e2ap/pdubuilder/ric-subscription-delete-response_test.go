@@ -13,17 +13,6 @@ import (
 )
 
 func TestRicSubscriptionDeleteResponse(t *testing.T) {
-	//e2apPdu, err := pdubuilder.CreateRicSubscriptionDeleteResponseE2apPdu(&types1.RicRequest{
-	//	RequestorID: 22,
-	//	InstanceID:  6,
-	//}, 9)
-	//assert.NilError(t, err)
-	//assert.Assert(t, e2apPdu != nil)
-	//
-	//per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("RicSubscriptionDeleteResponse E2AP PDU PER\n%v", hex.Dump(per))
-
 	newE2apPdu, err := CreateRicSubscriptionDeleteResponseE2apPdu(&types.RicRequest{
 		RequestorID: 22,
 		InstanceID:  6,
@@ -41,13 +30,4 @@ func TestRicSubscriptionDeleteResponse(t *testing.T) {
 	result, err := encoder.PerDecodeE2ApPdu(perNew)
 	assert.NilError(t, err)
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
-
-	// Decoding the message from the APER bytes produced by CGo
-	//result11, err := encoder.PerDecodeE2ApPdu(per)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), result11.String())
-	//
-	//result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, result1.String(), e2apPdu.String())
 }
