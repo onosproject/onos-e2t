@@ -14,36 +14,11 @@ import (
 )
 
 func TestRicControlFailure(t *testing.T) {
-	//ricRequestID1 := types1.RicRequest{
-	//	RequestorID: 21,
-	//	InstanceID:  22,
-	//}
-	//var ranFuncID1 types1.RanFunctionID = 9
-	////var ricCallPrID types.RicCallProcessID = []byte("123")
-	////var ricCtrlOut types.RicControlOutcome = []byte("456")
-	//cause1 := e2ap_ies.Cause{
-	//	Cause: &e2ap_ies.Cause_RicRequest{
-	//		RicRequest: e2ap_ies.CauseRicrequest_CAUSE_RICREQUEST_REQUEST_ID_UNKNOWN,
-	//	},
-	//}
-	//e2apPdu, err := pdubuilder.CreateRicControlFailureE2apPdu(ricRequestID1,
-	//	ranFuncID1, &cause1)
-	//assert.NilError(t, err)
-	//assert.Assert(t, e2apPdu != nil)
-	//e2apPdu.GetUnsuccessfulOutcome().GetProcedureCode().GetRicControl().GetUnsuccessfulOutcome().
-	//	SetRicControlOutcome([]byte{0xFF, 0xFF, 0xDD, 0x4A}).SetRicCallProcessID([]byte{0xCC, 0x3D, 0x1F})
-	//
-	//per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("RicControlFailure E2AP PDU PER\n%v", hex.Dump(per))
-
 	ricRequestID := types.RicRequest{
 		RequestorID: 21,
 		InstanceID:  22,
 	}
 	var ranFuncID types.RanFunctionID = 9
-	//var ricCallPrID types.RicCallProcessID = []byte("123")
-	//var ricCtrlOut types.RicControlOutcome = []byte("456")
 	cause := e2apies.Cause{
 		Cause: &e2apies.Cause_RicRequest{
 			RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_REQUEST_ID_UNKNOWN,
@@ -66,13 +41,4 @@ func TestRicControlFailure(t *testing.T) {
 	result, err := encoder.PerDecodeE2ApPdu(perNew)
 	assert.NilError(t, err)
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
-
-	// Decoding the message from the APER bytes produced by CGo
-	//result11, err := encoder.PerDecodeE2ApPdu(per)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), result11.String())
-	//
-	//result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, result1.String(), e2apPdu.String())
 }

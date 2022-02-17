@@ -16,30 +16,6 @@ import (
 )
 
 func TestResetResponse(t *testing.T) {
-	//procCode1 := v21.ProcedureCodeIDReset
-	//criticality1 := e2apcommondatatypes.Criticality_CRITICALITY_IGNORE
-	//ftg1 := e2apcommondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
-	//
-	//e2apPdu, err := pdubuilder.CreateResetResponseE2apPdu(1)
-	//assert.NilError(t, err)
-	//assert.Assert(t, e2apPdu != nil)
-	//e2apPdu.GetSuccessfulOutcome().GetProcedureCode().GetReset_().GetSuccessfulOutcome().
-	//	SetCriticalityDiagnostics(procCode1, &criticality1, &ftg1,
-	//		&types1.RicRequest{
-	//			RequestorID: 10,
-	//			InstanceID:  20,
-	//		}, []*types1.CritDiag{
-	//			{
-	//				TypeOfError:   e2ap_ies.TypeOfError_TYPE_OF_ERROR_MISSING,
-	//				IECriticality: e2apcommondatatypes.Criticality_CRITICALITY_IGNORE,
-	//				IEId:          v21.ProtocolIeIDRicsubscriptionDetails,
-	//			},
-	//		})
-	//
-	//per, err := asn1cgo.PerEncodeE2apPdu(e2apPdu)
-	//assert.NilError(t, err)
-	//t.Logf("ResetResponse E2AP PDU PER with Go APER library\n%v", hex.Dump(per))
-
 	procCode := v2.ProcedureCodeIDReset
 	criticality := e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE
 	ftg := e2ap_commondatatypes.TriggeringMessage_TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME
@@ -70,14 +46,4 @@ func TestResetResponse(t *testing.T) {
 	result, err := encoder.PerDecodeE2ApPdu(perNew)
 	assert.NilError(t, err)
 	assert.DeepEqual(t, newE2apPdu.String(), result.String())
-
-	// Decoding the message from the APER bytes produced by CGo
-	//result11, err := encoder.PerDecodeE2ApPdu(per)
-	//assert.NilError(t, err)
-	//assert.DeepEqual(t, newE2apPdu.String(), result11.String())
-	//
-	//result1, err := asn1cgo.PerDecodeE2apPdu(perNew)
-	//assert.NilError(t, err)
-	//assert.Assert(t, result1 != nil)
-	//assert.DeepEqual(t, e2apPdu.String(), result1.String())
 }
