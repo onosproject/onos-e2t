@@ -49,8 +49,6 @@ func DecodeErrorIndicationPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *e2
 			ricRequestIDIe := v.GetValue().GetRr()
 			ricRequestID.RequestorID = types.RicRequestorID(ricRequestIDIe.GetRicRequestorId())
 			ricRequestID.InstanceID = types.RicInstanceID(ricRequestIDIe.GetRicInstanceId())
-
-			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
 		}
 		if v.Id == int32(v2.ProtocolIeIDCriticalityDiagnostics) {
 			critDiagnostics := v.GetValue().GetCd()
@@ -71,6 +69,9 @@ func DecodeErrorIndicationPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *e2
 					diags = append(diags, &diag)
 				}
 			}
+		}
+		if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
+			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
 		}
 	}
 
