@@ -11,7 +11,7 @@ import (
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
-	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
+	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/v2/e2sm-kpm-v2-go"
 	"google.golang.org/protobuf/proto"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -106,7 +106,8 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 		assert.NoError(t, err)
 		err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 		assert.NoError(t, err)
-		cellObjectID := indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value
+		indMsgFormat1 := indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
+		cellObjectID := indMsgFormat1.GetCellObjId().Value
 		assert.True(t, cellObjectID == cellObjectIDList[0] || cellObjectID == cellObjectIDList[1])
 	}
 

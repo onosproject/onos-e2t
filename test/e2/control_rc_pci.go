@@ -14,7 +14,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
+	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go/v2/e2sm-rc-pre-v2-go"
 
 	"github.com/stretchr/testify/assert"
 
@@ -77,7 +77,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	// Receive and process the first indication message
 	indMessage := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
 	header := indMessage.Header
-	ricIndicationHeader := e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
+	ricIndicationHeader := e2smrcpreies.E2SmRcPreIndicationHeader{}
 
 	err = proto.Unmarshal(header, &ricIndicationHeader)
 	assert.NoError(t, err)
@@ -114,7 +114,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 
 	assert.NotNil(t, response)
 	assert.NotNil(t, response.Payload)
-	controlOutcome := &e2sm_rc_pre_ies.E2SmRcPreControlOutcome{}
+	controlOutcome := &e2smrcpreies.E2SmRcPreControlOutcome{}
 	err = proto.Unmarshal(response.Payload, controlOutcome)
 	assert.NoError(t, err)
 
