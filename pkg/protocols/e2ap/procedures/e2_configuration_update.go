@@ -6,9 +6,10 @@ package procedures
 
 import (
 	"context"
-	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	"syscall"
+
+	e2api "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 
@@ -40,8 +41,8 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 	requestPDU := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
-				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				ProcedureCode: int32(e2api.ProcedureCodeIDE2nodeConfigurationUpdate),
+				Criticality:   e2apcommondatatypes.Criticality_CRITICALITY_REJECT,
 				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
 					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2NodeConfigurationUpdate{
 						E2NodeConfigurationUpdate: request,
@@ -50,10 +51,9 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 			},
 		},
 	}
-	// TODO enable it when it is supported
-	/*if err := requestPDU.Validate(); err != nil {
+	if err := requestPDU.Validate(); err != nil {
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
-	}*/
+	}
 
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 configuration update initiation failed: %v", err)
@@ -166,8 +166,8 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 				SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
-					ProcedureCode: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
-					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					ProcedureCode: int32(e2api.ProcedureCodeIDE2nodeConfigurationUpdate),
+					Criticality:   e2apcommondatatypes.Criticality_CRITICALITY_REJECT,
 					Value: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures{
 						SoValues: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate{
 							E2NodeConfigurationUpdate: response,
@@ -176,15 +176,15 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 				},
 			},
 		}
-		// TODO enable validation when it is supported
-		/*if err := requestPDU.Validate(); err != nil {
+
+		if err := requestPDU.Validate(); err != nil {
 			log.Errorf("E2 configuration update validation failed: %v", err)
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
 				log.Errorf("E2 configuration update response failed: %v", err)
 			}
-		}*/
+		}
 		err := p.dispatcher(responsePDU)
 		if err != nil {
 			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
@@ -198,8 +198,8 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
 				UnsuccessfulOutcome: &e2appdudescriptions.UnsuccessfulOutcome{
-					ProcedureCode: int32(v2.ProcedureCodeIDE2nodeConfigurationUpdate),
-					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					ProcedureCode: int32(e2api.ProcedureCodeIDE2nodeConfigurationUpdate),
+					Criticality:   e2apcommondatatypes.Criticality_CRITICALITY_REJECT,
 					Value: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures{
 						UoValues: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate{
 							E2NodeConfigurationUpdate: failure,
@@ -208,15 +208,15 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 				},
 			},
 		}
-		// TODO enable validation when it is supported
-		/*if err := requestPDU.Validate(); err != nil {
+
+		if err := requestPDU.Validate(); err != nil {
 			log.Errorf("E2 configuration update validation failed: %v", err)
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
 				log.Errorf("E2 configuration update failed: %v", err)
 			}
-		}*/
+		}
 		err := p.dispatcher(responsePDU)
 		if err != nil {
 			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {

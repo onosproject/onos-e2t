@@ -6,10 +6,11 @@ package procedures
 
 import (
 	"context"
-	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
-	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	"sync"
 	"syscall"
+
+	e2api "github.com/onosproject/onos-e2t/api/e2ap/v2"
+	e2apcommondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
@@ -38,8 +39,8 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 	requestPDU := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: int32(v2.ProcedureCodeIDRICcontrol),
-				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+				ProcedureCode: int32(e2api.ProcedureCodeIDRICcontrol),
+				Criticality:   e2apcommondatatypes.Criticality_CRITICALITY_REJECT,
 				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
 					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicControl{
 						RicControl: request,
@@ -48,15 +49,14 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 			},
 		},
 	}
-	// TODO enable it when it is supported
-	/*if err := requestPDU.Validate(); err != nil {
+	if err := requestPDU.Validate(); err != nil {
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
-	}*/
+	}
 
 	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
 	var requestID int32
 	for _, v := range request.GetProtocolIes() {
-		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+		if v.Id == int32(e2api.ProtocolIeIDRicrequestID) {
 			requestID = v.GetValue().GetRrId().GetRicRequestorId()
 			break
 		}
@@ -135,14 +135,14 @@ func (p *RICControlInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	switch response := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
 		for _, v := range response.SuccessfulOutcome.Value.GetRicControl().GetProtocolIes() {
-			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+			if v.Id == int32(e2api.ProtocolIeIDRicrequestID) {
 				requestID = v.GetValue().GetRrId().GetRicRequestorId()
 				break
 			}
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
 		for _, v := range response.UnsuccessfulOutcome.Value.GetRicControl().GetProtocolIes() {
-			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
+			if v.Id == int32(e2api.ProtocolIeIDRicrequestID) {
 				requestID = v.GetValue().GetRrId().GetRicRequestorId()
 				break
 			}
@@ -206,8 +206,8 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_SuccessfulOutcome{
 				SuccessfulOutcome: &e2appdudescriptions.SuccessfulOutcome{
-					ProcedureCode: int32(v2.ProcedureCodeIDRICcontrol),
-					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					ProcedureCode: int32(e2api.ProcedureCodeIDRICcontrol),
+					Criticality:   e2apcommondatatypes.Criticality_CRITICALITY_REJECT,
 					Value: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures{
 						SoValues: &e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicControl{
 							RicControl: response,
@@ -216,15 +216,14 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 				},
 			},
 		}
-		// TODO enable validation when it is supported
-		/*if err := requestPDU.Validate(); err != nil {
+		if err := requestPDU.Validate(); err != nil {
 			log.Errorf("RIC Control response validation failed: %v", err)
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
 				log.Errorf("RIC Control response failed: %v", err)
 			}
-		}*/
+		}
 		err := p.dispatcher(responsePDU)
 		if err != nil {
 			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
@@ -238,8 +237,8 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		responsePDU := &e2appdudescriptions.E2ApPdu{
 			E2ApPdu: &e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome{
 				UnsuccessfulOutcome: &e2appdudescriptions.UnsuccessfulOutcome{
-					ProcedureCode: int32(v2.ProcedureCodeIDRICcontrol),
-					Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_REJECT,
+					ProcedureCode: int32(e2api.ProcedureCodeIDRICcontrol),
+					Criticality:   e2apcommondatatypes.Criticality_CRITICALITY_REJECT,
 					Value: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures{
 						UoValues: &e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl{
 							RicControl: failure,
@@ -248,15 +247,14 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 				},
 			},
 		}
-		// TODO enable validation when it is supported
-		/*if err := requestPDU.Validate(); err != nil {
+		if err := requestPDU.Validate(); err != nil {
 			log.Errorf("RIC Control response validation failed: %v", err)
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
 				log.Errorf("RIC Control response failed: %v", err)
 			}
-		}*/
+		}
 		err := p.dispatcher(responsePDU)
 		if err != nil {
 			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
