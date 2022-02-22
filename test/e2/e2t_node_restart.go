@@ -98,8 +98,9 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 
 	err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
 	assert.NoError(t, err)
-	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(reportPeriod/granularity), len(indicationMessage.GetIndicationMessageFormat1().GetMeasData().GetValue()))
+	indMsgFormat1 := indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
+	assert.Equal(t, indMsgFormat1.GetCellObjId().Value, cellObjectID)
+	assert.Equal(t, int(reportPeriod/granularity), len(indMsgFormat1.GetMeasData().GetValue()))
 
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
@@ -125,8 +126,9 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 
 	err = proto.Unmarshal(indicationReport.Payload, &indicationMessage)
 	assert.NoError(t, err)
-	assert.Equal(t, indicationMessage.GetIndicationMessageFormat1().GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(reportPeriod/granularity), len(indicationMessage.GetIndicationMessageFormat1().GetMeasData().GetValue()))
+	indMsgFormat1 = indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
+	assert.Equal(t, indMsgFormat1.GetCellObjId().Value, cellObjectID)
+	assert.Equal(t, int(reportPeriod/granularity), len(indMsgFormat1.GetMeasData().GetValue()))
 
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)

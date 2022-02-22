@@ -23,10 +23,10 @@ import (
 )
 
 const (
-	ranParameterValue uint32 = 200
-	ranParameterName         = "pci"
-	ranParameterID    int32  = 1
-	priority                 = 10
+	ranParameterValue int64 = 200
+	ranParameterName        = "pci"
+	ranParameterID    int32 = 1
+	priority                = 10
 )
 
 // TestControl tests E2 control procedure using ransim and SDK
