@@ -9,10 +9,7 @@ import (
 	"sync"
 
 	"github.com/onosproject/onos-lib-go/pkg/errors"
-	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
-
-var log = logging.GetLogger("southbound", "e2ap", "server")
 
 type E2APConnManager interface {
 	Get(ctx context.Context, id ConnID) (*E2APConn, error)

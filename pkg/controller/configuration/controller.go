@@ -22,7 +22,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("controller", "configuration")
+var log = logging.GetLogger()
 
 const (
 	defaultTimeout = 30 * time.Second
@@ -63,7 +63,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	defer cancel()
 
 	connID := id.Value.(e2server.ConnID)
-	log.Infof("Reconciling  configuration using mgmt connection: %s", connID)
+	log.Info("Reconciling  configuration using mgmt connection: %s", connID)
 	mgmtConn, err := r.mgmtConns.Get(ctx, connID)
 	if err != nil {
 		if errors.IsNotFound(err) {

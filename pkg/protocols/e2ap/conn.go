@@ -7,10 +7,11 @@ package e2ap
 import (
 	"context"
 	"encoding/hex"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/encoder"
 	"io"
 	"net"
 	"sync"
+
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/encoder"
 
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
@@ -18,7 +19,7 @@ import (
 
 const defaultRecvBufSize = 1024 * 4
 
-var log = logging.GetLogger("protocols", "e2")
+var log = logging.GetLogger()
 
 // Options is E2 connection options
 type Options struct {

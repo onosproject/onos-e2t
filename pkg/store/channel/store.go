@@ -6,19 +6,20 @@ package channel
 
 import (
 	"context"
+	"io"
+	"time"
+
 	"github.com/atomix/atomix-go-client/pkg/atomix"
 	"github.com/atomix/atomix-go-framework/pkg/atomix/meta"
 	api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-lib-go/pkg/errors"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
-	"io"
-	"time"
 
 	_map "github.com/atomix/atomix-go-client/pkg/atomix/map"
 	"github.com/gogo/protobuf/proto"
 )
 
-var log = logging.GetLogger("store", "channel")
+var log = logging.GetLogger()
 
 // NewAtomixStore returns a new persistent Store
 func NewAtomixStore(client atomix.Client) (Store, error) {

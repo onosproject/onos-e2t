@@ -11,7 +11,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("protocols", "e2")
+var log = logging.GetLogger()
 
 // ElementaryProcedure is anb identifier interface for E2 elementary procedure interfaces
 type ElementaryProcedure interface {

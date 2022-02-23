@@ -15,7 +15,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("modelregistry")
+var log = logging.GetLogger()
 
 // ModelRegistry is the object for the saving information about device models
 type ModelRegistry interface {

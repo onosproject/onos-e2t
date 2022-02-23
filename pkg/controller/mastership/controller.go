@@ -19,7 +19,7 @@ import (
 
 const defaultTimeout = 30 * time.Second
 
-var log = logging.GetLogger("controller", "mastership")
+var log = logging.GetLogger()
 
 // NewController returns a new mastership controller
 func NewController(rnib rnib.Store) *controller.Controller {

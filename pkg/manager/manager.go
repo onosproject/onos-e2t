@@ -31,7 +31,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/northbound"
 )
 
-var log = logging.GetLogger("manager")
+var log = logging.GetLogger()
 
 // Config is a manager configuration
 type Config struct {

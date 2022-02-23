@@ -18,7 +18,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-var log = logging.GetLogger("store", "rnib")
+var log = logging.GetLogger()
 
 // Store topo store client interface
 type Store interface {
