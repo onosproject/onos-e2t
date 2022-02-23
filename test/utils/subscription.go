@@ -29,11 +29,10 @@ func CreateRcEventTrigger() ([]byte, error) {
 	if err != nil {
 		return []byte{}, err
 	}
-	// TODO enable it when it is available
-	/*err = e2SmKpmEventTriggerDefinition.Validate()
+	err = e2SmKpmEventTriggerDefinition.Validate()
 	if err != nil {
 		return []byte{}, err
-	}*/
+	}
 	protoBytes, err := proto.Marshal(e2SmKpmEventTriggerDefinition)
 	if err != nil {
 		return []byte{}, err
@@ -54,9 +53,18 @@ func CreateKpmV2ActionDefinition(cellObjectID string, granularity uint32) ([]byt
 	if err != nil {
 		return nil, err
 	}
-	measInfoConAvgItem := e2smkpmv2.CreateMeasurementInfoItem(rrcConAvgName)
-	measInfoConMaxItem := e2smkpmv2.CreateMeasurementInfoItem(rrcConMaxName)
-	measInfoConnEstabAttItem := e2smkpmv2.CreateMeasurementInfoItem(rrcConnEstabAtt)
+	measInfoConAvgItem, err := e2smkpmv2.CreateMeasurementInfoItem(rrcConAvgName)
+	if err != nil {
+		return nil, err
+	}
+	measInfoConMaxItem, err := e2smkpmv2.CreateMeasurementInfoItem(rrcConMaxName)
+	if err != nil {
+		return nil, err
+	}
+	measInfoConnEstabAttItem, err := e2smkpmv2.CreateMeasurementInfoItem(rrcConnEstabAtt)
+	if err != nil {
+		return nil, err
+	}
 
 	measInfoList := &kpmv2types.MeasurementInfoList{
 		Value: make([]*kpmv2types.MeasurementInfoItem, 0),
