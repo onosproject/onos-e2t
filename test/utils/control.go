@@ -50,10 +50,10 @@ func (ch *RcControlHeader) CreateRcControlHeader() ([]byte, error) {
 	newE2SmRcPrePdu.GetControlHeaderFormat1().SetCGI(cgi)
 	newE2SmRcPrePdu.GetControlHeaderFormat1().SetRicControlMessagePriority(ch.Priority)
 
-	/*err = newE2SmRcPrePdu.Validate()
+	err = newE2SmRcPrePdu.Validate()
 	if err != nil {
 		return []byte{}, err
-	}*/
+	}
 
 	protoBytes, err := proto.Marshal(newE2SmRcPrePdu)
 	if err != nil {
@@ -73,10 +73,10 @@ func (cm *RcControlMessage) CreateRcControlMessage() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	/*err = newE2SmRcPrePdu.Validate()
+	err = newE2SmRcPrePdu.Validate()
 	if err != nil {
 		return nil, err
-	}*/
+	}
 
 	protoBytes, err := proto.Marshal(newE2SmRcPrePdu)
 	if err != nil {
