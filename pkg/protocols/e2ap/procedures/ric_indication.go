@@ -6,7 +6,10 @@ package procedures
 
 import (
 	"context"
-	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
+
+	"github.com/onosproject/onos-lib-go/pkg/errors"
+
+	e2api "github.com/onosproject/onos-e2t/api/e2ap/v2"
 
 	"github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
@@ -32,7 +35,7 @@ func (p *RICIndicationInitiator) Initiate(ctx context.Context, request *e2appduc
 	pdu := &e2appdudescriptions.E2ApPdu{
 		E2ApPdu: &e2appdudescriptions.E2ApPdu_InitiatingMessage{
 			InitiatingMessage: &e2appdudescriptions.InitiatingMessage{
-				ProcedureCode: int32(v2.ProcedureCodeIDRICindication),
+				ProcedureCode: int32(e2api.ProcedureCodeIDRICindication),
 				Criticality:   e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE,
 				Value: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures{
 					ImValues: &e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicIndication{
@@ -42,10 +45,9 @@ func (p *RICIndicationInitiator) Initiate(ctx context.Context, request *e2appduc
 			},
 		},
 	}
-	// TODO enable it when it is supported
-	/*if err := pdu.Validate(); err != nil {
+	if err := pdu.Validate(); err != nil {
 		return errors.NewInvalid("E2AP PDU validation failed: %v", err)
-	}*/
+	}
 	return p.dispatcher(pdu)
 }
 

@@ -8,18 +8,13 @@ import (
 	"context"
 	"time"
 
-	e2sm_kpm_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2/v2/e2sm-kpm-v2"
-	e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
+	e2smkpmies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/v2/e2sm-kpm-v2-go"
+	e2smrcpreies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go/v2/e2sm-rc-pre-v2-go"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 
-	//"github.com/onosproject/onos-e2t/test/e2utils"
 	"testing"
 
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
-
-	//"time"
-
-	//e2sm_rc_pre_ies "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre/v2/e2sm-rc-pre-v2"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -129,8 +124,8 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	KPMMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, KPMch)
 	RCMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, RCch)
 
-	kpmIndicationHeader := &e2sm_kpm_ies.E2SmKpmIndicationHeader{}
-	rcIndicationHeader := &e2sm_rc_pre_ies.E2SmRcPreIndicationHeader{}
+	kpmIndicationHeader := &e2smkpmies.E2SmKpmIndicationHeader{}
+	rcIndicationHeader := &e2smrcpreies.E2SmRcPreIndicationHeader{}
 
 	err = proto.Unmarshal(KPMMsg.Header, kpmIndicationHeader)
 	assert.NoError(t, err)
