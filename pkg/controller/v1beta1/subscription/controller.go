@@ -6,10 +6,11 @@ package subscription
 
 import (
 	"context"
+	"time"
+
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
-	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
@@ -35,7 +36,7 @@ import (
 
 const defaultTimeout = 30 * time.Second
 
-var log = logging.GetLogger("controller", "subscription")
+var log = logging.GetLogger()
 
 // NewController returns a new network controller
 func NewController(streams stream.Manager, subs substore.Store, topo rnib.Store, conns e2server.E2APConnManager,

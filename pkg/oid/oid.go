@@ -13,7 +13,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("oid", "registry")
+var log = logging.GetLogger()
 
 // ObjectIdentifiers OIDs information
 type ObjectIdentifiers struct {

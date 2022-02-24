@@ -6,13 +6,14 @@ package channel
 
 import (
 	"context"
+	"time"
+
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/pkg/controller/utils"
 	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"time"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	chanstore "github.com/onosproject/onos-e2t/pkg/store/channel"
@@ -22,7 +23,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("controller", "channel")
+var log = logging.GetLogger()
 
 const (
 	defaultTimeout            = 30 * time.Second

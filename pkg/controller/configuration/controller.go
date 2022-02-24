@@ -22,7 +22,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("controller", "configuration")
+var log = logging.GetLogger()
 
 const (
 	defaultTimeout = 30 * time.Second

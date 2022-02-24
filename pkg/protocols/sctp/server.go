@@ -14,7 +14,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/sctp/types"
 )
 
-var log = logging.GetLogger("southbound", "sctp")
+var log = logging.GetLogger()
 
 const (
 	defaultSCTPPort = 36421
