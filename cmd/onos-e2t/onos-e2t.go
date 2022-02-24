@@ -25,7 +25,7 @@ func (i *arrayFlags) Set(value string) error {
 	return nil
 }
 
-var log = logging.GetLogger("main")
+var log = logging.GetLogger()
 
 func main() {
 	var serviceModelPlugins arrayFlags

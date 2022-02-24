@@ -6,12 +6,13 @@ package encoder
 
 import (
 	"encoding/hex"
+
 	e2appdudescriptions "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-descriptions"
 	"github.com/onosproject/onos-lib-go/pkg/asn1/aper"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("southbound", "e2ap", "encoder")
+var log = logging.GetLogger()
 
 func PerEncodeE2ApPdu(e2ap *e2appdudescriptions.E2ApPdu) ([]byte, error) {
 

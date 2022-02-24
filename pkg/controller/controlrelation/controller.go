@@ -21,7 +21,7 @@ import (
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 )
 
-var log = logging.GetLogger("controller", "controlrelation")
+var log = logging.GetLogger()
 
 const (
 	defaultTimeout = 30 * time.Second

@@ -26,7 +26,7 @@ const (
 	defaultExpirationDuration = 30 * time.Second
 )
 
-var log = logging.GetLogger("controller", "e2t")
+var log = logging.GetLogger()
 
 // NewController returns a new E2T controller
 func NewController(rnib rnib.Store) *controller.Controller {

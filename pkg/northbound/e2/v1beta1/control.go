@@ -6,9 +6,10 @@ package v1beta1
 
 import (
 	"context"
+	"sync"
+
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
-	"sync"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
@@ -38,7 +39,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-var log = logging.GetLogger("northbound", "e2", "v1beta1")
+var log = logging.GetLogger()
 
 // NewControlService creates a new control service
 func NewControlService(modelRegistry modelregistry.ModelRegistry, conns e2server.E2APConnManager,

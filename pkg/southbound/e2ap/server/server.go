@@ -8,8 +8,10 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	"time"
+
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
+	"github.com/onosproject/onos-lib-go/pkg/logging"
 
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 
@@ -32,6 +34,8 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/pdudecoder"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 )
+
+var log = logging.GetLogger()
 
 // TODO: Change the RIC ID to something appropriate
 var ricID = types.RicIdentifier{
