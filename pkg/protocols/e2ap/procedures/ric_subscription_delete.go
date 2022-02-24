@@ -154,6 +154,7 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 	if ok {
 		responseCh <- *pdu
 		close(responseCh)
+		delete(p.responseChs, requestID)
 	} else {
 		log.Warnf("Received RIC Subscription Delete response for unknown request %d", requestID)
 	}
@@ -161,8 +162,10 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 
 func (p *RICSubscriptionDeleteInitiator) Close() error {
 	p.mu.Lock()
-	for _, responseCh := range p.responseChs {
+	for requestID, responseCh := range p.responseChs {
 		close(responseCh)
+		delete(p.responseChs, requestID)
+
 	}
 	p.mu.Unlock()
 	return nil

@@ -6,6 +6,7 @@ package procedures
 
 import (
 	"context"
+	"sync"
 	"syscall"
 
 	e2api "github.com/onosproject/onos-e2t/api/e2ap/v2"
@@ -26,15 +27,16 @@ type E2ConnectionUpdate interface {
 // NewE2ConnectionUpdateInitiator creates a new E2 connection update initiator
 func NewE2ConnectionUpdateInitiator(dispatcher Dispatcher) *E2ConnectionUpdateInitiator {
 	return &E2ConnectionUpdateInitiator{
-		dispatcher: dispatcher,
-		responseCh: make(chan e2appdudescriptions.E2ApPdu),
+		dispatcher:  dispatcher,
+		responseChs: make(map[int32]chan e2appdudescriptions.E2ApPdu),
 	}
 }
 
 // E2ConnectionUpdateInitiator initiates the E2 connection update procedure
 type E2ConnectionUpdateInitiator struct {
-	dispatcher Dispatcher
-	responseCh chan e2appdudescriptions.E2ApPdu
+	dispatcher  Dispatcher
+	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	mu          sync.RWMutex
 }
 
 func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2appducontents.E2ConnectionUpdate) (*e2appducontents.E2ConnectionUpdateAcknowledge, *e2appducontents.E2ConnectionUpdateFailure, error) {
@@ -55,12 +57,30 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
 	}
 
+	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
+	var transactionID int32 = -1
+	for _, v := range request.GetProtocolIes() {
+		if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+			transactionID = v.GetValue().GetTrId().GetValue()
+			break
+		}
+	}
+	p.mu.Lock()
+	p.responseChs[transactionID] = responseCh
+	p.mu.Unlock()
+
+	defer func() {
+		p.mu.Lock()
+		delete(p.responseChs, transactionID)
+		p.mu.Unlock()
+	}()
+
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 Connection Update initiation failed: %v", err)
 	}
 
 	select {
-	case responsePDU, ok := <-p.responseCh:
+	case responsePDU, ok := <-responseCh:
 		if !ok {
 			return nil, nil, errors.NewUnavailable("connection closed")
 		}
@@ -114,16 +134,44 @@ func (p *E2ConnectionUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) 
 }
 
 func (p *E2ConnectionUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
-	p.responseCh <- *pdu
+	var transactionID int32
+	switch pdu.GetE2ApPdu().(type) {
+	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
+		for _, v := range pdu.GetSuccessfulOutcome().GetValue().GetE2ConnectionUpdate().GetProtocolIes() {
+			if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+				transactionID = v.GetValue().GetTrId().GetValue()
+				break
+			}
+		}
+	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
+		for _, v := range pdu.GetUnsuccessfulOutcome().GetValue().GetE2ConnectionUpdate().GetProtocolIes() {
+			if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+				transactionID = v.GetValue().GetTrId().GetValue()
+				break
+			}
+		}
+	}
+
+	p.mu.RLock()
+	responseCh, ok := p.responseChs[transactionID]
+	p.mu.RUnlock()
+	if ok {
+		responseCh <- *pdu
+		close(responseCh)
+		delete(p.responseChs, transactionID)
+	} else {
+		log.Errorf("Received RIC Connection update response for unknown transaction %d", transactionID)
+	}
 }
 
 func (p *E2ConnectionUpdateInitiator) Close() error {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Debug("recovering from panic", err)
-		}
-	}()
-	close(p.responseCh)
+	p.mu.Lock()
+	for transactionID, responseCh := range p.responseChs {
+		close(responseCh)
+		delete(p.responseChs, transactionID)
+
+	}
+	p.mu.Unlock()
 	return nil
 }
 

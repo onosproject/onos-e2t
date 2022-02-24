@@ -28,20 +28,20 @@ var (
 )
 
 func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
-	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-e2nodes")
-	assert.NotNil(t, sim)
-
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
 	defer cancel()
+
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
 	topoEventChan := make(chan topoapi.Event)
+
 	err = topoSdkClient.WatchE2Connections(ctx, topoEventChan)
 	assert.NoError(t, err)
+	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "multi-e2nodes")
+	assert.NotNil(t, sim)
 
 	nodeClient := utils.GetRansimNodeClient(t, sim)
 	assert.NotNil(t, nodeClient)
-
 	defaultNumNodes := utils.GetNumNodes(t, nodeClient)
 
 	for i := 0; i < numRequestedE2Nodes; i++ {
@@ -61,18 +61,18 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 	numNodes := utils.GetNumNodes(t, nodeClient)
 	assert.Equal(t, numRequestedE2Nodes+defaultNumNodes, numNodes)
 
-	utils.CountTopoAddedOrNoneEvent(topoEventChan, numNodes)
+	expectedControlRelations := int(s.E2TReplicaCount) * numNodes
+	utils.CountTopoAddedOrNoneEvent(topoEventChan, expectedControlRelations)
 	e2nodes := utils.GetNodes(t, nodeClient)
 	for _, e2node := range e2nodes {
-		_, err = nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
+		_, err := nodeClient.DeleteNode(ctx, &modelapi.DeleteNodeRequest{
 			GnbID: e2node.GnbID,
 		})
 		assert.NoError(t, err)
 	}
 
-	utils.CountTopoRemovedEvent(topoEventChan, numNodes)
-
+	utils.CountTopoRemovedEvent(topoEventChan, expectedControlRelations)
 	numNodes = utils.GetNumNodes(t, nodeClient)
 	assert.Equal(t, 0, numNodes)
-	utils.UninstallRanSimulatorOrDie(t, sim)
+	//utils.UninstallRanSimulatorOrDie(t, sim)
 }

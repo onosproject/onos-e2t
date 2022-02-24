@@ -74,7 +74,7 @@ func CheckIndicationMessage(t *testing.T, timeout time.Duration, ch chan e2api.I
 }
 
 func CheckForEmptySubscriptionList(t *testing.T) {
-	iterations := 10
+	iterations := 20
 	for i := 1; i <= iterations; i++ {
 		subList := GetSubscriptionList(t)
 		if len(subList) == 0 {
