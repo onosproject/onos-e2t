@@ -61,15 +61,10 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 			break
 		}
 	}
-	p.mu.Lock()
-	p.responseChs[requestID] = responseCh
-	p.mu.Unlock()
 
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, requestID)
-		p.mu.Unlock()
-	}()
+	p.mu.RLock()
+	p.responseChs[requestID] = responseCh
+	p.mu.RUnlock()
 
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("RIC Control initiation failed: %v", err)
@@ -149,15 +144,22 @@ func (p *RICControlInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 		}
 	}
 
+	defer func() {
+		p.mu.Lock()
+		if responseCh, ok := p.responseChs[requestID]; ok {
+			close(responseCh)
+			delete(p.responseChs, requestID)
+		}
+		p.mu.Unlock()
+	}()
+
 	p.mu.RLock()
 	responseCh, ok := p.responseChs[requestID]
 	p.mu.RUnlock()
 	if ok {
 		responseCh <- *pdu
-		close(responseCh)
-		delete(p.responseChs, requestID)
 	} else {
-		log.Errorf("Received RIC Control response for unknown request %d", requestID)
+		log.Warnf("Received RIC Control response for unknown request %d", requestID)
 	}
 }
 

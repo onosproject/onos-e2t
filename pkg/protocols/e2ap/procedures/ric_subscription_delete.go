@@ -65,12 +65,6 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 	p.responseChs[requestID] = responseCh
 	p.mu.Unlock()
 
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, requestID)
-		p.mu.Unlock()
-	}()
-
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("RIC Subscription Delete initiation failed: %v", err)
 	}
@@ -148,13 +142,20 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 		}
 	}
 
+	defer func() {
+		p.mu.Lock()
+		if responseCh, ok := p.responseChs[requestID]; ok {
+			close(responseCh)
+			delete(p.responseChs, requestID)
+		}
+		p.mu.Unlock()
+	}()
+
 	p.mu.RLock()
 	responseCh, ok := p.responseChs[requestID]
 	p.mu.RUnlock()
 	if ok {
 		responseCh <- *pdu
-		close(responseCh)
-		delete(p.responseChs, requestID)
 	} else {
 		log.Warnf("Received RIC Subscription Delete response for unknown request %d", requestID)
 	}

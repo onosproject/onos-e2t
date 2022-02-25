@@ -65,12 +65,6 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 	p.responseChs[requestID] = responseCh
 	p.mu.Unlock()
 
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, requestID)
-		p.mu.Unlock()
-	}()
-
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("RIC Subscription initiation failed: %v", err)
 	}
@@ -148,16 +142,22 @@ func (p *RICSubscriptionInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 		}
 	}
 
+	defer func() {
+		p.mu.Lock()
+		if responseCh, ok := p.responseChs[requestID]; ok {
+			close(responseCh)
+			delete(p.responseChs, requestID)
+		}
+		p.mu.Unlock()
+	}()
+
 	p.mu.RLock()
 	responseCh, ok := p.responseChs[requestID]
 	p.mu.RUnlock()
 	if ok {
 		responseCh <- *pdu
-		close(responseCh)
-		delete(p.responseChs, requestID)
-
 	} else {
-		log.Errorf("Received RIC Subscription response for unknown request %d", requestID)
+		log.Warnf("Received RIC Subscription response for unknown request %d", requestID)
 	}
 }
 

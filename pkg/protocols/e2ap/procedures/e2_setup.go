@@ -67,12 +67,6 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 	p.responseChs[transactionID] = responseCh
 	p.mu.Unlock()
 
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, transactionID)
-		p.mu.Unlock()
-	}()
-
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 Setup initiation failed: %v", err)
 	}
@@ -149,16 +143,22 @@ func (p *E2SetupInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 			}
 		}
 	}
+	defer func() {
+		p.mu.Lock()
+		if responseCh, ok := p.responseChs[transactionID]; ok {
+			close(responseCh)
+			delete(p.responseChs, transactionID)
+		}
+		p.mu.Unlock()
+	}()
 
 	p.mu.RLock()
 	responseCh, ok := p.responseChs[transactionID]
 	p.mu.RUnlock()
 	if ok {
 		responseCh <- *pdu
-		close(responseCh)
-		delete(p.responseChs, transactionID)
 	} else {
-		log.Errorf("Received RIC E2 setup response for unknown transaction %d", transactionID)
+		log.Warnf("Received RIC E2 setup response for unknown transaction %d", transactionID)
 	}
 }
 

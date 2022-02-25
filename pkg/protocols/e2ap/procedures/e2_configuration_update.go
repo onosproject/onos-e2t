@@ -24,7 +24,7 @@ type E2ConfigurationUpdate interface {
 	E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error)
 }
 
-// NewConfigurationUpdateInitiator creates a new E2 configuration update initiator
+// NewE2ConfigurationUpdateInitiator  creates a new E2 configuration update initiator
 func NewE2ConfigurationUpdateInitiator(dispatcher Dispatcher) *E2ConfigurationUpdateInitiator {
 	return &E2ConfigurationUpdateInitiator{
 		dispatcher:  dispatcher,
@@ -72,12 +72,6 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 	p.mu.Lock()
 	p.responseChs[transactionID] = responseCh
 	p.mu.Unlock()
-
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, transactionID)
-		p.mu.Unlock()
-	}()
 
 	select {
 	case responsePDU, ok := <-responseCh:
@@ -151,15 +145,22 @@ func (p *E2ConfigurationUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 			}
 		}
 	}
+	defer func() {
+		p.mu.Lock()
+		if responseCh, ok := p.responseChs[transactionID]; ok {
+			close(responseCh)
+			delete(p.responseChs, transactionID)
+		}
+		p.mu.Unlock()
+	}()
+
 	p.mu.RLock()
 	responseCh, ok := p.responseChs[transactionID]
 	p.mu.RUnlock()
 	if ok {
 		responseCh <- *pdu
-		close(responseCh)
-		delete(p.responseChs, transactionID)
 	} else {
-		log.Errorf("Received RIC Configuration update response for unknown transaction %d", transactionID)
+		log.Warnf("Received RIC Configuration update response for unknown transaction %d", transactionID)
 	}
 }
 
