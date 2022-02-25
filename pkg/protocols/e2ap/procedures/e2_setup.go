@@ -80,6 +80,7 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 
 	select {
 	case responsePDU, ok := <-responseCh:
+		log.Debugf("Received E2 setup response")
 		if !ok {
 			return nil, nil, errors.NewUnavailable("connection closed")
 		}
@@ -177,8 +178,8 @@ func (p *E2SetupInitiator) Close() error {
 	p.mu.Lock()
 	for transactionID := range p.responseChs {
 		delete(p.responseChs, transactionID)
-		p.closeCh <- true
 	}
+	p.closeCh <- true
 	p.mu.Unlock()
 	return nil
 }

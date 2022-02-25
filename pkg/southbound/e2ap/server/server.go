@@ -210,6 +210,7 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	if len(rfRejected) > 0 {
 		response.SetRanFunctionRejected(rfRejected)
 	}
+	log.Infof("Sending E2 setup response %+v", response)
 	return response, nil, nil
 }
 

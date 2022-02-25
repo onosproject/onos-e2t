@@ -179,14 +179,12 @@ func (p *E2ConfigurationUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 }
 
 func (p *E2ConfigurationUpdateInitiator) Close() error {
-	log.Info("Test closing config update")
 	p.mu.Lock()
 	for transactionID := range p.responseChs {
 		delete(p.responseChs, transactionID)
-		log.Info("Test done")
-		p.closeCh <- true
 	}
 	p.mu.Unlock()
+	p.closeCh <- true
 	return nil
 }
 
