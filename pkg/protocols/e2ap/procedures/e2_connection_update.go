@@ -68,7 +68,6 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 	p.mu.Lock()
 	p.responseChs[transactionID] = responseCh
 	p.mu.Unlock()
-
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 Connection Update initiation failed: %v", err)
 	}
@@ -158,6 +157,11 @@ func (p *E2ConnectionUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	responseCh, ok := p.responseChs[transactionID]
 	p.mu.RUnlock()
 	if ok {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Debug("recovering from panic", err)
+			}
+		}()
 		responseCh <- *pdu
 	} else {
 		log.Warnf("Received RIC Connection update response for unknown transaction %d", transactionID)

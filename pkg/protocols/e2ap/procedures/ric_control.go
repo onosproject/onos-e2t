@@ -157,6 +157,11 @@ func (p *RICControlInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	responseCh, ok := p.responseChs[requestID]
 	p.mu.RUnlock()
 	if ok {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Debug("recovering from panic", err)
+			}
+		}()
 		responseCh <- *pdu
 	} else {
 		log.Warnf("Received RIC Control response for unknown request %d", requestID)

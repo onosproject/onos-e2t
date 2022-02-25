@@ -156,6 +156,11 @@ func (p *E2SetupInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	responseCh, ok := p.responseChs[transactionID]
 	p.mu.RUnlock()
 	if ok {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Debug("recovering from panic", err)
+			}
+		}()
 		responseCh <- *pdu
 	} else {
 		log.Warnf("Received RIC E2 setup response for unknown transaction %d", transactionID)

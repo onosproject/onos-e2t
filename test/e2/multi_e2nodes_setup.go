@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	numRequestedE2Nodes = 50
+	numRequestedE2Nodes = 15
 )
 
 var (
@@ -71,8 +71,8 @@ func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
 		assert.NoError(t, err)
 	}
 
-	utils.CountTopoRemovedEvent(topoEventChan, expectedControlRelations)
+	utils.CountTopoRemovedEvent(t, topoEventChan, expectedControlRelations)
 	numNodes = utils.GetNumNodes(t, nodeClient)
 	assert.Equal(t, 0, numNodes)
-	//utils.UninstallRanSimulatorOrDie(t, sim)
+	utils.UninstallRanSimulatorOrDie(t, sim)
 }

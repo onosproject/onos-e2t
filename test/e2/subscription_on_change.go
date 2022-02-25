@@ -62,7 +62,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		assert.NoError(t, err)
 	}
 
-	utils.CountTopoRemovedEvent(topoEventChan, numNodes)
+	utils.CountTopoRemovedEvent(t, topoEventChan, numNodes)
 
 	// Create an e2 node with 3 cells from list of available cells.
 	cells := utils.GetCells(t, cellClient)

@@ -239,7 +239,7 @@ type TopoEventCounters struct {
 	AddedOrNone int
 }
 
-func CountTopoRemovedEvent(ch chan topoapi.Event, expectedValue int) {
+func CountTopoRemovedEvent(t *testing.T, ch chan topoapi.Event, expectedValue int) {
 	eventCounters := TopoEventCounters{}
 	for event := range ch {
 		if event.Type == topoapi.EventType_REMOVED {
