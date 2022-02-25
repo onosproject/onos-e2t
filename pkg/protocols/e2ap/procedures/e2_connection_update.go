@@ -36,6 +36,7 @@ func NewE2ConnectionUpdateInitiator(dispatcher Dispatcher) *E2ConnectionUpdateIn
 type E2ConnectionUpdateInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan bool
 	mu          sync.RWMutex
 }
 
@@ -100,6 +101,10 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case <-p.closeCh:
+		err := errors.NewUnavailable("connection closed")
+		log.Warn(err)
+		return nil, nil, err
 	}
 }
 
@@ -157,11 +162,6 @@ func (p *E2ConnectionUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	responseCh, ok := p.responseChs[transactionID]
 	p.mu.RUnlock()
 	if ok {
-		defer func() {
-			if err := recover(); err != nil {
-				log.Debug("recovering from panic", err)
-			}
-		}()
 		responseCh <- *pdu
 	} else {
 		log.Warnf("Received RIC Connection update response for unknown transaction %d", transactionID)
@@ -170,9 +170,9 @@ func (p *E2ConnectionUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 
 func (p *E2ConnectionUpdateInitiator) Close() error {
 	p.mu.Lock()
-	for transactionID, responseCh := range p.responseChs {
-		close(responseCh)
+	for transactionID := range p.responseChs {
 		delete(p.responseChs, transactionID)
+		p.closeCh <- true
 
 	}
 	p.mu.Unlock()

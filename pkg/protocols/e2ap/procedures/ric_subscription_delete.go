@@ -32,6 +32,7 @@ func NewRICSubscriptionDeleteInitiator(dispatcher Dispatcher) *RICSubscriptionDe
 type RICSubscriptionDeleteInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan bool
 	mu          sync.RWMutex
 }
 
@@ -97,6 +98,10 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case <-p.closeCh:
+		err := errors.NewUnavailable("connection closed")
+		log.Warn(err)
+		return nil, nil, err
 	}
 }
 
@@ -155,11 +160,6 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 	responseCh, ok := p.responseChs[requestID]
 	p.mu.RUnlock()
 	if ok {
-		defer func() {
-			if err := recover(); err != nil {
-				log.Debug("recovering from panic", err)
-			}
-		}()
 		responseCh <- *pdu
 	} else {
 		log.Warnf("Received RIC Subscription Delete response for unknown request %d", requestID)
@@ -168,9 +168,9 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 
 func (p *RICSubscriptionDeleteInitiator) Close() error {
 	p.mu.Lock()
-	for requestID, responseCh := range p.responseChs {
-		close(responseCh)
+	for requestID := range p.responseChs {
 		delete(p.responseChs, requestID)
+		p.closeCh <- true
 
 	}
 	p.mu.Unlock()

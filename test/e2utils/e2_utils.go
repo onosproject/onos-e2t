@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	DefaultIndicationTimeout = 10 * time.Second
+	DefaultIndicationTimeout = 30 * time.Second
 )
 
 // GetSubscriptionList get list of subscriptions

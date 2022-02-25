@@ -36,6 +36,7 @@ func NewE2ConfigurationUpdateInitiator(dispatcher Dispatcher) *E2ConfigurationUp
 type E2ConfigurationUpdateInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan bool
 	mu          sync.RWMutex
 }
 
@@ -76,7 +77,9 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 	select {
 	case responsePDU, ok := <-responseCh:
 		if !ok {
-			return nil, nil, errors.NewUnavailable("connection closed")
+			err := errors.NewUnavailable("connection closed")
+			log.Warn(err)
+			return nil, nil, err
 		}
 
 		switch msg := responsePDU.E2ApPdu.(type) {
@@ -101,6 +104,11 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case <-p.closeCh:
+		err := errors.NewUnavailable("connection closed")
+		log.Warn(err)
+		return nil, nil, err
+
 	}
 }
 
@@ -158,11 +166,6 @@ func (p *E2ConfigurationUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 	responseCh, ok := p.responseChs[transactionID]
 	p.mu.RUnlock()
 	if ok {
-		defer func() {
-			if err := recover(); err != nil {
-				log.Debug("recovering from panic", err)
-			}
-		}()
 		responseCh <- *pdu
 	} else {
 		log.Warnf("Received RIC Configuration update response for unknown transaction %d", transactionID)
@@ -170,10 +173,12 @@ func (p *E2ConfigurationUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 }
 
 func (p *E2ConfigurationUpdateInitiator) Close() error {
+	log.Info("Test closing config update")
 	p.mu.Lock()
-	for transactionID, responseCh := range p.responseChs {
-		close(responseCh)
+	for transactionID := range p.responseChs {
 		delete(p.responseChs, transactionID)
+		log.Info("Test done")
+		p.closeCh <- true
 	}
 	p.mu.Unlock()
 	return nil
