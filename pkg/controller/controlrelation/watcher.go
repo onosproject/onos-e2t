@@ -97,6 +97,7 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 					RelationFilter: &topoapi.RelationFilter{
 						RelationKind: topoapi.CONTROLS,
 						SrcId:        string(utils.GetE2TID()),
+						Scope:        topoapi.RelationFilterScope_RELATIONS_ONLY,
 					},
 				}
 

@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	numRequestedE2Nodes = 15
+	numRequestedE2Nodes = 50
 )
 
 var (
