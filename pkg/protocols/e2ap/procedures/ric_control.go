@@ -178,9 +178,9 @@ func (p *RICControlInitiator) Close() error {
 	p.mu.Lock()
 	for requestID := range p.responseChs {
 		delete(p.responseChs, requestID)
+		p.closeCh <- true
 	}
 	p.mu.Unlock()
-	p.closeCh <- true
 	return nil
 }
 

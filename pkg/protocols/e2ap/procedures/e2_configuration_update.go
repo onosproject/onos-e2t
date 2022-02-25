@@ -182,9 +182,9 @@ func (p *E2ConfigurationUpdateInitiator) Close() error {
 	p.mu.Lock()
 	for transactionID := range p.responseChs {
 		delete(p.responseChs, transactionID)
+		p.closeCh <- true
 	}
 	p.mu.Unlock()
-	p.closeCh <- true
 	return nil
 }
 
