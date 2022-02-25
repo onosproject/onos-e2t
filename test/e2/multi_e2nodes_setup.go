@@ -28,7 +28,6 @@ var (
 )
 
 func (s *TestSuite) TestMultiE2Nodes(t *testing.T) {
-	t.Skip()
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
 	defer cancel()
 

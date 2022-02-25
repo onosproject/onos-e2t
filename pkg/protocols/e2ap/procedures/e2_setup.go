@@ -68,6 +68,12 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 	p.responseChs[transactionID] = responseCh
 	p.mu.Unlock()
 
+	defer func() {
+		p.mu.Lock()
+		delete(p.responseChs, transactionID)
+		p.mu.Unlock()
+	}()
+
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 Setup initiation failed: %v", err)
 	}

@@ -58,10 +58,6 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
 	}
 
-	if err := p.dispatcher(requestPDU); err != nil {
-		return nil, nil, errors.NewUnavailable("E2 configuration update initiation failed: %v", err)
-	}
-
 	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
 	var transactionID int32 = -1
 	for _, v := range request.GetProtocolIes() {
@@ -73,6 +69,16 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 	p.mu.Lock()
 	p.responseChs[transactionID] = responseCh
 	p.mu.Unlock()
+
+	defer func() {
+		p.mu.Lock()
+		delete(p.responseChs, transactionID)
+		p.mu.Unlock()
+	}()
+
+	if err := p.dispatcher(requestPDU); err != nil {
+		return nil, nil, errors.NewUnavailable("E2 configuration update initiation failed: %v", err)
+	}
 
 	select {
 	case responsePDU, ok := <-responseCh:

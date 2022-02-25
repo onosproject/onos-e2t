@@ -66,6 +66,12 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 	p.responseChs[requestID] = responseCh
 	p.mu.Unlock()
 
+	defer func() {
+		p.mu.Lock()
+		delete(p.responseChs, requestID)
+		p.mu.Unlock()
+	}()
+
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("RIC Subscription initiation failed: %v", err)
 	}
