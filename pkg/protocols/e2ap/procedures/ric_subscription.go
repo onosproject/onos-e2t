@@ -149,15 +149,6 @@ func (p *RICSubscriptionInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 		}
 	}
 
-	/*defer func() {
-		p.mu.Lock()
-		if responseCh, ok := p.responseChs[requestID]; ok {
-			close(responseCh)
-			delete(p.responseChs, requestID)
-		}
-		p.mu.Unlock()
-	}()*/
-
 	p.mu.RLock()
 	responseCh, ok := p.responseChs[requestID]
 	p.mu.RUnlock()
