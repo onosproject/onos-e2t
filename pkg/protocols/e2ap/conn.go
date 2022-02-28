@@ -95,7 +95,7 @@ func (c *threadSafeConn) open() {
 	go c.processRecvs()
 }
 
-// send sends a message on the connection
+// send a message on the connection
 func (c *threadSafeConn) send(msg *e2appdudescriptions.E2ApPdu) error {
 	c.mu.RLock()
 	if c.closed {
