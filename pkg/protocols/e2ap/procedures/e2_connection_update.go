@@ -36,7 +36,6 @@ func NewE2ConnectionUpdateInitiator(dispatcher Dispatcher) *E2ConnectionUpdateIn
 type E2ConnectionUpdateInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
-	closeCh     chan bool
 	mu          sync.RWMutex
 }
 
@@ -70,11 +69,6 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 	p.responseChs[transactionID] = responseCh
 	p.mu.Unlock()
 
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, transactionID)
-		p.mu.Unlock()
-	}()
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 Connection Update initiation failed: %v", err)
 	}
@@ -87,7 +81,6 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			//return msg.SuccessfulOutcome.Value.GetE2ConnectionUpdate(), nil, nil
 			switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
 			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2ConnectionUpdate:
 				return ret.E2ConnectionUpdate, nil, nil
@@ -107,10 +100,6 @@ func (p *E2ConnectionUpdateInitiator) Initiate(ctx context.Context, request *e2a
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
-	case <-p.closeCh:
-		err := errors.NewUnavailable("connection closed")
-		log.Warn(err)
-		return nil, nil, err
 	}
 }
 
@@ -155,14 +144,6 @@ func (p *E2ConnectionUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 			}
 		}
 	}
-	defer func() {
-		p.mu.Lock()
-		if responseCh, ok := p.responseChs[transactionID]; ok {
-			close(responseCh)
-			delete(p.responseChs, transactionID)
-		}
-		p.mu.Unlock()
-	}()
 
 	p.mu.RLock()
 	responseCh, ok := p.responseChs[transactionID]
@@ -175,12 +156,12 @@ func (p *E2ConnectionUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 }
 
 func (p *E2ConnectionUpdateInitiator) Close() error {
-	p.mu.Lock()
-	for transactionID := range p.responseChs {
+	for transactionID, responseCh := range p.responseChs {
+		p.mu.Lock()
+		close(responseCh)
 		delete(p.responseChs, transactionID)
-		p.closeCh <- true
+		p.mu.Unlock()
 	}
-	p.mu.Unlock()
 	return nil
 }
 
@@ -203,7 +184,6 @@ type E2ConnectionUpdateProcedure struct {
 func (p *E2ConnectionUpdateProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		//return msg.InitiatingMessage.Value.GetE2ConnectionUpdate() != nil
 		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
 		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2ConnectionUpdate:
 			return ret.E2ConnectionUpdate != nil
