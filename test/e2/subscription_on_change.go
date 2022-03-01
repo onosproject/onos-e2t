@@ -62,7 +62,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 		assert.NoError(t, err)
 	}
 
-	utils.CountTopoRemovedEvent(topoEventChan, numNodes)
+	utils.CountTopoRemovedEvent(t, topoEventChan, numNodes)
 
 	// Create an e2 node with 3 cells from list of available cells.
 	cells := utils.GetCells(t, cellClient)
@@ -129,6 +129,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
 		indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+
 	}
 
 	// Make sure that reads on the subscription channel time out. There should be no
@@ -151,6 +152,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 
 	err = proto.Unmarshal(header, &ricIndicationHeader)
 	assert.NoError(t, err)
+
 	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetPLmnIdentity().Value
 	nrcid := utils.BitStringToUint64(ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.Value, 36)
 	plmnIDValue := ransimtypes.Uint24ToUint32(plmnID)

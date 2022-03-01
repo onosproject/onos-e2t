@@ -6,6 +6,7 @@ package server
 
 import (
 	"context"
+
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 
@@ -61,9 +62,7 @@ func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.R
 	if !ok {
 		return errors.NewNotFound("stream %s not found", streamID)
 	}
-	defer func() {
-		_ = recover()
-	}()
+
 	stream.In() <- request
 	return nil
 }

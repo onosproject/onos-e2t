@@ -8,11 +8,12 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"io"
+	"time"
+
 	"github.com/cenkalti/backoff"
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
-	"io"
-	"time"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
 
@@ -434,7 +435,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 }
 
 func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.UnsubscribeRequest) (*e2api.UnsubscribeResponse, error) {
-	log.Debugf("Received UnsubscribeRequest %+v", request)
+	log.Infof("Received UnsubscribeRequest %+v", request)
 	channelID := e2api.ChannelID(fmt.Sprintf("%s:%s:%s:%s",
 		request.Headers.AppID,
 		request.Headers.AppInstanceID,
@@ -472,6 +473,6 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 	}
 
 	response := &e2api.UnsubscribeResponse{}
-	log.Debugf("Sending UnsubscribeResponse %+v", response)
+	log.Infof("Sending UnsubscribeResponse %+v", response)
 	return response, nil
 }

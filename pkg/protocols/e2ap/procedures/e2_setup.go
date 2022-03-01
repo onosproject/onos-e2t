@@ -6,6 +6,7 @@ package procedures
 
 import (
 	"context"
+	"sync"
 	"syscall"
 
 	e2api "github.com/onosproject/onos-e2t/api/e2ap/v2"
@@ -24,15 +25,18 @@ type E2Setup interface {
 // NewE2SetupInitiator creates a new E2 setup initiator
 func NewE2SetupInitiator(dispatcher Dispatcher) *E2SetupInitiator {
 	return &E2SetupInitiator{
-		dispatcher: dispatcher,
-		responseCh: make(chan e2appdudescriptions.E2ApPdu),
+		dispatcher:  dispatcher,
+		responseChs: make(map[int32]chan e2appdudescriptions.E2ApPdu),
+		closeCh:     make(chan struct{}),
 	}
 }
 
 // E2SetupInitiator initiates the E2 setup procedure
 type E2SetupInitiator struct {
-	dispatcher Dispatcher
-	responseCh chan e2appdudescriptions.E2ApPdu
+	dispatcher  Dispatcher
+	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan struct{}
+	mu          sync.RWMutex
 }
 
 func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontents.E2SetupRequest) (*e2appducontents.E2SetupResponse, *e2appducontents.E2SetupFailure, error) {
@@ -53,19 +57,30 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
 	}
 
+	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
+	var transactionID int32 = -1
+	for _, v := range request.GetProtocolIes() {
+		if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+			transactionID = v.GetValue().GetTrId().GetValue()
+			break
+		}
+	}
+	p.mu.Lock()
+	p.responseChs[transactionID] = responseCh
+	p.mu.Unlock()
+
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 Setup initiation failed: %v", err)
 	}
 
 	select {
-	case responsePDU, ok := <-p.responseCh:
+	case responsePDU, ok := <-responseCh:
 		if !ok {
 			return nil, nil, errors.NewUnavailable("connection closed")
 		}
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			//return responsePDU.GetSuccessfulOutcome().GetValue().GetE2Setup(), nil, nil
 			switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
 			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2Setup:
 				return ret.E2Setup, nil, nil
@@ -73,7 +88,6 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 				return nil, nil, errors.NewInternal("received unexpected outcome")
 			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			//return nil, msg.UnsuccessfulOutcome.Value.GetE2Setup(), nil
 			switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
 			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup:
 				return nil, ret.E2Setup, nil
@@ -85,13 +99,17 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case _, ok := <-p.closeCh:
+		if !ok {
+			return nil, nil, errors.NewUnavailable("connection closed")
+		}
+		return nil, nil, nil
 	}
 }
 
 func (p *E2SetupInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		//return msg.SuccessfulOutcome.Value.GetE2Setup() != nil
 		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
 		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2Setup:
 			return ret.E2Setup != nil
@@ -99,7 +117,6 @@ func (p *E2SetupInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 			return false
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		//return msg.UnsuccessfulOutcome.Value.GetE2Setup() != nil
 		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
 		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2Setup:
 			return ret.E2Setup != nil
@@ -112,16 +129,37 @@ func (p *E2SetupInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 }
 
 func (p *E2SetupInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
-	p.responseCh <- *pdu
+	var transactionID int32
+	switch pdu.GetE2ApPdu().(type) {
+	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
+		for _, v := range pdu.GetSuccessfulOutcome().GetValue().GetE2Setup().GetProtocolIes() {
+			if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+				transactionID = v.GetValue().GetTrId().GetValue()
+				break
+			}
+		}
+	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
+		for _, v := range pdu.GetUnsuccessfulOutcome().GetValue().GetE2Setup().GetProtocolIes() {
+			if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+				transactionID = v.GetValue().GetTrId().GetValue()
+				break
+			}
+		}
+	}
+
+	p.mu.RLock()
+	responseCh, ok := p.responseChs[transactionID]
+	p.mu.RUnlock()
+	if ok {
+		responseCh <- *pdu
+	} else {
+		log.Warnf("Received RIC E2 setup response for unknown transaction %d", transactionID)
+	}
+
 }
 
 func (p *E2SetupInitiator) Close() error {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Debug("recovering from panic", err)
-		}
-	}()
-	close(p.responseCh)
+	close(p.closeCh)
 	return nil
 }
 
@@ -144,7 +182,6 @@ type E2SetupProcedure struct {
 func (p *E2SetupProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		//return msg.InitiatingMessage.Value.GetE2Setup() != nil
 		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
 		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2Setup:
 			return ret.E2Setup != nil

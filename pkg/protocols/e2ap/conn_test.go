@@ -7,6 +7,11 @@ package e2ap
 import (
 	"context"
 	"encoding/binary"
+	"io"
+	"net"
+	"testing"
+	"time"
+
 	"github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2apies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 	e2appducontents "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-pdu-contents"
@@ -14,37 +19,9 @@ import (
 	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/types"
 	"github.com/onosproject/onos-lib-go/api/asn1/v1/asn1"
 	"github.com/stretchr/testify/assert"
-	"io"
-	"net"
-	"testing"
-	"time"
 )
 
-func TestConns(t *testing.T) {
-	testIP := net.ParseIP("127.0.0.1")
-	clientCh := make(chan []byte)
-	serverCh := make(chan []byte)
-	clientConn := &testConn{
-		readCh:  serverCh,
-		writeCh: clientCh,
-	}
-	serverConn := &testConn{
-		readCh:  clientCh,
-		writeCh: serverCh,
-	}
-
-	e2NodeCh := NewClientConn(clientConn, func(conn ClientConn) ClientInterface {
-		return &testClientProcedures{}
-	})
-	ricCh := NewServerConn(serverConn, func(conn ServerConn) ServerInterface {
-		return &testServerProcedures{}
-	})
-
-	ge2nID, err := pdubuilder.CreateGlobalE2nodeIDGnb([3]byte{0x4F, 0x4E, 0x46}, &asn1.BitString{
-		Value: []byte{0x00, 0x00, 0x04},
-		Len:   22,
-	})
-	assert.NoError(t, err)
+func createE2SetupRequest(t *testing.T, ge2nID *e2apies.GlobalE2NodeId) *e2appducontents.E2SetupRequest {
 
 	ranFunctionList := make(types.RanFunctions)
 	ranFunctionList[100] = types.RanFunctionItem{
@@ -75,6 +52,37 @@ func TestConns(t *testing.T) {
 	e2SetupRequest.SetGlobalE2nodeID(ge2nID).SetRanFunctionsAdded(ranFunctionList).
 		SetE2nodeComponentConfigAddition(configComponentAdditionItems).SetTransactionID(2)
 
+	return e2SetupRequest
+
+}
+
+func TestConns(t *testing.T) {
+	testIP := net.ParseIP("127.0.0.1")
+	clientCh := make(chan []byte)
+	serverCh := make(chan []byte)
+	clientConn := &testConn{
+		readCh:  serverCh,
+		writeCh: clientCh,
+	}
+	serverConn := &testConn{
+		readCh:  clientCh,
+		writeCh: serverCh,
+	}
+
+	e2NodeCh := NewClientConn(clientConn, func(conn ClientConn) ClientInterface {
+		return &testClientProcedures{}
+	})
+	ricCh := NewServerConn(serverConn, func(conn ServerConn) ServerInterface {
+		return &testServerProcedures{}
+	})
+
+	ge2nID, err := pdubuilder.CreateGlobalE2nodeIDGnb([3]byte{0x4F, 0x4E, 0x46}, &asn1.BitString{
+		Value: []byte{0x00, 0x00, 0x04},
+		Len:   22,
+	})
+	assert.NoError(t, err)
+
+	e2SetupRequest := createE2SetupRequest(t, ge2nID)
 	e2SetupResponse, e2SetupFailure, err := e2NodeCh.E2Setup(context.TODO(), e2SetupRequest)
 	assert.NotNil(t, e2SetupResponse)
 	assert.Nil(t, e2SetupFailure)

@@ -40,7 +40,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
 
 	nodeID := utils.GetTestNodeID(t)
-	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
+	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
 
 	mastershipState, err := topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
@@ -139,7 +139,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.Equal(t, currentMastershipTerm+1, mastershipState.GetTerm())
 
 	t.Logf("Unsubscribing %s", subName)
-	err = node.Unsubscribe(context.Background(), subName)
+	err = node.Unsubscribe(ctx, subName)
 	assert.NoError(t, err)
 
 	e2utils.CheckForEmptySubscriptionList(t)

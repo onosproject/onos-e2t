@@ -26,12 +26,14 @@ func NewRICSubscriptionDeleteInitiator(dispatcher Dispatcher) *RICSubscriptionDe
 	return &RICSubscriptionDeleteInitiator{
 		dispatcher:  dispatcher,
 		responseChs: make(map[int32]chan e2appdudescriptions.E2ApPdu),
+		closeCh:     make(chan struct{}),
 	}
 }
 
 type RICSubscriptionDeleteInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan struct{}
 	mu          sync.RWMutex
 }
 
@@ -65,12 +67,6 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 	p.responseChs[requestID] = responseCh
 	p.mu.Unlock()
 
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, requestID)
-		p.mu.Unlock()
-	}()
-
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("RIC Subscription Delete initiation failed: %v", err)
 	}
@@ -103,13 +99,17 @@ func (p *RICSubscriptionDeleteInitiator) Initiate(ctx context.Context, request *
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case _, ok := <-p.closeCh:
+		if !ok {
+			return nil, nil, errors.NewUnavailable("connection closed")
+		}
+		return nil, nil, nil
 	}
 }
 
 func (p *RICSubscriptionDeleteInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		//return msg.SuccessfulOutcome.Value.GetRicSubscriptionDelete() != nil
 		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
 		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
 			return ret.RicSubscriptionDelete != nil
@@ -117,7 +117,6 @@ func (p *RICSubscriptionDeleteInitiator) Matches(pdu *e2appdudescriptions.E2ApPd
 			return false
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		//return msg.UnsuccessfulOutcome.Value.GetRicSubscriptionDelete() != nil
 		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
 		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicSubscriptionDelete:
 			return ret.RicSubscriptionDelete != nil
@@ -153,18 +152,13 @@ func (p *RICSubscriptionDeleteInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 	p.mu.RUnlock()
 	if ok {
 		responseCh <- *pdu
-		close(responseCh)
 	} else {
 		log.Warnf("Received RIC Subscription Delete response for unknown request %d", requestID)
 	}
 }
 
 func (p *RICSubscriptionDeleteInitiator) Close() error {
-	p.mu.Lock()
-	for _, responseCh := range p.responseChs {
-		close(responseCh)
-	}
-	p.mu.Unlock()
+	close(p.closeCh)
 	return nil
 }
 
@@ -185,7 +179,6 @@ type RICSubscriptionDeleteProcedure struct {
 func (p *RICSubscriptionDeleteProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		//return msg.InitiatingMessage.Value.GetRicSubscriptionDelete() != nil
 		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
 		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicSubscriptionDelete:
 			return ret.RicSubscriptionDelete != nil

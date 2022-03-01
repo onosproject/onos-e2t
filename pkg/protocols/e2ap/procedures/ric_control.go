@@ -26,12 +26,14 @@ func NewRICControlInitiator(dispatcher Dispatcher) *RICControlInitiator {
 	return &RICControlInitiator{
 		dispatcher:  dispatcher,
 		responseChs: make(map[int32]chan e2appdudescriptions.E2ApPdu),
+		closeCh:     make(chan struct{}),
 	}
 }
 
 type RICControlInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan struct{}
 	mu          sync.RWMutex
 }
 
@@ -61,15 +63,10 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 			break
 		}
 	}
-	p.mu.Lock()
-	p.responseChs[requestID] = responseCh
-	p.mu.Unlock()
 
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, requestID)
-		p.mu.Unlock()
-	}()
+	p.mu.RLock()
+	p.responseChs[requestID] = responseCh
+	p.mu.RUnlock()
 
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("RIC Control initiation failed: %v", err)
@@ -83,7 +80,6 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 
 		switch response := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			//return response.SuccessfulOutcome.Value.GetRicControl(), nil, nil
 			switch ret := response.SuccessfulOutcome.Value.SoValues.(type) {
 			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicControl:
 				return ret.RicControl, nil, nil
@@ -91,7 +87,6 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 				return nil, nil, errors.NewInternal("received unexpected outcome")
 			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			//return nil, response.UnsuccessfulOutcome.Value.GetRicControl(), nil
 			switch ret := response.UnsuccessfulOutcome.Value.UoValues.(type) {
 			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl:
 				return nil, ret.RicControl, nil
@@ -103,13 +98,17 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case _, ok := <-p.closeCh:
+		if !ok {
+			return nil, nil, errors.NewUnavailable("connection closed")
+		}
+		return nil, nil, nil
 	}
 }
 
 func (p *RICControlInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		//return msg.SuccessfulOutcome.Value.GetRicControl() != nil
 		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
 		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_RicControl:
 			return ret.RicControl != nil
@@ -117,7 +116,6 @@ func (p *RICControlInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 			return false
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		//return msg.UnsuccessfulOutcome.Value.GetRicControl() != nil
 		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
 		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_RicControl:
 			return ret.RicControl != nil
@@ -154,18 +152,13 @@ func (p *RICControlInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	p.mu.RUnlock()
 	if ok {
 		responseCh <- *pdu
-		close(responseCh)
 	} else {
-		log.Errorf("Received RIC Control response for unknown request %d", requestID)
+		log.Warnf("Received RIC Control response for unknown request %d", requestID)
 	}
 }
 
 func (p *RICControlInitiator) Close() error {
-	p.mu.Lock()
-	for _, responseCh := range p.responseChs {
-		close(responseCh)
-	}
-	p.mu.Unlock()
+	close(p.closeCh)
 	return nil
 }
 

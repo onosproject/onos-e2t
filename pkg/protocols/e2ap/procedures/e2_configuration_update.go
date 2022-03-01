@@ -6,6 +6,7 @@ package procedures
 
 import (
 	"context"
+	"sync"
 	"syscall"
 
 	e2api "github.com/onosproject/onos-e2t/api/e2ap/v2"
@@ -23,18 +24,21 @@ type E2ConfigurationUpdate interface {
 	E2ConfigurationUpdate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (response *e2appducontents.E2NodeConfigurationUpdateAcknowledge, failure *e2appducontents.E2NodeConfigurationUpdateFailure, err error)
 }
 
-// NewConfigurationUpdateInitiator creates a new E2 configuration update initiator
+// NewE2ConfigurationUpdateInitiator  creates a new E2 configuration update initiator
 func NewE2ConfigurationUpdateInitiator(dispatcher Dispatcher) *E2ConfigurationUpdateInitiator {
 	return &E2ConfigurationUpdateInitiator{
-		dispatcher: dispatcher,
-		responseCh: make(chan e2appdudescriptions.E2ApPdu),
+		dispatcher:  dispatcher,
+		responseChs: make(map[int32]chan e2appdudescriptions.E2ApPdu),
+		closeCh:     make(chan struct{}),
 	}
 }
 
 // E2ConfigurationUpdateInitiator initiates the E2 configuration update procedure procedure
 type E2ConfigurationUpdateInitiator struct {
-	dispatcher Dispatcher
-	responseCh chan e2appdudescriptions.E2ApPdu
+	dispatcher  Dispatcher
+	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan struct{}
+	mu          sync.RWMutex
 }
 
 func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *e2appducontents.E2NodeConfigurationUpdate) (*e2appducontents.E2NodeConfigurationUpdateAcknowledge, *e2appducontents.E2NodeConfigurationUpdateFailure, error) {
@@ -55,19 +59,32 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 		return nil, nil, errors.NewInvalid("E2AP PDU validation failed: %v", err)
 	}
 
+	responseCh := make(chan e2appdudescriptions.E2ApPdu, 1)
+	var transactionID int32 = -1
+	for _, v := range request.GetProtocolIes() {
+		if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+			transactionID = v.GetValue().GetTrId().GetValue()
+			break
+		}
+	}
+	p.mu.Lock()
+	p.responseChs[transactionID] = responseCh
+	p.mu.Unlock()
+
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("E2 configuration update initiation failed: %v", err)
 	}
 
 	select {
-	case responsePDU, ok := <-p.responseCh:
+	case responsePDU, ok := <-responseCh:
 		if !ok {
-			return nil, nil, errors.NewUnavailable("connection closed")
+			err := errors.NewUnavailable("connection closed")
+			log.Warn(err)
+			return nil, nil, err
 		}
 
 		switch msg := responsePDU.E2ApPdu.(type) {
 		case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-			//return msg.SuccessfulOutcome.Value.GetE2NodeConfigurationUpdate(), nil, nil
 			switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
 			case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
 				return ret.E2NodeConfigurationUpdate, nil, nil
@@ -75,7 +92,6 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 				return nil, nil, errors.NewInternal("received unexpected outcome")
 			}
 		case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-			//return nil, msg.UnsuccessfulOutcome.Value.GetE2NodeConfigurationUpdate(), nil
 			switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
 			case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
 				return nil, ret.E2NodeConfigurationUpdate, nil
@@ -87,13 +103,18 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case _, ok := <-p.closeCh:
+		if !ok {
+			return nil, nil, errors.NewUnavailable("connection closed")
+		}
+		return nil, nil, nil
+
 	}
 }
 
 func (p *E2ConfigurationUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
-		//return msg.SuccessfulOutcome.Value.GetE2NodeConfigurationUpdate() != nil
 		switch ret := msg.SuccessfulOutcome.Value.SoValues.(type) {
 		case *e2appdudescriptions.SuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
 			return ret.E2NodeConfigurationUpdate != nil
@@ -101,7 +122,6 @@ func (p *E2ConfigurationUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPd
 			return false
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
-		//return msg.UnsuccessfulOutcome.Value.GetE2NodeConfigurationUpdate() != nil
 		switch ret := msg.UnsuccessfulOutcome.Value.UoValues.(type) {
 		case *e2appdudescriptions.UnsuccessfulOutcomeE2ApElementaryProcedures_E2NodeConfigurationUpdate:
 			return ret.E2NodeConfigurationUpdate != nil
@@ -114,16 +134,36 @@ func (p *E2ConfigurationUpdateInitiator) Matches(pdu *e2appdudescriptions.E2ApPd
 }
 
 func (p *E2ConfigurationUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
-	p.responseCh <- *pdu
+	var transactionID int32
+	switch pdu.GetE2ApPdu().(type) {
+	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
+		for _, v := range pdu.GetSuccessfulOutcome().GetValue().GetE2NodeConfigurationUpdate().GetProtocolIes() {
+			if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+				transactionID = v.GetValue().GetTrId().GetValue()
+				break
+			}
+		}
+	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
+		for _, v := range pdu.GetUnsuccessfulOutcome().GetValue().GetE2NodeConfigurationUpdate().GetProtocolIes() {
+			if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
+				transactionID = v.GetValue().GetTrId().GetValue()
+				break
+			}
+		}
+	}
+
+	p.mu.RLock()
+	responseCh, ok := p.responseChs[transactionID]
+	p.mu.RUnlock()
+	if ok {
+		responseCh <- *pdu
+	} else {
+		log.Warnf("Received RIC Configuration update response for unknown transaction %d", transactionID)
+	}
 }
 
 func (p *E2ConfigurationUpdateInitiator) Close() error {
-	defer func() {
-		if err := recover(); err != nil {
-			log.Debug("recovering from panic", err)
-		}
-	}()
-	close(p.responseCh)
+	close(p.closeCh)
 	return nil
 }
 
@@ -137,7 +177,7 @@ func NewE2ConfigurationUpdateProcedure(dispatcher Dispatcher, handler E2Configur
 	}
 }
 
-// E2ConfigurationUpdate implements the E2 configuration update procedure
+// E2ConfigurationUpdateProcedure  implements the E2 configuration update procedure
 type E2ConfigurationUpdateProcedure struct {
 	dispatcher Dispatcher
 	handler    E2ConfigurationUpdate
@@ -146,7 +186,6 @@ type E2ConfigurationUpdateProcedure struct {
 func (p *E2ConfigurationUpdateProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		//return msg.InitiatingMessage.Value.GetE2NodeConfigurationUpdate() != nil
 		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
 		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_E2NodeConfigurationUpdate:
 			return ret.E2NodeConfigurationUpdate != nil

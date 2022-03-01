@@ -6,6 +6,7 @@ package configuration
 
 import (
 	"context"
+	"sync/atomic"
 	"time"
 
 	gogotypes "github.com/gogo/protobuf/types"
@@ -53,9 +54,10 @@ func NewController(rnib rnib.Store, mgmtConns e2server.MgmtConnManager, e2apConn
 
 // Reconciler reconciles configuration of an E2 node
 type Reconciler struct {
-	mgmtConns e2server.MgmtConnManager
-	e2apConns e2server.E2APConnManager
-	rnib      rnib.Store
+	mgmtConns     e2server.MgmtConnManager
+	e2apConns     e2server.E2APConnManager
+	rnib          rnib.Store
+	transactionID uint64
 }
 
 func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
@@ -124,13 +126,13 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		connRemoveList := createConnectionRemoveList(connToRemoveList)
 		log.Debugf("Connection To Remove List for e2 node %s, %+v", mgmtConn.E2NodeID, connRemoveList)
 
+		transactionID := atomic.AddUint64(&r.transactionID, 1) % 255
 		// Creates a connection update request to include list of the connections
 		// that should be added and list of connections that should be removed
 		connUpdateReq := NewConnectionUpdate(
 			WithConnectionAddList(connAddList),
 			WithConnectionRemoveList(connRemoveList),
-			WithTransactionID(3)).
-			Build()
+			WithTransactionID(int32(transactionID))).Build()
 
 		log.Infof("Sending connection update request for e2Node: %s, %+v", mgmtConn.E2NodeID, connUpdateReq)
 		connUpdateAck, connUpdateFailure, err := mgmtConn.E2ConnectionUpdate(ctx, connUpdateReq)

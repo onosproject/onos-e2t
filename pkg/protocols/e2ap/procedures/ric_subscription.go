@@ -26,12 +26,14 @@ func NewRICSubscriptionInitiator(dispatcher Dispatcher) *RICSubscriptionInitiato
 	return &RICSubscriptionInitiator{
 		dispatcher:  dispatcher,
 		responseChs: make(map[int32]chan e2appdudescriptions.E2ApPdu),
+		closeCh:     make(chan struct{}),
 	}
 }
 
 type RICSubscriptionInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan struct{}
 	mu          sync.RWMutex
 }
 
@@ -65,12 +67,6 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 	p.responseChs[requestID] = responseCh
 	p.mu.Unlock()
 
-	defer func() {
-		p.mu.Lock()
-		delete(p.responseChs, requestID)
-		p.mu.Unlock()
-	}()
-
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("RIC Subscription initiation failed: %v", err)
 	}
@@ -103,6 +99,12 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case _, ok := <-p.closeCh:
+		if !ok {
+			return nil, nil, errors.NewUnavailable("connection closed")
+		}
+		return nil, nil, nil
+
 	}
 }
 
@@ -153,18 +155,13 @@ func (p *RICSubscriptionInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	p.mu.RUnlock()
 	if ok {
 		responseCh <- *pdu
-		close(responseCh)
 	} else {
-		log.Errorf("Received RIC Subscription response for unknown request %d", requestID)
+		log.Warnf("Received RIC Subscription response for unknown request %d", requestID)
 	}
 }
 
 func (p *RICSubscriptionInitiator) Close() error {
-	p.mu.Lock()
-	for _, responseCh := range p.responseChs {
-		close(responseCh)
-	}
-	p.mu.Unlock()
+	close(p.closeCh)
 	return nil
 }
 

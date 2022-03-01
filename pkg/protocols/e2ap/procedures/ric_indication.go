@@ -80,7 +80,6 @@ type RICIndicationProcedure struct {
 func (p *RICIndicationProcedure) Matches(pdu *e2appdudescriptions.E2ApPdu) bool {
 	switch msg := pdu.E2ApPdu.(type) {
 	case *e2appdudescriptions.E2ApPdu_InitiatingMessage:
-		//return msg.InitiatingMessage.Value.GetRicIndication() != nil
 		switch ret := msg.InitiatingMessage.Value.ImValues.(type) {
 		case *e2appdudescriptions.InitiatingMessageE2ApElementaryProcedures_RicIndication:
 			return ret.RicIndication != nil

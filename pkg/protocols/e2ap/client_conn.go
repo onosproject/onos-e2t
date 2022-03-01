@@ -59,7 +59,6 @@ func (c *clientConn) recvPDUs() {
 	for {
 		pdu, err := c.recv()
 		if err == io.EOF {
-			c.Close()
 			return
 		}
 		if err != nil {
