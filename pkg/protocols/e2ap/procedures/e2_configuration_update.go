@@ -221,16 +221,12 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
+				if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
+					log.Warnf("E2 configuration update response failed: %v", err)
+					return
+				}
 				log.Errorf("E2 configuration update response failed: %v", err)
 			}
-		}
-		err := p.dispatcher(responsePDU)
-		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
-				log.Warnf("E2 configuration update response failed: %v", err)
-				return
-			}
-			log.Errorf("E2 configuration update response failed: %v", err)
 		}
 
 	} else if failure != nil {
@@ -253,17 +249,12 @@ func (p *E2ConfigurationUpdateProcedure) Handle(requestPDU *e2appdudescriptions.
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
-				log.Errorf("E2 configuration update failed: %v", err)
+				if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
+					log.Warnf("E2 configuration update response failed: %v", err)
+					return
+				}
+				log.Errorf("E2 configuration update response failed: %v", err)
 			}
-		}
-		err := p.dispatcher(responsePDU)
-		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
-				log.Warnf("E2 configuration update response failed: %v", err)
-				return
-			}
-			log.Errorf("E2 configuration update response failed: %v", err)
-
 		}
 
 	} else {

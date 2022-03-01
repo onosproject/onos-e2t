@@ -214,16 +214,12 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
+				if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
+					log.Warnf("RIC Control response failed: %v", err)
+					return
+				}
 				log.Errorf("RIC Control response failed: %v", err)
 			}
-		}
-		err := p.dispatcher(responsePDU)
-		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
-				log.Warnf("RIC Control response failed: %v", err)
-				return
-			}
-			log.Errorf("RIC Control response failed: %v", err)
 		}
 
 	} else if failure != nil {
@@ -245,16 +241,12 @@ func (p *RICControlProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
+				if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
+					log.Warnf("RIC Control response failed: %v", err)
+					return
+				}
 				log.Errorf("RIC Control response failed: %v", err)
 			}
-		}
-		err := p.dispatcher(responsePDU)
-		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
-				log.Warnf("RIC Control response failed: %v", err)
-				return
-			}
-			log.Errorf("RIC Control response failed: %v", err)
 		}
 
 	} else {

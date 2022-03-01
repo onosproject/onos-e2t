@@ -216,16 +216,12 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
+				if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
+					log.Warnf("E2 Setup response failed: %v", err)
+					return
+				}
 				log.Errorf("E2 Setup response failed: %v", err)
 			}
-		}
-		err := p.dispatcher(responsePDU)
-		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
-				log.Warnf("E2 Setup response failed: %v", err)
-				return
-			}
-			log.Errorf("E2 Setup response failed: %v", err)
 		}
 
 	} else if failure != nil {
@@ -247,16 +243,12 @@ func (p *E2SetupProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPdu) {
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
+				if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
+					log.Warnf("E2 Setup response failed: %v", err)
+					return
+				}
 				log.Errorf("E2 Setup response failed: %v", err)
 			}
-		}
-		err := p.dispatcher(responsePDU)
-		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
-				log.Warnf("E2 Setup response failed: %v", err)
-				return
-			}
-			log.Errorf("E2 Setup response failed: %v", err)
 		}
 
 	} else {
