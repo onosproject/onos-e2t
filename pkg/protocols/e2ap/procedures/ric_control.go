@@ -26,12 +26,14 @@ func NewRICControlInitiator(dispatcher Dispatcher) *RICControlInitiator {
 	return &RICControlInitiator{
 		dispatcher:  dispatcher,
 		responseChs: make(map[int32]chan e2appdudescriptions.E2ApPdu),
+		closeCh:     make(chan struct{}),
 	}
 }
 
 type RICControlInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan struct{}
 	mu          sync.RWMutex
 }
 
@@ -96,6 +98,11 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case _, ok := <-p.closeCh:
+		if !ok {
+			return nil, nil, errors.NewUnavailable("connection closed")
+		}
+		return nil, nil, nil
 	}
 }
 
@@ -151,12 +158,7 @@ func (p *RICControlInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 }
 
 func (p *RICControlInitiator) Close() error {
-	for requestID, responseCh := range p.responseChs {
-		p.mu.Lock()
-		delete(p.responseChs, requestID)
-		close(responseCh)
-		p.mu.Unlock()
-	}
+	close(p.closeCh)
 	return nil
 }
 

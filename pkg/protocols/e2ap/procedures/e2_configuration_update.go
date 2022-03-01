@@ -29,6 +29,7 @@ func NewE2ConfigurationUpdateInitiator(dispatcher Dispatcher) *E2ConfigurationUp
 	return &E2ConfigurationUpdateInitiator{
 		dispatcher:  dispatcher,
 		responseChs: make(map[int32]chan e2appdudescriptions.E2ApPdu),
+		closeCh:     make(chan struct{}),
 	}
 }
 
@@ -36,6 +37,7 @@ func NewE2ConfigurationUpdateInitiator(dispatcher Dispatcher) *E2ConfigurationUp
 type E2ConfigurationUpdateInitiator struct {
 	dispatcher  Dispatcher
 	responseChs map[int32]chan e2appdudescriptions.E2ApPdu
+	closeCh     chan struct{}
 	mu          sync.RWMutex
 }
 
@@ -101,6 +103,11 @@ func (p *E2ConfigurationUpdateInitiator) Initiate(ctx context.Context, request *
 		}
 	case <-ctx.Done():
 		return nil, nil, ctx.Err()
+	case _, ok := <-p.closeCh:
+		if !ok {
+			return nil, nil, errors.NewUnavailable("connection closed")
+		}
+		return nil, nil, nil
 
 	}
 }
@@ -156,12 +163,7 @@ func (p *E2ConfigurationUpdateInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu
 }
 
 func (p *E2ConfigurationUpdateInitiator) Close() error {
-	for transactionID, responseCh := range p.responseChs {
-		p.mu.Lock()
-		close(responseCh)
-		delete(p.responseChs, transactionID)
-		p.mu.Unlock()
-	}
+	close(p.closeCh)
 	return nil
 }
 
