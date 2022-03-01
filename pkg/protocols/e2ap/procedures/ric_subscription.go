@@ -209,18 +209,15 @@ func (p *RICSubscriptionProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPd
 		if err := requestPDU.Validate(); err != nil {
 			log.Errorf("RIC Subscription response validation failed: %v", err)
 		} else {
+
 			err := p.dispatcher(responsePDU)
 			if err != nil {
+				if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
+					log.Warnf("RIC Subscription response failed: %v", err)
+					return
+				}
 				log.Errorf("RIC Subscription response failed: %v", err)
 			}
-		}
-		err := p.dispatcher(responsePDU)
-		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
-				log.Warnf("RIC Subscription response failed: %v", err)
-				return
-			}
-			log.Errorf("RIC Subscription response failed: %v", err)
 		}
 
 	} else if failure != nil {
@@ -242,16 +239,12 @@ func (p *RICSubscriptionProcedure) Handle(requestPDU *e2appdudescriptions.E2ApPd
 		} else {
 			err := p.dispatcher(responsePDU)
 			if err != nil {
+				if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
+					log.Warnf("RIC Subscription response failed: %v", err)
+					return
+				}
 				log.Errorf("RIC Subscription response failed: %v", err)
 			}
-		}
-		err := p.dispatcher(responsePDU)
-		if err != nil {
-			if err == context.Canceled || err == context.DeadlineExceeded || err == syscall.EPIPE {
-				log.Warnf("RIC Subscription response failed: %v", err)
-				return
-			}
-			log.Errorf("RIC Subscription response failed: %v", err)
 		}
 
 	} else {
