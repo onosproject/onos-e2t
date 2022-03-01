@@ -6,8 +6,9 @@ package subscription
 
 import (
 	"context"
-	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 	"sync"
+
+	"github.com/onosproject/onos-e2t/pkg/southbound/e2ap/stream"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
@@ -155,6 +156,17 @@ func (w *TopoWatcher) Start(ch chan<- controller.ID) error {
 				} else {
 					for _, sub := range subs {
 						if topoapi.ID(sub.E2NodeID) == event.Object.ID {
+							ch <- controller.NewID(sub.ID)
+						}
+					}
+				}
+			} else if relation, ok := event.Object.Obj.(*topoapi.Object_Relation); ok && relation.Relation.KindID == topoapi.CONTROLS {
+				subs, err := w.subs.List(ctx)
+				if err != nil {
+					log.Error(err)
+				} else {
+					for _, sub := range subs {
+						if topoapi.ID(sub.E2NodeID) == relation.Relation.TgtEntityID {
 							ch <- controller.NewID(sub.ID)
 						}
 					}
