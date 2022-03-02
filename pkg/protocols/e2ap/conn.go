@@ -120,6 +120,7 @@ func (c *threadSafeConn) processSends() {
 			log.Warn(err)
 			c.Close()
 		} else if err != nil {
+			log.Warn(err)
 			msg.errCh <- err
 		}
 		close(msg.errCh)
