@@ -168,7 +168,6 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 	}
 
 	mgmtConn := NewMgmtConn(createE2NodeURI(nodeIdentity), plmnID, nodeIdentity, e.serverConn, serviceModels, e2Cells, time.Now())
-	defer e.mgmtConns.open(mgmtConn)
 
 	// Create an E2 setup response
 	e2ncID3 := pdubuilder.CreateE2NodeComponentIDS1("S1-component")
@@ -211,6 +210,7 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 		response.SetRanFunctionRejected(rfRejected)
 	}
 	log.Infof("Sending E2 setup response %+v", response)
+	defer e.mgmtConns.open(mgmtConn)
 	return response, nil, nil
 }
 
@@ -267,7 +267,6 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 
 		// Creates a new E2AP data connection
 		e.e2apConn = NewE2APConn(createE2NodeURI(nodeID), e.serverConn, e.streams, e.rnib)
-		defer e.e2apConns.open(e.e2apConn)
 		// Creates a controls relation
 		object := &topoapi.Object{
 			ID:   topoapi.ID(e.e2apConn.ID),
@@ -323,5 +322,6 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	e2ncua.SetTransactionID(trID)
 	log.Debugf("Composed E2nodeConfigurationUpdateMessage is\n%v", e2ncua)
 
+	defer e.e2apConns.open(e.e2apConn)
 	return e2ncua, nil, nil
 }
