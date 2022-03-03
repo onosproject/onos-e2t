@@ -83,7 +83,9 @@ func CheckForEmptySubscriptionList(t *testing.T) {
 		time.Sleep(2 * time.Second)
 	}
 	subList := GetSubscriptionList(t)
-	assert.Fail(t, "subscription list is not empty:", len(subList))
+	t.Logf("Subscription list: %+v", subList)
+	assert.Fail(t, "subscription list is not empty", len(subList))
+
 }
 
 // GetCtx returns a context to use in gRPC calls
