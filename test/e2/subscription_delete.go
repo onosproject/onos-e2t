@@ -37,13 +37,15 @@ func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.
 	// Use one of the cell object IDs for action definition
 	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
-	cellObjectID := cells[0].CellObjectID
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
-	assert.NoError(t, err)
+	assert.Greater(t, len(cells), 0)
 
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
 	assert.NoError(t, err)
+
 	var actions []e2api.Action
+	cellObjectID := cells[0].CellObjectID
+	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
+	assert.NoError(t, err)
 	action := e2api.Action{
 		ID:   100,
 		Type: e2api.ActionType_ACTION_TYPE_REPORT,
