@@ -29,7 +29,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 
 	nodeIDs := utils.GetTestNodeIDs(t, 2)
 	assert.True(t, len(nodeIDs) > 0)
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
 	topoSdkClient, err := utils.NewTopoClient()
@@ -38,18 +38,17 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	kpmNodeID := nodeIDs[0]
 	rcPreNodeID := nodeIDs[1]
 
-	cells, err := topoSdkClient.GetCells(ctx, kpmNodeID)
-	assert.NoError(t, err)
-
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
 	KPMSubName := "TestSubscriptionKpmV2"
 	RCSubName := "TestSubscriptionRCPreV2"
-
 	// Kpm v2 interval is defined in ms
 	KPMEventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
 	assert.NoError(t, err)
 
+	cells, err := topoSdkClient.GetCells(ctx, kpmNodeID)
+	assert.NoError(t, err)
+	assert.Greater(t, len(cells), 0)
 	// Use one of the cell object IDs for action definition
 	cellObjectID := cells[0].CellObjectID
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
