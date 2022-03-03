@@ -86,8 +86,10 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 	// Reconcile the channel state according to its phase
 	switch channel.Status.Phase {
 	case e2api.ChannelPhase_CHANNEL_OPEN:
+		log.Infof("Reconciling channel; opening channel %s Subscription %s", channel.ID, channel.SubscriptionID)
 		return r.reconcileOpenChannel(ctx, channel)
 	case e2api.ChannelPhase_CHANNEL_CLOSED:
+		log.Infof("Reconciling channel; closing channel %s Subscription %s", channel.ID, channel.SubscriptionID)
 		return r.reconcileClosedChannel(ctx, channel)
 	}
 	return controller.Result{}, nil
