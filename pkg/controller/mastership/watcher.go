@@ -16,7 +16,7 @@ import (
 
 const queueSize = 100
 
-// Watcher is a topology watcher
+// TopoWatcher is a topology watcher
 type TopoWatcher struct {
 	topo   rnib.Store
 	cancel context.CancelFunc
