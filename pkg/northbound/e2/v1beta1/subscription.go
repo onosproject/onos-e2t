@@ -259,56 +259,49 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		Encoding:       e2api.Encoding_ASN1_PER,
 	}
 
-	err = backoff.Retry(func() error {
-		if channel, err := s.chans.Get(server.Context(), channelID); err == nil {
-			// Change the channel phase to OPEN if necessary
-			if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_OPEN {
-				channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
-				channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
-				channel.Status.Error = nil
-				now := time.Now()
-				channel.Status.Timestamp = &now
-				log.Infof("Channel exists; opening channel %+v", channel)
-				if err := s.chans.Update(server.Context(), channel); err != nil {
-					if !errors.IsNotFound(err) && !errors.IsConflict(err) {
-						return backoff.Permanent(err)
-					}
-					return err
-				}
-			}
-		} else if errors.IsNotFound(err) {
-			log.Warn(err)
-			// Create the channel if necessary
+	if channel, err := s.chans.Get(server.Context(), channelID); err == nil {
+		// Change the channel phase to OPEN if necessary
+		if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_OPEN {
+			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_OPEN
+			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
+			channel.Status.Error = nil
 			now := time.Now()
-			channel := &e2api.Channel{
-				ID:          channelID,
-				ChannelMeta: channelMeta,
-				Spec: e2api.ChannelSpec{
-					SubscriptionSpec:   subSpec,
-					TransactionTimeout: request.TransactionTimeout,
-				},
-				Status: e2api.ChannelStatus{
-					Phase:     e2api.ChannelPhase_CHANNEL_OPEN,
-					State:     e2api.ChannelState_CHANNEL_PENDING,
-					Timestamp: &now,
-				},
-			}
-
-			log.Infof("Creating channel %+v for Subscription %+v", channel, request)
-			if err := s.chans.Create(server.Context(), channel); err != nil {
-				if !errors.IsAlreadyExists(err) {
-					return backoff.Permanent(err)
+			channel.Status.Timestamp = &now
+			log.Infof("Channel exists; opening channel %+v", channel)
+			if err := s.chans.Update(server.Context(), channel); err != nil {
+				log.Warnf("SubscribeRequest %+v failed", request, err)
+				if !errors.IsNotFound(err) && !errors.IsConflict(err) {
+					return errors.Status(err).Err()
 				}
-				return err
+				return errors.Status(errors.NewUnavailable("subscription channel %s is not available", channelID)).Err()
 			}
-		} else {
-			return backoff.Permanent(err)
 		}
-		return nil
-	}, backoff.WithContext(backoff.NewExponentialBackOff(), server.Context()))
-	if err != nil {
-		log.Warnf("SubscribeRequest %+v failed", request, err)
-		return errors.Status(err).Err()
+	} else if errors.IsNotFound(err) {
+		log.Warn(err)
+		// Create the channel if necessary
+		now := time.Now()
+		channel := &e2api.Channel{
+			ID:          channelID,
+			ChannelMeta: channelMeta,
+			Spec: e2api.ChannelSpec{
+				SubscriptionSpec:   subSpec,
+				TransactionTimeout: request.TransactionTimeout,
+			},
+			Status: e2api.ChannelStatus{
+				Phase:     e2api.ChannelPhase_CHANNEL_OPEN,
+				State:     e2api.ChannelState_CHANNEL_PENDING,
+				Timestamp: &now,
+			},
+		}
+
+		log.Infof("Creating channel %+v for Subscription request %+v", channel, request)
+		if err := s.chans.Create(server.Context(), channel); err != nil {
+			log.Warnf("SubscribeRequest %+v failed", request, err)
+			if !errors.IsAlreadyExists(err) {
+				return errors.Status(err).Err()
+			}
+			return errors.Status(errors.NewUnavailable("subscription channel %s is not available", channelID)).Err()
+		}
 	}
 
 	stream := s.streams.Open(channelID, channelMeta).Output().Open(server.Context())
