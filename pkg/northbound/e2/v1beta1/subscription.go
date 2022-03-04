@@ -268,6 +268,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				channel.Status.Error = nil
 				now := time.Now()
 				channel.Status.Timestamp = &now
+				log.Infof("Channel exists; opening channel %+v", channel)
 				if err := s.chans.Update(server.Context(), channel); err != nil {
 					if !errors.IsNotFound(err) && !errors.IsConflict(err) {
 						return backoff.Permanent(err)
