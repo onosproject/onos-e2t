@@ -11,7 +11,6 @@ import (
 	"io"
 	"time"
 
-	"github.com/cenkalti/backoff"
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	"github.com/onosproject/onos-e2t/pkg/northbound/e2/stream"
 
@@ -296,7 +295,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 
 		log.Infof("Creating channel %+v for Subscription request %+v", channel, request)
 		if err := s.chans.Create(server.Context(), channel); err != nil {
-			log.Warnf("SubscribeRequest %+v failed", request, err)
+			log.Warnf("SubscribeRequest %+v failed %s", request, err)
 			if !errors.IsAlreadyExists(err) {
 				return errors.Status(err).Err()
 			}
@@ -316,13 +315,13 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			},
 		})
 		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed", request, err)
+			log.Warnf("SubscribeRequest %+v failed %s", request, err)
 			return err
 		}
 	case <-stream.Done():
 		err := stream.Err()
 		if err != nil {
-			log.Warnf("SubscribeRequest %+v failed", request, err)
+			log.Warnf("SubscribeRequest %+v failed %s", request, err)
 			if _, ok := err.(*errors.TypedError); ok {
 				return errors.Status(err).Err()
 			}
@@ -438,34 +437,27 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		request.Headers.E2NodeID,
 		request.TransactionID))
 
-	err := backoff.Retry(func() error {
-		channel, err := s.chans.Get(ctx, channelID)
-		if err != nil {
-			if errors.IsNotFound(err) {
-				return nil
-			}
-			return err
-		}
-		if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
-			channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
-			channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
-			channel.Status.Error = nil
-			err := s.chans.Update(ctx, channel)
-			if err != nil {
-				if errors.IsNotFound(err) {
-					return nil
-				}
-				if errors.IsConflict(err) {
-					return err
-				}
-				return backoff.Permanent(err)
-			}
-		}
-		return nil
-	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
+	channel, err := s.chans.Get(ctx, channelID)
 	if err != nil {
-		log.Warnf("UnsubscribeRequest %+v failed: %s", request, err)
-		return nil, errors.Status(err).Err()
+		if !errors.IsNotFound(err) {
+			return nil, errors.Status(err).Err()
+		}
+		return nil, errors.Status(errors.NewUnavailable("subscription channel %s is not available", channelID)).Err()
+
+	}
+	if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
+		log.Infof("Closing subscription channel %s", channelID)
+		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
+		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
+		channel.Status.Error = nil
+		err := s.chans.Update(ctx, channel)
+		if err != nil {
+			log.Warnf("Unsubscribe Request %+v failed %s", request, err)
+			if !errors.IsNotFound(err) && !errors.IsConflict(err) {
+				return nil, errors.Status(err).Err()
+			}
+			return nil, nil
+		}
 	}
 
 	response := &e2api.UnsubscribeResponse{}
