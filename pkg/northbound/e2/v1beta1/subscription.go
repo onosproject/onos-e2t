@@ -327,10 +327,10 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			}
 			return err
 		}
-		log.Debugf("SubscribeRequest %+v complete", request)
+		log.Infof("SubscribeRequest %+v complete", request)
 		return nil
 	case <-server.Context().Done():
-		log.Debugf("SubscribeRequest %+v closed", request)
+		log.Infof("SubscribeRequest %+v closed", request)
 		return server.Context().Err()
 	}
 
@@ -402,7 +402,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				return errors.Status(errors.NewInvalid("encoding type %v not supported", encoding)).Err()
 			}
 
-			log.Debugf("Sending SubscribeResponse %+v", response)
+			log.Infof("Sending SubscribeResponse %+v", response)
 			err = server.Send(response)
 			if err == io.EOF {
 				return nil
@@ -420,10 +420,10 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				}
 				return err
 			}
-			log.Debugf("SubscribeRequest %+v complete", request)
+			log.Infof("SubscribeRequest %+v complete", request)
 			return nil
 		case <-server.Context().Done():
-			log.Debugf("SubscribeRequest %+v closed", request)
+			log.Infof("SubscribeRequest %+v closed", request)
 			return server.Context().Err()
 		}
 	}
