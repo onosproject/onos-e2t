@@ -99,6 +99,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	// Delete the subscription and ran simulator
 	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
 	node = sdkClient.Node(sdkclient.NodeID(nodeID))
+	t.Logf("Unsubscribing %s", subName)
 	err = node.Unsubscribe(context.Background(), subName)
 	assert.NoError(t, err)
 
