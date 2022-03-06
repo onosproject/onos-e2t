@@ -442,10 +442,7 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		if !errors.IsNotFound(err) {
 			return nil, errors.Status(err).Err()
 		}
-		return nil, errors.Status(errors.NewUnavailable("subscription channel %s is not available", channelID)).Err()
-
-	}
-	if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
+	} else if channel.Status.Phase != e2api.ChannelPhase_CHANNEL_CLOSED {
 		log.Infof("Closing subscription channel %s", channelID)
 		channel.Status.Phase = e2api.ChannelPhase_CHANNEL_CLOSED
 		channel.Status.State = e2api.ChannelState_CHANNEL_PENDING
@@ -453,10 +450,12 @@ func (s *SubscriptionServer) Unsubscribe(ctx context.Context, request *e2api.Uns
 		err := s.chans.Update(ctx, channel)
 		if err != nil {
 			log.Warnf("Unsubscribe Request %+v failed %s", request, err)
-			if !errors.IsNotFound(err) && !errors.IsConflict(err) {
+			if !errors.IsNotFound(err) {
+				if errors.IsConflict(err) {
+					return nil, errors.Status(errors.NewUnavailable("subscription channel %s is not available", channelID)).Err()
+				}
 				return nil, errors.Status(err).Err()
 			}
-			return nil, nil
 		}
 	}
 
