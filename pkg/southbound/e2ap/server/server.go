@@ -15,8 +15,6 @@ import (
 
 	e2ap_ies "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-ies"
 
-	"github.com/onosproject/onos-e2t/pkg/controller/utils"
-
 	prototypes "github.com/gogo/protobuf/types"
 
 	"github.com/onosproject/onos-e2t/pkg/store/rnib"
@@ -267,46 +265,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 
 		// Creates a new E2AP data connection
 		e.e2apConn = NewE2APConn(createE2NodeURI(nodeID), e.serverConn, e.streams, e.rnib)
-		// Creates a controls relation
-		object := &topoapi.Object{
-			ID:   topoapi.ID(e.e2apConn.ID),
-			Type: topoapi.Object_RELATION,
-			Obj: &topoapi.Object_Relation{
-				Relation: &topoapi.Relation{
-					KindID:      topoapi.CONTROLS,
-					SrcEntityID: utils.GetE2TID(),
-					TgtEntityID: e.e2apConn.E2NodeID,
-				},
-			},
-		}
-		err = e.rnib.Create(ctx, object)
-		if err != nil {
-			log.Warn(err)
-
-			cause := &e2apies.Cause{
-				Cause: &e2apies.Cause_RicRequest{
-					RicRequest: e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED,
-				},
-			}
-
-			var trID int32
-			for _, v := range request.GetProtocolIes() {
-				if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-					trID = v.GetValue().GetTrId().GetValue()
-					break
-				}
-			}
-
-			failure := &e2appducontents.E2NodeConfigurationUpdateFailure{
-				ProtocolIes: make([]*e2appducontents.E2NodeConfigurationUpdateFailureIes, 0),
-			}
-			failure.SetCause(cause).SetTransactionID(trID)
-
-			return nil, failure, err
-		}
 	}
-
-	log.Debugf("Sending config update ack to e2 node: %s", e.e2apConn.E2NodeID)
 
 	var trID int32
 	for _, v := range request.GetProtocolIes() {
@@ -321,7 +280,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	}
 	e2ncua.SetTransactionID(trID)
 	log.Debugf("Composed E2nodeConfigurationUpdateMessage is\n%v", e2ncua)
-
+	log.Infof("Sending config update ack to e2 node: %s", e.e2apConn.E2NodeID)
 	defer e.e2apConns.open(e.e2apConn)
 	return e2ncua, nil, nil
 }

@@ -62,7 +62,7 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 
 	// Remove a CONTROLS relation if the relation is associated with the local E2T node and
 	//  the connection does not exist, or if the relation is associated with an E2T node that’s not in topo.
-	_, err := r.e2apConns.Get(ctx, connID)
+	conn, err := r.e2apConns.Get(ctx, connID)
 	if err != nil {
 		if errors.IsNotFound(err) {
 			relationID := e2server.GetE2ControlRelationID(connID)
@@ -83,7 +83,34 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		log.Warnf("Failed to reconcile E2 node control relation for connection %s: %s", connID, err)
 		return controller.Result{}, err
 	}
+
+	return r.createE2ControlRelation(ctx, conn)
+}
+
+func (r *Reconciler) createE2ControlRelation(ctx context.Context, conn *e2server.E2APConn) (controller.Result, error) {
+	log.Infof("Creating control relation for connection %s", conn.ID)
+	object := &topoapi.Object{
+		ID:   topoapi.ID(conn.ID),
+		Type: topoapi.Object_RELATION,
+		Obj: &topoapi.Object_Relation{
+			Relation: &topoapi.Relation{
+				KindID:      topoapi.CONTROLS,
+				SrcEntityID: utils.GetE2TID(),
+				TgtEntityID: conn.E2NodeID,
+			},
+		},
+	}
+
+	err := r.rnib.Create(ctx, object)
+	if err != nil {
+		if !errors.IsAlreadyExists(err) {
+			log.Warnf("Creating control relationship %s is failed %s", conn.ID, err)
+			return controller.Result{}, err
+		}
+		return controller.Result{}, nil
+	}
 	return controller.Result{}, nil
+
 }
 
 func (r *Reconciler) deleteE2ControlRelation(ctx context.Context, object *topoapi.Object) error {
