@@ -187,7 +187,7 @@ func (s *SubscriptionServer) WatchSubscriptions(request *e2api.WatchSubscription
 }
 
 func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e2api.SubscriptionService_SubscribeServer) error {
-	log.Debugf("Received SubscribeRequest %+v", request)
+	log.Infof("Received SubscribeRequest %+v", request)
 	encoding := request.Headers.Encoding
 
 	serviceModelOID, err := oid.ModelIDToOid(s.oidRegistry,
@@ -338,7 +338,9 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 		select {
 		case ind, ok := <-stream.Indications():
 			if !ok {
-				return errors.Status(errors.NewUnavailable("stream closed")).Err()
+				err = errors.NewUnavailable("stream closed")
+				log.Warn(err)
+				return errors.Status(err).Err()
 			}
 
 			var ranFuncID int32
