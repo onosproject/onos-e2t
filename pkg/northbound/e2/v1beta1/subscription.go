@@ -336,13 +336,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 
 	for {
 		select {
-		case ind, ok := <-stream.Indications():
-			if !ok {
-				err = errors.NewUnavailable("stream closed")
-				log.Warn(err)
-				return errors.Status(err).Err()
-			}
-
+		case ind := <-stream.Indications():
 			var ranFuncID int32
 			var ricActionID int32
 			var indHeaderAsn1 []byte
