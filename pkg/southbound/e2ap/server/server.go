@@ -208,7 +208,7 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 		response.SetRanFunctionRejected(rfRejected)
 	}
 	log.Infof("Sending E2 setup response %+v", response)
-	defer e.mgmtConns.open(mgmtConn)
+	e.mgmtConns.open(mgmtConn)
 	return response, nil, nil
 }
 
