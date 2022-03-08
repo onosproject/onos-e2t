@@ -14,7 +14,7 @@ import (
 )
 
 func init() {
-	logging.SetLevel(logging.DebugLevel)
+	logging.SetLevel(logging.WarnLevel)
 }
 
 // TestSuite is the primary onos-e2t test suite
