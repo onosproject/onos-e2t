@@ -281,6 +281,6 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	e2ncua.SetTransactionID(trID)
 	log.Debugf("Composed E2nodeConfigurationUpdateMessage is\n%v", e2ncua)
 	log.Infof("Sending config update ack to e2 node: %s", e.e2apConn.E2NodeID)
-	defer e.e2apConns.open(e.e2apConn)
+	e.e2apConns.open(e.e2apConn)
 	return e2ncua, nil, nil
 }
