@@ -16,7 +16,6 @@ require (
 	github.com/onosproject/onos-lib-go v0.8.13
 	github.com/onosproject/onos-ric-sdk-go v0.8.7
 	github.com/onosproject/onos-test v0.6.4
-	github.com/openconfig/gnmi v0.0.0-20210914185457-51254b657b7d // indirect
 	github.com/prometheus/common v0.26.0
 	github.com/stretchr/testify v1.7.0
 	google.golang.org/grpc v1.41.0
