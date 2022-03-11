@@ -9,12 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-api/go/onos/topo"
 	"github.com/onosproject/onos-e2t/test/e2utils"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
-
-	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -22,15 +19,13 @@ import (
 
 const (
 	subscriptionName    = "TestSubscriptionDelete-kpm"
-	granularity         = uint32(500)
-	reportPeriod        = uint32(5000)
 	subscriptionTimeout = 2 * time.Minute
 )
 
 // createAndVerifySubscription creates a subscription to the given node and makes sure that
 // at least one verification message can be received from it. The channel ID of the subscription
 // is returned
-func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.ID, node sdkclient.Node) (e2api.ChannelID, chan e2api.Indication) {
+func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.ID) (e2api.ChannelID, e2utils.KPMV2Sub) {
 
 	topoSdkClient, err := utils.NewTopoClient()
 	assert.NoError(t, err)
@@ -39,41 +34,18 @@ func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.
 	assert.NoError(t, err)
 	assert.Greater(t, len(cells), 0)
 
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
-	assert.NoError(t, err)
-
-	var actions []e2api.Action
-	cellObjectID := cells[0].CellObjectID
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
-	assert.NoError(t, err)
-	action := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-		Payload: actionDefinitionBytes,
+	// Create a KPM V2 subscription
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Ctx:          ctx,
+		SubName:      subscriptionName,
+		NodeID:       nodeID,
+		CellObjectID: cells[0].CellObjectID,
 	}
-	actions = append(actions, action)
-
-	subRequest := utils.Subscription{
-		NodeID:              string(nodeID),
-		Actions:             actions,
-		EventTrigger:        eventTriggerBytes,
-		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.Version1,
-	}
-
-	subSpec, err := subRequest.Create()
-	assert.NoError(t, err)
-
-	ch := make(chan v1beta1.Indication)
-	channelID, err := node.Subscribe(ctx, subscriptionName, subSpec, ch)
+	channelID, err := kpmv2Sub.Subscribe()
 	assert.NoError(t, err)
 
 	select {
-	case indicationMsg := <-ch:
+	case indicationMsg := <-kpmv2Sub.Ch:
 		t.Log(indicationMsg)
 		assert.NotNil(t, indicationMsg)
 
@@ -81,7 +53,7 @@ func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.
 		assert.Equal(t, false, "test is failed because of timeout")
 
 	}
-	return channelID, ch
+	return channelID, kpmv2Sub
 }
 
 func getSubscriptionID(t *testing.T, channelID e2api.ChannelID) e2api.SubscriptionID {
@@ -106,11 +78,9 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 
 	// Create a Node
 	nodeID := utils.GetTestNodeID(t)
-	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	node := sdkClient.Node(sdkclient.NodeID(nodeID))
 
 	// Add a subscription
-	channelID, _ := createAndVerifySubscription(ctx, t, nodeID, node)
+	channelID, sub := createAndVerifySubscription(ctx, t, nodeID)
 	subscriptionID := getSubscriptionID(t, channelID)
 
 	// Check that the subscription list is correct
@@ -122,14 +92,14 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	e2utils.CheckSubscriptionGet(t, subscriptionID)
 
 	// Close the subscription
-	err := node.Unsubscribe(ctx, subscriptionName)
+	err := sub.Unsubscribe()
 	assert.NoError(t, err)
 
 	// Check number of subscriptions is correct after deleting the subscription
 	e2utils.CheckForEmptySubscriptionList(t)
 
 	//  Open the subscription again and make sure it is open
-	channelID, ch := createAndVerifySubscription(ctx, t, nodeID, node)
+	channelID, sub = createAndVerifySubscription(ctx, t, nodeID)
 	subscriptionID = getSubscriptionID(t, channelID)
 
 	// Check that the number of subscriptions is correct after reopening
@@ -141,10 +111,10 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	e2utils.CheckSubscriptionGet(t, subscriptionID)
 
 	// Close the subscription
-	err = node.Unsubscribe(ctx, subscriptionName)
+	err = sub.Unsubscribe()
 	assert.NoError(t, err)
 
-	assert.True(t, utils.ReadToEndOfChannel(ch))
+	assert.True(t, utils.ReadToEndOfChannel(sub.Ch))
 
 	e2utils.CheckForEmptySubscriptionList(t)
 
