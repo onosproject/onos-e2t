@@ -14,6 +14,7 @@ import (
 // MgmtConnManager management connection manager interface
 type MgmtConnManager interface {
 	Get(ctx context.Context, id ConnID) (*ManagementConn, error)
+	Update(ctx context.Context, conn *ManagementConn) error
 	List(ctx context.Context) ([]*ManagementConn, error)
 	Watch(ctx context.Context, ch chan<- *ManagementConn) error
 	open(conn *ManagementConn)
@@ -77,6 +78,17 @@ func (m *mgmtConnManager) Get(ctx context.Context, connID ConnID) (*ManagementCo
 		return nil, errors.NewNotFound("management connection '%s' not found", connID)
 	}
 	return conn, nil
+}
+
+// Update update management connection
+func (m *mgmtConnManager) Update(ctx context.Context, conn *ManagementConn) error {
+	m.connsMu.Lock()
+	defer m.connsMu.Unlock()
+	if _, ok := m.conns[conn.ID]; ok {
+		m.conns[conn.ID] = conn
+		return nil
+	}
+	return errors.NewNotFound("management connection %s not found", conn.ID)
 }
 
 // List lists connections

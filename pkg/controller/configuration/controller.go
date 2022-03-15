@@ -144,12 +144,15 @@ func (r *Reconciler) Reconcile(id controller.ID) (controller.Result, error) {
 		if connUpdateAck != nil {
 			log.Infof("Received connection update ack for e2 node %s:%+v", mgmtConn.E2NodeID, connUpdateAck)
 			mgmtConn.E2NodeConfig.Connections = append(mgmtConn.E2NodeConfig.Connections, connToAddList...)
-			return controller.Result{}, nil
+			err = r.mgmtConns.Update(ctx, mgmtConn)
+			if errors.IsNotFound(err) {
+				return controller.Result{}, nil
+			}
+			return controller.Result{}, err
 		}
 		if connUpdateFailure != nil {
 			// TODO returns an appropriate error to retry
 			log.Infof("Received connection update failure: %+v", connUpdateFailure)
-
 		}
 	}
 	return controller.Result{}, nil
