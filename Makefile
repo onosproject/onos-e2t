@@ -23,11 +23,11 @@ sim-app:
 	CGO_ENABLED=0 go build -o build/_output/onos-e2t-sim-app ./cmd/onos-e2t-sim-app
 
 test: # @HELP run the unit tests and source code validation producing a golang style report
-test: build deps linters license_check_apache
+test: build deps linters license
 	GODEBUG=cgocheck=0 go test -race github.com/onosproject/onos-e2t/...
 
 jenkins-test:  # @HELP run the unit tests and source code validation producing a junit style report for Jenkins
-jenkins-test: deps license_check_apache linters
+jenkins-test: deps license linters
 	GODEBUG=cgocheck=0 TEST_PACKAGES=github.com/onosproject/onos-e2t/... ./build/build-tools/build/jenkins/make-unit
 
 coverage: # @HELP generate unit test coverage data
@@ -87,7 +87,7 @@ publish: # @HELP publish version on github and dockerhub
 
 jenkins-publish: jenkins-tools # @HELP Jenkins calls this to publish artifacts
 	./build/bin/push-images
-	./build//build-tools/release-merge-commit
+	./build/build-tools/release-merge-commit
 
 clean:: # @HELP remove all the build artifacts
 	rm -rf ./build/_output ./vendor ./cmd/onos-e2t/onos-e2t ./cmd/onos/onos
