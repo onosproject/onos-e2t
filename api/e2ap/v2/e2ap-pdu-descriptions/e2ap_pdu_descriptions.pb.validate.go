@@ -11,6 +11,7 @@ import (
 	"net/mail"
 	"net/url"
 	"regexp"
+	"sort"
 	"strings"
 	"time"
 	"unicode/utf8"
@@ -31,6 +32,7 @@ var (
 	_ = (*url.URL)(nil)
 	_ = (*mail.Address)(nil)
 	_ = anypb.Any{}
+	_ = sort.Sort
 )
 
 // Validate checks the field values on E2ApPdu with the rules defined in the
@@ -154,6 +156,7 @@ func (m *E2ApPdu) validate(all bool) error {
 	if len(errors) > 0 {
 		return E2ApPduMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -285,6 +288,7 @@ func (m *InitiatingMessage) validate(all bool) error {
 	if len(errors) > 0 {
 		return InitiatingMessageMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -764,6 +768,7 @@ func (m *InitiatingMessageE2ApElementaryProcedures) validate(all bool) error {
 	if len(errors) > 0 {
 		return InitiatingMessageE2ApElementaryProceduresMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -900,6 +905,7 @@ func (m *SuccessfulOutcome) validate(all bool) error {
 	if len(errors) > 0 {
 		return SuccessfulOutcomeMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -1255,6 +1261,7 @@ func (m *SuccessfulOutcomeE2ApElementaryProcedures) validate(all bool) error {
 	if len(errors) > 0 {
 		return SuccessfulOutcomeE2ApElementaryProceduresMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -1391,6 +1398,7 @@ func (m *UnsuccessfulOutcome) validate(all bool) error {
 	if len(errors) > 0 {
 		return UnsuccessfulOutcomeMultiError(errors)
 	}
+
 	return nil
 }
 
@@ -1715,6 +1723,7 @@ func (m *UnsuccessfulOutcomeE2ApElementaryProcedures) validate(all bool) error {
 	if len(errors) > 0 {
 		return UnsuccessfulOutcomeE2ApElementaryProceduresMultiError(errors)
 	}
+
 	return nil
 }
 
