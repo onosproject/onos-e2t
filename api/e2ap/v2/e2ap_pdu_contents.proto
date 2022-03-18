@@ -40,10 +40,10 @@ message RicsubscriptionRequestIes {
 message RicsubscriptionRequestIe {
     oneof ricsubscription_request_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
         //@inject_tag: aper:"valueExt"
-        RicsubscriptionDetails rsd = 3;
+        RicsubscriptionDetails ricsubscription_details = 3;
     }
 };
 
@@ -73,9 +73,9 @@ message RicactionToBeSetupItemIes {
 };
 
 message RicactionToBeSetupItemIe {
-    oneof ricaction_to_be_setup_item {
+    oneof ricaction_to_be_setup_item_ie {
         //@inject_tag: aper:"valueExt"
-        RicactionToBeSetupItem ratbsi = 1;
+        RicactionToBeSetupItem ricaction_to_be_setup_item = 1;
     }
 };
 
@@ -112,10 +112,10 @@ message RicsubscriptionResponseIes {
 message RicsubscriptionResponseIe {
     oneof ricsubscription_response_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
-        RicactionAdmittedList raal = 3;
-        RicactionNotAdmittedList ranal = 4;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
+        RicactionAdmittedList ricactions_admitted = 3;
+        RicactionNotAdmittedList ricactions_not_admitted = 4;
     }
 };
 
@@ -140,7 +140,7 @@ message RicactionAdmittedItemIes {
 message RicactionAdmittedItemIe {
     oneof ricaction_admitted_item_ie {
         //@inject_tag: aper:"valueExt"
-        RicactionAdmittedItem ranai = 1;
+        RicactionAdmittedItem ricaction_admitted_item = 1;
     }
 };
 
@@ -171,7 +171,7 @@ message RicactionNotAdmittedItemIes {
 message RicactionNotAdmittedItemIe {
     oneof ricaction_not_admitted_item_ie {
         //@inject_tag: aper:"valueExt"
-        RicactionNotAdmittedItem ranai = 1;
+        RicactionNotAdmittedItem ricaction_not_admitted_item = 1;
     }
 };
 
@@ -204,12 +204,12 @@ message RicsubscriptionFailureIes {
 message RicsubscriptionFailureIe {
     oneof ricsubscription_failure_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
         //@inject_tag: aper:"choiceExt"
-        Cause c = 3;
+        Cause cause = 3;
         //@inject_tag: aper:"valueExt"
-        CriticalityDiagnostics cd = 4;
+        CriticalityDiagnostics criticality_diagnostics = 4;
     }
 };
 
@@ -234,8 +234,8 @@ message RicsubscriptionDeleteRequestIes {
 message RicsubscriptionDeleteRequestIe {
     oneof ricsubscription_delete_request_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
     }
 };
 
@@ -260,8 +260,8 @@ message RicsubscriptionDeleteResponseIes {
 message RicsubscriptionDeleteResponseIe {
     oneof ricsubscription_delete_response_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
     }
 };
 
@@ -286,12 +286,12 @@ message RicsubscriptionDeleteFailureIes {
 message RicsubscriptionDeleteFailureIe {
     oneof ricsubscription_delete_failure_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
         //@inject_tag: aper:"choiceExt"
-        Cause c = 3;
+        Cause cause = 3;
         //@inject_tag: aper:"valueExt"
-        CriticalityDiagnostics cd = 4;
+        CriticalityDiagnostics criticality_diagnostics = 4;
     }
 };
 
@@ -315,7 +315,7 @@ message RicsubscriptionDeleteRequiredIes {
 
 message RicsubscriptionDeleteRequiredIe {
     oneof ricsubscription_delete_required_ie {
-        RicsubscriptionListWithCause rsdr = 1;
+        RicsubscriptionListWithCause ricsubscription_delete_required = 1;
     }
 };
 
@@ -340,7 +340,7 @@ message RicsubscriptionWithCauseItemIes {
 message RicsubscriptionWithCauseItemIe {
     oneof ricsubscription_with_cause_item_ie {
         //@inject_tag: aper:"valueExt"
-        RicsubscriptionWithCauseItem e2curi = 1;
+        RicsubscriptionWithCauseItem ricsubscription_with_cause_item = 1;
     }
 };
 
@@ -375,15 +375,15 @@ message RicindicationIes {
 message RicindicationIe {
     oneof ricindication_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
-        RicactionId ra_id = 3;
-        RicindicationSn ri_sn = 4;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
+        RicactionId ricaction_id = 3;
+        RicindicationSn ricindication_sn = 4;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:1"
-        RicindicationType rit = 5;
-        RicindicationHeader rih = 6;
-        RicindicationMessage rim = 7;
-        RiccallProcessId rcp_id = 8;
+        RicindicationType ricindication_type = 5;
+        RicindicationHeader ricindication_header = 6;
+        RicindicationMessage ricindication_message = 7;
+        RiccallProcessId riccall_process_id = 8;
     }
 };
 
@@ -408,13 +408,13 @@ message RiccontrolRequestIes {
 message RiccontrolRequestIe {
     oneof riccontrol_request_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
-        RiccallProcessId rcp_id = 3;
-        RiccontrolHeader rch = 4;
-        RiccontrolMessage rcm = 5;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
+        RiccallProcessId riccall_process_id = 3;
+        RiccontrolHeader riccontrol_header = 4;
+        RiccontrolMessage riccontrol_message = 5;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:1"
-        RiccontrolAckRequest rcar = 6;
+        RiccontrolAckRequest riccontrol_ack_request = 6;
     }
 };
 
@@ -439,10 +439,10 @@ message RiccontrolAcknowledgeIes {
 message RiccontrolAcknowledgeIe {
     oneof riccontrol_acknowledge_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
-        RiccallProcessId rcp_id = 3;
-        RiccontrolOutcome co = 4;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
+        RiccallProcessId riccall_process_id = 3;
+        RiccontrolOutcome riccontrol_outcome = 4;
     }
 };
 
@@ -467,12 +467,12 @@ message RiccontrolFailureIes {
 message RiccontrolFailureIe {
     oneof riccontrol_failure_ie {
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr_id = 1;
-        RanfunctionId rf_id = 2;
-        RiccallProcessId rcp_id = 3;
+        RicrequestId ricrequest_id = 1;
+        RanfunctionId ranfunction_id = 2;
+        RiccallProcessId riccall_process_id = 3;
         //@inject_tag: aper:"choiceExt"
-        Cause c = 4;
-        RiccontrolOutcome co = 5;
+        Cause cause = 4;
+        RiccontrolOutcome riccontrol_outcome = 5;
     }
 };
 
@@ -496,14 +496,14 @@ message ErrorIndicationIes {
 
 message ErrorIndicationIe {
     oneof error_indication_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         //@inject_tag: aper:"valueExt"
-        RicrequestId rr = 2;
-        RanfunctionId rf_id = 3;
+        RicrequestId ricrequest_id = 2;
+        RanfunctionId ranfunction_id = 3;
         //@inject_tag: aper:"choiceExt"
-        Cause c = 4;
+        Cause cause = 4;
         // @inject_tag: aper:"valueExt"
-        CriticalityDiagnostics cd = 5;
+        CriticalityDiagnostics criticality_diagnostics = 5;
     }
 };
 
@@ -527,11 +527,11 @@ message E2setupRequestIes {
 
 message E2setupRequestIe {
     oneof e2setup_request_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         //@inject_tag: aper:"choiceExt"
-        GlobalE2nodeId g_e2n_id = 2;
-        RanfunctionsList rfl = 3;
-        E2nodeComponentConfigAdditionList e2nccal = 4;
+        GlobalE2nodeId global_e2node_id = 2;
+        RanfunctionsList ranfunctions_added = 3;
+        E2nodeComponentConfigAdditionList e2node_component_config_addition = 4;
     }
 };
 
@@ -555,12 +555,12 @@ message E2setupResponseIes {
 
 message E2setupResponseIe {
     oneof e2setup_response_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         //@inject_tag: aper:"valueExt"
-        GlobalRicId g_ric_id = 2;
-        RanfunctionsIdList rf_idl = 3;
-        RanfunctionsIdcauseList rf_idcl = 4;
-        E2nodeComponentConfigAdditionAckList e2nccaal = 5;
+        GlobalRicId global_ric_id = 2;
+        RanfunctionsIdList ranfunctions_accepted = 3;
+        RanfunctionsIdcauseList ranfunctions_rejected = 4;
+        E2nodeComponentConfigAdditionAckList e2node_component_config_addition_ack = 5;
     }
 };
 
@@ -584,15 +584,15 @@ message E2setupFailureIes {
 
 message E2setupFailureIe {
     oneof e2setup_failure_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         //@inject_tag: aper:"choiceExt"
-        Cause c = 2;
+        Cause cause = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-        TimeToWait ttw = 3;
+        TimeToWait time_to_wait = 3;
         //@inject_tag: aper:"valueExt"
-        CriticalityDiagnostics cd = 4;
+        CriticalityDiagnostics criticality_diagnostics = 4;
         //@inject_tag: aper:"valueExt"
-        Tnlinformation tnl_info = 5;
+        Tnlinformation tnl_information = 5;
     }
 };
 
@@ -616,9 +616,10 @@ message E2connectionUpdateIes {
 
 message E2connectionUpdateIe {
     oneof e2connection_update_ie {
-        TransactionId tr_id = 1;
-        E2connectionUpdateList e2cul = 2;
-        E2connectionUpdateRemoveList e2curl = 3;
+        TransactionId transaction_id = 1;
+        E2connectionUpdateList e2connection_update_add = 2;
+        E2connectionUpdateRemoveList e2connection_update_remove = 3;
+        E2connectionUpdateList e2connection_update_modify = 4;
     }
 };
 
@@ -643,7 +644,7 @@ message E2connectionUpdateItemIes {
 message E2connectionUpdateItemIe {
     oneof e2connection_update_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2connectionUpdateItem e2curi = 1;
+        E2connectionUpdateItem e2connection_update_item = 1;
     }
 };
 
@@ -677,7 +678,7 @@ message E2connectionUpdateRemoveItemIes {
 message E2connectionUpdateRemoveItemIe {
     oneof e2connection_update_remove_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2connectionUpdateRemoveItem e2curi = 1;
+        E2connectionUpdateRemoveItem e2connection_update_remove_item = 1;
     }
 };
 
@@ -708,9 +709,9 @@ message E2connectionUpdateAckIes {
 
 message E2connectionUpdateAckIe {
     oneof e2connection_update_ack_ie {
-        TransactionId tr_id = 1;
-        E2connectionUpdateList e2cul = 2;
-        E2connectionSetupFailedList e2csfl = 3;
+        TransactionId transaction_id = 1;
+        E2connectionUpdateList e2connection_setup = 2;
+        E2connectionSetupFailedList e2connection_setup_failed = 3;
     }
 };
 
@@ -735,7 +736,7 @@ message E2connectionSetupFailedItemIes {
 message E2connectionSetupFailedItemIe {
     oneof e2connection_setup_failed_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2connectionSetupFailedItem e2csfi = 1;
+        E2connectionSetupFailedItem e2connection_setup_failed_item = 1;
     }
 };
 
@@ -768,13 +769,13 @@ message E2connectionUpdateFailureIes {
 
 message E2connectionUpdateFailureIe {
     oneof e2connection_update_failure_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         // @inject_tag: aper:"choiceExt"
-        Cause c = 2;
+        Cause cause = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-        TimeToWait ttw = 3 [ json_name="&Value"];
+        TimeToWait time_to_wait = 3 [ json_name="&Value"];
         // @inject_tag: aper:"valueExt"
-        CriticalityDiagnostics cd = 4;
+        CriticalityDiagnostics criticality_diagnostics = 4;
     }
 };
 
@@ -798,13 +799,13 @@ message E2nodeConfigurationUpdateIes {
 
 message E2nodeConfigurationUpdateIe {
     oneof e2node_configuration_update_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         // @inject_tag: aper:"choiceExt"
-        GlobalE2nodeId ge2n_id = 2;
-        E2nodeComponentConfigAdditionList e2nccal = 3;
-        E2nodeComponentConfigUpdateList e2nccul = 4;
-        E2nodeComponentConfigRemovalList e2nccrl = 5;
-        E2nodeTnlassociationRemovalList e2ntnlarl = 6;
+        GlobalE2nodeId global_e2node_id = 2;
+        E2nodeComponentConfigAdditionList e2node_component_config_addition = 3;
+        E2nodeComponentConfigUpdateList e2node_component_config_update = 4;
+        E2nodeComponentConfigRemovalList e2node_component_config_removal = 5;
+        E2nodeTnlassociationRemovalList e2node_tnlassociation_removal = 6;
     }
 };
 
@@ -829,7 +830,7 @@ message E2nodeComponentConfigAdditionItemIes {
 message E2nodeComponentConfigAdditionItemIe {
     oneof e2node_component_config_addition_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2nodeComponentConfigAdditionItem e2nccui = 1;
+        E2nodeComponentConfigAdditionItem e2node_component_config_addition_item = 1;
     }
 };
 
@@ -865,7 +866,7 @@ message E2nodeComponentConfigUpdateItemIes {
 message E2nodeComponentConfigUpdateItemIe {
     oneof e2node_component_config_update_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2nodeComponentConfigUpdateItem e2nccui = 1;
+        E2nodeComponentConfigUpdateItem e2node_component_config_update_item = 1;
     }
 };
 
@@ -901,7 +902,7 @@ message E2nodeComponentConfigRemovalItemIes {
 message E2nodeComponentConfigRemovalItemIe {
     oneof e2node_component_config_removal_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2nodeComponentConfigRemovalItem e2nccri = 1;
+        E2nodeComponentConfigRemovalItem e2node_component_config_removal_item = 1;
     }
 };
 
@@ -935,7 +936,7 @@ message E2nodeTnlassociationRemovalItemIes {
 message E2nodeTnlassociationRemovalItemIe {
     oneof e2node_tnlassociation_removal_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2nodeTnlassociationRemovalItem e2ntnlai = 1;
+        E2nodeTnlassociationRemovalItem e2node_tnlassociation_removal_item = 1;
     }
 };
 
@@ -968,10 +969,10 @@ message E2nodeConfigurationUpdateAcknowledgeIes {
 
 message E2nodeConfigurationUpdateAcknowledgeIe {
   oneof e2node_configuration_update_acknowledge_ie {
-      TransactionId tr_id = 1;
-      E2nodeComponentConfigAdditionAckList e2nccaal = 2;
-      E2nodeComponentConfigUpdateAckList e2nccual = 3;
-      E2nodeComponentConfigRemovalAckList e2nccral = 4;
+      TransactionId transaction_id = 1;
+      E2nodeComponentConfigAdditionAckList e2node_component_config_addition_ack = 2;
+      E2nodeComponentConfigUpdateAckList e2node_component_config_update_ack = 3;
+      E2nodeComponentConfigRemovalAckList e2node_component_config_removal_ack = 4;
   }
 };
 
@@ -996,7 +997,7 @@ message E2nodeComponentConfigAdditionAckItemIes {
 message E2nodeComponentConfigAdditionAckItemIe {
     oneof e2node_component_config_addition_ack_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2nodeComponentConfigAdditionAckItem e2nccaai = 1;
+        E2nodeComponentConfigAdditionAckItem e2node_component_config_addition_ack_item = 1;
     }
 };
 
@@ -1032,7 +1033,7 @@ message E2nodeComponentConfigUpdateAckItemIes {
 message E2nodeComponentConfigUpdateAckItemIe {
     oneof e2node_component_config_update_ack_item_ie {
         //@inject_tag: aper:"valueExt"
-        E2nodeComponentConfigUpdateAckItem e2nccuai = 1;
+        E2nodeComponentConfigUpdateAckItem e2node_component_config_update_ack_item = 1;
     }
 };
 
@@ -1068,7 +1069,7 @@ message E2nodeComponentConfigRemovalAckItemIes {
 message E2nodeComponentConfigRemovalAckItemIe {
   oneof e2node_component_config_removal_ack_item_ie {
       //@inject_tag: aper:"valueExt"
-      E2nodeComponentConfigRemovalAckItem e2nccrai = 1;
+      E2nodeComponentConfigRemovalAckItem e2node_component_config_removal_ack_item = 1;
   }
 };
 
@@ -1103,13 +1104,13 @@ message E2nodeConfigurationUpdateFailureIes {
 
 message E2nodeConfigurationUpdateFailureIe {
     oneof e2node_configuration_update_failure_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         // @inject_tag: aper:"choiceExt"
-        Cause c = 2;
+        Cause cause = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-        TimeToWait ttw = 3;
+        TimeToWait time_to_wait = 3;
         // @inject_tag: aper:"valueExt"
-        CriticalityDiagnostics cd = 4;
+        CriticalityDiagnostics criticality_diagnostics = 4;
     }
 };
 
@@ -1133,9 +1134,9 @@ message ResetRequestIes {
 
 message ResetRequestIe {
     oneof reset_request_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         // @inject_tag: aper:"choiceExt"
-        Cause c = 2;
+        Cause cause = 2;
     }
 };
 
@@ -1159,9 +1160,9 @@ message ResetResponseIes {
 
 message ResetResponseIe {
     oneof reset_response_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         // @inject_tag: aper:"valueExt"
-        CriticalityDiagnostics cd = 2;
+        CriticalityDiagnostics criticality_diagnostics = 2;
     }
 };
 
@@ -1185,9 +1186,10 @@ message RicserviceUpdateIes {
 
 message RicserviceUpdateIe {
     oneof ric_service_update_ie {
-        TransactionId tr_id = 1;
-        RanfunctionsListSingleContainer rfl = 2;
-        RanfunctionsIdListSingleContainer rfidl = 3;
+        TransactionId transaction_id = 1;
+        RanfunctionsListSingleContainer ranfunctions_added = 2;
+        RanfunctionsListSingleContainer ranfunctions_modified = 3;
+        RanfunctionsIdListSingleContainer ranfunctions_deleted = 4;
     }
 };
 
@@ -1216,7 +1218,7 @@ message RanfunctionItemIes {
 message RanfunctionItemIe {
   oneof ranfunction_item_ie {
       // @inject_tag: aper:"valueExt"
-      RanfunctionItem rfi = 1;
+      RanfunctionItem ranfunction_item = 1;
   }
 };
 
@@ -1255,7 +1257,7 @@ message RanfunctionIdItemIes {
 message RanfunctionIdItemIe {
   oneof ranfunction_id_item_ie {
       // @inject_tag: aper:"valueExt"
-      RanfunctionIdItem rf_id = 1;
+      RanfunctionIdItem ranfunction_id_item = 1;
   }
 };
 
@@ -1286,9 +1288,9 @@ message RicserviceUpdateAcknowledgeIes {
 
 message RicServiceUpdateAcknowledgeIe {
     oneof ric_service_update_acknowledge_ie {
-        TransactionId tr_id = 1;
-        RanfunctionsIdListSingleContainer rf_idl = 2;
-        RanfunctionsIdcauseListSingleContainer rf_idcl = 3;
+        TransactionId transaction_id = 1;
+        RanfunctionsIdListSingleContainer ranfunctions_accepted = 2;
+        RanfunctionsIdcauseListSingleContainer ranfunctions_rejected = 3;
     }
 };
 
@@ -1317,7 +1319,7 @@ message RanfunctionIdcauseItemIes {
 message RanfunctionIdcauseItemIe {
   oneof ranfunction_idcause_item_ie {
       // @inject_tag: aper:"valueExt"
-      RanfunctionIdcauseItem rf_idci = 1;
+      RanfunctionIdcauseItem ranfunction_iecause_item = 1;
   }
 };
 
@@ -1349,13 +1351,13 @@ message RicserviceUpdateFailureIes {
 
 message RicServiceUpdateFailureIe {
     oneof ric_service_update_failure_ie {
-        TransactionId tr_id = 1;
+        TransactionId transaction_id = 1;
         // @inject_tag: aper:"choiceExt"
-        Cause c = 2;
+        Cause cause = 2;
         // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5"
-        TimeToWait ttw = 3;
+        TimeToWait time_to_wait = 3;
         // @inject_tag: aper:"valueExt"
-        CriticalityDiagnostics cd = 4;
+        CriticalityDiagnostics criticality_diagnostics = 4;
     }
 };
 
@@ -1379,7 +1381,7 @@ message RicserviceQueryIes {
 
 message RicServiceQueryIe {
     oneof ric_service_query_ie {
-        TransactionId tr_id = 1;
-        RanfunctionsIdListSingleContainer rf_idl = 2;
+        TransactionId transaction_id = 1;
+        RanfunctionsIdListSingleContainer ranfunctions_accepted = 2;
     }
 };
