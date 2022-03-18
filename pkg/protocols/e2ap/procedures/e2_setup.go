@@ -61,7 +61,7 @@ func (p *E2SetupInitiator) Initiate(ctx context.Context, request *e2appducontent
 	var transactionID int32 = -1
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 			break
 		}
 	}
@@ -134,14 +134,14 @@ func (p *E2SetupInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
 		for _, v := range pdu.GetSuccessfulOutcome().GetValue().GetE2Setup().GetProtocolIes() {
 			if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
-				transactionID = v.GetValue().GetTrId().GetValue()
+				transactionID = v.GetValue().GetTransactionId().GetValue()
 				break
 			}
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
 		for _, v := range pdu.GetUnsuccessfulOutcome().GetValue().GetE2Setup().GetProtocolIes() {
 			if v.Id == int32(e2api.ProtocolIeIDTransactionID) {
-				transactionID = v.GetValue().GetTrId().GetValue()
+				transactionID = v.GetValue().GetTransactionId().GetValue()
 				break
 			}
 		}

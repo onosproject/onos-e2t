@@ -278,7 +278,7 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 			var cause *e2apies.Cause
 			for _, v := range failure.GetProtocolIes() {
 				if v.Id == int32(v2.ProtocolIeIDCause) {
-					cause = v.GetValue().GetC()
+					cause = v.GetValue().GetCause()
 					break
 				}
 			}
@@ -599,7 +599,7 @@ func (r *Reconciler) reconcileClosedSubscription(sub *e2api.Subscription) (contr
 		var cause *e2apies.Cause
 		for _, v := range failure.GetProtocolIes() {
 			if v.Id == int32(v2.ProtocolIeIDCause) {
-				cause = v.GetValue().GetC()
+				cause = v.GetValue().GetCause()
 				break
 			}
 		}
@@ -640,7 +640,7 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 	var cause *e2apies.Cause
 	for _, v := range failure.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDCause) {
-			cause = v.GetValue().GetC()
+			cause = v.GetValue().GetCause()
 			break
 		}
 	}
@@ -784,7 +784,7 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 	var cause *e2apies.Cause
 	for _, v := range failure.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDCause) {
-			cause = v.GetValue().GetC()
+			cause = v.GetValue().GetCause()
 			break
 		}
 	}

@@ -38,16 +38,16 @@ func DecodeRicServiceUpdateFailurePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*
 
 	for _, v := range rsuf.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDCause) {
-			cause = v.GetValue().GetC()
+			cause = v.GetValue().GetCause()
 		}
 		if v.Id == int32(v2.ProtocolIeIDTimeToWait) {
-			ttw = v.GetValue().GetTtw()
+			ttw = v.GetValue().GetTimeToWait()
 		}
 		if v.Id == int32(v2.ProtocolIeIDCriticalityDiagnostics) {
-			critDiagnostics := v.GetValue().GetCd()
+			critDiagnostics := v.GetValue().GetCriticalityDiagnostics()
 			if critDiagnostics != nil { //It's optional
 				pc = v2.ProcedureCodeT(critDiagnostics.GetProcedureCode().GetValue())
 				crit = critDiagnostics.GetProcedureCriticality()

@@ -64,7 +64,7 @@ func TestChannelStreams(t *testing.T) {
 		var rrID int32
 		for _, v := range ind.GetProtocolIes() {
 			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-				rrID = v.GetValue().GetRrId().GetRicRequestorId()
+				rrID = v.GetValue().GetRicrequestId().GetRicRequestorId()
 				break
 			}
 		}
@@ -131,7 +131,7 @@ func TestChannelStreams(t *testing.T) {
 		var rrID int32
 		for _, v := range ind.GetProtocolIes() {
 			if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-				rrID = v.GetValue().GetRrId().GetRicRequestorId()
+				rrID = v.GetValue().GetRicrequestId().GetRicRequestorId()
 				break
 			}
 		}

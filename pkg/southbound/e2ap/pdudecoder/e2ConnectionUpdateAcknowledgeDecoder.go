@@ -28,25 +28,25 @@ func DecodeE2connectionUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApP
 	connSetupFail := make([]*types.E2ConnectionSetupFailedItem, 0)
 	for _, v := range e2cua.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2connectionSetup) {
-			list := v.GetValue().GetE2Cul().GetValue()
+			list := v.GetValue().GetE2ConnectionSetup().GetValue()
 			for _, ie := range list {
 				item := types.E2ConnectionUpdateItem{}
-				item.TnlInformation.TnlAddress = *ie.GetValue().GetE2Curi().GetTnlInformation().GetTnlAddress()
-				item.TnlInformation.TnlPort = ie.GetValue().GetE2Curi().GetTnlInformation().GetTnlPort()
-				item.TnlUsage = ie.GetValue().GetE2Curi().GetTnlUsage()
+				item.TnlInformation.TnlAddress = *ie.GetValue().GetE2ConnectionUpdateItem().GetTnlInformation().GetTnlAddress()
+				item.TnlInformation.TnlPort = ie.GetValue().GetE2ConnectionUpdateItem().GetTnlInformation().GetTnlPort()
+				item.TnlUsage = ie.GetValue().GetE2ConnectionUpdateItem().GetTnlUsage()
 				connSetup = append(connSetup, &item)
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2connectionSetupFailed) {
-			failedList := v.GetValue().GetE2Csfl().GetValue()
+			failedList := v.GetValue().GetE2ConnectionSetupFailed().GetValue()
 			for _, ie := range failedList {
 				item := types.E2ConnectionSetupFailedItem{}
-				item.TnlInformation.TnlAddress = *ie.GetValue().GetE2Csfi().GetTnlInformation().GetTnlAddress()
-				item.TnlInformation.TnlPort = ie.GetValue().GetE2Csfi().GetTnlInformation().GetTnlPort()
-				item.Cause = *ie.GetValue().GetE2Csfi().GetCause()
+				item.TnlInformation.TnlAddress = *ie.GetValue().GetE2ConnectionSetupFailedItem().GetTnlInformation().GetTnlAddress()
+				item.TnlInformation.TnlPort = ie.GetValue().GetE2ConnectionSetupFailedItem().GetTnlInformation().GetTnlPort()
+				item.Cause = *ie.GetValue().GetE2ConnectionSetupFailedItem().GetCause()
 				connSetupFail = append(connSetupFail, &item)
 			}
 		}

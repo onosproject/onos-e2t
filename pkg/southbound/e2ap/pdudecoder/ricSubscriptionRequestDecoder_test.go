@@ -22,14 +22,6 @@ func Test_DecodeRicSubscriptionRequestPdu(t *testing.T) {
 		RicActionDefinition: []byte{0x11, 0x22},
 	}
 
-	ricActionsToBeSetup[200] = types.RicActionDef{
-		RicActionID:         200,
-		RicActionType:       e2apies.RicactionType_RICACTION_TYPE_INSERT,
-		RicSubsequentAction: e2apies.RicsubsequentActionType_RICSUBSEQUENT_ACTION_TYPE_CONTINUE,
-		Ricttw:              e2apies.RictimeToWait_RICTIME_TO_WAIT_W10MS,
-		RicActionDefinition: []byte{0x33, 0x44},
-	}
-
 	rsr, err := pdubuilder.NewRicSubscriptionRequest(
 		types.RicRequest{RequestorID: 1, InstanceID: 2},
 		3, []byte{0x55, 0x66}, ricActionsToBeSetup)
@@ -46,7 +38,7 @@ func Test_DecodeRicSubscriptionRequestPdu(t *testing.T) {
 	assert.Equal(t, 2, int(ricReq.InstanceID))
 	assert.Equal(t, 3, int(ranFuncID))
 	assert.Equal(t, 2, len(ricEventDef))
-	assert.Equal(t, 2, len(ricActionsToBeSetup))
+	assert.Equal(t, 1, len(ricActionsToBeSetup))
 
 	assert.Equal(t, 100, int(ricActionsToBeSetup[0].RicActionID))
 	assert.Equal(t, e2apies.RictimeToWait_RICTIME_TO_WAIT_W5MS, ricActionsToBeSetup[0].Ricttw)

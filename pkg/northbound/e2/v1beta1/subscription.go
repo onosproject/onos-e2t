@@ -343,16 +343,16 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			var indMessageAsn1 []byte
 			for _, v := range ind.GetProtocolIes() {
 				if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
-					ranFuncID = v.GetValue().GetRfId().GetValue()
+					ranFuncID = v.GetValue().GetRanfunctionId().GetValue()
 				}
 				if v.Id == int32(v2.ProtocolIeIDRicactionID) {
-					ricActionID = v.GetValue().GetRaId().GetValue()
+					ricActionID = v.GetValue().GetRicactionId().GetValue()
 				}
 				if v.Id == int32(v2.ProtocolIeIDRicindicationHeader) {
-					indHeaderAsn1 = v.GetValue().GetRih().GetValue()
+					indHeaderAsn1 = v.GetValue().GetRicindicationHeader().GetValue()
 				}
 				if v.Id == int32(v2.ProtocolIeIDRicindicationMessage) {
-					indMessageAsn1 = v.GetValue().GetRim().GetValue()
+					indMessageAsn1 = v.GetValue().GetRicindicationMessage().GetValue()
 				}
 			}
 			log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)

@@ -31,10 +31,10 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *ty
 	e2nccual := make([]*types.E2NodeComponentConfigAdditionAckItem, 0)
 	for _, v := range e2setup.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDGlobalRicID) {
-			identifierIe := v.GetValue().GetGRicId()
+			identifierIe := v.GetValue().GetGlobalRicId()
 			if identifierIe == nil {
 				return nil, nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-GlobalE2node-ID")
 			}
@@ -49,10 +49,10 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *ty
 			ricIdentity.PlmnID = plmnID
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAccepted) {
-			if v.GetValue().GetRfIdl().GetValue() != nil {
+			if v.GetValue().GetRanfunctionsAccepted().GetValue() != nil {
 				// It's not mandatory
-				for _, ranFunctionIDItemIe := range v.GetValue().GetRfIdl().GetValue() {
-					ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRfId()
+				for _, ranFunctionIDItemIe := range v.GetValue().GetRanfunctionsAccepted().GetValue() {
+					ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRanfunctionIdItem()
 					id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
 					val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
 					rfAccepted[id] = val
@@ -60,10 +60,10 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *ty
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsRejected) {
-			if v.GetValue().GetRfIdcl() != nil {
+			if v.GetValue().GetRanfunctionsRejected() != nil {
 				// It's not mandatory
-				for _, ranFunctionIDRejectedItemIe := range v.GetValue().GetRfIdcl().GetValue() {
-					ranFunctionIDcauseItem := ranFunctionIDRejectedItemIe.GetValue().GetRfIdci()
+				for _, ranFunctionIDRejectedItemIe := range v.GetValue().GetRanfunctionsRejected().GetValue() {
+					ranFunctionIDcauseItem := ranFunctionIDRejectedItemIe.GetValue().GetRanfunctionIecauseItem()
 					id := types.RanFunctionID(ranFunctionIDcauseItem.GetRanFunctionId().GetValue())
 					rfRejected[id] = &e2apies.Cause{
 						Cause: &e2apies.Cause_Misc{Misc: e2apies.CauseMisc_CAUSE_MISC_OM_INTERVENTION},
@@ -72,14 +72,14 @@ func DecodeE2SetupResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *ty
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAck) {
-			list := v.GetValue().GetE2Nccaal().GetValue()
+			list := v.GetValue().GetE2NodeComponentConfigAdditionAck().GetValue()
 			for _, ie := range list {
 				e2nccuai := types.E2NodeComponentConfigAdditionAckItem{}
-				e2nccuai.E2NodeComponentType = ie.GetValue().GetE2Nccaai().GetE2NodeComponentInterfaceType()
-				e2nccuai.E2NodeComponentID = ie.GetValue().GetE2Nccaai().GetE2NodeComponentId()
+				e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentConfigAdditionAckItem().GetE2NodeComponentInterfaceType()
+				e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentConfigAdditionAckItem().GetE2NodeComponentId()
 				e2nccuai.E2NodeComponentConfigurationAck = e2apies.E2NodeComponentConfigurationAck{
-					UpdateOutcome: ie.GetValue().GetE2Nccaai().GetE2NodeComponentConfigurationAck().GetUpdateOutcome(),
-					FailureCause:  ie.GetValue().GetE2Nccaai().GetE2NodeComponentConfigurationAck().GetFailureCause(),
+					UpdateOutcome: ie.GetValue().GetE2NodeComponentConfigAdditionAckItem().GetE2NodeComponentConfigurationAck().GetUpdateOutcome(),
+					FailureCause:  ie.GetValue().GetE2NodeComponentConfigAdditionAckItem().GetE2NodeComponentConfigurationAck().GetFailureCause(),
 				}
 
 				e2nccual = append(e2nccual, &e2nccuai)

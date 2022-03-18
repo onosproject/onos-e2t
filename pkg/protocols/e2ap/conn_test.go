@@ -155,7 +155,7 @@ func TestConns(t *testing.T) {
 	var tnlInformation *e2apies.Tnlinformation
 	for _, v := range ack.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDE2connectionSetup) {
-			tnlInformation = v.GetValue().GetE2Cul().GetValue()[0].GetValue().GetE2Curi().GetTnlInformation()
+			tnlInformation = v.GetValue().GetE2ConnectionSetup().GetValue()[0].GetValue().GetE2ConnectionUpdateItem().GetTnlInformation()
 			break
 		}
 	}
@@ -207,8 +207,8 @@ func (p *testClientProcedures) RICControl(ctx context.Context, request *e2appduc
 	var rrID types.RicRequest
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-			rrID.RequestorID = types.RicRequestorID(v.GetValue().GetRrId().GetRicRequestorId())
-			rrID.InstanceID = types.RicInstanceID(v.GetValue().GetRrId().GetRicRequestorId())
+			rrID.RequestorID = types.RicRequestorID(v.GetValue().GetRicrequestId().GetRicRequestorId())
+			rrID.InstanceID = types.RicInstanceID(v.GetValue().GetRicrequestId().GetRicRequestorId())
 			break
 		}
 	}
@@ -229,8 +229,8 @@ func (p *testClientProcedures) RICSubscription(ctx context.Context, request *e2a
 	var rrID types.RicRequest
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-			rrID.RequestorID = types.RicRequestorID(v.GetValue().GetRrId().GetRicRequestorId())
-			rrID.InstanceID = types.RicInstanceID(v.GetValue().GetRrId().GetRicRequestorId())
+			rrID.RequestorID = types.RicRequestorID(v.GetValue().GetRicrequestId().GetRicRequestorId())
+			rrID.InstanceID = types.RicInstanceID(v.GetValue().GetRicrequestId().GetRicRequestorId())
 			break
 		}
 	}
@@ -249,8 +249,8 @@ func (p *testClientProcedures) RICSubscriptionDelete(ctx context.Context, reques
 	var rrID types.RicRequest
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-			rrID.RequestorID = types.RicRequestorID(v.GetValue().GetRrId().GetRicRequestorId())
-			rrID.InstanceID = types.RicInstanceID(v.GetValue().GetRrId().GetRicRequestorId())
+			rrID.RequestorID = types.RicRequestorID(v.GetValue().GetRicrequestId().GetRicRequestorId())
+			rrID.InstanceID = types.RicInstanceID(v.GetValue().GetRicrequestId().GetRicRequestorId())
 			break
 		}
 	}
@@ -268,10 +268,10 @@ func (p *testClientProcedures) E2ConnectionUpdate(ctx context.Context, request *
 	var tnlInfo *e2appducontents.E2ConnectionUpdateItem
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			trID = v.GetValue().GetTrId().GetValue()
+			trID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2connectionUpdateAdd) {
-			tnlInfo = v.GetValue().GetE2Cul().GetValue()[0].GetValue().GetE2Curi()
+			tnlInfo = v.GetValue().GetE2ConnectionUpdateAdd().GetValue()[0].GetValue().GetE2ConnectionUpdateItem()
 		}
 	}
 
@@ -298,7 +298,7 @@ func (p *testServerProcedures) E2ConfigurationUpdate(ctx context.Context, reques
 	var trID int32
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			trID = v.GetValue().GetTrId().GetValue()
+			trID = v.GetValue().GetTransactionId().GetValue()
 			break
 		}
 	}
@@ -315,7 +315,7 @@ func (p *testServerProcedures) E2Setup(ctx context.Context, request *e2appducont
 	var trID int32
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			trID = v.GetValue().GetTrId().GetValue()
+			trID = v.GetValue().GetTransactionId().GetValue()
 			break
 		}
 	}

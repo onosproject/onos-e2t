@@ -29,12 +29,12 @@ func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, 
 	ranFunctionsModifiedList := make(types.RanFunctions)
 	for _, v := range rsu.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAdded) {
-			rfal := v.GetValue().GetRfl().GetValue()
+			rfal := v.GetValue().GetRanfunctionsAdded().GetValue()
 			for _, ie := range rfal.GetValue() {
-				val := ie.GetValue().GetRfi()
+				val := ie.GetValue().GetRanfunctionItem()
 				ranFunctionsAddedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 					Description: val.GetRanFunctionDefinition().GetValue(),
 					Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
@@ -43,9 +43,9 @@ func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, 
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsModified) {
-			rfml := v.GetValue().GetRfl().GetValue()
+			rfml := v.GetValue().GetRanfunctionsModified().GetValue()
 			for _, ie := range rfml.GetValue() {
-				val := ie.GetValue().GetRfi()
+				val := ie.GetValue().GetRanfunctionItem()
 				ranFunctionsModifiedList[types.RanFunctionID(val.GetRanFunctionId().GetValue())] = types.RanFunctionItem{
 					Description: val.GetRanFunctionDefinition().GetValue(),
 					Revision:    types.RanFunctionRevision(val.GetRanFunctionRevision().GetValue()),
@@ -54,9 +54,9 @@ func DecodeRicServiceUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32, 
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsDeleted) {
-			rfdl := v.GetValue().GetRfidl().GetValue()
+			rfdl := v.GetValue().GetRanfunctionsDeleted().GetValue()
 			for _, ranFunctionIDItemIe := range rfdl.GetValue() {
-				ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRfId()
+				ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRanfunctionIdItem()
 				id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
 				val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
 				ranFunctionsDeletedList[id] = val

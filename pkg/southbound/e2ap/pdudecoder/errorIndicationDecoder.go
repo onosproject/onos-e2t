@@ -39,19 +39,19 @@ func DecodeErrorIndicationPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *e2
 
 	for _, v := range ei.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDCause) {
-			cause = v.GetValue().GetC()
+			cause = v.GetValue().GetCause()
 
 		}
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-			ricRequestIDIe := v.GetValue().GetRr()
+			ricRequestIDIe := v.GetValue().GetRicrequestId()
 			ricRequestID.RequestorID = types.RicRequestorID(ricRequestIDIe.GetRicRequestorId())
 			ricRequestID.InstanceID = types.RicInstanceID(ricRequestIDIe.GetRicInstanceId())
 		}
 		if v.Id == int32(v2.ProtocolIeIDCriticalityDiagnostics) {
-			critDiagnostics := v.GetValue().GetCd()
+			critDiagnostics := v.GetValue().GetCriticalityDiagnostics()
 			if critDiagnostics != nil { //It's optional
 				pc = v2.ProcedureCodeT(critDiagnostics.GetProcedureCode().GetValue())
 				crit = critDiagnostics.GetProcedureCriticality()
@@ -71,7 +71,7 @@ func DecodeErrorIndicationPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *e2
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
-			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
+			ranFunctionID = types.RanFunctionID(v.GetValue().GetRanfunctionId().GetValue())
 		}
 	}
 

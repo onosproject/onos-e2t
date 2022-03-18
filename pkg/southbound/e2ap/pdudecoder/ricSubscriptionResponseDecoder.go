@@ -33,33 +33,33 @@ func DecodeRicSubscriptionResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 
 	for _, v := range ricSubscription.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-			if v.GetValue().GetRrId() == nil {
+			if v.GetValue().GetRicrequestId() == nil {
 				return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICrequestID (mandatory)")
 			}
-			ricRequestID.RequestorID = types.RicRequestorID(v.GetValue().GetRrId().GetRicRequestorId())
-			ricRequestID.InstanceID = types.RicInstanceID(v.GetValue().GetRrId().GetRicInstanceId())
+			ricRequestID.RequestorID = types.RicRequestorID(v.GetValue().GetRicrequestId().GetRicRequestorId())
+			ricRequestID.InstanceID = types.RicInstanceID(v.GetValue().GetRicrequestId().GetRicInstanceId())
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
-			if v.GetValue().GetRfId() == nil {
+			if v.GetValue().GetRanfunctionId() == nil {
 				return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionID (mandatory)")
 			}
-			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
+			ranFunctionID = types.RanFunctionID(v.GetValue().GetRanfunctionId().GetValue())
 		}
 		if v.Id == int32(v2.ProtocolIeIDRicactionsAdmitted) {
-			if v.GetValue().GetRaal() == nil {
+			if v.GetValue().GetRicactionsAdmitted() == nil {
 				return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICactions-Admitted (mandatory)")
 			}
-			for _, actionAdmitted := range v.GetValue().GetRaal().GetValue() {
-				ricActionsAdmitted = append(ricActionsAdmitted, types.RicActionID(actionAdmitted.GetValue().GetRanai().GetRicActionId().GetValue()))
+			for _, actionAdmitted := range v.GetValue().GetRicactionsAdmitted().GetValue() {
+				ricActionsAdmitted = append(ricActionsAdmitted, types.RicActionID(actionAdmitted.GetValue().GetRicactionAdmittedItem().GetRicActionId().GetValue()))
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDRicactionsNotAdmitted) {
-			if v.GetValue().GetRanal() == nil {
+			if v.GetValue().GetRicactionsNotAdmitted() == nil {
 				return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICactions-NotAdmitted (mandatory)")
 			}
 
-			for _, ranai := range v.GetValue().GetRanal().GetValue() {
-				causes[types.RicActionID(ranai.GetValue().GetRanai().GetRicActionId().GetValue())] = ranai.GetValue().GetRanai().GetCause()
+			for _, ranai := range v.GetValue().GetRicactionsNotAdmitted().GetValue() {
+				causes[types.RicActionID(ranai.GetValue().GetRicactionNotAdmittedItem().GetRicActionId().GetValue())] = ranai.GetValue().GetRicactionNotAdmittedItem().GetCause()
 			}
 		}
 	}

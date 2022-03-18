@@ -34,20 +34,20 @@ func DecodeRicSubscriptionRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 
 	for _, v := range ricSubscription.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-			if v.GetValue().GetRrId() == nil {
+			if v.GetValue().GetRicrequestId() == nil {
 				return types.RicRequest{}, 0, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICrequestID (mandatory)")
 			}
-			ricRequestID.RequestorID = types.RicRequestorID(v.GetValue().GetRrId().GetRicRequestorId())
-			ricRequestID.InstanceID = types.RicInstanceID(v.GetValue().GetRrId().GetRicInstanceId())
+			ricRequestID.RequestorID = types.RicRequestorID(v.GetValue().GetRicrequestId().GetRicRequestorId())
+			ricRequestID.InstanceID = types.RicInstanceID(v.GetValue().GetRicrequestId().GetRicInstanceId())
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
-			if v.GetValue().GetRfId() == nil {
+			if v.GetValue().GetRanfunctionId() == nil {
 				return types.RicRequest{}, 0, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionID (mandatory)")
 			}
-			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
+			ranFunctionID = types.RanFunctionID(v.GetValue().GetRanfunctionId().GetValue())
 		}
 		if v.Id == int32(v2.ProtocolIeIDRicsubscriptionDetails) {
-			ricSubscriptionDetailsIe := v.GetValue().GetRsd()
+			ricSubscriptionDetailsIe := v.GetValue().GetRicsubscriptionDetails()
 			if ricSubscriptionDetailsIe == nil {
 				return types.RicRequest{}, 0, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICrequestID (mandatory)")
 			}
@@ -56,11 +56,11 @@ func DecodeRicSubscriptionRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 
 			for raID, actionToBeSetup := range ricSubscriptionDetailsIe.GetRicActionToBeSetupList().GetValue() {
 				ricActionsToBeSetup[types.RicActionID(raID)] = types.RicActionDef{
-					RicActionID:         types.RicActionID(actionToBeSetup.GetValue().GetRatbsi().GetRicActionId().GetValue()),
-					RicActionType:       actionToBeSetup.GetValue().GetRatbsi().GetRicActionType(),
-					RicSubsequentAction: actionToBeSetup.GetValue().GetRatbsi().GetRicSubsequentAction().GetRicSubsequentActionType(),
-					Ricttw:              actionToBeSetup.GetValue().GetRatbsi().GetRicSubsequentAction().GetRicTimeToWait(),
-					RicActionDefinition: actionToBeSetup.GetValue().GetRatbsi().GetRicActionDefinition().GetValue(),
+					RicActionID:         types.RicActionID(actionToBeSetup.GetValue().GetRicactionToBeSetupItem().GetRicActionId().GetValue()),
+					RicActionType:       actionToBeSetup.GetValue().GetRicactionToBeSetupItem().GetRicActionType(),
+					RicSubsequentAction: actionToBeSetup.GetValue().GetRicactionToBeSetupItem().GetRicSubsequentAction().GetRicSubsequentActionType(),
+					Ricttw:              actionToBeSetup.GetValue().GetRicactionToBeSetupItem().GetRicSubsequentAction().GetRicTimeToWait(),
+					RicActionDefinition: actionToBeSetup.GetValue().GetRicactionToBeSetupItem().GetRicActionDefinition().GetValue(),
 				}
 			}
 		}

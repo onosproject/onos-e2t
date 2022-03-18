@@ -29,34 +29,34 @@ func DecodeE2connectionUpdatePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu) (*int32
 	connRemove := make([]*types.TnlInformation, 0)
 	for _, v := range e2cu.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2connectionUpdateAdd) {
-			cal := v.GetValue().GetE2Cul().GetValue()
+			cal := v.GetValue().GetE2ConnectionUpdateAdd().GetValue()
 			for _, ie := range cal {
 				item := types.E2ConnectionUpdateItem{}
-				item.TnlInformation.TnlAddress = *ie.GetValue().GetE2Curi().GetTnlInformation().GetTnlAddress()
-				item.TnlInformation.TnlPort = ie.GetValue().GetE2Curi().GetTnlInformation().GetTnlPort()
-				item.TnlUsage = ie.GetValue().GetE2Curi().GetTnlUsage()
+				item.TnlInformation.TnlAddress = *ie.GetValue().GetE2ConnectionUpdateItem().GetTnlInformation().GetTnlAddress()
+				item.TnlInformation.TnlPort = ie.GetValue().GetE2ConnectionUpdateItem().GetTnlInformation().GetTnlPort()
+				item.TnlUsage = ie.GetValue().GetE2ConnectionUpdateItem().GetTnlUsage()
 				connAdd = append(connAdd, &item)
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2connectionUpdateModify) {
-			cml := v.GetValue().GetE2Cul().GetValue()
+			cml := v.GetValue().GetE2ConnectionUpdateModify().GetValue()
 			for _, ie := range cml {
 				item := types.E2ConnectionUpdateItem{}
-				item.TnlInformation.TnlAddress = *ie.GetValue().GetE2Curi().GetTnlInformation().GetTnlAddress()
-				item.TnlInformation.TnlPort = ie.GetValue().GetE2Curi().GetTnlInformation().GetTnlPort()
-				item.TnlUsage = ie.GetValue().GetE2Curi().GetTnlUsage()
+				item.TnlInformation.TnlAddress = *ie.GetValue().GetE2ConnectionUpdateItem().GetTnlInformation().GetTnlAddress()
+				item.TnlInformation.TnlPort = ie.GetValue().GetE2ConnectionUpdateItem().GetTnlInformation().GetTnlPort()
+				item.TnlUsage = ie.GetValue().GetE2ConnectionUpdateItem().GetTnlUsage()
 				connModify = append(connModify, &item)
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2connectionUpdateRemove) {
-			crl := v.GetValue().GetE2Curl().GetValue()
+			crl := v.GetValue().GetE2ConnectionUpdateRemove().GetValue()
 			for _, ie := range crl {
 				item := types.TnlInformation{}
-				item.TnlAddress = *ie.GetValue().GetE2Curi().GetTnlInformation().GetTnlAddress()
-				item.TnlPort = ie.GetValue().GetE2Curi().GetTnlInformation().GetTnlPort()
+				item.TnlAddress = *ie.GetValue().GetE2ConnectionUpdateRemoveItem().GetTnlInformation().GetTnlAddress()
+				item.TnlPort = ie.GetValue().GetE2ConnectionUpdateRemoveItem().GetTnlInformation().GetTnlPort()
 				connRemove = append(connRemove, &item)
 			}
 		}

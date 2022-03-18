@@ -24,31 +24,31 @@ func DecodeE2SetupRequest(request *e2appducontents.E2SetupRequest) (*int32, *typ
 	e2nccul := make([]*types.E2NodeComponentConfigAdditionItem, 0)
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
-			globalE2NodeID = v.GetValue().GetGE2NId()
+			globalE2NodeID = v.GetValue().GetGlobalE2NodeId()
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAdded) {
 			ranFunctionsIe := v.GetValue()
 			if ranFunctionsIe == nil {
 				return nil, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionsAdded")
 			}
-			for _, rfIe := range ranFunctionsIe.GetRfl().GetValue() {
-				ranFunctionsList[types.RanFunctionID(rfIe.GetValue().GetRfi().GetRanFunctionId().GetValue())] = types.RanFunctionItem{
-					Description: rfIe.GetValue().GetRfi().GetRanFunctionDefinition().GetValue(),
-					Revision:    types.RanFunctionRevision(rfIe.GetValue().GetRfi().GetRanFunctionRevision().GetValue()),
-					OID:         types.RanFunctionOID(rfIe.GetValue().GetRfi().GetRanFunctionOid().GetValue()),
+			for _, rfIe := range ranFunctionsIe.GetRanfunctionsAdded().GetValue() {
+				ranFunctionsList[types.RanFunctionID(rfIe.GetValue().GetRanfunctionItem().GetRanFunctionId().GetValue())] = types.RanFunctionItem{
+					Description: rfIe.GetValue().GetRanfunctionItem().GetRanFunctionDefinition().GetValue(),
+					Revision:    types.RanFunctionRevision(rfIe.GetValue().GetRanfunctionItem().GetRanFunctionRevision().GetValue()),
+					OID:         types.RanFunctionOID(rfIe.GetValue().GetRanfunctionItem().GetRanFunctionOid().GetValue()),
 				}
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2nodeComponentConfigAddition) {
-			list := v.GetValue().GetE2Nccal().GetValue()
+			list := v.GetValue().GetE2NodeComponentConfigAddition().GetValue()
 			for _, ie := range list {
 				e2nccuai := types.E2NodeComponentConfigAdditionItem{}
-				e2nccuai.E2NodeComponentType = ie.GetValue().GetE2Nccui().GetE2NodeComponentInterfaceType()
-				e2nccuai.E2NodeComponentID = ie.GetValue().GetE2Nccui().GetE2NodeComponentId()
-				e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2Nccui().GetE2NodeComponentConfiguration()
+				e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentConfigAdditionItem().GetE2NodeComponentInterfaceType()
+				e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentConfigAdditionItem().GetE2NodeComponentId()
+				e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2NodeComponentConfigAdditionItem().GetE2NodeComponentConfiguration()
 
 				e2nccul = append(e2nccul, &e2nccuai)
 			}

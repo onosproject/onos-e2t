@@ -114,7 +114,7 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 		var trID int32
 		for _, v := range request.GetProtocolIes() {
 			if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-				trID = v.GetValue().GetTrId().GetValue()
+				trID = v.GetValue().GetTransactionId().GetValue()
 			}
 		}
 
@@ -189,7 +189,7 @@ func (e *E2APServer) E2Setup(ctx context.Context, request *e2appducontents.E2Set
 		var trID int32
 		for _, v := range request.GetProtocolIes() {
 			if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-				trID = v.GetValue().GetTrId().GetValue()
+				trID = v.GetValue().GetTransactionId().GetValue()
 			}
 		}
 
@@ -223,15 +223,15 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	e2nccual := make([]*types.E2NodeComponentConfigUpdateItem, 0)
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDGlobalE2nodeID) {
-			nodeIdentity = v.GetValue().GetGe2NId()
+			nodeIdentity = v.GetValue().GetGlobalE2NodeId()
 		}
 		if v.Id == int32(v2.ProtocolIeIDE2nodeComponentConfigUpdate) {
-			list := v.GetValue().GetE2Nccul().GetValue()
+			list := v.GetValue().GetE2NodeComponentConfigUpdate().GetValue()
 			for _, ie := range list {
 				e2nccuai := types.E2NodeComponentConfigUpdateItem{}
-				e2nccuai.E2NodeComponentType = ie.GetValue().GetE2Nccui().GetE2NodeComponentInterfaceType()
-				e2nccuai.E2NodeComponentID = ie.GetValue().GetE2Nccui().GetE2NodeComponentId()
-				e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2Nccui().GetE2NodeComponentConfiguration()
+				e2nccuai.E2NodeComponentType = ie.GetValue().GetE2NodeComponentConfigUpdateItem().GetE2NodeComponentInterfaceType()
+				e2nccuai.E2NodeComponentID = ie.GetValue().GetE2NodeComponentConfigUpdateItem().GetE2NodeComponentId()
+				e2nccuai.E2NodeComponentConfiguration = *ie.GetValue().GetE2NodeComponentConfigUpdateItem().GetE2NodeComponentConfiguration()
 
 				e2nccual = append(e2nccual, &e2nccuai)
 			}
@@ -250,7 +250,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 			var trID int32
 			for _, v := range request.GetProtocolIes() {
 				if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-					trID = v.GetValue().GetTrId().GetValue()
+					trID = v.GetValue().GetTransactionId().GetValue()
 					break
 				}
 			}
@@ -270,7 +270,7 @@ func (e *E2APServer) E2ConfigurationUpdate(ctx context.Context, request *e2appdu
 	var trID int32
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			trID = v.GetValue().GetTrId().GetValue()
+			trID = v.GetValue().GetTransactionId().GetValue()
 			break
 		}
 	}

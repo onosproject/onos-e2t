@@ -59,7 +59,7 @@ func (p *RICSubscriptionInitiator) Initiate(ctx context.Context, request *e2appd
 	var requestID int32 = -1
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(e2api.ProtocolIeIDRicrequestID) {
-			requestID = v.GetValue().GetRrId().GetRicRequestorId()
+			requestID = v.GetValue().GetRicrequestId().GetRicRequestorId()
 			break
 		}
 	}
@@ -137,14 +137,14 @@ func (p *RICSubscriptionInitiator) Handle(pdu *e2appdudescriptions.E2ApPdu) {
 	case *e2appdudescriptions.E2ApPdu_SuccessfulOutcome:
 		for _, v := range pdu.GetSuccessfulOutcome().GetValue().GetRicSubscription().GetProtocolIes() {
 			if v.Id == int32(e2api.ProtocolIeIDRicrequestID) {
-				requestID = v.GetValue().GetRrId().GetRicRequestorId()
+				requestID = v.GetValue().GetRicrequestId().GetRicRequestorId()
 				break
 			}
 		}
 	case *e2appdudescriptions.E2ApPdu_UnsuccessfulOutcome:
 		for _, v := range pdu.GetUnsuccessfulOutcome().GetValue().GetRicSubscription().GetProtocolIes() {
 			if v.Id == int32(e2api.ProtocolIeIDRicrequestID) {
-				requestID = v.GetValue().GetRrId().GetRicRequestorId()
+				requestID = v.GetValue().GetRicrequestId().GetRicRequestorId()
 				break
 			}
 		}
