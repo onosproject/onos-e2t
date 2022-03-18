@@ -41,23 +41,23 @@ func DecodeRicSubscriptionFailurePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (
 
 	for _, v := range ricSubscription.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-			if v.GetValue().GetRrId() == nil {
+			if v.GetValue().GetRicrequestId() == nil {
 				return nil, nil, 0, 0, 0, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RICrequestID (mandatory)")
 			}
-			ricRequestID.RequestorID = types.RicRequestorID(v.GetValue().GetRrId().GetRicRequestorId())
-			ricRequestID.InstanceID = types.RicInstanceID(v.GetValue().GetRrId().GetRicInstanceId())
+			ricRequestID.RequestorID = types.RicRequestorID(v.GetValue().GetRicrequestId().GetRicRequestorId())
+			ricRequestID.InstanceID = types.RicInstanceID(v.GetValue().GetRicrequestId().GetRicInstanceId())
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
-			if v.GetValue().GetRfId() == nil {
+			if v.GetValue().GetRanfunctionId() == nil {
 				return nil, nil, 0, 0, 0, nil, nil, nil, fmt.Errorf("error E2APpdu does not have id-RANfunctionID (mandatory)")
 			}
-			ranFunctionID = types.RanFunctionID(v.GetValue().GetRfId().GetValue())
+			ranFunctionID = types.RanFunctionID(v.GetValue().GetRanfunctionId().GetValue())
 		}
 		if v.Id == int32(v2.ProtocolIeIDCause) {
-			cause = v.GetValue().GetC()
+			cause = v.GetValue().GetCause()
 		}
 		if v.Id == int32(v2.ProtocolIeIDCriticalityDiagnostics) {
-			critDiagnostics := v.GetValue().GetCd()
+			critDiagnostics := v.GetValue().GetCriticalityDiagnostics()
 			if critDiagnostics != nil { //It's optional
 				pc = v2.ProcedureCodeT(critDiagnostics.GetProcedureCode().GetValue())
 				crit = critDiagnostics.GetProcedureCriticality()

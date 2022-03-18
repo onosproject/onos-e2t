@@ -28,21 +28,21 @@ func DecodeRicServiceUpdateAcknowledgePdu(e2apPdu *e2ap_pdu_descriptions.E2ApPdu
 	causes := make(types.RanFunctionCauses)
 	for _, v := range rsua.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAccepted) {
-			rfal := v.GetValue().GetRfIdl().GetValue().GetValue()
+			rfal := v.GetValue().GetRanfunctionsAccepted().GetValue().GetValue()
 			for _, ranFunctionIDItemIe := range rfal {
-				ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRfId()
+				ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRanfunctionIdItem()
 				id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
 				val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
 				ranFunctionsAcceptedList[id] = val
 			}
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsRejected) {
-			rfrl := v.GetValue().GetRfIdcl().GetValue().GetValue()
+			rfrl := v.GetValue().GetRanfunctionsRejected().GetValue().GetValue()
 			for _, rfri := range rfrl {
-				causes[types.RanFunctionID(rfri.GetValue().GetRfIdci().GetRanFunctionId().GetValue())] = rfri.GetValue().GetRfIdci().GetCause()
+				causes[types.RanFunctionID(rfri.GetValue().GetRanfunctionIecauseItem().GetRanFunctionId().GetValue())] = rfri.GetValue().GetRanfunctionIecauseItem().GetCause()
 			}
 		}
 	}

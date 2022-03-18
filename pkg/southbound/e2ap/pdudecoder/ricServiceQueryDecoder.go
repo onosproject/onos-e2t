@@ -26,14 +26,14 @@ func DecodeRicServiceQueryPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, typ
 	rfAccepted := make(types.RanFunctionRevisions)
 	for _, v := range rsq.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDRanfunctionsAccepted) {
-			ranFunctionsAcceptedIE := v.GetValue().GetRfIdl().GetValue()
+			ranFunctionsAcceptedIE := v.GetValue().GetRanfunctionsAccepted().GetValue()
 			if ranFunctionsAcceptedIE != nil {
 				// It's not mandatory
 				for _, ranFunctionIDItemIe := range ranFunctionsAcceptedIE.GetValue() {
-					ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRfId()
+					ranFunctionIDItem := ranFunctionIDItemIe.GetValue().GetRanfunctionIdItem()
 					id := types.RanFunctionID(ranFunctionIDItem.GetRanFunctionId().GetValue())
 					val := types.RanFunctionRevision(ranFunctionIDItem.GetRanFunctionRevision().GetValue())
 					rfAccepted[id] = val

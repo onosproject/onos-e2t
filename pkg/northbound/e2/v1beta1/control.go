@@ -176,7 +176,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		var co *e2ap_commondatatypes.RiccontrolOutcome
 		for _, v := range ack.GetProtocolIes() {
 			if v.Id == int32(v2.ProtocolIeIDRiccontrolOutcome) {
-				co = v.GetValue().GetCo()
+				co = v.GetValue().GetRiccontrolOutcome()
 				break
 			}
 		}
@@ -214,7 +214,7 @@ func getControlError(failure *e2appducontents.RiccontrolFailure) *e2api.Error {
 	var cause *e2apies.Cause
 	for _, v := range failure.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDCause) {
-			cause = v.GetValue().GetC()
+			cause = v.GetValue().GetCause()
 			break
 		}
 	}

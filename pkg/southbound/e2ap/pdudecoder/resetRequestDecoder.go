@@ -26,10 +26,10 @@ func DecodeResetRequestPdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*e2ap_ies.Caus
 	var cause *e2ap_ies.Cause
 	for _, v := range rr.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			trID = v.GetValue().GetTrId().GetValue()
+			trID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDCause) {
-			cause = v.GetValue().GetC()
+			cause = v.GetValue().GetCause()
 		}
 	}
 

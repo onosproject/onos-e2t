@@ -94,8 +94,8 @@ func createConnectionAddListIE(connToAddList []topoapi.Interface) *e2appduconten
 			Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2appducontents.E2ConnectionUpdateItemIe{
-				E2ConnectionUpdateItemIe: &e2appducontents.E2ConnectionUpdateItemIe_E2Curi{
-					E2Curi: &e2appducontents.E2ConnectionUpdateItem{
+				E2ConnectionUpdateItemIe: &e2appducontents.E2ConnectionUpdateItemIe_E2ConnectionUpdateItem{
+					E2ConnectionUpdateItem: &e2appducontents.E2ConnectionUpdateItem{
 						TnlInformation: &e2apies.Tnlinformation{
 							TnlPort: &asn1.BitString{
 								Value: portBytes,
@@ -118,8 +118,8 @@ func createConnectionAddListIE(connToAddList []topoapi.Interface) *e2appduconten
 		Id:          int32(v2.ProtocolIeIDE2connectionUpdateAdd),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.E2ConnectionUpdateIe{
-			E2ConnectionUpdateIe: &e2appducontents.E2ConnectionUpdateIe_E2Cul{
-				E2Cul: connectionAddList,
+			E2ConnectionUpdateIe: &e2appducontents.E2ConnectionUpdateIe_E2ConnectionUpdateAdd{
+				E2ConnectionUpdateAdd: connectionAddList,
 			},
 		},
 	}
@@ -140,8 +140,8 @@ func createConnectionRemoveList(connToRemoveList []topoapi.Interface) *e2appduco
 			Id:          int32(v2.ProtocolIeIDE2connectionUpdateRemoveItem),
 			Criticality: int32(e2apcommondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &e2appducontents.E2ConnectionUpdateRemoveItemIe{
-				E2ConnectionUpdateRemoveItemIe: &e2appducontents.E2ConnectionUpdateRemoveItemIe_E2Curi{
-					E2Curi: &e2appducontents.E2ConnectionUpdateRemoveItem{
+				E2ConnectionUpdateRemoveItemIe: &e2appducontents.E2ConnectionUpdateRemoveItemIe_E2ConnectionUpdateRemoveItem{
+					E2ConnectionUpdateRemoveItem: &e2appducontents.E2ConnectionUpdateRemoveItem{
 						TnlInformation: &e2apies.Tnlinformation{
 							TnlPort: &asn1.BitString{
 								Value: portBytes,
@@ -163,8 +163,8 @@ func createConnectionRemoveList(connToRemoveList []topoapi.Interface) *e2appduco
 		Id:          int32(v2.ProtocolIeIDE2connectionUpdateRemove),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &e2appducontents.E2ConnectionUpdateIe{
-			E2ConnectionUpdateIe: &e2appducontents.E2ConnectionUpdateIe_E2Curl{
-				E2Curl: connectionRemoveList,
+			E2ConnectionUpdateIe: &e2appducontents.E2ConnectionUpdateIe_E2ConnectionUpdateRemove{
+				E2ConnectionUpdateRemove: connectionRemoveList,
 			},
 		},
 	}
@@ -218,11 +218,11 @@ func (c *ConnectionUpdate) Build() *e2appducontents.E2ConnectionUpdate {
 	}
 	connectionUpdateRequest.SetTransactionID(c.transactionID)
 
-	if c.connectionAddList != nil && len(c.connectionAddList.GetValue().GetE2Cul().GetValue()) != 0 {
+	if c.connectionAddList != nil && len(c.connectionAddList.GetValue().GetE2ConnectionUpdateAdd().GetValue()) != 0 {
 		connectionUpdateRequest.ProtocolIes = append(connectionUpdateRequest.ProtocolIes, c.connectionAddList)
 
 	}
-	if c.connectionRemoveList != nil && len(c.connectionRemoveList.GetValue().GetE2Curl().GetValue()) != 0 {
+	if c.connectionRemoveList != nil && len(c.connectionRemoveList.GetValue().GetE2ConnectionUpdateRemove().GetValue()) != 0 {
 		connectionUpdateRequest.ProtocolIes = append(connectionUpdateRequest.ProtocolIes, c.connectionRemoveList)
 	}
 

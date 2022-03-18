@@ -18,8 +18,8 @@ func (m *E2SetupRequest) SetTransactionID(trID int32) *E2SetupRequest {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupRequestIe{
-			E2SetupRequestIe: &E2SetupRequestIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2SetupRequestIe: &E2SetupRequestIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -36,8 +36,8 @@ func (m *E2SetupRequest) SetGlobalE2nodeID(e2NodeID *e2ap_ies.GlobalE2NodeId) *E
 		Id:          int32(v2.ProtocolIeIDGlobalE2nodeID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupRequestIe{
-			E2SetupRequestIe: &E2SetupRequestIe_GE2NId{
-				GE2NId: e2NodeID,
+			E2SetupRequestIe: &E2SetupRequestIe_GlobalE2NodeId{
+				GlobalE2NodeId: e2NodeID,
 			},
 		},
 	}
@@ -57,8 +57,8 @@ func (m *E2SetupRequest) SetRanFunctionsAdded(rfal types.RanFunctions) *E2SetupR
 			Id:          int32(v2.ProtocolIeIDRanfunctionItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionItemIe{
-				RanfunctionItemIe: &RanfunctionItemIe_Rfi{
-					Rfi: &RanfunctionItem{
+				RanfunctionItemIe: &RanfunctionItemIe_RanfunctionItem{
+					RanfunctionItem: &RanfunctionItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(id),
 						},
@@ -82,8 +82,8 @@ func (m *E2SetupRequest) SetRanFunctionsAdded(rfal types.RanFunctions) *E2SetupR
 		Id:          int32(v2.ProtocolIeIDRanfunctionsAdded),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupRequestIe{
-			E2SetupRequestIe: &E2SetupRequestIe_Rfl{
-				Rfl: rfl,
+			E2SetupRequestIe: &E2SetupRequestIe_RanfunctionsAdded{
+				RanfunctionsAdded: rfl,
 			},
 		},
 	}
@@ -102,8 +102,8 @@ func (m *E2SetupRequest) SetE2nodeComponentConfigAddition(e2nccul []*types.E2Nod
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeComponentConfigAdditionItemIe{
-				E2NodeComponentConfigAdditionItemIe: &E2NodeComponentConfigAdditionItemIe_E2Nccui{
-					E2Nccui: &E2NodeComponentConfigAdditionItem{
+				E2NodeComponentConfigAdditionItemIe: &E2NodeComponentConfigAdditionItemIe_E2NodeComponentConfigAdditionItem{
+					E2NodeComponentConfigAdditionItem: &E2NodeComponentConfigAdditionItem{
 						E2NodeComponentInterfaceType: e2nccui.E2NodeComponentType,
 						E2NodeComponentId:            e2nccui.E2NodeComponentID,
 						E2NodeComponentConfiguration: &e2nccui.E2NodeComponentConfiguration,
@@ -118,8 +118,8 @@ func (m *E2SetupRequest) SetE2nodeComponentConfigAddition(e2nccul []*types.E2Nod
 		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAddition),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupRequestIe{
-			E2SetupRequestIe: &E2SetupRequestIe_E2Nccal{
-				E2Nccal: &configAdditionList,
+			E2SetupRequestIe: &E2SetupRequestIe_E2NodeComponentConfigAddition{
+				E2NodeComponentConfigAddition: &configAdditionList,
 			},
 		},
 	}
@@ -134,8 +134,8 @@ func (m *E2SetupResponse) SetTransactionID(trID int32) *E2SetupResponse {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupResponseIe{
-			E2SetupResponseIe: &E2SetupResponseIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2SetupResponseIe: &E2SetupResponseIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -152,8 +152,8 @@ func (m *E2SetupResponse) SetGlobalRicID(plmnID types.PlmnID, ricID types.RicIde
 		Id:          int32(v2.ProtocolIeIDGlobalRicID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupResponseIe{
-			E2SetupResponseIe: &E2SetupResponseIe_GRicId{
-				GRicId: &e2ap_ies.GlobalRicId{
+			E2SetupResponseIe: &E2SetupResponseIe_GlobalRicId{
+				GlobalRicId: &e2ap_ies.GlobalRicId{
 					PLmnIdentity: &e2ap_commondatatypes.PlmnIdentity{
 						Value: []byte{plmnID[0], plmnID[1], plmnID[2]},
 					},
@@ -180,8 +180,8 @@ func (m *E2SetupResponse) SetE2nodeComponentConfigAdditionAck(e2nccul []*types.E
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAckItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeComponentConfigAdditionAckItemIe{
-				E2NodeComponentConfigAdditionAckItemIe: &E2NodeComponentConfigAdditionAckItemIe_E2Nccaai{
-					E2Nccaai: &E2NodeComponentConfigAdditionAckItem{
+				E2NodeComponentConfigAdditionAckItemIe: &E2NodeComponentConfigAdditionAckItemIe_E2NodeComponentConfigAdditionAckItem{
+					E2NodeComponentConfigAdditionAckItem: &E2NodeComponentConfigAdditionAckItem{
 						E2NodeComponentInterfaceType:    e2nccui.E2NodeComponentType,
 						E2NodeComponentId:               e2nccui.E2NodeComponentID,
 						E2NodeComponentConfigurationAck: &e2nccui.E2NodeComponentConfigurationAck,
@@ -196,8 +196,8 @@ func (m *E2SetupResponse) SetE2nodeComponentConfigAdditionAck(e2nccul []*types.E
 		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAck),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupResponseIe{
-			E2SetupResponseIe: &E2SetupResponseIe_E2Nccaal{
-				E2Nccaal: &configAdditionAckList,
+			E2SetupResponseIe: &E2SetupResponseIe_E2NodeComponentConfigAdditionAck{
+				E2NodeComponentConfigAdditionAck: &configAdditionAckList,
 			},
 		},
 	}
@@ -217,8 +217,8 @@ func (m *E2SetupResponse) SetRanFunctionRejected(rfRejected types.RanFunctionCau
 			Id:          int32(v2.ProtocolIeIDRanfunctionIeCauseItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionIdcauseItemIe{
-				RanfunctionIdcauseItemIe: &RanfunctionIdcauseItemIe_RfIdci{
-					RfIdci: &RanfunctionIdcauseItem{
+				RanfunctionIdcauseItemIe: &RanfunctionIdcauseItemIe_RanfunctionIecauseItem{
+					RanfunctionIecauseItem: &RanfunctionIdcauseItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(id),
 						},
@@ -230,23 +230,23 @@ func (m *E2SetupResponse) SetRanFunctionRejected(rfRejected types.RanFunctionCau
 
 		switch cause.GetCause().(type) {
 		case *e2ap_ies.Cause_Misc:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_Misc{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_Misc{
 				Misc: cause.GetMisc(),
 			}
 		case *e2ap_ies.Cause_Protocol:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_Protocol{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_Protocol{
 				Protocol: cause.GetProtocol(),
 			}
 		case *e2ap_ies.Cause_RicService:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_RicService{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_RicService{
 				RicService: cause.GetRicService(),
 			}
 		case *e2ap_ies.Cause_RicRequest:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_RicRequest{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_RicRequest{
 				RicRequest: cause.GetRicRequest(),
 			}
 		case *e2ap_ies.Cause_Transport:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_Transport{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_Transport{
 				Transport: cause.GetTransport(),
 			}
 
@@ -260,8 +260,8 @@ func (m *E2SetupResponse) SetRanFunctionRejected(rfRejected types.RanFunctionCau
 		Id:          int32(v2.ProtocolIeIDRanfunctionsRejected),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupResponseIe{
-			E2SetupResponseIe: &E2SetupResponseIe_RfIdcl{
-				RfIdcl: &rfrl,
+			E2SetupResponseIe: &E2SetupResponseIe_RanfunctionsRejected{
+				RanfunctionsRejected: &rfrl,
 			},
 		},
 	}
@@ -281,8 +281,8 @@ func (m *E2SetupResponse) SetRanFunctionAccepted(rfAccepted types.RanFunctionRev
 			Id:          int32(v2.ProtocolIeIDRanfunctionIDItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionIdItemIe{
-				RanfunctionIdItemIe: &RanfunctionIdItemIe_RfId{
-					RfId: &RanfunctionIdItem{
+				RanfunctionIdItemIe: &RanfunctionIdItemIe_RanfunctionIdItem{
+					RanfunctionIdItem: &RanfunctionIdItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(rfID),
 						},
@@ -300,8 +300,8 @@ func (m *E2SetupResponse) SetRanFunctionAccepted(rfAccepted types.RanFunctionRev
 		Id:          int32(v2.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupResponseIe{
-			E2SetupResponseIe: &E2SetupResponseIe_RfIdl{
-				RfIdl: &rfl,
+			E2SetupResponseIe: &E2SetupResponseIe_RanfunctionsAccepted{
+				RanfunctionsAccepted: &rfl,
 			},
 		},
 	}
@@ -316,8 +316,8 @@ func (m *E2SetupFailure) SetTransactionID(trID int32) *E2SetupFailure {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2SetupFailureIe{
-			E2SetupFailureIe: &E2SetupFailureIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2SetupFailureIe: &E2SetupFailureIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -334,8 +334,8 @@ func (m *E2SetupFailure) SetErrorCause(cause *e2ap_ies.Cause) *E2SetupFailure {
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2SetupFailureIe{
-			E2SetupFailureIe: &E2SetupFailureIe_C{
-				C: cause,
+			E2SetupFailureIe: &E2SetupFailureIe_Cause{
+				Cause: cause,
 			},
 		},
 	}
@@ -352,8 +352,8 @@ func (m *E2SetupFailure) SetCriticalityDiagnostics(failureProcCode *v2.Procedure
 		Id:          int32(v2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2SetupFailureIe{
-			E2SetupFailureIe: &E2SetupFailureIe_Cd{
-				Cd: &e2ap_ies.CriticalityDiagnostics{
+			E2SetupFailureIe: &E2SetupFailureIe_CriticalityDiagnostics{
+				CriticalityDiagnostics: &e2ap_ies.CriticalityDiagnostics{
 					ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 						Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 					},
@@ -383,7 +383,7 @@ func (m *E2SetupFailure) SetCriticalityDiagnostics(failureProcCode *v2.Procedure
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
-		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
+		ie.GetValue().GetCriticalityDiagnostics().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -396,8 +396,8 @@ func (m *E2SetupFailure) SetTimeToWait(ttw e2ap_ies.TimeToWait) *E2SetupFailure 
 		Id:          int32(v2.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2SetupFailureIe{
-			E2SetupFailureIe: &E2SetupFailureIe_Ttw{
-				Ttw: ttw,
+			E2SetupFailureIe: &E2SetupFailureIe_TimeToWait{
+				TimeToWait: ttw,
 			},
 		},
 	}
@@ -412,8 +412,8 @@ func (m *E2SetupFailure) SetTnlInformation(tnl *e2ap_ies.Tnlinformation) *E2Setu
 		Id:          int32(v2.ProtocolIeIDTNLinformation),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2SetupFailureIe{
-			E2SetupFailureIe: &E2SetupFailureIe_TnlInfo{
-				TnlInfo: tnl,
+			E2SetupFailureIe: &E2SetupFailureIe_TnlInformation{
+				TnlInformation: tnl,
 			},
 		},
 	}
@@ -428,8 +428,8 @@ func (m *E2NodeConfigurationUpdate) SetTransactionID(trID int32) *E2NodeConfigur
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateIe{
-			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -446,8 +446,8 @@ func (m *E2NodeConfigurationUpdate) SetGlobalE2nodeID(e2NodeID *e2ap_ies.GlobalE
 		Id:          int32(v2.ProtocolIeIDGlobalE2nodeID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateIe{
-			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_Ge2NId{
-				Ge2NId: e2NodeID,
+			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_GlobalE2NodeId{
+				GlobalE2NodeId: e2NodeID,
 			},
 		},
 	}
@@ -466,8 +466,8 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeComponentConfigAddition(e2nccul []*
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeComponentConfigAdditionItemIe{
-				E2NodeComponentConfigAdditionItemIe: &E2NodeComponentConfigAdditionItemIe_E2Nccui{
-					E2Nccui: &E2NodeComponentConfigAdditionItem{
+				E2NodeComponentConfigAdditionItemIe: &E2NodeComponentConfigAdditionItemIe_E2NodeComponentConfigAdditionItem{
+					E2NodeComponentConfigAdditionItem: &E2NodeComponentConfigAdditionItem{
 						E2NodeComponentInterfaceType: e2nccui.E2NodeComponentType,
 						E2NodeComponentId:            e2nccui.E2NodeComponentID,
 						E2NodeComponentConfiguration: &e2nccui.E2NodeComponentConfiguration,
@@ -482,8 +482,8 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeComponentConfigAddition(e2nccul []*
 		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAddition),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateIe{
-			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_E2Nccal{
-				E2Nccal: &configAdditionList,
+			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_E2NodeComponentConfigAddition{
+				E2NodeComponentConfigAddition: &configAdditionList,
 			},
 		},
 	}
@@ -502,8 +502,8 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeComponentConfigUpdate(e2nccul []*ty
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigUpdateItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeComponentConfigUpdateItemIe{
-				E2NodeComponentConfigUpdateItemIe: &E2NodeComponentConfigUpdateItemIe_E2Nccui{
-					E2Nccui: &E2NodeComponentConfigUpdateItem{
+				E2NodeComponentConfigUpdateItemIe: &E2NodeComponentConfigUpdateItemIe_E2NodeComponentConfigUpdateItem{
+					E2NodeComponentConfigUpdateItem: &E2NodeComponentConfigUpdateItem{
 						E2NodeComponentInterfaceType: e2nccui.E2NodeComponentType,
 						E2NodeComponentId:            e2nccui.E2NodeComponentID,
 						E2NodeComponentConfiguration: &e2nccui.E2NodeComponentConfiguration,
@@ -518,8 +518,8 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeComponentConfigUpdate(e2nccul []*ty
 		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigUpdate),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateIe{
-			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_E2Nccul{
-				E2Nccul: &configUpdateList,
+			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_E2NodeComponentConfigUpdate{
+				E2NodeComponentConfigUpdate: &configUpdateList,
 			},
 		},
 	}
@@ -538,8 +538,8 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeComponentConfigRemoval(e2nccul []*t
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigRemovalItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeComponentConfigRemovalItemIe{
-				E2NodeComponentConfigRemovalItemIe: &E2NodeComponentConfigRemovalItemIe_E2Nccri{
-					E2Nccri: &E2NodeComponentConfigRemovalItem{
+				E2NodeComponentConfigRemovalItemIe: &E2NodeComponentConfigRemovalItemIe_E2NodeComponentConfigRemovalItem{
+					E2NodeComponentConfigRemovalItem: &E2NodeComponentConfigRemovalItem{
 						E2NodeComponentInterfaceType: e2nccui.E2NodeComponentType,
 						E2NodeComponentId:            e2nccui.E2NodeComponentID,
 					},
@@ -553,8 +553,8 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeComponentConfigRemoval(e2nccul []*t
 		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigRemoval),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateIe{
-			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_E2Nccrl{
-				E2Nccrl: &configRemovalList,
+			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_E2NodeComponentConfigRemoval{
+				E2NodeComponentConfigRemoval: &configRemovalList,
 			},
 		},
 	}
@@ -573,8 +573,8 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeTnlAssociationRemoval(e2ntnlar []*t
 			Id:          int32(v2.ProtocolIeIDE2nodeTNLassociationRemovalItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeTnlassociationRemovalItemIe{
-				E2NodeTnlassociationRemovalItemIe: &E2NodeTnlassociationRemovalItemIe_E2Ntnlai{
-					E2Ntnlai: &E2NodeTnlassociationRemovalItem{
+				E2NodeTnlassociationRemovalItemIe: &E2NodeTnlassociationRemovalItemIe_E2NodeTnlassociationRemovalItem{
+					E2NodeTnlassociationRemovalItem: &E2NodeTnlassociationRemovalItem{
 						TnlInformation: &e2ap_ies.Tnlinformation{
 							TnlAddress: &e2ntnlari.TnlInformation.TnlAddress,
 							//TnlPort:    e2ntnlari.TnlInformation.TnlPort,
@@ -588,10 +588,10 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeTnlAssociationRemoval(e2ntnlar []*t
 			},
 		}
 		if e2ntnlari.TnlInformation.TnlPort != nil {
-			cui.GetValue().GetE2Ntnlai().GetTnlInformation().TnlPort = e2ntnlari.TnlInformation.TnlPort
+			cui.GetValue().GetE2NodeTnlassociationRemovalItem().GetTnlInformation().TnlPort = e2ntnlari.TnlInformation.TnlPort
 		}
 		if e2ntnlari.TnlInformationRic.TnlPort != nil {
-			cui.GetValue().GetE2Ntnlai().GetTnlInformationRic().TnlPort = e2ntnlari.TnlInformationRic.TnlPort
+			cui.GetValue().GetE2NodeTnlassociationRemovalItem().GetTnlInformationRic().TnlPort = e2ntnlari.TnlInformationRic.TnlPort
 		}
 		tnlar.Value = append(tnlar.Value, cui)
 	}
@@ -600,8 +600,8 @@ func (m *E2NodeConfigurationUpdate) SetE2nodeTnlAssociationRemoval(e2ntnlar []*t
 		Id:          int32(v2.ProtocolIeIDE2nodeTNLassociationRemoval),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateIe{
-			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_E2Ntnlarl{
-				E2Ntnlarl: &tnlar,
+			E2NodeConfigurationUpdateIe: &E2NodeConfigurationUpdateIe_E2NodeTnlassociationRemoval{
+				E2NodeTnlassociationRemoval: &tnlar,
 			},
 		},
 	}
@@ -616,8 +616,8 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetTransactionID(trID int32) *E2N
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateAcknowledgeIe{
-			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -638,8 +638,8 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigAdditionA
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAckItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeComponentConfigAdditionAckItemIe{
-				E2NodeComponentConfigAdditionAckItemIe: &E2NodeComponentConfigAdditionAckItemIe_E2Nccaai{
-					E2Nccaai: &E2NodeComponentConfigAdditionAckItem{
+				E2NodeComponentConfigAdditionAckItemIe: &E2NodeComponentConfigAdditionAckItemIe_E2NodeComponentConfigAdditionAckItem{
+					E2NodeComponentConfigAdditionAckItem: &E2NodeComponentConfigAdditionAckItem{
 						E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
 						E2NodeComponentId:            e2nccuai.E2NodeComponentID,
 						E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
@@ -651,10 +651,10 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigAdditionA
 			},
 		}
 		if e2nccuai.E2NodeComponentID != nil {
-			cuai.GetValue().GetE2Nccaai().E2NodeComponentId = e2nccuai.E2NodeComponentID
+			cuai.GetValue().GetE2NodeComponentConfigAdditionAckItem().E2NodeComponentId = e2nccuai.E2NodeComponentID
 		}
 		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
-			cuai.GetValue().GetE2Nccaai().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
+			cuai.GetValue().GetE2NodeComponentConfigAdditionAckItem().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
 		}
 
 		configAdditionAckList.Value = append(configAdditionAckList.Value, cuai)
@@ -664,8 +664,8 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigAdditionA
 		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigAdditionAck),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateAcknowledgeIe{
-			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2Nccaal{
-				E2Nccaal: &configAdditionAckList,
+			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2NodeComponentConfigAdditionAck{
+				E2NodeComponentConfigAdditionAck: &configAdditionAckList,
 			},
 		},
 	}
@@ -684,8 +684,8 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigUpdateAck
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigUpdateAckItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeComponentConfigUpdateAckItemIe{
-				E2NodeComponentConfigUpdateAckItemIe: &E2NodeComponentConfigUpdateAckItemIe_E2Nccuai{
-					E2Nccuai: &E2NodeComponentConfigUpdateAckItem{
+				E2NodeComponentConfigUpdateAckItemIe: &E2NodeComponentConfigUpdateAckItemIe_E2NodeComponentConfigUpdateAckItem{
+					E2NodeComponentConfigUpdateAckItem: &E2NodeComponentConfigUpdateAckItem{
 						E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
 						E2NodeComponentId:            e2nccuai.E2NodeComponentID,
 						E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
@@ -697,10 +697,10 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigUpdateAck
 			},
 		}
 		if e2nccuai.E2NodeComponentID != nil {
-			cuai.GetValue().GetE2Nccuai().E2NodeComponentId = e2nccuai.E2NodeComponentID
+			cuai.GetValue().GetE2NodeComponentConfigUpdateAckItem().E2NodeComponentId = e2nccuai.E2NodeComponentID
 		}
 		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
-			cuai.GetValue().GetE2Nccuai().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
+			cuai.GetValue().GetE2NodeComponentConfigUpdateAckItem().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
 		}
 
 		configUpdateAckList.Value = append(configUpdateAckList.Value, cuai)
@@ -710,8 +710,8 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigUpdateAck
 		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigUpdateAck),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateAcknowledgeIe{
-			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2Nccual{
-				E2Nccual: &configUpdateAckList,
+			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2NodeComponentConfigUpdateAck{
+				E2NodeComponentConfigUpdateAck: &configUpdateAckList,
 			},
 		},
 	}
@@ -730,8 +730,8 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigRemovalAc
 			Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigRemovalAckItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 			Value: &E2NodeComponentConfigRemovalAckItemIe{
-				E2NodeComponentConfigRemovalAckItemIe: &E2NodeComponentConfigRemovalAckItemIe_E2Nccrai{
-					E2Nccrai: &E2NodeComponentConfigRemovalAckItem{
+				E2NodeComponentConfigRemovalAckItemIe: &E2NodeComponentConfigRemovalAckItemIe_E2NodeComponentConfigRemovalAckItem{
+					E2NodeComponentConfigRemovalAckItem: &E2NodeComponentConfigRemovalAckItem{
 						E2NodeComponentInterfaceType: e2nccuai.E2NodeComponentType,
 						E2NodeComponentId:            e2nccuai.E2NodeComponentID,
 						E2NodeComponentConfigurationAck: &e2ap_ies.E2NodeComponentConfigurationAck{
@@ -743,10 +743,10 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigRemovalAc
 			},
 		}
 		if e2nccuai.E2NodeComponentID != nil {
-			cuai.GetValue().GetE2Nccrai().E2NodeComponentId = e2nccuai.E2NodeComponentID
+			cuai.GetValue().GetE2NodeComponentConfigRemovalAckItem().E2NodeComponentId = e2nccuai.E2NodeComponentID
 		}
 		if e2nccuai.E2NodeComponentConfigurationAck.FailureCause != nil {
-			cuai.GetValue().GetE2Nccrai().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
+			cuai.GetValue().GetE2NodeComponentConfigRemovalAckItem().E2NodeComponentConfigurationAck.FailureCause = e2nccuai.E2NodeComponentConfigurationAck.FailureCause
 		}
 
 		configRemovalAckList.Value = append(configRemovalAckList.Value, cuai)
@@ -756,8 +756,8 @@ func (m *E2NodeConfigurationUpdateAcknowledge) SetE2nodeComponentConfigRemovalAc
 		Id:          int32(v2.ProtocolIeIDE2nodeComponentConfigRemovalAck),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateAcknowledgeIe{
-			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2Nccral{
-				E2Nccral: &configRemovalAckList,
+			E2NodeConfigurationUpdateAcknowledgeIe: &E2NodeConfigurationUpdateAcknowledgeIe_E2NodeComponentConfigRemovalAck{
+				E2NodeComponentConfigRemovalAck: &configRemovalAckList,
 			},
 		},
 	}
@@ -774,8 +774,8 @@ func (m *E2NodeConfigurationUpdateFailure) SetCriticalityDiagnostics(failureProc
 		Id:          int32(v2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2NodeConfigurationUpdateFailureIe{
-			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_Cd{
-				Cd: &e2ap_ies.CriticalityDiagnostics{
+			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_CriticalityDiagnostics{
+				CriticalityDiagnostics: &e2ap_ies.CriticalityDiagnostics{
 					ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 						Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 					},
@@ -805,7 +805,7 @@ func (m *E2NodeConfigurationUpdateFailure) SetCriticalityDiagnostics(failureProc
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
-		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
+		ie.GetValue().GetCriticalityDiagnostics().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -818,8 +818,8 @@ func (m *E2NodeConfigurationUpdateFailure) SetCause(c *e2ap_ies.Cause) *E2NodeCo
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2NodeConfigurationUpdateFailureIe{
-			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_C{
-				C: c,
+			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_Cause{
+				Cause: c,
 			},
 		},
 	}
@@ -834,8 +834,8 @@ func (m *E2NodeConfigurationUpdateFailure) SetTimeToWait(ttw e2ap_ies.TimeToWait
 		Id:          int32(v2.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2NodeConfigurationUpdateFailureIe{
-			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_Ttw{
-				Ttw: ttw,
+			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_TimeToWait{
+				TimeToWait: ttw,
 			},
 		},
 	}
@@ -851,8 +851,8 @@ func (m *E2NodeConfigurationUpdateFailure) SetTransactionID(trID int32) *E2NodeC
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2NodeConfigurationUpdateFailureIe{
-			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2NodeConfigurationUpdateFailureIe: &E2NodeConfigurationUpdateFailureIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -869,8 +869,8 @@ func (m *E2ConnectionUpdateFailure) SetTransactionID(trID int32) *E2ConnectionUp
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateFailureIe{
-			E2ConnectionUpdateFailureIe: &E2ConnectionUpdateFailureIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2ConnectionUpdateFailureIe: &E2ConnectionUpdateFailureIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -918,8 +918,8 @@ func (m *E2ConnectionUpdateFailure) SetCriticalityDiagnostics(failureProcCode *v
 		Id:          int32(v2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2ConnectionUpdateFailureIe{
-			E2ConnectionUpdateFailureIe: &E2ConnectionUpdateFailureIe_Cd{
-				Cd: criticalityDiagnostics,
+			E2ConnectionUpdateFailureIe: &E2ConnectionUpdateFailureIe_CriticalityDiagnostics{
+				CriticalityDiagnostics: criticalityDiagnostics,
 			},
 		},
 	}
@@ -934,8 +934,8 @@ func (m *E2ConnectionUpdateFailure) SetTimeToWait(ttw e2ap_ies.TimeToWait) *E2Co
 		Id:          int32(v2.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &E2ConnectionUpdateFailureIe{
-			E2ConnectionUpdateFailureIe: &E2ConnectionUpdateFailureIe_Ttw{
-				Ttw: ttw,
+			E2ConnectionUpdateFailureIe: &E2ConnectionUpdateFailureIe_TimeToWait{
+				TimeToWait: ttw,
 			},
 		},
 	}
@@ -950,8 +950,8 @@ func (m *E2ConnectionUpdateFailure) SetCause(c *e2ap_ies.Cause) *E2ConnectionUpd
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateFailureIe{
-			E2ConnectionUpdateFailureIe: &E2ConnectionUpdateFailureIe_C{
-				C: c,
+			E2ConnectionUpdateFailureIe: &E2ConnectionUpdateFailureIe_Cause{
+				Cause: c,
 			},
 		},
 	}
@@ -966,8 +966,8 @@ func (m *E2ConnectionUpdateAcknowledge) SetTransactionID(trID int32) *E2Connecti
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateAckIe{
-			E2ConnectionUpdateAckIe: &E2ConnectionUpdateAckIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2ConnectionUpdateAckIe: &E2ConnectionUpdateAckIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -984,8 +984,8 @@ func (m *E2ConnectionUpdateAcknowledge) SetE2ConnectionSetup(connSetup []*types.
 		Id:          int32(v2.ProtocolIeIDE2connectionSetup),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateAckIe{
-			E2ConnectionUpdateAckIe: &E2ConnectionUpdateAckIe_E2Cul{
-				E2Cul: &E2ConnectionUpdateList{
+			E2ConnectionUpdateAckIe: &E2ConnectionUpdateAckIe_E2ConnectionSetup{
+				E2ConnectionSetup: &E2ConnectionUpdateList{
 					Value: make([]*E2ConnectionUpdateItemIes, 0),
 				},
 			},
@@ -997,8 +997,8 @@ func (m *E2ConnectionUpdateAcknowledge) SetE2ConnectionSetup(connSetup []*types.
 			Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &E2ConnectionUpdateItemIe{
-				E2ConnectionUpdateItemIe: &E2ConnectionUpdateItemIe_E2Curi{
-					E2Curi: &E2ConnectionUpdateItem{
+				E2ConnectionUpdateItemIe: &E2ConnectionUpdateItemIe_E2ConnectionUpdateItem{
+					E2ConnectionUpdateItem: &E2ConnectionUpdateItem{
 						TnlInformation: &e2ap_ies.Tnlinformation{
 							TnlPort:    setupItem.TnlInformation.TnlPort,
 							TnlAddress: &setupItem.TnlInformation.TnlAddress,
@@ -1008,7 +1008,7 @@ func (m *E2ConnectionUpdateAcknowledge) SetE2ConnectionSetup(connSetup []*types.
 				},
 			},
 		}
-		ie.GetValue().GetE2Cul().Value = append(ie.GetValue().GetE2Cul().Value, si)
+		ie.GetValue().GetE2ConnectionSetup().Value = append(ie.GetValue().GetE2ConnectionSetup().Value, si)
 	}
 	m.ProtocolIes = append(m.ProtocolIes, ie)
 	return m
@@ -1020,8 +1020,8 @@ func (m *E2ConnectionUpdateAcknowledge) SetE2ConnectionSetupFailed(connSetFail [
 		Id:          int32(v2.ProtocolIeIDE2connectionSetupFailed),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateAckIe{
-			E2ConnectionUpdateAckIe: &E2ConnectionUpdateAckIe_E2Csfl{
-				E2Csfl: &E2ConnectionSetupFailedList{
+			E2ConnectionUpdateAckIe: &E2ConnectionUpdateAckIe_E2ConnectionSetupFailed{
+				E2ConnectionSetupFailed: &E2ConnectionSetupFailedList{
 					Value: make([]*E2ConnectionSetupFailedItemIes, 0),
 				},
 			},
@@ -1033,8 +1033,8 @@ func (m *E2ConnectionUpdateAcknowledge) SetE2ConnectionSetupFailed(connSetFail [
 			Id:          int32(v2.ProtocolIeIDE2connectionSetupFailedItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &E2ConnectionSetupFailedItemIe{
-				E2ConnectionSetupFailedItemIe: &E2ConnectionSetupFailedItemIe_E2Csfi{
-					E2Csfi: &E2ConnectionSetupFailedItem{
+				E2ConnectionSetupFailedItemIe: &E2ConnectionSetupFailedItemIe_E2ConnectionSetupFailedItem{
+					E2ConnectionSetupFailedItem: &E2ConnectionSetupFailedItem{
 						TnlInformation: &e2ap_ies.Tnlinformation{
 							TnlPort:    sfItem.TnlInformation.TnlPort,
 							TnlAddress: &sfItem.TnlInformation.TnlAddress,
@@ -1044,7 +1044,7 @@ func (m *E2ConnectionUpdateAcknowledge) SetE2ConnectionSetupFailed(connSetFail [
 				},
 			},
 		}
-		ie.GetValue().GetE2Csfl().Value = append(ie.GetValue().GetE2Csfl().Value, sfi)
+		ie.GetValue().GetE2ConnectionSetupFailed().Value = append(ie.GetValue().GetE2ConnectionSetupFailed().Value, sfi)
 	}
 	m.ProtocolIes = append(m.ProtocolIes, ie)
 	return m
@@ -1056,8 +1056,8 @@ func (m *E2ConnectionUpdate) SetTransactionID(trID int32) *E2ConnectionUpdate {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateIe{
-			E2ConnectionUpdateIe: &E2ConnectionUpdateIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			E2ConnectionUpdateIe: &E2ConnectionUpdateIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -1075,8 +1075,8 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateAdd(addItems []*types.E2Connec
 		Id:          int32(v2.ProtocolIeIDE2connectionUpdateAdd),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateIe{
-			E2ConnectionUpdateIe: &E2ConnectionUpdateIe_E2Cul{
-				E2Cul: &E2ConnectionUpdateList{
+			E2ConnectionUpdateIe: &E2ConnectionUpdateIe_E2ConnectionUpdateAdd{
+				E2ConnectionUpdateAdd: &E2ConnectionUpdateList{
 					Value: make([]*E2ConnectionUpdateItemIes, 0),
 				},
 			},
@@ -1088,8 +1088,8 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateAdd(addItems []*types.E2Connec
 			Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &E2ConnectionUpdateItemIe{
-				E2ConnectionUpdateItemIe: &E2ConnectionUpdateItemIe_E2Curi{
-					E2Curi: &E2ConnectionUpdateItem{
+				E2ConnectionUpdateItemIe: &E2ConnectionUpdateItemIe_E2ConnectionUpdateItem{
+					E2ConnectionUpdateItem: &E2ConnectionUpdateItem{
 						TnlInformation: &e2ap_ies.Tnlinformation{
 							TnlPort:    addItem.TnlInformation.TnlPort,
 							TnlAddress: &addItem.TnlInformation.TnlAddress,
@@ -1099,7 +1099,7 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateAdd(addItems []*types.E2Connec
 				},
 			},
 		}
-		ie.GetValue().GetE2Cul().Value = append(ie.GetValue().GetE2Cul().Value, cai)
+		ie.GetValue().GetE2ConnectionUpdateAdd().Value = append(ie.GetValue().GetE2ConnectionUpdateAdd().Value, cai)
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -1112,8 +1112,8 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateModify(modifyItems []*types.E2
 		Id:          int32(v2.ProtocolIeIDE2connectionUpdateModify),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateIe{
-			E2ConnectionUpdateIe: &E2ConnectionUpdateIe_E2Cul{
-				E2Cul: &E2ConnectionUpdateList{
+			E2ConnectionUpdateIe: &E2ConnectionUpdateIe_E2ConnectionUpdateModify{
+				E2ConnectionUpdateModify: &E2ConnectionUpdateList{
 					Value: make([]*E2ConnectionUpdateItemIes, 0),
 				},
 			},
@@ -1125,8 +1125,8 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateModify(modifyItems []*types.E2
 			Id:          int32(v2.ProtocolIeIDE2connectionUpdateItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &E2ConnectionUpdateItemIe{
-				E2ConnectionUpdateItemIe: &E2ConnectionUpdateItemIe_E2Curi{
-					E2Curi: &E2ConnectionUpdateItem{
+				E2ConnectionUpdateItemIe: &E2ConnectionUpdateItemIe_E2ConnectionUpdateItem{
+					E2ConnectionUpdateItem: &E2ConnectionUpdateItem{
 						TnlInformation: &e2ap_ies.Tnlinformation{
 							TnlPort:    modifyItem.TnlInformation.TnlPort,
 							TnlAddress: &modifyItem.TnlInformation.TnlAddress,
@@ -1136,7 +1136,7 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateModify(modifyItems []*types.E2
 				},
 			},
 		}
-		ie.GetValue().GetE2Cul().Value = append(ie.GetValue().GetE2Cul().Value, cai)
+		ie.GetValue().GetE2ConnectionUpdateModify().Value = append(ie.GetValue().GetE2ConnectionUpdateModify().Value, cai)
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -1150,8 +1150,8 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateRemove(removeItems []*types.Tn
 		Id:          int32(v2.ProtocolIeIDE2connectionUpdateRemove),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &E2ConnectionUpdateIe{
-			E2ConnectionUpdateIe: &E2ConnectionUpdateIe_E2Curl{
-				E2Curl: &E2ConnectionUpdateRemoveList{
+			E2ConnectionUpdateIe: &E2ConnectionUpdateIe_E2ConnectionUpdateRemove{
+				E2ConnectionUpdateRemove: &E2ConnectionUpdateRemoveList{
 					Value: make([]*E2ConnectionUpdateRemoveItemIes, 0),
 				},
 			},
@@ -1163,8 +1163,8 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateRemove(removeItems []*types.Tn
 			Id:          int32(v2.ProtocolIeIDE2connectionUpdateRemoveItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &E2ConnectionUpdateRemoveItemIe{
-				E2ConnectionUpdateRemoveItemIe: &E2ConnectionUpdateRemoveItemIe_E2Curi{
-					E2Curi: &E2ConnectionUpdateRemoveItem{
+				E2ConnectionUpdateRemoveItemIe: &E2ConnectionUpdateRemoveItemIe_E2ConnectionUpdateRemoveItem{
+					E2ConnectionUpdateRemoveItem: &E2ConnectionUpdateRemoveItem{
 						TnlInformation: &e2ap_ies.Tnlinformation{
 							TnlPort:    removeItem.TnlPort,
 							TnlAddress: &removeItem.TnlAddress,
@@ -1173,7 +1173,7 @@ func (m *E2ConnectionUpdate) SetE2ConnectionUpdateRemove(removeItems []*types.Tn
 				},
 			},
 		}
-		ie.GetValue().GetE2Curl().Value = append(ie.GetValue().GetE2Curl().Value, cai)
+		ie.GetValue().GetE2ConnectionUpdateRemove().Value = append(ie.GetValue().GetE2ConnectionUpdateRemove().Value, cai)
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -1186,8 +1186,8 @@ func (m *ResetRequest) SetTransactionID(trID int32) *ResetRequest {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &ResetRequestIe{
-			ResetRequestIe: &ResetRequestIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			ResetRequestIe: &ResetRequestIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -1204,8 +1204,8 @@ func (m *ResetRequest) SetCause(cause *e2ap_ies.Cause) *ResetRequest {
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &ResetRequestIe{
-			ResetRequestIe: &ResetRequestIe_C{
-				C: cause,
+			ResetRequestIe: &ResetRequestIe_Cause{
+				Cause: cause,
 			},
 		},
 	}
@@ -1220,8 +1220,8 @@ func (m *ErrorIndication) SetTransactionID(trID int32) *ErrorIndication {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &ErrorIndicationIe{
-			ErrorIndicationIe: &ErrorIndicationIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			ErrorIndicationIe: &ErrorIndicationIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -1238,8 +1238,8 @@ func (m *ErrorIndication) SetRicRequestID(ricReqID *types.RicRequest) *ErrorIndi
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &ErrorIndicationIe{
-			ErrorIndicationIe: &ErrorIndicationIe_Rr{
-				Rr: &e2ap_ies.RicrequestId{
+			ErrorIndicationIe: &ErrorIndicationIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReqID.RequestorID),
 					RicInstanceId:  int32(ricReqID.InstanceID),
 				},
@@ -1257,8 +1257,8 @@ func (m *ErrorIndication) SetRanFunctionID(ranFuncID *types.RanFunctionID) *Erro
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &ErrorIndicationIe{
-			ErrorIndicationIe: &ErrorIndicationIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			ErrorIndicationIe: &ErrorIndicationIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(*ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 				},
 			},
@@ -1275,8 +1275,8 @@ func (m *ErrorIndication) SetCause(cause *e2ap_ies.Cause) *ErrorIndication {
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &ErrorIndicationIe{
-			ErrorIndicationIe: &ErrorIndicationIe_C{
-				C: cause,
+			ErrorIndicationIe: &ErrorIndicationIe_Cause{
+				Cause: cause,
 			},
 		},
 	}
@@ -1293,8 +1293,8 @@ func (m *ErrorIndication) SetCriticalityDiagnostics(failureProcCode *v2.Procedur
 		Id:          int32(v2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &ErrorIndicationIe{
-			ErrorIndicationIe: &ErrorIndicationIe_Cd{
-				Cd: &e2ap_ies.CriticalityDiagnostics{
+			ErrorIndicationIe: &ErrorIndicationIe_CriticalityDiagnostics{
+				CriticalityDiagnostics: &e2ap_ies.CriticalityDiagnostics{
 					ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 						Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 					},
@@ -1324,7 +1324,7 @@ func (m *ErrorIndication) SetCriticalityDiagnostics(failureProcCode *v2.Procedur
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
-		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
+		ie.GetValue().GetCriticalityDiagnostics().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -1337,8 +1337,8 @@ func (m *ResetResponse) SetTransactionID(trID int32) *ResetResponse {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &ResetResponseIe{
-			ResetResponseIe: &ResetResponseIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			ResetResponseIe: &ResetResponseIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -1357,8 +1357,8 @@ func (m *ResetResponse) SetCriticalityDiagnostics(failureProcCode v2.ProcedureCo
 		Id:          int32(v2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &ResetResponseIe{
-			ResetResponseIe: &ResetResponseIe_Cd{
-				Cd: &e2ap_ies.CriticalityDiagnostics{
+			ResetResponseIe: &ResetResponseIe_CriticalityDiagnostics{
+				CriticalityDiagnostics: &e2ap_ies.CriticalityDiagnostics{
 					ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 						Value: int32(failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 					},
@@ -1388,7 +1388,7 @@ func (m *ResetResponse) SetCriticalityDiagnostics(failureProcCode v2.ProcedureCo
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
-		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
+		ie.GetValue().GetCriticalityDiagnostics().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -1401,8 +1401,8 @@ func (m *RiccontrolAcknowledge) SetRicRequestID(ricReqID types.RicRequest) *Ricc
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolAcknowledgeIe{
-			RiccontrolAcknowledgeIe: &RiccontrolAcknowledgeIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RiccontrolAcknowledgeIe: &RiccontrolAcknowledgeIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
 					RicInstanceId:  int32(ricReqID.InstanceID),  // sequence from e2ap-v01.00.asn1:1127
 				},
@@ -1420,8 +1420,8 @@ func (m *RiccontrolAcknowledge) SetRanFunctionID(ranFuncID *types.RanFunctionID)
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolAcknowledgeIe{
-			RiccontrolAcknowledgeIe: &RiccontrolAcknowledgeIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RiccontrolAcknowledgeIe: &RiccontrolAcknowledgeIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(*ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 				},
 			},
@@ -1438,8 +1438,8 @@ func (m *RiccontrolAcknowledge) SetRicCallProcessID(ricCallPrID types.RicCallPro
 		Id:          int32(v2.ProtocolIeIDRiccallProcessID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolAcknowledgeIe{
-			RiccontrolAcknowledgeIe: &RiccontrolAcknowledgeIe_RcpId{
-				RcpId: &e2ap_commondatatypes.RiccallProcessId{
+			RiccontrolAcknowledgeIe: &RiccontrolAcknowledgeIe_RiccallProcessId{
+				RiccallProcessId: &e2ap_commondatatypes.RiccallProcessId{
 					Value: ricCallPrID,
 				},
 			},
@@ -1456,8 +1456,8 @@ func (m *RiccontrolAcknowledge) SetRicControlOutcome(ricCtrlOut types.RicControl
 		Id:          int32(v2.ProtocolIeIDRiccontrolOutcome),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolAcknowledgeIe{
-			RiccontrolAcknowledgeIe: &RiccontrolAcknowledgeIe_Co{
-				Co: &e2ap_commondatatypes.RiccontrolOutcome{
+			RiccontrolAcknowledgeIe: &RiccontrolAcknowledgeIe_RiccontrolOutcome{
+				RiccontrolOutcome: &e2ap_commondatatypes.RiccontrolOutcome{
 					Value: ricCtrlOut,
 				},
 			},
@@ -1474,8 +1474,8 @@ func (m *RiccontrolFailure) SetRicRequestID(ricReqID types.RicRequest) *Riccontr
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolFailureIe{
-			RiccontrolFailureIe: &RiccontrolFailureIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RiccontrolFailureIe: &RiccontrolFailureIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
 					RicInstanceId:  int32(ricReqID.InstanceID),  // sequence from e2ap-v01.00.asn1:1127
 				},
@@ -1493,8 +1493,8 @@ func (m *RiccontrolFailure) SetRanFunctionID(ranFuncID *types.RanFunctionID) *Ri
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolFailureIe{
-			RiccontrolFailureIe: &RiccontrolFailureIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RiccontrolFailureIe: &RiccontrolFailureIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(*ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 				},
 			},
@@ -1511,8 +1511,8 @@ func (m *RiccontrolFailure) SetRicCallProcessID(ricCallPrID types.RicCallProcess
 		Id:          int32(v2.ProtocolIeIDRiccallProcessID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolFailureIe{
-			RiccontrolFailureIe: &RiccontrolFailureIe_RcpId{
-				RcpId: &e2ap_commondatatypes.RiccallProcessId{
+			RiccontrolFailureIe: &RiccontrolFailureIe_RiccallProcessId{
+				RiccallProcessId: &e2ap_commondatatypes.RiccallProcessId{
 					Value: ricCallPrID,
 				},
 			},
@@ -1529,8 +1529,8 @@ func (m *RiccontrolFailure) SetCause(c *e2ap_ies.Cause) *RiccontrolFailure {
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &RiccontrolFailureIe{
-			RiccontrolFailureIe: &RiccontrolFailureIe_C{
-				C: c,
+			RiccontrolFailureIe: &RiccontrolFailureIe_Cause{
+				Cause: c,
 			},
 		},
 	}
@@ -1545,8 +1545,8 @@ func (m *RiccontrolFailure) SetRicControlOutcome(ricCtrlOut types.RicControlOutc
 		Id:          int32(v2.ProtocolIeIDRiccontrolOutcome),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolFailureIe{
-			RiccontrolFailureIe: &RiccontrolFailureIe_Co{
-				Co: &e2ap_commondatatypes.RiccontrolOutcome{
+			RiccontrolFailureIe: &RiccontrolFailureIe_RiccontrolOutcome{
+				RiccontrolOutcome: &e2ap_commondatatypes.RiccontrolOutcome{
 					Value: ricCtrlOut,
 				},
 			},
@@ -1563,8 +1563,8 @@ func (m *RiccontrolRequest) SetRicRequestID(ricReqID types.RicRequest) *Riccontr
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolRequestIe{
-			RiccontrolRequestIe: &RiccontrolRequestIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RiccontrolRequestIe: &RiccontrolRequestIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
 					RicInstanceId:  int32(ricReqID.InstanceID),  // sequence from e2ap-v01.00.asn1:1127
 				},
@@ -1582,8 +1582,8 @@ func (m *RiccontrolRequest) SetRanFunctionID(ranFuncID *types.RanFunctionID) *Ri
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolRequestIe{
-			RiccontrolRequestIe: &RiccontrolRequestIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RiccontrolRequestIe: &RiccontrolRequestIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(*ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 				},
 			},
@@ -1600,8 +1600,8 @@ func (m *RiccontrolRequest) SetRicCallProcessID(ricCallPrID types.RicCallProcess
 		Id:          int32(v2.ProtocolIeIDRiccallProcessID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolRequestIe{
-			RiccontrolRequestIe: &RiccontrolRequestIe_RcpId{
-				RcpId: &e2ap_commondatatypes.RiccallProcessId{
+			RiccontrolRequestIe: &RiccontrolRequestIe_RiccallProcessId{
+				RiccallProcessId: &e2ap_commondatatypes.RiccallProcessId{
 					Value: ricCallPrID,
 				},
 			},
@@ -1618,8 +1618,8 @@ func (m *RiccontrolRequest) SetRicControlHeader(ricCtrlHdr types.RicControlHeade
 		Id:          int32(v2.ProtocolIeIDRiccontrolHeader),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolRequestIe{
-			RiccontrolRequestIe: &RiccontrolRequestIe_Rch{
-				Rch: &e2ap_commondatatypes.RiccontrolHeader{
+			RiccontrolRequestIe: &RiccontrolRequestIe_RiccontrolHeader{
+				RiccontrolHeader: &e2ap_commondatatypes.RiccontrolHeader{
 					Value: ricCtrlHdr,
 				},
 			},
@@ -1636,8 +1636,8 @@ func (m *RiccontrolRequest) SetRicControlMessage(ricCtrlMsg types.RicControlMess
 		Id:          int32(v2.ProtocolIeIDRiccontrolMessage),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolRequestIe{
-			RiccontrolRequestIe: &RiccontrolRequestIe_Rcm{
-				Rcm: &e2ap_commondatatypes.RiccontrolMessage{
+			RiccontrolRequestIe: &RiccontrolRequestIe_RiccontrolMessage{
+				RiccontrolMessage: &e2ap_commondatatypes.RiccontrolMessage{
 					Value: ricCtrlMsg,
 				},
 			},
@@ -1654,8 +1654,8 @@ func (m *RiccontrolRequest) SetRicControlAckRequest(ricCtrlAckRequest e2ap_ies.R
 		Id:          int32(v2.ProtocolIeIDRiccontrolAckRequest),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RiccontrolRequestIe{
-			RiccontrolRequestIe: &RiccontrolRequestIe_Rcar{
-				Rcar: ricCtrlAckRequest,
+			RiccontrolRequestIe: &RiccontrolRequestIe_RiccontrolAckRequest{
+				RiccontrolAckRequest: ricCtrlAckRequest,
 			},
 		},
 	}
@@ -1670,8 +1670,8 @@ func (m *Ricindication) SetRicRequestID(ricReqID types.RicRequest) *Ricindicatio
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
-			RicindicationIe: &RicindicationIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RicindicationIe: &RicindicationIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReqID.RequestorID), // sequence from e2ap-v01.00.asn1:1126
 					RicInstanceId:  int32(ricReqID.InstanceID),  // sequence from e2ap-v01.00.asn1:1127
 				},
@@ -1689,8 +1689,8 @@ func (m *Ricindication) SetRanFunctionID(ranFuncID types.RanFunctionID) *Ricindi
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
-			RicindicationIe: &RicindicationIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RicindicationIe: &RicindicationIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 				},
 			},
@@ -1707,8 +1707,8 @@ func (m *Ricindication) SetRicActionID(ricAction int32) *Ricindication {
 		Id:          int32(v2.ProtocolIeIDRicactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
-			RicindicationIe: &RicindicationIe_RaId{
-				RaId: &e2ap_ies.RicactionId{
+			RicindicationIe: &RicindicationIe_RicactionId{
+				RicactionId: &e2ap_ies.RicactionId{
 					Value: ricAction,
 				},
 			},
@@ -1725,8 +1725,8 @@ func (m *Ricindication) SetRicIndicationSN(ricSn types.RicIndicationSn) *Ricindi
 		Id:          int32(v2.ProtocolIeIDRicindicationSn),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
-			RicindicationIe: &RicindicationIe_RiSn{
-				RiSn: &e2ap_ies.RicindicationSn{
+			RicindicationIe: &RicindicationIe_RicindicationSn{
+				RicindicationSn: &e2ap_ies.RicindicationSn{
 					Value: int32(ricSn),
 				},
 			},
@@ -1743,8 +1743,8 @@ func (m *Ricindication) SetRicIndicationType(ricIndicationType e2ap_ies.Ricindic
 		Id:          int32(v2.ProtocolIeIDRicindicationType),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
-			RicindicationIe: &RicindicationIe_Rit{
-				Rit: ricIndicationType,
+			RicindicationIe: &RicindicationIe_RicindicationType{
+				RicindicationType: ricIndicationType,
 			},
 		},
 	}
@@ -1759,8 +1759,8 @@ func (m *Ricindication) SetRicIndicationHeader(ricIndHd types.RicIndicationHeade
 		Id:          int32(v2.ProtocolIeIDRicindicationHeader),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
-			RicindicationIe: &RicindicationIe_Rih{
-				Rih: &e2ap_commondatatypes.RicindicationHeader{
+			RicindicationIe: &RicindicationIe_RicindicationHeader{
+				RicindicationHeader: &e2ap_commondatatypes.RicindicationHeader{
 					Value: []byte(ricIndHd),
 				},
 			},
@@ -1777,8 +1777,8 @@ func (m *Ricindication) SetRicIndicationMessage(ricIndMsg types.RicIndicationMes
 		Id:          int32(v2.ProtocolIeIDRicindicationMessage),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
-			RicindicationIe: &RicindicationIe_Rim{
-				Rim: &e2ap_commondatatypes.RicindicationMessage{
+			RicindicationIe: &RicindicationIe_RicindicationMessage{
+				RicindicationMessage: &e2ap_commondatatypes.RicindicationMessage{
 					Value: []byte(ricIndMsg),
 				},
 			},
@@ -1795,8 +1795,8 @@ func (m *Ricindication) SetRicCallProcessID(ricCallPrID types.RicCallProcessID) 
 		Id:          int32(v2.ProtocolIeIDRiccallProcessID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicindicationIe{
-			RicindicationIe: &RicindicationIe_RcpId{
-				RcpId: &e2ap_commondatatypes.RiccallProcessId{
+			RicindicationIe: &RicindicationIe_RiccallProcessId{
+				RiccallProcessId: &e2ap_commondatatypes.RiccallProcessId{
 					Value: ricCallPrID,
 				},
 			},
@@ -1813,8 +1813,8 @@ func (m *RicserviceQuery) SetRanFunctionsAccepted(rfAccepted types.RanFunctionRe
 		Id:          int32(v2.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicServiceQueryIe{
-			RicServiceQueryIe: &RicServiceQueryIe_RfIdl{
-				RfIdl: &RanfunctionsIdListSingleContainer{
+			RicServiceQueryIe: &RicServiceQueryIe_RanfunctionsAccepted{
+				RanfunctionsAccepted: &RanfunctionsIdListSingleContainer{
 					Value: &RanfunctionsIdList{
 						Value: make([]*RanfunctionIdItemIes, 0),
 					},
@@ -1828,8 +1828,8 @@ func (m *RicserviceQuery) SetRanFunctionsAccepted(rfAccepted types.RanFunctionRe
 			Id:          int32(v2.ProtocolIeIDRanfunctionIDItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionIdItemIe{
-				RanfunctionIdItemIe: &RanfunctionIdItemIe_RfId{
-					RfId: &RanfunctionIdItem{
+				RanfunctionIdItemIe: &RanfunctionIdItemIe_RanfunctionIdItem{
+					RanfunctionIdItem: &RanfunctionIdItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(rfID),
 						},
@@ -1840,7 +1840,7 @@ func (m *RicserviceQuery) SetRanFunctionsAccepted(rfAccepted types.RanFunctionRe
 				},
 			},
 		}
-		ie.GetValue().GetRfIdl().GetValue().Value = append(ie.GetValue().GetRfIdl().GetValue().Value, rfIDiIe)
+		ie.GetValue().GetRanfunctionsAccepted().GetValue().Value = append(ie.GetValue().GetRanfunctionsAccepted().GetValue().Value, rfIDiIe)
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -1853,8 +1853,8 @@ func (m *RicserviceQuery) SetTransactionID(trID int32) *RicserviceQuery {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicServiceQueryIe{
-			RicServiceQueryIe: &RicServiceQueryIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			RicServiceQueryIe: &RicServiceQueryIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -1872,8 +1872,8 @@ func (m *RicserviceUpdate) SetTransactionID(trID int32) *RicserviceUpdate {
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicserviceUpdateIe{
-			RicServiceUpdateIe: &RicserviceUpdateIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			RicServiceUpdateIe: &RicserviceUpdateIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -1896,8 +1896,8 @@ func (m *RicserviceUpdate) SetRanFunctionsAdded(rfal types.RanFunctions) *Ricser
 			Id:          int32(v2.ProtocolIeIDRanfunctionItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionItemIe{
-				RanfunctionItemIe: &RanfunctionItemIe_Rfi{
-					Rfi: &RanfunctionItem{
+				RanfunctionItemIe: &RanfunctionItemIe_RanfunctionItem{
+					RanfunctionItem: &RanfunctionItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(id),
 						},
@@ -1921,8 +1921,8 @@ func (m *RicserviceUpdate) SetRanFunctionsAdded(rfal types.RanFunctions) *Ricser
 		Id:          int32(v2.ProtocolIeIDRanfunctionsAdded),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicserviceUpdateIe{
-			RicServiceUpdateIe: &RicserviceUpdateIe_Rfl{
-				Rfl: &RanfunctionsListSingleContainer{
+			RicServiceUpdateIe: &RicserviceUpdateIe_RanfunctionsAdded{
+				RanfunctionsAdded: &RanfunctionsListSingleContainer{
 					Value: rfa,
 				},
 			},
@@ -1943,8 +1943,8 @@ func (m *RicserviceUpdate) SetRanFunctionsModified(rfml types.RanFunctions) *Ric
 			Id:          int32(v2.ProtocolIeIDRanfunctionItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionItemIe{
-				RanfunctionItemIe: &RanfunctionItemIe_Rfi{
-					Rfi: &RanfunctionItem{
+				RanfunctionItemIe: &RanfunctionItemIe_RanfunctionItem{
+					RanfunctionItem: &RanfunctionItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(id),
 						},
@@ -1968,8 +1968,8 @@ func (m *RicserviceUpdate) SetRanFunctionsModified(rfml types.RanFunctions) *Ric
 		Id:          int32(v2.ProtocolIeIDRanfunctionsModified),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicserviceUpdateIe{
-			RicServiceUpdateIe: &RicserviceUpdateIe_Rfl{
-				Rfl: &RanfunctionsListSingleContainer{
+			RicServiceUpdateIe: &RicserviceUpdateIe_RanfunctionsModified{
+				RanfunctionsModified: &RanfunctionsListSingleContainer{
 					Value: rfm,
 				},
 			},
@@ -1990,8 +1990,8 @@ func (m *RicserviceUpdate) SetRanFunctionsDeleted(rfDeleted types.RanFunctionRev
 			Id:          int32(v2.ProtocolIeIDRanfunctionIDItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionIdItemIe{
-				RanfunctionIdItemIe: &RanfunctionIdItemIe_RfId{
-					RfId: &RanfunctionIdItem{
+				RanfunctionIdItemIe: &RanfunctionIdItemIe_RanfunctionIdItem{
+					RanfunctionIdItem: &RanfunctionIdItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(rfID),
 						},
@@ -2009,8 +2009,8 @@ func (m *RicserviceUpdate) SetRanFunctionsDeleted(rfDeleted types.RanFunctionRev
 		Id:          int32(v2.ProtocolIeIDRanfunctionsDeleted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicserviceUpdateIe{
-			RicServiceUpdateIe: &RicserviceUpdateIe_Rfidl{
-				Rfidl: &RanfunctionsIdListSingleContainer{
+			RicServiceUpdateIe: &RicserviceUpdateIe_RanfunctionsDeleted{
+				RanfunctionsDeleted: &RanfunctionsIdListSingleContainer{
 					Value: rfd,
 				},
 			},
@@ -2027,8 +2027,8 @@ func (m *RicserviceUpdateAcknowledge) SetTransactionID(trID int32) *RicserviceUp
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicServiceUpdateAcknowledgeIe{
-			RicServiceUpdateAcknowledgeIe: &RicServiceUpdateAcknowledgeIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			RicServiceUpdateAcknowledgeIe: &RicServiceUpdateAcknowledgeIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -2051,8 +2051,8 @@ func (m *RicserviceUpdateAcknowledge) SetRanFunctionsAccepted(rfAccepted types.R
 			Id:          int32(v2.ProtocolIeIDRanfunctionIDItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionIdItemIe{
-				RanfunctionIdItemIe: &RanfunctionIdItemIe_RfId{
-					RfId: &RanfunctionIdItem{
+				RanfunctionIdItemIe: &RanfunctionIdItemIe_RanfunctionIdItem{
+					RanfunctionIdItem: &RanfunctionIdItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(rfID),
 						},
@@ -2070,8 +2070,8 @@ func (m *RicserviceUpdateAcknowledge) SetRanFunctionsAccepted(rfAccepted types.R
 		Id:          int32(v2.ProtocolIeIDRanfunctionsAccepted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicServiceUpdateAcknowledgeIe{
-			RicServiceUpdateAcknowledgeIe: &RicServiceUpdateAcknowledgeIe_RfIdl{
-				RfIdl: &RanfunctionsIdListSingleContainer{
+			RicServiceUpdateAcknowledgeIe: &RicServiceUpdateAcknowledgeIe_RanfunctionsAccepted{
+				RanfunctionsAccepted: &RanfunctionsIdListSingleContainer{
 					Value: rfa,
 				},
 			},
@@ -2092,8 +2092,8 @@ func (m *RicserviceUpdateAcknowledge) SetRanFunctionsRejected(rfRejected types.R
 			Id:          int32(v2.ProtocolIeIDRanfunctionIeCauseItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RanfunctionIdcauseItemIe{
-				RanfunctionIdcauseItemIe: &RanfunctionIdcauseItemIe_RfIdci{
-					RfIdci: &RanfunctionIdcauseItem{
+				RanfunctionIdcauseItemIe: &RanfunctionIdcauseItemIe_RanfunctionIecauseItem{
+					RanfunctionIecauseItem: &RanfunctionIdcauseItem{
 						RanFunctionId: &e2ap_ies.RanfunctionId{
 							Value: int32(id),
 						},
@@ -2105,23 +2105,23 @@ func (m *RicserviceUpdateAcknowledge) SetRanFunctionsRejected(rfRejected types.R
 
 		switch cause.GetCause().(type) {
 		case *e2ap_ies.Cause_Misc:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_Misc{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_Misc{
 				Misc: cause.GetMisc(),
 			}
 		case *e2ap_ies.Cause_Protocol:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_Protocol{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_Protocol{
 				Protocol: cause.GetProtocol(),
 			}
 		case *e2ap_ies.Cause_RicService:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_RicService{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_RicService{
 				RicService: cause.GetRicService(),
 			}
 		case *e2ap_ies.Cause_RicRequest:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_RicRequest{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_RicRequest{
 				RicRequest: cause.GetRicRequest(),
 			}
 		case *e2ap_ies.Cause_Transport:
-			rfIDcIIe.GetValue().GetRfIdci().GetCause().Cause = &e2ap_ies.Cause_Transport{
+			rfIDcIIe.GetValue().GetRanfunctionIecauseItem().GetCause().Cause = &e2ap_ies.Cause_Transport{
 				Transport: cause.GetTransport(),
 			}
 
@@ -2136,8 +2136,8 @@ func (m *RicserviceUpdateAcknowledge) SetRanFunctionsRejected(rfRejected types.R
 		Id:          int32(v2.ProtocolIeIDRanfunctionsRejected),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicServiceUpdateAcknowledgeIe{
-			RicServiceUpdateAcknowledgeIe: &RicServiceUpdateAcknowledgeIe_RfIdcl{
-				RfIdcl: &RanfunctionsIdcauseListSingleContainer{
+			RicServiceUpdateAcknowledgeIe: &RicServiceUpdateAcknowledgeIe_RanfunctionsRejected{
+				RanfunctionsRejected: &RanfunctionsIdcauseListSingleContainer{
 					Value: rfr,
 				},
 			},
@@ -2154,8 +2154,8 @@ func (m *RicserviceUpdateFailure) SetTransactionID(trID int32) *RicserviceUpdate
 		Id:          int32(v2.ProtocolIeIDTransactionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicServiceUpdateFailureIe{
-			RicServiceUpdateFailureIe: &RicServiceUpdateFailureIe_TrId{
-				TrId: &e2ap_ies.TransactionId{
+			RicServiceUpdateFailureIe: &RicServiceUpdateFailureIe_TransactionId{
+				TransactionId: &e2ap_ies.TransactionId{
 					Value: trID,
 				},
 			},
@@ -2173,8 +2173,8 @@ func (m *RicserviceUpdateFailure) SetCause(c *e2ap_ies.Cause) *RicserviceUpdateF
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicServiceUpdateFailureIe{
-			RicServiceUpdateFailureIe: &RicServiceUpdateFailureIe_C{
-				C: c,
+			RicServiceUpdateFailureIe: &RicServiceUpdateFailureIe_Cause{
+				Cause: c,
 			},
 		},
 	}
@@ -2189,8 +2189,8 @@ func (m *RicserviceUpdateFailure) SetTimeToWait(ttw e2ap_ies.TimeToWait) *Ricser
 		Id:          int32(v2.ProtocolIeIDTimeToWait),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &RicServiceUpdateFailureIe{
-			RicServiceUpdateFailureIe: &RicServiceUpdateFailureIe_Ttw{
-				Ttw: ttw,
+			RicServiceUpdateFailureIe: &RicServiceUpdateFailureIe_TimeToWait{
+				TimeToWait: ttw,
 			},
 		},
 	}
@@ -2207,8 +2207,8 @@ func (m *RicserviceUpdateFailure) SetCriticalityDiagnostics(failureProcCode *v2.
 		Id:          int32(v2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &RicServiceUpdateFailureIe{
-			RicServiceUpdateFailureIe: &RicServiceUpdateFailureIe_Cd{
-				Cd: &e2ap_ies.CriticalityDiagnostics{
+			RicServiceUpdateFailureIe: &RicServiceUpdateFailureIe_CriticalityDiagnostics{
+				CriticalityDiagnostics: &e2ap_ies.CriticalityDiagnostics{
 					ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 						Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 					},
@@ -2238,7 +2238,7 @@ func (m *RicserviceUpdateFailure) SetCriticalityDiagnostics(failureProcCode *v2.
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
-		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
+		ie.GetValue().GetCriticalityDiagnostics().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -2251,8 +2251,8 @@ func (m *RicsubscriptionDeleteFailure) SetRicRequestID(ricReq *types.RicRequest)
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionDeleteFailureIe{
-			RicsubscriptionDeleteFailureIe: &RicsubscriptionDeleteFailureIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RicsubscriptionDeleteFailureIe: &RicsubscriptionDeleteFailureIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReq.RequestorID),
 					RicInstanceId:  int32(ricReq.InstanceID),
 				},
@@ -2270,8 +2270,8 @@ func (m *RicsubscriptionDeleteFailure) SetRanFunctionID(ranFuncID types.RanFunct
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionDeleteFailureIe{
-			RicsubscriptionDeleteFailureIe: &RicsubscriptionDeleteFailureIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RicsubscriptionDeleteFailureIe: &RicsubscriptionDeleteFailureIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(ranFuncID),
 				},
 			},
@@ -2288,8 +2288,8 @@ func (m *RicsubscriptionDeleteFailure) SetCause(cause *e2ap_ies.Cause) *Ricsubsc
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &RicsubscriptionDeleteFailureIe{
-			RicsubscriptionDeleteFailureIe: &RicsubscriptionDeleteFailureIe_C{
-				C: cause,
+			RicsubscriptionDeleteFailureIe: &RicsubscriptionDeleteFailureIe_Cause{
+				Cause: cause,
 			},
 		},
 	}
@@ -2306,8 +2306,8 @@ func (m *RicsubscriptionDeleteFailure) SetCriticalityDiagnostics(failureProcCode
 		Id:          int32(v2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &RicsubscriptionDeleteFailureIe{
-			RicsubscriptionDeleteFailureIe: &RicsubscriptionDeleteFailureIe_Cd{
-				Cd: &e2ap_ies.CriticalityDiagnostics{
+			RicsubscriptionDeleteFailureIe: &RicsubscriptionDeleteFailureIe_CriticalityDiagnostics{
+				CriticalityDiagnostics: &e2ap_ies.CriticalityDiagnostics{
 					ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 						Value: int32(*failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 					},
@@ -2337,7 +2337,7 @@ func (m *RicsubscriptionDeleteFailure) SetCriticalityDiagnostics(failureProcCode
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
-		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
+		ie.GetValue().GetCriticalityDiagnostics().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)
@@ -2350,8 +2350,8 @@ func (m *RicsubscriptionDeleteRequest) SetRicRequestID(ricReq *types.RicRequest)
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionDeleteRequestIe{
-			RicsubscriptionDeleteRequestIe: &RicsubscriptionDeleteRequestIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RicsubscriptionDeleteRequestIe: &RicsubscriptionDeleteRequestIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReq.RequestorID),
 					RicInstanceId:  int32(ricReq.InstanceID),
 				},
@@ -2369,8 +2369,8 @@ func (m *RicsubscriptionDeleteRequest) SetRanFunctionID(ranFuncID types.RanFunct
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionDeleteRequestIe{
-			RicsubscriptionDeleteRequestIe: &RicsubscriptionDeleteRequestIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RicsubscriptionDeleteRequestIe: &RicsubscriptionDeleteRequestIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(ranFuncID),
 				},
 			},
@@ -2387,8 +2387,8 @@ func (m *RicsubscriptionDeleteResponse) SetRicRequestID(ricReq *types.RicRequest
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionDeleteResponseIe{
-			RicsubscriptionDeleteResponseIe: &RicsubscriptionDeleteResponseIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RicsubscriptionDeleteResponseIe: &RicsubscriptionDeleteResponseIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReq.RequestorID),
 					RicInstanceId:  int32(ricReq.InstanceID),
 				},
@@ -2406,8 +2406,8 @@ func (m *RicsubscriptionDeleteResponse) SetRanFunctionID(ranFuncID types.RanFunc
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionDeleteResponseIe{
-			RicsubscriptionDeleteResponseIe: &RicsubscriptionDeleteResponseIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RicsubscriptionDeleteResponseIe: &RicsubscriptionDeleteResponseIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(ranFuncID),
 				},
 			},
@@ -2429,8 +2429,8 @@ func (m *RicsubscriptionDeleteRequired) SetRicSubscriptionToBeRemoved(rswcl type
 			Id:          int32(v2.ProtocolIeIDRICsubscriptionWithCauseItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RicsubscriptionWithCauseItemIe{
-				RicsubscriptionWithCauseItemIe: &RicsubscriptionWithCauseItemIe_E2Curi{
-					E2Curi: &RicsubscriptionWithCauseItem{
+				RicsubscriptionWithCauseItemIe: &RicsubscriptionWithCauseItemIe_RicsubscriptionWithCauseItem{
+					RicsubscriptionWithCauseItem: &RicsubscriptionWithCauseItem{
 						RicRequestId: &e2ap_ies.RicrequestId{
 							RicRequestorId: int32(item.RicRequestID.RequestorID),
 							RicInstanceId:  int32(item.RicRequestID.InstanceID),
@@ -2450,8 +2450,8 @@ func (m *RicsubscriptionDeleteRequired) SetRicSubscriptionToBeRemoved(rswcl type
 		Id:          int32(v2.ProtocolIeIDRICsubscriptionToBeRemoved),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &RicsubscriptionDeleteRequiredIe{
-			RicsubscriptionDeleteRequiredIe: &RicsubscriptionDeleteRequiredIe_Rsdr{
-				Rsdr: rstbrl,
+			RicsubscriptionDeleteRequiredIe: &RicsubscriptionDeleteRequiredIe_RicsubscriptionToBeRemoved{
+				RicsubscriptionToBeRemoved: rstbrl,
 			},
 		},
 	}
@@ -2466,8 +2466,8 @@ func (m *RicsubscriptionRequest) SetRicRequestID(ricReqID *types.RicRequest) *Ri
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionRequestIe{
-			RicsubscriptionRequestIe: &RicsubscriptionRequestIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RicsubscriptionRequestIe: &RicsubscriptionRequestIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReqID.RequestorID),
 					RicInstanceId:  int32(ricReqID.InstanceID),
 				},
@@ -2485,8 +2485,8 @@ func (m *RicsubscriptionRequest) SetRanFunctionID(ranFuncID *types.RanFunctionID
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionRequestIe{
-			RicsubscriptionRequestIe: &RicsubscriptionRequestIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RicsubscriptionRequestIe: &RicsubscriptionRequestIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(*ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 				},
 			},
@@ -2509,8 +2509,8 @@ func (m *RicsubscriptionRequest) SetRicSubscriptionDetails(ricEventDef types.Ric
 			Id:          int32(v2.ProtocolIeIDRicactionToBeSetupItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RicactionToBeSetupItemIe{
-				RicactionToBeSetupItem: &RicactionToBeSetupItemIe_Ratbsi{
-					Ratbsi: &RicactionToBeSetupItem{
+				RicactionToBeSetupItemIe: &RicactionToBeSetupItemIe_RicactionToBeSetupItem{
+					RicactionToBeSetupItem: &RicactionToBeSetupItem{
 						RicActionId: &e2ap_ies.RicactionId{
 							Value: int32(ricActionID), // range of Integer from e2ap-v01.00.asn1:1059, value from line 1283
 						},
@@ -2533,8 +2533,8 @@ func (m *RicsubscriptionRequest) SetRicSubscriptionDetails(ricEventDef types.Ric
 		Id:          int32(v2.ProtocolIeIDRicsubscriptionDetails),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionRequestIe{
-			RicsubscriptionRequestIe: &RicsubscriptionRequestIe_Rsd{
-				Rsd: &RicsubscriptionDetails{
+			RicsubscriptionRequestIe: &RicsubscriptionRequestIe_RicsubscriptionDetails{
+				RicsubscriptionDetails: &RicsubscriptionDetails{
 					RicEventTriggerDefinition: &e2ap_commondatatypes.RiceventTriggerDefinition{
 						Value: ricEventDef,
 					},
@@ -2554,8 +2554,8 @@ func (m *RicsubscriptionResponse) SetRicRequestID(ricReqID *types.RicRequest) *R
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionResponseIe{
-			RicsubscriptionResponseIe: &RicsubscriptionResponseIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RicsubscriptionResponseIe: &RicsubscriptionResponseIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReqID.RequestorID),
 					RicInstanceId:  int32(ricReqID.InstanceID),
 				},
@@ -2573,8 +2573,8 @@ func (m *RicsubscriptionResponse) SetRanFunctionID(ranFuncID *types.RanFunctionI
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionResponseIe{
-			RicsubscriptionResponseIe: &RicsubscriptionResponseIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RicsubscriptionResponseIe: &RicsubscriptionResponseIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(*ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 				},
 			},
@@ -2595,8 +2595,8 @@ func (m *RicsubscriptionResponse) SetRicActionAdmitted(ricActionsAdmitted []*typ
 			Id:          int32(v2.ProtocolIeIDRicactionAdmittedItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RicactionAdmittedItemIe{
-				RicactionAdmittedItemIe: &RicactionAdmittedItemIe_Ranai{
-					Ranai: &RicactionAdmittedItem{
+				RicactionAdmittedItemIe: &RicactionAdmittedItemIe_RicactionAdmittedItem{
+					RicactionAdmittedItem: &RicactionAdmittedItem{
 						RicActionId: &e2ap_ies.RicactionId{
 							Value: int32(*ricActionID),
 						},
@@ -2611,8 +2611,8 @@ func (m *RicsubscriptionResponse) SetRicActionAdmitted(ricActionsAdmitted []*typ
 		Id:          int32(v2.ProtocolIeIDRicactionsAdmitted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionResponseIe{
-			RicsubscriptionResponseIe: &RicsubscriptionResponseIe_Raal{
-				Raal: raal,
+			RicsubscriptionResponseIe: &RicsubscriptionResponseIe_RicactionsAdmitted{
+				RicactionsAdmitted: raal,
 			},
 		},
 	}
@@ -2631,8 +2631,8 @@ func (m *RicsubscriptionResponse) SetRicActionNotAdmitted(ricActionsNotAdmitted 
 			Id:          int32(v2.ProtocolIeIDRicactionNotAdmittedItem),
 			Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 			Value: &RicactionNotAdmittedItemIe{
-				RicactionNotAdmittedItemIe: &RicactionNotAdmittedItemIe_Ranai{
-					Ranai: &RicactionNotAdmittedItem{
+				RicactionNotAdmittedItemIe: &RicactionNotAdmittedItemIe_RicactionNotAdmittedItem{
+					RicactionNotAdmittedItem: &RicactionNotAdmittedItem{
 						RicActionId: &e2ap_ies.RicactionId{
 							Value: int32(ricActionID),
 						},
@@ -2648,8 +2648,8 @@ func (m *RicsubscriptionResponse) SetRicActionNotAdmitted(ricActionsNotAdmitted 
 		Id:          int32(v2.ProtocolIeIDRicactionsNotAdmitted),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionResponseIe{
-			RicsubscriptionResponseIe: &RicsubscriptionResponseIe_Ranal{
-				Ranal: ranal,
+			RicsubscriptionResponseIe: &RicsubscriptionResponseIe_RicactionsNotAdmitted{
+				RicactionsNotAdmitted: ranal,
 			},
 		},
 	}
@@ -2664,8 +2664,8 @@ func (m *RicsubscriptionFailure) SetRicRequestID(ricReqID *types.RicRequest) *Ri
 		Id:          int32(v2.ProtocolIeIDRicrequestID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionFailureIe{
-			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_RrId{
-				RrId: &e2ap_ies.RicrequestId{
+			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_RicrequestId{
+				RicrequestId: &e2ap_ies.RicrequestId{
 					RicRequestorId: int32(ricReqID.RequestorID),
 					RicInstanceId:  int32(ricReqID.InstanceID),
 				},
@@ -2683,8 +2683,8 @@ func (m *RicsubscriptionFailure) SetRanFunctionID(ranFuncID *types.RanFunctionID
 		Id:          int32(v2.ProtocolIeIDRanfunctionID),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_REJECT),
 		Value: &RicsubscriptionFailureIe{
-			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_RfId{
-				RfId: &e2ap_ies.RanfunctionId{
+			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_RanfunctionId{
+				RanfunctionId: &e2ap_ies.RanfunctionId{
 					Value: int32(*ranFuncID), // range of Integer from e2ap-v01.00.asn1:1050, value from line 1277
 				},
 			},
@@ -2701,8 +2701,8 @@ func (m *RicsubscriptionFailure) SetCause(cause *e2ap_ies.Cause) *Ricsubscriptio
 		Id:          int32(v2.ProtocolIeIDCause),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &RicsubscriptionFailureIe{
-			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_C{
-				C: cause,
+			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_Cause{
+				Cause: cause,
 			},
 		},
 	}
@@ -2719,8 +2719,8 @@ func (m *RicsubscriptionFailure) SetCriticalityDiagnostics(failureProcCode v2.Pr
 		Id:          int32(v2.ProtocolIeIDCriticalityDiagnostics),
 		Criticality: int32(e2ap_commondatatypes.Criticality_CRITICALITY_IGNORE),
 		Value: &RicsubscriptionFailureIe{
-			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_Cd{
-				Cd: &e2ap_ies.CriticalityDiagnostics{
+			RicsubscriptionFailureIe: &RicsubscriptionFailureIe_CriticalityDiagnostics{
+				CriticalityDiagnostics: &e2ap_ies.CriticalityDiagnostics{
 					ProcedureCode: &e2ap_commondatatypes.ProcedureCode{
 						Value: int32(failureProcCode), // range of Integer from e2ap-v01.00.asn1:1206, value were taken from line 1236 (same file)
 					},
@@ -2750,7 +2750,7 @@ func (m *RicsubscriptionFailure) SetCriticalityDiagnostics(failureProcCode v2.Pr
 			}
 			cdl.Value = append(cdl.Value, &criticDiagnostics)
 		}
-		ie.GetValue().GetCd().IEsCriticalityDiagnostics = cdl
+		ie.GetValue().GetCriticalityDiagnostics().IEsCriticalityDiagnostics = cdl
 	}
 
 	m.ProtocolIes = append(m.ProtocolIes, ie)

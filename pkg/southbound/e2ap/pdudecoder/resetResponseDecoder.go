@@ -33,10 +33,10 @@ func DecodeResetResponsePdu(e2apPdu *e2appdudescriptions.E2ApPdu) (*int32, *v2.P
 	var diags []*types.CritDiag
 	for _, v := range rr.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDTransactionID) {
-			transactionID = v.GetValue().GetTrId().GetValue()
+			transactionID = v.GetValue().GetTransactionId().GetValue()
 		}
 		if v.Id == int32(v2.ProtocolIeIDCriticalityDiagnostics) {
-			critDiagnostics := v.GetValue().GetCd()
+			critDiagnostics := v.GetValue().GetCriticalityDiagnostics()
 			if critDiagnostics != nil { //It's optional
 				pc = v2.ProcedureCodeT(critDiagnostics.GetProcedureCode().GetValue())
 				crit = critDiagnostics.GetProcedureCriticality()

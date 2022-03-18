@@ -53,7 +53,7 @@ func (c *E2APConn) ricIndication(ctx context.Context, request *e2appducontents.R
 	var requestID int32
 	for _, v := range request.GetProtocolIes() {
 		if v.Id == int32(v2.ProtocolIeIDRicrequestID) {
-			requestID = v.GetValue().GetRrId().GetRicRequestorId()
+			requestID = v.GetValue().GetRicrequestId().GetRicRequestorId()
 			break
 		}
 	}

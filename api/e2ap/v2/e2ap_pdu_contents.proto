@@ -315,7 +315,7 @@ message RicsubscriptionDeleteRequiredIes {
 
 message RicsubscriptionDeleteRequiredIe {
     oneof ricsubscription_delete_required_ie {
-        RicsubscriptionListWithCause ricsubscription_delete_required = 1;
+        RicsubscriptionListWithCause ricsubscription_to_be_removed = 1;
     }
 };
 
