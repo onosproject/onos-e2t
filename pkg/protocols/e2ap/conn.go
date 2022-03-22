@@ -163,7 +163,7 @@ func (c *threadSafeConn) processRecvs() {
 
 		err = c.processRecv(buf[:n])
 		if err != nil {
-			log.Error(err)
+			log.Warn(err)
 		}
 	}
 }
