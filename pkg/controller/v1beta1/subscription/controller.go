@@ -668,13 +668,12 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 			errType = e2api.Error_Cause_Ric_CONTROL_MESSAGE_INVALID
 		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_RIC_CALL_PROCESS_ID_INVALID:
 			errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
-		//ToDo - fill in missing part in onos-api
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_SYSTEM_NOT_READY
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
+			errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
+			errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
+			errType = e2api.Error_Cause_Ric_SYSTEM_NOT_READY
 		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED:
 			errType = e2api.Error_Cause_Ric_UNSPECIFIED
 		}
@@ -690,9 +689,8 @@ func getSubscriptionDeleteError(failure *e2appducontents.RicsubscriptionDeleteFa
 	case *e2apies.Cause_RicService:
 		var errType e2api.Error_Cause_RicService_Type
 		switch c.RicService {
-		//ToDo - change naming in onos-api to Error_Cause_RicService_RAN_FUNCTION_NOT_REQUIRED
 		case e2apies.CauseRicservice_CAUSE_RICSERVICE_RAN_FUNCTION_NOT_SUPPORTED:
-			errType = e2api.Error_Cause_RicService_FUNCTION_NOT_REQUIRED
+			errType = e2api.Error_Cause_RicService_RAN_FUNCTION_NOT_SUPPORTED
 		case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
 			errType = e2api.Error_Cause_RicService_EXCESSIVE_FUNCTIONS
 		case e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
@@ -812,13 +810,12 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 			errType = e2api.Error_Cause_Ric_CONTROL_MESSAGE_INVALID
 		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_RIC_CALL_PROCESS_ID_INVALID:
 			errType = e2api.Error_Cause_Ric_CALL_PROCESS_ID_INVALID
-		//ToDo - fill in missing part in onos-api
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
-		//case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
-		//	errType = e2api.Error_Cause_Ric_CONTROL_SYSTEM_NOT_READY
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_TIMER_EXPIRED:
+			errType = e2api.Error_Cause_Ric_CONTROL_TIMER_EXPIRED
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_CONTROL_FAILED_TO_EXECUTE:
+			errType = e2api.Error_Cause_Ric_CONTROL_FAILED_TO_EXECUTE
+		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_SYSTEM_NOT_READY:
+			errType = e2api.Error_Cause_Ric_SYSTEM_NOT_READY
 		case e2apies.CauseRicrequest_CAUSE_RICREQUEST_UNSPECIFIED:
 			errType = e2api.Error_Cause_Ric_UNSPECIFIED
 		}
@@ -834,9 +831,8 @@ func getSubscriptionError(failure *e2appducontents.RicsubscriptionFailure) *e2ap
 	case *e2apies.Cause_RicService:
 		var errType e2api.Error_Cause_RicService_Type
 		switch c.RicService {
-		//ToDo - change naming in onos-api to Error_Cause_RicService_RAN_FUNCTION_NOT_REQUIRED
 		case e2apies.CauseRicservice_CAUSE_RICSERVICE_RAN_FUNCTION_NOT_SUPPORTED:
-			errType = e2api.Error_Cause_RicService_FUNCTION_NOT_REQUIRED
+			errType = e2api.Error_Cause_RicService_RAN_FUNCTION_NOT_SUPPORTED
 		case e2apies.CauseRicservice_CAUSE_RICSERVICE_EXCESSIVE_FUNCTIONS:
 			errType = e2api.Error_Cause_RicService_EXCESSIVE_FUNCTIONS
 		case e2apies.CauseRicservice_CAUSE_RICSERVICE_RIC_RESOURCE_LIMIT:
