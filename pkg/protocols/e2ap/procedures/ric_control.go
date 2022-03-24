@@ -64,9 +64,9 @@ func (p *RICControlInitiator) Initiate(ctx context.Context, request *e2appducont
 		}
 	}
 
-	p.mu.RLock()
+	p.mu.Lock()
 	p.responseChs[requestID] = responseCh
-	p.mu.RUnlock()
+	p.mu.Unlock()
 
 	if err := p.dispatcher(requestPDU); err != nil {
 		return nil, nil, errors.NewUnavailable("RIC Control initiation failed: %v", err)
