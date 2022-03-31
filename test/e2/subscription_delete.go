@@ -36,16 +36,17 @@ func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
-		Ctx:          ctx,
-		SubName:      subscriptionName,
-		NodeID:       nodeID,
+		Sub: e2utils.Sub{
+			Name:   subscriptionName,
+			NodeID: nodeID,
+		},
 		CellObjectID: cells[0].CellObjectID,
 	}
-	channelID, err := kpmv2Sub.Subscribe()
+	channelID, err := kpmv2Sub.Subscribe(ctx)
 	assert.NoError(t, err)
 
 	select {
-	case indicationMsg := <-kpmv2Sub.Ch:
+	case indicationMsg := <-kpmv2Sub.Sub.Ch:
 		t.Log(indicationMsg)
 		assert.NotNil(t, indicationMsg)
 
@@ -92,7 +93,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	e2utils.CheckSubscriptionGet(t, subscriptionID)
 
 	// Close the subscription
-	err := sub.Unsubscribe()
+	err := sub.Unsubscribe(ctx)
 	assert.NoError(t, err)
 
 	// Check number of subscriptions is correct after deleting the subscription
@@ -111,10 +112,10 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	e2utils.CheckSubscriptionGet(t, subscriptionID)
 
 	// Close the subscription
-	err = sub.Unsubscribe()
+	err = sub.Unsubscribe(ctx)
 	assert.NoError(t, err)
 
-	assert.True(t, utils.ReadToEndOfChannel(sub.Ch))
+	assert.True(t, utils.ReadToEndOfChannel(sub.Sub.Ch))
 
 	e2utils.CheckForEmptySubscriptionList(t)
 

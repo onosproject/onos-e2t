@@ -40,16 +40,17 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
-		Ctx:          ctx,
-		SubName:      subName,
-		NodeID:       nodeID,
+		Sub: e2utils.Sub{
+			Name:   subName,
+			NodeID: nodeID,
+		},
 		CellObjectID: cellObjectID,
 	}
-	_, err = kpmv2Sub.Subscribe()
+	_, err = kpmv2Sub.Subscribe(ctx)
 	assert.NoError(t, err)
 
 	// Read an indication
-	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Ch)
+	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
 
 	// Check the format of the indiction message
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
@@ -67,7 +68,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	assert.Equal(t, "RAN Simulator", *format1.IndicationHeaderFormat1.SenderName)
 
 	// Clean up
-	assert.NoError(t, kpmv2Sub.Unsubscribe())
+	assert.NoError(t, kpmv2Sub.Unsubscribe(ctx))
 	e2utils.CheckForEmptySubscriptionList(t)
 	utils.UninstallRanSimulatorOrDie(t, sim)
 }

@@ -18,7 +18,7 @@ import (
 )
 
 func verifyIndicationMessages(t *testing.T, cellObjectID string, sub e2utils.KPMV2Sub) {
-	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, sub.Ch)
+	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, sub.Sub.Ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
@@ -55,21 +55,23 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 	subName2 := "identical-sub2"
 
 	kpmv2Sub1 := e2utils.KPMV2Sub{
-		Ctx:          ctx,
-		SubName:      subName1,
-		NodeID:       nodeID,
+		Sub: e2utils.Sub{
+			Name:   subName1,
+			NodeID: nodeID,
+		},
 		CellObjectID: cellObjectID,
 	}
-	channelID1, err := kpmv2Sub1.Subscribe()
+	channelID1, err := kpmv2Sub1.Subscribe(ctx)
 	assert.NoError(t, err)
 
 	kpmv2Sub2 := e2utils.KPMV2Sub{
-		Ctx:          ctx,
-		SubName:      subName2,
-		NodeID:       nodeID,
+		Sub: e2utils.Sub{
+			Name:   subName2,
+			NodeID: nodeID,
+		},
 		CellObjectID: cellObjectID,
 	}
-	channelID2, err := kpmv2Sub2.Subscribe()
+	channelID2, err := kpmv2Sub2.Subscribe(ctx)
 	assert.NoError(t, err)
 
 	assert.True(t, channelID1 != channelID2)
@@ -81,12 +83,12 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 	subList := e2utils.GetSubscriptionList(t)
 	assert.Equal(t, 1, len(subList))
 
-	assert.NoError(t, kpmv2Sub1.Unsubscribe())
+	assert.NoError(t, kpmv2Sub1.Unsubscribe(ctx))
 
 	subList = e2utils.GetSubscriptionList(t)
 	t.Logf("Subscription List after deleting subscription %s is %v:", subName1, subList)
 
-	assert.NoError(t, kpmv2Sub2.Unsubscribe())
+	assert.NoError(t, kpmv2Sub2.Unsubscribe(ctx))
 
 	subList = e2utils.GetSubscriptionList(t)
 	t.Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)

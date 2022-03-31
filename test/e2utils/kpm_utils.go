@@ -22,19 +22,22 @@ const (
 	defaultGranularity  = uint32(500)
 )
 
+type Sub struct {
+	Name      string
+	NodeID    topo.ID
+	Node      sdkclient.Node
+	SdkClient sdkclient.Client
+	Ch        chan e2api.Indication
+}
+
 type KPMV2Sub struct {
-	Ctx          context.Context
-	SubName      string
-	NodeID       topo.ID
-	Node         sdkclient.Node
+	Sub          Sub
 	CellObjectID string
 	ReportPeriod uint32
 	Granularity  uint32
-	SdkClient    sdkclient.Client
-	Ch           chan e2api.Indication
 }
 
-func (sub *KPMV2Sub) Subscribe() (e2api.ChannelID, error) {
+func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if sub.ReportPeriod == 0 {
 		sub.ReportPeriod = defaultReportPeriod
 	}
@@ -66,7 +69,7 @@ func (sub *KPMV2Sub) Subscribe() (e2api.ChannelID, error) {
 	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
-		NodeID:              string(sub.NodeID),
+		NodeID:              string(sub.Sub.NodeID),
 		EventTrigger:        eventTriggerBytes,
 		ServiceModelName:    utils.KpmServiceModelName,
 		ServiceModelVersion: utils.Version2,
@@ -78,17 +81,17 @@ func (sub *KPMV2Sub) Subscribe() (e2api.ChannelID, error) {
 		return "", err
 	}
 
-	sub.SdkClient = utils.GetE2Client(nil, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	sub.Node = sub.SdkClient.Node(sdkclient.NodeID(sub.NodeID))
-	sub.Ch = make(chan e2api.Indication)
-	return sub.Node.Subscribe(sub.Ctx, sub.SubName, subSpec, sub.Ch)
+	sub.Sub.SdkClient = utils.GetE2Client(nil, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sub.Sub.Node = sub.Sub.SdkClient.Node(sdkclient.NodeID(sub.Sub.NodeID))
+	sub.Sub.Ch = make(chan e2api.Indication)
+	return sub.Sub.Node.Subscribe(ctx, sub.Sub.Name, subSpec, sub.Sub.Ch)
 }
 
-func (sub *KPMV2Sub) CreateKPMV2SubscriptionOrFail(t *testing.T) {
-	_, err := sub.Subscribe()
+func (sub *KPMV2Sub) CreateKPMV2SubscriptionOrFail(ctx context.Context, t *testing.T) {
+	_, err := sub.Subscribe(ctx)
 	assert.NoError(t, err)
 }
 
-func (sub *KPMV2Sub) Unsubscribe() error {
-	return sub.Node.Unsubscribe(sub.Ctx, sub.SubName)
+func (sub *KPMV2Sub) Unsubscribe(ctx context.Context) error {
+	return sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name)
 }
