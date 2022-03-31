@@ -6,7 +6,7 @@ package v1beta1
 
 import (
 	"context"
-	"sync"
+	"sync/atomic"
 
 	v2 "github.com/onosproject/onos-e2t/api/e2ap/v2"
 	e2ap_commondatatypes "github.com/onosproject/onos-e2t/api/e2ap/v2/e2ap-commondatatypes"
@@ -78,7 +78,6 @@ type ControlServer struct {
 	oidRegistry   oid.Registry
 	topo          rnib.Store
 	requestID     int32
-	requestMu     sync.Mutex
 }
 
 func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlRequest) (*e2api.ControlResponse, error) {
@@ -125,13 +124,9 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 		return nil, errors.Status(err).Err()
 	}
 
-	s.requestMu.Lock()
-	s.requestID++
-	requestID := s.requestID
-	s.requestMu.Unlock()
-
+	requestID := types.RicRequestorID(uint16(atomic.AddInt32(&s.requestID, 1)))
 	ricRequest := types.RicRequest{
-		RequestorID: types.RicRequestorID(requestID),
+		RequestorID: requestID,
 		InstanceID:  config.InstanceID,
 	}
 
