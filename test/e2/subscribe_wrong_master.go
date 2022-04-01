@@ -38,7 +38,13 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 	client := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
 	assert.NotNil(t, client)
 
-	spec := utils.CreateKpmV2Sub(t, e2NodeID)
+	// Create a KPM V2 subscription
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			NodeID: e2NodeID,
+		},
+	}
+	spec := kpmv2Sub.SubscriptionSpecOrFail(t)
 
 	headers := e2api.RequestHeaders{
 		AppID:         "app",

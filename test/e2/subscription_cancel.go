@@ -9,11 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/e2utils"
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
-	"github.com/stretchr/testify/assert"
-
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
@@ -24,36 +20,41 @@ func (s *TestSuite) TestSubscriptionCancel(t *testing.T) {
 		subName    = "TestSubscriptionCancelKpmV2"
 		iterations = 10
 	)
-	var err error
 	// make a simulator
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, simName)
 
-	// make an SDK client and a subscription request
+	// Get a node and a cell to use for KPM
 	nodeID := utils.GetTestNodeID(t)
-	subSpec := utils.CreateKpmV2Sub(t, nodeID)
-	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	node := sdkClient.Node(sdkclient.NodeID(nodeID))
+	cellObjectID := utils.GetFirstCell(t, nodeID)
+
+	// Create a KPM V2 subscription
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:   subName,
+			NodeID: nodeID,
+		},
+		CellObjectID: cellObjectID,
+	}
+
+	var ctx context.Context
+	var cancel context.CancelFunc
 
 	for i := 1; i <= iterations; i++ {
 		// Create the subscription
-		subCtx, subCancel := context.WithTimeout(context.Background(), 15*time.Second)
-		ch := make(chan v1beta1.Indication)
-		_, err = node.Subscribe(subCtx, subName, subSpec, ch)
-		assert.NoError(t, err)
+		ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+		kpmv2Sub.SubscribeOrFail(ctx, t)
 
 		// Check that there is a message available
-		_ = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+		_ = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
 
 		// Cancel the subscription
-		subCancel()
-		_ = utils.ReadToEndOfChannel(ch)
+		cancel()
+		_ = utils.ReadToEndOfChannel(kpmv2Sub.Sub.Ch)
 	}
 
-	unsubCtx, unsubCancel := context.WithTimeout(context.Background(), 15*time.Second)
-	err = node.Unsubscribe(unsubCtx, subName)
-	assert.NoError(t, err)
-	unsubCancel()
-
+	ctx, cancel = context.WithTimeout(context.Background(), 15*time.Second)
+	kpmv2Sub.UnsubscribeOrFail(ctx, t)
 	e2utils.CheckForEmptySubscriptionList(t)
 	utils.UninstallRanSimulatorOrDie(t, sim)
+	cancel()
 }

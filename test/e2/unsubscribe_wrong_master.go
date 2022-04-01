@@ -40,7 +40,13 @@ func (s *TestSuite) TestUnsubscribeWrongMaster(t *testing.T) {
 	masterClient := utils.GetSubClientForIP(t, master.Interface.IP, master.Interface.Port)
 	assert.NotNil(t, masterClient)
 
-	spec := utils.CreateKpmV2Sub(t, e2NodeID)
+	// Create a KPM V2 subscription
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			NodeID: e2NodeID,
+		},
+	}
+	spec := kpmv2Sub.SubscriptionSpecOrFail(t)
 
 	headers := e2api.RequestHeaders{
 		AppID:         "app",

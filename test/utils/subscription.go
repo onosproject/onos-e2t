@@ -165,9 +165,8 @@ func ConnectE2t(IP string, port uint32) (*grpc.ClientConn, error) {
 	return grpc.DialContext(context.Background(), addr, opts...)
 }
 
-// CreateKpmV2Sub :
-func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
-
+// GetFirstCell queries topo to find the first cell for a node
+func GetFirstCell(t *testing.T, nodeID topoapi.ID) string {
 	topoSdkClient, err := NewTopoClient()
 	assert.NoError(t, err)
 
@@ -175,46 +174,7 @@ func CreateKpmV2Sub(t *testing.T, nodeID topoapi.ID) e2api.SubscriptionSpec {
 	assert.NoError(t, err)
 	assert.Greater(t, len(cells), 0)
 
-	return CreateKpmV2SubWithCell(t, nodeID, cells[0].CellObjectID)
-}
-
-// CreateKpmV2SubWithCell :
-func CreateKpmV2SubWithCell(t *testing.T, nodeID topoapi.ID, cellObjectID string) e2api.SubscriptionSpec {
-	reportPeriod := uint32(5000)
-	granularity := uint32(500)
-
-	// Kpm v2 interval is defined in ms
-	eventTriggerBytes, err := CreateKpmV2EventTrigger(reportPeriod)
-	assert.NoError(t, err)
-
-	// Use one of the cell object IDs for action definition
-	actionDefinitionBytes, err := CreateKpmV2ActionDefinition(cellObjectID, granularity)
-	assert.NoError(t, err)
-
-	var actions []e2api.Action
-	action := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-		Payload: actionDefinitionBytes,
-	}
-
-	actions = append(actions, action)
-
-	subRequest := Subscription{
-		NodeID:              string(nodeID),
-		EventTrigger:        eventTriggerBytes,
-		ServiceModelName:    KpmServiceModelName,
-		ServiceModelVersion: Version2,
-		Actions:             actions,
-	}
-
-	subSpec, err := subRequest.CreateWithActionDefinition()
-	assert.NoError(t, err)
-	return subSpec
+	return cells[0].CellObjectID
 }
 
 // ReadToEndOfChannel reads messages from a channel until an error occurs, clearing the

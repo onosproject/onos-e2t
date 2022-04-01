@@ -27,6 +27,7 @@ type Sub struct {
 	NodeID    topo.ID
 	Node      sdkclient.Node
 	SdkClient sdkclient.Client
+	Options   []sdkclient.SubscribeOption
 	Ch        chan e2api.Indication
 }
 
@@ -37,7 +38,7 @@ type KPMV2Sub struct {
 	Granularity  uint32
 }
 
-func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+func (sub *KPMV2Sub) SubscriptionSpec() (e2api.SubscriptionSpec, error) {
 	if sub.ReportPeriod == 0 {
 		sub.ReportPeriod = defaultReportPeriod
 	}
@@ -47,12 +48,12 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	}
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(sub.ReportPeriod)
 	if err != nil {
-		return "", err
+		return e2api.SubscriptionSpec{}, err
 	}
 
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(sub.CellObjectID, sub.Granularity)
 	if err != nil {
-		return "", err
+		return e2api.SubscriptionSpec{}, err
 	}
 
 	var actions []e2api.Action
@@ -76,22 +77,39 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 		Actions:             actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition()
+	return subRequest.CreateWithActionDefinition()
+}
+
+func (sub *KPMV2Sub) SubscriptionSpecOrFail(t *testing.T) e2api.SubscriptionSpec {
+	spec, err := sub.SubscriptionSpec()
+	assert.NoError(t, err)
+	return spec
+}
+
+func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+	subSpec, err := sub.SubscriptionSpec()
 	if err != nil {
 		return "", err
 	}
 
-	sub.Sub.SdkClient = utils.GetE2Client(nil, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	if sub.Sub.SdkClient == nil {
+		sub.Sub.SdkClient = utils.GetE2Client(nil, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	}
 	sub.Sub.Node = sub.Sub.SdkClient.Node(sdkclient.NodeID(sub.Sub.NodeID))
 	sub.Sub.Ch = make(chan e2api.Indication)
-	return sub.Sub.Node.Subscribe(ctx, sub.Sub.Name, subSpec, sub.Sub.Ch)
+	return sub.Sub.Node.Subscribe(ctx, sub.Sub.Name, subSpec, sub.Sub.Ch, sub.Sub.Options...)
 }
 
-func (sub *KPMV2Sub) CreateKPMV2SubscriptionOrFail(ctx context.Context, t *testing.T) {
+func (sub *KPMV2Sub) SubscribeOrFail(ctx context.Context, t *testing.T) {
 	_, err := sub.Subscribe(ctx)
 	assert.NoError(t, err)
 }
 
 func (sub *KPMV2Sub) Unsubscribe(ctx context.Context) error {
 	return sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name)
+}
+
+func (sub *KPMV2Sub) UnsubscribeOrFail(ctx context.Context, t *testing.T) {
+	err := sub.Unsubscribe(ctx)
+	assert.NoError(t, err)
 }

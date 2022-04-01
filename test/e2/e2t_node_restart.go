@@ -14,8 +14,6 @@ import (
 
 	"github.com/onosproject/helmit/pkg/kubernetes"
 
-	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/v2/e2sm-kpm-v2-go"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
@@ -48,51 +46,25 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	currentMastershipTerm := mastershipState.Term
 	assert.Greater(t, currentMastershipTerm, uint64(0))
 	t.Logf("Current mastership term: %d", currentMastershipTerm)
-	reportPeriod := uint32(5000)
-	granularity := uint32(500)
-
-	// Kpm v2 interval is defined in ms
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
-	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
 	cellObjectID := cells[0].CellObjectID
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
-	assert.NoError(t, err)
-
-	var actions []e2api.Action
-	action := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-		Payload: actionDefinitionBytes,
-	}
-
-	actions = append(actions, action)
-
-	subRequest := utils.Subscription{
-		NodeID:              string(nodeID),
-		EventTrigger:        eventTriggerBytes,
-		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.Version2,
-		Actions:             actions,
-	}
-
-	subSpec, err := subRequest.CreateWithActionDefinition()
-	assert.NoError(t, err)
-
 	subName := "TestE2TNodeRestart"
+
+	// Create a KPM V2 subscription
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:   subName,
+			NodeID: nodeID,
+		},
+		CellObjectID: cellObjectID,
+	}
+	kpmv2Sub.SubscribeOrFail(ctx, t)
 
 	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(nodeID))
-	ch := make(chan v1beta1.Indication)
-	_, err = node.Subscribe(ctx, subName, subSpec, ch)
-	assert.NoError(t, err)
 
-	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader := e2smkpmv2.E2SmKpmIndicationHeader{}
 
@@ -100,7 +72,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 	indMsgFormat1 := indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
 	assert.Equal(t, indMsgFormat1.GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(reportPeriod/granularity), len(indMsgFormat1.GetMeasData().GetValue()))
+	assert.Equal(t, int(kpmv2Sub.ReportPeriod/kpmv2Sub.Granularity), len(indMsgFormat1.GetMeasData().GetValue()))
 
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)
@@ -120,7 +92,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	t.Log("Checking indications")
-	indicationReport = e2utils.CheckIndicationMessage(t, 2*time.Minute, ch)
+	indicationReport = e2utils.CheckIndicationMessage(t, 2*time.Minute, kpmv2Sub.Sub.Ch)
 	indicationMessage = e2smkpmv2.E2SmKpmIndicationMessage{}
 	indicationHeader = e2smkpmv2.E2SmKpmIndicationHeader{}
 
@@ -128,7 +100,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 	indMsgFormat1 = indicationMessage.GetIndicationMessageFormats().GetIndicationMessageFormat1()
 	assert.Equal(t, indMsgFormat1.GetCellObjId().Value, cellObjectID)
-	assert.Equal(t, int(reportPeriod/granularity), len(indMsgFormat1.GetMeasData().GetValue()))
+	assert.Equal(t, int(kpmv2Sub.ReportPeriod/kpmv2Sub.Granularity), len(indMsgFormat1.GetMeasData().GetValue()))
 
 	err = proto.Unmarshal(indicationReport.Header, &indicationHeader)
 	assert.NoError(t, err)

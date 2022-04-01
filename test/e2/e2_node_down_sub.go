@@ -11,11 +11,8 @@ import (
 
 	"github.com/onosproject/onos-e2t/test/e2utils"
 
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
-
 	"github.com/onosproject/helmit/pkg/kubernetes"
 
-	subapi "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/stretchr/testify/assert"
 )
@@ -27,46 +24,22 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
 	nodeID := utils.GetTestNodeID(t)
 
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)
-	assert.NoError(t, err)
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
 
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
-	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
-
 	// Use one of the cell object IDs for action definition
-	granularity := uint32(500)
-	cellObjectID := cells[0].CellObjectID
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
-	assert.NoError(t, err)
+	cellObjectID := utils.GetFirstCell(t, nodeID)
 
-	var actions []subapi.Action
-	action := subapi.Action{
-		ID:   100,
-		Type: subapi.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &subapi.SubsequentAction{
-			Type:       subapi.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: subapi.TimeToWait_TIME_TO_WAIT_ZERO,
+	// Create a KPM V2 subscription
+	subName := "TestE2NodeDownSubscription"
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:   subName,
+			NodeID: nodeID,
 		},
-		Payload: actionDefinitionBytes,
+		CellObjectID: cellObjectID,
 	}
-	actions = append(actions, action)
-
-	subRequest := utils.Subscription{
-		NodeID:              string(nodeID),
-		Actions:             actions,
-		EventTrigger:        eventTriggerBytes,
-		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.Version2,
-	}
-
-	// Create a subscription request to indication messages from the client
-	subReq, err := subRequest.Create()
-	assert.NoError(t, err)
+	kpmv2Sub.SubscribeOrFail(ctx, t)
 
 	kube, err := kubernetes.NewForRelease(sim)
 	assert.NoError(t, err)
@@ -86,11 +59,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	}
 
 	//  Create the subscription
-	subName := "TestE2NodeDownSubscription"
-	sdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	node := sdkClient.Node(sdkclient.NodeID(nodeID))
-	ch := make(chan subapi.Indication)
-	_, err = node.Subscribe(ctx, subName, subReq, ch)
+	_, err = kpmv2Sub.Subscribe(ctx)
 
 	//  Subscribe should have failed because of a timeout
 	assert.Error(t, err)
@@ -98,10 +67,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 
 	// Delete the subscription and ran simulator
 	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
-	node = sdkClient.Node(sdkclient.NodeID(nodeID))
-	t.Logf("Unsubscribing %s", subName)
-	err = node.Unsubscribe(context.Background(), subName)
-	assert.NoError(t, err)
+	kpmv2Sub.UnsubscribeOrFail(context.Background(), t)
 
 	e2utils.CheckForEmptySubscriptionList(t)
 	err = sim.Uninstall()
