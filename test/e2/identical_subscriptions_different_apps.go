@@ -8,8 +8,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-e2t/test/e2utils"
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
@@ -32,42 +30,7 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 
 	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
-
-	reportPeriod := uint32(5000)
-	granularity := uint32(500)
-
-	// Kpm v2 interval is defined in ms
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
-	assert.NoError(t, err)
-
-	// Use one of the cell object IDs for action definition
 	cellObjectID := cells[0].CellObjectID
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
-	assert.NoError(t, err)
-
-	var actions []e2api.Action
-	action := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-		Payload: actionDefinitionBytes,
-	}
-
-	actions = append(actions, action)
-
-	subRequest := utils.Subscription{
-		NodeID:              string(nodeID),
-		EventTrigger:        eventTriggerBytes,
-		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.Version2,
-		Actions:             actions,
-	}
-
-	subSpec, err := subRequest.CreateWithActionDefinition()
-	assert.NoError(t, err)
 
 	subName1 := "identical-sub-app1"
 	subName2 := "identical-sub-app2"
@@ -87,24 +50,43 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 
 	nodeApp2 := clientApp2.Node(sdkclient.NodeID(nodeID))
 
-	ch1 := make(chan v1beta1.Indication)
-	channelIDApp1, err := nodeApp1.Subscribe(ctx, subName1, subSpec, ch1)
+	// Create a KPM V2 subscription for each app
+	kpmv2Sub1 := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:      subName1,
+			NodeID:    nodeID,
+			SdkClient: clientApp1,
+		},
+		CellObjectID: cellObjectID,
+	}
+	channelIDApp1, err := kpmv2Sub1.Subscribe(ctx)
 	assert.NoError(t, err)
+	ch1 := kpmv2Sub1.Sub.Ch
 
-	ch2 := make(chan v1beta1.Indication)
-	channelIDApp2, err := nodeApp2.Subscribe(ctx, subName2, subSpec, ch2)
+	kpmv2Sub2 := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:      subName1,
+			NodeID:    nodeID,
+			SdkClient: clientApp2,
+		},
+		CellObjectID: cellObjectID,
+	}
+	channelIDApp2, err := kpmv2Sub2.Subscribe(ctx)
 	assert.NoError(t, err)
+	ch2 := kpmv2Sub2.Sub.Ch
 
-	assert.True(t, channelIDApp1 != channelIDApp2)
+	assert.NotEqual(t, channelIDApp1, channelIDApp2)
 
 	indicationReportApp1 := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch1)
 	assert.NotNil(t, indicationReportApp1)
 	indicationReportApp2 := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch2)
 	assert.NotNil(t, indicationReportApp2)
 
+	kpmv2Sub1.UnsubscribeOrFail(ctx, t)
 	subList := e2utils.GetSubscriptionList(t)
 	assert.Equal(t, 1, len(subList))
 
+	kpmv2Sub2.UnsubscribeOrFail(ctx, t)
 	err = nodeApp1.Unsubscribe(ctx, subName1)
 	assert.NoError(t, err)
 
