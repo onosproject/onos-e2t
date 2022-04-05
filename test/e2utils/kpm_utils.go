@@ -28,14 +28,16 @@ type Sub struct {
 	Node      sdkclient.Node
 	SdkClient sdkclient.Client
 	Options   []sdkclient.SubscribeOption
+	Actions   []e2api.Action
 	Ch        chan e2api.Indication
 }
 
 type KPMV2Sub struct {
-	Sub          Sub
-	CellObjectID string
-	ReportPeriod uint32
-	Granularity  uint32
+	Sub                   Sub
+	CellObjectID          string
+	ReportPeriod          uint32
+	Granularity           uint32
+	ActionDefinitionBytes []byte
 }
 
 func (sub *KPMV2Sub) SubscriptionSpec() (e2api.SubscriptionSpec, error) {
@@ -51,23 +53,27 @@ func (sub *KPMV2Sub) SubscriptionSpec() (e2api.SubscriptionSpec, error) {
 		return e2api.SubscriptionSpec{}, err
 	}
 
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(sub.CellObjectID, sub.Granularity)
-	if err != nil {
-		return e2api.SubscriptionSpec{}, err
-	}
+	actions := sub.Sub.Actions
+	if actions == nil {
+		actionDefinitionBytes := sub.ActionDefinitionBytes
+		if actionDefinitionBytes == nil {
+			actionDefinitionBytes, err = utils.CreateKpmV2ActionDefinition(sub.CellObjectID, sub.Granularity)
+			if err != nil {
+				return e2api.SubscriptionSpec{}, err
+			}
+		}
+		action := e2api.Action{
+			ID:   100,
+			Type: e2api.ActionType_ACTION_TYPE_REPORT,
+			SubsequentAction: &e2api.SubsequentAction{
+				Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+				TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+			},
+			Payload: actionDefinitionBytes,
+		}
 
-	var actions []e2api.Action
-	action := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-		Payload: actionDefinitionBytes,
+		actions = append(actions, action)
 	}
-
-	actions = append(actions, action)
 
 	subRequest := utils.Subscription{
 		NodeID:              string(sub.Sub.NodeID),
