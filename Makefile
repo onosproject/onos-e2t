@@ -87,7 +87,7 @@ publish: # @HELP publish version on github and dockerhub
 
 jenkins-publish: jenkins-tools # @HELP Jenkins calls this to publish artifacts
 	./build/bin/push-images
-	./build/build-tools/release-merge-commit
+	BASE_BRANCH=rel-1.4 ./build/build-tools/release-merge-commit
 
 clean:: # @HELP remove all the build artifacts
 	rm -rf ./build/_output ./vendor ./cmd/onos-e2t/onos-e2t ./cmd/onos/onos
