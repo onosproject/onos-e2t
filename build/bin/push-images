@@ -6,6 +6,16 @@
 
 set -e
 
+branch=$(git branch --show-current)
+if [ "$branch" == "master" ]
+then
+  echo Pushing latest image from master branch
+else
+  echo Not pushing latest, not on master, branch is "$branch"
+  exit
+fi
+
+
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 make images
 docker push onosproject/onos-e2t:latest
