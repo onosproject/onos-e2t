@@ -6,8 +6,6 @@
 
 set -e
 
-branch="$(git symbolic-ref HEAD 2>/dev/null)"
-branch="$(basename -- $branch)"
 if [ "$branch" == "master" ]
 then
   echo Pushing latest image from master branch
