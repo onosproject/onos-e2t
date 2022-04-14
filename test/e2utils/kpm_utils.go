@@ -8,6 +8,7 @@ import (
 	"context"
 	"github.com/onosproject/onos-api/go/onos/topo"
 	"testing"
+	"time"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 
@@ -28,6 +29,7 @@ type Sub struct {
 	Node      sdkclient.Node
 	SdkClient sdkclient.Client
 	Ch        chan e2api.Indication
+	Timeout   time.Duration
 }
 
 type KPMV2Sub struct {
@@ -84,7 +86,12 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	sub.Sub.SdkClient = utils.GetE2Client(nil, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	sub.Sub.Node = sub.Sub.SdkClient.Node(sdkclient.NodeID(sub.Sub.NodeID))
 	sub.Sub.Ch = make(chan e2api.Indication)
-	return sub.Sub.Node.Subscribe(ctx, sub.Sub.Name, subSpec, sub.Sub.Ch)
+	subscribeOptions := make([]sdkclient.SubscribeOption, 0)
+	if sub.Sub.Timeout != 0 {
+		subscribeOptions = append(subscribeOptions, sdkclient.WithTransactionTimeout(sub.Sub.Timeout))
+	}
+
+	return sub.Sub.Node.Subscribe(ctx, sub.Sub.Name, subSpec, sub.Sub.Ch, subscribeOptions...)
 }
 
 func (sub *KPMV2Sub) CreateKPMV2SubscriptionOrFail(ctx context.Context, t *testing.T) {
