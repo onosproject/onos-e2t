@@ -27,16 +27,9 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 
 	nodeID := utils.GetTestNodeID(t)
 
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
-	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
-
 	subName := "TestSubscriptionKpmV2"
 
-	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
@@ -46,8 +39,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	_, err = kpmv2Sub.Subscribe(ctx)
-	assert.NoError(t, err)
+	kpmv2Sub.SubscribeOrFail(ctx, t)
 
 	// Read an indication
 	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)

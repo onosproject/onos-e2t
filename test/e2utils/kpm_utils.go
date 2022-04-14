@@ -95,3 +95,13 @@ func (sub *KPMV2Sub) CreateKPMV2SubscriptionOrFail(ctx context.Context, t *testi
 func (sub *KPMV2Sub) Unsubscribe(ctx context.Context) error {
 	return sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name)
 }
+
+func (sub *KPMV2Sub) SubscribeOrFail(ctx context.Context, t *testing.T) e2api.ChannelID {
+	channelID, err := sub.Subscribe(ctx)
+	assert.NoError(t, err)
+	return channelID
+}
+
+func (sub *KPMV2Sub) UnsubscribeOrFail(ctx context.Context, t *testing.T) {
+	assert.NoError(t, sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name))
+}
