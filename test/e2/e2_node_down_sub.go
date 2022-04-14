@@ -32,15 +32,9 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
-	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
-
 	// Use one of the cell object IDs for action definition
 	granularity := uint32(500)
-	cellObjectID := cells[0].CellObjectID
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 

@@ -40,8 +40,6 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2t-restart-subscription")
 
 	nodeID := utils.GetTestNodeID(t)
-	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
 
 	mastershipState, err := topoSdkClient.GetE2NodeMastershipState(ctx, nodeID)
 	assert.NoError(t, err)
@@ -56,7 +54,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 

@@ -30,12 +30,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
 	nodeID := utils.GetTestNodeID(t)
-	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
-	assert.NoError(t, err)
 
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
@@ -45,7 +40,7 @@ func (s *TestSuite) TestE2NodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 

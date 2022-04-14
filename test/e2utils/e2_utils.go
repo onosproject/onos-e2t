@@ -101,6 +101,7 @@ func GetFirstCellObjectID(t *testing.T, nodeID topo.ID) string {
 
 	cells, err := topoSdkClient.GetCells(context.Background(), nodeID)
 	assert.NoError(t, err)
+	assert.Greater(t, len(cells), 0)
 
 	return cells[0].CellObjectID
 

@@ -36,6 +36,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 
 	cells, err := topoSdkClient.GetCells(ctx, nodeID)
 	assert.NoError(t, err)
+	assert.GreaterOrEqual(t, len(cells), 2)
 
 	// Kpm v2 interval is defined in ms
 	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(5000)

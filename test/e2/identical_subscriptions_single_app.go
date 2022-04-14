@@ -42,14 +42,8 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 
 	nodeID := utils.GetTestNodeID(t)
 
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
-	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
-
 	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
 
 	subName1 := "identical-sub1"
 	subName2 := "identical-sub2"

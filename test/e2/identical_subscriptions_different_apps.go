@@ -27,12 +27,6 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 
 	nodeID := utils.GetTestNodeID(t)
 
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
-	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
-
 	reportPeriod := uint32(5000)
 	granularity := uint32(500)
 
@@ -41,7 +35,7 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
 	assert.NoError(t, err)
 
