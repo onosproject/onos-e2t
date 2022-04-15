@@ -24,12 +24,19 @@ const (
 )
 
 type Sub struct {
-	Name      string
-	NodeID    topo.ID
-	Node      sdkclient.Node
-	SdkClient sdkclient.Client
-	Ch        chan e2api.Indication
-	Timeout   time.Duration
+	Name                string
+	NodeID              topo.ID
+	Node                sdkclient.Node
+	SdkClient           sdkclient.Client
+	Ch                  chan e2api.Indication
+	Timeout             time.Duration
+	Actions             []e2api.Action
+	EventTriggerBytes   []byte
+	ActionID            int32
+	ActionType          e2api.ActionType
+	ServiceModelName    e2api.ServiceModelName
+	ServiceModelVersion e2api.ServiceModelVersion
+	EncodingType        sdkclient.Encoding
 }
 
 type KPMV2Sub struct {
@@ -43,13 +50,31 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if sub.ReportPeriod == 0 {
 		sub.ReportPeriod = defaultReportPeriod
 	}
-
 	if sub.Granularity == 0 {
 		sub.Granularity = defaultGranularity
 	}
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(sub.ReportPeriod)
-	if err != nil {
-		return "", err
+	if sub.Sub.ActionID == 0 {
+		sub.Sub.ActionID = 100
+	}
+	if sub.Sub.ActionType == 0 {
+		sub.Sub.ActionType = e2api.ActionType_ACTION_TYPE_REPORT
+	}
+	if sub.Sub.ServiceModelVersion == "" {
+		sub.Sub.ServiceModelVersion = utils.Version2
+	}
+	if sub.Sub.ServiceModelName == "" {
+		sub.Sub.ServiceModelName = utils.KpmServiceModelName
+	}
+	if sub.Sub.EncodingType == 0 {
+		sub.Sub.EncodingType = sdkclient.ProtoEncoding
+	}
+
+	if sub.Sub.EventTriggerBytes == nil {
+		eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(sub.ReportPeriod)
+		if err != nil {
+			return "", err
+		}
+		sub.Sub.EventTriggerBytes = eventTriggerBytes
 	}
 
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(sub.CellObjectID, sub.Granularity)
@@ -58,23 +83,27 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	}
 
 	var actions []e2api.Action
-	action := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-		Payload: actionDefinitionBytes,
-	}
+	if sub.Sub.Actions != nil {
+		actions = sub.Sub.Actions
+	} else {
+		action := e2api.Action{
+			ID:   sub.Sub.ActionID,
+			Type: sub.Sub.ActionType,
+			SubsequentAction: &e2api.SubsequentAction{
+				Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+				TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+			},
+			Payload: actionDefinitionBytes,
+		}
 
-	actions = append(actions, action)
+		actions = append(actions, action)
+	}
 
 	subRequest := utils.Subscription{
 		NodeID:              string(sub.Sub.NodeID),
-		EventTrigger:        eventTriggerBytes,
-		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.Version2,
+		EventTrigger:        sub.Sub.EventTriggerBytes,
+		ServiceModelName:    sub.Sub.ServiceModelName,
+		ServiceModelVersion: sub.Sub.ServiceModelVersion,
 		Actions:             actions,
 	}
 
@@ -83,7 +112,7 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 		return "", err
 	}
 
-	sub.Sub.SdkClient = utils.GetE2Client(nil, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
+	sub.Sub.SdkClient = utils.GetE2Client(nil, string(sub.Sub.ServiceModelName), string(sub.Sub.ServiceModelVersion), sdkclient.ProtoEncoding)
 	sub.Sub.Node = sub.Sub.SdkClient.Node(sdkclient.NodeID(sub.Sub.NodeID))
 	sub.Sub.Ch = make(chan e2api.Indication)
 	subscribeOptions := make([]sdkclient.SubscribeOption, 0)

@@ -33,49 +33,24 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	kpmNodeID := nodeIDs[0]
 	rcPreNodeID := nodeIDs[1]
 
-	reportPeriod := uint32(5000)
-	granularity := uint32(500)
 	KPMSubName := "TestSubscriptionKpmV2"
 	RCSubName := "TestSubscriptionRCPreV2"
-	// Kpm v2 interval is defined in ms
-	KPMEventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
-	assert.NoError(t, err)
 
-	// Use one of the cell object IDs for action definition
-	cellObjectID := e2utils.GetFirstCellObjectID(t, kpmNodeID)
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
-	assert.NoError(t, err)
-
-	var KPMActions []e2api.Action
-	KPMAction := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-		Payload: actionDefinitionBytes,
-	}
-
-	KPMActions = append(KPMActions, KPMAction)
-
-	KPMSubRequest := utils.Subscription{
-		NodeID:              string(kpmNodeID),
-		EventTrigger:        KPMEventTriggerBytes,
-		ServiceModelName:    utils.KpmServiceModelName,
-		ServiceModelVersion: utils.Version2,
-		Actions:             KPMActions,
-	}
-
-	KPMSubSpec, err := KPMSubRequest.Create()
-	assert.NoError(t, err)
-
-	KPMSdkClient := utils.GetE2Client(t, utils.KpmServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	KPMNode := KPMSdkClient.Node(sdkclient.NodeID(kpmNodeID))
-	KPMch := make(chan e2api.Indication)
 	KPMCtx, KPMCancel := context.WithTimeout(context.Background(), 30*time.Second)
-	_, err = KPMNode.Subscribe(KPMCtx, KPMSubName, KPMSubSpec, KPMch)
-	assert.NoError(t, err)
+
+	nodeID := utils.GetTestNodeID(t)
+
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+
+	// Create a KPM V2 subscription
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:   KPMSubName,
+			NodeID: kpmNodeID,
+		},
+		CellObjectID: cellObjectID,
+	}
+	kpmv2Sub.SubscribeOrFail(KPMCtx, t)
 
 	// Subscribe to RC service model
 	RCch := make(chan e2api.Indication)
@@ -112,7 +87,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Check that indications can be received
-	KPMMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, KPMch)
+	KPMMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
 	RCMsg := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, RCch)
 
 	kpmIndicationHeader := &e2smkpmies.E2SmKpmIndicationHeader{}
@@ -125,8 +100,7 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Clean up subscriptions
-	err = KPMNode.Unsubscribe(context.Background(), KPMSubName)
-	assert.NoError(t, err)
+	kpmv2Sub.UnsubscribeOrFail(context.Background(), t)
 
 	err = RCNode.Unsubscribe(context.Background(), RCSubName)
 	assert.NoError(t, err)
