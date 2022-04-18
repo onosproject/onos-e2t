@@ -46,6 +46,10 @@ type KPMV2Sub struct {
 	Granularity  uint32
 }
 
+type RCPreSub struct {
+	Sub Sub
+}
+
 func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if sub.ReportPeriod == 0 {
 		sub.ReportPeriod = defaultReportPeriod
@@ -69,7 +73,7 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 		sub.Sub.EncodingType = sdkclient.ProtoEncoding
 	}
 
-	if sub.Sub.EventTriggerBytes == nil {
+	if len(sub.Sub.EventTriggerBytes) == 0 {
 		eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(sub.ReportPeriod)
 		if err != nil {
 			return "", err
@@ -82,10 +86,7 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 		return "", err
 	}
 
-	var actions []e2api.Action
-	if sub.Sub.Actions != nil {
-		actions = sub.Sub.Actions
-	} else {
+	if len(sub.Sub.Actions) == 0 {
 		action := e2api.Action{
 			ID:   sub.Sub.ActionID,
 			Type: sub.Sub.ActionType,
@@ -96,15 +97,57 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 			Payload: actionDefinitionBytes,
 		}
 
-		actions = append(actions, action)
+		sub.Sub.Actions = append(sub.Sub.Actions, action)
+	}
+
+	return sub.Sub.Subscribe(ctx)
+}
+
+func (sub *RCPreSub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+	if sub.Sub.ActionID == 0 {
+		sub.Sub.ActionID = 100
+	}
+	if sub.Sub.ServiceModelVersion == "" {
+		sub.Sub.ServiceModelVersion = utils.Version2
+	}
+	if sub.Sub.ServiceModelName == "" {
+		sub.Sub.ServiceModelName = utils.RcServiceModelName
+	}
+
+	if len(sub.Sub.EventTriggerBytes) == 0 {
+		eventTriggerBytes, err := utils.CreateRcEventTrigger()
+		if err != nil {
+			return "", err
+		}
+		sub.Sub.EventTriggerBytes = eventTriggerBytes
+	}
+
+	if len(sub.Sub.Actions) == 0 {
+		RCAction := e2api.Action{
+			ID:   sub.Sub.ActionID,
+			Type: e2api.ActionType_ACTION_TYPE_REPORT,
+			SubsequentAction: &e2api.SubsequentAction{
+				Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+				TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+			},
+		}
+		sub.Sub.Actions = append(sub.Sub.Actions, RCAction)
+	}
+
+	return sub.Sub.Subscribe(ctx)
+}
+
+func (sub *Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+	if sub.EncodingType == 0 {
+		sub.EncodingType = sdkclient.ProtoEncoding
 	}
 
 	subRequest := utils.Subscription{
-		NodeID:              string(sub.Sub.NodeID),
-		EventTrigger:        sub.Sub.EventTriggerBytes,
-		ServiceModelName:    sub.Sub.ServiceModelName,
-		ServiceModelVersion: sub.Sub.ServiceModelVersion,
-		Actions:             actions,
+		NodeID:              string(sub.NodeID),
+		EventTrigger:        sub.EventTriggerBytes,
+		ServiceModelName:    sub.ServiceModelName,
+		ServiceModelVersion: sub.ServiceModelVersion,
+		Actions:             sub.Actions,
 	}
 
 	subSpec, err := subRequest.CreateWithActionDefinition()
@@ -112,15 +155,15 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 		return "", err
 	}
 
-	sub.Sub.SdkClient = utils.GetE2Client(nil, string(sub.Sub.ServiceModelName), string(sub.Sub.ServiceModelVersion), sdkclient.ProtoEncoding)
-	sub.Sub.Node = sub.Sub.SdkClient.Node(sdkclient.NodeID(sub.Sub.NodeID))
-	sub.Sub.Ch = make(chan e2api.Indication)
+	sub.SdkClient = utils.GetE2Client(nil, string(sub.ServiceModelName), string(sub.ServiceModelVersion), sdkclient.ProtoEncoding)
+	sub.Node = sub.SdkClient.Node(sdkclient.NodeID(sub.NodeID))
+	sub.Ch = make(chan e2api.Indication)
 	subscribeOptions := make([]sdkclient.SubscribeOption, 0)
-	if sub.Sub.Timeout != 0 {
-		subscribeOptions = append(subscribeOptions, sdkclient.WithTransactionTimeout(sub.Sub.Timeout))
+	if sub.Timeout != 0 {
+		subscribeOptions = append(subscribeOptions, sdkclient.WithTransactionTimeout(sub.Timeout))
 	}
 
-	return sub.Sub.Node.Subscribe(ctx, sub.Sub.Name, subSpec, sub.Sub.Ch, subscribeOptions...)
+	return sub.Node.Subscribe(ctx, sub.Name, subSpec, sub.Ch, subscribeOptions...)
 }
 
 func (sub *KPMV2Sub) CreateKPMV2SubscriptionOrFail(ctx context.Context, t *testing.T) {
@@ -139,5 +182,15 @@ func (sub *KPMV2Sub) SubscribeOrFail(ctx context.Context, t *testing.T) e2api.Ch
 }
 
 func (sub *KPMV2Sub) UnsubscribeOrFail(ctx context.Context, t *testing.T) {
+	assert.NoError(t, sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name))
+}
+
+func (sub *RCPreSub) SubscribeOrFail(ctx context.Context, t *testing.T) e2api.ChannelID {
+	channelID, err := sub.Subscribe(ctx)
+	assert.NoError(t, err)
+	return channelID
+}
+
+func (sub *RCPreSub) UnsubscribeOrFail(ctx context.Context, t *testing.T) {
 	assert.NoError(t, sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name))
 }
