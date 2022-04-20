@@ -86,7 +86,7 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 	assert.NoError(t, err)
 
 	t.Logf("Unsubscribing %s", subName)
-	kpmv2Sub.UnsubscribeOrFail(ctx, t)
+	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, t)
 
 	e2utils.CheckForEmptySubscriptionList(t)
 	utils.UninstallRanSimulatorOrDie(t, sim)

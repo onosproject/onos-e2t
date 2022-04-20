@@ -102,7 +102,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 		assert.True(t, cellObjectID == cellObjectIDList[0] || cellObjectID == cellObjectIDList[1])
 	}
 
-	kpmv2Sub.UnsubscribeOrFail(ctx, t)
+	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, t)
 
 	e2utils.CheckForEmptySubscriptionList(t)
 	utils.UninstallRanSimulatorOrDie(t, sim)

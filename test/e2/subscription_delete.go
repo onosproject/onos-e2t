@@ -85,7 +85,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	e2utils.CheckSubscriptionGet(t, subscriptionID)
 
 	// Close the subscription
-	err := sub.Unsubscribe(ctx)
+	err := sub.Sub.Unsubscribe(ctx)
 	assert.NoError(t, err)
 
 	// Check number of subscriptions is correct after deleting the subscription
@@ -104,7 +104,7 @@ func (s *TestSuite) TestSubscriptionDelete(t *testing.T) {
 	e2utils.CheckSubscriptionGet(t, subscriptionID)
 
 	// Close the subscription
-	err = sub.Unsubscribe(ctx)
+	err = sub.Sub.Unsubscribe(ctx)
 	assert.NoError(t, err)
 
 	assert.True(t, utils.ReadToEndOfChannel(sub.Sub.Ch))

@@ -77,12 +77,12 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 	subList := e2utils.GetSubscriptionList(t)
 	assert.Equal(t, 1, len(subList))
 
-	assert.NoError(t, kpmv2Sub1.Unsubscribe(ctx))
+	assert.NoError(t, kpmv2Sub1.Sub.Unsubscribe(ctx))
 
 	subList = e2utils.GetSubscriptionList(t)
 	t.Logf("Subscription List after deleting subscription %s is %v:", subName1, subList)
 
-	assert.NoError(t, kpmv2Sub2.Unsubscribe(ctx))
+	assert.NoError(t, kpmv2Sub2.Sub.Unsubscribe(ctx))
 
 	subList = e2utils.GetSubscriptionList(t)
 	t.Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)

@@ -66,7 +66,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 
 	assert.True(t, testCase.expectedError(err))
 
-	kpmv2Sub.UnsubscribeOrFail(ctx, t)
+	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, t)
 
 }
 

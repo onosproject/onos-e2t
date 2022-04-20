@@ -72,9 +72,9 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Clean up subscriptions
-	kpmv2Sub.UnsubscribeOrFail(context.Background(), t)
+	kpmv2Sub.Sub.UnsubscribeOrFail(context.Background(), t)
 
-	rcPreSub.UnsubscribeOrFail(context.Background(), t)
+	rcPreSub.Sub.UnsubscribeOrFail(context.Background(), t)
 	assert.NoError(t, err)
 
 	KPMCancel()

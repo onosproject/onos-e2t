@@ -23,6 +23,7 @@ const (
 	defaultGranularity  = uint32(500)
 )
 
+// Sub represents the common fields for subscriptions
 type Sub struct {
 	Name                string
 	NodeID              topo.ID
@@ -39,6 +40,7 @@ type Sub struct {
 	EncodingType        sdkclient.Encoding
 }
 
+// KPMV2Sub represents a KPM V2 service model subscription
 type KPMV2Sub struct {
 	Sub          Sub
 	CellObjectID string
@@ -46,10 +48,58 @@ type KPMV2Sub struct {
 	Granularity  uint32
 }
 
+// RCPreSub represents an RC Pre service model subscription
 type RCPreSub struct {
 	Sub Sub
 }
 
+// Subscribe is the common subscription implementation for all service models
+func (sub *Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+	if sub.EncodingType == 0 {
+		sub.EncodingType = sdkclient.ProtoEncoding
+	}
+	if sub.ActionID == 0 {
+		sub.ActionID = 100
+	}
+	if sub.ActionType == 0 {
+		sub.ActionType = e2api.ActionType_ACTION_TYPE_REPORT
+	}
+	subRequest := utils.Subscription{
+		NodeID:              string(sub.NodeID),
+		EventTrigger:        sub.EventTriggerBytes,
+		ServiceModelName:    sub.ServiceModelName,
+		ServiceModelVersion: sub.ServiceModelVersion,
+		Actions:             sub.Actions,
+	}
+
+	subSpec, err := subRequest.CreateWithActionDefinition()
+	if err != nil {
+		return "", err
+	}
+
+	sub.SdkClient = utils.GetE2Client(nil, string(sub.ServiceModelName), string(sub.ServiceModelVersion), sdkclient.ProtoEncoding)
+	sub.Node = sub.SdkClient.Node(sdkclient.NodeID(sub.NodeID))
+	sub.Ch = make(chan e2api.Indication)
+	subscribeOptions := make([]sdkclient.SubscribeOption, 0)
+	if sub.Timeout != 0 {
+		subscribeOptions = append(subscribeOptions, sdkclient.WithTransactionTimeout(sub.Timeout))
+	}
+
+	return sub.Node.Subscribe(ctx, sub.Name, subSpec, sub.Ch, subscribeOptions...)
+}
+
+// UnsubscribeOrFail unsubscribes from the service model.
+// If an error occurs, the test is failed.
+func (sub *Sub) UnsubscribeOrFail(ctx context.Context, t *testing.T) {
+	assert.NoError(t, sub.Node.Unsubscribe(ctx, sub.Name))
+}
+
+// Unsubscribe from the service model
+func (sub *Sub) Unsubscribe(ctx context.Context) error {
+	return sub.Node.Unsubscribe(ctx, sub.Name)
+}
+
+// Subscribe is the KPM V2 service model specific implementation
 func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if sub.ReportPeriod == 0 {
 		sub.ReportPeriod = defaultReportPeriod
@@ -57,20 +107,11 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if sub.Granularity == 0 {
 		sub.Granularity = defaultGranularity
 	}
-	if sub.Sub.ActionID == 0 {
-		sub.Sub.ActionID = 100
-	}
-	if sub.Sub.ActionType == 0 {
-		sub.Sub.ActionType = e2api.ActionType_ACTION_TYPE_REPORT
-	}
 	if sub.Sub.ServiceModelVersion == "" {
 		sub.Sub.ServiceModelVersion = utils.Version2
 	}
 	if sub.Sub.ServiceModelName == "" {
 		sub.Sub.ServiceModelName = utils.KpmServiceModelName
-	}
-	if sub.Sub.EncodingType == 0 {
-		sub.Sub.EncodingType = sdkclient.ProtoEncoding
 	}
 
 	if len(sub.Sub.EventTriggerBytes) == 0 {
@@ -103,10 +144,16 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	return sub.Sub.Subscribe(ctx)
 }
 
+// SubscribeOrFail subscribes to the KPM V2 service model.
+// If an error occurs, the test is failed.
+func (sub *KPMV2Sub) SubscribeOrFail(ctx context.Context, t *testing.T) e2api.ChannelID {
+	channelID, err := sub.Subscribe(ctx)
+	assert.NoError(t, err)
+	return channelID
+}
+
+// Subscribe is the RC Pre service model specific implementation
 func (sub *RCPreSub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
-	if sub.Sub.ActionID == 0 {
-		sub.Sub.ActionID = 100
-	}
 	if sub.Sub.ServiceModelVersion == "" {
 		sub.Sub.ServiceModelVersion = utils.Version2
 	}
@@ -137,60 +184,10 @@ func (sub *RCPreSub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	return sub.Sub.Subscribe(ctx)
 }
 
-func (sub *Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
-	if sub.EncodingType == 0 {
-		sub.EncodingType = sdkclient.ProtoEncoding
-	}
-
-	subRequest := utils.Subscription{
-		NodeID:              string(sub.NodeID),
-		EventTrigger:        sub.EventTriggerBytes,
-		ServiceModelName:    sub.ServiceModelName,
-		ServiceModelVersion: sub.ServiceModelVersion,
-		Actions:             sub.Actions,
-	}
-
-	subSpec, err := subRequest.CreateWithActionDefinition()
-	if err != nil {
-		return "", err
-	}
-
-	sub.SdkClient = utils.GetE2Client(nil, string(sub.ServiceModelName), string(sub.ServiceModelVersion), sdkclient.ProtoEncoding)
-	sub.Node = sub.SdkClient.Node(sdkclient.NodeID(sub.NodeID))
-	sub.Ch = make(chan e2api.Indication)
-	subscribeOptions := make([]sdkclient.SubscribeOption, 0)
-	if sub.Timeout != 0 {
-		subscribeOptions = append(subscribeOptions, sdkclient.WithTransactionTimeout(sub.Timeout))
-	}
-
-	return sub.Node.Subscribe(ctx, sub.Name, subSpec, sub.Ch, subscribeOptions...)
-}
-
-func (sub *KPMV2Sub) CreateKPMV2SubscriptionOrFail(ctx context.Context, t *testing.T) {
-	_, err := sub.Subscribe(ctx)
-	assert.NoError(t, err)
-}
-
-func (sub *KPMV2Sub) Unsubscribe(ctx context.Context) error {
-	return sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name)
-}
-
-func (sub *KPMV2Sub) SubscribeOrFail(ctx context.Context, t *testing.T) e2api.ChannelID {
-	channelID, err := sub.Subscribe(ctx)
-	assert.NoError(t, err)
-	return channelID
-}
-
-func (sub *KPMV2Sub) UnsubscribeOrFail(ctx context.Context, t *testing.T) {
-	assert.NoError(t, sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name))
-}
-
+// SubscribeOrFail subscribes to the RC Pre service model.
+// If an error occurs, the test is failed.
 func (sub *RCPreSub) SubscribeOrFail(ctx context.Context, t *testing.T) e2api.ChannelID {
 	channelID, err := sub.Subscribe(ctx)
 	assert.NoError(t, err)
 	return channelID
-}
-
-func (sub *RCPreSub) UnsubscribeOrFail(ctx context.Context, t *testing.T) {
-	assert.NoError(t, sub.Sub.Node.Unsubscribe(ctx, sub.Sub.Name))
 }

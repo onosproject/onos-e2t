@@ -68,7 +68,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 	// Delete the subscription and ran simulator
 	sim = utils.CreateRanSimulatorWithNameOrDie(t, s.c, "e2node-down-subscription")
 	t.Logf("Unsubscribing %s", subName)
-	kpmv2Sub.UnsubscribeOrFail(context.Background(), t)
+	kpmv2Sub.Sub.UnsubscribeOrFail(context.Background(), t)
 
 	e2utils.CheckForEmptySubscriptionList(t)
 	err = sim.Uninstall()

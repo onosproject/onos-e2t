@@ -8,8 +8,6 @@ import (
 	"context"
 	"testing"
 
-	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
-
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 
 	"google.golang.org/protobuf/proto"
@@ -33,7 +31,6 @@ const (
 func (s *TestSuite) TestControl(t *testing.T) {
 	sim := utils.CreateRanSimulatorWithNameOrDie(t, s.c, "control-oran-e2sm-rc-pre-v2")
 	assert.NotNil(t, sim)
-	ch := make(chan e2api.Indication)
 	ctx := context.Background()
 
 	// Get a test e2 node ID
@@ -42,44 +39,23 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	// Create E2 SDK Client
 	sdkClient := utils.GetE2Client(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
-
-	// Create a subscription request
-	eventTriggerBytes, err := utils.CreateRcEventTrigger()
-	assert.NoError(t, err)
-	var actions []e2api.Action
-	action := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-		},
-	}
-	actions = append(actions, action)
-
-	subRequest := utils.Subscription{
-		NodeID:              string(testNodeID),
-		Actions:             actions,
-		EventTrigger:        eventTriggerBytes,
-		ServiceModelName:    utils.RcServiceModelName,
-		ServiceModelVersion: utils.Version2,
-	}
-
-	subReq, err := subRequest.Create()
-	assert.NoError(t, err)
-
 	subName := "control-subscribe-oran-e2sm-rc-pre-v2"
 
-	// Subscribe to RC Pre service model
-	_, err = node.Subscribe(ctx, subName, subReq, ch)
-	assert.NoError(t, err)
+	// Create an RC PRE subscription
+	rcPreSub := e2utils.RCPreSub{
+		Sub: e2utils.Sub{
+			Name:   subName,
+			NodeID: testNodeID,
+		},
+	}
+	rcPreSub.SubscribeOrFail(ctx, t)
 
 	// Receive and process the first indication message
-	indMessage := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+	indMessage := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
 	header := indMessage.Header
 	ricIndicationHeader := e2smrcpreies.E2SmRcPreIndicationHeader{}
 
-	err = proto.Unmarshal(header, &ricIndicationHeader)
+	err := proto.Unmarshal(header, &ricIndicationHeader)
 	assert.NoError(t, err)
 	plmnID := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetPLmnIdentity().Value
 	nrcid := ricIndicationHeader.GetIndicationHeaderFormat1().GetCgi().GetNrCgi().GetNRcellIdentity().Value.GetValue()
@@ -126,8 +102,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	assert.Equal(t, ranParameterID, outcomeRanParameterID)
 
 	// Delete subscription and ran simulator
-	err = node.Unsubscribe(ctx, subName)
-	assert.NoError(t, err)
+	rcPreSub.Sub.UnsubscribeOrFail(ctx, t)
 	e2utils.CheckForEmptySubscriptionList(t)
 
 	err = sim.Uninstall()

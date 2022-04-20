@@ -60,7 +60,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	assert.Equal(t, "RAN Simulator", *format1.IndicationHeaderFormat1.SenderName)
 
 	// Clean up
-	assert.NoError(t, kpmv2Sub.Unsubscribe(ctx))
+	assert.NoError(t, kpmv2Sub.Sub.Unsubscribe(ctx))
 	e2utils.CheckForEmptySubscriptionList(t)
 	utils.UninstallRanSimulatorOrDie(t, sim)
 }
