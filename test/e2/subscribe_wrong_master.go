@@ -32,13 +32,21 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 	defer cancel()
 
 	e2NodeID := utils.GetTestNodeID(t)
-
+	cellObjectID := e2utils.GetFirstCellObjectID(t, e2NodeID)
 	nonMasters := utils.GetE2NodeNonMasterNodes(t, e2NodeID)
 
 	client := utils.GetSubClientForIP(t, nonMasters[0].IP, nonMasters[0].Port)
 	assert.NotNil(t, client)
 
-	spec := utils.CreateKpmV2Sub(t, e2NodeID)
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:   "sub1",
+			NodeID: e2NodeID,
+		},
+		CellObjectID: cellObjectID,
+	}
+	spec, err := kpmv2Sub.CreateSubscriptionSpec()
+	assert.NoError(t, err)
 
 	headers := e2api.RequestHeaders{
 		AppID:         "app",

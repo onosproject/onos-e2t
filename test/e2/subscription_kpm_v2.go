@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -27,16 +28,9 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 
 	nodeID := utils.GetTestNodeID(t)
 
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
-	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
-
 	subName := "TestSubscriptionKpmV2"
 
-	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
 
 	// Create a KPM V2 subscription
 	kpmv2Sub := e2utils.KPMV2Sub{
@@ -46,8 +40,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
-	_, err = kpmv2Sub.Subscribe(ctx)
-	assert.NoError(t, err)
+	kpmv2Sub.SubscribeOrFail(ctx, t)
 
 	// Read an indication
 	indicationReport := e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, kpmv2Sub.Sub.Ch)
@@ -68,7 +61,7 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 	assert.Equal(t, "RAN Simulator", *format1.IndicationHeaderFormat1.SenderName)
 
 	// Clean up
-	assert.NoError(t, kpmv2Sub.Unsubscribe(ctx))
+	assert.NoError(t, kpmv2Sub.Sub.Unsubscribe(ctx))
 	e2utils.CheckForEmptySubscriptionList(t)
 	utils.UninstallRanSimulatorOrDie(t, sim)
 }

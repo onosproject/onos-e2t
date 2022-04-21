@@ -8,6 +8,8 @@ import (
 	"context"
 	"fmt"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
+	"github.com/onosproject/onos-api/go/onos/topo"
+	"github.com/onosproject/onos-e2t/test/e2utils"
 	"github.com/onosproject/onos-e2t/test/utils"
 	"github.com/onosproject/onos-lib-go/pkg/logging"
 	e2 "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
@@ -35,14 +37,18 @@ type App struct {
 
 func (a *App) startSubscription(ctx context.Context, id string, nodeID string, cellObjectID string, reportPeriod uint32, granularity uint32) error {
 	a.log.Infof("Starting %s subscription %s", nodeID, id)
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(reportPeriod)
-	if err != nil {
-		a.log.Error(err)
-		return err
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:   "sub1",
+			NodeID: topo.ID(nodeID),
+		},
+		CellObjectID: cellObjectID,
+		Granularity:  1000,
 	}
+	eventTriggerBytes := kpmv2Sub.Sub.EventTriggerBytes
 
 	// Use one of the cell object IDs for action definition
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(cellObjectID, granularity)
+	actionDefinitionBytes, err := kpmv2Sub.CreateKpmV2ActionDefinition()
 	if err != nil {
 		a.log.Error(err)
 		return err

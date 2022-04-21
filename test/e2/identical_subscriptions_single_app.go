@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -42,14 +43,8 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 
 	nodeID := utils.GetTestNodeID(t)
 
-	topoSdkClient, err := utils.NewTopoClient()
-	assert.NoError(t, err)
-
-	cells, err := topoSdkClient.GetCells(ctx, nodeID)
-	assert.NoError(t, err)
-
 	// Use one of the cell object IDs for action definition
-	cellObjectID := cells[0].CellObjectID
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
 
 	subName1 := "identical-sub1"
 	subName2 := "identical-sub2"
@@ -83,12 +78,12 @@ func (s *TestSuite) TestIdenticalSubscriptionSingleApp(t *testing.T) {
 	subList := e2utils.GetSubscriptionList(t)
 	assert.Equal(t, 1, len(subList))
 
-	assert.NoError(t, kpmv2Sub1.Unsubscribe(ctx))
+	assert.NoError(t, kpmv2Sub1.Sub.Unsubscribe(ctx))
 
 	subList = e2utils.GetSubscriptionList(t)
 	t.Logf("Subscription List after deleting subscription %s is %v:", subName1, subList)
 
-	assert.NoError(t, kpmv2Sub2.Unsubscribe(ctx))
+	assert.NoError(t, kpmv2Sub2.Sub.Unsubscribe(ctx))
 
 	subList = e2utils.GetSubscriptionList(t)
 	t.Logf("Subscription List after deleting subscription %s is %v:", subName2, subList)

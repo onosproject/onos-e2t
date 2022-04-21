@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -40,50 +41,40 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		t.Skip()
 		return
 	}
-	sdkClient := utils.GetE2Client(t, string(testCase.serviceModelName), string(testCase.serviceModelVersion), testCase.encodingType)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	nodeID := utils.GetTestNodeID(t)
-	var actions []e2api.Action
-	action := e2api.Action{
-		ID:   testCase.actionID,
-		Type: testCase.actionType,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+
+	// Create a KPM V2 subscription
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:                testCase.description,
+			NodeID:              nodeID,
+			ActionID:            testCase.actionID,
+			ActionType:          testCase.actionType,
+			EventTriggerBytes:   testCase.eventTrigger,
+			ServiceModelName:    testCase.serviceModelName,
+			ServiceModelVersion: testCase.serviceModelVersion,
+			EncodingType:        testCase.encodingType,
 		},
+		CellObjectID: cellObjectID,
 	}
-	actions = append(actions, action)
-
-	subRequest := utils.Subscription{
-		NodeID:              string(nodeID),
-		Actions:             actions,
-		EventTrigger:        testCase.eventTrigger,
-		ServiceModelName:    testCase.serviceModelName,
-		ServiceModelVersion: testCase.serviceModelVersion,
-	}
-
-	subSpec, err := subRequest.CreateWithActionDefinition()
-	assert.NoError(t, err)
-
-	ch := make(chan e2api.Indication)
-	node := sdkClient.Node(sdkclient.NodeID(nodeID))
-	_, err = node.Subscribe(ctx, testCase.description, subSpec, ch)
-	assert.Error(t, err)
+	_, err := kpmv2Sub.Subscribe(ctx)
 
 	assert.True(t, testCase.expectedError(err))
 
-	_ = node.Unsubscribe(ctx, testCase.description)
+	kpmv2Sub.Sub.UnsubscribeOrFail(ctx, t)
 
 }
 
 // TestInvalidSubscriptions tests invalid inputs into the SDK
 func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	const actionID = 11
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(1000)
-	assert.NoError(t, err)
+	eventTriggerBytes := e2utils.KPMV2Sub{}.Sub.EventTriggerBytes
 
 	testCases := []invalidSubscriptionTestCase{
 		{
