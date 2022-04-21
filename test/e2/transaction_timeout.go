@@ -39,6 +39,7 @@ func (s *TestSuite) TestTransactionTimeout(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
 	kpmv2Sub.SubscribeOrFail(ctx, t)
 
 	// make sure the subscription channel is working by reading an indication from it

@@ -35,6 +35,7 @@ func createAndVerifySubscription(ctx context.Context, t *testing.T, nodeID topo.
 		},
 		CellObjectID: e2utils.GetFirstCellObjectID(t, nodeID),
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
 	channelID, err := kpmv2Sub.Subscribe(ctx)
 	assert.NoError(t, err)
 

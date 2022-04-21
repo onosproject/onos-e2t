@@ -49,6 +49,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 			NodeID: testNodeID,
 		},
 	}
+	assert.NoError(t, rcPreSub.UseDefaultReportAction())
 	rcPreSub.SubscribeOrFail(ctx, t)
 
 	// Receive and process the first indication message

@@ -40,6 +40,8 @@ func (s *TestSuite) TestSubscriptionKpmV2(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
+
 	kpmv2Sub.SubscribeOrFail(ctx, t)
 
 	// Read an indication

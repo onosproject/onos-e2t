@@ -41,6 +41,7 @@ func (s *TestSuite) TestE2NodeDownSubscription(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
 
 	kube, err := kubernetes.NewForRelease(sim)
 	assert.NoError(t, err)

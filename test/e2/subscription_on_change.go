@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -98,6 +99,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 			NodeID: testNodeID,
 		},
 	}
+	assert.NoError(t, rcPreSub.UseDefaultReportAction())
 	rcPreSub.SubscribeOrFail(ctx, t)
 
 	var indMessage e2api.Indication

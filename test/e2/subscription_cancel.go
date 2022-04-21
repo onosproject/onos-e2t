@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -35,6 +36,7 @@ func (s *TestSuite) TestSubscriptionCancel(t *testing.T) {
 		},
 		CellObjectID: e2utils.GetFirstCellObjectID(t, nodeID),
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
 
 	for i := 1; i <= iterations; i++ {
 		// Create the subscription

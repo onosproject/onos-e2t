@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2021-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -45,6 +46,7 @@ func (s *TestSuite) TestSubscribeWrongMaster(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
 	spec, err := kpmv2Sub.CreateSubscriptionSpec()
 	assert.NoError(t, err)
 
