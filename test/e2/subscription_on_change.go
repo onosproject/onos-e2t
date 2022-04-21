@@ -12,8 +12,6 @@ import (
 
 	topoapi "github.com/onosproject/onos-api/go/onos/topo"
 
-	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
-
 	"github.com/onosproject/onos-e2t/test/e2utils"
 
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
@@ -93,42 +91,19 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	testNodeID := utils.GetTestNodeID(t)
 
 	// Creates a subscription using RC service model
-	eventTriggerBytes, err := utils.CreateRcEventTrigger()
-	assert.NoError(t, err)
-	var actions []e2api.Action
-	action := e2api.Action{
-		ID:   100,
-		Type: e2api.ActionType_ACTION_TYPE_REPORT,
-		SubsequentAction: &e2api.SubsequentAction{
-			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+	subName := "TestSubscriptionOnChange"
+	rcPreSub := e2utils.RCPreSub{
+		Sub: e2utils.Sub{
+			Name:   subName,
+			NodeID: testNodeID,
 		},
 	}
-	actions = append(actions, action)
-
-	subRequest := utils.Subscription{
-		NodeID:              string(testNodeID),
-		Actions:             actions,
-		EventTrigger:        eventTriggerBytes,
-		ServiceModelName:    utils.RcServiceModelName,
-		ServiceModelVersion: utils.Version2,
-	}
-
-	subSpec, err := subRequest.Create()
-	assert.NoError(t, err)
-
-	subName := "TestSubscriptionOnChange"
-
-	sdkClient := utils.GetE2Client(t, utils.RcServiceModelName, utils.Version2, sdkclient.ProtoEncoding)
-	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
-	ch := make(chan e2api.Indication)
-	_, err = node.Subscribe(ctx, subName, subSpec, ch)
-	assert.NoError(t, err)
+	rcPreSub.SubscribeOrFail(ctx, t)
 
 	var indMessage e2api.Indication
 	// expects three indication messages since we have three cells for that node
 	for i := 0; i < 3; i++ {
-		indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+		indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
 
 	}
 
@@ -136,7 +111,7 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	// indication messages available
 	var gotIndication bool
 	select {
-	case indicationMsg := <-ch:
+	case indicationMsg := <-rcPreSub.Sub.Ch:
 		// We got an indication. This is an error, as there is no E2 node to send one
 		gotIndication = true
 		t.Log(indicationMsg)
@@ -171,10 +146,9 @@ func (s *TestSuite) TestSubscriptionOnChange(t *testing.T) {
 	})
 	assert.NoError(t, err)
 	// Expect to receive indication message on neighbor list change
-	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, ch)
+	indMessage = e2utils.CheckIndicationMessage(t, e2utils.DefaultIndicationTimeout, rcPreSub.Sub.Ch)
 
-	err = node.Unsubscribe(ctx, subName)
-	assert.NoError(t, err)
+	rcPreSub.Sub.UnsubscribeOrFail(ctx, t)
 
 	e2utils.CheckForEmptySubscriptionList(t)
 	utils.UninstallRanSimulatorOrDie(t, sim)

@@ -65,20 +65,21 @@ func (sub *Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if sub.ActionType == 0 {
 		sub.ActionType = e2api.ActionType_ACTION_TYPE_REPORT
 	}
-	subRequest := utils.Subscription{
-		NodeID:              string(sub.NodeID),
-		EventTrigger:        sub.EventTriggerBytes,
-		ServiceModelName:    sub.ServiceModelName,
-		ServiceModelVersion: sub.ServiceModelVersion,
-		Actions:             sub.Actions,
+
+	subSpec := e2api.SubscriptionSpec{
+		EventTrigger: e2api.EventTrigger{
+			Payload: sub.EventTriggerBytes,
+		},
+
+		Actions: sub.Actions,
 	}
 
-	subSpec, err := subRequest.CreateWithActionDefinition()
-	if err != nil {
-		return "", err
+	if sub.SdkClient == nil {
+		sub.SdkClient = sdkclient.NewClient(sdkclient.WithE2TAddress(utils.E2TServiceHost, utils.E2TServicePort),
+			sdkclient.WithServiceModel(sdkclient.ServiceModelName(sub.ServiceModelName),
+				sdkclient.ServiceModelVersion(sub.ServiceModelVersion)),
+			sdkclient.WithEncoding(sub.EncodingType))
 	}
-
-	sub.SdkClient = utils.GetE2Client(nil, string(sub.ServiceModelName), string(sub.ServiceModelVersion), sdkclient.ProtoEncoding)
 	sub.Node = sub.SdkClient.Node(sdkclient.NodeID(sub.NodeID))
 	sub.Ch = make(chan e2api.Indication)
 	subscribeOptions := make([]sdkclient.SubscribeOption, 0)
@@ -100,8 +101,8 @@ func (sub *Sub) Unsubscribe(ctx context.Context) error {
 	return sub.Node.Unsubscribe(ctx, sub.Name)
 }
 
-// Subscribe is the KPM V2 service model specific implementation
-func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+// init applies default values to the KPM V2 subscription
+func (sub *KPMV2Sub) init() error {
 	if sub.ReportPeriod == 0 {
 		sub.ReportPeriod = defaultReportPeriod
 	}
@@ -118,14 +119,14 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if len(sub.Sub.EventTriggerBytes) == 0 {
 		eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(sub.ReportPeriod)
 		if err != nil {
-			return "", err
+			return err
 		}
 		sub.Sub.EventTriggerBytes = eventTriggerBytes
 	}
 
 	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(sub.CellObjectID, sub.Granularity)
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	if len(sub.Sub.Actions) == 0 {
@@ -141,7 +142,15 @@ func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 
 		sub.Sub.Actions = append(sub.Sub.Actions, action)
 	}
+	return nil
+}
 
+// Subscribe is the KPM V2 service model specific implementation
+func (sub *KPMV2Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+	err := sub.init()
+	if err != nil {
+		return "", err
+	}
 	return sub.Sub.Subscribe(ctx)
 }
 
@@ -153,8 +162,23 @@ func (sub *KPMV2Sub) SubscribeOrFail(ctx context.Context, t *testing.T) e2api.Ch
 	return channelID
 }
 
-// Subscribe is the RC Pre service model specific implementation
-func (sub *RCPreSub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+func (sub *KPMV2Sub) CreateSubscriptionSpec() (e2api.SubscriptionSpec, error) {
+	err := sub.init()
+	if err != nil {
+		return e2api.SubscriptionSpec{}, err
+	}
+	spec := e2api.SubscriptionSpec{
+		EventTrigger: e2api.EventTrigger{
+			Payload: sub.Sub.EventTriggerBytes,
+		},
+
+		Actions: sub.Sub.Actions,
+	}
+	return spec, nil
+}
+
+// init applies default values to the RC Pre subscription
+func (sub *RCPreSub) init() error {
 	if sub.Sub.ServiceModelVersion == "" {
 		sub.Sub.ServiceModelVersion = utils.Version2
 	}
@@ -165,7 +189,7 @@ func (sub *RCPreSub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if len(sub.Sub.EventTriggerBytes) == 0 {
 		eventTriggerBytes, err := utils.CreateRcEventTrigger()
 		if err != nil {
-			return "", err
+			return err
 		}
 		sub.Sub.EventTriggerBytes = eventTriggerBytes
 	}
@@ -181,7 +205,15 @@ func (sub *RCPreSub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 		}
 		sub.Sub.Actions = append(sub.Sub.Actions, RCAction)
 	}
+	return nil
+}
 
+// Subscribe is the RC Pre service model specific implementation
+func (sub *RCPreSub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
+	err := sub.init()
+	if err != nil {
+		return "", err
+	}
 	return sub.Sub.Subscribe(ctx)
 }
 
