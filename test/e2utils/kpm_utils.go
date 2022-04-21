@@ -7,11 +7,12 @@ package e2utils
 
 import (
 	"context"
+	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-api/go/onos/topo"
+	rcpdubuilder "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go/pdubuilder"
+	"google.golang.org/protobuf/proto"
 	"testing"
 	"time"
-
-	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
@@ -177,6 +178,23 @@ func (sub *KPMV2Sub) CreateSubscriptionSpec() (e2api.SubscriptionSpec, error) {
 	return spec, nil
 }
 
+// createRcEventTrigger creates a rc service model event trigger
+func (sub *RCPreSub) createRcEventTrigger() ([]byte, error) {
+	e2SmKpmEventTriggerDefinition, err := rcpdubuilder.CreateE2SmRcPreEventTriggerDefinitionUponChange()
+	if err != nil {
+		return []byte{}, err
+	}
+	err = e2SmKpmEventTriggerDefinition.Validate()
+	if err != nil {
+		return []byte{}, err
+	}
+	protoBytes, err := proto.Marshal(e2SmKpmEventTriggerDefinition)
+	if err != nil {
+		return []byte{}, err
+	}
+	return protoBytes, nil
+}
+
 // init applies default values to the RC Pre subscription
 func (sub *RCPreSub) init() error {
 	if sub.Sub.ServiceModelVersion == "" {
@@ -187,7 +205,7 @@ func (sub *RCPreSub) init() error {
 	}
 
 	if len(sub.Sub.EventTriggerBytes) == 0 {
-		eventTriggerBytes, err := utils.CreateRcEventTrigger()
+		eventTriggerBytes, err := sub.createRcEventTrigger()
 		if err != nil {
 			return err
 		}
