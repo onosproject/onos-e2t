@@ -9,6 +9,7 @@ import (
 	"context"
 	e2api "github.com/onosproject/onos-api/go/onos/e2t/e2/v1beta1"
 	"github.com/onosproject/onos-api/go/onos/topo"
+	e2smkpmv2 "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/pdubuilder"
 	rcpdubuilder "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_rc_pre_go/pdubuilder"
 	"google.golang.org/protobuf/proto"
 	"testing"
@@ -17,6 +18,7 @@ import (
 	sdkclient "github.com/onosproject/onos-ric-sdk-go/pkg/e2/v1beta1"
 	"github.com/stretchr/testify/assert"
 
+	kpmv2types "github.com/onosproject/onos-e2-sm/servicemodels/e2sm_kpm_v2_go/v2/e2sm-kpm-v2-go"
 	"github.com/onosproject/onos-e2t/test/utils"
 )
 
@@ -102,6 +104,73 @@ func (sub *Sub) Unsubscribe(ctx context.Context) error {
 	return sub.Node.Unsubscribe(ctx, sub.Name)
 }
 
+// createKpmV2EventTrigger creates a kpm v2 service model event trigger
+func (sub *KPMV2Sub) createKpmV2EventTrigger() ([]byte, error) {
+	e2SmKpmEventTriggerDefinition, err := e2smkpmv2.CreateE2SmKpmEventTriggerDefinition(int64(sub.ReportPeriod))
+	if err != nil {
+		return []byte{}, err
+	}
+	err = e2SmKpmEventTriggerDefinition.Validate()
+	if err != nil {
+		return []byte{}, err
+	}
+	protoBytes, err := proto.Marshal(e2SmKpmEventTriggerDefinition)
+	if err != nil {
+		return []byte{}, err
+	}
+	return protoBytes, nil
+}
+
+func (sub *KPMV2Sub) CreateKpmV2ActionDefinition() ([]byte, error) {
+	rrcConAvgName, err := e2smkpmv2.CreateMeasurementTypeMeasName("RRC.Conn.Avg")
+	if err != nil {
+		return nil, err
+	}
+	rrcConMaxName, err := e2smkpmv2.CreateMeasurementTypeMeasName("RRC.Conn.Max")
+	if err != nil {
+		return nil, err
+	}
+	rrcConnEstabAtt, err := e2smkpmv2.CreateMeasurementTypeMeasName("RRC.ConnEstabAtt.Sum")
+	if err != nil {
+		return nil, err
+	}
+	measInfoConAvgItem, err := e2smkpmv2.CreateMeasurementInfoItem(rrcConAvgName)
+	if err != nil {
+		return nil, err
+	}
+	measInfoConMaxItem, err := e2smkpmv2.CreateMeasurementInfoItem(rrcConMaxName)
+	if err != nil {
+		return nil, err
+	}
+	measInfoConnEstabAttItem, err := e2smkpmv2.CreateMeasurementInfoItem(rrcConnEstabAtt)
+	if err != nil {
+		return nil, err
+	}
+
+	measInfoList := &kpmv2types.MeasurementInfoList{
+		Value: make([]*kpmv2types.MeasurementInfoItem, 0),
+	}
+	measInfoList.Value = append(measInfoList.Value, measInfoConAvgItem)
+	measInfoList.Value = append(measInfoList.Value, measInfoConMaxItem)
+	measInfoList.Value = append(measInfoList.Value, measInfoConnEstabAttItem)
+
+	actionDefinition, err := e2smkpmv2.CreateActionDefinitionFormat1(sub.CellObjectID, measInfoList, int64(sub.Granularity), 1234)
+	if err != nil {
+		return nil, err
+	}
+
+	e2SmKpmActionDefinition, err := e2smkpmv2.CreateE2SmKpmActionDefinitionFormat1(1, actionDefinition)
+	if err != nil {
+		return nil, err
+	}
+
+	protoBytes, err := proto.Marshal(e2SmKpmActionDefinition)
+	if err != nil {
+		return nil, err
+	}
+	return protoBytes, nil
+}
+
 // init applies default values to the KPM V2 subscription
 func (sub *KPMV2Sub) init() error {
 	if sub.ReportPeriod == 0 {
@@ -118,14 +187,14 @@ func (sub *KPMV2Sub) init() error {
 	}
 
 	if len(sub.Sub.EventTriggerBytes) == 0 {
-		eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(sub.ReportPeriod)
+		eventTriggerBytes, err := sub.createKpmV2EventTrigger()
 		if err != nil {
 			return err
 		}
 		sub.Sub.EventTriggerBytes = eventTriggerBytes
 	}
 
-	actionDefinitionBytes, err := utils.CreateKpmV2ActionDefinition(sub.CellObjectID, sub.Granularity)
+	actionDefinitionBytes, err := sub.CreateKpmV2ActionDefinition()
 	if err != nil {
 		return err
 	}

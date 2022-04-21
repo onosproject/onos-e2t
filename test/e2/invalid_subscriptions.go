@@ -74,8 +74,7 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 // TestInvalidSubscriptions tests invalid inputs into the SDK
 func (s *TestSuite) TestInvalidSubscriptions(t *testing.T) {
 	const actionID = 11
-	eventTriggerBytes, err := utils.CreateKpmV2EventTrigger(1000)
-	assert.NoError(t, err)
+	eventTriggerBytes := e2utils.KPMV2Sub{}.Sub.EventTriggerBytes
 
 	testCases := []invalidSubscriptionTestCase{
 		{

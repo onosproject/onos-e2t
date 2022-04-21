@@ -45,9 +45,23 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	cellObjectIDList[0] = cellObjectID0
 	cellObjectIDList[1] = cellObjectID1
 
-	actionDefinitionBytes0, err := utils.CreateKpmV2ActionDefinition(cellObjectIDList[0], 1000)
+	subName := "TestSubscriptionMultipleReports-kpm"
+
+	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
+
+	// Create a KPM V2 subscription
+	kpmv2Sub := e2utils.KPMV2Sub{
+		Sub: e2utils.Sub{
+			Name:   subName,
+			NodeID: nodeID,
+		},
+		Granularity:  1000,
+		CellObjectID: cellObjectID,
+	}
+
+	actionDefinitionBytes0, err := kpmv2Sub.CreateKpmV2ActionDefinition()
 	assert.NoError(t, err)
-	actionDefinitionBytes1, err := utils.CreateKpmV2ActionDefinition(cellObjectIDList[1], 1000)
+	actionDefinitionBytes1, err := kpmv2Sub.CreateKpmV2ActionDefinition()
 	assert.NoError(t, err)
 
 	var actions []e2api.Action
@@ -74,19 +88,7 @@ func (s *TestSuite) TestSubscriptionMultipleReports(t *testing.T) {
 	actions = append(actions, action0)
 	actions = append(actions, action1)
 
-	subName := "TestSubscriptionMultipleReports-kpm"
-
-	cellObjectID := e2utils.GetFirstCellObjectID(t, nodeID)
-
-	// Create a KPM V2 subscription
-	kpmv2Sub := e2utils.KPMV2Sub{
-		Sub: e2utils.Sub{
-			Name:    subName,
-			NodeID:  nodeID,
-			Actions: actions,
-		},
-		CellObjectID: cellObjectID,
-	}
+	kpmv2Sub.Sub.Actions = actions
 	kpmv2Sub.SubscribeOrFail(ctx, t)
 
 	indicationMessage := e2smkpmv2.E2SmKpmIndicationMessage{}

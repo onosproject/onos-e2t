@@ -105,5 +105,4 @@ func GetFirstCellObjectID(t *testing.T, nodeID topo.ID) string {
 	assert.Greater(t, len(cells), 0)
 
 	return cells[0].CellObjectID
-
 }
