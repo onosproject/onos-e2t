@@ -37,8 +37,6 @@ type Sub struct {
 	Timeout             time.Duration
 	Actions             []e2api.Action
 	EventTriggerBytes   []byte
-	ActionID            int32
-	ActionType          e2api.ActionType
 	ServiceModelName    e2api.ServiceModelName
 	ServiceModelVersion e2api.ServiceModelVersion
 	EncodingType        sdkclient.Encoding
@@ -61,12 +59,6 @@ type RCPreSub struct {
 func (sub *Sub) Subscribe(ctx context.Context) (e2api.ChannelID, error) {
 	if sub.EncodingType == 0 {
 		sub.EncodingType = sdkclient.ProtoEncoding
-	}
-	if sub.ActionID == 0 {
-		sub.ActionID = 100
-	}
-	if sub.ActionType == 0 {
-		sub.ActionType = e2api.ActionType_ACTION_TYPE_REPORT
 	}
 
 	subSpec := e2api.SubscriptionSpec{
@@ -194,24 +186,33 @@ func (sub *KPMV2Sub) init() error {
 		sub.Sub.EventTriggerBytes = eventTriggerBytes
 	}
 
+	return nil
+}
+
+// UseDefaultReportAction sets up a default KPM V2 REPORT action
+func (sub *KPMV2Sub) UseDefaultReportAction() error {
+	err := sub.init()
+	if err != nil {
+		return err
+	}
+
 	actionDefinitionBytes, err := sub.CreateKpmV2ActionDefinition()
 	if err != nil {
 		return err
 	}
 
-	if len(sub.Sub.Actions) == 0 {
-		action := e2api.Action{
-			ID:   sub.Sub.ActionID,
-			Type: sub.Sub.ActionType,
-			SubsequentAction: &e2api.SubsequentAction{
-				Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-				TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-			},
-			Payload: actionDefinitionBytes,
-		}
-
-		sub.Sub.Actions = append(sub.Sub.Actions, action)
+	action := e2api.Action{
+		ID:   100,
+		Type: e2api.ActionType_ACTION_TYPE_REPORT,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+		},
+		Payload: actionDefinitionBytes,
 	}
+
+	sub.Sub.Actions = append(sub.Sub.Actions, action)
+
 	return nil
 }
 
@@ -232,6 +233,7 @@ func (sub *KPMV2Sub) SubscribeOrFail(ctx context.Context, t *testing.T) e2api.Ch
 	return channelID
 }
 
+// CreateSubscriptionSpec return the subscription specification for this subscription
 func (sub *KPMV2Sub) CreateSubscriptionSpec() (e2api.SubscriptionSpec, error) {
 	err := sub.init()
 	if err != nil {
@@ -264,6 +266,27 @@ func (sub *RCPreSub) createRcEventTrigger() ([]byte, error) {
 	return protoBytes, nil
 }
 
+// UseDefaultReportAction sets up a default RC Pre REPORT action
+func (sub *RCPreSub) UseDefaultReportAction() error {
+	err := sub.init()
+	if err != nil {
+		return err
+	}
+
+	if len(sub.Sub.Actions) == 0 {
+		RCAction := e2api.Action{
+			ID:   100,
+			Type: e2api.ActionType_ACTION_TYPE_REPORT,
+			SubsequentAction: &e2api.SubsequentAction{
+				Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+				TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+			},
+		}
+		sub.Sub.Actions = append(sub.Sub.Actions, RCAction)
+	}
+	return nil
+}
+
 // init applies default values to the RC Pre subscription
 func (sub *RCPreSub) init() error {
 	if sub.Sub.ServiceModelVersion == "" {
@@ -281,17 +304,6 @@ func (sub *RCPreSub) init() error {
 		sub.Sub.EventTriggerBytes = eventTriggerBytes
 	}
 
-	if len(sub.Sub.Actions) == 0 {
-		RCAction := e2api.Action{
-			ID:   sub.Sub.ActionID,
-			Type: e2api.ActionType_ACTION_TYPE_REPORT,
-			SubsequentAction: &e2api.SubsequentAction{
-				Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
-				TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
-			},
-		}
-		sub.Sub.Actions = append(sub.Sub.Actions, RCAction)
-	}
 	return nil
 }
 

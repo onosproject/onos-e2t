@@ -49,6 +49,7 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub1.UseDefaultReportAction())
 	channelIDApp1, err := kpmv2Sub1.Subscribe(ctx)
 	assert.NoError(t, err)
 
@@ -60,6 +61,7 @@ func (s *TestSuite) TestIdenticalSubscriptionMultiApps(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub2.UseDefaultReportAction())
 	channelIDApp2, err := kpmv2Sub2.Subscribe(ctx)
 	assert.NoError(t, err)
 

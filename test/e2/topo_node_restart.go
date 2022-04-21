@@ -42,6 +42,7 @@ func (s *TestSuite) TestTopoNodeRestart(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
 	kpmv2Sub.SubscribeOrFail(ctx, t)
 
 	indicationReport := e2utils.CheckIndicationMessage(t, 5*time.Minute, kpmv2Sub.Sub.Ch)

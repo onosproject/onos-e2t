@@ -54,8 +54,6 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		Sub: e2utils.Sub{
 			Name:                testCase.description,
 			NodeID:              nodeID,
-			ActionID:            testCase.actionID,
-			ActionType:          testCase.actionType,
 			EventTriggerBytes:   testCase.eventTrigger,
 			ServiceModelName:    testCase.serviceModelName,
 			ServiceModelVersion: testCase.serviceModelVersion,
@@ -63,6 +61,17 @@ func runTestCase(t *testing.T, testCase invalidSubscriptionTestCase) {
 		},
 		CellObjectID: cellObjectID,
 	}
+
+	action := e2api.Action{
+		ID:   testCase.actionID,
+		Type: testCase.actionType,
+		SubsequentAction: &e2api.SubsequentAction{
+			Type:       e2api.SubsequentActionType_SUBSEQUENT_ACTION_TYPE_CONTINUE,
+			TimeToWait: e2api.TimeToWait_TIME_TO_WAIT_ZERO,
+		},
+	}
+	kpmv2Sub.Sub.Actions = append(kpmv2Sub.Sub.Actions, action)
+
 	_, err := kpmv2Sub.Subscribe(ctx)
 
 	assert.True(t, testCase.expectedError(err))

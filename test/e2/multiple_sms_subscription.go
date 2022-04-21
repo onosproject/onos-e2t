@@ -48,6 +48,8 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
+
 	kpmv2Sub.SubscribeOrFail(KPMCtx, t)
 
 	// Subscribe to RC service model
@@ -57,6 +59,8 @@ func (s *TestSuite) TestMultiSmSubscription(t *testing.T) {
 			NodeID: rcPreNodeID,
 		},
 	}
+	assert.NoError(t, rcPreSub.UseDefaultReportAction())
+
 	rcPreSub.SubscribeOrFail(KPMCtx, t)
 
 	// Check that indications can be received

@@ -58,6 +58,7 @@ func (s *TestSuite) TestE2TNodeRestart(t *testing.T) {
 		},
 		CellObjectID: cellObjectID,
 	}
+	assert.NoError(t, kpmv2Sub.UseDefaultReportAction())
 
 	subSpec, err := kpmv2Sub.CreateSubscriptionSpec()
 	assert.NoError(t, err)
