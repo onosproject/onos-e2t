@@ -75,7 +75,6 @@ all: build images
 integration-tests: # @HELP run helmit integration tests
 integration-tests: integration-test-namespace
 	helmit test -n test ./cmd/onos-e2t-tests --timeout 30m --no-teardown \
-		--secret sd-ran-username=${repo_user} --secret sd-ran-password=${repo_password} \
 		--set sd-ran.onos-topo.logging.loggers.root.level=debug \
 		--set sd-ran.onos-e2t.logging.loggers.root.level=debug \
 		--set sd-ran.onos-e2t.logging.loggers.onos/grpc/retry.level=error \
