@@ -422,9 +422,12 @@ func (r *Reconciler) reconcileOpenSubscription(sub *e2api.Subscription) (control
 		ricActionsToBeSetup[types.RicActionID(action.ID)] = types.RicActionDef{
 			RicActionID:         types.RicActionID(action.ID),
 			RicActionType:       e2apies.RicactionType(action.Type),
-			RicSubsequentAction: e2apies.RicsubsequentActionType(action.SubsequentAction.Type),
-			Ricttw:              e2apies.RictimeToWait(action.SubsequentAction.TimeToWait),
 			RicActionDefinition: action.Payload,
+		}
+		if action.SubsequentAction != nil {
+			a := ricActionsToBeSetup[types.RicActionID(action.ID)]
+			a.RicSubsequentAction = e2apies.RicsubsequentActionType(action.SubsequentAction.Type)
+			a.Ricttw = e2apies.RictimeToWait(action.SubsequentAction.TimeToWait)
 		}
 	}
 
