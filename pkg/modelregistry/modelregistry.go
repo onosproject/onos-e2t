@@ -47,6 +47,8 @@ type ServiceModel interface {
 	IndicationHeaderProtoToASN1(protoBytes []byte) ([]byte, error)
 	IndicationMessageASN1toProto(asn1Bytes []byte) ([]byte, error)
 	IndicationMessageProtoToASN1(protoBytes []byte) ([]byte, error)
+	CallProcessIDASN1toProto(asn1Bytes []byte) ([]byte, error)
+	CallProcessIDProtoToASN1(protoBytes []byte) ([]byte, error)
 	RanFuncDescriptionASN1toProto(asn1Bytes []byte) ([]byte, error)
 	RanFuncDescriptionProtoToASN1(protoBytes []byte) ([]byte, error)
 	EventTriggerDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error)

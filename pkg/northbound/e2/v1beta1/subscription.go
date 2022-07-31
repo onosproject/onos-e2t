@@ -345,6 +345,7 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 			var ricActionID int32
 			var indHeaderAsn1 []byte
 			var indMessageAsn1 []byte
+			var indRicCallProcessIDAsn1 []byte
 			for _, v := range ind.GetProtocolIes() {
 				if v.Id == int32(v2.ProtocolIeIDRanfunctionID) {
 					ranFuncID = v.GetValue().GetRanfunctionId().GetValue()
@@ -357,6 +358,9 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				}
 				if v.Id == int32(v2.ProtocolIeIDRicindicationMessage) {
 					indMessageAsn1 = v.GetValue().GetRicindicationMessage().GetValue()
+				}
+				if v.Id == int32(v2.ProtocolIeIDRiccallProcessID) {
+					indRicCallProcessIDAsn1 = v.GetValue().GetRiccallProcessId().GetValue()
 				}
 			}
 			log.Infof("Ric Indication. Ran FundID: %d, Ric Action ID: %d", ranFuncID, ricActionID)
@@ -390,12 +394,24 @@ func (s *SubscriptionServer) Subscribe(request *e2api.SubscribeRequest, server e
 				}
 				log.Infof("RICIndication successfully decoded from ASN1 to Proto #Bytes - Header: %d, Message: %d",
 					len(indHeaderProto), len(indMessageProto))
+				if indRicCallProcessIDAsn1 != nil {
+					indRicCallProcessIDProto, err := serviceModelPlugin.CallProcessIDProtoToASN1(indMessageAsn1)
+					if err != nil {
+						log.Error("Error transforming RIC Call Process ID ASN Bytes to Proto %s", err.Error())
+						return errors.Status(errors.NewInvalid(err.Error())).Err()
+					}
+					response.Message.(*e2api.SubscribeResponse_Indication).Indication.CallProcessId = indRicCallProcessIDProto
+				}
+
 			case e2api.Encoding_ASN1_PER:
 				response.Message = &e2api.SubscribeResponse_Indication{
 					Indication: &e2api.Indication{
 						Header:  indHeaderAsn1,
 						Payload: indMessageAsn1,
 					},
+				}
+				if indRicCallProcessIDAsn1 != nil {
+					response.Message.(*e2api.SubscribeResponse_Indication).Indication.CallProcessId = indRicCallProcessIDAsn1
 				}
 			default:
 				log.Errorf("Encoding type %v not supported", encoding)

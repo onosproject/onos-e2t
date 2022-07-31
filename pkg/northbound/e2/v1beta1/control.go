@@ -132,6 +132,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 
 	controlHeaderBytes := request.Message.Header
 	controlMessageBytes := request.Message.Payload
+	controlRicCallProcessIDBytes := request.CallProcessId
 	if request.Headers.Encoding == e2api.Encoding_PROTO {
 		controlHeaderBytes, err = serviceModelPlugin.ControlHeaderProtoToASN1(controlHeaderBytes)
 		if err != nil {
@@ -143,6 +144,13 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 			log.Warnf("Error transforming Control Message Proto bytes to ASN: %s", err.Error())
 			return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 		}
+		if controlRicCallProcessIDBytes != nil {
+			controlRicCallProcessIDBytes, err = serviceModelPlugin.CallProcessIDProtoToASN1(controlRicCallProcessIDBytes)
+			if err != nil {
+				log.Warnf("Error transforming Control RIC Call Process ID Proto bytes to ASN: %s", err.Error())
+				return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
+			}
+		}
 	}
 
 	ranFuncID, ok := conn.GetRANFunctionID(ctx, serviceModelOID)
@@ -153,7 +161,7 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 	}
 
 	rcar := e2apies.RiccontrolAckRequest_RICCONTROL_ACK_REQUEST_ACK
-	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, controlHeaderBytes, controlMessageBytes)
+	controlRequest, err := pdubuilder.NewControlRequest(ricRequest, ranFuncID, controlHeaderBytes, controlMessageBytes, controlRicCallProcessIDBytes)
 	if err != nil {
 		log.Warn(err)
 		return nil, errors.Status(err).Err()

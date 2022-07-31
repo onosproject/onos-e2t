@@ -12,13 +12,17 @@ import (
 )
 
 func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage) (*e2appducontents.RiccontrolRequest, error) {
+	ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage, callProcessID types.RicCallProcessID) (*e2appducontents.RiccontrolRequest, error) {
 
 	controlRequest := &e2appducontents.RiccontrolRequest{
 		ProtocolIes: make([]*e2appducontents.RiccontrolRequestIes, 0),
 	}
 
 	controlRequest.SetRicRequestID(ricReqID).SetRanFunctionID(&ranFuncID).SetRicControlHeader(ricCtrlHdr).SetRicControlMessage(ricCtrlMsg)
+
+	if callProcessID != nil {
+		controlRequest.SetRicCallProcessID(callProcessID)
+	}
 
 	return controlRequest, nil
 
