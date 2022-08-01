@@ -87,7 +87,7 @@ func (s *TestSuite) TestControl(t *testing.T) {
 	// Create a control request to change PCI value
 	request, err := controlRequest.Create()
 	assert.NoError(t, err)
-	response, err := node.Control(ctx, request)
+	response, err := node.Control(ctx, request, nil)
 	assert.NoError(t, err)
 
 	assert.NotNil(t, response)

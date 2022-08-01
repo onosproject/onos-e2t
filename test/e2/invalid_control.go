@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -38,7 +39,7 @@ func runControlTestCase(t *testing.T, testCase invalidControlTestCase, testNodeI
 	node := sdkClient.Node(sdkclient.NodeID(testNodeID))
 	request, err := testCase.control.Create()
 	assert.NoError(t, err)
-	response, err := node.Control(ctx, request)
+	response, err := node.Control(ctx, request, nil)
 	assert.Nil(t, response)
 	assert.Equal(t, true, testCase.expectedError(err))
 

@@ -1,6 +1,8 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
+
 package pdubuilder
 
 import (
@@ -23,7 +25,7 @@ func TestRicControlRequest(t *testing.T) {
 	var ricCtrlHdr types.RicControlHeader = []byte("456")
 	var ricCtrlMsg types.RicControlMessage = []byte("789")
 	request, err := NewControlRequest(ricRequestID,
-		ranFuncID, ricCtrlHdr, ricCtrlMsg)
+		ranFuncID, ricCtrlHdr, ricCtrlMsg, nil)
 	assert.NilError(t, err)
 	assert.Assert(t, request != nil)
 
