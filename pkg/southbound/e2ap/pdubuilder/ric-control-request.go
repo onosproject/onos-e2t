@@ -22,7 +22,7 @@ func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
 
 	controlRequest.SetRicRequestID(ricReqID).SetRanFunctionID(&ranFuncID).SetRicControlHeader(ricCtrlHdr).SetRicControlMessage(ricCtrlMsg)
 
-	if callProcessID != nil {
+	if len(callProcessID) != 0 {
 		controlRequest.SetRicCallProcessID(callProcessID)
 	}
 

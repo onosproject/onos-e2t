@@ -145,7 +145,8 @@ func (s *ControlServer) Control(ctx context.Context, request *e2api.ControlReque
 			log.Warnf("Error transforming Control Message Proto bytes to ASN: %s", err.Error())
 			return nil, errors.Status(errors.NewInvalid(err.Error())).Err()
 		}
-		if controlRicCallProcessIDBytes != nil {
+		log.Infof("controlRicCallProcessIDBytes: %v, len: %d", controlRicCallProcessIDBytes, len(controlRicCallProcessIDBytes))
+		if len(controlRicCallProcessIDBytes) != 0 {
 			controlRicCallProcessIDBytes, err = serviceModelPlugin.CallProcessIDProtoToASN1(controlRicCallProcessIDBytes)
 			if err != nil {
 				log.Warnf("Error transforming Control RIC Call Process ID Proto bytes to ASN: %s", err.Error())
