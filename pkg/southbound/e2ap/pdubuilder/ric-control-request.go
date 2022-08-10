@@ -1,6 +1,8 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
+
 package pdubuilder
 
 import (
@@ -12,13 +14,17 @@ import (
 )
 
 func NewControlRequest(ricReqID types.RicRequest, ranFuncID types.RanFunctionID,
-	ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage) (*e2appducontents.RiccontrolRequest, error) {
+	ricCtrlHdr types.RicControlHeader, ricCtrlMsg types.RicControlMessage, callProcessID types.RicCallProcessID) (*e2appducontents.RiccontrolRequest, error) {
 
 	controlRequest := &e2appducontents.RiccontrolRequest{
 		ProtocolIes: make([]*e2appducontents.RiccontrolRequestIes, 0),
 	}
 
 	controlRequest.SetRicRequestID(ricReqID).SetRanFunctionID(&ranFuncID).SetRicControlHeader(ricCtrlHdr).SetRicControlMessage(ricCtrlMsg)
+
+	if len(callProcessID) != 0 {
+		controlRequest.SetRicCallProcessID(callProcessID)
+	}
 
 	return controlRequest, nil
 

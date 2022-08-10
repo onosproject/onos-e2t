@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2022-present Intel Corporation
 // SPDX-FileCopyrightText: 2020-present Open Networking Foundation <info@opennetworking.org>
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -47,6 +48,8 @@ type ServiceModel interface {
 	IndicationHeaderProtoToASN1(protoBytes []byte) ([]byte, error)
 	IndicationMessageASN1toProto(asn1Bytes []byte) ([]byte, error)
 	IndicationMessageProtoToASN1(protoBytes []byte) ([]byte, error)
+	CallProcessIDASN1toProto(asn1Bytes []byte) ([]byte, error)
+	CallProcessIDProtoToASN1(protoBytes []byte) ([]byte, error)
 	RanFuncDescriptionASN1toProto(asn1Bytes []byte) ([]byte, error)
 	RanFuncDescriptionProtoToASN1(protoBytes []byte) ([]byte, error)
 	EventTriggerDefinitionASN1toProto(asn1Bytes []byte) ([]byte, error)
