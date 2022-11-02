@@ -1285,21 +1285,34 @@ message F1SetupRequestIes {
 // @inject_tag: aper:"valueExt"
 // {F1SetupRequest}
 message F1SetupRequest {
+    // @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
     repeated F1SetupRequestIes protocol_ies = 1 [ json_name="protocolIEs"];
 };
 
 // sequence from f1ap_v1.asn1:1507
 // {GNB-DU-Served-Cells-List}
 message GnbDUServedCellsList {
-    // @inject_tag: aper:""
+    // @inject_tag: aper:"sizeLB:1,sizeUB:512,valueExt"
     repeated GnbDUServedCellsItemIes value = 1 [ json_name="value"];
 };
+
+message GnbDUServedCellsItemIesValue {
+    oneof gnb_d_u_served_cells_item_ies_value {
+        // @inject_tag: aper:"valueExt"
+        GnbDUServedCellsItem gnb_d_u_served_cells_item = 1 [json_name="GNB-DU-Served-Cells-Item"];
+    }
+}
 
 // value set from f1ap_v1.asn1:1509
 // {GNB-DU-Served-Cells-ItemIEs}
 message GnbDUServedCellsItemIes {
     // value set translated as choice from f1ap_v1.asn1:1509
     oneof gnb_du_served_cells_item_ies {
+        // @inject_tag: aper:"unique,"
+        ProtocolIeID id = 1 [ json_name="&id"];
+        Criticality criticality = 2 [ json_name="&criticality"];
+        // @inject_tag: aper:"canonicalOrder,"
+        GnbDUServedCellsItemIesValue value = 3 [ json_name="&Value"];
     }
 };
 
@@ -10966,10 +10979,11 @@ message GnbDUServedCellsItemExtIes {
 // @inject_tag: aper:"valueExt"
 // {GNB-DU-Served-Cells-Item}
 message GnbDUServedCellsItem {
+    // @inject_tag: aper:"valueExt"
     ServedCellInformation served_cell_information = 1 [ json_name="served-Cell-Information"];
-    // @inject_tag: aper:"optional,"
+    // @inject_tag: aper:"optional,valueExt"
     optional GnbDUSystemInformation g_nb_du_system_information = 2 [ json_name="gNB-DU-System-Information"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated GnbDUServedCellsItemExtIes i_e_extensions = 3 [ json_name="iE-Extensions"];
 };
 
@@ -11005,7 +11019,7 @@ message GnbDUSystemInformationExtIes {
 message GnbDUSystemInformation {
     Mibmessage m_ib_message = 1 [ json_name="mIB-message"];
     Sib1message s_ib1_message = 2 [ json_name="sIB1-message"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,suzeUB:65535"
     repeated GnbDUSystemInformationExtIes i_e_extensions = 3 [ json_name="iE-Extensions"];
 };
 
@@ -14320,7 +14334,7 @@ message RrcVersionExtIes {
 message RrcVersion {
     // @inject_tag: aper:"sizeLB:3,sizeUB:3,"
     asn1.v1.BitString latest_rrc_version = 1 [ json_name="latest-RRC-Version"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated RrcVersionExtIes i_e_extensions = 2 [ json_name="iE-Extensions"];
 };
 
