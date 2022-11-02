@@ -1,0 +1,97 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
+////////////////////// f1ap-containers.proto //////////////////////
+// Protobuf generated from /f1ap_v1.asn1 by asn1c-0.9.29
+// F1AP-Containers { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-access(22) modules(3) f1ap(3) version1(1) f1ap-Containers(5) }
+
+syntax = "proto3";
+
+package f1ap.v1;
+option go_package = "f1ap/v1/f1ap_containers;f1apcontainersv1";
+
+import "f1ap/v1/f1ap_commondatatypes.proto";
+import "f1ap/v1/f1ap_constants.proto";
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+
+// sequence from f1ap_v1.asn1:10878
+// Param F1AP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Container001}
+message ProtocolIeContainer001 {
+    // @inject_tag: aper:""
+    repeated int32 value = 1 [ json_name="value"];
+};
+
+// reference from f1ap_v1.asn1:10881
+// Param F1AP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-SingleContainer001}
+message ProtocolIeSingleContainer001 {
+    ProtocolIeField001 value = 1 [ json_name="value"];
+};
+
+// sequence from f1ap_v1.asn1:10884
+// Param F1AP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Field001}
+message ProtocolIeField001 {
+    int32 id = 1 [ json_name="id"];
+    int32 criticality = 2 [ json_name="criticality"];
+    int32 value = 3 [ json_name="value"];
+};
+
+// sequence from f1ap_v1.asn1:10897
+// Param F1AP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-ContainerPair}
+message ProtocolIeContainerPair {
+    // @inject_tag: aper:""
+    repeated int32 value = 1 [ json_name="value"];
+};
+
+// sequence from f1ap_v1.asn1:10900
+// Param F1AP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-FieldPair}
+message ProtocolIeFieldPair {
+    int32 id = 1 [ json_name="id"];
+//    @id first_criticality = 2 [ json_name="firstCriticality"];
+//    @id first_value = 3 [ json_name="firstValue"];
+//    @id second_criticality = 4 [ json_name="secondCriticality"];
+//    @id second_value = 5 [ json_name="secondValue"];
+};
+
+// sequence from f1ap_v1.asn1:10915
+// Param F1AP-PROTOCOL-EXTENSION:ExtensionSetParam
+// {ProtocolExtensionContainer001}
+message ProtocolExtensionContainer001 {
+    // @inject_tag: aper:""
+    repeated int32 value = 1 [ json_name="value"];
+};
+
+// sequence from f1ap_v1.asn1:10918
+// Param F1AP-PROTOCOL-EXTENSION:ExtensionSetParam
+// {ProtocolExtensionField001}
+message ProtocolExtensionField001 {
+    int32 id = 1 [ json_name="id"];
+    int32 criticality = 2 [ json_name="criticality"];
+    int32 extension_value = 3 [ json_name="extensionValue"];
+};
+
+// sequence from f1ap_v1.asn1:10931
+// Param F1AP-PRIVATE-IES:IEsSetParam
+// {PrivateIE-Container001}
+message PrivateIeContainer001 {
+    // @inject_tag: aper:""
+    repeated int32 value = 1 [ json_name="value"];
+};
+
+// sequence from f1ap_v1.asn1:10934
+// Param F1AP-PRIVATE-IES:IEsSetParam
+// {PrivateIE-Field001}
+message PrivateIeField001 {
+    int32 id = 1 [ json_name="id"];
+    int32 criticality = 2 [ json_name="criticality"];
+    int32 value = 3 [ json_name="value"];
+};
+

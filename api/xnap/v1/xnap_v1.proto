@@ -1,3 +1,9 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
 ////////////////////// xnap-pdu-descriptions.proto //////////////////////
 // Protobuf generated from /xnap_v1.asn1 by asn1c-0.9.29
 // XnAP-PDU-Descriptions { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-access(22) modules(3) xnap(2) version1(1) xnap-PDU-Descriptions(0) }

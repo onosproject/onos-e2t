@@ -1,0 +1,4064 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
+////////////////////// f1ap-constants.proto //////////////////////
+// Protobuf generated from /f1ap_v1.asn1 by asn1c-0.9.29
+// F1AP-Constants { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-access(22) modules(3) f1ap(3) version1(1) f1ap-Constants(4) }
+
+syntax = "proto3";
+
+package f1ap.v1;
+option go_package = "f1ap/v1/f1ap_constants;f1apconstantsv1";
+
+import "f1ap/v1/f1ap_commondatatypes.proto";
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+
+// reference from f1ap_v1.asn1:10148
+// {id-Reset}
+message IdReset {
+    int32 value = 1 [(validate.v1.rules).int32.const = 0, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10149
+// {id-F1Setup}
+message IdF1Setup {
+    // @inject_tag: aper:"valueLB:1,valueUB:1,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10150
+// {id-ErrorIndication}
+message IdErrorIndication {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10151
+// {id-gNBDUConfigurationUpdate}
+message IdgNbduconfigurationUpdate {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10152
+// {id-gNBCUConfigurationUpdate}
+message IdgNbcuconfigurationUpdate {
+    // @inject_tag: aper:"valueLB:4,valueUB:4,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10153
+// {id-UEContextSetup}
+message IdUEcontextSetup {
+    // @inject_tag: aper:"valueLB:5,valueUB:5,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10154
+// {id-UEContextRelease}
+message IdUEcontextRelease {
+    // @inject_tag: aper:"valueLB:6,valueUB:6,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10155
+// {id-UEContextModification}
+message IdUEcontextModification {
+    // @inject_tag: aper:"valueLB:7,valueUB:7,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 7, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10156
+// {id-UEContextModificationRequired}
+message IdUEcontextModificationRequired {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10157
+// {id-UEMobilityCommand}
+message IdUEmobilityCommand {
+    // @inject_tag: aper:"valueLB:9,valueUB:9,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 9, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10158
+// {id-UEContextReleaseRequest}
+message IdUEcontextReleaseRequest {
+    // @inject_tag: aper:"valueLB:10,valueUB:10,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 10, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10159
+// {id-InitialULRRCMessageTransfer}
+message IdInitialUlrrcmessageTransfer {
+    // @inject_tag: aper:"valueLB:11,valueUB:11,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 11, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10160
+// {id-DLRRCMessageTransfer}
+message IdDLrrcmessageTransfer {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10161
+// {id-ULRRCMessageTransfer}
+message IdULrrcmessageTransfer {
+    // @inject_tag: aper:"valueLB:13,valueUB:13,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 13, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10162
+// {id-privateMessage}
+message IdprivateMessage {
+    // @inject_tag: aper:"valueLB:14,valueUB:14,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 14, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10163
+// {id-UEInactivityNotification}
+message IdUEinactivityNotification {
+    // @inject_tag: aper:"valueLB:15,valueUB:15,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 15, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10164
+// {id-GNBDUResourceCoordination}
+message IdGNbduresourceCoordination {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10165
+// {id-SystemInformationDeliveryCommand}
+message IdSystemInformationDeliveryCommand {
+    // @inject_tag: aper:"valueLB:17,valueUB:17,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 17, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10166
+// {id-Paging}
+message IdPaging {
+    // @inject_tag: aper:"valueLB:18,valueUB:18,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 18, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10167
+// {id-Notify}
+message IdNotify {
+    // @inject_tag: aper:"valueLB:19,valueUB:19,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 19, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10168
+// {id-WriteReplaceWarning}
+message IdWriteReplaceWarning {
+    // @inject_tag: aper:"valueLB:20,valueUB:20,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 20, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10169
+// {id-PWSCancel}
+message IdPWscancel {
+    // @inject_tag: aper:"valueLB:21,valueUB:21,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 21, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10170
+// {id-PWSRestartIndication}
+message IdPWsrestartIndication {
+    // @inject_tag: aper:"valueLB:22,valueUB:22,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 22, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10171
+// {id-PWSFailureIndication}
+message IdPWsfailureIndication {
+    // @inject_tag: aper:"valueLB:23,valueUB:23,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 23, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10172
+// {id-GNBDUStatusIndication}
+message IdGNbdustatusIndication {
+    // @inject_tag: aper:"valueLB:24,valueUB:24,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 24, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10173
+// {id-RRCDeliveryReport}
+message IdRRcdeliveryReport {
+    // @inject_tag: aper:"valueLB:25,valueUB:25,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 25, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10174
+// {id-F1Removal}
+message IdF1Removal {
+    // @inject_tag: aper:"valueLB:26,valueUB:26,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 26, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10175
+// {id-NetworkAccessRateReduction}
+message IdNetworkAccessRateReduction {
+    // @inject_tag: aper:"valueLB:27,valueUB:27,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 27, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10176
+// {id-TraceStart}
+message IdTraceStart {
+    // @inject_tag: aper:"valueLB:28,valueUB:28,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 28, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10177
+// {id-DeactivateTrace}
+message IdDeactivateTrace {
+    // @inject_tag: aper:"valueLB:29,valueUB:29,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 29, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10178
+// {id-DUCURadioInformationTransfer}
+message IdDUcuradioInformationTransfer {
+    // @inject_tag: aper:"valueLB:30,valueUB:30,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 30, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10179
+// {id-CUDURadioInformationTransfer}
+message IdCUduradioInformationTransfer {
+    // @inject_tag: aper:"valueLB:31,valueUB:31,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 31, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10180
+// {id-BAPMappingConfiguration}
+message IdBApmappingConfiguration {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10181
+// {id-GNBDUResourceConfiguration}
+message IdGNbduresourceConfiguration {
+    // @inject_tag: aper:"valueLB:33,valueUB:33,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 33, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10182
+// {id-IABTNLAddressAllocation}
+message IdIAbtnladdressAllocation {
+    // @inject_tag: aper:"valueLB:34,valueUB:34,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 34, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10183
+// {id-IABUPConfigurationUpdate}
+message IdIAbupconfigurationUpdate {
+    // @inject_tag: aper:"valueLB:35,valueUB:35,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 35, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10184
+// {id-resourceStatusReportingInitiation}
+message IdresourceStatusReportingInitiation {
+    // @inject_tag: aper:"valueLB:36,valueUB:36,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 36, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10185
+// {id-resourceStatusReporting}
+message IdresourceStatusReporting {
+    // @inject_tag: aper:"valueLB:37,valueUB:37,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 37, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10186
+// {id-accessAndMobilityIndication}
+message IdaccessAndMobilityIndication {
+    // @inject_tag: aper:"valueLB:38,valueUB:38,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 38, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10187
+// {id-accessSuccess}
+message IdaccessSuccess {
+    // @inject_tag: aper:"valueLB:39,valueUB:39,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 39, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10188
+// {id-cellTrafficTrace}
+message IdcellTrafficTrace {
+    // @inject_tag: aper:"valueLB:40,valueUB:40,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 40, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10189
+// {id-PositioningMeasurementExchange}
+message IdPositioningMeasurementExchange {
+    // @inject_tag: aper:"valueLB:41,valueUB:41,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 41, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10190
+// {id-PositioningAssistanceInformationControl}
+message IdPositioningAssistanceInformationControl {
+    // @inject_tag: aper:"valueLB:42,valueUB:42,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 42, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10191
+// {id-PositioningAssistanceInformationFeedback}
+message IdPositioningAssistanceInformationFeedback {
+    // @inject_tag: aper:"valueLB:43,valueUB:43,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 43, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10192
+// {id-PositioningMeasurementReport}
+message IdPositioningMeasurementReport {
+    // @inject_tag: aper:"valueLB:44,valueUB:44,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 44, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10193
+// {id-PositioningMeasurementAbort}
+message IdPositioningMeasurementAbort {
+    // @inject_tag: aper:"valueLB:45,valueUB:45,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 45, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10194
+// {id-PositioningMeasurementFailureIndication}
+message IdPositioningMeasurementFailureIndication {
+    // @inject_tag: aper:"valueLB:46,valueUB:46,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 46, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10195
+// {id-PositioningMeasurementUpdate}
+message IdPositioningMeasurementUpdate {
+    // @inject_tag: aper:"valueLB:47,valueUB:47,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 47, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10196
+// {id-TRPInformationExchange}
+message IdTRpinformationExchange {
+    // @inject_tag: aper:"valueLB:48,valueUB:48,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 48, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10197
+// {id-PositioningInformationExchange}
+message IdPositioningInformationExchange {
+    // @inject_tag: aper:"valueLB:49,valueUB:49,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 49, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10198
+// {id-PositioningActivation}
+message IdPositioningActivation {
+    // @inject_tag: aper:"valueLB:50,valueUB:50,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 50, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10199
+// {id-PositioningDeactivation}
+message IdPositioningDeactivation {
+    // @inject_tag: aper:"valueLB:51,valueUB:51,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 51, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10200
+// {id-E-CIDMeasurementInitiation}
+message IdECIdmeasurementInitiation {
+    // @inject_tag: aper:"valueLB:52,valueUB:52,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 52, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10201
+// {id-E-CIDMeasurementFailureIndication}
+message IdECIdmeasurementFailureIndication {
+    // @inject_tag: aper:"valueLB:53,valueUB:53,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 53, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10202
+// {id-E-CIDMeasurementReport}
+message IdECIdmeasurementReport {
+    // @inject_tag: aper:"valueLB:54,valueUB:54,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 54, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10203
+// {id-E-CIDMeasurementTermination}
+message IdECIdmeasurementTermination {
+    // @inject_tag: aper:"valueLB:55,valueUB:55,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 55, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10204
+// {id-PositioningInformationUpdate}
+message IdPositioningInformationUpdate {
+    // @inject_tag: aper:"valueLB:56,valueUB:56,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 56, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10205
+// {id-ReferenceTimeInformationReport}
+message IdReferenceTimeInformationReport {
+    // @inject_tag: aper:"valueLB:57,valueUB:57,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 57, json_name="value"]; // ProcedureCode
+};
+
+// reference from f1ap_v1.asn1:10206
+// {id-ReferenceTimeInformationReportingControl}
+message IdReferenceTimeInformationReportingControl {
+    // @inject_tag: aper:"valueLB:58,valueUB:58,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 58, json_name="value"]; // ProcedureCode
+};
+
+// constant Integer from f1ap_v1.asn1:10216
+// {-}
+message MaxPrivateIes {
+    // @inject_tag: aper:"valueLB:65535,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10217
+// {-}
+message MaxProtocolExtensions {
+    // @inject_tag: aper:"valueLB:65535,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10218
+// {-}
+message MaxProtocolIes {
+    // @inject_tag: aper:"valueLB:65535,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10225
+// {-}
+message MaxNrarfcn {
+    // @inject_tag: aper:"valueLB:3279165,valueUB:3279165,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3279165, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10226
+// {-}
+message MaxnoofErrors {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10227
+// {-}
+message MaxnoofIndividualF1ConnectionsToReset {
+    // @inject_tag: aper:"valueLB:65536,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65536, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10228
+// {-}
+message MaxCellingNbdu {
+    // @inject_tag: aper:"valueLB:512,valueUB:512,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 512, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10229
+// {-}
+message MaxnoofScells {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10230
+// {-}
+message MaxnoofSrbs {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10231
+// {-}
+message MaxnoofDrbs {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10232
+// {-}
+message MaxnoofUluptnlinformation {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10233
+// {-}
+message MaxnoofDluptnlinformation {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10234
+// {-}
+message MaxnoofBplmns {
+    // @inject_tag: aper:"valueLB:6,valueUB:6,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10235
+// {-}
+message MaxnoofCandidateSpCells {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10236
+// {-}
+message MaxnoofPotentialSpCells {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10237
+// {-}
+message MaxnoofNrCellBands {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10238
+// {-}
+message MaxnoofSibtypes {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10239
+// {-}
+message MaxnoofSitypes {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10240
+// {-}
+message MaxnoofPagingCells {
+    // @inject_tag: aper:"valueLB:512,valueUB:512,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 512, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10241
+// {-}
+message MaxnoofTnlassociations {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10242
+// {-}
+message MaxnoofQoSflows {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10243
+// {-}
+message MaxnoofSliceItems {
+    // @inject_tag: aper:"valueLB:1024,valueUB:1024,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1024, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10244
+// {-}
+message MaxCellineNb {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10245
+// {-}
+message MaxnoofExtendedBplmns {
+    // @inject_tag: aper:"valueLB:6,valueUB:6,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10246
+// {-}
+message MaxnoofUeids {
+    // @inject_tag: aper:"valueLB:65536,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65536, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10247
+// {-}
+message MaxnoofBplmnsNr {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10248
+// {-}
+message MaxnoofUacplmns {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10249
+// {-}
+message MaxnoofUacperPlmn {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10250
+// {-}
+message MaxnoofAdditionalSibs {
+    // @inject_tag: aper:"valueLB:63,valueUB:63,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 63, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10251
+// {-}
+message Maxnoofslots {
+    // @inject_tag: aper:"valueLB:5120,valueUB:5120,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5120, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10252
+// {-}
+message MaxnoofTlas {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10253
+// {-}
+message MaxnoofGtptlas {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10254
+// {-}
+message MaxnoofBhrlcchannels {
+    // @inject_tag: aper:"valueLB:65536,valueUB:65536,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65536, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10255
+// {-}
+message MaxnoofRoutingEntries {
+    // @inject_tag: aper:"valueLB:1024,valueUB:1024,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1024, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10256
+// {-}
+message MaxnoofIabstcinfo {
+    // @inject_tag: aper:"valueLB:45,valueUB:45,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 45, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10257
+// {-}
+message MaxnoofSymbols {
+    // @inject_tag: aper:"valueLB:14,valueUB:14,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 14, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10258
+// {-}
+message MaxnoofServingCells {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10259
+// {-}
+message MaxnoofDufslots {
+    // @inject_tag: aper:"valueLB:320,valueUB:320,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 320, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10260
+// {-}
+message MaxnoofHsnaslots {
+    // @inject_tag: aper:"valueLB:5120,valueUB:5120,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5120, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10261
+// {-}
+message MaxnoofServedCellsIab {
+    // @inject_tag: aper:"valueLB:512,valueUB:512,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 512, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10262
+// {-}
+message MaxnoofChildIabnodes {
+    // @inject_tag: aper:"valueLB:1024,valueUB:1024,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1024, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10263
+// {-}
+message MaxnoofNonUptrafficMappings {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10264
+// {-}
+message MaxnoofTlasIab {
+    // @inject_tag: aper:"valueLB:1024,valueUB:1024,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1024, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10265
+// {-}
+message MaxnoofMappingEntries {
+    // @inject_tag: aper:"valueLB:67108864,valueUB:67108864,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 67108864, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10266
+// {-}
+message MaxnoofDsinfo {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10267
+// {-}
+message MaxnoofEgressLinks {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10268
+// {-}
+message MaxnoofUluptnlinformationforIab {
+    // @inject_tag: aper:"valueLB:32678,valueUB:32678,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32678, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10269
+// {-}
+message MaxnoofUptnladdresses {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10270
+// {-}
+message MaxnoofSldrbs {
+    // @inject_tag: aper:"valueLB:512,valueUB:512,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 512, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10271
+// {-}
+message MaxnoofQoSparaSets {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10272
+// {-}
+message MaxnoofPc5QoSflows {
+    // @inject_tag: aper:"valueLB:2048,valueUB:2048,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2048, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10273
+// {-}
+message MaxnoofSsbareas {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10274
+// {-}
+message MaxnoofPhysicalResourceBlocks {
+    // @inject_tag: aper:"valueLB:275,valueUB:275,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 275, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10275
+// {-}
+message MaxnoofPhysicalResourceBlocks1 {
+    // @inject_tag: aper:"valueLB:274,valueUB:274,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 274, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10276
+// {-}
+message MaxnoofPrachconfigs {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10277
+// {-}
+message MaxnoofRachreports {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10278
+// {-}
+message MaxnoofRlfreports {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10279
+// {-}
+message MaxnoofAdditionalPdcpduplicationTnl {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10280
+// {-}
+message MaxnoofRlcduplicationState {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10281
+// {-}
+message MaxnoofChocells {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10282
+// {-}
+message MaxnoofMdtplmns {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10283
+// {-}
+message MaxnoofCagsupported {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10284
+// {-}
+message MaxnoofNidsupported {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10285
+// {-}
+message MaxnoofNrscss {
+    // @inject_tag: aper:"valueLB:5,valueUB:5,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10286
+// {-}
+message MaxnoofExtSliceItems {
+    // @inject_tag: aper:"valueLB:65535,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10287
+// {-}
+message MaxnoofPosMeas {
+    // @inject_tag: aper:"valueLB:16384,valueUB:16384,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16384, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10288
+// {-}
+message MaxnoofTrpinfoTypes {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10289
+// {-}
+message MaxnoofTrps {
+    // @inject_tag: aper:"valueLB:65535,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10290
+// {-}
+message MaxnoofSrstriggerStates {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10291
+// {-}
+message MaxnoofSpatialRelations {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10292
+// {-}
+message MaxnoBcastCell {
+    // @inject_tag: aper:"valueLB:16384,valueUB:16384,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16384, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10293
+// {-}
+message MaxnoofAngleInfo {
+    // @inject_tag: aper:"valueLB:65535,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10294
+// {-}
+message Maxnooflcsgcstranslation {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10295
+// {-}
+message MaxnoofPath {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10296
+// {-}
+message MaxnoofMeasECId {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10297
+// {-}
+message MaxnoofSsbs {
+    // @inject_tag: aper:"valueLB:255,valueUB:255,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 255, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10298
+// {-}
+message MaxnoSrsResourceSets {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10299
+// {-}
+message MaxnoSrsResourcePerSet {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10300
+// {-}
+message MaxnoSrsCarriers {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10301
+// {-}
+message MaxnoScss {
+    // @inject_tag: aper:"valueLB:5,valueUB:5,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10302
+// {-}
+message MaxnoSrsResources {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10303
+// {-}
+message MaxnoSrsPosResources {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10304
+// {-}
+message MaxnoSrsPosResourceSets {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10305
+// {-}
+message MaxnoSrsPosResourcePerSet {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10306
+// {-}
+message MaxnoofPrsResourceSets {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10307
+// {-}
+message MaxnoofPrsResourcesPerSet {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10308
+// {-}
+message MaxNoOfMeasTrps {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10309
+// {-}
+message MaxnoofPrsresourceSets {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from f1ap_v1.asn1:10310
+// {-}
+message MaxnoofPrsresources {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// reference from f1ap_v1.asn1:10320
+// {id-Cause}
+message IdCause {
+    int32 value = 1 [(validate.v1.rules).int32.const = 0, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10321
+// {id-Cells-Failed-to-be-Activated-List}
+message IdCellsFailedtobeActivatedList {
+    // @inject_tag: aper:"valueLB:1,valueUB:1,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10322
+// {id-Cells-Failed-to-be-Activated-List-Item}
+message IdCellsFailedtobeActivatedListItem {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10323
+// {id-Cells-to-be-Activated-List}
+message IdCellstobeActivatedList {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10324
+// {id-Cells-to-be-Activated-List-Item}
+message IdCellstobeActivatedListItem {
+    // @inject_tag: aper:"valueLB:4,valueUB:4,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10325
+// {id-Cells-to-be-Deactivated-List}
+message IdCellstobeDeactivatedList {
+    // @inject_tag: aper:"valueLB:5,valueUB:5,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10326
+// {id-Cells-to-be-Deactivated-List-Item}
+message IdCellstobeDeactivatedListItem {
+    // @inject_tag: aper:"valueLB:6,valueUB:6,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10327
+// {id-CriticalityDiagnostics}
+message IdCriticalityDiagnostics {
+    // @inject_tag: aper:"valueLB:7,valueUB:7,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 7, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10328
+// {id-CUtoDURRCInformation}
+message IdCUtoDurrcinformation {
+    // @inject_tag: aper:"valueLB:9,valueUB:9,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 9, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10329
+// {id-DRBs-FailedToBeModified-Item}
+message IdDRbsFailedToBeModifiedItem {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10330
+// {id-DRBs-FailedToBeModified-List}
+message IdDRbsFailedToBeModifiedList {
+    // @inject_tag: aper:"valueLB:13,valueUB:13,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 13, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10331
+// {id-DRBs-FailedToBeSetup-Item}
+message IdDRbsFailedToBeSetupItem {
+    // @inject_tag: aper:"valueLB:14,valueUB:14,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 14, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10332
+// {id-DRBs-FailedToBeSetup-List}
+message IdDRbsFailedToBeSetupList {
+    // @inject_tag: aper:"valueLB:15,valueUB:15,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 15, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10333
+// {id-DRBs-FailedToBeSetupMod-Item}
+message IdDRbsFailedToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10334
+// {id-DRBs-FailedToBeSetupMod-List}
+message IdDRbsFailedToBeSetupModList {
+    // @inject_tag: aper:"valueLB:17,valueUB:17,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 17, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10335
+// {id-DRBs-ModifiedConf-Item}
+message IdDRbsModifiedConfItem {
+    // @inject_tag: aper:"valueLB:18,valueUB:18,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 18, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10336
+// {id-DRBs-ModifiedConf-List}
+message IdDRbsModifiedConfList {
+    // @inject_tag: aper:"valueLB:19,valueUB:19,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 19, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10337
+// {id-DRBs-Modified-Item}
+message IdDRbsModifiedItem {
+    // @inject_tag: aper:"valueLB:20,valueUB:20,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 20, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10338
+// {id-DRBs-Modified-List}
+message IdDRbsModifiedList {
+    // @inject_tag: aper:"valueLB:21,valueUB:21,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 21, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10339
+// {id-DRBs-Required-ToBeModified-Item}
+message IdDRbsRequiredToBeModifiedItem {
+    // @inject_tag: aper:"valueLB:22,valueUB:22,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 22, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10340
+// {id-DRBs-Required-ToBeModified-List}
+message IdDRbsRequiredToBeModifiedList {
+    // @inject_tag: aper:"valueLB:23,valueUB:23,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 23, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10341
+// {id-DRBs-Required-ToBeReleased-Item}
+message IdDRbsRequiredToBeReleasedItem {
+    // @inject_tag: aper:"valueLB:24,valueUB:24,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 24, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10342
+// {id-DRBs-Required-ToBeReleased-List}
+message IdDRbsRequiredToBeReleasedList {
+    // @inject_tag: aper:"valueLB:25,valueUB:25,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 25, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10343
+// {id-DRBs-Setup-Item}
+message IdDRbsSetupItem {
+    // @inject_tag: aper:"valueLB:26,valueUB:26,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 26, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10344
+// {id-DRBs-Setup-List}
+message IdDRbsSetupList {
+    // @inject_tag: aper:"valueLB:27,valueUB:27,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 27, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10345
+// {id-DRBs-SetupMod-Item}
+message IdDRbsSetupModItem {
+    // @inject_tag: aper:"valueLB:28,valueUB:28,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 28, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10346
+// {id-DRBs-SetupMod-List}
+message IdDRbsSetupModList {
+    // @inject_tag: aper:"valueLB:29,valueUB:29,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 29, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10347
+// {id-DRBs-ToBeModified-Item}
+message IdDRbsToBeModifiedItem {
+    // @inject_tag: aper:"valueLB:30,valueUB:30,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 30, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10348
+// {id-DRBs-ToBeModified-List}
+message IdDRbsToBeModifiedList {
+    // @inject_tag: aper:"valueLB:31,valueUB:31,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 31, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10349
+// {id-DRBs-ToBeReleased-Item}
+message IdDRbsToBeReleasedItem {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10350
+// {id-DRBs-ToBeReleased-List}
+message IdDRbsToBeReleasedList {
+    // @inject_tag: aper:"valueLB:33,valueUB:33,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 33, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10351
+// {id-DRBs-ToBeSetup-Item}
+message IdDRbsToBeSetupItem {
+    // @inject_tag: aper:"valueLB:34,valueUB:34,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 34, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10352
+// {id-DRBs-ToBeSetup-List}
+message IdDRbsToBeSetupList {
+    // @inject_tag: aper:"valueLB:35,valueUB:35,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 35, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10353
+// {id-DRBs-ToBeSetupMod-Item}
+message IdDRbsToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:36,valueUB:36,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 36, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10354
+// {id-DRBs-ToBeSetupMod-List}
+message IdDRbsToBeSetupModList {
+    // @inject_tag: aper:"valueLB:37,valueUB:37,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 37, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10355
+// {id-DRXCycle}
+message IdDRxcycle {
+    // @inject_tag: aper:"valueLB:38,valueUB:38,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 38, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10356
+// {id-DUtoCURRCInformation}
+message IdDUtoCurrcinformation {
+    // @inject_tag: aper:"valueLB:39,valueUB:39,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 39, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10357
+// {id-gNB-CU-UE-F1AP-ID}
+message IdgNbCUUEF1ApID {
+    // @inject_tag: aper:"valueLB:40,valueUB:40,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 40, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10358
+// {id-gNB-DU-UE-F1AP-ID}
+message IdgNbDUUEF1ApID {
+    // @inject_tag: aper:"valueLB:41,valueUB:41,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 41, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10359
+// {id-gNB-DU-ID}
+message IdgNbDUID {
+    // @inject_tag: aper:"valueLB:42,valueUB:42,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 42, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10360
+// {id-GNB-DU-Served-Cells-Item}
+message IdGNbDUServedCellsItem {
+    // @inject_tag: aper:"valueLB:43,valueUB:43,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 43, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10361
+// {id-gNB-DU-Served-Cells-List}
+message IdgNbDUServedCellsList {
+    // @inject_tag: aper:"valueLB:44,valueUB:44,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 44, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10362
+// {id-gNB-DU-Name}
+message IdgNbDUName {
+    // @inject_tag: aper:"valueLB:45,valueUB:45,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 45, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10363
+// {id-NRCellID}
+message IdNRcellId {
+    // @inject_tag: aper:"valueLB:46,valueUB:46,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 46, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10364
+// {id-oldgNB-DU-UE-F1AP-ID}
+message IdoldgNbDUUEF1ApID {
+    // @inject_tag: aper:"valueLB:47,valueUB:47,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 47, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10365
+// {id-ResetType}
+message IdResetType {
+    // @inject_tag: aper:"valueLB:48,valueUB:48,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 48, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10366
+// {id-ResourceCoordinationTransferContainer}
+message IdResourceCoordinationTransferContainer {
+    // @inject_tag: aper:"valueLB:49,valueUB:49,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 49, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10367
+// {id-RRCContainer}
+message IdRRccontainer {
+    // @inject_tag: aper:"valueLB:50,valueUB:50,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 50, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10368
+// {id-SCell-ToBeRemoved-Item}
+message IdSCellToBeRemovedItem {
+    // @inject_tag: aper:"valueLB:51,valueUB:51,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 51, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10369
+// {id-SCell-ToBeRemoved-List}
+message IdSCellToBeRemovedList {
+    // @inject_tag: aper:"valueLB:52,valueUB:52,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 52, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10370
+// {id-SCell-ToBeSetup-Item}
+message IdSCellToBeSetupItem {
+    // @inject_tag: aper:"valueLB:53,valueUB:53,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 53, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10371
+// {id-SCell-ToBeSetup-List}
+message IdSCellToBeSetupList {
+    // @inject_tag: aper:"valueLB:54,valueUB:54,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 54, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10372
+// {id-SCell-ToBeSetupMod-Item}
+message IdSCellToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:55,valueUB:55,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 55, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10373
+// {id-SCell-ToBeSetupMod-List}
+message IdSCellToBeSetupModList {
+    // @inject_tag: aper:"valueLB:56,valueUB:56,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 56, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10374
+// {id-Served-Cells-To-Add-Item}
+message IdServedCellsToAddItem {
+    // @inject_tag: aper:"valueLB:57,valueUB:57,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 57, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10375
+// {id-Served-Cells-To-Add-List}
+message IdServedCellsToAddList {
+    // @inject_tag: aper:"valueLB:58,valueUB:58,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 58, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10376
+// {id-Served-Cells-To-Delete-Item}
+message IdServedCellsToDeleteItem {
+    // @inject_tag: aper:"valueLB:59,valueUB:59,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 59, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10377
+// {id-Served-Cells-To-Delete-List}
+message IdServedCellsToDeleteList {
+    // @inject_tag: aper:"valueLB:60,valueUB:60,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 60, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10378
+// {id-Served-Cells-To-Modify-Item}
+message IdServedCellsToModifyItem {
+    // @inject_tag: aper:"valueLB:61,valueUB:61,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 61, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10379
+// {id-Served-Cells-To-Modify-List}
+message IdServedCellsToModifyList {
+    // @inject_tag: aper:"valueLB:62,valueUB:62,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 62, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10380
+// {id-SpCell-ID}
+message IdSpCellID {
+    // @inject_tag: aper:"valueLB:63,valueUB:63,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 63, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10381
+// {id-SRBID}
+message IdSRbid {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10382
+// {id-SRBs-FailedToBeSetup-Item}
+message IdSRbsFailedToBeSetupItem {
+    // @inject_tag: aper:"valueLB:65,valueUB:65,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10383
+// {id-SRBs-FailedToBeSetup-List}
+message IdSRbsFailedToBeSetupList {
+    // @inject_tag: aper:"valueLB:66,valueUB:66,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 66, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10384
+// {id-SRBs-FailedToBeSetupMod-Item}
+message IdSRbsFailedToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:67,valueUB:67,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 67, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10385
+// {id-SRBs-FailedToBeSetupMod-List}
+message IdSRbsFailedToBeSetupModList {
+    // @inject_tag: aper:"valueLB:68,valueUB:68,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 68, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10386
+// {id-SRBs-Required-ToBeReleased-Item}
+message IdSRbsRequiredToBeReleasedItem {
+    // @inject_tag: aper:"valueLB:69,valueUB:69,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 69, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10387
+// {id-SRBs-Required-ToBeReleased-List}
+message IdSRbsRequiredToBeReleasedList {
+    // @inject_tag: aper:"valueLB:70,valueUB:70,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 70, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10388
+// {id-SRBs-ToBeReleased-Item}
+message IdSRbsToBeReleasedItem {
+    // @inject_tag: aper:"valueLB:71,valueUB:71,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 71, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10389
+// {id-SRBs-ToBeReleased-List}
+message IdSRbsToBeReleasedList {
+    // @inject_tag: aper:"valueLB:72,valueUB:72,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 72, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10390
+// {id-SRBs-ToBeSetup-Item}
+message IdSRbsToBeSetupItem {
+    // @inject_tag: aper:"valueLB:73,valueUB:73,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 73, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10391
+// {id-SRBs-ToBeSetup-List}
+message IdSRbsToBeSetupList {
+    // @inject_tag: aper:"valueLB:74,valueUB:74,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 74, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10392
+// {id-SRBs-ToBeSetupMod-Item}
+message IdSRbsToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:75,valueUB:75,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 75, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10393
+// {id-SRBs-ToBeSetupMod-List}
+message IdSRbsToBeSetupModList {
+    // @inject_tag: aper:"valueLB:76,valueUB:76,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 76, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10394
+// {id-TimeToWait}
+message IdTimeToWait {
+    // @inject_tag: aper:"valueLB:77,valueUB:77,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 77, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10395
+// {id-TransactionID}
+message IdTransactionId {
+    // @inject_tag: aper:"valueLB:78,valueUB:78,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 78, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10396
+// {id-TransmissionActionIndicator}
+message IdTransmissionActionIndicator {
+    // @inject_tag: aper:"valueLB:79,valueUB:79,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 79, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10397
+// {id-UE-associatedLogicalF1-ConnectionItem}
+message IdUEassociatedLogicalF1ConnectionItem {
+    // @inject_tag: aper:"valueLB:80,valueUB:80,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 80, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10398
+// {id-UE-associatedLogicalF1-ConnectionListResAck}
+message IdUEassociatedLogicalF1ConnectionListResAck {
+    // @inject_tag: aper:"valueLB:81,valueUB:81,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 81, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10399
+// {id-gNB-CU-Name}
+message IdgNbCUName {
+    // @inject_tag: aper:"valueLB:82,valueUB:82,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 82, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10400
+// {id-SCell-FailedtoSetup-List}
+message IdSCellFailedtoSetupList {
+    // @inject_tag: aper:"valueLB:83,valueUB:83,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 83, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10401
+// {id-SCell-FailedtoSetup-Item}
+message IdSCellFailedtoSetupItem {
+    // @inject_tag: aper:"valueLB:84,valueUB:84,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 84, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10402
+// {id-SCell-FailedtoSetupMod-List}
+message IdSCellFailedtoSetupModList {
+    // @inject_tag: aper:"valueLB:85,valueUB:85,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 85, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10403
+// {id-SCell-FailedtoSetupMod-Item}
+message IdSCellFailedtoSetupModItem {
+    // @inject_tag: aper:"valueLB:86,valueUB:86,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 86, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10404
+// {id-RRCReconfigurationCompleteIndicator}
+message IdRRcreconfigurationCompleteIndicator {
+    // @inject_tag: aper:"valueLB:87,valueUB:87,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 87, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10405
+// {id-Cells-Status-Item}
+message IdCellsStatusItem {
+    // @inject_tag: aper:"valueLB:88,valueUB:88,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 88, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10406
+// {id-Cells-Status-List}
+message IdCellsStatusList {
+    // @inject_tag: aper:"valueLB:89,valueUB:89,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 89, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10407
+// {id-Candidate-SpCell-List}
+message IdCandidateSpCellList {
+    // @inject_tag: aper:"valueLB:90,valueUB:90,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 90, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10408
+// {id-Candidate-SpCell-Item}
+message IdCandidateSpCellItem {
+    // @inject_tag: aper:"valueLB:91,valueUB:91,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 91, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10409
+// {id-Potential-SpCell-List}
+message IdPotentialSpCellList {
+    // @inject_tag: aper:"valueLB:92,valueUB:92,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 92, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10410
+// {id-Potential-SpCell-Item}
+message IdPotentialSpCellItem {
+    // @inject_tag: aper:"valueLB:93,valueUB:93,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 93, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10411
+// {id-FullConfiguration}
+message IdFullConfiguration {
+    // @inject_tag: aper:"valueLB:94,valueUB:94,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 94, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10412
+// {id-C-RNTI}
+message IdCRNti {
+    // @inject_tag: aper:"valueLB:95,valueUB:95,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 95, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10413
+// {id-SpCellULConfigured}
+message IdSpCellUlconfigured {
+    // @inject_tag: aper:"valueLB:96,valueUB:96,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 96, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10414
+// {id-InactivityMonitoringRequest}
+message IdInactivityMonitoringRequest {
+    // @inject_tag: aper:"valueLB:97,valueUB:97,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 97, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10415
+// {id-InactivityMonitoringResponse}
+message IdInactivityMonitoringResponse {
+    // @inject_tag: aper:"valueLB:98,valueUB:98,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 98, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10416
+// {id-DRB-Activity-Item}
+message IdDRbActivityItem {
+    // @inject_tag: aper:"valueLB:99,valueUB:99,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 99, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10417
+// {id-DRB-Activity-List}
+message IdDRbActivityList {
+    // @inject_tag: aper:"valueLB:100,valueUB:100,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 100, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10418
+// {id-EUTRA-NR-CellResourceCoordinationReq-Container}
+message IdEUtraNRCellResourceCoordinationReqContainer {
+    // @inject_tag: aper:"valueLB:101,valueUB:101,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 101, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10419
+// {id-EUTRA-NR-CellResourceCoordinationReqAck-Container}
+message IdEUtraNRCellResourceCoordinationReqAckContainer {
+    // @inject_tag: aper:"valueLB:102,valueUB:102,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 102, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10420
+// {id-Protected-EUTRA-Resources-List}
+message IdProtectedEUtraResourcesList {
+    // @inject_tag: aper:"valueLB:105,valueUB:105,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 105, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10421
+// {id-RequestType}
+message IdRequestType {
+    // @inject_tag: aper:"valueLB:106,valueUB:106,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 106, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10422
+// {id-ServCellIndex}
+message IdServCellIndex {
+    // @inject_tag: aper:"valueLB:107,valueUB:107,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 107, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10423
+// {id-RAT-FrequencyPriorityInformation}
+message IdRAtFrequencyPriorityInformation {
+    // @inject_tag: aper:"valueLB:108,valueUB:108,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 108, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10424
+// {id-ExecuteDuplication}
+message IdExecuteDuplication {
+    // @inject_tag: aper:"valueLB:109,valueUB:109,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 109, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10425
+// {id-NRCGI}
+message IdNRcgi {
+    // @inject_tag: aper:"valueLB:111,valueUB:111,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 111, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10426
+// {id-PagingCell-Item}
+message IdPagingCellItem {
+    // @inject_tag: aper:"valueLB:112,valueUB:112,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 112, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10427
+// {id-PagingCell-List}
+message IdPagingCellList {
+    // @inject_tag: aper:"valueLB:113,valueUB:113,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 113, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10428
+// {id-PagingDRX}
+message IdPagingDrx {
+    // @inject_tag: aper:"valueLB:114,valueUB:114,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 114, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10429
+// {id-PagingPriority}
+message IdPagingPriority {
+    // @inject_tag: aper:"valueLB:115,valueUB:115,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 115, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10430
+// {id-SItype-List}
+message IdSItypeList {
+    // @inject_tag: aper:"valueLB:116,valueUB:116,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 116, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10431
+// {id-UEIdentityIndexValue}
+message IdUEidentityIndexValue {
+    // @inject_tag: aper:"valueLB:117,valueUB:117,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 117, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10432
+// {id-gNB-CUSystemInformation}
+message IdgNbCUsystemInformation {
+    // @inject_tag: aper:"valueLB:118,valueUB:118,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 118, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10433
+// {id-HandoverPreparationInformation}
+message IdHandoverPreparationInformation {
+    // @inject_tag: aper:"valueLB:119,valueUB:119,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 119, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10434
+// {id-GNB-CU-TNL-Association-To-Add-Item}
+message IdGNbCUTNlAssociationToAddItem {
+    // @inject_tag: aper:"valueLB:120,valueUB:120,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 120, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10435
+// {id-GNB-CU-TNL-Association-To-Add-List}
+message IdGNbCUTNlAssociationToAddList {
+    // @inject_tag: aper:"valueLB:121,valueUB:121,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 121, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10436
+// {id-GNB-CU-TNL-Association-To-Remove-Item}
+message IdGNbCUTNlAssociationToRemoveItem {
+    // @inject_tag: aper:"valueLB:122,valueUB:122,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 122, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10437
+// {id-GNB-CU-TNL-Association-To-Remove-List}
+message IdGNbCUTNlAssociationToRemoveList {
+    // @inject_tag: aper:"valueLB:123,valueUB:123,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 123, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10438
+// {id-GNB-CU-TNL-Association-To-Update-Item}
+message IdGNbCUTNlAssociationToUpdateItem {
+    // @inject_tag: aper:"valueLB:124,valueUB:124,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 124, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10439
+// {id-GNB-CU-TNL-Association-To-Update-List}
+message IdGNbCUTNlAssociationToUpdateList {
+    // @inject_tag: aper:"valueLB:125,valueUB:125,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 125, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10440
+// {id-MaskedIMEISV}
+message IdMaskedImeisv {
+    // @inject_tag: aper:"valueLB:126,valueUB:126,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 126, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10441
+// {id-PagingIdentity}
+message IdPagingIdentity {
+    // @inject_tag: aper:"valueLB:127,valueUB:127,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 127, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10442
+// {id-DUtoCURRCContainer}
+message IdDUtoCurrccontainer {
+    // @inject_tag: aper:"valueLB:128,valueUB:128,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 128, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10443
+// {id-Cells-to-be-Barred-List}
+message IdCellstobeBarredList {
+    // @inject_tag: aper:"valueLB:129,valueUB:129,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 129, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10444
+// {id-Cells-to-be-Barred-Item}
+message IdCellstobeBarredItem {
+    // @inject_tag: aper:"valueLB:130,valueUB:130,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 130, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10445
+// {id-TAISliceSupportList}
+message IdTAisliceSupportList {
+    // @inject_tag: aper:"valueLB:131,valueUB:131,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 131, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10446
+// {id-GNB-CU-TNL-Association-Setup-List}
+message IdGNbCUTNlAssociationSetupList {
+    // @inject_tag: aper:"valueLB:132,valueUB:132,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 132, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10447
+// {id-GNB-CU-TNL-Association-Setup-Item}
+message IdGNbCUTNlAssociationSetupItem {
+    // @inject_tag: aper:"valueLB:133,valueUB:133,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 133, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10448
+// {id-GNB-CU-TNL-Association-Failed-To-Setup-List}
+message IdGNbCUTNlAssociationFailedToSetupList {
+    // @inject_tag: aper:"valueLB:134,valueUB:134,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 134, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10449
+// {id-GNB-CU-TNL-Association-Failed-To-Setup-Item}
+message IdGNbCUTNlAssociationFailedToSetupItem {
+    // @inject_tag: aper:"valueLB:135,valueUB:135,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 135, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10450
+// {id-DRB-Notify-Item}
+message IdDRbNotifyItem {
+    // @inject_tag: aper:"valueLB:136,valueUB:136,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 136, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10451
+// {id-DRB-Notify-List}
+message IdDRbNotifyList {
+    // @inject_tag: aper:"valueLB:137,valueUB:137,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 137, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10452
+// {id-NotficationControl}
+message IdNotficationControl {
+    // @inject_tag: aper:"valueLB:138,valueUB:138,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 138, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10453
+// {id-RANAC}
+message IdRAnac {
+    // @inject_tag: aper:"valueLB:139,valueUB:139,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 139, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10454
+// {id-PWSSystemInformation}
+message IdPWssystemInformation {
+    // @inject_tag: aper:"valueLB:140,valueUB:140,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 140, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10455
+// {id-RepetitionPeriod}
+message IdRepetitionPeriod {
+    // @inject_tag: aper:"valueLB:141,valueUB:141,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 141, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10456
+// {id-NumberofBroadcastRequest}
+message IdNumberofBroadcastRequest {
+    // @inject_tag: aper:"valueLB:142,valueUB:142,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 142, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10457
+// {id-Cells-To-Be-Broadcast-List}
+message IdCellsToBeBroadcastList {
+    // @inject_tag: aper:"valueLB:144,valueUB:144,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 144, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10458
+// {id-Cells-To-Be-Broadcast-Item}
+message IdCellsToBeBroadcastItem {
+    // @inject_tag: aper:"valueLB:145,valueUB:145,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 145, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10459
+// {id-Cells-Broadcast-Completed-List}
+message IdCellsBroadcastCompletedList {
+    // @inject_tag: aper:"valueLB:146,valueUB:146,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 146, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10460
+// {id-Cells-Broadcast-Completed-Item}
+message IdCellsBroadcastCompletedItem {
+    // @inject_tag: aper:"valueLB:147,valueUB:147,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 147, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10461
+// {id-Broadcast-To-Be-Cancelled-List}
+message IdBroadcastToBeCancelledList {
+    // @inject_tag: aper:"valueLB:148,valueUB:148,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 148, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10462
+// {id-Broadcast-To-Be-Cancelled-Item}
+message IdBroadcastToBeCancelledItem {
+    // @inject_tag: aper:"valueLB:149,valueUB:149,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 149, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10463
+// {id-Cells-Broadcast-Cancelled-List}
+message IdCellsBroadcastCancelledList {
+    // @inject_tag: aper:"valueLB:150,valueUB:150,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 150, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10464
+// {id-Cells-Broadcast-Cancelled-Item}
+message IdCellsBroadcastCancelledItem {
+    // @inject_tag: aper:"valueLB:151,valueUB:151,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 151, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10465
+// {id-NR-CGI-List-For-Restart-List}
+message IdNRCGiListForRestartList {
+    // @inject_tag: aper:"valueLB:152,valueUB:152,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 152, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10466
+// {id-NR-CGI-List-For-Restart-Item}
+message IdNRCGiListForRestartItem {
+    // @inject_tag: aper:"valueLB:153,valueUB:153,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 153, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10467
+// {id-PWS-Failed-NR-CGI-List}
+message IdPWsFailedNRCGiList {
+    // @inject_tag: aper:"valueLB:154,valueUB:154,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 154, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10468
+// {id-PWS-Failed-NR-CGI-Item}
+message IdPWsFailedNRCGiItem {
+    // @inject_tag: aper:"valueLB:155,valueUB:155,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 155, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10469
+// {id-ConfirmedUEID}
+message IdConfirmedUeid {
+    // @inject_tag: aper:"valueLB:156,valueUB:156,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 156, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10470
+// {id-Cancel-all-Warning-Messages-Indicator}
+message IdCancelallWarningMessagesIndicator {
+    // @inject_tag: aper:"valueLB:157,valueUB:157,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 157, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10471
+// {id-GNB-DU-UE-AMBR-UL}
+message IdGNbDUUEAMbrUL {
+    // @inject_tag: aper:"valueLB:158,valueUB:158,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 158, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10472
+// {id-DRXConfigurationIndicator}
+message IdDRxconfigurationIndicator {
+    // @inject_tag: aper:"valueLB:159,valueUB:159,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 159, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10473
+// {id-RLC-Status}
+message IdRLcStatus {
+    // @inject_tag: aper:"valueLB:160,valueUB:160,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 160, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10474
+// {id-DLPDCPSNLength}
+message IdDLpdcpsnlength {
+    // @inject_tag: aper:"valueLB:161,valueUB:161,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 161, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10475
+// {id-GNB-DUConfigurationQuery}
+message IdGNbDUconfigurationQuery {
+    // @inject_tag: aper:"valueLB:162,valueUB:162,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 162, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10476
+// {id-MeasurementTimingConfiguration}
+message IdMeasurementTimingConfiguration {
+    // @inject_tag: aper:"valueLB:163,valueUB:163,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 163, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10477
+// {id-DRB-Information}
+message IdDRbInformation {
+    // @inject_tag: aper:"valueLB:164,valueUB:164,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 164, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10478
+// {id-ServingPLMN}
+message IdServingPlmn {
+    // @inject_tag: aper:"valueLB:165,valueUB:165,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 165, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10479
+// {id-Protected-EUTRA-Resources-Item}
+message IdProtectedEUtraResourcesItem {
+    // @inject_tag: aper:"valueLB:168,valueUB:168,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 168, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10480
+// {id-GNB-CU-RRC-Version}
+message IdGNbCURRcVersion {
+    // @inject_tag: aper:"valueLB:170,valueUB:170,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 170, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10481
+// {id-GNB-DU-RRC-Version}
+message IdGNbDURRcVersion {
+    // @inject_tag: aper:"valueLB:171,valueUB:171,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 171, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10482
+// {id-GNBDUOverloadInformation}
+message IdGNbduoverloadInformation {
+    // @inject_tag: aper:"valueLB:172,valueUB:172,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 172, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10483
+// {id-CellGroupConfig}
+message IdCellGroupConfig {
+    // @inject_tag: aper:"valueLB:173,valueUB:173,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 173, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10484
+// {id-RLCFailureIndication}
+message IdRLcfailureIndication {
+    // @inject_tag: aper:"valueLB:174,valueUB:174,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 174, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10485
+// {id-UplinkTxDirectCurrentListInformation}
+message IdUplinkTxDirectCurrentListInformation {
+    // @inject_tag: aper:"valueLB:175,valueUB:175,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 175, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10486
+// {id-DC-Based-Duplication-Configured}
+message IdDCBasedDuplicationConfigured {
+    // @inject_tag: aper:"valueLB:176,valueUB:176,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 176, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10487
+// {id-DC-Based-Duplication-Activation}
+message IdDCBasedDuplicationActivation {
+    // @inject_tag: aper:"valueLB:177,valueUB:177,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 177, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10488
+// {id-SULAccessIndication}
+message IdSUlaccessIndication {
+    // @inject_tag: aper:"valueLB:178,valueUB:178,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 178, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10489
+// {id-AvailablePLMNList}
+message IdAvailablePlmnlist {
+    // @inject_tag: aper:"valueLB:179,valueUB:179,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 179, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10490
+// {id-PDUSessionID}
+message IdPDusessionId {
+    // @inject_tag: aper:"valueLB:180,valueUB:180,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 180, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10491
+// {id-ULPDUSessionAggregateMaximumBitRate}
+message IdULpdusessionAggregateMaximumBitRate {
+    // @inject_tag: aper:"valueLB:181,valueUB:181,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 181, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10492
+// {id-ServingCellMO}
+message IdServingCellMo {
+    // @inject_tag: aper:"valueLB:182,valueUB:182,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 182, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10493
+// {id-QoSFlowMappingIndication}
+message IdQoSflowMappingIndication {
+    // @inject_tag: aper:"valueLB:183,valueUB:183,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 183, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10494
+// {id-RRCDeliveryStatusRequest}
+message IdRRcdeliveryStatusRequest {
+    // @inject_tag: aper:"valueLB:184,valueUB:184,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 184, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10495
+// {id-RRCDeliveryStatus}
+message IdRRcdeliveryStatus {
+    // @inject_tag: aper:"valueLB:185,valueUB:185,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 185, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10496
+// {id-BearerTypeChange}
+message IdBearerTypeChange {
+    // @inject_tag: aper:"valueLB:186,valueUB:186,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 186, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10497
+// {id-RLCMode}
+message IdRLcmode {
+    // @inject_tag: aper:"valueLB:187,valueUB:187,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 187, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10498
+// {id-Duplication-Activation}
+message IdDuplicationActivation {
+    // @inject_tag: aper:"valueLB:188,valueUB:188,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 188, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10499
+// {id-Dedicated-SIDelivery-NeededUE-List}
+message IdDedicatedSIdeliveryNeededUeList {
+    // @inject_tag: aper:"valueLB:189,valueUB:189,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 189, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10500
+// {id-Dedicated-SIDelivery-NeededUE-Item}
+message IdDedicatedSIdeliveryNeededUeItem {
+    // @inject_tag: aper:"valueLB:190,valueUB:190,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 190, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10501
+// {id-DRX-LongCycleStartOffset}
+message IdDRxLongCycleStartOffset {
+    // @inject_tag: aper:"valueLB:191,valueUB:191,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 191, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10502
+// {id-ULPDCPSNLength}
+message IdULpdcpsnlength {
+    // @inject_tag: aper:"valueLB:192,valueUB:192,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 192, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10503
+// {id-SelectedBandCombinationIndex}
+message IdSelectedBandCombinationIndex {
+    // @inject_tag: aper:"valueLB:193,valueUB:193,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 193, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10504
+// {id-SelectedFeatureSetEntryIndex}
+message IdSelectedFeatureSetEntryIndex {
+    // @inject_tag: aper:"valueLB:194,valueUB:194,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 194, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10505
+// {id-ResourceCoordinationTransferInformation}
+message IdResourceCoordinationTransferInformation {
+    // @inject_tag: aper:"valueLB:195,valueUB:195,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 195, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10506
+// {id-ExtendedServedPLMNs-List}
+message IdExtendedServedPlmnsList {
+    // @inject_tag: aper:"valueLB:196,valueUB:196,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 196, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10507
+// {id-ExtendedAvailablePLMN-List}
+message IdExtendedAvailablePlmnList {
+    // @inject_tag: aper:"valueLB:197,valueUB:197,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 197, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10508
+// {id-Associated-SCell-List}
+message IdAssociatedSCellList {
+    // @inject_tag: aper:"valueLB:198,valueUB:198,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 198, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10509
+// {id-latest-RRC-Version-Enhanced}
+message IdlatestRRcVersionEnhanced {
+    // @inject_tag: aper:"valueLB:199,valueUB:199,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 199, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10510
+// {id-Associated-SCell-Item}
+message IdAssociatedSCellItem {
+    // @inject_tag: aper:"valueLB:200,valueUB:200,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 200, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10511
+// {id-Cell-Direction}
+message IdCellDirection {
+    // @inject_tag: aper:"valueLB:201,valueUB:201,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 201, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10512
+// {id-SRBs-Setup-List}
+message IdSRbsSetupList {
+    // @inject_tag: aper:"valueLB:202,valueUB:202,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 202, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10513
+// {id-SRBs-Setup-Item}
+message IdSRbsSetupItem {
+    // @inject_tag: aper:"valueLB:203,valueUB:203,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 203, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10514
+// {id-SRBs-SetupMod-List}
+message IdSRbsSetupModList {
+    // @inject_tag: aper:"valueLB:204,valueUB:204,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 204, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10515
+// {id-SRBs-SetupMod-Item}
+message IdSRbsSetupModItem {
+    // @inject_tag: aper:"valueLB:205,valueUB:205,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 205, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10516
+// {id-SRBs-Modified-List}
+message IdSRbsModifiedList {
+    // @inject_tag: aper:"valueLB:206,valueUB:206,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 206, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10517
+// {id-SRBs-Modified-Item}
+message IdSRbsModifiedItem {
+    // @inject_tag: aper:"valueLB:207,valueUB:207,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 207, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10518
+// {id-Ph-InfoSCG}
+message IdPhInfoScg {
+    // @inject_tag: aper:"valueLB:208,valueUB:208,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 208, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10519
+// {id-RequestedBandCombinationIndex}
+message IdRequestedBandCombinationIndex {
+    // @inject_tag: aper:"valueLB:209,valueUB:209,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 209, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10520
+// {id-RequestedFeatureSetEntryIndex}
+message IdRequestedFeatureSetEntryIndex {
+    // @inject_tag: aper:"valueLB:210,valueUB:210,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 210, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10521
+// {id-RequestedP-MaxFR2}
+message IdRequestedPMaxFr2 {
+    // @inject_tag: aper:"valueLB:211,valueUB:211,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 211, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10522
+// {id-DRX-Config}
+message IdDRxConfig {
+    // @inject_tag: aper:"valueLB:212,valueUB:212,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 212, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10523
+// {id-IgnoreResourceCoordinationContainer}
+message IdIgnoreResourceCoordinationContainer {
+    // @inject_tag: aper:"valueLB:213,valueUB:213,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 213, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10524
+// {id-UEAssistanceInformation}
+message IdUEassistanceInformation {
+    // @inject_tag: aper:"valueLB:214,valueUB:214,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 214, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10525
+// {id-NeedforGap}
+message IdNeedforGap {
+    // @inject_tag: aper:"valueLB:215,valueUB:215,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 215, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10526
+// {id-PagingOrigin}
+message IdPagingOrigin {
+    // @inject_tag: aper:"valueLB:216,valueUB:216,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 216, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10527
+// {id-new-gNB-CU-UE-F1AP-ID}
+message IdnewgNbCUUEF1ApID {
+    // @inject_tag: aper:"valueLB:217,valueUB:217,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 217, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10528
+// {id-RedirectedRRCmessage}
+message IdRedirectedRrcmessage {
+    // @inject_tag: aper:"valueLB:218,valueUB:218,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 218, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10529
+// {id-new-gNB-DU-UE-F1AP-ID}
+message IdnewgNbDUUEF1ApID {
+    // @inject_tag: aper:"valueLB:219,valueUB:219,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 219, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10530
+// {id-NotificationInformation}
+message IdNotificationInformation {
+    // @inject_tag: aper:"valueLB:220,valueUB:220,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 220, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10531
+// {id-PLMNAssistanceInfoForNetShar}
+message IdPLmnassistanceInfoForNetShar {
+    // @inject_tag: aper:"valueLB:221,valueUB:221,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 221, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10532
+// {id-UEContextNotRetrievable}
+message IdUEcontextNotRetrievable {
+    // @inject_tag: aper:"valueLB:222,valueUB:222,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 222, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10533
+// {id-BPLMN-ID-Info-List}
+message IdBPlmnIDInfoList {
+    // @inject_tag: aper:"valueLB:223,valueUB:223,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 223, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10534
+// {id-SelectedPLMNID}
+message IdSelectedPlmnid {
+    // @inject_tag: aper:"valueLB:224,valueUB:224,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 224, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10535
+// {id-UAC-Assistance-Info}
+message IdUAcAssistanceInfo {
+    // @inject_tag: aper:"valueLB:225,valueUB:225,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 225, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10536
+// {id-RANUEID}
+message IdRAnueid {
+    // @inject_tag: aper:"valueLB:226,valueUB:226,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 226, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10537
+// {id-GNB-DU-TNL-Association-To-Remove-Item}
+message IdGNbDUTNlAssociationToRemoveItem {
+    // @inject_tag: aper:"valueLB:227,valueUB:227,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 227, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10538
+// {id-GNB-DU-TNL-Association-To-Remove-List}
+message IdGNbDUTNlAssociationToRemoveList {
+    // @inject_tag: aper:"valueLB:228,valueUB:228,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 228, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10539
+// {id-TNLAssociationTransportLayerAddressgNBDU}
+message IdTNlassociationTransportLayerAddressgNbdu {
+    // @inject_tag: aper:"valueLB:229,valueUB:229,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 229, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10540
+// {id-portNumber}
+message IdportNumber {
+    // @inject_tag: aper:"valueLB:230,valueUB:230,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 230, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10541
+// {id-AdditionalSIBMessageList}
+message IdAdditionalSibmessageList {
+    // @inject_tag: aper:"valueLB:231,valueUB:231,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 231, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10542
+// {id-Cell-Type}
+message IdCellType {
+    // @inject_tag: aper:"valueLB:232,valueUB:232,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 232, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10543
+// {id-IgnorePRACHConfiguration}
+message IdIgnorePrachconfiguration {
+    // @inject_tag: aper:"valueLB:233,valueUB:233,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 233, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10544
+// {id-CG-Config}
+message IdCGConfig {
+    // @inject_tag: aper:"valueLB:234,valueUB:234,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 234, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10545
+// {id-PDCCH-BlindDetectionSCG}
+message IdPDcchBlindDetectionScg {
+    // @inject_tag: aper:"valueLB:235,valueUB:235,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 235, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10546
+// {id-Requested-PDCCH-BlindDetectionSCG}
+message IdRequestedPDcchBlindDetectionScg {
+    // @inject_tag: aper:"valueLB:236,valueUB:236,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 236, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10547
+// {id-Ph-InfoMCG}
+message IdPhInfoMcg {
+    // @inject_tag: aper:"valueLB:237,valueUB:237,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 237, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10548
+// {id-MeasGapSharingConfig}
+message IdMeasGapSharingConfig {
+    // @inject_tag: aper:"valueLB:238,valueUB:238,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 238, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10549
+// {id-systemInformationAreaID}
+message IdsystemInformationAreaId {
+    // @inject_tag: aper:"valueLB:239,valueUB:239,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 239, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10550
+// {id-areaScope}
+message IdareaScope {
+    // @inject_tag: aper:"valueLB:240,valueUB:240,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 240, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10551
+// {id-RRCContainer-RRCSetupComplete}
+message IdRRccontainerRRcsetupComplete {
+    // @inject_tag: aper:"valueLB:241,valueUB:241,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 241, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10552
+// {id-TraceActivation}
+message IdTraceActivation {
+    // @inject_tag: aper:"valueLB:242,valueUB:242,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 242, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10553
+// {id-TraceID}
+message IdTraceId {
+    // @inject_tag: aper:"valueLB:243,valueUB:243,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 243, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10554
+// {id-Neighbour-Cell-Information-List}
+message IdNeighbourCellInformationList {
+    // @inject_tag: aper:"valueLB:244,valueUB:244,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 244, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10555
+// {id-SymbolAllocInSlot}
+message IdSymbolAllocInSlot {
+    // @inject_tag: aper:"valueLB:246,valueUB:246,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 246, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10556
+// {id-NumDLULSymbols}
+message IdNumDlulsymbols {
+    // @inject_tag: aper:"valueLB:247,valueUB:247,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 247, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10557
+// {id-AdditionalRRMPriorityIndex}
+message IdAdditionalRrmpriorityIndex {
+    // @inject_tag: aper:"valueLB:248,valueUB:248,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 248, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10558
+// {id-DUCURadioInformationType}
+message IdDUcuradioInformationType {
+    // @inject_tag: aper:"valueLB:249,valueUB:249,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 249, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10559
+// {id-CUDURadioInformationType}
+message IdCUduradioInformationType {
+    // @inject_tag: aper:"valueLB:250,valueUB:250,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 250, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10560
+// {id-AggressorgNBSetID}
+message IdAggressorgNbsetId {
+    // @inject_tag: aper:"valueLB:251,valueUB:251,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 251, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10561
+// {id-VictimgNBSetID}
+message IdVictimgNbsetId {
+    // @inject_tag: aper:"valueLB:252,valueUB:252,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 252, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10562
+// {id-LowerLayerPresenceStatusChange}
+message IdLowerLayerPresenceStatusChange {
+    // @inject_tag: aper:"valueLB:253,valueUB:253,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 253, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10563
+// {id-Transport-Layer-Address-Info}
+message IdTransportLayerAddressInfo {
+    // @inject_tag: aper:"valueLB:254,valueUB:254,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 254, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10564
+// {id-Neighbour-Cell-Information-Item}
+message IdNeighbourCellInformationItem {
+    // @inject_tag: aper:"valueLB:255,valueUB:255,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 255, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10565
+// {id-IntendedTDD-DL-ULConfig}
+message IdIntendedTddDLULconfig {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10566
+// {id-QosMonitoringRequest}
+message IdQosMonitoringRequest {
+    // @inject_tag: aper:"valueLB:257,valueUB:257,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 257, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10567
+// {id-BHChannels-ToBeSetup-List}
+message IdBHchannelsToBeSetupList {
+    // @inject_tag: aper:"valueLB:258,valueUB:258,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 258, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10568
+// {id-BHChannels-ToBeSetup-Item}
+message IdBHchannelsToBeSetupItem {
+    // @inject_tag: aper:"valueLB:259,valueUB:259,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 259, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10569
+// {id-BHChannels-Setup-List}
+message IdBHchannelsSetupList {
+    // @inject_tag: aper:"valueLB:260,valueUB:260,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 260, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10570
+// {id-BHChannels-Setup-Item}
+message IdBHchannelsSetupItem {
+    // @inject_tag: aper:"valueLB:261,valueUB:261,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 261, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10571
+// {id-BHChannels-ToBeModified-Item}
+message IdBHchannelsToBeModifiedItem {
+    // @inject_tag: aper:"valueLB:262,valueUB:262,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 262, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10572
+// {id-BHChannels-ToBeModified-List}
+message IdBHchannelsToBeModifiedList {
+    // @inject_tag: aper:"valueLB:263,valueUB:263,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 263, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10573
+// {id-BHChannels-ToBeReleased-Item}
+message IdBHchannelsToBeReleasedItem {
+    // @inject_tag: aper:"valueLB:264,valueUB:264,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 264, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10574
+// {id-BHChannels-ToBeReleased-List}
+message IdBHchannelsToBeReleasedList {
+    // @inject_tag: aper:"valueLB:265,valueUB:265,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 265, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10575
+// {id-BHChannels-ToBeSetupMod-Item}
+message IdBHchannelsToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:266,valueUB:266,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 266, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10576
+// {id-BHChannels-ToBeSetupMod-List}
+message IdBHchannelsToBeSetupModList {
+    // @inject_tag: aper:"valueLB:267,valueUB:267,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 267, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10577
+// {id-BHChannels-FailedToBeModified-Item}
+message IdBHchannelsFailedToBeModifiedItem {
+    // @inject_tag: aper:"valueLB:268,valueUB:268,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 268, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10578
+// {id-BHChannels-FailedToBeModified-List}
+message IdBHchannelsFailedToBeModifiedList {
+    // @inject_tag: aper:"valueLB:269,valueUB:269,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 269, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10579
+// {id-BHChannels-FailedToBeSetupMod-Item}
+message IdBHchannelsFailedToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:270,valueUB:270,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 270, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10580
+// {id-BHChannels-FailedToBeSetupMod-List}
+message IdBHchannelsFailedToBeSetupModList {
+    // @inject_tag: aper:"valueLB:271,valueUB:271,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 271, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10581
+// {id-BHChannels-Modified-Item}
+message IdBHchannelsModifiedItem {
+    // @inject_tag: aper:"valueLB:272,valueUB:272,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 272, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10582
+// {id-BHChannels-Modified-List}
+message IdBHchannelsModifiedList {
+    // @inject_tag: aper:"valueLB:273,valueUB:273,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 273, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10583
+// {id-BHChannels-SetupMod-Item}
+message IdBHchannelsSetupModItem {
+    // @inject_tag: aper:"valueLB:274,valueUB:274,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 274, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10584
+// {id-BHChannels-SetupMod-List}
+message IdBHchannelsSetupModList {
+    // @inject_tag: aper:"valueLB:275,valueUB:275,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 275, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10585
+// {id-BHChannels-Required-ToBeReleased-Item}
+message IdBHchannelsRequiredToBeReleasedItem {
+    // @inject_tag: aper:"valueLB:276,valueUB:276,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 276, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10586
+// {id-BHChannels-Required-ToBeReleased-List}
+message IdBHchannelsRequiredToBeReleasedList {
+    // @inject_tag: aper:"valueLB:277,valueUB:277,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 277, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10587
+// {id-BHChannels-FailedToBeSetup-Item}
+message IdBHchannelsFailedToBeSetupItem {
+    // @inject_tag: aper:"valueLB:278,valueUB:278,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 278, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10588
+// {id-BHChannels-FailedToBeSetup-List}
+message IdBHchannelsFailedToBeSetupList {
+    // @inject_tag: aper:"valueLB:279,valueUB:279,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 279, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10589
+// {id-BHInfo}
+message IdBHinfo {
+    // @inject_tag: aper:"valueLB:280,valueUB:280,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 280, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10590
+// {id-BAPAddress}
+message IdBApaddress {
+    // @inject_tag: aper:"valueLB:281,valueUB:281,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 281, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10591
+// {id-ConfiguredBAPAddress}
+message IdConfiguredBapaddress {
+    // @inject_tag: aper:"valueLB:282,valueUB:282,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 282, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10592
+// {id-BH-Routing-Information-Added-List}
+message IdBHRoutingInformationAddedList {
+    // @inject_tag: aper:"valueLB:283,valueUB:283,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 283, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10593
+// {id-BH-Routing-Information-Added-List-Item}
+message IdBHRoutingInformationAddedListItem {
+    // @inject_tag: aper:"valueLB:284,valueUB:284,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 284, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10594
+// {id-BH-Routing-Information-Removed-List}
+message IdBHRoutingInformationRemovedList {
+    // @inject_tag: aper:"valueLB:285,valueUB:285,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 285, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10595
+// {id-BH-Routing-Information-Removed-List-Item}
+message IdBHRoutingInformationRemovedListItem {
+    // @inject_tag: aper:"valueLB:286,valueUB:286,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 286, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10596
+// {id-UL-BH-Non-UP-Traffic-Mapping}
+message IdULBHNonUPTrafficMapping {
+    // @inject_tag: aper:"valueLB:287,valueUB:287,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 287, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10597
+// {id-Activated-Cells-to-be-Updated-List}
+message IdActivatedCellstobeUpdatedList {
+    // @inject_tag: aper:"valueLB:288,valueUB:288,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 288, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10598
+// {id-Child-Nodes-List}
+message IdChildNodesList {
+    // @inject_tag: aper:"valueLB:289,valueUB:289,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 289, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10599
+// {id-IAB-Info-IAB-DU}
+message IdIAbInfoIAbDU {
+    // @inject_tag: aper:"valueLB:290,valueUB:290,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 290, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10600
+// {id-IAB-Info-IAB-donor-CU}
+message IdIAbInfoIAbdonorCU {
+    // @inject_tag: aper:"valueLB:291,valueUB:291,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 291, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10601
+// {id-IAB-TNL-Addresses-To-Remove-List}
+message IdIAbTNlAddressesToRemoveList {
+    // @inject_tag: aper:"valueLB:292,valueUB:292,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 292, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10602
+// {id-IAB-TNL-Addresses-To-Remove-Item}
+message IdIAbTNlAddressesToRemoveItem {
+    // @inject_tag: aper:"valueLB:293,valueUB:293,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 293, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10603
+// {id-IAB-Allocated-TNL-Address-List}
+message IdIAbAllocatedTNlAddressList {
+    // @inject_tag: aper:"valueLB:294,valueUB:294,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 294, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10604
+// {id-IAB-Allocated-TNL-Address-Item}
+message IdIAbAllocatedTNlAddressItem {
+    // @inject_tag: aper:"valueLB:295,valueUB:295,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 295, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10605
+// {id-IABIPv6RequestType}
+message IdIAbipv6RequestType {
+    // @inject_tag: aper:"valueLB:296,valueUB:296,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 296, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10606
+// {id-IABv4AddressesRequested}
+message IdIAbv4AddressesRequested {
+    // @inject_tag: aper:"valueLB:297,valueUB:297,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 297, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10607
+// {id-IAB-Barred}
+message IdIAbBarred {
+    // @inject_tag: aper:"valueLB:298,valueUB:298,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 298, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10608
+// {id-TrafficMappingInformation}
+message IdTrafficMappingInformation {
+    // @inject_tag: aper:"valueLB:299,valueUB:299,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 299, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10609
+// {id-UL-UP-TNL-Information-to-Update-List}
+message IdULUPTNlInformationtoUpdateList {
+    // @inject_tag: aper:"valueLB:300,valueUB:300,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 300, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10610
+// {id-UL-UP-TNL-Information-to-Update-List-Item}
+message IdULUPTNlInformationtoUpdateListItem {
+    // @inject_tag: aper:"valueLB:301,valueUB:301,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 301, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10611
+// {id-UL-UP-TNL-Address-to-Update-List}
+message IdULUPTNlAddresstoUpdateList {
+    // @inject_tag: aper:"valueLB:302,valueUB:302,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 302, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10612
+// {id-UL-UP-TNL-Address-to-Update-List-Item}
+message IdULUPTNlAddresstoUpdateListItem {
+    // @inject_tag: aper:"valueLB:303,valueUB:303,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 303, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10613
+// {id-DL-UP-TNL-Address-to-Update-List}
+message IdDLUPTNlAddresstoUpdateList {
+    // @inject_tag: aper:"valueLB:304,valueUB:304,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 304, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10614
+// {id-DL-UP-TNL-Address-to-Update-List-Item}
+message IdDLUPTNlAddresstoUpdateListItem {
+    // @inject_tag: aper:"valueLB:305,valueUB:305,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 305, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10615
+// {id-NRV2XServicesAuthorized}
+message IdNRv2XservicesAuthorized {
+    // @inject_tag: aper:"valueLB:306,valueUB:306,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 306, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10616
+// {id-LTEV2XServicesAuthorized}
+message IdLTev2XservicesAuthorized {
+    // @inject_tag: aper:"valueLB:307,valueUB:307,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 307, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10617
+// {id-NRUESidelinkAggregateMaximumBitrate}
+message IdNRuesidelinkAggregateMaximumBitrate {
+    // @inject_tag: aper:"valueLB:308,valueUB:308,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 308, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10618
+// {id-LTEUESidelinkAggregateMaximumBitrate}
+message IdLTeuesidelinkAggregateMaximumBitrate {
+    // @inject_tag: aper:"valueLB:309,valueUB:309,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 309, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10619
+// {id-SIB12-message}
+message IdSIb12message {
+    // @inject_tag: aper:"valueLB:310,valueUB:310,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 310, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10620
+// {id-SIB13-message}
+message IdSIb13message {
+    // @inject_tag: aper:"valueLB:311,valueUB:311,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 311, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10621
+// {id-SIB14-message}
+message IdSIb14message {
+    // @inject_tag: aper:"valueLB:312,valueUB:312,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 312, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10622
+// {id-SLDRBs-FailedToBeModified-Item}
+message IdSLdrbsFailedToBeModifiedItem {
+    // @inject_tag: aper:"valueLB:313,valueUB:313,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 313, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10623
+// {id-SLDRBs-FailedToBeModified-List}
+message IdSLdrbsFailedToBeModifiedList {
+    // @inject_tag: aper:"valueLB:314,valueUB:314,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 314, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10624
+// {id-SLDRBs-FailedToBeSetup-Item}
+message IdSLdrbsFailedToBeSetupItem {
+    // @inject_tag: aper:"valueLB:315,valueUB:315,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 315, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10625
+// {id-SLDRBs-FailedToBeSetup-List}
+message IdSLdrbsFailedToBeSetupList {
+    // @inject_tag: aper:"valueLB:316,valueUB:316,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 316, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10626
+// {id-SLDRBs-Modified-Item}
+message IdSLdrbsModifiedItem {
+    // @inject_tag: aper:"valueLB:317,valueUB:317,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 317, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10627
+// {id-SLDRBs-Modified-List}
+message IdSLdrbsModifiedList {
+    // @inject_tag: aper:"valueLB:318,valueUB:318,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 318, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10628
+// {id-SLDRBs-Required-ToBeModified-Item}
+message IdSLdrbsRequiredToBeModifiedItem {
+    // @inject_tag: aper:"valueLB:319,valueUB:319,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 319, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10629
+// {id-SLDRBs-Required-ToBeModified-List}
+message IdSLdrbsRequiredToBeModifiedList {
+    // @inject_tag: aper:"valueLB:320,valueUB:320,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 320, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10630
+// {id-SLDRBs-Required-ToBeReleased-Item}
+message IdSLdrbsRequiredToBeReleasedItem {
+    // @inject_tag: aper:"valueLB:321,valueUB:321,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 321, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10631
+// {id-SLDRBs-Required-ToBeReleased-List}
+message IdSLdrbsRequiredToBeReleasedList {
+    // @inject_tag: aper:"valueLB:322,valueUB:322,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 322, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10632
+// {id-SLDRBs-Setup-Item}
+message IdSLdrbsSetupItem {
+    // @inject_tag: aper:"valueLB:323,valueUB:323,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 323, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10633
+// {id-SLDRBs-Setup-List}
+message IdSLdrbsSetupList {
+    // @inject_tag: aper:"valueLB:324,valueUB:324,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 324, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10634
+// {id-SLDRBs-ToBeModified-Item}
+message IdSLdrbsToBeModifiedItem {
+    // @inject_tag: aper:"valueLB:325,valueUB:325,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 325, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10635
+// {id-SLDRBs-ToBeModified-List}
+message IdSLdrbsToBeModifiedList {
+    // @inject_tag: aper:"valueLB:326,valueUB:326,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 326, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10636
+// {id-SLDRBs-ToBeReleased-Item}
+message IdSLdrbsToBeReleasedItem {
+    // @inject_tag: aper:"valueLB:327,valueUB:327,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 327, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10637
+// {id-SLDRBs-ToBeReleased-List}
+message IdSLdrbsToBeReleasedList {
+    // @inject_tag: aper:"valueLB:328,valueUB:328,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 328, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10638
+// {id-SLDRBs-ToBeSetup-Item}
+message IdSLdrbsToBeSetupItem {
+    // @inject_tag: aper:"valueLB:329,valueUB:329,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 329, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10639
+// {id-SLDRBs-ToBeSetup-List}
+message IdSLdrbsToBeSetupList {
+    // @inject_tag: aper:"valueLB:330,valueUB:330,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 330, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10640
+// {id-SLDRBs-ToBeSetupMod-Item}
+message IdSLdrbsToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:331,valueUB:331,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 331, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10641
+// {id-SLDRBs-ToBeSetupMod-List}
+message IdSLdrbsToBeSetupModList {
+    // @inject_tag: aper:"valueLB:332,valueUB:332,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 332, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10642
+// {id-SLDRBs-SetupMod-List}
+message IdSLdrbsSetupModList {
+    // @inject_tag: aper:"valueLB:333,valueUB:333,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 333, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10643
+// {id-SLDRBs-FailedToBeSetupMod-List}
+message IdSLdrbsFailedToBeSetupModList {
+    // @inject_tag: aper:"valueLB:334,valueUB:334,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 334, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10644
+// {id-SLDRBs-SetupMod-Item}
+message IdSLdrbsSetupModItem {
+    // @inject_tag: aper:"valueLB:335,valueUB:335,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 335, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10645
+// {id-SLDRBs-FailedToBeSetupMod-Item}
+message IdSLdrbsFailedToBeSetupModItem {
+    // @inject_tag: aper:"valueLB:336,valueUB:336,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 336, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10646
+// {id-SLDRBs-ModifiedConf-List}
+message IdSLdrbsModifiedConfList {
+    // @inject_tag: aper:"valueLB:337,valueUB:337,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 337, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10647
+// {id-SLDRBs-ModifiedConf-Item}
+message IdSLdrbsModifiedConfItem {
+    // @inject_tag: aper:"valueLB:338,valueUB:338,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 338, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10648
+// {id-UEAssistanceInformationEUTRA}
+message IdUEassistanceInformationEutra {
+    // @inject_tag: aper:"valueLB:339,valueUB:339,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 339, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10649
+// {id-PC5LinkAMBR}
+message IdPC5LinkAmbr {
+    // @inject_tag: aper:"valueLB:340,valueUB:340,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 340, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10650
+// {id-SL-PHY-MAC-RLC-Config}
+message IdSLPHyMAcRLcConfig {
+    // @inject_tag: aper:"valueLB:341,valueUB:341,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 341, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10651
+// {id-SL-ConfigDedicatedEUTRA-Info}
+message IdSLConfigDedicatedEutraInfo {
+    // @inject_tag: aper:"valueLB:342,valueUB:342,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 342, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10652
+// {id-AlternativeQoSParaSetList}
+message IdAlternativeQoSparaSetList {
+    // @inject_tag: aper:"valueLB:343,valueUB:343,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 343, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10653
+// {id-CurrentQoSParaSetIndex}
+message IdCurrentQoSparaSetIndex {
+    // @inject_tag: aper:"valueLB:344,valueUB:344,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 344, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10654
+// {id-gNBCUMeasurementID}
+message IdgNbcumeasurementId {
+    // @inject_tag: aper:"valueLB:345,valueUB:345,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 345, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10655
+// {id-gNBDUMeasurementID}
+message IdgNbdumeasurementId {
+    // @inject_tag: aper:"valueLB:346,valueUB:346,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 346, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10656
+// {id-RegistrationRequest}
+message IdRegistrationRequest {
+    // @inject_tag: aper:"valueLB:347,valueUB:347,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 347, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10657
+// {id-ReportCharacteristics}
+message IdReportCharacteristics {
+    // @inject_tag: aper:"valueLB:348,valueUB:348,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 348, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10658
+// {id-CellToReportList}
+message IdCellToReportList {
+    // @inject_tag: aper:"valueLB:349,valueUB:349,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 349, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10659
+// {id-CellMeasurementResultList}
+message IdCellMeasurementResultList {
+    // @inject_tag: aper:"valueLB:350,valueUB:350,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 350, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10660
+// {id-HardwareLoadIndicator}
+message IdHardwareLoadIndicator {
+    // @inject_tag: aper:"valueLB:351,valueUB:351,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 351, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10661
+// {id-ReportingPeriodicity}
+message IdReportingPeriodicity {
+    // @inject_tag: aper:"valueLB:352,valueUB:352,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 352, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10662
+// {id-TNLCapacityIndicator}
+message IdTNlcapacityIndicator {
+    // @inject_tag: aper:"valueLB:353,valueUB:353,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 353, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10663
+// {id-CarrierList}
+message IdCarrierList {
+    // @inject_tag: aper:"valueLB:354,valueUB:354,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 354, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10664
+// {id-ULCarrierList}
+message IdULcarrierList {
+    // @inject_tag: aper:"valueLB:355,valueUB:355,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 355, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10665
+// {id-FrequencyShift7p5khz}
+message IdFrequencyShift7p5khz {
+    // @inject_tag: aper:"valueLB:356,valueUB:356,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 356, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10666
+// {id-SSB-PositionsInBurst}
+message IdSSbPositionsInBurst {
+    // @inject_tag: aper:"valueLB:357,valueUB:357,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 357, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10667
+// {id-NRPRACHConfig}
+message IdNRprachconfig {
+    // @inject_tag: aper:"valueLB:358,valueUB:358,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 358, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10668
+// {id-RACHReportInformationList}
+message IdRAchreportInformationList {
+    // @inject_tag: aper:"valueLB:359,valueUB:359,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 359, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10669
+// {id-RLFReportInformationList}
+message IdRLfreportInformationList {
+    // @inject_tag: aper:"valueLB:360,valueUB:360,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 360, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10670
+// {id-TDD-UL-DLConfigCommonNR}
+message IdTDdULDLconfigCommonNr {
+    // @inject_tag: aper:"valueLB:361,valueUB:361,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 361, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10671
+// {id-CNPacketDelayBudgetDownlink}
+message IdCNpacketDelayBudgetDownlink {
+    // @inject_tag: aper:"valueLB:362,valueUB:362,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 362, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10672
+// {id-ExtendedPacketDelayBudget}
+message IdExtendedPacketDelayBudget {
+    // @inject_tag: aper:"valueLB:363,valueUB:363,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 363, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10673
+// {id-TSCTrafficCharacteristics}
+message IdTSctrafficCharacteristics {
+    // @inject_tag: aper:"valueLB:364,valueUB:364,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 364, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10674
+// {id-ReportingRequestType}
+message IdReportingRequestType {
+    // @inject_tag: aper:"valueLB:365,valueUB:365,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 365, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10675
+// {id-TimeReferenceInformation}
+message IdTimeReferenceInformation {
+    // @inject_tag: aper:"valueLB:366,valueUB:366,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 366, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10676
+// {id-CNPacketDelayBudgetUplink}
+message IdCNpacketDelayBudgetUplink {
+    // @inject_tag: aper:"valueLB:369,valueUB:369,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 369, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10677
+// {id-AdditionalPDCPDuplicationTNL-List}
+message IdAdditionalPdcpduplicationTnlList {
+    // @inject_tag: aper:"valueLB:370,valueUB:370,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 370, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10678
+// {id-RLCDuplicationInformation}
+message IdRLcduplicationInformation {
+    // @inject_tag: aper:"valueLB:371,valueUB:371,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 371, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10679
+// {id-AdditionalDuplicationIndication}
+message IdAdditionalDuplicationIndication {
+    // @inject_tag: aper:"valueLB:372,valueUB:372,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 372, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10680
+// {id-ConditionalInterDUMobilityInformation}
+message IdConditionalInterDumobilityInformation {
+    // @inject_tag: aper:"valueLB:373,valueUB:373,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 373, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10681
+// {id-ConditionalIntraDUMobilityInformation}
+message IdConditionalIntraDumobilityInformation {
+    // @inject_tag: aper:"valueLB:374,valueUB:374,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 374, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10682
+// {id-targetCellsToCancel}
+message IdtargetCellsToCancel {
+    // @inject_tag: aper:"valueLB:375,valueUB:375,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 375, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10683
+// {id-requestedTargetCellGlobalID}
+message IdrequestedTargetCellGlobalId {
+    // @inject_tag: aper:"valueLB:376,valueUB:376,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 376, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10684
+// {id-ManagementBasedMDTPLMNList}
+message IdManagementBasedMdtplmnlist {
+    // @inject_tag: aper:"valueLB:377,valueUB:377,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 377, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10685
+// {id-TraceCollectionEntityIPAddress}
+message IdTraceCollectionEntityIpaddress {
+    // @inject_tag: aper:"valueLB:378,valueUB:378,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 378, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10686
+// {id-PrivacyIndicator}
+message IdPrivacyIndicator {
+    // @inject_tag: aper:"valueLB:379,valueUB:379,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 379, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10687
+// {id-TraceCollectionEntityURI}
+message IdTraceCollectionEntityUri {
+    // @inject_tag: aper:"valueLB:380,valueUB:380,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 380, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10688
+// {id-mdtConfiguration}
+message IdmdtConfiguration {
+    // @inject_tag: aper:"valueLB:381,valueUB:381,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 381, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10689
+// {id-ServingNID}
+message IdServingNid {
+    // @inject_tag: aper:"valueLB:382,valueUB:382,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 382, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10690
+// {id-NPNBroadcastInformation}
+message IdNPnbroadcastInformation {
+    // @inject_tag: aper:"valueLB:383,valueUB:383,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 383, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10691
+// {id-NPNSupportInfo}
+message IdNPnsupportInfo {
+    // @inject_tag: aper:"valueLB:384,valueUB:384,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 384, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10692
+// {id-NID}
+message IdNId {
+    // @inject_tag: aper:"valueLB:385,valueUB:385,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 385, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10693
+// {id-AvailableSNPN-ID-List}
+message IdAvailableSnpnIDList {
+    // @inject_tag: aper:"valueLB:386,valueUB:386,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 386, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10694
+// {id-SIB10-message}
+message IdSIb10message {
+    // @inject_tag: aper:"valueLB:387,valueUB:387,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 387, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10695
+// {id-DLCarrierList}
+message IdDLcarrierList {
+    // @inject_tag: aper:"valueLB:389,valueUB:389,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 389, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10696
+// {id-ExtendedTAISliceSupportList}
+message IdExtendedTaisliceSupportList {
+    // @inject_tag: aper:"valueLB:390,valueUB:390,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 390, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10697
+// {id-RequestedSRSTransmissionCharacteristics}
+message IdRequestedSrstransmissionCharacteristics {
+    // @inject_tag: aper:"valueLB:391,valueUB:391,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 391, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10698
+// {id-PosAssistance-Information}
+message IdPosAssistanceInformation {
+    // @inject_tag: aper:"valueLB:392,valueUB:392,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 392, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10699
+// {id-PosBroadcast}
+message IdPosBroadcast {
+    // @inject_tag: aper:"valueLB:393,valueUB:393,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 393, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10700
+// {id-RoutingID}
+message IdRoutingId {
+    // @inject_tag: aper:"valueLB:394,valueUB:394,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 394, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10701
+// {id-PosAssistanceInformationFailureList}
+message IdPosAssistanceInformationFailureList {
+    // @inject_tag: aper:"valueLB:395,valueUB:395,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 395, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10702
+// {id-PosMeasurementQuantities}
+message IdPosMeasurementQuantities {
+    // @inject_tag: aper:"valueLB:396,valueUB:396,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 396, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10703
+// {id-PosMeasurementResultList}
+message IdPosMeasurementResultList {
+    // @inject_tag: aper:"valueLB:397,valueUB:397,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 397, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10704
+// {id-TRPInformationTypeListTRPReq}
+message IdTRpinformationTypeListTrpreq {
+    // @inject_tag: aper:"valueLB:398,valueUB:398,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 398, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10705
+// {id-TRPInformationTypeItem}
+message IdTRpinformationTypeItem {
+    // @inject_tag: aper:"valueLB:399,valueUB:399,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 399, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10706
+// {id-TRPInformationListTRPResp}
+message IdTRpinformationListTrpresp {
+    // @inject_tag: aper:"valueLB:400,valueUB:400,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 400, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10707
+// {id-TRPInformationItem}
+message IdTRpinformationItem {
+    // @inject_tag: aper:"valueLB:401,valueUB:401,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 401, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10708
+// {id-LMF-MeasurementID}
+message IdLMfMeasurementId {
+    // @inject_tag: aper:"valueLB:402,valueUB:402,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 402, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10709
+// {id-SRSType}
+message IdSRstype {
+    // @inject_tag: aper:"valueLB:403,valueUB:403,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 403, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10710
+// {id-ActivationTime}
+message IdActivationTime {
+    // @inject_tag: aper:"valueLB:404,valueUB:404,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 404, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10711
+// {id-AbortTransmission}
+message IdAbortTransmission {
+    // @inject_tag: aper:"valueLB:405,valueUB:405,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 405, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10712
+// {id-PositioningBroadcastCells}
+message IdPositioningBroadcastCells {
+    // @inject_tag: aper:"valueLB:406,valueUB:406,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 406, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10713
+// {id-SRSConfiguration}
+message IdSRsconfiguration {
+    // @inject_tag: aper:"valueLB:407,valueUB:407,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 407, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10714
+// {id-PosReportCharacteristics}
+message IdPosReportCharacteristics {
+    // @inject_tag: aper:"valueLB:408,valueUB:408,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 408, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10715
+// {id-PosMeasurementPeriodicity}
+message IdPosMeasurementPeriodicity {
+    // @inject_tag: aper:"valueLB:409,valueUB:409,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 409, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10716
+// {id-TRPList}
+message IdTRplist {
+    // @inject_tag: aper:"valueLB:410,valueUB:410,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 410, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10717
+// {id-RAN-MeasurementID}
+message IdRAnMeasurementId {
+    // @inject_tag: aper:"valueLB:411,valueUB:411,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 411, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10718
+// {id-LMF-UE-MeasurementID}
+message IdLMfUEMeasurementId {
+    // @inject_tag: aper:"valueLB:412,valueUB:412,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 412, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10719
+// {id-RAN-UE-MeasurementID}
+message IdRAnUEMeasurementId {
+    // @inject_tag: aper:"valueLB:413,valueUB:413,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 413, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10720
+// {id-E-CID-MeasurementQuantities}
+message IdECIdMeasurementQuantities {
+    // @inject_tag: aper:"valueLB:414,valueUB:414,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 414, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10721
+// {id-E-CID-MeasurementQuantities-Item}
+message IdECIdMeasurementQuantitiesItem {
+    // @inject_tag: aper:"valueLB:415,valueUB:415,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 415, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10722
+// {id-E-CID-MeasurementPeriodicity}
+message IdECIdMeasurementPeriodicity {
+    // @inject_tag: aper:"valueLB:416,valueUB:416,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 416, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10723
+// {id-E-CID-MeasurementResult}
+message IdECIdMeasurementResult {
+    // @inject_tag: aper:"valueLB:417,valueUB:417,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 417, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10724
+// {id-Cell-Portion-ID}
+message IdCellPortionID {
+    // @inject_tag: aper:"valueLB:418,valueUB:418,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 418, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10725
+// {id-SFNInitialisationTime}
+message IdSFninitialisationTime {
+    // @inject_tag: aper:"valueLB:419,valueUB:419,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 419, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10726
+// {id-SystemFrameNumber}
+message IdSystemFrameNumber {
+    // @inject_tag: aper:"valueLB:420,valueUB:420,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 420, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10727
+// {id-SlotNumber}
+message IdSlotNumber {
+    // @inject_tag: aper:"valueLB:421,valueUB:421,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 421, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10728
+// {id-TRP-MeasurementRequestList}
+message IdTRpMeasurementRequestList {
+    // @inject_tag: aper:"valueLB:422,valueUB:422,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 422, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10729
+// {id-MeasurementBeamInfoRequest}
+message IdMeasurementBeamInfoRequest {
+    // @inject_tag: aper:"valueLB:423,valueUB:423,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 423, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10730
+// {id-E-CID-ReportCharacteristics}
+message IdECIdReportCharacteristics {
+    // @inject_tag: aper:"valueLB:424,valueUB:424,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 424, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10731
+// {id-ConfiguredTACIndication}
+message IdConfiguredTacindication {
+    // @inject_tag: aper:"valueLB:425,valueUB:425,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 425, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10732
+// {id-Extended-GNB-CU-Name}
+message IdExtendedGNbCUName {
+    // @inject_tag: aper:"valueLB:426,valueUB:426,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 426, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10733
+// {id-Extended-GNB-DU-Name}
+message IdExtendedGNbDUName {
+    // @inject_tag: aper:"valueLB:427,valueUB:427,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 427, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10734
+// {id-F1CTransferPath}
+message IdF1CtransferPath {
+    // @inject_tag: aper:"valueLB:428,valueUB:428,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 428, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10735
+// {id-SFN-Offset}
+message IdSFnOffset {
+    // @inject_tag: aper:"valueLB:429,valueUB:429,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 429, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10736
+// {id-TransmissionStopIndicator}
+message IdTransmissionStopIndicator {
+    // @inject_tag: aper:"valueLB:430,valueUB:430,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 430, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10737
+// {id-SrsFrequency}
+message IdSrsFrequency {
+    // @inject_tag: aper:"valueLB:431,valueUB:431,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 431, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10738
+// {id-SCGIndicator}
+message IdSCgindicator {
+    // @inject_tag: aper:"valueLB:432,valueUB:432,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 432, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10739
+// {id-EstimatedArrivalProbability}
+message IdEstimatedArrivalProbability {
+    // @inject_tag: aper:"valueLB:433,valueUB:433,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 433, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10740
+// {id-TRPType}
+message IdTRptype {
+    // @inject_tag: aper:"valueLB:434,valueUB:434,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 434, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10741
+// {id-SRSSpatialRelationPerSRSResource}
+message IdSRsspatialRelationPerSrsresource {
+    // @inject_tag: aper:"valueLB:435,valueUB:435,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 435, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10742
+// {id-PDCPTerminatingNodeDLTNLAddrInfo}
+message IdPDcpterminatingNodeDltnladdrInfo {
+    // @inject_tag: aper:"valueLB:436,valueUB:436,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 436, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10743
+// {id-ENBDLTNLAddress}
+message IdENbdltnladdress {
+    // @inject_tag: aper:"valueLB:437,valueUB:437,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 437, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10744
+// {id-PosMeasurementPeriodicityExtended}
+message IdPosMeasurementPeriodicityExtended {
+    // @inject_tag: aper:"valueLB:438,valueUB:438,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 438, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10745
+// {id-PRS-Resource-ID}
+message IdPRsResourceID {
+    // @inject_tag: aper:"valueLB:439,valueUB:439,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 439, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10746
+// {id-LocationMeasurementInformation}
+message IdLocationMeasurementInformation {
+    // @inject_tag: aper:"valueLB:440,valueUB:440,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 440, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10747
+// {id-InterFrequencyConfig-NoGap}
+message IdInterFrequencyConfigNoGap {
+    // @inject_tag: aper:"valueLB:651,valueUB:651,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 651, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10748
+// {id-NeedForGapsInfoNR}
+message IdNeedForGapsInfoNr {
+    // @inject_tag: aper:"valueLB:665,valueUB:665,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 665, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from f1ap_v1.asn1:10749
+// {id-PosMeasurementPeriodicityNR-AoA}
+message IdPosMeasurementPeriodicityNrAoA {
+    // @inject_tag: aper:"valueLB:672,valueUB:672,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 672, json_name="value"]; // ProtocolIE-ID
+};
+
+
