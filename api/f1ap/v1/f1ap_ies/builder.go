@@ -1810,17 +1810,17 @@ func (m *PrsresourceSetItem) SetPRsmuting(pRsmuting *Prsmuting) *PrsresourceSetI
 	return m
 }
 
-func (m *PrsresourceSetItem) SetIEExtensions(iEExtensions *PrsresourceSetItemExtIes) *PrsresourceSetItem {
+func (m *PrsresourceSetItem) SetIEExtensions(iEExtensions []*PrsresourceSetItemExtIes) *PrsresourceSetItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *PwsFailedNRCGiItem) SetIEExtensions(iEExtensions *PwsFailedNRCGiItemExtIes) *PwsFailedNRCGiItem {
+func (m *PwsFailedNRCGiItem) SetIEExtensions(iEExtensions []*PwsFailedNRCGiItemExtIes) *PwsFailedNRCGiItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *PwssystemInformation) SetIEExtensions(iEExtensions *PwssystemInformationExtIes) *PwssystemInformation {
+func (m *PwssystemInformation) SetIEExtensions(iEExtensions []*PwssystemInformationExtIes) *PwssystemInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -1835,7 +1835,7 @@ func (m *QoSflowLevelQoSparameters) SetReflectiveQoSAttribute(reflectiveQoSAttri
 	return m
 }
 
-func (m *QoSflowLevelQoSparameters) SetIEExtensions(iEExtensions *QoSflowLevelQoSparametersExtIes) *QoSflowLevelQoSparameters {
+func (m *QoSflowLevelQoSparameters) SetIEExtensions(iEExtensions []*QoSflowLevelQoSparametersExtIes) *QoSflowLevelQoSparameters {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -1845,27 +1845,27 @@ func (m *RachreportInformationItem) SetUEassitantIDentifier(uEassitantIDentifier
 	return m
 }
 
-func (m *RachreportInformationItem) SetIEExtensions(iEExtensions *RachreportInformationItemExtIes) *RachreportInformationItem {
+func (m *RachreportInformationItem) SetIEExtensions(iEExtensions []*RachreportInformationItemExtIes) *RachreportInformationItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RadioResourceStatus) SetIEExtensions(iEExtensions *RadioResourceStatusExtIes) *RadioResourceStatus {
+func (m *RadioResourceStatus) SetIEExtensions(iEExtensions []*RadioResourceStatusExtIes) *RadioResourceStatus {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RanuepagingIdentity) SetIEExtensions(iEExtensions *RanuepagingIdentityExtIes) *RanuepagingIdentity {
+func (m *RanuepagingIdentity) SetIEExtensions(iEExtensions []*RanuepagingIdentityExtIes) *RanuepagingIdentity {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RelativeCartesianLocation) SetIEExtensions(iEExtensions *RelativeCartesianLocationExtIes) *RelativeCartesianLocation {
+func (m *RelativeCartesianLocation) SetIEExtensions(iEExtensions []*RelativeCartesianLocationExtIes) *RelativeCartesianLocation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RelativeGeodeticLocation) SetIEExtensions(iEExtensions *RelativeGeodeticLocationExtIes) *RelativeGeodeticLocation {
+func (m *RelativeGeodeticLocation) SetIEExtensions(iEExtensions []*RelativeGeodeticLocationExtIes) *RelativeGeodeticLocation {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -1885,12 +1885,12 @@ func (m *RequestedSrstransmissionCharacteristics) SetSSbinformation(sSbinformati
 	return m
 }
 
-func (m *RequestedSrstransmissionCharacteristics) SetIEExtensions(iEExtensions *RequestedSrstransmissionCharacteristicsExtIes) *RequestedSrstransmissionCharacteristics {
+func (m *RequestedSrstransmissionCharacteristics) SetIEExtensions(iEExtensions []*RequestedSrstransmissionCharacteristicsExtIes) *RequestedSrstransmissionCharacteristics {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceCoordinationEutracellInfo) SetIEExtensions(iEExtensions *ResourceCoordinationEutracellInfoExtIes) *ResourceCoordinationEutracellInfo {
+func (m *ResourceCoordinationEutracellInfo) SetIEExtensions(iEExtensions []*ResourceCoordinationEutracellInfoExtIes) *ResourceCoordinationEutracellInfo {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -1900,22 +1900,22 @@ func (m *ResourceCoordinationTransferInformation) SetResourceCoordinationEutrace
 	return m
 }
 
-func (m *ResourceCoordinationTransferInformation) SetIEExtensions(iEExtensions *ResourceCoordinationTransferInformationExtIes) *ResourceCoordinationTransferInformation {
+func (m *ResourceCoordinationTransferInformation) SetIEExtensions(iEExtensions []*ResourceCoordinationTransferInformationExtIes) *ResourceCoordinationTransferInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceSetTypePeriodic) SetIEExtensions(iEExtensions *ResourceSetTypePeriodicExtIes) *ResourceSetTypePeriodic {
+func (m *ResourceSetTypePeriodic) SetIEExtensions(iEExtensions []*ResourceSetTypePeriodicExtIes) *ResourceSetTypePeriodic {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceSetTypeSemipersistent) SetIEExtensions(iEExtensions *ResourceSetTypeSemipersistentExtIes) *ResourceSetTypeSemipersistent {
+func (m *ResourceSetTypeSemipersistent) SetIEExtensions(iEExtensions []*ResourceSetTypeSemipersistentExtIes) *ResourceSetTypeSemipersistent {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceSetTypeAperiodic) SetIEExtensions(iEExtensions *ResourceSetTypeAperiodicExtIes) *ResourceSetTypeAperiodic {
+func (m *ResourceSetTypeAperiodic) SetIEExtensions(iEExtensions []*ResourceSetTypeAperiodicExtIes) *ResourceSetTypeAperiodic {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -1925,37 +1925,37 @@ func (m *ReportingRequestType) SetReportingPeriodicityValue(reportingPeriodicity
 	return m
 }
 
-func (m *ReportingRequestType) SetIEExtensions(iEExtensions *ReportingRequestTypeExtIes) *ReportingRequestType {
+func (m *ReportingRequestType) SetIEExtensions(iEExtensions []*ReportingRequestTypeExtIes) *ReportingRequestType {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceTypePeriodic) SetIEExtensions(iEExtensions *ResourceTypePeriodicExtIes) *ResourceTypePeriodic {
+func (m *ResourceTypePeriodic) SetIEExtensions(iEExtensions []*ResourceTypePeriodicExtIes) *ResourceTypePeriodic {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceTypeSemipersistent) SetIEExtensions(iEExtensions *ResourceTypeSemipersistentExtIes) *ResourceTypeSemipersistent {
+func (m *ResourceTypeSemipersistent) SetIEExtensions(iEExtensions []*ResourceTypeSemipersistentExtIes) *ResourceTypeSemipersistent {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceTypeAperiodic) SetIEExtensions(iEExtensions *ResourceTypeAperiodicExtIes) *ResourceTypeAperiodic {
+func (m *ResourceTypeAperiodic) SetIEExtensions(iEExtensions []*ResourceTypeAperiodicExtIes) *ResourceTypeAperiodic {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceTypePeriodicPos) SetIEExtensions(iEExtensions *ResourceTypePeriodicPosExtIes) *ResourceTypePeriodicPos {
+func (m *ResourceTypePeriodicPos) SetIEExtensions(iEExtensions []*ResourceTypePeriodicPosExtIes) *ResourceTypePeriodicPos {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceTypeSemipersistentPos) SetIEExtensions(iEExtensions *ResourceTypeSemipersistentPosExtIes) *ResourceTypeSemipersistentPos {
+func (m *ResourceTypeSemipersistentPos) SetIEExtensions(iEExtensions []*ResourceTypeSemipersistentPosExtIes) *ResourceTypeSemipersistentPos {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ResourceTypeAperiodicPos) SetIEExtensions(iEExtensions *ResourceTypeAperiodicPosExtIes) *ResourceTypeAperiodicPos {
+func (m *ResourceTypeAperiodicPos) SetIEExtensions(iEExtensions []*ResourceTypeAperiodicPosExtIes) *ResourceTypeAperiodicPos {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -1965,22 +1965,22 @@ func (m *RlcduplicationInformation) SetPrimaryPathIndication(primaryPathIndicati
 	return m
 }
 
-func (m *RlcduplicationInformation) SetIEExtensions(iEExtensions *RlcduplicationInformationExtIes) *RlcduplicationInformation {
+func (m *RlcduplicationInformation) SetIEExtensions(iEExtensions []*RlcduplicationInformationExtIes) *RlcduplicationInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RlcduplicationStateItem) SetIEExtensions(iEExtensions *RlcduplicationStateItemExtIes) *RlcduplicationStateItem {
+func (m *RlcduplicationStateItem) SetIEExtensions(iEExtensions []*RlcduplicationStateItemExtIes) *RlcduplicationStateItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RlcfailureIndication) SetIEExtensions(iEExtensions *RlcfailureIndicationExtIes) *RlcfailureIndication {
+func (m *RlcfailureIndication) SetIEExtensions(iEExtensions []*RlcfailureIndicationExtIes) *RlcfailureIndication {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RlcStatus) SetIEExtensions(iEExtensions *RlcStatusExtIes) *RlcStatus {
+func (m *RlcStatus) SetIEExtensions(iEExtensions []*RlcStatusExtIes) *RlcStatus {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -1990,17 +1990,17 @@ func (m *RlfreportInformationItem) SetUEassitantIDentifier(uEassitantIDentifier 
 	return m
 }
 
-func (m *RlfreportInformationItem) SetIEExtensions(iEExtensions *RlfreportInformationItemExtIes) *RlfreportInformationItem {
+func (m *RlfreportInformationItem) SetIEExtensions(iEExtensions []*RlfreportInformationItemExtIes) *RlfreportInformationItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RrcdeliveryStatus) SetIEExtensions(iEExtensions *RrcdeliveryStatusExtIes) *RrcdeliveryStatus {
+func (m *RrcdeliveryStatus) SetIEExtensions(iEExtensions []*RrcdeliveryStatusExtIes) *RrcdeliveryStatus {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *RrcVersion) SetIEExtensions(iEExtensions *RrcVersionExtIes) *RrcVersion {
+func (m *RrcVersion) SetIEExtensions(iEExtensions []*RrcVersionExtIes) *RrcVersion {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2010,7 +2010,7 @@ func (m *ScellFailedtoSetupItem) SetCause(cause *Cause) *ScellFailedtoSetupItem 
 	return m
 }
 
-func (m *ScellFailedtoSetupItem) SetIEExtensions(iEExtensions *ScellFailedtoSetupItemExtIes) *ScellFailedtoSetupItem {
+func (m *ScellFailedtoSetupItem) SetIEExtensions(iEExtensions []*ScellFailedtoSetupItemExtIes) *ScellFailedtoSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2020,12 +2020,12 @@ func (m *ScellFailedtoSetupModItem) SetCause(cause *Cause) *ScellFailedtoSetupMo
 	return m
 }
 
-func (m *ScellFailedtoSetupModItem) SetIEExtensions(iEExtensions *ScellFailedtoSetupModItemExtIes) *ScellFailedtoSetupModItem {
+func (m *ScellFailedtoSetupModItem) SetIEExtensions(iEExtensions []*ScellFailedtoSetupModItemExtIes) *ScellFailedtoSetupModItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ScellToBeRemovedItem) SetIEExtensions(iEExtensions *ScellToBeRemovedItemExtIes) *ScellToBeRemovedItem {
+func (m *ScellToBeRemovedItem) SetIEExtensions(iEExtensions []*ScellToBeRemovedItemExtIes) *ScellToBeRemovedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2035,7 +2035,7 @@ func (m *ScellToBeSetupItem) SetSCellUlconfigured(sCellUlconfigured *CellUlconfi
 	return m
 }
 
-func (m *ScellToBeSetupItem) SetIEExtensions(iEExtensions *ScellToBeSetupItemExtIes) *ScellToBeSetupItem {
+func (m *ScellToBeSetupItem) SetIEExtensions(iEExtensions []*ScellToBeSetupItemExtIes) *ScellToBeSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2045,17 +2045,17 @@ func (m *ScellToBeSetupModItem) SetSCellUlconfigured(sCellUlconfigured *CellUlco
 	return m
 }
 
-func (m *ScellToBeSetupModItem) SetIEExtensions(iEExtensions *ScellToBeSetupModItemExtIes) *ScellToBeSetupModItem {
+func (m *ScellToBeSetupModItem) SetIEExtensions(iEExtensions []*ScellToBeSetupModItemExtIes) *ScellToBeSetupModItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ScsSpecificCarrier) SetIEExtensions(iEExtensions *ScsSpecificCarrierExtIes) *ScsSpecificCarrier {
+func (m *ScsSpecificCarrier) SetIEExtensions(iEExtensions []*ScsSpecificCarrierExtIes) *ScsSpecificCarrier {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *Searchwindowinformation) SetIEExtensions(iEExtensions *SearchwindowinformationExtIes) *Searchwindowinformation {
+func (m *Searchwindowinformation) SetIEExtensions(iEExtensions []*SearchwindowinformationExtIes) *Searchwindowinformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2070,12 +2070,12 @@ func (m *ServedCellInformation) SetConfiguredEpsTac(configuredEpsTac *Configured
 	return m
 }
 
-func (m *ServedCellInformation) SetIEExtensions(iEExtensions *ServedCellInformationExtIes) *ServedCellInformation {
+func (m *ServedCellInformation) SetIEExtensions(iEExtensions []*ServedCellInformationExtIes) *ServedCellInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SfnOffset) SetIEExtensions(iEExtensions *SfnOffsetExtIes) *SfnOffset {
+func (m *SfnOffset) SetIEExtensions(iEExtensions []*SfnOffsetExtIes) *SfnOffset {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2085,12 +2085,12 @@ func (m *ServedCellsToAddItem) SetGNbDuSystemInformation(gNbDuSystemInformation 
 	return m
 }
 
-func (m *ServedCellsToAddItem) SetIEExtensions(iEExtensions *ServedCellsToAddItemExtIes) *ServedCellsToAddItem {
+func (m *ServedCellsToAddItem) SetIEExtensions(iEExtensions []*ServedCellsToAddItemExtIes) *ServedCellsToAddItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ServedCellsToDeleteItem) SetIEExtensions(iEExtensions *ServedCellsToDeleteItemExtIes) *ServedCellsToDeleteItem {
+func (m *ServedCellsToDeleteItem) SetIEExtensions(iEExtensions []*ServedCellsToDeleteItemExtIes) *ServedCellsToDeleteItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2100,12 +2100,12 @@ func (m *ServedCellsToModifyItem) SetGNbDuSystemInformation(gNbDuSystemInformati
 	return m
 }
 
-func (m *ServedCellsToModifyItem) SetIEExtensions(iEExtensions *ServedCellsToModifyItemExtIes) *ServedCellsToModifyItem {
+func (m *ServedCellsToModifyItem) SetIEExtensions(iEExtensions []*ServedCellsToModifyItemExtIes) *ServedCellsToModifyItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *ServedEUtraCellsInformation) SetIEExtensions(iEExtensions *ServedEUtraCellInformationExtIes) *ServedEUtraCellsInformation {
+func (m *ServedEUtraCellsInformation) SetIEExtensions(iEExtensions []*ServedEUtraCellInformationExtIes) *ServedEUtraCellsInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2115,17 +2115,17 @@ func (m *ServiceStatus) SetSwitchingOffOngoing(switchingOffOngoing SwitchingOffO
 	return m
 }
 
-func (m *ServiceStatus) SetIEExtensions(iEExtensions *ServiceStatusExtIes) *ServiceStatus {
+func (m *ServiceStatus) SetIEExtensions(iEExtensions []*ServiceStatusExtIes) *ServiceStatus {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SitypeItem) SetIEExtensions(iEExtensions *SitypeItemExtIes) *SitypeItem {
+func (m *SitypeItem) SetIEExtensions(iEExtensions []*SitypeItemExtIes) *SitypeItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SibtypetobeupdatedListItem) SetIEExtensions(iEExtensions *SibtypetobeupdatedListItemExtIes) *SibtypetobeupdatedListItem {
+func (m *SibtypetobeupdatedListItem) SetIEExtensions(iEExtensions []*SibtypetobeupdatedListItemExtIes) *SibtypetobeupdatedListItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2135,7 +2135,7 @@ func (m *SldrbsFailedToBeModifiedItem) SetCause(cause *Cause) *SldrbsFailedToBeM
 	return m
 }
 
-func (m *SldrbsFailedToBeModifiedItem) SetIEExtensions(iEExtensions *SldrbsFailedToBeModifiedItemExtIes) *SldrbsFailedToBeModifiedItem {
+func (m *SldrbsFailedToBeModifiedItem) SetIEExtensions(iEExtensions []*SldrbsFailedToBeModifiedItemExtIes) *SldrbsFailedToBeModifiedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2145,7 +2145,7 @@ func (m *SldrbsFailedToBeSetupItem) SetCause(cause *Cause) *SldrbsFailedToBeSetu
 	return m
 }
 
-func (m *SldrbsFailedToBeSetupItem) SetIEExtensions(iEExtensions *SldrbsFailedToBeSetupItemExtIes) *SldrbsFailedToBeSetupItem {
+func (m *SldrbsFailedToBeSetupItem) SetIEExtensions(iEExtensions []*SldrbsFailedToBeSetupItemExtIes) *SldrbsFailedToBeSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2155,37 +2155,37 @@ func (m *SldrbsFailedToBeSetupModItem) SetCause(cause *Cause) *SldrbsFailedToBeS
 	return m
 }
 
-func (m *SldrbsFailedToBeSetupModItem) SetIEExtensions(iEExtensions *SldrbsFailedToBeSetupModItemExtIes) *SldrbsFailedToBeSetupModItem {
+func (m *SldrbsFailedToBeSetupModItem) SetIEExtensions(iEExtensions []*SldrbsFailedToBeSetupModItemExtIes) *SldrbsFailedToBeSetupModItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SldrbsModifiedItem) SetIEExtensions(iEExtensions *SldrbsModifiedItemExtIes) *SldrbsModifiedItem {
+func (m *SldrbsModifiedItem) SetIEExtensions(iEExtensions []*SldrbsModifiedItemExtIes) *SldrbsModifiedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SldrbsModifiedConfItem) SetIEExtensions(iEExtensions *SldrbsModifiedConfItemExtIes) *SldrbsModifiedConfItem {
+func (m *SldrbsModifiedConfItem) SetIEExtensions(iEExtensions []*SldrbsModifiedConfItemExtIes) *SldrbsModifiedConfItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SldrbsRequiredToBeModifiedItem) SetIEExtensions(iEExtensions *SldrbsRequiredToBeModifiedItemExtIes) *SldrbsRequiredToBeModifiedItem {
+func (m *SldrbsRequiredToBeModifiedItem) SetIEExtensions(iEExtensions []*SldrbsRequiredToBeModifiedItemExtIes) *SldrbsRequiredToBeModifiedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SldrbsRequiredToBeReleasedItem) SetIEExtensions(iEExtensions *SldrbsRequiredToBeReleasedItemExtIes) *SldrbsRequiredToBeReleasedItem {
+func (m *SldrbsRequiredToBeReleasedItem) SetIEExtensions(iEExtensions []*SldrbsRequiredToBeReleasedItemExtIes) *SldrbsRequiredToBeReleasedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SldrbsSetupItem) SetIEExtensions(iEExtensions *SldrbsSetupItemExtIes) *SldrbsSetupItem {
+func (m *SldrbsSetupItem) SetIEExtensions(iEExtensions []*SldrbsSetupItemExtIes) *SldrbsSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SldrbsSetupModItem) SetIEExtensions(iEExtensions *SldrbsSetupModItemExtIes) *SldrbsSetupModItem {
+func (m *SldrbsSetupModItem) SetIEExtensions(iEExtensions []*SldrbsSetupModItemExtIes) *SldrbsSetupModItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2200,17 +2200,17 @@ func (m *SldrbsToBeModifiedItem) SetRLcmode(rLcmode *Rlcmode) *SldrbsToBeModifie
 	return m
 }
 
-func (m *SldrbsToBeModifiedItem) SetIEExtensions(iEExtensions *SldrbsToBeModifiedItemExtIes) *SldrbsToBeModifiedItem {
+func (m *SldrbsToBeModifiedItem) SetIEExtensions(iEExtensions []*SldrbsToBeModifiedItemExtIes) *SldrbsToBeModifiedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SldrbsToBeReleasedItem) SetIEExtensions(iEExtensions *SldrbsToBeReleasedItemExtIes) *SldrbsToBeReleasedItem {
+func (m *SldrbsToBeReleasedItem) SetIEExtensions(iEExtensions []*SldrbsToBeReleasedItemExtIes) *SldrbsToBeReleasedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SldrbsToBeSetupItem) SetIEExtensions(iEExtensions *SldrbsToBeSetupItemExtIes) *SldrbsToBeSetupItem {
+func (m *SldrbsToBeSetupItem) SetIEExtensions(iEExtensions []*SldrbsToBeSetupItemExtIes) *SldrbsToBeSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2220,17 +2220,17 @@ func (m *SldrbsToBeSetupModItem) SetRLcmode(rLcmode *Rlcmode) *SldrbsToBeSetupMo
 	return m
 }
 
-func (m *SldrbsToBeSetupModItem) SetIEExtensions(iEExtensions *SldrbsToBeSetupModItemExtIes) *SldrbsToBeSetupModItem {
+func (m *SldrbsToBeSetupModItem) SetIEExtensions(iEExtensions []*SldrbsToBeSetupModItemExtIes) *SldrbsToBeSetupModItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SliceAvailableCapacity) SetIEExtensions(iEExtensions *SliceAvailableCapacityExtIes) *SliceAvailableCapacity {
+func (m *SliceAvailableCapacity) SetIEExtensions(iEExtensions []*SliceAvailableCapacityExtIes) *SliceAvailableCapacity {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SliceAvailableCapacityItem) SetIEExtensions(iEExtensions *SliceAvailableCapacityItemExtIes) *SliceAvailableCapacityItem {
+func (m *SliceAvailableCapacityItem) SetIEExtensions(iEExtensions []*SliceAvailableCapacityItemExtIes) *SliceAvailableCapacityItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2245,27 +2245,27 @@ func (m *SnssaiavailableCapacityItem) SetSliceAvailableCapacityValueUplink(slice
 	return m
 }
 
-func (m *SnssaiavailableCapacityItem) SetIEExtensions(iEExtensions *SnssaiavailableCapacityItemExtIes) *SnssaiavailableCapacityItem {
+func (m *SnssaiavailableCapacityItem) SetIEExtensions(iEExtensions []*SnssaiavailableCapacityItemExtIes) *SnssaiavailableCapacityItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SliceSupportItem) SetIEExtensions(iEExtensions *SliceSupportItemExtIes) *SliceSupportItem {
+func (m *SliceSupportItem) SetIEExtensions(iEExtensions []*SliceSupportItemExtIes) *SliceSupportItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SliceToReportItem) SetIEExtensions(iEExtensions *SliceToReportItemExtIes) *SliceToReportItem {
+func (m *SliceToReportItem) SetIEExtensions(iEExtensions []*SliceToReportItemExtIes) *SliceToReportItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SnssaiItem) SetIEExtensions(iEExtensions *SnssaiItemExtIes) *SnssaiItem {
+func (m *SnssaiItem) SetIEExtensions(iEExtensions []*SnssaiItemExtIes) *SnssaiItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SlotConfigurationItem) SetIEExtensions(iEExtensions *SlotConfigurationItemExtIes) *SlotConfigurationItem {
+func (m *SlotConfigurationItem) SetIEExtensions(iEExtensions []*SlotConfigurationItemExtIes) *SlotConfigurationItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2275,32 +2275,32 @@ func (m *Snssai) SetSD(sD []byte) *Snssai {
 	return m
 }
 
-func (m *Snssai) SetIEExtensions(iEExtensions *SnssaiExtIes) *Snssai {
+func (m *Snssai) SetIEExtensions(iEExtensions []*SnssaiExtIes) *Snssai {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SpatialDirectionInformation) SetIEExtensions(iEExtensions *SpatialDirectionInformationExtIes) *SpatialDirectionInformation {
+func (m *SpatialDirectionInformation) SetIEExtensions(iEExtensions []*SpatialDirectionInformationExtIes) *SpatialDirectionInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SpatialRelationInfo) SetIEExtensions(iEExtensions *SpatialRelationInfoExtIes) *SpatialRelationInfo {
+func (m *SpatialRelationInfo) SetIEExtensions(iEExtensions []*SpatialRelationInfoExtIes) *SpatialRelationInfo {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SpatialRelationforResourceIditem) SetIEExtensions(iEExtensions *SpatialRelationforResourceIditemExtIes) *SpatialRelationforResourceIditem {
+func (m *SpatialRelationforResourceIditem) SetIEExtensions(iEExtensions []*SpatialRelationforResourceIditemExtIes) *SpatialRelationforResourceIditem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SpatialRelationPerSrsresource) SetIEExtensions(iEExtensions *SpatialRelationPerSrsresourceExtIes) *SpatialRelationPerSrsresource {
+func (m *SpatialRelationPerSrsresource) SetIEExtensions(iEExtensions []*SpatialRelationPerSrsresourceExtIes) *SpatialRelationPerSrsresource {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SpatialRelationPerSrsresourceItem) SetIEExtensions(iEExtensions *SpatialRelationPerSrsresourceItemExtIes) *SpatialRelationPerSrsresourceItem {
+func (m *SpatialRelationPerSrsresourceItem) SetIEExtensions(iEExtensions []*SpatialRelationPerSrsresourceItemExtIes) *SpatialRelationPerSrsresourceItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2310,7 +2310,7 @@ func (m *SrbsFailedToBeSetupItem) SetCause(cause *Cause) *SrbsFailedToBeSetupIte
 	return m
 }
 
-func (m *SrbsFailedToBeSetupItem) SetIEExtensions(iEExtensions *SrbsFailedToBeSetupItemExtIes) *SrbsFailedToBeSetupItem {
+func (m *SrbsFailedToBeSetupItem) SetIEExtensions(iEExtensions []*SrbsFailedToBeSetupItemExtIes) *SrbsFailedToBeSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2320,32 +2320,32 @@ func (m *SrbsFailedToBeSetupModItem) SetCause(cause *Cause) *SrbsFailedToBeSetup
 	return m
 }
 
-func (m *SrbsFailedToBeSetupModItem) SetIEExtensions(iEExtensions *SrbsFailedToBeSetupModItemExtIes) *SrbsFailedToBeSetupModItem {
+func (m *SrbsFailedToBeSetupModItem) SetIEExtensions(iEExtensions []*SrbsFailedToBeSetupModItemExtIes) *SrbsFailedToBeSetupModItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SrbsModifiedItem) SetIEExtensions(iEExtensions *SrbsModifiedItemExtIes) *SrbsModifiedItem {
+func (m *SrbsModifiedItem) SetIEExtensions(iEExtensions []*SrbsModifiedItemExtIes) *SrbsModifiedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SrbsRequiredToBeReleasedItem) SetIEExtensions(iEExtensions *SrbsRequiredToBeReleasedItemExtIes) *SrbsRequiredToBeReleasedItem {
+func (m *SrbsRequiredToBeReleasedItem) SetIEExtensions(iEExtensions []*SrbsRequiredToBeReleasedItemExtIes) *SrbsRequiredToBeReleasedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SrbsSetupItem) SetIEExtensions(iEExtensions *SrbsSetupItemExtIes) *SrbsSetupItem {
+func (m *SrbsSetupItem) SetIEExtensions(iEExtensions []*SrbsSetupItemExtIes) *SrbsSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SrbsSetupModItem) SetIEExtensions(iEExtensions *SrbsSetupModItemExtIes) *SrbsSetupModItem {
+func (m *SrbsSetupModItem) SetIEExtensions(iEExtensions []*SrbsSetupModItemExtIes) *SrbsSetupModItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SrbsToBeReleasedItem) SetIEExtensions(iEExtensions *SrbsToBeReleasedItemExtIes) *SrbsToBeReleasedItem {
+func (m *SrbsToBeReleasedItem) SetIEExtensions(iEExtensions []*SrbsToBeReleasedItemExtIes) *SrbsToBeReleasedItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2355,7 +2355,7 @@ func (m *SrbsToBeSetupItem) SetDuplicationIndication(duplicationIndication *Dupl
 	return m
 }
 
-func (m *SrbsToBeSetupItem) SetIEExtensions(iEExtensions *SrbsToBeSetupItemExtIes) *SrbsToBeSetupItem {
+func (m *SrbsToBeSetupItem) SetIEExtensions(iEExtensions []*SrbsToBeSetupItemExtIes) *SrbsToBeSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2365,7 +2365,7 @@ func (m *SrbsToBeSetupModItem) SetDuplicationIndication(duplicationIndication *D
 	return m
 }
 
-func (m *SrbsToBeSetupModItem) SetIEExtensions(iEExtensions *SrbsToBeSetupModItemExtIes) *SrbsToBeSetupModItem {
+func (m *SrbsToBeSetupModItem) SetIEExtensions(iEExtensions []*SrbsToBeSetupModItemExtIes) *SrbsToBeSetupModItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2375,7 +2375,7 @@ func (m *SrscarrierListItem) SetPci(pci *Nrpci) *SrscarrierListItem {
 	return m
 }
 
-func (m *SrscarrierListItem) SetIEExtensions(iEExtensions *SrscarrierListItemExtIes) *SrscarrierListItem {
+func (m *SrscarrierListItem) SetIEExtensions(iEExtensions []*SrscarrierListItemExtIes) *SrscarrierListItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2400,22 +2400,22 @@ func (m *Srsconfig) SetPosSrsresourceSetList(posSrsresourceSetList *PosSrsresour
 	return m
 }
 
-func (m *Srsconfig) SetIEExtensions(iEExtensions *SrsconfigExtIes) *Srsconfig {
+func (m *Srsconfig) SetIEExtensions(iEExtensions []*SrsconfigExtIes) *Srsconfig {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *Srsconfiguration) SetIEExtensions(iEExtensions *SrsconfigurationExtIes) *Srsconfiguration {
+func (m *Srsconfiguration) SetIEExtensions(iEExtensions []*SrsconfigurationExtIes) *Srsconfiguration {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *Srsresource) SetIEExtensions(iEExtensions *SrsresourceExtIes) *Srsresource {
+func (m *Srsresource) SetIEExtensions(iEExtensions []*SrsresourceExtIes) *Srsresource {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SrsresourceSet) SetIEExtensions(iEExtensions *SrsresourceSetExtIes) *SrsresourceSet {
+func (m *SrsresourceSet) SetIEExtensions(iEExtensions []*SrsresourceSetExtIes) *SrsresourceSet {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2440,12 +2440,12 @@ func (m *SrsresourceSetItem) SetPathlossReferenceInfo(pathlossReferenceInfo *Pat
 	return m
 }
 
-func (m *SrsresourceSetItem) SetIEExtensions(iEExtensions *SrsresourceSetItemExtIes) *SrsresourceSetItem {
+func (m *SrsresourceSetItem) SetIEExtensions(iEExtensions []*SrsresourceSetItemExtIes) *SrsresourceSetItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SrsresourceTrigger) SetIEExtensions(iEExtensions *SrsresourceTriggerExtIes) *SrsresourceTrigger {
+func (m *SrsresourceTrigger) SetIEExtensions(iEExtensions []*SrsresourceTriggerExtIes) *SrsresourceTrigger {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2455,12 +2455,12 @@ func (m *Ssb) SetSsbIndex(ssbIndex *SsbIndex) *Ssb {
 	return m
 }
 
-func (m *Ssb) SetIEExtensions(iEExtensions *SsbExtIes) *Ssb {
+func (m *Ssb) SetIEExtensions(iEExtensions []*SsbExtIes) *Ssb {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SsbareaCapacityValueItem) SetIEExtensions(iEExtensions *SsbareaCapacityValueItemExtIes) *SsbareaCapacityValueItem {
+func (m *SsbareaCapacityValueItem) SetIEExtensions(iEExtensions []*SsbareaCapacityValueItemExtIes) *SsbareaCapacityValueItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2475,17 +2475,17 @@ func (m *SsbareaRadioResourceStatusItem) SetULschedulingPdcchcceusage(uLscheduli
 	return m
 }
 
-func (m *SsbareaRadioResourceStatusItem) SetIEExtensions(iEExtensions *SsbareaRadioResourceStatusItemExtIes) *SsbareaRadioResourceStatusItem {
+func (m *SsbareaRadioResourceStatusItem) SetIEExtensions(iEExtensions []*SsbareaRadioResourceStatusItemExtIes) *SsbareaRadioResourceStatusItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *Ssbinformation) SetIEExtensions(iEExtensions *SsbinformationExtIes) *Ssbinformation {
+func (m *Ssbinformation) SetIEExtensions(iEExtensions []*SsbinformationExtIes) *Ssbinformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SsbinformationItem) SetIEExtensions(iEExtensions *SsbinformationItemExtIes) *SsbinformationItem {
+func (m *SsbinformationItem) SetIEExtensions(iEExtensions []*SsbinformationItemExtIes) *SsbinformationItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2500,37 +2500,37 @@ func (m *SsbTFConfiguration) SetSFninitialisationTime(sFninitialisationTime *Rel
 	return m
 }
 
-func (m *SsbTFConfiguration) SetIEExtensions(iEExtensions *SsbTFConfigurationExtIes) *SsbTFConfiguration {
+func (m *SsbTFConfiguration) SetIEExtensions(iEExtensions []*SsbTFConfigurationExtIes) *SsbTFConfiguration {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SsbtoReportItem) SetIEExtensions(iEExtensions *SsbtoReportItemExtIes) *SsbtoReportItem {
+func (m *SsbtoReportItem) SetIEExtensions(iEExtensions []*SsbtoReportItemExtIes) *SsbtoReportItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SulInformation) SetIEExtensions(iEExtensions *SulInformationExtIes) *SulInformation {
+func (m *SulInformation) SetIEExtensions(iEExtensions []*SulInformationExtIes) *SulInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *SupportedSulfreqBandItem) SetIEExtensions(iEExtensions *SupportedSulfreqBandItemExtIes) *SupportedSulfreqBandItem {
+func (m *SupportedSulfreqBandItem) SetIEExtensions(iEExtensions []*SupportedSulfreqBandItemExtIes) *SupportedSulfreqBandItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TargetCellListItem) SetIEExtensions(iEExtensions *TargetCellListItemExtIes) *TargetCellListItem {
+func (m *TargetCellListItem) SetIEExtensions(iEExtensions []*TargetCellListItemExtIes) *TargetCellListItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TddInfo) SetIEExtensions(iEExtensions *TddInfoExtIes) *TddInfo {
+func (m *TddInfo) SetIEExtensions(iEExtensions []*TddInfoExtIes) *TddInfo {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TimeReferenceInformation) SetIEExtensions(iEExtensions *TimeReferenceInformationExtIes) *TimeReferenceInformation {
+func (m *TimeReferenceInformation) SetIEExtensions(iEExtensions []*TimeReferenceInformationExtIes) *TimeReferenceInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2540,27 +2540,27 @@ func (m *TimeStamp) SetMeasurementTime(measurementTime *RelativeTime1900) *TimeS
 	return m
 }
 
-func (m *TimeStamp) SetIEExtension(iEExtension *TimeStampExtIes) *TimeStamp {
+func (m *TimeStamp) SetIEExtension(iEExtension []*TimeStampExtIes) *TimeStamp {
 	m.IEExtension = iEExtension
 	return m
 }
 
-func (m *TimingMeasurementQuality) SetIEExtensions(iEExtensions *TimingMeasurementQualityExtIes) *TimingMeasurementQuality {
+func (m *TimingMeasurementQuality) SetIEExtensions(iEExtensions []*TimingMeasurementQualityExtIes) *TimingMeasurementQuality {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TnlcapacityIndicator) SetIEExtensions(iEExtensions *TnlcapacityIndicatorExtIes) *TnlcapacityIndicator {
+func (m *TnlcapacityIndicator) SetIEExtensions(iEExtensions []*TnlcapacityIndicatorExtIes) *TnlcapacityIndicator {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TraceActivation) SetIEExtensions(iEExtensions *TraceActivationExtIes) *TraceActivation {
+func (m *TraceActivation) SetIEExtensions(iEExtensions []*TraceActivationExtIes) *TraceActivation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TransmissionBandwidth) SetIEExtensions(iEExtensions *TransmissionBandwidthExtIes) *TransmissionBandwidth {
+func (m *TransmissionBandwidth) SetIEExtensions(iEExtensions []*TransmissionBandwidthExtIes) *TransmissionBandwidth {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2570,7 +2570,7 @@ func (m *TransportUPLayerAddressInfoToAddItem) SetGTptransportLayerAddressToAdd(
 	return m
 }
 
-func (m *TransportUPLayerAddressInfoToAddItem) SetIEExtensions(iEExtensions *TransportUPLayerAddressInfoToAddItemExtIes) *TransportUPLayerAddressInfoToAddItem {
+func (m *TransportUPLayerAddressInfoToAddItem) SetIEExtensions(iEExtensions []*TransportUPLayerAddressInfoToAddItemExtIes) *TransportUPLayerAddressInfoToAddItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2580,27 +2580,27 @@ func (m *TransportUPLayerAddressInfoToRemoveItem) SetGTptransportLayerAddressToR
 	return m
 }
 
-func (m *TransportUPLayerAddressInfoToRemoveItem) SetIEExtensions(iEExtensions *TransportUPLayerAddressInfoToRemoveItemExtIes) *TransportUPLayerAddressInfoToRemoveItem {
+func (m *TransportUPLayerAddressInfoToRemoveItem) SetIEExtensions(iEExtensions []*TransportUPLayerAddressInfoToRemoveItemExtIes) *TransportUPLayerAddressInfoToRemoveItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *Trpinformation) SetIEExtensions(iEExtensions *TrpinformationExtIes) *Trpinformation {
+func (m *Trpinformation) SetIEExtensions(iEExtensions []*TrpinformationExtIes) *Trpinformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TrpinformationItem) SetIEExtensions(iEExtensions *TrpinformationItemExtIes) *TrpinformationItem {
+func (m *TrpinformationItem) SetIEExtensions(iEExtensions []*TrpinformationItemExtIes) *TrpinformationItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TrplistItem) SetIEExtensions(iEExtensions *TrplistItemExtIes) *TrplistItem {
+func (m *TrplistItem) SetIEExtensions(iEExtensions []*TrplistItemExtIes) *TrplistItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TrpmeasurementQuality) SetIEExtensions(iEExtensions *TrpmeasurementQualityExtIes) *TrpmeasurementQuality {
+func (m *TrpmeasurementQuality) SetIEExtensions(iEExtensions []*TrpmeasurementQualityExtIes) *TrpmeasurementQuality {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2610,17 +2610,17 @@ func (m *TrpMeasurementRequestItem) SetSearchWindowInformation(searchWindowInfor
 	return m
 }
 
-func (m *TrpMeasurementRequestItem) SetIEExtensions(iEExtensions *TrpMeasurementRequestItemExtIes) *TrpMeasurementRequestItem {
+func (m *TrpMeasurementRequestItem) SetIEExtensions(iEExtensions []*TrpMeasurementRequestItemExtIes) *TrpMeasurementRequestItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TrppositionDirect) SetIEExtensions(iEExtensions *TrppositionDirectExtIes) *TrppositionDirect {
+func (m *TrppositionDirect) SetIEExtensions(iEExtensions []*TrppositionDirectExtIes) *TrppositionDirect {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *TrppositionReferenced) SetIEExtensions(iEExtensions *TrppositionReferencedExtIes) *TrppositionReferenced {
+func (m *TrppositionReferenced) SetIEExtensions(iEExtensions []*TrppositionReferencedExtIes) *TrppositionReferenced {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2635,7 +2635,7 @@ func (m *TransportLayerAddressInfo) SetTransportUpLayerAddressInfoToRemoveList(t
 	return m
 }
 
-func (m *TransportLayerAddressInfo) SetIEExtensions(iEExtensions *TransportLayerAddressInfoExtIes) *TransportLayerAddressInfo {
+func (m *TransportLayerAddressInfo) SetIEExtensions(iEExtensions []*TransportLayerAddressInfoExtIes) *TransportLayerAddressInfo {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2645,7 +2645,7 @@ func (m *TscassistanceInformation) SetBurstArrivalTime(burstArrivalTime *BurstAr
 	return m
 }
 
-func (m *TscassistanceInformation) SetIEExtensions(iEExtensions *TscassistanceInformationExtIes) *TscassistanceInformation {
+func (m *TscassistanceInformation) SetIEExtensions(iEExtensions []*TscassistanceInformationExtIes) *TscassistanceInformation {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2660,27 +2660,27 @@ func (m *TsctrafficCharacteristics) SetTScassistanceInformationUl(tScassistanceI
 	return m
 }
 
-func (m *TsctrafficCharacteristics) SetIEExtensions(iEExtensions *TsctrafficCharacteristicsExtIes) *TsctrafficCharacteristics {
+func (m *TsctrafficCharacteristics) SetIEExtensions(iEExtensions []*TsctrafficCharacteristicsExtIes) *TsctrafficCharacteristics {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *UacAssistanceInfo) SetIEExtensions(iEExtensions *UacAssistanceInfoExtIes) *UacAssistanceInfo {
+func (m *UacAssistanceInfo) SetIEExtensions(iEExtensions []*UacAssistanceInfoExtIes) *UacAssistanceInfo {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *UacplmnItem) SetIEExtensions(iEExtensions *UacplmnItemExtIes) *UacplmnItem {
+func (m *UacplmnItem) SetIEExtensions(iEExtensions []*UacplmnItemExtIes) *UacplmnItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *UactypeItem) SetIEExtensions(iEExtensions *UactypeItemExtIes) *UactypeItem {
+func (m *UactypeItem) SetIEExtensions(iEExtensions []*UactypeItemExtIes) *UactypeItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *UacoperatorDefined) SetIEExtensions(iEExtensions *UacoperatorDefinedExtIes) *UacoperatorDefined {
+func (m *UacoperatorDefined) SetIEExtensions(iEExtensions []*UacoperatorDefinedExtIes) *UacoperatorDefined {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2695,7 +2695,7 @@ func (m *UeassociatedLogicalF1ConnectionItem) SetGNbDuUeF1ApID(gNbDuUeF1ApID *Gn
 	return m
 }
 
-func (m *UeassociatedLogicalF1ConnectionItem) SetIEExtensions(iEExtensions *UeassociatedLogicalF1ConnectionItemExtIes) *UeassociatedLogicalF1ConnectionItem {
+func (m *UeassociatedLogicalF1ConnectionItem) SetIEExtensions(iEExtensions []*UeassociatedLogicalF1ConnectionItemExtIes) *UeassociatedLogicalF1ConnectionItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2710,22 +2710,22 @@ func (m *UlAoA) SetLCsToGcsTranslationAoA(lCsToGcsTranslationAoA *LcstoGCsTransl
 	return m
 }
 
-func (m *UlAoA) SetIEExtensions(iEExtensions *UlAoAExtIes) *UlAoA {
+func (m *UlAoA) SetIEExtensions(iEExtensions []*UlAoAExtIes) *UlAoA {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *UlBHNonUPTrafficMapping) SetIEExtensions(iEExtensions *UlBHNonUPTrafficMappingExtIes) *UlBHNonUPTrafficMapping {
+func (m *UlBHNonUPTrafficMapping) SetIEExtensions(iEExtensions []*UlBHNonUPTrafficMappingExtIes) *UlBHNonUPTrafficMapping {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *UlBHNonUPTrafficMappingItem) SetIEExtensions(iEExtensions *UlBHNonUPTrafficMappingItemExtIes) *UlBHNonUPTrafficMappingItem {
+func (m *UlBHNonUPTrafficMappingItem) SetIEExtensions(iEExtensions []*UlBHNonUPTrafficMappingItemExtIes) *UlBHNonUPTrafficMappingItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *Ulconfiguration) SetIEExtensions(iEExtensions *UlconfigurationExtIes) *Ulconfiguration {
+func (m *Ulconfiguration) SetIEExtensions(iEExtensions []*UlconfigurationExtIes) *Ulconfiguration {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2735,7 +2735,7 @@ func (m *UlRToaMeasurement) SetAdditionalPathList(additionalPathList *Additional
 	return m
 }
 
-func (m *UlRToaMeasurement) SetIEExtensions(iEExtensions *UlRToaMeasurementExtIes) *UlRToaMeasurement {
+func (m *UlRToaMeasurement) SetIEExtensions(iEExtensions []*UlRToaMeasurementExtIes) *UlRToaMeasurement {
 	m.IEExtensions = iEExtensions
 	return m
 }
@@ -2745,22 +2745,22 @@ func (m *UlUPTNlInformationtoUpdateListItem) SetNewUluptnlinformation(newUluptnl
 	return m
 }
 
-func (m *UlUPTNlInformationtoUpdateListItem) SetIEExtensions(iEExtensions *UlUPTNlInformationtoUpdateListItemExtIes) *UlUPTNlInformationtoUpdateListItem {
+func (m *UlUPTNlInformationtoUpdateListItem) SetIEExtensions(iEExtensions []*UlUPTNlInformationtoUpdateListItemExtIes) *UlUPTNlInformationtoUpdateListItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *UlUPTNlAddresstoUpdateListItem) SetIEExtensions(iEExtensions *UlUPTNlAddresstoUpdateListItemExtIes) *UlUPTNlAddresstoUpdateListItem {
+func (m *UlUPTNlAddresstoUpdateListItem) SetIEExtensions(iEExtensions []*UlUPTNlAddresstoUpdateListItemExtIes) *UlUPTNlAddresstoUpdateListItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *UluptnlinformationToBeSetupItem) SetIEExtensions(iEExtensions *UluptnlinformationToBeSetupItemExtIes) *UluptnlinformationToBeSetupItem {
+func (m *UluptnlinformationToBeSetupItem) SetIEExtensions(iEExtensions []*UluptnlinformationToBeSetupItemExtIes) *UluptnlinformationToBeSetupItem {
 	m.IEExtensions = iEExtensions
 	return m
 }
 
-func (m *VictimgNbsetId) SetIEExtensions(iEExtensions *VictimgNbsetIdExtIes) *VictimgNbsetId {
+func (m *VictimgNbsetId) SetIEExtensions(iEExtensions []*VictimgNbsetIdExtIes) *VictimgNbsetId {
 	m.IEExtensions = iEExtensions
 	return m
 }
