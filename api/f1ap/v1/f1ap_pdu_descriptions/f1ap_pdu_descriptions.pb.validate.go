@@ -1971,7 +1971,7 @@ func (m *UnsuccessfulOutcomeF1ApElementaryProcedures) validate(all bool) error {
 
 	var errors []error
 
-	switch m.SoValues.(type) {
+	switch m.UoValues.(type) {
 
 	case *UnsuccessfulOutcomeF1ApElementaryProcedures_F1SetupFailure:
 

@@ -48,22 +48,22 @@ protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api -
 
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/f1ap/v1/f1ap_commondatatypes.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap-commondatatypes/f1ap_commondatatypes.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_commondatatypes/f1ap_commondatatypes.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/f1ap/v1/f1ap_constants.proto
 protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_constants/f1ap_constants.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/f1ap/v1/f1ap_containers.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap-containers/f1ap_containers.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_containers/f1ap_containers.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/f1ap/v1/f1ap_ies.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap-ies/f1ap_ies.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_ies/f1ap_ies.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/f1ap/v1/f1ap_pdu_contents.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap-pdu-contents/f1ap_pdu_contents.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_pdu_contents/f1ap_pdu_contents.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/f1ap/v1/f1ap_pdu_descriptions.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap-pdu-descriptions/f1ap_pdu_descriptions.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_pdu_descriptions/f1ap_pdu_descriptions.pb.go
 
 protoc -I=$proto_imports --gogofaster_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/sim/e2,plugins=grpc:. sim/e2/*.proto
 

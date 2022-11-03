@@ -196,17 +196,17 @@ type isResetIesValue_ResetIes interface {
 
 type ResetIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResetIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResetIesValue_ResetType struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ResetType *ResetType `protobuf:"bytes,3,opt,name=reset_type,json=ResetType,proto3,oneof"`
+	ResetType *ResetType `protobuf:"bytes,3,opt,name=reset_type,json=ResetType,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResetIesValue_TransactionId) isResetIesValue_ResetIes() {}
@@ -223,10 +223,10 @@ type ResetIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResetIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResetIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResetIes) Reset() {
@@ -454,17 +454,17 @@ type isResetType_ResetType interface {
 
 type ResetType_F1Interface struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	F1Interface ResetAll `protobuf:"varint,1,opt,name=f1_interface,json=f1-Interface,proto3,enum=f1ap.v1.ResetAll,oneof"`
+	F1Interface ResetAll `protobuf:"varint,1,opt,name=f1_interface,json=f1-Interface,proto3,enum=f1ap.v1.ResetAll,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResetType_PartOfF1Interface struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	PartOfF1Interface *UeassociatedLogicalF1ConnectionListRes `protobuf:"bytes,2,opt,name=part_of_f1_interface,json=partOfF1-Interface,proto3,oneof"`
+	PartOfF1Interface *UeassociatedLogicalF1ConnectionListRes `protobuf:"bytes,2,opt,name=part_of_f1_interface,json=partOfF1-Interface,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResetType_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ResetTypeExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ResetTypeExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResetType_F1Interface) isResetType_ResetType() {}
@@ -645,17 +645,17 @@ type isResetAcknowledgeIesValue_ResetAcknowledgeIes interface {
 
 type ResetAcknowledgeIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResetAcknowledgeIesValue_UeAssociatedLogicalF1ConnectionListResAck struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	UeAssociatedLogicalF1ConnectionListResAck *UeassociatedLogicalF1ConnectionListResAck `protobuf:"bytes,2,opt,name=ue_associated_logical_f1_connection_list_res_ack,json=UE-associatedLogicalF1-ConnectionListResAck,proto3,oneof"`
+	UeAssociatedLogicalF1ConnectionListResAck *UeassociatedLogicalF1ConnectionListResAck `protobuf:"bytes,2,opt,name=ue_associated_logical_f1_connection_list_res_ack,json=UE-associatedLogicalF1-ConnectionListResAck,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResetAcknowledgeIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResetAcknowledgeIesValue_TransactionId) isResetAcknowledgeIesValue_ResetAcknowledgeIes() {}
@@ -674,10 +674,10 @@ type ResetAcknowledgeIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResetAcknowledgeIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResetAcknowledgeIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResetAcknowledgeIes) Reset() {
@@ -971,27 +971,27 @@ type isErrorIndicationIesValue_ErrorIndicationIes interface {
 
 type ErrorIndicationIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ErrorIndicationIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ErrorIndicationIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,3,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,3,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ErrorIndicationIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,4,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,4,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ErrorIndicationIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*ErrorIndicationIesValue_TransactionId) isErrorIndicationIesValue_ErrorIndicationIes() {}
@@ -1013,10 +1013,10 @@ type ErrorIndicationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ErrorIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ErrorIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ErrorIndicationIes) Reset() {
@@ -1244,42 +1244,42 @@ type isF1SetupRequestIesValue_F1SetupRequestIes interface {
 
 type F1SetupRequestIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type F1SetupRequestIesValue_GnbDuId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuId *f1ap_ies.GnbDUID `protobuf:"bytes,2,opt,name=gnb_du_id,json=GNB-DU-ID,proto3,oneof"`
+	GnbDuId *f1ap_ies.GnbDUID `protobuf:"bytes,2,opt,name=gnb_du_id,json=GNB-DU-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type F1SetupRequestIesValue_GnbDuName struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	GnbDuName *f1ap_ies.GnbDUName `protobuf:"bytes,3,opt,name=gnb_du_name,json=GNB-DU-Name,proto3,oneof"`
+	GnbDuName *f1ap_ies.GnbDUName `protobuf:"bytes,3,opt,name=gnb_du_name,json=GNB-DU-Name,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type F1SetupRequestIesValue_GnbDuServedCellsList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	GnbDuServedCellsList *GnbDUServedCellsList `protobuf:"bytes,4,opt,name=gnb_du_served_cells_list,json=GNB-DU-Served-Cells-List,proto3,oneof"`
+	GnbDuServedCellsList *GnbDUServedCellsList `protobuf:"bytes,4,opt,name=gnb_du_served_cells_list,json=GNB-DU-Served-Cells-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type F1SetupRequestIesValue_RrcVersion struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	RrcVersion *f1ap_ies.RrcVersion `protobuf:"bytes,5,opt,name=rrc_version,json=RRC-Version,proto3,oneof"`
+	RrcVersion *f1ap_ies.RrcVersion `protobuf:"bytes,5,opt,name=rrc_version,json=RRC-Version,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type F1SetupRequestIesValue_TransportLayerAddressInfo struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,6,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof"`
+	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,6,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type F1SetupRequestIesValue_Bapaddress struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,7,opt,name=bapaddress,json=BAPAddress,proto3,oneof"`
+	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,7,opt,name=bapaddress,json=BAPAddress,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type F1SetupRequestIesValue_ExtendedGnbDuName struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	ExtendedGnbDuName *f1ap_ies.ExtendedGNbDUName `protobuf:"bytes,8,opt,name=extended_gnb_du_name,json=Extended-GNB-DU-Name,proto3,oneof"`
+	ExtendedGnbDuName *f1ap_ies.ExtendedGNbDUName `protobuf:"bytes,8,opt,name=extended_gnb_du_name,json=Extended-GNB-DU-Name,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 func (*F1SetupRequestIesValue_TransactionId) isF1SetupRequestIesValue_F1SetupRequestIes() {}
@@ -1307,10 +1307,10 @@ type F1SetupRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *F1SetupRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *F1SetupRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *F1SetupRequestIes) Reset() {
@@ -1375,7 +1375,7 @@ type F1SetupRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,valueExt"
-	ProtocolIes []*F1SetupRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty"`
+	ProtocolIes []*F1SetupRequestIes `protobuf:"bytes,1,rep,name=protocol_ies,json=protocolIEs,proto3" json:"protocol_ies,omitempty" aper:"sizeLB:0,sizeUB:65535,valueExt"`
 }
 
 func (x *F1SetupRequest) Reset() {
@@ -1425,7 +1425,7 @@ type GnbDUServedCellsList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:512,valueExt"
-	Value []*GnbDUServedCellsItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*GnbDUServedCellsItemIes `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:512,valueExt"`
 }
 
 func (x *GnbDUServedCellsList) Reset() {
@@ -1529,7 +1529,7 @@ type isGnbDUServedCellsItemIesValue_GnbDUServedCellsItemIesValue interface {
 
 type GnbDUServedCellsItemIesValue_GnbDUServedCellsItem struct {
 	// @inject_tag: aper:"valueExt"
-	GnbDUServedCellsItem *f1ap_ies.GnbDUServedCellsItem `protobuf:"bytes,1,opt,name=gnb_d_u_served_cells_item,json=GNB-DU-Served-Cells-Item,proto3,oneof"`
+	GnbDUServedCellsItem *f1ap_ies.GnbDUServedCellsItem `protobuf:"bytes,1,opt,name=gnb_d_u_served_cells_item,json=GNB-DU-Served-Cells-Item,proto3,oneof" aper:"valueExt"`
 }
 
 func (*GnbDUServedCellsItemIesValue_GnbDUServedCellsItem) isGnbDUServedCellsItemIesValue_GnbDUServedCellsItemIesValue() {
@@ -1617,7 +1617,7 @@ type isGnbDUServedCellsItemIes_GnbDuServedCellsItemIes interface {
 
 type GnbDUServedCellsItemIes_Id struct {
 	// @inject_tag: aper:"unique,"
-	Id *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3,oneof"`
+	Id *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3,oneof" aper:"unique,"`
 }
 
 type GnbDUServedCellsItemIes_Criticality struct {
@@ -1626,7 +1626,7 @@ type GnbDUServedCellsItemIes_Criticality struct {
 
 type GnbDUServedCellsItemIes_Value struct {
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbDUServedCellsItemIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3,oneof"`
+	Value *GnbDUServedCellsItemIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3,oneof" aper:"canonicalOrder,"`
 }
 
 func (*GnbDUServedCellsItemIes_Id) isGnbDUServedCellsItemIes_GnbDuServedCellsItemIes() {}
@@ -1757,42 +1757,42 @@ type isF1SetupResponseIesValue_F1SetupResponseIes interface {
 
 type F1SetupResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type F1SetupResponseIesValue_GnbCuName struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbCuName *f1ap_ies.GnbCUName `protobuf:"bytes,2,opt,name=gnb_cu_name,json=GNB-CU-Name,proto3,oneof"`
+	GnbCuName *f1ap_ies.GnbCUName `protobuf:"bytes,2,opt,name=gnb_cu_name,json=GNB-CU-Name,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type F1SetupResponseIesValue_CellsToBeActivatedList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CellsToBeActivatedList *CellstobeActivatedList `protobuf:"bytes,3,opt,name=cells_to_be_activated_list,json=Cells-to-be-Activated-List,proto3,oneof"`
+	CellsToBeActivatedList *CellstobeActivatedList `protobuf:"bytes,3,opt,name=cells_to_be_activated_list,json=Cells-to-be-Activated-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type F1SetupResponseIesValue_RrcVersion struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RrcVersion *f1ap_ies.RrcVersion `protobuf:"bytes,4,opt,name=rrc_version,json=RRC-Version,proto3,oneof"`
+	RrcVersion *f1ap_ies.RrcVersion `protobuf:"bytes,4,opt,name=rrc_version,json=RRC-Version,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type F1SetupResponseIesValue_TransportLayerAddressInfo struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,5,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof"`
+	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,5,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type F1SetupResponseIesValue_UlBhNonUpTrafficMapping struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	UlBhNonUpTrafficMapping *f1ap_ies.UlBHNonUPTrafficMapping `protobuf:"bytes,6,opt,name=ul_bh_non_up_traffic_mapping,json=UL-BH-Non-UP-Traffic-Mapping,proto3,oneof"`
+	UlBhNonUpTrafficMapping *f1ap_ies.UlBHNonUPTrafficMapping `protobuf:"bytes,6,opt,name=ul_bh_non_up_traffic_mapping,json=UL-BH-Non-UP-Traffic-Mapping,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type F1SetupResponseIesValue_Bapaddress struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,7,opt,name=bapaddress,json=BAPAddress,proto3,oneof"`
+	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,7,opt,name=bapaddress,json=BAPAddress,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type F1SetupResponseIesValue_ExtendedGnbCuName struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	ExtendedGnbCuName *f1ap_ies.ExtendedGNbCUName `protobuf:"bytes,8,opt,name=extended_gnb_cu_name,json=Extended-GNB-CU-Name,proto3,oneof"`
+	ExtendedGnbCuName *f1ap_ies.ExtendedGNbCUName `protobuf:"bytes,8,opt,name=extended_gnb_cu_name,json=Extended-GNB-CU-Name,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 func (*F1SetupResponseIesValue_TransactionId) isF1SetupResponseIesValue_F1SetupResponseIes() {}
@@ -1822,10 +1822,10 @@ type F1SetupResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *F1SetupResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *F1SetupResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *F1SetupResponseIes) Reset() {
@@ -2111,22 +2111,22 @@ type isF1SetupFailureIesValue_F1SetupFailureIes interface {
 
 type F1SetupFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type F1SetupFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type F1SetupFailureIesValue_TimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof"`
+	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof" aper:"choiceIdx:3,"`
 }
 
 type F1SetupFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*F1SetupFailureIesValue_TransactionId) isF1SetupFailureIesValue_F1SetupFailureIes() {}
@@ -2145,10 +2145,10 @@ type F1SetupFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *F1SetupFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *F1SetupFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *F1SetupFailureIes) Reset() {
@@ -2400,57 +2400,57 @@ type isGnbduconfigurationUpdateIesValue_GnbduconfigurationUpdateIes interface {
 
 type GnbduconfigurationUpdateIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbduconfigurationUpdateIesValue_ServedCellsToAddList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ServedCellsToAddList *ServedCellsToAddList `protobuf:"bytes,2,opt,name=served_cells_to_add_list,json=Served-Cells-To-Add-List,proto3,oneof"`
+	ServedCellsToAddList *ServedCellsToAddList `protobuf:"bytes,2,opt,name=served_cells_to_add_list,json=Served-Cells-To-Add-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbduconfigurationUpdateIesValue_ServedCellsToModifyList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ServedCellsToModifyList *ServedCellsToModifyList `protobuf:"bytes,3,opt,name=served_cells_to_modify_list,json=Served-Cells-To-Modify-List,proto3,oneof"`
+	ServedCellsToModifyList *ServedCellsToModifyList `protobuf:"bytes,3,opt,name=served_cells_to_modify_list,json=Served-Cells-To-Modify-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type GnbduconfigurationUpdateIesValue_ServedCellsToDeleteList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ServedCellsToDeleteList *ServedCellsToDeleteList `protobuf:"bytes,4,opt,name=served_cells_to_delete_list,json=Served-Cells-To-Delete-List,proto3,oneof"`
+	ServedCellsToDeleteList *ServedCellsToDeleteList `protobuf:"bytes,4,opt,name=served_cells_to_delete_list,json=Served-Cells-To-Delete-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type GnbduconfigurationUpdateIesValue_CellsStatusList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CellsStatusList *CellsStatusList `protobuf:"bytes,5,opt,name=cells_status_list,json=Cells-Status-List,proto3,oneof"`
+	CellsStatusList *CellsStatusList `protobuf:"bytes,5,opt,name=cells_status_list,json=Cells-Status-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type GnbduconfigurationUpdateIesValue_DedicatedSideliveryNeededUeList struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	DedicatedSideliveryNeededUeList *DedicatedSIdeliveryNeededUeList `protobuf:"bytes,6,opt,name=dedicated_sidelivery_needed_ue_list,json=Dedicated-SIDelivery-NeededUE-List,proto3,oneof"`
+	DedicatedSideliveryNeededUeList *DedicatedSIdeliveryNeededUeList `protobuf:"bytes,6,opt,name=dedicated_sidelivery_needed_ue_list,json=Dedicated-SIDelivery-NeededUE-List,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type GnbduconfigurationUpdateIesValue_GnbDuId struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	GnbDuId *f1ap_ies.GnbDUID `protobuf:"bytes,7,opt,name=gnb_du_id,json=GNB-DU-ID,proto3,oneof"`
+	GnbDuId *f1ap_ies.GnbDUID `protobuf:"bytes,7,opt,name=gnb_du_id,json=GNB-DU-ID,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type GnbduconfigurationUpdateIesValue_GnbDuTnlAssociationToRemoveList struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	GnbDuTnlAssociationToRemoveList *GnbDUTNlAssociationToRemoveList `protobuf:"bytes,8,opt,name=gnb_du_tnl_association_to_remove_list,json=GNB-DU-TNL-Association-To-Remove-List,proto3,oneof"`
+	GnbDuTnlAssociationToRemoveList *GnbDUTNlAssociationToRemoveList `protobuf:"bytes,8,opt,name=gnb_du_tnl_association_to_remove_list,json=GNB-DU-TNL-Association-To-Remove-List,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type GnbduconfigurationUpdateIesValue_TransportLayerAddressInfo struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,9,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof"`
+	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,9,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type GnbduconfigurationUpdateIesValue_GnbDuName struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	GnbDuName *f1ap_ies.GnbDUName `protobuf:"bytes,10,opt,name=gnb_du_name,json=GNB-DU-Name,proto3,oneof"`
+	GnbDuName *f1ap_ies.GnbDUName `protobuf:"bytes,10,opt,name=gnb_du_name,json=GNB-DU-Name,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type GnbduconfigurationUpdateIesValue_ExtendedGnbDuName struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	ExtendedGnbDuName *f1ap_ies.ExtendedGNbDUName `protobuf:"bytes,11,opt,name=extended_gnb_du_name,json=Extended-GNB-DU-Name,proto3,oneof"`
+	ExtendedGnbDuName *f1ap_ies.ExtendedGNbDUName `protobuf:"bytes,11,opt,name=extended_gnb_du_name,json=Extended-GNB-DU-Name,proto3,oneof" aper:"choiceIdx:11,"`
 }
 
 func (*GnbduconfigurationUpdateIesValue_TransactionId) isGnbduconfigurationUpdateIesValue_GnbduconfigurationUpdateIes() {
@@ -2494,10 +2494,10 @@ type GnbduconfigurationUpdateIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbduconfigurationUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbduconfigurationUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbduconfigurationUpdateIes) Reset() {
@@ -3257,37 +3257,37 @@ type isGnbduconfigurationUpdateAcknowledgeIesValue_GnbduconfigurationUpdateAckno
 
 type GnbduconfigurationUpdateAcknowledgeIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbduconfigurationUpdateAcknowledgeIesValue_CellsToBeActivatedList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CellsToBeActivatedList *CellstobeActivatedList `protobuf:"bytes,2,opt,name=cells_to_be_activated_list,json=Cells-to-be-Activated-List,proto3,oneof"`
+	CellsToBeActivatedList *CellstobeActivatedList `protobuf:"bytes,2,opt,name=cells_to_be_activated_list,json=Cells-to-be-Activated-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbduconfigurationUpdateAcknowledgeIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type GnbduconfigurationUpdateAcknowledgeIesValue_CellsToBeDeactivatedList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CellsToBeDeactivatedList *CellstobeDeactivatedList `protobuf:"bytes,4,opt,name=cells_to_be_deactivated_list,json=Cells-to-be-Deactivated-List,proto3,oneof"`
+	CellsToBeDeactivatedList *CellstobeDeactivatedList `protobuf:"bytes,4,opt,name=cells_to_be_deactivated_list,json=Cells-to-be-Deactivated-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type GnbduconfigurationUpdateAcknowledgeIesValue_TransportLayerAddressInfo struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,5,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof"`
+	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,5,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type GnbduconfigurationUpdateAcknowledgeIesValue_UlBhNonUpTrafficMapping struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	UlBhNonUpTrafficMapping *f1ap_ies.UlBHNonUPTrafficMapping `protobuf:"bytes,6,opt,name=ul_bh_non_up_traffic_mapping,json=UL-BH-Non-UP-Traffic-Mapping,proto3,oneof"`
+	UlBhNonUpTrafficMapping *f1ap_ies.UlBHNonUPTrafficMapping `protobuf:"bytes,6,opt,name=ul_bh_non_up_traffic_mapping,json=UL-BH-Non-UP-Traffic-Mapping,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type GnbduconfigurationUpdateAcknowledgeIesValue_Bapaddress struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,7,opt,name=bapaddress,json=BAPAddress,proto3,oneof"`
+	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,7,opt,name=bapaddress,json=BAPAddress,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 func (*GnbduconfigurationUpdateAcknowledgeIesValue_TransactionId) isGnbduconfigurationUpdateAcknowledgeIesValue_GnbduconfigurationUpdateAcknowledgeIes() {
@@ -3319,10 +3319,10 @@ type GnbduconfigurationUpdateAcknowledgeIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbduconfigurationUpdateAcknowledgeIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbduconfigurationUpdateAcknowledgeIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbduconfigurationUpdateAcknowledgeIes) Reset() {
@@ -3518,22 +3518,22 @@ type isGnbduconfigurationUpdateFailureIesValue_GnbduconfigurationUpdateFailureIe
 
 type GnbduconfigurationUpdateFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbduconfigurationUpdateFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbduconfigurationUpdateFailureIesValue_TimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof"`
+	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof" aper:"choiceIdx:3,"`
 }
 
 type GnbduconfigurationUpdateFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*GnbduconfigurationUpdateFailureIesValue_TransactionId) isGnbduconfigurationUpdateFailureIesValue_GnbduconfigurationUpdateFailureIes() {
@@ -3556,10 +3556,10 @@ type GnbduconfigurationUpdateFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbduconfigurationUpdateFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbduconfigurationUpdateFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbduconfigurationUpdateFailureIes) Reset() {
@@ -3835,72 +3835,72 @@ type isGnbcuconfigurationUpdateIesValue_GnbcuconfigurationUpdateIes interface {
 
 type GnbcuconfigurationUpdateIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_CellsToBeActivatedList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CellsToBeActivatedList *CellstobeActivatedList `protobuf:"bytes,2,opt,name=cells_to_be_activated_list,json=Cells-to-be-Activated-List,proto3,oneof"`
+	CellsToBeActivatedList *CellstobeActivatedList `protobuf:"bytes,2,opt,name=cells_to_be_activated_list,json=Cells-to-be-Activated-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_CellsToBeDeactivatedList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CellsToBeDeactivatedList *CellstobeDeactivatedList `protobuf:"bytes,3,opt,name=cells_to_be_deactivated_list,json=Cells-to-be-Deactivated-List,proto3,oneof"`
+	CellsToBeDeactivatedList *CellstobeDeactivatedList `protobuf:"bytes,3,opt,name=cells_to_be_deactivated_list,json=Cells-to-be-Deactivated-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_GnbCuTnlAssociationToAddList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	GnbCuTnlAssociationToAddList *GnbCUTNlAssociationToAddList `protobuf:"bytes,4,opt,name=gnb_cu_tnl_association_to_add_list,json=GNB-CU-TNL-Association-To-Add-List,proto3,oneof"`
+	GnbCuTnlAssociationToAddList *GnbCUTNlAssociationToAddList `protobuf:"bytes,4,opt,name=gnb_cu_tnl_association_to_add_list,json=GNB-CU-TNL-Association-To-Add-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_GnbCuTnlAssociationToRemoveList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	GnbCuTnlAssociationToRemoveList *GnbCUTNlAssociationToRemoveList `protobuf:"bytes,5,opt,name=gnb_cu_tnl_association_to_remove_list,json=GNB-CU-TNL-Association-To-Remove-List,proto3,oneof"`
+	GnbCuTnlAssociationToRemoveList *GnbCUTNlAssociationToRemoveList `protobuf:"bytes,5,opt,name=gnb_cu_tnl_association_to_remove_list,json=GNB-CU-TNL-Association-To-Remove-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_GnbCuTnlAssociationToUpdateList struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	GnbCuTnlAssociationToUpdateList *GnbCUTNlAssociationToUpdateList `protobuf:"bytes,6,opt,name=gnb_cu_tnl_association_to_update_list,json=GNB-CU-TNL-Association-To-Update-List,proto3,oneof"`
+	GnbCuTnlAssociationToUpdateList *GnbCUTNlAssociationToUpdateList `protobuf:"bytes,6,opt,name=gnb_cu_tnl_association_to_update_list,json=GNB-CU-TNL-Association-To-Update-List,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_CellsToBeBarredList struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	CellsToBeBarredList *CellstobeBarredList `protobuf:"bytes,7,opt,name=cells_to_be_barred_list,json=Cells-to-be-Barred-List,proto3,oneof"`
+	CellsToBeBarredList *CellstobeBarredList `protobuf:"bytes,7,opt,name=cells_to_be_barred_list,json=Cells-to-be-Barred-List,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_ProtectedEutraResourcesList struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	ProtectedEutraResourcesList *ProtectedEUtraResourcesList `protobuf:"bytes,8,opt,name=protected_eutra_resources_list,json=Protected-EUTRA-Resources-List,proto3,oneof"`
+	ProtectedEutraResourcesList *ProtectedEUtraResourcesList `protobuf:"bytes,8,opt,name=protected_eutra_resources_list,json=Protected-EUTRA-Resources-List,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_NeighbourCellInformationList struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	NeighbourCellInformationList *NeighbourCellInformationList `protobuf:"bytes,9,opt,name=neighbour_cell_information_list,json=Neighbour-Cell-Information-List,proto3,oneof"`
+	NeighbourCellInformationList *NeighbourCellInformationList `protobuf:"bytes,9,opt,name=neighbour_cell_information_list,json=Neighbour-Cell-Information-List,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_TransportLayerAddressInfo struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,10,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof"`
+	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,10,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_UlBhNonUpTrafficMapping struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	UlBhNonUpTrafficMapping *f1ap_ies.UlBHNonUPTrafficMapping `protobuf:"bytes,11,opt,name=ul_bh_non_up_traffic_mapping,json=UL-BH-Non-UP-Traffic-Mapping,proto3,oneof"`
+	UlBhNonUpTrafficMapping *f1ap_ies.UlBHNonUPTrafficMapping `protobuf:"bytes,11,opt,name=ul_bh_non_up_traffic_mapping,json=UL-BH-Non-UP-Traffic-Mapping,proto3,oneof" aper:"choiceIdx:11,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_Bapaddress struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,12,opt,name=bapaddress,json=BAPAddress,proto3,oneof"`
+	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,12,opt,name=bapaddress,json=BAPAddress,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_GnbCuName struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	GnbCuName *f1ap_ies.GnbCUName `protobuf:"bytes,13,opt,name=gnb_cu_name,json=GNB-CU-Name,proto3,oneof"`
+	GnbCuName *f1ap_ies.GnbCUName `protobuf:"bytes,13,opt,name=gnb_cu_name,json=GNB-CU-Name,proto3,oneof" aper:"choiceIdx:13,"`
 }
 
 type GnbcuconfigurationUpdateIesValue_ExtendedGnbCuName struct {
 	// @inject_tag: aper:"choiceIdx:14,"
-	ExtendedGnbCuName *f1ap_ies.ExtendedGNbCUName `protobuf:"bytes,14,opt,name=extended_gnb_cu_name,json=Extended-GNB-CU-Name,proto3,oneof"`
+	ExtendedGnbCuName *f1ap_ies.ExtendedGNbCUName `protobuf:"bytes,14,opt,name=extended_gnb_cu_name,json=Extended-GNB-CU-Name,proto3,oneof" aper:"choiceIdx:14,"`
 }
 
 func (*GnbcuconfigurationUpdateIesValue_TransactionId) isGnbcuconfigurationUpdateIesValue_GnbcuconfigurationUpdateIes() {
@@ -3953,10 +3953,10 @@ type GnbcuconfigurationUpdateIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbcuconfigurationUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbcuconfigurationUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbcuconfigurationUpdateIes) Reset() {
@@ -4806,37 +4806,37 @@ type isGnbcuconfigurationUpdateAcknowledgeIesValue_GnbcuconfigurationUpdateAckno
 
 type GnbcuconfigurationUpdateAcknowledgeIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbcuconfigurationUpdateAcknowledgeIesValue_CellsFailedToBeActivatedList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CellsFailedToBeActivatedList *CellsFailedtobeActivatedList `protobuf:"bytes,2,opt,name=cells_failed_to_be_activated_list,json=Cells-Failed-to-be-Activated-List,proto3,oneof"`
+	CellsFailedToBeActivatedList *CellsFailedtobeActivatedList `protobuf:"bytes,2,opt,name=cells_failed_to_be_activated_list,json=Cells-Failed-to-be-Activated-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbcuconfigurationUpdateAcknowledgeIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type GnbcuconfigurationUpdateAcknowledgeIesValue_GnbCuTnlAssociationSetupList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	GnbCuTnlAssociationSetupList *GnbCUTNlAssociationSetupList `protobuf:"bytes,4,opt,name=gnb_cu_tnl_association_setup_list,json=GNB-CU-TNL-Association-Setup-List,proto3,oneof"`
+	GnbCuTnlAssociationSetupList *GnbCUTNlAssociationSetupList `protobuf:"bytes,4,opt,name=gnb_cu_tnl_association_setup_list,json=GNB-CU-TNL-Association-Setup-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type GnbcuconfigurationUpdateAcknowledgeIesValue_GnbCuTnlAssociationFailedToSetupList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	GnbCuTnlAssociationFailedToSetupList *GnbCUTNlAssociationFailedToSetupList `protobuf:"bytes,5,opt,name=gnb_cu_tnl_association_failed_to_setup_list,json=GNB-CU-TNL-Association-Failed-To-Setup-List,proto3,oneof"`
+	GnbCuTnlAssociationFailedToSetupList *GnbCUTNlAssociationFailedToSetupList `protobuf:"bytes,5,opt,name=gnb_cu_tnl_association_failed_to_setup_list,json=GNB-CU-TNL-Association-Failed-To-Setup-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type GnbcuconfigurationUpdateAcknowledgeIesValue_DedicatedSideliveryNeededUeList struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	DedicatedSideliveryNeededUeList *DedicatedSIdeliveryNeededUeList `protobuf:"bytes,6,opt,name=dedicated_sidelivery_needed_ue_list,json=Dedicated-SIDelivery-NeededUE-List,proto3,oneof"`
+	DedicatedSideliveryNeededUeList *DedicatedSIdeliveryNeededUeList `protobuf:"bytes,6,opt,name=dedicated_sidelivery_needed_ue_list,json=Dedicated-SIDelivery-NeededUE-List,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type GnbcuconfigurationUpdateAcknowledgeIesValue_TransportLayerAddressInfo struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,7,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof"`
+	TransportLayerAddressInfo *f1ap_ies.TransportLayerAddressInfo `protobuf:"bytes,7,opt,name=transport_layer_address_info,json=Transport-Layer-Address-Info,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 func (*GnbcuconfigurationUpdateAcknowledgeIesValue_TransactionId) isGnbcuconfigurationUpdateAcknowledgeIesValue_GnbcuconfigurationUpdateAcknowledgeIes() {
@@ -4868,10 +4868,10 @@ type GnbcuconfigurationUpdateAcknowledgeIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbcuconfigurationUpdateAcknowledgeIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbcuconfigurationUpdateAcknowledgeIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbcuconfigurationUpdateAcknowledgeIes) Reset() {
@@ -5337,22 +5337,22 @@ type isGnbcuconfigurationUpdateFailureIesValue_GnbcuconfigurationUpdateFailureIe
 
 type GnbcuconfigurationUpdateFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbcuconfigurationUpdateFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbcuconfigurationUpdateFailureIesValue_TimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof"`
+	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof" aper:"choiceIdx:3,"`
 }
 
 type GnbcuconfigurationUpdateFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*GnbcuconfigurationUpdateFailureIesValue_TransactionId) isGnbcuconfigurationUpdateFailureIesValue_GnbcuconfigurationUpdateFailureIes() {
@@ -5375,10 +5375,10 @@ type GnbcuconfigurationUpdateFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbcuconfigurationUpdateFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbcuconfigurationUpdateFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbcuconfigurationUpdateFailureIes) Reset() {
@@ -5574,22 +5574,22 @@ type isGnbduresourceCoordinationRequestIEsValue_GnbduresourceCoordinationRequest
 
 type GnbduresourceCoordinationRequestIEsValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbduresourceCoordinationRequestIEsValue_RequestType struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	RequestType f1ap_ies.RequestType `protobuf:"varint,2,opt,name=request_type,json=RequestType,proto3,enum=f1ap.v1.RequestType,oneof"`
+	RequestType f1ap_ies.RequestType `protobuf:"varint,2,opt,name=request_type,json=RequestType,proto3,enum=f1ap.v1.RequestType,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbduresourceCoordinationRequestIEsValue_EutraNrCellResourceCoordinationReqContainer struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	EutraNrCellResourceCoordinationReqContainer *f1ap_ies.EutraNRCellResourceCoordinationReqContainer `protobuf:"bytes,3,opt,name=eutra_nr_cell_resource_coordination_req_container,json=EUTRA-NR-CellResourceCoordinationReq-Container,proto3,oneof"`
+	EutraNrCellResourceCoordinationReqContainer *f1ap_ies.EutraNRCellResourceCoordinationReqContainer `protobuf:"bytes,3,opt,name=eutra_nr_cell_resource_coordination_req_container,json=EUTRA-NR-CellResourceCoordinationReq-Container,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type GnbduresourceCoordinationRequestIEsValue_IgnoreResourceCoordinationContainer struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IgnoreResourceCoordinationContainer f1ap_ies.IgnoreResourceCoordinationContainer `protobuf:"varint,4,opt,name=ignore_resource_coordination_container,json=IgnoreResourceCoordinationContainer,proto3,enum=f1ap.v1.IgnoreResourceCoordinationContainer,oneof"`
+	IgnoreResourceCoordinationContainer f1ap_ies.IgnoreResourceCoordinationContainer `protobuf:"varint,4,opt,name=ignore_resource_coordination_container,json=IgnoreResourceCoordinationContainer,proto3,enum=f1ap.v1.IgnoreResourceCoordinationContainer,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*GnbduresourceCoordinationRequestIEsValue_TransactionId) isGnbduresourceCoordinationRequestIEsValue_GnbduresourceCoordinationRequestIes() {
@@ -5612,10 +5612,10 @@ type GnbduresourceCoordinationRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbduresourceCoordinationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbduresourceCoordinationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbduresourceCoordinationRequestIEs) Reset() {
@@ -5795,12 +5795,12 @@ type isGnbduresourceCoordinationResponseIEsValue_GnbduresourceCoordinationRespon
 
 type GnbduresourceCoordinationResponseIEsValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbduresourceCoordinationResponseIEsValue_EutraNrCellResourceCoordinationReqAckContainer struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	EutraNrCellResourceCoordinationReqAckContainer *f1ap_ies.EutraNRCellResourceCoordinationReqAckContainer `protobuf:"bytes,2,opt,name=eutra_nr_cell_resource_coordination_req_ack_container,json=EUTRA-NR-CellResourceCoordinationReqAck-Container,proto3,oneof"`
+	EutraNrCellResourceCoordinationReqAckContainer *f1ap_ies.EutraNRCellResourceCoordinationReqAckContainer `protobuf:"bytes,2,opt,name=eutra_nr_cell_resource_coordination_req_ack_container,json=EUTRA-NR-CellResourceCoordinationReqAck-Container,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*GnbduresourceCoordinationResponseIEsValue_TransactionId) isGnbduresourceCoordinationResponseIEsValue_GnbduresourceCoordinationResponseIes() {
@@ -5817,10 +5817,10 @@ type GnbduresourceCoordinationResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbduresourceCoordinationResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbduresourceCoordinationResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbduresourceCoordinationResponseIEs) Reset() {
@@ -6280,187 +6280,187 @@ type isUecontextSetupRequestIesValue_UecontextSetupRequestIes interface {
 
 type UecontextSetupRequestIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextSetupRequestIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextSetupRequestIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,3,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,3,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextSetupRequestIesValue_ServCellIndex struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ServCellIndex *f1ap_ies.ServCellIndex `protobuf:"bytes,4,opt,name=serv_cell_index,json=ServCellIndex,proto3,oneof"`
+	ServCellIndex *f1ap_ies.ServCellIndex `protobuf:"bytes,4,opt,name=serv_cell_index,json=ServCellIndex,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextSetupRequestIesValue_CellUlconfigured struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CellUlconfigured f1ap_ies.CellUlconfigured `protobuf:"varint,5,opt,name=cell_ulconfigured,json=CellULConfigured,proto3,enum=f1ap.v1.CellUlconfigured,oneof"`
+	CellUlconfigured f1ap_ies.CellUlconfigured `protobuf:"varint,5,opt,name=cell_ulconfigured,json=CellULConfigured,proto3,enum=f1ap.v1.CellUlconfigured,oneof" aper:"choiceIdx:5,"`
 }
 
 type UecontextSetupRequestIesValue_CutoDurrcinformation struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	CutoDurrcinformation *f1ap_ies.CutoDurrcinformation `protobuf:"bytes,6,opt,name=cuto_durrcinformation,json=CUtoDURRCInformation,proto3,oneof"`
+	CutoDurrcinformation *f1ap_ies.CutoDurrcinformation `protobuf:"bytes,6,opt,name=cuto_durrcinformation,json=CUtoDURRCInformation,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type UecontextSetupRequestIesValue_CandidateSpCellList struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	CandidateSpCellList *CandidateSpCellList `protobuf:"bytes,7,opt,name=candidate_sp_cell_list,json=Candidate-SpCell-List,proto3,oneof"`
+	CandidateSpCellList *CandidateSpCellList `protobuf:"bytes,7,opt,name=candidate_sp_cell_list,json=Candidate-SpCell-List,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type UecontextSetupRequestIesValue_Drxcycle struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	Drxcycle *f1ap_ies.Drxcycle `protobuf:"bytes,8,opt,name=drxcycle,json=DRXCycle,proto3,oneof"`
+	Drxcycle *f1ap_ies.Drxcycle `protobuf:"bytes,8,opt,name=drxcycle,json=DRXCycle,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type UecontextSetupRequestIesValue_ResourceCoordinationTransferContainer struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,9,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof"`
+	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,9,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type UecontextSetupRequestIesValue_ScellToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	ScellToBeSetupList *ScellToBeSetupList `protobuf:"bytes,10,opt,name=scell_to_be_setup_list,json=SCell-ToBeSetup-List,proto3,oneof"`
+	ScellToBeSetupList *ScellToBeSetupList `protobuf:"bytes,10,opt,name=scell_to_be_setup_list,json=SCell-ToBeSetup-List,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type UecontextSetupRequestIesValue_SrbsToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	SrbsToBeSetupList *SrbsToBeSetupList `protobuf:"bytes,11,opt,name=srbs_to_be_setup_list,json=SRBs-ToBeSetup-List,proto3,oneof"`
+	SrbsToBeSetupList *SrbsToBeSetupList `protobuf:"bytes,11,opt,name=srbs_to_be_setup_list,json=SRBs-ToBeSetup-List,proto3,oneof" aper:"choiceIdx:11,"`
 }
 
 type UecontextSetupRequestIesValue_DrbsToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	DrbsToBeSetupList *DrbsToBeSetupList `protobuf:"bytes,12,opt,name=drbs_to_be_setup_list,json=DRBs-ToBeSetup-List,proto3,oneof"`
+	DrbsToBeSetupList *DrbsToBeSetupList `protobuf:"bytes,12,opt,name=drbs_to_be_setup_list,json=DRBs-ToBeSetup-List,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 type UecontextSetupRequestIesValue_InactivityMonitoringRequest struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	InactivityMonitoringRequest f1ap_ies.InactivityMonitoringRequest `protobuf:"varint,13,opt,name=inactivity_monitoring_request,json=InactivityMonitoringRequest,proto3,enum=f1ap.v1.InactivityMonitoringRequest,oneof"`
+	InactivityMonitoringRequest f1ap_ies.InactivityMonitoringRequest `protobuf:"varint,13,opt,name=inactivity_monitoring_request,json=InactivityMonitoringRequest,proto3,enum=f1ap.v1.InactivityMonitoringRequest,oneof" aper:"choiceIdx:13,"`
 }
 
 type UecontextSetupRequestIesValue_RatFrequencyPriorityInformation struct {
 	// @inject_tag: aper:"choiceIdx:14,"
-	RatFrequencyPriorityInformation *f1ap_ies.RatFrequencyPriorityInformation `protobuf:"bytes,14,opt,name=rat_frequency_priority_information,json=RAT-FrequencyPriorityInformation,proto3,oneof"`
+	RatFrequencyPriorityInformation *f1ap_ies.RatFrequencyPriorityInformation `protobuf:"bytes,14,opt,name=rat_frequency_priority_information,json=RAT-FrequencyPriorityInformation,proto3,oneof" aper:"choiceIdx:14,"`
 }
 
 type UecontextSetupRequestIesValue_Rrccontainer struct {
 	// @inject_tag: aper:"choiceIdx:15,"
-	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,15,opt,name=rrccontainer,json=RRCContainer,proto3,oneof"`
+	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,15,opt,name=rrccontainer,json=RRCContainer,proto3,oneof" aper:"choiceIdx:15,"`
 }
 
 type UecontextSetupRequestIesValue_MaskedImeisv struct {
 	// @inject_tag: aper:"choiceIdx:16,"
-	MaskedImeisv *f1ap_ies.MaskedImeisv `protobuf:"bytes,16,opt,name=masked_imeisv,json=MaskedIMEISV,proto3,oneof"`
+	MaskedImeisv *f1ap_ies.MaskedImeisv `protobuf:"bytes,16,opt,name=masked_imeisv,json=MaskedIMEISV,proto3,oneof" aper:"choiceIdx:16,"`
 }
 
 type UecontextSetupRequestIesValue_PlmnIdentity struct {
 	// @inject_tag: aper:"choiceIdx:17,"
-	PlmnIdentity *f1ap_ies.PlmnIdentity `protobuf:"bytes,17,opt,name=plmn_identity,json=PLMN-Identity,proto3,oneof"`
+	PlmnIdentity *f1ap_ies.PlmnIdentity `protobuf:"bytes,17,opt,name=plmn_identity,json=PLMN-Identity,proto3,oneof" aper:"choiceIdx:17,"`
 }
 
 type UecontextSetupRequestIesValue_BitRate struct {
 	// @inject_tag: aper:"choiceIdx:18,"
-	BitRate *f1ap_ies.BitRate `protobuf:"bytes,18,opt,name=bit_rate,json=BitRate,proto3,oneof"`
+	BitRate *f1ap_ies.BitRate `protobuf:"bytes,18,opt,name=bit_rate,json=BitRate,proto3,oneof" aper:"choiceIdx:18,"`
 }
 
 type UecontextSetupRequestIesValue_RrcdeliveryStatusRequest struct {
 	// @inject_tag: aper:"choiceIdx:19,"
-	RrcdeliveryStatusRequest f1ap_ies.RrcdeliveryStatusRequest `protobuf:"varint,19,opt,name=rrcdelivery_status_request,json=RRCDeliveryStatusRequest,proto3,enum=f1ap.v1.RrcdeliveryStatusRequest,oneof"`
+	RrcdeliveryStatusRequest f1ap_ies.RrcdeliveryStatusRequest `protobuf:"varint,19,opt,name=rrcdelivery_status_request,json=RRCDeliveryStatusRequest,proto3,enum=f1ap.v1.RrcdeliveryStatusRequest,oneof" aper:"choiceIdx:19,"`
 }
 
 type UecontextSetupRequestIesValue_ResourceCoordinationTransferInformation struct {
 	// @inject_tag: aper:"choiceIdx:20,"
-	ResourceCoordinationTransferInformation *f1ap_ies.ResourceCoordinationTransferInformation `protobuf:"bytes,20,opt,name=resource_coordination_transfer_information,json=ResourceCoordinationTransferInformation,proto3,oneof"`
+	ResourceCoordinationTransferInformation *f1ap_ies.ResourceCoordinationTransferInformation `protobuf:"bytes,20,opt,name=resource_coordination_transfer_information,json=ResourceCoordinationTransferInformation,proto3,oneof" aper:"choiceIdx:20,"`
 }
 
 type UecontextSetupRequestIesValue_ServingCellMo struct {
 	// @inject_tag: aper:"choiceIdx:21,"
-	ServingCellMo *f1ap_ies.ServingCellMo `protobuf:"bytes,21,opt,name=serving_cell_mo,json=ServingCellMO,proto3,oneof"`
+	ServingCellMo *f1ap_ies.ServingCellMo `protobuf:"bytes,21,opt,name=serving_cell_mo,json=ServingCellMO,proto3,oneof" aper:"choiceIdx:21,"`
 }
 
 type UecontextSetupRequestIesValue_NewGnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:22,"
-	NewGnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,22,opt,name=new_gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	NewGnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,22,opt,name=new_gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:22,"`
 }
 
 type UecontextSetupRequestIesValue_Ranueid struct {
 	// @inject_tag: aper:"choiceIdx:23,"
-	Ranueid *f1ap_ies.Ranueid `protobuf:"bytes,23,opt,name=ranueid,json=RANUEID,proto3,oneof"`
+	Ranueid *f1ap_ies.Ranueid `protobuf:"bytes,23,opt,name=ranueid,json=RANUEID,proto3,oneof" aper:"choiceIdx:23,"`
 }
 
 type UecontextSetupRequestIesValue_TraceActivation struct {
 	// @inject_tag: aper:"choiceIdx:24,"
-	TraceActivation *f1ap_ies.TraceActivation `protobuf:"bytes,24,opt,name=trace_activation,json=TraceActivation,proto3,oneof"`
+	TraceActivation *f1ap_ies.TraceActivation `protobuf:"bytes,24,opt,name=trace_activation,json=TraceActivation,proto3,oneof" aper:"choiceIdx:24,"`
 }
 
 type UecontextSetupRequestIesValue_AdditionalRrmpriorityIndex struct {
 	// @inject_tag: aper:"choiceIdx:25,"
-	AdditionalRrmpriorityIndex *f1ap_ies.AdditionalRrmpriorityIndex `protobuf:"bytes,25,opt,name=additional_rrmpriority_index,json=AdditionalRRMPriorityIndex,proto3,oneof"`
+	AdditionalRrmpriorityIndex *f1ap_ies.AdditionalRrmpriorityIndex `protobuf:"bytes,25,opt,name=additional_rrmpriority_index,json=AdditionalRRMPriorityIndex,proto3,oneof" aper:"choiceIdx:25,"`
 }
 
 type UecontextSetupRequestIesValue_BhchannelsToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:26,"
-	BhchannelsToBeSetupList *BhchannelsToBeSetupList `protobuf:"bytes,26,opt,name=bhchannels_to_be_setup_list,json=BHChannels-ToBeSetup-List,proto3,oneof"`
+	BhchannelsToBeSetupList *BhchannelsToBeSetupList `protobuf:"bytes,26,opt,name=bhchannels_to_be_setup_list,json=BHChannels-ToBeSetup-List,proto3,oneof" aper:"choiceIdx:26,"`
 }
 
 type UecontextSetupRequestIesValue_Bapaddress struct {
 	// @inject_tag: aper:"choiceIdx:27,"
-	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,27,opt,name=bapaddress,json=BAPAddress,proto3,oneof"`
+	Bapaddress *f1ap_ies.Bapaddress `protobuf:"bytes,27,opt,name=bapaddress,json=BAPAddress,proto3,oneof" aper:"choiceIdx:27,"`
 }
 
 type UecontextSetupRequestIesValue_Nrv2XservicesAuthorized struct {
 	// @inject_tag: aper:"choiceIdx:28,"
-	Nrv2XservicesAuthorized *f1ap_ies.Nrv2XservicesAuthorized `protobuf:"bytes,28,opt,name=nrv2_xservices_authorized,json=NRV2XServicesAuthorized,proto3,oneof"`
+	Nrv2XservicesAuthorized *f1ap_ies.Nrv2XservicesAuthorized `protobuf:"bytes,28,opt,name=nrv2_xservices_authorized,json=NRV2XServicesAuthorized,proto3,oneof" aper:"choiceIdx:28,"`
 }
 
 type UecontextSetupRequestIesValue_Ltev2XservicesAuthorized struct {
 	// @inject_tag: aper:"choiceIdx:29,"
-	Ltev2XservicesAuthorized *f1ap_ies.Ltev2XservicesAuthorized `protobuf:"bytes,29,opt,name=ltev2_xservices_authorized,json=LTEV2XServicesAuthorized,proto3,oneof"`
+	Ltev2XservicesAuthorized *f1ap_ies.Ltev2XservicesAuthorized `protobuf:"bytes,29,opt,name=ltev2_xservices_authorized,json=LTEV2XServicesAuthorized,proto3,oneof" aper:"choiceIdx:29,"`
 }
 
 type UecontextSetupRequestIesValue_NruesidelinkAggregateMaximumBitrate struct {
 	// @inject_tag: aper:"choiceIdx:30,"
-	NruesidelinkAggregateMaximumBitrate *f1ap_ies.NruesidelinkAggregateMaximumBitrate `protobuf:"bytes,30,opt,name=nruesidelink_aggregate_maximum_bitrate,json=NRUESidelinkAggregateMaximumBitrate,proto3,oneof"`
+	NruesidelinkAggregateMaximumBitrate *f1ap_ies.NruesidelinkAggregateMaximumBitrate `protobuf:"bytes,30,opt,name=nruesidelink_aggregate_maximum_bitrate,json=NRUESidelinkAggregateMaximumBitrate,proto3,oneof" aper:"choiceIdx:30,"`
 }
 
 type UecontextSetupRequestIesValue_LteuesidelinkAggregateMaximumBitrate struct {
 	// @inject_tag: aper:"choiceIdx:31,"
-	LteuesidelinkAggregateMaximumBitrate *f1ap_ies.LteuesidelinkAggregateMaximumBitrate `protobuf:"bytes,31,opt,name=lteuesidelink_aggregate_maximum_bitrate,json=LTEUESidelinkAggregateMaximumBitrate,proto3,oneof"`
+	LteuesidelinkAggregateMaximumBitrate *f1ap_ies.LteuesidelinkAggregateMaximumBitrate `protobuf:"bytes,31,opt,name=lteuesidelink_aggregate_maximum_bitrate,json=LTEUESidelinkAggregateMaximumBitrate,proto3,oneof" aper:"choiceIdx:31,"`
 }
 
 type UecontextSetupRequestIesValue_Pc5LinkAmbr struct {
 	// @inject_tag: aper:"choiceIdx:32,"
-	Pc5LinkAmbr *f1ap_ies.BitRate `protobuf:"bytes,32,opt,name=pc5_link_ambr,json=BitRate,proto3,oneof"`
+	Pc5LinkAmbr *f1ap_ies.BitRate `protobuf:"bytes,32,opt,name=pc5_link_ambr,json=BitRate,proto3,oneof" aper:"choiceIdx:32,"`
 }
 
 type UecontextSetupRequestIesValue_SldrbsToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:33,"
-	SldrbsToBeSetupList *SldrbsToBeSetupList `protobuf:"bytes,33,opt,name=sldrbs_to_be_setup_list,json=SLDRBs-ToBeSetup-List,proto3,oneof"`
+	SldrbsToBeSetupList *SldrbsToBeSetupList `protobuf:"bytes,33,opt,name=sldrbs_to_be_setup_list,json=SLDRBs-ToBeSetup-List,proto3,oneof" aper:"choiceIdx:33,"`
 }
 
 type UecontextSetupRequestIesValue_ConditionalInterDumobilityInformation struct {
 	// @inject_tag: aper:"choiceIdx:34,"
-	ConditionalInterDumobilityInformation *f1ap_ies.ConditionalInterDumobilityInformation `protobuf:"bytes,34,opt,name=conditional_inter_dumobility_information,json=ConditionalInterDUMobilityInformation,proto3,oneof"`
+	ConditionalInterDumobilityInformation *f1ap_ies.ConditionalInterDumobilityInformation `protobuf:"bytes,34,opt,name=conditional_inter_dumobility_information,json=ConditionalInterDUMobilityInformation,proto3,oneof" aper:"choiceIdx:34,"`
 }
 
 type UecontextSetupRequestIesValue_Mdtplmnlist struct {
 	// @inject_tag: aper:"choiceIdx:35,"
-	Mdtplmnlist *f1ap_ies.Mdtplmnlist `protobuf:"bytes,35,opt,name=mdtplmnlist,json=MDTPLMNList,proto3,oneof"`
+	Mdtplmnlist *f1ap_ies.Mdtplmnlist `protobuf:"bytes,35,opt,name=mdtplmnlist,json=MDTPLMNList,proto3,oneof" aper:"choiceIdx:35,"`
 }
 
 type UecontextSetupRequestIesValue_Nid struct {
 	// @inject_tag: aper:"choiceIdx:36,"
-	Nid *f1ap_ies.Nid `protobuf:"bytes,36,opt,name=nid,json=NID,proto3,oneof"`
+	Nid *f1ap_ies.Nid `protobuf:"bytes,36,opt,name=nid,json=NID,proto3,oneof" aper:"choiceIdx:36,"`
 }
 
 type UecontextSetupRequestIesValue_F1CtransferPath struct {
 	// @inject_tag: aper:"choiceIdx:37,"
-	F1CtransferPath *f1ap_ies.F1CtransferPath `protobuf:"bytes,37,opt,name=f1_ctransfer_path,json=F1CTransferPath,proto3,oneof"`
+	F1CtransferPath *f1ap_ies.F1CtransferPath `protobuf:"bytes,37,opt,name=f1_ctransfer_path,json=F1CTransferPath,proto3,oneof" aper:"choiceIdx:37,"`
 }
 
 func (*UecontextSetupRequestIesValue_GnbCuUeF1ApId) isUecontextSetupRequestIesValue_UecontextSetupRequestIes() {
@@ -6582,10 +6582,10 @@ type UecontextSetupRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextSetupRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextSetupRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextSetupRequestIes) Reset() {
@@ -7433,92 +7433,92 @@ type isUecontextSetupResponseIesValue_UecontextSetupResponseIes interface {
 
 type UecontextSetupResponseIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextSetupResponseIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextSetupResponseIesValue_DutoCurrcinformation struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	DutoCurrcinformation *f1ap_ies.DutoCurrcinformation `protobuf:"bytes,3,opt,name=duto_currcinformation,json=DUtoCURRCInformation,proto3,oneof"`
+	DutoCurrcinformation *f1ap_ies.DutoCurrcinformation `protobuf:"bytes,3,opt,name=duto_currcinformation,json=DUtoCURRCInformation,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextSetupResponseIesValue_CRnti struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CRnti *f1ap_ies.CRNti `protobuf:"bytes,4,opt,name=c_rnti,json=C-RNTI,proto3,oneof"`
+	CRnti *f1ap_ies.CRNti `protobuf:"bytes,4,opt,name=c_rnti,json=C-RNTI,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextSetupResponseIesValue_ResourceCoordinationTransferContainer struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,5,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof"`
+	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,5,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type UecontextSetupResponseIesValue_FullConfiguration struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	FullConfiguration f1ap_ies.FullConfiguration `protobuf:"varint,6,opt,name=full_configuration,json=FullConfiguration,proto3,enum=f1ap.v1.FullConfiguration,oneof"`
+	FullConfiguration f1ap_ies.FullConfiguration `protobuf:"varint,6,opt,name=full_configuration,json=FullConfiguration,proto3,enum=f1ap.v1.FullConfiguration,oneof" aper:"choiceIdx:6,"`
 }
 
 type UecontextSetupResponseIesValue_DrbsSetupList struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	DrbsSetupList *DrbsSetupList `protobuf:"bytes,7,opt,name=drbs_setup_list,json=DRBs-Setup-List,proto3,oneof"`
+	DrbsSetupList *DrbsSetupList `protobuf:"bytes,7,opt,name=drbs_setup_list,json=DRBs-Setup-List,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type UecontextSetupResponseIesValue_SrbsFailedToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	SrbsFailedToBeSetupList *SrbsFailedToBeSetupList `protobuf:"bytes,8,opt,name=srbs_failed_to_be_setup_list,json=SRBs-FailedToBeSetup-List,proto3,oneof"`
+	SrbsFailedToBeSetupList *SrbsFailedToBeSetupList `protobuf:"bytes,8,opt,name=srbs_failed_to_be_setup_list,json=SRBs-FailedToBeSetup-List,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type UecontextSetupResponseIesValue_DrbsFailedToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	DrbsFailedToBeSetupList *DrbsFailedToBeSetupList `protobuf:"bytes,9,opt,name=drbs_failed_to_be_setup_list,json=DRBs-FailedToBeSetup-List,proto3,oneof"`
+	DrbsFailedToBeSetupList *DrbsFailedToBeSetupList `protobuf:"bytes,9,opt,name=drbs_failed_to_be_setup_list,json=DRBs-FailedToBeSetup-List,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type UecontextSetupResponseIesValue_ScellFailedtoSetupList struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	ScellFailedtoSetupList *ScellFailedtoSetupList `protobuf:"bytes,10,opt,name=scell_failedto_setup_list,json=SCell-FailedtoSetup-List,proto3,oneof"`
+	ScellFailedtoSetupList *ScellFailedtoSetupList `protobuf:"bytes,10,opt,name=scell_failedto_setup_list,json=SCell-FailedtoSetup-List,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type UecontextSetupResponseIesValue_InactivityMonitoringResponse struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	InactivityMonitoringResponse f1ap_ies.InactivityMonitoringResponse `protobuf:"varint,11,opt,name=inactivity_monitoring_response,json=InactivityMonitoringResponse,proto3,enum=f1ap.v1.InactivityMonitoringResponse,oneof"`
+	InactivityMonitoringResponse f1ap_ies.InactivityMonitoringResponse `protobuf:"varint,11,opt,name=inactivity_monitoring_response,json=InactivityMonitoringResponse,proto3,enum=f1ap.v1.InactivityMonitoringResponse,oneof" aper:"choiceIdx:11,"`
 }
 
 type UecontextSetupResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,12,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,12,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 type UecontextSetupResponseIesValue_SrbsSetupList struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	SrbsSetupList *SrbsSetupList `protobuf:"bytes,13,opt,name=srbs_setup_list,json=SRBs-Setup-List,proto3,oneof"`
+	SrbsSetupList *SrbsSetupList `protobuf:"bytes,13,opt,name=srbs_setup_list,json=SRBs-Setup-List,proto3,oneof" aper:"choiceIdx:13,"`
 }
 
 type UecontextSetupResponseIesValue_BhchannelsSetupList struct {
 	// @inject_tag: aper:"choiceIdx:14,"
-	BhchannelsSetupList *BhchannelsSetupList `protobuf:"bytes,14,opt,name=bhchannels_setup_list,json=BHChannels-Setup-List,proto3,oneof"`
+	BhchannelsSetupList *BhchannelsSetupList `protobuf:"bytes,14,opt,name=bhchannels_setup_list,json=BHChannels-Setup-List,proto3,oneof" aper:"choiceIdx:14,"`
 }
 
 type UecontextSetupResponseIesValue_BhchannelsFailedToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:15,"
-	BhchannelsFailedToBeSetupList *BhchannelsFailedToBeSetupList `protobuf:"bytes,15,opt,name=bhchannels_failed_to_be_setup_list,json=BHChannels-FailedToBeSetup-List,proto3,oneof"`
+	BhchannelsFailedToBeSetupList *BhchannelsFailedToBeSetupList `protobuf:"bytes,15,opt,name=bhchannels_failed_to_be_setup_list,json=BHChannels-FailedToBeSetup-List,proto3,oneof" aper:"choiceIdx:15,"`
 }
 
 type UecontextSetupResponseIesValue_SldrbsSetupList struct {
 	// @inject_tag: aper:"choiceIdx:16,"
-	SldrbsSetupList *SldrbsSetupList `protobuf:"bytes,16,opt,name=sldrbs_setup_list,json=SLDRBs-Setup-List,proto3,oneof"`
+	SldrbsSetupList *SldrbsSetupList `protobuf:"bytes,16,opt,name=sldrbs_setup_list,json=SLDRBs-Setup-List,proto3,oneof" aper:"choiceIdx:16,"`
 }
 
 type UecontextSetupResponseIesValue_SldrbsFailedToBeSetupList struct {
 	// @inject_tag: aper:"choiceIdx:17,"
-	SldrbsFailedToBeSetupList *SldrbsFailedToBeSetupList `protobuf:"bytes,17,opt,name=sldrbs_failed_to_be_setup_list,json=SLDRBs-FailedToBeSetup-List,proto3,oneof"`
+	SldrbsFailedToBeSetupList *SldrbsFailedToBeSetupList `protobuf:"bytes,17,opt,name=sldrbs_failed_to_be_setup_list,json=SLDRBs-FailedToBeSetup-List,proto3,oneof" aper:"choiceIdx:17,"`
 }
 
 type UecontextSetupResponseIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:18,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,18,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,18,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:18,"`
 }
 
 func (*UecontextSetupResponseIesValue_GnbCuUeF1ApId) isUecontextSetupResponseIesValue_UecontextSetupResponseIes() {
@@ -7583,10 +7583,10 @@ type UecontextSetupResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextSetupResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextSetupResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextSetupResponseIes) Reset() {
@@ -8608,32 +8608,32 @@ type isUecontextSetupFailureIesValue_UecontextSetupFailureIes interface {
 
 type UecontextSetupFailureIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextSetupFailureIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextSetupFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextSetupFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextSetupFailureIesValue_PotentialSpCellList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	PotentialSpCellList *PotentialSpCellList `protobuf:"bytes,5,opt,name=potential_sp_cell_list,json=Potential-SpCell-List,proto3,oneof"`
+	PotentialSpCellList *PotentialSpCellList `protobuf:"bytes,5,opt,name=potential_sp_cell_list,json=Potential-SpCell-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type UecontextSetupFailureIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,6,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,6,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 func (*UecontextSetupFailureIesValue_GnbCuUeF1ApId) isUecontextSetupFailureIesValue_UecontextSetupFailureIes() {
@@ -8662,10 +8662,10 @@ type UecontextSetupFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextSetupFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextSetupFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextSetupFailureIes) Reset() {
@@ -8951,22 +8951,22 @@ type isUecontextReleaseRequestIesValue_UecontextReleaseRequestIes interface {
 
 type UecontextReleaseRequestIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextReleaseRequestIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextReleaseRequestIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextReleaseRequestIesValue_TargetCellList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	TargetCellList *f1ap_ies.TargetCellList `protobuf:"bytes,4,opt,name=target_cell_list,json=TargetCellList,proto3,oneof"`
+	TargetCellList *f1ap_ies.TargetCellList `protobuf:"bytes,4,opt,name=target_cell_list,json=TargetCellList,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*UecontextReleaseRequestIesValue_GnbCuUeF1ApId) isUecontextReleaseRequestIesValue_UecontextReleaseRequestIes() {
@@ -8989,10 +8989,10 @@ type UecontextReleaseRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextReleaseRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextReleaseRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextReleaseRequestIes) Reset() {
@@ -9228,47 +9228,47 @@ type isUecontextReleaseCommandIesValue_UecontextReleaseCommandIes interface {
 
 type UecontextReleaseCommandIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextReleaseCommandIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextReleaseCommandIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextReleaseCommandIesValue_Rrccontainer struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,4,opt,name=rrccontainer,json=RRCContainer,proto3,oneof"`
+	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,4,opt,name=rrccontainer,json=RRCContainer,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextReleaseCommandIesValue_Srbid struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	Srbid *f1ap_ies.Srbid `protobuf:"bytes,5,opt,name=srbid,json=SRBID,proto3,oneof"`
+	Srbid *f1ap_ies.Srbid `protobuf:"bytes,5,opt,name=srbid,json=SRBID,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type UecontextReleaseCommandIesValue_OldGnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	OldGnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,6,opt,name=old_gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	OldGnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,6,opt,name=old_gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type UecontextReleaseCommandIesValue_ExecuteDuplication struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	ExecuteDuplication f1ap_ies.ExecuteDuplication `protobuf:"varint,7,opt,name=execute_duplication,json=ExecuteDuplication,proto3,enum=f1ap.v1.ExecuteDuplication,oneof"`
+	ExecuteDuplication f1ap_ies.ExecuteDuplication `protobuf:"varint,7,opt,name=execute_duplication,json=ExecuteDuplication,proto3,enum=f1ap.v1.ExecuteDuplication,oneof" aper:"choiceIdx:7,"`
 }
 
 type UecontextReleaseCommandIesValue_RrcdeliveryStatusRequest struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	RrcdeliveryStatusRequest f1ap_ies.RrcdeliveryStatusRequest `protobuf:"varint,8,opt,name=rrcdelivery_status_request,json=RRCDeliveryStatusRequest,proto3,enum=f1ap.v1.RrcdeliveryStatusRequest,oneof"`
+	RrcdeliveryStatusRequest f1ap_ies.RrcdeliveryStatusRequest `protobuf:"varint,8,opt,name=rrcdelivery_status_request,json=RRCDeliveryStatusRequest,proto3,enum=f1ap.v1.RrcdeliveryStatusRequest,oneof" aper:"choiceIdx:8,"`
 }
 
 type UecontextReleaseCommandIesValue_TargetCellList struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	TargetCellList *f1ap_ies.TargetCellList `protobuf:"bytes,9,opt,name=target_cell_list,json=TargetCellList,proto3,oneof"`
+	TargetCellList *f1ap_ies.TargetCellList `protobuf:"bytes,9,opt,name=target_cell_list,json=TargetCellList,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 func (*UecontextReleaseCommandIesValue_GnbCuUeF1ApId) isUecontextReleaseCommandIesValue_UecontextReleaseCommandIes() {
@@ -9306,10 +9306,10 @@ type UecontextReleaseCommandIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextReleaseCommandIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextReleaseCommandIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextReleaseCommandIes) Reset() {
@@ -9497,17 +9497,17 @@ type isUecontextReleaseCompleteIesValue_UecontextReleaseCompleteIes interface {
 
 type UecontextReleaseCompleteIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextReleaseCompleteIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextReleaseCompleteIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*UecontextReleaseCompleteIesValue_GnbCuUeF1ApId) isUecontextReleaseCompleteIesValue_UecontextReleaseCompleteIes() {
@@ -9527,10 +9527,10 @@ type UecontextReleaseCompleteIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextReleaseCompleteIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextReleaseCompleteIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextReleaseCompleteIes) Reset() {
@@ -10070,237 +10070,237 @@ type isUecontextModificationRequestIesValue_UecontextModificationRequestIes inte
 
 type UecontextModificationRequestIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextModificationRequestIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextModificationRequestIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,3,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,3,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextModificationRequestIesValue_ServCellIndex struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ServCellIndex *f1ap_ies.ServCellIndex `protobuf:"bytes,4,opt,name=serv_cell_index,json=ServCellIndex,proto3,oneof"`
+	ServCellIndex *f1ap_ies.ServCellIndex `protobuf:"bytes,4,opt,name=serv_cell_index,json=ServCellIndex,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextModificationRequestIesValue_CellUlconfigured struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CellUlconfigured f1ap_ies.CellUlconfigured `protobuf:"varint,5,opt,name=cell_ulconfigured,json=CellULConfigured,proto3,enum=f1ap.v1.CellUlconfigured,oneof"`
+	CellUlconfigured f1ap_ies.CellUlconfigured `protobuf:"varint,5,opt,name=cell_ulconfigured,json=CellULConfigured,proto3,enum=f1ap.v1.CellUlconfigured,oneof" aper:"choiceIdx:5,"`
 }
 
 type UecontextModificationRequestIesValue_Drxcycle struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	Drxcycle *f1ap_ies.Drxcycle `protobuf:"bytes,6,opt,name=drxcycle,json=DRXCycle,proto3,oneof"`
+	Drxcycle *f1ap_ies.Drxcycle `protobuf:"bytes,6,opt,name=drxcycle,json=DRXCycle,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type UecontextModificationRequestIesValue_CutoDurrcinformation struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	CutoDurrcinformation *f1ap_ies.CutoDurrcinformation `protobuf:"bytes,7,opt,name=cuto_durrcinformation,json=CUtoDURRCInformation,proto3,oneof"`
+	CutoDurrcinformation *f1ap_ies.CutoDurrcinformation `protobuf:"bytes,7,opt,name=cuto_durrcinformation,json=CUtoDURRCInformation,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type UecontextModificationRequestIesValue_TransmissionActionIndicator struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	TransmissionActionIndicator f1ap_ies.TransmissionActionIndicator `protobuf:"varint,8,opt,name=transmission_action_indicator,json=TransmissionActionIndicator,proto3,enum=f1ap.v1.TransmissionActionIndicator,oneof"`
+	TransmissionActionIndicator f1ap_ies.TransmissionActionIndicator `protobuf:"varint,8,opt,name=transmission_action_indicator,json=TransmissionActionIndicator,proto3,enum=f1ap.v1.TransmissionActionIndicator,oneof" aper:"choiceIdx:8,"`
 }
 
 type UecontextModificationRequestIesValue_ResourceCoordinationTransferContainer struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,9,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof"`
+	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,9,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type UecontextModificationRequestIesValue_RrcreconfigurationCompleteIndicator struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	RrcreconfigurationCompleteIndicator f1ap_ies.RrcreconfigurationCompleteIndicator `protobuf:"varint,10,opt,name=rrcreconfiguration_complete_indicator,json=RRCReconfigurationCompleteIndicator,proto3,enum=f1ap.v1.RrcreconfigurationCompleteIndicator,oneof"`
+	RrcreconfigurationCompleteIndicator f1ap_ies.RrcreconfigurationCompleteIndicator `protobuf:"varint,10,opt,name=rrcreconfiguration_complete_indicator,json=RRCReconfigurationCompleteIndicator,proto3,enum=f1ap.v1.RrcreconfigurationCompleteIndicator,oneof" aper:"choiceIdx:10,"`
 }
 
 type UecontextModificationRequestIesValue_Rrccontainer struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,11,opt,name=rrccontainer,json=RRCContainer,proto3,oneof"`
+	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,11,opt,name=rrccontainer,json=RRCContainer,proto3,oneof" aper:"choiceIdx:11,"`
 }
 
 type UecontextModificationRequestIesValue_ScellToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	ScellToBeSetupModList *ScellToBeSetupModList `protobuf:"bytes,12,opt,name=scell_to_be_setup_mod_list,json=SCell-ToBeSetupMod-List,proto3,oneof"`
+	ScellToBeSetupModList *ScellToBeSetupModList `protobuf:"bytes,12,opt,name=scell_to_be_setup_mod_list,json=SCell-ToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 type UecontextModificationRequestIesValue_ScellToBeRemovedList struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	ScellToBeRemovedList *ScellToBeRemovedList `protobuf:"bytes,13,opt,name=scell_to_be_removed_list,json=SCell-ToBeRemoved-List,proto3,oneof"`
+	ScellToBeRemovedList *ScellToBeRemovedList `protobuf:"bytes,13,opt,name=scell_to_be_removed_list,json=SCell-ToBeRemoved-List,proto3,oneof" aper:"choiceIdx:13,"`
 }
 
 type UecontextModificationRequestIesValue_SrbsToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:14,"
-	SrbsToBeSetupModList *SrbsToBeSetupModList `protobuf:"bytes,14,opt,name=srbs_to_be_setup_mod_list,json=SRBs-ToBeSetupMod-List,proto3,oneof"`
+	SrbsToBeSetupModList *SrbsToBeSetupModList `protobuf:"bytes,14,opt,name=srbs_to_be_setup_mod_list,json=SRBs-ToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:14,"`
 }
 
 type UecontextModificationRequestIesValue_DrbsToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:15,"
-	DrbsToBeSetupModList *DrbsToBeSetupModList `protobuf:"bytes,15,opt,name=drbs_to_be_setup_mod_list,json=DRBs-ToBeSetupMod-List,proto3,oneof"`
+	DrbsToBeSetupModList *DrbsToBeSetupModList `protobuf:"bytes,15,opt,name=drbs_to_be_setup_mod_list,json=DRBs-ToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:15,"`
 }
 
 type UecontextModificationRequestIesValue_DrbsToBeModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:16,"
-	DrbsToBeModifiedList *DrbsToBeModifiedList `protobuf:"bytes,16,opt,name=drbs_to_be_modified_list,json=DRBs-ToBeModified-List,proto3,oneof"`
+	DrbsToBeModifiedList *DrbsToBeModifiedList `protobuf:"bytes,16,opt,name=drbs_to_be_modified_list,json=DRBs-ToBeModified-List,proto3,oneof" aper:"choiceIdx:16,"`
 }
 
 type UecontextModificationRequestIesValue_SrbsToBeReleasedList struct {
 	// @inject_tag: aper:"choiceIdx:17,"
-	SrbsToBeReleasedList *SrbsToBeReleasedList `protobuf:"bytes,17,opt,name=srbs_to_be_released_list,json=SRBs-ToBeReleased-List,proto3,oneof"`
+	SrbsToBeReleasedList *SrbsToBeReleasedList `protobuf:"bytes,17,opt,name=srbs_to_be_released_list,json=SRBs-ToBeReleased-List,proto3,oneof" aper:"choiceIdx:17,"`
 }
 
 type UecontextModificationRequestIesValue_DrbsToBeReleasedList struct {
 	// @inject_tag: aper:"choiceIdx:18,"
-	DrbsToBeReleasedList *DrbsToBeReleasedList `protobuf:"bytes,18,opt,name=drbs_to_be_released_list,json=DRBs-ToBeReleased-List,proto3,oneof"`
+	DrbsToBeReleasedList *DrbsToBeReleasedList `protobuf:"bytes,18,opt,name=drbs_to_be_released_list,json=DRBs-ToBeReleased-List,proto3,oneof" aper:"choiceIdx:18,"`
 }
 
 type UecontextModificationRequestIesValue_InactivityMonitoringRequest struct {
 	// @inject_tag: aper:"choiceIdx:19,"
-	InactivityMonitoringRequest f1ap_ies.InactivityMonitoringRequest `protobuf:"varint,19,opt,name=inactivity_monitoring_request,json=InactivityMonitoringRequest,proto3,enum=f1ap.v1.InactivityMonitoringRequest,oneof"`
+	InactivityMonitoringRequest f1ap_ies.InactivityMonitoringRequest `protobuf:"varint,19,opt,name=inactivity_monitoring_request,json=InactivityMonitoringRequest,proto3,enum=f1ap.v1.InactivityMonitoringRequest,oneof" aper:"choiceIdx:19,"`
 }
 
 type UecontextModificationRequestIesValue_RatFrequencyPriorityInformation struct {
 	// @inject_tag: aper:"choiceIdx:20,"
-	RatFrequencyPriorityInformation *f1ap_ies.RatFrequencyPriorityInformation `protobuf:"bytes,20,opt,name=rat_frequency_priority_information,json=RAT-FrequencyPriorityInformation,proto3,oneof"`
+	RatFrequencyPriorityInformation *f1ap_ies.RatFrequencyPriorityInformation `protobuf:"bytes,20,opt,name=rat_frequency_priority_information,json=RAT-FrequencyPriorityInformation,proto3,oneof" aper:"choiceIdx:20,"`
 }
 
 type UecontextModificationRequestIesValue_DrxconfigurationIndicator struct {
 	// @inject_tag: aper:"choiceIdx:21,"
-	DrxconfigurationIndicator f1ap_ies.DrxconfigurationIndicator `protobuf:"varint,21,opt,name=drxconfiguration_indicator,json=DRXConfigurationIndicator,proto3,enum=f1ap.v1.DrxconfigurationIndicator,oneof"`
+	DrxconfigurationIndicator f1ap_ies.DrxconfigurationIndicator `protobuf:"varint,21,opt,name=drxconfiguration_indicator,json=DRXConfigurationIndicator,proto3,enum=f1ap.v1.DrxconfigurationIndicator,oneof" aper:"choiceIdx:21,"`
 }
 
 type UecontextModificationRequestIesValue_RlcfailureIndication struct {
 	// @inject_tag: aper:"choiceIdx:22,"
-	RlcfailureIndication *f1ap_ies.RlcfailureIndication `protobuf:"bytes,22,opt,name=rlcfailure_indication,json=RLCFailureIndication,proto3,oneof"`
+	RlcfailureIndication *f1ap_ies.RlcfailureIndication `protobuf:"bytes,22,opt,name=rlcfailure_indication,json=RLCFailureIndication,proto3,oneof" aper:"choiceIdx:22,"`
 }
 
 type UecontextModificationRequestIesValue_UplinkTxDirectCurrentListInformation struct {
 	// @inject_tag: aper:"choiceIdx:23,"
-	UplinkTxDirectCurrentListInformation *f1ap_ies.UplinkTxDirectCurrentListInformation `protobuf:"bytes,23,opt,name=uplink_tx_direct_current_list_information,json=UplinkTxDirectCurrentListInformation,proto3,oneof"`
+	UplinkTxDirectCurrentListInformation *f1ap_ies.UplinkTxDirectCurrentListInformation `protobuf:"bytes,23,opt,name=uplink_tx_direct_current_list_information,json=UplinkTxDirectCurrentListInformation,proto3,oneof" aper:"choiceIdx:23,"`
 }
 
 type UecontextModificationRequestIesValue_GnbDuconfigurationQuery struct {
 	// @inject_tag: aper:"choiceIdx:24,"
-	GnbDuconfigurationQuery f1ap_ies.GnbDUconfigurationQuery `protobuf:"varint,24,opt,name=gnb_duconfiguration_query,json=GNB-DUConfigurationQuery,proto3,enum=f1ap.v1.GnbDUconfigurationQuery,oneof"`
+	GnbDuconfigurationQuery f1ap_ies.GnbDUconfigurationQuery `protobuf:"varint,24,opt,name=gnb_duconfiguration_query,json=GNB-DUConfigurationQuery,proto3,enum=f1ap.v1.GnbDUconfigurationQuery,oneof" aper:"choiceIdx:24,"`
 }
 
 type UecontextModificationRequestIesValue_BitRate struct {
 	// @inject_tag: aper:"choiceIdx:25,"
-	BitRate *f1ap_ies.BitRate `protobuf:"bytes,25,opt,name=bit_rate,json=BitRate,proto3,oneof"`
+	BitRate *f1ap_ies.BitRate `protobuf:"bytes,25,opt,name=bit_rate,json=BitRate,proto3,oneof" aper:"choiceIdx:25,"`
 }
 
 type UecontextModificationRequestIesValue_ExecuteDuplication struct {
 	// @inject_tag: aper:"choiceIdx:26,"
-	ExecuteDuplication f1ap_ies.ExecuteDuplication `protobuf:"varint,26,opt,name=execute_duplication,json=ExecuteDuplication,proto3,enum=f1ap.v1.ExecuteDuplication,oneof"`
+	ExecuteDuplication f1ap_ies.ExecuteDuplication `protobuf:"varint,26,opt,name=execute_duplication,json=ExecuteDuplication,proto3,enum=f1ap.v1.ExecuteDuplication,oneof" aper:"choiceIdx:26,"`
 }
 
 type UecontextModificationRequestIesValue_RrcdeliveryStatusRequest struct {
 	// @inject_tag: aper:"choiceIdx:27,"
-	RrcdeliveryStatusRequest f1ap_ies.RrcdeliveryStatusRequest `protobuf:"varint,27,opt,name=rrcdelivery_status_request,json=RRCDeliveryStatusRequest,proto3,enum=f1ap.v1.RrcdeliveryStatusRequest,oneof"`
+	RrcdeliveryStatusRequest f1ap_ies.RrcdeliveryStatusRequest `protobuf:"varint,27,opt,name=rrcdelivery_status_request,json=RRCDeliveryStatusRequest,proto3,enum=f1ap.v1.RrcdeliveryStatusRequest,oneof" aper:"choiceIdx:27,"`
 }
 
 type UecontextModificationRequestIesValue_ResourceCoordinationTransferInformation struct {
 	// @inject_tag: aper:"choiceIdx:28,"
-	ResourceCoordinationTransferInformation *f1ap_ies.ResourceCoordinationTransferInformation `protobuf:"bytes,28,opt,name=resource_coordination_transfer_information,json=ResourceCoordinationTransferInformation,proto3,oneof"`
+	ResourceCoordinationTransferInformation *f1ap_ies.ResourceCoordinationTransferInformation `protobuf:"bytes,28,opt,name=resource_coordination_transfer_information,json=ResourceCoordinationTransferInformation,proto3,oneof" aper:"choiceIdx:28,"`
 }
 
 type UecontextModificationRequestIesValue_ServingCellMo struct {
 	// @inject_tag: aper:"choiceIdx:29,"
-	ServingCellMo *f1ap_ies.ServingCellMo `protobuf:"bytes,29,opt,name=serving_cell_mo,json=ServingCellMO,proto3,oneof"`
+	ServingCellMo *f1ap_ies.ServingCellMo `protobuf:"bytes,29,opt,name=serving_cell_mo,json=ServingCellMO,proto3,oneof" aper:"choiceIdx:29,"`
 }
 
 type UecontextModificationRequestIesValue_NeedforGap struct {
 	// @inject_tag: aper:"choiceIdx:30,"
-	NeedforGap f1ap_ies.NeedforGap `protobuf:"varint,30,opt,name=needfor_gap,json=NeedforGap,proto3,enum=f1ap.v1.NeedforGap,oneof"`
+	NeedforGap f1ap_ies.NeedforGap `protobuf:"varint,30,opt,name=needfor_gap,json=NeedforGap,proto3,enum=f1ap.v1.NeedforGap,oneof" aper:"choiceIdx:30,"`
 }
 
 type UecontextModificationRequestIesValue_FullConfiguration struct {
 	// @inject_tag: aper:"choiceIdx:31,"
-	FullConfiguration f1ap_ies.FullConfiguration `protobuf:"varint,31,opt,name=full_configuration,json=FullConfiguration,proto3,enum=f1ap.v1.FullConfiguration,oneof"`
+	FullConfiguration f1ap_ies.FullConfiguration `protobuf:"varint,31,opt,name=full_configuration,json=FullConfiguration,proto3,enum=f1ap.v1.FullConfiguration,oneof" aper:"choiceIdx:31,"`
 }
 
 type UecontextModificationRequestIesValue_AdditionalRrmpriorityIndex struct {
 	// @inject_tag: aper:"choiceIdx:32,"
-	AdditionalRrmpriorityIndex *f1ap_ies.AdditionalRrmpriorityIndex `protobuf:"bytes,32,opt,name=additional_rrmpriority_index,json=AdditionalRRMPriorityIndex,proto3,oneof"`
+	AdditionalRrmpriorityIndex *f1ap_ies.AdditionalRrmpriorityIndex `protobuf:"bytes,32,opt,name=additional_rrmpriority_index,json=AdditionalRRMPriorityIndex,proto3,oneof" aper:"choiceIdx:32,"`
 }
 
 type UecontextModificationRequestIesValue_LowerLayerPresenceStatusChange struct {
 	// @inject_tag: aper:"choiceIdx:33,"
-	LowerLayerPresenceStatusChange f1ap_ies.LowerLayerPresenceStatusChange `protobuf:"varint,33,opt,name=lower_layer_presence_status_change,json=LowerLayerPresenceStatusChange,proto3,enum=f1ap.v1.LowerLayerPresenceStatusChange,oneof"`
+	LowerLayerPresenceStatusChange f1ap_ies.LowerLayerPresenceStatusChange `protobuf:"varint,33,opt,name=lower_layer_presence_status_change,json=LowerLayerPresenceStatusChange,proto3,enum=f1ap.v1.LowerLayerPresenceStatusChange,oneof" aper:"choiceIdx:33,"`
 }
 
 type UecontextModificationRequestIesValue_BhchannelsToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:34,"
-	BhchannelsToBeSetupModList *BhchannelsToBeSetupModList `protobuf:"bytes,34,opt,name=bhchannels_to_be_setup_mod_list,json=BHChannels-ToBeSetupMod-List,proto3,oneof"`
+	BhchannelsToBeSetupModList *BhchannelsToBeSetupModList `protobuf:"bytes,34,opt,name=bhchannels_to_be_setup_mod_list,json=BHChannels-ToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:34,"`
 }
 
 type UecontextModificationRequestIesValue_BhchannelsToBeModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:35,"
-	BhchannelsToBeModifiedList *BhchannelsToBeModifiedList `protobuf:"bytes,35,opt,name=bhchannels_to_be_modified_list,json=BHChannels-ToBeModified-List,proto3,oneof"`
+	BhchannelsToBeModifiedList *BhchannelsToBeModifiedList `protobuf:"bytes,35,opt,name=bhchannels_to_be_modified_list,json=BHChannels-ToBeModified-List,proto3,oneof" aper:"choiceIdx:35,"`
 }
 
 type UecontextModificationRequestIesValue_BhchannelsToBeReleasedList struct {
 	// @inject_tag: aper:"choiceIdx:36,"
-	BhchannelsToBeReleasedList *BhchannelsToBeReleasedList `protobuf:"bytes,36,opt,name=bhchannels_to_be_released_list,json=BHChannels-ToBeReleased-List,proto3,oneof"`
+	BhchannelsToBeReleasedList *BhchannelsToBeReleasedList `protobuf:"bytes,36,opt,name=bhchannels_to_be_released_list,json=BHChannels-ToBeReleased-List,proto3,oneof" aper:"choiceIdx:36,"`
 }
 
 type UecontextModificationRequestIesValue_Nrv2XservicesAuthorized struct {
 	// @inject_tag: aper:"choiceIdx:37,"
-	Nrv2XservicesAuthorized *f1ap_ies.Nrv2XservicesAuthorized `protobuf:"bytes,37,opt,name=nrv2_xservices_authorized,json=NRV2XServicesAuthorized,proto3,oneof"`
+	Nrv2XservicesAuthorized *f1ap_ies.Nrv2XservicesAuthorized `protobuf:"bytes,37,opt,name=nrv2_xservices_authorized,json=NRV2XServicesAuthorized,proto3,oneof" aper:"choiceIdx:37,"`
 }
 
 type UecontextModificationRequestIesValue_Ltev2XservicesAuthorized struct {
 	// @inject_tag: aper:"choiceIdx:38,"
-	Ltev2XservicesAuthorized *f1ap_ies.Ltev2XservicesAuthorized `protobuf:"bytes,38,opt,name=ltev2_xservices_authorized,json=LTEV2XServicesAuthorized,proto3,oneof"`
+	Ltev2XservicesAuthorized *f1ap_ies.Ltev2XservicesAuthorized `protobuf:"bytes,38,opt,name=ltev2_xservices_authorized,json=LTEV2XServicesAuthorized,proto3,oneof" aper:"choiceIdx:38,"`
 }
 
 type UecontextModificationRequestIesValue_NruesidelinkAggregateMaximumBitrate struct {
 	// @inject_tag: aper:"choiceIdx:39,"
-	NruesidelinkAggregateMaximumBitrate *f1ap_ies.NruesidelinkAggregateMaximumBitrate `protobuf:"bytes,39,opt,name=nruesidelink_aggregate_maximum_bitrate,json=NRUESidelinkAggregateMaximumBitrate,proto3,oneof"`
+	NruesidelinkAggregateMaximumBitrate *f1ap_ies.NruesidelinkAggregateMaximumBitrate `protobuf:"bytes,39,opt,name=nruesidelink_aggregate_maximum_bitrate,json=NRUESidelinkAggregateMaximumBitrate,proto3,oneof" aper:"choiceIdx:39,"`
 }
 
 type UecontextModificationRequestIesValue_LteuesidelinkAggregateMaximumBitrate struct {
 	// @inject_tag: aper:"choiceIdx:40,"
-	LteuesidelinkAggregateMaximumBitrate *f1ap_ies.LteuesidelinkAggregateMaximumBitrate `protobuf:"bytes,40,opt,name=lteuesidelink_aggregate_maximum_bitrate,json=LTEUESidelinkAggregateMaximumBitrate,proto3,oneof"`
+	LteuesidelinkAggregateMaximumBitrate *f1ap_ies.LteuesidelinkAggregateMaximumBitrate `protobuf:"bytes,40,opt,name=lteuesidelink_aggregate_maximum_bitrate,json=LTEUESidelinkAggregateMaximumBitrate,proto3,oneof" aper:"choiceIdx:40,"`
 }
 
 type UecontextModificationRequestIesValue_GnbDuUeAmbrUl struct {
 	// @inject_tag: aper:"choiceIdx:41,"
-	GnbDuUeAmbrUl *f1ap_ies.BitRate `protobuf:"bytes,41,opt,name=gnb_du_ue_ambr_ul,json=BitRate,proto3,oneof"`
+	GnbDuUeAmbrUl *f1ap_ies.BitRate `protobuf:"bytes,41,opt,name=gnb_du_ue_ambr_ul,json=BitRate,proto3,oneof" aper:"choiceIdx:41,"`
 }
 
 type UecontextModificationRequestIesValue_SldrbsToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:42,"
-	SldrbsToBeSetupModList *SldrbsToBeSetupModList `protobuf:"bytes,42,opt,name=sldrbs_to_be_setup_mod_list,json=SLDRBs-ToBeSetupMod-List,proto3,oneof"`
+	SldrbsToBeSetupModList *SldrbsToBeSetupModList `protobuf:"bytes,42,opt,name=sldrbs_to_be_setup_mod_list,json=SLDRBs-ToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:42,"`
 }
 
 type UecontextModificationRequestIesValue_SldrbsToBeModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:43,"
-	SldrbsToBeModifiedList *SldrbsToBeModifiedList `protobuf:"bytes,43,opt,name=sldrbs_to_be_modified_list,json=SLDRBs-ToBeModified-List,proto3,oneof"`
+	SldrbsToBeModifiedList *SldrbsToBeModifiedList `protobuf:"bytes,43,opt,name=sldrbs_to_be_modified_list,json=SLDRBs-ToBeModified-List,proto3,oneof" aper:"choiceIdx:43,"`
 }
 
 type UecontextModificationRequestIesValue_SldrbsToBeReleasedList struct {
 	// @inject_tag: aper:"choiceIdx:44,"
-	SldrbsToBeReleasedList *SldrbsToBeReleasedList `protobuf:"bytes,44,opt,name=sldrbs_to_be_released_list,json=SLDRBs-ToBeReleased-List,proto3,oneof"`
+	SldrbsToBeReleasedList *SldrbsToBeReleasedList `protobuf:"bytes,44,opt,name=sldrbs_to_be_released_list,json=SLDRBs-ToBeReleased-List,proto3,oneof" aper:"choiceIdx:44,"`
 }
 
 type UecontextModificationRequestIesValue_ConditionalIntraDumobilityInformation struct {
 	// @inject_tag: aper:"choiceIdx:45,"
-	ConditionalIntraDumobilityInformation *f1ap_ies.ConditionalIntraDumobilityInformation `protobuf:"bytes,45,opt,name=conditional_intra_dumobility_information,json=ConditionalIntraDUMobilityInformation,proto3,oneof"`
+	ConditionalIntraDumobilityInformation *f1ap_ies.ConditionalIntraDumobilityInformation `protobuf:"bytes,45,opt,name=conditional_intra_dumobility_information,json=ConditionalIntraDUMobilityInformation,proto3,oneof" aper:"choiceIdx:45,"`
 }
 
 type UecontextModificationRequestIesValue_F1CtransferPath struct {
 	// @inject_tag: aper:"choiceIdx:46,"
-	F1CtransferPath *f1ap_ies.F1CtransferPath `protobuf:"bytes,46,opt,name=f1_ctransfer_path,json=F1CTransferPath,proto3,oneof"`
+	F1CtransferPath *f1ap_ies.F1CtransferPath `protobuf:"bytes,46,opt,name=f1_ctransfer_path,json=F1CTransferPath,proto3,oneof" aper:"choiceIdx:46,"`
 }
 
 type UecontextModificationRequestIesValue_Scgindicator struct {
 	// @inject_tag: aper:"choiceIdx:47,"
-	Scgindicator f1ap_ies.Scgindicator `protobuf:"varint,47,opt,name=scgindicator,json=SCGIndicator,proto3,enum=f1ap.v1.Scgindicator,oneof"`
+	Scgindicator f1ap_ies.Scgindicator `protobuf:"varint,47,opt,name=scgindicator,json=SCGIndicator,proto3,enum=f1ap.v1.Scgindicator,oneof" aper:"choiceIdx:47,"`
 }
 
 func (*UecontextModificationRequestIesValue_GnbCuUeF1ApId) isUecontextModificationRequestIesValue_UecontextModificationRequestIes() {
@@ -10452,10 +10452,10 @@ type UecontextModificationRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextModificationRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextModificationRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextModificationRequestIes) Reset() {
@@ -11997,132 +11997,132 @@ type isUecontextModificationResponseIesValue_UecontextModificationResponseIes in
 
 type UecontextModificationResponseIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextModificationResponseIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextModificationResponseIesValue_ResourceCoordinationTransferContainer struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,3,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof"`
+	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,3,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextModificationResponseIesValue_DutoCurrcinformation struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	DutoCurrcinformation *f1ap_ies.DutoCurrcinformation `protobuf:"bytes,4,opt,name=duto_currcinformation,json=DUtoCURRCInformation,proto3,oneof"`
+	DutoCurrcinformation *f1ap_ies.DutoCurrcinformation `protobuf:"bytes,4,opt,name=duto_currcinformation,json=DUtoCURRCInformation,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextModificationResponseIesValue_DrbsSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	DrbsSetupModList *DrbsSetupModList `protobuf:"bytes,5,opt,name=drbs_setup_mod_list,json=DRBs-SetupMod-List,proto3,oneof"`
+	DrbsSetupModList *DrbsSetupModList `protobuf:"bytes,5,opt,name=drbs_setup_mod_list,json=DRBs-SetupMod-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type UecontextModificationResponseIesValue_DrbsModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	DrbsModifiedList *DrbsModifiedList `protobuf:"bytes,6,opt,name=drbs_modified_list,json=DRBs-Modified-List,proto3,oneof"`
+	DrbsModifiedList *DrbsModifiedList `protobuf:"bytes,6,opt,name=drbs_modified_list,json=DRBs-Modified-List,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type UecontextModificationResponseIesValue_SrbsFailedToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	SrbsFailedToBeSetupModList *SrbsFailedToBeSetupModList `protobuf:"bytes,7,opt,name=srbs_failed_to_be_setup_mod_list,json=SRBs-FailedToBeSetupMod-List,proto3,oneof"`
+	SrbsFailedToBeSetupModList *SrbsFailedToBeSetupModList `protobuf:"bytes,7,opt,name=srbs_failed_to_be_setup_mod_list,json=SRBs-FailedToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type UecontextModificationResponseIesValue_DrbsFailedToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	DrbsFailedToBeSetupModList *DrbsFailedToBeSetupModList `protobuf:"bytes,8,opt,name=drbs_failed_to_be_setup_mod_list,json=DRBs-FailedToBeSetupMod-List,proto3,oneof"`
+	DrbsFailedToBeSetupModList *DrbsFailedToBeSetupModList `protobuf:"bytes,8,opt,name=drbs_failed_to_be_setup_mod_list,json=DRBs-FailedToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type UecontextModificationResponseIesValue_ScellFailedtoSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	ScellFailedtoSetupModList *ScellFailedtoSetupModList `protobuf:"bytes,9,opt,name=scell_failedto_setup_mod_list,json=SCell-FailedtoSetupMod-List,proto3,oneof"`
+	ScellFailedtoSetupModList *ScellFailedtoSetupModList `protobuf:"bytes,9,opt,name=scell_failedto_setup_mod_list,json=SCell-FailedtoSetupMod-List,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type UecontextModificationResponseIesValue_DrbsFailedToBeModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	DrbsFailedToBeModifiedList *DrbsFailedToBeModifiedList `protobuf:"bytes,10,opt,name=drbs_failed_to_be_modified_list,json=DRBs-FailedToBeModified-List,proto3,oneof"`
+	DrbsFailedToBeModifiedList *DrbsFailedToBeModifiedList `protobuf:"bytes,10,opt,name=drbs_failed_to_be_modified_list,json=DRBs-FailedToBeModified-List,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type UecontextModificationResponseIesValue_InactivityMonitoringResponse struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	InactivityMonitoringResponse f1ap_ies.InactivityMonitoringResponse `protobuf:"varint,11,opt,name=inactivity_monitoring_response,json=InactivityMonitoringResponse,proto3,enum=f1ap.v1.InactivityMonitoringResponse,oneof"`
+	InactivityMonitoringResponse f1ap_ies.InactivityMonitoringResponse `protobuf:"varint,11,opt,name=inactivity_monitoring_response,json=InactivityMonitoringResponse,proto3,enum=f1ap.v1.InactivityMonitoringResponse,oneof" aper:"choiceIdx:11,"`
 }
 
 type UecontextModificationResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,12,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,12,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 type UecontextModificationResponseIesValue_CRnti struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	CRnti *f1ap_ies.CRNti `protobuf:"bytes,13,opt,name=c_rnti,json=C-RNTI,proto3,oneof"`
+	CRnti *f1ap_ies.CRNti `protobuf:"bytes,13,opt,name=c_rnti,json=C-RNTI,proto3,oneof" aper:"choiceIdx:13,"`
 }
 
 type UecontextModificationResponseIesValue_AssociatedScellList struct {
 	// @inject_tag: aper:"choiceIdx:14,"
-	AssociatedScellList *AssociatedSCellList `protobuf:"bytes,14,opt,name=associated_scell_list,json=Associated-SCell-List,proto3,oneof"`
+	AssociatedScellList *AssociatedSCellList `protobuf:"bytes,14,opt,name=associated_scell_list,json=Associated-SCell-List,proto3,oneof" aper:"choiceIdx:14,"`
 }
 
 type UecontextModificationResponseIesValue_SrbsSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:15,"
-	SrbsSetupModList *SrbsSetupModList `protobuf:"bytes,15,opt,name=srbs_setup_mod_list,json=SRBs-SetupMod-List,proto3,oneof"`
+	SrbsSetupModList *SrbsSetupModList `protobuf:"bytes,15,opt,name=srbs_setup_mod_list,json=SRBs-SetupMod-List,proto3,oneof" aper:"choiceIdx:15,"`
 }
 
 type UecontextModificationResponseIesValue_SrbsModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:16,"
-	SrbsModifiedList *SrbsModifiedList `protobuf:"bytes,16,opt,name=srbs_modified_list,json=SRBs-Modified-List,proto3,oneof"`
+	SrbsModifiedList *SrbsModifiedList `protobuf:"bytes,16,opt,name=srbs_modified_list,json=SRBs-Modified-List,proto3,oneof" aper:"choiceIdx:16,"`
 }
 
 type UecontextModificationResponseIesValue_FullConfiguration struct {
 	// @inject_tag: aper:"choiceIdx:17,"
-	FullConfiguration f1ap_ies.FullConfiguration `protobuf:"varint,17,opt,name=full_configuration,json=FullConfiguration,proto3,enum=f1ap.v1.FullConfiguration,oneof"`
+	FullConfiguration f1ap_ies.FullConfiguration `protobuf:"varint,17,opt,name=full_configuration,json=FullConfiguration,proto3,enum=f1ap.v1.FullConfiguration,oneof" aper:"choiceIdx:17,"`
 }
 
 type UecontextModificationResponseIesValue_BhchannelsSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:18,"
-	BhchannelsSetupModList *BhchannelsSetupModList `protobuf:"bytes,18,opt,name=bhchannels_setup_mod_list,json=BHChannels-SetupMod-List,proto3,oneof"`
+	BhchannelsSetupModList *BhchannelsSetupModList `protobuf:"bytes,18,opt,name=bhchannels_setup_mod_list,json=BHChannels-SetupMod-List,proto3,oneof" aper:"choiceIdx:18,"`
 }
 
 type UecontextModificationResponseIesValue_BhchannelsModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:19,"
-	BhchannelsModifiedList *BhchannelsModifiedList `protobuf:"bytes,19,opt,name=bhchannels_modified_list,json=BHChannels-Modified-List,proto3,oneof"`
+	BhchannelsModifiedList *BhchannelsModifiedList `protobuf:"bytes,19,opt,name=bhchannels_modified_list,json=BHChannels-Modified-List,proto3,oneof" aper:"choiceIdx:19,"`
 }
 
 type UecontextModificationResponseIesValue_BhchannelsFailedToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:20,"
-	BhchannelsFailedToBeSetupModList *BhchannelsFailedToBeSetupModList `protobuf:"bytes,20,opt,name=bhchannels_failed_to_be_setup_mod_list,json=BHChannels-FailedToBeSetupMod-List,proto3,oneof"`
+	BhchannelsFailedToBeSetupModList *BhchannelsFailedToBeSetupModList `protobuf:"bytes,20,opt,name=bhchannels_failed_to_be_setup_mod_list,json=BHChannels-FailedToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:20,"`
 }
 
 type UecontextModificationResponseIesValue_BhchannelsFailedToBeModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:21,"
-	BhchannelsFailedToBeModifiedList *BhchannelsFailedToBeModifiedList `protobuf:"bytes,21,opt,name=bhchannels_failed_to_be_modified_list,json=BHChannels-FailedToBeModified-List,proto3,oneof"`
+	BhchannelsFailedToBeModifiedList *BhchannelsFailedToBeModifiedList `protobuf:"bytes,21,opt,name=bhchannels_failed_to_be_modified_list,json=BHChannels-FailedToBeModified-List,proto3,oneof" aper:"choiceIdx:21,"`
 }
 
 type UecontextModificationResponseIesValue_SldrbsSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:22,"
-	SldrbsSetupModList *SldrbsSetupModList `protobuf:"bytes,22,opt,name=sldrbs_setup_mod_list,json=SLDRBs-SetupMod-List,proto3,oneof"`
+	SldrbsSetupModList *SldrbsSetupModList `protobuf:"bytes,22,opt,name=sldrbs_setup_mod_list,json=SLDRBs-SetupMod-List,proto3,oneof" aper:"choiceIdx:22,"`
 }
 
 type UecontextModificationResponseIesValue_SldrbsModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:23,"
-	SldrbsModifiedList *SldrbsModifiedList `protobuf:"bytes,23,opt,name=sldrbs_modified_list,json=SLDRBs-Modified-List,proto3,oneof"`
+	SldrbsModifiedList *SldrbsModifiedList `protobuf:"bytes,23,opt,name=sldrbs_modified_list,json=SLDRBs-Modified-List,proto3,oneof" aper:"choiceIdx:23,"`
 }
 
 type UecontextModificationResponseIesValue_SldrbsFailedToBeSetupModList struct {
 	// @inject_tag: aper:"choiceIdx:24,"
-	SldrbsFailedToBeSetupModList *SldrbsFailedToBeSetupModList `protobuf:"bytes,24,opt,name=sldrbs_failed_to_be_setup_mod_list,json=SLDRBs-FailedToBeSetupMod-List,proto3,oneof"`
+	SldrbsFailedToBeSetupModList *SldrbsFailedToBeSetupModList `protobuf:"bytes,24,opt,name=sldrbs_failed_to_be_setup_mod_list,json=SLDRBs-FailedToBeSetupMod-List,proto3,oneof" aper:"choiceIdx:24,"`
 }
 
 type UecontextModificationResponseIesValue_SldrbsFailedToBeModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:25,"
-	SldrbsFailedToBeModifiedList *SldrbsFailedToBeModifiedList `protobuf:"bytes,25,opt,name=sldrbs_failed_to_be_modified_list,json=SLDRBs-FailedToBeModified-List,proto3,oneof"`
+	SldrbsFailedToBeModifiedList *SldrbsFailedToBeModifiedList `protobuf:"bytes,25,opt,name=sldrbs_failed_to_be_modified_list,json=SLDRBs-FailedToBeModified-List,proto3,oneof" aper:"choiceIdx:25,"`
 }
 
 type UecontextModificationResponseIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:26,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,26,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,26,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:26,"`
 }
 
 func (*UecontextModificationResponseIesValue_GnbCuUeF1ApId) isUecontextModificationResponseIesValue_UecontextModificationResponseIes() {
@@ -12211,10 +12211,10 @@ type UecontextModificationResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextModificationResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextModificationResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextModificationResponseIes) Reset() {
@@ -13948,27 +13948,27 @@ type isUecontextModificationFailureIesValue_UecontextModificationFailureIes inte
 
 type UecontextModificationFailureIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextModificationFailureIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextModificationFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextModificationFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextModificationFailureIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,5,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,5,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*UecontextModificationFailureIesValue_GnbCuUeF1ApId) isUecontextModificationFailureIesValue_UecontextModificationFailureIes() {
@@ -13994,10 +13994,10 @@ type UecontextModificationFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextModificationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextModificationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextModificationFailureIes) Reset() {
@@ -14257,62 +14257,62 @@ type isUecontextModificationRequiredIesValue_UecontextModificationRequiredIes in
 
 type UecontextModificationRequiredIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextModificationRequiredIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextModificationRequiredIesValue_ResourceCoordinationTransferContainer struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,3,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof"`
+	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,3,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextModificationRequiredIesValue_DutoCurrcinformation struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	DutoCurrcinformation *f1ap_ies.DutoCurrcinformation `protobuf:"bytes,4,opt,name=duto_currcinformation,json=DUtoCURRCInformation,proto3,oneof"`
+	DutoCurrcinformation *f1ap_ies.DutoCurrcinformation `protobuf:"bytes,4,opt,name=duto_currcinformation,json=DUtoCURRCInformation,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextModificationRequiredIesValue_DrbsRequiredToBeModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	DrbsRequiredToBeModifiedList *DrbsRequiredToBeModifiedList `protobuf:"bytes,5,opt,name=drbs_required_to_be_modified_list,json=DRBs-Required-ToBeModified-List,proto3,oneof"`
+	DrbsRequiredToBeModifiedList *DrbsRequiredToBeModifiedList `protobuf:"bytes,5,opt,name=drbs_required_to_be_modified_list,json=DRBs-Required-ToBeModified-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type UecontextModificationRequiredIesValue_SrbsRequiredToBeReleasedList struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	SrbsRequiredToBeReleasedList *SrbsRequiredToBeReleasedList `protobuf:"bytes,6,opt,name=srbs_required_to_be_released_list,json=SRBs-Required-ToBeReleased-List,proto3,oneof"`
+	SrbsRequiredToBeReleasedList *SrbsRequiredToBeReleasedList `protobuf:"bytes,6,opt,name=srbs_required_to_be_released_list,json=SRBs-Required-ToBeReleased-List,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type UecontextModificationRequiredIesValue_DrbsRequiredToBeReleasedList struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	DrbsRequiredToBeReleasedList *DrbsRequiredToBeReleasedList `protobuf:"bytes,7,opt,name=drbs_required_to_be_released_list,json=DRBs-Required-ToBeReleased-List,proto3,oneof"`
+	DrbsRequiredToBeReleasedList *DrbsRequiredToBeReleasedList `protobuf:"bytes,7,opt,name=drbs_required_to_be_released_list,json=DRBs-Required-ToBeReleased-List,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type UecontextModificationRequiredIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,8,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,8,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type UecontextModificationRequiredIesValue_BhchannelsRequiredToBeReleasedList struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	BhchannelsRequiredToBeReleasedList *BhchannelsRequiredToBeReleasedList `protobuf:"bytes,9,opt,name=bhchannels_required_to_be_released_list,json=BHChannels-Required-ToBeReleased-List,proto3,oneof"`
+	BhchannelsRequiredToBeReleasedList *BhchannelsRequiredToBeReleasedList `protobuf:"bytes,9,opt,name=bhchannels_required_to_be_released_list,json=BHChannels-Required-ToBeReleased-List,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type UecontextModificationRequiredIesValue_SldrbsRequiredToBeModifiedList struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	SldrbsRequiredToBeModifiedList *SldrbsRequiredToBeModifiedList `protobuf:"bytes,10,opt,name=sldrbs_required_to_be_modified_list,json=SLDRBs-Required-ToBeModified-List,proto3,oneof"`
+	SldrbsRequiredToBeModifiedList *SldrbsRequiredToBeModifiedList `protobuf:"bytes,10,opt,name=sldrbs_required_to_be_modified_list,json=SLDRBs-Required-ToBeModified-List,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type UecontextModificationRequiredIesValue_SldrbsRequiredToBeReleasedList struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	SldrbsRequiredToBeReleasedList *SldrbsRequiredToBeReleasedList `protobuf:"bytes,11,opt,name=sldrbs_required_to_be_released_list,json=SLDRBs-Required-ToBeReleased-List,proto3,oneof"`
+	SldrbsRequiredToBeReleasedList *SldrbsRequiredToBeReleasedList `protobuf:"bytes,11,opt,name=sldrbs_required_to_be_released_list,json=SLDRBs-Required-ToBeReleased-List,proto3,oneof" aper:"choiceIdx:11,"`
 }
 
 type UecontextModificationRequiredIesValue_TargetCellList struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	TargetCellList *f1ap_ies.TargetCellList `protobuf:"bytes,12,opt,name=target_cell_list,json=TargetCellList,proto3,oneof"`
+	TargetCellList *f1ap_ies.TargetCellList `protobuf:"bytes,12,opt,name=target_cell_list,json=TargetCellList,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 func (*UecontextModificationRequiredIesValue_GnbCuUeF1ApId) isUecontextModificationRequiredIesValue_UecontextModificationRequiredIes() {
@@ -14359,10 +14359,10 @@ type UecontextModificationRequiredIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextModificationRequiredIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextModificationRequiredIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextModificationRequiredIes) Reset() {
@@ -15138,47 +15138,47 @@ type isUecontextModificationConfirmIesValue_UecontextModificationConfirmIes inte
 
 type UecontextModificationConfirmIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextModificationConfirmIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextModificationConfirmIesValue_ResourceCoordinationTransferContainer struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,3,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof"`
+	ResourceCoordinationTransferContainer *f1ap_ies.ResourceCoordinationTransferContainer `protobuf:"bytes,3,opt,name=resource_coordination_transfer_container,json=ResourceCoordinationTransferContainer,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextModificationConfirmIesValue_DrbsModifiedConfList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	DrbsModifiedConfList *DrbsModifiedConfList `protobuf:"bytes,4,opt,name=drbs_modified_conf_list,json=DRBs-ModifiedConf-List,proto3,oneof"`
+	DrbsModifiedConfList *DrbsModifiedConfList `protobuf:"bytes,4,opt,name=drbs_modified_conf_list,json=DRBs-ModifiedConf-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextModificationConfirmIesValue_Rrccontainer struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,5,opt,name=rrccontainer,json=RRCContainer,proto3,oneof"`
+	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,5,opt,name=rrccontainer,json=RRCContainer,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type UecontextModificationConfirmIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,6,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,6,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type UecontextModificationConfirmIesValue_ExecuteDuplication struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	ExecuteDuplication f1ap_ies.ExecuteDuplication `protobuf:"varint,7,opt,name=execute_duplication,json=ExecuteDuplication,proto3,enum=f1ap.v1.ExecuteDuplication,oneof"`
+	ExecuteDuplication f1ap_ies.ExecuteDuplication `protobuf:"varint,7,opt,name=execute_duplication,json=ExecuteDuplication,proto3,enum=f1ap.v1.ExecuteDuplication,oneof" aper:"choiceIdx:7,"`
 }
 
 type UecontextModificationConfirmIesValue_ResourceCoordinationTransferInformation struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	ResourceCoordinationTransferInformation *f1ap_ies.ResourceCoordinationTransferInformation `protobuf:"bytes,8,opt,name=resource_coordination_transfer_information,json=ResourceCoordinationTransferInformation,proto3,oneof"`
+	ResourceCoordinationTransferInformation *f1ap_ies.ResourceCoordinationTransferInformation `protobuf:"bytes,8,opt,name=resource_coordination_transfer_information,json=ResourceCoordinationTransferInformation,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type UecontextModificationConfirmIesValue_SldrbsModifiedConfList struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	SldrbsModifiedConfList *SldrbsModifiedConfList `protobuf:"bytes,9,opt,name=sldrbs_modified_conf_list,json=SLDRBs-ModifiedConf-List,proto3,oneof"`
+	SldrbsModifiedConfList *SldrbsModifiedConfList `protobuf:"bytes,9,opt,name=sldrbs_modified_conf_list,json=SLDRBs-ModifiedConf-List,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 func (*UecontextModificationConfirmIesValue_GnbCuUeF1ApId) isUecontextModificationConfirmIesValue_UecontextModificationConfirmIes() {
@@ -15216,10 +15216,10 @@ type UecontextModificationConfirmIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextModificationConfirmIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextModificationConfirmIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextModificationConfirmIes) Reset() {
@@ -15595,22 +15595,22 @@ type isUecontextModificationRefuseIesValue_UecontextModificationRefuseIes interf
 
 type UecontextModificationRefuseIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextModificationRefuseIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UecontextModificationRefuseIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UecontextModificationRefuseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*UecontextModificationRefuseIesValue_GnbCuUeF1ApId) isUecontextModificationRefuseIesValue_UecontextModificationRefuseIes() {
@@ -15633,10 +15633,10 @@ type UecontextModificationRefuseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextModificationRefuseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextModificationRefuseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextModificationRefuseIes) Reset() {
@@ -15840,27 +15840,27 @@ type isWriteReplaceWarningRequestIesValue_WriteReplaceWarningRequestIes interfac
 
 type WriteReplaceWarningRequestIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type WriteReplaceWarningRequestIesValue_PwssystemInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	PwssystemInformation *f1ap_ies.PwssystemInformation `protobuf:"bytes,2,opt,name=pwssystem_information,json=PWSSystemInformation,proto3,oneof"`
+	PwssystemInformation *f1ap_ies.PwssystemInformation `protobuf:"bytes,2,opt,name=pwssystem_information,json=PWSSystemInformation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type WriteReplaceWarningRequestIesValue_RepetitionPeriod struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RepetitionPeriod *f1ap_ies.RepetitionPeriod `protobuf:"bytes,3,opt,name=repetition_period,json=RepetitionPeriod,proto3,oneof"`
+	RepetitionPeriod *f1ap_ies.RepetitionPeriod `protobuf:"bytes,3,opt,name=repetition_period,json=RepetitionPeriod,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type WriteReplaceWarningRequestIesValue_NumberofBroadcastRequest struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	NumberofBroadcastRequest *f1ap_ies.NumberofBroadcastRequest `protobuf:"bytes,4,opt,name=numberof_broadcast_request,json=NumberofBroadcastRequest,proto3,oneof"`
+	NumberofBroadcastRequest *f1ap_ies.NumberofBroadcastRequest `protobuf:"bytes,4,opt,name=numberof_broadcast_request,json=NumberofBroadcastRequest,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type WriteReplaceWarningRequestIesValue_CellsToBeBroadcastList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CellsToBeBroadcastList *CellsToBeBroadcastList `protobuf:"bytes,5,opt,name=cells_to_be_broadcast_list,json=Cells-To-Be-Broadcast-List,proto3,oneof"`
+	CellsToBeBroadcastList *CellsToBeBroadcastList `protobuf:"bytes,5,opt,name=cells_to_be_broadcast_list,json=Cells-To-Be-Broadcast-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*WriteReplaceWarningRequestIesValue_TransactionId) isWriteReplaceWarningRequestIesValue_WriteReplaceWarningRequestIes() {
@@ -15886,10 +15886,10 @@ type WriteReplaceWarningRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *WriteReplaceWarningRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *WriteReplaceWarningRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *WriteReplaceWarningRequestIes) Reset() {
@@ -16175,22 +16175,22 @@ type isWriteReplaceWarningResponseIesValue_WriteReplaceWarningResponseIes interf
 
 type WriteReplaceWarningResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type WriteReplaceWarningResponseIesValue_CellsBroadcastCompletedList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CellsBroadcastCompletedList *CellsBroadcastCompletedList `protobuf:"bytes,2,opt,name=cells_broadcast_completed_list,json=Cells-Broadcast-Completed-List,proto3,oneof"`
+	CellsBroadcastCompletedList *CellsBroadcastCompletedList `protobuf:"bytes,2,opt,name=cells_broadcast_completed_list,json=Cells-Broadcast-Completed-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type WriteReplaceWarningResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type WriteReplaceWarningResponseIesValue_DedicatedSideliveryNeededUeList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	DedicatedSideliveryNeededUeList *DedicatedSIdeliveryNeededUeList `protobuf:"bytes,4,opt,name=dedicated_sidelivery_needed_ue_list,json=Dedicated-SIDelivery-NeededUE-List,proto3,oneof"`
+	DedicatedSideliveryNeededUeList *DedicatedSIdeliveryNeededUeList `protobuf:"bytes,4,opt,name=dedicated_sidelivery_needed_ue_list,json=Dedicated-SIDelivery-NeededUE-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*WriteReplaceWarningResponseIesValue_TransactionId) isWriteReplaceWarningResponseIesValue_WriteReplaceWarningResponseIes() {
@@ -16213,10 +16213,10 @@ type WriteReplaceWarningResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *WriteReplaceWarningResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *WriteReplaceWarningResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *WriteReplaceWarningResponseIes) Reset() {
@@ -16510,27 +16510,27 @@ type isPwscancelRequestIesValue_PwscancelRequestIes interface {
 
 type PwscancelRequestIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PwscancelRequestIesValue_NumberofBroadcastRequest struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	NumberofBroadcastRequest *f1ap_ies.NumberofBroadcastRequest `protobuf:"bytes,2,opt,name=numberof_broadcast_request,json=NumberofBroadcastRequest,proto3,oneof"`
+	NumberofBroadcastRequest *f1ap_ies.NumberofBroadcastRequest `protobuf:"bytes,2,opt,name=numberof_broadcast_request,json=NumberofBroadcastRequest,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PwscancelRequestIesValue_BroadcastToBeCancelledList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	BroadcastToBeCancelledList *BroadcastToBeCancelledList `protobuf:"bytes,3,opt,name=broadcast_to_be_cancelled_list,json=Broadcast-To-Be-Cancelled-List,proto3,oneof"`
+	BroadcastToBeCancelledList *BroadcastToBeCancelledList `protobuf:"bytes,3,opt,name=broadcast_to_be_cancelled_list,json=Broadcast-To-Be-Cancelled-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PwscancelRequestIesValue_CancelAllWarningMessagesIndicator struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CancelAllWarningMessagesIndicator f1ap_ies.CancelallWarningMessagesIndicator `protobuf:"varint,4,opt,name=cancel_all_warning_messages_indicator,json=Cancel-all-Warning-Messages-Indicator,proto3,enum=f1ap.v1.CancelallWarningMessagesIndicator,oneof"`
+	CancelAllWarningMessagesIndicator f1ap_ies.CancelallWarningMessagesIndicator `protobuf:"varint,4,opt,name=cancel_all_warning_messages_indicator,json=Cancel-all-Warning-Messages-Indicator,proto3,enum=f1ap.v1.CancelallWarningMessagesIndicator,oneof" aper:"choiceIdx:4,"`
 }
 
 type PwscancelRequestIesValue_NotificationInformation struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	NotificationInformation *f1ap_ies.NotificationInformation `protobuf:"bytes,5,opt,name=notification_information,json=NotificationInformation,proto3,oneof"`
+	NotificationInformation *f1ap_ies.NotificationInformation `protobuf:"bytes,5,opt,name=notification_information,json=NotificationInformation,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*PwscancelRequestIesValue_TransactionId) isPwscancelRequestIesValue_PwscancelRequestIes() {}
@@ -16555,10 +16555,10 @@ type PwscancelRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PwscancelRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PwscancelRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PwscancelRequestIes) Reset() {
@@ -16836,17 +16836,17 @@ type isPwscancelResponseIesValue_PwscancelResponseIes interface {
 
 type PwscancelResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PwscancelResponseIesValue_CellsBroadcastCancelledList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CellsBroadcastCancelledList *CellsBroadcastCancelledList `protobuf:"bytes,2,opt,name=cells_broadcast_cancelled_list,json=Cells-Broadcast-Cancelled-List,proto3,oneof"`
+	CellsBroadcastCancelledList *CellsBroadcastCancelledList `protobuf:"bytes,2,opt,name=cells_broadcast_cancelled_list,json=Cells-Broadcast-Cancelled-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PwscancelResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*PwscancelResponseIesValue_TransactionId) isPwscancelResponseIesValue_PwscancelResponseIes() {}
@@ -16865,10 +16865,10 @@ type PwscancelResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PwscancelResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PwscancelResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PwscancelResponseIes) Reset() {
@@ -17146,17 +17146,17 @@ type isUeinactivityNotificationIesValue_UeinactivityNotificationIes interface {
 
 type UeinactivityNotificationIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UeinactivityNotificationIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UeinactivityNotificationIesValue_DrbActivityList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	DrbActivityList *DrbActivityList `protobuf:"bytes,3,opt,name=drb_activity_list,json=DRB-Activity-List,proto3,oneof"`
+	DrbActivityList *DrbActivityList `protobuf:"bytes,3,opt,name=drb_activity_list,json=DRB-Activity-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*UeinactivityNotificationIesValue_GnbCuUeF1ApId) isUeinactivityNotificationIesValue_UeinactivityNotificationIes() {
@@ -17176,10 +17176,10 @@ type UeinactivityNotificationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UeinactivityNotificationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UeinactivityNotificationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UeinactivityNotificationIes) Reset() {
@@ -17505,47 +17505,47 @@ type isInitialUlrrcmessageTransferIesValue_InitialUlrrcmessageTransferIes interf
 
 type InitialUlrrcmessageTransferIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type InitialUlrrcmessageTransferIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,2,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,2,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type InitialUlrrcmessageTransferIesValue_CRnti struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CRnti *f1ap_ies.CRNti `protobuf:"bytes,3,opt,name=c_rnti,json=C-RNTI,proto3,oneof"`
+	CRnti *f1ap_ies.CRNti `protobuf:"bytes,3,opt,name=c_rnti,json=C-RNTI,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type InitialUlrrcmessageTransferIesValue_Rrccontainer struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,4,opt,name=rrccontainer,json=RRCContainer,proto3,oneof"`
+	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,4,opt,name=rrccontainer,json=RRCContainer,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type InitialUlrrcmessageTransferIesValue_DutoCurrccontainer struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	DutoCurrccontainer *f1ap_ies.DutoCurrccontainer `protobuf:"bytes,5,opt,name=duto_currccontainer,json=DUtoCURRCContainer,proto3,oneof"`
+	DutoCurrccontainer *f1ap_ies.DutoCurrccontainer `protobuf:"bytes,5,opt,name=duto_currccontainer,json=DUtoCURRCContainer,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type InitialUlrrcmessageTransferIesValue_SulaccessIndication struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	SulaccessIndication f1ap_ies.SulaccessIndication `protobuf:"varint,6,opt,name=sulaccess_indication,json=SULAccessIndication,proto3,enum=f1ap.v1.SulaccessIndication,oneof"`
+	SulaccessIndication f1ap_ies.SulaccessIndication `protobuf:"varint,6,opt,name=sulaccess_indication,json=SULAccessIndication,proto3,enum=f1ap.v1.SulaccessIndication,oneof" aper:"choiceIdx:6,"`
 }
 
 type InitialUlrrcmessageTransferIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,7,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,7,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type InitialUlrrcmessageTransferIesValue_Ranueid struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	Ranueid *f1ap_ies.Ranueid `protobuf:"bytes,8,opt,name=ranueid,json=RANUEID,proto3,oneof"`
+	Ranueid *f1ap_ies.Ranueid `protobuf:"bytes,8,opt,name=ranueid,json=RANUEID,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type InitialUlrrcmessageTransferIesValue_RrccontainerRrcsetupComplete struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	RrccontainerRrcsetupComplete *f1ap_ies.RrccontainerRRcsetupComplete `protobuf:"bytes,9,opt,name=rrccontainer_rrcsetup_complete,json=RRCContainer-RRCSetupComplete,proto3,oneof"`
+	RrccontainerRrcsetupComplete *f1ap_ies.RrccontainerRRcsetupComplete `protobuf:"bytes,9,opt,name=rrccontainer_rrcsetup_complete,json=RRCContainer-RRCSetupComplete,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 func (*InitialUlrrcmessageTransferIesValue_GnbDuUeF1ApId) isInitialUlrrcmessageTransferIesValue_InitialUlrrcmessageTransferIes() {
@@ -17583,10 +17583,10 @@ type InitialUlrrcmessageTransferIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *InitialUlrrcmessageTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *InitialUlrrcmessageTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *InitialUlrrcmessageTransferIes) Reset() {
@@ -17854,67 +17854,67 @@ type isDlrrcmessageTransferIesValue_DlrrcmessageTransferIes interface {
 
 type DlrrcmessageTransferIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DlrrcmessageTransferIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type DlrrcmessageTransferIesValue_OldGnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	OldGnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,3,opt,name=old_gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	OldGnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,3,opt,name=old_gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type DlrrcmessageTransferIesValue_Srbid struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Srbid *f1ap_ies.Srbid `protobuf:"bytes,4,opt,name=srbid,json=SRBID,proto3,oneof"`
+	Srbid *f1ap_ies.Srbid `protobuf:"bytes,4,opt,name=srbid,json=SRBID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type DlrrcmessageTransferIesValue_ExecuteDuplication struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	ExecuteDuplication f1ap_ies.ExecuteDuplication `protobuf:"varint,5,opt,name=execute_duplication,json=ExecuteDuplication,proto3,enum=f1ap.v1.ExecuteDuplication,oneof"`
+	ExecuteDuplication f1ap_ies.ExecuteDuplication `protobuf:"varint,5,opt,name=execute_duplication,json=ExecuteDuplication,proto3,enum=f1ap.v1.ExecuteDuplication,oneof" aper:"choiceIdx:5,"`
 }
 
 type DlrrcmessageTransferIesValue_Rrccontainer struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,6,opt,name=rrccontainer,json=RRCContainer,proto3,oneof"`
+	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,6,opt,name=rrccontainer,json=RRCContainer,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type DlrrcmessageTransferIesValue_RatFrequencyPriorityInformation struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	RatFrequencyPriorityInformation *f1ap_ies.RatFrequencyPriorityInformation `protobuf:"bytes,7,opt,name=rat_frequency_priority_information,json=RAT-FrequencyPriorityInformation,proto3,oneof"`
+	RatFrequencyPriorityInformation *f1ap_ies.RatFrequencyPriorityInformation `protobuf:"bytes,7,opt,name=rat_frequency_priority_information,json=RAT-FrequencyPriorityInformation,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type DlrrcmessageTransferIesValue_RrcdeliveryStatusRequest struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	RrcdeliveryStatusRequest f1ap_ies.RrcdeliveryStatusRequest `protobuf:"varint,8,opt,name=rrcdelivery_status_request,json=RRCDeliveryStatusRequest,proto3,enum=f1ap.v1.RrcdeliveryStatusRequest,oneof"`
+	RrcdeliveryStatusRequest f1ap_ies.RrcdeliveryStatusRequest `protobuf:"varint,8,opt,name=rrcdelivery_status_request,json=RRCDeliveryStatusRequest,proto3,enum=f1ap.v1.RrcdeliveryStatusRequest,oneof" aper:"choiceIdx:8,"`
 }
 
 type DlrrcmessageTransferIesValue_UecontextNotRetrievable struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	UecontextNotRetrievable f1ap_ies.UecontextNotRetrievable `protobuf:"varint,9,opt,name=uecontext_not_retrievable,json=UEContextNotRetrievable,proto3,enum=f1ap.v1.UecontextNotRetrievable,oneof"`
+	UecontextNotRetrievable f1ap_ies.UecontextNotRetrievable `protobuf:"varint,9,opt,name=uecontext_not_retrievable,json=UEContextNotRetrievable,proto3,enum=f1ap.v1.UecontextNotRetrievable,oneof" aper:"choiceIdx:9,"`
 }
 
 type DlrrcmessageTransferIesValue_OctetString struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	OctetString []byte `protobuf:"bytes,10,opt,name=octet_string,json=OCTET STRING,proto3,oneof"`
+	OctetString []byte `protobuf:"bytes,10,opt,name=octet_string,json=OCTET STRING,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type DlrrcmessageTransferIesValue_PlmnIdentity struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	PlmnIdentity *f1ap_ies.PlmnIdentity `protobuf:"bytes,11,opt,name=plmn_identity,json=PLMN-Identity,proto3,oneof"`
+	PlmnIdentity *f1ap_ies.PlmnIdentity `protobuf:"bytes,11,opt,name=plmn_identity,json=PLMN-Identity,proto3,oneof" aper:"choiceIdx:11,"`
 }
 
 type DlrrcmessageTransferIesValue_NewGnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	NewGnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,12,opt,name=new_gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	NewGnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,12,opt,name=new_gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 type DlrrcmessageTransferIesValue_AdditionalRrmpriorityIndex struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	AdditionalRrmpriorityIndex *f1ap_ies.AdditionalRrmpriorityIndex `protobuf:"bytes,13,opt,name=additional_rrmpriority_index,json=AdditionalRRMPriorityIndex,proto3,oneof"`
+	AdditionalRrmpriorityIndex *f1ap_ies.AdditionalRrmpriorityIndex `protobuf:"bytes,13,opt,name=additional_rrmpriority_index,json=AdditionalRRMPriorityIndex,proto3,oneof" aper:"choiceIdx:13,"`
 }
 
 func (*DlrrcmessageTransferIesValue_GnbCuUeF1ApId) isDlrrcmessageTransferIesValue_DlrrcmessageTransferIes() {
@@ -17963,10 +17963,10 @@ type DlrrcmessageTransferIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *DlrrcmessageTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *DlrrcmessageTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DlrrcmessageTransferIes) Reset() {
@@ -18178,32 +18178,32 @@ type isUlrrcmessageTransferIesValue_UlrrcmessageTransferIes interface {
 
 type UlrrcmessageTransferIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UlrrcmessageTransferIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UlrrcmessageTransferIesValue_Srbid struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Srbid *f1ap_ies.Srbid `protobuf:"bytes,3,opt,name=srbid,json=SRBID,proto3,oneof"`
+	Srbid *f1ap_ies.Srbid `protobuf:"bytes,3,opt,name=srbid,json=SRBID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type UlrrcmessageTransferIesValue_Rrccontainer struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,4,opt,name=rrccontainer,json=RRCContainer,proto3,oneof"`
+	Rrccontainer *f1ap_ies.Rrccontainer `protobuf:"bytes,4,opt,name=rrccontainer,json=RRCContainer,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UlrrcmessageTransferIesValue_PlmnIdentity struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	PlmnIdentity *f1ap_ies.PlmnIdentity `protobuf:"bytes,5,opt,name=plmn_identity,json=PLMN-Identity,proto3,oneof"`
+	PlmnIdentity *f1ap_ies.PlmnIdentity `protobuf:"bytes,5,opt,name=plmn_identity,json=PLMN-Identity,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type UlrrcmessageTransferIesValue_NewGnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	NewGnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,6,opt,name=new_gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	NewGnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,6,opt,name=new_gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 func (*UlrrcmessageTransferIesValue_GnbCuUeF1ApId) isUlrrcmessageTransferIesValue_UlrrcmessageTransferIes() {
@@ -18231,10 +18231,10 @@ type UlrrcmessageTransferIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UlrrcmessageTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UlrrcmessageTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UlrrcmessageTransferIes) Reset() {
@@ -18389,7 +18389,7 @@ type PrivateMessage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,"
-	PrivateIes []*PrivateMessageIEs `protobuf:"bytes,1,rep,name=private_ies,json=privateIEs,proto3" json:"private_ies,omitempty"`
+	PrivateIes []*PrivateMessageIEs `protobuf:"bytes,1,rep,name=private_ies,json=privateIEs,proto3" json:"private_ies,omitempty" aper:"sizeLB:1,"`
 }
 
 func (x *PrivateMessage) Reset() {
@@ -18521,22 +18521,22 @@ type isSystemInformationDeliveryCommandIesValue_SystemInformationDeliveryCommand
 
 type SystemInformationDeliveryCommandIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SystemInformationDeliveryCommandIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,2,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,2,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SystemInformationDeliveryCommandIesValue_SitypeList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	SitypeList *f1ap_ies.SitypeList `protobuf:"bytes,3,opt,name=sitype_list,json=SItype-List,proto3,oneof"`
+	SitypeList *f1ap_ies.SitypeList `protobuf:"bytes,3,opt,name=sitype_list,json=SItype-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SystemInformationDeliveryCommandIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,4,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,4,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*SystemInformationDeliveryCommandIesValue_TransactionId) isSystemInformationDeliveryCommandIesValue_SystemInformationDeliveryCommandIes() {
@@ -18559,10 +18559,10 @@ type SystemInformationDeliveryCommandIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SystemInformationDeliveryCommandIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SystemInformationDeliveryCommandIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SystemInformationDeliveryCommandIes) Reset() {
@@ -18774,32 +18774,32 @@ type isPagingIesValue_PagingIes interface {
 
 type PagingIesValue_UeidentityIndexValue struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	UeidentityIndexValue *f1ap_ies.UeidentityIndexValue `protobuf:"bytes,1,opt,name=ueidentity_index_value,json=UEIdentityIndexValue,proto3,oneof"`
+	UeidentityIndexValue *f1ap_ies.UeidentityIndexValue `protobuf:"bytes,1,opt,name=ueidentity_index_value,json=UEIdentityIndexValue,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PagingIesValue_PagingIdentity struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	PagingIdentity *f1ap_ies.PagingIdentity `protobuf:"bytes,2,opt,name=paging_identity,json=PagingIdentity,proto3,oneof"`
+	PagingIdentity *f1ap_ies.PagingIdentity `protobuf:"bytes,2,opt,name=paging_identity,json=PagingIdentity,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PagingIesValue_PagingDrx struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	PagingDrx f1ap_ies.PagingDrx `protobuf:"varint,3,opt,name=paging_drx,json=PagingDRX,proto3,enum=f1ap.v1.PagingDrx,oneof"`
+	PagingDrx f1ap_ies.PagingDrx `protobuf:"varint,3,opt,name=paging_drx,json=PagingDRX,proto3,enum=f1ap.v1.PagingDrx,oneof" aper:"choiceIdx:3,"`
 }
 
 type PagingIesValue_PagingPriority struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	PagingPriority f1ap_ies.PagingPriority `protobuf:"varint,4,opt,name=paging_priority,json=PagingPriority,proto3,enum=f1ap.v1.PagingPriority,oneof"`
+	PagingPriority f1ap_ies.PagingPriority `protobuf:"varint,4,opt,name=paging_priority,json=PagingPriority,proto3,enum=f1ap.v1.PagingPriority,oneof" aper:"choiceIdx:4,"`
 }
 
 type PagingIesValue_PagingCellList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	PagingCellList *PagingCelllist `protobuf:"bytes,5,opt,name=paging_cell_list,json=PagingCell-list,proto3,oneof"`
+	PagingCellList *PagingCelllist `protobuf:"bytes,5,opt,name=paging_cell_list,json=PagingCell-list,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type PagingIesValue_PagingOrigin struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	PagingOrigin f1ap_ies.PagingOrigin `protobuf:"varint,6,opt,name=paging_origin,json=PagingOrigin,proto3,enum=f1ap.v1.PagingOrigin,oneof"`
+	PagingOrigin f1ap_ies.PagingOrigin `protobuf:"varint,6,opt,name=paging_origin,json=PagingOrigin,proto3,enum=f1ap.v1.PagingOrigin,oneof" aper:"choiceIdx:6,"`
 }
 
 func (*PagingIesValue_UeidentityIndexValue) isPagingIesValue_PagingIes() {}
@@ -18822,10 +18822,10 @@ type PagingIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PagingIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PagingIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PagingIes) Reset() {
@@ -19103,17 +19103,17 @@ type isNotifyIesValue_NotifyIes interface {
 
 type NotifyIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NotifyIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type NotifyIesValue_DrbNotifyList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	DrbNotifyList *DrbNotifyList `protobuf:"bytes,3,opt,name=drb_notify_list,json=DRB-Notify-List,proto3,oneof"`
+	DrbNotifyList *DrbNotifyList `protobuf:"bytes,3,opt,name=drb_notify_list,json=DRB-Notify-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*NotifyIesValue_GnbCuUeF1ApId) isNotifyIesValue_NotifyIes() {}
@@ -19130,10 +19130,10 @@ type NotifyIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *NotifyIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *NotifyIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NotifyIes) Reset() {
@@ -19403,12 +19403,12 @@ type isNetworkAccessRateReductionIesValue_NetworkAccessRateReductionIes interfac
 
 type NetworkAccessRateReductionIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NetworkAccessRateReductionIesValue_UacAssistanceInfo struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	UacAssistanceInfo *f1ap_ies.UacAssistanceInfo `protobuf:"bytes,2,opt,name=uac_assistance_info,json=UAC-Assistance-Info,proto3,oneof"`
+	UacAssistanceInfo *f1ap_ies.UacAssistanceInfo `protobuf:"bytes,2,opt,name=uac_assistance_info,json=UAC-Assistance-Info,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*NetworkAccessRateReductionIesValue_TransactionId) isNetworkAccessRateReductionIesValue_NetworkAccessRateReductionIes() {
@@ -19425,10 +19425,10 @@ type NetworkAccessRateReductionIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *NetworkAccessRateReductionIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *NetworkAccessRateReductionIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NetworkAccessRateReductionIes) Reset() {
@@ -19608,12 +19608,12 @@ type isPwsrestartIndicationIesValue_PwsrestartIndicationIes interface {
 
 type PwsrestartIndicationIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PwsrestartIndicationIesValue_NrCgiListForRestartList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	NrCgiListForRestartList *NrCGiListForRestartList `protobuf:"bytes,2,opt,name=nr_cgi_list_for_restart_list,json=NR-CGI-List-For-Restart-List,proto3,oneof"`
+	NrCgiListForRestartList *NrCGiListForRestartList `protobuf:"bytes,2,opt,name=nr_cgi_list_for_restart_list,json=NR-CGI-List-For-Restart-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*PwsrestartIndicationIesValue_TransactionId) isPwsrestartIndicationIesValue_PwsrestartIndicationIes() {
@@ -19630,10 +19630,10 @@ type PwsrestartIndicationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PwsrestartIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PwsrestartIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PwsrestartIndicationIes) Reset() {
@@ -19903,12 +19903,12 @@ type isPwsfailureIndicationIesValue_PwsfailureIndicationIes interface {
 
 type PwsfailureIndicationIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PwsfailureIndicationIesValue_PwsFailedNrCgiList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	PwsFailedNrCgiList *PwsFailedNRCGiList `protobuf:"bytes,2,opt,name=pws_failed_nr_cgi_list,json=PWS-Failed-NR-CGI-List,proto3,oneof"`
+	PwsFailedNrCgiList *PwsFailedNRCGiList `protobuf:"bytes,2,opt,name=pws_failed_nr_cgi_list,json=PWS-Failed-NR-CGI-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*PwsfailureIndicationIesValue_TransactionId) isPwsfailureIndicationIesValue_PwsfailureIndicationIes() {
@@ -19925,10 +19925,10 @@ type PwsfailureIndicationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PwsfailureIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PwsfailureIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PwsfailureIndicationIes) Reset() {
@@ -20198,12 +20198,12 @@ type isGnbdustatusIndicationIesValue_GnbdustatusIndicationIes interface {
 
 type GnbdustatusIndicationIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbdustatusIndicationIesValue_GnbduoverloadInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbduoverloadInformation f1ap_ies.GnbduoverloadInformation `protobuf:"varint,2,opt,name=gnbduoverload_information,json=GNBDUOverloadInformation,proto3,enum=f1ap.v1.GnbduoverloadInformation,oneof"`
+	GnbduoverloadInformation f1ap_ies.GnbduoverloadInformation `protobuf:"varint,2,opt,name=gnbduoverload_information,json=GNBDUOverloadInformation,proto3,enum=f1ap.v1.GnbduoverloadInformation,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*GnbdustatusIndicationIesValue_TransactionId) isGnbdustatusIndicationIesValue_GnbdustatusIndicationIes() {
@@ -20220,10 +20220,10 @@ type GnbdustatusIndicationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbdustatusIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbdustatusIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbdustatusIndicationIes) Reset() {
@@ -20419,22 +20419,22 @@ type isRrcdeliveryReportIesValue_RrcdeliveryReportIes interface {
 
 type RrcdeliveryReportIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type RrcdeliveryReportIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type RrcdeliveryReportIesValue_RrcdeliveryStatus struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RrcdeliveryStatus *f1ap_ies.RrcdeliveryStatus `protobuf:"bytes,3,opt,name=rrcdelivery_status,json=RRCDeliveryStatus,proto3,oneof"`
+	RrcdeliveryStatus *f1ap_ies.RrcdeliveryStatus `protobuf:"bytes,3,opt,name=rrcdelivery_status,json=RRCDeliveryStatus,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type RrcdeliveryReportIesValue_Srbid struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Srbid *f1ap_ies.Srbid `protobuf:"bytes,4,opt,name=srbid,json=SRBID,proto3,oneof"`
+	Srbid *f1ap_ies.Srbid `protobuf:"bytes,4,opt,name=srbid,json=SRBID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*RrcdeliveryReportIesValue_GnbCuUeF1ApId) isRrcdeliveryReportIesValue_RrcdeliveryReportIes() {}
@@ -20454,10 +20454,10 @@ type RrcdeliveryReportIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *RrcdeliveryReportIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *RrcdeliveryReportIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *RrcdeliveryReportIes) Reset() {
@@ -20727,12 +20727,12 @@ type isF1RemovalResponseIesValue_F1RemovalResponseIes interface {
 
 type F1RemovalResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type F1RemovalResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*F1RemovalResponseIesValue_TransactionId) isF1RemovalResponseIesValue_F1RemovalResponseIes() {}
@@ -20748,10 +20748,10 @@ type F1RemovalResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *F1RemovalResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *F1RemovalResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *F1RemovalResponseIes) Reset() {
@@ -20939,17 +20939,17 @@ type isF1RemovalFailureIesValue_F1RemovalFailureIes interface {
 
 type F1RemovalFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type F1RemovalFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type F1RemovalFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*F1RemovalFailureIesValue_TransactionId) isF1RemovalFailureIesValue_F1RemovalFailureIes() {}
@@ -20967,10 +20967,10 @@ type F1RemovalFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *F1RemovalFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *F1RemovalFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *F1RemovalFailureIes) Reset() {
@@ -21158,17 +21158,17 @@ type isTraceStartIesValue_TraceStartIes interface {
 
 type TraceStartIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type TraceStartIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type TraceStartIesValue_TraceActivation struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TraceActivation *f1ap_ies.TraceActivation `protobuf:"bytes,3,opt,name=trace_activation,json=TraceActivation,proto3,oneof"`
+	TraceActivation *f1ap_ies.TraceActivation `protobuf:"bytes,3,opt,name=trace_activation,json=TraceActivation,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*TraceStartIesValue_GnbCuUeF1ApId) isTraceStartIesValue_TraceStartIes() {}
@@ -21185,10 +21185,10 @@ type TraceStartIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *TraceStartIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *TraceStartIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *TraceStartIes) Reset() {
@@ -21376,17 +21376,17 @@ type isDeactivateTraceIesValue_DeactivateTraceIes interface {
 
 type DeactivateTraceIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DeactivateTraceIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type DeactivateTraceIesValue_TraceId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TraceId *f1ap_ies.TraceId `protobuf:"bytes,3,opt,name=trace_id,json=TraceID,proto3,oneof"`
+	TraceId *f1ap_ies.TraceId `protobuf:"bytes,3,opt,name=trace_id,json=TraceID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*DeactivateTraceIesValue_GnbCuUeF1ApId) isDeactivateTraceIesValue_DeactivateTraceIes() {}
@@ -21403,10 +21403,10 @@ type DeactivateTraceIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *DeactivateTraceIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *DeactivateTraceIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DeactivateTraceIes) Reset() {
@@ -21618,32 +21618,32 @@ type isCellTrafficTraceIesValue_CellTrafficTraceIes interface {
 
 type CellTrafficTraceIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CellTrafficTraceIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type CellTrafficTraceIesValue_TraceId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TraceId *f1ap_ies.TraceId `protobuf:"bytes,3,opt,name=trace_id,json=TraceID,proto3,oneof"`
+	TraceId *f1ap_ies.TraceId `protobuf:"bytes,3,opt,name=trace_id,json=TraceID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type CellTrafficTraceIesValue_TransportLayerAddress struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	TransportLayerAddress *f1ap_ies.TransportLayerAddress `protobuf:"bytes,4,opt,name=transport_layer_address,json=TransportLayerAddress,proto3,oneof"`
+	TransportLayerAddress *f1ap_ies.TransportLayerAddress `protobuf:"bytes,4,opt,name=transport_layer_address,json=TransportLayerAddress,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type CellTrafficTraceIesValue_PrivacyIndicator struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	PrivacyIndicator f1ap_ies.PrivacyIndicator `protobuf:"varint,5,opt,name=privacy_indicator,json=PrivacyIndicator,proto3,enum=f1ap.v1.PrivacyIndicator,oneof"`
+	PrivacyIndicator f1ap_ies.PrivacyIndicator `protobuf:"varint,5,opt,name=privacy_indicator,json=PrivacyIndicator,proto3,enum=f1ap.v1.PrivacyIndicator,oneof" aper:"choiceIdx:5,"`
 }
 
 type CellTrafficTraceIesValue_UriAddress struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	UriAddress *f1ap_ies.Uriaddress `protobuf:"bytes,6,opt,name=uri_address,json=URI-address,proto3,oneof"`
+	UriAddress *f1ap_ies.Uriaddress `protobuf:"bytes,6,opt,name=uri_address,json=URI-address,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 func (*CellTrafficTraceIesValue_GnbCuUeF1ApId) isCellTrafficTraceIesValue_CellTrafficTraceIes() {}
@@ -21667,10 +21667,10 @@ type CellTrafficTraceIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *CellTrafficTraceIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *CellTrafficTraceIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *CellTrafficTraceIes) Reset() {
@@ -21850,12 +21850,12 @@ type isDucuradioInformationTransferIesValue_DucuradioInformationTransferIes inte
 
 type DucuradioInformationTransferIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DucuradioInformationTransferIesValue_DucuradioInformationType struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	DucuradioInformationType *f1ap_ies.DucuradioInformationType `protobuf:"bytes,2,opt,name=ducuradio_information_type,json=DUCURadioInformationType,proto3,oneof"`
+	DucuradioInformationType *f1ap_ies.DucuradioInformationType `protobuf:"bytes,2,opt,name=ducuradio_information_type,json=DUCURadioInformationType,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*DucuradioInformationTransferIesValue_TransactionId) isDucuradioInformationTransferIesValue_DucuradioInformationTransferIes() {
@@ -21872,10 +21872,10 @@ type DucuradioInformationTransferIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *DucuradioInformationTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *DucuradioInformationTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DucuradioInformationTransferIes) Reset() {
@@ -22055,12 +22055,12 @@ type isCuduradioInformationTransferIesValue_CuduradioInformationTransferIes inte
 
 type CuduradioInformationTransferIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CuduradioInformationTransferIesValue_CuduradioInformationType struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CuduradioInformationType *f1ap_ies.CuduradioInformationType `protobuf:"bytes,2,opt,name=cuduradio_information_type,json=CUDURadioInformationType,proto3,oneof"`
+	CuduradioInformationType *f1ap_ies.CuduradioInformationType `protobuf:"bytes,2,opt,name=cuduradio_information_type,json=CUDURadioInformationType,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*CuduradioInformationTransferIesValue_TransactionId) isCuduradioInformationTransferIesValue_CuduradioInformationTransferIes() {
@@ -22077,10 +22077,10 @@ type CuduradioInformationTransferIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *CuduradioInformationTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *CuduradioInformationTransferIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *CuduradioInformationTransferIes) Reset() {
@@ -22276,22 +22276,22 @@ type isBapmappingConfigurationIEsValue_BapmappingConfigurationIes interface {
 
 type BapmappingConfigurationIEsValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type BapmappingConfigurationIEsValue_BhRoutingInformationAddedList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	BhRoutingInformationAddedList *BhRoutingInformationAddedList `protobuf:"bytes,2,opt,name=bh_routing_information_added_list,json=BH-Routing-Information-Added-List,proto3,oneof"`
+	BhRoutingInformationAddedList *BhRoutingInformationAddedList `protobuf:"bytes,2,opt,name=bh_routing_information_added_list,json=BH-Routing-Information-Added-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type BapmappingConfigurationIEsValue_BhRoutingInformationRemovedList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	BhRoutingInformationRemovedList *BhRoutingInformationRemovedList `protobuf:"bytes,3,opt,name=bh_routing_information_removed_list,json=BH-Routing-Information-Removed-List,proto3,oneof"`
+	BhRoutingInformationRemovedList *BhRoutingInformationRemovedList `protobuf:"bytes,3,opt,name=bh_routing_information_removed_list,json=BH-Routing-Information-Removed-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type BapmappingConfigurationIEsValue_TrafficMappingInfo struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	TrafficMappingInfo *f1ap_ies.TrafficMappingInfo `protobuf:"bytes,4,opt,name=traffic_mapping_info,json=TrafficMappingInfo,proto3,oneof"`
+	TrafficMappingInfo *f1ap_ies.TrafficMappingInfo `protobuf:"bytes,4,opt,name=traffic_mapping_info,json=TrafficMappingInfo,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*BapmappingConfigurationIEsValue_TransactionId) isBapmappingConfigurationIEsValue_BapmappingConfigurationIes() {
@@ -22314,10 +22314,10 @@ type BapmappingConfigurationIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *BapmappingConfigurationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *BapmappingConfigurationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *BapmappingConfigurationIEs) Reset() {
@@ -22677,12 +22677,12 @@ type isBapmappingConfigurationAcknowledgeIEsValue_BapmappingConfigurationAcknowl
 
 type BapmappingConfigurationAcknowledgeIEsValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type BapmappingConfigurationAcknowledgeIEsValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*BapmappingConfigurationAcknowledgeIEsValue_TransactionId) isBapmappingConfigurationAcknowledgeIEsValue_BapmappingConfigurationAcknowledgeIes() {
@@ -22699,10 +22699,10 @@ type BapmappingConfigurationAcknowledgeIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *BapmappingConfigurationAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *BapmappingConfigurationAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *BapmappingConfigurationAcknowledgeIEs) Reset() {
@@ -22898,22 +22898,22 @@ type isBapmappingConfigurationFailureIesValue_BapmappingConfigurationFailureIes 
 
 type BapmappingConfigurationFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type BapmappingConfigurationFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type BapmappingConfigurationFailureIesValue_TimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof"`
+	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof" aper:"choiceIdx:3,"`
 }
 
 type BapmappingConfigurationFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*BapmappingConfigurationFailureIesValue_TransactionId) isBapmappingConfigurationFailureIesValue_BapmappingConfigurationFailureIes() {
@@ -22936,10 +22936,10 @@ type BapmappingConfigurationFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *BapmappingConfigurationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *BapmappingConfigurationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *BapmappingConfigurationFailureIes) Reset() {
@@ -23127,17 +23127,17 @@ type isGnbduresourceConfigurationIesValue_GnbduresourceConfigurationIes interfac
 
 type GnbduresourceConfigurationIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbduresourceConfigurationIesValue_ActivatedCellsToBeUpdatedList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ActivatedCellsToBeUpdatedList *f1ap_ies.ActivatedCellstobeUpdatedList `protobuf:"bytes,2,opt,name=activated_cells_to_be_updated_list,json=Activated-Cells-to-be-Updated-List,proto3,oneof"`
+	ActivatedCellsToBeUpdatedList *f1ap_ies.ActivatedCellstobeUpdatedList `protobuf:"bytes,2,opt,name=activated_cells_to_be_updated_list,json=Activated-Cells-to-be-Updated-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbduresourceConfigurationIesValue_ChildNodesList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChildNodesList *f1ap_ies.ChildNodesList `protobuf:"bytes,3,opt,name=child_nodes_list,json=Child-Nodes-List,proto3,oneof"`
+	ChildNodesList *f1ap_ies.ChildNodesList `protobuf:"bytes,3,opt,name=child_nodes_list,json=Child-Nodes-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*GnbduresourceConfigurationIesValue_TransactionId) isGnbduresourceConfigurationIesValue_GnbduresourceConfigurationIes() {
@@ -23157,10 +23157,10 @@ type GnbduresourceConfigurationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbduresourceConfigurationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbduresourceConfigurationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbduresourceConfigurationIes) Reset() {
@@ -23340,12 +23340,12 @@ type isGnbduresourceConfigurationAcknowledgeIesValue_GnbduresourceConfigurationA
 
 type GnbduresourceConfigurationAcknowledgeIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbduresourceConfigurationAcknowledgeIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*GnbduresourceConfigurationAcknowledgeIesValue_TransactionId) isGnbduresourceConfigurationAcknowledgeIesValue_GnbduresourceConfigurationAcknowledgeIes() {
@@ -23362,10 +23362,10 @@ type GnbduresourceConfigurationAcknowledgeIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbduresourceConfigurationAcknowledgeIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbduresourceConfigurationAcknowledgeIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbduresourceConfigurationAcknowledgeIes) Reset() {
@@ -23561,22 +23561,22 @@ type isGnbduresourceConfigurationFailureIesValue_GnbduresourceConfigurationFailu
 
 type GnbduresourceConfigurationFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type GnbduresourceConfigurationFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type GnbduresourceConfigurationFailureIesValue_TimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof"`
+	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof" aper:"choiceIdx:3,"`
 }
 
 type GnbduresourceConfigurationFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*GnbduresourceConfigurationFailureIesValue_TransactionId) isGnbduresourceConfigurationFailureIesValue_GnbduresourceConfigurationFailureIes() {
@@ -23599,10 +23599,10 @@ type GnbduresourceConfigurationFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *GnbduresourceConfigurationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *GnbduresourceConfigurationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *GnbduresourceConfigurationFailureIes) Reset() {
@@ -23798,22 +23798,22 @@ type isIabtnladdressRequestIesValue_IabtnladdressRequestIes interface {
 
 type IabtnladdressRequestIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type IabtnladdressRequestIesValue_Iabv4AddressesRequested struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Iabv4AddressesRequested *f1ap_ies.Iabv4AddressesRequested `protobuf:"bytes,2,opt,name=iabv4_addresses_requested,json=IABv4AddressesRequested,proto3,oneof"`
+	Iabv4AddressesRequested *f1ap_ies.Iabv4AddressesRequested `protobuf:"bytes,2,opt,name=iabv4_addresses_requested,json=IABv4AddressesRequested,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type IabtnladdressRequestIesValue_Iabipv6RequestType struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Iabipv6RequestType *f1ap_ies.Iabipv6RequestType `protobuf:"bytes,3,opt,name=iabipv6_request_type,json=IABIPv6RequestType,proto3,oneof"`
+	Iabipv6RequestType *f1ap_ies.Iabipv6RequestType `protobuf:"bytes,3,opt,name=iabipv6_request_type,json=IABIPv6RequestType,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type IabtnladdressRequestIesValue_IabTnlAddressesToRemoveList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IabTnlAddressesToRemoveList *IabTNlAddressesToRemoveList `protobuf:"bytes,4,opt,name=iab_tnl_addresses_to_remove_list,json=IAB-TNL-Addresses-To-Remove-List,proto3,oneof"`
+	IabTnlAddressesToRemoveList *IabTNlAddressesToRemoveList `protobuf:"bytes,4,opt,name=iab_tnl_addresses_to_remove_list,json=IAB-TNL-Addresses-To-Remove-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*IabtnladdressRequestIesValue_TransactionId) isIabtnladdressRequestIesValue_IabtnladdressRequestIes() {
@@ -23836,10 +23836,10 @@ type IabtnladdressRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *IabtnladdressRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *IabtnladdressRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *IabtnladdressRequestIes) Reset() {
@@ -24109,12 +24109,12 @@ type isIabtnladdressResponseIesValue_IabtnladdressResponseIes interface {
 
 type IabtnladdressResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type IabtnladdressResponseIesValue_IabAllocatedTnlAddressList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IabAllocatedTnlAddressList *IabAllocatedTNlAddressList `protobuf:"bytes,2,opt,name=iab_allocated_tnl_address_list,json=IAB-Allocated-TNL-Address-List,proto3,oneof"`
+	IabAllocatedTnlAddressList *IabAllocatedTNlAddressList `protobuf:"bytes,2,opt,name=iab_allocated_tnl_address_list,json=IAB-Allocated-TNL-Address-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*IabtnladdressResponseIesValue_TransactionId) isIabtnladdressResponseIesValue_IabtnladdressResponseIes() {
@@ -24131,10 +24131,10 @@ type IabtnladdressResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *IabtnladdressResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *IabtnladdressResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *IabtnladdressResponseIes) Reset() {
@@ -24420,22 +24420,22 @@ type isIabtnladdressFailureIesValue_IabtnladdressFailureIes interface {
 
 type IabtnladdressFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type IabtnladdressFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type IabtnladdressFailureIesValue_TimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof"`
+	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof" aper:"choiceIdx:3,"`
 }
 
 type IabtnladdressFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*IabtnladdressFailureIesValue_TransactionId) isIabtnladdressFailureIesValue_IabtnladdressFailureIes() {
@@ -24457,10 +24457,10 @@ type IabtnladdressFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *IabtnladdressFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *IabtnladdressFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *IabtnladdressFailureIes) Reset() {
@@ -24648,17 +24648,17 @@ type isIabupconfigurationUpdateRequestIesValue_IabupconfigurationUpdateRequestIe
 
 type IabupconfigurationUpdateRequestIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type IabupconfigurationUpdateRequestIesValue_UlUpTnlInformationToUpdateList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	UlUpTnlInformationToUpdateList *UlUPTNlInformationtoUpdateList `protobuf:"bytes,2,opt,name=ul_up_tnl_information_to_update_list,json=UL-UP-TNL-Information-to-Update-List,proto3,oneof"`
+	UlUpTnlInformationToUpdateList *UlUPTNlInformationtoUpdateList `protobuf:"bytes,2,opt,name=ul_up_tnl_information_to_update_list,json=UL-UP-TNL-Information-to-Update-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type IabupconfigurationUpdateRequestIesValue_UlUpTnlAddressToUpdateList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	UlUpTnlAddressToUpdateList *UlUPTNlAddresstoUpdateList `protobuf:"bytes,3,opt,name=ul_up_tnl_address_to_update_list,json=UL-UP-TNL-Address-to-Update-List,proto3,oneof"`
+	UlUpTnlAddressToUpdateList *UlUPTNlAddresstoUpdateList `protobuf:"bytes,3,opt,name=ul_up_tnl_address_to_update_list,json=UL-UP-TNL-Address-to-Update-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*IabupconfigurationUpdateRequestIesValue_TransactionId) isIabupconfigurationUpdateRequestIesValue_IabupconfigurationUpdateRequestIes() {
@@ -24678,10 +24678,10 @@ type IabupconfigurationUpdateRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *IabupconfigurationUpdateRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *IabupconfigurationUpdateRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *IabupconfigurationUpdateRequestIes) Reset() {
@@ -25049,17 +25049,17 @@ type isIabupconfigurationUpdateResponseIesValue_IabupconfigurationUpdateResponse
 
 type IabupconfigurationUpdateResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type IabupconfigurationUpdateResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type IabupconfigurationUpdateResponseIesValue_DlUpTnlAddressToUpdateList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	DlUpTnlAddressToUpdateList *DlUPTNlAddresstoUpdateList `protobuf:"bytes,3,opt,name=dl_up_tnl_address_to_update_list,json=DL-UP-TNL-Address-to-Update-List,proto3,oneof"`
+	DlUpTnlAddressToUpdateList *DlUPTNlAddresstoUpdateList `protobuf:"bytes,3,opt,name=dl_up_tnl_address_to_update_list,json=DL-UP-TNL-Address-to-Update-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*IabupconfigurationUpdateResponseIesValue_TransactionId) isIabupconfigurationUpdateResponseIesValue_IabupconfigurationUpdateResponseIes() {
@@ -25079,10 +25079,10 @@ type IabupconfigurationUpdateResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *IabupconfigurationUpdateResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *IabupconfigurationUpdateResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *IabupconfigurationUpdateResponseIes) Reset() {
@@ -25368,22 +25368,22 @@ type isIabupconfigurationUpdateFailureIesValue_IabupconfigurationUpdateFailureIe
 
 type IabupconfigurationUpdateFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type IabupconfigurationUpdateFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type IabupconfigurationUpdateFailureIesValue_TimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof"`
+	TimeToWait f1ap_ies.TimeToWait `protobuf:"varint,3,opt,name=time_to_wait,json=TimeToWait,proto3,enum=f1ap.v1.TimeToWait,oneof" aper:"choiceIdx:3,"`
 }
 
 type IabupconfigurationUpdateFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*IabupconfigurationUpdateFailureIesValue_TransactionId) isIabupconfigurationUpdateFailureIesValue_IabupconfigurationUpdateFailureIes() {
@@ -25406,10 +25406,10 @@ type IabupconfigurationUpdateFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *IabupconfigurationUpdateFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *IabupconfigurationUpdateFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *IabupconfigurationUpdateFailureIes) Reset() {
@@ -25629,37 +25629,37 @@ type isResourceStatusRequestIesValue_ResourceStatusRequestIes interface {
 
 type ResourceStatusRequestIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResourceStatusRequestIesValue_GnbcumeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbcumeasurementId *f1ap_ies.GnbcumeasurementId `protobuf:"bytes,2,opt,name=gnbcumeasurement_id,json=GNBCUMeasurementID,proto3,oneof"`
+	GnbcumeasurementId *f1ap_ies.GnbcumeasurementId `protobuf:"bytes,2,opt,name=gnbcumeasurement_id,json=GNBCUMeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResourceStatusRequestIesValue_GnbdumeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	GnbdumeasurementId *f1ap_ies.GnbdumeasurementId `protobuf:"bytes,3,opt,name=gnbdumeasurement_id,json=GNBDUMeasurementID,proto3,oneof"`
+	GnbdumeasurementId *f1ap_ies.GnbdumeasurementId `protobuf:"bytes,3,opt,name=gnbdumeasurement_id,json=GNBDUMeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ResourceStatusRequestIesValue_RegistrationRequest struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RegistrationRequest f1ap_ies.RegistrationRequest `protobuf:"varint,4,opt,name=registration_request,json=RegistrationRequest,proto3,enum=f1ap.v1.RegistrationRequest,oneof"`
+	RegistrationRequest f1ap_ies.RegistrationRequest `protobuf:"varint,4,opt,name=registration_request,json=RegistrationRequest,proto3,enum=f1ap.v1.RegistrationRequest,oneof" aper:"choiceIdx:4,"`
 }
 
 type ResourceStatusRequestIesValue_ReportCharacteristics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	ReportCharacteristics *f1ap_ies.ReportCharacteristics `protobuf:"bytes,5,opt,name=report_characteristics,json=ReportCharacteristics,proto3,oneof"`
+	ReportCharacteristics *f1ap_ies.ReportCharacteristics `protobuf:"bytes,5,opt,name=report_characteristics,json=ReportCharacteristics,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type ResourceStatusRequestIesValue_CellToReportList struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	CellToReportList *f1ap_ies.CellToReportList `protobuf:"bytes,6,opt,name=cell_to_report_list,json=CellToReportList,proto3,oneof"`
+	CellToReportList *f1ap_ies.CellToReportList `protobuf:"bytes,6,opt,name=cell_to_report_list,json=CellToReportList,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type ResourceStatusRequestIesValue_ReportingPeriodicity struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	ReportingPeriodicity f1ap_ies.ReportingPeriodicity `protobuf:"varint,7,opt,name=reporting_periodicity,json=ReportingPeriodicity,proto3,enum=f1ap.v1.ReportingPeriodicity,oneof"`
+	ReportingPeriodicity f1ap_ies.ReportingPeriodicity `protobuf:"varint,7,opt,name=reporting_periodicity,json=ReportingPeriodicity,proto3,enum=f1ap.v1.ReportingPeriodicity,oneof" aper:"choiceIdx:7,"`
 }
 
 func (*ResourceStatusRequestIesValue_TransactionId) isResourceStatusRequestIesValue_ResourceStatusRequestIes() {
@@ -25691,10 +25691,10 @@ type ResourceStatusRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResourceStatusRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResourceStatusRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResourceStatusRequestIes) Reset() {
@@ -25890,22 +25890,22 @@ type isResourceStatusResponseIesValue_ResourceStatusResponseIes interface {
 
 type ResourceStatusResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResourceStatusResponseIesValue_GnbcumeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbcumeasurementId *f1ap_ies.GnbcumeasurementId `protobuf:"bytes,2,opt,name=gnbcumeasurement_id,json=GNBCUMeasurementID,proto3,oneof"`
+	GnbcumeasurementId *f1ap_ies.GnbcumeasurementId `protobuf:"bytes,2,opt,name=gnbcumeasurement_id,json=GNBCUMeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResourceStatusResponseIesValue_GnbdumeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	GnbdumeasurementId *f1ap_ies.GnbdumeasurementId `protobuf:"bytes,3,opt,name=gnbdumeasurement_id,json=GNBDUMeasurementID,proto3,oneof"`
+	GnbdumeasurementId *f1ap_ies.GnbdumeasurementId `protobuf:"bytes,3,opt,name=gnbdumeasurement_id,json=GNBDUMeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ResourceStatusResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*ResourceStatusResponseIesValue_TransactionId) isResourceStatusResponseIesValue_ResourceStatusResponseIes() {
@@ -25928,10 +25928,10 @@ type ResourceStatusResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResourceStatusResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResourceStatusResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResourceStatusResponseIes) Reset() {
@@ -26135,27 +26135,27 @@ type isResourceStatusFailureIesValue_ResourceStatusFailureIes interface {
 
 type ResourceStatusFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResourceStatusFailureIesValue_GnbcumeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbcumeasurementId *f1ap_ies.GnbcumeasurementId `protobuf:"bytes,2,opt,name=gnbcumeasurement_id,json=GNBCUMeasurementID,proto3,oneof"`
+	GnbcumeasurementId *f1ap_ies.GnbcumeasurementId `protobuf:"bytes,2,opt,name=gnbcumeasurement_id,json=GNBCUMeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResourceStatusFailureIesValue_GnbdumeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	GnbdumeasurementId *f1ap_ies.GnbdumeasurementId `protobuf:"bytes,3,opt,name=gnbdumeasurement_id,json=GNBDUMeasurementID,proto3,oneof"`
+	GnbdumeasurementId *f1ap_ies.GnbdumeasurementId `protobuf:"bytes,3,opt,name=gnbdumeasurement_id,json=GNBDUMeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ResourceStatusFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,4,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,4,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ResourceStatusFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*ResourceStatusFailureIesValue_TransactionId) isResourceStatusFailureIesValue_ResourceStatusFailureIes() {
@@ -26181,10 +26181,10 @@ type ResourceStatusFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResourceStatusFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResourceStatusFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResourceStatusFailureIes) Reset() {
@@ -26396,32 +26396,32 @@ type isResourceStatusUpdateIesValue_ResourceStatusUpdateIes interface {
 
 type ResourceStatusUpdateIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResourceStatusUpdateIesValue_GnbcumeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbcumeasurementId *f1ap_ies.GnbcumeasurementId `protobuf:"bytes,2,opt,name=gnbcumeasurement_id,json=GNBCUMeasurementID,proto3,oneof"`
+	GnbcumeasurementId *f1ap_ies.GnbcumeasurementId `protobuf:"bytes,2,opt,name=gnbcumeasurement_id,json=GNBCUMeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResourceStatusUpdateIesValue_GnbdumeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	GnbdumeasurementId *f1ap_ies.GnbdumeasurementId `protobuf:"bytes,3,opt,name=gnbdumeasurement_id,json=GNBDUMeasurementID,proto3,oneof"`
+	GnbdumeasurementId *f1ap_ies.GnbdumeasurementId `protobuf:"bytes,3,opt,name=gnbdumeasurement_id,json=GNBDUMeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ResourceStatusUpdateIesValue_HardwareLoadIndicator struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	HardwareLoadIndicator *f1ap_ies.HardwareLoadIndicator `protobuf:"bytes,4,opt,name=hardware_load_indicator,json=HardwareLoadIndicator,proto3,oneof"`
+	HardwareLoadIndicator *f1ap_ies.HardwareLoadIndicator `protobuf:"bytes,4,opt,name=hardware_load_indicator,json=HardwareLoadIndicator,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ResourceStatusUpdateIesValue_TnlcapacityIndicator struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	TnlcapacityIndicator *f1ap_ies.TnlcapacityIndicator `protobuf:"bytes,5,opt,name=tnlcapacity_indicator,json=TNLCapacityIndicator,proto3,oneof"`
+	TnlcapacityIndicator *f1ap_ies.TnlcapacityIndicator `protobuf:"bytes,5,opt,name=tnlcapacity_indicator,json=TNLCapacityIndicator,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type ResourceStatusUpdateIesValue_CellMeasurementResultList struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	CellMeasurementResultList *f1ap_ies.CellMeasurementResultList `protobuf:"bytes,6,opt,name=cell_measurement_result_list,json=CellMeasurementResultList,proto3,oneof"`
+	CellMeasurementResultList *f1ap_ies.CellMeasurementResultList `protobuf:"bytes,6,opt,name=cell_measurement_result_list,json=CellMeasurementResultList,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 func (*ResourceStatusUpdateIesValue_TransactionId) isResourceStatusUpdateIesValue_ResourceStatusUpdateIes() {
@@ -26450,10 +26450,10 @@ type ResourceStatusUpdateIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResourceStatusUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResourceStatusUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResourceStatusUpdateIes) Reset() {
@@ -26641,17 +26641,17 @@ type isAccessAndMobilityIndicationIesValue_AccessAndMobilityIndicationIes interf
 
 type AccessAndMobilityIndicationIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type AccessAndMobilityIndicationIesValue_RachreportInformationList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	RachreportInformationList *f1ap_ies.RachreportInformationList `protobuf:"bytes,2,opt,name=rachreport_information_list,json=RACHReportInformationList,proto3,oneof"`
+	RachreportInformationList *f1ap_ies.RachreportInformationList `protobuf:"bytes,2,opt,name=rachreport_information_list,json=RACHReportInformationList,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type AccessAndMobilityIndicationIesValue_RlfreportInformationList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RlfreportInformationList *f1ap_ies.RlfreportInformationList `protobuf:"bytes,3,opt,name=rlfreport_information_list,json=RLFReportInformationList,proto3,oneof"`
+	RlfreportInformationList *f1ap_ies.RlfreportInformationList `protobuf:"bytes,3,opt,name=rlfreport_information_list,json=RLFReportInformationList,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*AccessAndMobilityIndicationIesValue_TransactionId) isAccessAndMobilityIndicationIesValue_AccessAndMobilityIndicationIes() {
@@ -26671,10 +26671,10 @@ type AccessAndMobilityIndicationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *AccessAndMobilityIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *AccessAndMobilityIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *AccessAndMobilityIndicationIes) Reset() {
@@ -26854,12 +26854,12 @@ type isReferenceTimeInformationReportingControlIesValue_ReferenceTimeInformation
 
 type ReferenceTimeInformationReportingControlIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ReferenceTimeInformationReportingControlIesValue_ReportingRequestType struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ReportingRequestType *f1ap_ies.ReportingRequestType `protobuf:"bytes,2,opt,name=reporting_request_type,json=ReportingRequestType,proto3,oneof"`
+	ReportingRequestType *f1ap_ies.ReportingRequestType `protobuf:"bytes,2,opt,name=reporting_request_type,json=ReportingRequestType,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*ReferenceTimeInformationReportingControlIesValue_TransactionId) isReferenceTimeInformationReportingControlIesValue_ReferenceTimeInformationReportingControlIes() {
@@ -26876,10 +26876,10 @@ type ReferenceTimeInformationReportingControlIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ReferenceTimeInformationReportingControlIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ReferenceTimeInformationReportingControlIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ReferenceTimeInformationReportingControlIes) Reset() {
@@ -27059,12 +27059,12 @@ type isReferenceTimeInformationReportIesValue_ReferenceTimeInformationReportIes 
 
 type ReferenceTimeInformationReportIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ReferenceTimeInformationReportIesValue_TimeReferenceInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	TimeReferenceInformation *f1ap_ies.TimeReferenceInformation `protobuf:"bytes,2,opt,name=time_reference_information,json=TimeReferenceInformation,proto3,oneof"`
+	TimeReferenceInformation *f1ap_ies.TimeReferenceInformation `protobuf:"bytes,2,opt,name=time_reference_information,json=TimeReferenceInformation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*ReferenceTimeInformationReportIesValue_TransactionId) isReferenceTimeInformationReportIesValue_ReferenceTimeInformationReportIes() {
@@ -27081,10 +27081,10 @@ type ReferenceTimeInformationReportIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ReferenceTimeInformationReportIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ReferenceTimeInformationReportIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ReferenceTimeInformationReportIes) Reset() {
@@ -27272,17 +27272,17 @@ type isAccessSuccessIesValue_AccessSuccessIes interface {
 
 type AccessSuccessIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type AccessSuccessIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type AccessSuccessIesValue_Nrcgi struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,3,opt,name=nrcgi,json=NRCGI,proto3,oneof"`
+	Nrcgi *f1ap_ies.Nrcgi `protobuf:"bytes,3,opt,name=nrcgi,json=NRCGI,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*AccessSuccessIesValue_GnbCuUeF1ApId) isAccessSuccessIesValue_AccessSuccessIes() {}
@@ -27299,10 +27299,10 @@ type AccessSuccessIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *AccessSuccessIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *AccessSuccessIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *AccessSuccessIes) Reset() {
@@ -27506,27 +27506,27 @@ type isPositioningAssistanceInformationControlIesValue_PositioningAssistanceInfo
 
 type PositioningAssistanceInformationControlIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningAssistanceInformationControlIesValue_PosAssistanceInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	PosAssistanceInformation *f1ap_ies.PosAssistanceInformation `protobuf:"bytes,2,opt,name=pos_assistance_information,json=PosAssistance-Information,proto3,oneof"`
+	PosAssistanceInformation *f1ap_ies.PosAssistanceInformation `protobuf:"bytes,2,opt,name=pos_assistance_information,json=PosAssistance-Information,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningAssistanceInformationControlIesValue_PosBroadcast struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	PosBroadcast f1ap_ies.PosBroadcast `protobuf:"varint,3,opt,name=pos_broadcast,json=PosBroadcast,proto3,enum=f1ap.v1.PosBroadcast,oneof"`
+	PosBroadcast f1ap_ies.PosBroadcast `protobuf:"varint,3,opt,name=pos_broadcast,json=PosBroadcast,proto3,enum=f1ap.v1.PosBroadcast,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningAssistanceInformationControlIesValue_PositioningBroadcastCells struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	PositioningBroadcastCells *f1ap_ies.PositioningBroadcastCells `protobuf:"bytes,4,opt,name=positioning_broadcast_cells,json=PositioningBroadcastCells,proto3,oneof"`
+	PositioningBroadcastCells *f1ap_ies.PositioningBroadcastCells `protobuf:"bytes,4,opt,name=positioning_broadcast_cells,json=PositioningBroadcastCells,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PositioningAssistanceInformationControlIesValue_RoutingId struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	RoutingId *f1ap_ies.RoutingId `protobuf:"bytes,5,opt,name=routing_id,json=RoutingID,proto3,oneof"`
+	RoutingId *f1ap_ies.RoutingId `protobuf:"bytes,5,opt,name=routing_id,json=RoutingID,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*PositioningAssistanceInformationControlIesValue_TransactionId) isPositioningAssistanceInformationControlIesValue_PositioningAssistanceInformationControlIes() {
@@ -27552,10 +27552,10 @@ type PositioningAssistanceInformationControlIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningAssistanceInformationControlIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningAssistanceInformationControlIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningAssistanceInformationControlIes) Reset() {
@@ -27759,27 +27759,27 @@ type isPositioningAssistanceInformationFeedbackIesValue_PositioningAssistanceInf
 
 type PositioningAssistanceInformationFeedbackIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningAssistanceInformationFeedbackIesValue_PosAssistanceInformationFailureList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	PosAssistanceInformationFailureList *f1ap_ies.PosAssistanceInformationFailureList `protobuf:"bytes,2,opt,name=pos_assistance_information_failure_list,json=PosAssistanceInformationFailureList,proto3,oneof"`
+	PosAssistanceInformationFailureList *f1ap_ies.PosAssistanceInformationFailureList `protobuf:"bytes,2,opt,name=pos_assistance_information_failure_list,json=PosAssistanceInformationFailureList,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningAssistanceInformationFeedbackIesValue_PositioningBroadcastCells struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	PositioningBroadcastCells *f1ap_ies.PositioningBroadcastCells `protobuf:"bytes,3,opt,name=positioning_broadcast_cells,json=PositioningBroadcastCells,proto3,oneof"`
+	PositioningBroadcastCells *f1ap_ies.PositioningBroadcastCells `protobuf:"bytes,3,opt,name=positioning_broadcast_cells,json=PositioningBroadcastCells,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningAssistanceInformationFeedbackIesValue_RoutingId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RoutingId *f1ap_ies.RoutingId `protobuf:"bytes,4,opt,name=routing_id,json=RoutingID,proto3,oneof"`
+	RoutingId *f1ap_ies.RoutingId `protobuf:"bytes,4,opt,name=routing_id,json=RoutingID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PositioningAssistanceInformationFeedbackIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*PositioningAssistanceInformationFeedbackIesValue_TransactionId) isPositioningAssistanceInformationFeedbackIesValue_PositioningAssistanceInformationFeedbackIes() {
@@ -27805,10 +27805,10 @@ type PositioningAssistanceInformationFeedbackIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningAssistanceInformationFeedbackIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningAssistanceInformationFeedbackIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningAssistanceInformationFeedbackIes) Reset() {
@@ -28076,67 +28076,67 @@ type isPositioningMeasurementRequestIesValue_PositioningMeasurementRequestIes in
 
 type PositioningMeasurementRequestIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningMeasurementRequestIesValue_LmfMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof"`
+	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningMeasurementRequestIesValue_RanMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof"`
+	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningMeasurementRequestIesValue_TrpMeasurementRequestList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	TrpMeasurementRequestList *f1ap_ies.TrpMeasurementRequestList `protobuf:"bytes,4,opt,name=trp_measurement_request_list,json=TRP-MeasurementRequestList,proto3,oneof"`
+	TrpMeasurementRequestList *f1ap_ies.TrpMeasurementRequestList `protobuf:"bytes,4,opt,name=trp_measurement_request_list,json=TRP-MeasurementRequestList,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PositioningMeasurementRequestIesValue_PosReportCharacteristics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	PosReportCharacteristics f1ap_ies.PosReportCharacteristics `protobuf:"varint,5,opt,name=pos_report_characteristics,json=PosReportCharacteristics,proto3,enum=f1ap.v1.PosReportCharacteristics,oneof"`
+	PosReportCharacteristics f1ap_ies.PosReportCharacteristics `protobuf:"varint,5,opt,name=pos_report_characteristics,json=PosReportCharacteristics,proto3,enum=f1ap.v1.PosReportCharacteristics,oneof" aper:"choiceIdx:5,"`
 }
 
 type PositioningMeasurementRequestIesValue_MeasurementPeriodicity struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	MeasurementPeriodicity f1ap_ies.MeasurementPeriodicity `protobuf:"varint,6,opt,name=measurement_periodicity,json=MeasurementPeriodicity,proto3,enum=f1ap.v1.MeasurementPeriodicity,oneof"`
+	MeasurementPeriodicity f1ap_ies.MeasurementPeriodicity `protobuf:"varint,6,opt,name=measurement_periodicity,json=MeasurementPeriodicity,proto3,enum=f1ap.v1.MeasurementPeriodicity,oneof" aper:"choiceIdx:6,"`
 }
 
 type PositioningMeasurementRequestIesValue_PosMeasurementQuantities struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	PosMeasurementQuantities *f1ap_ies.PosMeasurementQuantities `protobuf:"bytes,7,opt,name=pos_measurement_quantities,json=PosMeasurementQuantities,proto3,oneof"`
+	PosMeasurementQuantities *f1ap_ies.PosMeasurementQuantities `protobuf:"bytes,7,opt,name=pos_measurement_quantities,json=PosMeasurementQuantities,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type PositioningMeasurementRequestIesValue_RelativeTime1900 struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	RelativeTime1900 *f1ap_ies.RelativeTime1900 `protobuf:"bytes,8,opt,name=relative_time1900,json=RelativeTime1900,proto3,oneof"`
+	RelativeTime1900 *f1ap_ies.RelativeTime1900 `protobuf:"bytes,8,opt,name=relative_time1900,json=RelativeTime1900,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type PositioningMeasurementRequestIesValue_Srsconfiguration struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	Srsconfiguration *f1ap_ies.Srsconfiguration `protobuf:"bytes,9,opt,name=srsconfiguration,json=SRSConfiguration,proto3,oneof"`
+	Srsconfiguration *f1ap_ies.Srsconfiguration `protobuf:"bytes,9,opt,name=srsconfiguration,json=SRSConfiguration,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type PositioningMeasurementRequestIesValue_MeasurementBeamInfoRequest struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	MeasurementBeamInfoRequest f1ap_ies.MeasurementBeamInfoRequest `protobuf:"varint,10,opt,name=measurement_beam_info_request,json=MeasurementBeamInfoRequest,proto3,enum=f1ap.v1.MeasurementBeamInfoRequest,oneof"`
+	MeasurementBeamInfoRequest f1ap_ies.MeasurementBeamInfoRequest `protobuf:"varint,10,opt,name=measurement_beam_info_request,json=MeasurementBeamInfoRequest,proto3,enum=f1ap.v1.MeasurementBeamInfoRequest,oneof" aper:"choiceIdx:10,"`
 }
 
 type PositioningMeasurementRequestIesValue_SystemFrameNumber struct {
 	// @inject_tag: aper:"choiceIdx:11,"
-	SystemFrameNumber *f1ap_ies.SystemFrameNumber `protobuf:"bytes,11,opt,name=system_frame_number,json=SystemFrameNumber,proto3,oneof"`
+	SystemFrameNumber *f1ap_ies.SystemFrameNumber `protobuf:"bytes,11,opt,name=system_frame_number,json=SystemFrameNumber,proto3,oneof" aper:"choiceIdx:11,"`
 }
 
 type PositioningMeasurementRequestIesValue_SlotNumber struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	SlotNumber *f1ap_ies.SlotNumber `protobuf:"bytes,12,opt,name=slot_number,json=SlotNumber,proto3,oneof"`
+	SlotNumber *f1ap_ies.SlotNumber `protobuf:"bytes,12,opt,name=slot_number,json=SlotNumber,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 type PositioningMeasurementRequestIesValue_MeasurementPeriodicityExtended struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	MeasurementPeriodicityExtended f1ap_ies.MeasurementPeriodicityExtended `protobuf:"varint,13,opt,name=measurement_periodicity_extended,json=MeasurementPeriodicityExtended,proto3,enum=f1ap.v1.MeasurementPeriodicityExtended,oneof"`
+	MeasurementPeriodicityExtended f1ap_ies.MeasurementPeriodicityExtended `protobuf:"varint,13,opt,name=measurement_periodicity_extended,json=MeasurementPeriodicityExtended,proto3,enum=f1ap.v1.MeasurementPeriodicityExtended,oneof" aper:"choiceIdx:13,"`
 }
 
 func (*PositioningMeasurementRequestIesValue_TransactionId) isPositioningMeasurementRequestIesValue_PositioningMeasurementRequestIes() {
@@ -28186,10 +28186,10 @@ type PositioningMeasurementRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningMeasurementRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningMeasurementRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningMeasurementRequestIes) Reset() {
@@ -28393,27 +28393,27 @@ type isPositioningMeasurementResponseIesValue_PositioningMeasurementResponseIes 
 
 type PositioningMeasurementResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningMeasurementResponseIesValue_LmfMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof"`
+	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningMeasurementResponseIesValue_RanMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof"`
+	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningMeasurementResponseIesValue_PosMeasurementResultList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	PosMeasurementResultList *f1ap_ies.PosMeasurementResultList `protobuf:"bytes,4,opt,name=pos_measurement_result_list,json=PosMeasurementResultList,proto3,oneof"`
+	PosMeasurementResultList *f1ap_ies.PosMeasurementResultList `protobuf:"bytes,4,opt,name=pos_measurement_result_list,json=PosMeasurementResultList,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PositioningMeasurementResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*PositioningMeasurementResponseIesValue_TransactionId) isPositioningMeasurementResponseIesValue_PositioningMeasurementResponseIes() {
@@ -28439,10 +28439,10 @@ type PositioningMeasurementResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningMeasurementResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningMeasurementResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningMeasurementResponseIes) Reset() {
@@ -28646,27 +28646,27 @@ type isPositioningMeasurementFailureIesValue_PositioningMeasurementFailureIes in
 
 type PositioningMeasurementFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningMeasurementFailureIesValue_LmfMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof"`
+	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningMeasurementFailureIesValue_RanMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof"`
+	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningMeasurementFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,4,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,4,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PositioningMeasurementFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*PositioningMeasurementFailureIesValue_TransactionId) isPositioningMeasurementFailureIesValue_PositioningMeasurementFailureIes() {
@@ -28692,10 +28692,10 @@ type PositioningMeasurementFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningMeasurementFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningMeasurementFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningMeasurementFailureIes) Reset() {
@@ -28891,22 +28891,22 @@ type isPositioningMeasurementReportIesValue_PositioningMeasurementReportIes inte
 
 type PositioningMeasurementReportIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningMeasurementReportIesValue_LmfMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof"`
+	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningMeasurementReportIesValue_RanMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof"`
+	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningMeasurementReportIesValue_PosMeasurementResultList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	PosMeasurementResultList *f1ap_ies.PosMeasurementResultList `protobuf:"bytes,4,opt,name=pos_measurement_result_list,json=PosMeasurementResultList,proto3,oneof"`
+	PosMeasurementResultList *f1ap_ies.PosMeasurementResultList `protobuf:"bytes,4,opt,name=pos_measurement_result_list,json=PosMeasurementResultList,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*PositioningMeasurementReportIesValue_TransactionId) isPositioningMeasurementReportIesValue_PositioningMeasurementReportIes() {
@@ -28929,10 +28929,10 @@ type PositioningMeasurementReportIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningMeasurementReportIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningMeasurementReportIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningMeasurementReportIes) Reset() {
@@ -29120,17 +29120,17 @@ type isPositioningMeasurementAbortIesValue_PositioningMeasurementAbortIes interf
 
 type PositioningMeasurementAbortIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningMeasurementAbortIesValue_LmfMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof"`
+	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningMeasurementAbortIesValue_RanMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof"`
+	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*PositioningMeasurementAbortIesValue_TransactionId) isPositioningMeasurementAbortIesValue_PositioningMeasurementAbortIes() {
@@ -29150,10 +29150,10 @@ type PositioningMeasurementAbortIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningMeasurementAbortIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningMeasurementAbortIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningMeasurementAbortIes) Reset() {
@@ -29349,22 +29349,22 @@ type isPositioningMeasurementFailureIndicationIesValue_PositioningMeasurementFai
 
 type PositioningMeasurementFailureIndicationIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningMeasurementFailureIndicationIesValue_LmfMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof"`
+	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningMeasurementFailureIndicationIesValue_RanMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof"`
+	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningMeasurementFailureIndicationIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,4,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,4,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*PositioningMeasurementFailureIndicationIesValue_TransactionId) isPositioningMeasurementFailureIndicationIesValue_PositioningMeasurementFailureIndicationIes() {
@@ -29387,10 +29387,10 @@ type PositioningMeasurementFailureIndicationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningMeasurementFailureIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningMeasurementFailureIndicationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningMeasurementFailureIndicationIes) Reset() {
@@ -29586,22 +29586,22 @@ type isPositioningMeasurementUpdateIesValue_PositioningMeasurementUpdateIes inte
 
 type PositioningMeasurementUpdateIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningMeasurementUpdateIesValue_LmfMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof"`
+	LmfMeasurementId *f1ap_ies.LmfMeasurementId `protobuf:"bytes,2,opt,name=lmf_measurement_id,json=LMF-MeasurementID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningMeasurementUpdateIesValue_RanMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof"`
+	RanMeasurementId *f1ap_ies.RanMeasurementId `protobuf:"bytes,3,opt,name=ran_measurement_id,json=RAN-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningMeasurementUpdateIesValue_Srsconfiguration struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	Srsconfiguration *f1ap_ies.Srsconfiguration `protobuf:"bytes,4,opt,name=srsconfiguration,json=SRSConfiguration,proto3,oneof"`
+	Srsconfiguration *f1ap_ies.Srsconfiguration `protobuf:"bytes,4,opt,name=srsconfiguration,json=SRSConfiguration,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*PositioningMeasurementUpdateIesValue_TransactionId) isPositioningMeasurementUpdateIesValue_PositioningMeasurementUpdateIes() {
@@ -29624,10 +29624,10 @@ type PositioningMeasurementUpdateIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningMeasurementUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningMeasurementUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningMeasurementUpdateIes) Reset() {
@@ -29815,17 +29815,17 @@ type isTrpinformationRequestIesValue_TrpinformationRequestIes interface {
 
 type TrpinformationRequestIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type TrpinformationRequestIesValue_Trplist struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Trplist *f1ap_ies.Trplist `protobuf:"bytes,2,opt,name=trplist,json=TRPList,proto3,oneof"`
+	Trplist *f1ap_ies.Trplist `protobuf:"bytes,2,opt,name=trplist,json=TRPList,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type TrpinformationRequestIesValue_TrpinformationTypeListTrpreq struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	TrpinformationTypeListTrpreq *TrpinformationTypeListTrpreq `protobuf:"bytes,3,opt,name=trpinformation_type_list_trpreq,json=TRPInformationTypeListTRPReq,proto3,oneof"`
+	TrpinformationTypeListTrpreq *TrpinformationTypeListTrpreq `protobuf:"bytes,3,opt,name=trpinformation_type_list_trpreq,json=TRPInformationTypeListTRPReq,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*TrpinformationRequestIesValue_TransactionId) isTrpinformationRequestIesValue_TrpinformationRequestIes() {
@@ -29845,10 +29845,10 @@ type TrpinformationRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *TrpinformationRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *TrpinformationRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *TrpinformationRequestIes) Reset() {
@@ -30126,17 +30126,17 @@ type isTrpinformationResponseIesValue_TrpinformationResponseIes interface {
 
 type TrpinformationResponseIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type TrpinformationResponseIesValue_TrpinformationListTrpresp struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	TrpinformationListTrpresp *TrpinformationListTrpresp `protobuf:"bytes,2,opt,name=trpinformation_list_trpresp,json=TRPInformationListTRPResp,proto3,oneof"`
+	TrpinformationListTrpresp *TrpinformationListTrpresp `protobuf:"bytes,2,opt,name=trpinformation_list_trpresp,json=TRPInformationListTRPResp,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type TrpinformationResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*TrpinformationResponseIesValue_TransactionId) isTrpinformationResponseIesValue_TrpinformationResponseIes() {
@@ -30156,10 +30156,10 @@ type TrpinformationResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *TrpinformationResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *TrpinformationResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *TrpinformationResponseIes) Reset() {
@@ -30437,17 +30437,17 @@ type isTrpinformationFailureIesValue_TrpinformationFailureIes interface {
 
 type TrpinformationFailureIesValue_TransactionId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof"`
+	TransactionId *f1ap_ies.TransactionId `protobuf:"bytes,1,opt,name=transaction_id,json=TransactionID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type TrpinformationFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,2,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type TrpinformationFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*TrpinformationFailureIesValue_TransactionId) isTrpinformationFailureIesValue_TrpinformationFailureIes() {
@@ -30467,10 +30467,10 @@ type TrpinformationFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *TrpinformationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *TrpinformationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *TrpinformationFailureIes) Reset() {
@@ -30658,17 +30658,17 @@ type isPositioningInformationRequestIesValue_PositioningInformationRequestIes in
 
 type PositioningInformationRequestIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningInformationRequestIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningInformationRequestIesValue_RequestedSrstransmissionCharacteristics struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	RequestedSrstransmissionCharacteristics *f1ap_ies.RequestedSrstransmissionCharacteristics `protobuf:"bytes,3,opt,name=requested_srstransmission_characteristics,json=RequestedSRSTransmissionCharacteristics,proto3,oneof"`
+	RequestedSrstransmissionCharacteristics *f1ap_ies.RequestedSrstransmissionCharacteristics `protobuf:"bytes,3,opt,name=requested_srstransmission_characteristics,json=RequestedSRSTransmissionCharacteristics,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*PositioningInformationRequestIesValue_GnbCuUeF1ApId) isPositioningInformationRequestIesValue_PositioningInformationRequestIes() {
@@ -30688,10 +30688,10 @@ type PositioningInformationRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningInformationRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningInformationRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningInformationRequestIes) Reset() {
@@ -30895,27 +30895,27 @@ type isPositioningInformationResponseIesValue_PositioningInformationResponseIes 
 
 type PositioningInformationResponseIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningInformationResponseIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningInformationResponseIesValue_Srsconfiguration struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Srsconfiguration *f1ap_ies.Srsconfiguration `protobuf:"bytes,3,opt,name=srsconfiguration,json=SRSConfiguration,proto3,oneof"`
+	Srsconfiguration *f1ap_ies.Srsconfiguration `protobuf:"bytes,3,opt,name=srsconfiguration,json=SRSConfiguration,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningInformationResponseIesValue_RelativeTime1900 struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RelativeTime1900 *f1ap_ies.RelativeTime1900 `protobuf:"bytes,4,opt,name=relative_time1900,json=RelativeTime1900,proto3,oneof"`
+	RelativeTime1900 *f1ap_ies.RelativeTime1900 `protobuf:"bytes,4,opt,name=relative_time1900,json=RelativeTime1900,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PositioningInformationResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*PositioningInformationResponseIesValue_GnbCuUeF1ApId) isPositioningInformationResponseIesValue_PositioningInformationResponseIes() {
@@ -30941,10 +30941,10 @@ type PositioningInformationResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningInformationResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningInformationResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningInformationResponseIes) Reset() {
@@ -31140,22 +31140,22 @@ type isPositioningInformationFailureIesValue_PositioningInformationFailureIes in
 
 type PositioningInformationFailureIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningInformationFailureIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningInformationFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningInformationFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*PositioningInformationFailureIesValue_GnbCuUeF1ApId) isPositioningInformationFailureIesValue_PositioningInformationFailureIes() {
@@ -31178,10 +31178,10 @@ type PositioningInformationFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningInformationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningInformationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningInformationFailureIes) Reset() {
@@ -31377,22 +31377,22 @@ type isPositioningActivationRequestIesValue_PositioningActivationRequestIes inte
 
 type PositioningActivationRequestIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningActivationRequestIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningActivationRequestIesValue_Srstype struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Srstype *Srstype `protobuf:"bytes,3,opt,name=srstype,json=SRSType,proto3,oneof"`
+	Srstype *Srstype `protobuf:"bytes,3,opt,name=srstype,json=SRSType,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningActivationRequestIesValue_RelativeTime1900 struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RelativeTime1900 *f1ap_ies.RelativeTime1900 `protobuf:"bytes,4,opt,name=relative_time1900,json=RelativeTime1900,proto3,oneof"`
+	RelativeTime1900 *f1ap_ies.RelativeTime1900 `protobuf:"bytes,4,opt,name=relative_time1900,json=RelativeTime1900,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*PositioningActivationRequestIesValue_GnbCuUeF1ApId) isPositioningActivationRequestIesValue_PositioningActivationRequestIes() {
@@ -31415,10 +31415,10 @@ type PositioningActivationRequestIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningActivationRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningActivationRequestIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningActivationRequestIes) Reset() {
@@ -31646,17 +31646,17 @@ type isSrstype_Srstype interface {
 
 type Srstype_SemipersistentSrs struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	SemipersistentSrs *SemipersistentSrs `protobuf:"bytes,1,opt,name=semipersistent_srs,json=semipersistentSRS,proto3,oneof"`
+	SemipersistentSrs *SemipersistentSrs `protobuf:"bytes,1,opt,name=semipersistent_srs,json=semipersistentSRS,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type Srstype_AperiodicSrs struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	AperiodicSrs *AperiodicSrs `protobuf:"bytes,2,opt,name=aperiodic_srs,json=aperiodicSRS,proto3,oneof"`
+	AperiodicSrs *AperiodicSrs `protobuf:"bytes,2,opt,name=aperiodic_srs,json=aperiodicSRS,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type Srstype_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *SrstypeExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *SrstypeExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*Srstype_SemipersistentSrs) isSrstype_Srstype() {}
@@ -31715,9 +31715,9 @@ type SemipersistentSrs struct {
 
 	SRsresourceSetId *f1ap_ies.SrsresourceSetId `protobuf:"bytes,1,opt,name=s_rsresource_set_id,json=sRSResourceSetID,proto3" json:"s_rsresource_set_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SRsspatialRelation *f1ap_ies.SpatialRelationInfo `protobuf:"bytes,2,opt,name=s_rsspatial_relation,json=sRSSpatialRelation,proto3,oneof" json:"s_rsspatial_relation,omitempty"`
+	SRsspatialRelation *f1ap_ies.SpatialRelationInfo `protobuf:"bytes,2,opt,name=s_rsspatial_relation,json=sRSSpatialRelation,proto3,oneof" json:"s_rsspatial_relation,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SemipersistentSrsExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SemipersistentSrsExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SemipersistentSrs) Reset() {
@@ -31822,11 +31822,11 @@ type AperiodicSrs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	Aperiodic AperiodicAperiodicSrs `protobuf:"varint,1,opt,name=aperiodic,proto3,enum=f1ap.v1.AperiodicAperiodicSrs" json:"aperiodic,omitempty"`
+	Aperiodic AperiodicAperiodicSrs `protobuf:"varint,1,opt,name=aperiodic,proto3,enum=f1ap.v1.AperiodicAperiodicSrs" json:"aperiodic,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,"
-	SRsresourceTrigger *f1ap_ies.SrsresourceTrigger `protobuf:"bytes,2,opt,name=s_rsresource_trigger,json=sRSResourceTrigger,proto3,oneof" json:"s_rsresource_trigger,omitempty"`
+	SRsresourceTrigger *f1ap_ies.SrsresourceTrigger `protobuf:"bytes,2,opt,name=s_rsresource_trigger,json=sRSResourceTrigger,proto3,oneof" json:"s_rsresource_trigger,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AperiodicSrsExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AperiodicSrsExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AperiodicSrs) Reset() {
@@ -31980,27 +31980,27 @@ type isPositioningActivationResponseIesValue_PositioningActivationResponseIes in
 
 type PositioningActivationResponseIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningActivationResponseIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningActivationResponseIesValue_SystemFrameNumber struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	SystemFrameNumber *f1ap_ies.SystemFrameNumber `protobuf:"bytes,3,opt,name=system_frame_number,json=SystemFrameNumber,proto3,oneof"`
+	SystemFrameNumber *f1ap_ies.SystemFrameNumber `protobuf:"bytes,3,opt,name=system_frame_number,json=SystemFrameNumber,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningActivationResponseIesValue_SlotNumber struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	SlotNumber *f1ap_ies.SlotNumber `protobuf:"bytes,4,opt,name=slot_number,json=SlotNumber,proto3,oneof"`
+	SlotNumber *f1ap_ies.SlotNumber `protobuf:"bytes,4,opt,name=slot_number,json=SlotNumber,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PositioningActivationResponseIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*PositioningActivationResponseIesValue_GnbCuUeF1ApId) isPositioningActivationResponseIesValue_PositioningActivationResponseIes() {
@@ -32026,10 +32026,10 @@ type PositioningActivationResponseIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningActivationResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningActivationResponseIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningActivationResponseIes) Reset() {
@@ -32225,22 +32225,22 @@ type isPositioningActivationFailureIesValue_PositioningActivationFailureIes inte
 
 type PositioningActivationFailureIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningActivationFailureIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningActivationFailureIesValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,3,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningActivationFailureIesValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*PositioningActivationFailureIesValue_GnbCuUeF1ApId) isPositioningActivationFailureIesValue_PositioningActivationFailureIes() {
@@ -32263,10 +32263,10 @@ type PositioningActivationFailureIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningActivationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningActivationFailureIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningActivationFailureIes) Reset() {
@@ -32454,17 +32454,17 @@ type isPositioningDeactivationIesValue_PositioningDeactivationIes interface {
 
 type PositioningDeactivationIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningDeactivationIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningDeactivationIesValue_AbortTransmission struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	AbortTransmission *f1ap_ies.AbortTransmission `protobuf:"bytes,3,opt,name=abort_transmission,json=AbortTransmission,proto3,oneof"`
+	AbortTransmission *f1ap_ies.AbortTransmission `protobuf:"bytes,3,opt,name=abort_transmission,json=AbortTransmission,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*PositioningDeactivationIesValue_GnbCuUeF1ApId) isPositioningDeactivationIesValue_PositioningDeactivationIes() {
@@ -32484,10 +32484,10 @@ type PositioningDeactivationIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningDeactivationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningDeactivationIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningDeactivationIes) Reset() {
@@ -32683,22 +32683,22 @@ type isPositioningInformationUpdateIesValue_PositioningInformationUpdateIes inte
 
 type PositioningInformationUpdateIesValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PositioningInformationUpdateIesValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PositioningInformationUpdateIesValue_Srsconfiguration struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	Srsconfiguration *f1ap_ies.Srsconfiguration `protobuf:"bytes,3,opt,name=srsconfiguration,json=SRSConfiguration,proto3,oneof"`
+	Srsconfiguration *f1ap_ies.Srsconfiguration `protobuf:"bytes,3,opt,name=srsconfiguration,json=SRSConfiguration,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PositioningInformationUpdateIesValue_RelativeTime1900 struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RelativeTime1900 *f1ap_ies.RelativeTime1900 `protobuf:"bytes,4,opt,name=relative_time1900,json=RelativeTime1900,proto3,oneof"`
+	RelativeTime1900 *f1ap_ies.RelativeTime1900 `protobuf:"bytes,4,opt,name=relative_time1900,json=RelativeTime1900,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*PositioningInformationUpdateIesValue_GnbCuUeF1ApId) isPositioningInformationUpdateIesValue_PositioningInformationUpdateIes() {
@@ -32721,10 +32721,10 @@ type PositioningInformationUpdateIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *PositioningInformationUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *PositioningInformationUpdateIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PositioningInformationUpdateIes) Reset() {
@@ -32952,42 +32952,42 @@ type isECIdmeasurementInitiationRequestIEsValue_ECidmeasurementInitiationRequest
 
 type ECIdmeasurementInitiationRequestIEsValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ECIdmeasurementInitiationRequestIEsValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ECIdmeasurementInitiationRequestIEsValue_LmfUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof"`
+	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ECIdmeasurementInitiationRequestIEsValue_RanUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof"`
+	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ECIdmeasurementInitiationRequestIEsValue_ECidReportCharacteristics struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	ECidReportCharacteristics f1ap_ies.ECIdReportCharacteristics `protobuf:"varint,5,opt,name=e_cid_report_characteristics,json=E-CID-ReportCharacteristics,proto3,enum=f1ap.v1.ECIdReportCharacteristics,oneof"`
+	ECidReportCharacteristics f1ap_ies.ECIdReportCharacteristics `protobuf:"varint,5,opt,name=e_cid_report_characteristics,json=E-CID-ReportCharacteristics,proto3,enum=f1ap.v1.ECIdReportCharacteristics,oneof" aper:"choiceIdx:5,"`
 }
 
 type ECIdmeasurementInitiationRequestIEsValue_MeasurementPeriodicity struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	MeasurementPeriodicity f1ap_ies.MeasurementPeriodicity `protobuf:"varint,6,opt,name=measurement_periodicity,json=MeasurementPeriodicity,proto3,enum=f1ap.v1.MeasurementPeriodicity,oneof"`
+	MeasurementPeriodicity f1ap_ies.MeasurementPeriodicity `protobuf:"varint,6,opt,name=measurement_periodicity,json=MeasurementPeriodicity,proto3,enum=f1ap.v1.MeasurementPeriodicity,oneof" aper:"choiceIdx:6,"`
 }
 
 type ECIdmeasurementInitiationRequestIEsValue_ECidMeasurementQuantities struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	ECidMeasurementQuantities *f1ap_ies.ECIdMeasurementQuantities `protobuf:"bytes,7,opt,name=e_cid_measurement_quantities,json=E-CID-MeasurementQuantities,proto3,oneof"`
+	ECidMeasurementQuantities *f1ap_ies.ECIdMeasurementQuantities `protobuf:"bytes,7,opt,name=e_cid_measurement_quantities,json=E-CID-MeasurementQuantities,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type ECIdmeasurementInitiationRequestIEsValue_PosMeasurementPeriodicityNrAoA struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	PosMeasurementPeriodicityNrAoA f1ap_ies.PosMeasurementPeriodicityNrAoA `protobuf:"varint,8,opt,name=pos_measurement_periodicity_nr_ao_a,json=PosMeasurementPeriodicityNR-AoA,proto3,enum=f1ap.v1.PosMeasurementPeriodicityNrAoA,oneof"`
+	PosMeasurementPeriodicityNrAoA f1ap_ies.PosMeasurementPeriodicityNrAoA `protobuf:"varint,8,opt,name=pos_measurement_periodicity_nr_ao_a,json=PosMeasurementPeriodicityNR-AoA,proto3,enum=f1ap.v1.PosMeasurementPeriodicityNrAoA,oneof" aper:"choiceIdx:8,"`
 }
 
 func (*ECIdmeasurementInitiationRequestIEsValue_GnbCuUeF1ApId) isECIdmeasurementInitiationRequestIEsValue_ECidmeasurementInitiationRequestIes() {
@@ -33022,10 +33022,10 @@ type ECIdmeasurementInitiationRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ECIdmeasurementInitiationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ECIdmeasurementInitiationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ECIdmeasurementInitiationRequestIEs) Reset() {
@@ -33245,37 +33245,37 @@ type isECIdmeasurementInitiationResponseIEsValue_ECidmeasurementInitiationRespon
 
 type ECIdmeasurementInitiationResponseIEsValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ECIdmeasurementInitiationResponseIEsValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ECIdmeasurementInitiationResponseIEsValue_LmfUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof"`
+	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ECIdmeasurementInitiationResponseIEsValue_RanUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof"`
+	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ECIdmeasurementInitiationResponseIEsValue_ECidMeasurementResult struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	ECidMeasurementResult *f1ap_ies.ECIdMeasurementResult `protobuf:"bytes,5,opt,name=e_cid_measurement_result,json=E-CID-MeasurementResult,proto3,oneof"`
+	ECidMeasurementResult *f1ap_ies.ECIdMeasurementResult `protobuf:"bytes,5,opt,name=e_cid_measurement_result,json=E-CID-MeasurementResult,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type ECIdmeasurementInitiationResponseIEsValue_CellPortionId struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	CellPortionId *f1ap_ies.CellPortionID `protobuf:"bytes,6,opt,name=cell_portion_id,json=Cell-Portion-ID,proto3,oneof"`
+	CellPortionId *f1ap_ies.CellPortionID `protobuf:"bytes,6,opt,name=cell_portion_id,json=Cell-Portion-ID,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type ECIdmeasurementInitiationResponseIEsValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,7,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,7,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 func (*ECIdmeasurementInitiationResponseIEsValue_GnbCuUeF1ApId) isECIdmeasurementInitiationResponseIEsValue_ECidmeasurementInitiationResponseIes() {
@@ -33307,10 +33307,10 @@ type ECIdmeasurementInitiationResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ECIdmeasurementInitiationResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ECIdmeasurementInitiationResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ECIdmeasurementInitiationResponseIEs) Reset() {
@@ -33522,32 +33522,32 @@ type isECIdmeasurementInitiationFailureIEsValue_ECidmeasurementInitiationFailure
 
 type ECIdmeasurementInitiationFailureIEsValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ECIdmeasurementInitiationFailureIEsValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ECIdmeasurementInitiationFailureIEsValue_LmfUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof"`
+	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ECIdmeasurementInitiationFailureIEsValue_RanUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof"`
+	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ECIdmeasurementInitiationFailureIEsValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,5,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,5,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type ECIdmeasurementInitiationFailureIEsValue_CriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,6,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof"`
+	CriticalityDiagnostics *f1ap_ies.CriticalityDiagnostics `protobuf:"bytes,6,opt,name=criticality_diagnostics,json=CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 func (*ECIdmeasurementInitiationFailureIEsValue_GnbCuUeF1ApId) isECIdmeasurementInitiationFailureIEsValue_ECidmeasurementInitiationFailureIes() {
@@ -33576,10 +33576,10 @@ type ECIdmeasurementInitiationFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ECIdmeasurementInitiationFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ECIdmeasurementInitiationFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ECIdmeasurementInitiationFailureIEs) Reset() {
@@ -33783,27 +33783,27 @@ type isECIdmeasurementFailureIndicationIEsValue_ECidmeasurementFailureIndication
 
 type ECIdmeasurementFailureIndicationIEsValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ECIdmeasurementFailureIndicationIEsValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ECIdmeasurementFailureIndicationIEsValue_LmfUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof"`
+	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ECIdmeasurementFailureIndicationIEsValue_RanUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof"`
+	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ECIdmeasurementFailureIndicationIEsValue_Cause struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	Cause *f1ap_ies.Cause `protobuf:"bytes,5,opt,name=cause,json=Cause,proto3,oneof"`
+	Cause *f1ap_ies.Cause `protobuf:"bytes,5,opt,name=cause,json=Cause,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*ECIdmeasurementFailureIndicationIEsValue_GnbCuUeF1ApId) isECIdmeasurementFailureIndicationIEsValue_ECidmeasurementFailureIndicationIes() {
@@ -33829,10 +33829,10 @@ type ECIdmeasurementFailureIndicationIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ECIdmeasurementFailureIndicationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ECIdmeasurementFailureIndicationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ECIdmeasurementFailureIndicationIEs) Reset() {
@@ -34044,32 +34044,32 @@ type isECIdmeasurementReportIEsValue_ECidmeasurementReportIes interface {
 
 type ECIdmeasurementReportIEsValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ECIdmeasurementReportIEsValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ECIdmeasurementReportIEsValue_LmfUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof"`
+	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ECIdmeasurementReportIEsValue_RanUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof"`
+	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ECIdmeasurementReportIEsValue_ECidMeasurementResult struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	ECidMeasurementResult *f1ap_ies.ECIdMeasurementResult `protobuf:"bytes,5,opt,name=e_cid_measurement_result,json=E-CID-MeasurementResult,proto3,oneof"`
+	ECidMeasurementResult *f1ap_ies.ECIdMeasurementResult `protobuf:"bytes,5,opt,name=e_cid_measurement_result,json=E-CID-MeasurementResult,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type ECIdmeasurementReportIEsValue_CellPortionId struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	CellPortionId *f1ap_ies.CellPortionID `protobuf:"bytes,6,opt,name=cell_portion_id,json=Cell-Portion-ID,proto3,oneof"`
+	CellPortionId *f1ap_ies.CellPortionID `protobuf:"bytes,6,opt,name=cell_portion_id,json=Cell-Portion-ID,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 func (*ECIdmeasurementReportIEsValue_GnbCuUeF1ApId) isECIdmeasurementReportIEsValue_ECidmeasurementReportIes() {
@@ -34098,10 +34098,10 @@ type ECIdmeasurementReportIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ECIdmeasurementReportIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ECIdmeasurementReportIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ECIdmeasurementReportIEs) Reset() {
@@ -34297,22 +34297,22 @@ type isECIdmeasurementTerminationCommandIEsValue_ECidmeasurementTerminationComma
 
 type ECIdmeasurementTerminationCommandIEsValue_GnbCuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof"`
+	GnbCuUeF1ApId *f1ap_ies.GnbCUUEF1ApID `protobuf:"bytes,1,opt,name=gnb_cu_ue_f1_ap_id,json=GNB-CU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ECIdmeasurementTerminationCommandIEsValue_GnbDuUeF1ApId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof"`
+	GnbDuUeF1ApId *f1ap_ies.GnbDUUEF1ApID `protobuf:"bytes,2,opt,name=gnb_du_ue_f1_ap_id,json=GNB-DU-UE-F1AP-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ECIdmeasurementTerminationCommandIEsValue_LmfUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof"`
+	LmfUeMeasurementId *f1ap_ies.LmfUEMeasurementId `protobuf:"bytes,3,opt,name=lmf_ue_measurement_id,json=LMF-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ECIdmeasurementTerminationCommandIEsValue_RanUeMeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof"`
+	RanUeMeasurementId *f1ap_ies.RanUEMeasurementId `protobuf:"bytes,4,opt,name=ran_ue_measurement_id,json=RAN-UE-MeasurementID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*ECIdmeasurementTerminationCommandIEsValue_GnbCuUeF1ApId) isECIdmeasurementTerminationCommandIEsValue_ECidmeasurementTerminationCommandIes() {
@@ -34335,10 +34335,10 @@ type ECIdmeasurementTerminationCommandIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id          *f1ap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	Criticality f1ap_commondatatypes.Criticality   `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ECIdmeasurementTerminationCommandIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ECIdmeasurementTerminationCommandIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ECIdmeasurementTerminationCommandIEs) Reset() {

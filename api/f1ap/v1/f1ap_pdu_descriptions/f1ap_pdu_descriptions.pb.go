@@ -156,22 +156,22 @@ type isF1ApPDu_F1ApPdu interface {
 
 type F1ApPDu_InitiatingMessage struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	InitiatingMessage *InitiatingMessage `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3,oneof"`
+	InitiatingMessage *InitiatingMessage `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type F1ApPDu_SuccessfulOutcome struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	SuccessfulOutcome *SuccessfulOutcome `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3,oneof"`
+	SuccessfulOutcome *SuccessfulOutcome `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type F1ApPDu_UnsuccessfulOutcome struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	UnsuccessfulOutcome *UnsuccessfulOutcome `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=unsuccessfulOutcome,proto3,oneof"`
+	UnsuccessfulOutcome *UnsuccessfulOutcome `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=unsuccessfulOutcome,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type F1ApPDu_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ChoiceExtension *F1ApPDuExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *F1ApPDuExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*F1ApPDu_InitiatingMessage) isF1ApPDu_F1ApPdu() {}
@@ -190,11 +190,11 @@ type InitiatingMessage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	// @inject_tag: aper:"canonicalOrder"
-	Value *InitiatingMessageF1ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Value *InitiatingMessageF1ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *InitiatingMessage) Reset() {
@@ -528,142 +528,142 @@ type isInitiatingMessageF1ApElementaryProcedures_ImValues interface {
 
 type InitiatingMessageF1ApElementaryProcedures_Reset_ struct {
 	// @inject_tag: aper:"valueExt"
-	Reset_ *f1ap_pdu_contents.Reset `protobuf:"bytes,1,opt,name=reset,json=ric_subscription,proto3,oneof"`
+	Reset_ *f1ap_pdu_contents.Reset `protobuf:"bytes,1,opt,name=reset,json=ric_subscription,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_F1SetupRequest struct {
 	// @inject_tag: aper:"valueExt"
-	F1SetupRequest *f1ap_pdu_contents.F1SetupRequest `protobuf:"bytes,2,opt,name=f1_setup_request,json=ric_subscription_delete,proto3,oneof"`
+	F1SetupRequest *f1ap_pdu_contents.F1SetupRequest `protobuf:"bytes,2,opt,name=f1_setup_request,json=ric_subscription_delete,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_GNbduconfigurationUpdate struct {
 	// @inject_tag: aper:"valueExt"
-	GNbduconfigurationUpdate *f1ap_pdu_contents.GnbduconfigurationUpdate `protobuf:"bytes,3,opt,name=g_nbduconfiguration_update,json=gNBDUConfigurationUpdate,proto3,oneof"`
+	GNbduconfigurationUpdate *f1ap_pdu_contents.GnbduconfigurationUpdate `protobuf:"bytes,3,opt,name=g_nbduconfiguration_update,json=gNBDUConfigurationUpdate,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_GNbcuconfigurationUpdate struct {
 	// @inject_tag: aper:"valueExt"
-	GNbcuconfigurationUpdate *f1ap_pdu_contents.GnbcuconfigurationUpdate `protobuf:"bytes,4,opt,name=g_nbcuconfiguration_update,json=gNBCUConfigurationUpdate,proto3,oneof"`
+	GNbcuconfigurationUpdate *f1ap_pdu_contents.GnbcuconfigurationUpdate `protobuf:"bytes,4,opt,name=g_nbcuconfiguration_update,json=gNBCUConfigurationUpdate,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_UEcontextSetupRequest struct {
 	// @inject_tag: aper:"valueExt"
-	UEcontextSetupRequest *f1ap_pdu_contents.UecontextSetupRequest `protobuf:"bytes,5,opt,name=u_econtext_setup_request,json=uEContextSetup,proto3,oneof"`
+	UEcontextSetupRequest *f1ap_pdu_contents.UecontextSetupRequest `protobuf:"bytes,5,opt,name=u_econtext_setup_request,json=uEContextSetup,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_UEcontextReleaseCommand struct {
 	// @inject_tag: aper:"valueExt"
-	UEcontextReleaseCommand *f1ap_pdu_contents.UecontextReleaseCommand `protobuf:"bytes,6,opt,name=u_econtext_release_command,json=uEContextRelease,proto3,oneof"`
+	UEcontextReleaseCommand *f1ap_pdu_contents.UecontextReleaseCommand `protobuf:"bytes,6,opt,name=u_econtext_release_command,json=uEContextRelease,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_UEcontextModificationRequest struct {
 	// @inject_tag: aper:"valueExt"
-	UEcontextModificationRequest *f1ap_pdu_contents.UecontextModificationRequest `protobuf:"bytes,7,opt,name=u_econtext_modification_request,json=uEContextModification,proto3,oneof"`
+	UEcontextModificationRequest *f1ap_pdu_contents.UecontextModificationRequest `protobuf:"bytes,7,opt,name=u_econtext_modification_request,json=uEContextModification,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_UEcontextModificationRequired struct {
 	// @inject_tag: aper:"valueExt"
-	UEcontextModificationRequired *f1ap_pdu_contents.UecontextModificationRequired `protobuf:"bytes,8,opt,name=u_econtext_modification_required,json=uEContextModificationRequired,proto3,oneof"`
+	UEcontextModificationRequired *f1ap_pdu_contents.UecontextModificationRequired `protobuf:"bytes,8,opt,name=u_econtext_modification_required,json=uEContextModificationRequired,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_WriteReplaceWarningRequest struct {
 	// @inject_tag: aper:"valueExt"
-	WriteReplaceWarningRequest *f1ap_pdu_contents.WriteReplaceWarningRequest `protobuf:"bytes,9,opt,name=write_replace_warning_request,json=writeReplaceWarning,proto3,oneof"`
+	WriteReplaceWarningRequest *f1ap_pdu_contents.WriteReplaceWarningRequest `protobuf:"bytes,9,opt,name=write_replace_warning_request,json=writeReplaceWarning,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_PWscancelRequest struct {
 	// @inject_tag: aper:"valueExt"
-	PWscancelRequest *f1ap_pdu_contents.PwscancelRequest `protobuf:"bytes,10,opt,name=p_wscancel_request,json=pWSCancel,proto3,oneof"`
+	PWscancelRequest *f1ap_pdu_contents.PwscancelRequest `protobuf:"bytes,10,opt,name=p_wscancel_request,json=pWSCancel,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_ErrorIndication struct {
 	// @inject_tag: aper:"valueExt"
-	ErrorIndication *f1ap_pdu_contents.ErrorIndication `protobuf:"bytes,11,opt,name=error_indication,proto3,oneof"`
+	ErrorIndication *f1ap_pdu_contents.ErrorIndication `protobuf:"bytes,11,opt,name=error_indication,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_UEcontextReleaseRequest struct {
 	// @inject_tag: aper:"valueExt"
-	UEcontextReleaseRequest *f1ap_pdu_contents.UecontextReleaseRequest `protobuf:"bytes,12,opt,name=u_econtext_release_request,json=uEContextRelease,proto3,oneof"`
+	UEcontextReleaseRequest *f1ap_pdu_contents.UecontextReleaseRequest `protobuf:"bytes,12,opt,name=u_econtext_release_request,json=uEContextRelease,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_InitialUlrrcmessageTransfer struct {
 	// @inject_tag: aper:"valueExt"
-	InitialUlrrcmessageTransfer *f1ap_pdu_contents.InitialUlrrcmessageTransfer `protobuf:"bytes,13,opt,name=initial_ulrrcmessage_transfer,json=initialULRRCMessageTransfer,proto3,oneof"`
+	InitialUlrrcmessageTransfer *f1ap_pdu_contents.InitialUlrrcmessageTransfer `protobuf:"bytes,13,opt,name=initial_ulrrcmessage_transfer,json=initialULRRCMessageTransfer,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_DLrrcmessageTransfer struct {
 	// @inject_tag: aper:"valueExt"
-	DLrrcmessageTransfer *f1ap_pdu_contents.DlrrcmessageTransfer `protobuf:"bytes,14,opt,name=d_lrrcmessage_transfer,json=dLRRCMessageTransfer,proto3,oneof"`
+	DLrrcmessageTransfer *f1ap_pdu_contents.DlrrcmessageTransfer `protobuf:"bytes,14,opt,name=d_lrrcmessage_transfer,json=dLRRCMessageTransfer,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_ULrrcmessageTransfer struct {
 	// @inject_tag: aper:"valueExt"
-	ULrrcmessageTransfer *f1ap_pdu_contents.UlrrcmessageTransfer `protobuf:"bytes,15,opt,name=u_lrrcmessage_transfer,json=uLRRCMessageTransfer,proto3,oneof"`
+	ULrrcmessageTransfer *f1ap_pdu_contents.UlrrcmessageTransfer `protobuf:"bytes,15,opt,name=u_lrrcmessage_transfer,json=uLRRCMessageTransfer,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_UEinactivityNotification struct {
 	// @inject_tag: aper:"valueExt"
-	UEinactivityNotification *f1ap_pdu_contents.UeinactivityNotification `protobuf:"bytes,16,opt,name=u_einactivity_notification,json=uEInactivityNotification,proto3,oneof"`
+	UEinactivityNotification *f1ap_pdu_contents.UeinactivityNotification `protobuf:"bytes,16,opt,name=u_einactivity_notification,json=uEInactivityNotification,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_GNbduresourceCoordinationRequest struct {
 	// @inject_tag: aper:"valueExt"
-	GNbduresourceCoordinationRequest *f1ap_pdu_contents.GnbduresourceCoordinationRequest `protobuf:"bytes,17,opt,name=g_nbduresource_coordination_request,json=gNBDUResourceCoordination,proto3,oneof"`
+	GNbduresourceCoordinationRequest *f1ap_pdu_contents.GnbduresourceCoordinationRequest `protobuf:"bytes,17,opt,name=g_nbduresource_coordination_request,json=gNBDUResourceCoordination,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_PrivateMessage struct {
 	// @inject_tag: aper:"valueExt"
-	PrivateMessage *f1ap_pdu_contents.PrivateMessage `protobuf:"bytes,18,opt,name=private_message,json=privateMessage,proto3,oneof"`
+	PrivateMessage *f1ap_pdu_contents.PrivateMessage `protobuf:"bytes,18,opt,name=private_message,json=privateMessage,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_SystemInformationDeliveryCommand struct {
 	// @inject_tag: aper:"valueExt"
-	SystemInformationDeliveryCommand *f1ap_pdu_contents.SystemInformationDeliveryCommand `protobuf:"bytes,19,opt,name=system_information_delivery_command,json=systemInformationDelivery,proto3,oneof"`
+	SystemInformationDeliveryCommand *f1ap_pdu_contents.SystemInformationDeliveryCommand `protobuf:"bytes,19,opt,name=system_information_delivery_command,json=systemInformationDelivery,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_Paging struct {
 	// @inject_tag: aper:"valueExt"
-	Paging *f1ap_pdu_contents.Paging `protobuf:"bytes,20,opt,name=paging,proto3,oneof"`
+	Paging *f1ap_pdu_contents.Paging `protobuf:"bytes,20,opt,name=paging,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_Notify struct {
 	// @inject_tag: aper:"valueExt"
-	Notify *f1ap_pdu_contents.Notify `protobuf:"bytes,21,opt,name=notify,proto3,oneof"`
+	Notify *f1ap_pdu_contents.Notify `protobuf:"bytes,21,opt,name=notify,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_NetworkAccessRateReduction struct {
 	// @inject_tag: aper:"valueExt"
-	NetworkAccessRateReduction *f1ap_pdu_contents.NetworkAccessRateReduction `protobuf:"bytes,22,opt,name=network_access_rate_reduction,json=networkAccessRateReduction,proto3,oneof"`
+	NetworkAccessRateReduction *f1ap_pdu_contents.NetworkAccessRateReduction `protobuf:"bytes,22,opt,name=network_access_rate_reduction,json=networkAccessRateReduction,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_PWsrestartIndication struct {
 	// @inject_tag: aper:"valueExt"
-	PWsrestartIndication *f1ap_pdu_contents.PwsrestartIndication `protobuf:"bytes,23,opt,name=p_wsrestart_indication,json=pWSRestartIndication,proto3,oneof"`
+	PWsrestartIndication *f1ap_pdu_contents.PwsrestartIndication `protobuf:"bytes,23,opt,name=p_wsrestart_indication,json=pWSRestartIndication,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_PWsfailureIndication struct {
 	// @inject_tag: aper:"valueExt"
-	PWsfailureIndication *f1ap_pdu_contents.PwsfailureIndication `protobuf:"bytes,24,opt,name=p_wsfailure_indication,json=pWSFailureIndication,proto3,oneof"`
+	PWsfailureIndication *f1ap_pdu_contents.PwsfailureIndication `protobuf:"bytes,24,opt,name=p_wsfailure_indication,json=pWSFailureIndication,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_GNbdustatusIndication struct {
 	// @inject_tag: aper:"valueExt"
-	GNbdustatusIndication *f1ap_pdu_contents.GnbdustatusIndication `protobuf:"bytes,25,opt,name=g_nbdustatus_indication,json=gNBDUStatusIndication,proto3,oneof"`
+	GNbdustatusIndication *f1ap_pdu_contents.GnbdustatusIndication `protobuf:"bytes,25,opt,name=g_nbdustatus_indication,json=gNBDUStatusIndication,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_RRcdeliveryReport struct {
 	// @inject_tag: aper:"valueExt"
-	RRcdeliveryReport *f1ap_pdu_contents.RrcdeliveryReport `protobuf:"bytes,26,opt,name=r_rcdelivery_report,json=rRCDeliveryReport,proto3,oneof"`
+	RRcdeliveryReport *f1ap_pdu_contents.RrcdeliveryReport `protobuf:"bytes,26,opt,name=r_rcdelivery_report,json=rRCDeliveryReport,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_F1RemovalRequest struct {
 	// @inject_tag: aper:"valueExt"
-	F1RemovalRequest *f1ap_pdu_contents.F1RemovalRequest `protobuf:"bytes,27,opt,name=f1_removal_request,json=f1Removal,proto3,oneof"`
+	F1RemovalRequest *f1ap_pdu_contents.F1RemovalRequest `protobuf:"bytes,27,opt,name=f1_removal_request,json=f1Removal,proto3,oneof" aper:"valueExt"`
 }
 
 type InitiatingMessageF1ApElementaryProcedures_TraceStart struct {
 	// @inject_tag: aper:"valueExt"
-	TraceStart *f1ap_pdu_contents.TraceStart `protobuf:"bytes,28,opt,name=trace_start,json=traceStart,proto3,oneof"`
+	TraceStart *f1ap_pdu_contents.TraceStart `protobuf:"bytes,28,opt,name=trace_start,json=traceStart,proto3,oneof" aper:"valueExt"`
 }
 
 func (*InitiatingMessageF1ApElementaryProcedures_Reset_) isInitiatingMessageF1ApElementaryProcedures_ImValues() {
@@ -758,11 +758,11 @@ type SuccessfulOutcome struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	// @inject_tag: aper:"canonicalOrder"
-	Value *SuccessfulOutcomeF1ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Value *SuccessfulOutcomeF1ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *SuccessfulOutcome) Reset() {
@@ -896,17 +896,17 @@ type isSuccessfulOutcomeF1ApElementaryProcedures_SoValues interface {
 
 type SuccessfulOutcomeF1ApElementaryProcedures_ResetAcknowledge struct {
 	// @inject_tag: aper:"valueExt"
-	ResetAcknowledge *f1ap_pdu_contents.ResetAcknowledge `protobuf:"bytes,1,opt,name=reset_acknowledge,json=ric_subscription,proto3,oneof"`
+	ResetAcknowledge *f1ap_pdu_contents.ResetAcknowledge `protobuf:"bytes,1,opt,name=reset_acknowledge,json=ric_subscription,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeF1ApElementaryProcedures_F1SetupResponse struct {
 	// @inject_tag: aper:"valueExt"
-	F1SetupResponse *f1ap_pdu_contents.F1SetupResponse `protobuf:"bytes,2,opt,name=f1_setup_response,proto3,oneof"`
+	F1SetupResponse *f1ap_pdu_contents.F1SetupResponse `protobuf:"bytes,2,opt,name=f1_setup_response,proto3,oneof" aper:"valueExt"`
 }
 
 type SuccessfulOutcomeF1ApElementaryProcedures_GNbduconfigurationUpdateAcknowledge struct {
 	// @inject_tag: aper:"valueExt"
-	GNbduconfigurationUpdateAcknowledge *f1ap_pdu_contents.GnbduconfigurationUpdateAcknowledge `protobuf:"bytes,3,opt,name=g_nbduconfiguration_update_acknowledge,json=gNBDUConfigurationUpdate,proto3,oneof"`
+	GNbduconfigurationUpdateAcknowledge *f1ap_pdu_contents.GnbduconfigurationUpdateAcknowledge `protobuf:"bytes,3,opt,name=g_nbduconfiguration_update_acknowledge,json=gNBDUConfigurationUpdate,proto3,oneof" aper:"valueExt"`
 }
 
 func (*SuccessfulOutcomeF1ApElementaryProcedures_ResetAcknowledge) isSuccessfulOutcomeF1ApElementaryProcedures_SoValues() {
@@ -926,11 +926,11 @@ type UnsuccessfulOutcome struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality f1ap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=f1ap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	// @inject_tag: aper:"canonicalOrder"
-	Value *UnsuccessfulOutcomeF1ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Value *UnsuccessfulOutcomeF1ApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *UnsuccessfulOutcome) Reset() {
@@ -991,10 +991,10 @@ type UnsuccessfulOutcomeF1ApElementaryProcedures struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// Types that are assignable to SoValues:
+	// Types that are assignable to UoValues:
 	//	*UnsuccessfulOutcomeF1ApElementaryProcedures_F1SetupFailure
 	//	*UnsuccessfulOutcomeF1ApElementaryProcedures_GNbduconfigurationUpdateFailure
-	SoValues isUnsuccessfulOutcomeF1ApElementaryProcedures_SoValues `protobuf_oneof:"so_values"`
+	UoValues isUnsuccessfulOutcomeF1ApElementaryProcedures_UoValues `protobuf_oneof:"uo_values"`
 }
 
 func (x *UnsuccessfulOutcomeF1ApElementaryProcedures) Reset() {
@@ -1029,45 +1029,45 @@ func (*UnsuccessfulOutcomeF1ApElementaryProcedures) Descriptor() ([]byte, []int)
 	return file_api_f1ap_v1_f1ap_pdu_descriptions_proto_rawDescGZIP(), []int{7}
 }
 
-func (m *UnsuccessfulOutcomeF1ApElementaryProcedures) GetSoValues() isUnsuccessfulOutcomeF1ApElementaryProcedures_SoValues {
+func (m *UnsuccessfulOutcomeF1ApElementaryProcedures) GetUoValues() isUnsuccessfulOutcomeF1ApElementaryProcedures_UoValues {
 	if m != nil {
-		return m.SoValues
+		return m.UoValues
 	}
 	return nil
 }
 
 func (x *UnsuccessfulOutcomeF1ApElementaryProcedures) GetF1SetupFailure() *f1ap_pdu_contents.F1SetupFailure {
-	if x, ok := x.GetSoValues().(*UnsuccessfulOutcomeF1ApElementaryProcedures_F1SetupFailure); ok {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeF1ApElementaryProcedures_F1SetupFailure); ok {
 		return x.F1SetupFailure
 	}
 	return nil
 }
 
 func (x *UnsuccessfulOutcomeF1ApElementaryProcedures) GetGNbduconfigurationUpdateFailure() *f1ap_pdu_contents.GnbduconfigurationUpdateFailure {
-	if x, ok := x.GetSoValues().(*UnsuccessfulOutcomeF1ApElementaryProcedures_GNbduconfigurationUpdateFailure); ok {
+	if x, ok := x.GetUoValues().(*UnsuccessfulOutcomeF1ApElementaryProcedures_GNbduconfigurationUpdateFailure); ok {
 		return x.GNbduconfigurationUpdateFailure
 	}
 	return nil
 }
 
-type isUnsuccessfulOutcomeF1ApElementaryProcedures_SoValues interface {
-	isUnsuccessfulOutcomeF1ApElementaryProcedures_SoValues()
+type isUnsuccessfulOutcomeF1ApElementaryProcedures_UoValues interface {
+	isUnsuccessfulOutcomeF1ApElementaryProcedures_UoValues()
 }
 
 type UnsuccessfulOutcomeF1ApElementaryProcedures_F1SetupFailure struct {
 	// @inject_tag: aper:"valueExt"
-	F1SetupFailure *f1ap_pdu_contents.F1SetupFailure `protobuf:"bytes,1,opt,name=f1_setup_failure,json=f1_setup_response,proto3,oneof"`
+	F1SetupFailure *f1ap_pdu_contents.F1SetupFailure `protobuf:"bytes,1,opt,name=f1_setup_failure,json=f1_setup_response,proto3,oneof" aper:"valueExt"`
 }
 
 type UnsuccessfulOutcomeF1ApElementaryProcedures_GNbduconfigurationUpdateFailure struct {
 	// @inject_tag: aper:"valueExt"
-	GNbduconfigurationUpdateFailure *f1ap_pdu_contents.GnbduconfigurationUpdateFailure `protobuf:"bytes,3,opt,name=g_nbduconfiguration_update_failure,json=gNBDUConfigurationUpdate,proto3,oneof"`
+	GNbduconfigurationUpdateFailure *f1ap_pdu_contents.GnbduconfigurationUpdateFailure `protobuf:"bytes,3,opt,name=g_nbduconfiguration_update_failure,json=gNBDUConfigurationUpdate,proto3,oneof" aper:"valueExt"`
 }
 
-func (*UnsuccessfulOutcomeF1ApElementaryProcedures_F1SetupFailure) isUnsuccessfulOutcomeF1ApElementaryProcedures_SoValues() {
+func (*UnsuccessfulOutcomeF1ApElementaryProcedures_F1SetupFailure) isUnsuccessfulOutcomeF1ApElementaryProcedures_UoValues() {
 }
 
-func (*UnsuccessfulOutcomeF1ApElementaryProcedures_GNbduconfigurationUpdateFailure) isUnsuccessfulOutcomeF1ApElementaryProcedures_SoValues() {
+func (*UnsuccessfulOutcomeF1ApElementaryProcedures_GNbduconfigurationUpdateFailure) isUnsuccessfulOutcomeF1ApElementaryProcedures_UoValues() {
 }
 
 // value set translated as choice from f1ap_v1.asn1:230
@@ -1373,7 +1373,7 @@ var file_api_f1ap_v1_f1ap_pdu_descriptions_proto_rawDesc = []byte{
 	0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x61, 0x69,
 	0x6c, 0x75, 0x72, 0x65, 0x48, 0x00, 0x52, 0x18, 0x67, 0x4e, 0x42, 0x44, 0x55, 0x43, 0x6f, 0x6e,
 	0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x42, 0x0b, 0x0a, 0x09, 0x73, 0x6f, 0x5f, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x42, 0x59, 0x5a,
+	0x42, 0x0b, 0x0a, 0x09, 0x75, 0x6f, 0x5f, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x42, 0x59, 0x5a,
 	0x57, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x6e, 0x6f, 0x73,
 	0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f, 0x6f, 0x6e, 0x6f, 0x73, 0x2d, 0x65, 0x32, 0x74,
 	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x66, 0x31, 0x61, 0x70, 0x2f, 0x76, 0x31, 0x2f, 0x66, 0x31, 0x61,

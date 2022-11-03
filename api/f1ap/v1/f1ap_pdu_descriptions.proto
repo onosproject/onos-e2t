@@ -152,7 +152,7 @@ message UnsuccessfulOutcome {
 
 message UnsuccessfulOutcomeF1ApElementaryProcedures {
 
-    oneof so_values {
+    oneof uo_values {
         // @inject_tag: aper:"valueExt"
         F1SetupFailure f1_setup_failure = 1 [ json_name="f1_setup_response"];
         // @inject_tag: aper:"valueExt"
