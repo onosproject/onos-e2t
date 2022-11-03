@@ -11,7 +11,7 @@ SPDX-License-Identifier: Apache-2.0
 syntax = "proto3";
 
 package f1ap.v1;
-option go_package = "f1ap/v1/f1ap_pdu_contents;f1appducontentsv1";
+option go_package = "github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_pdu_contents;f1appducontentsv1";
 
 import "f1ap/v1/f1ap_ies.proto";
 import "f1ap/v1/f1ap_commondatatypes.proto";

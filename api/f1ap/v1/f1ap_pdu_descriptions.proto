@@ -11,7 +11,7 @@ SPDX-License-Identifier: Apache-2.0
 syntax = "proto3";
 
 package f1ap.v1;
-option go_package = "f1ap/v1/f1ap_pdu_descriptions;f1appdudescriptionsv1";
+option go_package = "github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_pdu_descriptions;f1appdudescriptionsv1";
 
 import "f1ap/v1/f1ap_commondatatypes.proto";
 import "f1ap/v1/f1ap_pdu_contents.proto";
@@ -46,8 +46,11 @@ message F1ApPDu {
 // sequence from f1ap_v1.asn1:235
 // {InitiatingMessage}
 message InitiatingMessage {
-    F1ApELementaryPRocedures procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
     Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
     InitiatingMessageF1ApElementaryProcedures value = 3 [ json_name="value"];
 };
 
@@ -59,1013 +62,102 @@ message InitiatingMessageF1ApElementaryProcedures {
         // @inject_tag: aper:"valueExt"
         F1SetupRequest f1_setup_request = 2 [ json_name="ric_subscription_delete"];
         // @inject_tag: aper:"valueExt"
-        GnbduconfigurationUpdate gnbduconfiguration_update = 3 [ json_name="ric_service_update"];
+        GnbduconfigurationUpdate g_nbduconfiguration_update = 3 [ json_name="gNBDUConfigurationUpdate"];
         // @inject_tag: aper:"valueExt"
-        RiccontrolRequest ric_control = 4 [ json_name="ric_control"];
+        GnbcuconfigurationUpdate g_nbcuconfiguration_update = 4 [ json_name="gNBCUConfigurationUpdate"];
         // @inject_tag: aper:"valueExt"
-        E2setupRequest e2setup = 5 [ json_name="e2setup"];
+        UecontextSetupRequest u_econtext_setup_request = 5 [ json_name="uEContextSetup"];
         // @inject_tag: aper:"valueExt"
-        E2nodeConfigurationUpdate e2node_configuration_update = 6 [ json_name="e2node_configuration_update"];
+        UecontextReleaseCommand u_econtext_release_command = 6 [ json_name="uEContextRelease"];
         // @inject_tag: aper:"valueExt"
-        E2connectionUpdate e2connection_update = 7 [ json_name="e2connection_update"];
+        UecontextModificationRequest u_econtext_modification_request = 7 [ json_name="uEContextModification"];
         // @inject_tag: aper:"valueExt"
-        ResetRequest reset = 8 [ json_name="reset"];
+        UecontextModificationRequired u_econtext_modification_required = 8 [ json_name="uEContextModificationRequired"];
         // @inject_tag: aper:"valueExt"
-        Ricindication ric_indication = 9 [ json_name="ric_indication"];
+        WriteReplaceWarningRequest write_replace_warning_request = 9 [ json_name="writeReplaceWarning"];
         // @inject_tag: aper:"valueExt"
-        RicserviceQuery ric_service_query = 10 [ json_name="ric_service_query"];
+        PwscancelRequest p_wscancel_request = 10 [ json_name="pWSCancel"];
         // @inject_tag: aper:"valueExt"
         ErrorIndication error_indication = 11 [ json_name="error_indication"];
         // @inject_tag: aper:"valueExt"
-        RicsubscriptionDeleteRequired ric_subscription_delete_required = 12 [ json_name="ric_subscription_delete_required"];
+        UecontextReleaseRequest u_econtext_release_request = 12 [ json_name="uEContextRelease"];
+        // @inject_tag: aper:"valueExt"
+        InitialUlrrcmessageTransfer initial_ulrrcmessage_transfer = 13 [ json_name="initialULRRCMessageTransfer"];
+        // @inject_tag: aper:"valueExt"
+        DlrrcmessageTransfer d_lrrcmessage_transfer = 14 [ json_name="dLRRCMessageTransfer"];
+        // @inject_tag: aper:"valueExt"
+        UlrrcmessageTransfer u_lrrcmessage_transfer = 15 [ json_name="uLRRCMessageTransfer"];
+        // @inject_tag: aper:"valueExt"
+        UeinactivityNotification u_einactivity_notification = 16 [ json_name="uEInactivityNotification"];
+        // @inject_tag: aper:"valueExt"
+        GnbduresourceCoordinationRequest g_nbduresource_coordination_request = 17 [ json_name="gNBDUResourceCoordination"];
+        // @inject_tag: aper:"valueExt"
+        PrivateMessage private_message = 18 [ json_name="privateMessage"];
+        // @inject_tag: aper:"valueExt"
+        SystemInformationDeliveryCommand system_information_delivery_command = 19 [ json_name="systemInformationDelivery"];
+        // @inject_tag: aper:"valueExt"
+        Paging paging = 20 [ json_name="paging"];
+        // @inject_tag: aper:"valueExt"
+        Notify notify = 21 [ json_name="notify"];
+        // @inject_tag: aper:"valueExt"
+        NetworkAccessRateReduction network_access_rate_reduction = 22 [ json_name="networkAccessRateReduction"];
+        // @inject_tag: aper:"valueExt"
+        PwsrestartIndication p_wsrestart_indication = 23 [ json_name="pWSRestartIndication"];
+        // @inject_tag: aper:"valueExt"
+        PwsfailureIndication p_wsfailure_indication = 24 [ json_name="pWSFailureIndication"];
+        // @inject_tag: aper:"valueExt"
+        GnbdustatusIndication g_nbdustatus_indication = 25 [ json_name="gNBDUStatusIndication"];
+        // @inject_tag: aper:"valueExt"
+        RrcdeliveryReport r_rcdelivery_report = 26 [ json_name="rRCDeliveryReport"];
+        // @inject_tag: aper:"valueExt"
+        F1RemovalRequest f1_removal_request = 27 [ json_name="f1Removal"];
+        // @inject_tag: aper:"valueExt"
+        TraceStart trace_start = 28 [ json_name="traceStart"];
     }
 }
 
 // sequence from f1ap_v1.asn1:241
 // {SuccessfulOutcome}
 message SuccessfulOutcome {
-    F1ApELementaryPRocedures procedure_code = 1 [ json_name="procedureCode"];
-//    @procedureCode criticality = 2 [ json_name="criticality"];
-//    @procedureCode value = 3 [ json_name="value"];
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    SuccessfulOutcomeF1ApElementaryProcedures value = 3 [ json_name="value"];
 };
+
+message SuccessfulOutcomeF1ApElementaryProcedures {
+
+    oneof so_values {
+        // @inject_tag: aper:"valueExt"
+        ResetAcknowledge reset_acknowledge = 1 [ json_name="ric_subscription"];
+        // @inject_tag: aper:"valueExt"
+        F1SetupResponse f1_setup_response = 2 [ json_name="f1_setup_response"];
+        // @inject_tag: aper:"valueExt"
+        GnbduconfigurationUpdateAcknowledge g_nbduconfiguration_update_acknowledge = 3 [ json_name="gNBDUConfigurationUpdate"];
+    }
+}
 
 // sequence from f1ap_v1.asn1:247
 // {UnsuccessfulOutcome}
 message UnsuccessfulOutcome {
-    F1ApELementaryPRocedures procedure_code = 1 [ json_name="procedureCode"];
-//    @procedureCode criticality = 2 [ json_name="criticality"];
-//    @procedureCode value = 3 [ json_name="value"];
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    UnsuccessfulOutcomeF1ApElementaryProcedures value = 3 [ json_name="value"];
 };
 
-// value set from f1ap_v1.asn1:258
-// {F1AP-ELEMENTARY-PROCEDURES}
-message F1ApELementaryPRocedures {
-    // value set translated as choice from f1ap_v1.asn1:258
-    oneof f1_ap_elementary_procedures {
-        // @inject_tag: aper:"choiceIdx:1,"
-        Reset reset = 1 [ json_name="reset"];
-        // @inject_tag: aper:"choiceIdx:2,"
-        F1Setup f1_setup = 2 [ json_name="f1Setup"];
-        // @inject_tag: aper:"choiceIdx:3,"
-        GnbduconfigurationUpdate g_nbduconfiguration_update = 3 [ json_name="gNBDUConfigurationUpdate"];
-        // @inject_tag: aper:"choiceIdx:4,"
-        GnbcuconfigurationUpdate g_nbcuconfiguration_update = 4 [ json_name="gNBCUConfigurationUpdate"];
-        // @inject_tag: aper:"choiceIdx:5,"
-        UecontextSetup u_econtext_setup = 5 [ json_name="uEContextSetup"];
-        // @inject_tag: aper:"choiceIdx:6,"
-        UecontextRelease u_econtext_release = 6 [ json_name="uEContextRelease"];
-        // @inject_tag: aper:"choiceIdx:7,"
-        UecontextModification u_econtext_modification = 7 [ json_name="uEContextModification"];
-        // @inject_tag: aper:"choiceIdx:8,"
-        UecontextModificationRequired u_econtext_modification_required = 8 [ json_name="uEContextModificationRequired"];
-        // @inject_tag: aper:"choiceIdx:9,"
-        WriteReplaceWarning write_replace_warning = 9 [ json_name="writeReplaceWarning"];
-        // @inject_tag: aper:"choiceIdx:10,"
-        Pwscancel p_wscancel = 10 [ json_name="pWSCancel"];
-        // @inject_tag: aper:"choiceIdx:11,"
-        GnbduresourceCoordination g_nbduresource_coordination = 11 [ json_name="gNBDUResourceCoordination"];
-        // @inject_tag: aper:"choiceIdx:12,"
-        F1Removal f1_removal = 12 [ json_name="f1Removal"];
-        // @inject_tag: aper:"choiceIdx:13,"
-        BapmappingConfiguration b_apmapping_configuration = 13 [ json_name="bAPMappingConfiguration"];
-        // @inject_tag: aper:"choiceIdx:14,"
-        GnbduresourceConfiguration g_nbduresource_configuration = 14 [ json_name="gNBDUResourceConfiguration"];
-        // @inject_tag: aper:"choiceIdx:15,"
-        IabtnladdressAllocation i_abtnladdress_allocation = 15 [ json_name="iABTNLAddressAllocation"];
-        // @inject_tag: aper:"choiceIdx:16,"
-        IabupconfigurationUpdate i_abupconfiguration_update = 16 [ json_name="iABUPConfigurationUpdate"];
-        // @inject_tag: aper:"choiceIdx:17,"
-        ResourceStatusReportingInitiation resource_status_reporting_initiation = 17 [ json_name="resourceStatusReportingInitiation"];
-        // @inject_tag: aper:"choiceIdx:18,"
-        PositioningMeasurementExchange positioning_measurement_exchange = 18 [ json_name="positioningMeasurementExchange"];
-        // @inject_tag: aper:"choiceIdx:19,"
-        TrpinformationExchange t_rpinformation_exchange = 19 [ json_name="tRPInformationExchange"];
-        // @inject_tag: aper:"choiceIdx:20,"
-        PositioningInformationExchange positioning_information_exchange = 20 [ json_name="positioningInformationExchange"];
-        // @inject_tag: aper:"choiceIdx:21,"
-        PositioningActivation positioning_activation = 21 [ json_name="positioningActivation"];
-        // @inject_tag: aper:"choiceIdx:22,"
-        ECIdmeasurementInitiation e_cidmeasurement_initiation = 22 [ json_name="e-CIDMeasurementInitiation"];
-        // @inject_tag: aper:"choiceIdx:23,"
-        ErrorIndication error_indication = 23 [ json_name="errorIndication"];
-        // @inject_tag: aper:"choiceIdx:24,"
-        UecontextReleaseRequest u_econtext_release_request = 24 [ json_name="uEContextReleaseRequest"];
-        // @inject_tag: aper:"choiceIdx:25,"
-        DlrrcmessageTransfer d_lrrcmessage_transfer = 25 [ json_name="dLRRCMessageTransfer"];
-        // @inject_tag: aper:"choiceIdx:26,"
-        UlrrcmessageTransfer u_lrrcmessage_transfer = 26 [ json_name="uLRRCMessageTransfer"];
-        // @inject_tag: aper:"choiceIdx:27,"
-        UeinactivityNotification u_einactivity_notification = 27 [ json_name="uEInactivityNotification"];
-        // @inject_tag: aper:"choiceIdx:28,"
-        PrivateMessage private_message = 28 [ json_name="privateMessage"];
-        // @inject_tag: aper:"choiceIdx:29,"
-        InitialUlrrcmessageTransfer initial_ulrrcmessage_transfer = 29 [ json_name="initialULRRCMessageTransfer"];
-        // @inject_tag: aper:"choiceIdx:30,"
-        SystemInformationDelivery system_information_delivery = 30 [ json_name="systemInformationDelivery"];
-        // @inject_tag: aper:"choiceIdx:31,"
-        Paging paging = 31 [ json_name="paging"];
-        // @inject_tag: aper:"choiceIdx:32,"
-        Notify notify = 32 [ json_name="notify"];
-        // @inject_tag: aper:"choiceIdx:33,"
-        PwsrestartIndication p_wsrestart_indication = 33 [ json_name="pWSRestartIndication"];
-        // @inject_tag: aper:"choiceIdx:34,"
-        PwsfailureIndication p_wsfailure_indication = 34 [ json_name="pWSFailureIndication"];
-        // @inject_tag: aper:"choiceIdx:35,"
-        GnbdustatusIndication g_nbdustatus_indication = 35 [ json_name="gNBDUStatusIndication"];
-        // @inject_tag: aper:"choiceIdx:36,"
-        RrcdeliveryReport r_rcdelivery_report = 36 [ json_name="rRCDeliveryReport"];
-        // @inject_tag: aper:"choiceIdx:37,"
-        NetworkAccessRateReduction network_access_rate_reduction = 37 [ json_name="networkAccessRateReduction"];
-        // @inject_tag: aper:"choiceIdx:38,"
-        TraceStart trace_start = 38 [ json_name="traceStart"];
-        // @inject_tag: aper:"choiceIdx:39,"
-        DeactivateTrace deactivate_trace = 39 [ json_name="deactivateTrace"];
-        // @inject_tag: aper:"choiceIdx:40,"
-        DucuradioInformationTransfer d_ucuradio_information_transfer = 40 [ json_name="dUCURadioInformationTransfer"];
-        // @inject_tag: aper:"choiceIdx:41,"
-        CuduradioInformationTransfer c_uduradio_information_transfer = 41 [ json_name="cUDURadioInformationTransfer"];
-        // @inject_tag: aper:"choiceIdx:42,"
-        ResourceStatusReporting resource_status_reporting = 42 [ json_name="resourceStatusReporting"];
-        // @inject_tag: aper:"choiceIdx:43,"
-        AccessAndMobilityIndication access_and_mobility_indication = 43 [ json_name="accessAndMobilityIndication"];
-        // @inject_tag: aper:"choiceIdx:44,"
-        ReferenceTimeInformationReportingControl reference_time_information_reporting_control = 44 [ json_name="referenceTimeInformationReportingControl"];
-        // @inject_tag: aper:"choiceIdx:45,"
-        ReferenceTimeInformationReport reference_time_information_report = 45 [ json_name="referenceTimeInformationReport"];
-        // @inject_tag: aper:"choiceIdx:46,"
-        AccessSuccess access_success = 46 [ json_name="accessSuccess"];
-        // @inject_tag: aper:"choiceIdx:47,"
-        CellTrafficTrace cell_traffic_trace = 47 [ json_name="cellTrafficTrace"];
-        // @inject_tag: aper:"choiceIdx:48,"
-        PositioningAssistanceInformationControl positioning_assistance_information_control = 48 [ json_name="positioningAssistanceInformationControl"];
-        // @inject_tag: aper:"choiceIdx:49,"
-        PositioningAssistanceInformationFeedback positioning_assistance_information_feedback = 49 [ json_name="positioningAssistanceInformationFeedback"];
-        // @inject_tag: aper:"choiceIdx:50,"
-        PositioningMeasurementReport positioning_measurement_report = 50 [ json_name="positioningMeasurementReport"];
-        // @inject_tag: aper:"choiceIdx:51,"
-        PositioningMeasurementAbort positioning_measurement_abort = 51 [ json_name="positioningMeasurementAbort"];
-        // @inject_tag: aper:"choiceIdx:52,"
-        PositioningMeasurementFailureIndication positioning_measurement_failure_indication = 52 [ json_name="positioningMeasurementFailureIndication"];
-        // @inject_tag: aper:"choiceIdx:53,"
-        PositioningMeasurementUpdate positioning_measurement_update = 53 [ json_name="positioningMeasurementUpdate"];
-        // @inject_tag: aper:"choiceIdx:54,"
-        PositioningDeactivation positioning_deactivation = 54 [ json_name="positioningDeactivation"];
-        // @inject_tag: aper:"choiceIdx:55,"
-        ECIdmeasurementFailureIndication e_cidmeasurement_failure_indication = 55 [ json_name="e-CIDMeasurementFailureIndication"];
-        // @inject_tag: aper:"choiceIdx:56,"
-        ECIdmeasurementReport e_cidmeasurement_report = 56 [ json_name="e-CIDMeasurementReport"];
-        // @inject_tag: aper:"choiceIdx:57,"
-        ECIdmeasurementTermination e_cidmeasurement_termination = 57 [ json_name="e-CIDMeasurementTermination"];
-        // @inject_tag: aper:"choiceIdx:58,"
-        PositioningInformationUpdate positioning_information_update = 58 [ json_name="positioningInformationUpdate"];
+message UnsuccessfulOutcomeF1ApElementaryProcedures {
+
+    oneof so_values {
+        // @inject_tag: aper:"valueExt"
+        F1SetupFailure f1_setup_failure = 1 [ json_name="f1_setup_response"];
+        // @inject_tag: aper:"valueExt"
+        GnbduconfigurationUpdateFailure g_nbduconfiguration_update_failure = 3 [ json_name="gNBDUConfigurationUpdate"];
     }
-};
-
-// value set from f1ap_v1.asn1:265
-// {F1AP-ELEMENTARY-PROCEDURES-CLASS-1}
-message F1ApELementaryPRoceduresCLass1 {
-    // value set translated as choice from f1ap_v1.asn1:265
-    oneof f1_ap_elementary_procedures_class_1 {
-        // @inject_tag: aper:"choiceIdx:1,"
-        Reset reset = 1 [ json_name="reset"];
-        // @inject_tag: aper:"choiceIdx:2,"
-        F1Setup f1_setup = 2 [ json_name="f1Setup"];
-        // @inject_tag: aper:"choiceIdx:3,"
-        GnbduconfigurationUpdate g_nbduconfiguration_update = 3 [ json_name="gNBDUConfigurationUpdate"];
-        // @inject_tag: aper:"choiceIdx:4,"
-        GnbcuconfigurationUpdate g_nbcuconfiguration_update = 4 [ json_name="gNBCUConfigurationUpdate"];
-        // @inject_tag: aper:"choiceIdx:5,"
-        UecontextSetup u_econtext_setup = 5 [ json_name="uEContextSetup"];
-        // @inject_tag: aper:"choiceIdx:6,"
-        UecontextRelease u_econtext_release = 6 [ json_name="uEContextRelease"];
-        // @inject_tag: aper:"choiceIdx:7,"
-        UecontextModification u_econtext_modification = 7 [ json_name="uEContextModification"];
-        // @inject_tag: aper:"choiceIdx:8,"
-        UecontextModificationRequired u_econtext_modification_required = 8 [ json_name="uEContextModificationRequired"];
-        // @inject_tag: aper:"choiceIdx:9,"
-        WriteReplaceWarning write_replace_warning = 9 [ json_name="writeReplaceWarning"];
-        // @inject_tag: aper:"choiceIdx:10,"
-        Pwscancel p_wscancel = 10 [ json_name="pWSCancel"];
-        // @inject_tag: aper:"choiceIdx:11,"
-        GnbduresourceCoordination g_nbduresource_coordination = 11 [ json_name="gNBDUResourceCoordination"];
-        // @inject_tag: aper:"choiceIdx:12,"
-        F1Removal f1_removal = 12 [ json_name="f1Removal"];
-        // @inject_tag: aper:"choiceIdx:13,"
-        BapmappingConfiguration b_apmapping_configuration = 13 [ json_name="bAPMappingConfiguration"];
-        // @inject_tag: aper:"choiceIdx:14,"
-        GnbduresourceConfiguration g_nbduresource_configuration = 14 [ json_name="gNBDUResourceConfiguration"];
-        // @inject_tag: aper:"choiceIdx:15,"
-        IabtnladdressAllocation i_abtnladdress_allocation = 15 [ json_name="iABTNLAddressAllocation"];
-        // @inject_tag: aper:"choiceIdx:16,"
-        IabupconfigurationUpdate i_abupconfiguration_update = 16 [ json_name="iABUPConfigurationUpdate"];
-        // @inject_tag: aper:"choiceIdx:17,"
-        ResourceStatusReportingInitiation resource_status_reporting_initiation = 17 [ json_name="resourceStatusReportingInitiation"];
-        // @inject_tag: aper:"choiceIdx:18,"
-        PositioningMeasurementExchange positioning_measurement_exchange = 18 [ json_name="positioningMeasurementExchange"];
-        // @inject_tag: aper:"choiceIdx:19,"
-        TrpinformationExchange t_rpinformation_exchange = 19 [ json_name="tRPInformationExchange"];
-        // @inject_tag: aper:"choiceIdx:20,"
-        PositioningInformationExchange positioning_information_exchange = 20 [ json_name="positioningInformationExchange"];
-        // @inject_tag: aper:"choiceIdx:21,"
-        PositioningActivation positioning_activation = 21 [ json_name="positioningActivation"];
-        // @inject_tag: aper:"choiceIdx:22,"
-        ECIdmeasurementInitiation e_cidmeasurement_initiation = 22 [ json_name="e-CIDMeasurementInitiation"];
-    }
-};
-
-// value set from f1ap_v1.asn1:291
-// {F1AP-ELEMENTARY-PROCEDURES-CLASS-2}
-message F1ApELementaryPRoceduresCLass2 {
-    // value set translated as choice from f1ap_v1.asn1:291
-    oneof f1_ap_elementary_procedures_class_2 {
-        // @inject_tag: aper:"choiceIdx:1,"
-        ErrorIndication error_indication = 1 [ json_name="errorIndication"];
-        // @inject_tag: aper:"choiceIdx:2,"
-        UecontextReleaseRequest u_econtext_release_request = 2 [ json_name="uEContextReleaseRequest"];
-        // @inject_tag: aper:"choiceIdx:3,"
-        DlrrcmessageTransfer d_lrrcmessage_transfer = 3 [ json_name="dLRRCMessageTransfer"];
-        // @inject_tag: aper:"choiceIdx:4,"
-        UlrrcmessageTransfer u_lrrcmessage_transfer = 4 [ json_name="uLRRCMessageTransfer"];
-        // @inject_tag: aper:"choiceIdx:5,"
-        UeinactivityNotification u_einactivity_notification = 5 [ json_name="uEInactivityNotification"];
-        // @inject_tag: aper:"choiceIdx:6,"
-        PrivateMessage private_message = 6 [ json_name="privateMessage"];
-        // @inject_tag: aper:"choiceIdx:7,"
-        InitialUlrrcmessageTransfer initial_ulrrcmessage_transfer = 7 [ json_name="initialULRRCMessageTransfer"];
-        // @inject_tag: aper:"choiceIdx:8,"
-        SystemInformationDelivery system_information_delivery = 8 [ json_name="systemInformationDelivery"];
-        // @inject_tag: aper:"choiceIdx:9,"
-        Paging paging = 9 [ json_name="paging"];
-        // @inject_tag: aper:"choiceIdx:10,"
-        Notify notify = 10 [ json_name="notify"];
-        // @inject_tag: aper:"choiceIdx:11,"
-        PwsrestartIndication p_wsrestart_indication = 11 [ json_name="pWSRestartIndication"];
-        // @inject_tag: aper:"choiceIdx:12,"
-        PwsfailureIndication p_wsfailure_indication = 12 [ json_name="pWSFailureIndication"];
-        // @inject_tag: aper:"choiceIdx:13,"
-        GnbdustatusIndication g_nbdustatus_indication = 13 [ json_name="gNBDUStatusIndication"];
-        // @inject_tag: aper:"choiceIdx:14,"
-        RrcdeliveryReport r_rcdelivery_report = 14 [ json_name="rRCDeliveryReport"];
-        // @inject_tag: aper:"choiceIdx:15,"
-        NetworkAccessRateReduction network_access_rate_reduction = 15 [ json_name="networkAccessRateReduction"];
-        // @inject_tag: aper:"choiceIdx:16,"
-        TraceStart trace_start = 16 [ json_name="traceStart"];
-        // @inject_tag: aper:"choiceIdx:17,"
-        DeactivateTrace deactivate_trace = 17 [ json_name="deactivateTrace"];
-        // @inject_tag: aper:"choiceIdx:18,"
-        DucuradioInformationTransfer d_ucuradio_information_transfer = 18 [ json_name="dUCURadioInformationTransfer"];
-        // @inject_tag: aper:"choiceIdx:19,"
-        CuduradioInformationTransfer c_uduradio_information_transfer = 19 [ json_name="cUDURadioInformationTransfer"];
-        // @inject_tag: aper:"choiceIdx:20,"
-        ResourceStatusReporting resource_status_reporting = 20 [ json_name="resourceStatusReporting"];
-        // @inject_tag: aper:"choiceIdx:21,"
-        AccessAndMobilityIndication access_and_mobility_indication = 21 [ json_name="accessAndMobilityIndication"];
-        // @inject_tag: aper:"choiceIdx:22,"
-        ReferenceTimeInformationReportingControl reference_time_information_reporting_control = 22 [ json_name="referenceTimeInformationReportingControl"];
-        // @inject_tag: aper:"choiceIdx:23,"
-        ReferenceTimeInformationReport reference_time_information_report = 23 [ json_name="referenceTimeInformationReport"];
-        // @inject_tag: aper:"choiceIdx:24,"
-        AccessSuccess access_success = 24 [ json_name="accessSuccess"];
-        // @inject_tag: aper:"choiceIdx:25,"
-        CellTrafficTrace cell_traffic_trace = 25 [ json_name="cellTrafficTrace"];
-        // @inject_tag: aper:"choiceIdx:26,"
-        PositioningAssistanceInformationControl positioning_assistance_information_control = 26 [ json_name="positioningAssistanceInformationControl"];
-        // @inject_tag: aper:"choiceIdx:27,"
-        PositioningAssistanceInformationFeedback positioning_assistance_information_feedback = 27 [ json_name="positioningAssistanceInformationFeedback"];
-        // @inject_tag: aper:"choiceIdx:28,"
-        PositioningMeasurementReport positioning_measurement_report = 28 [ json_name="positioningMeasurementReport"];
-        // @inject_tag: aper:"choiceIdx:29,"
-        PositioningMeasurementAbort positioning_measurement_abort = 29 [ json_name="positioningMeasurementAbort"];
-        // @inject_tag: aper:"choiceIdx:30,"
-        PositioningMeasurementFailureIndication positioning_measurement_failure_indication = 30 [ json_name="positioningMeasurementFailureIndication"];
-        // @inject_tag: aper:"choiceIdx:31,"
-        PositioningMeasurementUpdate positioning_measurement_update = 31 [ json_name="positioningMeasurementUpdate"];
-        // @inject_tag: aper:"choiceIdx:32,"
-        PositioningDeactivation positioning_deactivation = 32 [ json_name="positioningDeactivation"];
-        // @inject_tag: aper:"choiceIdx:33,"
-        ECIdmeasurementFailureIndication e_cidmeasurement_failure_indication = 33 [ json_name="e-CIDMeasurementFailureIndication"];
-        // @inject_tag: aper:"choiceIdx:34,"
-        ECIdmeasurementReport e_cidmeasurement_report = 34 [ json_name="e-CIDMeasurementReport"];
-        // @inject_tag: aper:"choiceIdx:35,"
-        ECIdmeasurementTermination e_cidmeasurement_termination = 35 [ json_name="e-CIDMeasurementTermination"];
-        // @inject_tag: aper:"choiceIdx:36,"
-        PositioningInformationUpdate positioning_information_update = 36 [ json_name="positioningInformationUpdate"];
-    }
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:343
-// {f1Setup}
-message F1Setup {
-    F1SetupRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    F1SetupResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    F1SetupFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:367
-// {uEContextSetup}
-message UecontextSetup {
-    UecontextSetupRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    UecontextSetupResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    UecontextSetupFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:375
-// {uEContextRelease}
-message UecontextRelease {
-    UecontextReleaseCommand initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    UecontextReleaseComplete successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:382
-// {uEContextModification}
-message UecontextModification {
-    UecontextModificationRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    UecontextModificationResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    UecontextModificationFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:390
-// {uEContextModificationRequired}
-message UecontextModificationRequired {
-    UecontextModificationRequired initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    UecontextModificationConfirm successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    UecontextModificationRefuse unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:398
-// {writeReplaceWarning}
-message WriteReplaceWarning {
-    WriteReplaceWarningRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    WriteReplaceWarningResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:405
-// {pWSCancel}
-message Pwscancel {
-    PwscancelRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    PwscancelResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:412
-// {errorIndication}
-message ErrorIndication {
-    ErrorIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:418
-// {uEContextReleaseRequest}
-message UecontextReleaseRequest {
-    UecontextReleaseRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:425
-// {initialULRRCMessageTransfer}
-message InitialUlrrcmessageTransfer {
-    InitialUlrrcmessageTransfer initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:431
-// {dLRRCMessageTransfer}
-message DlrrcmessageTransfer {
-    DlrrcmessageTransfer initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:437
-// {uLRRCMessageTransfer}
-message UlrrcmessageTransfer {
-    UlrrcmessageTransfer initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:444
-// {uEInactivityNotification}
-message UeinactivityNotification {
-    UeinactivityNotification initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:450
-// {gNBDUResourceCoordination}
-message GnbduresourceCoordination {
-    GnbduresourceCoordinationRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    GnbduresourceCoordinationResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:457
-// {privateMessage}
-message PrivateMessage {
-    PrivateMessage initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:463
-// {systemInformationDelivery}
-message SystemInformationDelivery {
-    SystemInformationDeliveryCommand initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:470
-// {paging}
-message Paging {
-    Paging initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:476
-// {notify}
-message Notify {
-    Notify initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:482
-// {networkAccessRateReduction}
-message NetworkAccessRateReduction {
-    NetworkAccessRateReduction initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:489
-// {pWSRestartIndication}
-message PwsrestartIndication {
-    PwsrestartIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:495
-// {pWSFailureIndication}
-message PwsfailureIndication {
-    PwsfailureIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:501
-// {gNBDUStatusIndication}
-message GnbdustatusIndication {
-    GnbdustatusIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:508
-// {rRCDeliveryReport}
-message RrcdeliveryReport {
-    RrcdeliveryReport initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:514
-// {f1Removal}
-message F1Removal {
-    F1RemovalRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    F1RemovalResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    F1RemovalFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:522
-// {traceStart}
-message TraceStart {
-    TraceStart initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:528
-// {deactivateTrace}
-message DeactivateTrace {
-    DeactivateTrace initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:534
-// {dUCURadioInformationTransfer}
-message DucuradioInformationTransfer {
-    DucuradioInformationTransfer initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:540
-// {cUDURadioInformationTransfer}
-message CuduradioInformationTransfer {
-    CuduradioInformationTransfer initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:546
-// {bAPMappingConfiguration}
-message BapmappingConfiguration {
-    BapmappingConfiguration initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    BapmappingConfigurationAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    BapmappingConfigurationFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:554
-// {gNBDUResourceConfiguration}
-message GnbduresourceConfiguration {
-    GnbduresourceConfiguration initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    GnbduresourceConfigurationAcknowledge successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    GnbduresourceConfigurationFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:562
-// {iABTNLAddressAllocation}
-message IabtnladdressAllocation {
-    IabtnladdressRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    IabtnladdressResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    IabtnladdressFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:570
-// {iABUPConfigurationUpdate}
-message IabupconfigurationUpdate {
-    IabupconfigurationUpdateRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    IabupconfigurationUpdateResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    IabupconfigurationUpdateFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:578
-// {resourceStatusReportingInitiation}
-message ResourceStatusReportingInitiation {
-    ResourceStatusRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    ResourceStatusResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    ResourceStatusFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:586
-// {resourceStatusReporting}
-message ResourceStatusReporting {
-    ResourceStatusUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:592
-// {accessAndMobilityIndication}
-message AccessAndMobilityIndication {
-    AccessAndMobilityIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:598
-// {referenceTimeInformationReportingControl}
-message ReferenceTimeInformationReportingControl {
-    ReferenceTimeInformationReportingControl initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:604
-// {referenceTimeInformationReport}
-message ReferenceTimeInformationReport {
-    ReferenceTimeInformationReport initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:610
-// {accessSuccess}
-message AccessSuccess {
-    AccessSuccess initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:616
-// {cellTrafficTrace}
-message CellTrafficTrace {
-    CellTrafficTrace initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:622
-// {positioningAssistanceInformationControl}
-message PositioningAssistanceInformationControl {
-    PositioningAssistanceInformationControl initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:628
-// {positioningAssistanceInformationFeedback}
-message PositioningAssistanceInformationFeedback {
-    PositioningAssistanceInformationFeedback initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:634
-// {positioningMeasurementExchange}
-message PositioningMeasurementExchange {
-    PositioningMeasurementRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    PositioningMeasurementResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    PositioningMeasurementFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:642
-// {positioningMeasurementReport}
-message PositioningMeasurementReport {
-    PositioningMeasurementReport initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:648
-// {positioningMeasurementAbort}
-message PositioningMeasurementAbort {
-    PositioningMeasurementAbort initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:654
-// {positioningMeasurementFailureIndication}
-message PositioningMeasurementFailureIndication {
-    PositioningMeasurementFailureIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:660
-// {positioningMeasurementUpdate}
-message PositioningMeasurementUpdate {
-    PositioningMeasurementUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:667
-// {tRPInformationExchange}
-message TrpinformationExchange {
-    TrpinformationRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    TrpinformationResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    TrpinformationFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:675
-// {positioningInformationExchange}
-message PositioningInformationExchange {
-    PositioningInformationRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    PositioningInformationResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    PositioningInformationFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:683
-// {positioningActivation}
-message PositioningActivation {
-    PositioningActivationRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    PositioningActivationResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    PositioningActivationFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:691
-// {positioningDeactivation}
-message PositioningDeactivation {
-    PositioningDeactivation initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:697
-// {e-CIDMeasurementInitiation}
-message ECIdmeasurementInitiation {
-    ECIdmeasurementInitiationRequest initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    ECIdmeasurementInitiationResponse successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    ECIdmeasurementInitiationFailure unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:705
-// {e-CIDMeasurementFailureIndication}
-message ECIdmeasurementFailureIndication {
-    ECIdmeasurementFailureIndication initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:711
-// {e-CIDMeasurementReport}
-message ECIdmeasurementReport {
-    ECIdmeasurementReport initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:717
-// {e-CIDMeasurementTermination}
-message ECIdmeasurementTermination {
-    ECIdmeasurementTerminationCommand initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
-
-// concrete instance(s) of class F1AP-ELEMENTARY-PROCEDURE from f1ap_v1.asn1:723
-// {positioningInformationUpdate}
-message PositioningInformationUpdate {
-    PositioningInformationUpdate initiating_message = 1 [ json_name="&InitiatingMessage"];
-    // @inject_tag: aper:"optional,"
-    int32 successful_outcome = 2 [ json_name="&SuccessfulOutcome"];
-    // @inject_tag: aper:"optional,"
-    int32 unsuccessful_outcome = 3 [ json_name="&UnsuccessfulOutcome"];
-    // @inject_tag: aper:"unique,"
-    ProcedureCode procedure_code = 4 [ json_name="&procedureCode"];
-    Criticality criticality = 5 [ json_name="&criticality"];
-};
+}
 
 
