@@ -21561,47 +21561,19 @@ func CreateGnbDUServedCellsItemIesValueGnbDUServedCellsItem(gnbDUServedCellsItem
 
 	return item, nil
 }
-func CreateGnbDUServedCellsItemIesID(ID *f1apcommondatatypesv1.ProtocolIeID) (*f1appducontentsv1.GnbDUServedCellsItemIes, error) {
 
-	item := &f1appducontentsv1.GnbDUServedCellsItemIes{
-		GnbDuServedCellsItemIes: &f1appducontentsv1.GnbDUServedCellsItemIes_Id{
-			Id: ID,
-		},
-	}
+func CreateGnbDUServedCellsItemIesValue(ID *f1apcommondatatypesv1.ProtocolIeID, criticality f1apcommondatatypesv1.Criticality, value *f1appducontentsv1.GnbDUServedCellsItemIesValue) (*f1appducontentsv1.GnbDUServedCellsItemIes, error) {
 
-	//	if err := item.Validate(); err != nil {
-	//		return nil, errors.NewInvalid("CreateGnbDUServedCellsItemIesID() error validating PDU %s", err.Error())
-	//	}
+	msg := &f1appducontentsv1.GnbDUServedCellsItemIes{}
+	msg.Id = ID
+	msg.Criticality = criticality
+	msg.Value = value
 
-	return item, nil
-}
-func CreateGnbDUServedCellsItemIesCriticality(criticality f1apcommondatatypesv1.Criticality) (*f1appducontentsv1.GnbDUServedCellsItemIes, error) {
-
-	item := &f1appducontentsv1.GnbDUServedCellsItemIes{
-		GnbDuServedCellsItemIes: &f1appducontentsv1.GnbDUServedCellsItemIes_Criticality{
-			Criticality: criticality,
-		},
-	}
-
-	//	if err := item.Validate(); err != nil {
-	//		return nil, errors.NewInvalid("CreateGnbDUServedCellsItemIesCriticality() error validating PDU %s", err.Error())
-	//	}
-
-	return item, nil
-}
-func CreateGnbDUServedCellsItemIesValue(value *f1appducontentsv1.GnbDUServedCellsItemIesValue) (*f1appducontentsv1.GnbDUServedCellsItemIes, error) {
-
-	item := &f1appducontentsv1.GnbDUServedCellsItemIes{
-		GnbDuServedCellsItemIes: &f1appducontentsv1.GnbDUServedCellsItemIes_Value{
-			Value: value,
-		},
-	}
-
-	//	if err := item.Validate(); err != nil {
+	//	if err := msg.Validate(); err != nil {
 	//		return nil, errors.NewInvalid("CreateGnbDUServedCellsItemIesValue() error validating PDU %s", err.Error())
 	//	}
 
-	return item, nil
+	return msg, nil
 }
 func CreateF1SetupResponseIesValueTransactionID(transactionID *f1apiesv1.TransactionId) (*f1appducontentsv1.F1SetupResponseIesValue, error) {
 

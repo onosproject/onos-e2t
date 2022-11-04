@@ -236,13 +236,11 @@ message GnbDUServedCellsItemIesValue {
 // {GNB-DU-Served-Cells-ItemIEs}
 message GnbDUServedCellsItemIes {
     // value set translated as choice from f1ap_v1.asn1:1509
-    oneof gnb_du_served_cells_item_ies {
-        // @inject_tag: aper:"unique,"
-        ProtocolIeID id = 1 [ json_name="&id"];
-        Criticality criticality = 2 [ json_name="&criticality"];
-        // @inject_tag: aper:"canonicalOrder,"
-        GnbDUServedCellsItemIesValue value = 3 [ json_name="&Value"];
-    }
+    // @inject_tag: aper:"unique,"
+    ProtocolIeID id = 1 [ json_name="&id"];
+    Criticality criticality = 2 [ json_name="&criticality"];
+    // @inject_tag: aper:"canonicalOrder,"
+    GnbDUServedCellsItemIesValue value = 3 [ json_name="&Value"];
 };
 
 // value set from f1ap_v1.asn1:1527
