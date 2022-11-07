@@ -146,12 +146,14 @@ func TestF1SetupReques(t *testing.T) {
 			},
 		},
 	}
+	t.Logf("Created message is\n%v", newF1apPdu)
 
 	per, err := encoder.PerEncodeF1ApPdu(newF1apPdu)
 	assert.NilError(t, err)
-	t.Logf("E2connectionUpdate E2AP PDU PER with Go APER library\n%v", hex.Dump(per))
+	t.Logf("F1SetupRequest F1AP PDU PER with Go APER library\n%v", hex.Dump(per))
 
 	result, err := encoder.PerDecodeF1ApPdu(per)
 	assert.NilError(t, err)
+	t.Logf("Decoded message is\n%v", result)
 	assert.DeepEqual(t, newF1apPdu.String(), result.String())
 }

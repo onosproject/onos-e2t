@@ -411,7 +411,7 @@ var F1apCanonicalChoicemap = map[string]map[int64]reflect.Type{
 		int64(v1.ProtocolIeIDgNBDUID):                   reflect.TypeOf(f1appducontentsv1.F1SetupRequestIesValue_GnbDuId{}),
 		int64(v1.ProtocolIeIDgNBDUName):                 reflect.TypeOf(f1appducontentsv1.F1SetupRequestIesValue_GnbDuName{}),
 		int64(v1.ProtocolIeIDgNBDUServedCellsList):      reflect.TypeOf(f1appducontentsv1.F1SetupRequestIesValue_GnbDuServedCellsList{}),
-		int64(v1.ProtocolIeIDGNBCURRCVersion):           reflect.TypeOf(f1appducontentsv1.F1SetupRequestIesValue_RrcVersion{}),
+		int64(v1.ProtocolIeIDGNBDURRCVersion):           reflect.TypeOf(f1appducontentsv1.F1SetupRequestIesValue_RrcVersion{}),
 		int64(v1.ProtocolIeIDTransportLayerAddressInfo): reflect.TypeOf(f1appducontentsv1.F1SetupRequestIesValue_TransportLayerAddressInfo{}),
 		int64(v1.ProtocolIeIDBAPAddress):                reflect.TypeOf(f1appducontentsv1.F1SetupRequestIesValue_Bapaddress{}),
 		int64(v1.ProtocolIeIDExtendedGNBDUName):         reflect.TypeOf(f1appducontentsv1.F1SetupRequestIesValue_ExtendedGnbDuName{}),
