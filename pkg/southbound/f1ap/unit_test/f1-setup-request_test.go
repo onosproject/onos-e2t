@@ -30,6 +30,7 @@ func TestF1SetupReques(t *testing.T) {
 	ie1, err := pdubuilder.CreateF1SetupRequestIes(&f1apcommondatatypesv1.ProtocolIeID{
 		Value: int32(v1.ProtocolIeIDTransactionID),
 	}, f1apcommondatatypesv1.Criticality_CRITICALITY_REJECT, ie1Value)
+	assert.NilError(t, err)
 	list = append(list, ie1)
 
 	// GnbDuID
@@ -40,6 +41,7 @@ func TestF1SetupReques(t *testing.T) {
 	ie2, err := pdubuilder.CreateF1SetupRequestIes(&f1apcommondatatypesv1.ProtocolIeID{
 		Value: int32(v1.ProtocolIeIDgNBDUID),
 	}, f1apcommondatatypesv1.Criticality_CRITICALITY_REJECT, ie2Value)
+	assert.NilError(t, err)
 	list = append(list, ie2)
 
 	// GnbDuRRC version
@@ -53,6 +55,7 @@ func TestF1SetupReques(t *testing.T) {
 	ie3, err := pdubuilder.CreateF1SetupRequestIes(&f1apcommondatatypesv1.ProtocolIeID{
 		Value: int32(v1.ProtocolIeIDGNBDURRCVersion),
 	}, f1apcommondatatypesv1.Criticality_CRITICALITY_REJECT, ie3Value)
+	assert.NilError(t, err)
 	list = append(list, ie3)
 
 	// Served Cells List
@@ -128,6 +131,7 @@ func TestF1SetupReques(t *testing.T) {
 	ie4, err := pdubuilder.CreateF1SetupRequestIes(&f1apcommondatatypesv1.ProtocolIeID{
 		Value: int32(v1.ProtocolIeIDgNBDUServedCellsList),
 	}, f1apcommondatatypesv1.Criticality_CRITICALITY_REJECT, ie4Value)
+	assert.NilError(t, err)
 	list = append(list, ie4)
 
 	f1SetupRequest, err := pdubuilder.CreateF1SetupRequest(list)

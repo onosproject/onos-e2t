@@ -16857,7 +16857,7 @@ func CreateIDSItypeList(value int32) (*f1apconstantsv1.IdSItypeList, error) {
 	return msg, nil
 }
 
-func CreateIdUEidentityIndexValue(value int32) (*f1apconstantsv1.IdUEidentityIndexValue, error) {
+func CreateIDUEidentityIndexValue(value int32) (*f1apconstantsv1.IdUEidentityIndexValue, error) {
 
 	msg := &f1apconstantsv1.IdUEidentityIndexValue{}
 	msg.Value = value
@@ -16977,7 +16977,7 @@ func CreateIDMaskedImeisv(value int32) (*f1apconstantsv1.IdMaskedImeisv, error) 
 	return msg, nil
 }
 
-func CreateIdPagingIdentity(value int32) (*f1apconstantsv1.IdPagingIdentity, error) {
+func CreateIDPagingIdentity(value int32) (*f1apconstantsv1.IdPagingIdentity, error) {
 
 	msg := &f1apconstantsv1.IdPagingIdentity{}
 	msg.Value = value
@@ -19929,7 +19929,7 @@ func CreateIDPrivacyIndicator(value int32) (*f1apconstantsv1.IdPrivacyIndicator,
 	return msg, nil
 }
 
-func CreateIDTraceCollectionEntityUri(value int32) (*f1apconstantsv1.IdTraceCollectionEntityUri, error) {
+func CreateIDTraceCollectionEntityURI(value int32) (*f1apconstantsv1.IdTraceCollectionEntityUri, error) {
 
 	msg := &f1apconstantsv1.IdTraceCollectionEntityUri{}
 	msg.Value = value
@@ -26251,7 +26251,7 @@ func CreateCellTrafficTraceIesValuePrivacyIndicator(privacyIndicator f1apiesv1.P
 
 	return item, nil
 }
-func CreateCellTrafficTraceIesValueUriAddress(uriAddress *f1apiesv1.Uriaddress) (*f1appducontentsv1.CellTrafficTraceIesValue, error) {
+func CreateCellTrafficTraceIesValueURIAddress(uriAddress *f1apiesv1.Uriaddress) (*f1appducontentsv1.CellTrafficTraceIesValue, error) {
 
 	item := &f1appducontentsv1.CellTrafficTraceIesValue{
 		CellTrafficTraceIes: &f1appducontentsv1.CellTrafficTraceIesValue_UriAddress{
@@ -29485,11 +29485,11 @@ func CreateCnuepagingIdentityChoiceExtension(choiceExtension *f1apiesv1.Cnuepagi
 
 	return item, nil
 }
-func CreateCpTransportLayerAddressEndpointIpAddress(endpointIpAddress *f1apiesv1.TransportLayerAddress) (*f1apiesv1.CpTransportLayerAddress, error) {
+func CreateCpTransportLayerAddressEndpointIPAddress(endpointIPAddress *f1apiesv1.TransportLayerAddress) (*f1apiesv1.CpTransportLayerAddress, error) {
 
 	item := &f1apiesv1.CpTransportLayerAddress{
 		CpTransportLayerAddress: &f1apiesv1.CpTransportLayerAddress_EndpointIpAddress{
-			EndpointIpAddress: endpointIpAddress,
+			EndpointIpAddress: endpointIPAddress,
 		},
 	}
 
@@ -29499,11 +29499,11 @@ func CreateCpTransportLayerAddressEndpointIpAddress(endpointIpAddress *f1apiesv1
 
 	return item, nil
 }
-func CreateCpTransportLayerAddressEndpointIpAddressAndPort(endpointIpAddressAndPort *f1apiesv1.EndpointIPaddressandport) (*f1apiesv1.CpTransportLayerAddress, error) {
+func CreateCpTransportLayerAddressEndpointIPAddressAndPort(endpointIPAddressAndPort *f1apiesv1.EndpointIPaddressandport) (*f1apiesv1.CpTransportLayerAddress, error) {
 
 	item := &f1apiesv1.CpTransportLayerAddress{
 		CpTransportLayerAddress: &f1apiesv1.CpTransportLayerAddress_EndpointIpAddressAndPort{
-			EndpointIpAddressAndPort: endpointIpAddressAndPort,
+			EndpointIpAddressAndPort: endpointIPAddressAndPort,
 		},
 	}
 
@@ -31991,7 +31991,7 @@ func CreateReferenceSignalChoiceExtension(choiceExtension *f1apiesv1.ReferenceSi
 
 	return item, nil
 }
-func CreateResourceSetType_Periodic(periodic *f1apiesv1.ResourceSetTypePeriodic) (*f1apiesv1.ResourceSetType, error) {
+func CreateResourceSetTypeOfPeriodic(periodic *f1apiesv1.ResourceSetTypePeriodic) (*f1apiesv1.ResourceSetType, error) {
 
 	item := &f1apiesv1.ResourceSetType{
 		ResourceSetType: &f1apiesv1.ResourceSetType_Periodic{
@@ -32019,7 +32019,7 @@ func CreateResourceSetTypeSemiPersistent(semiPersistent *f1apiesv1.ResourceSetTy
 
 	return item, nil
 }
-func CreateResourceSetType_Aperiodic(aperiodic *f1apiesv1.ResourceSetTypeAperiodic) (*f1apiesv1.ResourceSetType, error) {
+func CreateResourceSetTypeOfAperiodic(aperiodic *f1apiesv1.ResourceSetTypeAperiodic) (*f1apiesv1.ResourceSetType, error) {
 
 	item := &f1apiesv1.ResourceSetType{
 		ResourceSetType: &f1apiesv1.ResourceSetType_Aperiodic{
@@ -32047,7 +32047,7 @@ func CreateResourceSetTypeChoiceExtension(choiceExtension *f1apiesv1.ResourceSet
 
 	return item, nil
 }
-func CreateResourceType_Periodic(periodic *f1apiesv1.ResourceTypePeriodic) (*f1apiesv1.ResourceType, error) {
+func CreateResourceTypeOfPeriodic(periodic *f1apiesv1.ResourceTypePeriodic) (*f1apiesv1.ResourceType, error) {
 
 	item := &f1apiesv1.ResourceType{
 		ResourceType: &f1apiesv1.ResourceType_Periodic{
@@ -32075,7 +32075,7 @@ func CreateResourceTypeSemiPersistent(semiPersistent *f1apiesv1.ResourceTypeSemi
 
 	return item, nil
 }
-func CreateResourceType_Aperiodic(aperiodic *f1apiesv1.ResourceTypeAperiodic) (*f1apiesv1.ResourceType, error) {
+func CreateResourceTypeOfAperiodic(aperiodic *f1apiesv1.ResourceTypeAperiodic) (*f1apiesv1.ResourceType, error) {
 
 	item := &f1apiesv1.ResourceType{
 		ResourceType: &f1apiesv1.ResourceType_Aperiodic{
@@ -32705,7 +32705,7 @@ func CreateTraceActivationExtIesExtensionMdtconfiguration(mdtconfiguration *f1ap
 
 	return item, nil
 }
-func CreateTraceActivationExtIesExtensionUriAddress(uriAddress *f1apiesv1.Uriaddress) (*f1apiesv1.TraceActivationExtIesExtension, error) {
+func CreateTraceActivationExtIesExtensionURIAddress(uriAddress *f1apiesv1.Uriaddress) (*f1apiesv1.TraceActivationExtIesExtension, error) {
 
 	item := &f1apiesv1.TraceActivationExtIesExtension{
 		TraceActivationExtIes: &f1apiesv1.TraceActivationExtIesExtension_UriAddress{
@@ -33480,13 +33480,13 @@ func CreateCauseRadioNetworkUnspecified() f1apiesv1.CauseRadioNetwork {
 func CreateCauseRadioNetworkRlFailureRlc() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_RL_FAILURE_RLC
 }
-func CreateCauseRadioNetworkUnknownOrAlreadyAllocatedGnbCuUeF1apId() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkUnknownOrAlreadyAllocatedGnbCuUeF1apID() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_UNKNOWN_OR_ALREADY_ALLOCATED_GNB_CU_UE_F1AP_ID
 }
-func CreateCauseRadioNetworkUnknownOrAlreadyAllocatedGnbDuUeF1apId() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkUnknownOrAlreadyAllocatedGnbDuUeF1apIID() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_UNKNOWN_OR_ALREADY_ALLOCATED_GNB_DU_UE_F1AP_ID
 }
-func CreateCauseRadioNetworkUnknownOrInconsistentPairOfUeF1apId() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkUnknownOrInconsistentPairOfUeF1apID() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_UNKNOWN_OR_INCONSISTENT_PAIR_OF_UE_F1AP_ID
 }
 func CreateCauseRadioNetworkInteractionWithOtherProcedure() f1apiesv1.CauseRadioNetwork {
@@ -33528,16 +33528,16 @@ func CreateCauseRadioNetworkReleaseDueToPreEmption() f1apiesv1.CauseRadioNetwork
 func CreateCauseRadioNetworkPlmnNotServedByTheGNbCu() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_PLMN_NOT_SERVED_BY_THE_G_NB_CU
 }
-func CreateCauseRadioNetworkMultipleDrbIdInstances() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkMultipleDrbIDInstances() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_MULTIPLE_DRB_ID_INSTANCES
 }
-func CreateCauseRadioNetworkUnknownDrbId() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkUnknownDrbID() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_UNKNOWN_DRB_ID
 }
-func CreateCauseRadioNetworkMultipleBhRlcChIdInstances() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkMultipleBhRlcChIDInstances() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_MULTIPLE_BH_RLC_CH_ID_INSTANCES
 }
-func CreateCauseRadioNetworkUnknownBhRlcChId() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkUnknownBhRlcChID() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_UNKNOWN_BH_RLC_CH_ID
 }
 func CreateCauseRadioNetworkChoCpcResourcesTobechanged() f1apiesv1.CauseRadioNetwork {
@@ -33555,7 +33555,7 @@ func CreateCauseRadioNetworkGNbCuCellCapacityExceeded() f1apiesv1.CauseRadioNetw
 func CreateCauseRadioNetworkReportCharacteristicsEmpty() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_REPORT_CHARACTERISTICS_EMPTY
 }
-func CreateCauseRadioNetworkExistingMeasurementId() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkExistingMeasurementID() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_EXISTING_MEASUREMENT_ID
 }
 func CreateCauseRadioNetworkMeasurementTemporarilyNotAvailable() f1apiesv1.CauseRadioNetwork {
@@ -33567,7 +33567,7 @@ func CreateCauseRadioNetworkMeasurementNotSupportedForTheObject() f1apiesv1.Caus
 func CreateCauseRadioNetworkUnknownBhAddress() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_UNKNOWN_BH_ADDRESS
 }
-func CreateCauseRadioNetworkUnknownBapRoutingId() f1apiesv1.CauseRadioNetwork {
+func CreateCauseRadioNetworkUnknownBapRoutingID() f1apiesv1.CauseRadioNetwork {
 	return f1apiesv1.CauseRadioNetwork_CAUSE_RADIO_NETWORK_UNKNOWN_BAP_ROUTING_ID
 }
 func CreateCauseRadioNetworkInsufficientUeCapabilities() f1apiesv1.CauseRadioNetwork {
