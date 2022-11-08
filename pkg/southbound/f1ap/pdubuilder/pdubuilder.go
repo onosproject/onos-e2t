@@ -208,7 +208,7 @@ func CreateErrorIndication(protocolIes []*f1appducontentsv1.ErrorIndicationIes) 
 	return msg, nil
 }
 
-func CreateF1SetupRequestIes(ID *f1apcommondatatypesv1.ProtocolIeID, criticality f1apcommondatatypesv1.Criticality, value *f1appducontentsv1.F1SetupRequestIesValue) (*f1appducontentsv1.F1SetupRequestIes, error) {
+func CreateF1SetupRequestIes(ID int32, criticality f1apcommondatatypesv1.Criticality, value *f1appducontentsv1.F1SetupRequestIesValue) (*f1appducontentsv1.F1SetupRequestIes, error) {
 
 	msg := &f1appducontentsv1.F1SetupRequestIes{}
 	msg.Id = ID
@@ -21562,7 +21562,7 @@ func CreateGnbDUServedCellsItemIesValueGnbDUServedCellsItem(gnbDUServedCellsItem
 	return item, nil
 }
 
-func CreateGnbDUServedCellsItemIesValue(ID *f1apcommondatatypesv1.ProtocolIeID, criticality f1apcommondatatypesv1.Criticality, value *f1appducontentsv1.GnbDUServedCellsItemIesValue) (*f1appducontentsv1.GnbDUServedCellsItemIes, error) {
+func CreateGnbDUServedCellsItemIesValue(ID int32, criticality f1apcommondatatypesv1.Criticality, value *f1appducontentsv1.GnbDUServedCellsItemIesValue) (*f1appducontentsv1.GnbDUServedCellsItemIes, error) {
 
 	msg := &f1appducontentsv1.GnbDUServedCellsItemIes{}
 	msg.Id = ID

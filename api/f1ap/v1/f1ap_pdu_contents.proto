@@ -203,8 +203,8 @@ message F1SetupRequestIesValue {
 // concrete instance(s) of class F1AP-PROTOCOL-IES from f1ap_v1.asn1:1494
 // {F1SetupRequestIEs}
 message F1SetupRequestIes {
-    // @inject_tag: aper:"unique,"
-    ProtocolIeID id = 1 [ json_name="&id"];
+    // @inject_tag: aper:"unique,valueLB:0,valueUB:255"
+    int32 id = 1 [ json_name="&id"];
     Criticality criticality = 2 [ json_name="&criticality"];
     // @inject_tag: aper:"canonicalOrder,"
     F1SetupRequestIesValue value = 3 [ json_name="&Value"];
@@ -236,8 +236,8 @@ message GnbDUServedCellsItemIesValue {
 // {GNB-DU-Served-Cells-ItemIEs}
 message GnbDUServedCellsItemIes {
     // value set translated as choice from f1ap_v1.asn1:1509
-    // @inject_tag: aper:"unique,"
-    ProtocolIeID id = 1 [ json_name="&id"];
+    // @inject_tag: aper:"unique,valueLB:0,valueUB:255"
+    int32 id = 1 [ json_name="&id"];
     Criticality criticality = 2 [ json_name="&criticality"];
     // @inject_tag: aper:"canonicalOrder,"
     GnbDUServedCellsItemIesValue value = 3 [ json_name="&Value"];
