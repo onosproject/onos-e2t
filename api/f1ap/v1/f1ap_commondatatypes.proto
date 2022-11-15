@@ -1,0 +1,73 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
+////////////////////// f1ap-commondatatypes.proto //////////////////////
+// Protobuf generated from /f1ap_v1.asn1 by asn1c-0.9.29
+// F1AP-CommonDataTypes { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-access(22) modules(3) f1ap(3) version1(1) f1ap-CommonDataTypes(3) }
+
+syntax = "proto3";
+
+package f1ap.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/f1ap/v1/f1ap_commondatatypes;f1apcommondatatypesv1";
+
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+
+// enumerated from f1ap_v1.asn1:10094
+enum Criticality {
+    CRITICALITY_REJECT = 0;
+    CRITICALITY_IGNORE = 1;
+    CRITICALITY_NOTIFY = 2;
+};
+
+// enumerated from f1ap_v1.asn1:10096
+enum Presence {
+    PRESENCE_OPTIONAL = 0;
+    PRESENCE_CONDITIONAL = 1;
+    PRESENCE_MANDATORY = 2;
+};
+
+// enumerated from f1ap_v1.asn1:10109
+enum TriggeringMessage {
+    TRIGGERING_MESSAGE_INITIATING_MESSAGE = 0;
+    TRIGGERING_MESSAGE_SUCCESSFUL_OUTCOME = 1;
+    TRIGGERING_MESSAGE_UNSUCCESSFUL_OUTCOME = 2;
+};
+
+// sequence from f1ap_v1.asn1:10099
+// {PrivateIE-ID}
+message PrivateIeID {
+    // choice from f1ap_v1.asn1:10099
+    oneof private_ie_id {
+        // @inject_tag: aper:"choiceIdx:1,valueLB:0,valueUB:65535,"
+        int32 local = 1 [ json_name="local"];
+        // @inject_tag: aper:"choiceIdx:2,"
+        string global = 2 [ json_name="global"];
+    }
+};
+
+// range of Integer from f1ap_v1.asn1:10103
+// {ProcedureCode}
+message ProcedureCode {
+    // @inject_tag: aper:"valueLB:0,valueUB:255,"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 255}, json_name="value"];
+};
+
+// range of Integer from f1ap_v1.asn1:10105
+// {ProtocolExtensionID}
+message ProtocolExtensionId {
+    // @inject_tag: aper:"valueLB:0,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 65535}, json_name="value"];
+};
+
+// range of Integer from f1ap_v1.asn1:10107
+// {ProtocolIE-ID}
+message ProtocolIeID {
+    // @inject_tag: aper:"valueLB:0,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 65535}, json_name="value"];
+};
+
+

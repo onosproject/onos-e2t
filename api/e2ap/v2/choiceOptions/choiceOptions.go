@@ -12,7 +12,7 @@ import (
 	"reflect"
 )
 
-//ToDo - move away from using Reflect package
+// move away from using Reflect package
 var E2ApPduChoicemap = map[string]map[int]reflect.Type{
 	"e2_ap_pdu": {
 		1: reflect.TypeOf(e2ap_pdu_descriptions.E2ApPdu_InitiatingMessage{}),

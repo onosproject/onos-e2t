@@ -9,6 +9,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"google.golang.org/grpc/credentials/insecure"
 	"math/rand"
 	"os"
 	"sync"
@@ -471,7 +472,10 @@ func (s *simAppSub) start() error {
 	}
 
 	log.Infof("Starting '%s' subscription '%s' on '%s'", s.nodeID, s.name, s.instance.name)
-	conn, err := grpc.Dial(s.instance.address, grpc.WithInsecure())
+	opts := []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	}
+	conn, err := grpc.Dial(s.instance.address, opts...)
 	if err != nil {
 		log.Error(err)
 		return err
@@ -506,7 +510,10 @@ func (s *simAppSub) stop() error {
 	}
 
 	log.Infof("Stopping '%s' subscription '%s' on '%s'", s.nodeID, s.name, s.instance.name)
-	conn, err := grpc.Dial(s.instance.address, grpc.WithInsecure())
+	opts := []grpc.DialOption{
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	}
+	conn, err := grpc.Dial(s.instance.address, opts...)
 	if err != nil {
 		log.Error(err)
 		return err
