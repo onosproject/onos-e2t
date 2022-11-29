@@ -1,0 +1,160 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
+////////////////////// xnap-containers.proto //////////////////////
+// Protobuf generated from /xnap_v1.asn1 by asn1c-0.9.29
+// XnAP-Containers { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-access(22) modules(3) xnap(2) version1(1) xnap-Containers(5) }
+
+syntax = "proto3";
+
+package xnap.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-containers;xnapcontainersv1";
+
+import "xnap_v1/v1/xnap_commondatatypes.proto";
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+import "google/protobuf/empty.proto";
+
+// sequence from xnap_v1.asn1:9224
+// Param XNAP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Container001}
+message ProtocolIeContainer001 {
+    // @inject_tag: aper:"sizeLB:0,sizeUB:65535,"
+    repeated HandoverRequestIEs value = 1 [(validate.v1.rules).repeated = {min_items: 0, max_items: 65535}, json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9229
+// Param XNAP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Field001}
+message ProtocolIeField001 {
+    IesSetParam id = 1 [ json_name="id"];
+    @id criticality = 2 [ json_name="criticality"];
+    @id value = 3 [ json_name="value"];
+};
+
+// reference from xnap_v1.asn1:9226
+// Param XNAP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-Single-Container001}
+message ProtocolIeSingleContainer001 {
+    ProtocolIeField001 value = 1 [ json_name="value"];
+};
+
+// value set from xnap_v1.asn1:1165
+// {ProcedureStageChoice-ExtIEs}
+message ProcedureStageChoiceExtIes {
+    google.protobuf.Empty value = 1 [ json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9242
+// Param XNAP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-ContainerPair}
+message ProtocolIeContainerPair {
+    repeated IesSetParam value = 1 [(validate.v1.rules).repeated = {min_items: 0, max_items: maxProtocolIEs}, json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9245
+// Param XNAP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-FieldPair}
+message ProtocolIeFieldPair {
+    IesSetParam id = 1 [ json_name="id"];
+    @id first_criticality = 2 [ json_name="firstCriticality"];
+    @id first_value = 3 [ json_name="firstValue"];
+    @id second_criticality = 4 [ json_name="secondCriticality"];
+    @id second_value = 5 [ json_name="secondValue"];
+};
+
+// sequence from xnap_v1.asn1:9260
+// Param INTEGER:lowerBound
+// Param INTEGER:upperBound
+// Param XNAP-PROTOCOL-IES:IEsSetParam
+// {ProtocolIE-ContainerList}
+message ProtocolIeContainerList {
+    // @inject_tag: aper:""
+    repeated IesSetParam value = 1 [(validate.v1.rules).repeated = {min_items: lowerBound, max_items: upperBound}, json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9264
+// Param INTEGER:lowerBound
+// Param INTEGER:upperBound
+// Param XNAP-PROTOCOL-IES-PAIR:IEsSetParam
+// {ProtocolIE-ContainerPairList}
+message ProtocolIeContainerPairList {
+    // @inject_tag: aper:""
+    repeated IesSetParam value = 1 [(validate.v1.rules).repeated = {min_items: lowerBound, max_items: upperBound}, json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9273
+// Param XNAP-PROTOCOL-EXTENSION:ExtensionSetParam
+// {ProtocolExtensionContainer001}
+message ProtocolExtensionContainer001 {
+    // @inject_tag: aper:"sizeLB:1,sizeUB:65535,"
+    repeated UecontextInfoHorequestExtIes value = 1 [(validate.v1.rules).repeated = {min_items: 1, max_items: 65535}, json_name="value"];
+};
+
+// value set from xnap_v1.asn1:986
+// {UEContextInfoHORequest-ExtIEs&Extension}
+message UecontextInfoHorequestExtIesExtension {
+    // value set translated as choice from xnap_v1.asn1:986
+    oneof uecontext_info_horequest_ext_ies {
+        // @inject_tag: aper:"choiceIdx:1,"
+        FiveGcmobilityRestrictionListContainer id_five_gcmobility_restriction_list_container = 1 [ json_name="id-FiveGCMobilityRestrictionListContainer"];
+        // @inject_tag: aper:"choiceIdx:2,valueExt,"
+        NruesidelinkAggregateMaximumBitRate id_nruesidelink_aggregate_maximum_bit_rate = 2 [ json_name="id-NRUESidelinkAggregateMaximumBitRate"];
+        // @inject_tag: aper:"choiceIdx:3,valueExt,"
+        LteuesidelinkAggregateMaximumBitRate id_lteuesidelink_aggregate_maximum_bit_rate = 3 [ json_name="id-LTEUESidelinkAggregateMaximumBitRate"];
+        // @inject_tag: aper:"choiceIdx:4,"
+        Mdtplmnlist id_mdtplmnlist = 4 [ json_name="id-MDTPLMNList"];
+        // @inject_tag: aper:"choiceIdx:5,"
+        UeradioCapabilityId id_ueradio_capability_id = 5 [ json_name="id-UERadioCapabilityID"];
+    }
+};
+
+// concrete instance(s) of class XNAP-PROTOCOL-EXTENSION from xnap_v1.asn1:986
+// @inject_tag: aper:"valueExt"
+// {UEContextInfoHORequest-ExtIEs}
+message UecontextInfoHorequestExtIes {
+    // @inject_tag: aper:"unique,"
+    ProtocolIeID id = 1 [ json_name="&id"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2,"
+    Criticality criticality = 2 [ json_name="&criticality"];
+    // @inject_tag: aper:"canonicalOrder,"
+    UecontextInfoHorequestExtIesExtension extension = 3 [ json_name="&Extension"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2,"
+    Presence presence = 4 [ json_name="&presence"];
+};
+
+// sequence from xnap_v1.asn1:9276
+// Param XNAP-PROTOCOL-EXTENSION:ExtensionSetParam
+// {ProtocolExtensionField001}
+message ProtocolExtensionField001 {
+    UecontextInfoHorequestExtIes id = 1 [ json_name="id"];
+    UecontextInfoHorequestExtIes criticality = 2 [ json_name="criticality"];
+    UecontextInfoHorequestExtIes extension_value = 3 [ json_name="extensionValue"];
+};
+
+// sequence from xnap_v1.asn1:9289
+// Param XNAP-PRIVATE-IES:IEsSetParam
+// {PrivateIE-Container001}
+message PrivateIeContainer001 {
+    // @inject_tag: aper:"sizeLB:1,sizeUB:65535,"
+    repeated PrivateMessageIEs value = 1 [(validate.v1.rules).repeated = {min_items: 1, max_items: 65535}, json_name="value"];
+};
+
+// value set from xnap_v1.asn1:2778
+// {PrivateMessage-IEs}
+message PrivateMessageIEs {
+    google.protobuf.Empty value = 1 [ json_name="value"];
+};
+
+// sequence from xnap_v1.asn1:9292
+// Param XNAP-PRIVATE-IES:IEsSetParam
+// {PrivateIE-Field001}
+message PrivateIeField001 {
+    PrivateMessageIEs id = 1 [ json_name="id"];
+    PrivateMessageIEs criticality = 2 [ json_name="criticality"];
+    PrivateMessageIEs value = 3 [ json_name="value"];
+};
+

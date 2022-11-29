@@ -1,0 +1,96 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
+////////////////////// xnap-pdu-descriptions.proto //////////////////////
+// Protobuf generated from /xnap_v1.asn1 by asn1c-0.9.29
+// XnAP-PDU-Descriptions { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-access(22) modules(3) xnap(2) version1(1) xnap-PDU-Descriptions(0) }
+
+syntax = "proto3";
+
+package xnap.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-descriptions;xnappdudescriptionsv1";
+
+import "xnap_v1/v1/xnap_commondatatypes.proto";
+import "xnap_v1/v1/xnap_pdu_contents.proto";
+import "xnap_v1/v1/xnap_constants.proto";
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+import "google/protobuf/empty.proto";
+
+// sequence from xnap_v1.asn1:168
+// @inject_tag: aper:"choiceExt"
+// {XnAP-PDU}
+message XnApPDu {
+    // choice from xnap_v1.asn1:168
+    oneof xn_ap_pdu {
+        // @inject_tag: aper:"choiceIdx:1,"
+        InitiatingMessage initiating_message = 1 [ json_name="initiatingMessage"];
+        // @inject_tag: aper:"choiceIdx:2,"
+        SuccessfulOutcome successful_outcome = 2 [ json_name="successfulOutcome"];
+        // @inject_tag: aper:"choiceIdx:3,"
+        UnsuccessfulOutcome unsuccessful_outcome = 3 [ json_name="unsuccessfulOutcome"];
+    }
+};
+
+// sequence from xnap_v1.asn1:175
+// {InitiatingMessage}
+message InitiatingMessage {
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    InitiatingMessageXnApElementaryProcedures value = 3 [ json_name="value"];
+};
+
+message InitiatingMessageXnApElementaryProcedures {
+
+    oneof im_values {
+        // @inject_tag: aper:"valueExt"
+        XnSetupRequest xn_setup_request = 1 [ json_name="ric_subscription"];
+        // ToDo - add the rest of the messages
+    }
+}
+
+// sequence from xnap_v1.asn1:181
+// {SuccessfulOutcome}
+message SuccessfulOutcome {
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    SuccessfulOutcomeXnApElementaryProcedures value = 3 [ json_name="value"];
+};
+
+message SuccessfulOutcomeXnApElementaryProcedures {
+
+    oneof so_values {
+        // @inject_tag: aper:"valueExt"
+        XnSetupResponse xn_setup_response = 1 [ json_name="ric_subscription"];
+        // ToDo - add the rest of the messages
+    }
+}
+
+// sequence from xnap_v1.asn1:187
+// {UnsuccessfulOutcome}
+message UnsuccessfulOutcome {
+    // @inject_tag: aper:"valueLB:0,valueUB:255,unique"
+    int32 procedure_code = 1 [ json_name="procedureCode"];
+    // @inject_tag: aper:"valueLB:0,valueUB:2"
+    Criticality criticality = 2 [ json_name="criticality"];
+    // @inject_tag: aper:"canonicalOrder"
+    UnsuccessfulOutcomeXnApElementaryProcedures value = 3 [ json_name="value"];
+};
+
+message UnsuccessfulOutcomeXnApElementaryProcedures {
+
+    oneof uo_values {
+        // @inject_tag: aper:"valueExt"
+        XnSetupFailure xn_setup_failure = 1 [ json_name="f1_setup_response"];
+        // ToDo - add the rest of the messages
+    }
+}

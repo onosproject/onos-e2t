@@ -1,0 +1,2567 @@
+/*
+SPDX-FileCopyrightText: 2022-present Intel Corporation
+
+SPDX-License-Identifier: Apache-2.0
+*/
+
+////////////////////// xnap-constants.proto //////////////////////
+// Protobuf generated from /xnap_v1.asn1 by asn1c-0.9.29
+// XnAP-Constants { itu-t(0) identified-organization(4) etsi(0) mobileDomain(0) ngran-Access(22) modules(3) xnap(2) version1(1) xnap-Constants(4) }
+
+syntax = "proto3";
+
+package xnap.v1;
+option go_package = "github.com/onosproject/onos-e2t/api/xnap_v1/v1/xnap-constants;xnapconstantsv1";
+
+import "xnap_v1/v1/xnap_commondatatypes.proto";
+import "validate/v1/validate.proto";
+import "asn1/v1/asn1.proto";
+import "google/protobuf/empty.proto";
+
+// reference from xnap_v1.asn1:8721
+// {id-handoverPreparation}
+message IdhandoverPreparation {
+    int32 value = 1 [(validate.v1.rules).int32.const = 0, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8722
+// {id-sNStatusTransfer}
+message IdsNstatusTransfer {
+    // @inject_tag: aper:"valueLB:1,valueUB:1,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8723
+// {id-handoverCancel}
+message IdhandoverCancel {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8724
+// {id-retrieveUEContext}
+message IdretrieveUecontext {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8725
+// {id-rANPaging}
+message IdrAnpaging {
+    // @inject_tag: aper:"valueLB:4,valueUB:4,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8726
+// {id-xnUAddressIndication}
+message IdxnUaddressIndication {
+    // @inject_tag: aper:"valueLB:5,valueUB:5,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8727
+// {id-uEContextRelease}
+message IduEcontextRelease {
+    // @inject_tag: aper:"valueLB:6,valueUB:6,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8728
+// {id-sNGRANnodeAdditionPreparation}
+message IdsNgrannodeAdditionPreparation {
+    // @inject_tag: aper:"valueLB:7,valueUB:7,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 7, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8729
+// {id-sNGRANnodeReconfigurationCompletion}
+message IdsNgrannodeReconfigurationCompletion {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8730
+// {id-mNGRANnodeinitiatedSNGRANnodeModificationPreparation}
+message IdmNgrannodeinitiatedSngrannodeModificationPreparation {
+    // @inject_tag: aper:"valueLB:9,valueUB:9,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 9, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8731
+// {id-sNGRANnodeinitiatedSNGRANnodeModificationPreparation}
+message IdsNgrannodeinitiatedSngrannodeModificationPreparation {
+    // @inject_tag: aper:"valueLB:10,valueUB:10,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 10, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8732
+// {id-mNGRANnodeinitiatedSNGRANnodeRelease}
+message IdmNgrannodeinitiatedSngrannodeRelease {
+    // @inject_tag: aper:"valueLB:11,valueUB:11,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 11, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8733
+// {id-sNGRANnodeinitiatedSNGRANnodeRelease}
+message IdsNgrannodeinitiatedSngrannodeRelease {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8734
+// {id-sNGRANnodeCounterCheck}
+message IdsNgrannodeCounterCheck {
+    // @inject_tag: aper:"valueLB:13,valueUB:13,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 13, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8735
+// {id-sNGRANnodeChange}
+message IdsNgrannodeChange {
+    // @inject_tag: aper:"valueLB:14,valueUB:14,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 14, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8736
+// {id-rRCTransfer}
+message IdrRctransfer {
+    // @inject_tag: aper:"valueLB:15,valueUB:15,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 15, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8737
+// {id-xnRemoval}
+message IdxnRemoval {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8738
+// {id-xnSetup}
+message IdxnSetup {
+    // @inject_tag: aper:"valueLB:17,valueUB:17,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 17, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8739
+// {id-nGRANnodeConfigurationUpdate}
+message IdnGrannodeConfigurationUpdate {
+    // @inject_tag: aper:"valueLB:18,valueUB:18,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 18, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8740
+// {id-cellActivation}
+message IdcellActivation {
+    // @inject_tag: aper:"valueLB:19,valueUB:19,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 19, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8741
+// {id-reset}
+message Idreset {
+    // @inject_tag: aper:"valueLB:20,valueUB:20,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 20, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8742
+// {id-errorIndication}
+message IderrorIndication {
+    // @inject_tag: aper:"valueLB:21,valueUB:21,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 21, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8743
+// {id-privateMessage}
+message IdprivateMessage {
+    // @inject_tag: aper:"valueLB:22,valueUB:22,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 22, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8744
+// {id-notificationControl}
+message IdnotificationControl {
+    // @inject_tag: aper:"valueLB:23,valueUB:23,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 23, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8745
+// {id-activityNotification}
+message IdactivityNotification {
+    // @inject_tag: aper:"valueLB:24,valueUB:24,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 24, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8746
+// {id-e-UTRA-NR-CellResourceCoordination}
+message IdeUTraNRCellResourceCoordination {
+    // @inject_tag: aper:"valueLB:25,valueUB:25,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 25, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8747
+// {id-secondaryRATDataUsageReport}
+message IdsecondaryRatdataUsageReport {
+    // @inject_tag: aper:"valueLB:26,valueUB:26,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 26, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8748
+// {id-deactivateTrace}
+message IddeactivateTrace {
+    // @inject_tag: aper:"valueLB:27,valueUB:27,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 27, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8749
+// {id-traceStart}
+message IdtraceStart {
+    // @inject_tag: aper:"valueLB:28,valueUB:28,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 28, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8750
+// {id-handoverSuccess}
+message IdhandoverSuccess {
+    // @inject_tag: aper:"valueLB:29,valueUB:29,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 29, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8751
+// {id-conditionalHandoverCancel}
+message IdconditionalHandoverCancel {
+    // @inject_tag: aper:"valueLB:30,valueUB:30,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 30, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8752
+// {id-earlyStatusTransfer}
+message IdearlyStatusTransfer {
+    // @inject_tag: aper:"valueLB:31,valueUB:31,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 31, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8753
+// {id-failureIndication}
+message IdfailureIndication {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8754
+// {id-handoverReport}
+message IdhandoverReport {
+    // @inject_tag: aper:"valueLB:33,valueUB:33,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 33, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8755
+// {id-resourceStatusReportingInitiation}
+message IdresourceStatusReportingInitiation {
+    // @inject_tag: aper:"valueLB:34,valueUB:34,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 34, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8756
+// {id-resourceStatusReporting}
+message IdresourceStatusReporting {
+    // @inject_tag: aper:"valueLB:35,valueUB:35,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 35, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8757
+// {id-mobilitySettingsChange}
+message IdmobilitySettingsChange {
+    // @inject_tag: aper:"valueLB:36,valueUB:36,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 36, json_name="value"]; // ProcedureCode
+};
+
+// reference from xnap_v1.asn1:8758
+// {id-accessAndMobilityIndication}
+message IdaccessAndMobilityIndication {
+    // @inject_tag: aper:"valueLB:37,valueUB:37,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 37, json_name="value"]; // ProcedureCode
+};
+
+// constant Integer from xnap_v1.asn1:8768
+// {-}
+message MaxEarfcn {
+    // @inject_tag: aper:"valueLB:262143,valueUB:262143,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 262143, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8769
+// {-}
+message MaxnoofAllowedAreas {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8770
+// {-}
+message MaxnoofAmfregions {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8771
+// {-}
+message MaxnoofAoIs {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8772
+// {-}
+message MaxnoofBluetoothName {
+    // @inject_tag: aper:"valueLB:4,valueUB:4,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8773
+// {-}
+message MaxnoofBplmns {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8774
+// {-}
+message MaxnoofCags {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8775
+// {-}
+message MaxnoofCagsperPlmn {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8776
+// {-}
+message MaxnoofCellIdforMdt {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8777
+// {-}
+message MaxnoofCellsinAoI {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8778
+// {-}
+message MaxnoofCellsinUehistoryInfo {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8779
+// {-}
+message MaxnoofCellsinNgRAnnode {
+    // @inject_tag: aper:"valueLB:16384,valueUB:16384,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16384, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8780
+// {-}
+message MaxnoofCellsinRna {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8781
+// {-}
+message MaxnoofCellsUemovingTrajectory {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8782
+// {-}
+message MaxnoofDrbs {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8783
+// {-}
+message MaxnoofEutrabands {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8784
+// {-}
+message MaxnoofEutrabplmns {
+    // @inject_tag: aper:"valueLB:6,valueUB:6,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8785
+// {-}
+message MaxnoofEplmns {
+    // @inject_tag: aper:"valueLB:15,valueUB:15,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 15, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8786
+// {-}
+message MaxnoofExtSliceItems {
+    // @inject_tag: aper:"valueLB:65535,valueUB:65535,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65535, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8787
+// {-}
+message MaxnoofEplmnsplus1 {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8788
+// {-}
+message MaxnoofForbiddenTacs {
+    // @inject_tag: aper:"valueLB:4096,valueUB:4096,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 4096, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8789
+// {-}
+message MaxnoofFreqforMdt {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8790
+// {-}
+message MaxnoofMbsfneutra {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8791
+// {-}
+message MaxnoofMdtplmns {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8792
+// {-}
+message MaxnoofMultiConnectivityMinusOne {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8793
+// {-}
+message MaxnoofNeighbours {
+    // @inject_tag: aper:"valueLB:1024,valueUB:1024,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1024, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8794
+// {-}
+message MaxnoofNeighPciforMdt {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8795
+// {-}
+message MaxnoofNids {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8796
+// {-}
+message MaxnoofNrcellBands {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8797
+// {-}
+message MaxnoofPlmns {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8798
+// {-}
+message MaxnoofPdusessions {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8799
+// {-}
+message MaxnoofProtectedResourcePatterns {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8800
+// {-}
+message MaxnoofQoSflows {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8801
+// {-}
+message MaxnoofQoSparaSets {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8802
+// {-}
+message MaxnoofRanareaCodes {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8803
+// {-}
+message MaxnoofRanareasinRna {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8804
+// {-}
+message MaxnoofRannodesinAoI {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8805
+// {-}
+message MaxnoofScellGroups {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8806
+// {-}
+message MaxnoofScellGroupsplus1 {
+    // @inject_tag: aper:"valueLB:4,valueUB:4,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8807
+// {-}
+message MaxnoofSensorName {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8808
+// {-}
+message MaxnoofSliceItems {
+    // @inject_tag: aper:"valueLB:1024,valueUB:1024,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1024, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8809
+// {-}
+message MaxnoofSnpnids {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8810
+// {-}
+message MaxnoofsupportedPlmns {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8811
+// {-}
+message MaxnoofsupportedTacs {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8812
+// {-}
+message MaxnoofTaforMdt {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8813
+// {-}
+message MaxnoofTai {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8814
+// {-}
+message MaxnoofTaisinAoI {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8815
+// {-}
+message Maxnooftimeperiods {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8816
+// {-}
+message MaxnoofTnlassociations {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8817
+// {-}
+message MaxnoofUecontexts {
+    // @inject_tag: aper:"valueLB:8192,valueUB:8192,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8192, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8818
+// {-}
+message MaxNrarfcn {
+    // @inject_tag: aper:"valueLB:3279165,valueUB:3279165,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3279165, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8819
+// {-}
+message MaxNrOfErrors {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8820
+// {-}
+message Maxnoofslots {
+    // @inject_tag: aper:"valueLB:5120,valueUB:5120,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5120, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8821
+// {-}
+message MaxnoofExtTlas {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8822
+// {-}
+message MaxnoofGtptlas {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8823
+// {-}
+message MaxnoofChocells {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8824
+// {-}
+message MaxnoofPc5QoSflows {
+    // @inject_tag: aper:"valueLB:2064,valueUB:2064,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2064, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8825
+// {-}
+message MaxnoofSsbareas {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8826
+// {-}
+message MaxnoofRachreports {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8827
+// {-}
+message MaxnoofNrscss {
+    // @inject_tag: aper:"valueLB:5,valueUB:5,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8828
+// {-}
+message MaxnoofPhysicalResourceBlocks {
+    // @inject_tag: aper:"valueLB:275,valueUB:275,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 275, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8829
+// {-}
+message MaxnoofAdditionalPdcpduplicationTnl {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8830
+// {-}
+message MaxnoofRlcduplicationstate {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8831
+// {-}
+message MaxnoofWlanname {
+    // @inject_tag: aper:"valueLB:4,valueUB:4,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8832
+// {-}
+message MaxnoofNonAnchorCarrierFreqConfig {
+    // @inject_tag: aper:"valueLB:15,valueUB:15,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 15, json_name="value"];
+};
+
+// constant Integer from xnap_v1.asn1:8833
+// {-}
+message MaxnoofDataForwardingTunneltoEUTran {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"];
+};
+
+// reference from xnap_v1.asn1:8841
+// {id-ActivatedServedCells}
+message IdActivatedServedCells {
+    int32 value = 1 [(validate.v1.rules).int32.const = 0, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8842
+// {id-ActivationIDforCellActivation}
+message IdActivationIdforCellActivation {
+    // @inject_tag: aper:"valueLB:1,valueUB:1,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 1, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8843
+// {id-admittedSplitSRB}
+message IdadmittedSplitSrb {
+    // @inject_tag: aper:"valueLB:2,valueUB:2,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 2, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8844
+// {id-admittedSplitSRBrelease}
+message IdadmittedSplitSrbrelease {
+    // @inject_tag: aper:"valueLB:3,valueUB:3,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 3, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8845
+// {id-AMF-Region-Information}
+message IdAMfRegionInformation {
+    // @inject_tag: aper:"valueLB:4,valueUB:4,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 4, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8846
+// {id-AssistanceDataForRANPaging}
+message IdAssistanceDataForRanpaging {
+    // @inject_tag: aper:"valueLB:5,valueUB:5,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 5, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8847
+// {id-BearersSubjectToCounterCheck}
+message IdBearersSubjectToCounterCheck {
+    // @inject_tag: aper:"valueLB:6,valueUB:6,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 6, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8848
+// {id-Cause}
+message IdCause {
+    // @inject_tag: aper:"valueLB:7,valueUB:7,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 7, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8849
+// {id-cellAssistanceInfo-NR}
+message IdcellAssistanceInfoNR {
+    // @inject_tag: aper:"valueLB:8,valueUB:8,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 8, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8850
+// {id-ConfigurationUpdateInitiatingNodeChoice}
+message IdConfigurationUpdateInitiatingNodeChoice {
+    // @inject_tag: aper:"valueLB:9,valueUB:9,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 9, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8851
+// {id-CriticalityDiagnostics}
+message IdCriticalityDiagnostics {
+    // @inject_tag: aper:"valueLB:10,valueUB:10,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 10, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8852
+// {id-XnUAddressInfoperPDUSession-List}
+message IdXnUaddressInfoperPdusessionList {
+    // @inject_tag: aper:"valueLB:11,valueUB:11,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 11, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8853
+// {id-DRBsSubjectToStatusTransfer-List}
+message IdDRbsSubjectToStatusTransferList {
+    // @inject_tag: aper:"valueLB:12,valueUB:12,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 12, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8854
+// {id-ExpectedUEBehaviour}
+message IdExpectedUebehaviour {
+    // @inject_tag: aper:"valueLB:13,valueUB:13,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 13, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8855
+// {id-GlobalNG-RAN-node-ID}
+message IdGlobalNgRAnnodeID {
+    // @inject_tag: aper:"valueLB:14,valueUB:14,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 14, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8856
+// {id-GUAMI}
+message IdGUami {
+    // @inject_tag: aper:"valueLB:15,valueUB:15,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 15, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8857
+// {id-indexToRatFrequSelectionPriority}
+message IdindexToRatFrequSelectionPriority {
+    // @inject_tag: aper:"valueLB:16,valueUB:16,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 16, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8858
+// {id-initiatingNodeType-ResourceCoordRequest}
+message IdinitiatingNodeTypeResourceCoordRequest {
+    // @inject_tag: aper:"valueLB:17,valueUB:17,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 17, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8859
+// {id-List-of-served-cells-E-UTRA}
+message IdListofservedcellsEUTra {
+    // @inject_tag: aper:"valueLB:18,valueUB:18,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 18, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8860
+// {id-List-of-served-cells-NR}
+message IdListofservedcellsNR {
+    // @inject_tag: aper:"valueLB:19,valueUB:19,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 19, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8861
+// {id-LocationReportingInformation}
+message IdLocationReportingInformation {
+    // @inject_tag: aper:"valueLB:20,valueUB:20,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 20, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8862
+// {id-MAC-I}
+message IdMAcI {
+    // @inject_tag: aper:"valueLB:21,valueUB:21,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 21, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8863
+// {id-MaskedIMEISV}
+message IdMaskedImeisv {
+    // @inject_tag: aper:"valueLB:22,valueUB:22,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 22, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8864
+// {id-M-NG-RANnodeUEXnAPID}
+message IdMNGRAnnodeUexnApid {
+    // @inject_tag: aper:"valueLB:23,valueUB:23,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 23, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8865
+// {id-MN-to-SN-Container}
+message IdMNtoSNContainer {
+    // @inject_tag: aper:"valueLB:24,valueUB:24,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 24, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8866
+// {id-MobilityRestrictionList}
+message IdMobilityRestrictionList {
+    // @inject_tag: aper:"valueLB:25,valueUB:25,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 25, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8867
+// {id-new-NG-RAN-Cell-Identity}
+message IdnewNGRAnCellIdentity {
+    // @inject_tag: aper:"valueLB:26,valueUB:26,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 26, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8868
+// {id-newNG-RANnodeUEXnAPID}
+message IdnewNgRAnnodeUexnApid {
+    // @inject_tag: aper:"valueLB:27,valueUB:27,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 27, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8869
+// {id-UEReportRRCTransfer}
+message IdUEreportRrctransfer {
+    // @inject_tag: aper:"valueLB:28,valueUB:28,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 28, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8870
+// {id-oldNG-RANnodeUEXnAPID}
+message IdoldNgRAnnodeUexnApid {
+    // @inject_tag: aper:"valueLB:29,valueUB:29,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 29, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8871
+// {id-OldtoNewNG-RANnodeResumeContainer}
+message IdOldtoNewNgRAnnodeResumeContainer {
+    // @inject_tag: aper:"valueLB:30,valueUB:30,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 30, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8872
+// {id-PagingDRX}
+message IdPagingDrx {
+    // @inject_tag: aper:"valueLB:31,valueUB:31,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 31, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8873
+// {id-PCellID}
+message IdPCellId {
+    // @inject_tag: aper:"valueLB:32,valueUB:32,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 32, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8874
+// {id-PDCPChangeIndication}
+message IdPDcpchangeIndication {
+    // @inject_tag: aper:"valueLB:33,valueUB:33,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 33, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8875
+// {id-PDUSessionAdmittedAddedAddReqAck}
+message IdPDusessionAdmittedAddedAddReqAck {
+    // @inject_tag: aper:"valueLB:34,valueUB:34,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 34, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8876
+// {id-PDUSessionAdmittedModSNModConfirm}
+message IdPDusessionAdmittedModSnmodConfirm {
+    // @inject_tag: aper:"valueLB:35,valueUB:35,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 35, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8877
+// {id-PDUSessionAdmitted-SNModResponse}
+message IdPDusessionAdmittedSNmodResponse {
+    // @inject_tag: aper:"valueLB:36,valueUB:36,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 36, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8878
+// {id-PDUSessionNotAdmittedAddReqAck}
+message IdPDusessionNotAdmittedAddReqAck {
+    // @inject_tag: aper:"valueLB:37,valueUB:37,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 37, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8879
+// {id-PDUSessionNotAdmitted-SNModResponse}
+message IdPDusessionNotAdmittedSNmodResponse {
+    // @inject_tag: aper:"valueLB:38,valueUB:38,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 38, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8880
+// {id-PDUSessionReleasedList-RelConf}
+message IdPDusessionReleasedListRelConf {
+    // @inject_tag: aper:"valueLB:39,valueUB:39,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 39, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8881
+// {id-PDUSessionReleasedSNModConfirm}
+message IdPDusessionReleasedSnmodConfirm {
+    // @inject_tag: aper:"valueLB:40,valueUB:40,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 40, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8882
+// {id-PDUSessionResourcesActivityNotifyList}
+message IdPDusessionResourcesActivityNotifyList {
+    // @inject_tag: aper:"valueLB:41,valueUB:41,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 41, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8883
+// {id-PDUSessionResourcesAdmitted-List}
+message IdPDusessionResourcesAdmittedList {
+    // @inject_tag: aper:"valueLB:42,valueUB:42,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 42, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8884
+// {id-PDUSessionResourcesNotAdmitted-List}
+message IdPDusessionResourcesNotAdmittedList {
+    // @inject_tag: aper:"valueLB:43,valueUB:43,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 43, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8885
+// {id-PDUSessionResourcesNotifyList}
+message IdPDusessionResourcesNotifyList {
+    // @inject_tag: aper:"valueLB:44,valueUB:44,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 44, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8886
+// {id-PDUSession-SNChangeConfirm-List}
+message IdPDusessionSNchangeConfirmList {
+    // @inject_tag: aper:"valueLB:45,valueUB:45,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 45, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8887
+// {id-PDUSession-SNChangeRequired-List}
+message IdPDusessionSNchangeRequiredList {
+    // @inject_tag: aper:"valueLB:46,valueUB:46,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 46, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8888
+// {id-PDUSessionToBeAddedAddReq}
+message IdPDusessionToBeAddedAddReq {
+    // @inject_tag: aper:"valueLB:47,valueUB:47,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 47, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8889
+// {id-PDUSessionToBeModifiedSNModRequired}
+message IdPDusessionToBeModifiedSnmodRequired {
+    // @inject_tag: aper:"valueLB:48,valueUB:48,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 48, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8890
+// {id-PDUSessionToBeReleasedList-RelRqd}
+message IdPDusessionToBeReleasedListRelRqd {
+    // @inject_tag: aper:"valueLB:49,valueUB:49,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 49, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8891
+// {id-PDUSessionToBeReleased-RelReq}
+message IdPDusessionToBeReleasedRelReq {
+    // @inject_tag: aper:"valueLB:50,valueUB:50,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 50, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8892
+// {id-PDUSessionToBeReleasedSNModRequired}
+message IdPDusessionToBeReleasedSnmodRequired {
+    // @inject_tag: aper:"valueLB:51,valueUB:51,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 51, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8893
+// {id-RANPagingArea}
+message IdRAnpagingArea {
+    // @inject_tag: aper:"valueLB:52,valueUB:52,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 52, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8894
+// {id-PagingPriority}
+message IdPagingPriority {
+    // @inject_tag: aper:"valueLB:53,valueUB:53,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 53, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8895
+// {id-requestedSplitSRB}
+message IdrequestedSplitSrb {
+    // @inject_tag: aper:"valueLB:54,valueUB:54,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 54, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8896
+// {id-requestedSplitSRBrelease}
+message IdrequestedSplitSrbrelease {
+    // @inject_tag: aper:"valueLB:55,valueUB:55,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 55, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8897
+// {id-ResetRequestTypeInfo}
+message IdResetRequestTypeInfo {
+    // @inject_tag: aper:"valueLB:56,valueUB:56,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 56, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8898
+// {id-ResetResponseTypeInfo}
+message IdResetResponseTypeInfo {
+    // @inject_tag: aper:"valueLB:57,valueUB:57,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 57, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8899
+// {id-RespondingNodeTypeConfigUpdateAck}
+message IdRespondingNodeTypeConfigUpdateAck {
+    // @inject_tag: aper:"valueLB:58,valueUB:58,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 58, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8900
+// {id-respondingNodeType-ResourceCoordResponse}
+message IdrespondingNodeTypeResourceCoordResponse {
+    // @inject_tag: aper:"valueLB:59,valueUB:59,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 59, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8901
+// {id-ResponseInfo-ReconfCompl}
+message IdResponseInfoReconfCompl {
+    // @inject_tag: aper:"valueLB:60,valueUB:60,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 60, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8902
+// {id-RRCConfigIndication}
+message IdRRcconfigIndication {
+    // @inject_tag: aper:"valueLB:61,valueUB:61,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 61, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8903
+// {id-RRCResumeCause}
+message IdRRcresumeCause {
+    // @inject_tag: aper:"valueLB:62,valueUB:62,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 62, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8904
+// {id-SCGConfigurationQuery}
+message IdSCgconfigurationQuery {
+    // @inject_tag: aper:"valueLB:63,valueUB:63,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 63, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8905
+// {id-selectedPLMN}
+message IdselectedPlmn {
+    // @inject_tag: aper:"valueLB:64,valueUB:64,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 64, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8906
+// {id-ServedCellsToActivate}
+message IdServedCellsToActivate {
+    // @inject_tag: aper:"valueLB:65,valueUB:65,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 65, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8907
+// {id-servedCellsToUpdate-E-UTRA}
+message IdservedCellsToUpdateEUTra {
+    // @inject_tag: aper:"valueLB:66,valueUB:66,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 66, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8908
+// {id-ServedCellsToUpdateInitiatingNodeChoice}
+message IdServedCellsToUpdateInitiatingNodeChoice {
+    // @inject_tag: aper:"valueLB:67,valueUB:67,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 67, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8909
+// {id-servedCellsToUpdate-NR}
+message IdservedCellsToUpdateNR {
+    // @inject_tag: aper:"valueLB:68,valueUB:68,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 68, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8910
+// {id-s-ng-RANnode-SecurityKey}
+message IdsngRAnnodeSecurityKey {
+    // @inject_tag: aper:"valueLB:69,valueUB:69,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 69, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8911
+// {id-S-NG-RANnodeUE-AMBR}
+message IdSNGRAnnodeUeAMbr {
+    // @inject_tag: aper:"valueLB:70,valueUB:70,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 70, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8912
+// {id-S-NG-RANnodeUEXnAPID}
+message IdSNGRAnnodeUexnApid {
+    // @inject_tag: aper:"valueLB:71,valueUB:71,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 71, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8913
+// {id-SN-to-MN-Container}
+message IdSNtoMNContainer {
+    // @inject_tag: aper:"valueLB:72,valueUB:72,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 72, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8914
+// {id-sourceNG-RANnodeUEXnAPID}
+message IdsourceNgRAnnodeUexnApid {
+    // @inject_tag: aper:"valueLB:73,valueUB:73,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 73, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8915
+// {id-SplitSRB-RRCTransfer}
+message IdSplitSrbRRctransfer {
+    // @inject_tag: aper:"valueLB:74,valueUB:74,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 74, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8916
+// {id-TAISupport-list}
+message IdTAisupportlist {
+    // @inject_tag: aper:"valueLB:75,valueUB:75,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 75, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8917
+// {id-TimeToWait}
+message IdTimeToWait {
+    // @inject_tag: aper:"valueLB:76,valueUB:76,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 76, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8918
+// {id-Target2SourceNG-RANnodeTranspContainer}
+message IdTarget2SourceNgRAnnodeTranspContainer {
+    // @inject_tag: aper:"valueLB:77,valueUB:77,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 77, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8919
+// {id-targetCellGlobalID}
+message IdtargetCellGlobalId {
+    // @inject_tag: aper:"valueLB:78,valueUB:78,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 78, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8920
+// {id-targetNG-RANnodeUEXnAPID}
+message IdtargetNgRAnnodeUexnApid {
+    // @inject_tag: aper:"valueLB:79,valueUB:79,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 79, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8921
+// {id-target-S-NG-RANnodeID}
+message IdtargetSNGRAnnodeId {
+    // @inject_tag: aper:"valueLB:80,valueUB:80,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 80, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8922
+// {id-TraceActivation}
+message IdTraceActivation {
+    // @inject_tag: aper:"valueLB:81,valueUB:81,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 81, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8923
+// {id-UEContextID}
+message IdUEcontextId {
+    // @inject_tag: aper:"valueLB:82,valueUB:82,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 82, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8924
+// {id-UEContextInfoHORequest}
+message IdUEcontextInfoHorequest {
+    // @inject_tag: aper:"valueLB:83,valueUB:83,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 83, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8925
+// {id-UEContextInfoRetrUECtxtResp}
+message IdUEcontextInfoRetrUectxtResp {
+    // @inject_tag: aper:"valueLB:84,valueUB:84,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 84, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8926
+// {id-UEContextInfo-SNModRequest}
+message IdUEcontextInfoSNmodRequest {
+    // @inject_tag: aper:"valueLB:85,valueUB:85,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 85, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8927
+// {id-UEContextKeptIndicator}
+message IdUEcontextKeptIndicator {
+    // @inject_tag: aper:"valueLB:86,valueUB:86,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 86, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8928
+// {id-UEContextRefAtSN-HORequest}
+message IdUEcontextRefAtSnHOrequest {
+    // @inject_tag: aper:"valueLB:87,valueUB:87,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 87, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8929
+// {id-UEHistoryInformation}
+message IdUEhistoryInformation {
+    // @inject_tag: aper:"valueLB:88,valueUB:88,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 88, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8930
+// {id-UEIdentityIndexValue}
+message IdUEidentityIndexValue {
+    // @inject_tag: aper:"valueLB:89,valueUB:89,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 89, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8931
+// {id-UERANPagingIdentity}
+message IdUEranpagingIdentity {
+    // @inject_tag: aper:"valueLB:90,valueUB:90,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 90, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8932
+// {id-UESecurityCapabilities}
+message IdUEsecurityCapabilities {
+    // @inject_tag: aper:"valueLB:91,valueUB:91,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 91, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8933
+// {id-UserPlaneTrafficActivityReport}
+message IdUserPlaneTrafficActivityReport {
+    // @inject_tag: aper:"valueLB:92,valueUB:92,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 92, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8934
+// {id-XnRemovalThreshold}
+message IdXnRemovalThreshold {
+    // @inject_tag: aper:"valueLB:93,valueUB:93,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 93, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8935
+// {id-DesiredActNotificationLevel}
+message IdDesiredActNotificationLevel {
+    // @inject_tag: aper:"valueLB:94,valueUB:94,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 94, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8936
+// {id-AvailableDRBIDs}
+message IdAvailableDrbids {
+    // @inject_tag: aper:"valueLB:95,valueUB:95,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 95, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8937
+// {id-AdditionalDRBIDs}
+message IdAdditionalDrbids {
+    // @inject_tag: aper:"valueLB:96,valueUB:96,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 96, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8938
+// {id-SpareDRBIDs}
+message IdSpareDrbids {
+    // @inject_tag: aper:"valueLB:97,valueUB:97,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 97, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8939
+// {id-RequiredNumberOfDRBIDs}
+message IdRequiredNumberOfDrbids {
+    // @inject_tag: aper:"valueLB:98,valueUB:98,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 98, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8940
+// {id-TNLA-To-Add-List}
+message IdTNlaToAddList {
+    // @inject_tag: aper:"valueLB:99,valueUB:99,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 99, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8941
+// {id-TNLA-To-Update-List}
+message IdTNlaToUpdateList {
+    // @inject_tag: aper:"valueLB:100,valueUB:100,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 100, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8942
+// {id-TNLA-To-Remove-List}
+message IdTNlaToRemoveList {
+    // @inject_tag: aper:"valueLB:101,valueUB:101,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 101, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8943
+// {id-TNLA-Setup-List}
+message IdTNlaSetupList {
+    // @inject_tag: aper:"valueLB:102,valueUB:102,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 102, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8944
+// {id-TNLA-Failed-To-Setup-List}
+message IdTNlaFailedToSetupList {
+    // @inject_tag: aper:"valueLB:103,valueUB:103,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 103, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8945
+// {id-PDUSessionToBeReleased-RelReqAck}
+message IdPDusessionToBeReleasedRelReqAck {
+    // @inject_tag: aper:"valueLB:104,valueUB:104,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 104, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8946
+// {id-S-NG-RANnodeMaxIPDataRate-UL}
+message IdSNGRAnnodeMaxIpdataRateUL {
+    // @inject_tag: aper:"valueLB:105,valueUB:105,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 105, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8947
+// {id-PDUSessionResourceSecondaryRATUsageList}
+message IdPDusessionResourceSecondaryRatusageList {
+    // @inject_tag: aper:"valueLB:107,valueUB:107,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 107, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8948
+// {id-Additional-UL-NG-U-TNLatUPF-List}
+message IdAdditionalULNGUTNlatUpfList {
+    // @inject_tag: aper:"valueLB:108,valueUB:108,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 108, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8949
+// {id-SecondarydataForwardingInfoFromTarget-List}
+message IdSecondarydataForwardingInfoFromTargetList {
+    // @inject_tag: aper:"valueLB:109,valueUB:109,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 109, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8950
+// {id-LocationInformationSNReporting}
+message IdLocationInformationSnreporting {
+    // @inject_tag: aper:"valueLB:110,valueUB:110,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 110, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8951
+// {id-LocationInformationSN}
+message IdLocationInformationSn {
+    // @inject_tag: aper:"valueLB:111,valueUB:111,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 111, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8952
+// {id-LastE-UTRANPLMNIdentity}
+message IdLastEUTranplmnidentity {
+    // @inject_tag: aper:"valueLB:112,valueUB:112,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 112, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8953
+// {id-S-NG-RANnodeMaxIPDataRate-DL}
+message IdSNGRAnnodeMaxIpdataRateDL {
+    // @inject_tag: aper:"valueLB:113,valueUB:113,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 113, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8954
+// {id-MaxIPrate-DL}
+message IdMaxIprateDL {
+    // @inject_tag: aper:"valueLB:114,valueUB:114,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 114, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8955
+// {id-SecurityResult}
+message IdSecurityResult {
+    // @inject_tag: aper:"valueLB:115,valueUB:115,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 115, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8956
+// {id-S-NSSAI}
+message IdSNSsai {
+    // @inject_tag: aper:"valueLB:116,valueUB:116,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 116, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8957
+// {id-MR-DC-ResourceCoordinationInfo}
+message IdMRDCResourceCoordinationInfo {
+    // @inject_tag: aper:"valueLB:117,valueUB:117,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 117, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8958
+// {id-AMF-Region-Information-To-Add}
+message IdAMfRegionInformationToAdd {
+    // @inject_tag: aper:"valueLB:118,valueUB:118,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 118, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8959
+// {id-AMF-Region-Information-To-Delete}
+message IdAMfRegionInformationToDelete {
+    // @inject_tag: aper:"valueLB:119,valueUB:119,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 119, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8960
+// {id-OldQoSFlowMap-ULendmarkerexpected}
+message IdOldQoSflowMapULendmarkerexpected {
+    // @inject_tag: aper:"valueLB:120,valueUB:120,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 120, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8961
+// {id-RANPagingFailure}
+message IdRAnpagingFailure {
+    // @inject_tag: aper:"valueLB:121,valueUB:121,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 121, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8962
+// {id-UERadioCapabilityForPaging}
+message IdUEradioCapabilityForPaging {
+    // @inject_tag: aper:"valueLB:122,valueUB:122,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 122, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8963
+// {id-PDUSessionDataForwarding-SNModResponse}
+message IdPDusessionDataForwardingSNmodResponse {
+    // @inject_tag: aper:"valueLB:123,valueUB:123,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 123, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8964
+// {id-DRBsNotAdmittedSetupModifyList}
+message IdDRbsNotAdmittedSetupModifyList {
+    // @inject_tag: aper:"valueLB:124,valueUB:124,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 124, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8965
+// {id-Secondary-MN-Xn-U-TNLInfoatM}
+message IdSecondaryMNXnUTNlinfoatM {
+    // @inject_tag: aper:"valueLB:125,valueUB:125,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 125, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8966
+// {id-NE-DC-TDM-Pattern}
+message IdNEDCTDmPattern {
+    // @inject_tag: aper:"valueLB:126,valueUB:126,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 126, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8967
+// {id-PDUSessionCommonNetworkInstance}
+message IdPDusessionCommonNetworkInstance {
+    // @inject_tag: aper:"valueLB:127,valueUB:127,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 127, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8968
+// {id-BPLMN-ID-Info-EUTRA}
+message IdBPlmnIDInfoEUtra {
+    // @inject_tag: aper:"valueLB:128,valueUB:128,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 128, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8969
+// {id-BPLMN-ID-Info-NR}
+message IdBPlmnIDInfoNR {
+    // @inject_tag: aper:"valueLB:129,valueUB:129,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 129, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8970
+// {id-InterfaceInstanceIndication}
+message IdInterfaceInstanceIndication {
+    // @inject_tag: aper:"valueLB:130,valueUB:130,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 130, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8971
+// {id-S-NG-RANnode-Addition-Trigger-Ind}
+message IdSNGRAnnodeAdditionTriggerInd {
+    // @inject_tag: aper:"valueLB:131,valueUB:131,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 131, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8972
+// {id-DefaultDRB-Allowed}
+message IdDefaultDrbAllowed {
+    // @inject_tag: aper:"valueLB:132,valueUB:132,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 132, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8973
+// {id-DRB-IDs-takenintouse}
+message IdDRbIDstakenintouse {
+    // @inject_tag: aper:"valueLB:133,valueUB:133,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 133, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8974
+// {id-SplitSessionIndicator}
+message IdSplitSessionIndicator {
+    // @inject_tag: aper:"valueLB:134,valueUB:134,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 134, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8975
+// {id-CNTypeRestrictionsForEquivalent}
+message IdCNtypeRestrictionsForEquivalent {
+    // @inject_tag: aper:"valueLB:135,valueUB:135,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 135, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8976
+// {id-CNTypeRestrictionsForServing}
+message IdCNtypeRestrictionsForServing {
+    // @inject_tag: aper:"valueLB:136,valueUB:136,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 136, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8977
+// {id-DRBs-transferred-to-MN}
+message IdDRbstransferredtoMN {
+    // @inject_tag: aper:"valueLB:137,valueUB:137,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 137, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8978
+// {id-ULForwardingProposal}
+message IdULforwardingProposal {
+    // @inject_tag: aper:"valueLB:138,valueUB:138,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 138, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8979
+// {id-EndpointIPAddressAndPort}
+message IdEndpointIpaddressAndPort {
+    // @inject_tag: aper:"valueLB:139,valueUB:139,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 139, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8980
+// {id-IntendedTDD-DL-ULConfiguration-NR}
+message IdIntendedTddDLULconfigurationNR {
+    // @inject_tag: aper:"valueLB:140,valueUB:140,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 140, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8981
+// {id-TNLConfigurationInfo}
+message IdTNlconfigurationInfo {
+    // @inject_tag: aper:"valueLB:141,valueUB:141,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 141, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8982
+// {id-PartialListIndicator-NR}
+message IdPartialListIndicatorNR {
+    // @inject_tag: aper:"valueLB:142,valueUB:142,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 142, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8983
+// {id-MessageOversizeNotification}
+message IdMessageOversizeNotification {
+    // @inject_tag: aper:"valueLB:143,valueUB:143,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 143, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8984
+// {id-CellAndCapacityAssistanceInfo-NR}
+message IdCellAndCapacityAssistanceInfoNR {
+    // @inject_tag: aper:"valueLB:144,valueUB:144,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 144, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8985
+// {id-NG-RANTraceID}
+message IdNGRAntraceId {
+    // @inject_tag: aper:"valueLB:145,valueUB:145,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 145, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8986
+// {id-NonGBRResources-Offered}
+message IdNonGbrresourcesOffered {
+    // @inject_tag: aper:"valueLB:146,valueUB:146,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 146, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8987
+// {id-FastMCGRecoveryRRCTransfer-SN-to-MN}
+message IdFastMcgrecoveryRrctransferSNtoMN {
+    // @inject_tag: aper:"valueLB:147,valueUB:147,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 147, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8988
+// {id-RequestedFastMCGRecoveryViaSRB3}
+message IdRequestedFastMcgrecoveryViaSrb3 {
+    // @inject_tag: aper:"valueLB:148,valueUB:148,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 148, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8989
+// {id-AvailableFastMCGRecoveryViaSRB3}
+message IdAvailableFastMcgrecoveryViaSrb3 {
+    // @inject_tag: aper:"valueLB:149,valueUB:149,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 149, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8990
+// {id-RequestedFastMCGRecoveryViaSRB3Release}
+message IdRequestedFastMcgrecoveryViaSrb3Release {
+    // @inject_tag: aper:"valueLB:150,valueUB:150,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 150, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8991
+// {id-ReleaseFastMCGRecoveryViaSRB3}
+message IdReleaseFastMcgrecoveryViaSrb3 {
+    // @inject_tag: aper:"valueLB:151,valueUB:151,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 151, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8992
+// {id-FastMCGRecoveryRRCTransfer-MN-to-SN}
+message IdFastMcgrecoveryRrctransferMNtoSN {
+    // @inject_tag: aper:"valueLB:152,valueUB:152,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 152, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8993
+// {id-ExtendedRATRestrictionInformation}
+message IdExtendedRatrestrictionInformation {
+    // @inject_tag: aper:"valueLB:153,valueUB:153,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 153, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8994
+// {id-QoSMonitoringRequest}
+message IdQoSmonitoringRequest {
+    // @inject_tag: aper:"valueLB:154,valueUB:154,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 154, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8995
+// {id-FiveGCMobilityRestrictionListContainer}
+message IdFiveGcmobilityRestrictionListContainer {
+    // @inject_tag: aper:"valueLB:155,valueUB:155,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 155, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8996
+// {id-PartialListIndicator-EUTRA}
+message IdPartialListIndicatorEUtra {
+    // @inject_tag: aper:"valueLB:156,valueUB:156,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 156, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8997
+// {id-CellAndCapacityAssistanceInfo-EUTRA}
+message IdCellAndCapacityAssistanceInfoEUtra {
+    // @inject_tag: aper:"valueLB:157,valueUB:157,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 157, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8998
+// {id-CHOinformation-Req}
+message IdCHoinformationReq {
+    // @inject_tag: aper:"valueLB:158,valueUB:158,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 158, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:8999
+// {id-CHOinformation-Ack}
+message IdCHoinformationAck {
+    // @inject_tag: aper:"valueLB:159,valueUB:159,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 159, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9000
+// {id-targetCellsToCancel}
+message IdtargetCellsToCancel {
+    // @inject_tag: aper:"valueLB:160,valueUB:160,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 160, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9001
+// {id-requestedTargetCellGlobalID}
+message IdrequestedTargetCellGlobalId {
+    // @inject_tag: aper:"valueLB:161,valueUB:161,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 161, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9002
+// {id-procedureStage}
+message IdprocedureStage {
+    // @inject_tag: aper:"valueLB:162,valueUB:162,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 162, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9003
+// {id-DAPSRequestInfo}
+message IdDApsrequestInfo {
+    // @inject_tag: aper:"valueLB:163,valueUB:163,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 163, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9004
+// {id-DAPSResponseInfo-List}
+message IdDApsresponseInfoList {
+    // @inject_tag: aper:"valueLB:164,valueUB:164,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 164, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9005
+// {id-CHO-MRDC-Indicator}
+message IdCHoMRdcIndicator {
+    // @inject_tag: aper:"valueLB:165,valueUB:165,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 165, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9006
+// {id-OffsetOfNbiotChannelNumberToDL-EARFCN}
+message IdOffsetOfNbiotChannelNumberToDlEArfcn {
+    // @inject_tag: aper:"valueLB:166,valueUB:166,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 166, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9007
+// {id-OffsetOfNbiotChannelNumberToUL-EARFCN}
+message IdOffsetOfNbiotChannelNumberToUlEArfcn {
+    // @inject_tag: aper:"valueLB:167,valueUB:167,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 167, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9008
+// {id-NBIoT-UL-DL-AlignmentOffset}
+message IdNBioTULDLAlignmentOffset {
+    // @inject_tag: aper:"valueLB:168,valueUB:168,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 168, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9009
+// {id-LTEV2XServicesAuthorized}
+message IdLTev2XservicesAuthorized {
+    // @inject_tag: aper:"valueLB:169,valueUB:169,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 169, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9010
+// {id-NRV2XServicesAuthorized}
+message IdNRv2XservicesAuthorized {
+    // @inject_tag: aper:"valueLB:170,valueUB:170,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 170, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9011
+// {id-LTEUESidelinkAggregateMaximumBitRate}
+message IdLTeuesidelinkAggregateMaximumBitRate {
+    // @inject_tag: aper:"valueLB:171,valueUB:171,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 171, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9012
+// {id-NRUESidelinkAggregateMaximumBitRate}
+message IdNRuesidelinkAggregateMaximumBitRate {
+    // @inject_tag: aper:"valueLB:172,valueUB:172,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 172, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9013
+// {id-PC5QoSParameters}
+message IdPC5QoSparameters {
+    // @inject_tag: aper:"valueLB:173,valueUB:173,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 173, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9014
+// {id-AlternativeQoSParaSetList}
+message IdAlternativeQoSparaSetList {
+    // @inject_tag: aper:"valueLB:174,valueUB:174,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 174, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9015
+// {id-CurrentQoSParaSetIndex}
+message IdCurrentQoSparaSetIndex {
+    // @inject_tag: aper:"valueLB:175,valueUB:175,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 175, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9016
+// {id-MobilityInformation}
+message IdMobilityInformation {
+    // @inject_tag: aper:"valueLB:176,valueUB:176,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 176, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9017
+// {id-InitiatingCondition-FailureIndication}
+message IdInitiatingConditionFailureIndication {
+    // @inject_tag: aper:"valueLB:177,valueUB:177,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 177, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9018
+// {id-UEHistoryInformationFromTheUE}
+message IdUEhistoryInformationFromTheUe {
+    // @inject_tag: aper:"valueLB:178,valueUB:178,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 178, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9019
+// {id-HandoverReportType}
+message IdHandoverReportType {
+    // @inject_tag: aper:"valueLB:179,valueUB:179,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 179, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9020
+// {id-HandoverCause}
+message IdHandoverCause {
+    // @inject_tag: aper:"valueLB:180,valueUB:180,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 180, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9021
+// {id-SourceCellCGI}
+message IdSourceCellCgi {
+    // @inject_tag: aper:"valueLB:181,valueUB:181,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 181, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9022
+// {id-TargetCellCGI}
+message IdTargetCellCgi {
+    // @inject_tag: aper:"valueLB:182,valueUB:182,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 182, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9023
+// {id-ReEstablishmentCellCGI}
+message IdReEstablishmentCellCgi {
+    // @inject_tag: aper:"valueLB:183,valueUB:183,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 183, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9024
+// {id-TargetCellinEUTRAN}
+message IdTargetCellinEutran {
+    // @inject_tag: aper:"valueLB:184,valueUB:184,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 184, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9025
+// {id-SourceCellCRNTI}
+message IdSourceCellCrnti {
+    // @inject_tag: aper:"valueLB:185,valueUB:185,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 185, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9026
+// {id-UERLFReportContainer}
+message IdUErlfreportContainer {
+    // @inject_tag: aper:"valueLB:186,valueUB:186,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 186, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9027
+// {id-NGRAN-Node1-Measurement-ID}
+message IdNGranNode1MeasurementID {
+    // @inject_tag: aper:"valueLB:187,valueUB:187,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 187, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9028
+// {id-NGRAN-Node2-Measurement-ID}
+message IdNGranNode2MeasurementID {
+    // @inject_tag: aper:"valueLB:188,valueUB:188,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 188, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9029
+// {id-RegistrationRequest}
+message IdRegistrationRequest {
+    // @inject_tag: aper:"valueLB:189,valueUB:189,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 189, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9030
+// {id-ReportCharacteristics}
+message IdReportCharacteristics {
+    // @inject_tag: aper:"valueLB:190,valueUB:190,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 190, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9031
+// {id-CellToReport}
+message IdCellToReport {
+    // @inject_tag: aper:"valueLB:191,valueUB:191,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 191, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9032
+// {id-ReportingPeriodicity}
+message IdReportingPeriodicity {
+    // @inject_tag: aper:"valueLB:192,valueUB:192,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 192, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9033
+// {id-CellMeasurementResult}
+message IdCellMeasurementResult {
+    // @inject_tag: aper:"valueLB:193,valueUB:193,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 193, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9034
+// {id-NG-RANnode1CellID}
+message IdNGRAnnode1CellId {
+    // @inject_tag: aper:"valueLB:194,valueUB:194,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 194, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9035
+// {id-NG-RANnode2CellID}
+message IdNGRAnnode2CellId {
+    // @inject_tag: aper:"valueLB:195,valueUB:195,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 195, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9036
+// {id-NG-RANnode1MobilityParameters}
+message IdNGRAnnode1MobilityParameters {
+    // @inject_tag: aper:"valueLB:196,valueUB:196,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 196, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9037
+// {id-NG-RANnode2ProposedMobilityParameters}
+message IdNGRAnnode2ProposedMobilityParameters {
+    // @inject_tag: aper:"valueLB:197,valueUB:197,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 197, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9038
+// {id-MobilityParametersModificationRange}
+message IdMobilityParametersModificationRange {
+    // @inject_tag: aper:"valueLB:198,valueUB:198,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 198, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9039
+// {id-TDDULDLConfigurationCommonNR}
+message IdTDduldlconfigurationCommonNr {
+    // @inject_tag: aper:"valueLB:199,valueUB:199,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 199, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9040
+// {id-CarrierList}
+message IdCarrierList {
+    // @inject_tag: aper:"valueLB:200,valueUB:200,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 200, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9041
+// {id-ULCarrierList}
+message IdULcarrierList {
+    // @inject_tag: aper:"valueLB:201,valueUB:201,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 201, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9042
+// {id-FrequencyShift7p5khz}
+message IdFrequencyShift7p5khz {
+    // @inject_tag: aper:"valueLB:202,valueUB:202,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 202, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9043
+// {id-SSB-PositionsInBurst}
+message IdSSbPositionsInBurst {
+    // @inject_tag: aper:"valueLB:203,valueUB:203,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 203, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9044
+// {id-NRCellPRACHConfig}
+message IdNRcellPrachconfig {
+    // @inject_tag: aper:"valueLB:204,valueUB:204,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 204, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9045
+// {id-RACHReportInformation}
+message IdRAchreportInformation {
+    // @inject_tag: aper:"valueLB:205,valueUB:205,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 205, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9046
+// {id-IABNodeIndication}
+message IdIAbnodeIndication {
+    // @inject_tag: aper:"valueLB:206,valueUB:206,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 206, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9047
+// {id-Redundant-UL-NG-U-TNLatUPF}
+message IdRedundantULNGUTNlatUpf {
+    // @inject_tag: aper:"valueLB:207,valueUB:207,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 207, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9048
+// {id-CNPacketDelayBudgetDownlink}
+message IdCNpacketDelayBudgetDownlink {
+    // @inject_tag: aper:"valueLB:208,valueUB:208,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 208, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9049
+// {id-CNPacketDelayBudgetUplink}
+message IdCNpacketDelayBudgetUplink {
+    // @inject_tag: aper:"valueLB:209,valueUB:209,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 209, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9050
+// {id-Additional-Redundant-UL-NG-U-TNLatUPF-List}
+message IdAdditionalRedundantULNGUTNlatUpfList {
+    // @inject_tag: aper:"valueLB:210,valueUB:210,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 210, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9051
+// {id-RedundantCommonNetworkInstance}
+message IdRedundantCommonNetworkInstance {
+    // @inject_tag: aper:"valueLB:211,valueUB:211,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 211, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9052
+// {id-TSCTrafficCharacteristics}
+message IdTSctrafficCharacteristics {
+    // @inject_tag: aper:"valueLB:212,valueUB:212,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 212, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9053
+// {id-RedundantQoSFlowIndicator}
+message IdRedundantQoSflowIndicator {
+    // @inject_tag: aper:"valueLB:213,valueUB:213,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 213, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9054
+// {id-Redundant-DL-NG-U-TNLatNG-RAN}
+message IdRedundantDLNGUTNlatNgRAn {
+    // @inject_tag: aper:"valueLB:214,valueUB:214,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 214, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9055
+// {id-ExtendedPacketDelayBudget}
+message IdExtendedPacketDelayBudget {
+    // @inject_tag: aper:"valueLB:215,valueUB:215,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 215, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9056
+// {id-Additional-PDCP-Duplication-TNL-List}
+message IdAdditionalPDcpDuplicationTNlList {
+    // @inject_tag: aper:"valueLB:216,valueUB:216,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 216, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9057
+// {id-RedundantPDUSessionInformation}
+message IdRedundantPdusessionInformation {
+    // @inject_tag: aper:"valueLB:217,valueUB:217,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 217, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9058
+// {id-UsedRSNInformation}
+message IdUsedRsninformation {
+    // @inject_tag: aper:"valueLB:218,valueUB:218,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 218, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9059
+// {id-RLCDuplicationInformation}
+message IdRLcduplicationInformation {
+    // @inject_tag: aper:"valueLB:219,valueUB:219,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 219, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9060
+// {id-NPN-Broadcast-Information}
+message IdNPnBroadcastInformation {
+    // @inject_tag: aper:"valueLB:220,valueUB:220,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 220, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9061
+// {id-NPNPagingAssistanceInformation}
+message IdNPnpagingAssistanceInformation {
+    // @inject_tag: aper:"valueLB:221,valueUB:221,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 221, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9062
+// {id-NPNMobilityInformation}
+message IdNPnmobilityInformation {
+    // @inject_tag: aper:"valueLB:222,valueUB:222,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 222, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9063
+// {id-NPN-Support}
+message IdNPnSupport {
+    // @inject_tag: aper:"valueLB:223,valueUB:223,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 223, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9064
+// {id-MDT-Configuration}
+message IdMDtConfiguration {
+    // @inject_tag: aper:"valueLB:224,valueUB:224,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 224, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9065
+// {id-MDTPLMNList}
+message IdMDtplmnlist {
+    // @inject_tag: aper:"valueLB:225,valueUB:225,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 225, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9066
+// {id-TraceCollectionEntityURI}
+message IdTraceCollectionEntityUri {
+    // @inject_tag: aper:"valueLB:226,valueUB:226,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 226, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9067
+// {id-UERadioCapabilityID}
+message IdUEradioCapabilityId {
+    // @inject_tag: aper:"valueLB:227,valueUB:227,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 227, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9068
+// {id-CSI-RSTransmissionIndication}
+message IdCSiRStransmissionIndication {
+    // @inject_tag: aper:"valueLB:228,valueUB:228,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 228, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9069
+// {id-SNTriggered}
+message IdSNtriggered {
+    // @inject_tag: aper:"valueLB:229,valueUB:229,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 229, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9070
+// {id-DLCarrierList}
+message IdDLcarrierList {
+    // @inject_tag: aper:"valueLB:230,valueUB:230,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 230, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9071
+// {id-ExtendedTAISliceSupportList}
+message IdExtendedTaisliceSupportList {
+    // @inject_tag: aper:"valueLB:231,valueUB:231,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 231, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9072
+// {id-cellAssistanceInfo-EUTRA}
+message IdcellAssistanceInfoEUtra {
+    // @inject_tag: aper:"valueLB:232,valueUB:232,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 232, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9073
+// {id-ConfiguredTACIndication}
+message IdConfiguredTacindication {
+    // @inject_tag: aper:"valueLB:233,valueUB:233,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 233, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9074
+// {id-secondary-SN-UL-PDCP-UP-TNLInfo}
+message IdsecondarySNULPDcpUPTNlinfo {
+    // @inject_tag: aper:"valueLB:234,valueUB:234,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 234, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9075
+// {id-pdcpDuplicationConfiguration}
+message IdpdcpDuplicationConfiguration {
+    // @inject_tag: aper:"valueLB:235,valueUB:235,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 235, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9076
+// {id-duplicationActivation}
+message IdduplicationActivation {
+    // @inject_tag: aper:"valueLB:236,valueUB:236,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 236, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9077
+// {id-NPRACHConfiguration}
+message IdNPrachconfiguration {
+    // @inject_tag: aper:"valueLB:237,valueUB:237,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 237, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9078
+// {id-QosMonitoringReportingFrequency}
+message IdQosMonitoringReportingFrequency {
+    // @inject_tag: aper:"valueLB:238,valueUB:238,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 238, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9079
+// {id-QoSFlowsMappedtoDRB-SetupResponse-MNterminated}
+message IdQoSflowsMappedtoDrbSetupResponseMNterminated {
+    // @inject_tag: aper:"valueLB:239,valueUB:239,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 239, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9080
+// {id-DL-scheduling-PDCCH-CCE-usage}
+message IdDLschedulingPDcchCCeusage {
+    // @inject_tag: aper:"valueLB:240,valueUB:240,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 240, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9081
+// {id-UL-scheduling-PDCCH-CCE-usage}
+message IdULschedulingPDcchCCeusage {
+    // @inject_tag: aper:"valueLB:241,valueUB:241,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 241, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9082
+// {id-SFN-Offset}
+message IdSFnOffset {
+    // @inject_tag: aper:"valueLB:242,valueUB:242,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 242, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9083
+// {id-QoSMonitoringDisabled}
+message IdQoSmonitoringDisabled {
+    // @inject_tag: aper:"valueLB:243,valueUB:243,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 243, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9084
+// {id-ExtendedUEIdentityIndexValue}
+message IdExtendedUeidentityIndexValue {
+    // @inject_tag: aper:"valueLB:244,valueUB:244,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 244, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9085
+// {id-PagingeDRXInformation}
+message IdPagingeDrxinformation {
+    // @inject_tag: aper:"valueLB:245,valueUB:245,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 245, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9086
+// {id-CHO-MRDC-EarlyDataForwarding}
+message IdCHoMRdcEarlyDataForwarding {
+    // @inject_tag: aper:"valueLB:246,valueUB:246,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 246, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9087
+// {id-SCGIndicator}
+message IdSCgindicator {
+    // @inject_tag: aper:"valueLB:247,valueUB:247,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 247, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9088
+// {id-UESpecificDRX}
+message IdUEspecificDrx {
+    // @inject_tag: aper:"valueLB:248,valueUB:248,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 248, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9089
+// {id-PDUSessionExpectedUEActivityBehaviour}
+message IdPDusessionExpectedUeactivityBehaviour {
+    // @inject_tag: aper:"valueLB:249,valueUB:249,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 249, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9090
+// {id-QoS-Mapping-Information}
+message IdQoSMappingInformation {
+    // @inject_tag: aper:"valueLB:250,valueUB:250,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 250, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9091
+// {id-AdditionLocationInformation}
+message IdAdditionLocationInformation {
+    // @inject_tag: aper:"valueLB:251,valueUB:251,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 251, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9092
+// {id-dataForwardingInfoFromTargetE-UTRANnode}
+message IddataForwardingInfoFromTargetEUTrannode {
+    // @inject_tag: aper:"valueLB:252,valueUB:252,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 252, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9093
+// {id-DirectForwardingPathAvailability}
+message IdDirectForwardingPathAvailability {
+    // @inject_tag: aper:"valueLB:253,valueUB:253,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 253, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9094
+// {id-SourceNG-RAN-node-ID}
+message IdSourceNgRAnnodeID {
+    // @inject_tag: aper:"valueLB:254,valueUB:254,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 254, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9095
+// {id-SourceDLForwardingIPAddress}
+message IdSourceDlforwardingIpaddress {
+    // @inject_tag: aper:"valueLB:255,valueUB:255,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 255, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9096
+// {id-SourceNodeDLForwardingIPAddress}
+message IdSourceNodeDlforwardingIpaddress {
+    // @inject_tag: aper:"valueLB:256,valueUB:256,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 256, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9097
+// {id-ExtendedReportIntervalMDT}
+message IdExtendedReportIntervalMdt {
+    // @inject_tag: aper:"valueLB:257,valueUB:257,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 257, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9098
+// {id-SecurityIndication}
+message IdSecurityIndication {
+    // @inject_tag: aper:"valueLB:258,valueUB:258,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 258, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9099
+// {id-RRCConnReestab-Indicator}
+message IdRRcconnReestabIndicator {
+    // @inject_tag: aper:"valueLB:259,valueUB:259,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 259, json_name="value"]; // ProtocolIE-ID
+};
+
+// reference from xnap_v1.asn1:9100
+// {id-TargetNodeID}
+message IdTargetNodeId {
+    // @inject_tag: aper:"valueLB:260,valueUB:260,"
+    int32 value = 1 [(validate.v1.rules).int32.const = 260, json_name="value"]; // ProtocolIE-ID
+};
+
+
