@@ -67,7 +67,7 @@ message PrivateIeID {
         // @inject_tag: aper:"choiceIdx:1,valueLB:0,valueUB:65535,"
         int32 local = 1 [ json_name="local"];
         // @inject_tag: aper:"choiceIdx:2,"
-        BasicOid global = 2 [ json_name="global"];
+        string global = 2 [ json_name="global"];
     }
 };
 

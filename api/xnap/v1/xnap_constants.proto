@@ -11,9 +11,9 @@ SPDX-License-Identifier: Apache-2.0
 syntax = "proto3";
 
 package xnap.v1;
-option go_package = "github.com/onosproject/onos-e2t/api/xnap_v1/v1/xnap-constants;xnapconstantsv1";
+option go_package = "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-constants;xnapconstantsv1";
 
-import "xnap_v1/v1/xnap_commondatatypes.proto";
+import "xnap/v1/xnap_commondatatypes.proto";
 import "validate/v1/validate.proto";
 import "asn1/v1/asn1.proto";
 import "google/protobuf/empty.proto";

@@ -13,9 +13,10 @@ syntax = "proto3";
 package xnap.v1;
 option go_package = "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-descriptions;xnappdudescriptionsv1";
 
-import "xnap_v1/v1/xnap_commondatatypes.proto";
-import "xnap_v1/v1/xnap_pdu_contents.proto";
-import "xnap_v1/v1/xnap_constants.proto";
+import "xnap/v1/xnap_commondatatypes.proto";
+import "xnap/v1/xnap_pdu_contents.proto";
+import "xnap/v1/xnap_constants.proto";
+import "xnap/v1/xnap_containers.proto";
 import "validate/v1/validate.proto";
 import "asn1/v1/asn1.proto";
 import "google/protobuf/empty.proto";

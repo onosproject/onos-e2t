@@ -13,9 +13,10 @@ syntax = "proto3";
 package xnap.v1;
 option go_package = "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-contents;xnappducontentsv1";
 
-import "xnap_v1/v1/xnap_ies.proto";
-import "xnap_v1/v1/xnap_containers.proto";
-import "xnap_v1/v1/xnap_constants.proto";
+import "xnap/v1/xnap_ies.proto";
+import "xnap/v1/xnap_commondatatypes.proto";
+import "xnap/v1/xnap_containers.proto";
+import "xnap/v1/xnap_constants.proto";
 import "validate/v1/validate.proto";
 import "asn1/v1/asn1.proto";
 import "google/protobuf/empty.proto";
@@ -189,7 +190,7 @@ message HandoverRequestAcknowledgeIEsValue {
         // @inject_tag: aper:"choiceIdx:4,"
         PdusessionResourcesNotAdmittedList id_pdusession_resources_not_admitted_list = 4 [ json_name="id-PDUSessionResourcesNotAdmitted-List"];
         // @inject_tag: aper:"choiceIdx:5,"
-        OctetString id_target2_source_ng_rannode_transp_container = 5 [ json_name="id-Target2SourceNG-RANnodeTranspContainer"];
+        string id_target2_source_ng_rannode_transp_container = 5 [ json_name="id-Target2SourceNG-RANnodeTranspContainer"];
         // @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:0,"
         UecontextKeptIndicator id_uecontext_kept_indicator = 6 [ json_name="id-UEContextKeptIndicator"];
         // @inject_tag: aper:"choiceIdx:7,valueExt,"
@@ -654,7 +655,7 @@ message RetrieveUecontextFailureIEsValue {
         // @inject_tag: aper:"choiceIdx:1,"
         NgRAnnodeUexnApid id_new_ng_rannode_uexn_apid = 1 [ json_name="id-newNG-RANnodeUEXnAPID"];
         // @inject_tag: aper:"choiceIdx:2,"
-        OctetString id_oldto_new_ng_rannode_resume_container = 2 [ json_name="id-OldtoNewNG-RANnodeResumeContainer"];
+        string id_oldto_new_ng_rannode_resume_container = 2 [ json_name="id-OldtoNewNG-RANnodeResumeContainer"];
         // @inject_tag: aper:"choiceIdx:3,"
         Cause id_cause = 3 [ json_name="id-Cause"];
         // @inject_tag: aper:"choiceIdx:4,valueExt,"
@@ -740,7 +741,7 @@ message SnodeAdditionRequestIEsValue {
         // @inject_tag: aper:"choiceIdx:8,"
         PdusessionToBeAddedAddReq id_pdusession_to_be_added_add_req = 8 [ json_name="id-PDUSessionToBeAddedAddReq"];
         // @inject_tag: aper:"choiceIdx:9,"
-        OctetString id_mn_to_sn_container = 9 [ json_name="id-MN-to-SN-Container"];
+        string id_mn_to_sn_container = 9 [ json_name="id-MN-to-SN-Container"];
         // @inject_tag: aper:"choiceIdx:10,"
         NgRAnnodeUexnApid id_s_ng_rannode_uexn_apid = 10 [ json_name="id-S-NG-RANnodeUEXnAPID"];
         // @inject_tag: aper:"choiceIdx:11,valueExt,"
@@ -841,7 +842,7 @@ message SnodeAdditionRequestAcknowledgeIEsValue {
         // @inject_tag: aper:"choiceIdx:4,valueExt,"
         PdusessionNotAdmittedAddReqAck id_pdusession_not_admitted_add_req_ack = 4 [ json_name="id-PDUSessionNotAdmittedAddReqAck"];
         // @inject_tag: aper:"choiceIdx:5,"
-        OctetString id_sn_to_mn_container = 5 [ json_name="id-SN-to-MN-Container"];
+        string id_sn_to_mn_container = 5 [ json_name="id-SN-to-MN-Container"];
         // @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:2,"
         SplitSrbsTypes id_admitted_split_srb = 6 [ json_name="id-admittedSplitSRB"];
         // @inject_tag: aper:"choiceIdx:7,valueExt,valueLB:0,valueUB:1,"
@@ -1080,7 +1081,7 @@ message SnodeModificationRequestIEsValue {
         // @inject_tag: aper:"choiceIdx:8,valueExt,"
         UecontextInfoSNmodRequest id_uecontext_info_snmod_request = 8 [ json_name="id-UEContextInfo-SNModRequest"];
         // @inject_tag: aper:"choiceIdx:9,"
-        OctetString id_mn_to_sn_container = 9 [ json_name="id-MN-to-SN-Container"];
+        string id_mn_to_sn_container = 9 [ json_name="id-MN-to-SN-Container"];
         // @inject_tag: aper:"choiceIdx:10,valueExt,valueLB:0,valueUB:2,"
         SplitSrbsTypes id_requested_split_srb = 10 [ json_name="id-requestedSplitSRB"];
         // @inject_tag: aper:"choiceIdx:11,valueExt,valueLB:0,valueUB:2,"
@@ -1267,7 +1268,7 @@ message SnodeModificationRequestAcknowledgeIEsValue {
         // @inject_tag: aper:"choiceIdx:4,valueExt,"
         PdusessionNotAdmittedSNmodResponse id_pdusession_not_admitted_snmod_response = 4 [ json_name="id-PDUSessionNotAdmitted-SNModResponse"];
         // @inject_tag: aper:"choiceIdx:5,"
-        OctetString id_sn_to_mn_container = 5 [ json_name="id-SN-to-MN-Container"];
+        string id_sn_to_mn_container = 5 [ json_name="id-SN-to-MN-Container"];
         // @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:2,"
         SplitSrbsTypes id_admitted_split_srb = 6 [ json_name="id-admittedSplitSRB"];
         // @inject_tag: aper:"choiceIdx:7,valueExt,valueLB:0,valueUB:2,"
@@ -1484,7 +1485,7 @@ message SnodeModificationRequiredIEsValue {
         // @inject_tag: aper:"choiceIdx:6,valueExt,"
         PdusessionToBeReleasedSnmodRequired id_pdusession_to_be_released_snmod_required = 6 [ json_name="id-PDUSessionToBeReleasedSNModRequired"];
         // @inject_tag: aper:"choiceIdx:7,"
-        OctetString id_sn_to_mn_container = 7 [ json_name="id-SN-to-MN-Container"];
+        string id_sn_to_mn_container = 7 [ json_name="id-SN-to-MN-Container"];
         // @inject_tag: aper:"choiceIdx:8,"
         DrbList id_spare_drbids = 8 [ json_name="id-SpareDRBIDs"];
         // @inject_tag: aper:"choiceIdx:9,"
@@ -1581,7 +1582,7 @@ message SnodeModificationConfirmIEsValue {
         // @inject_tag: aper:"choiceIdx:4,valueExt,"
         PdusessionReleasedSnmodConfirm id_pdusession_released_snmod_confirm = 4 [ json_name="id-PDUSessionReleasedSNModConfirm"];
         // @inject_tag: aper:"choiceIdx:5,"
-        OctetString id_mn_to_sn_container = 5 [ json_name="id-MN-to-SN-Container"];
+        string id_mn_to_sn_container = 5 [ json_name="id-MN-to-SN-Container"];
         // @inject_tag: aper:"choiceIdx:6,"
         DrbList id_additional_drbids = 6 [ json_name="id-AdditionalDRBIDs"];
         // @inject_tag: aper:"choiceIdx:7,valueExt,"
@@ -1666,7 +1667,7 @@ message SnodeModificationRefuseIEsValue {
         // @inject_tag: aper:"choiceIdx:3,"
         Cause id_cause = 3 [ json_name="id-Cause"];
         // @inject_tag: aper:"choiceIdx:4,"
-        OctetString id_mn_to_sn_container = 4 [ json_name="id-MN-to-SN-Container"];
+        string id_mn_to_sn_container = 4 [ json_name="id-MN-to-SN-Container"];
         // @inject_tag: aper:"choiceIdx:5,valueExt,"
         CriticalityDiagnostics id_criticality_diagnostics = 5 [ json_name="id-CriticalityDiagnostics"];
     }
@@ -1707,7 +1708,7 @@ message SnodeReleaseRequestIEsValue {
         // @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"
         UecontextKeptIndicator id_uecontext_kept_indicator = 5 [ json_name="id-UEContextKeptIndicator"];
         // @inject_tag: aper:"choiceIdx:6,"
-        OctetString id_mn_to_sn_container = 6 [ json_name="id-MN-to-SN-Container"];
+        string id_mn_to_sn_container = 6 [ json_name="id-MN-to-SN-Container"];
         // @inject_tag: aper:"choiceIdx:7,"
         DrbList id_drbs_transferred_to_mn = 7 [ json_name="id-DRBs-transferred-to-MN"];
     }
@@ -1832,7 +1833,7 @@ message SnodeReleaseRequiredIEsValue {
         // @inject_tag: aper:"choiceIdx:4,"
         Cause id_cause = 4 [ json_name="id-Cause"];
         // @inject_tag: aper:"choiceIdx:5,"
-        OctetString id_sn_to_mn_container = 5 [ json_name="id-SN-to-MN-Container"];
+        string id_sn_to_mn_container = 5 [ json_name="id-SN-to-MN-Container"];
     }
 };
 
@@ -1997,7 +1998,7 @@ message SnodeChangeRequiredIEsValue {
         // @inject_tag: aper:"choiceIdx:5,"
         PdusessionSNchangeRequiredList id_pdusession_snchange_required_list = 5 [ json_name="id-PDUSession-SNChangeRequired-List"];
         // @inject_tag: aper:"choiceIdx:6,"
-        OctetString id_sn_to_mn_container = 6 [ json_name="id-SN-to-MN-Container"];
+        string id_sn_to_mn_container = 6 [ json_name="id-SN-to-MN-Container"];
     }
 };
 
@@ -2622,9 +2623,9 @@ message ConfigurationUpdateInitiatingNodeChoice {
     // choice from xnap_v1.asn1:2352
     oneof configuration_update_initiating_node_choice {
         // @inject_tag: aper:"choiceIdx:1,sizeLB:0,"
-        repeated ConfigurationUpdategNb g_nb = 1 [ json_name="gNB"];
+        ConfigurationUpdategNb g_nb = 1 [ json_name="gNB"];
         // @inject_tag: aper:"choiceIdx:2,sizeLB:0,"
-        repeated ConfigurationUpdatengeNb ng_e_nb = 2 [ json_name="ng-eNB"];
+        ConfigurationUpdatengeNb ng_e_nb = 2 [ json_name="ng-eNB"];
         // @inject_tag: aper:"choiceIdx:3,"
         ServedCellsToUpdateInitiatingNodeChoiceExtIes choice_extension = 3 [ json_name="choice-extension"];
     }

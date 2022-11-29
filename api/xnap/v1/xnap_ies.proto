@@ -13,9 +13,9 @@ syntax = "proto3";
 package xnap.v1;
 option go_package = "github.com/onosproject/onos-e2t/api/xnap/v1/xnap-ies;xnapiesv1";
 
-import "xnap_v1/v1/xnap_constants.proto";
-import "xnap_v1/v1/xnap_commondatatypes.proto";
-import "xnap_v1/v1/xnap_containers.proto";
+import "xnap/v1/xnap_constants.proto";
+import "xnap/v1/xnap_commondatatypes.proto";
+import "xnap/v1/xnap_containers.proto";
 import "validate/v1/validate.proto";
 import "asn1/v1/asn1.proto";
 import "google/protobuf/empty.proto";
@@ -461,7 +461,7 @@ enum NrCoordinationAssistanceInfo {
 enum NbioTULDLAlignmentOffset {
     NBIO_T_UL_DL_ALIGNMENT_OFFSET_KHZ_7DOT5 = 0;
     NBIO_T_UL_DL_ALIGNMENT_OFFSET_KHZ0 = 1;
-    NBIO_T_UL_DL_ALIGNMENT_OFFSET_KHZ7DOT5 = 2;
+    NBIO_T_UL_DL_ALIGNMENT_OFFSET_KHZ7DOT5_SECOND = 2;
 };
 
 // enumerated from xnap_v1.asn1:5298
@@ -2364,7 +2364,7 @@ message DataforwardingandOffloadingInfofromSourceExtIes {
 // @inject_tag: aper:"valueExt"
 // {DataforwardingandOffloadingInfofromSource}
 message DataforwardingandOffloadingInfofromSource {
-    QoSflowsToBeForwardedList qos_flows_to_be_forwarded = 1 [ json_name="qosFlowsToBeForwarded"];
+    QoSflowsToBeForwardedList1 qos_flows_to_be_forwarded = 1 [ json_name="qosFlowsToBeForwarded"];
     // @inject_tag: aper:"optional,"
     optional DrbtoQoSflowMappingList source_drbto_qo_sflow_mapping = 2 [ json_name="sourceDRBtoQoSFlowMapping"];
     // @inject_tag: aper:"optional,sizeLB:1,"
@@ -2373,9 +2373,9 @@ message DataforwardingandOffloadingInfofromSource {
 
 // sequence from xnap_v1.asn1:4022
 // {QoSFLowsToBeForwarded-List}
-message QoSflowsToBeForwardedList {
+message QoSflowsToBeForwardedList1 {
     // @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-    repeated QoSflowsToBeForwardedItem value = 1 [(validate.v1.rules).repeated = {min_items: 1, max_items: 64}, json_name="value"];
+    repeated QoSflowsToBeForwardedItem1 value = 1 [(validate.v1.rules).repeated = {min_items: 1, max_items: 64}, json_name="value"];
 };
 
 // value set from xnap_v1.asn1:4030
@@ -2392,22 +2392,10 @@ message QoSflowsToBeForwardedItemExtIesExtension {
     }
 };
 
-// concrete instance(s) of class XNAP-PROTOCOL-EXTENSION from xnap_v1.asn1:4030
-// @inject_tag: aper:"valueExt"
-// {QoSFLowsToBeForwarded-Item-ExtIEs}
-message QoSflowsToBeForwardedItemExtIes {
-    // @inject_tag: aper:"unique,"
-    ProtocolIeID id = 1 [ json_name="&id"];
-    // @inject_tag: aper:"valueLB:0,valueUB:2,"
-    Criticality criticality = 2 [ json_name="&criticality"];
-    // @inject_tag: aper:"canonicalOrder,"
-    QoSflowsToBeForwardedItemExtIesExtension extension = 3 [ json_name="&Extension"];
-};
-
 // sequence from xnap_v1.asn1:4023
 // @inject_tag: aper:"valueExt"
 // {QoSFLowsToBeForwarded-Item}
-message QoSflowsToBeForwardedItem {
+message QoSflowsToBeForwardedItem1 {
     QoSflowIdentifier qos_flow_identifier = 1 [ json_name="qosFlowIdentifier"];
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
     Dlforwarding dl_dataforwarding = 2 [ json_name="dl-dataforwarding"];
@@ -2968,14 +2956,14 @@ message MeasurementThresholdL1LoggedMdt {
 // {ExpectedActivityPeriod}
 message ExpectedActivityPeriod {
     // @inject_tag: aper:"valueExt,valueLB:181,valueUB:181,"
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 30,40,50,60,80,100,120,150,180,181}, json_name="value"];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 181}, json_name="value"];
 };
 
 // range of Integer from xnap_v1.asn1:4387
 // {ExpectedIdlePeriod}
 message ExpectedIdlePeriod {
     // @inject_tag: aper:"valueExt,valueLB:181,valueUB:181,"
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 30,40,50,60,80,100,120,150,180,181}, json_name="value"];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 1, lte: 181}, json_name="value"];
 };
 
 // value set from xnap_v1.asn1:4397
@@ -3869,7 +3857,7 @@ message MaxChopreparations {
 // {MaximumDataBurstVolume}
 message MaximumDataBurstVolume {
     // @inject_tag: aper:"valueExt,valueLB:4096,valueUB:2000000,"
-    int32 value = 1 [(validate.v1.rules).int32 = {gte: 0, lte: 4095gte: 4096, lte: 2000000}, json_name="value"];
+    int32 value = 1 [(validate.v1.rules).int32 = {gte: 4096, lte: 2000000}, json_name="value"];
 };
 
 // value set from xnap_v1.asn1:4999
@@ -4030,19 +4018,10 @@ message MdtmodeNR {
     }
 };
 
-// sequence from xnap_v1.asn1:9229
-// Param XNAP-PROTOCOL-IES:IEsSetParam
-// {ProtocolIE-Field001}
-message ProtocolIeField001 {
-    IesSetParam id = 1 [ json_name="id"];
-    @id criticality = 2 [ json_name="criticality"];
-    @id value = 3 [ json_name="value"];
-};
-
 // reference from xnap_v1.asn1:5094
 // {MDTMode-NR-Extension}
 message MdtmodeNRExtension {
-    ProtocolIeField001 value = 1 [ json_name="value"];
+    MdtmodeNRExtensionIe value = 1 [ json_name="value"];
 };
 
 // value set from xnap_v1.asn1:5096
@@ -4069,7 +4048,7 @@ message MdtmodeEUtra {
 // reference from xnap_v1.asn1:5107
 // {MDTMode-EUTRA-Extension}
 message MdtmodeEUtraExtension {
-    ProtocolIeField001 value = 1 [ json_name="value"];
+    MdtmodeEUtraExtensionIe value = 1 [ json_name="value"];
 };
 
 // value set from xnap_v1.asn1:5109
