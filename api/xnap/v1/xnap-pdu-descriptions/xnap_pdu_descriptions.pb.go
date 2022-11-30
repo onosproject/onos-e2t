@@ -119,17 +119,17 @@ type isXnApPDu_XnApPdu interface {
 
 type XnApPDu_InitiatingMessage struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	InitiatingMessage *InitiatingMessage `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3,oneof"`
+	InitiatingMessage *InitiatingMessage `protobuf:"bytes,1,opt,name=initiating_message,json=initiatingMessage,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnApPDu_SuccessfulOutcome struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	SuccessfulOutcome *SuccessfulOutcome `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3,oneof"`
+	SuccessfulOutcome *SuccessfulOutcome `protobuf:"bytes,2,opt,name=successful_outcome,json=successfulOutcome,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type XnApPDu_UnsuccessfulOutcome struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	UnsuccessfulOutcome *UnsuccessfulOutcome `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=unsuccessfulOutcome,proto3,oneof"`
+	UnsuccessfulOutcome *UnsuccessfulOutcome `protobuf:"bytes,3,opt,name=unsuccessful_outcome,json=unsuccessfulOutcome,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*XnApPDu_InitiatingMessage) isXnApPDu_XnApPdu() {}
@@ -146,11 +146,11 @@ type InitiatingMessage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	// @inject_tag: aper:"canonicalOrder"
-	Value *InitiatingMessageXnApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Value *InitiatingMessageXnApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *InitiatingMessage) Reset() {
@@ -268,7 +268,7 @@ type isInitiatingMessageXnApElementaryProcedures_ImValues interface {
 
 type InitiatingMessageXnApElementaryProcedures_XnSetupRequest struct {
 	// @inject_tag: aper:"valueExt"
-	XnSetupRequest *xnap_pdu_contents.XnSetupRequest `protobuf:"bytes,1,opt,name=xn_setup_request,json=ric_subscription,proto3,oneof"` // ToDo - add the rest of the messages
+	XnSetupRequest *xnap_pdu_contents.XnSetupRequest `protobuf:"bytes,1,opt,name=xn_setup_request,json=ric_subscription,proto3,oneof" aper:"valueExt"` // ToDo - add the rest of the messages
 }
 
 func (*InitiatingMessageXnApElementaryProcedures_XnSetupRequest) isInitiatingMessageXnApElementaryProcedures_ImValues() {
@@ -282,11 +282,11 @@ type SuccessfulOutcome struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	// @inject_tag: aper:"canonicalOrder"
-	Value *SuccessfulOutcomeXnApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Value *SuccessfulOutcomeXnApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *SuccessfulOutcome) Reset() {
@@ -404,7 +404,7 @@ type isSuccessfulOutcomeXnApElementaryProcedures_SoValues interface {
 
 type SuccessfulOutcomeXnApElementaryProcedures_XnSetupResponse struct {
 	// @inject_tag: aper:"valueExt"
-	XnSetupResponse *xnap_pdu_contents.XnSetupResponse `protobuf:"bytes,1,opt,name=xn_setup_response,json=ric_subscription,proto3,oneof"` // ToDo - add the rest of the messages
+	XnSetupResponse *xnap_pdu_contents.XnSetupResponse `protobuf:"bytes,1,opt,name=xn_setup_response,json=ric_subscription,proto3,oneof" aper:"valueExt"` // ToDo - add the rest of the messages
 }
 
 func (*SuccessfulOutcomeXnApElementaryProcedures_XnSetupResponse) isSuccessfulOutcomeXnApElementaryProcedures_SoValues() {
@@ -418,11 +418,11 @@ type UnsuccessfulOutcome struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,unique"
-	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty"`
+	ProcedureCode int32 `protobuf:"varint,1,opt,name=procedure_code,json=procedureCode,proto3" json:"procedure_code,omitempty" aper:"valueLB:0,valueUB:255,unique"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2"`
 	// @inject_tag: aper:"canonicalOrder"
-	Value *UnsuccessfulOutcomeXnApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
+	Value *UnsuccessfulOutcomeXnApElementaryProcedures `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty" aper:"canonicalOrder"`
 }
 
 func (x *UnsuccessfulOutcome) Reset() {
@@ -540,7 +540,7 @@ type isUnsuccessfulOutcomeXnApElementaryProcedures_UoValues interface {
 
 type UnsuccessfulOutcomeXnApElementaryProcedures_XnSetupFailure struct {
 	// @inject_tag: aper:"valueExt"
-	XnSetupFailure *xnap_pdu_contents.XnSetupFailure `protobuf:"bytes,1,opt,name=xn_setup_failure,json=f1_setup_response,proto3,oneof"` // ToDo - add the rest of the messages
+	XnSetupFailure *xnap_pdu_contents.XnSetupFailure `protobuf:"bytes,1,opt,name=xn_setup_failure,json=f1_setup_response,proto3,oneof" aper:"valueExt"` // ToDo - add the rest of the messages
 }
 
 func (*UnsuccessfulOutcomeXnApElementaryProcedures_XnSetupFailure) isUnsuccessfulOutcomeXnApElementaryProcedures_UoValues() {

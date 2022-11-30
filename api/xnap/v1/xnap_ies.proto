@@ -1315,7 +1315,7 @@ message GlobalAmfRegionInformation {
     PlmnIdentity plmn_id = 1 [ json_name="plmn-ID"];
     // @inject_tag: aper:"sizeLB:8,sizeUB:8,"
     asn1.v1.BitString amf_region_id = 2 [ json_name="amf-region-id"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated GlobalAmfRegionInformationExtIes i_e_extensions = 3 [ json_name="iE-Extensions"];
 };
 
@@ -1663,7 +1663,7 @@ message BroadcastPlmninTaisupportItemExtIes {
 message BroadcastPlmninTaisupportItem {
     PlmnIdentity plmn_id = 1 [ json_name="plmn-id"];
     SliceSupportList t_aislice_support_list = 2 [ json_name="tAISliceSupport-List"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated BroadcastPlmninTaisupportItemExtIes i_e_extension = 3 [ json_name="iE-Extension"];
 };
 
@@ -2092,7 +2092,7 @@ message ConnectivitySupportExtIes {
 message ConnectivitySupport {
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
     EndcsupportConnectivitySupport e_ndc_support = 1 [ json_name="eNDC-Support"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated ConnectivitySupportExtIes i_e_extensions = 2 [ json_name="iE-Extensions"];
 };
 
@@ -2820,7 +2820,7 @@ message EUTraCGiExtIes {
 message EUTraCGi {
     PlmnIdentity plmn_id = 1 [ json_name="plmn-id"];
     EUTraCellIdentity e_utra_ci = 2 [ json_name="e-utra-CI"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated EUTraCGiExtIes i_e_extension = 3 [ json_name="iE-Extension"];
 };
 
@@ -4855,7 +4855,7 @@ message NpnSupport {
     oneof npn_support {
         // @inject_tag: aper:"choiceIdx:1,valueExt,"
         NpnSupportSNpn s_npn = 1 [ json_name="sNPN"];
-        // @inject_tag: aper:"choiceIdx:2,"
+        // @inject_tag: aper:"choiceIdx:2,valueExt"
         NpnSupportExtIes choice_extensions = 2 [ json_name="choice-Extensions"];
     }
 };
@@ -4871,7 +4871,7 @@ message NpnSupportSNpnExtIes {
 // {NPN-Support-SNPN}
 message NpnSupportSNpn {
     Nid nid = 1 [ json_name="nid"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt,"
     repeated NpnSupportSNpnExtIes ie_extension = 2 [ json_name="ie-Extension"];
 };
 
@@ -5006,7 +5006,7 @@ message NrCGiExtIes {
 message NrCGi {
     PlmnIdentity plmn_id = 1 [ json_name="plmn-id"];
     NrCellIdentity nr_ci = 2 [ json_name="nr-CI"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated NrCGiExtIes i_e_extension = 3 [ json_name="iE-Extension"];
 };
 
@@ -5055,7 +5055,7 @@ message NrfrequencyInfo {
     // @inject_tag: aper:"optional,valueExt,"
     optional SulInformation sul_information = 2 [ json_name="sul-information"];
     NrfrequencyBandList frequency_band_list = 3 [ json_name="frequencyBand-List"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated NrfrequencyInfoExtIes i_e_extension = 4 [ json_name="iE-Extension"];
 };
 
@@ -5080,7 +5080,7 @@ message NrmodeInfo {
         NrmodeInfoFdd fdd = 1 [ json_name="fdd"];
         // @inject_tag: aper:"choiceIdx:2,valueExt,"
         NrmodeInfoTdd tdd = 2 [ json_name="tdd"];
-        // @inject_tag: aper:"choiceIdx:3,"
+        // @inject_tag: aper:"choiceIdx:3,valueExt"
         NrmodeInfoExtIes choice_extension = 3 [ json_name="choice-extension"];
     }
 };
@@ -5121,7 +5121,7 @@ message NrmodeInfoFdd {
     NrtransmissionBandwidth ul_nrtransmisson_bandwidth = 3 [ json_name="ulNRTransmissonBandwidth"];
     // @inject_tag: aper:"valueExt,"
     NrtransmissionBandwidth dl_nrtransmisson_bandwidth = 4 [ json_name="dlNRTransmissonBandwidth"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated NrmodeInfoFddExtIes i_e_extension = 5 [ json_name="iE-Extension"];
 };
 
@@ -5159,7 +5159,7 @@ message NrmodeInfoTdd {
     NrfrequencyInfo nr_frequency_info = 1 [ json_name="nrFrequencyInfo"];
     // @inject_tag: aper:"valueExt,"
     NrtransmissionBandwidth nr_transmisson_bandwidth = 2 [ json_name="nrTransmissonBandwidth"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated NrmodeInfoTddExtIes i_e_extension = 3 [ json_name="iE-Extension"];
 };
 
@@ -5184,7 +5184,7 @@ message NrtransmissionBandwidth {
     Nrscs n_rscs = 1 [ json_name="nRSCS"];
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:28,"
     Nrnrb n_rnrb = 2 [ json_name="nRNRB"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated NrtransmissionBandwidthExtIes i_e_extensions = 3 [ json_name="iE-Extensions"];
 };
 
@@ -7952,7 +7952,7 @@ message ServedCellInformationEUTra {
     Tac tac = 3 [ json_name="tac"];
     // @inject_tag: aper:"optional,"
     optional Ranac ranac = 4 [ json_name="ranac"];
-    // @inject_tag: aper:"sizeLB:1,sizeUB:12,"
+    // @inject_tag: aper:"sizeLB:1,sizeUB:12,valueExt"
     repeated ServedCellInformationEUTraperBplmn broadcast_plmns = 5 [(validate.v1.rules).repeated = {min_items: 1, max_items: 12}, json_name="broadcastPLMNs"];
     ServedCellInformationEUTraModeInfo e_utra_mode_info = 6 [ json_name="e-utra-mode-info"];
     // @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:2,"
@@ -7984,7 +7984,7 @@ message ServedCellInformationEUTraperBplmnExtIes {
 // {ServedCellInformation-E-UTRA-perBPLMN}
 message ServedCellInformationEUTraperBplmn {
     PlmnIdentity plmn_id = 1 [ json_name="plmn-id"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated ServedCellInformationEUTraperBplmnExtIes i_e_extensions = 2 [ json_name="iE-Extensions"];
 };
 
@@ -8042,7 +8042,7 @@ message ServedCellInformationEUTraFDdinfo {
     EUTratransmissionBandwidth ul_e_utra_tx_bw = 3 [ json_name="ul-e-utraTxBW"];
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:5,"
     EUTratransmissionBandwidth dl_e_utra_tx_bw = 4 [ json_name="dl-e-utraTxBW"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated ServedCellInformationEUTraFDdinfoExtIes i_e_extensions = 5 [ json_name="iE-Extensions"];
 };
 
@@ -8081,7 +8081,7 @@ message ServedCellInformationEUTraTDdinfo {
     SubframeAssignmnetServedCellInformationEutratddinfo subframe_assignmnet = 3 [ json_name="subframeAssignmnet"];
     // @inject_tag: aper:"valueExt,"
     SpecialSubframeInfoEUTra special_subframe_info = 4 [ json_name="specialSubframeInfo"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated ServedCellInformationEUTraTDdinfoExtIes i_e_extensions = 5 [ json_name="iE-Extensions"];
 };
 
@@ -8108,7 +8108,7 @@ message ServedCellsEUTraItem {
     optional NeighbourInformationNR neighbour_info_nr = 2 [ json_name="neighbour-info-NR"];
     // @inject_tag: aper:"optional,"
     optional NeighbourInformationEUTra neighbour_info_e_utra = 3 [ json_name="neighbour-info-E-UTRA"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated ServedCellsEUTraItemExtIes i_e_extensions = 4 [ json_name="iE-Extensions"];
 };
 
@@ -8212,7 +8212,7 @@ message ServedCellInformationNR {
     bytes measurement_timing_configuration = 7 [ json_name="measurementTimingConfiguration"];
     // @inject_tag: aper:"valueExt,"
     ConnectivitySupport connectivity_support = 8 [ json_name="connectivitySupport"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated ServedCellInformationNRExtIes i_e_extensions = 9 [ json_name="iE-Extensions"];
 };
 
@@ -8255,7 +8255,7 @@ message ServedCellsNRItem {
     optional NeighbourInformationNR neighbour_info_nr = 2 [ json_name="neighbour-info-NR"];
     // @inject_tag: aper:"optional,"
     optional NeighbourInformationEUTra neighbour_info_e_utra = 3 [ json_name="neighbour-info-E-UTRA"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated ServedCellsNRItemExtIes i_e_extensions = 4 [ json_name="iE-Extensions"];
 };
 
@@ -8581,7 +8581,7 @@ message SNSsai {
     bytes sst = 1 [(validate.v1.rules).bytes = {min_len: 1, max_len: 1}, json_name="sst"];
     // @inject_tag: aper:"optional,sizeLB:3,sizeUB:3,"
     optional bytes sd = 2 [(validate.v1.rules).bytes = {min_len: 3, max_len: 3}, json_name="sd"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated SNSsaiExtIes i_e_extensions = 3 [ json_name="iE-Extensions"];
 };
 
@@ -8601,7 +8601,7 @@ message SpecialSubframeInfoEUTra {
     CyclicPrefixEUTraDL cyclic_prefix_dl = 2 [ json_name="cyclicPrefixDL"];
     // @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
     CyclicPrefixEUTraUL cyclic_prefix_ul = 3 [ json_name="cyclicPrefixUL"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated SpecialSubframeInfoEUTraExtIes i_e_extensions = 4 [ json_name="iE-Extensions"];
 };
 
@@ -8767,7 +8767,7 @@ message SulInformation {
     Nrarfcn sul_frequency_info = 1 [ json_name="sulFrequencyInfo"];
     // @inject_tag: aper:"valueExt,"
     NrtransmissionBandwidth sul_transmission_bandwidth = 2 [ json_name="sulTransmissionBandwidth"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated SulInformationExtIes i_e_extensions = 3 [ json_name="iE-Extensions"];
 };
 
@@ -8789,7 +8789,7 @@ message SupportedSulbandItemExtIes {
 // {SupportedSULBandItem}
 message SupportedSulbandItem {
     SulFrequencyBand sul_band_item = 1 [ json_name="sulBandItem"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated SupportedSulbandItemExtIes i_e_extensions = 2 [ json_name="iE-Extensions"];
 };
 
@@ -8939,9 +8939,9 @@ message TaisupportItemExtIes {
 // {TAISupport-Item}
 message TaisupportItem {
     Tac tac = 1 [ json_name="tac"];
-    // @inject_tag: aper:"sizeLB:1,sizeUB:12,"
+    // @inject_tag: aper:"sizeLB:1,sizeUB:12,valueExt"
     repeated BroadcastPlmninTaisupportItem broadcast_plmns = 2 [(validate.v1.rules).repeated = {min_items: 1, max_items: 12}, json_name="broadcastPLMNs"];
-    // @inject_tag: aper:"optional,sizeLB:1,"
+    // @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
     repeated TaisupportItemExtIes i_e_extensions = 3 [ json_name="iE-Extensions"];
 };
 

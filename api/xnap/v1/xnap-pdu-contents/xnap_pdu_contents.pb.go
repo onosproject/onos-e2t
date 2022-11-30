@@ -445,82 +445,82 @@ type isHandoverRequestIEsValue_HandoverRequestIes interface {
 
 type HandoverRequestIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type HandoverRequestIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type HandoverRequestIEsValue_IdTargetCellGlobalId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdTargetCellGlobalId *xnap_ies.TargetCGi `protobuf:"bytes,3,opt,name=id_target_cell_global_id,json=id-targetCellGlobalID,proto3,oneof"`
+	IdTargetCellGlobalId *xnap_ies.TargetCGi `protobuf:"bytes,3,opt,name=id_target_cell_global_id,json=id-targetCellGlobalID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type HandoverRequestIEsValue_IdGuami struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdGuami *xnap_ies.Guami `protobuf:"bytes,4,opt,name=id_guami,json=id-GUAMI,proto3,oneof"`
+	IdGuami *xnap_ies.Guami `protobuf:"bytes,4,opt,name=id_guami,json=id-GUAMI,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type HandoverRequestIEsValue_IdUecontextInfoHorequest struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,"
-	IdUecontextInfoHorequest *UecontextInfoHorequest `protobuf:"bytes,5,opt,name=id_uecontext_info_horequest,json=id-UEContextInfoHORequest,proto3,oneof"`
+	IdUecontextInfoHorequest *UecontextInfoHorequest `protobuf:"bytes,5,opt,name=id_uecontext_info_horequest,json=id-UEContextInfoHORequest,proto3,oneof" aper:"choiceIdx:5,valueExt,"`
 }
 
 type HandoverRequestIEsValue_IdTraceActivation struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdTraceActivation *xnap_ies.TraceActivation `protobuf:"bytes,6,opt,name=id_trace_activation,json=id-TraceActivation,proto3,oneof"`
+	IdTraceActivation *xnap_ies.TraceActivation `protobuf:"bytes,6,opt,name=id_trace_activation,json=id-TraceActivation,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 type HandoverRequestIEsValue_IdMaskedImeisv struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	IdMaskedImeisv *xnap_ies.MaskedImeisv `protobuf:"bytes,7,opt,name=id_masked_imeisv,json=id-MaskedIMEISV,proto3,oneof"`
+	IdMaskedImeisv *xnap_ies.MaskedImeisv `protobuf:"bytes,7,opt,name=id_masked_imeisv,json=id-MaskedIMEISV,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type HandoverRequestIEsValue_IdUehistoryInformation struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	IdUehistoryInformation *xnap_ies.UehistoryInformation `protobuf:"bytes,8,opt,name=id_uehistory_information,json=id-UEHistoryInformation,proto3,oneof"`
+	IdUehistoryInformation *xnap_ies.UehistoryInformation `protobuf:"bytes,8,opt,name=id_uehistory_information,json=id-UEHistoryInformation,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type HandoverRequestIEsValue_IdUecontextRefAtSnHorequest struct {
 	// @inject_tag: aper:"choiceIdx:9,valueExt,"
-	IdUecontextRefAtSnHorequest *UecontextRefAtSnHOrequest `protobuf:"bytes,9,opt,name=id_uecontext_ref_at_sn_horequest,json=id-UEContextRefAtSN-HORequest,proto3,oneof"`
+	IdUecontextRefAtSnHorequest *UecontextRefAtSnHOrequest `protobuf:"bytes,9,opt,name=id_uecontext_ref_at_sn_horequest,json=id-UEContextRefAtSN-HORequest,proto3,oneof" aper:"choiceIdx:9,valueExt,"`
 }
 
 type HandoverRequestIEsValue_IdChoinformationReq struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,"
-	IdChoinformationReq *xnap_ies.ChoinformationReq `protobuf:"bytes,10,opt,name=id_choinformation_req,json=id-CHOinformation-Req,proto3,oneof"`
+	IdChoinformationReq *xnap_ies.ChoinformationReq `protobuf:"bytes,10,opt,name=id_choinformation_req,json=id-CHOinformation-Req,proto3,oneof" aper:"choiceIdx:10,valueExt,"`
 }
 
 type HandoverRequestIEsValue_IdNrv2XservicesAuthorized struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,"
-	IdNrv2XservicesAuthorized *xnap_ies.Nrv2XservicesAuthorized `protobuf:"bytes,11,opt,name=id_nrv2_xservices_authorized,json=id-NRV2XServicesAuthorized,proto3,oneof"`
+	IdNrv2XservicesAuthorized *xnap_ies.Nrv2XservicesAuthorized `protobuf:"bytes,11,opt,name=id_nrv2_xservices_authorized,json=id-NRV2XServicesAuthorized,proto3,oneof" aper:"choiceIdx:11,valueExt,"`
 }
 
 type HandoverRequestIEsValue_IdLtev2XservicesAuthorized struct {
 	// @inject_tag: aper:"choiceIdx:12,valueExt,"
-	IdLtev2XservicesAuthorized *xnap_ies.Ltev2XservicesAuthorized `protobuf:"bytes,12,opt,name=id_ltev2_xservices_authorized,json=id-LTEV2XServicesAuthorized,proto3,oneof"`
+	IdLtev2XservicesAuthorized *xnap_ies.Ltev2XservicesAuthorized `protobuf:"bytes,12,opt,name=id_ltev2_xservices_authorized,json=id-LTEV2XServicesAuthorized,proto3,oneof" aper:"choiceIdx:12,valueExt,"`
 }
 
 type HandoverRequestIEsValue_IdPc5QoSparameters struct {
 	// @inject_tag: aper:"choiceIdx:13,valueExt,"
-	IdPc5QoSparameters *xnap_ies.Pc5QoSparameters `protobuf:"bytes,13,opt,name=id_pc5_qo_sparameters,json=id-PC5QoSParameters,proto3,oneof"`
+	IdPc5QoSparameters *xnap_ies.Pc5QoSparameters `protobuf:"bytes,13,opt,name=id_pc5_qo_sparameters,json=id-PC5QoSParameters,proto3,oneof" aper:"choiceIdx:13,valueExt,"`
 }
 
 type HandoverRequestIEsValue_IdMobilityInformation struct {
 	// @inject_tag: aper:"choiceIdx:14,"
-	IdMobilityInformation *xnap_ies.MobilityInformation `protobuf:"bytes,14,opt,name=id_mobility_information,json=id-MobilityInformation,proto3,oneof"`
+	IdMobilityInformation *xnap_ies.MobilityInformation `protobuf:"bytes,14,opt,name=id_mobility_information,json=id-MobilityInformation,proto3,oneof" aper:"choiceIdx:14,"`
 }
 
 type HandoverRequestIEsValue_IdUehistoryInformationFromTheUe struct {
 	// @inject_tag: aper:"choiceIdx:15,"
-	IdUehistoryInformationFromTheUe *xnap_ies.UehistoryInformationFromTheUe `protobuf:"bytes,15,opt,name=id_uehistory_information_from_the_ue,json=id-UEHistoryInformationFromTheUE,proto3,oneof"`
+	IdUehistoryInformationFromTheUe *xnap_ies.UehistoryInformationFromTheUe `protobuf:"bytes,15,opt,name=id_uehistory_information_from_the_ue,json=id-UEHistoryInformationFromTheUE,proto3,oneof" aper:"choiceIdx:15,"`
 }
 
 type HandoverRequestIEsValue_IdIabnodeIndication struct {
 	// @inject_tag: aper:"choiceIdx:16,valueExt,valueLB:0,valueUB:0,"
-	IdIabnodeIndication xnap_ies.IabnodeIndication `protobuf:"varint,16,opt,name=id_iabnode_indication,json=id-IABNodeIndication,proto3,enum=xnap.v1.IabnodeIndication,oneof"`
+	IdIabnodeIndication xnap_ies.IabnodeIndication `protobuf:"varint,16,opt,name=id_iabnode_indication,json=id-IABNodeIndication,proto3,enum=xnap.v1.IabnodeIndication,oneof" aper:"choiceIdx:16,valueExt,valueLB:0,valueUB:0,"`
 }
 
 func (*HandoverRequestIEsValue_IdSourceNgRannodeUexnApid) isHandoverRequestIEsValue_HandoverRequestIes() {
@@ -572,11 +572,11 @@ type HandoverRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *HandoverRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *HandoverRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *HandoverRequestIEs) Reset() {
@@ -780,27 +780,27 @@ type isUecontextInfoHorequestExtIesExtension_UecontextInfoHorequestExtIes interf
 
 type UecontextInfoHorequestExtIesExtension_IdFiveGcmobilityRestrictionListContainer struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdFiveGcmobilityRestrictionListContainer *xnap_ies.FiveGcmobilityRestrictionListContainer `protobuf:"bytes,1,opt,name=id_five_gcmobility_restriction_list_container,json=id-FiveGCMobilityRestrictionListContainer,proto3,oneof"`
+	IdFiveGcmobilityRestrictionListContainer *xnap_ies.FiveGcmobilityRestrictionListContainer `protobuf:"bytes,1,opt,name=id_five_gcmobility_restriction_list_container,json=id-FiveGCMobilityRestrictionListContainer,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextInfoHorequestExtIesExtension_IdNruesidelinkAggregateMaximumBitRate struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdNruesidelinkAggregateMaximumBitRate *xnap_ies.NruesidelinkAggregateMaximumBitRate `protobuf:"bytes,2,opt,name=id_nruesidelink_aggregate_maximum_bit_rate,json=id-NRUESidelinkAggregateMaximumBitRate,proto3,oneof"`
+	IdNruesidelinkAggregateMaximumBitRate *xnap_ies.NruesidelinkAggregateMaximumBitRate `protobuf:"bytes,2,opt,name=id_nruesidelink_aggregate_maximum_bit_rate,json=id-NRUESidelinkAggregateMaximumBitRate,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type UecontextInfoHorequestExtIesExtension_IdLteuesidelinkAggregateMaximumBitRate struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdLteuesidelinkAggregateMaximumBitRate *xnap_ies.LteuesidelinkAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=id_lteuesidelink_aggregate_maximum_bit_rate,json=id-LTEUESidelinkAggregateMaximumBitRate,proto3,oneof"`
+	IdLteuesidelinkAggregateMaximumBitRate *xnap_ies.LteuesidelinkAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=id_lteuesidelink_aggregate_maximum_bit_rate,json=id-LTEUESidelinkAggregateMaximumBitRate,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type UecontextInfoHorequestExtIesExtension_IdMdtplmnlist struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdMdtplmnlist *xnap_ies.Mdtplmnlist `protobuf:"bytes,4,opt,name=id_mdtplmnlist,json=id-MDTPLMNList,proto3,oneof"`
+	IdMdtplmnlist *xnap_ies.Mdtplmnlist `protobuf:"bytes,4,opt,name=id_mdtplmnlist,json=id-MDTPLMNList,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type UecontextInfoHorequestExtIesExtension_IdUeradioCapabilityId struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdUeradioCapabilityId *xnap_ies.UeradioCapabilityId `protobuf:"bytes,5,opt,name=id_ueradio_capability_id,json=id-UERadioCapabilityID,proto3,oneof"`
+	IdUeradioCapabilityId *xnap_ies.UeradioCapabilityId `protobuf:"bytes,5,opt,name=id_ueradio_capability_id,json=id-UERadioCapabilityID,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*UecontextInfoHorequestExtIesExtension_IdFiveGcmobilityRestrictionListContainer) isUecontextInfoHorequestExtIesExtension_UecontextInfoHorequestExtIes() {
@@ -827,11 +827,11 @@ type UecontextInfoHorequestExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *UecontextInfoHorequestExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *UecontextInfoHorequestExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextInfoHorequestExtIes) Reset() {
@@ -898,21 +898,21 @@ type UecontextInfoHorequest struct {
 	NgCUeReference  *xnap_ies.AmfUENGapID                 `protobuf:"bytes,1,opt,name=ng_c_ue_reference,json=ng-c-UE-reference,proto3" json:"ng_c_ue_reference,omitempty"`
 	CpTnlInfoSource *xnap_ies.CptransportLayerInformation `protobuf:"bytes,2,opt,name=cp_tnl_info_source,json=cp-TNL-info-source,proto3" json:"cp_tnl_info_source,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	UeSecurityCapabilities *xnap_ies.UesecurityCapabilities `protobuf:"bytes,3,opt,name=ue_security_capabilities,json=ueSecurityCapabilities,proto3" json:"ue_security_capabilities,omitempty"`
+	UeSecurityCapabilities *xnap_ies.UesecurityCapabilities `protobuf:"bytes,3,opt,name=ue_security_capabilities,json=ueSecurityCapabilities,proto3" json:"ue_security_capabilities,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	SecurityInformation *xnap_ies.AsSecurityInformation `protobuf:"bytes,4,opt,name=security_information,json=securityInformation,proto3" json:"security_information,omitempty"`
+	SecurityInformation *xnap_ies.AsSecurityInformation `protobuf:"bytes,4,opt,name=security_information,json=securityInformation,proto3" json:"security_information,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	IndexToRatFrequencySelectionPriority *xnap_ies.RfspIndex `protobuf:"bytes,5,opt,name=index_to_rat_frequency_selection_priority,json=indexToRatFrequencySelectionPriority,proto3,oneof" json:"index_to_rat_frequency_selection_priority,omitempty"`
+	IndexToRatFrequencySelectionPriority *xnap_ies.RfspIndex `protobuf:"bytes,5,opt,name=index_to_rat_frequency_selection_priority,json=indexToRatFrequencySelectionPriority,proto3,oneof" json:"index_to_rat_frequency_selection_priority,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"valueExt,"
-	UeAmbr                           *xnap_ies.UeaggregateMaximumBitRate        `protobuf:"bytes,6,opt,name=ue_ambr,json=ue-AMBR,proto3" json:"ue_ambr,omitempty"`
+	UeAmbr                           *xnap_ies.UeaggregateMaximumBitRate        `protobuf:"bytes,6,opt,name=ue_ambr,json=ue-AMBR,proto3" json:"ue_ambr,omitempty" aper:"valueExt,"`
 	PduSessionResourcesToBeSetupList *xnap_ies.PdusessionResourcesToBeSetupList `protobuf:"bytes,7,opt,name=pdu_session_resources_to_be_setup_list,json=pduSessionResourcesToBeSetup-List,proto3" json:"pdu_session_resources_to_be_setup_list,omitempty"`
 	RrcContext                       []byte                                     `protobuf:"bytes,8,opt,name=rrc_context,json=rrc-Context,proto3" json:"rrc_context,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	LocationReportingInformation *xnap_ies.LocationReportingInformation `protobuf:"bytes,9,opt,name=location_reporting_information,json=locationReportingInformation,proto3,oneof" json:"location_reporting_information,omitempty"`
+	LocationReportingInformation *xnap_ies.LocationReportingInformation `protobuf:"bytes,9,opt,name=location_reporting_information,json=locationReportingInformation,proto3,oneof" json:"location_reporting_information,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	Mrl *xnap_ies.MobilityRestrictionList `protobuf:"bytes,10,opt,name=mrl,proto3,oneof" json:"mrl,omitempty"`
+	Mrl *xnap_ies.MobilityRestrictionList `protobuf:"bytes,10,opt,name=mrl,proto3,oneof" json:"mrl,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*UecontextInfoHorequestExtIes `protobuf:"bytes,11,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*UecontextInfoHorequestExtIes `protobuf:"bytes,11,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UecontextInfoHorequest) Reset() {
@@ -1084,7 +1084,7 @@ type UecontextRefAtSnHOrequest struct {
 	GlobalNgRannodeId   *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=global_ng_rannode_id,json=globalNG-RANNode-ID,proto3" json:"global_ng_rannode_id,omitempty"`
 	SNNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=s_n_ng_rannode_uexn_apid,json=sN-NG-RANnodeUEXnAPID,proto3" json:"s_n_ng_rannode_uexn_apid,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*UecontextRefAtSnHOrequestExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*UecontextRefAtSnHOrequestExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UecontextRefAtSnHOrequest) Reset() {
@@ -1278,52 +1278,52 @@ type isHandoverRequestAcknowledgeIEsValue_HandoverRequestAcknowledgeIes interfac
 
 type HandoverRequestAcknowledgeIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdTargetNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdPdusessionResourcesAdmittedList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdPdusessionResourcesAdmittedList *xnap_ies.PdusessionResourcesAdmittedList `protobuf:"bytes,3,opt,name=id_pdusession_resources_admitted_list,json=id-PDUSessionResourcesAdmitted-List,proto3,oneof"`
+	IdPdusessionResourcesAdmittedList *xnap_ies.PdusessionResourcesAdmittedList `protobuf:"bytes,3,opt,name=id_pdusession_resources_admitted_list,json=id-PDUSessionResourcesAdmitted-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdPdusessionResourcesNotAdmittedList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdPdusessionResourcesNotAdmittedList *xnap_ies.PdusessionResourcesNotAdmittedList `protobuf:"bytes,4,opt,name=id_pdusession_resources_not_admitted_list,json=id-PDUSessionResourcesNotAdmitted-List,proto3,oneof"`
+	IdPdusessionResourcesNotAdmittedList *xnap_ies.PdusessionResourcesNotAdmittedList `protobuf:"bytes,4,opt,name=id_pdusession_resources_not_admitted_list,json=id-PDUSessionResourcesNotAdmitted-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdTarget2SourceNgRannodeTranspContainer struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdTarget2SourceNgRannodeTranspContainer string `protobuf:"bytes,5,opt,name=id_target2_source_ng_rannode_transp_container,json=id-Target2SourceNG-RANnodeTranspContainer,proto3,oneof"`
+	IdTarget2SourceNgRannodeTranspContainer string `protobuf:"bytes,5,opt,name=id_target2_source_ng_rannode_transp_container,json=id-Target2SourceNG-RANnodeTranspContainer,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdUecontextKeptIndicator struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:0,"
-	IdUecontextKeptIndicator xnap_ies.UecontextKeptIndicator `protobuf:"varint,6,opt,name=id_uecontext_kept_indicator,json=id-UEContextKeptIndicator,proto3,enum=xnap.v1.UecontextKeptIndicator,oneof"`
+	IdUecontextKeptIndicator xnap_ies.UecontextKeptIndicator `protobuf:"varint,6,opt,name=id_uecontext_kept_indicator,json=id-UEContextKeptIndicator,proto3,enum=xnap.v1.UecontextKeptIndicator,oneof" aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,7,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,7,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:7,valueExt,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdDrbsTransferredToMn struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	IdDrbsTransferredToMn *xnap_ies.DrbList `protobuf:"bytes,8,opt,name=id_drbs_transferred_to_mn,json=id-DRBs-transferred-to-MN,proto3,oneof"`
+	IdDrbsTransferredToMn *xnap_ies.DrbList `protobuf:"bytes,8,opt,name=id_drbs_transferred_to_mn,json=id-DRBs-transferred-to-MN,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdDapsresponseInfoList struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	IdDapsresponseInfoList *xnap_ies.DapsresponseInfoList `protobuf:"bytes,9,opt,name=id_dapsresponse_info_list,json=id-DAPSResponseInfo-List,proto3,oneof"`
+	IdDapsresponseInfoList *xnap_ies.DapsresponseInfoList `protobuf:"bytes,9,opt,name=id_dapsresponse_info_list,json=id-DAPSResponseInfo-List,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type HandoverRequestAcknowledgeIEsValue_IdChoinformationAck struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,"
-	IdChoinformationAck *xnap_ies.ChoinformationAck `protobuf:"bytes,10,opt,name=id_choinformation_ack,json=id-CHOinformation-Ack,proto3,oneof"`
+	IdChoinformationAck *xnap_ies.ChoinformationAck `protobuf:"bytes,10,opt,name=id_choinformation_ack,json=id-CHOinformation-Ack,proto3,oneof" aper:"choiceIdx:10,valueExt,"`
 }
 
 func (*HandoverRequestAcknowledgeIEsValue_IdSourceNgRannodeUexnApid) isHandoverRequestAcknowledgeIEsValue_HandoverRequestAcknowledgeIes() {
@@ -1365,11 +1365,11 @@ type HandoverRequestAcknowledgeIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *HandoverRequestAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *HandoverRequestAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *HandoverRequestAcknowledgeIEs) Reset() {
@@ -1565,22 +1565,22 @@ type isHandoverPreparationFailureIEsValue_HandoverPreparationFailureIes interfac
 
 type HandoverPreparationFailureIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type HandoverPreparationFailureIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type HandoverPreparationFailureIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type HandoverPreparationFailureIEsValue_IdRequestedTargetCellGlobalId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdRequestedTargetCellGlobalId *xnap_ies.TargetCGi `protobuf:"bytes,4,opt,name=id_requested_target_cell_global_id,json=id-requestedTargetCellGlobalID,proto3,oneof"`
+	IdRequestedTargetCellGlobalId *xnap_ies.TargetCGi `protobuf:"bytes,4,opt,name=id_requested_target_cell_global_id,json=id-requestedTargetCellGlobalID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*HandoverPreparationFailureIEsValue_IdSourceNgRannodeUexnApid) isHandoverPreparationFailureIEsValue_HandoverPreparationFailureIes() {
@@ -1604,11 +1604,11 @@ type HandoverPreparationFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *HandoverPreparationFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *HandoverPreparationFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *HandoverPreparationFailureIEs) Reset() {
@@ -1796,17 +1796,17 @@ type isSnstatusTransferIEsValue_SnstatusTransferIes interface {
 
 type SnstatusTransferIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnstatusTransferIEsValue_IdTargetNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnstatusTransferIEsValue_IdDrbsSubjectToStatusTransferList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdDrbsSubjectToStatusTransferList *xnap_ies.DrbsSubjectToStatusTransferList `protobuf:"bytes,3,opt,name=id_drbs_subject_to_status_transfer_list,json=id-DRBsSubjectToStatusTransfer-List,proto3,oneof"`
+	IdDrbsSubjectToStatusTransferList *xnap_ies.DrbsSubjectToStatusTransferList `protobuf:"bytes,3,opt,name=id_drbs_subject_to_status_transfer_list,json=id-DRBsSubjectToStatusTransfer-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*SnstatusTransferIEsValue_IdSourceNgRannodeUexnApid) isSnstatusTransferIEsValue_SnstatusTransferIes() {
@@ -1827,11 +1827,11 @@ type SnstatusTransferIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnstatusTransferIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnstatusTransferIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnstatusTransferIEs) Reset() {
@@ -2011,12 +2011,12 @@ type isUecontextReleaseIEsValue_UecontextReleaseIes interface {
 
 type UecontextReleaseIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextReleaseIEsValue_IdTargetNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*UecontextReleaseIEsValue_IdSourceNgRannodeUexnApid) isUecontextReleaseIEsValue_UecontextReleaseIes() {
@@ -2034,11 +2034,11 @@ type UecontextReleaseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *UecontextReleaseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *UecontextReleaseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextReleaseIEs) Reset() {
@@ -2234,22 +2234,22 @@ type isHandoverCancelIEsValue_HandoverCancelIes interface {
 
 type HandoverCancelIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type HandoverCancelIEsValue_IdTargetNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type HandoverCancelIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type HandoverCancelIEsValue_IdTargetCellsToCancel struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdTargetCellsToCancel *xnap_ies.TargetCellList `protobuf:"bytes,4,opt,name=id_target_cells_to_cancel,json=id-targetCellsToCancel,proto3,oneof"`
+	IdTargetCellsToCancel *xnap_ies.TargetCellList `protobuf:"bytes,4,opt,name=id_target_cells_to_cancel,json=id-targetCellsToCancel,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*HandoverCancelIEsValue_IdSourceNgRannodeUexnApid) isHandoverCancelIEsValue_HandoverCancelIes() {
@@ -2271,11 +2271,11 @@ type HandoverCancelIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *HandoverCancelIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *HandoverCancelIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *HandoverCancelIEs) Reset() {
@@ -2463,17 +2463,17 @@ type isHandoverSuccessIEsValue_HandoverSuccessIes interface {
 
 type HandoverSuccessIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type HandoverSuccessIEsValue_IdTargetNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type HandoverSuccessIEsValue_IdRequestedTargetCellGlobalId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdRequestedTargetCellGlobalId *xnap_ies.TargetCGi `protobuf:"bytes,3,opt,name=id_requested_target_cell_global_id,json=id-requestedTargetCellGlobalID,proto3,oneof"`
+	IdRequestedTargetCellGlobalId *xnap_ies.TargetCGi `protobuf:"bytes,3,opt,name=id_requested_target_cell_global_id,json=id-requestedTargetCellGlobalID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*HandoverSuccessIEsValue_IdSourceNgRannodeUexnApid) isHandoverSuccessIEsValue_HandoverSuccessIes() {
@@ -2494,11 +2494,11 @@ type HandoverSuccessIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *HandoverSuccessIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *HandoverSuccessIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *HandoverSuccessIEs) Reset() {
@@ -2694,22 +2694,22 @@ type isConditionalHandoverCancelIEsValue_ConditionalHandoverCancelIes interface 
 
 type ConditionalHandoverCancelIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ConditionalHandoverCancelIEsValue_IdTargetNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ConditionalHandoverCancelIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ConditionalHandoverCancelIEsValue_IdTargetCellsToCancel struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdTargetCellsToCancel *xnap_ies.TargetCellList `protobuf:"bytes,4,opt,name=id_target_cells_to_cancel,json=id-targetCellsToCancel,proto3,oneof"`
+	IdTargetCellsToCancel *xnap_ies.TargetCellList `protobuf:"bytes,4,opt,name=id_target_cells_to_cancel,json=id-targetCellsToCancel,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*ConditionalHandoverCancelIEsValue_IdSourceNgRannodeUexnApid) isConditionalHandoverCancelIEsValue_ConditionalHandoverCancelIes() {
@@ -2733,11 +2733,11 @@ type ConditionalHandoverCancelIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ConditionalHandoverCancelIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ConditionalHandoverCancelIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ConditionalHandoverCancelIEs) Reset() {
@@ -2925,17 +2925,17 @@ type isEarlyStatusTransferIEsValue_EarlyStatusTransferIes interface {
 
 type EarlyStatusTransferIEsValue_IdSourceNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSourceNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_source_ng_rannode_uexn_apid,json=id-sourceNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type EarlyStatusTransferIEsValue_IdTargetNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdTargetNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_target_ng_rannode_uexn_apid,json=id-targetNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type EarlyStatusTransferIEsValue_IdProcedureStage struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdProcedureStage *ProcedureStageChoice `protobuf:"bytes,3,opt,name=id_procedure_stage,json=id-procedureStage,proto3,oneof"`
+	IdProcedureStage *ProcedureStageChoice `protobuf:"bytes,3,opt,name=id_procedure_stage,json=id-procedureStage,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*EarlyStatusTransferIEsValue_IdSourceNgRannodeUexnApid) isEarlyStatusTransferIEsValue_EarlyStatusTransferIes() {
@@ -2956,11 +2956,11 @@ type EarlyStatusTransferIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *EarlyStatusTransferIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *EarlyStatusTransferIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *EarlyStatusTransferIEs) Reset() {
@@ -3197,17 +3197,17 @@ type isProcedureStageChoice_ProcedureStageChoice interface {
 
 type ProcedureStageChoice_FirstDlCount struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	FirstDlCount *FirstDlcount `protobuf:"bytes,1,opt,name=first_dl_count,json=first-dl-count,proto3,oneof"`
+	FirstDlCount *FirstDlcount `protobuf:"bytes,1,opt,name=first_dl_count,json=first-dl-count,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type ProcedureStageChoice_DlDiscarding struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	DlDiscarding *Dldiscarding `protobuf:"bytes,2,opt,name=dl_discarding,json=dl-discarding,proto3,oneof"`
+	DlDiscarding *Dldiscarding `protobuf:"bytes,2,opt,name=dl_discarding,json=dl-discarding,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type ProcedureStageChoice_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ProcedureStageChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ProcedureStageChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ProcedureStageChoice_FirstDlCount) isProcedureStageChoice_ProcedureStageChoice() {}
@@ -3275,7 +3275,7 @@ type FirstDlcount struct {
 
 	DRbsSubjectToEarlyStatusTransfer *xnap_ies.DrbsSubjectToEarlyStatusTransferList `protobuf:"bytes,1,opt,name=d_rbs_subject_to_early_status_transfer,json=dRBsSubjectToEarlyStatusTransfer,proto3" json:"d_rbs_subject_to_early_status_transfer,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*FirstDlcountExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*FirstDlcountExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *FirstDlcount) Reset() {
@@ -3383,7 +3383,7 @@ type Dldiscarding struct {
 
 	DRbsSubjectToDldiscarding *xnap_ies.DrbsSubjectToDldiscardingList `protobuf:"bytes,1,opt,name=d_rbs_subject_to_dldiscarding,json=dRBsSubjectToDLDiscarding,proto3" json:"d_rbs_subject_to_dldiscarding,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DldiscardingExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DldiscardingExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Dldiscarding) Reset() {
@@ -3570,52 +3570,52 @@ type isRanpagingIEsValue_RanpagingIes interface {
 
 type RanpagingIEsValue_IdUeidentityIndexValue struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdUeidentityIndexValue *xnap_ies.UeidentityIndexValue `protobuf:"bytes,1,opt,name=id_ueidentity_index_value,json=id-UEIdentityIndexValue,proto3,oneof"`
+	IdUeidentityIndexValue *xnap_ies.UeidentityIndexValue `protobuf:"bytes,1,opt,name=id_ueidentity_index_value,json=id-UEIdentityIndexValue,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type RanpagingIEsValue_IdUeranpagingIdentity struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdUeranpagingIdentity *xnap_ies.UeranpagingIdentity `protobuf:"bytes,2,opt,name=id_ueranpaging_identity,json=id-UERANPagingIdentity,proto3,oneof"`
+	IdUeranpagingIdentity *xnap_ies.UeranpagingIdentity `protobuf:"bytes,2,opt,name=id_ueranpaging_identity,json=id-UERANPagingIdentity,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type RanpagingIEsValue_IdPagingDrx struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:3,"
-	IdPagingDrx xnap_ies.PagingDrx `protobuf:"varint,3,opt,name=id_paging_drx,json=id-PagingDRX,proto3,enum=xnap.v1.PagingDrx,oneof"`
+	IdPagingDrx xnap_ies.PagingDrx `protobuf:"varint,3,opt,name=id_paging_drx,json=id-PagingDRX,proto3,enum=xnap.v1.PagingDrx,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:3,"`
 }
 
 type RanpagingIEsValue_IdRanpagingArea struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdRanpagingArea *xnap_ies.RanpagingArea `protobuf:"bytes,4,opt,name=id_ranpaging_area,json=id-RANPagingArea,proto3,oneof"`
+	IdRanpagingArea *xnap_ies.RanpagingArea `protobuf:"bytes,4,opt,name=id_ranpaging_area,json=id-RANPagingArea,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type RanpagingIEsValue_IdPagingPriority struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:7,"
-	IdPagingPriority xnap_ies.PagingPriority `protobuf:"varint,5,opt,name=id_paging_priority,json=id-PagingPriority,proto3,enum=xnap.v1.PagingPriority,oneof"`
+	IdPagingPriority xnap_ies.PagingPriority `protobuf:"varint,5,opt,name=id_paging_priority,json=id-PagingPriority,proto3,enum=xnap.v1.PagingPriority,oneof" aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:7,"`
 }
 
 type RanpagingIEsValue_IdAssistanceDataForRanpaging struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdAssistanceDataForRanpaging *xnap_ies.AssistanceDataForRanpaging `protobuf:"bytes,6,opt,name=id_assistance_data_for_ranpaging,json=id-AssistanceDataForRANPaging,proto3,oneof"`
+	IdAssistanceDataForRanpaging *xnap_ies.AssistanceDataForRanpaging `protobuf:"bytes,6,opt,name=id_assistance_data_for_ranpaging,json=id-AssistanceDataForRANPaging,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 type RanpagingIEsValue_IdUeradioCapabilityForPaging struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,"
-	IdUeradioCapabilityForPaging *xnap_ies.UeradioCapabilityForPaging `protobuf:"bytes,7,opt,name=id_ueradio_capability_for_paging,json=id-UERadioCapabilityForPaging,proto3,oneof"`
+	IdUeradioCapabilityForPaging *xnap_ies.UeradioCapabilityForPaging `protobuf:"bytes,7,opt,name=id_ueradio_capability_for_paging,json=id-UERadioCapabilityForPaging,proto3,oneof" aper:"choiceIdx:7,valueExt,"`
 }
 
 type RanpagingIEsValue_IdExtendedUeidentityIndexValue struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	IdExtendedUeidentityIndexValue *xnap_ies.ExtendedUeidentityIndexValue `protobuf:"bytes,8,opt,name=id_extended_ueidentity_index_value,json=id-ExtendedUEIdentityIndexValue,proto3,oneof"`
+	IdExtendedUeidentityIndexValue *xnap_ies.ExtendedUeidentityIndexValue `protobuf:"bytes,8,opt,name=id_extended_ueidentity_index_value,json=id-ExtendedUEIdentityIndexValue,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type RanpagingIEsValue_IdPagingeDrxinformation struct {
 	// @inject_tag: aper:"choiceIdx:9,valueExt,"
-	IdPagingeDrxinformation *xnap_ies.PagingeDrxinformation `protobuf:"bytes,9,opt,name=id_paginge_drxinformation,json=id-PagingeDRXInformation,proto3,oneof"`
+	IdPagingeDrxinformation *xnap_ies.PagingeDrxinformation `protobuf:"bytes,9,opt,name=id_paginge_drxinformation,json=id-PagingeDRXInformation,proto3,oneof" aper:"choiceIdx:9,valueExt,"`
 }
 
 type RanpagingIEsValue_IdUespecificDrx struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,valueLB:0,valueUB:3,"
-	IdUespecificDrx xnap_ies.UespecificDrx `protobuf:"varint,10,opt,name=id_uespecific_drx,json=id-UESpecificDRX,proto3,enum=xnap.v1.UespecificDrx,oneof"`
+	IdUespecificDrx xnap_ies.UespecificDrx `protobuf:"varint,10,opt,name=id_uespecific_drx,json=id-UESpecificDRX,proto3,enum=xnap.v1.UespecificDrx,oneof" aper:"choiceIdx:10,valueExt,valueLB:0,valueUB:3,"`
 }
 
 func (*RanpagingIEsValue_IdUeidentityIndexValue) isRanpagingIEsValue_RanpagingIes() {}
@@ -3647,11 +3647,11 @@ type RanpagingIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *RanpagingIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *RanpagingIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *RanpagingIEs) Reset() {
@@ -3855,27 +3855,27 @@ type isRetrieveUecontextRequestIEsValue_RetrieveUecontextRequestIes interface {
 
 type RetrieveUecontextRequestIEsValue_IdNewNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type RetrieveUecontextRequestIEsValue_IdUecontextId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdUecontextId *xnap_ies.UecontextId `protobuf:"bytes,2,opt,name=id_uecontext_id,json=id-UEContextID,proto3,oneof"`
+	IdUecontextId *xnap_ies.UecontextId `protobuf:"bytes,2,opt,name=id_uecontext_id,json=id-UEContextID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type RetrieveUecontextRequestIEsValue_IdMacI struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdMacI *xnap_ies.MacI `protobuf:"bytes,3,opt,name=id_mac_i,json=id-MAC-I,proto3,oneof"`
+	IdMacI *xnap_ies.MacI `protobuf:"bytes,3,opt,name=id_mac_i,json=id-MAC-I,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type RetrieveUecontextRequestIEsValue_IdNewNgRanCellIdentity struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdNewNgRanCellIdentity *xnap_ies.NgRAnCellIdentity `protobuf:"bytes,4,opt,name=id_new_ng_ran_cell_identity,json=id-new-NG-RAN-Cell-Identity,proto3,oneof"`
+	IdNewNgRanCellIdentity *xnap_ies.NgRAnCellIdentity `protobuf:"bytes,4,opt,name=id_new_ng_ran_cell_identity,json=id-new-NG-RAN-Cell-Identity,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type RetrieveUecontextRequestIEsValue_IdRrcresumeCause struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"
-	IdRrcresumeCause xnap_ies.RrcresumeCause `protobuf:"varint,5,opt,name=id_rrcresume_cause,json=id-RRCResumeCause,proto3,enum=xnap.v1.RrcresumeCause,oneof"`
+	IdRrcresumeCause xnap_ies.RrcresumeCause `protobuf:"varint,5,opt,name=id_rrcresume_cause,json=id-RRCResumeCause,proto3,enum=xnap.v1.RrcresumeCause,oneof" aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"`
 }
 
 func (*RetrieveUecontextRequestIEsValue_IdNewNgRannodeUexnApid) isRetrieveUecontextRequestIEsValue_RetrieveUecontextRequestIes() {
@@ -3902,11 +3902,11 @@ type RetrieveUecontextRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *RetrieveUecontextRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *RetrieveUecontextRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *RetrieveUecontextRequestIEs) Reset() {
@@ -4182,72 +4182,72 @@ type isRetrieveUecontextResponseIEsValue_RetrieveUecontextResponseIes interface 
 
 type RetrieveUecontextResponseIEsValue_IdNewNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdOldNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdOldNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_old_ng_rannode_uexn_apid,json=id-oldNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdOldNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_old_ng_rannode_uexn_apid,json=id-oldNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdGuami struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdGuami *xnap_ies.Guami `protobuf:"bytes,3,opt,name=id_guami,json=id-GUAMI,proto3,oneof"`
+	IdGuami *xnap_ies.Guami `protobuf:"bytes,3,opt,name=id_guami,json=id-GUAMI,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdUecontextInfoRetrUectxtResp struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdUecontextInfoRetrUectxtResp *xnap_ies.UecontextInfoRetrUectxtResp `protobuf:"bytes,4,opt,name=id_uecontext_info_retr_uectxt_resp,json=id-UEContextInfoRetrUECtxtResp,proto3,oneof"`
+	IdUecontextInfoRetrUectxtResp *xnap_ies.UecontextInfoRetrUectxtResp `protobuf:"bytes,4,opt,name=id_uecontext_info_retr_uectxt_resp,json=id-UEContextInfoRetrUECtxtResp,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdTraceActivation struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,"
-	IdTraceActivation *xnap_ies.TraceActivation `protobuf:"bytes,5,opt,name=id_trace_activation,json=id-TraceActivation,proto3,oneof"`
+	IdTraceActivation *xnap_ies.TraceActivation `protobuf:"bytes,5,opt,name=id_trace_activation,json=id-TraceActivation,proto3,oneof" aper:"choiceIdx:5,valueExt,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdMaskedImeisv struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdMaskedImeisv *xnap_ies.MaskedImeisv `protobuf:"bytes,6,opt,name=id_masked_imeisv,json=id-MaskedIMEISV,proto3,oneof"`
+	IdMaskedImeisv *xnap_ies.MaskedImeisv `protobuf:"bytes,6,opt,name=id_masked_imeisv,json=id-MaskedIMEISV,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdLocationReportingInformation struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,"
-	IdLocationReportingInformation *xnap_ies.LocationReportingInformation `protobuf:"bytes,7,opt,name=id_location_reporting_information,json=id-LocationReportingInformation,proto3,oneof"`
+	IdLocationReportingInformation *xnap_ies.LocationReportingInformation `protobuf:"bytes,7,opt,name=id_location_reporting_information,json=id-LocationReportingInformation,proto3,oneof" aper:"choiceIdx:7,valueExt,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:8,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,8,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,8,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:8,valueExt,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdNrv2XservicesAuthorized struct {
 	// @inject_tag: aper:"choiceIdx:9,valueExt,"
-	IdNrv2XservicesAuthorized *xnap_ies.Nrv2XservicesAuthorized `protobuf:"bytes,9,opt,name=id_nrv2_xservices_authorized,json=id-NRV2XServicesAuthorized,proto3,oneof"`
+	IdNrv2XservicesAuthorized *xnap_ies.Nrv2XservicesAuthorized `protobuf:"bytes,9,opt,name=id_nrv2_xservices_authorized,json=id-NRV2XServicesAuthorized,proto3,oneof" aper:"choiceIdx:9,valueExt,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdLtev2XservicesAuthorized struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,"
-	IdLtev2XservicesAuthorized *xnap_ies.Ltev2XservicesAuthorized `protobuf:"bytes,10,opt,name=id_ltev2_xservices_authorized,json=id-LTEV2XServicesAuthorized,proto3,oneof"`
+	IdLtev2XservicesAuthorized *xnap_ies.Ltev2XservicesAuthorized `protobuf:"bytes,10,opt,name=id_ltev2_xservices_authorized,json=id-LTEV2XServicesAuthorized,proto3,oneof" aper:"choiceIdx:10,valueExt,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdPc5QoSparameters struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,"
-	IdPc5QoSparameters *xnap_ies.Pc5QoSparameters `protobuf:"bytes,11,opt,name=id_pc5_qo_sparameters,json=id-PC5QoSParameters,proto3,oneof"`
+	IdPc5QoSparameters *xnap_ies.Pc5QoSparameters `protobuf:"bytes,11,opt,name=id_pc5_qo_sparameters,json=id-PC5QoSParameters,proto3,oneof" aper:"choiceIdx:11,valueExt,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdUehistoryInformation struct {
 	// @inject_tag: aper:"choiceIdx:12,"
-	IdUehistoryInformation *xnap_ies.UehistoryInformation `protobuf:"bytes,12,opt,name=id_uehistory_information,json=id-UEHistoryInformation,proto3,oneof"`
+	IdUehistoryInformation *xnap_ies.UehistoryInformation `protobuf:"bytes,12,opt,name=id_uehistory_information,json=id-UEHistoryInformation,proto3,oneof" aper:"choiceIdx:12,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdUehistoryInformationFromTheUe struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	IdUehistoryInformationFromTheUe *xnap_ies.UehistoryInformationFromTheUe `protobuf:"bytes,13,opt,name=id_uehistory_information_from_the_ue,json=id-UEHistoryInformationFromTheUE,proto3,oneof"`
+	IdUehistoryInformationFromTheUe *xnap_ies.UehistoryInformationFromTheUe `protobuf:"bytes,13,opt,name=id_uehistory_information_from_the_ue,json=id-UEHistoryInformationFromTheUE,proto3,oneof" aper:"choiceIdx:13,"`
 }
 
 type RetrieveUecontextResponseIEsValue_IdMdtplmnlist struct {
 	// @inject_tag: aper:"choiceIdx:14,"
-	IdMdtplmnlist *xnap_ies.Mdtplmnlist `protobuf:"bytes,14,opt,name=id_mdtplmnlist,json=id-MDTPLMNList,proto3,oneof"`
+	IdMdtplmnlist *xnap_ies.Mdtplmnlist `protobuf:"bytes,14,opt,name=id_mdtplmnlist,json=id-MDTPLMNList,proto3,oneof" aper:"choiceIdx:14,"`
 }
 
 func (*RetrieveUecontextResponseIEsValue_IdNewNgRannodeUexnApid) isRetrieveUecontextResponseIEsValue_RetrieveUecontextResponseIes() {
@@ -4301,11 +4301,11 @@ type RetrieveUecontextResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *RetrieveUecontextResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *RetrieveUecontextResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *RetrieveUecontextResponseIEs) Reset() {
@@ -4501,22 +4501,22 @@ type isRetrieveUecontextFailureIEsValue_RetrieveUecontextFailureIes interface {
 
 type RetrieveUecontextFailureIEsValue_IdNewNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type RetrieveUecontextFailureIEsValue_IdOldtoNewNgRannodeResumeContainer struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdOldtoNewNgRannodeResumeContainer string `protobuf:"bytes,2,opt,name=id_oldto_new_ng_rannode_resume_container,json=id-OldtoNewNG-RANnodeResumeContainer,proto3,oneof"`
+	IdOldtoNewNgRannodeResumeContainer string `protobuf:"bytes,2,opt,name=id_oldto_new_ng_rannode_resume_container,json=id-OldtoNewNG-RANnodeResumeContainer,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type RetrieveUecontextFailureIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type RetrieveUecontextFailureIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*RetrieveUecontextFailureIEsValue_IdNewNgRannodeUexnApid) isRetrieveUecontextFailureIEsValue_RetrieveUecontextFailureIes() {
@@ -4540,11 +4540,11 @@ type RetrieveUecontextFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *RetrieveUecontextFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *RetrieveUecontextFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *RetrieveUecontextFailureIEs) Reset() {
@@ -4748,27 +4748,27 @@ type isXnUaddressIndicationIEsValue_XnUaddressIndicationIes interface {
 
 type XnUaddressIndicationIEsValue_IdNewNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnUaddressIndicationIEsValue_IdOldNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdOldNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_old_ng_rannode_uexn_apid,json=id-oldNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdOldNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_old_ng_rannode_uexn_apid,json=id-oldNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type XnUaddressIndicationIEsValue_IdXnUaddressInfoperPdusessionList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdXnUaddressInfoperPdusessionList *xnap_ies.XnUaddressInfoperPdusessionList `protobuf:"bytes,3,opt,name=id_xn_uaddress_infoper_pdusession_list,json=id-XnUAddressInfoperPDUSession-List,proto3,oneof"`
+	IdXnUaddressInfoperPdusessionList *xnap_ies.XnUaddressInfoperPdusessionList `protobuf:"bytes,3,opt,name=id_xn_uaddress_infoper_pdusession_list,json=id-XnUAddressInfoperPDUSession-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type XnUaddressIndicationIEsValue_IdChoMrdcIndicator struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,valueLB:0,valueUB:0,"
-	IdChoMrdcIndicator xnap_ies.ChoMRdcIndicator `protobuf:"varint,4,opt,name=id_cho_mrdc_indicator,json=id-CHO-MRDC-Indicator,proto3,enum=xnap.v1.ChoMRdcIndicator,oneof"`
+	IdChoMrdcIndicator xnap_ies.ChoMRdcIndicator `protobuf:"varint,4,opt,name=id_cho_mrdc_indicator,json=id-CHO-MRDC-Indicator,proto3,enum=xnap.v1.ChoMRdcIndicator,oneof" aper:"choiceIdx:4,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type XnUaddressIndicationIEsValue_IdChoMrdcEarlyDataForwarding struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"
-	IdChoMrdcEarlyDataForwarding xnap_ies.ChoMRdcEarlyDataForwarding `protobuf:"varint,5,opt,name=id_cho_mrdc_early_data_forwarding,json=id-CHO-MRDC-EarlyDataForwarding,proto3,enum=xnap.v1.ChoMRdcEarlyDataForwarding,oneof"`
+	IdChoMrdcEarlyDataForwarding xnap_ies.ChoMRdcEarlyDataForwarding `protobuf:"varint,5,opt,name=id_cho_mrdc_early_data_forwarding,json=id-CHO-MRDC-EarlyDataForwarding,proto3,enum=xnap.v1.ChoMRdcEarlyDataForwarding,oneof" aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"`
 }
 
 func (*XnUaddressIndicationIEsValue_IdNewNgRannodeUexnApid) isXnUaddressIndicationIEsValue_XnUaddressIndicationIes() {
@@ -4795,11 +4795,11 @@ type XnUaddressIndicationIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *XnUaddressIndicationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *XnUaddressIndicationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *XnUaddressIndicationIEs) Reset() {
@@ -5171,132 +5171,132 @@ type isSnodeAdditionRequestIEsValue_SnodeAdditionRequestIes interface {
 
 type SnodeAdditionRequestIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdUesecurityCapabilities struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdUesecurityCapabilities *xnap_ies.UesecurityCapabilities `protobuf:"bytes,2,opt,name=id_uesecurity_capabilities,json=id-UESecurityCapabilities,proto3,oneof"`
+	IdUesecurityCapabilities *xnap_ies.UesecurityCapabilities `protobuf:"bytes,2,opt,name=id_uesecurity_capabilities,json=id-UESecurityCapabilities,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdSNgRannodeSecurityKey struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdSNgRannodeSecurityKey *xnap_ies.SNGRAnnodeSecurityKey `protobuf:"bytes,3,opt,name=id_s_ng_rannode_security_key,json=id-s-ng-RANnode-SecurityKey,proto3,oneof"`
+	IdSNgRannodeSecurityKey *xnap_ies.SNGRAnnodeSecurityKey `protobuf:"bytes,3,opt,name=id_s_ng_rannode_security_key,json=id-s-ng-RANnode-SecurityKey,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdSNgRannodeUeAmbr struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdSNgRannodeUeAmbr *xnap_ies.UeaggregateMaximumBitRate `protobuf:"bytes,4,opt,name=id_s_ng_rannode_ue_ambr,json=id-S-NG-RANnodeUE-AMBR,proto3,oneof"`
+	IdSNgRannodeUeAmbr *xnap_ies.UeaggregateMaximumBitRate `protobuf:"bytes,4,opt,name=id_s_ng_rannode_ue_ambr,json=id-S-NG-RANnodeUE-AMBR,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdSelectedPlmn struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdSelectedPlmn *xnap_ies.PlmnIdentity `protobuf:"bytes,5,opt,name=id_selected_plmn,json=id-selectedPLMN,proto3,oneof"`
+	IdSelectedPlmn *xnap_ies.PlmnIdentity `protobuf:"bytes,5,opt,name=id_selected_plmn,json=id-selectedPLMN,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdMobilityRestrictionList struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdMobilityRestrictionList *xnap_ies.MobilityRestrictionList `protobuf:"bytes,6,opt,name=id_mobility_restriction_list,json=id-MobilityRestrictionList,proto3,oneof"`
+	IdMobilityRestrictionList *xnap_ies.MobilityRestrictionList `protobuf:"bytes,6,opt,name=id_mobility_restriction_list,json=id-MobilityRestrictionList,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdIndexToRatFrequSelectionPriority struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	IdIndexToRatFrequSelectionPriority *xnap_ies.RfspIndex `protobuf:"bytes,7,opt,name=id_index_to_rat_frequ_selection_priority,json=id-indexToRatFrequSelectionPriority,proto3,oneof"`
+	IdIndexToRatFrequSelectionPriority *xnap_ies.RfspIndex `protobuf:"bytes,7,opt,name=id_index_to_rat_frequ_selection_priority,json=id-indexToRatFrequSelectionPriority,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdPdusessionToBeAddedAddReq struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	IdPdusessionToBeAddedAddReq *PdusessionToBeAddedAddReq `protobuf:"bytes,8,opt,name=id_pdusession_to_be_added_add_req,json=id-PDUSessionToBeAddedAddReq,proto3,oneof"`
+	IdPdusessionToBeAddedAddReq *PdusessionToBeAddedAddReq `protobuf:"bytes,8,opt,name=id_pdusession_to_be_added_add_req,json=id-PDUSessionToBeAddedAddReq,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdMnToSnContainer struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	IdMnToSnContainer string `protobuf:"bytes,9,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof"`
+	IdMnToSnContainer string `protobuf:"bytes,9,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,10,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,10,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdExpectedUebehaviour struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,"
-	IdExpectedUebehaviour *xnap_ies.ExpectedUebehaviour `protobuf:"bytes,11,opt,name=id_expected_uebehaviour,json=id-ExpectedUEBehaviour,proto3,oneof"`
+	IdExpectedUebehaviour *xnap_ies.ExpectedUebehaviour `protobuf:"bytes,11,opt,name=id_expected_uebehaviour,json=id-ExpectedUEBehaviour,proto3,oneof" aper:"choiceIdx:11,valueExt,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdRequestedSplitSrb struct {
 	// @inject_tag: aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:2,"
-	IdRequestedSplitSrb xnap_ies.SplitSrbsTypes `protobuf:"varint,12,opt,name=id_requested_split_srb,json=id-requestedSplitSRB,proto3,enum=xnap.v1.SplitSrbsTypes,oneof"`
+	IdRequestedSplitSrb xnap_ies.SplitSrbsTypes `protobuf:"varint,12,opt,name=id_requested_split_srb,json=id-requestedSplitSRB,proto3,enum=xnap.v1.SplitSrbsTypes,oneof" aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdPcellId struct {
 	// @inject_tag: aper:"choiceIdx:13,valueExt,"
-	IdPcellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,13,opt,name=id_pcell_id,json=id-PCellID,proto3,oneof"`
+	IdPcellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,13,opt,name=id_pcell_id,json=id-PCellID,proto3,oneof" aper:"choiceIdx:13,valueExt,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdDesiredActNotificationLevel struct {
 	// @inject_tag: aper:"choiceIdx:14,valueExt,valueLB:0,valueUB:3,"
-	IdDesiredActNotificationLevel xnap_ies.DesiredActNotificationLevel `protobuf:"varint,14,opt,name=id_desired_act_notification_level,json=id-DesiredActNotificationLevel,proto3,enum=xnap.v1.DesiredActNotificationLevel,oneof"`
+	IdDesiredActNotificationLevel xnap_ies.DesiredActNotificationLevel `protobuf:"varint,14,opt,name=id_desired_act_notification_level,json=id-DesiredActNotificationLevel,proto3,enum=xnap.v1.DesiredActNotificationLevel,oneof" aper:"choiceIdx:14,valueExt,valueLB:0,valueUB:3,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdAvailableDrbids struct {
 	// @inject_tag: aper:"choiceIdx:15,"
-	IdAvailableDrbids *xnap_ies.DrbList `protobuf:"bytes,15,opt,name=id_available_drbids,json=id-AvailableDRBIDs,proto3,oneof"`
+	IdAvailableDrbids *xnap_ies.DrbList `protobuf:"bytes,15,opt,name=id_available_drbids,json=id-AvailableDRBIDs,proto3,oneof" aper:"choiceIdx:15,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdSNgRannodeMaxIpdataRateUl struct {
 	// @inject_tag: aper:"choiceIdx:16,"
-	IdSNgRannodeMaxIpdataRateUl *xnap_ies.BitRate `protobuf:"bytes,16,opt,name=id_s_ng_rannode_max_ipdata_rate_ul,json=id-S-NG-RANnodeMaxIPDataRate-UL,proto3,oneof"`
+	IdSNgRannodeMaxIpdataRateUl *xnap_ies.BitRate `protobuf:"bytes,16,opt,name=id_s_ng_rannode_max_ipdata_rate_ul,json=id-S-NG-RANnodeMaxIPDataRate-UL,proto3,oneof" aper:"choiceIdx:16,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdSNgRannodeMaxIpdataRateDl struct {
 	// @inject_tag: aper:"choiceIdx:17,"
-	IdSNgRannodeMaxIpdataRateDl *xnap_ies.BitRate `protobuf:"bytes,17,opt,name=id_s_ng_rannode_max_ipdata_rate_dl,json=id-S-NG-RANnodeMaxIPDataRate-DL,proto3,oneof"`
+	IdSNgRannodeMaxIpdataRateDl *xnap_ies.BitRate `protobuf:"bytes,17,opt,name=id_s_ng_rannode_max_ipdata_rate_dl,json=id-S-NG-RANnodeMaxIPDataRate-DL,proto3,oneof" aper:"choiceIdx:17,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdLocationInformationSnreporting struct {
 	// @inject_tag: aper:"choiceIdx:18,valueExt,valueLB:0,valueUB:0,"
-	IdLocationInformationSnreporting xnap_ies.LocationInformationSnreporting `protobuf:"varint,18,opt,name=id_location_information_snreporting,json=id-LocationInformationSNReporting,proto3,enum=xnap.v1.LocationInformationSnreporting,oneof"`
+	IdLocationInformationSnreporting xnap_ies.LocationInformationSnreporting `protobuf:"varint,18,opt,name=id_location_information_snreporting,json=id-LocationInformationSNReporting,proto3,enum=xnap.v1.LocationInformationSnreporting,oneof" aper:"choiceIdx:18,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdMrDcResourceCoordinationInfo struct {
 	// @inject_tag: aper:"choiceIdx:19,valueExt,"
-	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,19,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof"`
+	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,19,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof" aper:"choiceIdx:19,valueExt,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdMaskedImeisv struct {
 	// @inject_tag: aper:"choiceIdx:20,"
-	IdMaskedImeisv *xnap_ies.MaskedImeisv `protobuf:"bytes,20,opt,name=id_masked_imeisv,json=id-MaskedIMEISV,proto3,oneof"`
+	IdMaskedImeisv *xnap_ies.MaskedImeisv `protobuf:"bytes,20,opt,name=id_masked_imeisv,json=id-MaskedIMEISV,proto3,oneof" aper:"choiceIdx:20,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdNeDcTdmPattern struct {
 	// @inject_tag: aper:"choiceIdx:21,valueExt,"
-	IdNeDcTdmPattern *xnap_ies.NeDCTDmPattern `protobuf:"bytes,21,opt,name=id_ne_dc_tdm_pattern,json=id-NE-DC-TDM-Pattern,proto3,oneof"`
+	IdNeDcTdmPattern *xnap_ies.NeDCTDmPattern `protobuf:"bytes,21,opt,name=id_ne_dc_tdm_pattern,json=id-NE-DC-TDM-Pattern,proto3,oneof" aper:"choiceIdx:21,valueExt,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdSNgRannodeAdditionTriggerInd struct {
 	// @inject_tag: aper:"choiceIdx:22,valueExt,valueLB:0,valueUB:2,"
-	IdSNgRannodeAdditionTriggerInd xnap_ies.SNGRAnnodeAdditionTriggerInd `protobuf:"varint,22,opt,name=id_s_ng_rannode_addition_trigger_ind,json=id-S-NG-RANnode-Addition-Trigger-Ind,proto3,enum=xnap.v1.SNGRAnnodeAdditionTriggerInd,oneof"`
+	IdSNgRannodeAdditionTriggerInd xnap_ies.SNGRAnnodeAdditionTriggerInd `protobuf:"varint,22,opt,name=id_s_ng_rannode_addition_trigger_ind,json=id-S-NG-RANnode-Addition-Trigger-Ind,proto3,enum=xnap.v1.SNGRAnnodeAdditionTriggerInd,oneof" aper:"choiceIdx:22,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdTraceActivation struct {
 	// @inject_tag: aper:"choiceIdx:23,valueExt,"
-	IdTraceActivation *xnap_ies.TraceActivation `protobuf:"bytes,23,opt,name=id_trace_activation,json=id-TraceActivation,proto3,oneof"`
+	IdTraceActivation *xnap_ies.TraceActivation `protobuf:"bytes,23,opt,name=id_trace_activation,json=id-TraceActivation,proto3,oneof" aper:"choiceIdx:23,valueExt,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3 struct {
 	// @inject_tag: aper:"choiceIdx:24,valueExt,valueLB:0,valueUB:0,"
-	IdRequestedFastMcgrecoveryViaSrb3 RequestedFastMcgrecoveryViaSrb3 `protobuf:"varint,24,opt,name=id_requested_fast_mcgrecovery_via_srb3,json=id-RequestedFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.RequestedFastMcgrecoveryViaSrb3,oneof"`
+	IdRequestedFastMcgrecoveryViaSrb3 RequestedFastMcgrecoveryViaSrb3 `protobuf:"varint,24,opt,name=id_requested_fast_mcgrecovery_via_srb3,json=id-RequestedFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.RequestedFastMcgrecoveryViaSrb3,oneof" aper:"choiceIdx:24,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdUeradioCapabilityId struct {
 	// @inject_tag: aper:"choiceIdx:25,"
-	IdUeradioCapabilityId *xnap_ies.UeradioCapabilityId `protobuf:"bytes,25,opt,name=id_ueradio_capability_id,json=id-UERadioCapabilityID,proto3,oneof"`
+	IdUeradioCapabilityId *xnap_ies.UeradioCapabilityId `protobuf:"bytes,25,opt,name=id_ueradio_capability_id,json=id-UERadioCapabilityID,proto3,oneof" aper:"choiceIdx:25,"`
 }
 
 type SnodeAdditionRequestIEsValue_IdSourceNgRanNodeId struct {
 	// @inject_tag: aper:"choiceIdx:26,"
-	IdSourceNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,26,opt,name=id_source_ng_ran_node_id,json=id-SourceNG-RAN-node-ID,proto3,oneof"`
+	IdSourceNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,26,opt,name=id_source_ng_ran_node_id,json=id-SourceNG-RAN-node-ID,proto3,oneof" aper:"choiceIdx:26,"`
 }
 
 func (*SnodeAdditionRequestIEsValue_IdMNgRannodeUexnApid) isSnodeAdditionRequestIEsValue_SnodeAdditionRequestIes() {
@@ -5386,11 +5386,11 @@ type SnodeAdditionRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeAdditionRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeAdditionRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeAdditionRequestIEs) Reset() {
@@ -5504,7 +5504,7 @@ type PdusessionToBeAddedAddReq struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionToBeAddedAddReqItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionToBeAddedAddReqItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionToBeAddedAddReq) Reset() {
@@ -5605,15 +5605,15 @@ type PdusessionToBeAddedAddReqItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	SNssai *xnap_ies.SNSsai `protobuf:"bytes,2,opt,name=s_nssai,json=s-NSSAI,proto3" json:"s_nssai,omitempty"`
+	SNssai *xnap_ies.SNSsai `protobuf:"bytes,2,opt,name=s_nssai,json=s-NSSAI,proto3" json:"s_nssai,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SNPdusessionAmbr *xnap_ies.PdusessionAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=s_n_pdusession_ambr,json=sN-PDUSessionAMBR,proto3,oneof" json:"s_n_pdusession_ambr,omitempty"`
+	SNPdusessionAmbr *xnap_ies.PdusessionAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=s_n_pdusession_ambr,json=sN-PDUSessionAMBR,proto3,oneof" json:"s_n_pdusession_ambr,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceSetupInfoSNterminated `protobuf:"bytes,4,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceSetupInfoSNterminated `protobuf:"bytes,4,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceSetupInfoMNterminated `protobuf:"bytes,5,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceSetupInfoMNterminated `protobuf:"bytes,5,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionToBeAddedAddReqItemExtIes `protobuf:"bytes,6,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionToBeAddedAddReqItemExtIes `protobuf:"bytes,6,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionToBeAddedAddReqItem) Reset() {
@@ -5844,62 +5844,62 @@ type isSnodeAdditionRequestAcknowledgeIEsValue_SnodeAdditionRequestAcknowledgeIe
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdPdusessionAdmittedAddedAddReqAck struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdPdusessionAdmittedAddedAddReqAck *PdusessionAdmittedAddedAddReqAck `protobuf:"bytes,3,opt,name=id_pdusession_admitted_added_add_req_ack,json=id-PDUSessionAdmittedAddedAddReqAck,proto3,oneof"`
+	IdPdusessionAdmittedAddedAddReqAck *PdusessionAdmittedAddedAddReqAck `protobuf:"bytes,3,opt,name=id_pdusession_admitted_added_add_req_ack,json=id-PDUSessionAdmittedAddedAddReqAck,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdPdusessionNotAdmittedAddReqAck struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdPdusessionNotAdmittedAddReqAck *PdusessionNotAdmittedAddReqAck `protobuf:"bytes,4,opt,name=id_pdusession_not_admitted_add_req_ack,json=id-PDUSessionNotAdmittedAddReqAck,proto3,oneof"`
+	IdPdusessionNotAdmittedAddReqAck *PdusessionNotAdmittedAddReqAck `protobuf:"bytes,4,opt,name=id_pdusession_not_admitted_add_req_ack,json=id-PDUSessionNotAdmittedAddReqAck,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdSnToMnContainer struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdSnToMnContainer string `protobuf:"bytes,5,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof"`
+	IdSnToMnContainer string `protobuf:"bytes,5,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdAdmittedSplitSrb struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:2,"
-	IdAdmittedSplitSrb xnap_ies.SplitSrbsTypes `protobuf:"varint,6,opt,name=id_admitted_split_srb,json=id-admittedSplitSRB,proto3,enum=xnap.v1.SplitSrbsTypes,oneof"`
+	IdAdmittedSplitSrb xnap_ies.SplitSrbsTypes `protobuf:"varint,6,opt,name=id_admitted_split_srb,json=id-admittedSplitSRB,proto3,enum=xnap.v1.SplitSrbsTypes,oneof" aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdRrcconfigIndication struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,valueLB:0,valueUB:1,"
-	IdRrcconfigIndication xnap_ies.RrcconfigIndication `protobuf:"varint,7,opt,name=id_rrcconfig_indication,json=id-RRCConfigIndication,proto3,enum=xnap.v1.RrcconfigIndication,oneof"`
+	IdRrcconfigIndication xnap_ies.RrcconfigIndication `protobuf:"varint,7,opt,name=id_rrcconfig_indication,json=id-RRCConfigIndication,proto3,enum=xnap.v1.RrcconfigIndication,oneof" aper:"choiceIdx:7,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:8,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,8,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,8,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:8,valueExt,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdLocationInformationSn struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	IdLocationInformationSn *xnap_ies.TargetCGi `protobuf:"bytes,9,opt,name=id_location_information_sn,json=id-LocationInformationSN,proto3,oneof"`
+	IdLocationInformationSn *xnap_ies.TargetCGi `protobuf:"bytes,9,opt,name=id_location_information_sn,json=id-LocationInformationSN,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdMrDcResourceCoordinationInfo struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,"
-	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,10,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof"`
+	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,10,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof" aper:"choiceIdx:10,valueExt,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdAvailableFastMcgrecoveryViaSrb3 struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,valueLB:0,valueUB:0,"
-	IdAvailableFastMcgrecoveryViaSrb3 AvailableFastMcgrecoveryViaSrb3 `protobuf:"varint,11,opt,name=id_available_fast_mcgrecovery_via_srb3,json=id-AvailableFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.AvailableFastMcgrecoveryViaSrb3,oneof"`
+	IdAvailableFastMcgrecoveryViaSrb3 AvailableFastMcgrecoveryViaSrb3 `protobuf:"varint,11,opt,name=id_available_fast_mcgrecovery_via_srb3,json=id-AvailableFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.AvailableFastMcgrecoveryViaSrb3,oneof" aper:"choiceIdx:11,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeAdditionRequestAcknowledgeIEsValue_IdDirectForwardingPathAvailability struct {
 	// @inject_tag: aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:0,"
-	IdDirectForwardingPathAvailability xnap_ies.DirectForwardingPathAvailability `protobuf:"varint,12,opt,name=id_direct_forwarding_path_availability,json=id-DirectForwardingPathAvailability,proto3,enum=xnap.v1.DirectForwardingPathAvailability,oneof"`
+	IdDirectForwardingPathAvailability xnap_ies.DirectForwardingPathAvailability `protobuf:"varint,12,opt,name=id_direct_forwarding_path_availability,json=id-DirectForwardingPathAvailability,proto3,enum=xnap.v1.DirectForwardingPathAvailability,oneof" aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:0,"`
 }
 
 func (*SnodeAdditionRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid) isSnodeAdditionRequestAcknowledgeIEsValue_SnodeAdditionRequestAcknowledgeIes() {
@@ -5947,11 +5947,11 @@ type SnodeAdditionRequestAcknowledgeIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeAdditionRequestAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeAdditionRequestAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeAdditionRequestAcknowledgeIEs) Reset() {
@@ -6065,7 +6065,7 @@ type PdusessionAdmittedAddedAddReqAck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionAdmittedAddedAddReqAckItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionAdmittedAddedAddReqAckItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionAdmittedAddedAddReqAck) Reset() {
@@ -6166,11 +6166,11 @@ type PdusessionAdmittedAddedAddReqAckItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceSetupResponseInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceSetupResponseInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceSetupResponseInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceSetupResponseInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionAdmittedAddedAddReqAckItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionAdmittedAddedAddReqAckItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionAdmittedAddedAddReqAckItem) Reset() {
@@ -6291,11 +6291,11 @@ type PdusessionNotAdmittedAddReqAck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	PduSessionResourcesNotAdmittedSnterminated *xnap_ies.PdusessionResourcesNotAdmittedList `protobuf:"bytes,1,opt,name=pdu_session_resources_not_admitted_snterminated,json=pduSessionResourcesNotAdmitted-SNterminated,proto3,oneof" json:"pdu_session_resources_not_admitted_snterminated,omitempty"`
+	PduSessionResourcesNotAdmittedSnterminated *xnap_ies.PdusessionResourcesNotAdmittedList `protobuf:"bytes,1,opt,name=pdu_session_resources_not_admitted_snterminated,json=pduSessionResourcesNotAdmitted-SNterminated,proto3,oneof" json:"pdu_session_resources_not_admitted_snterminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	PduSessionResourcesNotAdmittedMnterminated *xnap_ies.PdusessionResourcesNotAdmittedList `protobuf:"bytes,2,opt,name=pdu_session_resources_not_admitted_mnterminated,json=pduSessionResourcesNotAdmitted-MNterminated,proto3,oneof" json:"pdu_session_resources_not_admitted_mnterminated,omitempty"`
+	PduSessionResourcesNotAdmittedMnterminated *xnap_ies.PdusessionResourcesNotAdmittedList `protobuf:"bytes,2,opt,name=pdu_session_resources_not_admitted_mnterminated,json=pduSessionResourcesNotAdmitted-MNterminated,proto3,oneof" json:"pdu_session_resources_not_admitted_mnterminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionNotAdmittedAddReqAckExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionNotAdmittedAddReqAckExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionNotAdmittedAddReqAck) Reset() {
@@ -6441,22 +6441,22 @@ type isSnodeAdditionRequestRejectIEsValue_SnodeAdditionRequestRejectIes interfac
 
 type SnodeAdditionRequestRejectIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeAdditionRequestRejectIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeAdditionRequestRejectIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeAdditionRequestRejectIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*SnodeAdditionRequestRejectIEsValue_IdMNgRannodeUexnApid) isSnodeAdditionRequestRejectIEsValue_SnodeAdditionRequestRejectIes() {
@@ -6480,11 +6480,11 @@ type SnodeAdditionRequestRejectIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeAdditionRequestRejectIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeAdditionRequestRejectIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeAdditionRequestRejectIEs) Reset() {
@@ -6672,17 +6672,17 @@ type isSnodeReconfigurationCompleteIEsValue_SnodeReconfigurationCompleteIes inte
 
 type SnodeReconfigurationCompleteIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeReconfigurationCompleteIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeReconfigurationCompleteIEsValue_IdResponseInfoReconfCompl struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdResponseInfoReconfCompl *ResponseInfoReconfCompl `protobuf:"bytes,3,opt,name=id_response_info_reconf_compl,json=id-ResponseInfo-ReconfCompl,proto3,oneof"`
+	IdResponseInfoReconfCompl *ResponseInfoReconfCompl `protobuf:"bytes,3,opt,name=id_response_info_reconf_compl,json=id-ResponseInfo-ReconfCompl,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*SnodeReconfigurationCompleteIEsValue_IdMNgRannodeUexnApid) isSnodeReconfigurationCompleteIEsValue_SnodeReconfigurationCompleteIes() {
@@ -6703,11 +6703,11 @@ type SnodeReconfigurationCompleteIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeReconfigurationCompleteIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeReconfigurationCompleteIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeReconfigurationCompleteIEs) Reset() {
@@ -6872,7 +6872,7 @@ type ResponseInfoReconfCompl struct {
 
 	ResponseTypeReconfComplete *ResponseTypeReconfComplete `protobuf:"bytes,1,opt,name=response_type_reconf_complete,json=responseType-ReconfComplete,proto3" json:"response_type_reconf_complete,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ResponseInfoReconfComplExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ResponseInfoReconfComplExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResponseInfoReconfCompl) Reset() {
@@ -7052,17 +7052,17 @@ type isResponseTypeReconfComplete_ResponseTypeReconfComplete interface {
 
 type ResponseTypeReconfComplete_ConfigurationSuccessfullyApplied struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	ConfigurationSuccessfullyApplied *Configurationsuccessfullyapplied `protobuf:"bytes,1,opt,name=configuration_successfully_applied,json=configuration-successfully-applied,proto3,oneof"`
+	ConfigurationSuccessfullyApplied *Configurationsuccessfullyapplied `protobuf:"bytes,1,opt,name=configuration_successfully_applied,json=configuration-successfully-applied,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type ResponseTypeReconfComplete_ConfigurationRejectedByMNgRannode struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	ConfigurationRejectedByMNgRannode *ConfigurationrejectedbyMNGRAnnode `protobuf:"bytes,2,opt,name=configuration_rejected_by_m_ng_rannode,json=configuration-rejected-by-M-NG-RANNode,proto3,oneof"`
+	ConfigurationRejectedByMNgRannode *ConfigurationrejectedbyMNGRAnnode `protobuf:"bytes,2,opt,name=configuration_rejected_by_m_ng_rannode,json=configuration-rejected-by-M-NG-RANNode,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type ResponseTypeReconfComplete_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ResponseTypeReconfCompleteExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ResponseTypeReconfCompleteExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResponseTypeReconfComplete_ConfigurationSuccessfullyApplied) isResponseTypeReconfComplete_ResponseTypeReconfComplete() {
@@ -7132,9 +7132,9 @@ type Configurationsuccessfullyapplied struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	MNgRannodeToSNgRannodeContainer []byte `protobuf:"bytes,1,opt,name=m_ng_rannode_to_s_ng_rannode_container,json=m-NG-RANNode-to-S-NG-RANNode-Container,proto3,oneof" json:"m_ng_rannode_to_s_ng_rannode_container,omitempty"`
+	MNgRannodeToSNgRannodeContainer []byte `protobuf:"bytes,1,opt,name=m_ng_rannode_to_s_ng_rannode_container,json=m-NG-RANNode-to-S-NG-RANNode-Container,proto3,oneof" json:"m_ng_rannode_to_s_ng_rannode_container,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ConfigurationsuccessfullyappliedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ConfigurationsuccessfullyappliedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Configurationsuccessfullyapplied) Reset() {
@@ -7242,9 +7242,9 @@ type ConfigurationrejectedbyMNGRAnnode struct {
 
 	Cause *xnap_ies.Cause `protobuf:"bytes,1,opt,name=cause,proto3" json:"cause,omitempty"`
 	// @inject_tag: aper:"optional,"
-	MNgRannodeToSNgRannodeContainer []byte `protobuf:"bytes,2,opt,name=m_ng_rannode_to_s_ng_rannode_container,json=m-NG-RANNode-to-S-NG-RANNode-Container,proto3,oneof" json:"m_ng_rannode_to_s_ng_rannode_container,omitempty"`
+	MNgRannodeToSNgRannodeContainer []byte `protobuf:"bytes,2,opt,name=m_ng_rannode_to_s_ng_rannode_container,json=m-NG-RANNode-to-S-NG-RANNode-Container,proto3,oneof" json:"m_ng_rannode_to_s_ng_rannode_container,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ConfigurationrejectedbyMNGRAnnodeExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ConfigurationrejectedbyMNGRAnnodeExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ConfigurationrejectedbyMNGRAnnode) Reset() {
@@ -7542,117 +7542,117 @@ type isSnodeModificationRequestIEsValue_SnodeModificationRequestIes interface {
 
 type SnodeModificationRequestIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeModificationRequestIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeModificationRequestIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeModificationRequestIEsValue_IdPdcpchangeIndication struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdPdcpchangeIndication *xnap_ies.PdcpchangeIndication `protobuf:"bytes,4,opt,name=id_pdcpchange_indication,json=id-PDCPChangeIndication,proto3,oneof"`
+	IdPdcpchangeIndication *xnap_ies.PdcpchangeIndication `protobuf:"bytes,4,opt,name=id_pdcpchange_indication,json=id-PDCPChangeIndication,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type SnodeModificationRequestIEsValue_IdSelectedPlmn struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdSelectedPlmn *xnap_ies.PlmnIdentity `protobuf:"bytes,5,opt,name=id_selected_plmn,json=id-selectedPLMN,proto3,oneof"`
+	IdSelectedPlmn *xnap_ies.PlmnIdentity `protobuf:"bytes,5,opt,name=id_selected_plmn,json=id-selectedPLMN,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type SnodeModificationRequestIEsValue_IdMobilityRestrictionList struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdMobilityRestrictionList *xnap_ies.MobilityRestrictionList `protobuf:"bytes,6,opt,name=id_mobility_restriction_list,json=id-MobilityRestrictionList,proto3,oneof"`
+	IdMobilityRestrictionList *xnap_ies.MobilityRestrictionList `protobuf:"bytes,6,opt,name=id_mobility_restriction_list,json=id-MobilityRestrictionList,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 type SnodeModificationRequestIEsValue_IdScgconfigurationQuery struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,valueLB:0,valueUB:0,"
-	IdScgconfigurationQuery xnap_ies.ScgconfigurationQuery `protobuf:"varint,7,opt,name=id_scgconfiguration_query,json=id-SCGConfigurationQuery,proto3,enum=xnap.v1.ScgconfigurationQuery,oneof"`
+	IdScgconfigurationQuery xnap_ies.ScgconfigurationQuery `protobuf:"varint,7,opt,name=id_scgconfiguration_query,json=id-SCGConfigurationQuery,proto3,enum=xnap.v1.ScgconfigurationQuery,oneof" aper:"choiceIdx:7,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequestIEsValue_IdUecontextInfoSnmodRequest struct {
 	// @inject_tag: aper:"choiceIdx:8,valueExt,"
-	IdUecontextInfoSnmodRequest *UecontextInfoSNmodRequest `protobuf:"bytes,8,opt,name=id_uecontext_info_snmod_request,json=id-UEContextInfo-SNModRequest,proto3,oneof"`
+	IdUecontextInfoSnmodRequest *UecontextInfoSNmodRequest `protobuf:"bytes,8,opt,name=id_uecontext_info_snmod_request,json=id-UEContextInfo-SNModRequest,proto3,oneof" aper:"choiceIdx:8,valueExt,"`
 }
 
 type SnodeModificationRequestIEsValue_IdMnToSnContainer struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	IdMnToSnContainer string `protobuf:"bytes,9,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof"`
+	IdMnToSnContainer string `protobuf:"bytes,9,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type SnodeModificationRequestIEsValue_IdRequestedSplitSrb struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,valueLB:0,valueUB:2,"
-	IdRequestedSplitSrb xnap_ies.SplitSrbsTypes `protobuf:"varint,10,opt,name=id_requested_split_srb,json=id-requestedSplitSRB,proto3,enum=xnap.v1.SplitSrbsTypes,oneof"`
+	IdRequestedSplitSrb xnap_ies.SplitSrbsTypes `protobuf:"varint,10,opt,name=id_requested_split_srb,json=id-requestedSplitSRB,proto3,enum=xnap.v1.SplitSrbsTypes,oneof" aper:"choiceIdx:10,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type SnodeModificationRequestIEsValue_IdRequestedSplitSrbrelease struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,valueLB:0,valueUB:2,"
-	IdRequestedSplitSrbrelease xnap_ies.SplitSrbsTypes `protobuf:"varint,11,opt,name=id_requested_split_srbrelease,json=id-requestedSplitSRBrelease,proto3,enum=xnap.v1.SplitSrbsTypes,oneof"`
+	IdRequestedSplitSrbrelease xnap_ies.SplitSrbsTypes `protobuf:"varint,11,opt,name=id_requested_split_srbrelease,json=id-requestedSplitSRBrelease,proto3,enum=xnap.v1.SplitSrbsTypes,oneof" aper:"choiceIdx:11,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type SnodeModificationRequestIEsValue_IdDesiredActNotificationLevel struct {
 	// @inject_tag: aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:3,"
-	IdDesiredActNotificationLevel xnap_ies.DesiredActNotificationLevel `protobuf:"varint,12,opt,name=id_desired_act_notification_level,json=id-DesiredActNotificationLevel,proto3,enum=xnap.v1.DesiredActNotificationLevel,oneof"`
+	IdDesiredActNotificationLevel xnap_ies.DesiredActNotificationLevel `protobuf:"varint,12,opt,name=id_desired_act_notification_level,json=id-DesiredActNotificationLevel,proto3,enum=xnap.v1.DesiredActNotificationLevel,oneof" aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:3,"`
 }
 
 type SnodeModificationRequestIEsValue_IdAdditionalDrbids struct {
 	// @inject_tag: aper:"choiceIdx:13,"
-	IdAdditionalDrbids *xnap_ies.DrbList `protobuf:"bytes,13,opt,name=id_additional_drbids,json=id-AdditionalDRBIDs,proto3,oneof"`
+	IdAdditionalDrbids *xnap_ies.DrbList `protobuf:"bytes,13,opt,name=id_additional_drbids,json=id-AdditionalDRBIDs,proto3,oneof" aper:"choiceIdx:13,"`
 }
 
 type SnodeModificationRequestIEsValue_IdSNgRannodeMaxIpdataRateUl struct {
 	// @inject_tag: aper:"choiceIdx:14,"
-	IdSNgRannodeMaxIpdataRateUl *xnap_ies.BitRate `protobuf:"bytes,14,opt,name=id_s_ng_rannode_max_ipdata_rate_ul,json=id-S-NG-RANnodeMaxIPDataRate-UL,proto3,oneof"`
+	IdSNgRannodeMaxIpdataRateUl *xnap_ies.BitRate `protobuf:"bytes,14,opt,name=id_s_ng_rannode_max_ipdata_rate_ul,json=id-S-NG-RANnodeMaxIPDataRate-UL,proto3,oneof" aper:"choiceIdx:14,"`
 }
 
 type SnodeModificationRequestIEsValue_IdSNgRannodeMaxIpdataRateDl struct {
 	// @inject_tag: aper:"choiceIdx:15,"
-	IdSNgRannodeMaxIpdataRateDl *xnap_ies.BitRate `protobuf:"bytes,15,opt,name=id_s_ng_rannode_max_ipdata_rate_dl,json=id-S-NG-RANnodeMaxIPDataRate-DL,proto3,oneof"`
+	IdSNgRannodeMaxIpdataRateDl *xnap_ies.BitRate `protobuf:"bytes,15,opt,name=id_s_ng_rannode_max_ipdata_rate_dl,json=id-S-NG-RANnodeMaxIPDataRate-DL,proto3,oneof" aper:"choiceIdx:15,"`
 }
 
 type SnodeModificationRequestIEsValue_IdLocationInformationSnreporting struct {
 	// @inject_tag: aper:"choiceIdx:16,valueExt,valueLB:0,valueUB:0,"
-	IdLocationInformationSnreporting xnap_ies.LocationInformationSnreporting `protobuf:"varint,16,opt,name=id_location_information_snreporting,json=id-LocationInformationSNReporting,proto3,enum=xnap.v1.LocationInformationSnreporting,oneof"`
+	IdLocationInformationSnreporting xnap_ies.LocationInformationSnreporting `protobuf:"varint,16,opt,name=id_location_information_snreporting,json=id-LocationInformationSNReporting,proto3,enum=xnap.v1.LocationInformationSnreporting,oneof" aper:"choiceIdx:16,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequestIEsValue_IdMrDcResourceCoordinationInfo struct {
 	// @inject_tag: aper:"choiceIdx:17,valueExt,"
-	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,17,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof"`
+	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,17,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof" aper:"choiceIdx:17,valueExt,"`
 }
 
 type SnodeModificationRequestIEsValue_IdPcellId struct {
 	// @inject_tag: aper:"choiceIdx:18,valueExt,"
-	IdPcellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,18,opt,name=id_pcell_id,json=id-PCellID,proto3,oneof"`
+	IdPcellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,18,opt,name=id_pcell_id,json=id-PCellID,proto3,oneof" aper:"choiceIdx:18,valueExt,"`
 }
 
 type SnodeModificationRequestIEsValue_IdNeDcTdmPattern struct {
 	// @inject_tag: aper:"choiceIdx:19,valueExt,"
-	IdNeDcTdmPattern *xnap_ies.NeDCTDmPattern `protobuf:"bytes,19,opt,name=id_ne_dc_tdm_pattern,json=id-NE-DC-TDM-Pattern,proto3,oneof"`
+	IdNeDcTdmPattern *xnap_ies.NeDCTDmPattern `protobuf:"bytes,19,opt,name=id_ne_dc_tdm_pattern,json=id-NE-DC-TDM-Pattern,proto3,oneof" aper:"choiceIdx:19,valueExt,"`
 }
 
 type SnodeModificationRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3 struct {
 	// @inject_tag: aper:"choiceIdx:20,valueExt,valueLB:0,valueUB:0,"
-	IdRequestedFastMcgrecoveryViaSrb3 RequestedFastMcgrecoveryViaSrb3 `protobuf:"varint,20,opt,name=id_requested_fast_mcgrecovery_via_srb3,json=id-RequestedFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.RequestedFastMcgrecoveryViaSrb3,oneof"`
+	IdRequestedFastMcgrecoveryViaSrb3 RequestedFastMcgrecoveryViaSrb3 `protobuf:"varint,20,opt,name=id_requested_fast_mcgrecovery_via_srb3,json=id-RequestedFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.RequestedFastMcgrecoveryViaSrb3,oneof" aper:"choiceIdx:20,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequestIEsValue_IdRequestedFastMcgrecoveryViaSrb3Release struct {
 	// @inject_tag: aper:"choiceIdx:21,valueExt,valueLB:0,valueUB:0,"
-	IdRequestedFastMcgrecoveryViaSrb3Release RequestedFastMcgrecoveryViaSrb3Release `protobuf:"varint,21,opt,name=id_requested_fast_mcgrecovery_via_srb3_release,json=id-RequestedFastMCGRecoveryViaSRB3Release,proto3,enum=xnap.v1.RequestedFastMcgrecoveryViaSrb3Release,oneof"`
+	IdRequestedFastMcgrecoveryViaSrb3Release RequestedFastMcgrecoveryViaSrb3Release `protobuf:"varint,21,opt,name=id_requested_fast_mcgrecovery_via_srb3_release,json=id-RequestedFastMCGRecoveryViaSRB3Release,proto3,enum=xnap.v1.RequestedFastMcgrecoveryViaSrb3Release,oneof" aper:"choiceIdx:21,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequestIEsValue_IdSntriggered struct {
 	// @inject_tag: aper:"choiceIdx:22,valueExt,valueLB:0,valueUB:0,"
-	IdSntriggered xnap_ies.Sntriggered `protobuf:"varint,22,opt,name=id_sntriggered,json=id-SNTriggered,proto3,enum=xnap.v1.Sntriggered,oneof"`
+	IdSntriggered xnap_ies.Sntriggered `protobuf:"varint,22,opt,name=id_sntriggered,json=id-SNTriggered,proto3,enum=xnap.v1.Sntriggered,oneof" aper:"choiceIdx:22,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequestIEsValue_IdTargetNodeId struct {
 	// @inject_tag: aper:"choiceIdx:23,"
-	IdTargetNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,23,opt,name=id_target_node_id,json=id-TargetNodeID,proto3,oneof"`
+	IdTargetNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,23,opt,name=id_target_node_id,json=id-TargetNodeID,proto3,oneof" aper:"choiceIdx:23,"`
 }
 
 func (*SnodeModificationRequestIEsValue_IdMNgRannodeUexnApid) isSnodeModificationRequestIEsValue_SnodeModificationRequestIes() {
@@ -7733,11 +7733,11 @@ type SnodeModificationRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeModificationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeModificationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeModificationRequestIEs) Reset() {
@@ -7901,23 +7901,23 @@ type UecontextInfoSNmodRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,"
-	UeSecurityCapabilities *xnap_ies.UesecurityCapabilities `protobuf:"bytes,1,opt,name=ue_security_capabilities,json=ueSecurityCapabilities,proto3,oneof" json:"ue_security_capabilities,omitempty"`
+	UeSecurityCapabilities *xnap_ies.UesecurityCapabilities `protobuf:"bytes,1,opt,name=ue_security_capabilities,json=ueSecurityCapabilities,proto3,oneof" json:"ue_security_capabilities,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	SNgRannodeSecurityKey *xnap_ies.SNGRAnnodeSecurityKey `protobuf:"bytes,2,opt,name=s_ng_rannode_security_key,json=s-ng-RANnode-SecurityKey,proto3,oneof" json:"s_ng_rannode_security_key,omitempty"`
+	SNgRannodeSecurityKey *xnap_ies.SNGRAnnodeSecurityKey `protobuf:"bytes,2,opt,name=s_ng_rannode_security_key,json=s-ng-RANnode-SecurityKey,proto3,oneof" json:"s_ng_rannode_security_key,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SNgRannodeUeAmbr *xnap_ies.UeaggregateMaximumBitRate `protobuf:"bytes,3,opt,name=s_ng_rannode_ue_ambr,json=s-ng-RANnodeUE-AMBR,proto3,oneof" json:"s_ng_rannode_ue_ambr,omitempty"`
+	SNgRannodeUeAmbr *xnap_ies.UeaggregateMaximumBitRate `protobuf:"bytes,3,opt,name=s_ng_rannode_ue_ambr,json=s-ng-RANnodeUE-AMBR,proto3,oneof" json:"s_ng_rannode_ue_ambr,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	IndexToRatFrequencySelectionPriority *xnap_ies.RfspIndex `protobuf:"bytes,4,opt,name=index_to_rat_frequency_selection_priority,json=indexToRatFrequencySelectionPriority,proto3,oneof" json:"index_to_rat_frequency_selection_priority,omitempty"`
+	IndexToRatFrequencySelectionPriority *xnap_ies.RfspIndex `protobuf:"bytes,4,opt,name=index_to_rat_frequency_selection_priority,json=indexToRatFrequencySelectionPriority,proto3,oneof" json:"index_to_rat_frequency_selection_priority,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	LowerLayerPresenceStatusChange *xnap_ies.LowerLayerPresenceStatusChange `protobuf:"varint,5,opt,name=lower_layer_presence_status_change,json=lowerLayerPresenceStatusChange,proto3,enum=xnap.v1.LowerLayerPresenceStatusChange,oneof" json:"lower_layer_presence_status_change,omitempty"`
+	LowerLayerPresenceStatusChange *xnap_ies.LowerLayerPresenceStatusChange `protobuf:"varint,5,opt,name=lower_layer_presence_status_change,json=lowerLayerPresenceStatusChange,proto3,enum=xnap.v1.LowerLayerPresenceStatusChange,oneof" json:"lower_layer_presence_status_change,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,"
-	PduSessionResourceToBeAdded *PdusessionsToBeAddedSNmodRequestList `protobuf:"bytes,6,opt,name=pdu_session_resource_to_be_added,json=pduSessionResourceToBeAdded,proto3,oneof" json:"pdu_session_resource_to_be_added,omitempty"`
+	PduSessionResourceToBeAdded *PdusessionsToBeAddedSNmodRequestList `protobuf:"bytes,6,opt,name=pdu_session_resource_to_be_added,json=pduSessionResourceToBeAdded,proto3,oneof" json:"pdu_session_resource_to_be_added,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	PduSessionResourceToBeModified *PdusessionsToBeModifiedSNmodRequestList `protobuf:"bytes,7,opt,name=pdu_session_resource_to_be_modified,json=pduSessionResourceToBeModified,proto3,oneof" json:"pdu_session_resource_to_be_modified,omitempty"`
+	PduSessionResourceToBeModified *PdusessionsToBeModifiedSNmodRequestList `protobuf:"bytes,7,opt,name=pdu_session_resource_to_be_modified,json=pduSessionResourceToBeModified,proto3,oneof" json:"pdu_session_resource_to_be_modified,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PduSessionResourceToBeReleased *PdusessionsToBeReleasedSNmodRequestList `protobuf:"bytes,8,opt,name=pdu_session_resource_to_be_released,json=pduSessionResourceToBeReleased,proto3,oneof" json:"pdu_session_resource_to_be_released,omitempty"`
+	PduSessionResourceToBeReleased *PdusessionsToBeReleasedSNmodRequestList `protobuf:"bytes,8,opt,name=pdu_session_resource_to_be_released,json=pduSessionResourceToBeReleased,proto3,oneof" json:"pdu_session_resource_to_be_released,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*UecontextInfoSNmodRequestExtIes `protobuf:"bytes,9,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*UecontextInfoSNmodRequestExtIes `protobuf:"bytes,9,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UecontextInfoSNmodRequest) Reset() {
@@ -8023,7 +8023,7 @@ type PdusessionsToBeAddedSNmodRequestList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionsToBeAddedSNmodRequestItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionsToBeAddedSNmodRequestItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionsToBeAddedSNmodRequestList) Reset() {
@@ -8124,15 +8124,15 @@ type PdusessionsToBeAddedSNmodRequestItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	SNssai *xnap_ies.SNSsai `protobuf:"bytes,2,opt,name=s_nssai,json=s-NSSAI,proto3" json:"s_nssai,omitempty"`
+	SNssai *xnap_ies.SNSsai `protobuf:"bytes,2,opt,name=s_nssai,json=s-NSSAI,proto3" json:"s_nssai,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SNPdusessionAmbr *xnap_ies.PdusessionAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=s_n_pdusession_ambr,json=sN-PDUSessionAMBR,proto3,oneof" json:"s_n_pdusession_ambr,omitempty"`
+	SNPdusessionAmbr *xnap_ies.PdusessionAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=s_n_pdusession_ambr,json=sN-PDUSessionAMBR,proto3,oneof" json:"s_n_pdusession_ambr,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceSetupInfoSNterminated `protobuf:"bytes,4,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceSetupInfoSNterminated `protobuf:"bytes,4,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceSetupInfoMNterminated `protobuf:"bytes,5,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceSetupInfoMNterminated `protobuf:"bytes,5,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionsToBeAddedSNmodRequestItemExtIes `protobuf:"bytes,6,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionsToBeAddedSNmodRequestItemExtIes `protobuf:"bytes,6,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionsToBeAddedSNmodRequestItem) Reset() {
@@ -8217,7 +8217,7 @@ type PdusessionsToBeModifiedSNmodRequestList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionsToBeModifiedSNmodRequestItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionsToBeModifiedSNmodRequestItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionsToBeModifiedSNmodRequestList) Reset() {
@@ -8333,12 +8333,12 @@ type isPdusessionsToBeModifiedSNmodRequestItemExtIesExtension_PdusessionsToBeMod
 
 type PdusessionsToBeModifiedSNmodRequestItemExtIesExtension_IdSNssai struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdSNssai *xnap_ies.SNSsai `protobuf:"bytes,1,opt,name=id_s_nssai,json=id-S-NSSAI,proto3,oneof"`
+	IdSNssai *xnap_ies.SNSsai `protobuf:"bytes,1,opt,name=id_s_nssai,json=id-S-NSSAI,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type PdusessionsToBeModifiedSNmodRequestItemExtIesExtension_IdPdusessionExpectedUeactivityBehaviour struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdPdusessionExpectedUeactivityBehaviour *xnap_ies.ExpectedUeactivityBehaviour `protobuf:"bytes,2,opt,name=id_pdusession_expected_ueactivity_behaviour,json=id-PDUSessionExpectedUEActivityBehaviour,proto3,oneof"`
+	IdPdusessionExpectedUeactivityBehaviour *xnap_ies.ExpectedUeactivityBehaviour `protobuf:"bytes,2,opt,name=id_pdusession_expected_ueactivity_behaviour,json=id-PDUSessionExpectedUEActivityBehaviour,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 func (*PdusessionsToBeModifiedSNmodRequestItemExtIesExtension_IdSNssai) isPdusessionsToBeModifiedSNmodRequestItemExtIesExtension_PdusessionsToBeModifiedSnmodRequestItemExtIes() {
@@ -8356,11 +8356,11 @@ type PdusessionsToBeModifiedSNmodRequestItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *PdusessionsToBeModifiedSNmodRequestItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *PdusessionsToBeModifiedSNmodRequestItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PdusessionsToBeModifiedSNmodRequestItemExtIes) Reset() {
@@ -8426,13 +8426,13 @@ type PdusessionsToBeModifiedSNmodRequestItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SNPdusessionAmbr *xnap_ies.PdusessionAggregateMaximumBitRate `protobuf:"bytes,2,opt,name=s_n_pdusession_ambr,json=sN-PDUSessionAMBR,proto3,oneof" json:"s_n_pdusession_ambr,omitempty"`
+	SNPdusessionAmbr *xnap_ies.PdusessionAggregateMaximumBitRate `protobuf:"bytes,2,opt,name=s_n_pdusession_ambr,json=sN-PDUSessionAMBR,proto3,oneof" json:"s_n_pdusession_ambr,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceModificationInfoSNterminated `protobuf:"bytes,3,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceModificationInfoSNterminated `protobuf:"bytes,3,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceModificationInfoMNterminated `protobuf:"bytes,4,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceModificationInfoMNterminated `protobuf:"bytes,4,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionsToBeModifiedSNmodRequestItemExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionsToBeModifiedSNmodRequestItemExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionsToBeModifiedSNmodRequestItem) Reset() {
@@ -8560,9 +8560,9 @@ type PdusessionsToBeReleasedSNmodRequestList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	PduSessionList *xnap_ies.PdusessionListwithCause `protobuf:"bytes,1,opt,name=pdu_session_list,json=pdu-session-list,proto3,oneof" json:"pdu_session_list,omitempty"`
+	PduSessionList *xnap_ies.PdusessionListwithCause `protobuf:"bytes,1,opt,name=pdu_session_list,json=pdu-session-list,proto3,oneof" json:"pdu_session_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionsToBeReleasedSNmodRequestListExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionsToBeReleasedSNmodRequestListExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionsToBeReleasedSNmodRequestList) Reset() {
@@ -8789,77 +8789,77 @@ type isSnodeModificationRequestAcknowledgeIEsValue_SnodeModificationRequestAckno
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionAdmittedSnmodResponse struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdPdusessionAdmittedSnmodResponse *PdusessionAdmittedSNmodResponse `protobuf:"bytes,3,opt,name=id_pdusession_admitted_snmod_response,json=id-PDUSessionAdmitted-SNModResponse,proto3,oneof"`
+	IdPdusessionAdmittedSnmodResponse *PdusessionAdmittedSNmodResponse `protobuf:"bytes,3,opt,name=id_pdusession_admitted_snmod_response,json=id-PDUSessionAdmitted-SNModResponse,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionNotAdmittedSnmodResponse struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdPdusessionNotAdmittedSnmodResponse *PdusessionNotAdmittedSNmodResponse `protobuf:"bytes,4,opt,name=id_pdusession_not_admitted_snmod_response,json=id-PDUSessionNotAdmitted-SNModResponse,proto3,oneof"`
+	IdPdusessionNotAdmittedSnmodResponse *PdusessionNotAdmittedSNmodResponse `protobuf:"bytes,4,opt,name=id_pdusession_not_admitted_snmod_response,json=id-PDUSessionNotAdmitted-SNModResponse,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdSnToMnContainer struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdSnToMnContainer string `protobuf:"bytes,5,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof"`
+	IdSnToMnContainer string `protobuf:"bytes,5,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdAdmittedSplitSrb struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:2,"
-	IdAdmittedSplitSrb xnap_ies.SplitSrbsTypes `protobuf:"varint,6,opt,name=id_admitted_split_srb,json=id-admittedSplitSRB,proto3,enum=xnap.v1.SplitSrbsTypes,oneof"`
+	IdAdmittedSplitSrb xnap_ies.SplitSrbsTypes `protobuf:"varint,6,opt,name=id_admitted_split_srb,json=id-admittedSplitSRB,proto3,enum=xnap.v1.SplitSrbsTypes,oneof" aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdAdmittedSplitSrbrelease struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,valueLB:0,valueUB:2,"
-	IdAdmittedSplitSrbrelease xnap_ies.SplitSrbsTypes `protobuf:"varint,7,opt,name=id_admitted_split_srbrelease,json=id-admittedSplitSRBrelease,proto3,enum=xnap.v1.SplitSrbsTypes,oneof"`
+	IdAdmittedSplitSrbrelease xnap_ies.SplitSrbsTypes `protobuf:"varint,7,opt,name=id_admitted_split_srbrelease,json=id-admittedSplitSRBrelease,proto3,enum=xnap.v1.SplitSrbsTypes,oneof" aper:"choiceIdx:7,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:8,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,8,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,8,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:8,valueExt,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdLocationInformationSn struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	IdLocationInformationSn *xnap_ies.TargetCGi `protobuf:"bytes,9,opt,name=id_location_information_sn,json=id-LocationInformationSN,proto3,oneof"`
+	IdLocationInformationSn *xnap_ies.TargetCGi `protobuf:"bytes,9,opt,name=id_location_information_sn,json=id-LocationInformationSN,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdMrDcResourceCoordinationInfo struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,"
-	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,10,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof"`
+	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,10,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof" aper:"choiceIdx:10,valueExt,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdPdusessionDataForwardingSnmodResponse struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,"
-	IdPdusessionDataForwardingSnmodResponse *PdusessionDataForwardingSNmodResponse `protobuf:"bytes,11,opt,name=id_pdusession_data_forwarding_snmod_response,json=id-PDUSessionDataForwarding-SNModResponse,proto3,oneof"`
+	IdPdusessionDataForwardingSnmodResponse *PdusessionDataForwardingSNmodResponse `protobuf:"bytes,11,opt,name=id_pdusession_data_forwarding_snmod_response,json=id-PDUSessionDataForwarding-SNModResponse,proto3,oneof" aper:"choiceIdx:11,valueExt,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdRrcconfigIndication struct {
 	// @inject_tag: aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:1,"
-	IdRrcconfigIndication xnap_ies.RrcconfigIndication `protobuf:"varint,12,opt,name=id_rrcconfig_indication,json=id-RRCConfigIndication,proto3,enum=xnap.v1.RrcconfigIndication,oneof"`
+	IdRrcconfigIndication xnap_ies.RrcconfigIndication `protobuf:"varint,12,opt,name=id_rrcconfig_indication,json=id-RRCConfigIndication,proto3,enum=xnap.v1.RrcconfigIndication,oneof" aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdAvailableFastMcgrecoveryViaSrb3 struct {
 	// @inject_tag: aper:"choiceIdx:13,valueExt,valueLB:0,valueUB:0,"
-	IdAvailableFastMcgrecoveryViaSrb3 AvailableFastMcgrecoveryViaSrb3 `protobuf:"varint,13,opt,name=id_available_fast_mcgrecovery_via_srb3,json=id-AvailableFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.AvailableFastMcgrecoveryViaSrb3,oneof"`
+	IdAvailableFastMcgrecoveryViaSrb3 AvailableFastMcgrecoveryViaSrb3 `protobuf:"varint,13,opt,name=id_available_fast_mcgrecovery_via_srb3,json=id-AvailableFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.AvailableFastMcgrecoveryViaSrb3,oneof" aper:"choiceIdx:13,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdReleaseFastMcgrecoveryViaSrb3 struct {
 	// @inject_tag: aper:"choiceIdx:14,valueExt,valueLB:0,valueUB:0,"
-	IdReleaseFastMcgrecoveryViaSrb3 ReleaseFastMcgrecoveryViaSrb3 `protobuf:"varint,14,opt,name=id_release_fast_mcgrecovery_via_srb3,json=id-ReleaseFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.ReleaseFastMcgrecoveryViaSrb3,oneof"`
+	IdReleaseFastMcgrecoveryViaSrb3 ReleaseFastMcgrecoveryViaSrb3 `protobuf:"varint,14,opt,name=id_release_fast_mcgrecovery_via_srb3,json=id-ReleaseFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.ReleaseFastMcgrecoveryViaSrb3,oneof" aper:"choiceIdx:14,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequestAcknowledgeIEsValue_IdDirectForwardingPathAvailability struct {
 	// @inject_tag: aper:"choiceIdx:15,valueExt,valueLB:0,valueUB:0,"
-	IdDirectForwardingPathAvailability xnap_ies.DirectForwardingPathAvailability `protobuf:"varint,15,opt,name=id_direct_forwarding_path_availability,json=id-DirectForwardingPathAvailability,proto3,enum=xnap.v1.DirectForwardingPathAvailability,oneof"`
+	IdDirectForwardingPathAvailability xnap_ies.DirectForwardingPathAvailability `protobuf:"varint,15,opt,name=id_direct_forwarding_path_availability,json=id-DirectForwardingPathAvailability,proto3,enum=xnap.v1.DirectForwardingPathAvailability,oneof" aper:"choiceIdx:15,valueExt,valueLB:0,valueUB:0,"`
 }
 
 func (*SnodeModificationRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid) isSnodeModificationRequestAcknowledgeIEsValue_SnodeModificationRequestAcknowledgeIes() {
@@ -8916,11 +8916,11 @@ type SnodeModificationRequestAcknowledgeIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeModificationRequestAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeModificationRequestAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeModificationRequestAcknowledgeIEs) Reset() {
@@ -9084,13 +9084,13 @@ type PdusessionAdmittedSNmodResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	PduSessionResourcesAdmittedToBeAdded *PdusessionAdmittedToBeAddedSnmodResponse `protobuf:"bytes,1,opt,name=pdu_session_resources_admitted_to_be_added,json=pduSessionResourcesAdmittedToBeAdded,proto3,oneof" json:"pdu_session_resources_admitted_to_be_added,omitempty"`
+	PduSessionResourcesAdmittedToBeAdded *PdusessionAdmittedToBeAddedSnmodResponse `protobuf:"bytes,1,opt,name=pdu_session_resources_admitted_to_be_added,json=pduSessionResourcesAdmittedToBeAdded,proto3,oneof" json:"pdu_session_resources_admitted_to_be_added,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	PduSessionResourcesAdmittedToBeModified *PdusessionAdmittedToBeModifiedSnmodResponse `protobuf:"bytes,2,opt,name=pdu_session_resources_admitted_to_be_modified,json=pduSessionResourcesAdmittedToBeModified,proto3,oneof" json:"pdu_session_resources_admitted_to_be_modified,omitempty"`
+	PduSessionResourcesAdmittedToBeModified *PdusessionAdmittedToBeModifiedSnmodResponse `protobuf:"bytes,2,opt,name=pdu_session_resources_admitted_to_be_modified,json=pduSessionResourcesAdmittedToBeModified,proto3,oneof" json:"pdu_session_resources_admitted_to_be_modified,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PduSessionResourcesAdmittedToBeReleased *PdusessionAdmittedToBeReleasedSnmodResponse `protobuf:"bytes,3,opt,name=pdu_session_resources_admitted_to_be_released,json=pduSessionResourcesAdmittedToBeReleased,proto3,oneof" json:"pdu_session_resources_admitted_to_be_released,omitempty"`
+	PduSessionResourcesAdmittedToBeReleased *PdusessionAdmittedToBeReleasedSnmodResponse `protobuf:"bytes,3,opt,name=pdu_session_resources_admitted_to_be_released,json=pduSessionResourcesAdmittedToBeReleased,proto3,oneof" json:"pdu_session_resources_admitted_to_be_released,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionAdmittedSNmodResponseExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionAdmittedSNmodResponseExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionAdmittedSNmodResponse) Reset() {
@@ -9161,7 +9161,7 @@ type PdusessionAdmittedToBeAddedSnmodResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionAdmittedToBeAddedSnmodResponseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionAdmittedToBeAddedSnmodResponseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionAdmittedToBeAddedSnmodResponse) Reset() {
@@ -9262,11 +9262,11 @@ type PdusessionAdmittedToBeAddedSnmodResponseItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceSetupResponseInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceSetupResponseInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceSetupResponseInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceSetupResponseInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionAdmittedToBeAddedSnmodResponseItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionAdmittedToBeAddedSnmodResponseItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionAdmittedToBeAddedSnmodResponseItem) Reset() {
@@ -9337,7 +9337,7 @@ type PdusessionAdmittedToBeModifiedSnmodResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionAdmittedToBeModifiedSnmodResponseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionAdmittedToBeModifiedSnmodResponseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionAdmittedToBeModifiedSnmodResponse) Reset() {
@@ -9438,11 +9438,11 @@ type PdusessionAdmittedToBeModifiedSnmodResponseItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceModificationResponseInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceModificationResponseInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceModificationResponseInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceModificationResponseInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionAdmittedToBeModifiedSnmodResponseItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionAdmittedToBeModifiedSnmodResponseItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionAdmittedToBeModifiedSnmodResponseItem) Reset() {
@@ -9563,11 +9563,11 @@ type PdusessionAdmittedToBeReleasedSnmodResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	SnTerminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	MnTerminated *xnap_ies.PdusessionListwithCause `protobuf:"bytes,2,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionListwithCause `protobuf:"bytes,2,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionAdmittedToBeReleasedSnmodResponseExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionAdmittedToBeReleasedSnmodResponseExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionAdmittedToBeReleasedSnmodResponse) Reset() {
@@ -9681,9 +9681,9 @@ type PdusessionNotAdmittedSNmodResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	PduSessionList *xnap_ies.PdusessionList `protobuf:"bytes,1,opt,name=pdu_session_list,json=pdu-Session-List,proto3,oneof" json:"pdu_session_list,omitempty"`
+	PduSessionList *xnap_ies.PdusessionList `protobuf:"bytes,1,opt,name=pdu_session_list,json=pdu-Session-List,proto3,oneof" json:"pdu_session_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionNotAdmittedSNmodResponseExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionNotAdmittedSNmodResponseExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionNotAdmittedSNmodResponse) Reset() {
@@ -9791,7 +9791,7 @@ type PdusessionDataForwardingSNmodResponse struct {
 
 	SnTerminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=sn_terminated,json=sn-terminated,proto3" json:"sn_terminated,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionDataForwardingSNmodResponseExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionDataForwardingSNmodResponseExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionDataForwardingSNmodResponse) Reset() {
@@ -9930,22 +9930,22 @@ type isSnodeModificationRequestRejectIEsValue_SnodeModificationRequestRejectIes 
 
 type SnodeModificationRequestRejectIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeModificationRequestRejectIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeModificationRequestRejectIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeModificationRequestRejectIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*SnodeModificationRequestRejectIEsValue_IdMNgRannodeUexnApid) isSnodeModificationRequestRejectIEsValue_SnodeModificationRequestRejectIes() {
@@ -9969,11 +9969,11 @@ type SnodeModificationRequestRejectIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeModificationRequestRejectIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeModificationRequestRejectIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeModificationRequestRejectIEs) Reset() {
@@ -10257,77 +10257,77 @@ type isSnodeModificationRequiredIEsValue_SnodeModificationRequiredIes interface 
 
 type SnodeModificationRequiredIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdPdcpchangeIndication struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdPdcpchangeIndication *xnap_ies.PdcpchangeIndication `protobuf:"bytes,4,opt,name=id_pdcpchange_indication,json=id-PDCPChangeIndication,proto3,oneof"`
+	IdPdcpchangeIndication *xnap_ies.PdcpchangeIndication `protobuf:"bytes,4,opt,name=id_pdcpchange_indication,json=id-PDCPChangeIndication,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdPdusessionToBeModifiedSnmodRequired struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdPdusessionToBeModifiedSnmodRequired *PdusessionToBeModifiedSnmodRequired `protobuf:"bytes,5,opt,name=id_pdusession_to_be_modified_snmod_required,json=id-PDUSessionToBeModifiedSNModRequired,proto3,oneof"`
+	IdPdusessionToBeModifiedSnmodRequired *PdusessionToBeModifiedSnmodRequired `protobuf:"bytes,5,opt,name=id_pdusession_to_be_modified_snmod_required,json=id-PDUSessionToBeModifiedSNModRequired,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdPdusessionToBeReleasedSnmodRequired struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdPdusessionToBeReleasedSnmodRequired *PdusessionToBeReleasedSnmodRequired `protobuf:"bytes,6,opt,name=id_pdusession_to_be_released_snmod_required,json=id-PDUSessionToBeReleasedSNModRequired,proto3,oneof"`
+	IdPdusessionToBeReleasedSnmodRequired *PdusessionToBeReleasedSnmodRequired `protobuf:"bytes,6,opt,name=id_pdusession_to_be_released_snmod_required,json=id-PDUSessionToBeReleasedSNModRequired,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdSnToMnContainer struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	IdSnToMnContainer string `protobuf:"bytes,7,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof"`
+	IdSnToMnContainer string `protobuf:"bytes,7,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdSpareDrbids struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	IdSpareDrbids *xnap_ies.DrbList `protobuf:"bytes,8,opt,name=id_spare_drbids,json=id-SpareDRBIDs,proto3,oneof"`
+	IdSpareDrbids *xnap_ies.DrbList `protobuf:"bytes,8,opt,name=id_spare_drbids,json=id-SpareDRBIDs,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdRequiredNumberOfDrbids struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	IdRequiredNumberOfDrbids *xnap_ies.DrbNumber `protobuf:"bytes,9,opt,name=id_required_number_of_drbids,json=id-RequiredNumberOfDRBIDs,proto3,oneof"`
+	IdRequiredNumberOfDrbids *xnap_ies.DrbNumber `protobuf:"bytes,9,opt,name=id_required_number_of_drbids,json=id-RequiredNumberOfDRBIDs,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdLocationInformationSn struct {
 	// @inject_tag: aper:"choiceIdx:10,"
-	IdLocationInformationSn *xnap_ies.TargetCGi `protobuf:"bytes,10,opt,name=id_location_information_sn,json=id-LocationInformationSN,proto3,oneof"`
+	IdLocationInformationSn *xnap_ies.TargetCGi `protobuf:"bytes,10,opt,name=id_location_information_sn,json=id-LocationInformationSN,proto3,oneof" aper:"choiceIdx:10,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdMrDcResourceCoordinationInfo struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,"
-	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,11,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof"`
+	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,11,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof" aper:"choiceIdx:11,valueExt,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdRrcconfigIndication struct {
 	// @inject_tag: aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:1,"
-	IdRrcconfigIndication xnap_ies.RrcconfigIndication `protobuf:"varint,12,opt,name=id_rrcconfig_indication,json=id-RRCConfigIndication,proto3,enum=xnap.v1.RrcconfigIndication,oneof"`
+	IdRrcconfigIndication xnap_ies.RrcconfigIndication `protobuf:"varint,12,opt,name=id_rrcconfig_indication,json=id-RRCConfigIndication,proto3,enum=xnap.v1.RrcconfigIndication,oneof" aper:"choiceIdx:12,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdAvailableFastMcgrecoveryViaSrb3 struct {
 	// @inject_tag: aper:"choiceIdx:13,valueExt,valueLB:0,valueUB:0,"
-	IdAvailableFastMcgrecoveryViaSrb3 AvailableFastMcgrecoveryViaSrb3 `protobuf:"varint,13,opt,name=id_available_fast_mcgrecovery_via_srb3,json=id-AvailableFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.AvailableFastMcgrecoveryViaSrb3,oneof"`
+	IdAvailableFastMcgrecoveryViaSrb3 AvailableFastMcgrecoveryViaSrb3 `protobuf:"varint,13,opt,name=id_available_fast_mcgrecovery_via_srb3,json=id-AvailableFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.AvailableFastMcgrecoveryViaSrb3,oneof" aper:"choiceIdx:13,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdReleaseFastMcgrecoveryViaSrb3 struct {
 	// @inject_tag: aper:"choiceIdx:14,valueExt,valueLB:0,valueUB:0,"
-	IdReleaseFastMcgrecoveryViaSrb3 ReleaseFastMcgrecoveryViaSrb3 `protobuf:"varint,14,opt,name=id_release_fast_mcgrecovery_via_srb3,json=id-ReleaseFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.ReleaseFastMcgrecoveryViaSrb3,oneof"`
+	IdReleaseFastMcgrecoveryViaSrb3 ReleaseFastMcgrecoveryViaSrb3 `protobuf:"varint,14,opt,name=id_release_fast_mcgrecovery_via_srb3,json=id-ReleaseFastMCGRecoveryViaSRB3,proto3,enum=xnap.v1.ReleaseFastMcgrecoveryViaSrb3,oneof" aper:"choiceIdx:14,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeModificationRequiredIEsValue_IdScgindicator struct {
 	// @inject_tag: aper:"choiceIdx:15,valueExt,valueLB:0,valueUB:0,"
-	IdScgindicator xnap_ies.Scgindicator `protobuf:"varint,15,opt,name=id_scgindicator,json=id-SCGIndicator,proto3,enum=xnap.v1.Scgindicator,oneof"`
+	IdScgindicator xnap_ies.Scgindicator `protobuf:"varint,15,opt,name=id_scgindicator,json=id-SCGIndicator,proto3,enum=xnap.v1.Scgindicator,oneof" aper:"choiceIdx:15,valueExt,valueLB:0,valueUB:0,"`
 }
 
 func (*SnodeModificationRequiredIEsValue_IdMNgRannodeUexnApid) isSnodeModificationRequiredIEsValue_SnodeModificationRequiredIes() {
@@ -10384,11 +10384,11 @@ type SnodeModificationRequiredIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeModificationRequiredIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeModificationRequiredIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeModificationRequiredIEs) Reset() {
@@ -10502,7 +10502,7 @@ type PdusessionToBeModifiedSnmodRequired struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionToBeModifiedSnmodRequiredItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionToBeModifiedSnmodRequiredItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionToBeModifiedSnmodRequired) Reset() {
@@ -10603,11 +10603,11 @@ type PdusessionToBeModifiedSnmodRequiredItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceModRqdInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceModRqdInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceModRqdInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceModRqdInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionToBeModifiedSnmodRequiredItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionToBeModifiedSnmodRequiredItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionToBeModifiedSnmodRequiredItem) Reset() {
@@ -10728,11 +10728,11 @@ type PdusessionToBeReleasedSnmodRequired struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	SnTerminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	MnTerminated *xnap_ies.PdusessionListwithCause `protobuf:"bytes,2,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionListwithCause `protobuf:"bytes,2,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionToBeReleasedSnmodRequiredExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionToBeReleasedSnmodRequiredExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionToBeReleasedSnmodRequired) Reset() {
@@ -10910,42 +10910,42 @@ type isSnodeModificationConfirmIEsValue_SnodeModificationConfirmIes interface {
 
 type SnodeModificationConfirmIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeModificationConfirmIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeModificationConfirmIEsValue_IdPdusessionAdmittedModSnmodConfirm struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdPdusessionAdmittedModSnmodConfirm *PdusessionAdmittedModSnmodConfirm `protobuf:"bytes,3,opt,name=id_pdusession_admitted_mod_snmod_confirm,json=id-PDUSessionAdmittedModSNModConfirm,proto3,oneof"`
+	IdPdusessionAdmittedModSnmodConfirm *PdusessionAdmittedModSnmodConfirm `protobuf:"bytes,3,opt,name=id_pdusession_admitted_mod_snmod_confirm,json=id-PDUSessionAdmittedModSNModConfirm,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeModificationConfirmIEsValue_IdPdusessionReleasedSnmodConfirm struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdPdusessionReleasedSnmodConfirm *PdusessionReleasedSnmodConfirm `protobuf:"bytes,4,opt,name=id_pdusession_released_snmod_confirm,json=id-PDUSessionReleasedSNModConfirm,proto3,oneof"`
+	IdPdusessionReleasedSnmodConfirm *PdusessionReleasedSnmodConfirm `protobuf:"bytes,4,opt,name=id_pdusession_released_snmod_confirm,json=id-PDUSessionReleasedSNModConfirm,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type SnodeModificationConfirmIEsValue_IdMnToSnContainer struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdMnToSnContainer string `protobuf:"bytes,5,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof"`
+	IdMnToSnContainer string `protobuf:"bytes,5,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type SnodeModificationConfirmIEsValue_IdAdditionalDrbids struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdAdditionalDrbids *xnap_ies.DrbList `protobuf:"bytes,6,opt,name=id_additional_drbids,json=id-AdditionalDRBIDs,proto3,oneof"`
+	IdAdditionalDrbids *xnap_ies.DrbList `protobuf:"bytes,6,opt,name=id_additional_drbids,json=id-AdditionalDRBIDs,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type SnodeModificationConfirmIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,7,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,7,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:7,valueExt,"`
 }
 
 type SnodeModificationConfirmIEsValue_IdMrDcResourceCoordinationInfo struct {
 	// @inject_tag: aper:"choiceIdx:8,valueExt,"
-	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,8,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof"`
+	IdMrDcResourceCoordinationInfo *xnap_ies.MrDCResourceCoordinationInfo `protobuf:"bytes,8,opt,name=id_mr_dc_resource_coordination_info,json=id-MR-DC-ResourceCoordinationInfo,proto3,oneof" aper:"choiceIdx:8,valueExt,"`
 }
 
 func (*SnodeModificationConfirmIEsValue_IdMNgRannodeUexnApid) isSnodeModificationConfirmIEsValue_SnodeModificationConfirmIes() {
@@ -10981,11 +10981,11 @@ type SnodeModificationConfirmIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeModificationConfirmIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeModificationConfirmIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeModificationConfirmIEs) Reset() {
@@ -11099,7 +11099,7 @@ type PdusessionAdmittedModSnmodConfirm struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionAdmittedModSnmodConfirmItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionAdmittedModSnmodConfirmItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionAdmittedModSnmodConfirm) Reset() {
@@ -11200,11 +11200,11 @@ type PdusessionAdmittedModSnmodConfirmItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceModConfirmInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceModConfirmInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceModConfirmInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceModConfirmInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionAdmittedModSnmodConfirmItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionAdmittedModSnmodConfirmItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionAdmittedModSnmodConfirmItem) Reset() {
@@ -11325,11 +11325,11 @@ type PdusessionReleasedSnmodConfirm struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	SnTerminated *xnap_ies.PdusessionListwithDataForwardingFromTarget `protobuf:"bytes,1,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionListwithDataForwardingFromTarget `protobuf:"bytes,1,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	MnTerminated *xnap_ies.PdusessionList `protobuf:"bytes,2,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionList `protobuf:"bytes,2,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionAdmittedToBeReleasedSnmodConfirmExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionAdmittedToBeReleasedSnmodConfirmExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionReleasedSnmodConfirm) Reset() {
@@ -11483,27 +11483,27 @@ type isSnodeModificationRefuseIEsValue_SnodeModificationRefuseIes interface {
 
 type SnodeModificationRefuseIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeModificationRefuseIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeModificationRefuseIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeModificationRefuseIEsValue_IdMnToSnContainer struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdMnToSnContainer string `protobuf:"bytes,4,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof"`
+	IdMnToSnContainer string `protobuf:"bytes,4,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type SnodeModificationRefuseIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,valueExt,"`
 }
 
 func (*SnodeModificationRefuseIEsValue_IdMNgRannodeUexnApid) isSnodeModificationRefuseIEsValue_SnodeModificationRefuseIes() {
@@ -11530,11 +11530,11 @@ type SnodeModificationRefuseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeModificationRefuseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeModificationRefuseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeModificationRefuseIEs) Reset() {
@@ -11754,37 +11754,37 @@ type isSnodeReleaseRequestIEsValue_SnodeReleaseRequestIes interface {
 
 type SnodeReleaseRequestIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeReleaseRequestIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeReleaseRequestIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeReleaseRequestIEsValue_IdPdusessionToBeReleasedRelReq struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdPdusessionToBeReleasedRelReq *xnap_ies.PdusessionListwithCause `protobuf:"bytes,4,opt,name=id_pdusession_to_be_released_rel_req,json=id-PDUSessionToBeReleased-RelReq,proto3,oneof"`
+	IdPdusessionToBeReleasedRelReq *xnap_ies.PdusessionListwithCause `protobuf:"bytes,4,opt,name=id_pdusession_to_be_released_rel_req,json=id-PDUSessionToBeReleased-RelReq,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type SnodeReleaseRequestIEsValue_IdUecontextKeptIndicator struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"
-	IdUecontextKeptIndicator xnap_ies.UecontextKeptIndicator `protobuf:"varint,5,opt,name=id_uecontext_kept_indicator,json=id-UEContextKeptIndicator,proto3,enum=xnap.v1.UecontextKeptIndicator,oneof"`
+	IdUecontextKeptIndicator xnap_ies.UecontextKeptIndicator `protobuf:"varint,5,opt,name=id_uecontext_kept_indicator,json=id-UEContextKeptIndicator,proto3,enum=xnap.v1.UecontextKeptIndicator,oneof" aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type SnodeReleaseRequestIEsValue_IdMnToSnContainer struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdMnToSnContainer string `protobuf:"bytes,6,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof"`
+	IdMnToSnContainer string `protobuf:"bytes,6,opt,name=id_mn_to_sn_container,json=id-MN-to-SN-Container,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type SnodeReleaseRequestIEsValue_IdDrbsTransferredToMn struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	IdDrbsTransferredToMn *xnap_ies.DrbList `protobuf:"bytes,7,opt,name=id_drbs_transferred_to_mn,json=id-DRBs-transferred-to-MN,proto3,oneof"`
+	IdDrbsTransferredToMn *xnap_ies.DrbList `protobuf:"bytes,7,opt,name=id_drbs_transferred_to_mn,json=id-DRBs-transferred-to-MN,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 func (*SnodeReleaseRequestIEsValue_IdMNgRannodeUexnApid) isSnodeReleaseRequestIEsValue_SnodeReleaseRequestIes() {
@@ -11816,11 +11816,11 @@ type SnodeReleaseRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeReleaseRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeReleaseRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeReleaseRequestIEs) Reset() {
@@ -12016,22 +12016,22 @@ type isSnodeReleaseRequestAcknowledgeIEsValue_SnodeReleaseRequestAcknowledgeIes 
 
 type SnodeReleaseRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeReleaseRequestAcknowledgeIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeReleaseRequestAcknowledgeIEsValue_IdPdusessionToBeReleasedRelReqAck struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdPdusessionToBeReleasedRelReqAck *PdusessionToBeReleasedListRelReqAck `protobuf:"bytes,3,opt,name=id_pdusession_to_be_released_rel_req_ack,json=id-PDUSessionToBeReleased-RelReqAck,proto3,oneof"`
+	IdPdusessionToBeReleasedRelReqAck *PdusessionToBeReleasedListRelReqAck `protobuf:"bytes,3,opt,name=id_pdusession_to_be_released_rel_req_ack,json=id-PDUSessionToBeReleased-RelReqAck,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type SnodeReleaseRequestAcknowledgeIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*SnodeReleaseRequestAcknowledgeIEsValue_IdMNgRannodeUexnApid) isSnodeReleaseRequestAcknowledgeIEsValue_SnodeReleaseRequestAcknowledgeIes() {
@@ -12055,11 +12055,11 @@ type SnodeReleaseRequestAcknowledgeIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeReleaseRequestAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeReleaseRequestAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeReleaseRequestAcknowledgeIEs) Reset() {
@@ -12223,9 +12223,9 @@ type PdusessionToBeReleasedListRelReqAck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	PduSessionsToBeReleasedListSnterminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=pdu_sessions_to_be_released_list_snterminated,json=pduSessionsToBeReleasedList-SNterminated,proto3,oneof" json:"pdu_sessions_to_be_released_list_snterminated,omitempty"`
+	PduSessionsToBeReleasedListSnterminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=pdu_sessions_to_be_released_list_snterminated,json=pduSessionsToBeReleasedList-SNterminated,proto3,oneof" json:"pdu_sessions_to_be_released_list_snterminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionToBeReleasedListRelReqAckExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionToBeReleasedListRelReqAckExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionToBeReleasedListRelReqAck) Reset() {
@@ -12364,22 +12364,22 @@ type isSnodeReleaseRejectIEsValue_SnodeReleaseRejectIes interface {
 
 type SnodeReleaseRejectIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeReleaseRejectIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeReleaseRejectIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeReleaseRejectIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*SnodeReleaseRejectIEsValue_IdMNgRannodeUexnApid) isSnodeReleaseRejectIEsValue_SnodeReleaseRejectIes() {
@@ -12402,11 +12402,11 @@ type SnodeReleaseRejectIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeReleaseRejectIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeReleaseRejectIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeReleaseRejectIEs) Reset() {
@@ -12610,27 +12610,27 @@ type isSnodeReleaseRequiredIEsValue_SnodeReleaseRequiredIes interface {
 
 type SnodeReleaseRequiredIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeReleaseRequiredIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeReleaseRequiredIEsValue_IdPdusessionToBeReleasedListRelRqd struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdPdusessionToBeReleasedListRelRqd *PdusessionToBeReleasedListRelRqd `protobuf:"bytes,3,opt,name=id_pdusession_to_be_released_list_rel_rqd,json=id-PDUSessionToBeReleasedList-RelRqd,proto3,oneof"`
+	IdPdusessionToBeReleasedListRelRqd *PdusessionToBeReleasedListRelRqd `protobuf:"bytes,3,opt,name=id_pdusession_to_be_released_list_rel_rqd,json=id-PDUSessionToBeReleasedList-RelRqd,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type SnodeReleaseRequiredIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,4,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,4,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type SnodeReleaseRequiredIEsValue_IdSnToMnContainer struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdSnToMnContainer string `protobuf:"bytes,5,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof"`
+	IdSnToMnContainer string `protobuf:"bytes,5,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*SnodeReleaseRequiredIEsValue_IdMNgRannodeUexnApid) isSnodeReleaseRequiredIEsValue_SnodeReleaseRequiredIes() {
@@ -12657,11 +12657,11 @@ type SnodeReleaseRequiredIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeReleaseRequiredIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeReleaseRequiredIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeReleaseRequiredIEs) Reset() {
@@ -12825,9 +12825,9 @@ type PdusessionToBeReleasedListRelRqd struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	PduSessionsToBeReleasedListSnterminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=pdu_sessions_to_be_released_list_snterminated,json=pduSessionsToBeReleasedList-SNterminated,proto3,oneof" json:"pdu_sessions_to_be_released_list_snterminated,omitempty"`
+	PduSessionsToBeReleasedListSnterminated *xnap_ies.PdusessionListwithDataForwardingRequest `protobuf:"bytes,1,opt,name=pdu_sessions_to_be_released_list_snterminated,json=pduSessionsToBeReleasedList-SNterminated,proto3,oneof" json:"pdu_sessions_to_be_released_list_snterminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionToBeReleasedListRelRqdExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionToBeReleasedListRelRqdExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionToBeReleasedListRelRqd) Reset() {
@@ -12966,22 +12966,22 @@ type isSnodeReleaseConfirmIEsValue_SnodeReleaseConfirmIes interface {
 
 type SnodeReleaseConfirmIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeReleaseConfirmIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeReleaseConfirmIEsValue_IdPdusessionReleasedListRelConf struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdPdusessionReleasedListRelConf *PdusessionReleasedListRelConf `protobuf:"bytes,3,opt,name=id_pdusession_released_list_rel_conf,json=id-PDUSessionReleasedList-RelConf,proto3,oneof"`
+	IdPdusessionReleasedListRelConf *PdusessionReleasedListRelConf `protobuf:"bytes,3,opt,name=id_pdusession_released_list_rel_conf,json=id-PDUSessionReleasedList-RelConf,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type SnodeReleaseConfirmIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*SnodeReleaseConfirmIEsValue_IdMNgRannodeUexnApid) isSnodeReleaseConfirmIEsValue_SnodeReleaseConfirmIes() {
@@ -13005,11 +13005,11 @@ type SnodeReleaseConfirmIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeReleaseConfirmIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeReleaseConfirmIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeReleaseConfirmIEs) Reset() {
@@ -13173,9 +13173,9 @@ type PdusessionReleasedListRelConf struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	PduSessionsReleasedListSnterminated *xnap_ies.PdusessionListwithDataForwardingFromTarget `protobuf:"bytes,1,opt,name=pdu_sessions_released_list_snterminated,json=pduSessionsReleasedList-SNterminated,proto3,oneof" json:"pdu_sessions_released_list_snterminated,omitempty"`
+	PduSessionsReleasedListSnterminated *xnap_ies.PdusessionListwithDataForwardingFromTarget `protobuf:"bytes,1,opt,name=pdu_sessions_released_list_snterminated,json=pduSessionsReleasedList-SNterminated,proto3,oneof" json:"pdu_sessions_released_list_snterminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionReleasedListRelConfExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionReleasedListRelConfExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionReleasedListRelConf) Reset() {
@@ -13306,17 +13306,17 @@ type isSnodeCounterCheckRequestIEsValue_SnodeCounterCheckRequestIes interface {
 
 type SnodeCounterCheckRequestIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeCounterCheckRequestIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeCounterCheckRequestIEsValue_IdBearersSubjectToCounterCheck struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdBearersSubjectToCounterCheck *BearersSubjectToCounterCheckList `protobuf:"bytes,3,opt,name=id_bearers_subject_to_counter_check,json=id-BearersSubjectToCounterCheck,proto3,oneof"`
+	IdBearersSubjectToCounterCheck *BearersSubjectToCounterCheckList `protobuf:"bytes,3,opt,name=id_bearers_subject_to_counter_check,json=id-BearersSubjectToCounterCheck,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*SnodeCounterCheckRequestIEsValue_IdMNgRannodeUexnApid) isSnodeCounterCheckRequestIEsValue_SnodeCounterCheckRequestIes() {
@@ -13337,11 +13337,11 @@ type SnodeCounterCheckRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeCounterCheckRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeCounterCheckRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeCounterCheckRequestIEs) Reset() {
@@ -13455,7 +13455,7 @@ type BearersSubjectToCounterCheckList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*BearersSubjectToCounterCheckItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*BearersSubjectToCounterCheckItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *BearersSubjectToCounterCheckList) Reset() {
@@ -13556,11 +13556,11 @@ type BearersSubjectToCounterCheckItem struct {
 
 	DrbId *xnap_ies.DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"valueLB:0,valueUB:4294967295,"
-	UlCount int32 `protobuf:"varint,2,opt,name=ul_count,json=ul-count,proto3" json:"ul_count,omitempty"`
+	UlCount int32 `protobuf:"varint,2,opt,name=ul_count,json=ul-count,proto3" json:"ul_count,omitempty" aper:"valueLB:0,valueUB:4294967295,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:4294967295,"
-	DlCount int32 `protobuf:"varint,3,opt,name=dl_count,json=dl-count,proto3" json:"dl_count,omitempty"`
+	DlCount int32 `protobuf:"varint,3,opt,name=dl_count,json=dl-count,proto3" json:"dl_count,omitempty" aper:"valueLB:0,valueUB:4294967295,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*BearersSubjectToCounterCheckItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*BearersSubjectToCounterCheckItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *BearersSubjectToCounterCheckItem) Reset() {
@@ -13729,32 +13729,32 @@ type isSnodeChangeRequiredIEsValue_SnodeChangeRequiredIes interface {
 
 type SnodeChangeRequiredIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeChangeRequiredIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeChangeRequiredIEsValue_IdTargetSNgRannodeId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdTargetSNgRannodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,3,opt,name=id_target_s_ng_rannode_id,json=id-target-S-NG-RANnodeID,proto3,oneof"`
+	IdTargetSNgRannodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,3,opt,name=id_target_s_ng_rannode_id,json=id-target-S-NG-RANnodeID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeChangeRequiredIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,4,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,4,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type SnodeChangeRequiredIEsValue_IdPdusessionSnchangeRequiredList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdPdusessionSnchangeRequiredList *PdusessionSNchangeRequiredList `protobuf:"bytes,5,opt,name=id_pdusession_snchange_required_list,json=id-PDUSession-SNChangeRequired-List,proto3,oneof"`
+	IdPdusessionSnchangeRequiredList *PdusessionSNchangeRequiredList `protobuf:"bytes,5,opt,name=id_pdusession_snchange_required_list,json=id-PDUSession-SNChangeRequired-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type SnodeChangeRequiredIEsValue_IdSnToMnContainer struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdSnToMnContainer string `protobuf:"bytes,6,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof"`
+	IdSnToMnContainer string `protobuf:"bytes,6,opt,name=id_sn_to_mn_container,json=id-SN-to-MN-Container,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 func (*SnodeChangeRequiredIEsValue_IdMNgRannodeUexnApid) isSnodeChangeRequiredIEsValue_SnodeChangeRequiredIes() {
@@ -13783,11 +13783,11 @@ type SnodeChangeRequiredIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeChangeRequiredIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeChangeRequiredIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeChangeRequiredIEs) Reset() {
@@ -13901,7 +13901,7 @@ type PdusessionSNchangeRequiredList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionSNchangeRequiredItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionSNchangeRequiredItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionSNchangeRequiredList) Reset() {
@@ -14002,11 +14002,11 @@ type PdusessionSNchangeRequiredItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceChangeRequiredInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceChangeRequiredInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceChangeRequiredInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceChangeRequiredInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionSNchangeRequiredItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionSNchangeRequiredItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionSNchangeRequiredItem) Reset() {
@@ -14159,22 +14159,22 @@ type isSnodeChangeConfirmIEsValue_SnodeChangeConfirmIes interface {
 
 type SnodeChangeConfirmIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeChangeConfirmIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeChangeConfirmIEsValue_IdPdusessionSnchangeConfirmList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdPdusessionSnchangeConfirmList *PdusessionSNchangeConfirmList `protobuf:"bytes,3,opt,name=id_pdusession_snchange_confirm_list,json=id-PDUSession-SNChangeConfirm-List,proto3,oneof"`
+	IdPdusessionSnchangeConfirmList *PdusessionSNchangeConfirmList `protobuf:"bytes,3,opt,name=id_pdusession_snchange_confirm_list,json=id-PDUSession-SNChangeConfirm-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeChangeConfirmIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*SnodeChangeConfirmIEsValue_IdMNgRannodeUexnApid) isSnodeChangeConfirmIEsValue_SnodeChangeConfirmIes() {
@@ -14198,11 +14198,11 @@ type SnodeChangeConfirmIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeChangeConfirmIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeChangeConfirmIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeChangeConfirmIEs) Reset() {
@@ -14316,7 +14316,7 @@ type PdusessionSNchangeConfirmList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionSNchangeConfirmItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionSNchangeConfirmItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionSNchangeConfirmList) Reset() {
@@ -14417,11 +14417,11 @@ type PdusessionSNchangeConfirmItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SnTerminated *xnap_ies.PdusessionResourceChangeConfirmInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty"`
+	SnTerminated *xnap_ies.PdusessionResourceChangeConfirmInfoSNterminated `protobuf:"bytes,2,opt,name=sn_terminated,json=sn-terminated,proto3,oneof" json:"sn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MnTerminated *xnap_ies.PdusessionResourceChangeConfirmInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty"`
+	MnTerminated *xnap_ies.PdusessionResourceChangeConfirmInfoMNterminated `protobuf:"bytes,3,opt,name=mn_terminated,json=mn-terminated,proto3,oneof" json:"mn_terminated,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionSNchangeConfirmItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionSNchangeConfirmItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionSNchangeConfirmItem) Reset() {
@@ -14574,22 +14574,22 @@ type isSnodeChangeRefuseIEsValue_SnodeChangeRefuseIes interface {
 
 type SnodeChangeRefuseIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SnodeChangeRefuseIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SnodeChangeRefuseIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type SnodeChangeRefuseIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*SnodeChangeRefuseIEsValue_IdMNgRannodeUexnApid) isSnodeChangeRefuseIEsValue_SnodeChangeRefuseIes() {
@@ -14612,11 +14612,11 @@ type SnodeChangeRefuseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SnodeChangeRefuseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SnodeChangeRefuseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SnodeChangeRefuseIEs) Reset() {
@@ -14828,32 +14828,32 @@ type isRrctransferIEsValue_RrctransferIes interface {
 
 type RrctransferIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type RrctransferIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type RrctransferIEsValue_IdSplitSrbRrctransfer struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdSplitSrbRrctransfer *SplitSrbRRctransfer `protobuf:"bytes,3,opt,name=id_split_srb_rrctransfer,json=id-SplitSRB-RRCTransfer,proto3,oneof"`
+	IdSplitSrbRrctransfer *SplitSrbRRctransfer `protobuf:"bytes,3,opt,name=id_split_srb_rrctransfer,json=id-SplitSRB-RRCTransfer,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type RrctransferIEsValue_IdUereportRrctransfer struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdUereportRrctransfer *UereportRrctransfer `protobuf:"bytes,4,opt,name=id_uereport_rrctransfer,json=id-UEReportRRCTransfer,proto3,oneof"`
+	IdUereportRrctransfer *UereportRrctransfer `protobuf:"bytes,4,opt,name=id_uereport_rrctransfer,json=id-UEReportRRCTransfer,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type RrctransferIEsValue_IdFastMcgrecoveryRrctransferSnToMn struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,"
-	IdFastMcgrecoveryRrctransferSnToMn *FastMcgrecoveryRrctransfer `protobuf:"bytes,5,opt,name=id_fast_mcgrecovery_rrctransfer_sn_to_mn,json=id-FastMCGRecoveryRRCTransfer-SN-to-MN,proto3,oneof"`
+	IdFastMcgrecoveryRrctransferSnToMn *FastMcgrecoveryRrctransfer `protobuf:"bytes,5,opt,name=id_fast_mcgrecovery_rrctransfer_sn_to_mn,json=id-FastMCGRecoveryRRCTransfer-SN-to-MN,proto3,oneof" aper:"choiceIdx:5,valueExt,"`
 }
 
 type RrctransferIEsValue_IdFastMcgrecoveryRrctransferMnToSn struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdFastMcgrecoveryRrctransferMnToSn *FastMcgrecoveryRrctransfer `protobuf:"bytes,6,opt,name=id_fast_mcgrecovery_rrctransfer_mn_to_sn,json=id-FastMCGRecoveryRRCTransfer-MN-to-SN,proto3,oneof"`
+	IdFastMcgrecoveryRrctransferMnToSn *FastMcgrecoveryRrctransfer `protobuf:"bytes,6,opt,name=id_fast_mcgrecovery_rrctransfer_mn_to_sn,json=id-FastMCGRecoveryRRCTransfer-MN-to-SN,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 func (*RrctransferIEsValue_IdMNgRannodeUexnApid) isRrctransferIEsValue_RrctransferIes() {}
@@ -14879,11 +14879,11 @@ type RrctransferIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *RrctransferIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *RrctransferIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *RrctransferIEs) Reset() {
@@ -15047,13 +15047,13 @@ type SplitSrbRRctransfer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	RrcContainer []byte `protobuf:"bytes,1,opt,name=rrc_container,json=rrcContainer,proto3,oneof" json:"rrc_container,omitempty"`
+	RrcContainer []byte `protobuf:"bytes,1,opt,name=rrc_container,json=rrcContainer,proto3,oneof" json:"rrc_container,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	SrbType SrbTypeSplitSrbrrctransfer `protobuf:"varint,2,opt,name=srb_type,json=srbType,proto3,enum=xnap.v1.SrbTypeSplitSrbrrctransfer" json:"srb_type,omitempty"`
+	SrbType SrbTypeSplitSrbrrctransfer `protobuf:"varint,2,opt,name=srb_type,json=srbType,proto3,enum=xnap.v1.SrbTypeSplitSrbrrctransfer" json:"srb_type,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,"
-	DeliveryStatus *xnap_ies.DeliveryStatus `protobuf:"bytes,3,opt,name=delivery_status,json=deliveryStatus,proto3,oneof" json:"delivery_status,omitempty"`
+	DeliveryStatus *xnap_ies.DeliveryStatus `protobuf:"bytes,3,opt,name=delivery_status,json=deliveryStatus,proto3,oneof" json:"delivery_status,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SplitSrbRRctransferExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SplitSrbRRctransferExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SplitSrbRRctransfer) Reset() {
@@ -15175,7 +15175,7 @@ type UereportRrctransfer struct {
 
 	RrcContainer []byte `protobuf:"bytes,1,opt,name=rrc_container,json=rrcContainer,proto3" json:"rrc_container,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*UereportRrctransferExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*UereportRrctransferExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UereportRrctransfer) Reset() {
@@ -15283,7 +15283,7 @@ type FastMcgrecoveryRrctransfer struct {
 
 	RrcContainer []byte `protobuf:"bytes,1,opt,name=rrc_container,json=rrcContainer,proto3" json:"rrc_container,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*FastMcgrecoveryRrctransferExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*FastMcgrecoveryRrctransferExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *FastMcgrecoveryRrctransfer) Reset() {
@@ -15414,17 +15414,17 @@ type isNotificationControlIndicationIEsValue_NotificationControlIndicationIes in
 
 type NotificationControlIndicationIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NotificationControlIndicationIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type NotificationControlIndicationIEsValue_IdPdusessionResourcesNotifyList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdPdusessionResourcesNotifyList *PdusessionResourcesNotifyList `protobuf:"bytes,3,opt,name=id_pdusession_resources_notify_list,json=id-PDUSessionResourcesNotifyList,proto3,oneof"`
+	IdPdusessionResourcesNotifyList *PdusessionResourcesNotifyList `protobuf:"bytes,3,opt,name=id_pdusession_resources_notify_list,json=id-PDUSessionResourcesNotifyList,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*NotificationControlIndicationIEsValue_IdMNgRannodeUexnApid) isNotificationControlIndicationIEsValue_NotificationControlIndicationIes() {
@@ -15445,11 +15445,11 @@ type NotificationControlIndicationIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *NotificationControlIndicationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *NotificationControlIndicationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NotificationControlIndicationIEs) Reset() {
@@ -15563,7 +15563,7 @@ type PdusessionResourcesNotifyList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionResourcesNotifyItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionResourcesNotifyItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionResourcesNotifyList) Reset() {
@@ -15665,7 +15665,7 @@ type PdusessionResourcesNotifyItem struct {
 	PduSessionId                     *xnap_ies.PdusessionID                             `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	QosFlowsNotificationContrIndInfo *xnap_ies.QoSflowNotificationControlIndicationInfo `protobuf:"bytes,2,opt,name=qos_flows_notification_contr_ind_info,json=qosFlowsNotificationContrIndInfo,proto3" json:"qos_flows_notification_contr_ind_info,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourcesNotifyItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourcesNotifyItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourcesNotifyItem) Reset() {
@@ -15819,27 +15819,27 @@ type isActivityNotificationIEsValue_ActivityNotificationIes interface {
 
 type ActivityNotificationIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ActivityNotificationIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ActivityNotificationIEsValue_IdUserPlaneTrafficActivityReport struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:1,"
-	IdUserPlaneTrafficActivityReport xnap_ies.UserPlaneTrafficActivityReport `protobuf:"varint,3,opt,name=id_user_plane_traffic_activity_report,json=id-UserPlaneTrafficActivityReport,proto3,enum=xnap.v1.UserPlaneTrafficActivityReport,oneof"`
+	IdUserPlaneTrafficActivityReport xnap_ies.UserPlaneTrafficActivityReport `protobuf:"varint,3,opt,name=id_user_plane_traffic_activity_report,json=id-UserPlaneTrafficActivityReport,proto3,enum=xnap.v1.UserPlaneTrafficActivityReport,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type ActivityNotificationIEsValue_IdPdusessionResourcesActivityNotifyList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdPdusessionResourcesActivityNotifyList *PdusessionResourcesActivityNotifyList `protobuf:"bytes,4,opt,name=id_pdusession_resources_activity_notify_list,json=id-PDUSessionResourcesActivityNotifyList,proto3,oneof"`
+	IdPdusessionResourcesActivityNotifyList *PdusessionResourcesActivityNotifyList `protobuf:"bytes,4,opt,name=id_pdusession_resources_activity_notify_list,json=id-PDUSessionResourcesActivityNotifyList,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ActivityNotificationIEsValue_IdRanpagingFailure struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"
-	IdRanpagingFailure xnap_ies.RanpagingFailure `protobuf:"varint,5,opt,name=id_ranpaging_failure,json=id-RANPagingFailure,proto3,enum=xnap.v1.RanpagingFailure,oneof"`
+	IdRanpagingFailure xnap_ies.RanpagingFailure `protobuf:"varint,5,opt,name=id_ranpaging_failure,json=id-RANPagingFailure,proto3,enum=xnap.v1.RanpagingFailure,oneof" aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"`
 }
 
 func (*ActivityNotificationIEsValue_IdMNgRannodeUexnApid) isActivityNotificationIEsValue_ActivityNotificationIes() {
@@ -15866,11 +15866,11 @@ type ActivityNotificationIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ActivityNotificationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ActivityNotificationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ActivityNotificationIEs) Reset() {
@@ -15984,7 +15984,7 @@ type PdusessionResourcesActivityNotifyList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionResourcesActivityNotifyItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionResourcesActivityNotifyItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionResourcesActivityNotifyList) Reset() {
@@ -16085,11 +16085,11 @@ type PdusessionResourcesActivityNotifyItem struct {
 
 	PduSessionId *xnap_ies.PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	PduSessionLevelUpactivityreport *xnap_ies.UserPlaneTrafficActivityReport `protobuf:"varint,2,opt,name=pdu_session_level_upactivityreport,json=pduSessionLevelUPactivityreport,proto3,enum=xnap.v1.UserPlaneTrafficActivityReport,oneof" json:"pdu_session_level_upactivityreport,omitempty"`
+	PduSessionLevelUpactivityreport *xnap_ies.UserPlaneTrafficActivityReport `protobuf:"varint,2,opt,name=pdu_session_level_upactivityreport,json=pduSessionLevelUPactivityreport,proto3,enum=xnap.v1.UserPlaneTrafficActivityReport,oneof" json:"pdu_session_level_upactivityreport,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,"
-	QosFlowsActivityNotifyList *QoSflowsActivityNotifyList `protobuf:"bytes,3,opt,name=qos_flows_activity_notify_list,json=qosFlowsActivityNotifyList,proto3,oneof" json:"qos_flows_activity_notify_list,omitempty"`
+	QosFlowsActivityNotifyList *QoSflowsActivityNotifyList `protobuf:"bytes,3,opt,name=qos_flows_activity_notify_list,json=qosFlowsActivityNotifyList,proto3,oneof" json:"qos_flows_activity_notify_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourcesActivityNotifyItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourcesActivityNotifyItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourcesActivityNotifyItem) Reset() {
@@ -16160,7 +16160,7 @@ type QoSflowsActivityNotifyList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsActivityNotifyItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsActivityNotifyItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsActivityNotifyList) Reset() {
@@ -16261,9 +16261,9 @@ type QoSflowsActivityNotifyItem struct {
 
 	QosFlowIdentifier *xnap_ies.QoSflowIdentifier `protobuf:"bytes,1,opt,name=qos_flow_identifier,json=qosFlowIdentifier,proto3" json:"qos_flow_identifier,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	PduSessionLevelUpactivityreport xnap_ies.UserPlaneTrafficActivityReport `protobuf:"varint,2,opt,name=pdu_session_level_upactivityreport,json=pduSessionLevelUPactivityreport,proto3,enum=xnap.v1.UserPlaneTrafficActivityReport" json:"pdu_session_level_upactivityreport,omitempty"`
+	PduSessionLevelUpactivityreport xnap_ies.UserPlaneTrafficActivityReport `protobuf:"varint,2,opt,name=pdu_session_level_upactivityreport,json=pduSessionLevelUPactivityreport,proto3,enum=xnap.v1.UserPlaneTrafficActivityReport" json:"pdu_session_level_upactivityreport,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsActivityNotifyItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsActivityNotifyItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsActivityNotifyItem) Reset() {
@@ -16465,57 +16465,57 @@ type isXnSetupRequestIEsValue_XnSetupRequestIes interface {
 
 type XnSetupRequestIEsValue_IdGlobalNgRanNodeId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof"`
+	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnSetupRequestIEsValue_IdTaisupportList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTaisupportList *xnap_ies.TaisupportList `protobuf:"bytes,2,opt,name=id_taisupport_list,json=id-TAISupport-list,proto3,oneof"`
+	IdTaisupportList *xnap_ies.TaisupportList `protobuf:"bytes,2,opt,name=id_taisupport_list,json=id-TAISupport-list,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type XnSetupRequestIEsValue_IdAmfRegionInformation struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdAmfRegionInformation *xnap_ies.AmfRegionInformation `protobuf:"bytes,3,opt,name=id_amf_region_information,json=id-AMF-Region-Information,proto3,oneof"`
+	IdAmfRegionInformation *xnap_ies.AmfRegionInformation `protobuf:"bytes,3,opt,name=id_amf_region_information,json=id-AMF-Region-Information,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type XnSetupRequestIEsValue_IdListOfServedCellsNr struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdListOfServedCellsNr *xnap_ies.ServedCellsNR `protobuf:"bytes,4,opt,name=id_list_of_served_cells_nr,json=id-List-of-served-cells-NR,proto3,oneof"`
+	IdListOfServedCellsNr *xnap_ies.ServedCellsNR `protobuf:"bytes,4,opt,name=id_list_of_served_cells_nr,json=id-List-of-served-cells-NR,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type XnSetupRequestIEsValue_IdListOfServedCellsEUtra struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdListOfServedCellsEUtra *xnap_ies.ServedCellsEUTra `protobuf:"bytes,5,opt,name=id_list_of_served_cells_e_utra,json=id-List-of-served-cells-E-UTRA,proto3,oneof"`
+	IdListOfServedCellsEUtra *xnap_ies.ServedCellsEUTra `protobuf:"bytes,5,opt,name=id_list_of_served_cells_e_utra,json=id-List-of-served-cells-E-UTRA,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type XnSetupRequestIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,6,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,6,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type XnSetupRequestIEsValue_IdTnlconfigurationInfo struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,"
-	IdTnlconfigurationInfo *xnap_ies.TnlconfigurationInfo `protobuf:"bytes,7,opt,name=id_tnlconfiguration_info,json=id-TNLConfigurationInfo,proto3,oneof"`
+	IdTnlconfigurationInfo *xnap_ies.TnlconfigurationInfo `protobuf:"bytes,7,opt,name=id_tnlconfiguration_info,json=id-TNLConfigurationInfo,proto3,oneof" aper:"choiceIdx:7,valueExt,"`
 }
 
 type XnSetupRequestIEsValue_IdPartialListIndicatorNr struct {
 	// @inject_tag: aper:"choiceIdx:8,valueExt,valueLB:0,valueUB:0,"
-	IdPartialListIndicatorNr xnap_ies.PartialListIndicator `protobuf:"varint,8,opt,name=id_partial_list_indicator_nr,json=id-PartialListIndicator-NR,proto3,enum=xnap.v1.PartialListIndicator,oneof"`
+	IdPartialListIndicatorNr xnap_ies.PartialListIndicator `protobuf:"varint,8,opt,name=id_partial_list_indicator_nr,json=id-PartialListIndicator-NR,proto3,enum=xnap.v1.PartialListIndicator,oneof" aper:"choiceIdx:8,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type XnSetupRequestIEsValue_IdCellAndCapacityAssistanceInfoNr struct {
 	// @inject_tag: aper:"choiceIdx:9,valueExt,"
-	IdCellAndCapacityAssistanceInfoNr *xnap_ies.CellAndCapacityAssistanceInfoNR `protobuf:"bytes,9,opt,name=id_cell_and_capacity_assistance_info_nr,json=id-CellAndCapacityAssistanceInfo-NR,proto3,oneof"`
+	IdCellAndCapacityAssistanceInfoNr *xnap_ies.CellAndCapacityAssistanceInfoNR `protobuf:"bytes,9,opt,name=id_cell_and_capacity_assistance_info_nr,json=id-CellAndCapacityAssistanceInfo-NR,proto3,oneof" aper:"choiceIdx:9,valueExt,"`
 }
 
 type XnSetupRequestIEsValue_IdPartialListIndicatorEutra struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,valueLB:0,valueUB:0,"
-	IdPartialListIndicatorEutra xnap_ies.PartialListIndicator `protobuf:"varint,10,opt,name=id_partial_list_indicator_eutra,json=id-PartialListIndicator-EUTRA,proto3,enum=xnap.v1.PartialListIndicator,oneof"`
+	IdPartialListIndicatorEutra xnap_ies.PartialListIndicator `protobuf:"varint,10,opt,name=id_partial_list_indicator_eutra,json=id-PartialListIndicator-EUTRA,proto3,enum=xnap.v1.PartialListIndicator,oneof" aper:"choiceIdx:10,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type XnSetupRequestIEsValue_IdCellAndCapacityAssistanceInfoEutra struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,"
-	IdCellAndCapacityAssistanceInfoEutra *xnap_ies.CellAndCapacityAssistanceInfoEUtra `protobuf:"bytes,11,opt,name=id_cell_and_capacity_assistance_info_eutra,json=id-CellAndCapacityAssistanceInfo-EUTRA,proto3,oneof"`
+	IdCellAndCapacityAssistanceInfoEutra *xnap_ies.CellAndCapacityAssistanceInfoEUtra `protobuf:"bytes,11,opt,name=id_cell_and_capacity_assistance_info_eutra,json=id-CellAndCapacityAssistanceInfo-EUTRA,proto3,oneof" aper:"choiceIdx:11,valueExt,"`
 }
 
 func (*XnSetupRequestIEsValue_IdGlobalNgRanNodeId) isXnSetupRequestIEsValue_XnSetupRequestIes() {}
@@ -16555,11 +16555,11 @@ type XnSetupRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *XnSetupRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *XnSetupRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *XnSetupRequestIEs) Reset() {
@@ -16819,62 +16819,62 @@ type isXnSetupResponseIEsValue_XnSetupResponseIes interface {
 
 type XnSetupResponseIEsValue_IdGlobalNgRanNodeId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof"`
+	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnSetupResponseIEsValue_IdTaisupportList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTaisupportList *xnap_ies.TaisupportList `protobuf:"bytes,2,opt,name=id_taisupport_list,json=id-TAISupport-list,proto3,oneof"`
+	IdTaisupportList *xnap_ies.TaisupportList `protobuf:"bytes,2,opt,name=id_taisupport_list,json=id-TAISupport-list,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type XnSetupResponseIEsValue_IdListOfServedCellsNr struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdListOfServedCellsNr *xnap_ies.ServedCellsNR `protobuf:"bytes,3,opt,name=id_list_of_served_cells_nr,json=id-List-of-served-cells-NR,proto3,oneof"`
+	IdListOfServedCellsNr *xnap_ies.ServedCellsNR `protobuf:"bytes,3,opt,name=id_list_of_served_cells_nr,json=id-List-of-served-cells-NR,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type XnSetupResponseIEsValue_IdListOfServedCellsEUtra struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdListOfServedCellsEUtra *xnap_ies.ServedCellsEUTra `protobuf:"bytes,4,opt,name=id_list_of_served_cells_e_utra,json=id-List-of-served-cells-E-UTRA,proto3,oneof"`
+	IdListOfServedCellsEUtra *xnap_ies.ServedCellsEUTra `protobuf:"bytes,4,opt,name=id_list_of_served_cells_e_utra,json=id-List-of-served-cells-E-UTRA,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type XnSetupResponseIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,valueExt,"`
 }
 
 type XnSetupResponseIEsValue_IdAmfRegionInformation struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdAmfRegionInformation *xnap_ies.AmfRegionInformation `protobuf:"bytes,6,opt,name=id_amf_region_information,json=id-AMF-Region-Information,proto3,oneof"`
+	IdAmfRegionInformation *xnap_ies.AmfRegionInformation `protobuf:"bytes,6,opt,name=id_amf_region_information,json=id-AMF-Region-Information,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type XnSetupResponseIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,7,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,7,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type XnSetupResponseIEsValue_IdTnlconfigurationInfo struct {
 	// @inject_tag: aper:"choiceIdx:8,valueExt,"
-	IdTnlconfigurationInfo *xnap_ies.TnlconfigurationInfo `protobuf:"bytes,8,opt,name=id_tnlconfiguration_info,json=id-TNLConfigurationInfo,proto3,oneof"`
+	IdTnlconfigurationInfo *xnap_ies.TnlconfigurationInfo `protobuf:"bytes,8,opt,name=id_tnlconfiguration_info,json=id-TNLConfigurationInfo,proto3,oneof" aper:"choiceIdx:8,valueExt,"`
 }
 
 type XnSetupResponseIEsValue_IdPartialListIndicatorNr struct {
 	// @inject_tag: aper:"choiceIdx:9,valueExt,valueLB:0,valueUB:0,"
-	IdPartialListIndicatorNr xnap_ies.PartialListIndicator `protobuf:"varint,9,opt,name=id_partial_list_indicator_nr,json=id-PartialListIndicator-NR,proto3,enum=xnap.v1.PartialListIndicator,oneof"`
+	IdPartialListIndicatorNr xnap_ies.PartialListIndicator `protobuf:"varint,9,opt,name=id_partial_list_indicator_nr,json=id-PartialListIndicator-NR,proto3,enum=xnap.v1.PartialListIndicator,oneof" aper:"choiceIdx:9,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type XnSetupResponseIEsValue_IdCellAndCapacityAssistanceInfoNr struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,"
-	IdCellAndCapacityAssistanceInfoNr *xnap_ies.CellAndCapacityAssistanceInfoNR `protobuf:"bytes,10,opt,name=id_cell_and_capacity_assistance_info_nr,json=id-CellAndCapacityAssistanceInfo-NR,proto3,oneof"`
+	IdCellAndCapacityAssistanceInfoNr *xnap_ies.CellAndCapacityAssistanceInfoNR `protobuf:"bytes,10,opt,name=id_cell_and_capacity_assistance_info_nr,json=id-CellAndCapacityAssistanceInfo-NR,proto3,oneof" aper:"choiceIdx:10,valueExt,"`
 }
 
 type XnSetupResponseIEsValue_IdPartialListIndicatorEutra struct {
 	// @inject_tag: aper:"choiceIdx:11,valueExt,valueLB:0,valueUB:0,"
-	IdPartialListIndicatorEutra xnap_ies.PartialListIndicator `protobuf:"varint,11,opt,name=id_partial_list_indicator_eutra,json=id-PartialListIndicator-EUTRA,proto3,enum=xnap.v1.PartialListIndicator,oneof"`
+	IdPartialListIndicatorEutra xnap_ies.PartialListIndicator `protobuf:"varint,11,opt,name=id_partial_list_indicator_eutra,json=id-PartialListIndicator-EUTRA,proto3,enum=xnap.v1.PartialListIndicator,oneof" aper:"choiceIdx:11,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type XnSetupResponseIEsValue_IdCellAndCapacityAssistanceInfoEutra struct {
 	// @inject_tag: aper:"choiceIdx:12,valueExt,"
-	IdCellAndCapacityAssistanceInfoEutra *xnap_ies.CellAndCapacityAssistanceInfoEUtra `protobuf:"bytes,12,opt,name=id_cell_and_capacity_assistance_info_eutra,json=id-CellAndCapacityAssistanceInfo-EUTRA,proto3,oneof"`
+	IdCellAndCapacityAssistanceInfoEutra *xnap_ies.CellAndCapacityAssistanceInfoEUtra `protobuf:"bytes,12,opt,name=id_cell_and_capacity_assistance_info_eutra,json=id-CellAndCapacityAssistanceInfo-EUTRA,proto3,oneof" aper:"choiceIdx:12,valueExt,"`
 }
 
 func (*XnSetupResponseIEsValue_IdGlobalNgRanNodeId) isXnSetupResponseIEsValue_XnSetupResponseIes() {}
@@ -16920,11 +16920,11 @@ type XnSetupResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *XnSetupResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *XnSetupResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *XnSetupResponseIEs) Reset() {
@@ -17128,27 +17128,27 @@ type isXnSetupFailureIEsValue_XnSetupFailureIes interface {
 
 type XnSetupFailureIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,1,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,1,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnSetupFailureIEsValue_IdTimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:5,"
-	IdTimeToWait xnap_ies.TimeToWait `protobuf:"varint,2,opt,name=id_time_to_wait,json=id-TimeToWait,proto3,enum=xnap.v1.TimeToWait,oneof"`
+	IdTimeToWait xnap_ies.TimeToWait `protobuf:"varint,2,opt,name=id_time_to_wait,json=id-TimeToWait,proto3,enum=xnap.v1.TimeToWait,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:5,"`
 }
 
 type XnSetupFailureIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type XnSetupFailureIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,4,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,4,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type XnSetupFailureIEsValue_IdMessageOversizeNotification struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,"
-	IdMessageOversizeNotification *xnap_ies.MessageOversizeNotification `protobuf:"bytes,5,opt,name=id_message_oversize_notification,json=id-MessageOversizeNotification,proto3,oneof"`
+	IdMessageOversizeNotification *xnap_ies.MessageOversizeNotification `protobuf:"bytes,5,opt,name=id_message_oversize_notification,json=id-MessageOversizeNotification,proto3,oneof" aper:"choiceIdx:5,valueExt,"`
 }
 
 func (*XnSetupFailureIEsValue_IdCause) isXnSetupFailureIEsValue_XnSetupFailureIes() {}
@@ -17173,11 +17173,11 @@ type XnSetupFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *XnSetupFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *XnSetupFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *XnSetupFailureIEs) Reset() {
@@ -17421,52 +17421,52 @@ type isNgrannodeConfigurationUpdateIEsValue_NgrannodeConfigurationUpdateIes inte
 
 type NgrannodeConfigurationUpdateIEsValue_IdTaisupportList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdTaisupportList *xnap_ies.TaisupportList `protobuf:"bytes,1,opt,name=id_taisupport_list,json=id-TAISupport-list,proto3,oneof"`
+	IdTaisupportList *xnap_ies.TaisupportList `protobuf:"bytes,1,opt,name=id_taisupport_list,json=id-TAISupport-list,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdConfigurationUpdateInitiatingNodeChoice struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdConfigurationUpdateInitiatingNodeChoice *ConfigurationUpdateInitiatingNodeChoice `protobuf:"bytes,2,opt,name=id_configuration_update_initiating_node_choice,json=id-ConfigurationUpdateInitiatingNodeChoice,proto3,oneof"`
+	IdConfigurationUpdateInitiatingNodeChoice *ConfigurationUpdateInitiatingNodeChoice `protobuf:"bytes,2,opt,name=id_configuration_update_initiating_node_choice,json=id-ConfigurationUpdateInitiatingNodeChoice,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdTnlaToAddList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdTnlaToAddList *xnap_ies.TnlaToAddList `protobuf:"bytes,3,opt,name=id_tnla_to_add_list,json=id-TNLA-To-Add-List,proto3,oneof"`
+	IdTnlaToAddList *xnap_ies.TnlaToAddList `protobuf:"bytes,3,opt,name=id_tnla_to_add_list,json=id-TNLA-To-Add-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdTnlaToRemoveList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdTnlaToRemoveList *xnap_ies.TnlaToRemoveList `protobuf:"bytes,4,opt,name=id_tnla_to_remove_list,json=id-TNLA-To-Remove-List,proto3,oneof"`
+	IdTnlaToRemoveList *xnap_ies.TnlaToRemoveList `protobuf:"bytes,4,opt,name=id_tnla_to_remove_list,json=id-TNLA-To-Remove-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdTnlaToUpdateList struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdTnlaToUpdateList *xnap_ies.TnlaToUpdateList `protobuf:"bytes,5,opt,name=id_tnla_to_update_list,json=id-TNLA-To-Update-List,proto3,oneof"`
+	IdTnlaToUpdateList *xnap_ies.TnlaToUpdateList `protobuf:"bytes,5,opt,name=id_tnla_to_update_list,json=id-TNLA-To-Update-List,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdGlobalNgRanNodeId struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,6,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof"`
+	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,6,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdAmfRegionInformationToAdd struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	IdAmfRegionInformationToAdd *xnap_ies.AmfRegionInformation `protobuf:"bytes,7,opt,name=id_amf_region_information_to_add,json=id-AMF-Region-Information-To-Add,proto3,oneof"`
+	IdAmfRegionInformationToAdd *xnap_ies.AmfRegionInformation `protobuf:"bytes,7,opt,name=id_amf_region_information_to_add,json=id-AMF-Region-Information-To-Add,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdAmfRegionInformationToDelete struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	IdAmfRegionInformationToDelete *xnap_ies.AmfRegionInformation `protobuf:"bytes,8,opt,name=id_amf_region_information_to_delete,json=id-AMF-Region-Information-To-Delete,proto3,oneof"`
+	IdAmfRegionInformationToDelete *xnap_ies.AmfRegionInformation `protobuf:"bytes,8,opt,name=id_amf_region_information_to_delete,json=id-AMF-Region-Information-To-Delete,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,9,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,9,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 type NgrannodeConfigurationUpdateIEsValue_IdTnlconfigurationInfo struct {
 	// @inject_tag: aper:"choiceIdx:10,valueExt,"
-	IdTnlconfigurationInfo *xnap_ies.TnlconfigurationInfo `protobuf:"bytes,10,opt,name=id_tnlconfiguration_info,json=id-TNLConfigurationInfo,proto3,oneof"`
+	IdTnlconfigurationInfo *xnap_ies.TnlconfigurationInfo `protobuf:"bytes,10,opt,name=id_tnlconfiguration_info,json=id-TNLConfigurationInfo,proto3,oneof" aper:"choiceIdx:10,valueExt,"`
 }
 
 func (*NgrannodeConfigurationUpdateIEsValue_IdTaisupportList) isNgrannodeConfigurationUpdateIEsValue_NgrannodeConfigurationUpdateIes() {
@@ -17508,11 +17508,11 @@ type NgrannodeConfigurationUpdateIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *NgrannodeConfigurationUpdateIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *NgrannodeConfigurationUpdateIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NgrannodeConfigurationUpdateIEs) Reset() {
@@ -17700,17 +17700,17 @@ type isConfigurationUpdategNbValue_ConfigurationUpdateGNb interface {
 
 type ConfigurationUpdategNbValue_IdServedCellsToUpdateNr struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdServedCellsToUpdateNr *xnap_ies.ServedCellsToUpdateNR `protobuf:"bytes,1,opt,name=id_served_cells_to_update_nr,json=id-servedCellsToUpdate-NR,proto3,oneof"`
+	IdServedCellsToUpdateNr *xnap_ies.ServedCellsToUpdateNR `protobuf:"bytes,1,opt,name=id_served_cells_to_update_nr,json=id-servedCellsToUpdate-NR,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type ConfigurationUpdategNbValue_IdCellAssistanceInfoNr struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdCellAssistanceInfoNr *xnap_ies.CellAssistanceInfoNR `protobuf:"bytes,2,opt,name=id_cell_assistance_info_nr,json=id-cellAssistanceInfo-NR,proto3,oneof"`
+	IdCellAssistanceInfoNr *xnap_ies.CellAssistanceInfoNR `protobuf:"bytes,2,opt,name=id_cell_assistance_info_nr,json=id-cellAssistanceInfo-NR,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ConfigurationUpdategNbValue_IdCellAssistanceInfoEutra struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCellAssistanceInfoEutra *xnap_ies.CellAssistanceInfoEUtra `protobuf:"bytes,3,opt,name=id_cell_assistance_info_eutra,json=id-cellAssistanceInfo-EUTRA,proto3,oneof"`
+	IdCellAssistanceInfoEutra *xnap_ies.CellAssistanceInfoEUtra `protobuf:"bytes,3,opt,name=id_cell_assistance_info_eutra,json=id-cellAssistanceInfo-EUTRA,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ConfigurationUpdategNbValue_IdServedCellsToUpdateNr) isConfigurationUpdategNbValue_ConfigurationUpdateGNb() {
@@ -17731,11 +17731,11 @@ type ConfigurationUpdategNb struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ConfigurationUpdategNbValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ConfigurationUpdategNbValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ConfigurationUpdategNb) Reset() {
@@ -17873,17 +17873,17 @@ type isConfigurationUpdatengeNbValue_ConfigurationUpdateNgENb interface {
 
 type ConfigurationUpdatengeNbValue_IdServedCellsToUpdateEUtra struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdServedCellsToUpdateEUtra *xnap_ies.ServedCellsToUpdateEUTra `protobuf:"bytes,1,opt,name=id_served_cells_to_update_e_utra,json=id-servedCellsToUpdate-E-UTRA,proto3,oneof"`
+	IdServedCellsToUpdateEUtra *xnap_ies.ServedCellsToUpdateEUTra `protobuf:"bytes,1,opt,name=id_served_cells_to_update_e_utra,json=id-servedCellsToUpdate-E-UTRA,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type ConfigurationUpdatengeNbValue_IdCellAssistanceInfoNr struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdCellAssistanceInfoNr *xnap_ies.CellAssistanceInfoNR `protobuf:"bytes,2,opt,name=id_cell_assistance_info_nr,json=id-cellAssistanceInfo-NR,proto3,oneof"`
+	IdCellAssistanceInfoNr *xnap_ies.CellAssistanceInfoNR `protobuf:"bytes,2,opt,name=id_cell_assistance_info_nr,json=id-cellAssistanceInfo-NR,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ConfigurationUpdatengeNbValue_IdCellAssistanceInfoEutra struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCellAssistanceInfoEutra *xnap_ies.CellAssistanceInfoEUtra `protobuf:"bytes,3,opt,name=id_cell_assistance_info_eutra,json=id-cellAssistanceInfo-EUTRA,proto3,oneof"`
+	IdCellAssistanceInfoEutra *xnap_ies.CellAssistanceInfoEUtra `protobuf:"bytes,3,opt,name=id_cell_assistance_info_eutra,json=id-cellAssistanceInfo-EUTRA,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ConfigurationUpdatengeNbValue_IdServedCellsToUpdateEUtra) isConfigurationUpdatengeNbValue_ConfigurationUpdateNgENb() {
@@ -17904,11 +17904,11 @@ type ConfigurationUpdatengeNb struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ConfigurationUpdatengeNbValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ConfigurationUpdatengeNbValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ConfigurationUpdatengeNb) Reset() {
@@ -18095,17 +18095,17 @@ type isConfigurationUpdateInitiatingNodeChoice_ConfigurationUpdateInitiatingNode
 
 type ConfigurationUpdateInitiatingNodeChoice_GNb struct {
 	// @inject_tag: aper:"choiceIdx:1,sizeLB:0,"
-	GNb *ConfigurationUpdategNb `protobuf:"bytes,1,opt,name=g_nb,json=gNB,proto3,oneof"`
+	GNb *ConfigurationUpdategNb `protobuf:"bytes,1,opt,name=g_nb,json=gNB,proto3,oneof" aper:"choiceIdx:1,sizeLB:0,"`
 }
 
 type ConfigurationUpdateInitiatingNodeChoice_NgENb struct {
 	// @inject_tag: aper:"choiceIdx:2,sizeLB:0,"
-	NgENb *ConfigurationUpdatengeNb `protobuf:"bytes,2,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof"`
+	NgENb *ConfigurationUpdatengeNb `protobuf:"bytes,2,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof" aper:"choiceIdx:2,sizeLB:0,"`
 }
 
 type ConfigurationUpdateInitiatingNodeChoice_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ServedCellsToUpdateInitiatingNodeChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ServedCellsToUpdateInitiatingNodeChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ConfigurationUpdateInitiatingNodeChoice_GNb) isConfigurationUpdateInitiatingNodeChoice_ConfigurationUpdateInitiatingNodeChoice() {
@@ -18223,32 +18223,32 @@ type isNgrannodeConfigurationUpdateAcknowledgeIEsValue_NgrannodeConfigurationUpd
 
 type NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdRespondingNodeTypeConfigUpdateAck struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdRespondingNodeTypeConfigUpdateAck *RespondingNodeTypeConfigUpdateAck `protobuf:"bytes,1,opt,name=id_responding_node_type_config_update_ack,json=id-RespondingNodeTypeConfigUpdateAck,proto3,oneof"`
+	IdRespondingNodeTypeConfigUpdateAck *RespondingNodeTypeConfigUpdateAck `protobuf:"bytes,1,opt,name=id_responding_node_type_config_update_ack,json=id-RespondingNodeTypeConfigUpdateAck,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlaSetupList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTnlaSetupList *xnap_ies.TnlaSetupList `protobuf:"bytes,2,opt,name=id_tnla_setup_list,json=id-TNLA-Setup-List,proto3,oneof"`
+	IdTnlaSetupList *xnap_ies.TnlaSetupList `protobuf:"bytes,2,opt,name=id_tnla_setup_list,json=id-TNLA-Setup-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlaFailedToSetupList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdTnlaFailedToSetupList *xnap_ies.TnlaFailedToSetupList `protobuf:"bytes,3,opt,name=id_tnla_failed_to_setup_list,json=id-TNLA-Failed-To-Setup-List,proto3,oneof"`
+	IdTnlaFailedToSetupList *xnap_ies.TnlaFailedToSetupList `protobuf:"bytes,3,opt,name=id_tnla_failed_to_setup_list,json=id-TNLA-Failed-To-Setup-List,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,5,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,5,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdTnlconfigurationInfo struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdTnlconfigurationInfo *xnap_ies.TnlconfigurationInfo `protobuf:"bytes,6,opt,name=id_tnlconfiguration_info,json=id-TNLConfigurationInfo,proto3,oneof"`
+	IdTnlconfigurationInfo *xnap_ies.TnlconfigurationInfo `protobuf:"bytes,6,opt,name=id_tnlconfiguration_info,json=id-TNLConfigurationInfo,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 func (*NgrannodeConfigurationUpdateAcknowledgeIEsValue_IdRespondingNodeTypeConfigUpdateAck) isNgrannodeConfigurationUpdateAcknowledgeIEsValue_NgrannodeConfigurationUpdateAcknowledgeIes() {
@@ -18278,11 +18278,11 @@ type NgrannodeConfigurationUpdateAcknowledgeIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *NgrannodeConfigurationUpdateAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *NgrannodeConfigurationUpdateAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NgrannodeConfigurationUpdateAcknowledgeIEs) Reset() {
@@ -18519,17 +18519,17 @@ type isRespondingNodeTypeConfigUpdateAck_RespondingNodeTypeConfigUpdateAck inter
 
 type RespondingNodeTypeConfigUpdateAck_NgENb struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	NgENb *RespondingNodeTypeConfigUpdateAckngeNb `protobuf:"bytes,1,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof"`
+	NgENb *RespondingNodeTypeConfigUpdateAckngeNb `protobuf:"bytes,1,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type RespondingNodeTypeConfigUpdateAck_GNb struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	GNb *RespondingNodeTypeConfigUpdateAckgNb `protobuf:"bytes,2,opt,name=g_nb,json=gNB,proto3,oneof"`
+	GNb *RespondingNodeTypeConfigUpdateAckgNb `protobuf:"bytes,2,opt,name=g_nb,json=gNB,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type RespondingNodeTypeConfigUpdateAck_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *RespondingNodeTypeConfigUpdateAckExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *RespondingNodeTypeConfigUpdateAckExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*RespondingNodeTypeConfigUpdateAck_NgENb) isRespondingNodeTypeConfigUpdateAck_RespondingNodeTypeConfigUpdateAck() {
@@ -18623,17 +18623,17 @@ type isRespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_RespondingNodeTypeC
 
 type RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdListOfServedCellsEUtra struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdListOfServedCellsEUtra *xnap_ies.ServedCellsEUTra `protobuf:"bytes,1,opt,name=id_list_of_served_cells_e_utra,json=id-List-of-served-cells-E-UTRA,proto3,oneof"`
+	IdListOfServedCellsEUtra *xnap_ies.ServedCellsEUTra `protobuf:"bytes,1,opt,name=id_list_of_served_cells_e_utra,json=id-List-of-served-cells-E-UTRA,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdPartialListIndicatorEutra struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"
-	IdPartialListIndicatorEutra xnap_ies.PartialListIndicator `protobuf:"varint,2,opt,name=id_partial_list_indicator_eutra,json=id-PartialListIndicator-EUTRA,proto3,enum=xnap.v1.PartialListIndicator,oneof"`
+	IdPartialListIndicatorEutra xnap_ies.PartialListIndicator `protobuf:"varint,2,opt,name=id_partial_list_indicator_eutra,json=id-PartialListIndicator-EUTRA,proto3,enum=xnap.v1.PartialListIndicator,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdCellAndCapacityAssistanceInfoEutra struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdCellAndCapacityAssistanceInfoEutra *xnap_ies.CellAndCapacityAssistanceInfoEUtra `protobuf:"bytes,3,opt,name=id_cell_and_capacity_assistance_info_eutra,json=id-CellAndCapacityAssistanceInfo-EUTRA,proto3,oneof"`
+	IdCellAndCapacityAssistanceInfoEutra *xnap_ies.CellAndCapacityAssistanceInfoEUtra `protobuf:"bytes,3,opt,name=id_cell_and_capacity_assistance_info_eutra,json=id-CellAndCapacityAssistanceInfo-EUTRA,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_IdListOfServedCellsEUtra) isRespondingNodeTypeConfigUpdateAckngeNbExtIesExtension_RespondingNodeTypeConfigUpdateAckNgENbExtIes() {
@@ -18654,11 +18654,11 @@ type RespondingNodeTypeConfigUpdateAckngeNbExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *RespondingNodeTypeConfigUpdateAckngeNbExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *RespondingNodeTypeConfigUpdateAckngeNbExtIes) Reset() {
@@ -18723,7 +18723,7 @@ type RespondingNodeTypeConfigUpdateAckngeNb struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*RespondingNodeTypeConfigUpdateAckngeNbExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*RespondingNodeTypeConfigUpdateAckngeNbExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RespondingNodeTypeConfigUpdateAckngeNb) Reset() {
@@ -18839,12 +18839,12 @@ type isRespondingNodeTypeConfigUpdateAckgNbExtIesExtension_RespondingNodeTypeCon
 
 type RespondingNodeTypeConfigUpdateAckgNbExtIesExtension_IdPartialListIndicatorNr struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:0,"
-	IdPartialListIndicatorNr xnap_ies.PartialListIndicator `protobuf:"varint,1,opt,name=id_partial_list_indicator_nr,json=id-PartialListIndicator-NR,proto3,enum=xnap.v1.PartialListIndicator,oneof"`
+	IdPartialListIndicatorNr xnap_ies.PartialListIndicator `protobuf:"varint,1,opt,name=id_partial_list_indicator_nr,json=id-PartialListIndicator-NR,proto3,enum=xnap.v1.PartialListIndicator,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type RespondingNodeTypeConfigUpdateAckgNbExtIesExtension_IdCellAndCapacityAssistanceInfoNr struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdCellAndCapacityAssistanceInfoNr *xnap_ies.CellAndCapacityAssistanceInfoNR `protobuf:"bytes,2,opt,name=id_cell_and_capacity_assistance_info_nr,json=id-CellAndCapacityAssistanceInfo-NR,proto3,oneof"`
+	IdCellAndCapacityAssistanceInfoNr *xnap_ies.CellAndCapacityAssistanceInfoNR `protobuf:"bytes,2,opt,name=id_cell_and_capacity_assistance_info_nr,json=id-CellAndCapacityAssistanceInfo-NR,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 func (*RespondingNodeTypeConfigUpdateAckgNbExtIesExtension_IdPartialListIndicatorNr) isRespondingNodeTypeConfigUpdateAckgNbExtIesExtension_RespondingNodeTypeConfigUpdateAckGNbExtIes() {
@@ -18862,11 +18862,11 @@ type RespondingNodeTypeConfigUpdateAckgNbExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *RespondingNodeTypeConfigUpdateAckgNbExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *RespondingNodeTypeConfigUpdateAckgNbExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *RespondingNodeTypeConfigUpdateAckgNbExtIes) Reset() {
@@ -18931,9 +18931,9 @@ type RespondingNodeTypeConfigUpdateAckgNb struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ServedNrCells *xnap_ies.ServedCellsNR `protobuf:"bytes,1,opt,name=served_nr_cells,json=served-NR-Cells,proto3,oneof" json:"served_nr_cells,omitempty"`
+	ServedNrCells *xnap_ies.ServedCellsNR `protobuf:"bytes,1,opt,name=served_nr_cells,json=served-NR-Cells,proto3,oneof" json:"served_nr_cells,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*RespondingNodeTypeConfigUpdateAckgNbExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*RespondingNodeTypeConfigUpdateAckgNbExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RespondingNodeTypeConfigUpdateAckgNb) Reset() {
@@ -19072,22 +19072,22 @@ type isNgrannodeConfigurationUpdateFailureIEsValue_NgrannodeConfigurationUpdateF
 
 type NgrannodeConfigurationUpdateFailureIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,1,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,1,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NgrannodeConfigurationUpdateFailureIEsValue_IdTimeToWait struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:5,"
-	IdTimeToWait xnap_ies.TimeToWait `protobuf:"varint,2,opt,name=id_time_to_wait,json=id-TimeToWait,proto3,enum=xnap.v1.TimeToWait,oneof"`
+	IdTimeToWait xnap_ies.TimeToWait `protobuf:"varint,2,opt,name=id_time_to_wait,json=id-TimeToWait,proto3,enum=xnap.v1.TimeToWait,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:5,"`
 }
 
 type NgrannodeConfigurationUpdateFailureIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type NgrannodeConfigurationUpdateFailureIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,4,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,4,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*NgrannodeConfigurationUpdateFailureIEsValue_IdCause) isNgrannodeConfigurationUpdateFailureIEsValue_NgrannodeConfigurationUpdateFailureIes() {
@@ -19111,11 +19111,11 @@ type NgrannodeConfigurationUpdateFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *NgrannodeConfigurationUpdateFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *NgrannodeConfigurationUpdateFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NgrannodeConfigurationUpdateFailureIEs) Reset() {
@@ -19295,12 +19295,12 @@ type isEUTraNRCellResourceCoordinationRequestIEsValue_EUtraNrCellResourceCoordin
 
 type EUTraNRCellResourceCoordinationRequestIEsValue_IdInitiatingNodeTypeResourceCoordRequest struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdInitiatingNodeTypeResourceCoordRequest *InitiatingNodeTypeResourceCoordRequest `protobuf:"bytes,1,opt,name=id_initiating_node_type_resource_coord_request,json=id-initiatingNodeType-ResourceCoordRequest,proto3,oneof"`
+	IdInitiatingNodeTypeResourceCoordRequest *InitiatingNodeTypeResourceCoordRequest `protobuf:"bytes,1,opt,name=id_initiating_node_type_resource_coord_request,json=id-initiatingNodeType-ResourceCoordRequest,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type EUTraNRCellResourceCoordinationRequestIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,2,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,2,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*EUTraNRCellResourceCoordinationRequestIEsValue_IdInitiatingNodeTypeResourceCoordRequest) isEUTraNRCellResourceCoordinationRequestIEsValue_EUtraNrCellResourceCoordinationRequestIes() {
@@ -19318,11 +19318,11 @@ type EUTraNRCellResourceCoordinationRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *EUTraNRCellResourceCoordinationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *EUTraNRCellResourceCoordinationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *EUTraNRCellResourceCoordinationRequestIEs) Reset() {
@@ -19559,17 +19559,17 @@ type isInitiatingNodeTypeResourceCoordRequest_InitiatingNodeTypeResourceCoordReq
 
 type InitiatingNodeTypeResourceCoordRequest_NgENb struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	NgENb *ResourceCoordRequestngeNbinitiated `protobuf:"bytes,1,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof"`
+	NgENb *ResourceCoordRequestngeNbinitiated `protobuf:"bytes,1,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type InitiatingNodeTypeResourceCoordRequest_GNb struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	GNb *ResourceCoordRequestgNbinitiated `protobuf:"bytes,2,opt,name=g_nb,json=gNB,proto3,oneof"`
+	GNb *ResourceCoordRequestgNbinitiated `protobuf:"bytes,2,opt,name=g_nb,json=gNB,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type InitiatingNodeTypeResourceCoordRequest_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *InitiatingNodeTypeResourceCoordRequestExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *InitiatingNodeTypeResourceCoordRequestExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*InitiatingNodeTypeResourceCoordRequest_NgENb) isInitiatingNodeTypeResourceCoordRequest_InitiatingNodeTypeResourceCoordRequest() {
@@ -19639,12 +19639,12 @@ type ResourceCoordRequestngeNbinitiated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	DataTrafficResourceIndication *xnap_ies.DataTrafficResourceIndication `protobuf:"bytes,1,opt,name=data_traffic_resource_indication,json=dataTrafficResourceIndication,proto3" json:"data_traffic_resource_indication,omitempty"`
+	DataTrafficResourceIndication *xnap_ies.DataTrafficResourceIndication `protobuf:"bytes,1,opt,name=data_traffic_resource_indication,json=dataTrafficResourceIndication,proto3" json:"data_traffic_resource_indication,omitempty" aper:"valueExt,"`
 	SpectrumSharingGroupId        *xnap_ies.SpectrumSharingGroupId        `protobuf:"bytes,2,opt,name=spectrum_sharing_group_id,json=spectrumSharingGroupID,proto3" json:"spectrum_sharing_group_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16384,"
-	ListofEUtracells []*xnap_ies.EUTraCGi `protobuf:"bytes,3,rep,name=listof_e_utracells,json=listofE-UTRACells,proto3" json:"listof_e_utracells,omitempty"`
+	ListofEUtracells []*xnap_ies.EUTraCGi `protobuf:"bytes,3,rep,name=listof_e_utracells,json=listofE-UTRACells,proto3" json:"listof_e_utracells,omitempty" aper:"optional,sizeLB:1,sizeUB:16384,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ResourceCoordRequestngeNbinitiatedExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ResourceCoordRequestngeNbinitiatedExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResourceCoordRequestngeNbinitiated) Reset() {
@@ -19765,14 +19765,14 @@ type ResourceCoordRequestgNbinitiated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	DataTrafficResourceIndication *xnap_ies.DataTrafficResourceIndication `protobuf:"bytes,1,opt,name=data_traffic_resource_indication,json=dataTrafficResourceIndication,proto3" json:"data_traffic_resource_indication,omitempty"`
+	DataTrafficResourceIndication *xnap_ies.DataTrafficResourceIndication `protobuf:"bytes,1,opt,name=data_traffic_resource_indication,json=dataTrafficResourceIndication,proto3" json:"data_traffic_resource_indication,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16384,"
-	ListofEUtracells       []*xnap_ies.EUTraCGi             `protobuf:"bytes,2,rep,name=listof_e_utracells,json=listofE-UTRACells,proto3" json:"listof_e_utracells,omitempty"`
+	ListofEUtracells       []*xnap_ies.EUTraCGi             `protobuf:"bytes,2,rep,name=listof_e_utracells,json=listofE-UTRACells,proto3" json:"listof_e_utracells,omitempty" aper:"optional,sizeLB:1,sizeUB:16384,"`
 	SpectrumSharingGroupId *xnap_ies.SpectrumSharingGroupId `protobuf:"bytes,3,opt,name=spectrum_sharing_group_id,json=spectrumSharingGroupID,proto3" json:"spectrum_sharing_group_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16384,"
-	ListofNrcells []*xnap_ies.NrCGi `protobuf:"bytes,4,rep,name=listof_nrcells,json=listofNRCells,proto3" json:"listof_nrcells,omitempty"`
+	ListofNrcells []*xnap_ies.NrCGi `protobuf:"bytes,4,rep,name=listof_nrcells,json=listofNRCells,proto3" json:"listof_nrcells,omitempty" aper:"optional,sizeLB:1,sizeUB:16384,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ResourceCoordRequestgNbinitiatedExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ResourceCoordRequestgNbinitiatedExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResourceCoordRequestgNbinitiated) Reset() {
@@ -19916,12 +19916,12 @@ type isEUTraNRCellResourceCoordinationResponseIEsValue_EUtraNrCellResourceCoordi
 
 type EUTraNRCellResourceCoordinationResponseIEsValue_IdRespondingNodeTypeResourceCoordResponse struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdRespondingNodeTypeResourceCoordResponse *RespondingNodeTypeResourceCoordResponse `protobuf:"bytes,1,opt,name=id_responding_node_type_resource_coord_response,json=id-respondingNodeType-ResourceCoordResponse,proto3,oneof"`
+	IdRespondingNodeTypeResourceCoordResponse *RespondingNodeTypeResourceCoordResponse `protobuf:"bytes,1,opt,name=id_responding_node_type_resource_coord_response,json=id-respondingNodeType-ResourceCoordResponse,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type EUTraNRCellResourceCoordinationResponseIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,2,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,2,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*EUTraNRCellResourceCoordinationResponseIEsValue_IdRespondingNodeTypeResourceCoordResponse) isEUTraNRCellResourceCoordinationResponseIEsValue_EUtraNrCellResourceCoordinationResponseIes() {
@@ -19939,11 +19939,11 @@ type EUTraNRCellResourceCoordinationResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *EUTraNRCellResourceCoordinationResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *EUTraNRCellResourceCoordinationResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *EUTraNRCellResourceCoordinationResponseIEs) Reset() {
@@ -20180,17 +20180,17 @@ type isRespondingNodeTypeResourceCoordResponse_RespondingNodeTypeResourceCoordRe
 
 type RespondingNodeTypeResourceCoordResponse_NgENb struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	NgENb *ResourceCoordResponsengeNbinitiated `protobuf:"bytes,1,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof"`
+	NgENb *ResourceCoordResponsengeNbinitiated `protobuf:"bytes,1,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type RespondingNodeTypeResourceCoordResponse_GNb struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	GNb *ResourceCoordResponsegNbinitiated `protobuf:"bytes,2,opt,name=g_nb,json=gNB,proto3,oneof"`
+	GNb *ResourceCoordResponsegNbinitiated `protobuf:"bytes,2,opt,name=g_nb,json=gNB,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type RespondingNodeTypeResourceCoordResponse_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *RespondingNodeTypeResourceCoordResponseExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *RespondingNodeTypeResourceCoordResponseExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*RespondingNodeTypeResourceCoordResponse_NgENb) isRespondingNodeTypeResourceCoordResponse_RespondingNodeTypeResourceCoordResponse() {
@@ -20260,12 +20260,12 @@ type ResourceCoordResponsengeNbinitiated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	DataTrafficResourceIndication *xnap_ies.DataTrafficResourceIndication `protobuf:"bytes,1,opt,name=data_traffic_resource_indication,json=dataTrafficResourceIndication,proto3" json:"data_traffic_resource_indication,omitempty"`
+	DataTrafficResourceIndication *xnap_ies.DataTrafficResourceIndication `protobuf:"bytes,1,opt,name=data_traffic_resource_indication,json=dataTrafficResourceIndication,proto3" json:"data_traffic_resource_indication,omitempty" aper:"valueExt,"`
 	SpectrumSharingGroupId        *xnap_ies.SpectrumSharingGroupId        `protobuf:"bytes,2,opt,name=spectrum_sharing_group_id,json=spectrumSharingGroupID,proto3" json:"spectrum_sharing_group_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16384,"
-	ListofEUtracells []*xnap_ies.EUTraCGi `protobuf:"bytes,3,rep,name=listof_e_utracells,json=listofE-UTRACells,proto3" json:"listof_e_utracells,omitempty"`
+	ListofEUtracells []*xnap_ies.EUTraCGi `protobuf:"bytes,3,rep,name=listof_e_utracells,json=listofE-UTRACells,proto3" json:"listof_e_utracells,omitempty" aper:"optional,sizeLB:1,sizeUB:16384,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ResourceCoordResponsengeNbinitiatedExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ResourceCoordResponsengeNbinitiatedExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResourceCoordResponsengeNbinitiated) Reset() {
@@ -20386,12 +20386,12 @@ type ResourceCoordResponsegNbinitiated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	DataTrafficResourceIndication *xnap_ies.DataTrafficResourceIndication `protobuf:"bytes,1,opt,name=data_traffic_resource_indication,json=dataTrafficResourceIndication,proto3" json:"data_traffic_resource_indication,omitempty"`
+	DataTrafficResourceIndication *xnap_ies.DataTrafficResourceIndication `protobuf:"bytes,1,opt,name=data_traffic_resource_indication,json=dataTrafficResourceIndication,proto3" json:"data_traffic_resource_indication,omitempty" aper:"valueExt,"`
 	SpectrumSharingGroupId        *xnap_ies.SpectrumSharingGroupId        `protobuf:"bytes,2,opt,name=spectrum_sharing_group_id,json=spectrumSharingGroupID,proto3" json:"spectrum_sharing_group_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16384,"
-	ListofNrcells []*xnap_ies.NrCGi `protobuf:"bytes,3,rep,name=listof_nrcells,json=listofNRCells,proto3" json:"listof_nrcells,omitempty"`
+	ListofNrcells []*xnap_ies.NrCGi `protobuf:"bytes,3,rep,name=listof_nrcells,json=listofNRCells,proto3" json:"listof_nrcells,omitempty" aper:"optional,sizeLB:1,sizeUB:16384,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ResourceCoordResponsegNbinitiatedExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ResourceCoordResponsegNbinitiatedExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResourceCoordResponsegNbinitiated) Reset() {
@@ -20536,17 +20536,17 @@ type isSecondaryRatdataUsageReportIEsValue_SecondaryRatdataUsageReportIes interf
 
 type SecondaryRatdataUsageReportIEsValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SecondaryRatdataUsageReportIEsValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SecondaryRatdataUsageReportIEsValue_IdPdusessionResourceSecondaryRatusageList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdPdusessionResourceSecondaryRatusageList *xnap_ies.PdusessionResourceSecondaryRatusageList `protobuf:"bytes,3,opt,name=id_pdusession_resource_secondary_ratusage_list,json=id-PDUSessionResourceSecondaryRATUsageList,proto3,oneof"`
+	IdPdusessionResourceSecondaryRatusageList *xnap_ies.PdusessionResourceSecondaryRatusageList `protobuf:"bytes,3,opt,name=id_pdusession_resource_secondary_ratusage_list,json=id-PDUSessionResourceSecondaryRATUsageList,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*SecondaryRatdataUsageReportIEsValue_IdMNgRannodeUexnApid) isSecondaryRatdataUsageReportIEsValue_SecondaryRatdataUsageReportIes() {
@@ -20567,11 +20567,11 @@ type SecondaryRatdataUsageReportIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *SecondaryRatdataUsageReportIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *SecondaryRatdataUsageReportIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SecondaryRatdataUsageReportIEs) Reset() {
@@ -20759,17 +20759,17 @@ type isXnRemovalRequestIEsValue_XnRemovalRequestIes interface {
 
 type XnRemovalRequestIEsValue_IdGlobalNgRanNodeId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof"`
+	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnRemovalRequestIEsValue_IdXnRemovalThreshold struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdXnRemovalThreshold *xnap_ies.XnBenefitValue `protobuf:"bytes,2,opt,name=id_xn_removal_threshold,json=id-XnRemovalThreshold,proto3,oneof"`
+	IdXnRemovalThreshold *xnap_ies.XnBenefitValue `protobuf:"bytes,2,opt,name=id_xn_removal_threshold,json=id-XnRemovalThreshold,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type XnRemovalRequestIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*XnRemovalRequestIEsValue_IdGlobalNgRanNodeId) isXnRemovalRequestIEsValue_XnRemovalRequestIes() {
@@ -20790,11 +20790,11 @@ type XnRemovalRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *XnRemovalRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *XnRemovalRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *XnRemovalRequestIEs) Reset() {
@@ -20982,17 +20982,17 @@ type isXnRemovalResponseIEsValue_XnRemovalResponseIes interface {
 
 type XnRemovalResponseIEsValue_IdGlobalNgRanNodeId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof"`
+	IdGlobalNgRanNodeId *xnap_ies.GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=id_global_ng_ran_node_id,json=id-GlobalNG-RAN-node-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnRemovalResponseIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type XnRemovalResponseIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*XnRemovalResponseIEsValue_IdGlobalNgRanNodeId) isXnRemovalResponseIEsValue_XnRemovalResponseIes() {
@@ -21013,11 +21013,11 @@ type XnRemovalResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *XnRemovalResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *XnRemovalResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *XnRemovalResponseIEs) Reset() {
@@ -21205,17 +21205,17 @@ type isXnRemovalFailureIEsValue_XnRemovalFailureIes interface {
 
 type XnRemovalFailureIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,1,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,1,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnRemovalFailureIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type XnRemovalFailureIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*XnRemovalFailureIEsValue_IdCause) isXnRemovalFailureIEsValue_XnRemovalFailureIes() {}
@@ -21235,11 +21235,11 @@ type XnRemovalFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *XnRemovalFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *XnRemovalFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *XnRemovalFailureIEs) Reset() {
@@ -21427,17 +21427,17 @@ type isCellActivationRequestIEsValue_CellActivationRequestIes interface {
 
 type CellActivationRequestIEsValue_IdServedCellsToActivate struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdServedCellsToActivate *ServedCellsToActivate `protobuf:"bytes,1,opt,name=id_served_cells_to_activate,json=id-ServedCellsToActivate,proto3,oneof"`
+	IdServedCellsToActivate *ServedCellsToActivate `protobuf:"bytes,1,opt,name=id_served_cells_to_activate,json=id-ServedCellsToActivate,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CellActivationRequestIEsValue_IdActivationIdforCellActivation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdActivationIdforCellActivation *xnap_ies.ActivationIdforCellActivation `protobuf:"bytes,2,opt,name=id_activation_idfor_cell_activation,json=id-ActivationIDforCellActivation,proto3,oneof"`
+	IdActivationIdforCellActivation *xnap_ies.ActivationIdforCellActivation `protobuf:"bytes,2,opt,name=id_activation_idfor_cell_activation,json=id-ActivationIDforCellActivation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type CellActivationRequestIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*CellActivationRequestIEsValue_IdServedCellsToActivate) isCellActivationRequestIEsValue_CellActivationRequestIes() {
@@ -21458,11 +21458,11 @@ type CellActivationRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *CellActivationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *CellActivationRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *CellActivationRequestIEs) Reset() {
@@ -21576,7 +21576,7 @@ type NrcellsServedCellsToActivate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16384,"
-	NrCells []*xnap_ies.NrCGi `protobuf:"bytes,1,rep,name=nr_cells,json=nr-cells,proto3" json:"nr_cells,omitempty"`
+	NrCells []*xnap_ies.NrCGi `protobuf:"bytes,1,rep,name=nr_cells,json=nr-cells,proto3" json:"nr_cells,omitempty" aper:"sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *NrcellsServedCellsToActivate) Reset() {
@@ -21626,7 +21626,7 @@ type EutracellsServedCellsToActivate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16384,"
-	EUtraCells []*xnap_ies.EUTraCGi `protobuf:"bytes,1,rep,name=e_utra_cells,json=e-utra-cells,proto3" json:"e_utra_cells,omitempty"`
+	EUtraCells []*xnap_ies.EUTraCGi `protobuf:"bytes,1,rep,name=e_utra_cells,json=e-utra-cells,proto3" json:"e_utra_cells,omitempty" aper:"sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *EutracellsServedCellsToActivate) Reset() {
@@ -21799,17 +21799,17 @@ type isServedCellsToActivate_ServedCellsToActivate interface {
 
 type ServedCellsToActivate_NrCells struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	NrCells *NrcellsServedCellsToActivate `protobuf:"bytes,1,opt,name=nr_cells,json=nr-cells,proto3,oneof"`
+	NrCells *NrcellsServedCellsToActivate `protobuf:"bytes,1,opt,name=nr_cells,json=nr-cells,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ServedCellsToActivate_EUtraCells struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	EUtraCells *EutracellsServedCellsToActivate `protobuf:"bytes,2,opt,name=e_utra_cells,json=e-utra-cells,proto3,oneof"`
+	EUtraCells *EutracellsServedCellsToActivate `protobuf:"bytes,2,opt,name=e_utra_cells,json=e-utra-cells,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ServedCellsToActivate_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ServedCellsToActivateExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ServedCellsToActivateExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ServedCellsToActivate_NrCells) isServedCellsToActivate_ServedCellsToActivate() {}
@@ -21908,22 +21908,22 @@ type isCellActivationResponseIEsValue_CellActivationResponseIes interface {
 
 type CellActivationResponseIEsValue_IdActivatedServedCells struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdActivatedServedCells *ActivatedServedCells `protobuf:"bytes,1,opt,name=id_activated_served_cells,json=id-ActivatedServedCells,proto3,oneof"`
+	IdActivatedServedCells *ActivatedServedCells `protobuf:"bytes,1,opt,name=id_activated_served_cells,json=id-ActivatedServedCells,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CellActivationResponseIEsValue_IdActivationIdforCellActivation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdActivationIdforCellActivation *xnap_ies.ActivationIdforCellActivation `protobuf:"bytes,2,opt,name=id_activation_idfor_cell_activation,json=id-ActivationIDforCellActivation,proto3,oneof"`
+	IdActivationIdforCellActivation *xnap_ies.ActivationIdforCellActivation `protobuf:"bytes,2,opt,name=id_activation_idfor_cell_activation,json=id-ActivationIDforCellActivation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type CellActivationResponseIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type CellActivationResponseIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,4,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,4,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*CellActivationResponseIEsValue_IdActivatedServedCells) isCellActivationResponseIEsValue_CellActivationResponseIes() {
@@ -21947,11 +21947,11 @@ type CellActivationResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *CellActivationResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *CellActivationResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *CellActivationResponseIEs) Reset() {
@@ -22065,7 +22065,7 @@ type NrcellsActivatedServedCells struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16384,"
-	NrCells []*xnap_ies.NrCGi `protobuf:"bytes,1,rep,name=nr_cells,json=nr-cells,proto3" json:"nr_cells,omitempty"`
+	NrCells []*xnap_ies.NrCGi `protobuf:"bytes,1,rep,name=nr_cells,json=nr-cells,proto3" json:"nr_cells,omitempty" aper:"sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *NrcellsActivatedServedCells) Reset() {
@@ -22115,7 +22115,7 @@ type EutracellsActivatedServedCells struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16384,"
-	EUtraCells []*xnap_ies.EUTraCGi `protobuf:"bytes,1,rep,name=e_utra_cells,json=e-utra-cells,proto3" json:"e_utra_cells,omitempty"`
+	EUtraCells []*xnap_ies.EUTraCGi `protobuf:"bytes,1,rep,name=e_utra_cells,json=e-utra-cells,proto3" json:"e_utra_cells,omitempty" aper:"sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *EutracellsActivatedServedCells) Reset() {
@@ -22288,17 +22288,17 @@ type isActivatedServedCells_ActivatedServedCells interface {
 
 type ActivatedServedCells_NrCells struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	NrCells *NrcellsActivatedServedCells `protobuf:"bytes,1,opt,name=nr_cells,json=nr-cells,proto3,oneof"`
+	NrCells *NrcellsActivatedServedCells `protobuf:"bytes,1,opt,name=nr_cells,json=nr-cells,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ActivatedServedCells_EUtraCells struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	EUtraCells *EutracellsActivatedServedCells `protobuf:"bytes,2,opt,name=e_utra_cells,json=e-utra-cells,proto3,oneof"`
+	EUtraCells *EutracellsActivatedServedCells `protobuf:"bytes,2,opt,name=e_utra_cells,json=e-utra-cells,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ActivatedServedCells_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ActivatedServedCellsExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ActivatedServedCellsExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ActivatedServedCells_NrCells) isActivatedServedCells_ActivatedServedCells() {}
@@ -22397,22 +22397,22 @@ type isCellActivationFailureIEsValue_CellActivationFailureIes interface {
 
 type CellActivationFailureIEsValue_IdActivationIdforCellActivation struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdActivationIdforCellActivation *xnap_ies.ActivationIdforCellActivation `protobuf:"bytes,1,opt,name=id_activation_idfor_cell_activation,json=id-ActivationIDforCellActivation,proto3,oneof"`
+	IdActivationIdforCellActivation *xnap_ies.ActivationIdforCellActivation `protobuf:"bytes,1,opt,name=id_activation_idfor_cell_activation,json=id-ActivationIDforCellActivation,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CellActivationFailureIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type CellActivationFailureIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type CellActivationFailureIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,4,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,4,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*CellActivationFailureIEsValue_IdActivationIdforCellActivation) isCellActivationFailureIEsValue_CellActivationFailureIes() {
@@ -22436,11 +22436,11 @@ type CellActivationFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *CellActivationFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *CellActivationFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *CellActivationFailureIEs) Reset() {
@@ -22628,17 +22628,17 @@ type isResetRequestIEsValue_ResetRequestIes interface {
 
 type ResetRequestIEsValue_IdResetRequestTypeInfo struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdResetRequestTypeInfo *xnap_ies.ResetRequestTypeInfo `protobuf:"bytes,1,opt,name=id_reset_request_type_info,json=id-ResetRequestTypeInfo,proto3,oneof"`
+	IdResetRequestTypeInfo *xnap_ies.ResetRequestTypeInfo `protobuf:"bytes,1,opt,name=id_reset_request_type_info,json=id-ResetRequestTypeInfo,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResetRequestIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResetRequestIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResetRequestIEsValue_IdResetRequestTypeInfo) isResetRequestIEsValue_ResetRequestIes() {}
@@ -22656,11 +22656,11 @@ type ResetRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResetRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResetRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResetRequestIEs) Reset() {
@@ -22848,17 +22848,17 @@ type isResetResponseIEsValue_ResetResponseIes interface {
 
 type ResetResponseIEsValue_IdResetResponseTypeInfo struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdResetResponseTypeInfo *xnap_ies.ResetResponseTypeInfo `protobuf:"bytes,1,opt,name=id_reset_response_type_info,json=id-ResetResponseTypeInfo,proto3,oneof"`
+	IdResetResponseTypeInfo *xnap_ies.ResetResponseTypeInfo `protobuf:"bytes,1,opt,name=id_reset_response_type_info,json=id-ResetResponseTypeInfo,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResetResponseIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,2,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type ResetResponseIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,3,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResetResponseIEsValue_IdResetResponseTypeInfo) isResetResponseIEsValue_ResetResponseIes() {}
@@ -22877,11 +22877,11 @@ type ResetResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResetResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResetResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResetResponseIEs) Reset() {
@@ -23085,27 +23085,27 @@ type isErrorIndicationIEsValue_ErrorIndicationIes interface {
 
 type ErrorIndicationIEsValue_IdOldNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdOldNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_old_ng_rannode_uexn_apid,json=id-oldNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdOldNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_old_ng_rannode_uexn_apid,json=id-oldNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ErrorIndicationIEsValue_IdNewNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof"`
+	IdNewNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_new_ng_rannode_uexn_apid,json=id-newNG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ErrorIndicationIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ErrorIndicationIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type ErrorIndicationIEsValue_IdInterfaceInstanceIndication struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,5,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof"`
+	IdInterfaceInstanceIndication *xnap_ies.InterfaceInstanceIndication `protobuf:"bytes,5,opt,name=id_interface_instance_indication,json=id-InterfaceInstanceIndication,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*ErrorIndicationIEsValue_IdOldNgRannodeUexnApid) isErrorIndicationIEsValue_ErrorIndicationIes() {
@@ -23131,11 +23131,11 @@ type ErrorIndicationIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ErrorIndicationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ErrorIndicationIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ErrorIndicationIEs) Reset() {
@@ -23299,7 +23299,7 @@ type PrivateMessage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,"
-	PrivateIes []*PrivateMessageIEs `protobuf:"bytes,1,rep,name=private_ies,json=privateIEs,proto3" json:"private_ies,omitempty"`
+	PrivateIes []*PrivateMessageIEs `protobuf:"bytes,1,rep,name=private_ies,json=privateIEs,proto3" json:"private_ies,omitempty" aper:"sizeLB:1,"`
 }
 
 func (x *PrivateMessage) Reset() {
@@ -23423,17 +23423,17 @@ type isTraceStartIesValue_TraceStartIes interface {
 
 type TraceStartIesValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type TraceStartIesValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type TraceStartIesValue_IdTraceActivation struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdTraceActivation *xnap_ies.TraceActivation `protobuf:"bytes,3,opt,name=id_trace_activation,json=id-TraceActivation,proto3,oneof"`
+	IdTraceActivation *xnap_ies.TraceActivation `protobuf:"bytes,3,opt,name=id_trace_activation,json=id-TraceActivation,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*TraceStartIesValue_IdMNgRannodeUexnApid) isTraceStartIesValue_TraceStartIes() {}
@@ -23451,11 +23451,11 @@ type TraceStartIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *TraceStartIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *TraceStartIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *TraceStartIes) Reset() {
@@ -23643,17 +23643,17 @@ type isDeactivateTraceIesValue_DeactivateTraceIes interface {
 
 type DeactivateTraceIesValue_IdMNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdMNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=id_m_ng_rannode_uexn_apid,json=id-M-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DeactivateTraceIesValue_IdSNgRannodeUexnApid struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof"`
+	IdSNgRannodeUexnApid *xnap_ies.NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=id_s_ng_rannode_uexn_apid,json=id-S-NG-RANnodeUEXnAPID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type DeactivateTraceIesValue_IdNgRantraceId struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdNgRantraceId *xnap_ies.NgRAntraceId `protobuf:"bytes,3,opt,name=id_ng_rantrace_id,json=id-NG-RANTraceID,proto3,oneof"`
+	IdNgRantraceId *xnap_ies.NgRAntraceId `protobuf:"bytes,3,opt,name=id_ng_rantrace_id,json=id-NG-RANTraceID,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*DeactivateTraceIesValue_IdMNgRannodeUexnApid) isDeactivateTraceIesValue_DeactivateTraceIes() {}
@@ -23671,11 +23671,11 @@ type DeactivateTraceIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *DeactivateTraceIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *DeactivateTraceIesValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DeactivateTraceIes) Reset() {
@@ -24010,47 +24010,47 @@ type isHandoverReportIEsValue_HandoverReportIes interface {
 
 type HandoverReportIEsValue_IdHandoverReportType struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:2,"
-	IdHandoverReportType xnap_ies.HandoverReportType `protobuf:"varint,1,opt,name=id_handover_report_type,json=id-HandoverReportType,proto3,enum=xnap.v1.HandoverReportType,oneof"`
+	IdHandoverReportType xnap_ies.HandoverReportType `protobuf:"varint,1,opt,name=id_handover_report_type,json=id-HandoverReportType,proto3,enum=xnap.v1.HandoverReportType,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type HandoverReportIEsValue_IdHandoverCause struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdHandoverCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_handover_cause,json=id-HandoverCause,proto3,oneof"`
+	IdHandoverCause *xnap_ies.Cause `protobuf:"bytes,2,opt,name=id_handover_cause,json=id-HandoverCause,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type HandoverReportIEsValue_IdSourceCellCgi struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdSourceCellCgi *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,3,opt,name=id_source_cell_cgi,json=id-SourceCellCGI,proto3,oneof"`
+	IdSourceCellCgi *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,3,opt,name=id_source_cell_cgi,json=id-SourceCellCGI,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type HandoverReportIEsValue_IdTargetCellCgi struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdTargetCellCgi *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,4,opt,name=id_target_cell_cgi,json=id-TargetCellCGI,proto3,oneof"`
+	IdTargetCellCgi *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,4,opt,name=id_target_cell_cgi,json=id-TargetCellCGI,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type HandoverReportIEsValue_IdReEstablishmentCellCgi struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,"
-	IdReEstablishmentCellCgi *xnap_ies.GlobalCellID `protobuf:"bytes,5,opt,name=id_re_establishment_cell_cgi,json=id-ReEstablishmentCellCGI,proto3,oneof"`
+	IdReEstablishmentCellCgi *xnap_ies.GlobalCellID `protobuf:"bytes,5,opt,name=id_re_establishment_cell_cgi,json=id-ReEstablishmentCellCGI,proto3,oneof" aper:"choiceIdx:5,valueExt,"`
 }
 
 type HandoverReportIEsValue_IdTargetCellinEutran struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdTargetCellinEutran *xnap_ies.TargetCellinEutran `protobuf:"bytes,6,opt,name=id_target_cellin_eutran,json=id-TargetCellinEUTRAN,proto3,oneof"`
+	IdTargetCellinEutran *xnap_ies.TargetCellinEutran `protobuf:"bytes,6,opt,name=id_target_cellin_eutran,json=id-TargetCellinEUTRAN,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type HandoverReportIEsValue_IdSourceCellCrnti struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	IdSourceCellCrnti *xnap_ies.CRNti `protobuf:"bytes,7,opt,name=id_source_cell_crnti,json=id-SourceCellCRNTI,proto3,oneof"`
+	IdSourceCellCrnti *xnap_ies.CRNti `protobuf:"bytes,7,opt,name=id_source_cell_crnti,json=id-SourceCellCRNTI,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type HandoverReportIEsValue_IdMobilityInformation struct {
 	// @inject_tag: aper:"choiceIdx:8,"
-	IdMobilityInformation *xnap_ies.MobilityInformation `protobuf:"bytes,8,opt,name=id_mobility_information,json=id-MobilityInformation,proto3,oneof"`
+	IdMobilityInformation *xnap_ies.MobilityInformation `protobuf:"bytes,8,opt,name=id_mobility_information,json=id-MobilityInformation,proto3,oneof" aper:"choiceIdx:8,"`
 }
 
 type HandoverReportIEsValue_IdUerlfreportContainer struct {
 	// @inject_tag: aper:"choiceIdx:9,"
-	IdUerlfreportContainer *xnap_ies.UerlfreportContainer `protobuf:"bytes,9,opt,name=id_uerlfreport_container,json=id-UERLFReportContainer,proto3,oneof"`
+	IdUerlfreportContainer *xnap_ies.UerlfreportContainer `protobuf:"bytes,9,opt,name=id_uerlfreport_container,json=id-UERLFReportContainer,proto3,oneof" aper:"choiceIdx:9,"`
 }
 
 func (*HandoverReportIEsValue_IdHandoverReportType) isHandoverReportIEsValue_HandoverReportIes() {}
@@ -24081,11 +24081,11 @@ type HandoverReportIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *HandoverReportIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *HandoverReportIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *HandoverReportIEs) Reset() {
@@ -24297,32 +24297,32 @@ type isResourceStatusRequestIEsValue_ResourceStatusRequestIes interface {
 
 type ResourceStatusRequestIEsValue_IdNgranNode1MeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNgranNode1MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,1,opt,name=id_ngran_node1_measurement_id,json=id-NGRAN-Node1-Measurement-ID,proto3,oneof"`
+	IdNgranNode1MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,1,opt,name=id_ngran_node1_measurement_id,json=id-NGRAN-Node1-Measurement-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResourceStatusRequestIEsValue_IdNgranNode2MeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdNgranNode2MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,2,opt,name=id_ngran_node2_measurement_id,json=id-NGRAN-Node2-Measurement-ID,proto3,oneof"`
+	IdNgranNode2MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,2,opt,name=id_ngran_node2_measurement_id,json=id-NGRAN-Node2-Measurement-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResourceStatusRequestIEsValue_IdRegistrationRequest struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:2,"
-	IdRegistrationRequest xnap_ies.RegistrationRequest `protobuf:"varint,3,opt,name=id_registration_request,json=id-RegistrationRequest,proto3,enum=xnap.v1.RegistrationRequest,oneof"`
+	IdRegistrationRequest xnap_ies.RegistrationRequest `protobuf:"varint,3,opt,name=id_registration_request,json=id-RegistrationRequest,proto3,enum=xnap.v1.RegistrationRequest,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:2,"`
 }
 
 type ResourceStatusRequestIEsValue_IdReportCharacteristics struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdReportCharacteristics *xnap_ies.ReportCharacteristics `protobuf:"bytes,4,opt,name=id_report_characteristics,json=id-ReportCharacteristics,proto3,oneof"`
+	IdReportCharacteristics *xnap_ies.ReportCharacteristics `protobuf:"bytes,4,opt,name=id_report_characteristics,json=id-ReportCharacteristics,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ResourceStatusRequestIEsValue_IdCellToReport struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdCellToReport *xnap_ies.CellToReport `protobuf:"bytes,5,opt,name=id_cell_to_report,json=id-CellToReport,proto3,oneof"`
+	IdCellToReport *xnap_ies.CellToReport `protobuf:"bytes,5,opt,name=id_cell_to_report,json=id-CellToReport,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type ResourceStatusRequestIEsValue_IdReportingPeriodicity struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:4,"
-	IdReportingPeriodicity xnap_ies.ReportingPeriodicity `protobuf:"varint,6,opt,name=id_reporting_periodicity,json=id-ReportingPeriodicity,proto3,enum=xnap.v1.ReportingPeriodicity,oneof"`
+	IdReportingPeriodicity xnap_ies.ReportingPeriodicity `protobuf:"varint,6,opt,name=id_reporting_periodicity,json=id-ReportingPeriodicity,proto3,enum=xnap.v1.ReportingPeriodicity,oneof" aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:4,"`
 }
 
 func (*ResourceStatusRequestIEsValue_IdNgranNode1MeasurementId) isResourceStatusRequestIEsValue_ResourceStatusRequestIes() {
@@ -24352,11 +24352,11 @@ type ResourceStatusRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResourceStatusRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResourceStatusRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResourceStatusRequestIEs) Reset() {
@@ -24544,17 +24544,17 @@ type isResourceStatusResponseIEsValue_ResourceStatusResponseIes interface {
 
 type ResourceStatusResponseIEsValue_IdNgranNode1MeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNgranNode1MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,1,opt,name=id_ngran_node1_measurement_id,json=id-NGRAN-Node1-Measurement-ID,proto3,oneof"`
+	IdNgranNode1MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,1,opt,name=id_ngran_node1_measurement_id,json=id-NGRAN-Node1-Measurement-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResourceStatusResponseIEsValue_IdNgranNode2MeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdNgranNode2MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,2,opt,name=id_ngran_node2_measurement_id,json=id-NGRAN-Node2-Measurement-ID,proto3,oneof"`
+	IdNgranNode2MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,2,opt,name=id_ngran_node2_measurement_id,json=id-NGRAN-Node2-Measurement-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResourceStatusResponseIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*ResourceStatusResponseIEsValue_IdNgranNode1MeasurementId) isResourceStatusResponseIEsValue_ResourceStatusResponseIes() {
@@ -24575,11 +24575,11 @@ type ResourceStatusResponseIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResourceStatusResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResourceStatusResponseIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResourceStatusResponseIEs) Reset() {
@@ -24775,22 +24775,22 @@ type isResourceStatusFailureIEsValue_ResourceStatusFailureIes interface {
 
 type ResourceStatusFailureIEsValue_IdNgranNode1MeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNgranNode1MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,1,opt,name=id_ngran_node1_measurement_id,json=id-NGRAN-Node1-Measurement-ID,proto3,oneof"`
+	IdNgranNode1MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,1,opt,name=id_ngran_node1_measurement_id,json=id-NGRAN-Node1-Measurement-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResourceStatusFailureIEsValue_IdNgranNode2MeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdNgranNode2MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,2,opt,name=id_ngran_node2_measurement_id,json=id-NGRAN-Node2-Measurement-ID,proto3,oneof"`
+	IdNgranNode2MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,2,opt,name=id_ngran_node2_measurement_id,json=id-NGRAN-Node2-Measurement-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResourceStatusFailureIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ResourceStatusFailureIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,4,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 func (*ResourceStatusFailureIEsValue_IdNgranNode1MeasurementId) isResourceStatusFailureIEsValue_ResourceStatusFailureIes() {
@@ -24814,11 +24814,11 @@ type ResourceStatusFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResourceStatusFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResourceStatusFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResourceStatusFailureIEs) Reset() {
@@ -25006,17 +25006,17 @@ type isResourceStatusUpdateIEsValue_ResourceStatusUpdateIes interface {
 
 type ResourceStatusUpdateIEsValue_IdNgranNode1MeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNgranNode1MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,1,opt,name=id_ngran_node1_measurement_id,json=id-NGRAN-Node1-Measurement-ID,proto3,oneof"`
+	IdNgranNode1MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,1,opt,name=id_ngran_node1_measurement_id,json=id-NGRAN-Node1-Measurement-ID,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ResourceStatusUpdateIEsValue_IdNgranNode2MeasurementId struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdNgranNode2MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,2,opt,name=id_ngran_node2_measurement_id,json=id-NGRAN-Node2-Measurement-ID,proto3,oneof"`
+	IdNgranNode2MeasurementId *xnap_ies.MeasurementID `protobuf:"bytes,2,opt,name=id_ngran_node2_measurement_id,json=id-NGRAN-Node2-Measurement-ID,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type ResourceStatusUpdateIEsValue_IdCellMeasurementResult struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCellMeasurementResult *xnap_ies.CellMeasurementResult `protobuf:"bytes,3,opt,name=id_cell_measurement_result,json=id-CellMeasurementResult,proto3,oneof"`
+	IdCellMeasurementResult *xnap_ies.CellMeasurementResult `protobuf:"bytes,3,opt,name=id_cell_measurement_result,json=id-CellMeasurementResult,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResourceStatusUpdateIEsValue_IdNgranNode1MeasurementId) isResourceStatusUpdateIEsValue_ResourceStatusUpdateIes() {
@@ -25037,11 +25037,11 @@ type ResourceStatusUpdateIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *ResourceStatusUpdateIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *ResourceStatusUpdateIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ResourceStatusUpdateIEs) Reset() {
@@ -25245,27 +25245,27 @@ type isMobilityChangeRequestIEsValue_MobilityChangeRequestIes interface {
 
 type MobilityChangeRequestIEsValue_IdNgRannode1CellId struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdNgRannode1CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,1,opt,name=id_ng_rannode1_cell_id,json=id-NG-RANnode1CellID,proto3,oneof"`
+	IdNgRannode1CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,1,opt,name=id_ng_rannode1_cell_id,json=id-NG-RANnode1CellID,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type MobilityChangeRequestIEsValue_IdNgRannode2CellId struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdNgRannode2CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,2,opt,name=id_ng_rannode2_cell_id,json=id-NG-RANnode2CellID,proto3,oneof"`
+	IdNgRannode2CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,2,opt,name=id_ng_rannode2_cell_id,json=id-NG-RANnode2CellID,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type MobilityChangeRequestIEsValue_IdNgRannode1MobilityParameters struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdNgRannode1MobilityParameters *xnap_ies.MobilityParametersInformation `protobuf:"bytes,3,opt,name=id_ng_rannode1_mobility_parameters,json=id-NG-RANnode1MobilityParameters,proto3,oneof"`
+	IdNgRannode1MobilityParameters *xnap_ies.MobilityParametersInformation `protobuf:"bytes,3,opt,name=id_ng_rannode1_mobility_parameters,json=id-NG-RANnode1MobilityParameters,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type MobilityChangeRequestIEsValue_IdNgRannode2ProposedMobilityParameters struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdNgRannode2ProposedMobilityParameters *xnap_ies.MobilityParametersInformation `protobuf:"bytes,4,opt,name=id_ng_rannode2_proposed_mobility_parameters,json=id-NG-RANnode2ProposedMobilityParameters,proto3,oneof"`
+	IdNgRannode2ProposedMobilityParameters *xnap_ies.MobilityParametersInformation `protobuf:"bytes,4,opt,name=id_ng_rannode2_proposed_mobility_parameters,json=id-NG-RANnode2ProposedMobilityParameters,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type MobilityChangeRequestIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,5,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,5,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*MobilityChangeRequestIEsValue_IdNgRannode1CellId) isMobilityChangeRequestIEsValue_MobilityChangeRequestIes() {
@@ -25292,11 +25292,11 @@ type MobilityChangeRequestIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *MobilityChangeRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *MobilityChangeRequestIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *MobilityChangeRequestIEs) Reset() {
@@ -25484,17 +25484,17 @@ type isMobilityChangeAcknowledgeIEsValue_MobilityChangeAcknowledgeIes interface 
 
 type MobilityChangeAcknowledgeIEsValue_IdNgRannode1CellId struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdNgRannode1CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,1,opt,name=id_ng_rannode1_cell_id,json=id-NG-RANnode1CellID,proto3,oneof"`
+	IdNgRannode1CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,1,opt,name=id_ng_rannode1_cell_id,json=id-NG-RANnode1CellID,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type MobilityChangeAcknowledgeIEsValue_IdNgRannode2CellId struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdNgRannode2CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,2,opt,name=id_ng_rannode2_cell_id,json=id-NG-RANnode2CellID,proto3,oneof"`
+	IdNgRannode2CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,2,opt,name=id_ng_rannode2_cell_id,json=id-NG-RANnode2CellID,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type MobilityChangeAcknowledgeIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,3,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*MobilityChangeAcknowledgeIEsValue_IdNgRannode1CellId) isMobilityChangeAcknowledgeIEsValue_MobilityChangeAcknowledgeIes() {
@@ -25515,11 +25515,11 @@ type MobilityChangeAcknowledgeIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *MobilityChangeAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *MobilityChangeAcknowledgeIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *MobilityChangeAcknowledgeIEs) Reset() {
@@ -25723,27 +25723,27 @@ type isMobilityChangeFailureIEsValue_MobilityChangeFailureIes interface {
 
 type MobilityChangeFailureIEsValue_IdNgRannode1CellId struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdNgRannode1CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,1,opt,name=id_ng_rannode1_cell_id,json=id-NG-RANnode1CellID,proto3,oneof"`
+	IdNgRannode1CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,1,opt,name=id_ng_rannode1_cell_id,json=id-NG-RANnode1CellID,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type MobilityChangeFailureIEsValue_IdNgRannode2CellId struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdNgRannode2CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,2,opt,name=id_ng_rannode2_cell_id,json=id-NG-RANnode2CellID,proto3,oneof"`
+	IdNgRannode2CellId *xnap_ies.GlobalNgRAncellID `protobuf:"bytes,2,opt,name=id_ng_rannode2_cell_id,json=id-NG-RANnode2CellID,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type MobilityChangeFailureIEsValue_IdCause struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof"`
+	IdCause *xnap_ies.Cause `protobuf:"bytes,3,opt,name=id_cause,json=id-Cause,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type MobilityChangeFailureIEsValue_IdMobilityParametersModificationRange struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,"
-	IdMobilityParametersModificationRange *xnap_ies.MobilityParametersModificationRange `protobuf:"bytes,4,opt,name=id_mobility_parameters_modification_range,json=id-MobilityParametersModificationRange,proto3,oneof"`
+	IdMobilityParametersModificationRange *xnap_ies.MobilityParametersModificationRange `protobuf:"bytes,4,opt,name=id_mobility_parameters_modification_range,json=id-MobilityParametersModificationRange,proto3,oneof" aper:"choiceIdx:4,valueExt,"`
 }
 
 type MobilityChangeFailureIEsValue_IdCriticalityDiagnostics struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,"
-	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof"`
+	IdCriticalityDiagnostics *xnap_ies.CriticalityDiagnostics `protobuf:"bytes,5,opt,name=id_criticality_diagnostics,json=id-CriticalityDiagnostics,proto3,oneof" aper:"choiceIdx:5,valueExt,"`
 }
 
 func (*MobilityChangeFailureIEsValue_IdNgRannode1CellId) isMobilityChangeFailureIEsValue_MobilityChangeFailureIes() {
@@ -25770,11 +25770,11 @@ type MobilityChangeFailureIEs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Value *MobilityChangeFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty"`
+	Value *MobilityChangeFailureIEsValue `protobuf:"bytes,3,opt,name=value,json=&Value,proto3" json:"value,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *MobilityChangeFailureIEs) Reset() {

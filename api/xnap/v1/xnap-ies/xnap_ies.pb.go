@@ -7595,7 +7595,7 @@ type AdditionalPDcpDuplicationTNlList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:2,"
-	Value []*AdditionalPDcpDuplicationTNlItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*AdditionalPDcpDuplicationTNlItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:2,"`
 }
 
 func (x *AdditionalPDcpDuplicationTNlList) Reset() {
@@ -7696,7 +7696,7 @@ type AdditionalPDcpDuplicationTNlItem struct {
 
 	AdditionalPdcpDuplicationUpTnlInformation *UptransportLayerInformation `protobuf:"bytes,1,opt,name=additional_pdcp_duplication_up_tnl_information,json=additional-PDCP-Duplication-UP-TNL-Information,proto3" json:"additional_pdcp_duplication_up_tnl_information,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AdditionalPDcpDuplicationTNlExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AdditionalPDcpDuplicationTNlExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AdditionalPDcpDuplicationTNlItem) Reset() {
@@ -7804,7 +7804,7 @@ type AdditionalULNGUTNlatUpfItem struct {
 
 	AdditionalUlNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,1,opt,name=additional_ul_ng_u_tnlat_upf,json=additional-UL-NG-U-TNLatUPF,proto3" json:"additional_ul_ng_u_tnlat_upf,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AdditionalULNGUTNlatUpfItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AdditionalULNGUTNlatUpfItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AdditionalULNGUTNlatUpfItem) Reset() {
@@ -7861,7 +7861,7 @@ type AdditionalULNGUTNlatUpfList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:3,"
-	Value []*AdditionalULNGUTNlatUpfItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*AdditionalULNGUTNlatUpfItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:3,"`
 }
 
 func (x *AdditionalULNGUTNlatUpfList) Reset() {
@@ -7911,7 +7911,7 @@ type ActivationIdforCellActivation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:255,"`
 }
 
 func (x *ActivationIdforCellActivation) Reset() {
@@ -8011,13 +8011,13 @@ type AllocationandRetentionPriority struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:15,"
-	PriorityLevel int32 `protobuf:"varint,1,opt,name=priority_level,json=priorityLevel,proto3" json:"priority_level,omitempty"`
+	PriorityLevel int32 `protobuf:"varint,1,opt,name=priority_level,json=priorityLevel,proto3" json:"priority_level,omitempty" aper:"valueExt,valueLB:0,valueUB:15,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	PreEmptionCapability PreemptioncapabilityAllocationandRetentionPriority `protobuf:"varint,2,opt,name=pre_emption_capability,json=pre-emption-capability,proto3,enum=xnap.v1.PreemptioncapabilityAllocationandRetentionPriority" json:"pre_emption_capability,omitempty"`
+	PreEmptionCapability PreemptioncapabilityAllocationandRetentionPriority `protobuf:"varint,2,opt,name=pre_emption_capability,json=pre-emption-capability,proto3,enum=xnap.v1.PreemptioncapabilityAllocationandRetentionPriority" json:"pre_emption_capability,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	PreEmptionVulnerability PreemptionvulnerabilityAllocationandRetentionPriority `protobuf:"varint,3,opt,name=pre_emption_vulnerability,json=pre-emption-vulnerability,proto3,enum=xnap.v1.PreemptionvulnerabilityAllocationandRetentionPriority" json:"pre_emption_vulnerability,omitempty"`
+	PreEmptionVulnerability PreemptionvulnerabilityAllocationandRetentionPriority `protobuf:"varint,3,opt,name=pre_emption_vulnerability,json=pre-emption-vulnerability,proto3,enum=xnap.v1.PreemptionvulnerabilityAllocationandRetentionPriority" json:"pre_emption_vulnerability,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AllocationandRetentionPriorityExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AllocationandRetentionPriorityExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AllocationandRetentionPriority) Reset() {
@@ -8088,7 +8088,7 @@ type ActivationSfn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:1023,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:1023,"`
 }
 
 func (x *ActivationSfn) Reset() {
@@ -8138,7 +8138,7 @@ type AllowedCagIDListperPlmn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:256,"
-	Value []*CagIdentifier `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*CagIdentifier `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:256,"`
 }
 
 func (x *AllowedCagIDListperPlmn) Reset() {
@@ -8188,7 +8188,7 @@ type AllowedPniNPnIDList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*AllowedPniNPnIDItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*AllowedPniNPnIDItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *AllowedPniNPnIDList) Reset() {
@@ -8289,10 +8289,10 @@ type AllowedPniNPnIDItem struct {
 
 	PlmnId *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	PniNpnRestrictedInformation PniNPnRestrictedInformation `protobuf:"varint,2,opt,name=pni_npn_restricted_information,json=pni-npn-restricted-information,proto3,enum=xnap.v1.PniNPnRestrictedInformation" json:"pni_npn_restricted_information,omitempty"`
+	PniNpnRestrictedInformation PniNPnRestrictedInformation `protobuf:"varint,2,opt,name=pni_npn_restricted_information,json=pni-npn-restricted-information,proto3,enum=xnap.v1.PniNPnRestrictedInformation" json:"pni_npn_restricted_information,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	AllowedCagIdListPerPlmn     *AllowedCagIDListperPlmn    `protobuf:"bytes,3,opt,name=allowed_cag_id_list_per_plmn,json=allowed-CAG-id-list-per-plmn,proto3" json:"allowed_cag_id_list_per_plmn,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AllowedPniNPnIDItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AllowedPniNPnIDItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AllowedPniNPnIDItem) Reset() {
@@ -8363,7 +8363,7 @@ type AlternativeQoSparaSetList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:8,"
-	Value []*AlternativeQoSparaSetItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*AlternativeQoSparaSetItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:8,"`
 }
 
 func (x *AlternativeQoSparaSetList) Reset() {
@@ -8464,15 +8464,15 @@ type AlternativeQoSparaSetItem struct {
 
 	AlternativeQoSparaSetIndex *QoSparaSetIndex `protobuf:"bytes,1,opt,name=alternative_qo_spara_set_index,json=alternativeQoSParaSetIndex,proto3" json:"alternative_qo_spara_set_index,omitempty"`
 	// @inject_tag: aper:"optional,"
-	GuaranteedFlowBitRateDl *BitRate `protobuf:"bytes,2,opt,name=guaranteed_flow_bit_rate_dl,json=guaranteedFlowBitRateDL,proto3,oneof" json:"guaranteed_flow_bit_rate_dl,omitempty"`
+	GuaranteedFlowBitRateDl *BitRate `protobuf:"bytes,2,opt,name=guaranteed_flow_bit_rate_dl,json=guaranteedFlowBitRateDL,proto3,oneof" json:"guaranteed_flow_bit_rate_dl,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	GuaranteedFlowBitRateUl *BitRate `protobuf:"bytes,3,opt,name=guaranteed_flow_bit_rate_ul,json=guaranteedFlowBitRateUL,proto3,oneof" json:"guaranteed_flow_bit_rate_ul,omitempty"`
+	GuaranteedFlowBitRateUl *BitRate `protobuf:"bytes,3,opt,name=guaranteed_flow_bit_rate_ul,json=guaranteedFlowBitRateUL,proto3,oneof" json:"guaranteed_flow_bit_rate_ul,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	PacketDelayBudget *PacketDelayBudget `protobuf:"bytes,4,opt,name=packet_delay_budget,json=packetDelayBudget,proto3,oneof" json:"packet_delay_budget,omitempty"`
+	PacketDelayBudget *PacketDelayBudget `protobuf:"bytes,4,opt,name=packet_delay_budget,json=packetDelayBudget,proto3,oneof" json:"packet_delay_budget,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PacketErrorRate *PacketErrorRate `protobuf:"bytes,5,opt,name=packet_error_rate,json=packetErrorRate,proto3,oneof" json:"packet_error_rate,omitempty"`
+	PacketErrorRate *PacketErrorRate `protobuf:"bytes,5,opt,name=packet_error_rate,json=packetErrorRate,proto3,oneof" json:"packet_error_rate,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AlternativeQoSparaSetItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AlternativeQoSparaSetItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AlternativeQoSparaSetItem) Reset() {
@@ -8557,7 +8557,7 @@ type AmfRegionInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*GlobalAmfRegionInformation `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*GlobalAmfRegionInformation `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *AmfRegionInformation) Reset() {
@@ -8658,9 +8658,9 @@ type GlobalAmfRegionInformation struct {
 
 	PlmnId *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-ID,proto3" json:"plmn_id,omitempty"`
 	// @inject_tag: aper:"sizeLB:8,sizeUB:8,"
-	AmfRegionId *asn1.BitString `protobuf:"bytes,2,opt,name=amf_region_id,json=amf-region-id,proto3" json:"amf_region_id,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GlobalAmfRegionInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	AmfRegionId *asn1.BitString `protobuf:"bytes,2,opt,name=amf_region_id,json=amf-region-id,proto3" json:"amf_region_id,omitempty" aper:"sizeLB:8,sizeUB:8,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*GlobalAmfRegionInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *GlobalAmfRegionInformation) Reset() {
@@ -8724,7 +8724,7 @@ type AmfUENGapID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:1099511627775,"
-	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:1099511627775,"`
 }
 
 func (x *AmfUENGapID) Reset() {
@@ -8774,7 +8774,7 @@ type AreaOfInterestInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*AreaOfInterestItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*AreaOfInterestItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *AreaOfInterestInformation) Reset() {
@@ -8874,14 +8874,14 @@ type AreaOfInterestItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ListOfTaisinAoI *ListOfTaisinAoI `protobuf:"bytes,1,opt,name=list_of_taisin_ao_i,json=listOfTAIsinAoI,proto3,oneof" json:"list_of_taisin_ao_i,omitempty"`
+	ListOfTaisinAoI *ListOfTaisinAoI `protobuf:"bytes,1,opt,name=list_of_taisin_ao_i,json=listOfTAIsinAoI,proto3,oneof" json:"list_of_taisin_ao_i,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	ListOfCellsinAoI *ListOfCells `protobuf:"bytes,2,opt,name=list_of_cellsin_ao_i,json=listOfCellsinAoI,proto3,oneof" json:"list_of_cellsin_ao_i,omitempty"`
+	ListOfCellsinAoI *ListOfCells `protobuf:"bytes,2,opt,name=list_of_cellsin_ao_i,json=listOfCellsinAoI,proto3,oneof" json:"list_of_cellsin_ao_i,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	ListOfRannodesinAoI *ListOfRannodesinAoI `protobuf:"bytes,3,opt,name=list_of_rannodesin_ao_i,json=listOfRANNodesinAoI,proto3,oneof" json:"list_of_rannodesin_ao_i,omitempty"`
+	ListOfRannodesinAoI *ListOfRannodesinAoI `protobuf:"bytes,3,opt,name=list_of_rannodesin_ao_i,json=listOfRANNodesinAoI,proto3,oneof" json:"list_of_rannodesin_ao_i,omitempty" aper:"optional,"`
 	RequestReferenceId  *RequestReferenceId  `protobuf:"bytes,4,opt,name=request_reference_id,json=requestReferenceID,proto3" json:"request_reference_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AreaOfInterestItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AreaOfInterestItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AreaOfInterestItem) Reset() {
@@ -9034,17 +9034,17 @@ type isAreaScopeOfMdtNR_AreaScopeOfMdtNr interface {
 
 type AreaScopeOfMdtNR_CellBased struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	CellBased *CellBasedMdtNR `protobuf:"bytes,1,opt,name=cell_based,json=cellBased,proto3,oneof"`
+	CellBased *CellBasedMdtNR `protobuf:"bytes,1,opt,name=cell_based,json=cellBased,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type AreaScopeOfMdtNR_TAbased struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	TAbased *TabasedMdt `protobuf:"bytes,2,opt,name=t_abased,json=tABased,proto3,oneof"`
+	TAbased *TabasedMdt `protobuf:"bytes,2,opt,name=t_abased,json=tABased,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type AreaScopeOfMdtNR_TAibased struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	TAibased *TaibasedMdt `protobuf:"bytes,3,opt,name=t_aibased,json=tAIBased,proto3,oneof"`
+	TAibased *TaibasedMdt `protobuf:"bytes,3,opt,name=t_aibased,json=tAIBased,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*AreaScopeOfMdtNR_CellBased) isAreaScopeOfMdtNR_AreaScopeOfMdtNr() {}
@@ -9136,17 +9136,17 @@ type isAreaScopeOfMdtEUtra_AreaScopeOfMdtEutra interface {
 
 type AreaScopeOfMdtEUtra_CellBased struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	CellBased *CellBasedMdtEUtra `protobuf:"bytes,1,opt,name=cell_based,json=cellBased,proto3,oneof"`
+	CellBased *CellBasedMdtEUtra `protobuf:"bytes,1,opt,name=cell_based,json=cellBased,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type AreaScopeOfMdtEUtra_TAbased struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	TAbased *TabasedMdt `protobuf:"bytes,2,opt,name=t_abased,json=tABased,proto3,oneof"`
+	TAbased *TabasedMdt `protobuf:"bytes,2,opt,name=t_abased,json=tABased,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type AreaScopeOfMdtEUtra_TAibased struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	TAibased *TaibasedMdt `protobuf:"bytes,3,opt,name=t_aibased,json=tAIBased,proto3,oneof"`
+	TAibased *TaibasedMdt `protobuf:"bytes,3,opt,name=t_aibased,json=tAIBased,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*AreaScopeOfMdtEUtra_CellBased) isAreaScopeOfMdtEUtra_AreaScopeOfMdtEutra() {}
@@ -9163,7 +9163,7 @@ type AreaScopeOfNeighCellsList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:8,"
-	Value []*AreaScopeOfNeighCellsItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*AreaScopeOfNeighCellsItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:8,"`
 }
 
 func (x *AreaScopeOfNeighCellsList) Reset() {
@@ -9263,11 +9263,11 @@ type AreaScopeOfNeighCellsItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	NrFrequencyInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=nr_frequency_info,json=nrFrequencyInfo,proto3" json:"nr_frequency_info,omitempty"`
+	NrFrequencyInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=nr_frequency_info,json=nrFrequencyInfo,proto3" json:"nr_frequency_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	PciListForMdt *PcilistForMdt `protobuf:"bytes,2,opt,name=pci_list_for_mdt,json=pciListForMDT,proto3,oneof" json:"pci_list_for_mdt,omitempty"`
+	PciListForMdt *PcilistForMdt `protobuf:"bytes,2,opt,name=pci_list_for_mdt,json=pciListForMDT,proto3,oneof" json:"pci_list_for_mdt,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AreaScopeOfNeighCellsItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AreaScopeOfNeighCellsItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AreaScopeOfNeighCellsItem) Reset() {
@@ -9381,11 +9381,11 @@ type AsSecurityInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:256,sizeUB:256,"
-	KeyNgRanStar *asn1.BitString `protobuf:"bytes,1,opt,name=key_ng_ran_star,json=key-NG-RAN-Star,proto3" json:"key_ng_ran_star,omitempty"`
+	KeyNgRanStar *asn1.BitString `protobuf:"bytes,1,opt,name=key_ng_ran_star,json=key-NG-RAN-Star,proto3" json:"key_ng_ran_star,omitempty" aper:"sizeLB:256,sizeUB:256,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:7,"
-	Ncc int32 `protobuf:"varint,2,opt,name=ncc,proto3" json:"ncc,omitempty"`
+	Ncc int32 `protobuf:"varint,2,opt,name=ncc,proto3" json:"ncc,omitempty" aper:"valueLB:0,valueUB:7,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AsSecurityInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AsSecurityInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AsSecurityInformation) Reset() {
@@ -9499,9 +9499,9 @@ type AssistanceDataForRanpaging struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,"
-	RanPagingAttemptInfo *RanpagingAttemptInfo `protobuf:"bytes,1,opt,name=ran_paging_attempt_info,json=ran-paging-attempt-info,proto3,oneof" json:"ran_paging_attempt_info,omitempty"`
+	RanPagingAttemptInfo *RanpagingAttemptInfo `protobuf:"bytes,1,opt,name=ran_paging_attempt_info,json=ran-paging-attempt-info,proto3,oneof" json:"ran_paging_attempt_info,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*AssistanceDataForRanpagingExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*AssistanceDataForRanpagingExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *AssistanceDataForRanpaging) Reset() {
@@ -9558,7 +9558,7 @@ type AvailableCapacity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:100,"`
 }
 
 func (x *AvailableCapacity) Reset() {
@@ -9608,7 +9608,7 @@ type AvailableRrcconnectionCapacityValue struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *AvailableRrcconnectionCapacityValue) Reset() {
@@ -9658,7 +9658,7 @@ type AveragingWindow struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4095,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:4095,"`
 }
 
 func (x *AveragingWindow) Reset() {
@@ -9758,13 +9758,13 @@ type BluetoothMeasurementConfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	BluetoothMeasConfig BluetoothMeasConfig `protobuf:"varint,1,opt,name=bluetooth_meas_config,json=bluetoothMeasConfig,proto3,enum=xnap.v1.BluetoothMeasConfig" json:"bluetooth_meas_config,omitempty"`
+	BluetoothMeasConfig BluetoothMeasConfig `protobuf:"varint,1,opt,name=bluetooth_meas_config,json=bluetoothMeasConfig,proto3,enum=xnap.v1.BluetoothMeasConfig" json:"bluetooth_meas_config,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,"
-	BluetoothMeasConfigNameList *BluetoothMeasConfigNameList `protobuf:"bytes,2,opt,name=bluetooth_meas_config_name_list,json=bluetoothMeasConfigNameList,proto3,oneof" json:"bluetooth_meas_config_name_list,omitempty"`
+	BluetoothMeasConfigNameList *BluetoothMeasConfigNameList `protobuf:"bytes,2,opt,name=bluetooth_meas_config_name_list,json=bluetoothMeasConfigNameList,proto3,oneof" json:"bluetooth_meas_config_name_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	BtRssi *BtrssiBluetoothMeasurementConfiguration `protobuf:"varint,3,opt,name=bt_rssi,json=bt-rssi,proto3,enum=xnap.v1.BtrssiBluetoothMeasurementConfiguration,oneof" json:"bt_rssi,omitempty"`
+	BtRssi *BtrssiBluetoothMeasurementConfiguration `protobuf:"varint,3,opt,name=bt_rssi,json=bt-rssi,proto3,enum=xnap.v1.BtrssiBluetoothMeasurementConfiguration,oneof" json:"bt_rssi,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*BluetoothMeasurementConfigurationExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*BluetoothMeasurementConfigurationExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *BluetoothMeasurementConfiguration) Reset() {
@@ -9835,7 +9835,7 @@ type BluetoothMeasConfigNameList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:4,"
-	Value []*BluetoothName `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*BluetoothName `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:4,"`
 }
 
 func (x *BluetoothMeasConfigNameList) Reset() {
@@ -9885,7 +9885,7 @@ type BluetoothName struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:248,"
-	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:248,"`
 }
 
 func (x *BluetoothName) Reset() {
@@ -9935,7 +9935,7 @@ type BplmnIDInfoEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:6,"
-	Value []*BplmnIDInfoEUtraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*BplmnIDInfoEUtraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:6,"`
 }
 
 func (x *BplmnIDInfoEUtra) Reset() {
@@ -10038,9 +10038,9 @@ type BplmnIDInfoEUtraItem struct {
 	Tac            *Tac                 `protobuf:"bytes,2,opt,name=tac,proto3" json:"tac,omitempty"`
 	EUtraCi        *EUTraCellIdentity   `protobuf:"bytes,3,opt,name=e_utra_ci,json=e-utraCI,proto3" json:"e_utra_ci,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Ranac *Ranac `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty"`
+	Ranac *Ranac `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*BplmnIDInfoEUtraItemExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*BplmnIDInfoEUtraItemExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *BplmnIDInfoEUtraItem) Reset() {
@@ -10118,7 +10118,7 @@ type BplmnIDInfoNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:12,"
-	Value []*BplmnIDInfoNRItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*BplmnIDInfoNRItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:12,"`
 }
 
 func (x *BplmnIDInfoNR) Reset() {
@@ -10234,12 +10234,12 @@ type isBplmnIDInfoNRItemExtIesExtension_BplmnIdInfoNrItemExtIes interface {
 
 type BplmnIDInfoNRItemExtIesExtension_IdConfiguredTacindication struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:0,"
-	IdConfiguredTacindication ConfiguredTacindication `protobuf:"varint,1,opt,name=id_configured_tacindication,json=id-ConfiguredTACIndication,proto3,enum=xnap.v1.ConfiguredTacindication,oneof"`
+	IdConfiguredTacindication ConfiguredTacindication `protobuf:"varint,1,opt,name=id_configured_tacindication,json=id-ConfiguredTACIndication,proto3,enum=xnap.v1.ConfiguredTacindication,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type BplmnIDInfoNRItemExtIesExtension_IdNpnBroadcastInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdNpnBroadcastInformation *NpnBroadcastInformation `protobuf:"bytes,2,opt,name=id_npn_broadcast_information,json=id-NPN-Broadcast-Information,proto3,oneof"`
+	IdNpnBroadcastInformation *NpnBroadcastInformation `protobuf:"bytes,2,opt,name=id_npn_broadcast_information,json=id-NPN-Broadcast-Information,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*BplmnIDInfoNRItemExtIesExtension_IdConfiguredTacindication) isBplmnIDInfoNRItemExtIesExtension_BplmnIdInfoNrItemExtIes() {
@@ -10257,11 +10257,11 @@ type BplmnIDInfoNRItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *BplmnIDInfoNRItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *BplmnIDInfoNRItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *BplmnIDInfoNRItemExtIes) Reset() {
@@ -10329,9 +10329,9 @@ type BplmnIDInfoNRItem struct {
 	Tac            *Tac            `protobuf:"bytes,2,opt,name=tac,proto3" json:"tac,omitempty"`
 	NrCi           *NrCellIdentity `protobuf:"bytes,3,opt,name=nr_ci,json=nr-CI,proto3" json:"nr_ci,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Ranac *Ranac `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty"`
+	Ranac *Ranac `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*BplmnIDInfoNRItemExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*BplmnIDInfoNRItemExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *BplmnIDInfoNRItem) Reset() {
@@ -10409,7 +10409,7 @@ type BitRate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4000000000000,"
-	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:4000000000000,"`
 }
 
 func (x *BitRate) Reset() {
@@ -10459,7 +10459,7 @@ type BroadcastCagIdentifierList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:12,"
-	Value []*BroadcastCagIdentifierItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*BroadcastCagIdentifierItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:12,"`
 }
 
 func (x *BroadcastCagIdentifierList) Reset() {
@@ -10560,7 +10560,7 @@ type BroadcastCagIdentifierItem struct {
 
 	CagIdentifier *CagIdentifier `protobuf:"bytes,1,opt,name=cag_identifier,json=cag-Identifier,proto3" json:"cag_identifier,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*BroadcastCagIdentifierItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*BroadcastCagIdentifierItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *BroadcastCagIdentifierItem) Reset() {
@@ -10617,7 +10617,7 @@ type BroadcastNidList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:12,"
-	Value []*BroadcastNidItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*BroadcastNidItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:12,"`
 }
 
 func (x *BroadcastNidList) Reset() {
@@ -10718,7 +10718,7 @@ type BroadcastNidItem struct {
 
 	Nid *Nid `protobuf:"bytes,1,opt,name=nid,proto3" json:"nid,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*BroadcastNidItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*BroadcastNidItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *BroadcastNidItem) Reset() {
@@ -10775,7 +10775,7 @@ type BroadcastPlmns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:12,"
-	Value []*PlmnIdentity `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PlmnIdentity `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:12,"`
 }
 
 func (x *BroadcastPlmns) Reset() {
@@ -10825,7 +10825,7 @@ type BroadcastEutraplmns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:6,"
-	Value []*PlmnIdentity `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PlmnIdentity `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:6,"`
 }
 
 func (x *BroadcastEutraplmns) Reset() {
@@ -10941,12 +10941,12 @@ type isBroadcastPlmninTaisupportItemExtIesExtension_BroadcastPlmninTaisupportIte
 
 type BroadcastPlmninTaisupportItemExtIesExtension_IdNpnSupport struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdNpnSupport *NpnSupport `protobuf:"bytes,1,opt,name=id_npn_support,json=id-NPN-Support,proto3,oneof"`
+	IdNpnSupport *NpnSupport `protobuf:"bytes,1,opt,name=id_npn_support,json=id-NPN-Support,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type BroadcastPlmninTaisupportItemExtIesExtension_IdExtendedTaisliceSupportList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdExtendedTaisliceSupportList *ExtendedSliceSupportList `protobuf:"bytes,2,opt,name=id_extended_taislice_support_list,json=id-ExtendedTAISliceSupportList,proto3,oneof"`
+	IdExtendedTaisliceSupportList *ExtendedSliceSupportList `protobuf:"bytes,2,opt,name=id_extended_taislice_support_list,json=id-ExtendedTAISliceSupportList,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*BroadcastPlmninTaisupportItemExtIesExtension_IdNpnSupport) isBroadcastPlmninTaisupportItemExtIesExtension_BroadcastPlmninTaisupportItemExtIes() {
@@ -10964,11 +10964,11 @@ type BroadcastPlmninTaisupportItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *BroadcastPlmninTaisupportItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *BroadcastPlmninTaisupportItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *BroadcastPlmninTaisupportItemExtIes) Reset() {
@@ -11034,8 +11034,8 @@ type BroadcastPlmninTaisupportItem struct {
 
 	PlmnId              *PlmnIdentity     `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	TAisliceSupportList *SliceSupportList `protobuf:"bytes,2,opt,name=t_aislice_support_list,json=tAISliceSupport-List,proto3" json:"t_aislice_support_list,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*BroadcastPlmninTaisupportItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtension []*BroadcastPlmninTaisupportItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *BroadcastPlmninTaisupportItem) Reset() {
@@ -11099,7 +11099,7 @@ type BroadcastPniNPnIDInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:12,"
-	Value []*BroadcastPniNPnIDInformationItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*BroadcastPniNPnIDInformationItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:12,"`
 }
 
 func (x *BroadcastPniNPnIDInformation) Reset() {
@@ -11201,7 +11201,7 @@ type BroadcastPniNPnIDInformationItem struct {
 	PlmnId                     *PlmnIdentity               `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	BroadcastCagIdentifierList *BroadcastCagIdentifierList `protobuf:"bytes,2,opt,name=broadcast_cag_identifier_list,json=broadcastCAG-Identifier-List,proto3" json:"broadcast_cag_identifier_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*BroadcastPniNPnIDInformationItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*BroadcastPniNPnIDInformationItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *BroadcastPniNPnIDInformationItem) Reset() {
@@ -11265,7 +11265,7 @@ type BroadcastSnpnidList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:12,"
-	Value []*BroadcastSnpnid `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*BroadcastSnpnid `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:12,"`
 }
 
 func (x *BroadcastSnpnidList) Reset() {
@@ -11367,7 +11367,7 @@ type BroadcastSnpnid struct {
 	PlmnId           *PlmnIdentity     `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	BroadcastNidList *BroadcastNidList `protobuf:"bytes,2,opt,name=broadcast_nid_list,json=broadcastNID-List,proto3" json:"broadcast_nid_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*BroadcastSnpnidExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*BroadcastSnpnidExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *BroadcastSnpnid) Reset() {
@@ -11431,7 +11431,7 @@ type CagIdentifier struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:32,sizeUB:32,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:32,sizeUB:32,"`
 }
 
 func (x *CagIdentifier) Reset() {
@@ -11481,7 +11481,7 @@ type CapacityValue struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *CapacityValue) Reset() {
@@ -11582,9 +11582,9 @@ type CapacityValueInfo struct {
 
 	CapacityValue *CapacityValue `protobuf:"bytes,1,opt,name=capacity_value,json=capacityValue,proto3" json:"capacity_value,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SsbAreaCapacityValueList *SsbareaCapacityValueList `protobuf:"bytes,2,opt,name=ssb_area_capacity_value_list,json=ssbAreaCapacityValueList,proto3,oneof" json:"ssb_area_capacity_value_list,omitempty"`
+	SsbAreaCapacityValueList *SsbareaCapacityValueList `protobuf:"bytes,2,opt,name=ssb_area_capacity_value_list,json=ssbAreaCapacityValueList,proto3,oneof" json:"ssb_area_capacity_value_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*CapacityValueInfoExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*CapacityValueInfoExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CapacityValueInfo) Reset() {
@@ -11787,27 +11787,27 @@ type isCause_Cause interface {
 
 type Cause_RadioNetwork struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:52,"
-	RadioNetwork CauseRadioNetworkLayer `protobuf:"varint,1,opt,name=radio_network,json=radioNetwork,proto3,enum=xnap.v1.CauseRadioNetworkLayer,oneof"`
+	RadioNetwork CauseRadioNetworkLayer `protobuf:"varint,1,opt,name=radio_network,json=radioNetwork,proto3,enum=xnap.v1.CauseRadioNetworkLayer,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:52,"`
 }
 
 type Cause_Transport struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:1,"
-	Transport CauseTransportLayer `protobuf:"varint,2,opt,name=transport,proto3,enum=xnap.v1.CauseTransportLayer,oneof"`
+	Transport CauseTransportLayer `protobuf:"varint,2,opt,name=transport,proto3,enum=xnap.v1.CauseTransportLayer,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type Cause_Protocol struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:6,"
-	Protocol CauseProtocol `protobuf:"varint,3,opt,name=protocol,proto3,enum=xnap.v1.CauseProtocol,oneof"`
+	Protocol CauseProtocol `protobuf:"varint,3,opt,name=protocol,proto3,enum=xnap.v1.CauseProtocol,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:6,"`
 }
 
 type Cause_Misc struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,valueLB:0,valueUB:4,"
-	Misc CauseMisc `protobuf:"varint,4,opt,name=misc,proto3,enum=xnap.v1.CauseMisc,oneof"`
+	Misc CauseMisc `protobuf:"varint,4,opt,name=misc,proto3,enum=xnap.v1.CauseMisc,oneof" aper:"choiceIdx:4,valueExt,valueLB:0,valueUB:4,"`
 }
 
 type Cause_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	ChoiceExtension *CauseExtIes `protobuf:"bytes,5,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *CauseExtIes `protobuf:"bytes,5,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*Cause_RadioNetwork) isCause_Cause() {}
@@ -11828,7 +11828,7 @@ type LimitedNrListCellAssistanceInfoNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16384,"
-	LimitedNrList []*NrCGi `protobuf:"bytes,1,rep,name=limited_nr_list,json=limitedNR-List,proto3" json:"limited_nr_list,omitempty"`
+	LimitedNrList []*NrCGi `protobuf:"bytes,1,rep,name=limited_nr_list,json=limitedNR-List,proto3" json:"limited_nr_list,omitempty" aper:"sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *LimitedNrListCellAssistanceInfoNR) Reset() {
@@ -12001,17 +12001,17 @@ type isCellAssistanceInfoNR_CellAssistanceInfoNr interface {
 
 type CellAssistanceInfoNR_LimitedNrList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	LimitedNrList *LimitedNrListCellAssistanceInfoNR `protobuf:"bytes,1,opt,name=limited_nr_list,json=limitedNR-List,proto3,oneof"`
+	LimitedNrList *LimitedNrListCellAssistanceInfoNR `protobuf:"bytes,1,opt,name=limited_nr_list,json=limitedNR-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CellAssistanceInfoNR_FullList struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"
-	FullList FullListCellAssistanceInfoNr `protobuf:"varint,2,opt,name=full_list,json=full-List,proto3,enum=xnap.v1.FullListCellAssistanceInfoNr,oneof"`
+	FullList FullListCellAssistanceInfoNr `protobuf:"varint,2,opt,name=full_list,json=full-List,proto3,enum=xnap.v1.FullListCellAssistanceInfoNr,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type CellAssistanceInfoNR_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *CellAssistanceInfoNRExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *CellAssistanceInfoNRExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*CellAssistanceInfoNR_LimitedNrList) isCellAssistanceInfoNR_CellAssistanceInfoNr() {}
@@ -12078,11 +12078,11 @@ type CellAndCapacityAssistanceInfoNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	MaximumCellListSize *MaximumCellListSize `protobuf:"bytes,1,opt,name=maximum_cell_list_size,json=maximumCellListSize,proto3,oneof" json:"maximum_cell_list_size,omitempty"`
+	MaximumCellListSize *MaximumCellListSize `protobuf:"bytes,1,opt,name=maximum_cell_list_size,json=maximumCellListSize,proto3,oneof" json:"maximum_cell_list_size,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	CellAssistanceInfoNr *CellAssistanceInfoNR `protobuf:"bytes,2,opt,name=cell_assistance_info_nr,json=cellAssistanceInfo-NR,proto3,oneof" json:"cell_assistance_info_nr,omitempty"`
+	CellAssistanceInfoNr *CellAssistanceInfoNR `protobuf:"bytes,2,opt,name=cell_assistance_info_nr,json=cellAssistanceInfo-NR,proto3,oneof" json:"cell_assistance_info_nr,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CellAndCapacityAssistanceInfoNRExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CellAndCapacityAssistanceInfoNRExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CellAndCapacityAssistanceInfoNR) Reset() {
@@ -12196,11 +12196,11 @@ type CellAndCapacityAssistanceInfoEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	MaximumCellListSize *MaximumCellListSize `protobuf:"bytes,1,opt,name=maximum_cell_list_size,json=maximumCellListSize,proto3,oneof" json:"maximum_cell_list_size,omitempty"`
+	MaximumCellListSize *MaximumCellListSize `protobuf:"bytes,1,opt,name=maximum_cell_list_size,json=maximumCellListSize,proto3,oneof" json:"maximum_cell_list_size,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	CellAssistanceInfoEutra *CellAssistanceInfoEUtra `protobuf:"bytes,2,opt,name=cell_assistance_info_eutra,json=cellAssistanceInfo-EUTRA,proto3,oneof" json:"cell_assistance_info_eutra,omitempty"`
+	CellAssistanceInfoEutra *CellAssistanceInfoEUtra `protobuf:"bytes,2,opt,name=cell_assistance_info_eutra,json=cellAssistanceInfo-EUTRA,proto3,oneof" json:"cell_assistance_info_eutra,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CellAndCapacityAssistanceInfoEUtraExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CellAndCapacityAssistanceInfoEUtraExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CellAndCapacityAssistanceInfoEUtra) Reset() {
@@ -12264,7 +12264,7 @@ type LimitedEutraListCellAssistanceInfoEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16384,"
-	LimitedEutraList []*EUTraCGi `protobuf:"bytes,1,rep,name=limited_eutra_list,json=limitedEUTRA-List,proto3" json:"limited_eutra_list,omitempty"`
+	LimitedEutraList []*EUTraCGi `protobuf:"bytes,1,rep,name=limited_eutra_list,json=limitedEUTRA-List,proto3" json:"limited_eutra_list,omitempty" aper:"sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *LimitedEutraListCellAssistanceInfoEUtra) Reset() {
@@ -12437,17 +12437,17 @@ type isCellAssistanceInfoEUtra_CellAssistanceInfoEutra interface {
 
 type CellAssistanceInfoEUtra_LimitedEutraList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	LimitedEutraList *LimitedEutraListCellAssistanceInfoEUtra `protobuf:"bytes,1,opt,name=limited_eutra_list,json=limitedEUTRA-List,proto3,oneof"`
+	LimitedEutraList *LimitedEutraListCellAssistanceInfoEUtra `protobuf:"bytes,1,opt,name=limited_eutra_list,json=limitedEUTRA-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CellAssistanceInfoEUtra_FullList struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"
-	FullList FullListCellAssistanceInfoEutra `protobuf:"varint,2,opt,name=full_list,json=full-List,proto3,enum=xnap.v1.FullListCellAssistanceInfoEutra,oneof"`
+	FullList FullListCellAssistanceInfoEutra `protobuf:"varint,2,opt,name=full_list,json=full-List,proto3,enum=xnap.v1.FullListCellAssistanceInfoEutra,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type CellAssistanceInfoEUtra_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *CellAssistanceInfoEUtraExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *CellAssistanceInfoEUtraExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*CellAssistanceInfoEUtra_LimitedEutraList) isCellAssistanceInfoEUtra_CellAssistanceInfoEutra() {
@@ -12516,7 +12516,7 @@ type CellBasedMdtNR struct {
 
 	CellIdListforMdtNr *CellIdListforMdtNR `protobuf:"bytes,1,opt,name=cell_id_listfor_mdt_nr,json=cellIdListforMDT-NR,proto3" json:"cell_id_listfor_mdt_nr,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CellBasedMdtNRExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CellBasedMdtNRExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CellBasedMdtNR) Reset() {
@@ -12573,7 +12573,7 @@ type CellIdListforMdtNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*NrCGi `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*NrCGi `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *CellIdListforMdtNR) Reset() {
@@ -12674,7 +12674,7 @@ type CellBasedMdtEUtra struct {
 
 	CellIdListforMdtEutra *CellIdListforMdtEUtra `protobuf:"bytes,1,opt,name=cell_id_listfor_mdt_eutra,json=cellIdListforMDT-EUTRA,proto3" json:"cell_id_listfor_mdt_eutra,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CellBasedMdtEUtraExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CellBasedMdtEUtraExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CellBasedMdtEUtra) Reset() {
@@ -12731,7 +12731,7 @@ type CellIdListforMdtEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*EUTraCGi `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*EUTraCGi `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *CellIdListforMdtEUtra) Reset() {
@@ -12781,7 +12781,7 @@ type CellCapacityClassValue struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:100,"`
 }
 
 func (x *CellCapacityClassValue) Reset() {
@@ -12831,7 +12831,7 @@ type CellGroupId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:3,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:3,"`
 }
 
 func (x *CellGroupId) Reset() {
@@ -12881,7 +12881,7 @@ type CellMeasurementResult struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16384,"
-	Value []*CellMeasurementResultItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*CellMeasurementResultItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *CellMeasurementResult) Reset() {
@@ -12981,21 +12981,21 @@ type CellMeasurementResultItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	CellId *GlobalNgRAncellID `protobuf:"bytes,1,opt,name=cell_id,json=cell-ID,proto3" json:"cell_id,omitempty"`
+	CellId *GlobalNgRAncellID `protobuf:"bytes,1,opt,name=cell_id,json=cell-ID,proto3" json:"cell_id,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	RadioResourceStatus *RadioResourceStatus `protobuf:"bytes,2,opt,name=radio_resource_status,json=radioResourceStatus,proto3,oneof" json:"radio_resource_status,omitempty"`
+	RadioResourceStatus *RadioResourceStatus `protobuf:"bytes,2,opt,name=radio_resource_status,json=radioResourceStatus,proto3,oneof" json:"radio_resource_status,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	TNlcapacityIndicator *TnlcapacityIndicator `protobuf:"bytes,3,opt,name=t_nlcapacity_indicator,json=tNLCapacityIndicator,proto3,oneof" json:"t_nlcapacity_indicator,omitempty"`
+	TNlcapacityIndicator *TnlcapacityIndicator `protobuf:"bytes,3,opt,name=t_nlcapacity_indicator,json=tNLCapacityIndicator,proto3,oneof" json:"t_nlcapacity_indicator,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	CompositeAvailableCapacityGroup *CompositeAvailableCapacityGroup `protobuf:"bytes,4,opt,name=composite_available_capacity_group,json=compositeAvailableCapacityGroup,proto3,oneof" json:"composite_available_capacity_group,omitempty"`
+	CompositeAvailableCapacityGroup *CompositeAvailableCapacityGroup `protobuf:"bytes,4,opt,name=composite_available_capacity_group,json=compositeAvailableCapacityGroup,proto3,oneof" json:"composite_available_capacity_group,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	SliceAvailableCapacity *SliceAvailableCapacity `protobuf:"bytes,5,opt,name=slice_available_capacity,json=sliceAvailableCapacity,proto3,oneof" json:"slice_available_capacity,omitempty"`
+	SliceAvailableCapacity *SliceAvailableCapacity `protobuf:"bytes,5,opt,name=slice_available_capacity,json=sliceAvailableCapacity,proto3,oneof" json:"slice_available_capacity,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NumberofActiveUes *NumberofActiveUes `protobuf:"bytes,6,opt,name=numberof_active_ues,json=numberofActiveUEs,proto3,oneof" json:"numberof_active_ues,omitempty"`
+	NumberofActiveUes *NumberofActiveUes `protobuf:"bytes,6,opt,name=numberof_active_ues,json=numberofActiveUEs,proto3,oneof" json:"numberof_active_ues,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	RRcconnections *Rrcconnections `protobuf:"bytes,7,opt,name=r_rcconnections,json=rRCConnections,proto3,oneof" json:"r_rcconnections,omitempty"`
+	RRcconnections *Rrcconnections `protobuf:"bytes,7,opt,name=r_rcconnections,json=rRCConnections,proto3,oneof" json:"r_rcconnections,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CellMeasurementResultItemExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CellMeasurementResultItemExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CellMeasurementResultItem) Reset() {
@@ -13094,7 +13094,7 @@ type CellToReport struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16384,"
-	Value []*CellToReportItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*CellToReportItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *CellToReport) Reset() {
@@ -13194,13 +13194,13 @@ type CellToReportItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	CellId *GlobalNgRAncellID `protobuf:"bytes,1,opt,name=cell_id,json=cell-ID,proto3" json:"cell_id,omitempty"`
+	CellId *GlobalNgRAncellID `protobuf:"bytes,1,opt,name=cell_id,json=cell-ID,proto3" json:"cell_id,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	SSbtoReportList *SsbtoReportList `protobuf:"bytes,2,opt,name=s_sbto_report_list,json=sSBToReport-List,proto3,oneof" json:"s_sbto_report_list,omitempty"`
+	SSbtoReportList *SsbtoReportList `protobuf:"bytes,2,opt,name=s_sbto_report_list,json=sSBToReport-List,proto3,oneof" json:"s_sbto_report_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	SliceToReportList *SliceToReportList `protobuf:"bytes,3,opt,name=slice_to_report_list,json=sliceToReport-List,proto3,oneof" json:"slice_to_report_list,omitempty"`
+	SliceToReportList *SliceToReportList `protobuf:"bytes,3,opt,name=slice_to_report_list,json=sliceToReport-List,proto3,oneof" json:"slice_to_report_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CellToReportItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CellToReportItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CellToReportItem) Reset() {
@@ -13402,22 +13402,22 @@ type isCellTypeChoice_CellTypeChoice interface {
 
 type CellTypeChoice_NgRanEUtra struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	NgRanEUtra *EUTraCellIdentity `protobuf:"bytes,1,opt,name=ng_ran_e_utra,json=ng-ran-e-utra,proto3,oneof"`
+	NgRanEUtra *EUTraCellIdentity `protobuf:"bytes,1,opt,name=ng_ran_e_utra,json=ng-ran-e-utra,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CellTypeChoice_NgRanNr struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	NgRanNr *NrCellIdentity `protobuf:"bytes,2,opt,name=ng_ran_nr,json=ng-ran-nr,proto3,oneof"`
+	NgRanNr *NrCellIdentity `protobuf:"bytes,2,opt,name=ng_ran_nr,json=ng-ran-nr,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type CellTypeChoice_EUtran struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	EUtran *EUTraCellIdentity `protobuf:"bytes,3,opt,name=e_utran,json=e-utran,proto3,oneof"`
+	EUtran *EUTraCellIdentity `protobuf:"bytes,3,opt,name=e_utran,json=e-utran,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type CellTypeChoice_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ChoiceExtension *CellTypeChoiceExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *CellTypeChoiceExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*CellTypeChoice_NgRanEUtra) isCellTypeChoice_CellTypeChoice() {}
@@ -13486,11 +13486,11 @@ type CompositeAvailableCapacityGroup struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	CompositeAvailableCapacityDownlink *CompositeAvailableCapacity `protobuf:"bytes,1,opt,name=composite_available_capacity_downlink,json=compositeAvailableCapacityDownlink,proto3" json:"composite_available_capacity_downlink,omitempty"`
+	CompositeAvailableCapacityDownlink *CompositeAvailableCapacity `protobuf:"bytes,1,opt,name=composite_available_capacity_downlink,json=compositeAvailableCapacityDownlink,proto3" json:"composite_available_capacity_downlink,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	CompositeAvailableCapacityUplink *CompositeAvailableCapacity `protobuf:"bytes,2,opt,name=composite_available_capacity_uplink,json=compositeAvailableCapacityUplink,proto3" json:"composite_available_capacity_uplink,omitempty"`
+	CompositeAvailableCapacityUplink *CompositeAvailableCapacity `protobuf:"bytes,2,opt,name=composite_available_capacity_uplink,json=compositeAvailableCapacityUplink,proto3" json:"composite_available_capacity_uplink,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CompositeAvailableCapacityGroupExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CompositeAvailableCapacityGroupExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CompositeAvailableCapacityGroup) Reset() {
@@ -13604,11 +13604,11 @@ type CompositeAvailableCapacity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	CellCapacityClassValue *CellCapacityClassValue `protobuf:"bytes,1,opt,name=cell_capacity_class_value,json=cellCapacityClassValue,proto3,oneof" json:"cell_capacity_class_value,omitempty"`
+	CellCapacityClassValue *CellCapacityClassValue `protobuf:"bytes,1,opt,name=cell_capacity_class_value,json=cellCapacityClassValue,proto3,oneof" json:"cell_capacity_class_value,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"valueExt,"
-	CapacityValueInfo *CapacityValueInfo `protobuf:"bytes,2,opt,name=capacity_value_info,json=capacityValueInfo,proto3" json:"capacity_value_info,omitempty"`
+	CapacityValueInfo *CapacityValueInfo `protobuf:"bytes,2,opt,name=capacity_value_info,json=capacityValueInfo,proto3" json:"capacity_value_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CompositeAvailableCapacityExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CompositeAvailableCapacityExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CompositeAvailableCapacity) Reset() {
@@ -13722,13 +13722,13 @@ type ChoinformationReq struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	ChoTrigger Chotrigger `protobuf:"varint,1,opt,name=cho_trigger,json=cho-trigger,proto3,enum=xnap.v1.Chotrigger" json:"cho_trigger,omitempty"`
+	ChoTrigger Chotrigger `protobuf:"varint,1,opt,name=cho_trigger,json=cho-trigger,proto3,enum=xnap.v1.Chotrigger" json:"cho_trigger,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,"
-	TargetNgRannodeUexnApid *NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=target_ng_rannode_uexn_apid,json=targetNG-RANnodeUEXnAPID,proto3,oneof" json:"target_ng_rannode_uexn_apid,omitempty"`
+	TargetNgRannodeUexnApid *NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=target_ng_rannode_uexn_apid,json=targetNG-RANnodeUEXnAPID,proto3,oneof" json:"target_ng_rannode_uexn_apid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	CHoEstimatedArrivalProbability *ChoProbability `protobuf:"bytes,3,opt,name=c_ho_estimated_arrival_probability,json=cHO-EstimatedArrivalProbability,proto3,oneof" json:"c_ho_estimated_arrival_probability,omitempty"`
+	CHoEstimatedArrivalProbability *ChoProbability `protobuf:"bytes,3,opt,name=c_ho_estimated_arrival_probability,json=cHO-EstimatedArrivalProbability,proto3,oneof" json:"c_ho_estimated_arrival_probability,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ChoinformationReqExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ChoinformationReqExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ChoinformationReq) Reset() {
@@ -13850,9 +13850,9 @@ type ChoinformationAck struct {
 
 	RequestedTargetCellGlobalId *TargetCGi `protobuf:"bytes,1,opt,name=requested_target_cell_global_id,json=requestedTargetCellGlobalID,proto3" json:"requested_target_cell_global_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	MaxChooperations *MaxChopreparations `protobuf:"bytes,2,opt,name=max_chooperations,json=maxCHOoperations,proto3,oneof" json:"max_chooperations,omitempty"`
+	MaxChooperations *MaxChopreparations `protobuf:"bytes,2,opt,name=max_chooperations,json=maxCHOoperations,proto3,oneof" json:"max_chooperations,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ChoinformationAckExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ChoinformationAckExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ChoinformationAck) Reset() {
@@ -13916,7 +13916,7 @@ type ChoProbability struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:1,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:100,"`
 }
 
 func (x *ChoProbability) Reset() {
@@ -14016,9 +14016,9 @@ type ConnectivitySupport struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	ENdcSupport EndcsupportConnectivitySupport `protobuf:"varint,1,opt,name=e_ndc_support,json=eNDC-Support,proto3,enum=xnap.v1.EndcsupportConnectivitySupport" json:"e_ndc_support,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ConnectivitySupportExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	ENdcSupport EndcsupportConnectivitySupport `protobuf:"varint,1,opt,name=e_ndc_support,json=eNDC-Support,proto3,enum=xnap.v1.EndcsupportConnectivitySupport" json:"e_ndc_support,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*ConnectivitySupportExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *ConnectivitySupport) Reset() {
@@ -14125,11 +14125,11 @@ type CountPDcpSN12 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:4095,"
-	PdcpSn12 int32 `protobuf:"varint,1,opt,name=pdcp_sn12,json=pdcp-SN12,proto3" json:"pdcp_sn12,omitempty"`
+	PdcpSn12 int32 `protobuf:"varint,1,opt,name=pdcp_sn12,json=pdcp-SN12,proto3" json:"pdcp_sn12,omitempty" aper:"valueLB:0,valueUB:4095,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:1048575,"
-	HfnPdcpSn12 int32 `protobuf:"varint,2,opt,name=hfn_pdcp_sn12,json=hfn-PDCP-SN12,proto3" json:"hfn_pdcp_sn12,omitempty"`
+	HfnPdcpSn12 int32 `protobuf:"varint,2,opt,name=hfn_pdcp_sn12,json=hfn-PDCP-SN12,proto3" json:"hfn_pdcp_sn12,omitempty" aper:"valueLB:0,valueUB:1048575,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CountPDcpSN12ExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CountPDcpSN12ExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CountPDcpSN12) Reset() {
@@ -14243,11 +14243,11 @@ type CountPDcpSN18 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:262143,"
-	PdcpSn18 int32 `protobuf:"varint,1,opt,name=pdcp_sn18,json=pdcp-SN18,proto3" json:"pdcp_sn18,omitempty"`
+	PdcpSn18 int32 `protobuf:"varint,1,opt,name=pdcp_sn18,json=pdcp-SN18,proto3" json:"pdcp_sn18,omitempty" aper:"valueLB:0,valueUB:262143,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:16383,"
-	HfnPdcpSn18 int32 `protobuf:"varint,2,opt,name=hfn_pdcp_sn18,json=hfn-PDCP-SN18,proto3" json:"hfn_pdcp_sn18,omitempty"`
+	HfnPdcpSn18 int32 `protobuf:"varint,2,opt,name=hfn_pdcp_sn18,json=hfn-PDCP-SN18,proto3" json:"hfn_pdcp_sn18,omitempty" aper:"valueLB:0,valueUB:16383,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CountPDcpSN18ExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CountPDcpSN18ExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CountPDcpSN18) Reset() {
@@ -14426,12 +14426,12 @@ type isCptransportLayerInformation_CptransportLayerInformation interface {
 
 type CptransportLayerInformation_EndpointIpaddress struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	EndpointIpaddress *TransportLayerAddress `protobuf:"bytes,1,opt,name=endpoint_ipaddress,json=endpointIPAddress,proto3,oneof"`
+	EndpointIpaddress *TransportLayerAddress `protobuf:"bytes,1,opt,name=endpoint_ipaddress,json=endpointIPAddress,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type CptransportLayerInformation_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtension *CptransportLayerInformationExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *CptransportLayerInformationExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*CptransportLayerInformation_EndpointIpaddress) isCptransportLayerInformation_CptransportLayerInformation() {
@@ -14498,15 +14498,15 @@ type CriticalityDiagnostics struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ProcedureCode *xnap_commondatatypes.ProcedureCode `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3,oneof" json:"procedure_code,omitempty"`
+	ProcedureCode *xnap_commondatatypes.ProcedureCode `protobuf:"bytes,1,opt,name=procedure_code,json=procedureCode,proto3,oneof" json:"procedure_code,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueLB:0,valueUB:2,"
-	TriggeringMessage *xnap_commondatatypes.TriggeringMessage `protobuf:"varint,2,opt,name=triggering_message,json=triggeringMessage,proto3,enum=xnap.v1.TriggeringMessage,oneof" json:"triggering_message,omitempty"`
+	TriggeringMessage *xnap_commondatatypes.TriggeringMessage `protobuf:"varint,2,opt,name=triggering_message,json=triggeringMessage,proto3,enum=xnap.v1.TriggeringMessage,oneof" json:"triggering_message,omitempty" aper:"optional,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,valueLB:0,valueUB:2,"
-	ProcedureCriticality *xnap_commondatatypes.Criticality `protobuf:"varint,3,opt,name=procedure_criticality,json=procedureCriticality,proto3,enum=xnap.v1.Criticality,oneof" json:"procedure_criticality,omitempty"`
+	ProcedureCriticality *xnap_commondatatypes.Criticality `protobuf:"varint,3,opt,name=procedure_criticality,json=procedureCriticality,proto3,enum=xnap.v1.Criticality,oneof" json:"procedure_criticality,omitempty" aper:"optional,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,"
-	IEsCriticalityDiagnostics *CriticalityDiagnosticsIEList `protobuf:"bytes,4,opt,name=i_es_criticality_diagnostics,json=iEsCriticalityDiagnostics,proto3,oneof" json:"i_es_criticality_diagnostics,omitempty"`
+	IEsCriticalityDiagnostics *CriticalityDiagnosticsIEList `protobuf:"bytes,4,opt,name=i_es_criticality_diagnostics,json=iEsCriticalityDiagnostics,proto3,oneof" json:"i_es_criticality_diagnostics,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CriticalityDiagnosticsExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CriticalityDiagnosticsExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CriticalityDiagnostics) Reset() {
@@ -14634,12 +14634,12 @@ type NestedCriticalityDiagnosticsIEList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	IEcriticality xnap_commondatatypes.Criticality   `protobuf:"varint,1,opt,name=i_ecriticality,json=iECriticality,proto3,enum=xnap.v1.Criticality" json:"i_ecriticality,omitempty"`
+	IEcriticality xnap_commondatatypes.Criticality   `protobuf:"varint,1,opt,name=i_ecriticality,json=iECriticality,proto3,enum=xnap.v1.Criticality" json:"i_ecriticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	IEId          *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,2,opt,name=i_e_id,json=iE-ID,proto3" json:"i_e_id,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	TypeOfError TypeOfError `protobuf:"varint,3,opt,name=type_of_error,json=typeOfError,proto3,enum=xnap.v1.TypeOfError" json:"type_of_error,omitempty"`
+	TypeOfError TypeOfError `protobuf:"varint,3,opt,name=type_of_error,json=typeOfError,proto3,enum=xnap.v1.TypeOfError" json:"type_of_error,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CriticalityDiagnosticsIEListExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CriticalityDiagnosticsIEListExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NestedCriticalityDiagnosticsIEList) Reset() {
@@ -14710,7 +14710,7 @@ type CriticalityDiagnosticsIEList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*NestedCriticalityDiagnosticsIEList `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*NestedCriticalityDiagnosticsIEList `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *CriticalityDiagnosticsIEList) Reset() {
@@ -14760,7 +14760,7 @@ type CRNti struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:16,sizeUB:16,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:16,sizeUB:16,"`
 }
 
 func (x *CRNti) Reset() {
@@ -14810,7 +14810,7 @@ type XnUaddressInfoperPdusessionList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*XnUaddressInfoperPdusessionItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*XnUaddressInfoperPdusessionItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *XnUaddressInfoperPdusessionList) Reset() {
@@ -14934,17 +14934,17 @@ type isXnUaddressInfoperPdusessionItemExtIesExtension_XnUaddressInfoperPdusessio
 
 type XnUaddressInfoperPdusessionItemExtIesExtension_IdSecondarydataForwardingInfoFromTargetList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdSecondarydataForwardingInfoFromTargetList *SecondarydataForwardingInfoFromTargetList `protobuf:"bytes,1,opt,name=id_secondarydata_forwarding_info_from_target_list,json=id-SecondarydataForwardingInfoFromTarget-List,proto3,oneof"`
+	IdSecondarydataForwardingInfoFromTargetList *SecondarydataForwardingInfoFromTargetList `protobuf:"bytes,1,opt,name=id_secondarydata_forwarding_info_from_target_list,json=id-SecondarydataForwardingInfoFromTarget-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type XnUaddressInfoperPdusessionItemExtIesExtension_IdDrbIdsTakenintouse struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdDrbIdsTakenintouse *DrbList `protobuf:"bytes,2,opt,name=id_drb_ids_takenintouse,json=id-DRB-IDs-takenintouse,proto3,oneof"`
+	IdDrbIdsTakenintouse *DrbList `protobuf:"bytes,2,opt,name=id_drb_ids_takenintouse,json=id-DRB-IDs-takenintouse,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type XnUaddressInfoperPdusessionItemExtIesExtension_IdDataForwardingInfoFromTargetEUtrannode struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdDataForwardingInfoFromTargetEUtrannode *DataForwardingInfoFromTargetEUTrannode `protobuf:"bytes,3,opt,name=id_data_forwarding_info_from_target_e_utrannode,json=id-dataForwardingInfoFromTargetE-UTRANnode,proto3,oneof"`
+	IdDataForwardingInfoFromTargetEUtrannode *DataForwardingInfoFromTargetEUTrannode `protobuf:"bytes,3,opt,name=id_data_forwarding_info_from_target_e_utrannode,json=id-dataForwardingInfoFromTargetE-UTRANnode,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*XnUaddressInfoperPdusessionItemExtIesExtension_IdSecondarydataForwardingInfoFromTargetList) isXnUaddressInfoperPdusessionItemExtIesExtension_XnUaddressInfoperPdusessionItemExtIes() {
@@ -14965,11 +14965,11 @@ type XnUaddressInfoperPdusessionItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *XnUaddressInfoperPdusessionItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *XnUaddressInfoperPdusessionItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *XnUaddressInfoperPdusessionItemExtIes) Reset() {
@@ -15035,11 +15035,11 @@ type XnUaddressInfoperPdusessionItem struct {
 
 	PduSessionId *PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSession-ID,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataForwardingInfoFromTargetNgrannode *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,2,opt,name=data_forwarding_info_from_target_ngrannode,json=dataForwardingInfoFromTargetNGRANnode,proto3,oneof" json:"data_forwarding_info_from_target_ngrannode,omitempty"`
+	DataForwardingInfoFromTargetNgrannode *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,2,opt,name=data_forwarding_info_from_target_ngrannode,json=dataForwardingInfoFromTargetNGRANnode,proto3,oneof" json:"data_forwarding_info_from_target_ngrannode,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PduSessionResourceSetupCompleteInfoSnterm *PdusessionResourceBearerSetupCompleteInfoSNterminated `protobuf:"bytes,3,opt,name=pdu_session_resource_setup_complete_info_snterm,json=pduSessionResourceSetupCompleteInfo-SNterm,proto3,oneof" json:"pdu_session_resource_setup_complete_info_snterm,omitempty"`
+	PduSessionResourceSetupCompleteInfoSnterm *PdusessionResourceBearerSetupCompleteInfoSNterminated `protobuf:"bytes,3,opt,name=pdu_session_resource_setup_complete_info_snterm,json=pduSessionResourceSetupCompleteInfo-SNterm,proto3,oneof" json:"pdu_session_resource_setup_complete_info_snterm,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*XnUaddressInfoperPdusessionItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*XnUaddressInfoperPdusessionItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *XnUaddressInfoperPdusessionItem) Reset() {
@@ -15161,7 +15161,7 @@ type DataForwardingInfoFromTargetEUTrannode struct {
 
 	DataForwardingInfoFromTargetEUtrannodeList *DataForwardingInfoFromTargetEUTrannodeList `protobuf:"bytes,1,opt,name=data_forwarding_info_from_target_e_utrannode_list,json=dataForwardingInfoFromTargetE-UTRANnode-List,proto3" json:"data_forwarding_info_from_target_e_utrannode_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DataForwardingInfoFromTargetEUTrannodeExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DataForwardingInfoFromTargetEUTrannodeExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DataForwardingInfoFromTargetEUTrannode) Reset() {
@@ -15218,7 +15218,7 @@ type DataForwardingInfoFromTargetEUTrannodeList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*DataForwardingInfoFromTargetEUTrannodeItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DataForwardingInfoFromTargetEUTrannodeItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *DataForwardingInfoFromTargetEUTrannodeList) Reset() {
@@ -15320,7 +15320,7 @@ type DataForwardingInfoFromTargetEUTrannodeItem struct {
 	DlForwardingUptnlinformation *UptransportLayerInformation `protobuf:"bytes,1,opt,name=dl_forwarding_uptnlinformation,json=dlForwardingUPTNLInformation,proto3" json:"dl_forwarding_uptnlinformation,omitempty"`
 	QosFlowsToBeForwardedList    *QoSflowsToBeForwardedList   `protobuf:"bytes,2,opt,name=qos_flows_to_be_forwarded_list,json=qosFlowsToBeForwarded-List,proto3" json:"qos_flows_to_be_forwarded_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DataForwardingInfoFromTargetEUTrannodeItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DataForwardingInfoFromTargetEUTrannodeItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DataForwardingInfoFromTargetEUTrannodeItem) Reset() {
@@ -15384,7 +15384,7 @@ type QoSflowsToBeForwardedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsToBeForwardedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsToBeForwardedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsToBeForwardedList) Reset() {
@@ -15485,7 +15485,7 @@ type QoSflowsToBeForwardedItem struct {
 
 	QosFlowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qos_flow_identifier,json=qosFlowIdentifier,proto3" json:"qos_flow_identifier,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*QoSflowsToBeForwardedItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*QoSflowsToBeForwardedItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsToBeForwardedItem) Reset() {
@@ -15593,13 +15593,13 @@ type DataForwardingInfoFromTargetNgrannode struct {
 
 	QosFlowsAcceptedForDataForwardingList *QoSflowsAcceptedToBeForwardedList `protobuf:"bytes,1,opt,name=qos_flows_accepted_for_data_forwarding_list,json=qosFlowsAcceptedForDataForwarding-List,proto3" json:"qos_flows_accepted_for_data_forwarding_list,omitempty"`
 	// @inject_tag: aper:"optional,"
-	PduSessionLevelDldataForwardingInfo *UptransportLayerInformation `protobuf:"bytes,2,opt,name=pdu_session_level_dldata_forwarding_info,json=pduSessionLevelDLDataForwardingInfo,proto3,oneof" json:"pdu_session_level_dldata_forwarding_info,omitempty"`
+	PduSessionLevelDldataForwardingInfo *UptransportLayerInformation `protobuf:"bytes,2,opt,name=pdu_session_level_dldata_forwarding_info,json=pduSessionLevelDLDataForwardingInfo,proto3,oneof" json:"pdu_session_level_dldata_forwarding_info,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	PduSessionLevelUldataForwardingInfo *UptransportLayerInformation `protobuf:"bytes,3,opt,name=pdu_session_level_uldata_forwarding_info,json=pduSessionLevelULDataForwardingInfo,proto3,oneof" json:"pdu_session_level_uldata_forwarding_info,omitempty"`
+	PduSessionLevelUldataForwardingInfo *UptransportLayerInformation `protobuf:"bytes,3,opt,name=pdu_session_level_uldata_forwarding_info,json=pduSessionLevelULDataForwardingInfo,proto3,oneof" json:"pdu_session_level_uldata_forwarding_info,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DataForwardingResponseDrbitemList *DataForwardingResponseDrbitemList `protobuf:"bytes,4,opt,name=data_forwarding_response_drbitem_list,json=dataForwardingResponseDRBItemList,proto3,oneof" json:"data_forwarding_response_drbitem_list,omitempty"`
+	DataForwardingResponseDrbitemList *DataForwardingResponseDrbitemList `protobuf:"bytes,4,opt,name=data_forwarding_response_drbitem_list,json=dataForwardingResponseDRBItemList,proto3,oneof" json:"data_forwarding_response_drbitem_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DataForwardingInfoFromTargetNgrannodeExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DataForwardingInfoFromTargetNgrannodeExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DataForwardingInfoFromTargetNgrannode) Reset() {
@@ -15677,7 +15677,7 @@ type QoSflowsAcceptedToBeForwardedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsAcceptedToBeForwardedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsAcceptedToBeForwardedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsAcceptedToBeForwardedList) Reset() {
@@ -15778,7 +15778,7 @@ type QoSflowsAcceptedToBeForwardedItem struct {
 
 	QosFlowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qos_flow_identifier,json=qosFlowIdentifier,proto3" json:"qos_flow_identifier,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*QoSflowsAcceptedToBeForwardedItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*QoSflowsAcceptedToBeForwardedItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsAcceptedToBeForwardedItem) Reset() {
@@ -15886,9 +15886,9 @@ type DataforwardingandOffloadingInfofromSource struct {
 
 	QosFlowsToBeForwarded *QoSflowsToBeForwardedList1 `protobuf:"bytes,1,opt,name=qos_flows_to_be_forwarded,json=qosFlowsToBeForwarded,proto3" json:"qos_flows_to_be_forwarded,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SourceDrbtoQoSflowMapping *DrbtoQoSflowMappingList `protobuf:"bytes,2,opt,name=source_drbto_qo_sflow_mapping,json=sourceDRBtoQoSFlowMapping,proto3,oneof" json:"source_drbto_qo_sflow_mapping,omitempty"`
+	SourceDrbtoQoSflowMapping *DrbtoQoSflowMappingList `protobuf:"bytes,2,opt,name=source_drbto_qo_sflow_mapping,json=sourceDRBtoQoSFlowMapping,proto3,oneof" json:"source_drbto_qo_sflow_mapping,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DataforwardingandOffloadingInfofromSourceExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DataforwardingandOffloadingInfofromSourceExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DataforwardingandOffloadingInfofromSource) Reset() {
@@ -15952,7 +15952,7 @@ type QoSflowsToBeForwardedList1 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsToBeForwardedItem1 `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsToBeForwardedItem1 `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsToBeForwardedList1) Reset() {
@@ -16076,17 +16076,17 @@ type isQoSflowsToBeForwardedItemExtIesExtension_QoSflowsToBeForwardedItemExtIes 
 
 type QoSflowsToBeForwardedItemExtIesExtension_IdUlforwardingProposal struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:0,"
-	IdUlforwardingProposal UlforwardingProposal `protobuf:"varint,1,opt,name=id_ulforwarding_proposal,json=id-ULForwardingProposal,proto3,enum=xnap.v1.UlforwardingProposal,oneof"`
+	IdUlforwardingProposal UlforwardingProposal `protobuf:"varint,1,opt,name=id_ulforwarding_proposal,json=id-ULForwardingProposal,proto3,enum=xnap.v1.UlforwardingProposal,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type QoSflowsToBeForwardedItemExtIesExtension_IdSourceDlforwardingIpaddress struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSourceDlforwardingIpaddress *TransportLayerAddress `protobuf:"bytes,2,opt,name=id_source_dlforwarding_ipaddress,json=id-SourceDLForwardingIPAddress,proto3,oneof"`
+	IdSourceDlforwardingIpaddress *TransportLayerAddress `protobuf:"bytes,2,opt,name=id_source_dlforwarding_ipaddress,json=id-SourceDLForwardingIPAddress,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type QoSflowsToBeForwardedItemExtIesExtension_IdSourceNodeDlforwardingIpaddress struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdSourceNodeDlforwardingIpaddress *TransportLayerAddress `protobuf:"bytes,3,opt,name=id_source_node_dlforwarding_ipaddress,json=id-SourceNodeDLForwardingIPAddress,proto3,oneof"`
+	IdSourceNodeDlforwardingIpaddress *TransportLayerAddress `protobuf:"bytes,3,opt,name=id_source_node_dlforwarding_ipaddress,json=id-SourceNodeDLForwardingIPAddress,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*QoSflowsToBeForwardedItemExtIesExtension_IdUlforwardingProposal) isQoSflowsToBeForwardedItemExtIesExtension_QoSflowsToBeForwardedItemExtIes() {
@@ -16108,11 +16108,11 @@ type QoSflowsToBeForwardedItem1 struct {
 
 	QosFlowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qos_flow_identifier,json=qosFlowIdentifier,proto3" json:"qos_flow_identifier,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	DlDataforwarding Dlforwarding `protobuf:"varint,2,opt,name=dl_dataforwarding,json=dl-dataforwarding,proto3,enum=xnap.v1.Dlforwarding" json:"dl_dataforwarding,omitempty"`
+	DlDataforwarding Dlforwarding `protobuf:"varint,2,opt,name=dl_dataforwarding,json=dl-dataforwarding,proto3,enum=xnap.v1.Dlforwarding" json:"dl_dataforwarding,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	UlDataforwarding Ulforwarding `protobuf:"varint,3,opt,name=ul_dataforwarding,json=ul-dataforwarding,proto3,enum=xnap.v1.Ulforwarding" json:"ul_dataforwarding,omitempty"`
+	UlDataforwarding Ulforwarding `protobuf:"varint,3,opt,name=ul_dataforwarding,json=ul-dataforwarding,proto3,enum=xnap.v1.Ulforwarding" json:"ul_dataforwarding,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*QoSflowsToBeForwardedItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*QoSflowsToBeForwardedItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsToBeForwardedItem1) Reset() {
@@ -16183,7 +16183,7 @@ type DataForwardingResponseDrbitemList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DataForwardingResponseDrbitem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DataForwardingResponseDrbitem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DataForwardingResponseDrbitemList) Reset() {
@@ -16284,11 +16284,11 @@ type DataForwardingResponseDrbitem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	DlForwardingUptnl *UptransportLayerInformation `protobuf:"bytes,2,opt,name=dl_forwarding_uptnl,json=dlForwardingUPTNL,proto3,oneof" json:"dl_forwarding_uptnl,omitempty"`
+	DlForwardingUptnl *UptransportLayerInformation `protobuf:"bytes,2,opt,name=dl_forwarding_uptnl,json=dlForwardingUPTNL,proto3,oneof" json:"dl_forwarding_uptnl,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	UlForwardingUptnl *UptransportLayerInformation `protobuf:"bytes,3,opt,name=ul_forwarding_uptnl,json=ulForwardingUPTNL,proto3,oneof" json:"ul_forwarding_uptnl,omitempty"`
+	UlForwardingUptnl *UptransportLayerInformation `protobuf:"bytes,3,opt,name=ul_forwarding_uptnl,json=ulForwardingUPTNL,proto3,oneof" json:"ul_forwarding_uptnl,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DataForwardingResponseDrbitemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DataForwardingResponseDrbitemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DataForwardingResponseDrbitem) Reset() {
@@ -16359,7 +16359,7 @@ type DataTrafficResources struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:6,sizeUB:17600,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:6,sizeUB:17600,"`
 }
 
 func (x *DataTrafficResources) Reset() {
@@ -16461,9 +16461,9 @@ type DataTrafficResourceIndication struct {
 	ActivationSfn      *ActivationSfn      `protobuf:"bytes,1,opt,name=activation_sfn,json=activationSFN,proto3" json:"activation_sfn,omitempty"`
 	SharedResourceType *SharedResourceType `protobuf:"bytes,2,opt,name=shared_resource_type,json=sharedResourceType,proto3" json:"shared_resource_type,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	ReservedSubframePattern *ReservedSubframePattern `protobuf:"bytes,3,opt,name=reserved_subframe_pattern,json=reservedSubframePattern,proto3,oneof" json:"reserved_subframe_pattern,omitempty"`
+	ReservedSubframePattern *ReservedSubframePattern `protobuf:"bytes,3,opt,name=reserved_subframe_pattern,json=reservedSubframePattern,proto3,oneof" json:"reserved_subframe_pattern,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DataTrafficResourceIndicationExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DataTrafficResourceIndicationExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DataTrafficResourceIndication) Reset() {
@@ -16584,9 +16584,9 @@ type DapsrequestInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	DapsIndicator DapsIndicatorDapsrequestInfo `protobuf:"varint,1,opt,name=daps_indicator,json=dapsIndicator,proto3,enum=xnap.v1.DapsIndicatorDapsrequestInfo" json:"daps_indicator,omitempty"`
+	DapsIndicator DapsIndicatorDapsrequestInfo `protobuf:"varint,1,opt,name=daps_indicator,json=dapsIndicator,proto3,enum=xnap.v1.DapsIndicatorDapsrequestInfo" json:"daps_indicator,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DapsrequestInfoExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DapsrequestInfoExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DapsrequestInfo) Reset() {
@@ -16643,7 +16643,7 @@ type DapsresponseInfoList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DapsresponseInfoItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DapsresponseInfoItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DapsresponseInfoList) Reset() {
@@ -16744,9 +16744,9 @@ type DapsresponseInfoItem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drbID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	DapsResponseIndicator DapsResponseIndicatorDapsresponseInfoItem `protobuf:"varint,2,opt,name=daps_response_indicator,json=dapsResponseIndicator,proto3,enum=xnap.v1.DapsResponseIndicatorDapsresponseInfoItem" json:"daps_response_indicator,omitempty"`
+	DapsResponseIndicator DapsResponseIndicatorDapsresponseInfoItem `protobuf:"varint,2,opt,name=daps_response_indicator,json=dapsResponseIndicator,proto3,enum=xnap.v1.DapsResponseIndicatorDapsresponseInfoItem" json:"daps_response_indicator,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DapsresponseInfoItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DapsresponseInfoItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DapsresponseInfoItem) Reset() {
@@ -16810,7 +16810,7 @@ type DeliveryStatus struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4095,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:4095,"`
 }
 
 func (x *DeliveryStatus) Reset() {
@@ -16983,17 +16983,17 @@ type isDlcountChoice_DlcountChoice interface {
 
 type DlcountChoice_Count12Bits struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	Count12Bits *CountPDcpSN12 `protobuf:"bytes,1,opt,name=count12bits,proto3,oneof"`
+	Count12Bits *CountPDcpSN12 `protobuf:"bytes,1,opt,name=count12bits,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type DlcountChoice_Count18Bits struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	Count18Bits *CountPDcpSN18 `protobuf:"bytes,2,opt,name=count18bits,proto3,oneof"`
+	Count18Bits *CountPDcpSN18 `protobuf:"bytes,2,opt,name=count18bits,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type DlcountChoice_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *DlcountChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *DlcountChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*DlcountChoice_Count12Bits) isDlcountChoice_DlcountChoice() {}
@@ -17010,7 +17010,7 @@ type DlGBrPRbusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *DlGBrPRbusage) Reset() {
@@ -17060,7 +17060,7 @@ type DlnonGBrPRbusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *DlnonGBrPRbusage) Reset() {
@@ -17110,7 +17110,7 @@ type DlTotalPRbusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *DlTotalPRbusage) Reset() {
@@ -17160,7 +17160,7 @@ type DrbID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:32,"`
 }
 
 func (x *DrbID) Reset() {
@@ -17210,7 +17210,7 @@ type DrbList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	Value []*DrbID `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbID `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbList) Reset() {
@@ -17260,7 +17260,7 @@ type DrbListwithCause struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbListwithCauseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbListwithCauseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbListwithCause) Reset() {
@@ -17362,9 +17362,9 @@ type DrbListwithCauseItem struct {
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-id,proto3" json:"drb_id,omitempty"`
 	Cause *Cause `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:3,"
-	RLcMode *Rlcmode `protobuf:"varint,3,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode,oneof" json:"r_lc_mode,omitempty"`
+	RLcMode *Rlcmode `protobuf:"varint,3,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode,oneof" json:"r_lc_mode,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:3,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DrbListwithCauseItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DrbListwithCauseItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbListwithCauseItem) Reset() {
@@ -17435,7 +17435,7 @@ type DrbNumber struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:32,"`
 }
 
 func (x *DrbNumber) Reset() {
@@ -17485,7 +17485,7 @@ type DrbsSubjectToDldiscardingList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsSubjectToDldiscardingItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsSubjectToDldiscardingItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsSubjectToDldiscardingList) Reset() {
@@ -17587,7 +17587,7 @@ type DrbsSubjectToDldiscardingItem struct {
 	DrbId   *DrbID         `protobuf:"bytes,1,opt,name=drb_id,json=drbID,proto3" json:"drb_id,omitempty"`
 	DlCount *DlcountChoice `protobuf:"bytes,2,opt,name=dl_count,json=dlCount,proto3" json:"dl_count,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DrbsSubjectToDldiscardingItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DrbsSubjectToDldiscardingItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsSubjectToDldiscardingItem) Reset() {
@@ -17651,7 +17651,7 @@ type DrbsSubjectToEarlyStatusTransferList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsSubjectToEarlyStatusTransferItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsSubjectToEarlyStatusTransferItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsSubjectToEarlyStatusTransferList) Reset() {
@@ -17753,7 +17753,7 @@ type DrbsSubjectToEarlyStatusTransferItem struct {
 	DrbId   *DrbID         `protobuf:"bytes,1,opt,name=drb_id,json=drbID,proto3" json:"drb_id,omitempty"`
 	DlCount *DlcountChoice `protobuf:"bytes,2,opt,name=dl_count,json=dlCount,proto3" json:"dl_count,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DrbsSubjectToEarlyStatusTransferItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DrbsSubjectToEarlyStatusTransferItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsSubjectToEarlyStatusTransferItem) Reset() {
@@ -17817,7 +17817,7 @@ type DrbsSubjectToStatusTransferList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsSubjectToStatusTransferItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsSubjectToStatusTransferItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsSubjectToStatusTransferList) Reset() {
@@ -17920,7 +17920,7 @@ type DrbsSubjectToStatusTransferItem struct {
 	PdcpStatusTransferUl *DrbbstatusTransferChoice `protobuf:"bytes,2,opt,name=pdcp_status_transfer_ul,json=pdcpStatusTransfer-UL,proto3" json:"pdcp_status_transfer_ul,omitempty"`
 	PdcpStatusTransferDl *DrbbstatusTransferChoice `protobuf:"bytes,3,opt,name=pdcp_status_transfer_dl,json=pdcpStatusTransfer-DL,proto3" json:"pdcp_status_transfer_dl,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DrbsSubjectToStatusTransferItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DrbsSubjectToStatusTransferItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsSubjectToStatusTransferItem) Reset() {
@@ -18114,17 +18114,17 @@ type isDrbbstatusTransferChoice_DrbbstatusTransferChoice interface {
 
 type DrbbstatusTransferChoice_PdcpSn_12Bits struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	PdcpSn_12Bits *DrbbstatusTransfer12BitsSn `protobuf:"bytes,1,opt,name=pdcp_sn_12bits,json=pdcp-sn-12bits,proto3,oneof"`
+	PdcpSn_12Bits *DrbbstatusTransfer12BitsSn `protobuf:"bytes,1,opt,name=pdcp_sn_12bits,json=pdcp-sn-12bits,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type DrbbstatusTransferChoice_PdcpSn_18Bits struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	PdcpSn_18Bits *DrbbstatusTransfer18BitsSn `protobuf:"bytes,2,opt,name=pdcp_sn_18bits,json=pdcp-sn-18bits,proto3,oneof"`
+	PdcpSn_18Bits *DrbbstatusTransfer18BitsSn `protobuf:"bytes,2,opt,name=pdcp_sn_18bits,json=pdcp-sn-18bits,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type DrbbstatusTransferChoice_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *DrbbstatusTransferChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *DrbbstatusTransferChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*DrbbstatusTransferChoice_PdcpSn_12Bits) isDrbbstatusTransferChoice_DrbbstatusTransferChoice() {
@@ -18194,11 +18194,11 @@ type DrbbstatusTransfer12BitsSn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:2048,"
-	ReceiveStatusofPdcpsdu *asn1.BitString `protobuf:"bytes,1,opt,name=receive_statusof_pdcpsdu,json=receiveStatusofPDCPSDU,proto3,oneof" json:"receive_statusof_pdcpsdu,omitempty"`
+	ReceiveStatusofPdcpsdu *asn1.BitString `protobuf:"bytes,1,opt,name=receive_statusof_pdcpsdu,json=receiveStatusofPDCPSDU,proto3,oneof" json:"receive_statusof_pdcpsdu,omitempty" aper:"optional,sizeLB:1,sizeUB:2048,"`
 	// @inject_tag: aper:"valueExt,"
-	COuntvalue *CountPDcpSN12 `protobuf:"bytes,2,opt,name=c_ountvalue,json=cOUNTValue,proto3" json:"c_ountvalue,omitempty"`
+	COuntvalue *CountPDcpSN12 `protobuf:"bytes,2,opt,name=c_ountvalue,json=cOUNTValue,proto3" json:"c_ountvalue,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DrbbstatusTransfer12BitsSnExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DrbbstatusTransfer12BitsSnExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbbstatusTransfer12BitsSn) Reset() {
@@ -18312,11 +18312,11 @@ type DrbbstatusTransfer18BitsSn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:131072,"
-	ReceiveStatusofPdcpsdu *asn1.BitString `protobuf:"bytes,1,opt,name=receive_statusof_pdcpsdu,json=receiveStatusofPDCPSDU,proto3,oneof" json:"receive_statusof_pdcpsdu,omitempty"`
+	ReceiveStatusofPdcpsdu *asn1.BitString `protobuf:"bytes,1,opt,name=receive_statusof_pdcpsdu,json=receiveStatusofPDCPSDU,proto3,oneof" json:"receive_statusof_pdcpsdu,omitempty" aper:"optional,sizeLB:1,sizeUB:131072,"`
 	// @inject_tag: aper:"valueExt,"
-	COuntvalue *CountPDcpSN18 `protobuf:"bytes,2,opt,name=c_ountvalue,json=cOUNTValue,proto3" json:"c_ountvalue,omitempty"`
+	COuntvalue *CountPDcpSN18 `protobuf:"bytes,2,opt,name=c_ountvalue,json=cOUNTValue,proto3" json:"c_ountvalue,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DrbbstatusTransfer18BitsSnExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DrbbstatusTransfer18BitsSnExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbbstatusTransfer18BitsSn) Reset() {
@@ -18380,7 +18380,7 @@ type DrbtoQoSflowMappingList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbtoQoSflowMappingItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbtoQoSflowMappingItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbtoQoSflowMappingList) Reset() {
@@ -18482,9 +18482,9 @@ type DrbtoQoSflowMappingItem struct {
 	DrbId        *DrbID        `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	QosFlowsList *QoSflowsList `protobuf:"bytes,2,opt,name=qos_flows_list,json=qosFlows-List,proto3" json:"qos_flows_list,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:3,"
-	RLcMode *Rlcmode `protobuf:"varint,3,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode,oneof" json:"r_lc_mode,omitempty"`
+	RLcMode *Rlcmode `protobuf:"varint,3,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode,oneof" json:"r_lc_mode,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:3,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*DrbtoQoSflowMappingItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*DrbtoQoSflowMappingItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbtoQoSflowMappingItem) Reset() {
@@ -18629,17 +18629,17 @@ type isDynamic5QidescriptorExtIesExtension_Dynamic5QidescriptorExtIes interface 
 
 type Dynamic5QidescriptorExtIesExtension_IdExtendedPacketDelayBudget struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdExtendedPacketDelayBudget *ExtendedPacketDelayBudget `protobuf:"bytes,1,opt,name=id_extended_packet_delay_budget,json=id-ExtendedPacketDelayBudget,proto3,oneof"`
+	IdExtendedPacketDelayBudget *ExtendedPacketDelayBudget `protobuf:"bytes,1,opt,name=id_extended_packet_delay_budget,json=id-ExtendedPacketDelayBudget,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type Dynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetDownlink struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdCnpacketDelayBudgetDownlink *ExtendedPacketDelayBudget `protobuf:"bytes,2,opt,name=id_cnpacket_delay_budget_downlink,json=id-CNPacketDelayBudgetDownlink,proto3,oneof"`
+	IdCnpacketDelayBudgetDownlink *ExtendedPacketDelayBudget `protobuf:"bytes,2,opt,name=id_cnpacket_delay_budget_downlink,json=id-CNPacketDelayBudgetDownlink,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type Dynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetUplink struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCnpacketDelayBudgetUplink *ExtendedPacketDelayBudget `protobuf:"bytes,3,opt,name=id_cnpacket_delay_budget_uplink,json=id-CNPacketDelayBudgetUplink,proto3,oneof"`
+	IdCnpacketDelayBudgetUplink *ExtendedPacketDelayBudget `protobuf:"bytes,3,opt,name=id_cnpacket_delay_budget_uplink,json=id-CNPacketDelayBudgetUplink,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*Dynamic5QidescriptorExtIesExtension_IdExtendedPacketDelayBudget) isDynamic5QidescriptorExtIesExtension_Dynamic5QidescriptorExtIes() {
@@ -18660,11 +18660,11 @@ type Dynamic5QidescriptorExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *Dynamic5QidescriptorExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *Dynamic5QidescriptorExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *Dynamic5QidescriptorExtIes) Reset() {
@@ -18731,17 +18731,17 @@ type Dynamic5Qidescriptor struct {
 	PriorityLevelQoS  *PriorityLevelQoS  `protobuf:"bytes,1,opt,name=priority_level_qo_s,json=priorityLevelQoS,proto3" json:"priority_level_qo_s,omitempty"`
 	PacketDelayBudget *PacketDelayBudget `protobuf:"bytes,2,opt,name=packet_delay_budget,json=packetDelayBudget,proto3" json:"packet_delay_budget,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	PacketErrorRate *PacketErrorRate `protobuf:"bytes,3,opt,name=packet_error_rate,json=packetErrorRate,proto3" json:"packet_error_rate,omitempty"`
+	PacketErrorRate *PacketErrorRate `protobuf:"bytes,3,opt,name=packet_error_rate,json=packetErrorRate,proto3" json:"packet_error_rate,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	FiveQi *FiveQi `protobuf:"bytes,4,opt,name=five_qi,json=fiveQI,proto3,oneof" json:"five_qi,omitempty"`
+	FiveQi *FiveQi `protobuf:"bytes,4,opt,name=five_qi,json=fiveQI,proto3,oneof" json:"five_qi,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	DelayCritical *DelayCriticalDynamic5Qidescriptor `protobuf:"varint,5,opt,name=delay_critical,json=delayCritical,proto3,enum=xnap.v1.DelayCriticalDynamic5Qidescriptor,oneof" json:"delay_critical,omitempty"`
+	DelayCritical *DelayCriticalDynamic5Qidescriptor `protobuf:"varint,5,opt,name=delay_critical,json=delayCritical,proto3,enum=xnap.v1.DelayCriticalDynamic5Qidescriptor,oneof" json:"delay_critical,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,"
-	AveragingWindow *AveragingWindow `protobuf:"bytes,6,opt,name=averaging_window,json=averagingWindow,proto3,oneof" json:"averaging_window,omitempty"`
+	AveragingWindow *AveragingWindow `protobuf:"bytes,6,opt,name=averaging_window,json=averagingWindow,proto3,oneof" json:"averaging_window,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	MaximumDataBurstVolume *MaximumDataBurstVolume `protobuf:"bytes,7,opt,name=maximum_data_burst_volume,json=maximumDataBurstVolume,proto3,oneof" json:"maximum_data_burst_volume,omitempty"`
+	MaximumDataBurstVolume *MaximumDataBurstVolume `protobuf:"bytes,7,opt,name=maximum_data_burst_volume,json=maximumDataBurstVolume,proto3,oneof" json:"maximum_data_burst_volume,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*Dynamic5QidescriptorExtIes `protobuf:"bytes,8,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*Dynamic5QidescriptorExtIes `protobuf:"bytes,8,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Dynamic5Qidescriptor) Reset() {
@@ -18840,7 +18840,7 @@ type ERAbID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:15,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:15,"`
 }
 
 func (x *ERAbID) Reset() {
@@ -18890,7 +18890,7 @@ type EUTraarfcn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:262143,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:262143,"`
 }
 
 func (x *EUTraarfcn) Reset() {
@@ -18940,7 +18940,7 @@ type EUTraCellIdentity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:28,sizeUB:28,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:28,sizeUB:28,"`
 }
 
 func (x *EUTraCellIdentity) Reset() {
@@ -19041,8 +19041,8 @@ type EUTraCGi struct {
 
 	PlmnId  *PlmnIdentity      `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	EUtraCi *EUTraCellIdentity `protobuf:"bytes,2,opt,name=e_utra_ci,json=e-utra-CI,proto3" json:"e_utra_ci,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*EUTraCGiExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtension []*EUTraCGiExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *EUTraCGi) Reset() {
@@ -19106,7 +19106,7 @@ type EUTrafrequencyBandIndicator struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:256,"`
 }
 
 func (x *EUTrafrequencyBandIndicator) Reset() {
@@ -19156,7 +19156,7 @@ type EUTramultibandInfoList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16,"
-	Value []*EUTrafrequencyBandIndicator `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*EUTrafrequencyBandIndicator `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:16,"`
 }
 
 func (x *EUTramultibandInfoList) Reset() {
@@ -19206,7 +19206,7 @@ type EUTrapci struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:503,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:503,"`
 }
 
 func (x *EUTrapci) Reset() {
@@ -19306,17 +19306,17 @@ type EUTraprachconfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:837,"
-	RootSequenceIndex int32 `protobuf:"varint,1,opt,name=root_sequence_index,json=rootSequenceIndex,proto3" json:"root_sequence_index,omitempty"`
+	RootSequenceIndex int32 `protobuf:"varint,1,opt,name=root_sequence_index,json=rootSequenceIndex,proto3" json:"root_sequence_index,omitempty" aper:"valueLB:0,valueUB:837,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:15,"
-	ZeroCorrelationIndex int32 `protobuf:"varint,2,opt,name=zero_correlation_index,json=zeroCorrelationIndex,proto3" json:"zero_correlation_index,omitempty"`
+	ZeroCorrelationIndex int32 `protobuf:"varint,2,opt,name=zero_correlation_index,json=zeroCorrelationIndex,proto3" json:"zero_correlation_index,omitempty" aper:"valueLB:0,valueUB:15,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	HighSpeedFlag HighSpeedFlagEutraprachconfiguration `protobuf:"varint,3,opt,name=high_speed_flag,json=highSpeedFlag,proto3,enum=xnap.v1.HighSpeedFlagEutraprachconfiguration" json:"high_speed_flag,omitempty"`
+	HighSpeedFlag HighSpeedFlagEutraprachconfiguration `protobuf:"varint,3,opt,name=high_speed_flag,json=highSpeedFlag,proto3,enum=xnap.v1.HighSpeedFlagEutraprachconfiguration" json:"high_speed_flag,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:94,"
-	PrachFreqOffset int32 `protobuf:"varint,4,opt,name=prach_freq_offset,json=prach-FreqOffset,proto3" json:"prach_freq_offset,omitempty"`
+	PrachFreqOffset int32 `protobuf:"varint,4,opt,name=prach_freq_offset,json=prach-FreqOffset,proto3" json:"prach_freq_offset,omitempty" aper:"valueLB:0,valueUB:94,"`
 	// @inject_tag: aper:"optional,valueLB:0,valueUB:63,"
-	PrachConfigIndex *int32 `protobuf:"varint,5,opt,name=prach_config_index,json=prach-ConfigIndex,proto3,oneof" json:"prach_config_index,omitempty"`
+	PrachConfigIndex *int32 `protobuf:"varint,5,opt,name=prach_config_index,json=prach-ConfigIndex,proto3,oneof" json:"prach_config_index,omitempty" aper:"optional,valueLB:0,valueUB:63,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*EUTraprachconfigurationExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*EUTraprachconfigurationExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *EUTraprachconfiguration) Reset() {
@@ -19452,7 +19452,7 @@ type EndpointIpaddressAndPort struct {
 	EndpointIpaddress *TransportLayerAddress `protobuf:"bytes,1,opt,name=endpoint_ipaddress,json=endpointIPAddress,proto3" json:"endpoint_ipaddress,omitempty"`
 	PortNumber        *PortNumber            `protobuf:"bytes,2,opt,name=port_number,json=portNumber,proto3" json:"port_number,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*EndpointIpaddressAndPortExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*EndpointIpaddressAndPortExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *EndpointIpaddressAndPort) Reset() {
@@ -19566,9 +19566,9 @@ type EventTriggered struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	LoggedEventTriggeredConfig *LoggedEventTriggeredConfig `protobuf:"bytes,1,opt,name=logged_event_triggered_config,json=loggedEventTriggeredConfig,proto3" json:"logged_event_triggered_config,omitempty"`
+	LoggedEventTriggeredConfig *LoggedEventTriggeredConfig `protobuf:"bytes,1,opt,name=logged_event_triggered_config,json=loggedEventTriggeredConfig,proto3" json:"logged_event_triggered_config,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*EventTriggeredExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*EventTriggeredExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *EventTriggered) Reset() {
@@ -19748,17 +19748,17 @@ type isEventTypeTrigger_EventTypeTrigger interface {
 
 type EventTypeTrigger_OutOfCoverage struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:0,"
-	OutOfCoverage OutOfCoverageEventTypeTrigger `protobuf:"varint,1,opt,name=out_of_coverage,json=outOfCoverage,proto3,enum=xnap.v1.OutOfCoverageEventTypeTrigger,oneof"`
+	OutOfCoverage OutOfCoverageEventTypeTrigger `protobuf:"varint,1,opt,name=out_of_coverage,json=outOfCoverage,proto3,enum=xnap.v1.OutOfCoverageEventTypeTrigger,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type EventTypeTrigger_EventL1 struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	EventL1 *EventL1 `protobuf:"bytes,2,opt,name=event_l1,json=eventL1,proto3,oneof"`
+	EventL1 *EventL1 `protobuf:"bytes,2,opt,name=event_l1,json=eventL1,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type EventTypeTrigger_ChoiceExtensions struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtensions *EventTypeTriggerExtIes `protobuf:"bytes,3,opt,name=choice_extensions,json=choice-Extensions,proto3,oneof"`
+	ChoiceExtensions *EventTypeTriggerExtIes `protobuf:"bytes,3,opt,name=choice_extensions,json=choice-Extensions,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*EventTypeTrigger_OutOfCoverage) isEventTypeTrigger_EventTypeTrigger() {}
@@ -19825,12 +19825,12 @@ type EventL1 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"choiceExt,"
-	L1Threshold *MeasurementThresholdL1LoggedMdt `protobuf:"bytes,1,opt,name=l1_threshold,json=l1Threshold,proto3" json:"l1_threshold,omitempty"`
+	L1Threshold *MeasurementThresholdL1LoggedMdt `protobuf:"bytes,1,opt,name=l1_threshold,json=l1Threshold,proto3" json:"l1_threshold,omitempty" aper:"choiceExt,"`
 	Hysteresis  *Hysteresis                      `protobuf:"bytes,2,opt,name=hysteresis,proto3" json:"hysteresis,omitempty"`
 	// @inject_tag: aper:"valueLB:0,valueUB:15,"
-	TimeToTrigger TimeToTrigger `protobuf:"varint,3,opt,name=time_to_trigger,json=timeToTrigger,proto3,enum=xnap.v1.TimeToTrigger" json:"time_to_trigger,omitempty"`
+	TimeToTrigger TimeToTrigger `protobuf:"varint,3,opt,name=time_to_trigger,json=timeToTrigger,proto3,enum=xnap.v1.TimeToTrigger" json:"time_to_trigger,omitempty" aper:"valueLB:0,valueUB:15,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*EventL1ExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*EventL1ExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *EventL1) Reset() {
@@ -19968,12 +19968,12 @@ type isMeasurementThresholdL1LoggedMdt_MeasurementThresholdL1LoggedMdt interface
 
 type MeasurementThresholdL1LoggedMdt_ThresholdRsrp struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	ThresholdRsrp *ThresholdRSrp `protobuf:"bytes,1,opt,name=threshold_rsrp,json=threshold-RSRP,proto3,oneof"`
+	ThresholdRsrp *ThresholdRSrp `protobuf:"bytes,1,opt,name=threshold_rsrp,json=threshold-RSRP,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type MeasurementThresholdL1LoggedMdt_ThresholdRsrq struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ThresholdRsrq *ThresholdRSrq `protobuf:"bytes,2,opt,name=threshold_rsrq,json=threshold-RSRQ,proto3,oneof"`
+	ThresholdRsrq *ThresholdRSrq `protobuf:"bytes,2,opt,name=threshold_rsrq,json=threshold-RSRQ,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*MeasurementThresholdL1LoggedMdt_ThresholdRsrp) isMeasurementThresholdL1LoggedMdt_MeasurementThresholdL1LoggedMdt() {
@@ -19990,7 +19990,7 @@ type ExpectedActivityPeriod struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:181,valueUB:181,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:181,valueUB:181,"`
 }
 
 func (x *ExpectedActivityPeriod) Reset() {
@@ -20040,7 +20040,7 @@ type ExpectedIdlePeriod struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:181,valueUB:181,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:181,valueUB:181,"`
 }
 
 func (x *ExpectedIdlePeriod) Reset() {
@@ -20140,13 +20140,13 @@ type ExpectedUeactivityBehaviour struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ExpectedActivityPeriod *ExpectedActivityPeriod `protobuf:"bytes,1,opt,name=expected_activity_period,json=expectedActivityPeriod,proto3,oneof" json:"expected_activity_period,omitempty"`
+	ExpectedActivityPeriod *ExpectedActivityPeriod `protobuf:"bytes,1,opt,name=expected_activity_period,json=expectedActivityPeriod,proto3,oneof" json:"expected_activity_period,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	ExpectedIdlePeriod *ExpectedIdlePeriod `protobuf:"bytes,2,opt,name=expected_idle_period,json=expectedIdlePeriod,proto3,oneof" json:"expected_idle_period,omitempty"`
+	ExpectedIdlePeriod *ExpectedIdlePeriod `protobuf:"bytes,2,opt,name=expected_idle_period,json=expectedIdlePeriod,proto3,oneof" json:"expected_idle_period,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	SourceOfUeactivityBehaviourInformation *SourceOfUeactivityBehaviourInformation `protobuf:"varint,3,opt,name=source_of_ueactivity_behaviour_information,json=sourceOfUEActivityBehaviourInformation,proto3,enum=xnap.v1.SourceOfUeactivityBehaviourInformation,oneof" json:"source_of_ueactivity_behaviour_information,omitempty"`
+	SourceOfUeactivityBehaviourInformation *SourceOfUeactivityBehaviourInformation `protobuf:"varint,3,opt,name=source_of_ueactivity_behaviour_information,json=sourceOfUEActivityBehaviourInformation,proto3,enum=xnap.v1.SourceOfUeactivityBehaviourInformation,oneof" json:"source_of_ueactivity_behaviour_information,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ExpectedUeactivityBehaviourExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ExpectedUeactivityBehaviourExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ExpectedUeactivityBehaviour) Reset() {
@@ -20267,15 +20267,15 @@ type ExpectedUebehaviour struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,"
-	ExpectedUeactivityBehaviour *ExpectedUeactivityBehaviour `protobuf:"bytes,1,opt,name=expected_ueactivity_behaviour,json=expectedUEActivityBehaviour,proto3,oneof" json:"expected_ueactivity_behaviour,omitempty"`
+	ExpectedUeactivityBehaviour *ExpectedUeactivityBehaviour `protobuf:"bytes,1,opt,name=expected_ueactivity_behaviour,json=expectedUEActivityBehaviour,proto3,oneof" json:"expected_ueactivity_behaviour,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:6,"
-	ExpectedHointerval *ExpectedHointerval `protobuf:"varint,2,opt,name=expected_hointerval,json=expectedHOInterval,proto3,enum=xnap.v1.ExpectedHointerval,oneof" json:"expected_hointerval,omitempty"`
+	ExpectedHointerval *ExpectedHointerval `protobuf:"varint,2,opt,name=expected_hointerval,json=expectedHOInterval,proto3,enum=xnap.v1.ExpectedHointerval,oneof" json:"expected_hointerval,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:6,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	ExpectedUemobility *ExpectedUemobility `protobuf:"varint,3,opt,name=expected_uemobility,json=expectedUEMobility,proto3,enum=xnap.v1.ExpectedUemobility,oneof" json:"expected_uemobility,omitempty"`
+	ExpectedUemobility *ExpectedUemobility `protobuf:"varint,3,opt,name=expected_uemobility,json=expectedUEMobility,proto3,enum=xnap.v1.ExpectedUemobility,oneof" json:"expected_uemobility,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,"
-	ExpectedUemovingTrajectory *ExpectedUemovingTrajectory `protobuf:"bytes,4,opt,name=expected_uemoving_trajectory,json=expectedUEMovingTrajectory,proto3,oneof" json:"expected_uemoving_trajectory,omitempty"`
+	ExpectedUemovingTrajectory *ExpectedUemovingTrajectory `protobuf:"bytes,4,opt,name=expected_uemoving_trajectory,json=expectedUEMovingTrajectory,proto3,oneof" json:"expected_uemoving_trajectory,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ExpectedUebehaviourExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ExpectedUebehaviourExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ExpectedUebehaviour) Reset() {
@@ -20353,7 +20353,7 @@ type ExpectedUemovingTrajectory struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*ExpectedUemovingTrajectoryItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ExpectedUemovingTrajectoryItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *ExpectedUemovingTrajectory) Reset() {
@@ -20453,11 +20453,11 @@ type ExpectedUemovingTrajectoryItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	NGranCgi *GlobalNgRAncellID `protobuf:"bytes,1,opt,name=n_gran_cgi,json=nGRAN-CGI,proto3" json:"n_gran_cgi,omitempty"`
+	NGranCgi *GlobalNgRAncellID `protobuf:"bytes,1,opt,name=n_gran_cgi,json=nGRAN-CGI,proto3" json:"n_gran_cgi,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueLB:0,valueUB:4095,"
-	TimeStayedInCell *int32 `protobuf:"varint,2,opt,name=time_stayed_in_cell,json=timeStayedInCell,proto3,oneof" json:"time_stayed_in_cell,omitempty"`
+	TimeStayedInCell *int32 `protobuf:"varint,2,opt,name=time_stayed_in_cell,json=timeStayedInCell,proto3,oneof" json:"time_stayed_in_cell,omitempty" aper:"optional,valueLB:0,valueUB:4095,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ExpectedUemovingTrajectoryItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ExpectedUemovingTrajectoryItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ExpectedUemovingTrajectoryItem) Reset() {
@@ -20571,11 +20571,11 @@ type ExtendedRatrestrictionInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeExt,sizeLB:8,sizeUB:8,"
-	PrimaryRatrestriction *asn1.BitString `protobuf:"bytes,1,opt,name=primary_ratrestriction,json=primaryRATRestriction,proto3" json:"primary_ratrestriction,omitempty"`
+	PrimaryRatrestriction *asn1.BitString `protobuf:"bytes,1,opt,name=primary_ratrestriction,json=primaryRATRestriction,proto3" json:"primary_ratrestriction,omitempty" aper:"sizeExt,sizeLB:8,sizeUB:8,"`
 	// @inject_tag: aper:"sizeExt,sizeLB:8,sizeUB:8,"
-	SecondaryRatrestriction *asn1.BitString `protobuf:"bytes,2,opt,name=secondary_ratrestriction,json=secondaryRATRestriction,proto3" json:"secondary_ratrestriction,omitempty"`
+	SecondaryRatrestriction *asn1.BitString `protobuf:"bytes,2,opt,name=secondary_ratrestriction,json=secondaryRATRestriction,proto3" json:"secondary_ratrestriction,omitempty" aper:"sizeExt,sizeLB:8,sizeUB:8,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ExtendedRatrestrictionInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ExtendedRatrestrictionInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ExtendedRatrestrictionInformation) Reset() {
@@ -20639,7 +20639,7 @@ type ExtendedPacketDelayBudget struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:65535,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:65535,"`
 }
 
 func (x *ExtendedPacketDelayBudget) Reset() {
@@ -20689,7 +20689,7 @@ type ExtendedSliceSupportList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:65535,"
-	Value []*SNSsai `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SNSsai `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:65535,"`
 }
 
 func (x *ExtendedSliceSupportList) Reset() {
@@ -20739,7 +20739,7 @@ type ExtendedUeidentityIndexValue struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:16,sizeUB:16,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:16,sizeUB:16,"`
 }
 
 func (x *ExtendedUeidentityIndexValue) Reset() {
@@ -20789,7 +20789,7 @@ type ExtTlas struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*ExtTlaItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ExtTlaItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *ExtTlas) Reset() {
@@ -20889,11 +20889,11 @@ type ExtTlaItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	IPsecTla *TransportLayerAddress `protobuf:"bytes,1,opt,name=i_psec_tla,json=iPsecTLA,proto3,oneof" json:"i_psec_tla,omitempty"`
+	IPsecTla *TransportLayerAddress `protobuf:"bytes,1,opt,name=i_psec_tla,json=iPsecTLA,proto3,oneof" json:"i_psec_tla,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	GTptransportLayerAddresses *Gtptlas `protobuf:"bytes,2,opt,name=g_tptransport_layer_addresses,json=gTPTransportLayerAddresses,proto3,oneof" json:"g_tptransport_layer_addresses,omitempty"`
+	GTptransportLayerAddresses *Gtptlas `protobuf:"bytes,2,opt,name=g_tptransport_layer_addresses,json=gTPTransportLayerAddresses,proto3,oneof" json:"g_tptransport_layer_addresses,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ExtTlaItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ExtTlaItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ExtTlaItem) Reset() {
@@ -20957,7 +20957,7 @@ type Gtptlas struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*GtptlaItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*GtptlaItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *Gtptlas) Reset() {
@@ -21058,7 +21058,7 @@ type GtptlaItem struct {
 
 	GTptransportLayerAddresses *TransportLayerAddress `protobuf:"bytes,1,opt,name=g_tptransport_layer_addresses,json=gTPTransportLayerAddresses,proto3" json:"g_tptransport_layer_addresses,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GtptlaItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GtptlaItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GtptlaItem) Reset() {
@@ -21164,7 +21164,7 @@ type FiveQi struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:255,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:255,"`
 }
 
 func (x *FiveQi) Reset() {
@@ -21268,13 +21268,13 @@ type GbrqoSflowInfo struct {
 	GuaranteedFlowBitRateDl *BitRate `protobuf:"bytes,3,opt,name=guaranteed_flow_bit_rate_dl,json=guaranteedFlowBitRateDL,proto3" json:"guaranteed_flow_bit_rate_dl,omitempty"`
 	GuaranteedFlowBitRateUl *BitRate `protobuf:"bytes,4,opt,name=guaranteed_flow_bit_rate_ul,json=guaranteedFlowBitRateUL,proto3" json:"guaranteed_flow_bit_rate_ul,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	NotificationControl *NotificationControlGbrqoSflowInfo `protobuf:"varint,5,opt,name=notification_control,json=notificationControl,proto3,enum=xnap.v1.NotificationControlGbrqoSflowInfo,oneof" json:"notification_control,omitempty"`
+	NotificationControl *NotificationControlGbrqoSflowInfo `protobuf:"varint,5,opt,name=notification_control,json=notificationControl,proto3,enum=xnap.v1.NotificationControlGbrqoSflowInfo,oneof" json:"notification_control,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,"
-	MaxPacketLossRateDl *PacketLossRate `protobuf:"bytes,6,opt,name=max_packet_loss_rate_dl,json=maxPacketLossRateDL,proto3,oneof" json:"max_packet_loss_rate_dl,omitempty"`
+	MaxPacketLossRateDl *PacketLossRate `protobuf:"bytes,6,opt,name=max_packet_loss_rate_dl,json=maxPacketLossRateDL,proto3,oneof" json:"max_packet_loss_rate_dl,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	MaxPacketLossRateUl *PacketLossRate `protobuf:"bytes,7,opt,name=max_packet_loss_rate_ul,json=maxPacketLossRateUL,proto3,oneof" json:"max_packet_loss_rate_ul,omitempty"`
+	MaxPacketLossRateUl *PacketLossRate `protobuf:"bytes,7,opt,name=max_packet_loss_rate_ul,json=maxPacketLossRateUL,proto3,oneof" json:"max_packet_loss_rate_ul,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GbrqoSflowInfoExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GbrqoSflowInfoExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GbrqoSflowInfo) Reset() {
@@ -21425,7 +21425,7 @@ type GlobalgNbID struct {
 	PlmnId *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	GnbId  *GnbIDChoice  `protobuf:"bytes,2,opt,name=gnb_id,json=gnb-id,proto3" json:"gnb_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GlobalgNbIDExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GlobalgNbIDExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GlobalgNbID) Reset() {
@@ -21604,12 +21604,12 @@ type isGnbIDChoice_GnbIdChoice interface {
 
 type GnbIDChoice_GnbId struct {
 	// @inject_tag: aper:"choiceIdx:1,sizeLB:22,sizeUB:32,"
-	GnbId *asn1.BitString `protobuf:"bytes,1,opt,name=gnb_id,json=gnb-ID,proto3,oneof"`
+	GnbId *asn1.BitString `protobuf:"bytes,1,opt,name=gnb_id,json=gnb-ID,proto3,oneof" aper:"choiceIdx:1,sizeLB:22,sizeUB:32,"`
 }
 
 type GnbIDChoice_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtension *GnbIDChoiceExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *GnbIDChoiceExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*GnbIDChoice_GnbId) isGnbIDChoice_GnbIdChoice() {}
@@ -21675,7 +21675,7 @@ type GnbRadioResourceStatus struct {
 
 	SsbAreaRadioResourceStatusList *SsbareaRadioResourceStatusList `protobuf:"bytes,1,opt,name=ssb_area_radio_resource_status_list,json=ssbAreaRadioResourceStatus-List,proto3" json:"ssb_area_radio_resource_status_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GnbRadioResourceStatusExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GnbRadioResourceStatusExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GnbRadioResourceStatus) Reset() {
@@ -21784,7 +21784,7 @@ type GlobalCellID struct {
 	PlmnId   *PlmnIdentity   `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	CellType *CellTypeChoice `protobuf:"bytes,2,opt,name=cell_type,json=cell-type,proto3" json:"cell_type,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GlobalCellIDExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GlobalCellIDExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GlobalCellID) Reset() {
@@ -21900,7 +21900,7 @@ type GlobalngeNbID struct {
 	PlmnId *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	EnbId  *EnbIDChoice  `protobuf:"bytes,2,opt,name=enb_id,json=enb-id,proto3" json:"enb_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GlobaleNbIDExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GlobaleNbIDExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GlobalngeNbID) Reset() {
@@ -22095,22 +22095,22 @@ type isEnbIDChoice_EnbIdChoice interface {
 
 type EnbIDChoice_EnbIdMacro struct {
 	// @inject_tag: aper:"choiceIdx:1,sizeLB:20,sizeUB:20,"
-	EnbIdMacro *asn1.BitString `protobuf:"bytes,1,opt,name=enb_id_macro,json=enb-ID-macro,proto3,oneof"`
+	EnbIdMacro *asn1.BitString `protobuf:"bytes,1,opt,name=enb_id_macro,json=enb-ID-macro,proto3,oneof" aper:"choiceIdx:1,sizeLB:20,sizeUB:20,"`
 }
 
 type EnbIDChoice_EnbIdShortmacro struct {
 	// @inject_tag: aper:"choiceIdx:2,sizeLB:18,sizeUB:18,"
-	EnbIdShortmacro *asn1.BitString `protobuf:"bytes,2,opt,name=enb_id_shortmacro,json=enb-ID-shortmacro,proto3,oneof"`
+	EnbIdShortmacro *asn1.BitString `protobuf:"bytes,2,opt,name=enb_id_shortmacro,json=enb-ID-shortmacro,proto3,oneof" aper:"choiceIdx:2,sizeLB:18,sizeUB:18,"`
 }
 
 type EnbIDChoice_EnbIdLongmacro struct {
 	// @inject_tag: aper:"choiceIdx:3,sizeLB:21,sizeUB:21,"
-	EnbIdLongmacro *asn1.BitString `protobuf:"bytes,3,opt,name=enb_id_longmacro,json=enb-ID-longmacro,proto3,oneof"`
+	EnbIdLongmacro *asn1.BitString `protobuf:"bytes,3,opt,name=enb_id_longmacro,json=enb-ID-longmacro,proto3,oneof" aper:"choiceIdx:3,sizeLB:21,sizeUB:21,"`
 }
 
 type EnbIDChoice_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ChoiceExtension *EnbIDChoiceExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *EnbIDChoiceExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*EnbIDChoice_EnbIdMacro) isEnbIDChoice_EnbIdChoice() {}
@@ -22181,7 +22181,7 @@ type GlobalNgRAncellID struct {
 	PlmnId      *PlmnIdentity      `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	NgRanCellId *NgRAnCellIdentity `protobuf:"bytes,2,opt,name=ng_ran_cell_id,json=ng-RAN-Cell-id,proto3" json:"ng_ran_cell_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GlobalNgRAncellIDExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GlobalNgRAncellIDExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GlobalNgRAncellID) Reset() {
@@ -22368,17 +22368,17 @@ type isGlobalNgRAnnodeID_GlobalNgRannodeId interface {
 
 type GlobalNgRAnnodeID_GNb struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	GNb *GlobalgNbID `protobuf:"bytes,1,opt,name=g_nb,json=gNB,proto3,oneof"`
+	GNb *GlobalgNbID `protobuf:"bytes,1,opt,name=g_nb,json=gNB,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type GlobalNgRAnnodeID_NgENb struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	NgENb *GlobalngeNbID `protobuf:"bytes,2,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof"`
+	NgENb *GlobalngeNbID `protobuf:"bytes,2,opt,name=ng_e_nb,json=ng-eNB,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type GlobalNgRAnnodeID_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *GlobalNgRAnnodeIDExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *GlobalNgRAnnodeIDExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*GlobalNgRAnnodeID_GNb) isGlobalNgRAnnodeID_GlobalNgRannodeId() {}
@@ -22395,7 +22395,7 @@ type GtpTEid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:4,sizeUB:4,"
-	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:4,sizeUB:4,"`
 }
 
 func (x *GtpTEid) Reset() {
@@ -22497,7 +22497,7 @@ type GtptunnelTransportLayerInformation struct {
 	TnlAddress *TransportLayerAddress `protobuf:"bytes,1,opt,name=tnl_address,json=tnl-address,proto3" json:"tnl_address,omitempty"`
 	GtpTeid    *GtpTEid               `protobuf:"bytes,2,opt,name=gtp_teid,json=gtp-teid,proto3" json:"gtp_teid,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GtptunnelTransportLayerInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GtptunnelTransportLayerInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GtptunnelTransportLayerInformation) Reset() {
@@ -22612,13 +22612,13 @@ type Guami struct {
 
 	PlmnId *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-ID,proto3" json:"plmn_id,omitempty"`
 	// @inject_tag: aper:"sizeLB:8,sizeUB:8,"
-	AmfRegionId *asn1.BitString `protobuf:"bytes,2,opt,name=amf_region_id,json=amf-region-id,proto3" json:"amf_region_id,omitempty"`
+	AmfRegionId *asn1.BitString `protobuf:"bytes,2,opt,name=amf_region_id,json=amf-region-id,proto3" json:"amf_region_id,omitempty" aper:"sizeLB:8,sizeUB:8,"`
 	// @inject_tag: aper:"sizeLB:10,sizeUB:10,"
-	AmfSetId *asn1.BitString `protobuf:"bytes,3,opt,name=amf_set_id,json=amf-set-id,proto3" json:"amf_set_id,omitempty"`
+	AmfSetId *asn1.BitString `protobuf:"bytes,3,opt,name=amf_set_id,json=amf-set-id,proto3" json:"amf_set_id,omitempty" aper:"sizeLB:10,sizeUB:10,"`
 	// @inject_tag: aper:"sizeLB:6,sizeUB:6,"
-	AmfPointer *asn1.BitString `protobuf:"bytes,4,opt,name=amf_pointer,json=amf-pointer,proto3" json:"amf_pointer,omitempty"`
+	AmfPointer *asn1.BitString `protobuf:"bytes,4,opt,name=amf_pointer,json=amf-pointer,proto3" json:"amf_pointer,omitempty" aper:"sizeLB:6,sizeUB:6,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GuamiExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GuamiExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Guami) Reset() {
@@ -22696,7 +22696,7 @@ type Hysteresis struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:30,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:30,"`
 }
 
 func (x *Hysteresis) Reset() {
@@ -22846,25 +22846,25 @@ type ImmediateMdtNR struct {
 
 	MeasurementsToActivate *MeasurementsToActivate `protobuf:"bytes,1,opt,name=measurements_to_activate,json=measurementsToActivate,proto3" json:"measurements_to_activate,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	M1Configuration *M1Configuration `protobuf:"bytes,2,opt,name=m1_configuration,json=m1Configuration,proto3,oneof" json:"m1_configuration,omitempty"`
+	M1Configuration *M1Configuration `protobuf:"bytes,2,opt,name=m1_configuration,json=m1Configuration,proto3,oneof" json:"m1_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	M4Configuration *M4Configuration `protobuf:"bytes,3,opt,name=m4_configuration,json=m4Configuration,proto3,oneof" json:"m4_configuration,omitempty"`
+	M4Configuration *M4Configuration `protobuf:"bytes,3,opt,name=m4_configuration,json=m4Configuration,proto3,oneof" json:"m4_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	M5Configuration *M5Configuration `protobuf:"bytes,4,opt,name=m5_configuration,json=m5Configuration,proto3,oneof" json:"m5_configuration,omitempty"`
+	M5Configuration *M5Configuration `protobuf:"bytes,4,opt,name=m5_configuration,json=m5Configuration,proto3,oneof" json:"m5_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	MDtLocationInfo *MdtLocationInfo `protobuf:"bytes,5,opt,name=m_dt_location_info,json=mDT-Location-Info,proto3,oneof" json:"m_dt_location_info,omitempty"`
+	MDtLocationInfo *MdtLocationInfo `protobuf:"bytes,5,opt,name=m_dt_location_info,json=mDT-Location-Info,proto3,oneof" json:"m_dt_location_info,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	M6Configuration *M6Configuration `protobuf:"bytes,6,opt,name=m6_configuration,json=m6Configuration,proto3,oneof" json:"m6_configuration,omitempty"`
+	M6Configuration *M6Configuration `protobuf:"bytes,6,opt,name=m6_configuration,json=m6Configuration,proto3,oneof" json:"m6_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	M7Configuration *M7Configuration `protobuf:"bytes,7,opt,name=m7_configuration,json=m7Configuration,proto3,oneof" json:"m7_configuration,omitempty"`
+	M7Configuration *M7Configuration `protobuf:"bytes,7,opt,name=m7_configuration,json=m7Configuration,proto3,oneof" json:"m7_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	BluetoothMeasurementConfiguration *BluetoothMeasurementConfiguration `protobuf:"bytes,8,opt,name=bluetooth_measurement_configuration,json=bluetoothMeasurementConfiguration,proto3,oneof" json:"bluetooth_measurement_configuration,omitempty"`
+	BluetoothMeasurementConfiguration *BluetoothMeasurementConfiguration `protobuf:"bytes,8,opt,name=bluetooth_measurement_configuration,json=bluetoothMeasurementConfiguration,proto3,oneof" json:"bluetooth_measurement_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	WLanmeasurementConfiguration *WlanmeasurementConfiguration `protobuf:"bytes,9,opt,name=w_lanmeasurement_configuration,json=wLANMeasurementConfiguration,proto3,oneof" json:"w_lanmeasurement_configuration,omitempty"`
+	WLanmeasurementConfiguration *WlanmeasurementConfiguration `protobuf:"bytes,9,opt,name=w_lanmeasurement_configuration,json=wLANMeasurementConfiguration,proto3,oneof" json:"w_lanmeasurement_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SensorMeasurementConfiguration *SensorMeasurementConfiguration `protobuf:"bytes,10,opt,name=sensor_measurement_configuration,json=sensorMeasurementConfiguration,proto3,oneof" json:"sensor_measurement_configuration,omitempty"`
+	SensorMeasurementConfiguration *SensorMeasurementConfiguration `protobuf:"bytes,10,opt,name=sensor_measurement_configuration,json=sensorMeasurementConfiguration,proto3,oneof" json:"sensor_measurement_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ImmediateMdtNRExtIes `protobuf:"bytes,11,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ImmediateMdtNRExtIes `protobuf:"bytes,11,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ImmediateMdtNR) Reset() {
@@ -23107,17 +23107,17 @@ type isInitiatingConditionFailureIndication_InitiatingConditionFailureIndication
 
 type InitiatingConditionFailureIndication_RRcreestab struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	RRcreestab *Rrcreestabinitiated `protobuf:"bytes,1,opt,name=r_rcreestab,json=rRCReestab,proto3,oneof"`
+	RRcreestab *Rrcreestabinitiated `protobuf:"bytes,1,opt,name=r_rcreestab,json=rRCReestab,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type InitiatingConditionFailureIndication_RRcsetup struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	RRcsetup *Rrcsetupinitiated `protobuf:"bytes,2,opt,name=r_rcsetup,json=rRCSetup,proto3,oneof"`
+	RRcsetup *Rrcsetupinitiated `protobuf:"bytes,2,opt,name=r_rcsetup,json=rRCSetup,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type InitiatingConditionFailureIndication_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *InitiatingConditionFailureIndicationExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *InitiatingConditionFailureIndicationExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*InitiatingConditionFailureIndication_RRcreestab) isInitiatingConditionFailureIndication_InitiatingConditionFailureIndication() {
@@ -23187,14 +23187,14 @@ type IntendedTddDLULconfigurationNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:3,"
-	Nrscs Nrscs `protobuf:"varint,1,opt,name=nrscs,proto3,enum=xnap.v1.Nrscs" json:"nrscs,omitempty"`
+	Nrscs Nrscs `protobuf:"varint,1,opt,name=nrscs,proto3,enum=xnap.v1.Nrscs" json:"nrscs,omitempty" aper:"valueExt,valueLB:0,valueUB:3,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	NrCyclicPrefix NrcyclicPrefix `protobuf:"varint,2,opt,name=nr_cyclic_prefix,json=nrCyclicPrefix,proto3,enum=xnap.v1.NrcyclicPrefix" json:"nr_cyclic_prefix,omitempty"`
+	NrCyclicPrefix NrcyclicPrefix `protobuf:"varint,2,opt,name=nr_cyclic_prefix,json=nrCyclicPrefix,proto3,enum=xnap.v1.NrcyclicPrefix" json:"nr_cyclic_prefix,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:17,"
-	NrDlUltransmissionPeriodicity NrdlULtransmissionPeriodicity `protobuf:"varint,3,opt,name=nr_dl_ultransmission_periodicity,json=nrDL-ULTransmissionPeriodicity,proto3,enum=xnap.v1.NrdlULtransmissionPeriodicity" json:"nr_dl_ultransmission_periodicity,omitempty"`
+	NrDlUltransmissionPeriodicity NrdlULtransmissionPeriodicity `protobuf:"varint,3,opt,name=nr_dl_ultransmission_periodicity,json=nrDL-ULTransmissionPeriodicity,proto3,enum=xnap.v1.NrdlULtransmissionPeriodicity" json:"nr_dl_ultransmission_periodicity,omitempty" aper:"valueExt,valueLB:0,valueUB:17,"`
 	SlotConfigurationList         *SlotConfigurationList        `protobuf:"bytes,4,opt,name=slot_configuration_list,json=slotConfiguration-List,proto3" json:"slot_configuration_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*IntendedTddDLULconfigurationNRExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*IntendedTddDLULconfigurationNRExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *IntendedTddDLULconfigurationNR) Reset() {
@@ -23272,7 +23272,7 @@ type InterfaceInstanceIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:255,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:255,"`
 }
 
 func (x *InterfaceInstanceIndication) Reset() {
@@ -23322,7 +23322,7 @@ type InterfacesToTrace struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:8,sizeUB:8,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:8,sizeUB:8,"`
 }
 
 func (x *InterfacesToTrace) Reset() {
@@ -23495,17 +23495,17 @@ type isIRNti_IRnti interface {
 
 type IRNti_IRntiFull struct {
 	// @inject_tag: aper:"choiceIdx:1,sizeLB:40,sizeUB:40,"
-	IRntiFull *asn1.BitString `protobuf:"bytes,1,opt,name=i_rnti_full,json=i-RNTI-full,proto3,oneof"`
+	IRntiFull *asn1.BitString `protobuf:"bytes,1,opt,name=i_rnti_full,json=i-RNTI-full,proto3,oneof" aper:"choiceIdx:1,sizeLB:40,sizeUB:40,"`
 }
 
 type IRNti_IRntiShort struct {
 	// @inject_tag: aper:"choiceIdx:2,sizeLB:24,sizeUB:24,"
-	IRntiShort *asn1.BitString `protobuf:"bytes,2,opt,name=i_rnti_short,json=i-RNTI-short,proto3,oneof"`
+	IRntiShort *asn1.BitString `protobuf:"bytes,2,opt,name=i_rnti_short,json=i-RNTI-short,proto3,oneof" aper:"choiceIdx:2,sizeLB:24,sizeUB:24,"`
 }
 
 type IRNti_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *IRNtiExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *IRNtiExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*IRNti_IRntiFull) isIRNti_IRnti() {}
@@ -23661,27 +23661,27 @@ type isLastVisitedCellItem_LastVisitedCellItem interface {
 
 type LastVisitedCellItem_NGRanCell struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	NGRanCell *LastVisitedNgrancellInformation `protobuf:"bytes,1,opt,name=n_g_ran_cell,json=nG-RAN-Cell,proto3,oneof"`
+	NGRanCell *LastVisitedNgrancellInformation `protobuf:"bytes,1,opt,name=n_g_ran_cell,json=nG-RAN-Cell,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type LastVisitedCellItem_EUtranCell struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	EUtranCell *LastVisitedEutrancellInformation `protobuf:"bytes,2,opt,name=e_utran_cell,json=e-UTRAN-Cell,proto3,oneof"`
+	EUtranCell *LastVisitedEutrancellInformation `protobuf:"bytes,2,opt,name=e_utran_cell,json=e-UTRAN-Cell,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type LastVisitedCellItem_UTranCell struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	UTranCell *LastVisitedUtrancellInformation `protobuf:"bytes,3,opt,name=u_tran_cell,json=uTRAN-Cell,proto3,oneof"`
+	UTranCell *LastVisitedUtrancellInformation `protobuf:"bytes,3,opt,name=u_tran_cell,json=uTRAN-Cell,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type LastVisitedCellItem_GEranCell struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	GEranCell *LastVisitedGerancellInformation `protobuf:"bytes,4,opt,name=g_eran_cell,json=gERAN-Cell,proto3,oneof"`
+	GEranCell *LastVisitedGerancellInformation `protobuf:"bytes,4,opt,name=g_eran_cell,json=gERAN-Cell,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type LastVisitedCellItem_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	ChoiceExtension *LastVisitedCellItemExtIes `protobuf:"bytes,5,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *LastVisitedCellItemExtIes `protobuf:"bytes,5,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 func (*LastVisitedCellItem_NGRanCell) isLastVisitedCellItem_LastVisitedCellItem() {}
@@ -23898,7 +23898,7 @@ type Lcid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:32,"`
 }
 
 func (x *Lcid) Reset() {
@@ -23948,7 +23948,7 @@ type ListOfCells struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*CellsinAoIItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*CellsinAoIItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *ListOfCells) Reset() {
@@ -24050,7 +24050,7 @@ type CellsinAoIItem struct {
 	PLmnIdentity *PlmnIdentity      `protobuf:"bytes,1,opt,name=p_lmn_identity,json=pLMN-Identity,proto3" json:"p_lmn_identity,omitempty"`
 	NgRanCellId  *NgRAnCellIdentity `protobuf:"bytes,2,opt,name=ng_ran_cell_id,json=ng-ran-cell-id,proto3" json:"ng_ran_cell_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CellsinAoIItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CellsinAoIItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CellsinAoIItem) Reset() {
@@ -24114,7 +24114,7 @@ type ListOfRannodesinAoI struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*GlobalNgRAnnodesinAoIItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*GlobalNgRAnnodesinAoIItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *ListOfRannodesinAoI) Reset() {
@@ -24215,7 +24215,7 @@ type GlobalNgRAnnodesinAoIItem struct {
 
 	GlobalNgRanNodeId *GlobalNgRAnnodeID `protobuf:"bytes,1,opt,name=global_ng_ran_node_id,json=global-NG-RAN-Node-ID,proto3" json:"global_ng_ran_node_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*GlobalNgRAnnodesinAoIItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*GlobalNgRAnnodesinAoIItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *GlobalNgRAnnodesinAoIItem) Reset() {
@@ -24272,7 +24272,7 @@ type ListOfTaisinAoI struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*TaisinAoIItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TaisinAoIItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *ListOfTaisinAoI) Reset() {
@@ -24374,7 +24374,7 @@ type TaisinAoIItem struct {
 	PLmnIdentity *PlmnIdentity `protobuf:"bytes,1,opt,name=p_lmn_identity,json=pLMN-Identity,proto3" json:"p_lmn_identity,omitempty"`
 	TAc          *Tac          `protobuf:"bytes,2,opt,name=t_ac,json=tAC,proto3" json:"t_ac,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TaisinAoIItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TaisinAoIItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TaisinAoIItem) Reset() {
@@ -24488,13 +24488,13 @@ type LocationReportingInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	EventType EventType `protobuf:"varint,1,opt,name=event_type,json=eventType,proto3,enum=xnap.v1.EventType" json:"event_type,omitempty"`
+	EventType EventType `protobuf:"varint,1,opt,name=event_type,json=eventType,proto3,enum=xnap.v1.EventType" json:"event_type,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	ReportArea ReportArea `protobuf:"varint,2,opt,name=report_area,json=reportArea,proto3,enum=xnap.v1.ReportArea" json:"report_area,omitempty"`
+	ReportArea ReportArea `protobuf:"varint,2,opt,name=report_area,json=reportArea,proto3,enum=xnap.v1.ReportArea" json:"report_area,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,"
-	AreaOfInterest *AreaOfInterestInformation `protobuf:"bytes,3,opt,name=area_of_interest,json=areaOfInterest,proto3,oneof" json:"area_of_interest,omitempty"`
+	AreaOfInterest *AreaOfInterestInformation `protobuf:"bytes,3,opt,name=area_of_interest,json=areaOfInterest,proto3,oneof" json:"area_of_interest,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*LocationReportingInformationExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*LocationReportingInformationExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *LocationReportingInformation) Reset() {
@@ -24615,15 +24615,15 @@ type LoggedMdtEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:9,"
-	LoggingInterval LoggingInterval `protobuf:"varint,1,opt,name=logging_interval,json=loggingInterval,proto3,enum=xnap.v1.LoggingInterval" json:"logging_interval,omitempty"`
+	LoggingInterval LoggingInterval `protobuf:"varint,1,opt,name=logging_interval,json=loggingInterval,proto3,enum=xnap.v1.LoggingInterval" json:"logging_interval,omitempty" aper:"valueLB:0,valueUB:9,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:5,"
-	LoggingDuration LoggingDuration `protobuf:"varint,2,opt,name=logging_duration,json=loggingDuration,proto3,enum=xnap.v1.LoggingDuration" json:"logging_duration,omitempty"`
+	LoggingDuration LoggingDuration `protobuf:"varint,2,opt,name=logging_duration,json=loggingDuration,proto3,enum=xnap.v1.LoggingDuration" json:"logging_duration,omitempty" aper:"valueLB:0,valueUB:5,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	BluetoothMeasurementConfiguration *BluetoothMeasurementConfiguration `protobuf:"bytes,3,opt,name=bluetooth_measurement_configuration,json=bluetoothMeasurementConfiguration,proto3,oneof" json:"bluetooth_measurement_configuration,omitempty"`
+	BluetoothMeasurementConfiguration *BluetoothMeasurementConfiguration `protobuf:"bytes,3,opt,name=bluetooth_measurement_configuration,json=bluetoothMeasurementConfiguration,proto3,oneof" json:"bluetooth_measurement_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	WLanmeasurementConfiguration *WlanmeasurementConfiguration `protobuf:"bytes,4,opt,name=w_lanmeasurement_configuration,json=wLANMeasurementConfiguration,proto3,oneof" json:"w_lanmeasurement_configuration,omitempty"`
+	WLanmeasurementConfiguration *WlanmeasurementConfiguration `protobuf:"bytes,4,opt,name=w_lanmeasurement_configuration,json=wLANMeasurementConfiguration,proto3,oneof" json:"w_lanmeasurement_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*LoggedMdtEUtraExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*LoggedMdtEUtraExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *LoggedMdtEUtra) Reset() {
@@ -24752,7 +24752,7 @@ type LoggedEventTriggeredConfig struct {
 
 	EventTypeTrigger *EventTypeTrigger `protobuf:"bytes,1,opt,name=event_type_trigger,json=eventTypeTrigger,proto3" json:"event_type_trigger,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*LoggedEventTriggeredConfigExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*LoggedEventTriggeredConfigExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *LoggedEventTriggeredConfig) Reset() {
@@ -24859,21 +24859,21 @@ type LoggedMdtNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:9,"
-	LoggingInterval LoggingInterval `protobuf:"varint,1,opt,name=logging_interval,json=loggingInterval,proto3,enum=xnap.v1.LoggingInterval" json:"logging_interval,omitempty"`
+	LoggingInterval LoggingInterval `protobuf:"varint,1,opt,name=logging_interval,json=loggingInterval,proto3,enum=xnap.v1.LoggingInterval" json:"logging_interval,omitempty" aper:"valueLB:0,valueUB:9,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:5,"
-	LoggingDuration LoggingDuration `protobuf:"varint,2,opt,name=logging_duration,json=loggingDuration,proto3,enum=xnap.v1.LoggingDuration" json:"logging_duration,omitempty"`
+	LoggingDuration LoggingDuration `protobuf:"varint,2,opt,name=logging_duration,json=loggingDuration,proto3,enum=xnap.v1.LoggingDuration" json:"logging_duration,omitempty" aper:"valueLB:0,valueUB:5,"`
 	// @inject_tag: aper:"choiceExt,"
-	ReportType *ReportType `protobuf:"bytes,3,opt,name=report_type,json=reportType,proto3" json:"report_type,omitempty"`
+	ReportType *ReportType `protobuf:"bytes,3,opt,name=report_type,json=reportType,proto3" json:"report_type,omitempty" aper:"choiceExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	BluetoothMeasurementConfiguration *BluetoothMeasurementConfiguration `protobuf:"bytes,4,opt,name=bluetooth_measurement_configuration,json=bluetoothMeasurementConfiguration,proto3,oneof" json:"bluetooth_measurement_configuration,omitempty"`
+	BluetoothMeasurementConfiguration *BluetoothMeasurementConfiguration `protobuf:"bytes,4,opt,name=bluetooth_measurement_configuration,json=bluetoothMeasurementConfiguration,proto3,oneof" json:"bluetooth_measurement_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	WLanmeasurementConfiguration *WlanmeasurementConfiguration `protobuf:"bytes,5,opt,name=w_lanmeasurement_configuration,json=wLANMeasurementConfiguration,proto3,oneof" json:"w_lanmeasurement_configuration,omitempty"`
+	WLanmeasurementConfiguration *WlanmeasurementConfiguration `protobuf:"bytes,5,opt,name=w_lanmeasurement_configuration,json=wLANMeasurementConfiguration,proto3,oneof" json:"w_lanmeasurement_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SensorMeasurementConfiguration *SensorMeasurementConfiguration `protobuf:"bytes,6,opt,name=sensor_measurement_configuration,json=sensorMeasurementConfiguration,proto3,oneof" json:"sensor_measurement_configuration,omitempty"`
+	SensorMeasurementConfiguration *SensorMeasurementConfiguration `protobuf:"bytes,6,opt,name=sensor_measurement_configuration,json=sensorMeasurementConfiguration,proto3,oneof" json:"sensor_measurement_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	AreaScopeOfNeighCellsList *AreaScopeOfNeighCellsList `protobuf:"bytes,7,opt,name=area_scope_of_neigh_cells_list,json=areaScopeOfNeighCellsList,proto3,oneof" json:"area_scope_of_neigh_cells_list,omitempty"`
+	AreaScopeOfNeighCellsList *AreaScopeOfNeighCellsList `protobuf:"bytes,7,opt,name=area_scope_of_neigh_cells_list,json=areaScopeOfNeighCellsList,proto3,oneof" json:"area_scope_of_neigh_cells_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*LoggedMdtNRExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*LoggedMdtNRExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *LoggedMdtNR) Reset() {
@@ -25022,11 +25022,11 @@ type Ltev2XservicesAuthorized struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	VehicleUe *VehicleUe `protobuf:"varint,1,opt,name=vehicle_ue,json=vehicleUE,proto3,enum=xnap.v1.VehicleUe,oneof" json:"vehicle_ue,omitempty"`
+	VehicleUe *VehicleUe `protobuf:"varint,1,opt,name=vehicle_ue,json=vehicleUE,proto3,enum=xnap.v1.VehicleUe,oneof" json:"vehicle_ue,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	PedestrianUe *PedestrianUe `protobuf:"varint,2,opt,name=pedestrian_ue,json=pedestrianUE,proto3,enum=xnap.v1.PedestrianUe,oneof" json:"pedestrian_ue,omitempty"`
+	PedestrianUe *PedestrianUe `protobuf:"varint,2,opt,name=pedestrian_ue,json=pedestrianUE,proto3,enum=xnap.v1.PedestrianUe,oneof" json:"pedestrian_ue,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*Ltev2XservicesAuthorizedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*Ltev2XservicesAuthorizedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Ltev2XservicesAuthorized) Reset() {
@@ -25141,7 +25141,7 @@ type LteuesidelinkAggregateMaximumBitRate struct {
 
 	UEsidelinkAggregateMaximumBitRate *BitRate `protobuf:"bytes,1,opt,name=u_esidelink_aggregate_maximum_bit_rate,json=uESidelinkAggregateMaximumBitRate,proto3" json:"u_esidelink_aggregate_maximum_bit_rate,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*LteuesidelinkAggregateMaximumBitRateExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*LteuesidelinkAggregateMaximumBitRateExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *LteuesidelinkAggregateMaximumBitRate) Reset() {
@@ -25248,13 +25248,13 @@ type M1Configuration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	M1ReportingTrigger M1ReportingTrigger `protobuf:"varint,1,opt,name=m1reporting_trigger,json=m1reportingTrigger,proto3,enum=xnap.v1.M1ReportingTrigger" json:"m1reporting_trigger,omitempty"`
+	M1ReportingTrigger M1ReportingTrigger `protobuf:"varint,1,opt,name=m1reporting_trigger,json=m1reportingTrigger,proto3,enum=xnap.v1.M1ReportingTrigger" json:"m1reporting_trigger,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	M1ThresholdeventA2 *M1ThresholdEventA2 `protobuf:"bytes,2,opt,name=m1thresholdevent_a2,json=m1thresholdeventA2,proto3,oneof" json:"m1thresholdevent_a2,omitempty"`
+	M1ThresholdeventA2 *M1ThresholdEventA2 `protobuf:"bytes,2,opt,name=m1thresholdevent_a2,json=m1thresholdeventA2,proto3,oneof" json:"m1thresholdevent_a2,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	M1PeriodicReporting *M1PeriodicReporting `protobuf:"bytes,3,opt,name=m1periodic_reporting,json=m1periodicReporting,proto3,oneof" json:"m1periodic_reporting,omitempty"`
+	M1PeriodicReporting *M1PeriodicReporting `protobuf:"bytes,3,opt,name=m1periodic_reporting,json=m1periodicReporting,proto3,oneof" json:"m1periodic_reporting,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*M1ConfigurationExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*M1ConfigurationExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *M1Configuration) Reset() {
@@ -25375,11 +25375,11 @@ type M1PeriodicReporting struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:12,"
-	ReportInterval ReportIntervalMdt `protobuf:"varint,1,opt,name=report_interval,json=reportInterval,proto3,enum=xnap.v1.ReportIntervalMdt" json:"report_interval,omitempty"`
+	ReportInterval ReportIntervalMdt `protobuf:"varint,1,opt,name=report_interval,json=reportInterval,proto3,enum=xnap.v1.ReportIntervalMdt" json:"report_interval,omitempty" aper:"valueExt,valueLB:0,valueUB:12,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:7,"
-	ReportAmount ReportAmountMdt `protobuf:"varint,2,opt,name=report_amount,json=reportAmount,proto3,enum=xnap.v1.ReportAmountMdt" json:"report_amount,omitempty"`
+	ReportAmount ReportAmountMdt `protobuf:"varint,2,opt,name=report_amount,json=reportAmount,proto3,enum=xnap.v1.ReportAmountMdt" json:"report_amount,omitempty" aper:"valueExt,valueLB:0,valueUB:7,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*M1PeriodicReportingExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*M1PeriodicReportingExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *M1PeriodicReporting) Reset() {
@@ -25494,7 +25494,7 @@ type M1ThresholdEventA2 struct {
 
 	MeasurementThreshold *MeasurementThresholdA2 `protobuf:"bytes,1,opt,name=measurement_threshold,json=measurementThreshold,proto3" json:"measurement_threshold,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*M1ThresholdEventA2ExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*M1ThresholdEventA2ExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *M1ThresholdEventA2) Reset() {
@@ -25601,11 +25601,11 @@ type M4Configuration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4,"
-	M4Period M4Period `protobuf:"varint,1,opt,name=m4period,proto3,enum=xnap.v1.M4Period" json:"m4period,omitempty"`
+	M4Period M4Period `protobuf:"varint,1,opt,name=m4period,proto3,enum=xnap.v1.M4Period" json:"m4period,omitempty" aper:"valueExt,valueLB:0,valueUB:4,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	M4LinksToLog Linkstolog `protobuf:"varint,2,opt,name=m4_links_to_log,json=m4-links-to-log,proto3,enum=xnap.v1.Linkstolog" json:"m4_links_to_log,omitempty"`
+	M4LinksToLog Linkstolog `protobuf:"varint,2,opt,name=m4_links_to_log,json=m4-links-to-log,proto3,enum=xnap.v1.Linkstolog" json:"m4_links_to_log,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*M4ConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*M4ConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *M4Configuration) Reset() {
@@ -25719,11 +25719,11 @@ type M5Configuration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4,"
-	M5Period M5Period `protobuf:"varint,1,opt,name=m5period,proto3,enum=xnap.v1.M5Period" json:"m5period,omitempty"`
+	M5Period M5Period `protobuf:"varint,1,opt,name=m5period,proto3,enum=xnap.v1.M5Period" json:"m5period,omitempty" aper:"valueExt,valueLB:0,valueUB:4,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	M5LinksToLog Linkstolog `protobuf:"varint,2,opt,name=m5_links_to_log,json=m5-links-to-log,proto3,enum=xnap.v1.Linkstolog" json:"m5_links_to_log,omitempty"`
+	M5LinksToLog Linkstolog `protobuf:"varint,2,opt,name=m5_links_to_log,json=m5-links-to-log,proto3,enum=xnap.v1.Linkstolog" json:"m5_links_to_log,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*M5ConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*M5ConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *M5Configuration) Reset() {
@@ -25837,11 +25837,11 @@ type M6Configuration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:13,"
-	M6ReportInterval M6ReportInterval `protobuf:"varint,1,opt,name=m6report_interval,json=m6report-Interval,proto3,enum=xnap.v1.M6ReportInterval" json:"m6report_interval,omitempty"`
+	M6ReportInterval M6ReportInterval `protobuf:"varint,1,opt,name=m6report_interval,json=m6report-Interval,proto3,enum=xnap.v1.M6ReportInterval" json:"m6report_interval,omitempty" aper:"valueExt,valueLB:0,valueUB:13,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	M6LinksToLog Linkstolog `protobuf:"varint,2,opt,name=m6_links_to_log,json=m6-links-to-log,proto3,enum=xnap.v1.Linkstolog" json:"m6_links_to_log,omitempty"`
+	M6LinksToLog Linkstolog `protobuf:"varint,2,opt,name=m6_links_to_log,json=m6-links-to-log,proto3,enum=xnap.v1.Linkstolog" json:"m6_links_to_log,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*M6ConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*M6ConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *M6Configuration) Reset() {
@@ -25956,9 +25956,9 @@ type M7Configuration struct {
 
 	M7Period *M7Period `protobuf:"bytes,1,opt,name=m7period,proto3" json:"m7period,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	M7LinksToLog Linkstolog `protobuf:"varint,2,opt,name=m7_links_to_log,json=m7-links-to-log,proto3,enum=xnap.v1.Linkstolog" json:"m7_links_to_log,omitempty"`
+	M7LinksToLog Linkstolog `protobuf:"varint,2,opt,name=m7_links_to_log,json=m7-links-to-log,proto3,enum=xnap.v1.Linkstolog" json:"m7_links_to_log,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*M7ConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*M7ConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *M7Configuration) Reset() {
@@ -26022,7 +26022,7 @@ type M7Period struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:60,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:60,"`
 }
 
 func (x *M7Period) Reset() {
@@ -26072,7 +26072,7 @@ type MacI struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:16,sizeUB:16,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:16,sizeUB:16,"`
 }
 
 func (x *MacI) Reset() {
@@ -26122,7 +26122,7 @@ type MaskedImeisv struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:64,sizeUB:64,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:64,sizeUB:64,"`
 }
 
 func (x *MaskedImeisv) Reset() {
@@ -26172,7 +26172,7 @@ type MaxChopreparations struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:8,"`
 }
 
 func (x *MaxChopreparations) Reset() {
@@ -26222,7 +26222,7 @@ type MaximumDataBurstVolume struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:4096,valueUB:2000000,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:4096,valueUB:2000000,"`
 }
 
 func (x *MaximumDataBurstVolume) Reset() {
@@ -26322,9 +26322,9 @@ type MaximumIpdatarate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	MaxIprateUl MaxIprate `protobuf:"varint,1,opt,name=max_iprate_ul,json=maxIPrate-UL,proto3,enum=xnap.v1.MaxIprate" json:"max_iprate_ul,omitempty"`
+	MaxIprateUl MaxIprate `protobuf:"varint,1,opt,name=max_iprate_ul,json=maxIPrate-UL,proto3,enum=xnap.v1.MaxIprate" json:"max_iprate_ul,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*MaximumIpdatarateExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*MaximumIpdatarateExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *MaximumIpdatarate) Reset() {
@@ -26381,7 +26381,7 @@ type MbsfncontrolRegionLength struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:3,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:3,"`
 }
 
 func (x *MbsfncontrolRegionLength) Reset() {
@@ -26554,17 +26554,17 @@ type isMbsfnsubframeAllocationEUTra_MbsfnsubframeAllocationEUtra interface {
 
 type MbsfnsubframeAllocationEUTra_Oneframe struct {
 	// @inject_tag: aper:"choiceIdx:1,sizeLB:6,sizeUB:6,"
-	Oneframe *asn1.BitString `protobuf:"bytes,1,opt,name=oneframe,proto3,oneof"`
+	Oneframe *asn1.BitString `protobuf:"bytes,1,opt,name=oneframe,proto3,oneof" aper:"choiceIdx:1,sizeLB:6,sizeUB:6,"`
 }
 
 type MbsfnsubframeAllocationEUTra_Fourframes struct {
 	// @inject_tag: aper:"choiceIdx:2,sizeLB:24,sizeUB:24,"
-	Fourframes *asn1.BitString `protobuf:"bytes,2,opt,name=fourframes,proto3,oneof"`
+	Fourframes *asn1.BitString `protobuf:"bytes,2,opt,name=fourframes,proto3,oneof" aper:"choiceIdx:2,sizeLB:24,sizeUB:24,"`
 }
 
 type MbsfnsubframeAllocationEUTra_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *MbsfnsubframeAllocationEUTraExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *MbsfnsubframeAllocationEUTraExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*MbsfnsubframeAllocationEUTra_Oneframe) isMbsfnsubframeAllocationEUTra_MbsfnsubframeAllocationEUtra() {
@@ -26584,7 +26584,7 @@ type MbsfnsubframeInfoEUTra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:8,"
-	Value []*MbsfnsubframeInfoEUTraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*MbsfnsubframeInfoEUTraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:8,"`
 }
 
 func (x *MbsfnsubframeInfoEUTra) Reset() {
@@ -26684,12 +26684,12 @@ type MbsfnsubframeInfoEUTraItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5,"
-	RadioframeAllocationPeriod RadioframeAllocationPeriodMbsfnsubframeInfoEutraitem `protobuf:"varint,1,opt,name=radioframe_allocation_period,json=radioframeAllocationPeriod,proto3,enum=xnap.v1.RadioframeAllocationPeriodMbsfnsubframeInfoEutraitem" json:"radioframe_allocation_period,omitempty"`
+	RadioframeAllocationPeriod RadioframeAllocationPeriodMbsfnsubframeInfoEutraitem `protobuf:"varint,1,opt,name=radioframe_allocation_period,json=radioframeAllocationPeriod,proto3,enum=xnap.v1.RadioframeAllocationPeriodMbsfnsubframeInfoEutraitem" json:"radioframe_allocation_period,omitempty" aper:"valueExt,valueLB:0,valueUB:5,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:7,"
-	RadioframeAllocationOffset int32                         `protobuf:"varint,2,opt,name=radioframe_allocation_offset,json=radioframeAllocationOffset,proto3" json:"radioframe_allocation_offset,omitempty"`
+	RadioframeAllocationOffset int32                         `protobuf:"varint,2,opt,name=radioframe_allocation_offset,json=radioframeAllocationOffset,proto3" json:"radioframe_allocation_offset,omitempty" aper:"valueExt,valueLB:0,valueUB:7,"`
 	SubframeAllocation         *MbsfnsubframeAllocationEUTra `protobuf:"bytes,3,opt,name=subframe_allocation,json=subframeAllocation,proto3" json:"subframe_allocation,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*MbsfnsubframeInfoEUTraItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*MbsfnsubframeInfoEUTraItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *MbsfnsubframeInfoEUTraItem) Reset() {
@@ -26810,11 +26810,11 @@ type MdtConfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,"
-	MDtConfigurationNr *MdtConfigurationNR `protobuf:"bytes,1,opt,name=m_dt_configuration_nr,json=mDT-Configuration-NR,proto3,oneof" json:"m_dt_configuration_nr,omitempty"`
+	MDtConfigurationNr *MdtConfigurationNR `protobuf:"bytes,1,opt,name=m_dt_configuration_nr,json=mDT-Configuration-NR,proto3,oneof" json:"m_dt_configuration_nr,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MDtConfigurationEutra *MdtConfigurationEUtra `protobuf:"bytes,2,opt,name=m_dt_configuration_eutra,json=mDT-Configuration-EUTRA,proto3,oneof" json:"m_dt_configuration_eutra,omitempty"`
+	MDtConfigurationEutra *MdtConfigurationEUtra `protobuf:"bytes,2,opt,name=m_dt_configuration_eutra,json=mDT-Configuration-EUTRA,proto3,oneof" json:"m_dt_configuration_eutra,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*MdtConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*MdtConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *MdtConfiguration) Reset() {
@@ -26928,14 +26928,14 @@ type MdtConfigurationNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	MdtActivation MdtActivation `protobuf:"varint,1,opt,name=mdt_activation,json=mdt-Activation,proto3,enum=xnap.v1.MdtActivation" json:"mdt_activation,omitempty"`
+	MdtActivation MdtActivation `protobuf:"varint,1,opt,name=mdt_activation,json=mdt-Activation,proto3,enum=xnap.v1.MdtActivation" json:"mdt_activation,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,choiceExt,"
-	AreaScopeOfMdtNr *AreaScopeOfMdtNR `protobuf:"bytes,2,opt,name=area_scope_of_mdt_nr,json=areaScopeOfMDT-NR,proto3,oneof" json:"area_scope_of_mdt_nr,omitempty"`
+	AreaScopeOfMdtNr *AreaScopeOfMdtNR `protobuf:"bytes,2,opt,name=area_scope_of_mdt_nr,json=areaScopeOfMDT-NR,proto3,oneof" json:"area_scope_of_mdt_nr,omitempty" aper:"optional,choiceExt,"`
 	// @inject_tag: aper:"choiceExt,"
-	MDtmodeNr                  *MdtmodeNR   `protobuf:"bytes,3,opt,name=m_dtmode_nr,json=mDTMode-NR,proto3" json:"m_dtmode_nr,omitempty"`
+	MDtmodeNr                  *MdtmodeNR   `protobuf:"bytes,3,opt,name=m_dtmode_nr,json=mDTMode-NR,proto3" json:"m_dtmode_nr,omitempty" aper:"choiceExt,"`
 	SignallingBasedMdtplmnlist *Mdtplmnlist `protobuf:"bytes,4,opt,name=signalling_based_mdtplmnlist,json=signallingBasedMDTPLMNList,proto3" json:"signalling_based_mdtplmnlist,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*MdtConfigurationNRExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*MdtConfigurationNRExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *MdtConfigurationNR) Reset() {
@@ -27063,14 +27063,14 @@ type MdtConfigurationEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	MdtActivation MdtActivation `protobuf:"varint,1,opt,name=mdt_activation,json=mdt-Activation,proto3,enum=xnap.v1.MdtActivation" json:"mdt_activation,omitempty"`
+	MdtActivation MdtActivation `protobuf:"varint,1,opt,name=mdt_activation,json=mdt-Activation,proto3,enum=xnap.v1.MdtActivation" json:"mdt_activation,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,choiceExt,"
-	AreaScopeOfMdtEutra *AreaScopeOfMdtEUtra `protobuf:"bytes,2,opt,name=area_scope_of_mdt_eutra,json=areaScopeOfMDT-EUTRA,proto3,oneof" json:"area_scope_of_mdt_eutra,omitempty"`
+	AreaScopeOfMdtEutra *AreaScopeOfMdtEUtra `protobuf:"bytes,2,opt,name=area_scope_of_mdt_eutra,json=areaScopeOfMDT-EUTRA,proto3,oneof" json:"area_scope_of_mdt_eutra,omitempty" aper:"optional,choiceExt,"`
 	// @inject_tag: aper:"choiceExt,"
-	MDtmodeEutra               *MdtmodeEUtra `protobuf:"bytes,3,opt,name=m_dtmode_eutra,json=mDTMode-EUTRA,proto3" json:"m_dtmode_eutra,omitempty"`
+	MDtmodeEutra               *MdtmodeEUtra `protobuf:"bytes,3,opt,name=m_dtmode_eutra,json=mDTMode-EUTRA,proto3" json:"m_dtmode_eutra,omitempty" aper:"choiceExt,"`
 	SignallingBasedMdtplmnlist *Mdtplmnlist  `protobuf:"bytes,4,opt,name=signalling_based_mdtplmnlist,json=signallingBasedMDTPLMNList,proto3" json:"signalling_based_mdtplmnlist,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*MdtConfigurationEUtraExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*MdtConfigurationEUtraExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *MdtConfigurationEUtra) Reset() {
@@ -27148,7 +27148,7 @@ type MdtLocationInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:8,sizeUB:8,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:8,sizeUB:8,"`
 }
 
 func (x *MdtLocationInfo) Reset() {
@@ -27198,7 +27198,7 @@ type Mdtplmnlist struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16,"
-	Value []*PlmnIdentity `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PlmnIdentity `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:16,"`
 }
 
 func (x *Mdtplmnlist) Reset() {
@@ -27323,17 +27323,17 @@ type isMdtmodeNR_MdtmodeNr interface {
 
 type MdtmodeNR_ImmediateMdt struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	ImmediateMdt *ImmediateMdtNR `protobuf:"bytes,1,opt,name=immediate_mdt,json=immediateMDT,proto3,oneof"`
+	ImmediateMdt *ImmediateMdtNR `protobuf:"bytes,1,opt,name=immediate_mdt,json=immediateMDT,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type MdtmodeNR_LoggedMdt struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	LoggedMdt *LoggedMdtNR `protobuf:"bytes,2,opt,name=logged_mdt,json=loggedMDT,proto3,oneof"`
+	LoggedMdt *LoggedMdtNR `protobuf:"bytes,2,opt,name=logged_mdt,json=loggedMDT,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type MdtmodeNR_MDtmodeNrExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,fromChoiceExt,"
-	MDtmodeNrExtension *MdtmodeNRExtension `protobuf:"bytes,3,opt,name=m_dtmode_nr_extension,json=mDTMode-NR-Extension,proto3,oneof"`
+	MDtmodeNrExtension *MdtmodeNRExtension `protobuf:"bytes,3,opt,name=m_dtmode_nr_extension,json=mDTMode-NR-Extension,proto3,oneof" aper:"choiceIdx:3,fromChoiceExt,"`
 }
 
 func (*MdtmodeNR_ImmediateMdt) isMdtmodeNR_MdtmodeNr() {}
@@ -27523,17 +27523,17 @@ type isMdtmodeEUtra_MdtmodeEutra interface {
 
 type MdtmodeEUtra_ImmediateMdt struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	ImmediateMdt *ImmediateMdtEUtra `protobuf:"bytes,1,opt,name=immediate_mdt,json=immediateMDT,proto3,oneof"`
+	ImmediateMdt *ImmediateMdtEUtra `protobuf:"bytes,1,opt,name=immediate_mdt,json=immediateMDT,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type MdtmodeEUtra_LoggedMdt struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	LoggedMdt *LoggedMdtEUtra `protobuf:"bytes,2,opt,name=logged_mdt,json=loggedMDT,proto3,oneof"`
+	LoggedMdt *LoggedMdtEUtra `protobuf:"bytes,2,opt,name=logged_mdt,json=loggedMDT,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type MdtmodeEUtra_MDtmodeEutraExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,fromChoiceExt,"
-	MDtmodeEutraExtension *MdtmodeEUtraExtension `protobuf:"bytes,3,opt,name=m_dtmode_eutra_extension,json=mDTMode-EUTRA-Extension,proto3,oneof"`
+	MDtmodeEutraExtension *MdtmodeEUtraExtension `protobuf:"bytes,3,opt,name=m_dtmode_eutra_extension,json=mDTMode-EUTRA-Extension,proto3,oneof" aper:"choiceIdx:3,fromChoiceExt,"`
 }
 
 func (*MdtmodeEUtra_ImmediateMdt) isMdtmodeEUtra_MdtmodeEutra() {}
@@ -27648,7 +27648,7 @@ type MeasurementsToActivate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:8,sizeUB:8,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:8,sizeUB:8,"`
 }
 
 func (x *MeasurementsToActivate) Reset() {
@@ -27829,22 +27829,22 @@ type isMeasurementThresholdA2_MeasurementThresholdA2 interface {
 
 type MeasurementThresholdA2_ThresholdRsrp struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	ThresholdRsrp *ThresholdRSrp `protobuf:"bytes,1,opt,name=threshold_rsrp,json=threshold-RSRP,proto3,oneof"`
+	ThresholdRsrp *ThresholdRSrp `protobuf:"bytes,1,opt,name=threshold_rsrp,json=threshold-RSRP,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type MeasurementThresholdA2_ThresholdRsrq struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ThresholdRsrq *ThresholdRSrq `protobuf:"bytes,2,opt,name=threshold_rsrq,json=threshold-RSRQ,proto3,oneof"`
+	ThresholdRsrq *ThresholdRSrq `protobuf:"bytes,2,opt,name=threshold_rsrq,json=threshold-RSRQ,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type MeasurementThresholdA2_ThresholdSinr struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ThresholdSinr *ThresholdSInr `protobuf:"bytes,3,opt,name=threshold_sinr,json=threshold-SINR,proto3,oneof"`
+	ThresholdSinr *ThresholdSInr `protobuf:"bytes,3,opt,name=threshold_sinr,json=threshold-SINR,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type MeasurementThresholdA2_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ChoiceExtension *MeasurementThresholdA2ExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *MeasurementThresholdA2ExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*MeasurementThresholdA2_ThresholdRsrp) isMeasurementThresholdA2_MeasurementThresholdA2() {}
@@ -27863,7 +27863,7 @@ type MeasurementID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:4095,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:4095,"`
 }
 
 func (x *MeasurementID) Reset() {
@@ -27913,7 +27913,7 @@ type MobilityInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:32,sizeUB:32,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:32,sizeUB:32,"`
 }
 
 func (x *MobilityInformation) Reset() {
@@ -28153,22 +28153,22 @@ type isMobilityRestrictionListExtIesExtension_MobilityRestrictionListExtIes inte
 
 type MobilityRestrictionListExtIesExtension_IdLastEUtranplmnidentity struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdLastEUtranplmnidentity *PlmnIdentity `protobuf:"bytes,1,opt,name=id_last_e_utranplmnidentity,json=id-LastE-UTRANPLMNIdentity,proto3,oneof"`
+	IdLastEUtranplmnidentity *PlmnIdentity `protobuf:"bytes,1,opt,name=id_last_e_utranplmnidentity,json=id-LastE-UTRANPLMNIdentity,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type MobilityRestrictionListExtIesExtension_IdCntypeRestrictionsForServing struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"
-	IdCntypeRestrictionsForServing CntypeRestrictionsForServing `protobuf:"varint,2,opt,name=id_cntype_restrictions_for_serving,json=id-CNTypeRestrictionsForServing,proto3,enum=xnap.v1.CntypeRestrictionsForServing,oneof"`
+	IdCntypeRestrictionsForServing CntypeRestrictionsForServing `protobuf:"varint,2,opt,name=id_cntype_restrictions_for_serving,json=id-CNTypeRestrictionsForServing,proto3,enum=xnap.v1.CntypeRestrictionsForServing,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type MobilityRestrictionListExtIesExtension_IdCntypeRestrictionsForEquivalent struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCntypeRestrictionsForEquivalent *CntypeRestrictionsForEquivalent `protobuf:"bytes,3,opt,name=id_cntype_restrictions_for_equivalent,json=id-CNTypeRestrictionsForEquivalent,proto3,oneof"`
+	IdCntypeRestrictionsForEquivalent *CntypeRestrictionsForEquivalent `protobuf:"bytes,3,opt,name=id_cntype_restrictions_for_equivalent,json=id-CNTypeRestrictionsForEquivalent,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type MobilityRestrictionListExtIesExtension_IdNpnmobilityInformation struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdNpnmobilityInformation *NpnmobilityInformation `protobuf:"bytes,4,opt,name=id_npnmobility_information,json=id-NPNMobilityInformation,proto3,oneof"`
+	IdNpnmobilityInformation *NpnmobilityInformation `protobuf:"bytes,4,opt,name=id_npnmobility_information,json=id-NPNMobilityInformation,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*MobilityRestrictionListExtIesExtension_IdLastEUtranplmnidentity) isMobilityRestrictionListExtIesExtension_MobilityRestrictionListExtIes() {
@@ -28192,11 +28192,11 @@ type MobilityRestrictionListExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *MobilityRestrictionListExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *MobilityRestrictionListExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *MobilityRestrictionListExtIes) Reset() {
@@ -28262,15 +28262,15 @@ type MobilityRestrictionList struct {
 
 	ServingPlmn *PlmnIdentity `protobuf:"bytes,1,opt,name=serving_plmn,json=serving-PLMN,proto3" json:"serving_plmn,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:15,"
-	EquivalentPlmns []*PlmnIdentity `protobuf:"bytes,2,rep,name=equivalent_plmns,json=equivalent-PLMNs,proto3" json:"equivalent_plmns,omitempty"`
+	EquivalentPlmns []*PlmnIdentity `protobuf:"bytes,2,rep,name=equivalent_plmns,json=equivalent-PLMNs,proto3" json:"equivalent_plmns,omitempty" aper:"optional,sizeLB:1,sizeUB:15,"`
 	// @inject_tag: aper:"optional,"
-	RatRestrictions *RatRestrictionsList `protobuf:"bytes,3,opt,name=rat_restrictions,json=rat-Restrictions,proto3,oneof" json:"rat_restrictions,omitempty"`
+	RatRestrictions *RatRestrictionsList `protobuf:"bytes,3,opt,name=rat_restrictions,json=rat-Restrictions,proto3,oneof" json:"rat_restrictions,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	ForbiddenAreaInformation *ForbiddenAreaList `protobuf:"bytes,4,opt,name=forbidden_area_information,json=forbiddenAreaInformation,proto3,oneof" json:"forbidden_area_information,omitempty"`
+	ForbiddenAreaInformation *ForbiddenAreaList `protobuf:"bytes,4,opt,name=forbidden_area_information,json=forbiddenAreaInformation,proto3,oneof" json:"forbidden_area_information,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	ServiceAreaInformation *ServiceAreaList `protobuf:"bytes,5,opt,name=service_area_information,json=serviceAreaInformation,proto3,oneof" json:"service_area_information,omitempty"`
+	ServiceAreaInformation *ServiceAreaList `protobuf:"bytes,5,opt,name=service_area_information,json=serviceAreaInformation,proto3,oneof" json:"service_area_information,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*MobilityRestrictionListExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*MobilityRestrictionListExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *MobilityRestrictionList) Reset() {
@@ -28355,7 +28355,7 @@ type CntypeRestrictionsForEquivalent struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:15,"
-	Value []*CntypeRestrictionsForEquivalentItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*CntypeRestrictionsForEquivalentItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:15,"`
 }
 
 func (x *CntypeRestrictionsForEquivalent) Reset() {
@@ -28456,9 +28456,9 @@ type CntypeRestrictionsForEquivalentItem struct {
 
 	PlmnIdentity *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_identity,json=plmn-Identity,proto3" json:"plmn_identity,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	CnType CnTypeCntypeRestrictionsForEquivalentItem `protobuf:"varint,2,opt,name=cn_type,json=cn-Type,proto3,enum=xnap.v1.CnTypeCntypeRestrictionsForEquivalentItem" json:"cn_type,omitempty"`
+	CnType CnTypeCntypeRestrictionsForEquivalentItem `protobuf:"varint,2,opt,name=cn_type,json=cn-Type,proto3,enum=xnap.v1.CnTypeCntypeRestrictionsForEquivalentItem" json:"cn_type,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*CntypeRestrictionsForEquivalentItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*CntypeRestrictionsForEquivalentItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *CntypeRestrictionsForEquivalentItem) Reset() {
@@ -28522,7 +28522,7 @@ type RatRestrictionsList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*RatRestrictionsItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RatRestrictionsItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *RatRestrictionsList) Reset() {
@@ -28624,7 +28624,7 @@ type RatRestrictionsItem struct {
 	PlmnIdentity              *PlmnIdentity              `protobuf:"bytes,1,opt,name=plmn_identity,json=plmn-Identity,proto3" json:"plmn_identity,omitempty"`
 	RatRestrictionInformation *RatRestrictionInformation `protobuf:"bytes,2,opt,name=rat_restriction_information,json=rat-RestrictionInformation,proto3" json:"rat_restriction_information,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RatRestrictionsItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RatRestrictionsItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RatRestrictionsItem) Reset() {
@@ -28688,7 +28688,7 @@ type RatRestrictionInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeExt,sizeLB:8,sizeUB:8,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeExt,sizeLB:8,sizeUB:8,"`
 }
 
 func (x *RatRestrictionInformation) Reset() {
@@ -28738,7 +28738,7 @@ type ForbiddenAreaList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*ForbiddenAreaItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ForbiddenAreaItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *ForbiddenAreaList) Reset() {
@@ -28839,9 +28839,9 @@ type ForbiddenAreaItem struct {
 
 	PlmnIdentity *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_identity,json=plmn-Identity,proto3" json:"plmn_identity,omitempty"`
 	// @inject_tag: aper:"sizeLB:1,sizeUB:4096,"
-	ForbiddenTacs []*Tac `protobuf:"bytes,2,rep,name=forbidden_tacs,json=forbidden-TACs,proto3" json:"forbidden_tacs,omitempty"`
+	ForbiddenTacs []*Tac `protobuf:"bytes,2,rep,name=forbidden_tacs,json=forbidden-TACs,proto3" json:"forbidden_tacs,omitempty" aper:"sizeLB:1,sizeUB:4096,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ForbiddenAreaItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ForbiddenAreaItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ForbiddenAreaItem) Reset() {
@@ -28905,7 +28905,7 @@ type ServiceAreaList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*ServiceAreaItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ServiceAreaItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *ServiceAreaList) Reset() {
@@ -29006,11 +29006,11 @@ type ServiceAreaItem struct {
 
 	PlmnIdentity *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_identity,json=plmn-Identity,proto3" json:"plmn_identity,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16,"
-	AllowedTacsServiceArea []*Tac `protobuf:"bytes,2,rep,name=allowed_tacs_service_area,json=allowed-TACs-ServiceArea,proto3" json:"allowed_tacs_service_area,omitempty"`
+	AllowedTacsServiceArea []*Tac `protobuf:"bytes,2,rep,name=allowed_tacs_service_area,json=allowed-TACs-ServiceArea,proto3" json:"allowed_tacs_service_area,omitempty" aper:"optional,sizeLB:1,sizeUB:16,"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16,"
-	NotAllowedTacsServiceArea []*Tac `protobuf:"bytes,3,rep,name=not_allowed_tacs_service_area,json=not-allowed-TACs-ServiceArea,proto3" json:"not_allowed_tacs_service_area,omitempty"`
+	NotAllowedTacsServiceArea []*Tac `protobuf:"bytes,3,rep,name=not_allowed_tacs_service_area,json=not-allowed-TACs-ServiceArea,proto3" json:"not_allowed_tacs_service_area,omitempty" aper:"optional,sizeLB:1,sizeUB:16,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServiceAreaItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ServiceAreaItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ServiceAreaItem) Reset() {
@@ -29132,7 +29132,7 @@ type MrDCResourceCoordinationInfo struct {
 
 	NgRanNodeResourceCoordinationInfo *NgRAnNodeResourceCoordinationInfo `protobuf:"bytes,1,opt,name=ng_ran_node_resource_coordination_info,json=ng-RAN-Node-ResourceCoordinationInfo,proto3" json:"ng_ran_node_resource_coordination_info,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*MrDCResourceCoordinationInfoExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*MrDCResourceCoordinationInfoExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *MrDCResourceCoordinationInfo) Reset() {
@@ -29255,12 +29255,12 @@ type isNgRAnNodeResourceCoordinationInfo_NgRanNodeResourceCoordinationInfo inter
 
 type NgRAnNodeResourceCoordinationInfo_EutraResourceCoordinationInfo struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	EutraResourceCoordinationInfo *EUTraResourceCoordinationInfo `protobuf:"bytes,1,opt,name=eutra_resource_coordination_info,json=eutra-resource-coordination-info,proto3,oneof"`
+	EutraResourceCoordinationInfo *EUTraResourceCoordinationInfo `protobuf:"bytes,1,opt,name=eutra_resource_coordination_info,json=eutra-resource-coordination-info,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type NgRAnNodeResourceCoordinationInfo_NrResourceCoordinationInfo struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	NrResourceCoordinationInfo *NrResourceCoordinationInfo `protobuf:"bytes,2,opt,name=nr_resource_coordination_info,json=nr-resource-coordination-info,proto3,oneof"`
+	NrResourceCoordinationInfo *NrResourceCoordinationInfo `protobuf:"bytes,2,opt,name=nr_resource_coordination_info,json=nr-resource-coordination-info,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 func (*NgRAnNodeResourceCoordinationInfo_EutraResourceCoordinationInfo) isNgRAnNodeResourceCoordinationInfo_NgRanNodeResourceCoordinationInfo() {
@@ -29327,17 +29327,17 @@ type EUTraResourceCoordinationInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	EUtraCell *EUTraCGi `protobuf:"bytes,1,opt,name=e_utra_cell,json=e-utra-cell,proto3" json:"e_utra_cell,omitempty"`
+	EUtraCell *EUTraCGi `protobuf:"bytes,1,opt,name=e_utra_cell,json=e-utra-cell,proto3" json:"e_utra_cell,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"sizeLB:6,sizeUB:4400,"
-	UlCoordinationInfo *asn1.BitString `protobuf:"bytes,2,opt,name=ul_coordination_info,json=ul-coordination-info,proto3" json:"ul_coordination_info,omitempty"`
+	UlCoordinationInfo *asn1.BitString `protobuf:"bytes,2,opt,name=ul_coordination_info,json=ul-coordination-info,proto3" json:"ul_coordination_info,omitempty" aper:"sizeLB:6,sizeUB:4400,"`
 	// @inject_tag: aper:"optional,sizeLB:6,sizeUB:4400,"
-	DlCoordinationInfo *asn1.BitString `protobuf:"bytes,3,opt,name=dl_coordination_info,json=dl-coordination-info,proto3,oneof" json:"dl_coordination_info,omitempty"`
+	DlCoordinationInfo *asn1.BitString `protobuf:"bytes,3,opt,name=dl_coordination_info,json=dl-coordination-info,proto3,oneof" json:"dl_coordination_info,omitempty" aper:"optional,sizeLB:6,sizeUB:4400,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	NrCell *NrCGi `protobuf:"bytes,4,opt,name=nr_cell,json=nr-cell,proto3,oneof" json:"nr_cell,omitempty"`
+	NrCell *NrCGi `protobuf:"bytes,4,opt,name=nr_cell,json=nr-cell,proto3,oneof" json:"nr_cell,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	EUtraCoordinationAssistanceInfo *EUTraCoordinationAssistanceInfo `protobuf:"varint,5,opt,name=e_utra_coordination_assistance_info,json=e-utra-coordination-assistance-info,proto3,enum=xnap.v1.EUTraCoordinationAssistanceInfo,oneof" json:"e_utra_coordination_assistance_info,omitempty"`
+	EUtraCoordinationAssistanceInfo *EUTraCoordinationAssistanceInfo `protobuf:"varint,5,opt,name=e_utra_coordination_assistance_info,json=e-utra-coordination-assistance-info,proto3,enum=xnap.v1.EUTraCoordinationAssistanceInfo,oneof" json:"e_utra_coordination_assistance_info,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*EUTraResourceCoordinationInfoExtIes `protobuf:"bytes,6,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*EUTraResourceCoordinationInfoExtIes `protobuf:"bytes,6,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *EUTraResourceCoordinationInfo) Reset() {
@@ -29472,17 +29472,17 @@ type NrResourceCoordinationInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	NrCell *NrCGi `protobuf:"bytes,1,opt,name=nr_cell,json=nr-cell,proto3" json:"nr_cell,omitempty"`
+	NrCell *NrCGi `protobuf:"bytes,1,opt,name=nr_cell,json=nr-cell,proto3" json:"nr_cell,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"sizeLB:6,sizeUB:4400,"
-	UlCoordinationInfo *asn1.BitString `protobuf:"bytes,2,opt,name=ul_coordination_info,json=ul-coordination-info,proto3" json:"ul_coordination_info,omitempty"`
+	UlCoordinationInfo *asn1.BitString `protobuf:"bytes,2,opt,name=ul_coordination_info,json=ul-coordination-info,proto3" json:"ul_coordination_info,omitempty" aper:"sizeLB:6,sizeUB:4400,"`
 	// @inject_tag: aper:"optional,sizeLB:6,sizeUB:4400,"
-	DlCoordinationInfo *asn1.BitString `protobuf:"bytes,3,opt,name=dl_coordination_info,json=dl-coordination-info,proto3,oneof" json:"dl_coordination_info,omitempty"`
+	DlCoordinationInfo *asn1.BitString `protobuf:"bytes,3,opt,name=dl_coordination_info,json=dl-coordination-info,proto3,oneof" json:"dl_coordination_info,omitempty" aper:"optional,sizeLB:6,sizeUB:4400,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	EUtraCell *EUTraCGi `protobuf:"bytes,4,opt,name=e_utra_cell,json=e-utra-cell,proto3,oneof" json:"e_utra_cell,omitempty"`
+	EUtraCell *EUTraCGi `protobuf:"bytes,4,opt,name=e_utra_cell,json=e-utra-cell,proto3,oneof" json:"e_utra_cell,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	NrCoordinationAssistanceInfo *NrCoordinationAssistanceInfo `protobuf:"varint,5,opt,name=nr_coordination_assistance_info,json=nr-coordination-assistance-info,proto3,enum=xnap.v1.NrCoordinationAssistanceInfo,oneof" json:"nr_coordination_assistance_info,omitempty"`
+	NrCoordinationAssistanceInfo *NrCoordinationAssistanceInfo `protobuf:"varint,5,opt,name=nr_coordination_assistance_info,json=nr-coordination-assistance-info,proto3,enum=xnap.v1.NrCoordinationAssistanceInfo,oneof" json:"nr_coordination_assistance_info,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NrResourceCoordinationInfoExtIes `protobuf:"bytes,6,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NrResourceCoordinationInfoExtIes `protobuf:"bytes,6,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NrResourceCoordinationInfo) Reset() {
@@ -29618,7 +29618,7 @@ type MessageOversizeNotification struct {
 
 	MaximumCellListSize *MaximumCellListSize `protobuf:"bytes,1,opt,name=maximum_cell_list_size,json=maximumCellListSize,proto3" json:"maximum_cell_list_size,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*MessageOversizeNotificationExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*MessageOversizeNotificationExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *MessageOversizeNotification) Reset() {
@@ -29675,7 +29675,7 @@ type MaximumCellListSize struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:16384,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:16384,"`
 }
 
 func (x *MaximumCellListSize) Reset() {
@@ -29775,11 +29775,11 @@ type NeDCTDmPattern struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:6,"
-	SubframeAssignment SubframeAssignmentNedctdmpattern `protobuf:"varint,1,opt,name=subframe_assignment,json=subframeAssignment,proto3,enum=xnap.v1.SubframeAssignmentNedctdmpattern" json:"subframe_assignment,omitempty"`
+	SubframeAssignment SubframeAssignmentNedctdmpattern `protobuf:"varint,1,opt,name=subframe_assignment,json=subframeAssignment,proto3,enum=xnap.v1.SubframeAssignmentNedctdmpattern" json:"subframe_assignment,omitempty" aper:"valueLB:0,valueUB:6,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:9,"
-	HarqOffset int32 `protobuf:"varint,2,opt,name=harq_offset,json=harqOffset,proto3" json:"harq_offset,omitempty"`
+	HarqOffset int32 `protobuf:"varint,2,opt,name=harq_offset,json=harqOffset,proto3" json:"harq_offset,omitempty" aper:"valueLB:0,valueUB:9,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NeDCTDmPatternExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NeDCTDmPatternExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NeDCTDmPattern) Reset() {
@@ -29843,7 +29843,7 @@ type NeighbourInformationEUTra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024,"
-	Value []*NeighbourInformationEUTraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*NeighbourInformationEUTraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024,"`
 }
 
 func (x *NeighbourInformationEUTra) Reset() {
@@ -29944,13 +29944,13 @@ type NeighbourInformationEUTraItem struct {
 
 	EUtraPci *EUTrapci `protobuf:"bytes,1,opt,name=e_utra_pci,json=e-utra-PCI,proto3" json:"e_utra_pci,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	EUtraCgi *EUTraCGi   `protobuf:"bytes,2,opt,name=e_utra_cgi,json=e-utra-cgi,proto3" json:"e_utra_cgi,omitempty"`
+	EUtraCgi *EUTraCGi   `protobuf:"bytes,2,opt,name=e_utra_cgi,json=e-utra-cgi,proto3" json:"e_utra_cgi,omitempty" aper:"valueExt,"`
 	Earfcn   *EUTraarfcn `protobuf:"bytes,3,opt,name=earfcn,proto3" json:"earfcn,omitempty"`
 	Tac      *Tac        `protobuf:"bytes,4,opt,name=tac,proto3" json:"tac,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Ranac *Ranac `protobuf:"bytes,5,opt,name=ranac,proto3,oneof" json:"ranac,omitempty"`
+	Ranac *Ranac `protobuf:"bytes,5,opt,name=ranac,proto3,oneof" json:"ranac,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NeighbourInformationEUTraItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*NeighbourInformationEUTraItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NeighbourInformationEUTraItem) Reset() {
@@ -30035,7 +30035,7 @@ type NeighbourInformationNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024,"
-	Value []*NeighbourInformationNRItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*NeighbourInformationNRItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024,"`
 }
 
 func (x *NeighbourInformationNR) Reset() {
@@ -30136,16 +30136,16 @@ type NeighbourInformationNRItem struct {
 
 	NrPci *Nrpci `protobuf:"bytes,1,opt,name=nr_pci,json=nr-PCI,proto3" json:"nr_pci,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	NrCgi *NrCGi `protobuf:"bytes,2,opt,name=nr_cgi,json=nr-cgi,proto3" json:"nr_cgi,omitempty"`
+	NrCgi *NrCGi `protobuf:"bytes,2,opt,name=nr_cgi,json=nr-cgi,proto3" json:"nr_cgi,omitempty" aper:"valueExt,"`
 	Tac   *Tac   `protobuf:"bytes,3,opt,name=tac,proto3" json:"tac,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Ranac      *Ranac                          `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty"`
+	Ranac      *Ranac                          `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty" aper:"optional,"`
 	NrModeInfo *NeighbourInformationNRModeInfo `protobuf:"bytes,5,opt,name=nr_mode_info,json=nr-mode-info,proto3" json:"nr_mode_info,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	ConnectivitySupport            *ConnectivitySupport `protobuf:"bytes,6,opt,name=connectivity_support,json=connectivitySupport,proto3" json:"connectivity_support,omitempty"`
+	ConnectivitySupport            *ConnectivitySupport `protobuf:"bytes,6,opt,name=connectivity_support,json=connectivitySupport,proto3" json:"connectivity_support,omitempty" aper:"valueExt,"`
 	MeasurementTimingConfiguration []byte               `protobuf:"bytes,7,opt,name=measurement_timing_configuration,json=measurementTimingConfiguration,proto3" json:"measurement_timing_configuration,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NeighbourInformationNRItemExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*NeighbourInformationNRItemExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NeighbourInformationNRItem) Reset() {
@@ -30367,17 +30367,17 @@ type isNeighbourInformationNRModeInfo_NeighbourInformationNrModeInfo interface {
 
 type NeighbourInformationNRModeInfo_FddInfo struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	FddInfo *NeighbourInformationNRModeFddinfo `protobuf:"bytes,1,opt,name=fdd_info,json=fdd-info,proto3,oneof"`
+	FddInfo *NeighbourInformationNRModeFddinfo `protobuf:"bytes,1,opt,name=fdd_info,json=fdd-info,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type NeighbourInformationNRModeInfo_TddInfo struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	TddInfo *NeighbourInformationNRModeTddinfo `protobuf:"bytes,2,opt,name=tdd_info,json=tdd-info,proto3,oneof"`
+	TddInfo *NeighbourInformationNRModeTddinfo `protobuf:"bytes,2,opt,name=tdd_info,json=tdd-info,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type NeighbourInformationNRModeInfo_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *NeighbourInformationNRModeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *NeighbourInformationNRModeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*NeighbourInformationNRModeInfo_FddInfo) isNeighbourInformationNRModeInfo_NeighbourInformationNrModeInfo() {
@@ -30447,11 +30447,11 @@ type NeighbourInformationNRModeFddinfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	UlNrFreqInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=ul_nr_freq_info,json=ul-NR-FreqInfo,proto3" json:"ul_nr_freq_info,omitempty"`
+	UlNrFreqInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=ul_nr_freq_info,json=ul-NR-FreqInfo,proto3" json:"ul_nr_freq_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	DlNrFequInfo *NrfrequencyInfo `protobuf:"bytes,2,opt,name=dl_nr_fequ_info,json=dl-NR-FequInfo,proto3" json:"dl_nr_fequ_info,omitempty"`
+	DlNrFequInfo *NrfrequencyInfo `protobuf:"bytes,2,opt,name=dl_nr_fequ_info,json=dl-NR-FequInfo,proto3" json:"dl_nr_fequ_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IeExtensions []*NeighbourInformationNRModeFddinfoExtIes `protobuf:"bytes,3,rep,name=ie_extensions,json=ie-Extensions,proto3" json:"ie_extensions,omitempty"`
+	IeExtensions []*NeighbourInformationNRModeFddinfoExtIes `protobuf:"bytes,3,rep,name=ie_extensions,json=ie-Extensions,proto3" json:"ie_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NeighbourInformationNRModeFddinfo) Reset() {
@@ -30565,9 +30565,9 @@ type NeighbourInformationNRModeTddinfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	NrFreqInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=nr_freq_info,json=nr-FreqInfo,proto3" json:"nr_freq_info,omitempty"`
+	NrFreqInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=nr_freq_info,json=nr-FreqInfo,proto3" json:"nr_freq_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IeExtensions []*NeighbourInformationNRModeTddinfoExtIes `protobuf:"bytes,2,rep,name=ie_extensions,json=ie-Extensions,proto3" json:"ie_extensions,omitempty"`
+	IeExtensions []*NeighbourInformationNRModeTddinfoExtIes `protobuf:"bytes,2,rep,name=ie_extensions,json=ie-Extensions,proto3" json:"ie_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NeighbourInformationNRModeTddinfo) Reset() {
@@ -30624,7 +30624,7 @@ type Nid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:44,sizeUB:44,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:44,sizeUB:44,"`
 }
 
 func (x *Nid) Reset() {
@@ -30674,7 +30674,7 @@ type NrcarrierList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:5,"
-	Value []*NrcarrierItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*NrcarrierItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:5,"`
 }
 
 func (x *NrcarrierList) Reset() {
@@ -30774,13 +30774,13 @@ type NrcarrierItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:3,"
-	CarrierScs Nrscs `protobuf:"varint,1,opt,name=carrier_scs,json=carrierSCS,proto3,enum=xnap.v1.Nrscs" json:"carrier_scs,omitempty"`
+	CarrierScs Nrscs `protobuf:"varint,1,opt,name=carrier_scs,json=carrierSCS,proto3,enum=xnap.v1.Nrscs" json:"carrier_scs,omitempty" aper:"valueExt,valueLB:0,valueUB:3,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2199,"
-	OffsetToCarrier int32 `protobuf:"varint,2,opt,name=offset_to_carrier,json=offsetToCarrier,proto3" json:"offset_to_carrier,omitempty"`
+	OffsetToCarrier int32 `protobuf:"varint,2,opt,name=offset_to_carrier,json=offsetToCarrier,proto3" json:"offset_to_carrier,omitempty" aper:"valueExt,valueLB:0,valueUB:2199,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:275,"
-	CarrierBandwidth int32 `protobuf:"varint,3,opt,name=carrier_bandwidth,json=carrierBandwidth,proto3" json:"carrier_bandwidth,omitempty"`
+	CarrierBandwidth int32 `protobuf:"varint,3,opt,name=carrier_bandwidth,json=carrierBandwidth,proto3" json:"carrier_bandwidth,omitempty" aper:"valueExt,valueLB:0,valueUB:275,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NrcarrierItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NrcarrierItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NrcarrierItem) Reset() {
@@ -31023,17 +31023,17 @@ type isNgRAnCellIdentity_NgRanCellIdentity interface {
 
 type NgRAnCellIdentity_Nr struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	Nr *NrCellIdentity `protobuf:"bytes,1,opt,name=nr,proto3,oneof"`
+	Nr *NrCellIdentity `protobuf:"bytes,1,opt,name=nr,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NgRAnCellIdentity_EUtra struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	EUtra *EUTraCellIdentity `protobuf:"bytes,2,opt,name=e_utra,json=e-utra,proto3,oneof"`
+	EUtra *EUTraCellIdentity `protobuf:"bytes,2,opt,name=e_utra,json=e-utra,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type NgRAnCellIdentity_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *NgRAnCellIdentityExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *NgRAnCellIdentityExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*NgRAnCellIdentity_Nr) isNgRAnCellIdentity_NgRanCellIdentity() {}
@@ -31173,17 +31173,17 @@ type isNgRAnCellPci_NgRanCellPci interface {
 
 type NgRAnCellPci_Nr struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	Nr *Nrpci `protobuf:"bytes,1,opt,name=nr,proto3,oneof"`
+	Nr *Nrpci `protobuf:"bytes,1,opt,name=nr,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NgRAnCellPci_EUtra struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	EUtra *EUTrapci `protobuf:"bytes,2,opt,name=e_utra,json=e-utra,proto3,oneof"`
+	EUtra *EUTrapci `protobuf:"bytes,2,opt,name=e_utra,json=e-utra,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type NgRAnCellPci_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *NgRAnCellPciExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *NgRAnCellPciExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*NgRAnCellPci_Nr) isNgRAnCellPci_NgRanCellPci() {}
@@ -31200,7 +31200,7 @@ type NgRAnnodeUexnApid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:4294967295,"
-	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int64 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:4294967295,"`
 }
 
 func (x *NgRAnnodeUexnApid) Reset() {
@@ -31250,7 +31250,7 @@ type NumberofActiveUes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:16777215,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:16777215,"`
 }
 
 func (x *NumberofActiveUes) Reset() {
@@ -31300,7 +31300,7 @@ type NoofRrcconnections struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:65536,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:65536,"`
 }
 
 func (x *NoofRrcconnections) Reset() {
@@ -31416,12 +31416,12 @@ type isNonDynamic5QidescriptorExtIesExtension_NonDynamic5QidescriptorExtIes inte
 
 type NonDynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetDownlink struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdCnpacketDelayBudgetDownlink *ExtendedPacketDelayBudget `protobuf:"bytes,1,opt,name=id_cnpacket_delay_budget_downlink,json=id-CNPacketDelayBudgetDownlink,proto3,oneof"`
+	IdCnpacketDelayBudgetDownlink *ExtendedPacketDelayBudget `protobuf:"bytes,1,opt,name=id_cnpacket_delay_budget_downlink,json=id-CNPacketDelayBudgetDownlink,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NonDynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetUplink struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdCnpacketDelayBudgetUplink *ExtendedPacketDelayBudget `protobuf:"bytes,2,opt,name=id_cnpacket_delay_budget_uplink,json=id-CNPacketDelayBudgetUplink,proto3,oneof"`
+	IdCnpacketDelayBudgetUplink *ExtendedPacketDelayBudget `protobuf:"bytes,2,opt,name=id_cnpacket_delay_budget_uplink,json=id-CNPacketDelayBudgetUplink,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*NonDynamic5QidescriptorExtIesExtension_IdCnpacketDelayBudgetDownlink) isNonDynamic5QidescriptorExtIesExtension_NonDynamic5QidescriptorExtIes() {
@@ -31439,11 +31439,11 @@ type NonDynamic5QidescriptorExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *NonDynamic5QidescriptorExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *NonDynamic5QidescriptorExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NonDynamic5QidescriptorExtIes) Reset() {
@@ -31509,13 +31509,13 @@ type NonDynamic5Qidescriptor struct {
 
 	FiveQi *FiveQi `protobuf:"bytes,1,opt,name=five_qi,json=fiveQI,proto3" json:"five_qi,omitempty"`
 	// @inject_tag: aper:"optional,"
-	PriorityLevelQoS *PriorityLevelQoS `protobuf:"bytes,2,opt,name=priority_level_qo_s,json=priorityLevelQoS,proto3,oneof" json:"priority_level_qo_s,omitempty"`
+	PriorityLevelQoS *PriorityLevelQoS `protobuf:"bytes,2,opt,name=priority_level_qo_s,json=priorityLevelQoS,proto3,oneof" json:"priority_level_qo_s,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	AveragingWindow *AveragingWindow `protobuf:"bytes,3,opt,name=averaging_window,json=averagingWindow,proto3,oneof" json:"averaging_window,omitempty"`
+	AveragingWindow *AveragingWindow `protobuf:"bytes,3,opt,name=averaging_window,json=averagingWindow,proto3,oneof" json:"averaging_window,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	MaximumDataBurstVolume *MaximumDataBurstVolume `protobuf:"bytes,4,opt,name=maximum_data_burst_volume,json=maximumDataBurstVolume,proto3,oneof" json:"maximum_data_burst_volume,omitempty"`
+	MaximumDataBurstVolume *MaximumDataBurstVolume `protobuf:"bytes,4,opt,name=maximum_data_burst_volume,json=maximumDataBurstVolume,proto3,oneof" json:"maximum_data_burst_volume,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NonDynamic5QidescriptorExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NonDynamic5QidescriptorExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NonDynamic5Qidescriptor) Reset() {
@@ -31593,7 +31593,7 @@ type Nrarfcn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:3279165,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:3279165,"`
 }
 
 func (x *Nrarfcn) Reset() {
@@ -31709,12 +31709,12 @@ type isNgeNbRadioResourceStatusExtIesExtension_NgENbRadioResourceStatusExtIes in
 
 type NgeNbRadioResourceStatusExtIesExtension_IdDlSchedulingPdcchCceUsage struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdDlSchedulingPdcchCceUsage *DlschedulingPDcchCCeusage `protobuf:"bytes,1,opt,name=id_dl_scheduling_pdcch_cce_usage,json=id-DL-scheduling-PDCCH-CCE-usage,proto3,oneof"`
+	IdDlSchedulingPdcchCceUsage *DlschedulingPDcchCCeusage `protobuf:"bytes,1,opt,name=id_dl_scheduling_pdcch_cce_usage,json=id-DL-scheduling-PDCCH-CCE-usage,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NgeNbRadioResourceStatusExtIesExtension_IdUlSchedulingPdcchCceUsage struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdUlSchedulingPdcchCceUsage *UlschedulingPDcchCCeusage `protobuf:"bytes,2,opt,name=id_ul_scheduling_pdcch_cce_usage,json=id-UL-scheduling-PDCCH-CCE-usage,proto3,oneof"`
+	IdUlSchedulingPdcchCceUsage *UlschedulingPDcchCCeusage `protobuf:"bytes,2,opt,name=id_ul_scheduling_pdcch_cce_usage,json=id-UL-scheduling-PDCCH-CCE-usage,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*NgeNbRadioResourceStatusExtIesExtension_IdDlSchedulingPdcchCceUsage) isNgeNbRadioResourceStatusExtIesExtension_NgENbRadioResourceStatusExtIes() {
@@ -31732,11 +31732,11 @@ type NgeNbRadioResourceStatusExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *NgeNbRadioResourceStatusExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *NgeNbRadioResourceStatusExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NgeNbRadioResourceStatusExtIes) Reset() {
@@ -31807,7 +31807,7 @@ type NgeNbRadioResourceStatus struct {
 	DLTotalPrbUsage  *DlTotalPRbusage  `protobuf:"bytes,5,opt,name=d_l_total_prb_usage,json=dL-Total-PRB-usage,proto3" json:"d_l_total_prb_usage,omitempty"`
 	ULTotalPrbUsage  *UlTotalPRbusage  `protobuf:"bytes,6,opt,name=u_l_total_prb_usage,json=uL-Total-PRB-usage,proto3" json:"u_l_total_prb_usage,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NgeNbRadioResourceStatusExtIes `protobuf:"bytes,7,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*NgeNbRadioResourceStatusExtIes `protobuf:"bytes,7,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NgeNbRadioResourceStatus) Reset() {
@@ -31899,7 +31899,7 @@ type DlschedulingPDcchCCeusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *DlschedulingPDcchCCeusage) Reset() {
@@ -31949,7 +31949,7 @@ type UlschedulingPDcchCCeusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *UlschedulingPDcchCCeusage) Reset() {
@@ -32053,7 +32053,7 @@ type TnlcapacityIndicator struct {
 	ULtnlofferedCapacity   *OfferedCapacity   `protobuf:"bytes,3,opt,name=u_ltnloffered_capacity,json=uLTNLOfferedCapacity,proto3" json:"u_ltnloffered_capacity,omitempty"`
 	ULtnlavailableCapacity *AvailableCapacity `protobuf:"bytes,4,opt,name=u_ltnlavailable_capacity,json=uLTNLAvailableCapacity,proto3" json:"u_ltnlavailable_capacity,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TnlcapacityIndicatorExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TnlcapacityIndicatorExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TnlcapacityIndicator) Reset() {
@@ -32254,17 +32254,17 @@ type isNpnBroadcastInformation_NpnBroadcastInformation interface {
 
 type NpnBroadcastInformation_SnpnInformation struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	SnpnInformation *NpnBroadcastInformationSNpn `protobuf:"bytes,1,opt,name=snpn_information,json=snpn-Information,proto3,oneof"`
+	SnpnInformation *NpnBroadcastInformationSNpn `protobuf:"bytes,1,opt,name=snpn_information,json=snpn-Information,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type NpnBroadcastInformation_PniNpnInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	PniNpnInformation *NpnBroadcastInformationPNiNPn `protobuf:"bytes,2,opt,name=pni_npn_information,json=pni-npn-Information,proto3,oneof"`
+	PniNpnInformation *NpnBroadcastInformationPNiNPn `protobuf:"bytes,2,opt,name=pni_npn_information,json=pni-npn-Information,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type NpnBroadcastInformation_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *NpnBroadcastInformationExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *NpnBroadcastInformationExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*NpnBroadcastInformation_SnpnInformation) isNpnBroadcastInformation_NpnBroadcastInformation() {}
@@ -32333,7 +32333,7 @@ type NpnBroadcastInformationSNpn struct {
 
 	BroadcastSnpnidList *BroadcastSnpnidList `protobuf:"bytes,1,opt,name=broadcast_snpnid_list,json=broadcastSNPNID-List,proto3" json:"broadcast_snpnid_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NpnBroadcastInformationSNpnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NpnBroadcastInformationSNpnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NpnBroadcastInformationSNpn) Reset() {
@@ -32441,7 +32441,7 @@ type NpnBroadcastInformationPNiNPn struct {
 
 	BroadcastPniNpnIdInformation *BroadcastPniNPnIDInformation `protobuf:"bytes,1,opt,name=broadcast_pni_npn_id_information,json=broadcastPNI-NPN-ID-Information,proto3" json:"broadcast_pni_npn_id_information,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NpnBroadcastInformationPNiNPnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NpnBroadcastInformationPNiNPnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NpnBroadcastInformationPNiNPn) Reset() {
@@ -32621,17 +32621,17 @@ type isNpnmobilityInformation_NpnmobilityInformation interface {
 
 type NpnmobilityInformation_SnpnMobilityInformation struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	SnpnMobilityInformation *NpnmobilityInformationSNpn `protobuf:"bytes,1,opt,name=snpn_mobility_information,json=snpn-mobility-information,proto3,oneof"`
+	SnpnMobilityInformation *NpnmobilityInformationSNpn `protobuf:"bytes,1,opt,name=snpn_mobility_information,json=snpn-mobility-information,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type NpnmobilityInformation_PniNpnMobilityInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	PniNpnMobilityInformation *NpnmobilityInformationPNiNPn `protobuf:"bytes,2,opt,name=pni_npn_mobility_information,json=pni-npn-mobility-information,proto3,oneof"`
+	PniNpnMobilityInformation *NpnmobilityInformationPNiNPn `protobuf:"bytes,2,opt,name=pni_npn_mobility_information,json=pni-npn-mobility-information,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type NpnmobilityInformation_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *NpnmobilityInformationExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *NpnmobilityInformationExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*NpnmobilityInformation_SnpnMobilityInformation) isNpnmobilityInformation_NpnmobilityInformation() {
@@ -32701,7 +32701,7 @@ type NpnmobilityInformationSNpn struct {
 
 	ServingNid *Nid `protobuf:"bytes,1,opt,name=serving_nid,json=serving-NID,proto3" json:"serving_nid,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NpnmobilityInformationSNpnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NpnmobilityInformationSNpnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NpnmobilityInformationSNpn) Reset() {
@@ -32809,7 +32809,7 @@ type NpnmobilityInformationPNiNPn struct {
 
 	AllowedPniNpnIdList *AllowedPniNPnIDList `protobuf:"bytes,1,opt,name=allowed_pni_npn_id_list,json=allowedPNI-NPN-ID-List,proto3" json:"allowed_pni_npn_id_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NpnmobilityInformationPNiNPnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NpnmobilityInformationPNiNPnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NpnmobilityInformationPNiNPn) Reset() {
@@ -32981,12 +32981,12 @@ type isNpnpagingAssistanceInformation_NpnpagingAssistanceInformation interface {
 
 type NpnpagingAssistanceInformation_PniNpnInformation struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	PniNpnInformation *NpnpagingAssistanceInformationPNiNPn `protobuf:"bytes,1,opt,name=pni_npn_information,json=pni-npn-Information,proto3,oneof"`
+	PniNpnInformation *NpnpagingAssistanceInformationPNiNPn `protobuf:"bytes,1,opt,name=pni_npn_information,json=pni-npn-Information,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type NpnpagingAssistanceInformation_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtension *NpnpagingAssistanceInformationExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *NpnpagingAssistanceInformationExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*NpnpagingAssistanceInformation_PniNpnInformation) isNpnpagingAssistanceInformation_NpnpagingAssistanceInformation() {
@@ -33054,7 +33054,7 @@ type NpnpagingAssistanceInformationPNiNPn struct {
 
 	AllowedPniNpnIdList *AllowedPniNPnIDList `protobuf:"bytes,1,opt,name=allowed_pni_npn_id_list,json=allowedPNI-NPN-ID-List,proto3" json:"allowed_pni_npn_id_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NpnpagingAssistanceInformationPNiNPnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NpnpagingAssistanceInformationPNiNPnExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NpnpagingAssistanceInformationPNiNPn) Reset() {
@@ -33226,12 +33226,12 @@ type isNpnSupport_NpnSupport interface {
 
 type NpnSupport_SNpn struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	SNpn *NpnSupportSNpn `protobuf:"bytes,1,opt,name=s_npn,json=sNPN,proto3,oneof"`
+	SNpn *NpnSupportSNpn `protobuf:"bytes,1,opt,name=s_npn,json=sNPN,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type NpnSupport_ChoiceExtensions struct {
-	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtensions *NpnSupportExtIes `protobuf:"bytes,2,opt,name=choice_extensions,json=choice-Extensions,proto3,oneof"`
+	// @inject_tag: aper:"choiceIdx:2,valueExt"
+	ChoiceExtensions *NpnSupportExtIes `protobuf:"bytes,2,opt,name=choice_extensions,json=choice-Extensions,proto3,oneof" aper:"choiceIdx:2,valueExt"`
 }
 
 func (*NpnSupport_SNpn) isNpnSupport_NpnSupport() {}
@@ -33296,8 +33296,8 @@ type NpnSupportSNpn struct {
 	unknownFields protoimpl.UnknownFields
 
 	Nid *Nid `protobuf:"bytes,1,opt,name=nid,proto3" json:"nid,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IeExtension []*NpnSupportSNpnExtIes `protobuf:"bytes,2,rep,name=ie_extension,json=ie-Extension,proto3" json:"ie_extension,omitempty"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt,"
+	IeExtension []*NpnSupportSNpnExtIes `protobuf:"bytes,2,rep,name=ie_extension,json=ie-Extension,proto3" json:"ie_extension,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt,"`
 }
 
 func (x *NpnSupportSNpn) Reset() {
@@ -33477,17 +33477,17 @@ type isFddortddNprachconfiguration_FddOrTddNprachconfiguration interface {
 
 type FddortddNprachconfiguration_Fdd struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	Fdd *NprachconfigurationFDd `protobuf:"bytes,1,opt,name=fdd,proto3,oneof"`
+	Fdd *NprachconfigurationFDd `protobuf:"bytes,1,opt,name=fdd,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type FddortddNprachconfiguration_Tdd struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	Tdd *NprachconfigurationTDd `protobuf:"bytes,2,opt,name=tdd,proto3,oneof"`
+	Tdd *NprachconfigurationTDd `protobuf:"bytes,2,opt,name=tdd,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type FddortddNprachconfiguration_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *FddorTDdinNPrachconfigurationChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *FddorTDdinNPrachconfigurationChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*FddortddNprachconfiguration_Fdd) isFddortddNprachconfiguration_FddOrTddNprachconfiguration() {}
@@ -33556,7 +33556,7 @@ type Nprachconfiguration struct {
 
 	FddOrTdd *FddortddNprachconfiguration `protobuf:"bytes,1,opt,name=fdd_or_tdd,json=fdd-or-tdd,proto3" json:"fdd_or_tdd,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NprachconfigurationExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*NprachconfigurationExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Nprachconfiguration) Reset() {
@@ -33663,20 +33663,20 @@ type NprachconfigurationFDd struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	NprachCpLength            NprachCPLength `protobuf:"varint,1,opt,name=nprach_cp_length,json=nprach-CP-length,proto3,enum=xnap.v1.NprachCPLength" json:"nprach_cp_length,omitempty"`
+	NprachCpLength            NprachCPLength `protobuf:"varint,1,opt,name=nprach_cp_length,json=nprach-CP-length,proto3,enum=xnap.v1.NprachCPLength" json:"nprach_cp_length,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	AnchorCarrierNprachconfig []byte         `protobuf:"bytes,2,opt,name=anchor_carrier_nprachconfig,json=anchorCarrier-NPRACHConfig,proto3" json:"anchor_carrier_nprachconfig,omitempty"`
 	// @inject_tag: aper:"optional,"
-	AnchorCarrierEdtNprachconfig []byte `protobuf:"bytes,3,opt,name=anchor_carrier_edt_nprachconfig,json=anchorCarrier-EDT-NPRACHConfig,proto3,oneof" json:"anchor_carrier_edt_nprachconfig,omitempty"`
+	AnchorCarrierEdtNprachconfig []byte `protobuf:"bytes,3,opt,name=anchor_carrier_edt_nprachconfig,json=anchorCarrier-EDT-NPRACHConfig,proto3,oneof" json:"anchor_carrier_edt_nprachconfig,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	AnchorCarrierFormat2Nprachconfig []byte `protobuf:"bytes,4,opt,name=anchor_carrier_format2_nprachconfig,json=anchorCarrier-Format2-NPRACHConfig,proto3,oneof" json:"anchor_carrier_format2_nprachconfig,omitempty"`
+	AnchorCarrierFormat2Nprachconfig []byte `protobuf:"bytes,4,opt,name=anchor_carrier_format2_nprachconfig,json=anchorCarrier-Format2-NPRACHConfig,proto3,oneof" json:"anchor_carrier_format2_nprachconfig,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	AnchorCarrierFormat2EdtNprachconfig []byte `protobuf:"bytes,5,opt,name=anchor_carrier_format2_edt_nprachconfig,json=anchorCarrier-Format2-EDT-NPRACHConfig,proto3,oneof" json:"anchor_carrier_format2_edt_nprachconfig,omitempty"`
+	AnchorCarrierFormat2EdtNprachconfig []byte `protobuf:"bytes,5,opt,name=anchor_carrier_format2_edt_nprachconfig,json=anchorCarrier-Format2-EDT-NPRACHConfig,proto3,oneof" json:"anchor_carrier_format2_edt_nprachconfig,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NonAnchorCarrierNprachconfig []byte `protobuf:"bytes,6,opt,name=non_anchor_carrier_nprachconfig,json=non-anchorCarrier-NPRACHConfig,proto3,oneof" json:"non_anchor_carrier_nprachconfig,omitempty"`
+	NonAnchorCarrierNprachconfig []byte `protobuf:"bytes,6,opt,name=non_anchor_carrier_nprachconfig,json=non-anchorCarrier-NPRACHConfig,proto3,oneof" json:"non_anchor_carrier_nprachconfig,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NonAnchorCarrierFormat2Nprachconfig []byte `protobuf:"bytes,7,opt,name=non_anchor_carrier_format2_nprachconfig,json=non-anchorCarrier-Format2-NPRACHConfig,proto3,oneof" json:"non_anchor_carrier_format2_nprachconfig,omitempty"`
+	NonAnchorCarrierFormat2Nprachconfig []byte `protobuf:"bytes,7,opt,name=non_anchor_carrier_format2_nprachconfig,json=non-anchorCarrier-Format2-NPRACHConfig,proto3,oneof" json:"non_anchor_carrier_format2_nprachconfig,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NprachconfigurationFDdExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*NprachconfigurationFDdExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NprachconfigurationFDd) Reset() {
@@ -33825,14 +33825,14 @@ type NprachconfigurationTDd struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4,"
-	NprachPreambleFormat         NprachpreambleFormat `protobuf:"varint,1,opt,name=nprach_preamble_format,json=nprach-preambleFormat,proto3,enum=xnap.v1.NprachpreambleFormat" json:"nprach_preamble_format,omitempty"`
+	NprachPreambleFormat         NprachpreambleFormat `protobuf:"varint,1,opt,name=nprach_preamble_format,json=nprach-preambleFormat,proto3,enum=xnap.v1.NprachpreambleFormat" json:"nprach_preamble_format,omitempty" aper:"valueExt,valueLB:0,valueUB:4,"`
 	AnchorCarrierNprachconfigTdd []byte               `protobuf:"bytes,2,opt,name=anchor_carrier_nprachconfig_tdd,json=anchorCarrier-NPRACHConfigTDD,proto3" json:"anchor_carrier_nprachconfig_tdd,omitempty"`
 	// @inject_tag: aper:"optional,"
-	NonAnchorCarrierFequencyConfiglist *NonAnchorCarrierFrequencylist `protobuf:"bytes,3,opt,name=non_anchor_carrier_fequency_configlist,json=non-anchorCarrierFequencyConfiglist,proto3,oneof" json:"non_anchor_carrier_fequency_configlist,omitempty"`
+	NonAnchorCarrierFequencyConfiglist *NonAnchorCarrierFrequencylist `protobuf:"bytes,3,opt,name=non_anchor_carrier_fequency_configlist,json=non-anchorCarrierFequencyConfiglist,proto3,oneof" json:"non_anchor_carrier_fequency_configlist,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NonAnchorCarrierNprachconfigTdd []byte `protobuf:"bytes,4,opt,name=non_anchor_carrier_nprachconfig_tdd,json=non-anchorCarrier-NPRACHConfigTDD,proto3,oneof" json:"non_anchor_carrier_nprachconfig_tdd,omitempty"`
+	NonAnchorCarrierNprachconfigTdd []byte `protobuf:"bytes,4,opt,name=non_anchor_carrier_nprachconfig_tdd,json=non-anchorCarrier-NPRACHConfigTDD,proto3,oneof" json:"non_anchor_carrier_nprachconfig_tdd,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NprachconfigurationTDdExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*NprachconfigurationTDdExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NprachconfigurationTDd) Reset() {
@@ -33961,7 +33961,7 @@ type NestedNonAnchorCarrierFrequencylist struct {
 
 	NonAnchorCarrierFrquency []byte `protobuf:"bytes,1,opt,name=non_anchor_carrier_frquency,json=non-anchorCarrierFrquency,proto3" json:"non_anchor_carrier_frquency,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NonAnchorCarrierFrequencylistExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*NonAnchorCarrierFrequencylistExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NestedNonAnchorCarrierFrequencylist) Reset() {
@@ -34018,7 +34018,7 @@ type NonAnchorCarrierFrequencylist struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:15,"
-	Value []*NestedNonAnchorCarrierFrequencylist `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*NestedNonAnchorCarrierFrequencylist `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:15,"`
 }
 
 func (x *NonAnchorCarrierFrequencylist) Reset() {
@@ -34068,7 +34068,7 @@ type NrCellIdentity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:36,sizeUB:36,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:36,sizeUB:36,"`
 }
 
 func (x *NrCellIdentity) Reset() {
@@ -34118,7 +34118,7 @@ type NgRAnCellIdentityListinRanpagingArea struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	Value []*NgRAnCellIdentity `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*NgRAnCellIdentity `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 }
 
 func (x *NgRAnCellIdentityListinRanpagingArea) Reset() {
@@ -34219,8 +34219,8 @@ type NrCGi struct {
 
 	PlmnId *PlmnIdentity   `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
 	NrCi   *NrCellIdentity `protobuf:"bytes,2,opt,name=nr_ci,json=nr-CI,proto3" json:"nr_ci,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NrCGiExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtension []*NrCGiExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *NrCGi) Reset() {
@@ -34284,7 +34284,7 @@ type NrfrequencyBand struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:1024,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:1024,"`
 }
 
 func (x *NrfrequencyBand) Reset() {
@@ -34334,7 +34334,7 @@ type NrfrequencyBandList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*NrfrequencyBandItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*NrfrequencyBandItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *NrfrequencyBandList) Reset() {
@@ -34435,9 +34435,9 @@ type NrfrequencyBandItem struct {
 
 	NrFrequencyBand *NrfrequencyBand `protobuf:"bytes,1,opt,name=nr_frequency_band,json=nr-frequency-band,proto3" json:"nr_frequency_band,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SupportedSulBandList *SupportedSulbandList `protobuf:"bytes,2,opt,name=supported_sul_band_list,json=supported-SUL-Band-List,proto3,oneof" json:"supported_sul_band_list,omitempty"`
+	SupportedSulBandList *SupportedSulbandList `protobuf:"bytes,2,opt,name=supported_sul_band_list,json=supported-SUL-Band-List,proto3,oneof" json:"supported_sul_band_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NrfrequencyBandItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*NrfrequencyBandItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NrfrequencyBandItem) Reset() {
@@ -34552,10 +34552,10 @@ type NrfrequencyInfo struct {
 
 	NrArfcn *Nrarfcn `protobuf:"bytes,1,opt,name=nr_arfcn,json=nrARFCN,proto3" json:"nr_arfcn,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SulInformation    *SulInformation      `protobuf:"bytes,2,opt,name=sul_information,json=sul-information,proto3,oneof" json:"sul_information,omitempty"`
+	SulInformation    *SulInformation      `protobuf:"bytes,2,opt,name=sul_information,json=sul-information,proto3,oneof" json:"sul_information,omitempty" aper:"optional,valueExt,"`
 	FrequencyBandList *NrfrequencyBandList `protobuf:"bytes,3,opt,name=frequency_band_list,json=frequencyBand-List,proto3" json:"frequency_band_list,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NrfrequencyInfoExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtension []*NrfrequencyInfoExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *NrfrequencyInfo) Reset() {
@@ -34798,17 +34798,17 @@ type isNrmodeInfo_NrmodeInfo interface {
 
 type NrmodeInfo_Fdd struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	Fdd *NrmodeInfoFdd `protobuf:"bytes,1,opt,name=fdd,proto3,oneof"`
+	Fdd *NrmodeInfoFdd `protobuf:"bytes,1,opt,name=fdd,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type NrmodeInfo_Tdd struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	Tdd *NrmodeInfoTdd `protobuf:"bytes,2,opt,name=tdd,proto3,oneof"`
+	Tdd *NrmodeInfoTdd `protobuf:"bytes,2,opt,name=tdd,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type NrmodeInfo_ChoiceExtension struct {
-	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *NrmodeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	// @inject_tag: aper:"choiceIdx:3,valueExt"
+	ChoiceExtension *NrmodeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,valueExt"`
 }
 
 func (*NrmodeInfo_Fdd) isNrmodeInfo_NrmodeInfo() {}
@@ -34891,12 +34891,12 @@ type isNrmodeInfoFddExtIesExtension_NrmodeInfoFddExtIes interface {
 
 type NrmodeInfoFddExtIesExtension_IdUlcarrierList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdUlcarrierList *NrcarrierList `protobuf:"bytes,1,opt,name=id_ulcarrier_list,json=id-ULCarrierList,proto3,oneof"`
+	IdUlcarrierList *NrcarrierList `protobuf:"bytes,1,opt,name=id_ulcarrier_list,json=id-ULCarrierList,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type NrmodeInfoFddExtIesExtension_IdDlcarrierList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdDlcarrierList *NrcarrierList `protobuf:"bytes,2,opt,name=id_dlcarrier_list,json=id-DLCarrierList,proto3,oneof"`
+	IdDlcarrierList *NrcarrierList `protobuf:"bytes,2,opt,name=id_dlcarrier_list,json=id-DLCarrierList,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*NrmodeInfoFddExtIesExtension_IdUlcarrierList) isNrmodeInfoFddExtIesExtension_NrmodeInfoFddExtIes() {
@@ -34914,11 +34914,11 @@ type NrmodeInfoFddExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *NrmodeInfoFddExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *NrmodeInfoFddExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NrmodeInfoFddExtIes) Reset() {
@@ -34983,15 +34983,15 @@ type NrmodeInfoFdd struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	UlNrfrequencyInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=ul_nrfrequency_info,json=ulNRFrequencyInfo,proto3" json:"ul_nrfrequency_info,omitempty"`
+	UlNrfrequencyInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=ul_nrfrequency_info,json=ulNRFrequencyInfo,proto3" json:"ul_nrfrequency_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	DlNrfrequencyInfo *NrfrequencyInfo `protobuf:"bytes,2,opt,name=dl_nrfrequency_info,json=dlNRFrequencyInfo,proto3" json:"dl_nrfrequency_info,omitempty"`
+	DlNrfrequencyInfo *NrfrequencyInfo `protobuf:"bytes,2,opt,name=dl_nrfrequency_info,json=dlNRFrequencyInfo,proto3" json:"dl_nrfrequency_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	UlNrtransmissonBandwidth *NrtransmissionBandwidth `protobuf:"bytes,3,opt,name=ul_nrtransmisson_bandwidth,json=ulNRTransmissonBandwidth,proto3" json:"ul_nrtransmisson_bandwidth,omitempty"`
+	UlNrtransmissonBandwidth *NrtransmissionBandwidth `protobuf:"bytes,3,opt,name=ul_nrtransmisson_bandwidth,json=ulNRTransmissonBandwidth,proto3" json:"ul_nrtransmisson_bandwidth,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	DlNrtransmissonBandwidth *NrtransmissionBandwidth `protobuf:"bytes,4,opt,name=dl_nrtransmisson_bandwidth,json=dlNRTransmissonBandwidth,proto3" json:"dl_nrtransmisson_bandwidth,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NrmodeInfoFddExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	DlNrtransmissonBandwidth *NrtransmissionBandwidth `protobuf:"bytes,4,opt,name=dl_nrtransmisson_bandwidth,json=dlNRTransmissonBandwidth,proto3" json:"dl_nrtransmisson_bandwidth,omitempty" aper:"valueExt,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtension []*NrmodeInfoFddExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *NrmodeInfoFdd) Reset() {
@@ -35143,17 +35143,17 @@ type isNrmodeInfoTddExtIesExtension_NrmodeInfoTddExtIes interface {
 
 type NrmodeInfoTddExtIesExtension_IdIntendedTddDlUlconfigurationNr struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdIntendedTddDlUlconfigurationNr *IntendedTddDLULconfigurationNR `protobuf:"bytes,1,opt,name=id_intended_tdd_dl_ulconfiguration_nr,json=id-IntendedTDD-DL-ULConfiguration-NR,proto3,oneof"`
+	IdIntendedTddDlUlconfigurationNr *IntendedTddDLULconfigurationNR `protobuf:"bytes,1,opt,name=id_intended_tdd_dl_ulconfiguration_nr,json=id-IntendedTDD-DL-ULConfiguration-NR,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type NrmodeInfoTddExtIesExtension_IdTdduldlconfigurationCommonNr struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdTdduldlconfigurationCommonNr *TdduldlconfigurationCommonNr `protobuf:"bytes,2,opt,name=id_tdduldlconfiguration_common_nr,json=id-TDDULDLConfigurationCommonNR,proto3,oneof"`
+	IdTdduldlconfigurationCommonNr *TdduldlconfigurationCommonNr `protobuf:"bytes,2,opt,name=id_tdduldlconfiguration_common_nr,json=id-TDDULDLConfigurationCommonNR,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type NrmodeInfoTddExtIesExtension_IdCarrierList struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdCarrierList *NrcarrierList `protobuf:"bytes,3,opt,name=id_carrier_list,json=id-CarrierList,proto3,oneof"`
+	IdCarrierList *NrcarrierList `protobuf:"bytes,3,opt,name=id_carrier_list,json=id-CarrierList,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*NrmodeInfoTddExtIesExtension_IdIntendedTddDlUlconfigurationNr) isNrmodeInfoTddExtIesExtension_NrmodeInfoTddExtIes() {
@@ -35174,11 +35174,11 @@ type NrmodeInfoTddExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *NrmodeInfoTddExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *NrmodeInfoTddExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *NrmodeInfoTddExtIes) Reset() {
@@ -35243,11 +35243,11 @@ type NrmodeInfoTdd struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	NrFrequencyInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=nr_frequency_info,json=nrFrequencyInfo,proto3" json:"nr_frequency_info,omitempty"`
+	NrFrequencyInfo *NrfrequencyInfo `protobuf:"bytes,1,opt,name=nr_frequency_info,json=nrFrequencyInfo,proto3" json:"nr_frequency_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	NrTransmissonBandwidth *NrtransmissionBandwidth `protobuf:"bytes,2,opt,name=nr_transmisson_bandwidth,json=nrTransmissonBandwidth,proto3" json:"nr_transmisson_bandwidth,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*NrmodeInfoTddExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	NrTransmissonBandwidth *NrtransmissionBandwidth `protobuf:"bytes,2,opt,name=nr_transmisson_bandwidth,json=nrTransmissonBandwidth,proto3" json:"nr_transmisson_bandwidth,omitempty" aper:"valueExt,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtension []*NrmodeInfoTddExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *NrmodeInfoTdd) Reset() {
@@ -35311,7 +35311,7 @@ type Nrpci struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1007,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:1007,"`
 }
 
 func (x *Nrpci) Reset() {
@@ -35411,11 +35411,11 @@ type NrtransmissionBandwidth struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:3,"
-	NRscs Nrscs `protobuf:"varint,1,opt,name=n_rscs,json=nRSCS,proto3,enum=xnap.v1.Nrscs" json:"n_rscs,omitempty"`
+	NRscs Nrscs `protobuf:"varint,1,opt,name=n_rscs,json=nRSCS,proto3,enum=xnap.v1.Nrscs" json:"n_rscs,omitempty" aper:"valueExt,valueLB:0,valueUB:3,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:28,"
-	NRnrb Nrnrb `protobuf:"varint,2,opt,name=n_rnrb,json=nRNRB,proto3,enum=xnap.v1.Nrnrb" json:"n_rnrb,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NrtransmissionBandwidthExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	NRnrb Nrnrb `protobuf:"varint,2,opt,name=n_rnrb,json=nRNRB,proto3,enum=xnap.v1.Nrnrb" json:"n_rnrb,omitempty" aper:"valueExt,valueLB:0,valueUB:28,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*NrtransmissionBandwidthExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *NrtransmissionBandwidth) Reset() {
@@ -35479,7 +35479,7 @@ type NgRAntraceId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:8,sizeUB:8,"
-	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:8,sizeUB:8,"`
 }
 
 func (x *NgRAntraceId) Reset() {
@@ -35579,11 +35579,11 @@ type Nrv2XservicesAuthorized struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	VehicleUe *VehicleUe `protobuf:"varint,1,opt,name=vehicle_ue,json=vehicleUE,proto3,enum=xnap.v1.VehicleUe,oneof" json:"vehicle_ue,omitempty"`
+	VehicleUe *VehicleUe `protobuf:"varint,1,opt,name=vehicle_ue,json=vehicleUE,proto3,enum=xnap.v1.VehicleUe,oneof" json:"vehicle_ue,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	PedestrianUe *PedestrianUe `protobuf:"varint,2,opt,name=pedestrian_ue,json=pedestrianUE,proto3,enum=xnap.v1.PedestrianUe,oneof" json:"pedestrian_ue,omitempty"`
+	PedestrianUe *PedestrianUe `protobuf:"varint,2,opt,name=pedestrian_ue,json=pedestrianUE,proto3,enum=xnap.v1.PedestrianUe,oneof" json:"pedestrian_ue,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*Nrv2XservicesAuthorizedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*Nrv2XservicesAuthorizedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Nrv2XservicesAuthorized) Reset() {
@@ -35698,7 +35698,7 @@ type NruesidelinkAggregateMaximumBitRate struct {
 
 	UEsidelinkAggregateMaximumBitRate *BitRate `protobuf:"bytes,1,opt,name=u_esidelink_aggregate_maximum_bit_rate,json=uESidelinkAggregateMaximumBitRate,proto3" json:"u_esidelink_aggregate_maximum_bit_rate,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*NruesidelinkAggregateMaximumBitRateExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*NruesidelinkAggregateMaximumBitRateExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *NruesidelinkAggregateMaximumBitRate) Reset() {
@@ -35755,7 +35755,7 @@ type OfferedCapacity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:16777216,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:16777216,"`
 }
 
 func (x *OfferedCapacity) Reset() {
@@ -35805,7 +35805,7 @@ type PacketDelayBudget struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1023,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:1023,"`
 }
 
 func (x *PacketDelayBudget) Reset() {
@@ -35907,7 +35907,7 @@ type PacketErrorRate struct {
 	PErScalar   *PerScalar   `protobuf:"bytes,1,opt,name=p_er_scalar,json=pER-Scalar,proto3" json:"p_er_scalar,omitempty"`
 	PErExponent *PerExponent `protobuf:"bytes,2,opt,name=p_er_exponent,json=pER-Exponent,proto3" json:"p_er_exponent,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PacketErrorRateExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PacketErrorRateExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PacketErrorRate) Reset() {
@@ -35971,7 +35971,7 @@ type PerScalar struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:9,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:9,"`
 }
 
 func (x *PerScalar) Reset() {
@@ -36021,7 +36021,7 @@ type PerExponent struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:9,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:9,"`
 }
 
 func (x *PerExponent) Reset() {
@@ -36071,7 +36071,7 @@ type PacketLossRate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1000,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:1000,"`
 }
 
 func (x *PacketLossRate) Reset() {
@@ -36171,11 +36171,11 @@ type PagingeDrxinformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:13,"
-	PagingEDrxCycle PagingeDrxCycle `protobuf:"varint,1,opt,name=paging_e_drx_cycle,json=paging-eDRX-Cycle,proto3,enum=xnap.v1.PagingeDrxCycle" json:"paging_e_drx_cycle,omitempty"`
+	PagingEDrxCycle PagingeDrxCycle `protobuf:"varint,1,opt,name=paging_e_drx_cycle,json=paging-eDRX-Cycle,proto3,enum=xnap.v1.PagingeDrxCycle" json:"paging_e_drx_cycle,omitempty" aper:"valueExt,valueLB:0,valueUB:13,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:15,"
-	PagingTimeWindow *PagingTimeWindow `protobuf:"varint,2,opt,name=paging_time_window,json=paging-Time-Window,proto3,enum=xnap.v1.PagingTimeWindow,oneof" json:"paging_time_window,omitempty"`
+	PagingTimeWindow *PagingTimeWindow `protobuf:"varint,2,opt,name=paging_time_window,json=paging-Time-Window,proto3,enum=xnap.v1.PagingTimeWindow,oneof" json:"paging_time_window,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:15,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PagingeDrxinformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PagingeDrxinformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PagingeDrxinformation) Reset() {
@@ -36290,9 +36290,9 @@ type Pc5QoSparameters struct {
 
 	Pc5QoSflowList *Pc5QoSflowList `protobuf:"bytes,1,opt,name=pc5_qo_sflow_list,json=pc5QoSFlowList,proto3" json:"pc5_qo_sflow_list,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Pc5LinkAggregateBitRates *BitRate `protobuf:"bytes,2,opt,name=pc5_link_aggregate_bit_rates,json=pc5LinkAggregateBitRates,proto3,oneof" json:"pc5_link_aggregate_bit_rates,omitempty"`
+	Pc5LinkAggregateBitRates *BitRate `protobuf:"bytes,2,opt,name=pc5_link_aggregate_bit_rates,json=pc5LinkAggregateBitRates,proto3,oneof" json:"pc5_link_aggregate_bit_rates,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*Pc5QoSparametersExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*Pc5QoSparametersExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Pc5QoSparameters) Reset() {
@@ -36356,7 +36356,7 @@ type Pc5QoSflowList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:2064,"
-	Value []*Pc5QoSflowItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*Pc5QoSflowItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:2064,"`
 }
 
 func (x *Pc5QoSflowList) Reset() {
@@ -36457,11 +36457,11 @@ type Pc5QoSflowItem struct {
 
 	PQi *FiveQi `protobuf:"bytes,1,opt,name=p_qi,json=pQI,proto3" json:"p_qi,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	Pc5FlowBitRates *Pc5FlowBitRates `protobuf:"bytes,2,opt,name=pc5_flow_bit_rates,json=pc5FlowBitRates,proto3,oneof" json:"pc5_flow_bit_rates,omitempty"`
+	Pc5FlowBitRates *Pc5FlowBitRates `protobuf:"bytes,2,opt,name=pc5_flow_bit_rates,json=pc5FlowBitRates,proto3,oneof" json:"pc5_flow_bit_rates,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:8,"
-	Range *Range `protobuf:"varint,3,opt,name=range,proto3,enum=xnap.v1.Range,oneof" json:"range,omitempty"`
+	Range *Range `protobuf:"varint,3,opt,name=range,proto3,enum=xnap.v1.Range,oneof" json:"range,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:8,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*Pc5QoSflowItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*Pc5QoSflowItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Pc5QoSflowItem) Reset() {
@@ -36584,7 +36584,7 @@ type Pc5FlowBitRates struct {
 	GuaranteedFlowBitRate *BitRate `protobuf:"bytes,1,opt,name=guaranteed_flow_bit_rate,json=guaranteedFlowBitRate,proto3" json:"guaranteed_flow_bit_rate,omitempty"`
 	MaximumFlowBitRate    *BitRate `protobuf:"bytes,2,opt,name=maximum_flow_bit_rate,json=maximumFlowBitRate,proto3" json:"maximum_flow_bit_rate,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*Pc5FlowBitRatesExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*Pc5FlowBitRatesExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Pc5FlowBitRates) Reset() {
@@ -36771,17 +36771,17 @@ type isPdcpchangeIndication_PdcpchangeIndication interface {
 
 type PdcpchangeIndication_FromSNgRanNode struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:1,"
-	FromSNgRanNode FromSngrannodePdcpchangeIndication `protobuf:"varint,1,opt,name=from_s_ng_ran_node,json=from-S-NG-RAN-node,proto3,enum=xnap.v1.FromSngrannodePdcpchangeIndication,oneof"`
+	FromSNgRanNode FromSngrannodePdcpchangeIndication `protobuf:"varint,1,opt,name=from_s_ng_ran_node,json=from-S-NG-RAN-node,proto3,enum=xnap.v1.FromSngrannodePdcpchangeIndication,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type PdcpchangeIndication_FromMNgRanNode struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"
-	FromMNgRanNode FromMngrannodePdcpchangeIndication `protobuf:"varint,2,opt,name=from_m_ng_ran_node,json=from-M-NG-RAN-node,proto3,enum=xnap.v1.FromMngrannodePdcpchangeIndication,oneof"`
+	FromMNgRanNode FromMngrannodePdcpchangeIndication `protobuf:"varint,2,opt,name=from_m_ng_ran_node,json=from-M-NG-RAN-node,proto3,enum=xnap.v1.FromMngrannodePdcpchangeIndication,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type PdcpchangeIndication_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *PdcpchangeIndicationExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *PdcpchangeIndicationExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*PdcpchangeIndication_FromSNgRanNode) isPdcpchangeIndication_PdcpchangeIndication() {}
@@ -36848,11 +36848,11 @@ type Pdcpsnlength struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	UlPdcpsnlength UlPdcpsnlengthPdcpsnlength `protobuf:"varint,1,opt,name=ul_pdcpsnlength,json=ulPDCPSNLength,proto3,enum=xnap.v1.UlPdcpsnlengthPdcpsnlength" json:"ul_pdcpsnlength,omitempty"`
+	UlPdcpsnlength UlPdcpsnlengthPdcpsnlength `protobuf:"varint,1,opt,name=ul_pdcpsnlength,json=ulPDCPSNLength,proto3,enum=xnap.v1.UlPdcpsnlengthPdcpsnlength" json:"ul_pdcpsnlength,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	DlPdcpsnlength DlPdcpsnlengthPdcpsnlength `protobuf:"varint,2,opt,name=dl_pdcpsnlength,json=dlPDCPSNLength,proto3,enum=xnap.v1.DlPdcpsnlengthPdcpsnlength" json:"dl_pdcpsnlength,omitempty"`
+	DlPdcpsnlength DlPdcpsnlengthPdcpsnlength `protobuf:"varint,2,opt,name=dl_pdcpsnlength,json=dlPDCPSNLength,proto3,enum=xnap.v1.DlPdcpsnlengthPdcpsnlength" json:"dl_pdcpsnlength,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdcpsnlengthExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdcpsnlengthExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Pdcpsnlength) Reset() {
@@ -36968,7 +36968,7 @@ type PdusessionAggregateMaximumBitRate struct {
 	DownlinkSessionAmbr *BitRate `protobuf:"bytes,1,opt,name=downlink_session_ambr,json=downlink-session-AMBR,proto3" json:"downlink_session_ambr,omitempty"`
 	UplinkSessionAmbr   *BitRate `protobuf:"bytes,2,opt,name=uplink_session_ambr,json=uplink-session-AMBR,proto3" json:"uplink_session_ambr,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionAggregateMaximumBitRateExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionAggregateMaximumBitRateExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionAggregateMaximumBitRate) Reset() {
@@ -37032,7 +37032,7 @@ type PdusessionList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:256,"
-	Value []*PdusessionID `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionID `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionList) Reset() {
@@ -37082,7 +37082,7 @@ type PdusessionListwithCause struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionListwithCauseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionListwithCauseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionListwithCause) Reset() {
@@ -37183,9 +37183,9 @@ type PdusessionListwithCauseItem struct {
 
 	PduSessionId *PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Cause *Cause `protobuf:"bytes,2,opt,name=cause,proto3,oneof" json:"cause,omitempty"`
+	Cause *Cause `protobuf:"bytes,2,opt,name=cause,proto3,oneof" json:"cause,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionListwithCauseItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionListwithCauseItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionListwithCauseItem) Reset() {
@@ -37249,7 +37249,7 @@ type PdusessionListwithDataForwardingFromTarget struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionListwithDataForwardingFromTargetItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionListwithDataForwardingFromTargetItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionListwithDataForwardingFromTarget) Reset() {
@@ -37350,9 +37350,9 @@ type PdusessionListwithDataForwardingFromTargetItem struct {
 
 	PduSessionId *PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,2,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3" json:"dataforwardinginfo_target,omitempty"`
+	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,2,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3" json:"dataforwardinginfo_target,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionListwithDataForwardingFromTargetItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionListwithDataForwardingFromTargetItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionListwithDataForwardingFromTargetItem) Reset() {
@@ -37416,7 +37416,7 @@ type PdusessionListwithDataForwardingRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionListwithDataForwardingRequestItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionListwithDataForwardingRequestItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionListwithDataForwardingRequest) Reset() {
@@ -37517,11 +37517,11 @@ type PdusessionListwithDataForwardingRequestItem struct {
 
 	PduSessionId *PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardingInfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,2,opt,name=dataforwarding_infofrom_source,json=dataforwardingInfofromSource,proto3,oneof" json:"dataforwarding_infofrom_source,omitempty"`
+	DataforwardingInfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,2,opt,name=dataforwarding_infofrom_source,json=dataforwardingInfofromSource,proto3,oneof" json:"dataforwarding_infofrom_source,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	DRbtoBeReleasedList *DrbtoQoSflowMappingList `protobuf:"bytes,3,opt,name=d_rbto_be_released_list,json=dRBtoBeReleasedList,proto3,oneof" json:"d_rbto_be_released_list,omitempty"`
+	DRbtoBeReleasedList *DrbtoQoSflowMappingList `protobuf:"bytes,3,opt,name=d_rbto_be_released_list,json=dRBtoBeReleasedList,proto3,oneof" json:"d_rbto_be_released_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionListwithDataForwardingRequestItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionListwithDataForwardingRequestItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionListwithDataForwardingRequestItem) Reset() {
@@ -37592,7 +37592,7 @@ type PdusessionResourcesAdmittedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionResourcesAdmittedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionResourcesAdmittedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionResourcesAdmittedList) Reset() {
@@ -37693,9 +37693,9 @@ type PdusessionResourcesAdmittedItem struct {
 
 	PduSessionId *PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	PduSessionResourceAdmittedInfo *PdusessionResourceAdmittedInfo `protobuf:"bytes,2,opt,name=pdu_session_resource_admitted_info,json=pduSessionResourceAdmittedInfo,proto3" json:"pdu_session_resource_admitted_info,omitempty"`
+	PduSessionResourceAdmittedInfo *PdusessionResourceAdmittedInfo `protobuf:"bytes,2,opt,name=pdu_session_resource_admitted_info,json=pduSessionResourceAdmittedInfo,proto3" json:"pdu_session_resource_admitted_info,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourcesAdmittedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourcesAdmittedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourcesAdmittedItem) Reset() {
@@ -37809,14 +37809,14 @@ type PdusessionResourceAdmittedInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	DLNgUTnlInformationUnchanged *DlngutnlinformationUnchangedPdusessionResourceAdmittedInfo `protobuf:"varint,1,opt,name=d_l_ng_u_tnl_information_unchanged,json=dL-NG-U-TNL-Information-Unchanged,proto3,enum=xnap.v1.DlngutnlinformationUnchangedPdusessionResourceAdmittedInfo,oneof" json:"d_l_ng_u_tnl_information_unchanged,omitempty"`
+	DLNgUTnlInformationUnchanged *DlngutnlinformationUnchangedPdusessionResourceAdmittedInfo `protobuf:"varint,1,opt,name=d_l_ng_u_tnl_information_unchanged,json=dL-NG-U-TNL-Information-Unchanged,proto3,enum=xnap.v1.DlngutnlinformationUnchangedPdusessionResourceAdmittedInfo,oneof" json:"d_l_ng_u_tnl_information_unchanged,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	QosFlowsAdmittedList         *QoSflowsAdmittedList                                       `protobuf:"bytes,2,opt,name=qos_flows_admitted_list,json=qosFlowsAdmitted-List,proto3" json:"qos_flows_admitted_list,omitempty"`
 	// @inject_tag: aper:"optional,"
-	QosFlowsNotAdmittedList *QoSflowsListwithCause `protobuf:"bytes,3,opt,name=qos_flows_not_admitted_list,json=qosFlowsNotAdmitted-List,proto3,oneof" json:"qos_flows_not_admitted_list,omitempty"`
+	QosFlowsNotAdmittedList *QoSflowsListwithCause `protobuf:"bytes,3,opt,name=qos_flows_not_admitted_list,json=qosFlowsNotAdmitted-List,proto3,oneof" json:"qos_flows_not_admitted_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataForwardingInfoFromTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,4,opt,name=data_forwarding_info_from_target,json=dataForwardingInfoFromTarget,proto3,oneof" json:"data_forwarding_info_from_target,omitempty"`
+	DataForwardingInfoFromTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,4,opt,name=data_forwarding_info_from_target,json=dataForwardingInfoFromTarget,proto3,oneof" json:"data_forwarding_info_from_target,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceAdmittedInfoExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceAdmittedInfoExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceAdmittedInfo) Reset() {
@@ -37894,7 +37894,7 @@ type PdusessionResourcesNotAdmittedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionResourcesNotAdmittedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionResourcesNotAdmittedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionResourcesNotAdmittedList) Reset() {
@@ -37995,9 +37995,9 @@ type PdusessionResourcesNotAdmittedItem struct {
 
 	PduSessionId *PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Cause *Cause `protobuf:"bytes,2,opt,name=cause,proto3,oneof" json:"cause,omitempty"`
+	Cause *Cause `protobuf:"bytes,2,opt,name=cause,proto3,oneof" json:"cause,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*PdusessionResourcesNotAdmittedItemItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*PdusessionResourcesNotAdmittedItemItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourcesNotAdmittedItem) Reset() {
@@ -38061,7 +38061,7 @@ type PdusessionResourcesToBeSetupList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionResourcesToBeSetupItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionResourcesToBeSetupItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionResourcesToBeSetupList) Reset() {
@@ -38209,32 +38209,32 @@ type isPdusessionResourcesToBeSetupItemExtIesExtension_PdusessionResourcesToBeSe
 
 type PdusessionResourcesToBeSetupItemExtIesExtension_IdAdditionalUlNgUTnlatUpfList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalUlNgUTnlatUpfList *AdditionalULNGUTNlatUpfList `protobuf:"bytes,1,opt,name=id_additional_ul_ng_u_tnlat_upf_list,json=id-Additional-UL-NG-U-TNLatUPF-List,proto3,oneof"`
+	IdAdditionalUlNgUTnlatUpfList *AdditionalULNGUTNlatUpfList `protobuf:"bytes,1,opt,name=id_additional_ul_ng_u_tnlat_upf_list,json=id-Additional-UL-NG-U-TNLatUPF-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PdusessionResourcesToBeSetupItemExtIesExtension_IdPdusessionCommonNetworkInstance struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdPdusessionCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,2,opt,name=id_pdusession_common_network_instance,json=id-PDUSessionCommonNetworkInstance,proto3,oneof"`
+	IdPdusessionCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,2,opt,name=id_pdusession_common_network_instance,json=id-PDUSessionCommonNetworkInstance,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantUlNgUTnlatUpf struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdRedundantUlNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,3,opt,name=id_redundant_ul_ng_u_tnlat_upf,json=id-Redundant-UL-NG-U-TNLatUPF,proto3,oneof"`
+	IdRedundantUlNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,3,opt,name=id_redundant_ul_ng_u_tnlat_upf,json=id-Redundant-UL-NG-U-TNLatUPF,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type PdusessionResourcesToBeSetupItemExtIesExtension_IdAdditionalRedundantUlNgUTnlatUpfList struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdAdditionalRedundantUlNgUTnlatUpfList *AdditionalULNGUTNlatUpfList `protobuf:"bytes,4,opt,name=id_additional_redundant_ul_ng_u_tnlat_upf_list,json=id-Additional-Redundant-UL-NG-U-TNLatUPF-List,proto3,oneof"`
+	IdAdditionalRedundantUlNgUTnlatUpfList *AdditionalULNGUTNlatUpfList `protobuf:"bytes,4,opt,name=id_additional_redundant_ul_ng_u_tnlat_upf_list,json=id-Additional-Redundant-UL-NG-U-TNLatUPF-List,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantCommonNetworkInstance struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdRedundantCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,5,opt,name=id_redundant_common_network_instance,json=id-RedundantCommonNetworkInstance,proto3,oneof"`
+	IdRedundantCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,5,opt,name=id_redundant_common_network_instance,json=id-RedundantCommonNetworkInstance,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type PdusessionResourcesToBeSetupItemExtIesExtension_IdRedundantPdusessionInformation struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdRedundantPdusessionInformation *RedundantPdusessionInformation `protobuf:"bytes,6,opt,name=id_redundant_pdusession_information,json=id-RedundantPDUSessionInformation,proto3,oneof"`
+	IdRedundantPdusessionInformation *RedundantPdusessionInformation `protobuf:"bytes,6,opt,name=id_redundant_pdusession_information,json=id-RedundantPDUSessionInformation,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 func (*PdusessionResourcesToBeSetupItemExtIesExtension_IdAdditionalUlNgUTnlatUpfList) isPdusessionResourcesToBeSetupItemExtIesExtension_PdusessionResourcesToBeSetupItemExtIes() {
@@ -38264,11 +38264,11 @@ type PdusessionResourcesToBeSetupItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *PdusessionResourcesToBeSetupItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *PdusessionResourcesToBeSetupItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PdusessionResourcesToBeSetupItemExtIes) Reset() {
@@ -38334,23 +38334,23 @@ type PdusessionResourcesToBeSetupItem struct {
 
 	PduSessionId *PdusessionID `protobuf:"bytes,1,opt,name=pdu_session_id,json=pduSessionId,proto3" json:"pdu_session_id,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	SNssai *SNSsai `protobuf:"bytes,2,opt,name=s_nssai,json=s-NSSAI,proto3" json:"s_nssai,omitempty"`
+	SNssai *SNSsai `protobuf:"bytes,2,opt,name=s_nssai,json=s-NSSAI,proto3" json:"s_nssai,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PduSessionAmbr *PdusessionAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=pdu_session_ambr,json=pduSessionAMBR,proto3,oneof" json:"pdu_session_ambr,omitempty"`
+	PduSessionAmbr *PdusessionAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=pdu_session_ambr,json=pduSessionAMBR,proto3,oneof" json:"pdu_session_ambr,omitempty" aper:"optional,valueExt,"`
 	ULNgUTnlatUpf  *UptransportLayerInformation       `protobuf:"bytes,4,opt,name=u_l_ng_u_tnlat_upf,json=uL-NG-U-TNLatUPF,proto3" json:"u_l_ng_u_tnlat_upf,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SourceDlNgUTnlInformation *UptransportLayerInformation `protobuf:"bytes,5,opt,name=source_dl_ng_u_tnl_information,json=source-DL-NG-U-TNL-Information,proto3,oneof" json:"source_dl_ng_u_tnl_information,omitempty"`
+	SourceDlNgUTnlInformation *UptransportLayerInformation `protobuf:"bytes,5,opt,name=source_dl_ng_u_tnl_information,json=source-DL-NG-U-TNL-Information,proto3,oneof" json:"source_dl_ng_u_tnl_information,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SecurityIndication *SecurityIndication `protobuf:"bytes,6,opt,name=security_indication,json=securityIndication,proto3,oneof" json:"security_indication,omitempty"`
+	SecurityIndication *SecurityIndication `protobuf:"bytes,6,opt,name=security_indication,json=securityIndication,proto3,oneof" json:"security_indication,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4,"
-	PduSessionType PdusessionType `protobuf:"varint,7,opt,name=pdu_session_type,json=pduSessionType,proto3,enum=xnap.v1.PdusessionType" json:"pdu_session_type,omitempty"`
+	PduSessionType PdusessionType `protobuf:"varint,7,opt,name=pdu_session_type,json=pduSessionType,proto3,enum=xnap.v1.PdusessionType" json:"pdu_session_type,omitempty" aper:"valueExt,valueLB:0,valueUB:4,"`
 	// @inject_tag: aper:"optional,"
-	PduSessionNetworkInstance *PdusessionNetworkInstance `protobuf:"bytes,8,opt,name=pdu_session_network_instance,json=pduSessionNetworkInstance,proto3,oneof" json:"pdu_session_network_instance,omitempty"`
+	PduSessionNetworkInstance *PdusessionNetworkInstance `protobuf:"bytes,8,opt,name=pdu_session_network_instance,json=pduSessionNetworkInstance,proto3,oneof" json:"pdu_session_network_instance,omitempty" aper:"optional,"`
 	QosFlowsToBeSetupList     *QoSflowsToBeSetupList     `protobuf:"bytes,9,opt,name=qos_flows_to_be_setup_list,json=qosFlowsToBeSetup-List,proto3" json:"qos_flows_to_be_setup_list,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,10,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty"`
+	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,10,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourcesToBeSetupItemExtIes `protobuf:"bytes,11,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourcesToBeSetupItemExtIes `protobuf:"bytes,11,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourcesToBeSetupItem) Reset() {
@@ -38584,42 +38584,42 @@ type isPdusessionResourceSetupInfoSNterminatedExtIesExtension_PdusessionResource
 
 type PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdSecurityResult struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdSecurityResult *SecurityResult `protobuf:"bytes,1,opt,name=id_security_result,json=id-SecurityResult,proto3,oneof"`
+	IdSecurityResult *SecurityResult `protobuf:"bytes,1,opt,name=id_security_result,json=id-SecurityResult,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdPdusessionCommonNetworkInstance struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdPdusessionCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,2,opt,name=id_pdusession_common_network_instance,json=id-PDUSessionCommonNetworkInstance,proto3,oneof"`
+	IdPdusessionCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,2,opt,name=id_pdusession_common_network_instance,json=id-PDUSessionCommonNetworkInstance,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdDefaultDrbAllowed struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:1,"
-	IdDefaultDrbAllowed DefaultDrbAllowed `protobuf:"varint,3,opt,name=id_default_drb_allowed,json=id-DefaultDRB-Allowed,proto3,enum=xnap.v1.DefaultDrbAllowed,oneof"`
+	IdDefaultDrbAllowed DefaultDrbAllowed `protobuf:"varint,3,opt,name=id_default_drb_allowed,json=id-DefaultDRB-Allowed,proto3,enum=xnap.v1.DefaultDrbAllowed,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdSplitSessionIndicator struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,valueLB:0,valueUB:0,"
-	IdSplitSessionIndicator SplitSessionIndicator `protobuf:"varint,4,opt,name=id_split_session_indicator,json=id-SplitSessionIndicator,proto3,enum=xnap.v1.SplitSessionIndicator,oneof"`
+	IdSplitSessionIndicator SplitSessionIndicator `protobuf:"varint,4,opt,name=id_split_session_indicator,json=id-SplitSessionIndicator,proto3,enum=xnap.v1.SplitSessionIndicator,oneof" aper:"choiceIdx:4,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdNonGbrresourcesOffered struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"
-	IdNonGbrresourcesOffered NonGbrresourcesOffered `protobuf:"varint,5,opt,name=id_non_gbrresources_offered,json=id-NonGBRResources-Offered,proto3,enum=xnap.v1.NonGbrresourcesOffered,oneof"`
+	IdNonGbrresourcesOffered NonGbrresourcesOffered `protobuf:"varint,5,opt,name=id_non_gbrresources_offered,json=id-NonGBRResources-Offered,proto3,enum=xnap.v1.NonGbrresourcesOffered,oneof" aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantUlNgUTnlatUpf struct {
 	// @inject_tag: aper:"choiceIdx:6,"
-	IdRedundantUlNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,6,opt,name=id_redundant_ul_ng_u_tnlat_upf,json=id-Redundant-UL-NG-U-TNLatUPF,proto3,oneof"`
+	IdRedundantUlNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,6,opt,name=id_redundant_ul_ng_u_tnlat_upf,json=id-Redundant-UL-NG-U-TNLatUPF,proto3,oneof" aper:"choiceIdx:6,"`
 }
 
 type PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantCommonNetworkInstance struct {
 	// @inject_tag: aper:"choiceIdx:7,"
-	IdRedundantCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,7,opt,name=id_redundant_common_network_instance,json=id-RedundantCommonNetworkInstance,proto3,oneof"`
+	IdRedundantCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,7,opt,name=id_redundant_common_network_instance,json=id-RedundantCommonNetworkInstance,proto3,oneof" aper:"choiceIdx:7,"`
 }
 
 type PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdRedundantPdusessionInformation struct {
 	// @inject_tag: aper:"choiceIdx:8,valueExt,"
-	IdRedundantPdusessionInformation *RedundantPdusessionInformation `protobuf:"bytes,8,opt,name=id_redundant_pdusession_information,json=id-RedundantPDUSessionInformation,proto3,oneof"`
+	IdRedundantPdusessionInformation *RedundantPdusessionInformation `protobuf:"bytes,8,opt,name=id_redundant_pdusession_information,json=id-RedundantPDUSessionInformation,proto3,oneof" aper:"choiceIdx:8,valueExt,"`
 }
 
 func (*PdusessionResourceSetupInfoSNterminatedExtIesExtension_IdSecurityResult) isPdusessionResourceSetupInfoSNterminatedExtIesExtension_PdusessionResourceSetupInfoSnterminatedExtIes() {
@@ -38655,11 +38655,11 @@ type PdusessionResourceSetupInfoSNterminatedExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *PdusessionResourceSetupInfoSNterminatedExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *PdusessionResourceSetupInfoSNterminatedExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PdusessionResourceSetupInfoSNterminatedExtIes) Reset() {
@@ -38725,16 +38725,16 @@ type PdusessionResourceSetupInfoSNterminated struct {
 
 	ULNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,1,opt,name=u_l_ng_u_tnlat_upf,json=uL-NG-U-TNLatUPF,proto3" json:"u_l_ng_u_tnlat_upf,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4,"
-	PduSessionType PdusessionType `protobuf:"varint,2,opt,name=pdu_session_type,json=pduSessionType,proto3,enum=xnap.v1.PdusessionType" json:"pdu_session_type,omitempty"`
+	PduSessionType PdusessionType `protobuf:"varint,2,opt,name=pdu_session_type,json=pduSessionType,proto3,enum=xnap.v1.PdusessionType" json:"pdu_session_type,omitempty" aper:"valueExt,valueLB:0,valueUB:4,"`
 	// @inject_tag: aper:"optional,"
-	PduSessionNetworkInstance *PdusessionNetworkInstance              `protobuf:"bytes,3,opt,name=pdu_session_network_instance,json=pduSessionNetworkInstance,proto3,oneof" json:"pdu_session_network_instance,omitempty"`
+	PduSessionNetworkInstance *PdusessionNetworkInstance              `protobuf:"bytes,3,opt,name=pdu_session_network_instance,json=pduSessionNetworkInstance,proto3,oneof" json:"pdu_session_network_instance,omitempty" aper:"optional,"`
 	QosFlowsToBeSetupList     *QoSflowsToBeSetupListSetupSNterminated `protobuf:"bytes,4,opt,name=qos_flows_to_be_setup_list,json=qosFlowsToBeSetup-List,proto3" json:"qos_flows_to_be_setup_list,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,5,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty"`
+	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,5,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SecurityIndication *SecurityIndication `protobuf:"bytes,6,opt,name=security_indication,json=securityIndication,proto3,oneof" json:"security_indication,omitempty"`
+	SecurityIndication *SecurityIndication `protobuf:"bytes,6,opt,name=security_indication,json=securityIndication,proto3,oneof" json:"security_indication,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceSetupInfoSNterminatedExtIes `protobuf:"bytes,7,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceSetupInfoSNterminatedExtIes `protobuf:"bytes,7,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceSetupInfoSNterminated) Reset() {
@@ -38826,7 +38826,7 @@ type QoSflowsToBeSetupListSetupSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsToBeSetupListSetupSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsToBeSetupListSetupSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsToBeSetupListSetupSNterminated) Reset() {
@@ -38942,12 +38942,12 @@ type isQoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_QoSflowsToBeSet
 
 type QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_IdTsctrafficCharacteristics struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdTsctrafficCharacteristics *TsctrafficCharacteristics `protobuf:"bytes,1,opt,name=id_tsctraffic_characteristics,json=id-TSCTrafficCharacteristics,proto3,oneof"`
+	IdTsctrafficCharacteristics *TsctrafficCharacteristics `protobuf:"bytes,1,opt,name=id_tsctraffic_characteristics,json=id-TSCTrafficCharacteristics,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_IdRedundantQoSflowIndicator struct {
 	// @inject_tag: aper:"choiceIdx:2,valueLB:0,valueUB:1,"
-	IdRedundantQoSflowIndicator RedundantQoSflowIndicator `protobuf:"varint,2,opt,name=id_redundant_qo_sflow_indicator,json=id-RedundantQoSFlowIndicator,proto3,enum=xnap.v1.RedundantQoSflowIndicator,oneof"`
+	IdRedundantQoSflowIndicator RedundantQoSflowIndicator `protobuf:"varint,2,opt,name=id_redundant_qo_sflow_indicator,json=id-RedundantQoSFlowIndicator,proto3,enum=xnap.v1.RedundantQoSflowIndicator,oneof" aper:"choiceIdx:2,valueLB:0,valueUB:1,"`
 }
 
 func (*QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_IdTsctrafficCharacteristics) isQoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension_QoSflowsToBeSetupListSetupSnterminatedItemExtIes() {
@@ -38965,11 +38965,11 @@ type QoSflowsToBeSetupListSetupSNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *QoSflowsToBeSetupListSetupSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *QoSflowsToBeSetupListSetupSNterminatedItemExtIes) Reset() {
@@ -39035,11 +39035,11 @@ type QoSflowsToBeSetupListSetupSNterminatedItem struct {
 
 	Qfi *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qfi,proto3" json:"qfi,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	QosFlowLevelQoSparameters *QoSflowLevelQoSparameters `protobuf:"bytes,2,opt,name=qos_flow_level_qo_sparameters,json=qosFlowLevelQoSParameters,proto3" json:"qos_flow_level_qo_sparameters,omitempty"`
+	QosFlowLevelQoSparameters *QoSflowLevelQoSparameters `protobuf:"bytes,2,opt,name=qos_flow_level_qo_sparameters,json=qosFlowLevelQoSParameters,proto3" json:"qos_flow_level_qo_sparameters,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	OfferedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,3,opt,name=offered_gbrqo_sflow_info,json=offeredGBRQoSFlowInfo,proto3,oneof" json:"offered_gbrqo_sflow_info,omitempty"`
+	OfferedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,3,opt,name=offered_gbrqo_sflow_info,json=offeredGBRQoSFlowInfo,proto3,oneof" json:"offered_gbrqo_sflow_info,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsToBeSetupListSetupSNterminatedItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsToBeSetupListSetupSNterminatedItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsToBeSetupListSetupSNterminatedItem) Reset() {
@@ -39184,17 +39184,17 @@ type isPdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_Pdusession
 
 type PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdDrbIdsTakenintouse struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdDrbIdsTakenintouse *DrbList `protobuf:"bytes,1,opt,name=id_drb_ids_takenintouse,json=id-DRB-IDs-takenintouse,proto3,oneof"`
+	IdDrbIdsTakenintouse *DrbList `protobuf:"bytes,1,opt,name=id_drb_ids_takenintouse,json=id-DRB-IDs-takenintouse,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdRedundantDlNgUTnlatNgRan struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdRedundantDlNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,2,opt,name=id_redundant_dl_ng_u_tnlat_ng_ran,json=id-Redundant-DL-NG-U-TNLatNG-RAN,proto3,oneof"`
+	IdRedundantDlNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,2,opt,name=id_redundant_dl_ng_u_tnlat_ng_ran,json=id-Redundant-DL-NG-U-TNLatNG-RAN,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdUsedRsninformation struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdUsedRsninformation *RedundantPdusessionInformation `protobuf:"bytes,3,opt,name=id_used_rsninformation,json=id-UsedRSNInformation,proto3,oneof"`
+	IdUsedRsninformation *RedundantPdusessionInformation `protobuf:"bytes,3,opt,name=id_used_rsninformation,json=id-UsedRSNInformation,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_IdDrbIdsTakenintouse) isPdusessionResourceSetupResponseInfoSNterminatedExtIesExtension_PdusessionResourceSetupResponseInfoSnterminatedExtIes() {
@@ -39215,11 +39215,11 @@ type PdusessionResourceSetupResponseInfoSNterminatedExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *PdusessionResourceSetupResponseInfoSNterminatedExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PdusessionResourceSetupResponseInfoSNterminatedExtIes) Reset() {
@@ -39285,15 +39285,15 @@ type PdusessionResourceSetupResponseInfoSNterminated struct {
 
 	DLNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,1,opt,name=d_l_ng_u_tnlat_ng_ran,json=dL-NG-U-TNLatNG-RAN,proto3" json:"d_l_ng_u_tnlat_ng_ran,omitempty"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeSetup *DrbsToBeSetupListSetupResponseSNterminated `protobuf:"bytes,2,opt,name=d_rbs_to_be_setup,json=dRBsToBeSetup,proto3,oneof" json:"d_rbs_to_be_setup,omitempty"`
+	DRbsToBeSetup *DrbsToBeSetupListSetupResponseSNterminated `protobuf:"bytes,2,opt,name=d_rbs_to_be_setup,json=dRBsToBeSetup,proto3,oneof" json:"d_rbs_to_be_setup,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,3,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3,oneof" json:"dataforwardinginfo_target,omitempty"`
+	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,3,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3,oneof" json:"dataforwardinginfo_target,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	QosFlowsNotAdmittedList *QoSflowsListwithCause `protobuf:"bytes,4,opt,name=qos_flows_not_admitted_list,json=qosFlowsNotAdmittedList,proto3,oneof" json:"qos_flows_not_admitted_list,omitempty"`
+	QosFlowsNotAdmittedList *QoSflowsListwithCause `protobuf:"bytes,4,opt,name=qos_flows_not_admitted_list,json=qosFlowsNotAdmittedList,proto3,oneof" json:"qos_flows_not_admitted_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	SecurityResult *SecurityResult `protobuf:"bytes,5,opt,name=security_result,json=securityResult,proto3,oneof" json:"security_result,omitempty"`
+	SecurityResult *SecurityResult `protobuf:"bytes,5,opt,name=security_result,json=securityResult,proto3,oneof" json:"security_result,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceSetupResponseInfoSNterminatedExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceSetupResponseInfoSNterminatedExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceSetupResponseInfoSNterminated) Reset() {
@@ -39378,7 +39378,7 @@ type DrbsToBeSetupListSetupResponseSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsToBeSetupListSetupResponseSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsToBeSetupListSetupResponseSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsToBeSetupListSetupResponseSNterminated) Reset() {
@@ -39494,12 +39494,12 @@ type isDrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_DrbsToBeSet
 
 type DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof"`
+	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_IdRlcduplicationInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof"`
+	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList) isDrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension_DrbsToBeSetupListSetupResponseSnterminatedItemExtIes() {
@@ -39517,11 +39517,11 @@ type DrbsToBeSetupListSetupResponseSNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *DrbsToBeSetupListSetupResponseSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DrbsToBeSetupListSetupResponseSNterminatedItemExtIes) Reset() {
@@ -39588,20 +39588,20 @@ type DrbsToBeSetupListSetupResponseSNterminatedItem struct {
 	DrbId             *DrbID                 `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	SNUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=s_n_ul_pdcp_up_tnlinfo,json=sN-UL-PDCP-UP-TNLInfo,proto3" json:"s_n_ul_pdcp_up_tnlinfo,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,3,opt,name=d_rb_qo_s,json=dRB-QoS,proto3" json:"d_rb_qo_s,omitempty"`
+	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,3,opt,name=d_rb_qo_s,json=dRB-QoS,proto3" json:"d_rb_qo_s,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PDcpSnlength *Pdcpsnlength `protobuf:"bytes,4,opt,name=p_dcp_snlength,json=pDCP-SNLength,proto3,oneof" json:"p_dcp_snlength,omitempty"`
+	PDcpSnlength *Pdcpsnlength `protobuf:"bytes,4,opt,name=p_dcp_snlength,json=pDCP-SNLength,proto3,oneof" json:"p_dcp_snlength,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:3,"
-	RLcMode Rlcmode `protobuf:"varint,5,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode" json:"r_lc_mode,omitempty"`
+	RLcMode Rlcmode `protobuf:"varint,5,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode" json:"r_lc_mode,omitempty" aper:"valueExt,valueLB:0,valueUB:3,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	ULConfiguration *Ulconfiguration `protobuf:"bytes,6,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty"`
+	ULConfiguration *Ulconfiguration `protobuf:"bytes,6,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	SecondarySnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,7,opt,name=secondary_sn_ul_pdcp_up_tnlinfo,json=secondary-SN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_sn_ul_pdcp_up_tnlinfo,omitempty"`
+	SecondarySnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,7,opt,name=secondary_sn_ul_pdcp_up_tnlinfo,json=secondary-SN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_sn_ul_pdcp_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	DuplicationActivation                        *DuplicationActivation                        `protobuf:"varint,8,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty"`
+	DuplicationActivation                        *DuplicationActivation                        `protobuf:"varint,8,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	QoSflowsMappedtoDrbSetupResponseSnterminated *QoSflowsMappedtoDrbSetupResponseSNterminated `protobuf:"bytes,9,opt,name=qo_sflows_mappedto_drb_setup_response_snterminated,json=qoSFlowsMappedtoDRB-SetupResponse-SNterminated,proto3" json:"qo_sflows_mappedto_drb_setup_response_snterminated,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeSetupListSetupResponseSNterminatedItemExtIes `protobuf:"bytes,10,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeSetupListSetupResponseSNterminatedItemExtIes `protobuf:"bytes,10,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeSetupListSetupResponseSNterminatedItem) Reset() {
@@ -39714,7 +39714,7 @@ type QoSflowsMappedtoDrbSetupResponseSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsMappedtoDrbSetupResponseSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsMappedtoDrbSetupResponseSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsMappedtoDrbSetupResponseSNterminated) Reset() {
@@ -39830,12 +39830,12 @@ type isQoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_QoSflowsM
 
 type QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_IdCurrentQoSparaSetIndex struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdCurrentQoSparaSetIndex *QoSparaSetIndex `protobuf:"bytes,1,opt,name=id_current_qo_spara_set_index,json=id-CurrentQoSParaSetIndex,proto3,oneof"`
+	IdCurrentQoSparaSetIndex *QoSparaSetIndex `protobuf:"bytes,1,opt,name=id_current_qo_spara_set_index,json=id-CurrentQoSParaSetIndex,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_IdSourceDlforwardingIpaddress struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdSourceDlforwardingIpaddress *TransportLayerAddress `protobuf:"bytes,2,opt,name=id_source_dlforwarding_ipaddress,json=id-SourceDLForwardingIPAddress,proto3,oneof"`
+	IdSourceDlforwardingIpaddress *TransportLayerAddress `protobuf:"bytes,2,opt,name=id_source_dlforwarding_ipaddress,json=id-SourceDLForwardingIPAddress,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_IdCurrentQoSparaSetIndex) isQoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension_QoSflowsMappedtoDrbSetupResponseSnterminatedItemExtIes() {
@@ -39853,11 +39853,11 @@ type QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIes) Reset() {
@@ -39923,11 +39923,11 @@ type QoSflowsMappedtoDrbSetupResponseSNterminatedItem struct {
 
 	QoSflowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qo_sflow_identifier,json=qoSFlowIdentifier,proto3" json:"qo_sflow_identifier,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MCgrequestedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,2,opt,name=m_cgrequested_gbrqo_sflow_info,json=mCGRequestedGBRQoSFlowInfo,proto3,oneof" json:"m_cgrequested_gbrqo_sflow_info,omitempty"`
+	MCgrequestedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,2,opt,name=m_cgrequested_gbrqo_sflow_info,json=mCGRequestedGBRQoSFlowInfo,proto3,oneof" json:"m_cgrequested_gbrqo_sflow_info,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	QosFlowMappingIndication *QoSflowMappingIndication `protobuf:"varint,3,opt,name=qos_flow_mapping_indication,json=qosFlowMappingIndication,proto3,enum=xnap.v1.QoSflowMappingIndication,oneof" json:"qos_flow_mapping_indication,omitempty"`
+	QosFlowMappingIndication *QoSflowMappingIndication `protobuf:"varint,3,opt,name=qos_flow_mapping_indication,json=qosFlowMappingIndication,proto3,enum=xnap.v1.QoSflowMappingIndication,oneof" json:"qos_flow_mapping_indication,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsMappedtoDrbSetupResponseSNterminatedItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsMappedtoDrbSetupResponseSNterminatedItem) Reset() {
@@ -40048,10 +40048,10 @@ type PdusessionResourceSetupInfoMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4,"
-	PduSessionType PdusessionType                      `protobuf:"varint,1,opt,name=pdu_session_type,json=pduSessionType,proto3,enum=xnap.v1.PdusessionType" json:"pdu_session_type,omitempty"`
+	PduSessionType PdusessionType                      `protobuf:"varint,1,opt,name=pdu_session_type,json=pduSessionType,proto3,enum=xnap.v1.PdusessionType" json:"pdu_session_type,omitempty" aper:"valueExt,valueLB:0,valueUB:4,"`
 	DRbsToBeSetup  *DrbsToBeSetupListSetupMNterminated `protobuf:"bytes,2,opt,name=d_rbs_to_be_setup,json=dRBsToBeSetup,proto3" json:"d_rbs_to_be_setup,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceSetupInfoMNterminatedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceSetupInfoMNterminatedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceSetupInfoMNterminated) Reset() {
@@ -40115,7 +40115,7 @@ type DrbsToBeSetupListSetupMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsToBeSetupListSetupMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsToBeSetupListSetupMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsToBeSetupListSetupMNterminated) Reset() {
@@ -40231,12 +40231,12 @@ type isDrbsToBeSetupListSetupMNterminatedItemExtIesExtension_DrbsToBeSetupListSe
 
 type DrbsToBeSetupListSetupMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof"`
+	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DrbsToBeSetupListSetupMNterminatedItemExtIesExtension_IdRlcduplicationInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof"`
+	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*DrbsToBeSetupListSetupMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList) isDrbsToBeSetupListSetupMNterminatedItemExtIesExtension_DrbsToBeSetupListSetupMnterminatedItemExtIes() {
@@ -40254,11 +40254,11 @@ type DrbsToBeSetupListSetupMNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *DrbsToBeSetupListSetupMNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *DrbsToBeSetupListSetupMNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DrbsToBeSetupListSetupMNterminatedItemExtIes) Reset() {
@@ -40325,20 +40325,20 @@ type DrbsToBeSetupListSetupMNterminatedItem struct {
 	DrbId             *DrbID                 `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	MNUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=m_n_ul_pdcp_up_tnlinfo,json=mN-UL-PDCP-UP-TNLInfo,proto3" json:"m_n_ul_pdcp_up_tnlinfo,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:3,"
-	RLcMode Rlcmode `protobuf:"varint,3,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode" json:"r_lc_mode,omitempty"`
+	RLcMode Rlcmode `protobuf:"varint,3,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode" json:"r_lc_mode,omitempty" aper:"valueExt,valueLB:0,valueUB:3,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	ULConfiguration *Ulconfiguration `protobuf:"bytes,4,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty"`
+	ULConfiguration *Ulconfiguration `protobuf:"bytes,4,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,5,opt,name=d_rb_qo_s,json=dRB-QoS,proto3" json:"d_rb_qo_s,omitempty"`
+	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,5,opt,name=d_rb_qo_s,json=dRB-QoS,proto3" json:"d_rb_qo_s,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PDcpSnlength *Pdcpsnlength `protobuf:"bytes,6,opt,name=p_dcp_snlength,json=pDCP-SNLength,proto3,oneof" json:"p_dcp_snlength,omitempty"`
+	PDcpSnlength *Pdcpsnlength `protobuf:"bytes,6,opt,name=p_dcp_snlength,json=pDCP-SNLength,proto3,oneof" json:"p_dcp_snlength,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	SecondaryMnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,7,opt,name=secondary_mn_ul_pdcp_up_tnlinfo,json=secondary-MN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_mn_ul_pdcp_up_tnlinfo,omitempty"`
+	SecondaryMnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,7,opt,name=secondary_mn_ul_pdcp_up_tnlinfo,json=secondary-MN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_mn_ul_pdcp_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	DuplicationActivation                *DuplicationActivation                `protobuf:"varint,8,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty"`
+	DuplicationActivation                *DuplicationActivation                `protobuf:"varint,8,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	QoSflowsMappedtoDrbSetupMnterminated *QoSflowsMappedtoDrbSetupMNterminated `protobuf:"bytes,9,opt,name=qo_sflows_mappedto_drb_setup_mnterminated,json=qoSFlowsMappedtoDRB-Setup-MNterminated,proto3" json:"qo_sflows_mappedto_drb_setup_mnterminated,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeSetupListSetupMNterminatedItemExtIes `protobuf:"bytes,10,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeSetupListSetupMNterminatedItemExtIes `protobuf:"bytes,10,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeSetupListSetupMNterminatedItem) Reset() {
@@ -40451,7 +40451,7 @@ type QoSflowsMappedtoDrbSetupMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsMappedtoDrbSetupMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsMappedtoDrbSetupMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsMappedtoDrbSetupMNterminated) Reset() {
@@ -40552,11 +40552,11 @@ type QoSflowsMappedtoDrbSetupMNterminatedItem struct {
 
 	QoSflowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qo_sflow_identifier,json=qoSFlowIdentifier,proto3" json:"qo_sflow_identifier,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	QoSflowLevelQoSparameters *QoSflowLevelQoSparameters `protobuf:"bytes,2,opt,name=qo_sflow_level_qo_sparameters,json=qoSFlowLevelQoSParameters,proto3" json:"qo_sflow_level_qo_sparameters,omitempty"`
+	QoSflowLevelQoSparameters *QoSflowLevelQoSparameters `protobuf:"bytes,2,opt,name=qo_sflow_level_qo_sparameters,json=qoSFlowLevelQoSParameters,proto3" json:"qo_sflow_level_qo_sparameters,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	QosFlowMappingIndication *QoSflowMappingIndication `protobuf:"varint,3,opt,name=qos_flow_mapping_indication,json=qosFlowMappingIndication,proto3,enum=xnap.v1.QoSflowMappingIndication,oneof" json:"qos_flow_mapping_indication,omitempty"`
+	QosFlowMappingIndication *QoSflowMappingIndication `protobuf:"varint,3,opt,name=qos_flow_mapping_indication,json=qosFlowMappingIndication,proto3,enum=xnap.v1.QoSflowMappingIndication,oneof" json:"qos_flow_mapping_indication,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsMappedtoDrbSetupMNterminatedItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsMappedtoDrbSetupMNterminatedItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsMappedtoDrbSetupMNterminatedItem) Reset() {
@@ -40678,7 +40678,7 @@ type PdusessionResourceSetupResponseInfoMNterminated struct {
 
 	DRbsAdmittedList *DrbsAdmittedListSetupResponseMNterminated `protobuf:"bytes,1,opt,name=d_rbs_admitted_list,json=dRBsAdmittedList,proto3" json:"d_rbs_admitted_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceSetupResponseInfoMNterminatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceSetupResponseInfoMNterminatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceSetupResponseInfoMNterminated) Reset() {
@@ -40735,7 +40735,7 @@ type DrbsAdmittedListSetupResponseMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsAdmittedListSetupResponseMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsAdmittedListSetupResponseMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsAdmittedListSetupResponseMNterminated) Reset() {
@@ -40851,12 +40851,12 @@ type isDrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_DrbsAdmitted
 
 type DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof"`
+	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_IdQoSflowsMappedtoDrbSetupResponseMnterminated struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdQoSflowsMappedtoDrbSetupResponseMnterminated *QoSflowsMappedtoDrbSetupResponseMNterminated `protobuf:"bytes,2,opt,name=id_qo_sflows_mappedto_drb_setup_response_mnterminated,json=id-QoSFlowsMappedtoDRB-SetupResponse-MNterminated,proto3,oneof"`
+	IdQoSflowsMappedtoDrbSetupResponseMnterminated *QoSflowsMappedtoDrbSetupResponseMNterminated `protobuf:"bytes,2,opt,name=id_qo_sflows_mappedto_drb_setup_response_mnterminated,json=id-QoSFlowsMappedtoDRB-SetupResponse-MNterminated,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList) isDrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension_DrbsAdmittedListSetupResponseMnterminatedItemExtIes() {
@@ -40874,11 +40874,11 @@ type DrbsAdmittedListSetupResponseMNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *DrbsAdmittedListSetupResponseMNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DrbsAdmittedListSetupResponseMNterminatedItemExtIes) Reset() {
@@ -40945,11 +40945,11 @@ type DrbsAdmittedListSetupResponseMNterminatedItem struct {
 	DrbId            *DrbID                 `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	SNDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=s_n_dl_scg_up_tnlinfo,json=sN-DL-SCG-UP-TNLInfo,proto3" json:"s_n_dl_scg_up_tnlinfo,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SecondarySnDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=secondary_sn_dl_scg_up_tnlinfo,json=secondary-SN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"secondary_sn_dl_scg_up_tnlinfo,omitempty"`
+	SecondarySnDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=secondary_sn_dl_scg_up_tnlinfo,json=secondary-SN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"secondary_sn_dl_scg_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty"`
+	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsAdmittedListSetupResponseMNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsAdmittedListSetupResponseMNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsAdmittedListSetupResponseMNterminatedItem) Reset() {
@@ -41027,7 +41027,7 @@ type QoSflowsMappedtoDrbSetupResponseMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsMappedtoDrbSetupResponseMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsMappedtoDrbSetupResponseMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsMappedtoDrbSetupResponseMNterminated) Reset() {
@@ -41129,7 +41129,7 @@ type QoSflowsMappedtoDrbSetupResponseMNterminatedItem struct {
 	QoSflowIdentifier      *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qo_sflow_identifier,json=qoSFlowIdentifier,proto3" json:"qo_sflow_identifier,omitempty"`
 	CurrentQoSparaSetIndex *QoSparaSetIndex   `protobuf:"bytes,2,opt,name=current_qo_spara_set_index,json=currentQoSParaSetIndex,proto3" json:"current_qo_spara_set_index,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsMappedtoDrbSetupResponseMNterminatedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsMappedtoDrbSetupResponseMNterminatedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsMappedtoDrbSetupResponseMNterminatedItem) Reset() {
@@ -41291,32 +41291,32 @@ type isPdusessionResourceModificationInfoSNterminatedExtIesExtension_PdusessionR
 
 type PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdPdusessionCommonNetworkInstance struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdPdusessionCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,1,opt,name=id_pdusession_common_network_instance,json=id-PDUSessionCommonNetworkInstance,proto3,oneof"`
+	IdPdusessionCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,1,opt,name=id_pdusession_common_network_instance,json=id-PDUSessionCommonNetworkInstance,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdDefaultDrbAllowed struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:1,"
-	IdDefaultDrbAllowed DefaultDrbAllowed `protobuf:"varint,2,opt,name=id_default_drb_allowed,json=id-DefaultDRB-Allowed,proto3,enum=xnap.v1.DefaultDrbAllowed,oneof"`
+	IdDefaultDrbAllowed DefaultDrbAllowed `protobuf:"varint,2,opt,name=id_default_drb_allowed,json=id-DefaultDRB-Allowed,proto3,enum=xnap.v1.DefaultDrbAllowed,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdNonGbrresourcesOffered struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:0,"
-	IdNonGbrresourcesOffered NonGbrresourcesOffered `protobuf:"varint,3,opt,name=id_non_gbrresources_offered,json=id-NonGBRResources-Offered,proto3,enum=xnap.v1.NonGbrresourcesOffered,oneof"`
+	IdNonGbrresourcesOffered NonGbrresourcesOffered `protobuf:"varint,3,opt,name=id_non_gbrresources_offered,json=id-NonGBRResources-Offered,proto3,enum=xnap.v1.NonGbrresourcesOffered,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdRedundantUlNgUTnlatUpf struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdRedundantUlNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,4,opt,name=id_redundant_ul_ng_u_tnlat_upf,json=id-Redundant-UL-NG-U-TNLatUPF,proto3,oneof"`
+	IdRedundantUlNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,4,opt,name=id_redundant_ul_ng_u_tnlat_upf,json=id-Redundant-UL-NG-U-TNLatUPF,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdRedundantCommonNetworkInstance struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdRedundantCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,5,opt,name=id_redundant_common_network_instance,json=id-RedundantCommonNetworkInstance,proto3,oneof"`
+	IdRedundantCommonNetworkInstance *PdusessionCommonNetworkInstance `protobuf:"bytes,5,opt,name=id_redundant_common_network_instance,json=id-RedundantCommonNetworkInstance,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdSecurityIndication struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,"
-	IdSecurityIndication *SecurityIndication `protobuf:"bytes,6,opt,name=id_security_indication,json=id-SecurityIndication,proto3,oneof"`
+	IdSecurityIndication *SecurityIndication `protobuf:"bytes,6,opt,name=id_security_indication,json=id-SecurityIndication,proto3,oneof" aper:"choiceIdx:6,valueExt,"`
 }
 
 func (*PdusessionResourceModificationInfoSNterminatedExtIesExtension_IdPdusessionCommonNetworkInstance) isPdusessionResourceModificationInfoSNterminatedExtIesExtension_PdusessionResourceModificationInfoSnterminatedExtIes() {
@@ -41346,11 +41346,11 @@ type PdusessionResourceModificationInfoSNterminatedExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *PdusessionResourceModificationInfoSNterminatedExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *PdusessionResourceModificationInfoSNterminatedExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PdusessionResourceModificationInfoSNterminatedExtIes) Reset() {
@@ -41415,23 +41415,23 @@ type PdusessionResourceModificationInfoSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ULNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,1,opt,name=u_l_ng_u_tnlat_upf,json=uL-NG-U-TNLatUPF,proto3,oneof" json:"u_l_ng_u_tnlat_upf,omitempty"`
+	ULNgUTnlatUpf *UptransportLayerInformation `protobuf:"bytes,1,opt,name=u_l_ng_u_tnlat_upf,json=uL-NG-U-TNLatUPF,proto3,oneof" json:"u_l_ng_u_tnlat_upf,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	PduSessionNetworkInstance *PdusessionNetworkInstance `protobuf:"bytes,2,opt,name=pdu_session_network_instance,json=pduSessionNetworkInstance,proto3,oneof" json:"pdu_session_network_instance,omitempty"`
+	PduSessionNetworkInstance *PdusessionNetworkInstance `protobuf:"bytes,2,opt,name=pdu_session_network_instance,json=pduSessionNetworkInstance,proto3,oneof" json:"pdu_session_network_instance,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	QosFlowsToBeSetupList *QoSflowsToBeSetupListSetupSNterminated `protobuf:"bytes,3,opt,name=qos_flows_to_be_setup_list,json=qosFlowsToBeSetup-List,proto3,oneof" json:"qos_flows_to_be_setup_list,omitempty"`
+	QosFlowsToBeSetupList *QoSflowsToBeSetupListSetupSNterminated `protobuf:"bytes,3,opt,name=qos_flows_to_be_setup_list,json=qosFlowsToBeSetup-List,proto3,oneof" json:"qos_flows_to_be_setup_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,4,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty"`
+	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,4,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	QosFlowsToBeModifiedList *QoSflowsToBeSetupListModifiedSNterminated `protobuf:"bytes,5,opt,name=qos_flows_to_be_modified_list,json=qosFlowsToBeModified-List,proto3,oneof" json:"qos_flows_to_be_modified_list,omitempty"`
+	QosFlowsToBeModifiedList *QoSflowsToBeSetupListModifiedSNterminated `protobuf:"bytes,5,opt,name=qos_flows_to_be_modified_list,json=qosFlowsToBeModified-List,proto3,oneof" json:"qos_flows_to_be_modified_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	QoSflowsToBeReleasedList *QoSflowsListwithCause `protobuf:"bytes,6,opt,name=qo_sflows_to_be_released_list,json=qoSFlowsToBeReleased-List,proto3,oneof" json:"qo_sflows_to_be_released_list,omitempty"`
+	QoSflowsToBeReleasedList *QoSflowsListwithCause `protobuf:"bytes,6,opt,name=qo_sflows_to_be_released_list,json=qoSFlowsToBeReleased-List,proto3,oneof" json:"qo_sflows_to_be_released_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DrbsToBeModifiedList *DrbsToBeModifiedListModifiedSNterminated `protobuf:"bytes,7,opt,name=drbs_to_be_modified_list,json=drbsToBeModifiedList,proto3,oneof" json:"drbs_to_be_modified_list,omitempty"`
+	DrbsToBeModifiedList *DrbsToBeModifiedListModifiedSNterminated `protobuf:"bytes,7,opt,name=drbs_to_be_modified_list,json=drbsToBeModifiedList,proto3,oneof" json:"drbs_to_be_modified_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,8,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty"`
+	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,8,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceModificationInfoSNterminatedExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceModificationInfoSNterminatedExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceModificationInfoSNterminated) Reset() {
@@ -41537,7 +41537,7 @@ type QoSflowsToBeSetupListModifiedSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsToBeSetupListModifiedSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsToBeSetupListModifiedSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsToBeSetupListModifiedSNterminated) Reset() {
@@ -41653,12 +41653,12 @@ type isQoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_QoSflowsToBe
 
 type QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_IdTsctrafficCharacteristics struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdTsctrafficCharacteristics *TsctrafficCharacteristics `protobuf:"bytes,1,opt,name=id_tsctraffic_characteristics,json=id-TSCTrafficCharacteristics,proto3,oneof"`
+	IdTsctrafficCharacteristics *TsctrafficCharacteristics `protobuf:"bytes,1,opt,name=id_tsctraffic_characteristics,json=id-TSCTrafficCharacteristics,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_IdRedundantQoSflowIndicator struct {
 	// @inject_tag: aper:"choiceIdx:2,valueLB:0,valueUB:1,"
-	IdRedundantQoSflowIndicator RedundantQoSflowIndicator `protobuf:"varint,2,opt,name=id_redundant_qo_sflow_indicator,json=id-RedundantQoSFlowIndicator,proto3,enum=xnap.v1.RedundantQoSflowIndicator,oneof"`
+	IdRedundantQoSflowIndicator RedundantQoSflowIndicator `protobuf:"varint,2,opt,name=id_redundant_qo_sflow_indicator,json=id-RedundantQoSFlowIndicator,proto3,enum=xnap.v1.RedundantQoSflowIndicator,oneof" aper:"choiceIdx:2,valueLB:0,valueUB:1,"`
 }
 
 func (*QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_IdTsctrafficCharacteristics) isQoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension_QoSflowsToBeSetupListModifiedSnterminatedItemExtIes() {
@@ -41676,11 +41676,11 @@ type QoSflowsToBeSetupListModifiedSNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *QoSflowsToBeSetupListModifiedSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *QoSflowsToBeSetupListModifiedSNterminatedItemExtIes) Reset() {
@@ -41746,13 +41746,13 @@ type QoSflowsToBeSetupListModifiedSNterminatedItem struct {
 
 	Qfi *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qfi,proto3" json:"qfi,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	QosFlowLevelQoSparameters *QoSflowLevelQoSparameters `protobuf:"bytes,2,opt,name=qos_flow_level_qo_sparameters,json=qosFlowLevelQoSParameters,proto3,oneof" json:"qos_flow_level_qo_sparameters,omitempty"`
+	QosFlowLevelQoSparameters *QoSflowLevelQoSparameters `protobuf:"bytes,2,opt,name=qos_flow_level_qo_sparameters,json=qosFlowLevelQoSParameters,proto3,oneof" json:"qos_flow_level_qo_sparameters,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	OfferedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,3,opt,name=offered_gbrqo_sflow_info,json=offeredGBRQoSFlowInfo,proto3,oneof" json:"offered_gbrqo_sflow_info,omitempty"`
+	OfferedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,3,opt,name=offered_gbrqo_sflow_info,json=offeredGBRQoSFlowInfo,proto3,oneof" json:"offered_gbrqo_sflow_info,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	QosFlowMappingIndication *QoSflowMappingIndication `protobuf:"varint,4,opt,name=qos_flow_mapping_indication,json=qosFlowMappingIndication,proto3,enum=xnap.v1.QoSflowMappingIndication,oneof" json:"qos_flow_mapping_indication,omitempty"`
+	QosFlowMappingIndication *QoSflowMappingIndication `protobuf:"varint,4,opt,name=qos_flow_mapping_indication,json=qosFlowMappingIndication,proto3,enum=xnap.v1.QoSflowMappingIndication,oneof" json:"qos_flow_mapping_indication,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsToBeSetupListModifiedSNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsToBeSetupListModifiedSNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsToBeSetupListModifiedSNterminatedItem) Reset() {
@@ -41830,7 +41830,7 @@ type DrbsToBeModifiedListModifiedSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsToBeModifiedListModifiedSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsToBeModifiedListModifiedSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsToBeModifiedListModifiedSNterminated) Reset() {
@@ -41931,15 +41931,15 @@ type DrbsToBeModifiedListModifiedSNterminatedItem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	MNDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=m_n_dl_scg_up_tnlinfo,json=mN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"m_n_dl_scg_up_tnlinfo,omitempty"`
+	MNDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=m_n_dl_scg_up_tnlinfo,json=mN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"m_n_dl_scg_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	SecondaryMnDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=secondary_mn_dl_scg_up_tnlinfo,json=secondary-MN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"secondary_mn_dl_scg_up_tnlinfo,omitempty"`
+	SecondaryMnDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=secondary_mn_dl_scg_up_tnlinfo,json=secondary-MN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"secondary_mn_dl_scg_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty"`
+	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	RlcStatus *RlcStatus `protobuf:"bytes,5,opt,name=rlc_status,json=rlc-status,proto3,oneof" json:"rlc_status,omitempty"`
+	RlcStatus *RlcStatus `protobuf:"bytes,5,opt,name=rlc_status,json=rlc-status,proto3,oneof" json:"rlc_status,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeModifiedListModifiedSNterminatedItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeModifiedListModifiedSNterminatedItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeModifiedListModifiedSNterminatedItem) Reset() {
@@ -42098,17 +42098,17 @@ type isPdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_Pdu
 
 type PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdDrbIdsTakenintouse struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdDrbIdsTakenintouse *DrbList `protobuf:"bytes,1,opt,name=id_drb_ids_takenintouse,json=id-DRB-IDs-takenintouse,proto3,oneof"`
+	IdDrbIdsTakenintouse *DrbList `protobuf:"bytes,1,opt,name=id_drb_ids_takenintouse,json=id-DRB-IDs-takenintouse,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdRedundantDlNgUTnlatNgRan struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdRedundantDlNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,2,opt,name=id_redundant_dl_ng_u_tnlat_ng_ran,json=id-Redundant-DL-NG-U-TNLatNG-RAN,proto3,oneof"`
+	IdRedundantDlNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,2,opt,name=id_redundant_dl_ng_u_tnlat_ng_ran,json=id-Redundant-DL-NG-U-TNLatNG-RAN,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdSecurityResult struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdSecurityResult *SecurityResult `protobuf:"bytes,3,opt,name=id_security_result,json=id-SecurityResult,proto3,oneof"`
+	IdSecurityResult *SecurityResult `protobuf:"bytes,3,opt,name=id_security_result,json=id-SecurityResult,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 func (*PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_IdDrbIdsTakenintouse) isPdusessionResourceModificationResponseInfoSNterminatedExtIesExtension_PdusessionResourceModificationResponseInfoSnterminatedExtIes() {
@@ -42129,11 +42129,11 @@ type PdusessionResourceModificationResponseInfoSNterminatedExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *PdusessionResourceModificationResponseInfoSNterminatedExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *PdusessionResourceModificationResponseInfoSNterminatedExtIes) Reset() {
@@ -42198,23 +42198,23 @@ type PdusessionResourceModificationResponseInfoSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	DLNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,1,opt,name=d_l_ng_u_tnlat_ng_ran,json=dL-NG-U-TNLatNG-RAN,proto3,oneof" json:"d_l_ng_u_tnlat_ng_ran,omitempty"`
+	DLNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,1,opt,name=d_l_ng_u_tnlat_ng_ran,json=dL-NG-U-TNLatNG-RAN,proto3,oneof" json:"d_l_ng_u_tnlat_ng_ran,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeSetup *DrbsToBeSetupListSetupResponseSNterminated `protobuf:"bytes,2,opt,name=d_rbs_to_be_setup,json=dRBsToBeSetup,proto3,oneof" json:"d_rbs_to_be_setup,omitempty"`
+	DRbsToBeSetup *DrbsToBeSetupListSetupResponseSNterminated `protobuf:"bytes,2,opt,name=d_rbs_to_be_setup,json=dRBsToBeSetup,proto3,oneof" json:"d_rbs_to_be_setup,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,3,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3,oneof" json:"dataforwardinginfo_target,omitempty"`
+	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,3,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3,oneof" json:"dataforwardinginfo_target,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeModified *DrbsToBeModifiedListModificationResponseSNterminated `protobuf:"bytes,4,opt,name=d_rbs_to_be_modified,json=dRBsToBeModified,proto3,oneof" json:"d_rbs_to_be_modified,omitempty"`
+	DRbsToBeModified *DrbsToBeModifiedListModificationResponseSNterminated `protobuf:"bytes,4,opt,name=d_rbs_to_be_modified,json=dRBsToBeModified,proto3,oneof" json:"d_rbs_to_be_modified,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,5,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty"`
+	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,5,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,6,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty"`
+	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,6,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	QosFlowsNotAdmittedTbadded *QoSflowsListwithCause `protobuf:"bytes,7,opt,name=qos_flows_not_admitted_tbadded,json=qosFlowsNotAdmittedTBAdded,proto3,oneof" json:"qos_flows_not_admitted_tbadded,omitempty"`
+	QosFlowsNotAdmittedTbadded *QoSflowsListwithCause `protobuf:"bytes,7,opt,name=qos_flows_not_admitted_tbadded,json=qosFlowsNotAdmittedTBAdded,proto3,oneof" json:"qos_flows_not_admitted_tbadded,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	QosFlowsReleased *QoSflowsListwithCause `protobuf:"bytes,8,opt,name=qos_flows_released,json=qosFlowsReleased,proto3,oneof" json:"qos_flows_released,omitempty"`
+	QosFlowsReleased *QoSflowsListwithCause `protobuf:"bytes,8,opt,name=qos_flows_released,json=qosFlowsReleased,proto3,oneof" json:"qos_flows_released,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceModificationResponseInfoSNterminatedExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceModificationResponseInfoSNterminatedExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceModificationResponseInfoSNterminated) Reset() {
@@ -42320,7 +42320,7 @@ type DrbsToBeModifiedListModificationResponseSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsToBeModifiedListModificationResponseSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsToBeModifiedListModificationResponseSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsToBeModifiedListModificationResponseSNterminated) Reset() {
@@ -42460,27 +42460,27 @@ type isDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_D
 
 type DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof"`
+	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdRlcduplicationInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof"`
+	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdSecondarySnUlPdcpUpTnlinfo struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdSecondarySnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=id_secondary_sn_ul_pdcp_up_tnlinfo,json=id-secondary-SN-UL-PDCP-UP-TNLInfo,proto3,oneof"`
+	IdSecondarySnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=id_secondary_sn_ul_pdcp_up_tnlinfo,json=id-secondary-SN-UL-PDCP-UP-TNLInfo,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdPdcpDuplicationConfiguration struct {
 	// @inject_tag: aper:"choiceIdx:4,valueExt,valueLB:0,valueUB:1,"
-	IdPdcpDuplicationConfiguration PdcpduplicationConfiguration `protobuf:"varint,4,opt,name=id_pdcp_duplication_configuration,json=id-pdcpDuplicationConfiguration,proto3,enum=xnap.v1.PdcpduplicationConfiguration,oneof"`
+	IdPdcpDuplicationConfiguration PdcpduplicationConfiguration `protobuf:"varint,4,opt,name=id_pdcp_duplication_configuration,json=id-pdcpDuplicationConfiguration,proto3,enum=xnap.v1.PdcpduplicationConfiguration,oneof" aper:"choiceIdx:4,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdDuplicationActivation struct {
 	// @inject_tag: aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:1,"
-	IdDuplicationActivation DuplicationActivation `protobuf:"varint,5,opt,name=id_duplication_activation,json=id-duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof"`
+	IdDuplicationActivation DuplicationActivation `protobuf:"varint,5,opt,name=id_duplication_activation,json=id-duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" aper:"choiceIdx:5,valueExt,valueLB:0,valueUB:1,"`
 }
 
 func (*DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList) isDrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension_DrbsToBeModifiedListModificationResponseSnterminatedItemExtIes() {
@@ -42507,11 +42507,11 @@ type DrbsToBeModifiedListModificationResponseSNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *DrbsToBeModifiedListModificationResponseSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DrbsToBeModifiedListModificationResponseSNterminatedItemExtIes) Reset() {
@@ -42577,13 +42577,13 @@ type DrbsToBeModifiedListModificationResponseSNterminatedItem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SNUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=s_n_ul_pdcp_up_tnlinfo,json=sN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"s_n_ul_pdcp_up_tnlinfo,omitempty"`
+	SNUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=s_n_ul_pdcp_up_tnlinfo,json=sN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"s_n_ul_pdcp_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,3,opt,name=d_rb_qo_s,json=dRB-QoS,proto3,oneof" json:"d_rb_qo_s,omitempty"`
+	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,3,opt,name=d_rb_qo_s,json=dRB-QoS,proto3,oneof" json:"d_rb_qo_s,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	QoSflowsMappedtoDrbSetupResponseSnterminated *QoSflowsMappedtoDrbSetupResponseSNterminated `protobuf:"bytes,4,opt,name=qo_sflows_mappedto_drb_setup_response_snterminated,json=qoSFlowsMappedtoDRB-SetupResponse-SNterminated,proto3,oneof" json:"qo_sflows_mappedto_drb_setup_response_snterminated,omitempty"`
+	QoSflowsMappedtoDrbSetupResponseSnterminated *QoSflowsMappedtoDrbSetupResponseSNterminated `protobuf:"bytes,4,opt,name=qo_sflows_mappedto_drb_setup_response_snterminated,json=qoSFlowsMappedtoDRB-SetupResponse-SNterminated,proto3,oneof" json:"qo_sflows_mappedto_drb_setup_response_snterminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeModifiedListModificationResponseSNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeModifiedListModificationResponseSNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeModifiedListModificationResponseSNterminatedItem) Reset() {
@@ -42711,15 +42711,15 @@ type PdusessionResourceModificationInfoMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:4,"
-	PduSessionType PdusessionType `protobuf:"varint,1,opt,name=pdu_session_type,json=pduSessionType,proto3,enum=xnap.v1.PdusessionType" json:"pdu_session_type,omitempty"`
+	PduSessionType PdusessionType `protobuf:"varint,1,opt,name=pdu_session_type,json=pduSessionType,proto3,enum=xnap.v1.PdusessionType" json:"pdu_session_type,omitempty" aper:"valueExt,valueLB:0,valueUB:4,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeSetup *DrbsToBeSetupListSetupMNterminated `protobuf:"bytes,2,opt,name=d_rbs_to_be_setup,json=dRBsToBeSetup,proto3,oneof" json:"d_rbs_to_be_setup,omitempty"`
+	DRbsToBeSetup *DrbsToBeSetupListSetupMNterminated `protobuf:"bytes,2,opt,name=d_rbs_to_be_setup,json=dRBsToBeSetup,proto3,oneof" json:"d_rbs_to_be_setup,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeModified *DrbsToBeModifiedListModificationMNterminated `protobuf:"bytes,3,opt,name=d_rbs_to_be_modified,json=dRBsToBeModified,proto3,oneof" json:"d_rbs_to_be_modified,omitempty"`
+	DRbsToBeModified *DrbsToBeModifiedListModificationMNterminated `protobuf:"bytes,3,opt,name=d_rbs_to_be_modified,json=dRBsToBeModified,proto3,oneof" json:"d_rbs_to_be_modified,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,4,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty"`
+	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,4,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceModificationInfoMNterminatedExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceModificationInfoMNterminatedExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceModificationInfoMNterminated) Reset() {
@@ -42797,7 +42797,7 @@ type DrbsToBeModifiedListModificationMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsToBeModifiedListModificationMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsToBeModifiedListModificationMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsToBeModifiedListModificationMNterminated) Reset() {
@@ -42913,12 +42913,12 @@ type isDrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_DrbsToBeM
 
 type DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof"`
+	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_IdRlcduplicationInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof"`
+	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList) isDrbsToBeModifiedListModificationMNterminatedItemExtIesExtension_DrbsToBeModifiedListModificationMnterminatedItemExtIes() {
@@ -42936,11 +42936,11 @@ type DrbsToBeModifiedListModificationMNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *DrbsToBeModifiedListModificationMNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DrbsToBeModifiedListModificationMNterminatedItemExtIes) Reset() {
@@ -43006,21 +43006,21 @@ type DrbsToBeModifiedListModificationMNterminatedItem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	MNUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=m_n_ul_pdcp_up_tnlinfo,json=mN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"m_n_ul_pdcp_up_tnlinfo,omitempty"`
+	MNUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=m_n_ul_pdcp_up_tnlinfo,json=mN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"m_n_ul_pdcp_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,3,opt,name=d_rb_qo_s,json=dRB-QoS,proto3,oneof" json:"d_rb_qo_s,omitempty"`
+	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,3,opt,name=d_rb_qo_s,json=dRB-QoS,proto3,oneof" json:"d_rb_qo_s,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	SecondaryMnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,4,opt,name=secondary_mn_ul_pdcp_up_tnlinfo,json=secondary-MN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_mn_ul_pdcp_up_tnlinfo,omitempty"`
+	SecondaryMnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,4,opt,name=secondary_mn_ul_pdcp_up_tnlinfo,json=secondary-MN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_mn_ul_pdcp_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	ULConfiguration *Ulconfiguration `protobuf:"bytes,5,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty"`
+	ULConfiguration *Ulconfiguration `protobuf:"bytes,5,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	PdcpDuplicationConfiguration *PdcpduplicationConfiguration `protobuf:"varint,6,opt,name=pdcp_duplication_configuration,json=pdcpDuplicationConfiguration,proto3,enum=xnap.v1.PdcpduplicationConfiguration,oneof" json:"pdcp_duplication_configuration,omitempty"`
+	PdcpDuplicationConfiguration *PdcpduplicationConfiguration `protobuf:"varint,6,opt,name=pdcp_duplication_configuration,json=pdcpDuplicationConfiguration,proto3,enum=xnap.v1.PdcpduplicationConfiguration,oneof" json:"pdcp_duplication_configuration,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	DuplicationActivation *DuplicationActivation `protobuf:"varint,7,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty"`
+	DuplicationActivation *DuplicationActivation `protobuf:"varint,7,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,"
-	QoSflowsMappedtoDrbSetupMnterminated *QoSflowsMappedtoDrbSetupMNterminated `protobuf:"bytes,8,opt,name=qo_sflows_mappedto_drb_setup_mnterminated,json=qoSFlowsMappedtoDRB-Setup-MNterminated,proto3,oneof" json:"qo_sflows_mappedto_drb_setup_mnterminated,omitempty"`
+	QoSflowsMappedtoDrbSetupMnterminated *QoSflowsMappedtoDrbSetupMNterminated `protobuf:"bytes,8,opt,name=qo_sflows_mappedto_drb_setup_mnterminated,json=qoSFlowsMappedtoDRB-Setup-MNterminated,proto3,oneof" json:"qo_sflows_mappedto_drb_setup_mnterminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeModifiedListModificationMNterminatedItemExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeModifiedListModificationMNterminatedItemExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeModifiedListModificationMNterminatedItem) Reset() {
@@ -43177,11 +43177,11 @@ type PdusessionResourceModificationResponseInfoMNterminated struct {
 
 	DRbsAdmittedList *DrbsAdmittedListModificationResponseMNterminated `protobuf:"bytes,1,opt,name=d_rbs_admitted_list,json=dRBsAdmittedList,proto3" json:"d_rbs_admitted_list,omitempty"`
 	// @inject_tag: aper:"optional,"
-	DRbsReleasedList *DrbList `protobuf:"bytes,2,opt,name=d_rbs_released_list,json=dRBsReleasedList,proto3,oneof" json:"d_rbs_released_list,omitempty"`
+	DRbsReleasedList *DrbList `protobuf:"bytes,2,opt,name=d_rbs_released_list,json=dRBsReleasedList,proto3,oneof" json:"d_rbs_released_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DRbsNotAdmittedSetupModifyList *DrbListwithCause `protobuf:"bytes,3,opt,name=d_rbs_not_admitted_setup_modify_list,json=dRBsNotAdmittedSetupModifyList,proto3,oneof" json:"d_rbs_not_admitted_setup_modify_list,omitempty"`
+	DRbsNotAdmittedSetupModifyList *DrbListwithCause `protobuf:"bytes,3,opt,name=d_rbs_not_admitted_setup_modify_list,json=dRBsNotAdmittedSetupModifyList,proto3,oneof" json:"d_rbs_not_admitted_setup_modify_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceModificationResponseInfoMNterminatedExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceModificationResponseInfoMNterminatedExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceModificationResponseInfoMNterminated) Reset() {
@@ -43252,7 +43252,7 @@ type DrbsAdmittedListModificationResponseMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsAdmittedListModificationResponseMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsAdmittedListModificationResponseMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsAdmittedListModificationResponseMNterminated) Reset() {
@@ -43368,12 +43368,12 @@ type isDrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_DrbsA
 
 type DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof"`
+	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_IdQoSflowsMappedtoDrbSetupResponseMnterminated struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdQoSflowsMappedtoDrbSetupResponseMnterminated *QoSflowsMappedtoDrbSetupResponseMNterminated `protobuf:"bytes,2,opt,name=id_qo_sflows_mappedto_drb_setup_response_mnterminated,json=id-QoSFlowsMappedtoDRB-SetupResponse-MNterminated,proto3,oneof"`
+	IdQoSflowsMappedtoDrbSetupResponseMnterminated *QoSflowsMappedtoDrbSetupResponseMNterminated `protobuf:"bytes,2,opt,name=id_qo_sflows_mappedto_drb_setup_response_mnterminated,json=id-QoSFlowsMappedtoDRB-SetupResponse-MNterminated,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList) isDrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension_DrbsAdmittedListModificationResponseMnterminatedItemExtIes() {
@@ -43391,11 +43391,11 @@ type DrbsAdmittedListModificationResponseMNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *DrbsAdmittedListModificationResponseMNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DrbsAdmittedListModificationResponseMNterminatedItemExtIes) Reset() {
@@ -43461,13 +43461,13 @@ type DrbsAdmittedListModificationResponseMNterminatedItem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SNDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=s_n_dl_scg_up_tnlinfo,json=sN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"s_n_dl_scg_up_tnlinfo,omitempty"`
+	SNDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=s_n_dl_scg_up_tnlinfo,json=sN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"s_n_dl_scg_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	SecondarySnDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=secondary_sn_dl_scg_up_tnlinfo,json=secondary-SN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"secondary_sn_dl_scg_up_tnlinfo,omitempty"`
+	SecondarySnDlScgUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=secondary_sn_dl_scg_up_tnlinfo,json=secondary-SN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"secondary_sn_dl_scg_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty"`
+	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsAdmittedListModificationResponseMNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsAdmittedListModificationResponseMNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsAdmittedListModificationResponseMNterminatedItem) Reset() {
@@ -43595,9 +43595,9 @@ type PdusessionResourceChangeRequiredInfoSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,1,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty"`
+	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,1,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceChangeRequiredInfoSNterminatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceChangeRequiredInfoSNterminatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceChangeRequiredInfoSNterminated) Reset() {
@@ -43704,9 +43704,9 @@ type PdusessionResourceChangeConfirmInfoSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,1,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3,oneof" json:"dataforwardinginfo_target,omitempty"`
+	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,1,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3,oneof" json:"dataforwardinginfo_target,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceChangeConfirmInfoSNterminatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceChangeConfirmInfoSNterminatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceChangeConfirmInfoSNterminated) Reset() {
@@ -43813,7 +43813,7 @@ type PdusessionResourceChangeRequiredInfoMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceChangeRequiredInfoMNterminatedExtIes `protobuf:"bytes,1,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceChangeRequiredInfoMNterminatedExtIes `protobuf:"bytes,1,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceChangeRequiredInfoMNterminated) Reset() {
@@ -43913,7 +43913,7 @@ type PdusessionResourceChangeConfirmInfoMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceChangeConfirmInfoMNterminatedExtIes `protobuf:"bytes,1,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceChangeConfirmInfoMNterminatedExtIes `protobuf:"bytes,1,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceChangeConfirmInfoMNterminated) Reset() {
@@ -44013,19 +44013,19 @@ type PdusessionResourceModRqdInfoSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	DLNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,1,opt,name=d_l_ng_u_tnlat_ng_ran,json=dL-NG-U-TNLatNG-RAN,proto3,oneof" json:"d_l_ng_u_tnlat_ng_ran,omitempty"`
+	DLNgUTnlatNgRan *UptransportLayerInformation `protobuf:"bytes,1,opt,name=d_l_ng_u_tnlat_ng_ran,json=dL-NG-U-TNLatNG-RAN,proto3,oneof" json:"d_l_ng_u_tnlat_ng_ran,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	QoSflowsToBeReleasedList *QoSflowsListwithCause `protobuf:"bytes,2,opt,name=qo_sflows_to_be_released_list,json=qoSFlowsToBeReleased-List,proto3,oneof" json:"qo_sflows_to_be_released_list,omitempty"`
+	QoSflowsToBeReleasedList *QoSflowsListwithCause `protobuf:"bytes,2,opt,name=qo_sflows_to_be_released_list,json=qoSFlowsToBeReleased-List,proto3,oneof" json:"qo_sflows_to_be_released_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,3,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty"`
+	DataforwardinginfofromSource *DataforwardingandOffloadingInfofromSource `protobuf:"bytes,3,opt,name=dataforwardinginfofrom_source,json=dataforwardinginfofromSource,proto3,oneof" json:"dataforwardinginfofrom_source,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	DrbsToBeSetupList *DrbsToBeSetupListModRqdSNterminated `protobuf:"bytes,4,opt,name=drbs_to_be_setup_list,json=drbsToBeSetupList,proto3,oneof" json:"drbs_to_be_setup_list,omitempty"`
+	DrbsToBeSetupList *DrbsToBeSetupListModRqdSNterminated `protobuf:"bytes,4,opt,name=drbs_to_be_setup_list,json=drbsToBeSetupList,proto3,oneof" json:"drbs_to_be_setup_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DrbsToBeModifiedList *DrbsToBeModifiedListModRqdSNterminated `protobuf:"bytes,5,opt,name=drbs_to_be_modified_list,json=drbsToBeModifiedList,proto3,oneof" json:"drbs_to_be_modified_list,omitempty"`
+	DrbsToBeModifiedList *DrbsToBeModifiedListModRqdSNterminated `protobuf:"bytes,5,opt,name=drbs_to_be_modified_list,json=drbsToBeModifiedList,proto3,oneof" json:"drbs_to_be_modified_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,6,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty"`
+	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,6,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceModRqdInfoSNterminatedExtIes `protobuf:"bytes,7,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceModRqdInfoSNterminatedExtIes `protobuf:"bytes,7,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceModRqdInfoSNterminated) Reset() {
@@ -44117,7 +44117,7 @@ type DrbsToBeSetupListModRqdSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsToBeSetupListModRqdSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsToBeSetupListModRqdSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsToBeSetupListModRqdSNterminated) Reset() {
@@ -44233,12 +44233,12 @@ type isDrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_DrbsToBeSetupListM
 
 type DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof"`
+	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_IdRlcduplicationInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof"`
+	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList) isDrbsToBeSetupListModRqdSNterminatedItemExtIesExtension_DrbsToBeSetupListModRqdSnterminatedItemExtIes() {
@@ -44256,11 +44256,11 @@ type DrbsToBeSetupListModRqdSNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *DrbsToBeSetupListModRqdSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DrbsToBeSetupListModRqdSNterminatedItemExtIes) Reset() {
@@ -44326,21 +44326,21 @@ type DrbsToBeSetupListModRqdSNterminatedItem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PDcpSnlength      *Pdcpsnlength          `protobuf:"bytes,2,opt,name=p_dcp_snlength,json=pDCP-SNLength,proto3,oneof" json:"p_dcp_snlength,omitempty"`
+	PDcpSnlength      *Pdcpsnlength          `protobuf:"bytes,2,opt,name=p_dcp_snlength,json=pDCP-SNLength,proto3,oneof" json:"p_dcp_snlength,omitempty" aper:"optional,valueExt,"`
 	SnUlPdcpUptnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=sn_ul_pdcp_uptnlinfo,json=sn-UL-PDCP-UPTNLinfo,proto3" json:"sn_ul_pdcp_uptnlinfo,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,4,opt,name=d_rb_qo_s,json=dRB-QoS,proto3" json:"d_rb_qo_s,omitempty"`
+	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,4,opt,name=d_rb_qo_s,json=dRB-QoS,proto3" json:"d_rb_qo_s,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	SecondarySnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,5,opt,name=secondary_sn_ul_pdcp_up_tnlinfo,json=secondary-SN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_sn_ul_pdcp_up_tnlinfo,omitempty"`
+	SecondarySnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,5,opt,name=secondary_sn_ul_pdcp_up_tnlinfo,json=secondary-SN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_sn_ul_pdcp_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	DuplicationActivation *DuplicationActivation `protobuf:"varint,6,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty"`
+	DuplicationActivation *DuplicationActivation `protobuf:"varint,6,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	ULConfiguration                       *Ulconfiguration                            `protobuf:"bytes,7,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty"`
+	ULConfiguration                       *Ulconfiguration                            `protobuf:"bytes,7,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty" aper:"optional,valueExt,"`
 	QoSflowsMappedtoDrbModRqdSnterminated *QoSflowsSetupMappedtoDrbModRqdSNterminated `protobuf:"bytes,8,opt,name=qo_sflows_mappedto_drb_mod_rqd_snterminated,json=qoSFlowsMappedtoDRB-ModRqd-SNterminated,proto3" json:"qo_sflows_mappedto_drb_mod_rqd_snterminated,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:3,"
-	RLcMode Rlcmode `protobuf:"varint,9,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode" json:"r_lc_mode,omitempty"`
+	RLcMode Rlcmode `protobuf:"varint,9,opt,name=r_lc_mode,json=rLC-Mode,proto3,enum=xnap.v1.Rlcmode" json:"r_lc_mode,omitempty" aper:"valueExt,valueLB:0,valueUB:3,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeSetupListModRqdSNterminatedItemExtIes `protobuf:"bytes,10,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeSetupListModRqdSNterminatedItemExtIes `protobuf:"bytes,10,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeSetupListModRqdSNterminatedItem) Reset() {
@@ -44453,7 +44453,7 @@ type QoSflowsSetupMappedtoDrbModRqdSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsSetupMappedtoDrbModRqdSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsSetupMappedtoDrbModRqdSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsSetupMappedtoDrbModRqdSNterminated) Reset() {
@@ -44554,9 +44554,9 @@ type QoSflowsSetupMappedtoDrbModRqdSNterminatedItem struct {
 
 	QoSflowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qo_sflow_identifier,json=qoSFlowIdentifier,proto3" json:"qo_sflow_identifier,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MCgrequestedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,2,opt,name=m_cgrequested_gbrqo_sflow_info,json=mCGRequestedGBRQoSFlowInfo,proto3,oneof" json:"m_cgrequested_gbrqo_sflow_info,omitempty"`
+	MCgrequestedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,2,opt,name=m_cgrequested_gbrqo_sflow_info,json=mCGRequestedGBRQoSFlowInfo,proto3,oneof" json:"m_cgrequested_gbrqo_sflow_info,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsSetupMappedtoDrbModRqdSNterminatedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsSetupMappedtoDrbModRqdSNterminatedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsSetupMappedtoDrbModRqdSNterminatedItem) Reset() {
@@ -44620,7 +44620,7 @@ type DrbsToBeModifiedListModRqdSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsToBeModifiedListModRqdSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsToBeModifiedListModRqdSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsToBeModifiedListModRqdSNterminated) Reset() {
@@ -44736,12 +44736,12 @@ type isDrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_DrbsToBeModifie
 
 type DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof"`
+	IdAdditionalPdcpDuplicationTnlList *AdditionalPDcpDuplicationTNlList `protobuf:"bytes,1,opt,name=id_additional_pdcp_duplication_tnl_list,json=id-Additional-PDCP-Duplication-TNL-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_IdRlcduplicationInformation struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof"`
+	IdRlcduplicationInformation *RlcduplicationInformation `protobuf:"bytes,2,opt,name=id_rlcduplication_information,json=id-RLCDuplicationInformation,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_IdAdditionalPdcpDuplicationTnlList) isDrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension_DrbsToBeModifiedListModRqdSnterminatedItemExtIes() {
@@ -44759,11 +44759,11 @@ type DrbsToBeModifiedListModRqdSNterminatedItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *DrbsToBeModifiedListModRqdSNterminatedItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *DrbsToBeModifiedListModRqdSNterminatedItemExtIes) Reset() {
@@ -44829,21 +44829,21 @@ type DrbsToBeModifiedListModRqdSNterminatedItem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SNUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=s_n_ul_pdcp_up_tnlinfo,json=sN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"s_n_ul_pdcp_up_tnlinfo,omitempty"`
+	SNUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=s_n_ul_pdcp_up_tnlinfo,json=sN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"s_n_ul_pdcp_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,3,opt,name=d_rb_qo_s,json=dRB-QoS,proto3,oneof" json:"d_rb_qo_s,omitempty"`
+	DRbQoS *QoSflowLevelQoSparameters `protobuf:"bytes,3,opt,name=d_rb_qo_s,json=dRB-QoS,proto3,oneof" json:"d_rb_qo_s,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	SecondarySnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,4,opt,name=secondary_sn_ul_pdcp_up_tnlinfo,json=secondary-SN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_sn_ul_pdcp_up_tnlinfo,omitempty"`
+	SecondarySnUlPdcpUpTnlinfo *UptransportParameters `protobuf:"bytes,4,opt,name=secondary_sn_ul_pdcp_up_tnlinfo,json=secondary-SN-UL-PDCP-UP-TNLInfo,proto3,oneof" json:"secondary_sn_ul_pdcp_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	ULConfiguration *Ulconfiguration `protobuf:"bytes,5,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty"`
+	ULConfiguration *Ulconfiguration `protobuf:"bytes,5,opt,name=u_l_configuration,json=uL-Configuration,proto3,oneof" json:"u_l_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	PdcpDuplicationConfiguration *PdcpduplicationConfiguration `protobuf:"varint,6,opt,name=pdcp_duplication_configuration,json=pdcpDuplicationConfiguration,proto3,enum=xnap.v1.PdcpduplicationConfiguration,oneof" json:"pdcp_duplication_configuration,omitempty"`
+	PdcpDuplicationConfiguration *PdcpduplicationConfiguration `protobuf:"varint,6,opt,name=pdcp_duplication_configuration,json=pdcpDuplicationConfiguration,proto3,enum=xnap.v1.PdcpduplicationConfiguration,oneof" json:"pdcp_duplication_configuration,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	DuplicationActivation *DuplicationActivation `protobuf:"varint,7,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty"`
+	DuplicationActivation *DuplicationActivation `protobuf:"varint,7,opt,name=duplication_activation,json=duplicationActivation,proto3,enum=xnap.v1.DuplicationActivation,oneof" json:"duplication_activation,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,"
-	QoSflowsMappedtoDrbModRqdSnterminated *QoSflowsModifiedMappedtoDrbModRqdSNterminated `protobuf:"bytes,8,opt,name=qo_sflows_mappedto_drb_mod_rqd_snterminated,json=qoSFlowsMappedtoDRB-ModRqd-SNterminated,proto3,oneof" json:"qo_sflows_mappedto_drb_mod_rqd_snterminated,omitempty"`
+	QoSflowsMappedtoDrbModRqdSnterminated *QoSflowsModifiedMappedtoDrbModRqdSNterminated `protobuf:"bytes,8,opt,name=qo_sflows_mappedto_drb_mod_rqd_snterminated,json=qoSFlowsMappedtoDRB-ModRqd-SNterminated,proto3,oneof" json:"qo_sflows_mappedto_drb_mod_rqd_snterminated,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeModifiedListModRqdSNterminatedItemExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeModifiedListModRqdSNterminatedItemExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeModifiedListModRqdSNterminatedItem) Reset() {
@@ -44949,7 +44949,7 @@ type QoSflowsModifiedMappedtoDrbModRqdSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsModifiedMappedtoDrbModRqdSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsModifiedMappedtoDrbModRqdSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsModifiedMappedtoDrbModRqdSNterminated) Reset() {
@@ -45050,9 +45050,9 @@ type QoSflowsModifiedMappedtoDrbModRqdSNterminatedItem struct {
 
 	QoSflowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qo_sflow_identifier,json=qoSFlowIdentifier,proto3" json:"qo_sflow_identifier,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MCgrequestedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,2,opt,name=m_cgrequested_gbrqo_sflow_info,json=mCGRequestedGBRQoSFlowInfo,proto3,oneof" json:"m_cgrequested_gbrqo_sflow_info,omitempty"`
+	MCgrequestedGbrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,2,opt,name=m_cgrequested_gbrqo_sflow_info,json=mCGRequestedGBRQoSFlowInfo,proto3,oneof" json:"m_cgrequested_gbrqo_sflow_info,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsModifiedMappedtoDrbModRqdSNterminatedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsModifiedMappedtoDrbModRqdSNterminatedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsModifiedMappedtoDrbModRqdSNterminatedItem) Reset() {
@@ -45166,14 +45166,14 @@ type PdusessionResourceModConfirmInfoSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ULNgUTnlatUpf    *UptransportLayerInformation            `protobuf:"bytes,1,opt,name=u_l_ng_u_tnlat_upf,json=uL-NG-U-TNLatUPF,proto3,oneof" json:"u_l_ng_u_tnlat_upf,omitempty"`
+	ULNgUTnlatUpf    *UptransportLayerInformation            `protobuf:"bytes,1,opt,name=u_l_ng_u_tnlat_upf,json=uL-NG-U-TNLatUPF,proto3,oneof" json:"u_l_ng_u_tnlat_upf,omitempty" aper:"optional,"`
 	DRbsAdmittedList *DrbsAdmittedListModConfirmSNterminated `protobuf:"bytes,2,opt,name=d_rbs_admitted_list,json=dRBsAdmittedList,proto3" json:"d_rbs_admitted_list,omitempty"`
 	// @inject_tag: aper:"optional,"
-	DRbsNotAdmittedSetupModifyList *DrbListwithCause `protobuf:"bytes,3,opt,name=d_rbs_not_admitted_setup_modify_list,json=dRBsNotAdmittedSetupModifyList,proto3,oneof" json:"d_rbs_not_admitted_setup_modify_list,omitempty"`
+	DRbsNotAdmittedSetupModifyList *DrbListwithCause `protobuf:"bytes,3,opt,name=d_rbs_not_admitted_setup_modify_list,json=dRBsNotAdmittedSetupModifyList,proto3,oneof" json:"d_rbs_not_admitted_setup_modify_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,4,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3,oneof" json:"dataforwardinginfo_target,omitempty"`
+	DataforwardinginfoTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,4,opt,name=dataforwardinginfo_target,json=dataforwardinginfoTarget,proto3,oneof" json:"dataforwardinginfo_target,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceModConfirmInfoSNterminatedExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceModConfirmInfoSNterminatedExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceModConfirmInfoSNterminated) Reset() {
@@ -45251,7 +45251,7 @@ type DrbsAdmittedListModConfirmSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsAdmittedListModConfirmSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsAdmittedListModConfirmSNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsAdmittedListModConfirmSNterminated) Reset() {
@@ -45352,13 +45352,13 @@ type DrbsAdmittedListModConfirmSNterminatedItem struct {
 
 	DrbId *DrbID `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	// @inject_tag: aper:"optional,"
-	MNDlCgUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=m_n_dl_cg_up_tnlinfo,json=mN-DL-CG-UP-TNLInfo,proto3,oneof" json:"m_n_dl_cg_up_tnlinfo,omitempty"`
+	MNDlCgUpTnlinfo *UptransportParameters `protobuf:"bytes,2,opt,name=m_n_dl_cg_up_tnlinfo,json=mN-DL-CG-UP-TNLInfo,proto3,oneof" json:"m_n_dl_cg_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	SecondaryMnDlCgUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=secondary_mn_dl_cg_up_tnlinfo,json=secondary-MN-DL-CG-UP-TNLInfo,proto3,oneof" json:"secondary_mn_dl_cg_up_tnlinfo,omitempty"`
+	SecondaryMnDlCgUpTnlinfo *UptransportParameters `protobuf:"bytes,3,opt,name=secondary_mn_dl_cg_up_tnlinfo,json=secondary-MN-DL-CG-UP-TNLInfo,proto3,oneof" json:"secondary_mn_dl_cg_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty"`
+	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsAdmittedListModConfirmSNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsAdmittedListModConfirmSNterminatedItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsAdmittedListModConfirmSNterminatedItem) Reset() {
@@ -45486,11 +45486,11 @@ type PdusessionResourceModRqdInfoMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	DRbsToBeModified *DrbsToBeModifiedListModRqdMNterminated `protobuf:"bytes,1,opt,name=d_rbs_to_be_modified,json=dRBsToBeModified,proto3,oneof" json:"d_rbs_to_be_modified,omitempty"`
+	DRbsToBeModified *DrbsToBeModifiedListModRqdMNterminated `protobuf:"bytes,1,opt,name=d_rbs_to_be_modified,json=dRBsToBeModified,proto3,oneof" json:"d_rbs_to_be_modified,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,2,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty"`
+	DRbsToBeReleased *DrbListwithCause `protobuf:"bytes,2,opt,name=d_rbs_to_be_released,json=dRBsToBeReleased,proto3,oneof" json:"d_rbs_to_be_released,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceModRqdInfoMNterminatedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceModRqdInfoMNterminatedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceModRqdInfoMNterminated) Reset() {
@@ -45554,7 +45554,7 @@ type DrbsToBeModifiedListModRqdMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*DrbsToBeModifiedListModRqdMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*DrbsToBeModifiedListModRqdMNterminatedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *DrbsToBeModifiedListModRqdMNterminated) Reset() {
@@ -45656,13 +45656,13 @@ type DrbsToBeModifiedListModRqdMNterminatedItem struct {
 	DrbId            *DrbID                       `protobuf:"bytes,1,opt,name=drb_id,json=drb-ID,proto3" json:"drb_id,omitempty"`
 	SNDlScgUpTnlinfo *UptransportLayerInformation `protobuf:"bytes,2,opt,name=s_n_dl_scg_up_tnlinfo,json=sN-DL-SCG-UP-TNLInfo,proto3" json:"s_n_dl_scg_up_tnlinfo,omitempty"`
 	// @inject_tag: aper:"optional,"
-	SecondarySnDlScgUpTnlinfo *UptransportLayerInformation `protobuf:"bytes,3,opt,name=secondary_sn_dl_scg_up_tnlinfo,json=secondary-SN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"secondary_sn_dl_scg_up_tnlinfo,omitempty"`
+	SecondarySnDlScgUpTnlinfo *UptransportLayerInformation `protobuf:"bytes,3,opt,name=secondary_sn_dl_scg_up_tnlinfo,json=secondary-SN-DL-SCG-UP-TNLInfo,proto3,oneof" json:"secondary_sn_dl_scg_up_tnlinfo,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty"`
+	LCid *Lcid `protobuf:"bytes,4,opt,name=l_cid,json=lCID,proto3,oneof" json:"l_cid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	RlcStatus *RlcStatus `protobuf:"bytes,5,opt,name=rlc_status,json=rlc-status,proto3,oneof" json:"rlc_status,omitempty"`
+	RlcStatus *RlcStatus `protobuf:"bytes,5,opt,name=rlc_status,json=rlc-status,proto3,oneof" json:"rlc_status,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeModifiedListModRqdMNterminatedItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeModifiedListModRqdMNterminatedItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeModifiedListModRqdMNterminatedItem) Reset() {
@@ -45797,7 +45797,7 @@ type PdusessionResourceModConfirmInfoMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceModConfirmInfoMNterminatedExtIes `protobuf:"bytes,1,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceModConfirmInfoMNterminatedExtIes `protobuf:"bytes,1,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceModConfirmInfoMNterminated) Reset() {
@@ -45897,9 +45897,9 @@ type PdusessionResourceBearerSetupCompleteInfoSNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	DRbsToBeSetupList []*DrbsToBeSetupListBearerSetupCompleteSNterminatedItem `protobuf:"bytes,1,rep,name=d_rbs_to_be_setup_list,json=dRBsToBeSetupList,proto3" json:"d_rbs_to_be_setup_list,omitempty"`
+	DRbsToBeSetupList []*DrbsToBeSetupListBearerSetupCompleteSNterminatedItem `protobuf:"bytes,1,rep,name=d_rbs_to_be_setup_list,json=dRBsToBeSetupList,proto3" json:"d_rbs_to_be_setup_list,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceBearerSetupCompleteInfoSNterminatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceBearerSetupCompleteInfoSNterminatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceBearerSetupCompleteInfoSNterminated) Reset() {
@@ -46008,7 +46008,7 @@ type DrbsToBeSetupListBearerSetupCompleteSNterminatedItem struct {
 	DRbId           *DrbID                       `protobuf:"bytes,1,opt,name=d_rb_id,json=dRB-ID,proto3" json:"d_rb_id,omitempty"`
 	MNXnUTnlinfoatM *UptransportLayerInformation `protobuf:"bytes,2,opt,name=m_n_xn_u_tnlinfoat_m,json=mN-Xn-U-TNLInfoatM,proto3" json:"m_n_xn_u_tnlinfoat_m,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*DrbsToBeSetupListBearerSetupCompleteSNterminatedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*DrbsToBeSetupListBearerSetupCompleteSNterminatedItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *DrbsToBeSetupListBearerSetupCompleteSNterminatedItem) Reset() {
@@ -46072,7 +46072,7 @@ type PdusessionResourceSecondaryRatusageList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*PdusessionResourceSecondaryRatusageItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*PdusessionResourceSecondaryRatusageItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *PdusessionResourceSecondaryRatusageList) Reset() {
@@ -46173,9 +46173,9 @@ type PdusessionResourceSecondaryRatusageItem struct {
 
 	PDusessionId *PdusessionID `protobuf:"bytes,1,opt,name=p_dusession_id,json=pDUSessionID,proto3" json:"p_dusession_id,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	SecondaryRatusageInformation *SecondaryRatusageInformation `protobuf:"bytes,2,opt,name=secondary_ratusage_information,json=secondaryRATUsageInformation,proto3" json:"secondary_ratusage_information,omitempty"`
+	SecondaryRatusageInformation *SecondaryRatusageInformation `protobuf:"bytes,2,opt,name=secondary_ratusage_information,json=secondaryRATUsageInformation,proto3" json:"secondary_ratusage_information,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionResourceSecondaryRatusageItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionResourceSecondaryRatusageItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionResourceSecondaryRatusageItem) Reset() {
@@ -46289,10 +46289,10 @@ type PdusessionUsageReport struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	RAttype                   RattypePdusessionUsageReport `protobuf:"varint,1,opt,name=r_attype,json=rATType,proto3,enum=xnap.v1.RattypePdusessionUsageReport" json:"r_attype,omitempty"`
+	RAttype                   RattypePdusessionUsageReport `protobuf:"varint,1,opt,name=r_attype,json=rATType,proto3,enum=xnap.v1.RattypePdusessionUsageReport" json:"r_attype,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	PDusessionTimedReportList *VolumeTimedReportList       `protobuf:"bytes,2,opt,name=p_dusession_timed_report_list,json=pDUSessionTimedReportList,proto3" json:"p_dusession_timed_report_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PdusessionUsageReportExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PdusessionUsageReportExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *PdusessionUsageReport) Reset() {
@@ -46356,7 +46356,7 @@ type PdusessionID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:255,"`
 }
 
 func (x *PdusessionID) Reset() {
@@ -46406,7 +46406,7 @@ type PdusessionNetworkInstance struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:256,"`
 }
 
 func (x *PdusessionNetworkInstance) Reset() {
@@ -46555,7 +46555,7 @@ type Periodical struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*PeriodicalExtIes `protobuf:"bytes,1,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*PeriodicalExtIes `protobuf:"bytes,1,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Periodical) Reset() {
@@ -46605,7 +46605,7 @@ type PlmnIdentity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:3,sizeUB:3,"
-	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:3,sizeUB:3,"`
 }
 
 func (x *PlmnIdentity) Reset() {
@@ -46655,7 +46655,7 @@ type PcilistForMdt struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	Value []*Nrpci `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*Nrpci `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 }
 
 func (x *PcilistForMdt) Reset() {
@@ -46705,7 +46705,7 @@ type PortNumber struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:16,sizeUB:16,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:16,sizeUB:16,"`
 }
 
 func (x *PortNumber) Reset() {
@@ -46755,7 +46755,7 @@ type PriorityLevelQoS struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:127,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:127,"`
 }
 
 func (x *PriorityLevelQoS) Reset() {
@@ -46857,11 +46857,11 @@ type ProtectedEUTraresourceIndication struct {
 	ActivationSfn         *ActivationSfn              `protobuf:"bytes,1,opt,name=activation_sfn,json=activationSFN,proto3" json:"activation_sfn,omitempty"`
 	ProtectedResourceList *ProtectedEUTraresourceList `protobuf:"bytes,2,opt,name=protected_resource_list,json=protectedResourceList,proto3" json:"protected_resource_list,omitempty"`
 	// @inject_tag: aper:"optional,"
-	MbsfnControlRegionLength *MbsfncontrolRegionLength `protobuf:"bytes,3,opt,name=mbsfn_control_region_length,json=mbsfnControlRegionLength,proto3,oneof" json:"mbsfn_control_region_length,omitempty"`
+	MbsfnControlRegionLength *MbsfncontrolRegionLength `protobuf:"bytes,3,opt,name=mbsfn_control_region_length,json=mbsfnControlRegionLength,proto3,oneof" json:"mbsfn_control_region_length,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"valueLB:1,valueUB:3,"
-	PDcchregionLength int32 `protobuf:"varint,4,opt,name=p_dcchregion_length,json=pDCCHRegionLength,proto3" json:"p_dcchregion_length,omitempty"`
+	PDcchregionLength int32 `protobuf:"varint,4,opt,name=p_dcchregion_length,json=pDCCHRegionLength,proto3" json:"p_dcchregion_length,omitempty" aper:"valueLB:1,valueUB:3,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ProtectedEUTraresourceIndicationExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ProtectedEUTraresourceIndicationExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ProtectedEUTraresourceIndication) Reset() {
@@ -46939,7 +46939,7 @@ type ProtectedEUTraresourceList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*ProtectedEUTraresourceItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ProtectedEUTraresourceItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *ProtectedEUTraresourceList) Reset() {
@@ -47039,15 +47039,15 @@ type ProtectedEUTraresourceItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	ResourceType ResourceTypeProtectedEutraresourceItem `protobuf:"varint,1,opt,name=resource_type,json=resourceType,proto3,enum=xnap.v1.ResourceTypeProtectedEutraresourceItem" json:"resource_type,omitempty"`
+	ResourceType ResourceTypeProtectedEutraresourceItem `protobuf:"varint,1,opt,name=resource_type,json=resourceType,proto3,enum=xnap.v1.ResourceTypeProtectedEutraresourceItem" json:"resource_type,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"sizeExt,sizeLB:84,sizeUB:84,"
-	IntraPrbprotectedResourceFootprint *asn1.BitString `protobuf:"bytes,2,opt,name=intra_prbprotected_resource_footprint,json=intra-PRBProtectedResourceFootprint,proto3" json:"intra_prbprotected_resource_footprint,omitempty"`
+	IntraPrbprotectedResourceFootprint *asn1.BitString `protobuf:"bytes,2,opt,name=intra_prbprotected_resource_footprint,json=intra-PRBProtectedResourceFootprint,proto3" json:"intra_prbprotected_resource_footprint,omitempty" aper:"sizeExt,sizeLB:84,sizeUB:84,"`
 	// @inject_tag: aper:"sizeExt,sizeLB:6,sizeUB:110,"
-	ProtectedFootprintFrequencyPattern *asn1.BitString `protobuf:"bytes,3,opt,name=protected_footprint_frequency_pattern,json=protectedFootprintFrequencyPattern,proto3" json:"protected_footprint_frequency_pattern,omitempty"`
+	ProtectedFootprintFrequencyPattern *asn1.BitString `protobuf:"bytes,3,opt,name=protected_footprint_frequency_pattern,json=protectedFootprintFrequencyPattern,proto3" json:"protected_footprint_frequency_pattern,omitempty" aper:"sizeExt,sizeLB:6,sizeUB:110,"`
 	// @inject_tag: aper:"valueExt,"
-	ProtectedFootprintTimePattern *ProtectedEUTrafootprintTimePattern `protobuf:"bytes,4,opt,name=protected_footprint_time_pattern,json=protectedFootprintTimePattern,proto3" json:"protected_footprint_time_pattern,omitempty"`
+	ProtectedFootprintTimePattern *ProtectedEUTrafootprintTimePattern `protobuf:"bytes,4,opt,name=protected_footprint_time_pattern,json=protectedFootprintTimePattern,proto3" json:"protected_footprint_time_pattern,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ProtectedEUTraresourceItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ProtectedEUTraresourceItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ProtectedEUTraresourceItem) Reset() {
@@ -47175,11 +47175,11 @@ type ProtectedEUTrafootprintTimePattern struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:320,"
-	ProtectedFootprintTimeperiodicity int32 `protobuf:"varint,1,opt,name=protected_footprint_timeperiodicity,json=protectedFootprintTimeperiodicity,proto3" json:"protected_footprint_timeperiodicity,omitempty"`
+	ProtectedFootprintTimeperiodicity int32 `protobuf:"varint,1,opt,name=protected_footprint_timeperiodicity,json=protectedFootprintTimeperiodicity,proto3" json:"protected_footprint_timeperiodicity,omitempty" aper:"valueExt,valueLB:1,valueUB:320,"`
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:20,"
-	ProtectedFootrpintStartTime int32 `protobuf:"varint,2,opt,name=protected_footrpint_start_time,json=protectedFootrpintStartTime,proto3" json:"protected_footrpint_start_time,omitempty"`
+	ProtectedFootrpintStartTime int32 `protobuf:"varint,2,opt,name=protected_footrpint_start_time,json=protectedFootrpintStartTime,proto3" json:"protected_footrpint_start_time,omitempty" aper:"valueExt,valueLB:1,valueUB:20,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ProtectedEUTrafootprintTimePatternExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ProtectedEUTrafootprintTimePatternExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ProtectedEUTrafootprintTimePattern) Reset() {
@@ -47366,17 +47366,17 @@ type isQoScharacteristics_QoScharacteristics interface {
 
 type QoScharacteristics_NonDynamic struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	NonDynamic *NonDynamic5Qidescriptor `protobuf:"bytes,1,opt,name=non_dynamic,json=non-dynamic,proto3,oneof"`
+	NonDynamic *NonDynamic5Qidescriptor `protobuf:"bytes,1,opt,name=non_dynamic,json=non-dynamic,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type QoScharacteristics_Dynamic struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	Dynamic *Dynamic5Qidescriptor `protobuf:"bytes,2,opt,name=dynamic,proto3,oneof"`
+	Dynamic *Dynamic5Qidescriptor `protobuf:"bytes,2,opt,name=dynamic,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type QoScharacteristics_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *QoScharacteristicsExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *QoScharacteristicsExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*QoScharacteristics_NonDynamic) isQoScharacteristics_QoScharacteristics() {}
@@ -47393,7 +47393,7 @@ type QoSflowIdentifier struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:63,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:63,"`
 }
 
 func (x *QoSflowIdentifier) Reset() {
@@ -47517,17 +47517,17 @@ type isQoSflowLevelQoSparametersExtIesExtension_QoSflowLevelQoSparametersExtIes 
 
 type QoSflowLevelQoSparametersExtIesExtension_IdQoSmonitoringRequest struct {
 	// @inject_tag: aper:"choiceIdx:1,valueLB:0,valueUB:2,"
-	IdQoSmonitoringRequest QosMonitoringRequest `protobuf:"varint,1,opt,name=id_qo_smonitoring_request,json=id-QoSMonitoringRequest,proto3,enum=xnap.v1.QosMonitoringRequest,oneof"`
+	IdQoSmonitoringRequest QosMonitoringRequest `protobuf:"varint,1,opt,name=id_qo_smonitoring_request,json=id-QoSMonitoringRequest,proto3,enum=xnap.v1.QosMonitoringRequest,oneof" aper:"choiceIdx:1,valueLB:0,valueUB:2,"`
 }
 
 type QoSflowLevelQoSparametersExtIesExtension_IdQosMonitoringReportingFrequency struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdQosMonitoringReportingFrequency *QosMonitoringReportingFrequency `protobuf:"bytes,2,opt,name=id_qos_monitoring_reporting_frequency,json=id-QosMonitoringReportingFrequency,proto3,oneof"`
+	IdQosMonitoringReportingFrequency *QosMonitoringReportingFrequency `protobuf:"bytes,2,opt,name=id_qos_monitoring_reporting_frequency,json=id-QosMonitoringReportingFrequency,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type QoSflowLevelQoSparametersExtIesExtension_IdQoSmonitoringDisabled struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:0,"
-	IdQoSmonitoringDisabled QoSmonitoringDisabled `protobuf:"varint,3,opt,name=id_qo_smonitoring_disabled,json=id-QoSMonitoringDisabled,proto3,enum=xnap.v1.QoSmonitoringDisabled,oneof"`
+	IdQoSmonitoringDisabled QoSmonitoringDisabled `protobuf:"varint,3,opt,name=id_qo_smonitoring_disabled,json=id-QoSMonitoringDisabled,proto3,enum=xnap.v1.QoSmonitoringDisabled,oneof" aper:"choiceIdx:3,valueExt,valueLB:0,valueUB:0,"`
 }
 
 func (*QoSflowLevelQoSparametersExtIesExtension_IdQoSmonitoringRequest) isQoSflowLevelQoSparametersExtIesExtension_QoSflowLevelQoSparametersExtIes() {
@@ -47548,11 +47548,11 @@ type QoSflowLevelQoSparametersExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *QoSflowLevelQoSparametersExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *QoSflowLevelQoSparametersExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *QoSflowLevelQoSparametersExtIes) Reset() {
@@ -47618,15 +47618,15 @@ type QoSflowLevelQoSparameters struct {
 
 	QosCharacteristics *QoScharacteristics `protobuf:"bytes,1,opt,name=qos_characteristics,json=qos-characteristics,proto3" json:"qos_characteristics,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	AllocationAndRetentionPrio *AllocationandRetentionPriority `protobuf:"bytes,2,opt,name=allocation_and_retention_prio,json=allocationAndRetentionPrio,proto3" json:"allocation_and_retention_prio,omitempty"`
+	AllocationAndRetentionPrio *AllocationandRetentionPriority `protobuf:"bytes,2,opt,name=allocation_and_retention_prio,json=allocationAndRetentionPrio,proto3" json:"allocation_and_retention_prio,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	GBrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,3,opt,name=g_brqo_sflow_info,json=gBRQoSFlowInfo,proto3,oneof" json:"g_brqo_sflow_info,omitempty"`
+	GBrqoSflowInfo *GbrqoSflowInfo `protobuf:"bytes,3,opt,name=g_brqo_sflow_info,json=gBRQoSFlowInfo,proto3,oneof" json:"g_brqo_sflow_info,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	RelectiveQoS *ReflectiveQoSattribute `protobuf:"varint,4,opt,name=relective_qo_s,json=relectiveQoS,proto3,enum=xnap.v1.ReflectiveQoSattribute,oneof" json:"relective_qo_s,omitempty"`
+	RelectiveQoS *ReflectiveQoSattribute `protobuf:"varint,4,opt,name=relective_qo_s,json=relectiveQoS,proto3,enum=xnap.v1.ReflectiveQoSattribute,oneof" json:"relective_qo_s,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	AdditionalQoSflowInfo *AdditionalQoSflowInfoQoSflowLevelQoSparameters `protobuf:"varint,5,opt,name=additional_qo_sflow_info,json=additionalQoSflowInfo,proto3,enum=xnap.v1.AdditionalQoSflowInfoQoSflowLevelQoSparameters,oneof" json:"additional_qo_sflow_info,omitempty"`
+	AdditionalQoSflowInfo *AdditionalQoSflowInfoQoSflowLevelQoSparameters `protobuf:"varint,5,opt,name=additional_qo_sflow_info,json=additionalQoSflowInfo,proto3,enum=xnap.v1.AdditionalQoSflowInfoQoSflowLevelQoSparameters,oneof" json:"additional_qo_sflow_info,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowLevelQoSparametersExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowLevelQoSparametersExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowLevelQoSparameters) Reset() {
@@ -47711,7 +47711,7 @@ type QoSflowNotificationControlIndicationInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowNotifyItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowNotifyItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowNotificationControlIndicationInfo) Reset() {
@@ -47812,9 +47812,9 @@ type QoSflowNotifyItem struct {
 
 	QosFlowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qos_flow_identifier,json=qosFlowIdentifier,proto3" json:"qos_flow_identifier,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	NotificationInformation NotificationInformationQoSflowNotifyItem `protobuf:"varint,2,opt,name=notification_information,json=notificationInformation,proto3,enum=xnap.v1.NotificationInformationQoSflowNotifyItem" json:"notification_information,omitempty"`
+	NotificationInformation NotificationInformationQoSflowNotifyItem `protobuf:"varint,2,opt,name=notification_information,json=notificationInformation,proto3,enum=xnap.v1.NotificationInformationQoSflowNotifyItem" json:"notification_information,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowNotificationControlIndicationInfoExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowNotificationControlIndicationInfoExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowNotifyItem) Reset() {
@@ -47878,7 +47878,7 @@ type QoSflowsList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsList) Reset() {
@@ -47979,9 +47979,9 @@ type QoSflowItem struct {
 
 	Qfi *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qfi,proto3" json:"qfi,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	QosFlowMappingIndication *QoSflowMappingIndication `protobuf:"varint,2,opt,name=qos_flow_mapping_indication,json=qosFlowMappingIndication,proto3,enum=xnap.v1.QoSflowMappingIndication,oneof" json:"qos_flow_mapping_indication,omitempty"`
+	QosFlowMappingIndication *QoSflowMappingIndication `protobuf:"varint,2,opt,name=qos_flow_mapping_indication,json=qosFlowMappingIndication,proto3,enum=xnap.v1.QoSflowMappingIndication,oneof" json:"qos_flow_mapping_indication,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*QoSflowItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*QoSflowItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowItem) Reset() {
@@ -48045,7 +48045,7 @@ type QoSflowsListwithCause struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowwithCauseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowwithCauseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsListwithCause) Reset() {
@@ -48146,9 +48146,9 @@ type QoSflowwithCauseItem struct {
 
 	Qfi *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qfi,proto3" json:"qfi,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Cause *Cause `protobuf:"bytes,2,opt,name=cause,proto3,oneof" json:"cause,omitempty"`
+	Cause *Cause `protobuf:"bytes,2,opt,name=cause,proto3,oneof" json:"cause,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*QoSflowwithCauseItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*QoSflowwithCauseItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowwithCauseItem) Reset() {
@@ -48262,11 +48262,11 @@ type QoSMappingInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:6,sizeUB:6,"
-	Dscp *asn1.BitString `protobuf:"bytes,1,opt,name=dscp,proto3,oneof" json:"dscp,omitempty"`
+	Dscp *asn1.BitString `protobuf:"bytes,1,opt,name=dscp,proto3,oneof" json:"dscp,omitempty" aper:"optional,sizeLB:6,sizeUB:6,"`
 	// @inject_tag: aper:"optional,sizeLB:20,sizeUB:20,"
-	FlowLabel *asn1.BitString `protobuf:"bytes,2,opt,name=flow_label,json=flow-label,proto3,oneof" json:"flow_label,omitempty"`
+	FlowLabel *asn1.BitString `protobuf:"bytes,2,opt,name=flow_label,json=flow-label,proto3,oneof" json:"flow_label,omitempty" aper:"optional,sizeLB:20,sizeUB:20,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSMappingInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSMappingInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSMappingInformation) Reset() {
@@ -48330,7 +48330,7 @@ type QoSparaSetIndex struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:8,"`
 }
 
 func (x *QoSparaSetIndex) Reset() {
@@ -48380,7 +48380,7 @@ type QoSparaSetNotifyIndex struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:0,valueUB:8,"`
 }
 
 func (x *QoSparaSetNotifyIndex) Reset() {
@@ -48430,7 +48430,7 @@ type QoSflowsAdmittedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsAdmittedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsAdmittedItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsAdmittedList) Reset() {
@@ -48531,7 +48531,7 @@ type QoSflowsAdmittedItem struct {
 
 	Qfi *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qfi,proto3" json:"qfi,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*QoSflowsAdmittedItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*QoSflowsAdmittedItemExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsAdmittedItem) Reset() {
@@ -48588,7 +48588,7 @@ type QoSflowsToBeSetupList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsToBeSetupItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsToBeSetupItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsToBeSetupList) Reset() {
@@ -48704,12 +48704,12 @@ type isQoSflowsToBeSetupItemExtIesExtension_QoSflowsToBeSetupItemExtIes interfac
 
 type QoSflowsToBeSetupItemExtIesExtension_IdTsctrafficCharacteristics struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	IdTsctrafficCharacteristics *TsctrafficCharacteristics `protobuf:"bytes,1,opt,name=id_tsctraffic_characteristics,json=id-TSCTrafficCharacteristics,proto3,oneof"`
+	IdTsctrafficCharacteristics *TsctrafficCharacteristics `protobuf:"bytes,1,opt,name=id_tsctraffic_characteristics,json=id-TSCTrafficCharacteristics,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type QoSflowsToBeSetupItemExtIesExtension_IdRedundantQoSflowIndicator struct {
 	// @inject_tag: aper:"choiceIdx:2,valueLB:0,valueUB:1,"
-	IdRedundantQoSflowIndicator RedundantQoSflowIndicator `protobuf:"varint,2,opt,name=id_redundant_qo_sflow_indicator,json=id-RedundantQoSFlowIndicator,proto3,enum=xnap.v1.RedundantQoSflowIndicator,oneof"`
+	IdRedundantQoSflowIndicator RedundantQoSflowIndicator `protobuf:"varint,2,opt,name=id_redundant_qo_sflow_indicator,json=id-RedundantQoSFlowIndicator,proto3,enum=xnap.v1.RedundantQoSflowIndicator,oneof" aper:"choiceIdx:2,valueLB:0,valueUB:1,"`
 }
 
 func (*QoSflowsToBeSetupItemExtIesExtension_IdTsctrafficCharacteristics) isQoSflowsToBeSetupItemExtIesExtension_QoSflowsToBeSetupItemExtIes() {
@@ -48727,11 +48727,11 @@ type QoSflowsToBeSetupItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *QoSflowsToBeSetupItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *QoSflowsToBeSetupItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *QoSflowsToBeSetupItemExtIes) Reset() {
@@ -48797,11 +48797,11 @@ type QoSflowsToBeSetupItem struct {
 
 	Qfi *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qfi,proto3" json:"qfi,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	QosFlowLevelQoSparameters *QoSflowLevelQoSparameters `protobuf:"bytes,2,opt,name=qos_flow_level_qo_sparameters,json=qosFlowLevelQoSParameters,proto3" json:"qos_flow_level_qo_sparameters,omitempty"`
+	QosFlowLevelQoSparameters *QoSflowLevelQoSparameters `protobuf:"bytes,2,opt,name=qos_flow_level_qo_sparameters,json=qosFlowLevelQoSParameters,proto3" json:"qos_flow_level_qo_sparameters,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	ERabId *ERAbID `protobuf:"bytes,3,opt,name=e_rab_id,json=e-RAB-ID,proto3,oneof" json:"e_rab_id,omitempty"`
+	ERabId *ERAbID `protobuf:"bytes,3,opt,name=e_rab_id,json=e-RAB-ID,proto3,oneof" json:"e_rab_id,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*QoSflowsToBeSetupItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*QoSflowsToBeSetupItemExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsToBeSetupItem) Reset() {
@@ -48872,7 +48872,7 @@ type QoSflowsUsageReportList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*QoSflowsUsageReportItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*QoSflowsUsageReportItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *QoSflowsUsageReportList) Reset() {
@@ -48973,10 +48973,10 @@ type QoSflowsUsageReportItem struct {
 
 	QosFlowIdentifier *QoSflowIdentifier `protobuf:"bytes,1,opt,name=qos_flow_identifier,json=qosFlowIdentifier,proto3" json:"qos_flow_identifier,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	RAttype                 RattypeQoSflowsUsageReportItem `protobuf:"varint,2,opt,name=r_attype,json=rATType,proto3,enum=xnap.v1.RattypeQoSflowsUsageReportItem" json:"r_attype,omitempty"`
+	RAttype                 RattypeQoSflowsUsageReportItem `protobuf:"varint,2,opt,name=r_attype,json=rATType,proto3,enum=xnap.v1.RattypeQoSflowsUsageReportItem" json:"r_attype,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	QoSflowsTimedReportList *VolumeTimedReportList         `protobuf:"bytes,3,opt,name=qo_sflows_timed_report_list,json=qoSFlowsTimedReportList,proto3" json:"qo_sflows_timed_report_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*QoSflowsUsageReportItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*QoSflowsUsageReportItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *QoSflowsUsageReportItem) Reset() {
@@ -49047,7 +49047,7 @@ type QosMonitoringReportingFrequency struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:1800,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:1800,"`
 }
 
 func (x *QosMonitoringReportingFrequency) Reset() {
@@ -49097,7 +49097,7 @@ type RachreportInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*RachreportListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RachreportListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *RachreportInformation) Reset() {
@@ -49198,7 +49198,7 @@ type RachreportListItem struct {
 
 	RAchreport *RachreportContainer `protobuf:"bytes,1,opt,name=r_achreport,json=rACHReport,proto3" json:"r_achreport,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RachreportListItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RachreportListItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RachreportListItem) Reset() {
@@ -49427,17 +49427,17 @@ type isRadioResourceStatus_RadioResourceStatus interface {
 
 type RadioResourceStatus_NgENbRadioResourceStatus struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	NgENbRadioResourceStatus *NgeNbRadioResourceStatus `protobuf:"bytes,1,opt,name=ng_e_nb_radio_resource_status,json=ng-eNB-RadioResourceStatus,proto3,oneof"`
+	NgENbRadioResourceStatus *NgeNbRadioResourceStatus `protobuf:"bytes,1,opt,name=ng_e_nb_radio_resource_status,json=ng-eNB-RadioResourceStatus,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type RadioResourceStatus_GNbRadioResourceStatus struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	GNbRadioResourceStatus *GnbRadioResourceStatus `protobuf:"bytes,2,opt,name=g_nb_radio_resource_status,json=gNB-RadioResourceStatus,proto3,oneof"`
+	GNbRadioResourceStatus *GnbRadioResourceStatus `protobuf:"bytes,2,opt,name=g_nb_radio_resource_status,json=gNB-RadioResourceStatus,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type RadioResourceStatus_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *RadioResourceStatusExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *RadioResourceStatusExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*RadioResourceStatus_NgENbRadioResourceStatus) isRadioResourceStatus_RadioResourceStatus() {}
@@ -49454,7 +49454,7 @@ type Ranac struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:255,"`
 }
 
 func (x *Ranac) Reset() {
@@ -49555,9 +49555,9 @@ type RanareaId struct {
 
 	TAc *Tac `protobuf:"bytes,1,opt,name=t_ac,json=tAC,proto3" json:"t_ac,omitempty"`
 	// @inject_tag: aper:"optional,"
-	RAnac *Ranac `protobuf:"bytes,2,opt,name=r_anac,json=rANAC,proto3,oneof" json:"r_anac,omitempty"`
+	RAnac *Ranac `protobuf:"bytes,2,opt,name=r_anac,json=rANAC,proto3,oneof" json:"r_anac,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RanareaIdExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RanareaIdExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RanareaId) Reset() {
@@ -49621,7 +49621,7 @@ type RanareaIdList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16,"
-	Value []*RanareaId `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RanareaId `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16,"`
 }
 
 func (x *RanareaIdList) Reset() {
@@ -49723,7 +49723,7 @@ type RanpagingArea struct {
 	PLmnIdentity        *PlmnIdentity        `protobuf:"bytes,1,opt,name=p_lmn_identity,json=pLMN-Identity,proto3" json:"p_lmn_identity,omitempty"`
 	RAnpagingAreaChoice *RanpagingAreaChoice `protobuf:"bytes,2,opt,name=r_anpaging_area_choice,json=rANPagingAreaChoice,proto3" json:"r_anpaging_area_choice,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RanpagingAreaExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RanpagingAreaExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RanpagingArea) Reset() {
@@ -49910,17 +49910,17 @@ type isRanpagingAreaChoice_RanpagingAreaChoice interface {
 
 type RanpagingAreaChoice_CellList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	CellList *NgRAnCellIdentityListinRanpagingArea `protobuf:"bytes,1,opt,name=cell_list,json=cell-List,proto3,oneof"`
+	CellList *NgRAnCellIdentityListinRanpagingArea `protobuf:"bytes,1,opt,name=cell_list,json=cell-List,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type RanpagingAreaChoice_RAnareaIdList struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	RAnareaIdList *RanareaIdList `protobuf:"bytes,2,opt,name=r_anarea_id_list,json=rANAreaID-List,proto3,oneof"`
+	RAnareaIdList *RanareaIdList `protobuf:"bytes,2,opt,name=r_anarea_id_list,json=rANAreaID-List,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type RanpagingAreaChoice_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *RanpagingAreaChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *RanpagingAreaChoiceExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*RanpagingAreaChoice_CellList) isRanpagingAreaChoice_RanpagingAreaChoice() {}
@@ -49987,13 +49987,13 @@ type RanpagingAttemptInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:16,"
-	PagingAttemptCount int32 `protobuf:"varint,1,opt,name=paging_attempt_count,json=pagingAttemptCount,proto3" json:"paging_attempt_count,omitempty"`
+	PagingAttemptCount int32 `protobuf:"varint,1,opt,name=paging_attempt_count,json=pagingAttemptCount,proto3" json:"paging_attempt_count,omitempty" aper:"valueExt,valueLB:1,valueUB:16,"`
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:16,"
-	IntendedNumberOfPagingAttempts int32 `protobuf:"varint,2,opt,name=intended_number_of_paging_attempts,json=intendedNumberOfPagingAttempts,proto3" json:"intended_number_of_paging_attempts,omitempty"`
+	IntendedNumberOfPagingAttempts int32 `protobuf:"varint,2,opt,name=intended_number_of_paging_attempts,json=intendedNumberOfPagingAttempts,proto3" json:"intended_number_of_paging_attempts,omitempty" aper:"valueExt,valueLB:1,valueUB:16,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	NextPagingAreaScope *NextPagingAreaScopeRanpagingAttemptInfo `protobuf:"varint,3,opt,name=next_paging_area_scope,json=nextPagingAreaScope,proto3,enum=xnap.v1.NextPagingAreaScopeRanpagingAttemptInfo,oneof" json:"next_paging_area_scope,omitempty"`
+	NextPagingAreaScope *NextPagingAreaScopeRanpagingAttemptInfo `protobuf:"varint,3,opt,name=next_paging_area_scope,json=nextPagingAreaScope,proto3,enum=xnap.v1.NextPagingAreaScopeRanpagingAttemptInfo,oneof" json:"next_paging_area_scope,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RanpagingAttemptInfoExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RanpagingAttemptInfoExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RanpagingAttemptInfo) Reset() {
@@ -50114,9 +50114,9 @@ type RedundantPdusessionInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	RSn Rsn `protobuf:"varint,1,opt,name=r_sn,json=rSN,proto3,enum=xnap.v1.Rsn" json:"r_sn,omitempty"`
+	RSn Rsn `protobuf:"varint,1,opt,name=r_sn,json=rSN,proto3,enum=xnap.v1.Rsn" json:"r_sn,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RedundantPdusessionInformationExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RedundantPdusessionInformationExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RedundantPdusessionInformation) Reset() {
@@ -50173,7 +50173,7 @@ type ReferenceId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:64,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:64,"`
 }
 
 func (x *ReferenceId) Reset() {
@@ -50290,12 +50290,12 @@ type isReportType_ReportType interface {
 
 type ReportType_Periodical struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	Periodical *Periodical `protobuf:"bytes,1,opt,name=periodical,proto3,oneof"`
+	Periodical *Periodical `protobuf:"bytes,1,opt,name=periodical,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type ReportType_EventTriggered struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	EventTriggered *EventTriggered `protobuf:"bytes,2,opt,name=event_triggered,json=eventTriggered,proto3,oneof"`
+	EventTriggered *EventTriggered `protobuf:"bytes,2,opt,name=event_triggered,json=eventTriggered,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 func (*ReportType_Periodical) isReportType_ReportType() {}
@@ -50310,7 +50310,7 @@ type ReportCharacteristics struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:32,sizeUB:32,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:32,sizeUB:32,"`
 }
 
 func (x *ReportCharacteristics) Reset() {
@@ -50360,7 +50360,7 @@ type RequestReferenceId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:64,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:64,"`
 }
 
 func (x *RequestReferenceId) Reset() {
@@ -50460,13 +50460,13 @@ type ReservedSubframePattern struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	SubframeType SubframeTypeReservedSubframePattern `protobuf:"varint,1,opt,name=subframe_type,json=subframeType,proto3,enum=xnap.v1.SubframeTypeReservedSubframePattern" json:"subframe_type,omitempty"`
+	SubframeType SubframeTypeReservedSubframePattern `protobuf:"varint,1,opt,name=subframe_type,json=subframeType,proto3,enum=xnap.v1.SubframeTypeReservedSubframePattern" json:"subframe_type,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"sizeLB:10,sizeUB:160,"
-	ReservedSubframePattern *asn1.BitString `protobuf:"bytes,2,opt,name=reserved_subframe_pattern,json=reservedSubframePattern,proto3" json:"reserved_subframe_pattern,omitempty"`
+	ReservedSubframePattern *asn1.BitString `protobuf:"bytes,2,opt,name=reserved_subframe_pattern,json=reservedSubframePattern,proto3" json:"reserved_subframe_pattern,omitempty" aper:"sizeLB:10,sizeUB:160,"`
 	// @inject_tag: aper:"optional,"
-	MbsfnControlRegionLength *MbsfncontrolRegionLength `protobuf:"bytes,3,opt,name=mbsfn_control_region_length,json=mbsfnControlRegionLength,proto3,oneof" json:"mbsfn_control_region_length,omitempty"`
+	MbsfnControlRegionLength *MbsfncontrolRegionLength `protobuf:"bytes,3,opt,name=mbsfn_control_region_length,json=mbsfnControlRegionLength,proto3,oneof" json:"mbsfn_control_region_length,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*ReservedSubframePatternExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*ReservedSubframePatternExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ReservedSubframePattern) Reset() {
@@ -50660,17 +50660,17 @@ type isResetRequestTypeInfo_ResetRequestTypeInfo interface {
 
 type ResetRequestTypeInfo_FullReset struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	FullReset *ResetRequestTypeInfoFull `protobuf:"bytes,1,opt,name=full_reset,json=fullReset,proto3,oneof"`
+	FullReset *ResetRequestTypeInfoFull `protobuf:"bytes,1,opt,name=full_reset,json=fullReset,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type ResetRequestTypeInfo_PartialReset struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	PartialReset *ResetRequestTypeInfoPartial `protobuf:"bytes,2,opt,name=partial_reset,json=partialReset,proto3,oneof"`
+	PartialReset *ResetRequestTypeInfoPartial `protobuf:"bytes,2,opt,name=partial_reset,json=partialReset,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type ResetRequestTypeInfo_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ResetRequestTypeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ResetRequestTypeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResetRequestTypeInfo_FullReset) isResetRequestTypeInfo_ResetRequestTypeInfo() {}
@@ -50737,7 +50737,7 @@ type ResetRequestTypeInfoFull struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*ResetRequestTypeInfoFullExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*ResetRequestTypeInfoFullExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResetRequestTypeInfoFull) Reset() {
@@ -50838,7 +50838,7 @@ type ResetRequestTypeInfoPartial struct {
 
 	UeContextsToBeReleasedList *ResetRequestPartialReleaseList `protobuf:"bytes,1,opt,name=ue_contexts_to_be_released_list,json=ue-contexts-ToBeReleasedList,proto3" json:"ue_contexts_to_be_released_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*ResetRequestTypeInfoPartialExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*ResetRequestTypeInfoPartialExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResetRequestTypeInfoPartial) Reset() {
@@ -50895,7 +50895,7 @@ type ResetRequestPartialReleaseList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:8192,"
-	Value []*ResetRequestPartialReleaseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ResetRequestPartialReleaseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:8192,"`
 }
 
 func (x *ResetRequestPartialReleaseList) Reset() {
@@ -50995,11 +50995,11 @@ type ResetRequestPartialReleaseItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	NgRanNode1UexnApid *NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=ng_ran_node1_uexn_apid,json=ng-ran-node1UEXnAPID,proto3,oneof" json:"ng_ran_node1_uexn_apid,omitempty"`
+	NgRanNode1UexnApid *NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=ng_ran_node1_uexn_apid,json=ng-ran-node1UEXnAPID,proto3,oneof" json:"ng_ran_node1_uexn_apid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NgRanNode2UexnApid *NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=ng_ran_node2_uexn_apid,json=ng-ran-node2UEXnAPID,proto3,oneof" json:"ng_ran_node2_uexn_apid,omitempty"`
+	NgRanNode2UexnApid *NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=ng_ran_node2_uexn_apid,json=ng-ran-node2UEXnAPID,proto3,oneof" json:"ng_ran_node2_uexn_apid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ResetRequestPartialReleaseItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ResetRequestPartialReleaseItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResetRequestPartialReleaseItem) Reset() {
@@ -51186,17 +51186,17 @@ type isResetResponseTypeInfo_ResetResponseTypeInfo interface {
 
 type ResetResponseTypeInfo_FullReset struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	FullReset *ResetResponseTypeInfoFull `protobuf:"bytes,1,opt,name=full_reset,json=fullReset,proto3,oneof"`
+	FullReset *ResetResponseTypeInfoFull `protobuf:"bytes,1,opt,name=full_reset,json=fullReset,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type ResetResponseTypeInfo_PartialReset struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	PartialReset *ResetResponseTypeInfoPartial `protobuf:"bytes,2,opt,name=partial_reset,json=partialReset,proto3,oneof"`
+	PartialReset *ResetResponseTypeInfoPartial `protobuf:"bytes,2,opt,name=partial_reset,json=partialReset,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type ResetResponseTypeInfo_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ResetResponseTypeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ResetResponseTypeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ResetResponseTypeInfo_FullReset) isResetResponseTypeInfo_ResetResponseTypeInfo() {}
@@ -51263,7 +51263,7 @@ type ResetResponseTypeInfoFull struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*ResetResponseTypeInfoFullExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*ResetResponseTypeInfoFullExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResetResponseTypeInfoFull) Reset() {
@@ -51364,7 +51364,7 @@ type ResetResponseTypeInfoPartial struct {
 
 	UeContextsAdmittedToBeReleasedList *ResetResponsePartialReleaseList `protobuf:"bytes,1,opt,name=ue_contexts_admitted_to_be_released_list,json=ue-contexts-AdmittedToBeReleasedList,proto3" json:"ue_contexts_admitted_to_be_released_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*ResetResponseTypeInfoPartialExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*ResetResponseTypeInfoPartialExtIes `protobuf:"bytes,2,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResetResponseTypeInfoPartial) Reset() {
@@ -51421,7 +51421,7 @@ type ResetResponsePartialReleaseList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:8192,"
-	Value []*ResetResponsePartialReleaseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ResetResponsePartialReleaseItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:8192,"`
 }
 
 func (x *ResetResponsePartialReleaseList) Reset() {
@@ -51521,11 +51521,11 @@ type ResetResponsePartialReleaseItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	NgRanNode1UexnApid *NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=ng_ran_node1_uexn_apid,json=ng-ran-node1UEXnAPID,proto3,oneof" json:"ng_ran_node1_uexn_apid,omitempty"`
+	NgRanNode1UexnApid *NgRAnnodeUexnApid `protobuf:"bytes,1,opt,name=ng_ran_node1_uexn_apid,json=ng-ran-node1UEXnAPID,proto3,oneof" json:"ng_ran_node1_uexn_apid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NgRanNode2UexnApid *NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=ng_ran_node2_uexn_apid,json=ng-ran-node2UEXnAPID,proto3,oneof" json:"ng_ran_node2_uexn_apid,omitempty"`
+	NgRanNode2UexnApid *NgRAnnodeUexnApid `protobuf:"bytes,2,opt,name=ng_ran_node2_uexn_apid,json=ng-ran-node2UEXnAPID,proto3,oneof" json:"ng_ran_node2_uexn_apid,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ResetResponsePartialReleaseItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ResetResponsePartialReleaseItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ResetResponsePartialReleaseItem) Reset() {
@@ -51639,9 +51639,9 @@ type RlcStatus struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	ReestablishmentIndication ReestablishmentIndication `protobuf:"varint,1,opt,name=reestablishment_indication,json=reestablishment-Indication,proto3,enum=xnap.v1.ReestablishmentIndication" json:"reestablishment_indication,omitempty"`
+	ReestablishmentIndication ReestablishmentIndication `protobuf:"varint,1,opt,name=reestablishment_indication,json=reestablishment-Indication,proto3,enum=xnap.v1.ReestablishmentIndication" json:"reestablishment_indication,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RlcStatusExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RlcStatusExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RlcStatus) Reset() {
@@ -51748,9 +51748,9 @@ type RlcduplicationInformation struct {
 
 	RLcduplicationStateList *RlcduplicationStateList `protobuf:"bytes,1,opt,name=r_lcduplication_state_list,json=rLCDuplicationStateList,proto3" json:"r_lcduplication_state_list,omitempty"`
 	// @inject_tag: aper:"optional,valueLB:0,valueUB:1,"
-	RLcPrimaryIndicator *RlcprimaryIndicatorRlcduplicationInformation `protobuf:"varint,2,opt,name=r_lc_primary_indicator,json=rLC-PrimaryIndicator,proto3,enum=xnap.v1.RlcprimaryIndicatorRlcduplicationInformation,oneof" json:"r_lc_primary_indicator,omitempty"`
+	RLcPrimaryIndicator *RlcprimaryIndicatorRlcduplicationInformation `protobuf:"varint,2,opt,name=r_lc_primary_indicator,json=rLC-PrimaryIndicator,proto3,enum=xnap.v1.RlcprimaryIndicatorRlcduplicationInformation,oneof" json:"r_lc_primary_indicator,omitempty" aper:"optional,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RlcduplicationInformationItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RlcduplicationInformationItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RlcduplicationInformation) Reset() {
@@ -51814,7 +51814,7 @@ type RlcduplicationStateList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:3,"
-	Value []*RlcduplicationStateItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*RlcduplicationStateItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:3,"`
 }
 
 func (x *RlcduplicationStateList) Reset() {
@@ -51914,9 +51914,9 @@ type RlcduplicationStateItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	DuplicationState DuplicationStateRlcduplicationStateItem `protobuf:"varint,1,opt,name=duplication_state,json=duplicationState,proto3,enum=xnap.v1.DuplicationStateRlcduplicationStateItem" json:"duplication_state,omitempty"`
+	DuplicationState DuplicationStateRlcduplicationStateItem `protobuf:"varint,1,opt,name=duplication_state,json=duplicationState,proto3,enum=xnap.v1.DuplicationStateRlcduplicationStateItem" json:"duplication_state,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RlcduplicationStateItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RlcduplicationStateItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RlcduplicationStateItem) Reset() {
@@ -51973,7 +51973,7 @@ type RfspIndex struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:1,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:256,"`
 }
 
 func (x *RfspIndex) Reset() {
@@ -52075,7 +52075,7 @@ type Rrcconnections struct {
 	NoofRrcconnections                  *NoofRrcconnections                  `protobuf:"bytes,1,opt,name=noof_rrcconnections,json=noofRRCConnections,proto3" json:"noof_rrcconnections,omitempty"`
 	AvailableRrcconnectionCapacityValue *AvailableRrcconnectionCapacityValue `protobuf:"bytes,2,opt,name=available_rrcconnection_capacity_value,json=availableRRCConnectionCapacityValue,proto3" json:"available_rrcconnection_capacity_value,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RrcconnectionsExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RrcconnectionsExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Rrcconnections) Reset() {
@@ -52190,7 +52190,7 @@ type Rrcreestabinitiated struct {
 
 	RRrcreestabInitiatedReporting *RrcreestabInitiatedReporting `protobuf:"bytes,1,opt,name=r_rrcreestab_initiated_reporting,json=rRRCReestab-initiated-reporting,proto3" json:"r_rrcreestab_initiated_reporting,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RrcreestabinitiatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RrcreestabinitiatedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Rrcreestabinitiated) Reset() {
@@ -52370,17 +52370,17 @@ type isRrcreestabInitiatedReporting_RrcreestabInitiatedReporting interface {
 
 type RrcreestabInitiatedReporting_RRcreestabReportingWoUerlfreport struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	RRcreestabReportingWoUerlfreport *RrcreestabInitiatedReportingwoUErlfreport `protobuf:"bytes,1,opt,name=r_rcreestab_reporting_wo_uerlfreport,json=rRCReestab-reporting-wo-UERLFReport,proto3,oneof"`
+	RRcreestabReportingWoUerlfreport *RrcreestabInitiatedReportingwoUErlfreport `protobuf:"bytes,1,opt,name=r_rcreestab_reporting_wo_uerlfreport,json=rRCReestab-reporting-wo-UERLFReport,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type RrcreestabInitiatedReporting_RRcreestabReportingWithUerlfreport struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	RRcreestabReportingWithUerlfreport *RrcreestabInitiatedReportingwithUErlfreport `protobuf:"bytes,2,opt,name=r_rcreestab_reporting_with_uerlfreport,json=rRCReestab-reporting-with-UERLFReport,proto3,oneof"`
+	RRcreestabReportingWithUerlfreport *RrcreestabInitiatedReportingwithUErlfreport `protobuf:"bytes,2,opt,name=r_rcreestab_reporting_with_uerlfreport,json=rRCReestab-reporting-with-UERLFReport,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type RrcreestabInitiatedReporting_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *RrcreestabInitiatedReportingExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *RrcreestabInitiatedReportingExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*RrcreestabInitiatedReporting_RRcreestabReportingWoUerlfreport) isRrcreestabInitiatedReporting_RrcreestabInitiatedReporting() {
@@ -52451,11 +52451,11 @@ type RrcreestabInitiatedReportingwoUErlfreport struct {
 
 	FailureCellPci *NgRAnCellPci `protobuf:"bytes,1,opt,name=failure_cell_pci,json=failureCellPCI,proto3" json:"failure_cell_pci,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	ReestabCellCgi *GlobalNgRAncellID `protobuf:"bytes,2,opt,name=reestab_cell_cgi,json=reestabCellCGI,proto3" json:"reestab_cell_cgi,omitempty"`
+	ReestabCellCgi *GlobalNgRAncellID `protobuf:"bytes,2,opt,name=reestab_cell_cgi,json=reestabCellCGI,proto3" json:"reestab_cell_cgi,omitempty" aper:"valueExt,"`
 	CRnti          *CRNti             `protobuf:"bytes,3,opt,name=c_rnti,json=c-RNTI,proto3" json:"c_rnti,omitempty"`
 	ShortMacI      *MacI              `protobuf:"bytes,4,opt,name=short_mac_i,json=shortMAC-I,proto3" json:"short_mac_i,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RrcreestabInitiatedReportingwoUErlfreportExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RrcreestabInitiatedReportingwoUErlfreportExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RrcreestabInitiatedReportingwoUErlfreport) Reset() {
@@ -52584,7 +52584,7 @@ type RrcreestabInitiatedReportingwithUErlfreport struct {
 
 	UErlfreportContainer *UerlfreportContainer `protobuf:"bytes,1,opt,name=u_erlfreport_container,json=uERLFReportContainer,proto3" json:"u_erlfreport_container,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RrcreestabInitiatedReportingwithUErlfreportExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RrcreestabInitiatedReportingwithUErlfreportExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RrcreestabInitiatedReportingwithUErlfreport) Reset() {
@@ -52692,9 +52692,9 @@ type Rrcsetupinitiated struct {
 
 	RRrcsetupInitiatedReporting *RrcsetupInitiatedReporting `protobuf:"bytes,1,opt,name=r_rrcsetup_initiated_reporting,json=rRRCSetup-Initiated-Reporting,proto3" json:"r_rrcsetup_initiated_reporting,omitempty"`
 	// @inject_tag: aper:"optional,"
-	UErlfreportContainer *UerlfreportContainer `protobuf:"bytes,2,opt,name=u_erlfreport_container,json=uERLFReportContainer,proto3,oneof" json:"u_erlfreport_container,omitempty"`
+	UErlfreportContainer *UerlfreportContainer `protobuf:"bytes,2,opt,name=u_erlfreport_container,json=uERLFReportContainer,proto3,oneof" json:"u_erlfreport_container,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RrcsetupinitiatedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RrcsetupinitiatedExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Rrcsetupinitiated) Reset() {
@@ -52873,12 +52873,12 @@ type isRrcsetupInitiatedReporting_RrcsetupInitiatedReporting interface {
 
 type RrcsetupInitiatedReporting_RRcsetupReportingWithUerlfreport struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	RRcsetupReportingWithUerlfreport *RrcsetupInitiatedReportingwithUErlfreport `protobuf:"bytes,1,opt,name=r_rcsetup_reporting_with_uerlfreport,json=rRCSetup-reporting-with-UERLFReport,proto3,oneof"`
+	RRcsetupReportingWithUerlfreport *RrcsetupInitiatedReportingwithUErlfreport `protobuf:"bytes,1,opt,name=r_rcsetup_reporting_with_uerlfreport,json=rRCSetup-reporting-with-UERLFReport,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type RrcsetupInitiatedReporting_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtension *RrcsetupInitiatedReportingExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *RrcsetupInitiatedReportingExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*RrcsetupInitiatedReporting_RRcsetupReportingWithUerlfreport) isRrcsetupInitiatedReporting_RrcsetupInitiatedReporting() {
@@ -52946,7 +52946,7 @@ type RrcsetupInitiatedReportingwithUErlfreport struct {
 
 	UErlfreportContainer *UerlfreportContainer `protobuf:"bytes,1,opt,name=u_erlfreport_container,json=uERLFReportContainer,proto3" json:"u_erlfreport_container,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*RrcsetupInitiatedReportingwithUErlfreportExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*RrcsetupInitiatedReportingwithUErlfreportExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *RrcsetupInitiatedReportingwithUErlfreport) Reset() {
@@ -53053,9 +53053,9 @@ type SecondarydataForwardingInfoFromTargetItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	SecondarydataForwardingInfoFromTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,1,opt,name=secondarydata_forwarding_info_from_target,json=secondarydataForwardingInfoFromTarget,proto3" json:"secondarydata_forwarding_info_from_target,omitempty"`
+	SecondarydataForwardingInfoFromTarget *DataForwardingInfoFromTargetNgrannode `protobuf:"bytes,1,opt,name=secondarydata_forwarding_info_from_target,json=secondarydataForwardingInfoFromTarget,proto3" json:"secondarydata_forwarding_info_from_target,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SecondarydataForwardingInfoFromTargetItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SecondarydataForwardingInfoFromTargetItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SecondarydataForwardingInfoFromTargetItem) Reset() {
@@ -53112,7 +53112,7 @@ type SecondarydataForwardingInfoFromTargetList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:3,"
-	Value []*SecondarydataForwardingInfoFromTargetItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SecondarydataForwardingInfoFromTargetItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:3,"`
 }
 
 func (x *SecondarydataForwardingInfoFromTargetList) Reset() {
@@ -53212,11 +53212,11 @@ type SecondaryRatusageInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,"
-	PDusessionUsageReport *PdusessionUsageReport `protobuf:"bytes,1,opt,name=p_dusession_usage_report,json=pDUSessionUsageReport,proto3,oneof" json:"p_dusession_usage_report,omitempty"`
+	PDusessionUsageReport *PdusessionUsageReport `protobuf:"bytes,1,opt,name=p_dusession_usage_report,json=pDUSessionUsageReport,proto3,oneof" json:"p_dusession_usage_report,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	QosFlowsUsageReportList *QoSflowsUsageReportList `protobuf:"bytes,2,opt,name=qos_flows_usage_report_list,json=qosFlowsUsageReportList,proto3,oneof" json:"qos_flows_usage_report_list,omitempty"`
+	QosFlowsUsageReportList *QoSflowsUsageReportList `protobuf:"bytes,2,opt,name=qos_flows_usage_report_list,json=qosFlowsUsageReportList,proto3,oneof" json:"qos_flows_usage_report_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*SecondaryRatusageInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*SecondaryRatusageInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SecondaryRatusageInformation) Reset() {
@@ -53330,13 +53330,13 @@ type SecurityIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	IntegrityProtectionIndication IntegrityProtectionIndicationSecurityIndication `protobuf:"varint,1,opt,name=integrity_protection_indication,json=integrityProtectionIndication,proto3,enum=xnap.v1.IntegrityProtectionIndicationSecurityIndication" json:"integrity_protection_indication,omitempty"`
+	IntegrityProtectionIndication IntegrityProtectionIndicationSecurityIndication `protobuf:"varint,1,opt,name=integrity_protection_indication,json=integrityProtectionIndication,proto3,enum=xnap.v1.IntegrityProtectionIndicationSecurityIndication" json:"integrity_protection_indication,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	ConfidentialityProtectionIndication ConfidentialityProtectionIndicationSecurityIndication `protobuf:"varint,2,opt,name=confidentiality_protection_indication,json=confidentialityProtectionIndication,proto3,enum=xnap.v1.ConfidentialityProtectionIndicationSecurityIndication" json:"confidentiality_protection_indication,omitempty"`
+	ConfidentialityProtectionIndication ConfidentialityProtectionIndicationSecurityIndication `protobuf:"varint,2,opt,name=confidentiality_protection_indication,json=confidentialityProtectionIndication,proto3,enum=xnap.v1.ConfidentialityProtectionIndicationSecurityIndication" json:"confidentiality_protection_indication,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MaximumIpdatarate *MaximumIpdatarate `protobuf:"bytes,3,opt,name=maximum_ipdatarate,json=maximumIPdatarate,proto3,oneof" json:"maximum_ipdatarate,omitempty"`
+	MaximumIpdatarate *MaximumIpdatarate `protobuf:"bytes,3,opt,name=maximum_ipdatarate,json=maximumIPdatarate,proto3,oneof" json:"maximum_ipdatarate,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SecurityIndicationExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SecurityIndicationExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SecurityIndication) Reset() {
@@ -53457,11 +53457,11 @@ type SecurityResult struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	IntegrityProtectionResult IntegrityProtectionResultSecurityResult `protobuf:"varint,1,opt,name=integrity_protection_result,json=integrityProtectionResult,proto3,enum=xnap.v1.IntegrityProtectionResultSecurityResult" json:"integrity_protection_result,omitempty"`
+	IntegrityProtectionResult IntegrityProtectionResultSecurityResult `protobuf:"varint,1,opt,name=integrity_protection_result,json=integrityProtectionResult,proto3,enum=xnap.v1.IntegrityProtectionResultSecurityResult" json:"integrity_protection_result,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	ConfidentialityProtectionResult ConfidentialityProtectionResultSecurityResult `protobuf:"varint,2,opt,name=confidentiality_protection_result,json=confidentialityProtectionResult,proto3,enum=xnap.v1.ConfidentialityProtectionResultSecurityResult" json:"confidentiality_protection_result,omitempty"`
+	ConfidentialityProtectionResult ConfidentialityProtectionResultSecurityResult `protobuf:"varint,2,opt,name=confidentiality_protection_result,json=confidentialityProtectionResult,proto3,enum=xnap.v1.ConfidentialityProtectionResultSecurityResult" json:"confidentiality_protection_result,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SecurityResultExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SecurityResultExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SecurityResult) Reset() {
@@ -53575,11 +53575,11 @@ type SensorMeasurementConfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	SensorMeasConfig SensorMeasConfig `protobuf:"varint,1,opt,name=sensor_meas_config,json=sensorMeasConfig,proto3,enum=xnap.v1.SensorMeasConfig" json:"sensor_meas_config,omitempty"`
+	SensorMeasConfig SensorMeasConfig `protobuf:"varint,1,opt,name=sensor_meas_config,json=sensorMeasConfig,proto3,enum=xnap.v1.SensorMeasConfig" json:"sensor_meas_config,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,"
-	SensorMeasConfigNameList *SensorMeasConfigNameList `protobuf:"bytes,2,opt,name=sensor_meas_config_name_list,json=sensorMeasConfigNameList,proto3,oneof" json:"sensor_meas_config_name_list,omitempty"`
+	SensorMeasConfigNameList *SensorMeasConfigNameList `protobuf:"bytes,2,opt,name=sensor_meas_config_name_list,json=sensorMeasConfigNameList,proto3,oneof" json:"sensor_meas_config_name_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SensorMeasurementConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SensorMeasurementConfigurationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SensorMeasurementConfiguration) Reset() {
@@ -53643,7 +53643,7 @@ type SensorMeasConfigNameList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:3,"
-	Value []*SensorName `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SensorName `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:3,"`
 }
 
 func (x *SensorMeasConfigNameList) Reset() {
@@ -53743,13 +53743,13 @@ type SensorName struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	UncompensatedBarometricConfig *UncompensatedBarometricConfigSensorName `protobuf:"varint,1,opt,name=uncompensated_barometric_config,json=uncompensatedBarometricConfig,proto3,enum=xnap.v1.UncompensatedBarometricConfigSensorName,oneof" json:"uncompensated_barometric_config,omitempty"`
+	UncompensatedBarometricConfig *UncompensatedBarometricConfigSensorName `protobuf:"varint,1,opt,name=uncompensated_barometric_config,json=uncompensatedBarometricConfig,proto3,enum=xnap.v1.UncompensatedBarometricConfigSensorName,oneof" json:"uncompensated_barometric_config,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	UeSpeedConfig *UeSpeedConfigSensorName `protobuf:"varint,2,opt,name=ue_speed_config,json=ueSpeedConfig,proto3,enum=xnap.v1.UeSpeedConfigSensorName,oneof" json:"ue_speed_config,omitempty"`
+	UeSpeedConfig *UeSpeedConfigSensorName `protobuf:"varint,2,opt,name=ue_speed_config,json=ueSpeedConfig,proto3,enum=xnap.v1.UeSpeedConfigSensorName,oneof" json:"ue_speed_config,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	UeOrientationConfig *UeOrientationConfigSensorName `protobuf:"varint,3,opt,name=ue_orientation_config,json=ueOrientationConfig,proto3,enum=xnap.v1.UeOrientationConfigSensorName,oneof" json:"ue_orientation_config,omitempty"`
+	UeOrientationConfig *UeOrientationConfigSensorName `protobuf:"varint,3,opt,name=ue_orientation_config,json=ueOrientationConfig,proto3,enum=xnap.v1.UeOrientationConfigSensorName,oneof" json:"ue_orientation_config,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SensorNameConfigExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SensorNameConfigExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SensorName) Reset() {
@@ -53886,12 +53886,12 @@ type isServedCellInformationEUTraExtIesExtension_ServedCellInformationEUtraExtIe
 
 type ServedCellInformationEUTraExtIesExtension_IdBplmnIdInfoEutra struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdBplmnIdInfoEutra *BplmnIDInfoEUtra `protobuf:"bytes,1,opt,name=id_bplmn_id_info_eutra,json=id-BPLMN-ID-Info-EUTRA,proto3,oneof"`
+	IdBplmnIdInfoEutra *BplmnIDInfoEUtra `protobuf:"bytes,1,opt,name=id_bplmn_id_info_eutra,json=id-BPLMN-ID-Info-EUTRA,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ServedCellInformationEUTraExtIesExtension_IdNprachconfiguration struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdNprachconfiguration *Nprachconfiguration `protobuf:"bytes,2,opt,name=id_nprachconfiguration,json=id-NPRACHConfiguration,proto3,oneof"`
+	IdNprachconfiguration *Nprachconfiguration `protobuf:"bytes,2,opt,name=id_nprachconfiguration,json=id-NPRACHConfiguration,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 func (*ServedCellInformationEUTraExtIesExtension_IdBplmnIdInfoEutra) isServedCellInformationEUTraExtIesExtension_ServedCellInformationEUtraExtIes() {
@@ -53909,11 +53909,11 @@ type ServedCellInformationEUTraExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *ServedCellInformationEUTraExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *ServedCellInformationEUTraExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ServedCellInformationEUTraExtIes) Reset() {
@@ -53979,29 +53979,29 @@ type ServedCellInformationEUTra struct {
 
 	EUtraPci *EUTrapci `protobuf:"bytes,1,opt,name=e_utra_pci,json=e-utra-pci,proto3" json:"e_utra_pci,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	EUtraCgi *EUTraCGi `protobuf:"bytes,2,opt,name=e_utra_cgi,json=e-utra-cgi,proto3" json:"e_utra_cgi,omitempty"`
+	EUtraCgi *EUTraCGi `protobuf:"bytes,2,opt,name=e_utra_cgi,json=e-utra-cgi,proto3" json:"e_utra_cgi,omitempty" aper:"valueExt,"`
 	Tac      *Tac      `protobuf:"bytes,3,opt,name=tac,proto3" json:"tac,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Ranac *Ranac `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty"`
-	// @inject_tag: aper:"sizeLB:1,sizeUB:12,"
-	BroadcastPlmns []*ServedCellInformationEUTraperBplmn `protobuf:"bytes,5,rep,name=broadcast_plmns,json=broadcastPLMNs,proto3" json:"broadcast_plmns,omitempty"`
+	Ranac *Ranac `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty" aper:"optional,"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:12,valueExt"
+	BroadcastPlmns []*ServedCellInformationEUTraperBplmn `protobuf:"bytes,5,rep,name=broadcast_plmns,json=broadcastPLMNs,proto3" json:"broadcast_plmns,omitempty" aper:"sizeLB:1,sizeUB:12,valueExt"`
 	EUtraModeInfo  *ServedCellInformationEUTraModeInfo   `protobuf:"bytes,6,opt,name=e_utra_mode_info,json=e-utra-mode-info,proto3" json:"e_utra_mode_info,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:2,"
-	NumberofAntennaPorts *NumberOfAntennaPortsEUTra `protobuf:"varint,7,opt,name=numberof_antenna_ports,json=numberofAntennaPorts,proto3,enum=xnap.v1.NumberOfAntennaPortsEUTra,oneof" json:"numberof_antenna_ports,omitempty"`
+	NumberofAntennaPorts *NumberOfAntennaPortsEUTra `protobuf:"varint,7,opt,name=numberof_antenna_ports,json=numberofAntennaPorts,proto3,enum=xnap.v1.NumberOfAntennaPortsEUTra,oneof" json:"numberof_antenna_ports,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	PrachConfiguration *EUTraprachconfiguration `protobuf:"bytes,8,opt,name=prach_configuration,json=prach-configuration,proto3,oneof" json:"prach_configuration,omitempty"`
+	PrachConfiguration *EUTraprachconfiguration `protobuf:"bytes,8,opt,name=prach_configuration,json=prach-configuration,proto3,oneof" json:"prach_configuration,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	MBsfnsubframeInfo *MbsfnsubframeInfoEUTra `protobuf:"bytes,9,opt,name=m_bsfnsubframe_info,json=mBSFNsubframeInfo,proto3,oneof" json:"m_bsfnsubframe_info,omitempty"`
+	MBsfnsubframeInfo *MbsfnsubframeInfoEUTra `protobuf:"bytes,9,opt,name=m_bsfnsubframe_info,json=mBSFNsubframeInfo,proto3,oneof" json:"m_bsfnsubframe_info,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	MultibandInfo *EUTramultibandInfoList `protobuf:"bytes,10,opt,name=multiband_info,json=multibandInfo,proto3,oneof" json:"multiband_info,omitempty"`
+	MultibandInfo *EUTramultibandInfoList `protobuf:"bytes,10,opt,name=multiband_info,json=multibandInfo,proto3,oneof" json:"multiband_info,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:1,"
-	FreqBandIndicatorPriority *FreqBandIndicatorPriorityServedCellInformationEutra `protobuf:"varint,11,opt,name=freq_band_indicator_priority,json=freqBandIndicatorPriority,proto3,enum=xnap.v1.FreqBandIndicatorPriorityServedCellInformationEutra,oneof" json:"freq_band_indicator_priority,omitempty"`
+	FreqBandIndicatorPriority *FreqBandIndicatorPriorityServedCellInformationEutra `protobuf:"varint,11,opt,name=freq_band_indicator_priority,json=freqBandIndicatorPriority,proto3,enum=xnap.v1.FreqBandIndicatorPriorityServedCellInformationEutra,oneof" json:"freq_band_indicator_priority,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	BandwidthReducedSi *BandwidthReducedSiservedCellInformationEutra `protobuf:"varint,12,opt,name=bandwidth_reduced_si,json=bandwidthReducedSI,proto3,enum=xnap.v1.BandwidthReducedSiservedCellInformationEutra,oneof" json:"bandwidth_reduced_si,omitempty"`
+	BandwidthReducedSi *BandwidthReducedSiservedCellInformationEutra `protobuf:"varint,12,opt,name=bandwidth_reduced_si,json=bandwidthReducedSI,proto3,enum=xnap.v1.BandwidthReducedSiservedCellInformationEutra,oneof" json:"bandwidth_reduced_si,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	ProtectedEUtraresourceIndication *ProtectedEUTraresourceIndication `protobuf:"bytes,13,opt,name=protected_e_utraresource_indication,json=protectedE-UTRAResourceIndication,proto3,oneof" json:"protected_e_utraresource_indication,omitempty"`
+	ProtectedEUtraresourceIndication *ProtectedEUTraresourceIndication `protobuf:"bytes,13,opt,name=protected_e_utraresource_indication,json=protectedE-UTRAResourceIndication,proto3,oneof" json:"protected_e_utraresource_indication,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellInformationEUTraExtIes `protobuf:"bytes,14,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ServedCellInformationEUTraExtIes `protobuf:"bytes,14,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ServedCellInformationEUTra) Reset() {
@@ -54192,8 +54192,8 @@ type ServedCellInformationEUTraperBplmn struct {
 	unknownFields protoimpl.UnknownFields
 
 	PlmnId *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-id,proto3" json:"plmn_id,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellInformationEUTraperBplmnExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*ServedCellInformationEUTraperBplmnExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *ServedCellInformationEUTraperBplmn) Reset() {
@@ -54373,17 +54373,17 @@ type isServedCellInformationEUTraModeInfo_ServedCellInformationEUtraModeInfo int
 
 type ServedCellInformationEUTraModeInfo_Fdd struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	Fdd *ServedCellInformationEUTraFDdinfo `protobuf:"bytes,1,opt,name=fdd,proto3,oneof"`
+	Fdd *ServedCellInformationEUTraFDdinfo `protobuf:"bytes,1,opt,name=fdd,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type ServedCellInformationEUTraModeInfo_Tdd struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	Tdd *ServedCellInformationEUTraTDdinfo `protobuf:"bytes,2,opt,name=tdd,proto3,oneof"`
+	Tdd *ServedCellInformationEUTraTDdinfo `protobuf:"bytes,2,opt,name=tdd,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type ServedCellInformationEUTraModeInfo_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *ServedCellInformationEUTraModeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *ServedCellInformationEUTraModeInfoExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*ServedCellInformationEUTraModeInfo_Fdd) isServedCellInformationEUTraModeInfo_ServedCellInformationEUtraModeInfo() {
@@ -54469,12 +54469,12 @@ type isServedCellInformationEUTraFDdinfoExtIesExtension_ServedCellInformationEUt
 
 type ServedCellInformationEUTraFDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToDlEarfcn struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:24,"
-	IdOffsetOfNbiotChannelNumberToDlEarfcn OffsetOfNbiotChannelNumberToEarfcn `protobuf:"varint,1,opt,name=id_offset_of_nbiot_channel_number_to_dl_earfcn,json=id-OffsetOfNbiotChannelNumberToDL-EARFCN,proto3,enum=xnap.v1.OffsetOfNbiotChannelNumberToEarfcn,oneof"`
+	IdOffsetOfNbiotChannelNumberToDlEarfcn OffsetOfNbiotChannelNumberToEarfcn `protobuf:"varint,1,opt,name=id_offset_of_nbiot_channel_number_to_dl_earfcn,json=id-OffsetOfNbiotChannelNumberToDL-EARFCN,proto3,enum=xnap.v1.OffsetOfNbiotChannelNumberToEarfcn,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:24,"`
 }
 
 type ServedCellInformationEUTraFDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToUlEarfcn struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:24,"
-	IdOffsetOfNbiotChannelNumberToUlEarfcn OffsetOfNbiotChannelNumberToEarfcn `protobuf:"varint,2,opt,name=id_offset_of_nbiot_channel_number_to_ul_earfcn,json=id-OffsetOfNbiotChannelNumberToUL-EARFCN,proto3,enum=xnap.v1.OffsetOfNbiotChannelNumberToEarfcn,oneof"`
+	IdOffsetOfNbiotChannelNumberToUlEarfcn OffsetOfNbiotChannelNumberToEarfcn `protobuf:"varint,2,opt,name=id_offset_of_nbiot_channel_number_to_ul_earfcn,json=id-OffsetOfNbiotChannelNumberToUL-EARFCN,proto3,enum=xnap.v1.OffsetOfNbiotChannelNumberToEarfcn,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:24,"`
 }
 
 func (*ServedCellInformationEUTraFDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToDlEarfcn) isServedCellInformationEUTraFDdinfoExtIesExtension_ServedCellInformationEUtraFddinfoExtIes() {
@@ -54492,11 +54492,11 @@ type ServedCellInformationEUTraFDdinfoExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *ServedCellInformationEUTraFDdinfoExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *ServedCellInformationEUTraFDdinfoExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ServedCellInformationEUTraFDdinfoExtIes) Reset() {
@@ -54563,11 +54563,11 @@ type ServedCellInformationEUTraFDdinfo struct {
 	UlEarfcn *EUTraarfcn `protobuf:"bytes,1,opt,name=ul_earfcn,json=ul-earfcn,proto3" json:"ul_earfcn,omitempty"`
 	DlEarfcn *EUTraarfcn `protobuf:"bytes,2,opt,name=dl_earfcn,json=dl-earfcn,proto3" json:"dl_earfcn,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5,"
-	UlEUtraTxBw EUTratransmissionBandwidth `protobuf:"varint,3,opt,name=ul_e_utra_tx_bw,json=ul-e-utraTxBW,proto3,enum=xnap.v1.EUTratransmissionBandwidth" json:"ul_e_utra_tx_bw,omitempty"`
+	UlEUtraTxBw EUTratransmissionBandwidth `protobuf:"varint,3,opt,name=ul_e_utra_tx_bw,json=ul-e-utraTxBW,proto3,enum=xnap.v1.EUTratransmissionBandwidth" json:"ul_e_utra_tx_bw,omitempty" aper:"valueExt,valueLB:0,valueUB:5,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5,"
-	DlEUtraTxBw EUTratransmissionBandwidth `protobuf:"varint,4,opt,name=dl_e_utra_tx_bw,json=dl-e-utraTxBW,proto3,enum=xnap.v1.EUTratransmissionBandwidth" json:"dl_e_utra_tx_bw,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellInformationEUTraFDdinfoExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	DlEUtraTxBw EUTratransmissionBandwidth `protobuf:"varint,4,opt,name=dl_e_utra_tx_bw,json=dl-e-utraTxBW,proto3,enum=xnap.v1.EUTratransmissionBandwidth" json:"dl_e_utra_tx_bw,omitempty" aper:"valueExt,valueLB:0,valueUB:5,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*ServedCellInformationEUTraFDdinfoExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *ServedCellInformationEUTraFDdinfo) Reset() {
@@ -54711,12 +54711,12 @@ type isServedCellInformationEUTraTDdinfoExtIesExtension_ServedCellInformationEUt
 
 type ServedCellInformationEUTraTDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToDlEarfcn struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:24,"
-	IdOffsetOfNbiotChannelNumberToDlEarfcn OffsetOfNbiotChannelNumberToEarfcn `protobuf:"varint,1,opt,name=id_offset_of_nbiot_channel_number_to_dl_earfcn,json=id-OffsetOfNbiotChannelNumberToDL-EARFCN,proto3,enum=xnap.v1.OffsetOfNbiotChannelNumberToEarfcn,oneof"`
+	IdOffsetOfNbiotChannelNumberToDlEarfcn OffsetOfNbiotChannelNumberToEarfcn `protobuf:"varint,1,opt,name=id_offset_of_nbiot_channel_number_to_dl_earfcn,json=id-OffsetOfNbiotChannelNumberToDL-EARFCN,proto3,enum=xnap.v1.OffsetOfNbiotChannelNumberToEarfcn,oneof" aper:"choiceIdx:1,valueExt,valueLB:0,valueUB:24,"`
 }
 
 type ServedCellInformationEUTraTDdinfoExtIesExtension_IdNbioTUlDlAlignmentOffset struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:2,"
-	IdNbioTUlDlAlignmentOffset NbioTULDLAlignmentOffset `protobuf:"varint,2,opt,name=id_nbio_t_ul_dl_alignment_offset,json=id-NBIoT-UL-DL-AlignmentOffset,proto3,enum=xnap.v1.NbioTULDLAlignmentOffset,oneof"`
+	IdNbioTUlDlAlignmentOffset NbioTULDLAlignmentOffset `protobuf:"varint,2,opt,name=id_nbio_t_ul_dl_alignment_offset,json=id-NBIoT-UL-DL-AlignmentOffset,proto3,enum=xnap.v1.NbioTULDLAlignmentOffset,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:2,"`
 }
 
 func (*ServedCellInformationEUTraTDdinfoExtIesExtension_IdOffsetOfNbiotChannelNumberToDlEarfcn) isServedCellInformationEUTraTDdinfoExtIesExtension_ServedCellInformationEUtraTddinfoExtIes() {
@@ -54734,11 +54734,11 @@ type ServedCellInformationEUTraTDdinfoExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *ServedCellInformationEUTraTDdinfoExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *ServedCellInformationEUTraTDdinfoExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ServedCellInformationEUTraTDdinfoExtIes) Reset() {
@@ -54804,13 +54804,13 @@ type ServedCellInformationEUTraTDdinfo struct {
 
 	Earfcn *EUTraarfcn `protobuf:"bytes,1,opt,name=earfcn,proto3" json:"earfcn,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5,"
-	EUtraTxBw EUTratransmissionBandwidth `protobuf:"varint,2,opt,name=e_utra_tx_bw,json=e-utraTxBW,proto3,enum=xnap.v1.EUTratransmissionBandwidth" json:"e_utra_tx_bw,omitempty"`
+	EUtraTxBw EUTratransmissionBandwidth `protobuf:"varint,2,opt,name=e_utra_tx_bw,json=e-utraTxBW,proto3,enum=xnap.v1.EUTratransmissionBandwidth" json:"e_utra_tx_bw,omitempty" aper:"valueExt,valueLB:0,valueUB:5,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:6,"
-	SubframeAssignmnet SubframeAssignmnetServedCellInformationEutratddinfo `protobuf:"varint,3,opt,name=subframe_assignmnet,json=subframeAssignmnet,proto3,enum=xnap.v1.SubframeAssignmnetServedCellInformationEutratddinfo" json:"subframe_assignmnet,omitempty"`
+	SubframeAssignmnet SubframeAssignmnetServedCellInformationEutratddinfo `protobuf:"varint,3,opt,name=subframe_assignmnet,json=subframeAssignmnet,proto3,enum=xnap.v1.SubframeAssignmnetServedCellInformationEutratddinfo" json:"subframe_assignmnet,omitempty" aper:"valueExt,valueLB:0,valueUB:6,"`
 	// @inject_tag: aper:"valueExt,"
-	SpecialSubframeInfo *SpecialSubframeInfoEUTra `protobuf:"bytes,4,opt,name=special_subframe_info,json=specialSubframeInfo,proto3" json:"special_subframe_info,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellInformationEUTraTDdinfoExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	SpecialSubframeInfo *SpecialSubframeInfoEUTra `protobuf:"bytes,4,opt,name=special_subframe_info,json=specialSubframeInfo,proto3" json:"special_subframe_info,omitempty" aper:"valueExt,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*ServedCellInformationEUTraTDdinfoExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *ServedCellInformationEUTraTDdinfo) Reset() {
@@ -54888,7 +54888,7 @@ type ServedCellsEUTra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16384,"
-	Value []*ServedCellsEUTraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ServedCellsEUTraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *ServedCellsEUTra) Reset() {
@@ -54988,13 +54988,13 @@ type ServedCellsEUTraItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	ServedCellInfoEUtra *ServedCellInformationEUTra `protobuf:"bytes,1,opt,name=served_cell_info_e_utra,json=served-cell-info-E-UTRA,proto3" json:"served_cell_info_e_utra,omitempty"`
+	ServedCellInfoEUtra *ServedCellInformationEUTra `protobuf:"bytes,1,opt,name=served_cell_info_e_utra,json=served-cell-info-E-UTRA,proto3" json:"served_cell_info_e_utra,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	NeighbourInfoNr *NeighbourInformationNR `protobuf:"bytes,2,opt,name=neighbour_info_nr,json=neighbour-info-NR,proto3,oneof" json:"neighbour_info_nr,omitempty"`
+	NeighbourInfoNr *NeighbourInformationNR `protobuf:"bytes,2,opt,name=neighbour_info_nr,json=neighbour-info-NR,proto3,oneof" json:"neighbour_info_nr,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NeighbourInfoEUtra *NeighbourInformationEUTra `protobuf:"bytes,3,opt,name=neighbour_info_e_utra,json=neighbour-info-E-UTRA,proto3,oneof" json:"neighbour_info_e_utra,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellsEUTraItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	NeighbourInfoEUtra *NeighbourInformationEUTra `protobuf:"bytes,3,opt,name=neighbour_info_e_utra,json=neighbour-info-E-UTRA,proto3,oneof" json:"neighbour_info_e_utra,omitempty" aper:"optional,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*ServedCellsEUTraItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *ServedCellsEUTraItem) Reset() {
@@ -55115,13 +55115,13 @@ type ServedCellsToUpdateEUTra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ServedCellsToAddEUtra *ServedCellsEUTra `protobuf:"bytes,1,opt,name=served_cells_to_add_e_utra,json=served-Cells-ToAdd-E-UTRA,proto3,oneof" json:"served_cells_to_add_e_utra,omitempty"`
+	ServedCellsToAddEUtra *ServedCellsEUTra `protobuf:"bytes,1,opt,name=served_cells_to_add_e_utra,json=served-Cells-ToAdd-E-UTRA,proto3,oneof" json:"served_cells_to_add_e_utra,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	ServedCellsToModifyEUtra *ServedCellsToModifyEUTra `protobuf:"bytes,2,opt,name=served_cells_to_modify_e_utra,json=served-Cells-ToModify-E-UTRA,proto3,oneof" json:"served_cells_to_modify_e_utra,omitempty"`
+	ServedCellsToModifyEUtra *ServedCellsToModifyEUTra `protobuf:"bytes,2,opt,name=served_cells_to_modify_e_utra,json=served-Cells-ToModify-E-UTRA,proto3,oneof" json:"served_cells_to_modify_e_utra,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16384,"
-	ServedCellsToDeleteEUtra []*EUTraCGi `protobuf:"bytes,3,rep,name=served_cells_to_delete_e_utra,json=served-Cells-ToDelete-E-UTRA,proto3" json:"served_cells_to_delete_e_utra,omitempty"`
+	ServedCellsToDeleteEUtra []*EUTraCGi `protobuf:"bytes,3,rep,name=served_cells_to_delete_e_utra,json=served-Cells-ToDelete-E-UTRA,proto3" json:"served_cells_to_delete_e_utra,omitempty" aper:"optional,sizeLB:1,sizeUB:16384,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellsToUpdateEUTraExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ServedCellsToUpdateEUTraExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ServedCellsToUpdateEUTra) Reset() {
@@ -55192,7 +55192,7 @@ type ServedCellsToModifyEUTra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16384,"
-	Value []*ServedCellsToModifyEUTraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ServedCellsToModifyEUTraItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *ServedCellsToModifyEUTra) Reset() {
@@ -55292,17 +55292,17 @@ type ServedCellsToModifyEUTraItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	OldEcgi *EUTraCGi `protobuf:"bytes,1,opt,name=old_ecgi,json=old-ECGI,proto3" json:"old_ecgi,omitempty"`
+	OldEcgi *EUTraCGi `protobuf:"bytes,1,opt,name=old_ecgi,json=old-ECGI,proto3" json:"old_ecgi,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	ServedCellInfoEUtra *ServedCellInformationEUTra `protobuf:"bytes,2,opt,name=served_cell_info_e_utra,json=served-cell-info-E-UTRA,proto3" json:"served_cell_info_e_utra,omitempty"`
+	ServedCellInfoEUtra *ServedCellInformationEUTra `protobuf:"bytes,2,opt,name=served_cell_info_e_utra,json=served-cell-info-E-UTRA,proto3" json:"served_cell_info_e_utra,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	NeighbourInfoNr *NeighbourInformationNR `protobuf:"bytes,3,opt,name=neighbour_info_nr,json=neighbour-info-NR,proto3,oneof" json:"neighbour_info_nr,omitempty"`
+	NeighbourInfoNr *NeighbourInformationNR `protobuf:"bytes,3,opt,name=neighbour_info_nr,json=neighbour-info-NR,proto3,oneof" json:"neighbour_info_nr,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NeighbourInfoEUtra *NeighbourInformationEUTra `protobuf:"bytes,4,opt,name=neighbour_info_e_utra,json=neighbour-info-E-UTRA,proto3,oneof" json:"neighbour_info_e_utra,omitempty"`
+	NeighbourInfoEUtra *NeighbourInformationEUTra `protobuf:"bytes,4,opt,name=neighbour_info_e_utra,json=neighbour-info-E-UTRA,proto3,oneof" json:"neighbour_info_e_utra,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	DeactivationIndication *DeactivationindicationServedCellsToModifyEutraitem `protobuf:"varint,5,opt,name=deactivation_indication,json=deactivation-indication,proto3,enum=xnap.v1.DeactivationindicationServedCellsToModifyEutraitem,oneof" json:"deactivation_indication,omitempty"`
+	DeactivationIndication *DeactivationindicationServedCellsToModifyEutraitem `protobuf:"varint,5,opt,name=deactivation_indication,json=deactivation-indication,proto3,enum=xnap.v1.DeactivationindicationServedCellsToModifyEutraitem,oneof" json:"deactivation_indication,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedcellsToModifyEUTraItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ServedcellsToModifyEUTraItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ServedCellsToModifyEUTraItem) Reset() {
@@ -55493,37 +55493,37 @@ type isServedCellInformationNRExtIesExtension_ServedCellInformationNrExtIes inte
 
 type ServedCellInformationNRExtIesExtension_IdBplmnIdInfoNr struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdBplmnIdInfoNr *BplmnIDInfoNR `protobuf:"bytes,1,opt,name=id_bplmn_id_info_nr,json=id-BPLMN-ID-Info-NR,proto3,oneof"`
+	IdBplmnIdInfoNr *BplmnIDInfoNR `protobuf:"bytes,1,opt,name=id_bplmn_id_info_nr,json=id-BPLMN-ID-Info-NR,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type ServedCellInformationNRExtIesExtension_IdConfiguredTacindication struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"
-	IdConfiguredTacindication ConfiguredTacindication `protobuf:"varint,2,opt,name=id_configured_tacindication,json=id-ConfiguredTACIndication,proto3,enum=xnap.v1.ConfiguredTacindication,oneof"`
+	IdConfiguredTacindication ConfiguredTacindication `protobuf:"varint,2,opt,name=id_configured_tacindication,json=id-ConfiguredTACIndication,proto3,enum=xnap.v1.ConfiguredTacindication,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:0,"`
 }
 
 type ServedCellInformationNRExtIesExtension_IdSsbPositionsInBurst struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	IdSsbPositionsInBurst *SsbPositionsInBurst `protobuf:"bytes,3,opt,name=id_ssb_positions_in_burst,json=id-SSB-PositionsInBurst,proto3,oneof"`
+	IdSsbPositionsInBurst *SsbPositionsInBurst `protobuf:"bytes,3,opt,name=id_ssb_positions_in_burst,json=id-SSB-PositionsInBurst,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 type ServedCellInformationNRExtIesExtension_IdNrcellPrachconfig struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdNrcellPrachconfig *NrcellPrachconfig `protobuf:"bytes,4,opt,name=id_nrcell_prachconfig,json=id-NRCellPRACHConfig,proto3,oneof"`
+	IdNrcellPrachconfig *NrcellPrachconfig `protobuf:"bytes,4,opt,name=id_nrcell_prachconfig,json=id-NRCellPRACHConfig,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 type ServedCellInformationNRExtIesExtension_IdNpnBroadcastInformation struct {
 	// @inject_tag: aper:"choiceIdx:5,"
-	IdNpnBroadcastInformation *NpnBroadcastInformation `protobuf:"bytes,5,opt,name=id_npn_broadcast_information,json=id-NPN-Broadcast-Information,proto3,oneof"`
+	IdNpnBroadcastInformation *NpnBroadcastInformation `protobuf:"bytes,5,opt,name=id_npn_broadcast_information,json=id-NPN-Broadcast-Information,proto3,oneof" aper:"choiceIdx:5,"`
 }
 
 type ServedCellInformationNRExtIesExtension_IdCsiRstransmissionIndication struct {
 	// @inject_tag: aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:1,"
-	IdCsiRstransmissionIndication CsiRStransmissionIndication `protobuf:"varint,6,opt,name=id_csi_rstransmission_indication,json=id-CSI-RSTransmissionIndication,proto3,enum=xnap.v1.CsiRStransmissionIndication,oneof"`
+	IdCsiRstransmissionIndication CsiRStransmissionIndication `protobuf:"varint,6,opt,name=id_csi_rstransmission_indication,json=id-CSI-RSTransmissionIndication,proto3,enum=xnap.v1.CsiRStransmissionIndication,oneof" aper:"choiceIdx:6,valueExt,valueLB:0,valueUB:1,"`
 }
 
 type ServedCellInformationNRExtIesExtension_IdSfnOffset struct {
 	// @inject_tag: aper:"choiceIdx:7,valueExt,"
-	IdSfnOffset *SfnOffset `protobuf:"bytes,7,opt,name=id_sfn_offset,json=id-SFN-Offset,proto3,oneof"`
+	IdSfnOffset *SfnOffset `protobuf:"bytes,7,opt,name=id_sfn_offset,json=id-SFN-Offset,proto3,oneof" aper:"choiceIdx:7,valueExt,"`
 }
 
 func (*ServedCellInformationNRExtIesExtension_IdBplmnIdInfoNr) isServedCellInformationNRExtIesExtension_ServedCellInformationNrExtIes() {
@@ -55556,11 +55556,11 @@ type ServedCellInformationNRExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *ServedCellInformationNRExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *ServedCellInformationNRExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *ServedCellInformationNRExtIes) Reset() {
@@ -55626,17 +55626,17 @@ type ServedCellInformationNR struct {
 
 	NrPci *Nrpci `protobuf:"bytes,1,opt,name=nr_pci,json=nrPCI,proto3" json:"nr_pci,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	CellId *NrCGi `protobuf:"bytes,2,opt,name=cell_id,json=cellID,proto3" json:"cell_id,omitempty"`
+	CellId *NrCGi `protobuf:"bytes,2,opt,name=cell_id,json=cellID,proto3" json:"cell_id,omitempty" aper:"valueExt,"`
 	Tac    *Tac   `protobuf:"bytes,3,opt,name=tac,proto3" json:"tac,omitempty"`
 	// @inject_tag: aper:"optional,"
-	Ranac                          *Ranac          `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty"`
+	Ranac                          *Ranac          `protobuf:"bytes,4,opt,name=ranac,proto3,oneof" json:"ranac,omitempty" aper:"optional,"`
 	BroadcastPlmn                  *BroadcastPlmns `protobuf:"bytes,5,opt,name=broadcast_plmn,json=broadcastPLMN,proto3" json:"broadcast_plmn,omitempty"`
 	NrModeInfo                     *NrmodeInfo     `protobuf:"bytes,6,opt,name=nr_mode_info,json=nrModeInfo,proto3" json:"nr_mode_info,omitempty"`
 	MeasurementTimingConfiguration []byte          `protobuf:"bytes,7,opt,name=measurement_timing_configuration,json=measurementTimingConfiguration,proto3" json:"measurement_timing_configuration,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	ConnectivitySupport *ConnectivitySupport `protobuf:"bytes,8,opt,name=connectivity_support,json=connectivitySupport,proto3" json:"connectivity_support,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellInformationNRExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	ConnectivitySupport *ConnectivitySupport `protobuf:"bytes,8,opt,name=connectivity_support,json=connectivitySupport,proto3" json:"connectivity_support,omitempty" aper:"valueExt,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*ServedCellInformationNRExtIes `protobuf:"bytes,9,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *ServedCellInformationNR) Reset() {
@@ -55792,9 +55792,9 @@ type SfnOffset struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:24,sizeUB:24,"
-	SFnTimeOffset *asn1.BitString `protobuf:"bytes,1,opt,name=s_fn_time_offset,json=sFN-Time-Offset,proto3" json:"s_fn_time_offset,omitempty"`
+	SFnTimeOffset *asn1.BitString `protobuf:"bytes,1,opt,name=s_fn_time_offset,json=sFN-Time-Offset,proto3" json:"s_fn_time_offset,omitempty" aper:"sizeLB:24,sizeUB:24,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SfnOffsetExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SfnOffsetExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SfnOffset) Reset() {
@@ -55851,7 +55851,7 @@ type ServedCellsNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16384,"
-	Value []*ServedCellsNRItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ServedCellsNRItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *ServedCellsNR) Reset() {
@@ -55951,13 +55951,13 @@ type ServedCellsNRItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	ServedCellInfoNr *ServedCellInformationNR `protobuf:"bytes,1,opt,name=served_cell_info_nr,json=served-cell-info-NR,proto3" json:"served_cell_info_nr,omitempty"`
+	ServedCellInfoNr *ServedCellInformationNR `protobuf:"bytes,1,opt,name=served_cell_info_nr,json=served-cell-info-NR,proto3" json:"served_cell_info_nr,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	NeighbourInfoNr *NeighbourInformationNR `protobuf:"bytes,2,opt,name=neighbour_info_nr,json=neighbour-info-NR,proto3,oneof" json:"neighbour_info_nr,omitempty"`
+	NeighbourInfoNr *NeighbourInformationNR `protobuf:"bytes,2,opt,name=neighbour_info_nr,json=neighbour-info-NR,proto3,oneof" json:"neighbour_info_nr,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NeighbourInfoEUtra *NeighbourInformationEUTra `protobuf:"bytes,3,opt,name=neighbour_info_e_utra,json=neighbour-info-E-UTRA,proto3,oneof" json:"neighbour_info_e_utra,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellsNRItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	NeighbourInfoEUtra *NeighbourInformationEUTra `protobuf:"bytes,3,opt,name=neighbour_info_e_utra,json=neighbour-info-E-UTRA,proto3,oneof" json:"neighbour_info_e_utra,omitempty" aper:"optional,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*ServedCellsNRItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *ServedCellsNRItem) Reset() {
@@ -56028,7 +56028,7 @@ type ServedCellsToModifyNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:16384,"
-	Value []*ServedCellsToModifyNRItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*ServedCellsToModifyNRItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:16384,"`
 }
 
 func (x *ServedCellsToModifyNR) Reset() {
@@ -56128,17 +56128,17 @@ type ServedCellsToModifyNRItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	OldNrCgi *NrCGi `protobuf:"bytes,1,opt,name=old_nr_cgi,json=old-NR-CGI,proto3" json:"old_nr_cgi,omitempty"`
+	OldNrCgi *NrCGi `protobuf:"bytes,1,opt,name=old_nr_cgi,json=old-NR-CGI,proto3" json:"old_nr_cgi,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	ServedCellInfoNr *ServedCellInformationNR `protobuf:"bytes,2,opt,name=served_cell_info_nr,json=served-cell-info-NR,proto3" json:"served_cell_info_nr,omitempty"`
+	ServedCellInfoNr *ServedCellInformationNR `protobuf:"bytes,2,opt,name=served_cell_info_nr,json=served-cell-info-NR,proto3" json:"served_cell_info_nr,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,"
-	NeighbourInfoNr *NeighbourInformationNR `protobuf:"bytes,3,opt,name=neighbour_info_nr,json=neighbour-info-NR,proto3,oneof" json:"neighbour_info_nr,omitempty"`
+	NeighbourInfoNr *NeighbourInformationNR `protobuf:"bytes,3,opt,name=neighbour_info_nr,json=neighbour-info-NR,proto3,oneof" json:"neighbour_info_nr,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	NeighbourInfoEUtra *NeighbourInformationEUTra `protobuf:"bytes,4,opt,name=neighbour_info_e_utra,json=neighbour-info-E-UTRA,proto3,oneof" json:"neighbour_info_e_utra,omitempty"`
+	NeighbourInfoEUtra *NeighbourInformationEUTra `protobuf:"bytes,4,opt,name=neighbour_info_e_utra,json=neighbour-info-E-UTRA,proto3,oneof" json:"neighbour_info_e_utra,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	DeactivationIndication *DeactivationindicationServedCellsToModifyNritem `protobuf:"varint,5,opt,name=deactivation_indication,json=deactivation-indication,proto3,enum=xnap.v1.DeactivationindicationServedCellsToModifyNritem,oneof" json:"deactivation_indication,omitempty"`
+	DeactivationIndication *DeactivationindicationServedCellsToModifyNritem `protobuf:"varint,5,opt,name=deactivation_indication,json=deactivation-indication,proto3,enum=xnap.v1.DeactivationindicationServedCellsToModifyNritem,oneof" json:"deactivation_indication,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedcellsToModifyNRItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ServedcellsToModifyNRItemExtIes `protobuf:"bytes,6,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ServedCellsToModifyNRItem) Reset() {
@@ -56273,13 +56273,13 @@ type ServedCellsToUpdateNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ServedCellsToAddNr *ServedCellsNR `protobuf:"bytes,1,opt,name=served_cells_to_add_nr,json=served-Cells-ToAdd-NR,proto3,oneof" json:"served_cells_to_add_nr,omitempty"`
+	ServedCellsToAddNr *ServedCellsNR `protobuf:"bytes,1,opt,name=served_cells_to_add_nr,json=served-Cells-ToAdd-NR,proto3,oneof" json:"served_cells_to_add_nr,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	ServedCellsToModifyNr *ServedCellsToModifyNR `protobuf:"bytes,2,opt,name=served_cells_to_modify_nr,json=served-Cells-ToModify-NR,proto3,oneof" json:"served_cells_to_modify_nr,omitempty"`
+	ServedCellsToModifyNr *ServedCellsToModifyNR `protobuf:"bytes,2,opt,name=served_cells_to_modify_nr,json=served-Cells-ToModify-NR,proto3,oneof" json:"served_cells_to_modify_nr,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:16384,"
-	ServedCellsToDeleteNr []*NrCGi `protobuf:"bytes,3,rep,name=served_cells_to_delete_nr,json=served-Cells-ToDelete-NR,proto3" json:"served_cells_to_delete_nr,omitempty"`
+	ServedCellsToDeleteNr []*NrCGi `protobuf:"bytes,3,rep,name=served_cells_to_delete_nr,json=served-Cells-ToDelete-NR,proto3" json:"served_cells_to_delete_nr,omitempty" aper:"optional,sizeLB:1,sizeUB:16384,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*ServedCellsToUpdateNRExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*ServedCellsToUpdateNRExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *ServedCellsToUpdateNR) Reset() {
@@ -56473,17 +56473,17 @@ type isSharedResourceType_SharedResourceType interface {
 
 type SharedResourceType_UlOnlySharing struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	UlOnlySharing *SharedResourceTypeULOnlySharing `protobuf:"bytes,1,opt,name=ul_only_sharing,json=ul-onlySharing,proto3,oneof"`
+	UlOnlySharing *SharedResourceTypeULOnlySharing `protobuf:"bytes,1,opt,name=ul_only_sharing,json=ul-onlySharing,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type SharedResourceType_UlAndDlSharing struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	UlAndDlSharing *SharedResourceTypeULdlSharing `protobuf:"bytes,2,opt,name=ul_and_dl_sharing,json=ul-and-dl-Sharing,proto3,oneof"`
+	UlAndDlSharing *SharedResourceTypeULdlSharing `protobuf:"bytes,2,opt,name=ul_and_dl_sharing,json=ul-and-dl-Sharing,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SharedResourceType_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *SharedResourceTypeExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *SharedResourceTypeExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*SharedResourceType_UlOnlySharing) isSharedResourceType_SharedResourceType() {}
@@ -56551,7 +56551,7 @@ type SharedResourceTypeULOnlySharing struct {
 
 	UlResourceBitmap *DataTrafficResources `protobuf:"bytes,1,opt,name=ul_resource_bitmap,json=ul-resourceBitmap,proto3" json:"ul_resource_bitmap,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SharedResourceTypeULOnlySharingExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SharedResourceTypeULOnlySharingExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SharedResourceTypeULOnlySharing) Reset() {
@@ -56731,17 +56731,17 @@ type isSharedResourceTypeULdlSharing_SharedResourceTypeUldlSharing interface {
 
 type SharedResourceTypeULdlSharing_UlResources struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	UlResources *SharedResourceTypeULdlSharingULResources `protobuf:"bytes,1,opt,name=ul_resources,json=ul-resources,proto3,oneof"`
+	UlResources *SharedResourceTypeULdlSharingULResources `protobuf:"bytes,1,opt,name=ul_resources,json=ul-resources,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SharedResourceTypeULdlSharing_DlResources struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	DlResources *SharedResourceTypeULdlSharingDLResources `protobuf:"bytes,2,opt,name=dl_resources,json=dl-resources,proto3,oneof"`
+	DlResources *SharedResourceTypeULdlSharingDLResources `protobuf:"bytes,2,opt,name=dl_resources,json=dl-resources,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type SharedResourceTypeULdlSharing_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *SharedResourceTypeULdlSharingExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *SharedResourceTypeULdlSharingExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*SharedResourceTypeULdlSharing_UlResources) isSharedResourceTypeULdlSharing_SharedResourceTypeUldlSharing() {
@@ -56884,17 +56884,17 @@ type isSharedResourceTypeULdlSharingULResources_SharedResourceTypeUldlSharingUlR
 
 type SharedResourceTypeULdlSharingULResources_Unchanged struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	Unchanged int32 `protobuf:"varint,1,opt,name=unchanged,proto3,oneof"`
+	Unchanged int32 `protobuf:"varint,1,opt,name=unchanged,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SharedResourceTypeULdlSharingULResources_Changed struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	Changed *SharedResourceTypeULdlSharingULResourcesChanged `protobuf:"bytes,2,opt,name=changed,proto3,oneof"`
+	Changed *SharedResourceTypeULdlSharingULResourcesChanged `protobuf:"bytes,2,opt,name=changed,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type SharedResourceTypeULdlSharingULResources_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *SharedResourceTypeULdlSharingULResourcesExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *SharedResourceTypeULdlSharingULResourcesExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*SharedResourceTypeULdlSharingULResources_Unchanged) isSharedResourceTypeULdlSharingULResources_SharedResourceTypeUldlSharingUlResources() {
@@ -56965,7 +56965,7 @@ type SharedResourceTypeULdlSharingULResourcesChanged struct {
 
 	UlResourceBitmap *DataTrafficResources `protobuf:"bytes,1,opt,name=ul_resource_bitmap,json=ul-resourceBitmap,proto3" json:"ul_resource_bitmap,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SharedResourceTypeULdlSharingULResourcesChangedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SharedResourceTypeULdlSharingULResourcesChangedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SharedResourceTypeULdlSharingULResourcesChanged) Reset() {
@@ -57145,17 +57145,17 @@ type isSharedResourceTypeULdlSharingDLResources_SharedResourceTypeUldlSharingDlR
 
 type SharedResourceTypeULdlSharingDLResources_Unchanged struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	Unchanged int32 `protobuf:"varint,1,opt,name=unchanged,proto3,oneof"`
+	Unchanged int32 `protobuf:"varint,1,opt,name=unchanged,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SharedResourceTypeULdlSharingDLResources_Changed struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	Changed *SharedResourceTypeULdlSharingDLResourcesChanged `protobuf:"bytes,2,opt,name=changed,proto3,oneof"`
+	Changed *SharedResourceTypeULdlSharingDLResourcesChanged `protobuf:"bytes,2,opt,name=changed,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type SharedResourceTypeULdlSharingDLResources_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *SharedResourceTypeULdlSharingDLResourcesExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *SharedResourceTypeULdlSharingDLResourcesExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*SharedResourceTypeULdlSharingDLResources_Unchanged) isSharedResourceTypeULdlSharingDLResources_SharedResourceTypeUldlSharingDlResources() {
@@ -57226,7 +57226,7 @@ type SharedResourceTypeULdlSharingDLResourcesChanged struct {
 
 	DlResourceBitmap *DataTrafficResources `protobuf:"bytes,1,opt,name=dl_resource_bitmap,json=dl-resourceBitmap,proto3" json:"dl_resource_bitmap,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SharedResourceTypeULdlSharingDLResourcesChangedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SharedResourceTypeULdlSharingDLResourcesChangedExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SharedResourceTypeULdlSharingDLResourcesChanged) Reset() {
@@ -57283,7 +57283,7 @@ type SliceAvailableCapacity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:12,"
-	Value []*SliceAvailableCapacityItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SliceAvailableCapacityItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:12,"`
 }
 
 func (x *SliceAvailableCapacity) Reset() {
@@ -57385,7 +57385,7 @@ type SliceAvailableCapacityItem struct {
 	PLmnidentity                *PlmnIdentity                `protobuf:"bytes,1,opt,name=p_lmnidentity,json=pLMNIdentity,proto3" json:"p_lmnidentity,omitempty"`
 	SNssaiavailableCapacityList *SnssaiavailableCapacityList `protobuf:"bytes,2,opt,name=s_nssaiavailable_capacity_list,json=sNSSAIAvailableCapacity-List,proto3" json:"s_nssaiavailable_capacity_list,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SliceAvailableCapacityItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SliceAvailableCapacityItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SliceAvailableCapacityItem) Reset() {
@@ -57449,7 +57449,7 @@ type SnssaiavailableCapacityList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:1024,"
-	Value []*SnssaiavailableCapacityItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SnssaiavailableCapacityItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1024,"`
 }
 
 func (x *SnssaiavailableCapacityList) Reset() {
@@ -57548,13 +57548,13 @@ type SnssaiavailableCapacityItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	SNssai *SNSsai `protobuf:"bytes,1,opt,name=s_nssai,json=sNSSAI,proto3" json:"s_nssai,omitempty"`
+	SNssai *SNSsai `protobuf:"bytes,1,opt,name=s_nssai,json=sNSSAI,proto3" json:"s_nssai,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	SliceAvailableCapacityValueDownlink int32 `protobuf:"varint,2,opt,name=slice_available_capacity_value_downlink,json=sliceAvailableCapacityValueDownlink,proto3" json:"slice_available_capacity_value_downlink,omitempty"`
+	SliceAvailableCapacityValueDownlink int32 `protobuf:"varint,2,opt,name=slice_available_capacity_value_downlink,json=sliceAvailableCapacityValueDownlink,proto3" json:"slice_available_capacity_value_downlink,omitempty" aper:"valueLB:0,valueUB:100,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	SliceAvailableCapacityValueUplink int32 `protobuf:"varint,3,opt,name=slice_available_capacity_value_uplink,json=sliceAvailableCapacityValueUplink,proto3" json:"slice_available_capacity_value_uplink,omitempty"`
+	SliceAvailableCapacityValueUplink int32 `protobuf:"varint,3,opt,name=slice_available_capacity_value_uplink,json=sliceAvailableCapacityValueUplink,proto3" json:"slice_available_capacity_value_uplink,omitempty" aper:"valueLB:0,valueUB:100,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SnssaiavailableCapacityItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SnssaiavailableCapacityItemExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SnssaiavailableCapacityItem) Reset() {
@@ -57625,7 +57625,7 @@ type SliceSupportList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:1024,"
-	Value []*SNSsai `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SNSsai `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:1024,"`
 }
 
 func (x *SliceSupportList) Reset() {
@@ -57675,7 +57675,7 @@ type SliceToReportList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:12,"
-	Value []*SliceToReportListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SliceToReportListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:12,"`
 }
 
 func (x *SliceToReportList) Reset() {
@@ -57777,7 +57777,7 @@ type SliceToReportListItem struct {
 	PLmnidentity *PlmnIdentity `protobuf:"bytes,1,opt,name=p_lmnidentity,json=pLMNIdentity,proto3" json:"p_lmnidentity,omitempty"`
 	SNssailist   *Snssailist   `protobuf:"bytes,2,opt,name=s_nssailist,json=sNSSAIlist,proto3" json:"s_nssailist,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SliceToReportListItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SliceToReportListItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SliceToReportListItem) Reset() {
@@ -57841,7 +57841,7 @@ type Snssailist struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:1024,"
-	Value []*SnssaiItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SnssaiItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:1024,"`
 }
 
 func (x *Snssailist) Reset() {
@@ -57940,9 +57940,9 @@ type SnssaiItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,"
-	SNssai *SNSsai `protobuf:"bytes,1,opt,name=s_nssai,json=sNSSAI,proto3" json:"s_nssai,omitempty"`
+	SNssai *SNSsai `protobuf:"bytes,1,opt,name=s_nssai,json=sNSSAI,proto3" json:"s_nssai,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SnssaiItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SnssaiItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SnssaiItem) Reset() {
@@ -57999,7 +57999,7 @@ type SlotConfigurationList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:5120,"
-	Value []*SlotConfigurationListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SlotConfigurationListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:5120,"`
 }
 
 func (x *SlotConfigurationList) Reset() {
@@ -58099,10 +58099,10 @@ type SlotConfigurationListItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:5119,"
-	SlotIndex              int32                   `protobuf:"varint,1,opt,name=slot_index,json=slotIndex,proto3" json:"slot_index,omitempty"`
+	SlotIndex              int32                   `protobuf:"varint,1,opt,name=slot_index,json=slotIndex,proto3" json:"slot_index,omitempty" aper:"valueLB:0,valueUB:5119,"`
 	SymbolAllocationInSlot *SymbolAllocationinSlot `protobuf:"bytes,2,opt,name=symbol_allocation_in_slot,json=symbolAllocation-in-Slot,proto3" json:"symbol_allocation_in_slot,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SlotConfigurationListItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SlotConfigurationListItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SlotConfigurationListItem) Reset() {
@@ -58166,7 +58166,7 @@ type SNGRAnnodeSecurityKey struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:256,sizeUB:256,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:256,sizeUB:256,"`
 }
 
 func (x *SNGRAnnodeSecurityKey) Reset() {
@@ -58266,11 +58266,11 @@ type SNSsai struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:1,"
-	Sst []byte `protobuf:"bytes,1,opt,name=sst,proto3" json:"sst,omitempty"`
+	Sst []byte `protobuf:"bytes,1,opt,name=sst,proto3" json:"sst,omitempty" aper:"sizeLB:1,sizeUB:1,"`
 	// @inject_tag: aper:"optional,sizeLB:3,sizeUB:3,"
-	Sd []byte `protobuf:"bytes,2,opt,name=sd,proto3,oneof" json:"sd,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SNSsaiExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	Sd []byte `protobuf:"bytes,2,opt,name=sd,proto3,oneof" json:"sd,omitempty" aper:"optional,sizeLB:3,sizeUB:3,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*SNSsaiExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *SNSsai) Reset() {
@@ -58384,13 +58384,13 @@ type SpecialSubframeInfoEUTra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:10,"
-	SpecialSubframePattern SpecialSubframePatternsEUTra `protobuf:"varint,1,opt,name=special_subframe_pattern,json=specialSubframePattern,proto3,enum=xnap.v1.SpecialSubframePatternsEUTra" json:"special_subframe_pattern,omitempty"`
+	SpecialSubframePattern SpecialSubframePatternsEUTra `protobuf:"varint,1,opt,name=special_subframe_pattern,json=specialSubframePattern,proto3,enum=xnap.v1.SpecialSubframePatternsEUTra" json:"special_subframe_pattern,omitempty" aper:"valueExt,valueLB:0,valueUB:10,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	CyclicPrefixDl CyclicPrefixEUTraDL `protobuf:"varint,2,opt,name=cyclic_prefix_dl,json=cyclicPrefixDL,proto3,enum=xnap.v1.CyclicPrefixEUTraDL" json:"cyclic_prefix_dl,omitempty"`
+	CyclicPrefixDl CyclicPrefixEUTraDL `protobuf:"varint,2,opt,name=cyclic_prefix_dl,json=cyclicPrefixDL,proto3,enum=xnap.v1.CyclicPrefixEUTraDL" json:"cyclic_prefix_dl,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:1,"
-	CyclicPrefixUl CyclicPrefixEUTraUL `protobuf:"varint,3,opt,name=cyclic_prefix_ul,json=cyclicPrefixUL,proto3,enum=xnap.v1.CyclicPrefixEUTraUL" json:"cyclic_prefix_ul,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SpecialSubframeInfoEUTraExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	CyclicPrefixUl CyclicPrefixEUTraUL `protobuf:"varint,3,opt,name=cyclic_prefix_ul,json=cyclicPrefixUL,proto3,enum=xnap.v1.CyclicPrefixEUTraUL" json:"cyclic_prefix_ul,omitempty" aper:"valueExt,valueLB:0,valueUB:1,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*SpecialSubframeInfoEUTraExtIes `protobuf:"bytes,4,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *SpecialSubframeInfoEUTra) Reset() {
@@ -58461,7 +58461,7 @@ type SpectrumSharingGroupId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:1,valueUB:16384,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:16384,"`
 }
 
 func (x *SpectrumSharingGroupId) Reset() {
@@ -58511,7 +58511,7 @@ type SsbareaCapacityValueList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*SsbareaCapacityValueListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SsbareaCapacityValueListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *SsbareaCapacityValueList) Reset() {
@@ -58611,11 +58611,11 @@ type SsbareaCapacityValueListItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:63,"
-	SSbindex int32 `protobuf:"varint,1,opt,name=s_sbindex,json=sSBIndex,proto3" json:"s_sbindex,omitempty"`
+	SSbindex int32 `protobuf:"varint,1,opt,name=s_sbindex,json=sSBIndex,proto3" json:"s_sbindex,omitempty" aper:"valueLB:0,valueUB:63,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	SsbAreaCapacityValue int32 `protobuf:"varint,2,opt,name=ssb_area_capacity_value,json=ssbAreaCapacityValue,proto3" json:"ssb_area_capacity_value,omitempty"`
+	SsbAreaCapacityValue int32 `protobuf:"varint,2,opt,name=ssb_area_capacity_value,json=ssbAreaCapacityValue,proto3" json:"ssb_area_capacity_value,omitempty" aper:"valueLB:0,valueUB:100,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SsbareaCapacityValueListItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SsbareaCapacityValueListItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SsbareaCapacityValueListItem) Reset() {
@@ -58679,7 +58679,7 @@ type SsbareaRadioResourceStatusList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*SsbareaRadioResourceStatusListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SsbareaRadioResourceStatusListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *SsbareaRadioResourceStatusList) Reset() {
@@ -58795,12 +58795,12 @@ type isSsbareaRadioResourceStatusListItemExtIesExtension_SsbareaRadioResourceSta
 
 type SsbareaRadioResourceStatusListItemExtIesExtension_IdDlSchedulingPdcchCceUsage struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdDlSchedulingPdcchCceUsage *DlschedulingPDcchCCeusage `protobuf:"bytes,1,opt,name=id_dl_scheduling_pdcch_cce_usage,json=id-DL-scheduling-PDCCH-CCE-usage,proto3,oneof"`
+	IdDlSchedulingPdcchCceUsage *DlschedulingPDcchCCeusage `protobuf:"bytes,1,opt,name=id_dl_scheduling_pdcch_cce_usage,json=id-DL-scheduling-PDCCH-CCE-usage,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SsbareaRadioResourceStatusListItemExtIesExtension_IdUlSchedulingPdcchCceUsage struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	IdUlSchedulingPdcchCceUsage *UlschedulingPDcchCCeusage `protobuf:"bytes,2,opt,name=id_ul_scheduling_pdcch_cce_usage,json=id-UL-scheduling-PDCCH-CCE-usage,proto3,oneof"`
+	IdUlSchedulingPdcchCceUsage *UlschedulingPDcchCCeusage `protobuf:"bytes,2,opt,name=id_ul_scheduling_pdcch_cce_usage,json=id-UL-scheduling-PDCCH-CCE-usage,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*SsbareaRadioResourceStatusListItemExtIesExtension_IdDlSchedulingPdcchCceUsage) isSsbareaRadioResourceStatusListItemExtIesExtension_SsbareaRadioResourceStatusListItemExtIes() {
@@ -58818,11 +58818,11 @@ type SsbareaRadioResourceStatusListItemExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *SsbareaRadioResourceStatusListItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *SsbareaRadioResourceStatusListItemExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SsbareaRadioResourceStatusListItemExtIes) Reset() {
@@ -58887,7 +58887,7 @@ type SsbareaRadioResourceStatusListItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:63,"
-	SSbindex                int32             `protobuf:"varint,1,opt,name=s_sbindex,json=sSBIndex,proto3" json:"s_sbindex,omitempty"`
+	SSbindex                int32             `protobuf:"varint,1,opt,name=s_sbindex,json=sSBIndex,proto3" json:"s_sbindex,omitempty" aper:"valueLB:0,valueUB:63,"`
 	SsbAreaDlGbrPrbUsage    *DlGBrPRbusage    `protobuf:"bytes,2,opt,name=ssb_area_dl_gbr_prb_usage,json=ssb-Area-DL-GBR-PRB-usage,proto3" json:"ssb_area_dl_gbr_prb_usage,omitempty"`
 	SsbAreaUlGbrPrbUsage    *UlGBrPRbusage    `protobuf:"bytes,3,opt,name=ssb_area_ul_gbr_prb_usage,json=ssb-Area-UL-GBR-PRB-usage,proto3" json:"ssb_area_ul_gbr_prb_usage,omitempty"`
 	SsbAreaDLNonGbrPrbUsage *DlnonGBrPRbusage `protobuf:"bytes,4,opt,name=ssb_area_d_l_non_gbr_prb_usage,json=ssb-Area-dL-non-GBR-PRB-usage,proto3" json:"ssb_area_d_l_non_gbr_prb_usage,omitempty"`
@@ -58895,7 +58895,7 @@ type SsbareaRadioResourceStatusListItem struct {
 	SsbAreaDLTotalPrbUsage  *DlTotalPRbusage  `protobuf:"bytes,6,opt,name=ssb_area_d_l_total_prb_usage,json=ssb-Area-dL-Total-PRB-usage,proto3" json:"ssb_area_d_l_total_prb_usage,omitempty"`
 	SsbAreaULTotalPrbUsage  *UlTotalPRbusage  `protobuf:"bytes,7,opt,name=ssb_area_u_l_total_prb_usage,json=ssb-Area-uL-Total-PRB-usage,proto3" json:"ssb_area_u_l_total_prb_usage,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SsbareaRadioResourceStatusListItemExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SsbareaRadioResourceStatusListItemExtIes `protobuf:"bytes,8,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SsbareaRadioResourceStatusListItem) Reset() {
@@ -59125,22 +59125,22 @@ type isSsbPositionsInBurst_SsbPositionsInBurst interface {
 
 type SsbPositionsInBurst_ShortBitmap struct {
 	// @inject_tag: aper:"choiceIdx:1,sizeLB:4,sizeUB:4,"
-	ShortBitmap *asn1.BitString `protobuf:"bytes,1,opt,name=short_bitmap,json=shortBitmap,proto3,oneof"`
+	ShortBitmap *asn1.BitString `protobuf:"bytes,1,opt,name=short_bitmap,json=shortBitmap,proto3,oneof" aper:"choiceIdx:1,sizeLB:4,sizeUB:4,"`
 }
 
 type SsbPositionsInBurst_MediumBitmap struct {
 	// @inject_tag: aper:"choiceIdx:2,sizeLB:8,sizeUB:8,"
-	MediumBitmap *asn1.BitString `protobuf:"bytes,2,opt,name=medium_bitmap,json=mediumBitmap,proto3,oneof"`
+	MediumBitmap *asn1.BitString `protobuf:"bytes,2,opt,name=medium_bitmap,json=mediumBitmap,proto3,oneof" aper:"choiceIdx:2,sizeLB:8,sizeUB:8,"`
 }
 
 type SsbPositionsInBurst_LongBitmap struct {
 	// @inject_tag: aper:"choiceIdx:3,sizeLB:64,sizeUB:64,"
-	LongBitmap *asn1.BitString `protobuf:"bytes,3,opt,name=long_bitmap,json=longBitmap,proto3,oneof"`
+	LongBitmap *asn1.BitString `protobuf:"bytes,3,opt,name=long_bitmap,json=longBitmap,proto3,oneof" aper:"choiceIdx:3,sizeLB:64,sizeUB:64,"`
 }
 
 type SsbPositionsInBurst_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ChoiceExtension *SsbPositionsInBurstExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *SsbPositionsInBurstExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*SsbPositionsInBurst_ShortBitmap) isSsbPositionsInBurst_SsbPositionsInBurst() {}
@@ -59159,7 +59159,7 @@ type SsbtoReportList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:64,"
-	Value []*SsbtoReportListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SsbtoReportListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:64,"`
 }
 
 func (x *SsbtoReportList) Reset() {
@@ -59259,9 +59259,9 @@ type SsbtoReportListItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:63,"
-	SSbindex int32 `protobuf:"varint,1,opt,name=s_sbindex,json=sSBIndex,proto3" json:"s_sbindex,omitempty"`
+	SSbindex int32 `protobuf:"varint,1,opt,name=s_sbindex,json=sSBIndex,proto3" json:"s_sbindex,omitempty" aper:"valueLB:0,valueUB:63,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SsbtoReportListItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*SsbtoReportListItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SsbtoReportListItem) Reset() {
@@ -59318,7 +59318,7 @@ type SulFrequencyBand struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:1,valueUB:1024,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:1024,"`
 }
 
 func (x *SulFrequencyBand) Reset() {
@@ -59434,12 +59434,12 @@ type isSulInformationExtIesExtension_SulInformationExtIes interface {
 
 type SulInformationExtIesExtension_IdCarrierList struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdCarrierList *NrcarrierList `protobuf:"bytes,1,opt,name=id_carrier_list,json=id-CarrierList,proto3,oneof"`
+	IdCarrierList *NrcarrierList `protobuf:"bytes,1,opt,name=id_carrier_list,json=id-CarrierList,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type SulInformationExtIesExtension_IdFrequencyShift7P5Khz struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:1,"
-	IdFrequencyShift7P5Khz FrequencyShift7P5Khz `protobuf:"varint,2,opt,name=id_frequency_shift7p5khz,json=id-FrequencyShift7p5khz,proto3,enum=xnap.v1.FrequencyShift7P5Khz,oneof"`
+	IdFrequencyShift7P5Khz FrequencyShift7P5Khz `protobuf:"varint,2,opt,name=id_frequency_shift7p5khz,json=id-FrequencyShift7p5khz,proto3,enum=xnap.v1.FrequencyShift7P5Khz,oneof" aper:"choiceIdx:2,valueExt,valueLB:0,valueUB:1,"`
 }
 
 func (*SulInformationExtIesExtension_IdCarrierList) isSulInformationExtIesExtension_SulInformationExtIes() {
@@ -59457,11 +59457,11 @@ type SulInformationExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *SulInformationExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *SulInformationExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *SulInformationExtIes) Reset() {
@@ -59527,9 +59527,9 @@ type SulInformation struct {
 
 	SulFrequencyInfo *Nrarfcn `protobuf:"bytes,1,opt,name=sul_frequency_info,json=sulFrequencyInfo,proto3" json:"sul_frequency_info,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	SulTransmissionBandwidth *NrtransmissionBandwidth `protobuf:"bytes,2,opt,name=sul_transmission_bandwidth,json=sulTransmissionBandwidth,proto3" json:"sul_transmission_bandwidth,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SulInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	SulTransmissionBandwidth *NrtransmissionBandwidth `protobuf:"bytes,2,opt,name=sul_transmission_bandwidth,json=sulTransmissionBandwidth,proto3" json:"sul_transmission_bandwidth,omitempty" aper:"valueExt,"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*SulInformationExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *SulInformation) Reset() {
@@ -59593,7 +59593,7 @@ type SupportedSulbandList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*SupportedSulbandItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*SupportedSulbandItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *SupportedSulbandList) Reset() {
@@ -59693,8 +59693,8 @@ type SupportedSulbandItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	SulBandItem *SulFrequencyBand `protobuf:"bytes,1,opt,name=sul_band_item,json=sulBandItem,proto3" json:"sul_band_item,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*SupportedSulbandItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*SupportedSulbandItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *SupportedSulbandItem) Reset() {
@@ -59882,22 +59882,22 @@ type isSymbolAllocationinSlot_SymbolAllocationInSlot interface {
 
 type SymbolAllocationinSlot_AllDl struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	AllDl *SymbolAllocationinSlotAllDl `protobuf:"bytes,1,opt,name=all_dl,json=allDL,proto3,oneof"`
+	AllDl *SymbolAllocationinSlotAllDl `protobuf:"bytes,1,opt,name=all_dl,json=allDL,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type SymbolAllocationinSlot_AllUl struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	AllUl *SymbolAllocationinSlotAllUl `protobuf:"bytes,2,opt,name=all_ul,json=allUL,proto3,oneof"`
+	AllUl *SymbolAllocationinSlotAllUl `protobuf:"bytes,2,opt,name=all_ul,json=allUL,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type SymbolAllocationinSlot_BothDlandUl struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	BothDlandUl *SymbolAllocationinSlotBothDlandUl `protobuf:"bytes,3,opt,name=both_dland_ul,json=bothDLandUL,proto3,oneof"`
+	BothDlandUl *SymbolAllocationinSlotBothDlandUl `protobuf:"bytes,3,opt,name=both_dland_ul,json=bothDLandUL,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type SymbolAllocationinSlot_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	ChoiceExtension *SymbolAllocationinSlotExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *SymbolAllocationinSlotExtIes `protobuf:"bytes,4,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*SymbolAllocationinSlot_AllDl) isSymbolAllocationinSlot_SymbolAllocationInSlot() {}
@@ -59966,7 +59966,7 @@ type SymbolAllocationinSlotAllDl struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*SymbolAllocationinSlotAllDlExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*SymbolAllocationinSlotAllDlExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SymbolAllocationinSlotAllDl) Reset() {
@@ -60066,7 +60066,7 @@ type SymbolAllocationinSlotAllUl struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*SymbolAllocationinSlotAllUlExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*SymbolAllocationinSlotAllUlExtIes `protobuf:"bytes,1,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SymbolAllocationinSlotAllUl) Reset() {
@@ -60166,11 +60166,11 @@ type SymbolAllocationinSlotBothDlandUl struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:13,"
-	NumberofDlsymbols int32 `protobuf:"varint,1,opt,name=numberof_dlsymbols,json=numberofDLSymbols,proto3" json:"numberof_dlsymbols,omitempty"`
+	NumberofDlsymbols int32 `protobuf:"varint,1,opt,name=numberof_dlsymbols,json=numberofDLSymbols,proto3" json:"numberof_dlsymbols,omitempty" aper:"valueLB:0,valueUB:13,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:13,"
-	NumberofUlsymbols int32 `protobuf:"varint,2,opt,name=numberof_ulsymbols,json=numberofULSymbols,proto3" json:"numberof_ulsymbols,omitempty"`
+	NumberofUlsymbols int32 `protobuf:"varint,2,opt,name=numberof_ulsymbols,json=numberofULSymbols,proto3" json:"numberof_ulsymbols,omitempty" aper:"valueLB:0,valueUB:13,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*SymbolAllocationinSlotBothDlandUlExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*SymbolAllocationinSlotBothDlandUlExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *SymbolAllocationinSlotBothDlandUl) Reset() {
@@ -60285,7 +60285,7 @@ type TabasedMdt struct {
 
 	TAlistforMdt *TalistforMdt `protobuf:"bytes,1,opt,name=t_alistfor_mdt,json=tAListforMDT,proto3" json:"t_alistfor_mdt,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TabasedMdtExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TabasedMdtExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TabasedMdt) Reset() {
@@ -60393,7 +60393,7 @@ type TaibasedMdt struct {
 
 	TAilistforMdt *TailistforMdt `protobuf:"bytes,1,opt,name=t_ailistfor_mdt,json=tAIListforMDT,proto3" json:"t_ailistfor_mdt,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TaibasedMdtExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TaibasedMdtExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TaibasedMdt) Reset() {
@@ -60450,7 +60450,7 @@ type TailistforMdt struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:8,"
-	Value []*TaiforMdtItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TaiforMdtItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:8,"`
 }
 
 func (x *TailistforMdt) Reset() {
@@ -60552,7 +60552,7 @@ type TaiforMdtItem struct {
 	PlmnId *PlmnIdentity `protobuf:"bytes,1,opt,name=plmn_id,json=plmn-ID,proto3" json:"plmn_id,omitempty"`
 	TAc    *Tac          `protobuf:"bytes,2,opt,name=t_ac,json=tAC,proto3" json:"t_ac,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TaiforMdtItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TaiforMdtItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TaiforMdtItem) Reset() {
@@ -60616,7 +60616,7 @@ type Tac struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:3,sizeUB:3,"
-	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:3,sizeUB:3,"`
 }
 
 func (x *Tac) Reset() {
@@ -60666,7 +60666,7 @@ type TaisupportList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:256,"
-	Value []*TaisupportItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TaisupportItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:256,"`
 }
 
 func (x *TaisupportList) Reset() {
@@ -60766,10 +60766,10 @@ type TaisupportItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	Tac *Tac `protobuf:"bytes,1,opt,name=tac,proto3" json:"tac,omitempty"`
-	// @inject_tag: aper:"sizeLB:1,sizeUB:12,"
-	BroadcastPlmns []*BroadcastPlmninTaisupportItem `protobuf:"bytes,2,rep,name=broadcast_plmns,json=broadcastPLMNs,proto3" json:"broadcast_plmns,omitempty"`
-	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TaisupportItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	// @inject_tag: aper:"sizeLB:1,sizeUB:12,valueExt"
+	BroadcastPlmns []*BroadcastPlmninTaisupportItem `protobuf:"bytes,2,rep,name=broadcast_plmns,json=broadcastPLMNs,proto3" json:"broadcast_plmns,omitempty" aper:"sizeLB:1,sizeUB:12,valueExt"`
+	// @inject_tag: aper:"optional,sizeLB:1,sizeUB:65535,valueExt"
+	IEExtensions []*TaisupportItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,sizeUB:65535,valueExt"`
 }
 
 func (x *TaisupportItem) Reset() {
@@ -60833,7 +60833,7 @@ type TalistforMdt struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:8,"
-	Value []*Tac `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*Tac `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:8,"`
 }
 
 func (x *TalistforMdt) Reset() {
@@ -61055,17 +61055,17 @@ type isTargetCGi_TargetCgi interface {
 
 type TargetCGi_Nr struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	Nr *NrCGi `protobuf:"bytes,1,opt,name=nr,proto3,oneof"`
+	Nr *NrCGi `protobuf:"bytes,1,opt,name=nr,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type TargetCGi_EUtra struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	EUtra *EUTraCGi `protobuf:"bytes,2,opt,name=e_utra,json=e-utra,proto3,oneof"`
+	EUtra *EUTraCGi `protobuf:"bytes,2,opt,name=e_utra,json=e-utra,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type TargetCGi_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *TargetCgiExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *TargetCgiExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*TargetCGi_Nr) isTargetCGi_TargetCgi() {}
@@ -61131,7 +61131,7 @@ type TargetCellList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:8,"
-	Value []*TargetCellListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TargetCellListItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:8,"`
 }
 
 func (x *TargetCellList) Reset() {
@@ -61231,7 +61231,7 @@ type TargetCellListItem struct {
 
 	TargetCell *TargetCGi `protobuf:"bytes,1,opt,name=target_cell,json=target-cell,proto3" json:"target_cell,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TargetCellListItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TargetCellListItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TargetCellListItem) Reset() {
@@ -61288,7 +61288,7 @@ type ThresholdRSrq struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:34,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:34,"`
 }
 
 func (x *ThresholdRSrq) Reset() {
@@ -61338,7 +61338,7 @@ type ThresholdRSrp struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:97,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:97,"`
 }
 
 func (x *ThresholdRSrp) Reset() {
@@ -61388,7 +61388,7 @@ type ThresholdSInr struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:127,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:127,"`
 }
 
 func (x *ThresholdSInr) Reset() {
@@ -61488,11 +61488,11 @@ type TnlconfigurationInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	ExtendedUptransportLayerAddressesToAdd *ExtTlas `protobuf:"bytes,1,opt,name=extended_uptransport_layer_addresses_to_add,json=extendedUPTransportLayerAddressesToAdd,proto3,oneof" json:"extended_uptransport_layer_addresses_to_add,omitempty"`
+	ExtendedUptransportLayerAddressesToAdd *ExtTlas `protobuf:"bytes,1,opt,name=extended_uptransport_layer_addresses_to_add,json=extendedUPTransportLayerAddressesToAdd,proto3,oneof" json:"extended_uptransport_layer_addresses_to_add,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	ExtendedUptransportLayerAddressesToRemove *ExtTlas `protobuf:"bytes,2,opt,name=extended_uptransport_layer_addresses_to_remove,json=extendedUPTransportLayerAddressesToRemove,proto3,oneof" json:"extended_uptransport_layer_addresses_to_remove,omitempty"`
+	ExtendedUptransportLayerAddressesToRemove *ExtTlas `protobuf:"bytes,2,opt,name=extended_uptransport_layer_addresses_to_remove,json=extendedUPTransportLayerAddressesToRemove,proto3,oneof" json:"extended_uptransport_layer_addresses_to_remove,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TnlconfigurationInfoExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TnlconfigurationInfoExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TnlconfigurationInfo) Reset() {
@@ -61556,7 +61556,7 @@ type TnlaToAddList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	Value []*TnlaToAddItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TnlaToAddItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 }
 
 func (x *TnlaToAddList) Reset() {
@@ -61656,9 +61656,9 @@ type TnlaToAddItem struct {
 
 	TNlassociationTransportLayerAddress *CptransportLayerInformation `protobuf:"bytes,1,opt,name=t_nlassociation_transport_layer_address,json=tNLAssociationTransportLayerAddress,proto3" json:"t_nlassociation_transport_layer_address,omitempty"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	TNlassociationUsage TnlassociationUsage `protobuf:"varint,2,opt,name=t_nlassociation_usage,json=tNLAssociationUsage,proto3,enum=xnap.v1.TnlassociationUsage" json:"t_nlassociation_usage,omitempty"`
+	TNlassociationUsage TnlassociationUsage `protobuf:"varint,2,opt,name=t_nlassociation_usage,json=tNLAssociationUsage,proto3,enum=xnap.v1.TnlassociationUsage" json:"t_nlassociation_usage,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TnlaToAddItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TnlaToAddItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TnlaToAddItem) Reset() {
@@ -61722,7 +61722,7 @@ type TnlaToUpdateList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	Value []*TnlaToUpdateItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TnlaToUpdateItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 }
 
 func (x *TnlaToUpdateList) Reset() {
@@ -61822,9 +61822,9 @@ type TnlaToUpdateItem struct {
 
 	TNlassociationTransportLayerAddress *CptransportLayerInformation `protobuf:"bytes,1,opt,name=t_nlassociation_transport_layer_address,json=tNLAssociationTransportLayerAddress,proto3" json:"t_nlassociation_transport_layer_address,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:2,"
-	TNlassociationUsage *TnlassociationUsage `protobuf:"varint,2,opt,name=t_nlassociation_usage,json=tNLAssociationUsage,proto3,enum=xnap.v1.TnlassociationUsage,oneof" json:"t_nlassociation_usage,omitempty"`
+	TNlassociationUsage *TnlassociationUsage `protobuf:"varint,2,opt,name=t_nlassociation_usage,json=tNLAssociationUsage,proto3,enum=xnap.v1.TnlassociationUsage,oneof" json:"t_nlassociation_usage,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TnlaToUpdateItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TnlaToUpdateItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TnlaToUpdateItem) Reset() {
@@ -61888,7 +61888,7 @@ type TnlaToRemoveList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	Value []*TnlaToRemoveItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TnlaToRemoveItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 }
 
 func (x *TnlaToRemoveList) Reset() {
@@ -61988,7 +61988,7 @@ type TnlaToRemoveItem struct {
 
 	TNlassociationTransportLayerAddress *CptransportLayerInformation `protobuf:"bytes,1,opt,name=t_nlassociation_transport_layer_address,json=tNLAssociationTransportLayerAddress,proto3" json:"t_nlassociation_transport_layer_address,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TnlaToRemoveItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TnlaToRemoveItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TnlaToRemoveItem) Reset() {
@@ -62045,7 +62045,7 @@ type TnlaSetupList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:32,"
-	Value []*TnlaSetupItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TnlaSetupItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:32,"`
 }
 
 func (x *TnlaSetupList) Reset() {
@@ -62146,7 +62146,7 @@ type TnlaSetupItem struct {
 
 	TNlassociationTransportLayerAddress *CptransportLayerInformation `protobuf:"bytes,1,opt,name=t_nlassociation_transport_layer_address,json=tNLAssociationTransportLayerAddress,proto3" json:"t_nlassociation_transport_layer_address,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TnlaSetupItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TnlaSetupItemExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TnlaSetupItem) Reset() {
@@ -62203,7 +62203,7 @@ type TnlaFailedToSetupList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	Value []*TnlaFailedToSetupItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*TnlaFailedToSetupItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 }
 
 func (x *TnlaFailedToSetupList) Reset() {
@@ -62304,7 +62304,7 @@ type TnlaFailedToSetupItem struct {
 	TNlassociationTransportLayerAddress *CptransportLayerInformation `protobuf:"bytes,1,opt,name=t_nlassociation_transport_layer_address,json=tNLAssociationTransportLayerAddress,proto3" json:"t_nlassociation_transport_layer_address,omitempty"`
 	Cause                               *Cause                       `protobuf:"bytes,2,opt,name=cause,proto3" json:"cause,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*TnlaFailedToSetupItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*TnlaFailedToSetupItemExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TnlaFailedToSetupItem) Reset() {
@@ -62368,7 +62368,7 @@ type TransportLayerAddress struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeExt,sizeLB:1,sizeUB:160,"
-	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *asn1.BitString `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeExt,sizeLB:1,sizeUB:160,"`
 }
 
 func (x *TransportLayerAddress) Reset() {
@@ -62484,12 +62484,12 @@ type isTraceActivationExtIesExtension_TraceActivationExtIes interface {
 
 type TraceActivationExtIesExtension_IdTraceCollectionEntityUri struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdTraceCollectionEntityUri *Uriaddress `protobuf:"bytes,1,opt,name=id_trace_collection_entity_uri,json=id-TraceCollectionEntityURI,proto3,oneof"`
+	IdTraceCollectionEntityUri *Uriaddress `protobuf:"bytes,1,opt,name=id_trace_collection_entity_uri,json=id-TraceCollectionEntityURI,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type TraceActivationExtIesExtension_IdMdtConfiguration struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdMdtConfiguration *MdtConfiguration `protobuf:"bytes,2,opt,name=id_mdt_configuration,json=id-MDT-Configuration,proto3,oneof"`
+	IdMdtConfiguration *MdtConfiguration `protobuf:"bytes,2,opt,name=id_mdt_configuration,json=id-MDT-Configuration,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 func (*TraceActivationExtIesExtension_IdTraceCollectionEntityUri) isTraceActivationExtIesExtension_TraceActivationExtIes() {
@@ -62507,11 +62507,11 @@ type TraceActivationExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *TraceActivationExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *TraceActivationExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *TraceActivationExtIes) Reset() {
@@ -62577,12 +62577,12 @@ type TraceActivation struct {
 
 	NgRanTraceId *NgRAntraceId `protobuf:"bytes,1,opt,name=ng_ran_trace_id,json=ng-ran-TraceID,proto3" json:"ng_ran_trace_id,omitempty"`
 	// @inject_tag: aper:"sizeLB:8,sizeUB:8,"
-	InterfacesToTrace *asn1.BitString `protobuf:"bytes,2,opt,name=interfaces_to_trace,json=interfaces-to-trace,proto3" json:"interfaces_to_trace,omitempty"`
+	InterfacesToTrace *asn1.BitString `protobuf:"bytes,2,opt,name=interfaces_to_trace,json=interfaces-to-trace,proto3" json:"interfaces_to_trace,omitempty" aper:"sizeLB:8,sizeUB:8,"`
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:5,"
-	TraceDepth       TraceDepth             `protobuf:"varint,3,opt,name=trace_depth,json=trace-depth,proto3,enum=xnap.v1.TraceDepth" json:"trace_depth,omitempty"`
+	TraceDepth       TraceDepth             `protobuf:"varint,3,opt,name=trace_depth,json=trace-depth,proto3,enum=xnap.v1.TraceDepth" json:"trace_depth,omitempty" aper:"valueExt,valueLB:0,valueUB:5,"`
 	TraceCollAddress *TransportLayerAddress `protobuf:"bytes,4,opt,name=trace_coll_address,json=trace-coll-address,proto3" json:"trace_coll_address,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IeExtension []*TraceActivationExtIes `protobuf:"bytes,5,rep,name=ie_extension,json=ie-Extension,proto3" json:"ie_extension,omitempty"`
+	IeExtension []*TraceActivationExtIes `protobuf:"bytes,5,rep,name=ie_extension,json=ie-Extension,proto3" json:"ie_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TraceActivation) Reset() {
@@ -62710,11 +62710,11 @@ type TsctrafficCharacteristics struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,valueExt,"
-	TScassistanceInformationDownlink *TscassistanceInformation `protobuf:"bytes,1,opt,name=t_scassistance_information_downlink,json=tSCAssistanceInformationDownlink,proto3,oneof" json:"t_scassistance_information_downlink,omitempty"`
+	TScassistanceInformationDownlink *TscassistanceInformation `protobuf:"bytes,1,opt,name=t_scassistance_information_downlink,json=tSCAssistanceInformationDownlink,proto3,oneof" json:"t_scassistance_information_downlink,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,valueExt,"
-	TScassistanceInformationUplink *TscassistanceInformation `protobuf:"bytes,2,opt,name=t_scassistance_information_uplink,json=tSCAssistanceInformationUplink,proto3,oneof" json:"t_scassistance_information_uplink,omitempty"`
+	TScassistanceInformationUplink *TscassistanceInformation `protobuf:"bytes,2,opt,name=t_scassistance_information_uplink,json=tSCAssistanceInformationUplink,proto3,oneof" json:"t_scassistance_information_uplink,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IeExtension []*TsctrafficCharacteristicsExtIes `protobuf:"bytes,3,rep,name=ie_extension,json=ie-Extension,proto3" json:"ie_extension,omitempty"`
+	IeExtension []*TsctrafficCharacteristicsExtIes `protobuf:"bytes,3,rep,name=ie_extension,json=ie-Extension,proto3" json:"ie_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TsctrafficCharacteristics) Reset() {
@@ -62828,11 +62828,11 @@ type TscassistanceInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:640000,"
-	Periodicity int32 `protobuf:"varint,1,opt,name=periodicity,proto3" json:"periodicity,omitempty"`
+	Periodicity int32 `protobuf:"varint,1,opt,name=periodicity,proto3" json:"periodicity,omitempty" aper:"valueExt,valueLB:0,valueUB:640000,"`
 	// @inject_tag: aper:"optional,"
-	BurstArrivalTime []byte `protobuf:"bytes,2,opt,name=burst_arrival_time,json=burstArrivalTime,proto3,oneof" json:"burst_arrival_time,omitempty"`
+	BurstArrivalTime []byte `protobuf:"bytes,2,opt,name=burst_arrival_time,json=burstArrivalTime,proto3,oneof" json:"burst_arrival_time,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IeExtension []*TscassistanceInformationExtIes `protobuf:"bytes,3,rep,name=ie_extension,json=ie-Extension,proto3" json:"ie_extension,omitempty"`
+	IeExtension []*TscassistanceInformationExtIes `protobuf:"bytes,3,rep,name=ie_extension,json=ie-Extension,proto3" json:"ie_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *TscassistanceInformation) Reset() {
@@ -62948,7 +62948,7 @@ type UeaggregateMaximumBitRate struct {
 	DlUeAmbr *BitRate `protobuf:"bytes,1,opt,name=dl_ue_ambr,json=dl-UE-AMBR,proto3" json:"dl_ue_ambr,omitempty"`
 	UlUeAmbr *BitRate `protobuf:"bytes,2,opt,name=ul_ue_ambr,json=ul-UE-AMBR,proto3" json:"ul_ue_ambr,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*UeaggregateMaximumBitRateExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*UeaggregateMaximumBitRateExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UeaggregateMaximumBitRate) Reset() {
@@ -63135,17 +63135,17 @@ type isUecontextId_UecontextId interface {
 
 type UecontextId_RRcresume struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	RRcresume *UecontextIdforRrcresume `protobuf:"bytes,1,opt,name=r_rcresume,json=rRCResume,proto3,oneof"`
+	RRcresume *UecontextIdforRrcresume `protobuf:"bytes,1,opt,name=r_rcresume,json=rRCResume,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type UecontextId_RRrcreestablishment struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	RRrcreestablishment *UecontextIdforRrcreestablishment `protobuf:"bytes,2,opt,name=r_rrcreestablishment,json=rRRCReestablishment,proto3,oneof"`
+	RRrcreestablishment *UecontextIdforRrcreestablishment `protobuf:"bytes,2,opt,name=r_rrcreestablishment,json=rRRCReestablishment,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type UecontextId_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *UecontextIdExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *UecontextIdExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*UecontextId_RRcresume) isUecontextId_UecontextId() {}
@@ -63215,7 +63215,7 @@ type UecontextIdforRrcresume struct {
 	AllocatedCRnti *CRNti        `protobuf:"bytes,2,opt,name=allocated_c_rnti,json=allocated-c-rnti,proto3" json:"allocated_c_rnti,omitempty"`
 	AccessPci      *NgRAnCellPci `protobuf:"bytes,3,opt,name=access_pci,json=accessPCI,proto3" json:"access_pci,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*UecontextIdforRrcresumeExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*UecontextIdforRrcresumeExtIes `protobuf:"bytes,4,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UecontextIdforRrcresume) Reset() {
@@ -63338,7 +63338,7 @@ type UecontextIdforRrcreestablishment struct {
 	CRnti          *CRNti        `protobuf:"bytes,1,opt,name=c_rnti,json=c-rnti,proto3" json:"c_rnti,omitempty"`
 	FailureCellPci *NgRAnCellPci `protobuf:"bytes,2,opt,name=failure_cell_pci,json=failureCellPCI,proto3" json:"failure_cell_pci,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*UecontextIdforRrcreestablishmentExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*UecontextIdforRrcreestablishmentExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UecontextIdforRrcreestablishment) Reset() {
@@ -63484,22 +63484,22 @@ type isUecontextInfoRetrUectxtRespExtIesExtension_UecontextInfoRetrUectxtRespExt
 
 type UecontextInfoRetrUectxtRespExtIesExtension_IdFiveGcmobilityRestrictionListContainer struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	IdFiveGcmobilityRestrictionListContainer *FiveGcmobilityRestrictionListContainer `protobuf:"bytes,1,opt,name=id_five_gcmobility_restriction_list_container,json=id-FiveGCMobilityRestrictionListContainer,proto3,oneof"`
+	IdFiveGcmobilityRestrictionListContainer *FiveGcmobilityRestrictionListContainer `protobuf:"bytes,1,opt,name=id_five_gcmobility_restriction_list_container,json=id-FiveGCMobilityRestrictionListContainer,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UecontextInfoRetrUectxtRespExtIesExtension_IdNruesidelinkAggregateMaximumBitRate struct {
 	// @inject_tag: aper:"choiceIdx:2,valueExt,"
-	IdNruesidelinkAggregateMaximumBitRate *NruesidelinkAggregateMaximumBitRate `protobuf:"bytes,2,opt,name=id_nruesidelink_aggregate_maximum_bit_rate,json=id-NRUESidelinkAggregateMaximumBitRate,proto3,oneof"`
+	IdNruesidelinkAggregateMaximumBitRate *NruesidelinkAggregateMaximumBitRate `protobuf:"bytes,2,opt,name=id_nruesidelink_aggregate_maximum_bit_rate,json=id-NRUESidelinkAggregateMaximumBitRate,proto3,oneof" aper:"choiceIdx:2,valueExt,"`
 }
 
 type UecontextInfoRetrUectxtRespExtIesExtension_IdLteuesidelinkAggregateMaximumBitRate struct {
 	// @inject_tag: aper:"choiceIdx:3,valueExt,"
-	IdLteuesidelinkAggregateMaximumBitRate *LteuesidelinkAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=id_lteuesidelink_aggregate_maximum_bit_rate,json=id-LTEUESidelinkAggregateMaximumBitRate,proto3,oneof"`
+	IdLteuesidelinkAggregateMaximumBitRate *LteuesidelinkAggregateMaximumBitRate `protobuf:"bytes,3,opt,name=id_lteuesidelink_aggregate_maximum_bit_rate,json=id-LTEUESidelinkAggregateMaximumBitRate,proto3,oneof" aper:"choiceIdx:3,valueExt,"`
 }
 
 type UecontextInfoRetrUectxtRespExtIesExtension_IdUeradioCapabilityId struct {
 	// @inject_tag: aper:"choiceIdx:4,"
-	IdUeradioCapabilityId *UeradioCapabilityId `protobuf:"bytes,4,opt,name=id_ueradio_capability_id,json=id-UERadioCapabilityID,proto3,oneof"`
+	IdUeradioCapabilityId *UeradioCapabilityId `protobuf:"bytes,4,opt,name=id_ueradio_capability_id,json=id-UERadioCapabilityID,proto3,oneof" aper:"choiceIdx:4,"`
 }
 
 func (*UecontextInfoRetrUectxtRespExtIesExtension_IdFiveGcmobilityRestrictionListContainer) isUecontextInfoRetrUectxtRespExtIesExtension_UecontextInfoRetrUectxtRespExtIes() {
@@ -63523,11 +63523,11 @@ type UecontextInfoRetrUectxtRespExtIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"unique,"
-	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty"`
+	Id *xnap_commondatatypes.ProtocolIeID `protobuf:"bytes,1,opt,name=id,json=&id,proto3" json:"id,omitempty" aper:"unique,"`
 	// @inject_tag: aper:"valueLB:0,valueUB:2,"
-	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty"`
+	Criticality xnap_commondatatypes.Criticality `protobuf:"varint,2,opt,name=criticality,json=&criticality,proto3,enum=xnap.v1.Criticality" json:"criticality,omitempty" aper:"valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"canonicalOrder,"
-	Extension *UecontextInfoRetrUectxtRespExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty"`
+	Extension *UecontextInfoRetrUectxtRespExtIesExtension `protobuf:"bytes,3,opt,name=extension,json=&Extension,proto3" json:"extension,omitempty" aper:"canonicalOrder,"`
 }
 
 func (x *UecontextInfoRetrUectxtRespExtIes) Reset() {
@@ -63594,19 +63594,19 @@ type UecontextInfoRetrUectxtResp struct {
 	NgCUeSignallingRef    *AmfUENGapID                 `protobuf:"bytes,1,opt,name=ng_c_ue_signalling_ref,json=ng-c-UE-signalling-ref,proto3" json:"ng_c_ue_signalling_ref,omitempty"`
 	SignallingTnlAtSource *CptransportLayerInformation `protobuf:"bytes,2,opt,name=signalling_tnl_at_source,json=signalling-TNL-at-source,proto3" json:"signalling_tnl_at_source,omitempty"`
 	// @inject_tag: aper:"valueExt,"
-	UeSecurityCapabilities *UesecurityCapabilities `protobuf:"bytes,3,opt,name=ue_security_capabilities,json=ueSecurityCapabilities,proto3" json:"ue_security_capabilities,omitempty"`
+	UeSecurityCapabilities *UesecurityCapabilities `protobuf:"bytes,3,opt,name=ue_security_capabilities,json=ueSecurityCapabilities,proto3" json:"ue_security_capabilities,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	SecurityInformation *AsSecurityInformation `protobuf:"bytes,4,opt,name=security_information,json=securityInformation,proto3" json:"security_information,omitempty"`
+	SecurityInformation *AsSecurityInformation `protobuf:"bytes,4,opt,name=security_information,json=securityInformation,proto3" json:"security_information,omitempty" aper:"valueExt,"`
 	// @inject_tag: aper:"valueExt,"
-	UeAmbr                           *UeaggregateMaximumBitRate        `protobuf:"bytes,5,opt,name=ue_ambr,json=ue-AMBR,proto3" json:"ue_ambr,omitempty"`
+	UeAmbr                           *UeaggregateMaximumBitRate        `protobuf:"bytes,5,opt,name=ue_ambr,json=ue-AMBR,proto3" json:"ue_ambr,omitempty" aper:"valueExt,"`
 	PduSessionResourcesToBeSetupList *PdusessionResourcesToBeSetupList `protobuf:"bytes,6,opt,name=pdu_session_resources_to_be_setup_list,json=pduSessionResourcesToBeSetup-List,proto3" json:"pdu_session_resources_to_be_setup_list,omitempty"`
 	RrcContext                       []byte                            `protobuf:"bytes,7,opt,name=rrc_context,json=rrc-Context,proto3" json:"rrc_context,omitempty"`
 	// @inject_tag: aper:"optional,valueExt,"
-	MobilityRestrictionList *MobilityRestrictionList `protobuf:"bytes,8,opt,name=mobility_restriction_list,json=mobilityRestrictionList,proto3,oneof" json:"mobility_restriction_list,omitempty"`
+	MobilityRestrictionList *MobilityRestrictionList `protobuf:"bytes,8,opt,name=mobility_restriction_list,json=mobilityRestrictionList,proto3,oneof" json:"mobility_restriction_list,omitempty" aper:"optional,valueExt,"`
 	// @inject_tag: aper:"optional,"
-	IndexToRatFrequencySelectionPriority *RfspIndex `protobuf:"bytes,9,opt,name=index_to_rat_frequency_selection_priority,json=indexToRatFrequencySelectionPriority,proto3,oneof" json:"index_to_rat_frequency_selection_priority,omitempty"`
+	IndexToRatFrequencySelectionPriority *RfspIndex `protobuf:"bytes,9,opt,name=index_to_rat_frequency_selection_priority,json=indexToRatFrequencySelectionPriority,proto3,oneof" json:"index_to_rat_frequency_selection_priority,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*UecontextInfoRetrUectxtRespExtIes `protobuf:"bytes,10,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*UecontextInfoRetrUectxtRespExtIes `protobuf:"bytes,10,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UecontextInfoRetrUectxtResp) Reset() {
@@ -63719,7 +63719,7 @@ type UehistoryInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:16,"
-	Value []*LastVisitedCellItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*LastVisitedCellItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:16,"`
 }
 
 func (x *UehistoryInformation) Reset() {
@@ -63884,12 +63884,12 @@ type isUehistoryInformationFromTheUe_UehistoryInformationFromTheUe interface {
 
 type UehistoryInformationFromTheUe_NR struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	NR *NrmobilityHistoryReport `protobuf:"bytes,1,opt,name=n_r,json=nR,proto3,oneof"`
+	NR *NrmobilityHistoryReport `protobuf:"bytes,1,opt,name=n_r,json=nR,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UehistoryInformationFromTheUe_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtension *UehistoryInformationFromTheUeExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *UehistoryInformationFromTheUeExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*UehistoryInformationFromTheUe_NR) isUehistoryInformationFromTheUe_UehistoryInformationFromTheUe() {
@@ -64021,12 +64021,12 @@ type isUeidentityIndexValue_UeidentityIndexValue interface {
 
 type UeidentityIndexValue_IndexLength10 struct {
 	// @inject_tag: aper:"choiceIdx:1,sizeLB:10,sizeUB:10,"
-	IndexLength10 *asn1.BitString `protobuf:"bytes,1,opt,name=index_length10,json=indexLength10,proto3,oneof"`
+	IndexLength10 *asn1.BitString `protobuf:"bytes,1,opt,name=index_length10,json=indexLength10,proto3,oneof" aper:"choiceIdx:1,sizeLB:10,sizeUB:10,"`
 }
 
 type UeidentityIndexValue_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtension *UeidentityIndexValueExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *UeidentityIndexValueExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*UeidentityIndexValue_IndexLength10) isUeidentityIndexValue_UeidentityIndexValue() {}
@@ -64091,11 +64091,11 @@ type UeradioCapabilityForPaging struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"optional,"
-	UEradioCapabilityForPagingOfNr *UeradioCapabilityForPagingOfNr `protobuf:"bytes,1,opt,name=u_eradio_capability_for_paging_of_nr,json=uERadioCapabilityForPagingOfNR,proto3,oneof" json:"u_eradio_capability_for_paging_of_nr,omitempty"`
+	UEradioCapabilityForPagingOfNr *UeradioCapabilityForPagingOfNr `protobuf:"bytes,1,opt,name=u_eradio_capability_for_paging_of_nr,json=uERadioCapabilityForPagingOfNR,proto3,oneof" json:"u_eradio_capability_for_paging_of_nr,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,"
-	UEradioCapabilityForPagingOfEutra *UeradioCapabilityForPagingOfEutra `protobuf:"bytes,2,opt,name=u_eradio_capability_for_paging_of_eutra,json=uERadioCapabilityForPagingOfEUTRA,proto3,oneof" json:"u_eradio_capability_for_paging_of_eutra,omitempty"`
+	UEradioCapabilityForPagingOfEutra *UeradioCapabilityForPagingOfEutra `protobuf:"bytes,2,opt,name=u_eradio_capability_for_paging_of_eutra,json=uERadioCapabilityForPagingOfEUTRA,proto3,oneof" json:"u_eradio_capability_for_paging_of_eutra,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*UeradioCapabilityForPagingExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*UeradioCapabilityForPagingExtIes `protobuf:"bytes,3,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UeradioCapabilityForPaging) Reset() {
@@ -64421,12 +64421,12 @@ type isUeranpagingIdentity_UeranpagingIdentity interface {
 
 type UeranpagingIdentity_IRntiFull struct {
 	// @inject_tag: aper:"choiceIdx:1,sizeLB:40,sizeUB:40,"
-	IRntiFull *asn1.BitString `protobuf:"bytes,1,opt,name=i_rnti_full,json=i-RNTI-full,proto3,oneof"`
+	IRntiFull *asn1.BitString `protobuf:"bytes,1,opt,name=i_rnti_full,json=i-RNTI-full,proto3,oneof" aper:"choiceIdx:1,sizeLB:40,sizeUB:40,"`
 }
 
 type UeranpagingIdentity_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtension *UeranpagingIdentityExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *UeranpagingIdentityExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*UeranpagingIdentity_IRntiFull) isUeranpagingIdentity_UeranpagingIdentity() {}
@@ -64564,17 +64564,17 @@ type isUerlfreportContainer_UerlfreportContainer interface {
 
 type UerlfreportContainer_NRUerlfreportContainer struct {
 	// @inject_tag: aper:"choiceIdx:1,"
-	NRUerlfreportContainer *UerlfreportContainerNr `protobuf:"bytes,1,opt,name=n_r_uerlfreport_container,json=nR-UERLFReportContainer,proto3,oneof"`
+	NRUerlfreportContainer *UerlfreportContainerNr `protobuf:"bytes,1,opt,name=n_r_uerlfreport_container,json=nR-UERLFReportContainer,proto3,oneof" aper:"choiceIdx:1,"`
 }
 
 type UerlfreportContainer_LTeUerlfreportContainer struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	LTeUerlfreportContainer *UerlfreportContainerLte `protobuf:"bytes,2,opt,name=l_te_uerlfreport_container,json=lTE-UERLFReportContainer,proto3,oneof"`
+	LTeUerlfreportContainer *UerlfreportContainerLte `protobuf:"bytes,2,opt,name=l_te_uerlfreport_container,json=lTE-UERLFReportContainer,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 type UerlfreportContainer_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:3,"
-	ChoiceExtension *UerlfreportContainerExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-Extension,proto3,oneof"`
+	ChoiceExtension *UerlfreportContainerExtIes `protobuf:"bytes,3,opt,name=choice_extension,json=choice-Extension,proto3,oneof" aper:"choiceIdx:3,"`
 }
 
 func (*UerlfreportContainer_NRUerlfreportContainer) isUerlfreportContainer_UerlfreportContainer() {}
@@ -64739,15 +64739,15 @@ type UesecurityCapabilities struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeExt,sizeLB:16,sizeUB:16,"
-	NrEncyptionAlgorithms *asn1.BitString `protobuf:"bytes,1,opt,name=nr_encyption_algorithms,json=nr-EncyptionAlgorithms,proto3" json:"nr_encyption_algorithms,omitempty"`
+	NrEncyptionAlgorithms *asn1.BitString `protobuf:"bytes,1,opt,name=nr_encyption_algorithms,json=nr-EncyptionAlgorithms,proto3" json:"nr_encyption_algorithms,omitempty" aper:"sizeExt,sizeLB:16,sizeUB:16,"`
 	// @inject_tag: aper:"sizeExt,sizeLB:16,sizeUB:16,"
-	NrIntegrityProtectionAlgorithms *asn1.BitString `protobuf:"bytes,2,opt,name=nr_integrity_protection_algorithms,json=nr-IntegrityProtectionAlgorithms,proto3" json:"nr_integrity_protection_algorithms,omitempty"`
+	NrIntegrityProtectionAlgorithms *asn1.BitString `protobuf:"bytes,2,opt,name=nr_integrity_protection_algorithms,json=nr-IntegrityProtectionAlgorithms,proto3" json:"nr_integrity_protection_algorithms,omitempty" aper:"sizeExt,sizeLB:16,sizeUB:16,"`
 	// @inject_tag: aper:"sizeExt,sizeLB:16,sizeUB:16,"
-	EUtraEncyptionAlgorithms *asn1.BitString `protobuf:"bytes,3,opt,name=e_utra_encyption_algorithms,json=e-utra-EncyptionAlgorithms,proto3" json:"e_utra_encyption_algorithms,omitempty"`
+	EUtraEncyptionAlgorithms *asn1.BitString `protobuf:"bytes,3,opt,name=e_utra_encyption_algorithms,json=e-utra-EncyptionAlgorithms,proto3" json:"e_utra_encyption_algorithms,omitempty" aper:"sizeExt,sizeLB:16,sizeUB:16,"`
 	// @inject_tag: aper:"sizeExt,sizeLB:16,sizeUB:16,"
-	EUtraIntegrityProtectionAlgorithms *asn1.BitString `protobuf:"bytes,4,opt,name=e_utra_integrity_protection_algorithms,json=e-utra-IntegrityProtectionAlgorithms,proto3" json:"e_utra_integrity_protection_algorithms,omitempty"`
+	EUtraIntegrityProtectionAlgorithms *asn1.BitString `protobuf:"bytes,4,opt,name=e_utra_integrity_protection_algorithms,json=e-utra-IntegrityProtectionAlgorithms,proto3" json:"e_utra_integrity_protection_algorithms,omitempty" aper:"sizeExt,sizeLB:16,sizeUB:16,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*UesecurityCapabilitiesExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*UesecurityCapabilitiesExtIes `protobuf:"bytes,5,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UesecurityCapabilities) Reset() {
@@ -64875,9 +64875,9 @@ type Ulconfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:2,"
-	ULPdcp UlUEConfiguration `protobuf:"varint,1,opt,name=u_l_pdcp,json=uL-PDCP,proto3,enum=xnap.v1.UlUEConfiguration" json:"u_l_pdcp,omitempty"`
+	ULPdcp UlUEConfiguration `protobuf:"varint,1,opt,name=u_l_pdcp,json=uL-PDCP,proto3,enum=xnap.v1.UlUEConfiguration" json:"u_l_pdcp,omitempty" aper:"valueExt,valueLB:0,valueUB:2,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*UlconfigurationExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*UlconfigurationExtIes `protobuf:"bytes,2,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *Ulconfiguration) Reset() {
@@ -64934,7 +64934,7 @@ type UlGBrPRbusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *UlGBrPRbusage) Reset() {
@@ -64984,7 +64984,7 @@ type UlnonGBrPRbusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *UlnonGBrPRbusage) Reset() {
@@ -65034,7 +65034,7 @@ type UlTotalPRbusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:100,"`
 }
 
 func (x *UlTotalPRbusage) Reset() {
@@ -65199,12 +65199,12 @@ type isUptransportLayerInformation_UptransportLayerInformation interface {
 
 type UptransportLayerInformation_GtpTunnel struct {
 	// @inject_tag: aper:"choiceIdx:1,valueExt,"
-	GtpTunnel *GtptunnelTransportLayerInformation `protobuf:"bytes,1,opt,name=gtp_tunnel,json=gtpTunnel,proto3,oneof"`
+	GtpTunnel *GtptunnelTransportLayerInformation `protobuf:"bytes,1,opt,name=gtp_tunnel,json=gtpTunnel,proto3,oneof" aper:"choiceIdx:1,valueExt,"`
 }
 
 type UptransportLayerInformation_ChoiceExtension struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	ChoiceExtension *UptransportLayerInformationExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof"`
+	ChoiceExtension *UptransportLayerInformationExtIes `protobuf:"bytes,2,opt,name=choice_extension,json=choice-extension,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*UptransportLayerInformation_GtpTunnel) isUptransportLayerInformation_UptransportLayerInformation() {
@@ -65221,7 +65221,7 @@ type UptransportParameters struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:4,"
-	Value []*UptransportParametersItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*UptransportParametersItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:4,"`
 }
 
 func (x *UptransportParameters) Reset() {
@@ -65323,7 +65323,7 @@ type UptransportParametersItem struct {
 	UpTnlinfo   *UptransportLayerInformation `protobuf:"bytes,1,opt,name=up_tnlinfo,json=upTNLInfo,proto3" json:"up_tnlinfo,omitempty"`
 	CellGroupId *CellGroupId                 `protobuf:"bytes,2,opt,name=cell_group_id,json=cellGroupID,proto3" json:"cell_group_id,omitempty"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtension []*UptransportParametersItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty"`
+	IEExtension []*UptransportParametersItemExtIes `protobuf:"bytes,3,rep,name=i_e_extension,json=iE-Extension,proto3" json:"i_e_extension,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *UptransportParametersItem) Reset() {
@@ -65436,7 +65436,7 @@ type VolumeTimedReportList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,sizeLB:1,sizeUB:2,"
-	Value []*VolumeTimedReportItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*VolumeTimedReportItem `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"valueExt,sizeLB:1,sizeUB:2,"`
 }
 
 func (x *VolumeTimedReportList) Reset() {
@@ -65536,15 +65536,15 @@ type VolumeTimedReportItem struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:4,sizeUB:4,"
-	StartTimeStamp []byte `protobuf:"bytes,1,opt,name=start_time_stamp,json=startTimeStamp,proto3" json:"start_time_stamp,omitempty"`
+	StartTimeStamp []byte `protobuf:"bytes,1,opt,name=start_time_stamp,json=startTimeStamp,proto3" json:"start_time_stamp,omitempty" aper:"sizeLB:4,sizeUB:4,"`
 	// @inject_tag: aper:"sizeLB:4,sizeUB:4,"
-	EndTimeStamp []byte `protobuf:"bytes,2,opt,name=end_time_stamp,json=endTimeStamp,proto3" json:"end_time_stamp,omitempty"`
+	EndTimeStamp []byte `protobuf:"bytes,2,opt,name=end_time_stamp,json=endTimeStamp,proto3" json:"end_time_stamp,omitempty" aper:"sizeLB:4,sizeUB:4,"`
 	// @inject_tag: aper:"valueLB:0,"
-	UsageCountUl int32 `protobuf:"varint,3,opt,name=usage_count_ul,json=usageCountUL,proto3" json:"usage_count_ul,omitempty"`
+	UsageCountUl int32 `protobuf:"varint,3,opt,name=usage_count_ul,json=usageCountUL,proto3" json:"usage_count_ul,omitempty" aper:"valueLB:0,"`
 	// @inject_tag: aper:"valueLB:0,"
-	UsageCountDl int32 `protobuf:"varint,4,opt,name=usage_count_dl,json=usageCountDL,proto3" json:"usage_count_dl,omitempty"`
+	UsageCountDl int32 `protobuf:"varint,4,opt,name=usage_count_dl,json=usageCountDL,proto3" json:"usage_count_dl,omitempty" aper:"valueLB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*VolumeTimedReportItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*VolumeTimedReportItemExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *VolumeTimedReportItem) Reset() {
@@ -65672,15 +65672,15 @@ type WlanmeasurementConfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:0,valueUB:0,"
-	WlanMeasConfig WlanmeasConfig `protobuf:"varint,1,opt,name=wlan_meas_config,json=wlanMeasConfig,proto3,enum=xnap.v1.WlanmeasConfig" json:"wlan_meas_config,omitempty"`
+	WlanMeasConfig WlanmeasConfig `protobuf:"varint,1,opt,name=wlan_meas_config,json=wlanMeasConfig,proto3,enum=xnap.v1.WlanmeasConfig" json:"wlan_meas_config,omitempty" aper:"valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,"
-	WlanMeasConfigNameList *WlanmeasConfigNameList `protobuf:"bytes,2,opt,name=wlan_meas_config_name_list,json=wlanMeasConfigNameList,proto3,oneof" json:"wlan_meas_config_name_list,omitempty"`
+	WlanMeasConfigNameList *WlanmeasConfigNameList `protobuf:"bytes,2,opt,name=wlan_meas_config_name_list,json=wlanMeasConfigNameList,proto3,oneof" json:"wlan_meas_config_name_list,omitempty" aper:"optional,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	WlanRssi *WlanrssiWlanmeasurementConfiguration `protobuf:"varint,3,opt,name=wlan_rssi,json=wlan-rssi,proto3,enum=xnap.v1.WlanrssiWlanmeasurementConfiguration,oneof" json:"wlan_rssi,omitempty"`
+	WlanRssi *WlanrssiWlanmeasurementConfiguration `protobuf:"varint,3,opt,name=wlan_rssi,json=wlan-rssi,proto3,enum=xnap.v1.WlanrssiWlanmeasurementConfiguration,oneof" json:"wlan_rssi,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,valueExt,valueLB:0,valueUB:0,"
-	WlanRtt *WlanrttWlanmeasurementConfiguration `protobuf:"varint,4,opt,name=wlan_rtt,json=wlan-rtt,proto3,enum=xnap.v1.WlanrttWlanmeasurementConfiguration,oneof" json:"wlan_rtt,omitempty"`
+	WlanRtt *WlanrttWlanmeasurementConfiguration `protobuf:"varint,4,opt,name=wlan_rtt,json=wlan-rtt,proto3,enum=xnap.v1.WlanrttWlanmeasurementConfiguration,oneof" json:"wlan_rtt,omitempty" aper:"optional,valueExt,valueLB:0,valueUB:0,"`
 	// @inject_tag: aper:"optional,sizeLB:1,"
-	IEExtensions []*WlanmeasurementConfigurationExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty"`
+	IEExtensions []*WlanmeasurementConfigurationExtIes `protobuf:"bytes,5,rep,name=i_e_extensions,json=iE-Extensions,proto3" json:"i_e_extensions,omitempty" aper:"optional,sizeLB:1,"`
 }
 
 func (x *WlanmeasurementConfiguration) Reset() {
@@ -65758,7 +65758,7 @@ type WlanmeasConfigNameList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:4,"
-	Value []*Wlanname `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	Value []*Wlanname `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:4,"`
 }
 
 func (x *WlanmeasConfigNameList) Reset() {
@@ -65808,7 +65808,7 @@ type Wlanname struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:32,"
-	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value []byte `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:32,"`
 }
 
 func (x *Wlanname) Reset() {
@@ -65858,7 +65858,7 @@ type XnBenefitValue struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueExt,valueLB:1,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueExt,valueLB:1,valueUB:8,"`
 }
 
 func (x *XnBenefitValue) Reset() {

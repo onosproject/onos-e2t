@@ -90,7 +90,7 @@ type IdsNstatusTransfer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:1,valueUB:1,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:1,"` // ProcedureCode
 }
 
 func (x *IdsNstatusTransfer) Reset() {
@@ -140,7 +140,7 @@ type IdhandoverCancel struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:2,valueUB:2,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:2,valueUB:2,"` // ProcedureCode
 }
 
 func (x *IdhandoverCancel) Reset() {
@@ -190,7 +190,7 @@ type IdretrieveUecontext struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:3,valueUB:3,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:3,valueUB:3,"` // ProcedureCode
 }
 
 func (x *IdretrieveUecontext) Reset() {
@@ -240,7 +240,7 @@ type IdrAnpaging struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:4,valueUB:4,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:4,valueUB:4,"` // ProcedureCode
 }
 
 func (x *IdrAnpaging) Reset() {
@@ -290,7 +290,7 @@ type IdxnUaddressIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:5,valueUB:5,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:5,valueUB:5,"` // ProcedureCode
 }
 
 func (x *IdxnUaddressIndication) Reset() {
@@ -340,7 +340,7 @@ type IduEcontextRelease struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:6,valueUB:6,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:6,valueUB:6,"` // ProcedureCode
 }
 
 func (x *IduEcontextRelease) Reset() {
@@ -390,7 +390,7 @@ type IdsNgrannodeAdditionPreparation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:7,valueUB:7,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:7,valueUB:7,"` // ProcedureCode
 }
 
 func (x *IdsNgrannodeAdditionPreparation) Reset() {
@@ -440,7 +440,7 @@ type IdsNgrannodeReconfigurationCompletion struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:8,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:8,valueUB:8,"` // ProcedureCode
 }
 
 func (x *IdsNgrannodeReconfigurationCompletion) Reset() {
@@ -490,7 +490,7 @@ type IdmNgrannodeinitiatedSngrannodeModificationPreparation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:9,valueUB:9,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:9,valueUB:9,"` // ProcedureCode
 }
 
 func (x *IdmNgrannodeinitiatedSngrannodeModificationPreparation) Reset() {
@@ -540,7 +540,7 @@ type IdsNgrannodeinitiatedSngrannodeModificationPreparation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:10,valueUB:10,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:10,valueUB:10,"` // ProcedureCode
 }
 
 func (x *IdsNgrannodeinitiatedSngrannodeModificationPreparation) Reset() {
@@ -590,7 +590,7 @@ type IdmNgrannodeinitiatedSngrannodeRelease struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:11,valueUB:11,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:11,valueUB:11,"` // ProcedureCode
 }
 
 func (x *IdmNgrannodeinitiatedSngrannodeRelease) Reset() {
@@ -640,7 +640,7 @@ type IdsNgrannodeinitiatedSngrannodeRelease struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:12,valueUB:12,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:12,valueUB:12,"` // ProcedureCode
 }
 
 func (x *IdsNgrannodeinitiatedSngrannodeRelease) Reset() {
@@ -690,7 +690,7 @@ type IdsNgrannodeCounterCheck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:13,valueUB:13,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:13,valueUB:13,"` // ProcedureCode
 }
 
 func (x *IdsNgrannodeCounterCheck) Reset() {
@@ -740,7 +740,7 @@ type IdsNgrannodeChange struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:14,valueUB:14,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:14,valueUB:14,"` // ProcedureCode
 }
 
 func (x *IdsNgrannodeChange) Reset() {
@@ -790,7 +790,7 @@ type IdrRctransfer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:15,valueUB:15,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:15,valueUB:15,"` // ProcedureCode
 }
 
 func (x *IdrRctransfer) Reset() {
@@ -840,7 +840,7 @@ type IdxnRemoval struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"` // ProcedureCode
 }
 
 func (x *IdxnRemoval) Reset() {
@@ -890,7 +890,7 @@ type IdxnSetup struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:17,valueUB:17,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:17,valueUB:17,"` // ProcedureCode
 }
 
 func (x *IdxnSetup) Reset() {
@@ -940,7 +940,7 @@ type IdnGrannodeConfigurationUpdate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:18,valueUB:18,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:18,valueUB:18,"` // ProcedureCode
 }
 
 func (x *IdnGrannodeConfigurationUpdate) Reset() {
@@ -990,7 +990,7 @@ type IdcellActivation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:19,valueUB:19,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:19,valueUB:19,"` // ProcedureCode
 }
 
 func (x *IdcellActivation) Reset() {
@@ -1040,7 +1040,7 @@ type Idreset struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:20,valueUB:20,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:20,valueUB:20,"` // ProcedureCode
 }
 
 func (x *Idreset) Reset() {
@@ -1090,7 +1090,7 @@ type IderrorIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:21,valueUB:21,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:21,valueUB:21,"` // ProcedureCode
 }
 
 func (x *IderrorIndication) Reset() {
@@ -1140,7 +1140,7 @@ type IdprivateMessage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:22,valueUB:22,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:22,valueUB:22,"` // ProcedureCode
 }
 
 func (x *IdprivateMessage) Reset() {
@@ -1190,7 +1190,7 @@ type IdnotificationControl struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:23,valueUB:23,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:23,valueUB:23,"` // ProcedureCode
 }
 
 func (x *IdnotificationControl) Reset() {
@@ -1240,7 +1240,7 @@ type IdactivityNotification struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:24,valueUB:24,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:24,valueUB:24,"` // ProcedureCode
 }
 
 func (x *IdactivityNotification) Reset() {
@@ -1290,7 +1290,7 @@ type IdeUTraNRCellResourceCoordination struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:25,valueUB:25,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:25,valueUB:25,"` // ProcedureCode
 }
 
 func (x *IdeUTraNRCellResourceCoordination) Reset() {
@@ -1340,7 +1340,7 @@ type IdsecondaryRatdataUsageReport struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:26,valueUB:26,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:26,valueUB:26,"` // ProcedureCode
 }
 
 func (x *IdsecondaryRatdataUsageReport) Reset() {
@@ -1390,7 +1390,7 @@ type IddeactivateTrace struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:27,valueUB:27,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:27,valueUB:27,"` // ProcedureCode
 }
 
 func (x *IddeactivateTrace) Reset() {
@@ -1440,7 +1440,7 @@ type IdtraceStart struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:28,valueUB:28,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:28,valueUB:28,"` // ProcedureCode
 }
 
 func (x *IdtraceStart) Reset() {
@@ -1490,7 +1490,7 @@ type IdhandoverSuccess struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:29,valueUB:29,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:29,valueUB:29,"` // ProcedureCode
 }
 
 func (x *IdhandoverSuccess) Reset() {
@@ -1540,7 +1540,7 @@ type IdconditionalHandoverCancel struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:30,valueUB:30,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:30,valueUB:30,"` // ProcedureCode
 }
 
 func (x *IdconditionalHandoverCancel) Reset() {
@@ -1590,7 +1590,7 @@ type IdearlyStatusTransfer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:31,valueUB:31,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:31,valueUB:31,"` // ProcedureCode
 }
 
 func (x *IdearlyStatusTransfer) Reset() {
@@ -1640,7 +1640,7 @@ type IdfailureIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"` // ProcedureCode
 }
 
 func (x *IdfailureIndication) Reset() {
@@ -1690,7 +1690,7 @@ type IdhandoverReport struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:33,valueUB:33,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:33,valueUB:33,"` // ProcedureCode
 }
 
 func (x *IdhandoverReport) Reset() {
@@ -1740,7 +1740,7 @@ type IdresourceStatusReportingInitiation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:34,valueUB:34,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:34,valueUB:34,"` // ProcedureCode
 }
 
 func (x *IdresourceStatusReportingInitiation) Reset() {
@@ -1790,7 +1790,7 @@ type IdresourceStatusReporting struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:35,valueUB:35,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:35,valueUB:35,"` // ProcedureCode
 }
 
 func (x *IdresourceStatusReporting) Reset() {
@@ -1840,7 +1840,7 @@ type IdmobilitySettingsChange struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:36,valueUB:36,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:36,valueUB:36,"` // ProcedureCode
 }
 
 func (x *IdmobilitySettingsChange) Reset() {
@@ -1890,7 +1890,7 @@ type IdaccessAndMobilityIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:37,valueUB:37,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProcedureCode
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:37,valueUB:37,"` // ProcedureCode
 }
 
 func (x *IdaccessAndMobilityIndication) Reset() {
@@ -1940,7 +1940,7 @@ type MaxEarfcn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:262143,valueUB:262143,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:262143,valueUB:262143,"`
 }
 
 func (x *MaxEarfcn) Reset() {
@@ -1990,7 +1990,7 @@ type MaxnoofAllowedAreas struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofAllowedAreas) Reset() {
@@ -2040,7 +2040,7 @@ type MaxnoofAmfregions struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofAmfregions) Reset() {
@@ -2090,7 +2090,7 @@ type MaxnoofAoIs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:64,valueUB:64,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:64,valueUB:64,"`
 }
 
 func (x *MaxnoofAoIs) Reset() {
@@ -2140,7 +2140,7 @@ type MaxnoofBluetoothName struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:4,valueUB:4,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:4,valueUB:4,"`
 }
 
 func (x *MaxnoofBluetoothName) Reset() {
@@ -2190,7 +2190,7 @@ type MaxnoofBplmns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:12,valueUB:12,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:12,valueUB:12,"`
 }
 
 func (x *MaxnoofBplmns) Reset() {
@@ -2240,7 +2240,7 @@ type MaxnoofCags struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:12,valueUB:12,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:12,valueUB:12,"`
 }
 
 func (x *MaxnoofCags) Reset() {
@@ -2290,7 +2290,7 @@ type MaxnoofCagsperPlmn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:256,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:256,valueUB:256,"`
 }
 
 func (x *MaxnoofCagsperPlmn) Reset() {
@@ -2340,7 +2340,7 @@ type MaxnoofCellIdforMdt struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"`
 }
 
 func (x *MaxnoofCellIdforMdt) Reset() {
@@ -2390,7 +2390,7 @@ type MaxnoofCellsinAoI struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:256,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:256,valueUB:256,"`
 }
 
 func (x *MaxnoofCellsinAoI) Reset() {
@@ -2440,7 +2440,7 @@ type MaxnoofCellsinUehistoryInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofCellsinUehistoryInfo) Reset() {
@@ -2490,7 +2490,7 @@ type MaxnoofCellsinNgRAnnode struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16384,valueUB:16384,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16384,valueUB:16384,"`
 }
 
 func (x *MaxnoofCellsinNgRAnnode) Reset() {
@@ -2540,7 +2540,7 @@ type MaxnoofCellsinRna struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"`
 }
 
 func (x *MaxnoofCellsinRna) Reset() {
@@ -2590,7 +2590,7 @@ type MaxnoofCellsUemovingTrajectory struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofCellsUemovingTrajectory) Reset() {
@@ -2640,7 +2640,7 @@ type MaxnoofDrbs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"`
 }
 
 func (x *MaxnoofDrbs) Reset() {
@@ -2690,7 +2690,7 @@ type MaxnoofEutrabands struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofEutrabands) Reset() {
@@ -2740,7 +2740,7 @@ type MaxnoofEutrabplmns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:6,valueUB:6,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:6,valueUB:6,"`
 }
 
 func (x *MaxnoofEutrabplmns) Reset() {
@@ -2790,7 +2790,7 @@ type MaxnoofEplmns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:15,valueUB:15,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:15,valueUB:15,"`
 }
 
 func (x *MaxnoofEplmns) Reset() {
@@ -2840,7 +2840,7 @@ type MaxnoofExtSliceItems struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:65535,valueUB:65535,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:65535,valueUB:65535,"`
 }
 
 func (x *MaxnoofExtSliceItems) Reset() {
@@ -2890,7 +2890,7 @@ type MaxnoofEplmnsplus1 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofEplmnsplus1) Reset() {
@@ -2940,7 +2940,7 @@ type MaxnoofForbiddenTacs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:4096,valueUB:4096,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:4096,valueUB:4096,"`
 }
 
 func (x *MaxnoofForbiddenTacs) Reset() {
@@ -2990,7 +2990,7 @@ type MaxnoofFreqforMdt struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:8,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:8,valueUB:8,"`
 }
 
 func (x *MaxnoofFreqforMdt) Reset() {
@@ -3040,7 +3040,7 @@ type MaxnoofMbsfneutra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:8,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:8,valueUB:8,"`
 }
 
 func (x *MaxnoofMbsfneutra) Reset() {
@@ -3090,7 +3090,7 @@ type MaxnoofMdtplmns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofMdtplmns) Reset() {
@@ -3140,7 +3140,7 @@ type MaxnoofMultiConnectivityMinusOne struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:3,valueUB:3,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:3,valueUB:3,"`
 }
 
 func (x *MaxnoofMultiConnectivityMinusOne) Reset() {
@@ -3190,7 +3190,7 @@ type MaxnoofNeighbours struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:1024,valueUB:1024,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1024,valueUB:1024,"`
 }
 
 func (x *MaxnoofNeighbours) Reset() {
@@ -3240,7 +3240,7 @@ type MaxnoofNeighPciforMdt struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"`
 }
 
 func (x *MaxnoofNeighPciforMdt) Reset() {
@@ -3290,7 +3290,7 @@ type MaxnoofNids struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:12,valueUB:12,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:12,valueUB:12,"`
 }
 
 func (x *MaxnoofNids) Reset() {
@@ -3340,7 +3340,7 @@ type MaxnoofNrcellBands struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"`
 }
 
 func (x *MaxnoofNrcellBands) Reset() {
@@ -3390,7 +3390,7 @@ type MaxnoofPlmns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofPlmns) Reset() {
@@ -3440,7 +3440,7 @@ type MaxnoofPdusessions struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:256,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:256,valueUB:256,"`
 }
 
 func (x *MaxnoofPdusessions) Reset() {
@@ -3490,7 +3490,7 @@ type MaxnoofProtectedResourcePatterns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofProtectedResourcePatterns) Reset() {
@@ -3540,7 +3540,7 @@ type MaxnoofQoSflows struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:64,valueUB:64,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:64,valueUB:64,"`
 }
 
 func (x *MaxnoofQoSflows) Reset() {
@@ -3590,7 +3590,7 @@ type MaxnoofQoSparaSets struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:8,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:8,valueUB:8,"`
 }
 
 func (x *MaxnoofQoSparaSets) Reset() {
@@ -3640,7 +3640,7 @@ type MaxnoofRanareaCodes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"`
 }
 
 func (x *MaxnoofRanareaCodes) Reset() {
@@ -3690,7 +3690,7 @@ type MaxnoofRanareasinRna struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofRanareasinRna) Reset() {
@@ -3740,7 +3740,7 @@ type MaxnoofRannodesinAoI struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:64,valueUB:64,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:64,valueUB:64,"`
 }
 
 func (x *MaxnoofRannodesinAoI) Reset() {
@@ -3790,7 +3790,7 @@ type MaxnoofScellGroups struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:3,valueUB:3,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:3,valueUB:3,"`
 }
 
 func (x *MaxnoofScellGroups) Reset() {
@@ -3840,7 +3840,7 @@ type MaxnoofScellGroupsplus1 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:4,valueUB:4,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:4,valueUB:4,"`
 }
 
 func (x *MaxnoofScellGroupsplus1) Reset() {
@@ -3890,7 +3890,7 @@ type MaxnoofSensorName struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:3,valueUB:3,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:3,valueUB:3,"`
 }
 
 func (x *MaxnoofSensorName) Reset() {
@@ -3940,7 +3940,7 @@ type MaxnoofSliceItems struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:1024,valueUB:1024,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1024,valueUB:1024,"`
 }
 
 func (x *MaxnoofSliceItems) Reset() {
@@ -3990,7 +3990,7 @@ type MaxnoofSnpnids struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:12,valueUB:12,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:12,valueUB:12,"`
 }
 
 func (x *MaxnoofSnpnids) Reset() {
@@ -4040,7 +4040,7 @@ type MaxnoofsupportedPlmns struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:12,valueUB:12,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:12,valueUB:12,"`
 }
 
 func (x *MaxnoofsupportedPlmns) Reset() {
@@ -4090,7 +4090,7 @@ type MaxnoofsupportedTacs struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:256,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:256,valueUB:256,"`
 }
 
 func (x *MaxnoofsupportedTacs) Reset() {
@@ -4140,7 +4140,7 @@ type MaxnoofTaforMdt struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:8,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:8,valueUB:8,"`
 }
 
 func (x *MaxnoofTaforMdt) Reset() {
@@ -4190,7 +4190,7 @@ type MaxnoofTai struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofTai) Reset() {
@@ -4240,7 +4240,7 @@ type MaxnoofTaisinAoI struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofTaisinAoI) Reset() {
@@ -4290,7 +4290,7 @@ type Maxnooftimeperiods struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:2,valueUB:2,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:2,valueUB:2,"`
 }
 
 func (x *Maxnooftimeperiods) Reset() {
@@ -4340,7 +4340,7 @@ type MaxnoofTnlassociations struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"`
 }
 
 func (x *MaxnoofTnlassociations) Reset() {
@@ -4390,7 +4390,7 @@ type MaxnoofUecontexts struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:8192,valueUB:8192,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:8192,valueUB:8192,"`
 }
 
 func (x *MaxnoofUecontexts) Reset() {
@@ -4440,7 +4440,7 @@ type MaxNrarfcn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:3279165,valueUB:3279165,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:3279165,valueUB:3279165,"`
 }
 
 func (x *MaxNrarfcn) Reset() {
@@ -4490,7 +4490,7 @@ type MaxNrOfErrors struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:256,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:256,valueUB:256,"`
 }
 
 func (x *MaxNrOfErrors) Reset() {
@@ -4540,7 +4540,7 @@ type Maxnoofslots struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:5120,valueUB:5120,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:5120,valueUB:5120,"`
 }
 
 func (x *Maxnoofslots) Reset() {
@@ -4590,7 +4590,7 @@ type MaxnoofExtTlas struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofExtTlas) Reset() {
@@ -4640,7 +4640,7 @@ type MaxnoofGtptlas struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"`
 }
 
 func (x *MaxnoofGtptlas) Reset() {
@@ -4690,7 +4690,7 @@ type MaxnoofChocells struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:8,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:8,valueUB:8,"`
 }
 
 func (x *MaxnoofChocells) Reset() {
@@ -4740,7 +4740,7 @@ type MaxnoofPc5QoSflows struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:2064,valueUB:2064,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:2064,valueUB:2064,"`
 }
 
 func (x *MaxnoofPc5QoSflows) Reset() {
@@ -4790,7 +4790,7 @@ type MaxnoofSsbareas struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:64,valueUB:64,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:64,valueUB:64,"`
 }
 
 func (x *MaxnoofSsbareas) Reset() {
@@ -4840,7 +4840,7 @@ type MaxnoofRachreports struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:64,valueUB:64,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:64,valueUB:64,"`
 }
 
 func (x *MaxnoofRachreports) Reset() {
@@ -4890,7 +4890,7 @@ type MaxnoofNrscss struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:5,valueUB:5,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:5,valueUB:5,"`
 }
 
 func (x *MaxnoofNrscss) Reset() {
@@ -4940,7 +4940,7 @@ type MaxnoofPhysicalResourceBlocks struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:275,valueUB:275,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:275,valueUB:275,"`
 }
 
 func (x *MaxnoofPhysicalResourceBlocks) Reset() {
@@ -4990,7 +4990,7 @@ type MaxnoofAdditionalPdcpduplicationTnl struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:2,valueUB:2,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:2,valueUB:2,"`
 }
 
 func (x *MaxnoofAdditionalPdcpduplicationTnl) Reset() {
@@ -5040,7 +5040,7 @@ type MaxnoofRlcduplicationstate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:3,valueUB:3,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:3,valueUB:3,"`
 }
 
 func (x *MaxnoofRlcduplicationstate) Reset() {
@@ -5090,7 +5090,7 @@ type MaxnoofWlanname struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:4,valueUB:4,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:4,valueUB:4,"`
 }
 
 func (x *MaxnoofWlanname) Reset() {
@@ -5140,7 +5140,7 @@ type MaxnoofNonAnchorCarrierFreqConfig struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:15,valueUB:15,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:15,valueUB:15,"`
 }
 
 func (x *MaxnoofNonAnchorCarrierFreqConfig) Reset() {
@@ -5190,7 +5190,7 @@ type MaxnoofDataForwardingTunneltoEUTran struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:256,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:256,valueUB:256,"`
 }
 
 func (x *MaxnoofDataForwardingTunneltoEUTran) Reset() {
@@ -5289,7 +5289,7 @@ type IdActivationIdforCellActivation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:1,valueUB:1,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:1,valueUB:1,"` // ProtocolIE-ID
 }
 
 func (x *IdActivationIdforCellActivation) Reset() {
@@ -5339,7 +5339,7 @@ type IdadmittedSplitSrb struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:2,valueUB:2,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:2,valueUB:2,"` // ProtocolIE-ID
 }
 
 func (x *IdadmittedSplitSrb) Reset() {
@@ -5389,7 +5389,7 @@ type IdadmittedSplitSrbrelease struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:3,valueUB:3,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:3,valueUB:3,"` // ProtocolIE-ID
 }
 
 func (x *IdadmittedSplitSrbrelease) Reset() {
@@ -5439,7 +5439,7 @@ type IdAMfRegionInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:4,valueUB:4,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:4,valueUB:4,"` // ProtocolIE-ID
 }
 
 func (x *IdAMfRegionInformation) Reset() {
@@ -5489,7 +5489,7 @@ type IdAssistanceDataForRanpaging struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:5,valueUB:5,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:5,valueUB:5,"` // ProtocolIE-ID
 }
 
 func (x *IdAssistanceDataForRanpaging) Reset() {
@@ -5539,7 +5539,7 @@ type IdBearersSubjectToCounterCheck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:6,valueUB:6,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:6,valueUB:6,"` // ProtocolIE-ID
 }
 
 func (x *IdBearersSubjectToCounterCheck) Reset() {
@@ -5589,7 +5589,7 @@ type IdCause struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:7,valueUB:7,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:7,valueUB:7,"` // ProtocolIE-ID
 }
 
 func (x *IdCause) Reset() {
@@ -5639,7 +5639,7 @@ type IdcellAssistanceInfoNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:8,valueUB:8,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:8,valueUB:8,"` // ProtocolIE-ID
 }
 
 func (x *IdcellAssistanceInfoNR) Reset() {
@@ -5689,7 +5689,7 @@ type IdConfigurationUpdateInitiatingNodeChoice struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:9,valueUB:9,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:9,valueUB:9,"` // ProtocolIE-ID
 }
 
 func (x *IdConfigurationUpdateInitiatingNodeChoice) Reset() {
@@ -5739,7 +5739,7 @@ type IdCriticalityDiagnostics struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:10,valueUB:10,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:10,valueUB:10,"` // ProtocolIE-ID
 }
 
 func (x *IdCriticalityDiagnostics) Reset() {
@@ -5789,7 +5789,7 @@ type IdXnUaddressInfoperPdusessionList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:11,valueUB:11,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:11,valueUB:11,"` // ProtocolIE-ID
 }
 
 func (x *IdXnUaddressInfoperPdusessionList) Reset() {
@@ -5839,7 +5839,7 @@ type IdDRbsSubjectToStatusTransferList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:12,valueUB:12,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:12,valueUB:12,"` // ProtocolIE-ID
 }
 
 func (x *IdDRbsSubjectToStatusTransferList) Reset() {
@@ -5889,7 +5889,7 @@ type IdExpectedUebehaviour struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:13,valueUB:13,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:13,valueUB:13,"` // ProtocolIE-ID
 }
 
 func (x *IdExpectedUebehaviour) Reset() {
@@ -5939,7 +5939,7 @@ type IdGlobalNgRAnnodeID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:14,valueUB:14,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:14,valueUB:14,"` // ProtocolIE-ID
 }
 
 func (x *IdGlobalNgRAnnodeID) Reset() {
@@ -5989,7 +5989,7 @@ type IdGUami struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:15,valueUB:15,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:15,valueUB:15,"` // ProtocolIE-ID
 }
 
 func (x *IdGUami) Reset() {
@@ -6039,7 +6039,7 @@ type IdindexToRatFrequSelectionPriority struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:16,valueUB:16,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:16,valueUB:16,"` // ProtocolIE-ID
 }
 
 func (x *IdindexToRatFrequSelectionPriority) Reset() {
@@ -6089,7 +6089,7 @@ type IdinitiatingNodeTypeResourceCoordRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:17,valueUB:17,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:17,valueUB:17,"` // ProtocolIE-ID
 }
 
 func (x *IdinitiatingNodeTypeResourceCoordRequest) Reset() {
@@ -6139,7 +6139,7 @@ type IdListofservedcellsEUTra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:18,valueUB:18,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:18,valueUB:18,"` // ProtocolIE-ID
 }
 
 func (x *IdListofservedcellsEUTra) Reset() {
@@ -6189,7 +6189,7 @@ type IdListofservedcellsNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:19,valueUB:19,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:19,valueUB:19,"` // ProtocolIE-ID
 }
 
 func (x *IdListofservedcellsNR) Reset() {
@@ -6239,7 +6239,7 @@ type IdLocationReportingInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:20,valueUB:20,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:20,valueUB:20,"` // ProtocolIE-ID
 }
 
 func (x *IdLocationReportingInformation) Reset() {
@@ -6289,7 +6289,7 @@ type IdMAcI struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:21,valueUB:21,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:21,valueUB:21,"` // ProtocolIE-ID
 }
 
 func (x *IdMAcI) Reset() {
@@ -6339,7 +6339,7 @@ type IdMaskedImeisv struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:22,valueUB:22,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:22,valueUB:22,"` // ProtocolIE-ID
 }
 
 func (x *IdMaskedImeisv) Reset() {
@@ -6389,7 +6389,7 @@ type IdMNGRAnnodeUexnApid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:23,valueUB:23,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:23,valueUB:23,"` // ProtocolIE-ID
 }
 
 func (x *IdMNGRAnnodeUexnApid) Reset() {
@@ -6439,7 +6439,7 @@ type IdMNtoSNContainer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:24,valueUB:24,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:24,valueUB:24,"` // ProtocolIE-ID
 }
 
 func (x *IdMNtoSNContainer) Reset() {
@@ -6489,7 +6489,7 @@ type IdMobilityRestrictionList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:25,valueUB:25,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:25,valueUB:25,"` // ProtocolIE-ID
 }
 
 func (x *IdMobilityRestrictionList) Reset() {
@@ -6539,7 +6539,7 @@ type IdnewNGRAnCellIdentity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:26,valueUB:26,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:26,valueUB:26,"` // ProtocolIE-ID
 }
 
 func (x *IdnewNGRAnCellIdentity) Reset() {
@@ -6589,7 +6589,7 @@ type IdnewNgRAnnodeUexnApid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:27,valueUB:27,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:27,valueUB:27,"` // ProtocolIE-ID
 }
 
 func (x *IdnewNgRAnnodeUexnApid) Reset() {
@@ -6639,7 +6639,7 @@ type IdUEreportRrctransfer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:28,valueUB:28,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:28,valueUB:28,"` // ProtocolIE-ID
 }
 
 func (x *IdUEreportRrctransfer) Reset() {
@@ -6689,7 +6689,7 @@ type IdoldNgRAnnodeUexnApid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:29,valueUB:29,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:29,valueUB:29,"` // ProtocolIE-ID
 }
 
 func (x *IdoldNgRAnnodeUexnApid) Reset() {
@@ -6739,7 +6739,7 @@ type IdOldtoNewNgRAnnodeResumeContainer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:30,valueUB:30,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:30,valueUB:30,"` // ProtocolIE-ID
 }
 
 func (x *IdOldtoNewNgRAnnodeResumeContainer) Reset() {
@@ -6789,7 +6789,7 @@ type IdPagingDrx struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:31,valueUB:31,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:31,valueUB:31,"` // ProtocolIE-ID
 }
 
 func (x *IdPagingDrx) Reset() {
@@ -6839,7 +6839,7 @@ type IdPCellId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:32,valueUB:32,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:32,valueUB:32,"` // ProtocolIE-ID
 }
 
 func (x *IdPCellId) Reset() {
@@ -6889,7 +6889,7 @@ type IdPDcpchangeIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:33,valueUB:33,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:33,valueUB:33,"` // ProtocolIE-ID
 }
 
 func (x *IdPDcpchangeIndication) Reset() {
@@ -6939,7 +6939,7 @@ type IdPDusessionAdmittedAddedAddReqAck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:34,valueUB:34,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:34,valueUB:34,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionAdmittedAddedAddReqAck) Reset() {
@@ -6989,7 +6989,7 @@ type IdPDusessionAdmittedModSnmodConfirm struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:35,valueUB:35,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:35,valueUB:35,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionAdmittedModSnmodConfirm) Reset() {
@@ -7039,7 +7039,7 @@ type IdPDusessionAdmittedSNmodResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:36,valueUB:36,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:36,valueUB:36,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionAdmittedSNmodResponse) Reset() {
@@ -7089,7 +7089,7 @@ type IdPDusessionNotAdmittedAddReqAck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:37,valueUB:37,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:37,valueUB:37,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionNotAdmittedAddReqAck) Reset() {
@@ -7139,7 +7139,7 @@ type IdPDusessionNotAdmittedSNmodResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:38,valueUB:38,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:38,valueUB:38,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionNotAdmittedSNmodResponse) Reset() {
@@ -7189,7 +7189,7 @@ type IdPDusessionReleasedListRelConf struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:39,valueUB:39,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:39,valueUB:39,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionReleasedListRelConf) Reset() {
@@ -7239,7 +7239,7 @@ type IdPDusessionReleasedSnmodConfirm struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:40,valueUB:40,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:40,valueUB:40,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionReleasedSnmodConfirm) Reset() {
@@ -7289,7 +7289,7 @@ type IdPDusessionResourcesActivityNotifyList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:41,valueUB:41,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:41,valueUB:41,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionResourcesActivityNotifyList) Reset() {
@@ -7339,7 +7339,7 @@ type IdPDusessionResourcesAdmittedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:42,valueUB:42,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:42,valueUB:42,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionResourcesAdmittedList) Reset() {
@@ -7389,7 +7389,7 @@ type IdPDusessionResourcesNotAdmittedList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:43,valueUB:43,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:43,valueUB:43,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionResourcesNotAdmittedList) Reset() {
@@ -7439,7 +7439,7 @@ type IdPDusessionResourcesNotifyList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:44,valueUB:44,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:44,valueUB:44,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionResourcesNotifyList) Reset() {
@@ -7489,7 +7489,7 @@ type IdPDusessionSNchangeConfirmList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:45,valueUB:45,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:45,valueUB:45,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionSNchangeConfirmList) Reset() {
@@ -7539,7 +7539,7 @@ type IdPDusessionSNchangeRequiredList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:46,valueUB:46,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:46,valueUB:46,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionSNchangeRequiredList) Reset() {
@@ -7589,7 +7589,7 @@ type IdPDusessionToBeAddedAddReq struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:47,valueUB:47,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:47,valueUB:47,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionToBeAddedAddReq) Reset() {
@@ -7639,7 +7639,7 @@ type IdPDusessionToBeModifiedSnmodRequired struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:48,valueUB:48,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:48,valueUB:48,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionToBeModifiedSnmodRequired) Reset() {
@@ -7689,7 +7689,7 @@ type IdPDusessionToBeReleasedListRelRqd struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:49,valueUB:49,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:49,valueUB:49,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionToBeReleasedListRelRqd) Reset() {
@@ -7739,7 +7739,7 @@ type IdPDusessionToBeReleasedRelReq struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:50,valueUB:50,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:50,valueUB:50,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionToBeReleasedRelReq) Reset() {
@@ -7789,7 +7789,7 @@ type IdPDusessionToBeReleasedSnmodRequired struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:51,valueUB:51,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:51,valueUB:51,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionToBeReleasedSnmodRequired) Reset() {
@@ -7839,7 +7839,7 @@ type IdRAnpagingArea struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:52,valueUB:52,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:52,valueUB:52,"` // ProtocolIE-ID
 }
 
 func (x *IdRAnpagingArea) Reset() {
@@ -7889,7 +7889,7 @@ type IdPagingPriority struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:53,valueUB:53,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:53,valueUB:53,"` // ProtocolIE-ID
 }
 
 func (x *IdPagingPriority) Reset() {
@@ -7939,7 +7939,7 @@ type IdrequestedSplitSrb struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:54,valueUB:54,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:54,valueUB:54,"` // ProtocolIE-ID
 }
 
 func (x *IdrequestedSplitSrb) Reset() {
@@ -7989,7 +7989,7 @@ type IdrequestedSplitSrbrelease struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:55,valueUB:55,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:55,valueUB:55,"` // ProtocolIE-ID
 }
 
 func (x *IdrequestedSplitSrbrelease) Reset() {
@@ -8039,7 +8039,7 @@ type IdResetRequestTypeInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:56,valueUB:56,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:56,valueUB:56,"` // ProtocolIE-ID
 }
 
 func (x *IdResetRequestTypeInfo) Reset() {
@@ -8089,7 +8089,7 @@ type IdResetResponseTypeInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:57,valueUB:57,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:57,valueUB:57,"` // ProtocolIE-ID
 }
 
 func (x *IdResetResponseTypeInfo) Reset() {
@@ -8139,7 +8139,7 @@ type IdRespondingNodeTypeConfigUpdateAck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:58,valueUB:58,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:58,valueUB:58,"` // ProtocolIE-ID
 }
 
 func (x *IdRespondingNodeTypeConfigUpdateAck) Reset() {
@@ -8189,7 +8189,7 @@ type IdrespondingNodeTypeResourceCoordResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:59,valueUB:59,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:59,valueUB:59,"` // ProtocolIE-ID
 }
 
 func (x *IdrespondingNodeTypeResourceCoordResponse) Reset() {
@@ -8239,7 +8239,7 @@ type IdResponseInfoReconfCompl struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:60,valueUB:60,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:60,valueUB:60,"` // ProtocolIE-ID
 }
 
 func (x *IdResponseInfoReconfCompl) Reset() {
@@ -8289,7 +8289,7 @@ type IdRRcconfigIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:61,valueUB:61,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:61,valueUB:61,"` // ProtocolIE-ID
 }
 
 func (x *IdRRcconfigIndication) Reset() {
@@ -8339,7 +8339,7 @@ type IdRRcresumeCause struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:62,valueUB:62,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:62,valueUB:62,"` // ProtocolIE-ID
 }
 
 func (x *IdRRcresumeCause) Reset() {
@@ -8389,7 +8389,7 @@ type IdSCgconfigurationQuery struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:63,valueUB:63,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:63,valueUB:63,"` // ProtocolIE-ID
 }
 
 func (x *IdSCgconfigurationQuery) Reset() {
@@ -8439,7 +8439,7 @@ type IdselectedPlmn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:64,valueUB:64,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:64,valueUB:64,"` // ProtocolIE-ID
 }
 
 func (x *IdselectedPlmn) Reset() {
@@ -8489,7 +8489,7 @@ type IdServedCellsToActivate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:65,valueUB:65,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:65,valueUB:65,"` // ProtocolIE-ID
 }
 
 func (x *IdServedCellsToActivate) Reset() {
@@ -8539,7 +8539,7 @@ type IdservedCellsToUpdateEUTra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:66,valueUB:66,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:66,valueUB:66,"` // ProtocolIE-ID
 }
 
 func (x *IdservedCellsToUpdateEUTra) Reset() {
@@ -8589,7 +8589,7 @@ type IdServedCellsToUpdateInitiatingNodeChoice struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:67,valueUB:67,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:67,valueUB:67,"` // ProtocolIE-ID
 }
 
 func (x *IdServedCellsToUpdateInitiatingNodeChoice) Reset() {
@@ -8639,7 +8639,7 @@ type IdservedCellsToUpdateNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:68,valueUB:68,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:68,valueUB:68,"` // ProtocolIE-ID
 }
 
 func (x *IdservedCellsToUpdateNR) Reset() {
@@ -8689,7 +8689,7 @@ type IdsngRAnnodeSecurityKey struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:69,valueUB:69,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:69,valueUB:69,"` // ProtocolIE-ID
 }
 
 func (x *IdsngRAnnodeSecurityKey) Reset() {
@@ -8739,7 +8739,7 @@ type IdSNGRAnnodeUeAMbr struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:70,valueUB:70,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:70,valueUB:70,"` // ProtocolIE-ID
 }
 
 func (x *IdSNGRAnnodeUeAMbr) Reset() {
@@ -8789,7 +8789,7 @@ type IdSNGRAnnodeUexnApid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:71,valueUB:71,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:71,valueUB:71,"` // ProtocolIE-ID
 }
 
 func (x *IdSNGRAnnodeUexnApid) Reset() {
@@ -8839,7 +8839,7 @@ type IdSNtoMNContainer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:72,valueUB:72,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:72,valueUB:72,"` // ProtocolIE-ID
 }
 
 func (x *IdSNtoMNContainer) Reset() {
@@ -8889,7 +8889,7 @@ type IdsourceNgRAnnodeUexnApid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:73,valueUB:73,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:73,valueUB:73,"` // ProtocolIE-ID
 }
 
 func (x *IdsourceNgRAnnodeUexnApid) Reset() {
@@ -8939,7 +8939,7 @@ type IdSplitSrbRRctransfer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:74,valueUB:74,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:74,valueUB:74,"` // ProtocolIE-ID
 }
 
 func (x *IdSplitSrbRRctransfer) Reset() {
@@ -8989,7 +8989,7 @@ type IdTAisupportlist struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:75,valueUB:75,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:75,valueUB:75,"` // ProtocolIE-ID
 }
 
 func (x *IdTAisupportlist) Reset() {
@@ -9039,7 +9039,7 @@ type IdTimeToWait struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:76,valueUB:76,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:76,valueUB:76,"` // ProtocolIE-ID
 }
 
 func (x *IdTimeToWait) Reset() {
@@ -9089,7 +9089,7 @@ type IdTarget2SourceNgRAnnodeTranspContainer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:77,valueUB:77,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:77,valueUB:77,"` // ProtocolIE-ID
 }
 
 func (x *IdTarget2SourceNgRAnnodeTranspContainer) Reset() {
@@ -9139,7 +9139,7 @@ type IdtargetCellGlobalId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:78,valueUB:78,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:78,valueUB:78,"` // ProtocolIE-ID
 }
 
 func (x *IdtargetCellGlobalId) Reset() {
@@ -9189,7 +9189,7 @@ type IdtargetNgRAnnodeUexnApid struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:79,valueUB:79,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:79,valueUB:79,"` // ProtocolIE-ID
 }
 
 func (x *IdtargetNgRAnnodeUexnApid) Reset() {
@@ -9239,7 +9239,7 @@ type IdtargetSNGRAnnodeId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:80,valueUB:80,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:80,valueUB:80,"` // ProtocolIE-ID
 }
 
 func (x *IdtargetSNGRAnnodeId) Reset() {
@@ -9289,7 +9289,7 @@ type IdTraceActivation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:81,valueUB:81,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:81,valueUB:81,"` // ProtocolIE-ID
 }
 
 func (x *IdTraceActivation) Reset() {
@@ -9339,7 +9339,7 @@ type IdUEcontextId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:82,valueUB:82,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:82,valueUB:82,"` // ProtocolIE-ID
 }
 
 func (x *IdUEcontextId) Reset() {
@@ -9389,7 +9389,7 @@ type IdUEcontextInfoHorequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:83,valueUB:83,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:83,valueUB:83,"` // ProtocolIE-ID
 }
 
 func (x *IdUEcontextInfoHorequest) Reset() {
@@ -9439,7 +9439,7 @@ type IdUEcontextInfoRetrUectxtResp struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:84,valueUB:84,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:84,valueUB:84,"` // ProtocolIE-ID
 }
 
 func (x *IdUEcontextInfoRetrUectxtResp) Reset() {
@@ -9489,7 +9489,7 @@ type IdUEcontextInfoSNmodRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:85,valueUB:85,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:85,valueUB:85,"` // ProtocolIE-ID
 }
 
 func (x *IdUEcontextInfoSNmodRequest) Reset() {
@@ -9539,7 +9539,7 @@ type IdUEcontextKeptIndicator struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:86,valueUB:86,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:86,valueUB:86,"` // ProtocolIE-ID
 }
 
 func (x *IdUEcontextKeptIndicator) Reset() {
@@ -9589,7 +9589,7 @@ type IdUEcontextRefAtSnHOrequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:87,valueUB:87,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:87,valueUB:87,"` // ProtocolIE-ID
 }
 
 func (x *IdUEcontextRefAtSnHOrequest) Reset() {
@@ -9639,7 +9639,7 @@ type IdUEhistoryInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:88,valueUB:88,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:88,valueUB:88,"` // ProtocolIE-ID
 }
 
 func (x *IdUEhistoryInformation) Reset() {
@@ -9689,7 +9689,7 @@ type IdUEidentityIndexValue struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:89,valueUB:89,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:89,valueUB:89,"` // ProtocolIE-ID
 }
 
 func (x *IdUEidentityIndexValue) Reset() {
@@ -9739,7 +9739,7 @@ type IdUEranpagingIdentity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:90,valueUB:90,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:90,valueUB:90,"` // ProtocolIE-ID
 }
 
 func (x *IdUEranpagingIdentity) Reset() {
@@ -9789,7 +9789,7 @@ type IdUEsecurityCapabilities struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:91,valueUB:91,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:91,valueUB:91,"` // ProtocolIE-ID
 }
 
 func (x *IdUEsecurityCapabilities) Reset() {
@@ -9839,7 +9839,7 @@ type IdUserPlaneTrafficActivityReport struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:92,valueUB:92,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:92,valueUB:92,"` // ProtocolIE-ID
 }
 
 func (x *IdUserPlaneTrafficActivityReport) Reset() {
@@ -9889,7 +9889,7 @@ type IdXnRemovalThreshold struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:93,valueUB:93,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:93,valueUB:93,"` // ProtocolIE-ID
 }
 
 func (x *IdXnRemovalThreshold) Reset() {
@@ -9939,7 +9939,7 @@ type IdDesiredActNotificationLevel struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:94,valueUB:94,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:94,valueUB:94,"` // ProtocolIE-ID
 }
 
 func (x *IdDesiredActNotificationLevel) Reset() {
@@ -9989,7 +9989,7 @@ type IdAvailableDrbids struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:95,valueUB:95,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:95,valueUB:95,"` // ProtocolIE-ID
 }
 
 func (x *IdAvailableDrbids) Reset() {
@@ -10039,7 +10039,7 @@ type IdAdditionalDrbids struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:96,valueUB:96,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:96,valueUB:96,"` // ProtocolIE-ID
 }
 
 func (x *IdAdditionalDrbids) Reset() {
@@ -10089,7 +10089,7 @@ type IdSpareDrbids struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:97,valueUB:97,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:97,valueUB:97,"` // ProtocolIE-ID
 }
 
 func (x *IdSpareDrbids) Reset() {
@@ -10139,7 +10139,7 @@ type IdRequiredNumberOfDrbids struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:98,valueUB:98,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:98,valueUB:98,"` // ProtocolIE-ID
 }
 
 func (x *IdRequiredNumberOfDrbids) Reset() {
@@ -10189,7 +10189,7 @@ type IdTNlaToAddList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:99,valueUB:99,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:99,valueUB:99,"` // ProtocolIE-ID
 }
 
 func (x *IdTNlaToAddList) Reset() {
@@ -10239,7 +10239,7 @@ type IdTNlaToUpdateList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:100,valueUB:100,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:100,valueUB:100,"` // ProtocolIE-ID
 }
 
 func (x *IdTNlaToUpdateList) Reset() {
@@ -10289,7 +10289,7 @@ type IdTNlaToRemoveList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:101,valueUB:101,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:101,valueUB:101,"` // ProtocolIE-ID
 }
 
 func (x *IdTNlaToRemoveList) Reset() {
@@ -10339,7 +10339,7 @@ type IdTNlaSetupList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:102,valueUB:102,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:102,valueUB:102,"` // ProtocolIE-ID
 }
 
 func (x *IdTNlaSetupList) Reset() {
@@ -10389,7 +10389,7 @@ type IdTNlaFailedToSetupList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:103,valueUB:103,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:103,valueUB:103,"` // ProtocolIE-ID
 }
 
 func (x *IdTNlaFailedToSetupList) Reset() {
@@ -10439,7 +10439,7 @@ type IdPDusessionToBeReleasedRelReqAck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:104,valueUB:104,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:104,valueUB:104,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionToBeReleasedRelReqAck) Reset() {
@@ -10489,7 +10489,7 @@ type IdSNGRAnnodeMaxIpdataRateUL struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:105,valueUB:105,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:105,valueUB:105,"` // ProtocolIE-ID
 }
 
 func (x *IdSNGRAnnodeMaxIpdataRateUL) Reset() {
@@ -10539,7 +10539,7 @@ type IdPDusessionResourceSecondaryRatusageList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:107,valueUB:107,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:107,valueUB:107,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionResourceSecondaryRatusageList) Reset() {
@@ -10589,7 +10589,7 @@ type IdAdditionalULNGUTNlatUpfList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:108,valueUB:108,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:108,valueUB:108,"` // ProtocolIE-ID
 }
 
 func (x *IdAdditionalULNGUTNlatUpfList) Reset() {
@@ -10639,7 +10639,7 @@ type IdSecondarydataForwardingInfoFromTargetList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:109,valueUB:109,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:109,valueUB:109,"` // ProtocolIE-ID
 }
 
 func (x *IdSecondarydataForwardingInfoFromTargetList) Reset() {
@@ -10689,7 +10689,7 @@ type IdLocationInformationSnreporting struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:110,valueUB:110,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:110,valueUB:110,"` // ProtocolIE-ID
 }
 
 func (x *IdLocationInformationSnreporting) Reset() {
@@ -10739,7 +10739,7 @@ type IdLocationInformationSn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:111,valueUB:111,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:111,valueUB:111,"` // ProtocolIE-ID
 }
 
 func (x *IdLocationInformationSn) Reset() {
@@ -10789,7 +10789,7 @@ type IdLastEUTranplmnidentity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:112,valueUB:112,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:112,valueUB:112,"` // ProtocolIE-ID
 }
 
 func (x *IdLastEUTranplmnidentity) Reset() {
@@ -10839,7 +10839,7 @@ type IdSNGRAnnodeMaxIpdataRateDL struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:113,valueUB:113,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:113,valueUB:113,"` // ProtocolIE-ID
 }
 
 func (x *IdSNGRAnnodeMaxIpdataRateDL) Reset() {
@@ -10889,7 +10889,7 @@ type IdMaxIprateDL struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:114,valueUB:114,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:114,valueUB:114,"` // ProtocolIE-ID
 }
 
 func (x *IdMaxIprateDL) Reset() {
@@ -10939,7 +10939,7 @@ type IdSecurityResult struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:115,valueUB:115,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:115,valueUB:115,"` // ProtocolIE-ID
 }
 
 func (x *IdSecurityResult) Reset() {
@@ -10989,7 +10989,7 @@ type IdSNSsai struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:116,valueUB:116,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:116,valueUB:116,"` // ProtocolIE-ID
 }
 
 func (x *IdSNSsai) Reset() {
@@ -11039,7 +11039,7 @@ type IdMRDCResourceCoordinationInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:117,valueUB:117,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:117,valueUB:117,"` // ProtocolIE-ID
 }
 
 func (x *IdMRDCResourceCoordinationInfo) Reset() {
@@ -11089,7 +11089,7 @@ type IdAMfRegionInformationToAdd struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:118,valueUB:118,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:118,valueUB:118,"` // ProtocolIE-ID
 }
 
 func (x *IdAMfRegionInformationToAdd) Reset() {
@@ -11139,7 +11139,7 @@ type IdAMfRegionInformationToDelete struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:119,valueUB:119,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:119,valueUB:119,"` // ProtocolIE-ID
 }
 
 func (x *IdAMfRegionInformationToDelete) Reset() {
@@ -11189,7 +11189,7 @@ type IdOldQoSflowMapULendmarkerexpected struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:120,valueUB:120,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:120,valueUB:120,"` // ProtocolIE-ID
 }
 
 func (x *IdOldQoSflowMapULendmarkerexpected) Reset() {
@@ -11239,7 +11239,7 @@ type IdRAnpagingFailure struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:121,valueUB:121,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:121,valueUB:121,"` // ProtocolIE-ID
 }
 
 func (x *IdRAnpagingFailure) Reset() {
@@ -11289,7 +11289,7 @@ type IdUEradioCapabilityForPaging struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:122,valueUB:122,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:122,valueUB:122,"` // ProtocolIE-ID
 }
 
 func (x *IdUEradioCapabilityForPaging) Reset() {
@@ -11339,7 +11339,7 @@ type IdPDusessionDataForwardingSNmodResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:123,valueUB:123,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:123,valueUB:123,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionDataForwardingSNmodResponse) Reset() {
@@ -11389,7 +11389,7 @@ type IdDRbsNotAdmittedSetupModifyList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:124,valueUB:124,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:124,valueUB:124,"` // ProtocolIE-ID
 }
 
 func (x *IdDRbsNotAdmittedSetupModifyList) Reset() {
@@ -11439,7 +11439,7 @@ type IdSecondaryMNXnUTNlinfoatM struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:125,valueUB:125,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:125,valueUB:125,"` // ProtocolIE-ID
 }
 
 func (x *IdSecondaryMNXnUTNlinfoatM) Reset() {
@@ -11489,7 +11489,7 @@ type IdNEDCTDmPattern struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:126,valueUB:126,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:126,valueUB:126,"` // ProtocolIE-ID
 }
 
 func (x *IdNEDCTDmPattern) Reset() {
@@ -11539,7 +11539,7 @@ type IdPDusessionCommonNetworkInstance struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:127,valueUB:127,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:127,valueUB:127,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionCommonNetworkInstance) Reset() {
@@ -11589,7 +11589,7 @@ type IdBPlmnIDInfoEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:128,valueUB:128,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:128,valueUB:128,"` // ProtocolIE-ID
 }
 
 func (x *IdBPlmnIDInfoEUtra) Reset() {
@@ -11639,7 +11639,7 @@ type IdBPlmnIDInfoNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:129,valueUB:129,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:129,valueUB:129,"` // ProtocolIE-ID
 }
 
 func (x *IdBPlmnIDInfoNR) Reset() {
@@ -11689,7 +11689,7 @@ type IdInterfaceInstanceIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:130,valueUB:130,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:130,valueUB:130,"` // ProtocolIE-ID
 }
 
 func (x *IdInterfaceInstanceIndication) Reset() {
@@ -11739,7 +11739,7 @@ type IdSNGRAnnodeAdditionTriggerInd struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:131,valueUB:131,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:131,valueUB:131,"` // ProtocolIE-ID
 }
 
 func (x *IdSNGRAnnodeAdditionTriggerInd) Reset() {
@@ -11789,7 +11789,7 @@ type IdDefaultDrbAllowed struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:132,valueUB:132,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:132,valueUB:132,"` // ProtocolIE-ID
 }
 
 func (x *IdDefaultDrbAllowed) Reset() {
@@ -11839,7 +11839,7 @@ type IdDRbIDstakenintouse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:133,valueUB:133,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:133,valueUB:133,"` // ProtocolIE-ID
 }
 
 func (x *IdDRbIDstakenintouse) Reset() {
@@ -11889,7 +11889,7 @@ type IdSplitSessionIndicator struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:134,valueUB:134,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:134,valueUB:134,"` // ProtocolIE-ID
 }
 
 func (x *IdSplitSessionIndicator) Reset() {
@@ -11939,7 +11939,7 @@ type IdCNtypeRestrictionsForEquivalent struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:135,valueUB:135,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:135,valueUB:135,"` // ProtocolIE-ID
 }
 
 func (x *IdCNtypeRestrictionsForEquivalent) Reset() {
@@ -11989,7 +11989,7 @@ type IdCNtypeRestrictionsForServing struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:136,valueUB:136,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:136,valueUB:136,"` // ProtocolIE-ID
 }
 
 func (x *IdCNtypeRestrictionsForServing) Reset() {
@@ -12039,7 +12039,7 @@ type IdDRbstransferredtoMN struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:137,valueUB:137,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:137,valueUB:137,"` // ProtocolIE-ID
 }
 
 func (x *IdDRbstransferredtoMN) Reset() {
@@ -12089,7 +12089,7 @@ type IdULforwardingProposal struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:138,valueUB:138,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:138,valueUB:138,"` // ProtocolIE-ID
 }
 
 func (x *IdULforwardingProposal) Reset() {
@@ -12139,7 +12139,7 @@ type IdEndpointIpaddressAndPort struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:139,valueUB:139,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:139,valueUB:139,"` // ProtocolIE-ID
 }
 
 func (x *IdEndpointIpaddressAndPort) Reset() {
@@ -12189,7 +12189,7 @@ type IdIntendedTddDLULconfigurationNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:140,valueUB:140,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:140,valueUB:140,"` // ProtocolIE-ID
 }
 
 func (x *IdIntendedTddDLULconfigurationNR) Reset() {
@@ -12239,7 +12239,7 @@ type IdTNlconfigurationInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:141,valueUB:141,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:141,valueUB:141,"` // ProtocolIE-ID
 }
 
 func (x *IdTNlconfigurationInfo) Reset() {
@@ -12289,7 +12289,7 @@ type IdPartialListIndicatorNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:142,valueUB:142,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:142,valueUB:142,"` // ProtocolIE-ID
 }
 
 func (x *IdPartialListIndicatorNR) Reset() {
@@ -12339,7 +12339,7 @@ type IdMessageOversizeNotification struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:143,valueUB:143,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:143,valueUB:143,"` // ProtocolIE-ID
 }
 
 func (x *IdMessageOversizeNotification) Reset() {
@@ -12389,7 +12389,7 @@ type IdCellAndCapacityAssistanceInfoNR struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:144,valueUB:144,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:144,valueUB:144,"` // ProtocolIE-ID
 }
 
 func (x *IdCellAndCapacityAssistanceInfoNR) Reset() {
@@ -12439,7 +12439,7 @@ type IdNGRAntraceId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:145,valueUB:145,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:145,valueUB:145,"` // ProtocolIE-ID
 }
 
 func (x *IdNGRAntraceId) Reset() {
@@ -12489,7 +12489,7 @@ type IdNonGbrresourcesOffered struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:146,valueUB:146,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:146,valueUB:146,"` // ProtocolIE-ID
 }
 
 func (x *IdNonGbrresourcesOffered) Reset() {
@@ -12539,7 +12539,7 @@ type IdFastMcgrecoveryRrctransferSNtoMN struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:147,valueUB:147,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:147,valueUB:147,"` // ProtocolIE-ID
 }
 
 func (x *IdFastMcgrecoveryRrctransferSNtoMN) Reset() {
@@ -12589,7 +12589,7 @@ type IdRequestedFastMcgrecoveryViaSrb3 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:148,valueUB:148,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:148,valueUB:148,"` // ProtocolIE-ID
 }
 
 func (x *IdRequestedFastMcgrecoveryViaSrb3) Reset() {
@@ -12639,7 +12639,7 @@ type IdAvailableFastMcgrecoveryViaSrb3 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:149,valueUB:149,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:149,valueUB:149,"` // ProtocolIE-ID
 }
 
 func (x *IdAvailableFastMcgrecoveryViaSrb3) Reset() {
@@ -12689,7 +12689,7 @@ type IdRequestedFastMcgrecoveryViaSrb3Release struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:150,valueUB:150,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:150,valueUB:150,"` // ProtocolIE-ID
 }
 
 func (x *IdRequestedFastMcgrecoveryViaSrb3Release) Reset() {
@@ -12739,7 +12739,7 @@ type IdReleaseFastMcgrecoveryViaSrb3 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:151,valueUB:151,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:151,valueUB:151,"` // ProtocolIE-ID
 }
 
 func (x *IdReleaseFastMcgrecoveryViaSrb3) Reset() {
@@ -12789,7 +12789,7 @@ type IdFastMcgrecoveryRrctransferMNtoSN struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:152,valueUB:152,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:152,valueUB:152,"` // ProtocolIE-ID
 }
 
 func (x *IdFastMcgrecoveryRrctransferMNtoSN) Reset() {
@@ -12839,7 +12839,7 @@ type IdExtendedRatrestrictionInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:153,valueUB:153,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:153,valueUB:153,"` // ProtocolIE-ID
 }
 
 func (x *IdExtendedRatrestrictionInformation) Reset() {
@@ -12889,7 +12889,7 @@ type IdQoSmonitoringRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:154,valueUB:154,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:154,valueUB:154,"` // ProtocolIE-ID
 }
 
 func (x *IdQoSmonitoringRequest) Reset() {
@@ -12939,7 +12939,7 @@ type IdFiveGcmobilityRestrictionListContainer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:155,valueUB:155,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:155,valueUB:155,"` // ProtocolIE-ID
 }
 
 func (x *IdFiveGcmobilityRestrictionListContainer) Reset() {
@@ -12989,7 +12989,7 @@ type IdPartialListIndicatorEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:156,valueUB:156,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:156,valueUB:156,"` // ProtocolIE-ID
 }
 
 func (x *IdPartialListIndicatorEUtra) Reset() {
@@ -13039,7 +13039,7 @@ type IdCellAndCapacityAssistanceInfoEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:157,valueUB:157,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:157,valueUB:157,"` // ProtocolIE-ID
 }
 
 func (x *IdCellAndCapacityAssistanceInfoEUtra) Reset() {
@@ -13089,7 +13089,7 @@ type IdCHoinformationReq struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:158,valueUB:158,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:158,valueUB:158,"` // ProtocolIE-ID
 }
 
 func (x *IdCHoinformationReq) Reset() {
@@ -13139,7 +13139,7 @@ type IdCHoinformationAck struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:159,valueUB:159,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:159,valueUB:159,"` // ProtocolIE-ID
 }
 
 func (x *IdCHoinformationAck) Reset() {
@@ -13189,7 +13189,7 @@ type IdtargetCellsToCancel struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:160,valueUB:160,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:160,valueUB:160,"` // ProtocolIE-ID
 }
 
 func (x *IdtargetCellsToCancel) Reset() {
@@ -13239,7 +13239,7 @@ type IdrequestedTargetCellGlobalId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:161,valueUB:161,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:161,valueUB:161,"` // ProtocolIE-ID
 }
 
 func (x *IdrequestedTargetCellGlobalId) Reset() {
@@ -13289,7 +13289,7 @@ type IdprocedureStage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:162,valueUB:162,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:162,valueUB:162,"` // ProtocolIE-ID
 }
 
 func (x *IdprocedureStage) Reset() {
@@ -13339,7 +13339,7 @@ type IdDApsrequestInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:163,valueUB:163,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:163,valueUB:163,"` // ProtocolIE-ID
 }
 
 func (x *IdDApsrequestInfo) Reset() {
@@ -13389,7 +13389,7 @@ type IdDApsresponseInfoList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:164,valueUB:164,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:164,valueUB:164,"` // ProtocolIE-ID
 }
 
 func (x *IdDApsresponseInfoList) Reset() {
@@ -13439,7 +13439,7 @@ type IdCHoMRdcIndicator struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:165,valueUB:165,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:165,valueUB:165,"` // ProtocolIE-ID
 }
 
 func (x *IdCHoMRdcIndicator) Reset() {
@@ -13489,7 +13489,7 @@ type IdOffsetOfNbiotChannelNumberToDlEArfcn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:166,valueUB:166,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:166,valueUB:166,"` // ProtocolIE-ID
 }
 
 func (x *IdOffsetOfNbiotChannelNumberToDlEArfcn) Reset() {
@@ -13539,7 +13539,7 @@ type IdOffsetOfNbiotChannelNumberToUlEArfcn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:167,valueUB:167,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:167,valueUB:167,"` // ProtocolIE-ID
 }
 
 func (x *IdOffsetOfNbiotChannelNumberToUlEArfcn) Reset() {
@@ -13589,7 +13589,7 @@ type IdNBioTULDLAlignmentOffset struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:168,valueUB:168,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:168,valueUB:168,"` // ProtocolIE-ID
 }
 
 func (x *IdNBioTULDLAlignmentOffset) Reset() {
@@ -13639,7 +13639,7 @@ type IdLTev2XservicesAuthorized struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:169,valueUB:169,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:169,valueUB:169,"` // ProtocolIE-ID
 }
 
 func (x *IdLTev2XservicesAuthorized) Reset() {
@@ -13689,7 +13689,7 @@ type IdNRv2XservicesAuthorized struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:170,valueUB:170,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:170,valueUB:170,"` // ProtocolIE-ID
 }
 
 func (x *IdNRv2XservicesAuthorized) Reset() {
@@ -13739,7 +13739,7 @@ type IdLTeuesidelinkAggregateMaximumBitRate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:171,valueUB:171,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:171,valueUB:171,"` // ProtocolIE-ID
 }
 
 func (x *IdLTeuesidelinkAggregateMaximumBitRate) Reset() {
@@ -13789,7 +13789,7 @@ type IdNRuesidelinkAggregateMaximumBitRate struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:172,valueUB:172,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:172,valueUB:172,"` // ProtocolIE-ID
 }
 
 func (x *IdNRuesidelinkAggregateMaximumBitRate) Reset() {
@@ -13839,7 +13839,7 @@ type IdPC5QoSparameters struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:173,valueUB:173,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:173,valueUB:173,"` // ProtocolIE-ID
 }
 
 func (x *IdPC5QoSparameters) Reset() {
@@ -13889,7 +13889,7 @@ type IdAlternativeQoSparaSetList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:174,valueUB:174,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:174,valueUB:174,"` // ProtocolIE-ID
 }
 
 func (x *IdAlternativeQoSparaSetList) Reset() {
@@ -13939,7 +13939,7 @@ type IdCurrentQoSparaSetIndex struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:175,valueUB:175,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:175,valueUB:175,"` // ProtocolIE-ID
 }
 
 func (x *IdCurrentQoSparaSetIndex) Reset() {
@@ -13989,7 +13989,7 @@ type IdMobilityInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:176,valueUB:176,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:176,valueUB:176,"` // ProtocolIE-ID
 }
 
 func (x *IdMobilityInformation) Reset() {
@@ -14039,7 +14039,7 @@ type IdInitiatingConditionFailureIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:177,valueUB:177,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:177,valueUB:177,"` // ProtocolIE-ID
 }
 
 func (x *IdInitiatingConditionFailureIndication) Reset() {
@@ -14089,7 +14089,7 @@ type IdUEhistoryInformationFromTheUe struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:178,valueUB:178,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:178,valueUB:178,"` // ProtocolIE-ID
 }
 
 func (x *IdUEhistoryInformationFromTheUe) Reset() {
@@ -14139,7 +14139,7 @@ type IdHandoverReportType struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:179,valueUB:179,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:179,valueUB:179,"` // ProtocolIE-ID
 }
 
 func (x *IdHandoverReportType) Reset() {
@@ -14189,7 +14189,7 @@ type IdHandoverCause struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:180,valueUB:180,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:180,valueUB:180,"` // ProtocolIE-ID
 }
 
 func (x *IdHandoverCause) Reset() {
@@ -14239,7 +14239,7 @@ type IdSourceCellCgi struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:181,valueUB:181,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:181,valueUB:181,"` // ProtocolIE-ID
 }
 
 func (x *IdSourceCellCgi) Reset() {
@@ -14289,7 +14289,7 @@ type IdTargetCellCgi struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:182,valueUB:182,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:182,valueUB:182,"` // ProtocolIE-ID
 }
 
 func (x *IdTargetCellCgi) Reset() {
@@ -14339,7 +14339,7 @@ type IdReEstablishmentCellCgi struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:183,valueUB:183,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:183,valueUB:183,"` // ProtocolIE-ID
 }
 
 func (x *IdReEstablishmentCellCgi) Reset() {
@@ -14389,7 +14389,7 @@ type IdTargetCellinEutran struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:184,valueUB:184,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:184,valueUB:184,"` // ProtocolIE-ID
 }
 
 func (x *IdTargetCellinEutran) Reset() {
@@ -14439,7 +14439,7 @@ type IdSourceCellCrnti struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:185,valueUB:185,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:185,valueUB:185,"` // ProtocolIE-ID
 }
 
 func (x *IdSourceCellCrnti) Reset() {
@@ -14489,7 +14489,7 @@ type IdUErlfreportContainer struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:186,valueUB:186,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:186,valueUB:186,"` // ProtocolIE-ID
 }
 
 func (x *IdUErlfreportContainer) Reset() {
@@ -14539,7 +14539,7 @@ type IdNGranNode1MeasurementID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:187,valueUB:187,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:187,valueUB:187,"` // ProtocolIE-ID
 }
 
 func (x *IdNGranNode1MeasurementID) Reset() {
@@ -14589,7 +14589,7 @@ type IdNGranNode2MeasurementID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:188,valueUB:188,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:188,valueUB:188,"` // ProtocolIE-ID
 }
 
 func (x *IdNGranNode2MeasurementID) Reset() {
@@ -14639,7 +14639,7 @@ type IdRegistrationRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:189,valueUB:189,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:189,valueUB:189,"` // ProtocolIE-ID
 }
 
 func (x *IdRegistrationRequest) Reset() {
@@ -14689,7 +14689,7 @@ type IdReportCharacteristics struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:190,valueUB:190,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:190,valueUB:190,"` // ProtocolIE-ID
 }
 
 func (x *IdReportCharacteristics) Reset() {
@@ -14739,7 +14739,7 @@ type IdCellToReport struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:191,valueUB:191,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:191,valueUB:191,"` // ProtocolIE-ID
 }
 
 func (x *IdCellToReport) Reset() {
@@ -14789,7 +14789,7 @@ type IdReportingPeriodicity struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:192,valueUB:192,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:192,valueUB:192,"` // ProtocolIE-ID
 }
 
 func (x *IdReportingPeriodicity) Reset() {
@@ -14839,7 +14839,7 @@ type IdCellMeasurementResult struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:193,valueUB:193,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:193,valueUB:193,"` // ProtocolIE-ID
 }
 
 func (x *IdCellMeasurementResult) Reset() {
@@ -14889,7 +14889,7 @@ type IdNGRAnnode1CellId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:194,valueUB:194,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:194,valueUB:194,"` // ProtocolIE-ID
 }
 
 func (x *IdNGRAnnode1CellId) Reset() {
@@ -14939,7 +14939,7 @@ type IdNGRAnnode2CellId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:195,valueUB:195,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:195,valueUB:195,"` // ProtocolIE-ID
 }
 
 func (x *IdNGRAnnode2CellId) Reset() {
@@ -14989,7 +14989,7 @@ type IdNGRAnnode1MobilityParameters struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:196,valueUB:196,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:196,valueUB:196,"` // ProtocolIE-ID
 }
 
 func (x *IdNGRAnnode1MobilityParameters) Reset() {
@@ -15039,7 +15039,7 @@ type IdNGRAnnode2ProposedMobilityParameters struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:197,valueUB:197,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:197,valueUB:197,"` // ProtocolIE-ID
 }
 
 func (x *IdNGRAnnode2ProposedMobilityParameters) Reset() {
@@ -15089,7 +15089,7 @@ type IdMobilityParametersModificationRange struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:198,valueUB:198,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:198,valueUB:198,"` // ProtocolIE-ID
 }
 
 func (x *IdMobilityParametersModificationRange) Reset() {
@@ -15139,7 +15139,7 @@ type IdTDduldlconfigurationCommonNr struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:199,valueUB:199,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:199,valueUB:199,"` // ProtocolIE-ID
 }
 
 func (x *IdTDduldlconfigurationCommonNr) Reset() {
@@ -15189,7 +15189,7 @@ type IdCarrierList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:200,valueUB:200,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:200,valueUB:200,"` // ProtocolIE-ID
 }
 
 func (x *IdCarrierList) Reset() {
@@ -15239,7 +15239,7 @@ type IdULcarrierList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:201,valueUB:201,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:201,valueUB:201,"` // ProtocolIE-ID
 }
 
 func (x *IdULcarrierList) Reset() {
@@ -15289,7 +15289,7 @@ type IdFrequencyShift7P5Khz struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:202,valueUB:202,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:202,valueUB:202,"` // ProtocolIE-ID
 }
 
 func (x *IdFrequencyShift7P5Khz) Reset() {
@@ -15339,7 +15339,7 @@ type IdSSbPositionsInBurst struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:203,valueUB:203,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:203,valueUB:203,"` // ProtocolIE-ID
 }
 
 func (x *IdSSbPositionsInBurst) Reset() {
@@ -15389,7 +15389,7 @@ type IdNRcellPrachconfig struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:204,valueUB:204,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:204,valueUB:204,"` // ProtocolIE-ID
 }
 
 func (x *IdNRcellPrachconfig) Reset() {
@@ -15439,7 +15439,7 @@ type IdRAchreportInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:205,valueUB:205,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:205,valueUB:205,"` // ProtocolIE-ID
 }
 
 func (x *IdRAchreportInformation) Reset() {
@@ -15489,7 +15489,7 @@ type IdIAbnodeIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:206,valueUB:206,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:206,valueUB:206,"` // ProtocolIE-ID
 }
 
 func (x *IdIAbnodeIndication) Reset() {
@@ -15539,7 +15539,7 @@ type IdRedundantULNGUTNlatUpf struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:207,valueUB:207,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:207,valueUB:207,"` // ProtocolIE-ID
 }
 
 func (x *IdRedundantULNGUTNlatUpf) Reset() {
@@ -15589,7 +15589,7 @@ type IdCNpacketDelayBudgetDownlink struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:208,valueUB:208,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:208,valueUB:208,"` // ProtocolIE-ID
 }
 
 func (x *IdCNpacketDelayBudgetDownlink) Reset() {
@@ -15639,7 +15639,7 @@ type IdCNpacketDelayBudgetUplink struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:209,valueUB:209,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:209,valueUB:209,"` // ProtocolIE-ID
 }
 
 func (x *IdCNpacketDelayBudgetUplink) Reset() {
@@ -15689,7 +15689,7 @@ type IdAdditionalRedundantULNGUTNlatUpfList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:210,valueUB:210,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:210,valueUB:210,"` // ProtocolIE-ID
 }
 
 func (x *IdAdditionalRedundantULNGUTNlatUpfList) Reset() {
@@ -15739,7 +15739,7 @@ type IdRedundantCommonNetworkInstance struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:211,valueUB:211,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:211,valueUB:211,"` // ProtocolIE-ID
 }
 
 func (x *IdRedundantCommonNetworkInstance) Reset() {
@@ -15789,7 +15789,7 @@ type IdTSctrafficCharacteristics struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:212,valueUB:212,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:212,valueUB:212,"` // ProtocolIE-ID
 }
 
 func (x *IdTSctrafficCharacteristics) Reset() {
@@ -15839,7 +15839,7 @@ type IdRedundantQoSflowIndicator struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:213,valueUB:213,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:213,valueUB:213,"` // ProtocolIE-ID
 }
 
 func (x *IdRedundantQoSflowIndicator) Reset() {
@@ -15889,7 +15889,7 @@ type IdRedundantDLNGUTNlatNgRAn struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:214,valueUB:214,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:214,valueUB:214,"` // ProtocolIE-ID
 }
 
 func (x *IdRedundantDLNGUTNlatNgRAn) Reset() {
@@ -15939,7 +15939,7 @@ type IdExtendedPacketDelayBudget struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:215,valueUB:215,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:215,valueUB:215,"` // ProtocolIE-ID
 }
 
 func (x *IdExtendedPacketDelayBudget) Reset() {
@@ -15989,7 +15989,7 @@ type IdAdditionalPDcpDuplicationTNlList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:216,valueUB:216,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:216,valueUB:216,"` // ProtocolIE-ID
 }
 
 func (x *IdAdditionalPDcpDuplicationTNlList) Reset() {
@@ -16039,7 +16039,7 @@ type IdRedundantPdusessionInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:217,valueUB:217,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:217,valueUB:217,"` // ProtocolIE-ID
 }
 
 func (x *IdRedundantPdusessionInformation) Reset() {
@@ -16089,7 +16089,7 @@ type IdUsedRsninformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:218,valueUB:218,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:218,valueUB:218,"` // ProtocolIE-ID
 }
 
 func (x *IdUsedRsninformation) Reset() {
@@ -16139,7 +16139,7 @@ type IdRLcduplicationInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:219,valueUB:219,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:219,valueUB:219,"` // ProtocolIE-ID
 }
 
 func (x *IdRLcduplicationInformation) Reset() {
@@ -16189,7 +16189,7 @@ type IdNPnBroadcastInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:220,valueUB:220,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:220,valueUB:220,"` // ProtocolIE-ID
 }
 
 func (x *IdNPnBroadcastInformation) Reset() {
@@ -16239,7 +16239,7 @@ type IdNPnpagingAssistanceInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:221,valueUB:221,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:221,valueUB:221,"` // ProtocolIE-ID
 }
 
 func (x *IdNPnpagingAssistanceInformation) Reset() {
@@ -16289,7 +16289,7 @@ type IdNPnmobilityInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:222,valueUB:222,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:222,valueUB:222,"` // ProtocolIE-ID
 }
 
 func (x *IdNPnmobilityInformation) Reset() {
@@ -16339,7 +16339,7 @@ type IdNPnSupport struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:223,valueUB:223,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:223,valueUB:223,"` // ProtocolIE-ID
 }
 
 func (x *IdNPnSupport) Reset() {
@@ -16389,7 +16389,7 @@ type IdMDtConfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:224,valueUB:224,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:224,valueUB:224,"` // ProtocolIE-ID
 }
 
 func (x *IdMDtConfiguration) Reset() {
@@ -16439,7 +16439,7 @@ type IdMDtplmnlist struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:225,valueUB:225,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:225,valueUB:225,"` // ProtocolIE-ID
 }
 
 func (x *IdMDtplmnlist) Reset() {
@@ -16489,7 +16489,7 @@ type IdTraceCollectionEntityUri struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:226,valueUB:226,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:226,valueUB:226,"` // ProtocolIE-ID
 }
 
 func (x *IdTraceCollectionEntityUri) Reset() {
@@ -16539,7 +16539,7 @@ type IdUEradioCapabilityId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:227,valueUB:227,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:227,valueUB:227,"` // ProtocolIE-ID
 }
 
 func (x *IdUEradioCapabilityId) Reset() {
@@ -16589,7 +16589,7 @@ type IdCSiRStransmissionIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:228,valueUB:228,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:228,valueUB:228,"` // ProtocolIE-ID
 }
 
 func (x *IdCSiRStransmissionIndication) Reset() {
@@ -16639,7 +16639,7 @@ type IdSNtriggered struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:229,valueUB:229,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:229,valueUB:229,"` // ProtocolIE-ID
 }
 
 func (x *IdSNtriggered) Reset() {
@@ -16689,7 +16689,7 @@ type IdDLcarrierList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:230,valueUB:230,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:230,valueUB:230,"` // ProtocolIE-ID
 }
 
 func (x *IdDLcarrierList) Reset() {
@@ -16739,7 +16739,7 @@ type IdExtendedTaisliceSupportList struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:231,valueUB:231,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:231,valueUB:231,"` // ProtocolIE-ID
 }
 
 func (x *IdExtendedTaisliceSupportList) Reset() {
@@ -16789,7 +16789,7 @@ type IdcellAssistanceInfoEUtra struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:232,valueUB:232,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:232,valueUB:232,"` // ProtocolIE-ID
 }
 
 func (x *IdcellAssistanceInfoEUtra) Reset() {
@@ -16839,7 +16839,7 @@ type IdConfiguredTacindication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:233,valueUB:233,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:233,valueUB:233,"` // ProtocolIE-ID
 }
 
 func (x *IdConfiguredTacindication) Reset() {
@@ -16889,7 +16889,7 @@ type IdsecondarySNULPDcpUPTNlinfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:234,valueUB:234,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:234,valueUB:234,"` // ProtocolIE-ID
 }
 
 func (x *IdsecondarySNULPDcpUPTNlinfo) Reset() {
@@ -16939,7 +16939,7 @@ type IdpdcpDuplicationConfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:235,valueUB:235,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:235,valueUB:235,"` // ProtocolIE-ID
 }
 
 func (x *IdpdcpDuplicationConfiguration) Reset() {
@@ -16989,7 +16989,7 @@ type IdduplicationActivation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:236,valueUB:236,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:236,valueUB:236,"` // ProtocolIE-ID
 }
 
 func (x *IdduplicationActivation) Reset() {
@@ -17039,7 +17039,7 @@ type IdNPrachconfiguration struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:237,valueUB:237,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:237,valueUB:237,"` // ProtocolIE-ID
 }
 
 func (x *IdNPrachconfiguration) Reset() {
@@ -17089,7 +17089,7 @@ type IdQosMonitoringReportingFrequency struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:238,valueUB:238,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:238,valueUB:238,"` // ProtocolIE-ID
 }
 
 func (x *IdQosMonitoringReportingFrequency) Reset() {
@@ -17139,7 +17139,7 @@ type IdQoSflowsMappedtoDrbSetupResponseMNterminated struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:239,valueUB:239,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:239,valueUB:239,"` // ProtocolIE-ID
 }
 
 func (x *IdQoSflowsMappedtoDrbSetupResponseMNterminated) Reset() {
@@ -17189,7 +17189,7 @@ type IdDLschedulingPDcchCCeusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:240,valueUB:240,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:240,valueUB:240,"` // ProtocolIE-ID
 }
 
 func (x *IdDLschedulingPDcchCCeusage) Reset() {
@@ -17239,7 +17239,7 @@ type IdULschedulingPDcchCCeusage struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:241,valueUB:241,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:241,valueUB:241,"` // ProtocolIE-ID
 }
 
 func (x *IdULschedulingPDcchCCeusage) Reset() {
@@ -17289,7 +17289,7 @@ type IdSFnOffset struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:242,valueUB:242,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:242,valueUB:242,"` // ProtocolIE-ID
 }
 
 func (x *IdSFnOffset) Reset() {
@@ -17339,7 +17339,7 @@ type IdQoSmonitoringDisabled struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:243,valueUB:243,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:243,valueUB:243,"` // ProtocolIE-ID
 }
 
 func (x *IdQoSmonitoringDisabled) Reset() {
@@ -17389,7 +17389,7 @@ type IdExtendedUeidentityIndexValue struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:244,valueUB:244,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:244,valueUB:244,"` // ProtocolIE-ID
 }
 
 func (x *IdExtendedUeidentityIndexValue) Reset() {
@@ -17439,7 +17439,7 @@ type IdPagingeDrxinformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:245,valueUB:245,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:245,valueUB:245,"` // ProtocolIE-ID
 }
 
 func (x *IdPagingeDrxinformation) Reset() {
@@ -17489,7 +17489,7 @@ type IdCHoMRdcEarlyDataForwarding struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:246,valueUB:246,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:246,valueUB:246,"` // ProtocolIE-ID
 }
 
 func (x *IdCHoMRdcEarlyDataForwarding) Reset() {
@@ -17539,7 +17539,7 @@ type IdSCgindicator struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:247,valueUB:247,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:247,valueUB:247,"` // ProtocolIE-ID
 }
 
 func (x *IdSCgindicator) Reset() {
@@ -17589,7 +17589,7 @@ type IdUEspecificDrx struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:248,valueUB:248,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:248,valueUB:248,"` // ProtocolIE-ID
 }
 
 func (x *IdUEspecificDrx) Reset() {
@@ -17639,7 +17639,7 @@ type IdPDusessionExpectedUeactivityBehaviour struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:249,valueUB:249,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:249,valueUB:249,"` // ProtocolIE-ID
 }
 
 func (x *IdPDusessionExpectedUeactivityBehaviour) Reset() {
@@ -17689,7 +17689,7 @@ type IdQoSMappingInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:250,valueUB:250,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:250,valueUB:250,"` // ProtocolIE-ID
 }
 
 func (x *IdQoSMappingInformation) Reset() {
@@ -17739,7 +17739,7 @@ type IdAdditionLocationInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:251,valueUB:251,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:251,valueUB:251,"` // ProtocolIE-ID
 }
 
 func (x *IdAdditionLocationInformation) Reset() {
@@ -17789,7 +17789,7 @@ type IddataForwardingInfoFromTargetEUTrannode struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:252,valueUB:252,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:252,valueUB:252,"` // ProtocolIE-ID
 }
 
 func (x *IddataForwardingInfoFromTargetEUTrannode) Reset() {
@@ -17839,7 +17839,7 @@ type IdDirectForwardingPathAvailability struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:253,valueUB:253,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:253,valueUB:253,"` // ProtocolIE-ID
 }
 
 func (x *IdDirectForwardingPathAvailability) Reset() {
@@ -17889,7 +17889,7 @@ type IdSourceNgRAnnodeID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:254,valueUB:254,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:254,valueUB:254,"` // ProtocolIE-ID
 }
 
 func (x *IdSourceNgRAnnodeID) Reset() {
@@ -17939,7 +17939,7 @@ type IdSourceDlforwardingIpaddress struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:255,valueUB:255,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:255,valueUB:255,"` // ProtocolIE-ID
 }
 
 func (x *IdSourceDlforwardingIpaddress) Reset() {
@@ -17989,7 +17989,7 @@ type IdSourceNodeDlforwardingIpaddress struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:256,valueUB:256,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:256,valueUB:256,"` // ProtocolIE-ID
 }
 
 func (x *IdSourceNodeDlforwardingIpaddress) Reset() {
@@ -18039,7 +18039,7 @@ type IdExtendedReportIntervalMdt struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:257,valueUB:257,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:257,valueUB:257,"` // ProtocolIE-ID
 }
 
 func (x *IdExtendedReportIntervalMdt) Reset() {
@@ -18089,7 +18089,7 @@ type IdSecurityIndication struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:258,valueUB:258,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:258,valueUB:258,"` // ProtocolIE-ID
 }
 
 func (x *IdSecurityIndication) Reset() {
@@ -18139,7 +18139,7 @@ type IdRRcconnReestabIndicator struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:259,valueUB:259,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:259,valueUB:259,"` // ProtocolIE-ID
 }
 
 func (x *IdRRcconnReestabIndicator) Reset() {
@@ -18189,7 +18189,7 @@ type IdTargetNodeId struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:260,valueUB:260,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"` // ProtocolIE-ID
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:260,valueUB:260,"` // ProtocolIE-ID
 }
 
 func (x *IdTargetNodeId) Reset() {

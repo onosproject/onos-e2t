@@ -80,22 +80,22 @@ protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api -
 
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/xnap/v1/xnap_commondatatypes.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap_commondatatypes/xnap_commondatatypes.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap-commondatatypes/xnap_commondatatypes.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/xnap/v1/xnap_constants.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap_constants/xnap_constants.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap-constants/xnap_constants.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/xnap/v1/xnap_containers.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap_containers/xnap_containers.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap-containers/xnap_containers.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/xnap/v1/xnap_ies.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap_ies/xnap_ies.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap-ies/xnap_ies.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/xnap/v1/xnap_pdu_contents.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap_pdu_contents/xnap_pdu_contents.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-contents/xnap_pdu_contents.pb.go
 protoc -I=$proto_imports1:${GOPATH}/src/github.com/onosproject/onos-lib-go/api \
   --proto_path=api --go_out=. api/xnap/v1/xnap_pdu_descriptions.proto
-protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap_pdu_descriptions/xnap_pdu_descriptions.pb.go
+protoc-go-inject-tag -input=github.com/onosproject/onos-e2t/api/xnap/v1/xnap-pdu-descriptions/xnap_pdu_descriptions.pb.go
 
 protoc -I=$proto_imports --gogofaster_out=$go_import_paths,import_path=github.com/onosproject/onos-e2t/sim/e2,plugins=grpc:. sim/e2/*.proto
 

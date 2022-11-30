@@ -190,7 +190,7 @@ type MaxPrivateIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:65535,valueUB:65535,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:65535,valueUB:65535,"`
 }
 
 func (x *MaxPrivateIes) Reset() {
@@ -240,7 +240,7 @@ type MaxProtocolExtensions struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:65535,valueUB:65535,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:65535,valueUB:65535,"`
 }
 
 func (x *MaxProtocolExtensions) Reset() {
@@ -290,7 +290,7 @@ type MaxProtocolIes struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:65535,valueUB:65535,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:65535,valueUB:65535,"`
 }
 
 func (x *MaxProtocolIes) Reset() {
@@ -406,12 +406,12 @@ type isPrivateIeID_PrivateIeId interface {
 
 type PrivateIeID_Local struct {
 	// @inject_tag: aper:"choiceIdx:1,valueLB:0,valueUB:65535,"
-	Local int32 `protobuf:"varint,1,opt,name=local,proto3,oneof"`
+	Local int32 `protobuf:"varint,1,opt,name=local,proto3,oneof" aper:"choiceIdx:1,valueLB:0,valueUB:65535,"`
 }
 
 type PrivateIeID_Global struct {
 	// @inject_tag: aper:"choiceIdx:2,"
-	Global string `protobuf:"bytes,2,opt,name=global,proto3,oneof"`
+	Global string `protobuf:"bytes,2,opt,name=global,proto3,oneof" aper:"choiceIdx:2,"`
 }
 
 func (*PrivateIeID_Local) isPrivateIeID_PrivateIeId() {}
@@ -426,7 +426,7 @@ type ProcedureCode struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:255,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:255,"`
 }
 
 func (x *ProcedureCode) Reset() {
@@ -476,7 +476,7 @@ type ProtocolIeID struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"valueLB:0,valueUB:65535,"
-	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value int32 `protobuf:"varint,1,opt,name=value,proto3" json:"value,omitempty" aper:"valueLB:0,valueUB:65535,"`
 }
 
 func (x *ProtocolIeID) Reset() {

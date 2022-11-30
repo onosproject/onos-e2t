@@ -42,7 +42,7 @@ type ProtocolIeContainer001 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:0,sizeUB:65535,"
-	Value []int32 `protobuf:"varint,1,rep,packed,name=value,proto3" json:"value,omitempty"`
+	Value []int32 `protobuf:"varint,1,rep,packed,name=value,proto3" json:"value,omitempty" aper:"sizeLB:0,sizeUB:65535,"`
 }
 
 func (x *ProtocolIeContainer001) Reset() {
@@ -415,7 +415,7 @@ type ProtocolExtensionContainer001 struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @inject_tag: aper:"sizeLB:1,sizeUB:65535,"
-	Value []int32 `protobuf:"varint,1,rep,packed,name=value,proto3" json:"value,omitempty"`
+	Value []int32 `protobuf:"varint,1,rep,packed,name=value,proto3" json:"value,omitempty" aper:"sizeLB:1,sizeUB:65535,"`
 }
 
 func (x *ProtocolExtensionContainer001) Reset() {
